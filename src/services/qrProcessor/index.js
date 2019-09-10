@@ -1,4 +1,5 @@
 import { get } from "axios";
+var Dropbox = require('dropbox');
 
 export const decodeQrCode = qrCode => {
   const ttRegex = /tt:\/\/(.*)/;
@@ -9,11 +10,37 @@ export const decodeQrCode = qrCode => {
   return decodedPayload;
 };
 
+function readFileAsync(file) {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.onload = () => {
+      resolve(JSON.parse(reader.result));
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsText(file);
+  })
+}
+
+async function loadDropboxFile(path) {
+  console.log(path)
+  var ACCESS_TOKEN = "HSoTbMxiWcAAAAAAAAAAKIR3Kxl2D5K_GclsAYwztvM6XX8ipOTmj5eGJcIhtlGN";
+  var dbx = new Dropbox.Dropbox({ accessToken: ACCESS_TOKEN });
+  const data =  await dbx.filesDownload({path});
+
+  var blob = data.fileBlob;
+  console.log(blob)
+  const res = await readFileAsync(blob);
+  return res;
+}
+
 export const encodeQrCode = payload =>
   `tt://${encodeURIComponent(JSON.stringify(payload))}`;
 
 export const processQrCode = async qrCode => {
-  const { uri } = decodeQrCode(qrCode);
-  const { data } = await get(uri);
+  //const { uri } = decodeQrCode(qrCode);
+  const data = await loadDropboxFile(qrCode);
+  console.log(data);
   return data;
 };
