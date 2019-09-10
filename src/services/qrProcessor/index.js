@@ -1,6 +1,8 @@
 import { get } from "axios";
 var Dropbox = require('dropbox');
 
+const isDropboxActive = true;
+
 export const decodeQrCode = qrCode => {
   const ttRegex = /tradetrust:\/\/(.*)/;
   if (!ttRegex.test(qrCode))
@@ -18,29 +20,24 @@ function readFileAsync(file) {
     };
 
     reader.onerror = reject;
-
     reader.readAsText(file);
-  })
+  });
 }
 
 async function loadDropboxFile(path) {
-  console.log(path)
-  var ACCESS_TOKEN = "HSoTbMxiWcAAAAAAAAAAKIR3Kxl2D5K_GclsAYwztvM6XX8ipOTmj5eGJcIhtlGN";
-  var dbx = new Dropbox.Dropbox({ accessToken: ACCESS_TOKEN });
-  const data =  await dbx.filesDownload({path});
+  const ACCESS_TOKEN = "HSoTbMxiWcAAAAAAAAAAKIR3Kxl2D5K_GclsAYwztvM6XX8ipOTmj5eGJcIhtlGN";
+  const dbx = new Dropbox.Dropbox({ accessToken: ACCESS_TOKEN });
+  const result =  await dbx.filesDownload({path});
 
-  var blob = data.fileBlob;
-  console.log(blob)
-  const res = await readFileAsync(blob);
-  return res;
+  const data = await readFileAsync(result.fileBlob);
+  return { data };
 }
 
 export const encodeQrCode = payload =>
   `tradetrust://${encodeURIComponent(JSON.stringify(payload))}`;
 
 export const processQrCode = async qrCode => {
-  //const { uri } = decodeQrCode(qrCode);
-  const data = await loadDropboxFile(qrCode);
-  console.log(data);
+  const { uri } = isDropboxActive ? {uri: qrCode} : decodeQrCode(qrCode);
+  const { data } = isDropboxActive ? await loadDropboxFile(qrCode) : await get(uri);
   return data;
 };
