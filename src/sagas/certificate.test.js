@@ -300,7 +300,7 @@ describe("sagas/certificate", () => {
 
           expect(verificationSaga.next().value).toEqual([]);
           verificationSaga.next();
-          expect(verificationSaga.next().value).toEqual(
+          expect(verificationSaga.next(true).value).toEqual(
             put(verifyingCertificateStoreSuccess())
           );
 
@@ -318,7 +318,7 @@ describe("sagas/certificate", () => {
           ]);
 
           verificationSaga.next();
-          expect(verificationSaga.next().value).toEqual(
+          expect(verificationSaga.next(true).value).toEqual(
             put(verifyingCertificateStoreSuccess())
           );
 
@@ -392,7 +392,7 @@ describe("sagas/certificate", () => {
           ]);
 
           verificationSaga.next();
-          expect(verificationSaga.next().value).toEqual(
+          expect(verificationSaga.next(true).value).toEqual(
             put(verifyingCertificateStoreSuccess())
           );
 

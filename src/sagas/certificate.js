@@ -28,6 +28,7 @@ import { processQrCode } from "../services/qrProcessor";
 import { analyticsEvent } from "../components/Analytics";
 
 import { getSelectedWeb3 } from "./application";
+import { areSmartContracts } from "./utils";
 import { IS_MAINNET } from "../config";
 
 const { trace, error } = getLogger("saga:certificate");
@@ -91,19 +92,6 @@ export function* isValidENSDomain(storeAddress) {
   return ensToAddress;
 }
 
-export function* isValidSmartContract(storeAddress) {
-  const web3 = yield getSelectedWeb3();
-  const supportedContractHashes = [
-    "0x7135575eac76f1817c27b06c452bdc2b7e1b13240797415684e227def063a127"
-  ];
-  const onChainByteCode = yield web3.eth.getCode(storeAddress);
-  const hashOfOnChainByteCode = web3.utils.keccak256(onChainByteCode);
-  if (!supportedContractHashes.includes(hashOfOnChainByteCode)) {
-    throw new Error("Invalid smart contract: "`${storeAddress}`);
-  }
-  return true;
-}
-
 export function* verifyCertificateStore({ certificate }) {
   try {
     const data = getData(certificate);
@@ -130,7 +118,9 @@ export function* verifyCertificateStore({ certificate }) {
     );
 
     // Checks if issuing institution has a valid smart contract with OpenCerts
-    yield combinedStoreAddresses.map(address => isValidSmartContract(address));
+    const allSmartContracts = yield areSmartContracts(combinedStoreAddresses);
+    if (!allSmartContracts)
+      throw new Error("Smart contract does not exist on address(es)");
     yield put(verifyingCertificateStoreSuccess());
     return combinedStoreAddresses;
   } catch (e) {
