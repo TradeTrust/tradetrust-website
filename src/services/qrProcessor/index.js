@@ -25,7 +25,7 @@ function readFileAsync(file) {
 }
 
 async function loadDropboxFile(path) {
-  const ACCESS_TOKEN = "HSoTbMxiWcAAAAAAAAAAKIR3Kxl2D5K_GclsAYwztvM6XX8ipOTmj5eGJcIhtlGN";
+  const ACCESS_TOKEN = "HSoTbMxiWcAAAAAAAAAAOrYJwmMJIodakpHeG0z-i0sZb-MHl2ePV5ErQ0McJyVt";
   const dbx = new Dropbox.Dropbox({ accessToken: ACCESS_TOKEN });
   const result =  await dbx.filesDownload({path});
 
