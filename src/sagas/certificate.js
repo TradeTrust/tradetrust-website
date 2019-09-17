@@ -28,7 +28,7 @@ import { processQrCode } from "../services/qrProcessor";
 import { analyticsEvent } from "../components/Analytics";
 
 import { getSelectedWeb3 } from "./application";
-import { areSmartContracts } from "./utils";
+import { areSmartContracts, getContractAddress } from "./utils";
 import { IS_MAINNET } from "../config";
 
 const { trace, error } = getLogger("saga:certificate");
@@ -41,16 +41,12 @@ const ANALYTICS_VERIFICATION_ERROR_CODE = {
   CERTIFICATE_STORE: 4
 };
 
-function getDocumentStore(issuer) {
-  return issuer.certificateStore || issuer.documentStore;
-}
-
 export function* loadCertificateContracts({ payload }) {
   try {
     const data = getData(payload);
     trace(`Loading certificate: ${data}`);
     const unresolvedContractStoreAddresses = get(data, "issuers", []).map(
-      issuer => getDocumentStore(issuer)
+      issuer => getContractAddress(issuer)
     );
     const web3 = yield getSelectedWeb3();
     const contractStoreAddresses = yield all(
@@ -97,7 +93,7 @@ export function* verifyCertificateStore({ certificate }) {
     const data = getData(certificate);
 
     const contractStoreAddresses = get(data, "issuers", []).map(issuer =>
-      getDocumentStore(issuer)
+      getContractAddress(issuer)
     );
     trace(`Attempting to verify certificate store: ${contractStoreAddresses}`);
 
@@ -236,7 +232,7 @@ export function* verifyCertificateDnsIssuer({ issuer }) {
 
   trace(`DNS records: ${JSON.stringify(dnsRecords)}`); // dnsRecords: [{addr: "0xabc", netId: 3}]
   let verificationStatus = false;
-  const documentStore = getDocumentStore(issuer);
+  const documentStore = getContractAddress(issuer);
   if (dnsRecords && dnsRecords.length > 0) {
     verificationStatus = dnsRecords.find(
       dns =>
@@ -263,7 +259,7 @@ function throwIfAnyIdentityIsNotVerified(verificationStatuses) {
 
 export function* getDetailedIssuerStatus({ issuer }) {
   const verificationStatus = {
-    documentStore: getDocumentStore(issuer),
+    documentStore: getContractAddress(issuer),
     dns: null
   };
 
@@ -363,7 +359,7 @@ export function* networkReset() {
 
 export function getAnalyticsStores(certificate) {
   return get(certificate, "issuers", [])
-    .map(issuer => getDocumentStore(issuer))
+    .map(issuer => getContractAddress(issuer))
     .toString();
 }
 

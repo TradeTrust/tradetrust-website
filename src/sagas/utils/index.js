@@ -11,3 +11,6 @@ export function* areSmartContracts(storeAddresses) {
   const isSmartContractArray = yield storeAddresses.map(isSmartContract);
   return isSmartContractArray.reduce((prev, curr) => prev && curr, true);
 }
+
+export const getContractAddress = issuer =>
+  issuer.documentStore || issuer.tokenRegistry;
