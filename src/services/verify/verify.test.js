@@ -55,7 +55,7 @@ describe("isIssuerIdentityVerified", () => {
     expect(identified).toEqual(false);
   });
 
-  it("throws when the type does not exist", () => {
+  it("throws when the type does not exist", async () => {
     const issuer = {
       documentStore: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
       identityProof: {
@@ -63,17 +63,17 @@ describe("isIssuerIdentityVerified", () => {
         location: "example.openattestation.com"
       }
     };
-    const identified = isIssuerIdentityVerified(issuer);
-    expect(identified).rejects.toThrow("not supported");
+    const identified = await isIssuerIdentityVerified(issuer);
+    expect(identified).toEqual(false);
   });
 
-  it("throws when the location does not exist", () => {
+  it("throws when the location does not exist", async () => {
     const issuer = {
       documentStore: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
       identityProof: { type: "DNS-TXT" }
     };
-    const identified = isIssuerIdentityVerified(issuer);
-    expect(identified).rejects.toThrow("not specified");
+    const identified = await isIssuerIdentityVerified(issuer);
+    expect(identified).toEqual(false);
   });
 });
 

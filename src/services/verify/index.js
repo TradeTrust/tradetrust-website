@@ -9,8 +9,7 @@ export const isIssuerIdentityVerified = async issuer => {
   const smartContractAddress = getSmartContractAddress(issuer);
   const type = get(issuer, "identityProof.type");
   const location = get(issuer, "identityProof.location");
-  if (type !== "DNS-TXT") throw new Error("Identifier not supported");
-  if (!location) throw new Error("Location is not specified");
+  if (type !== "DNS-TXT" || !location) return false;
   const records = await getDocumentStoreRecords(location);
   const matchingRecord = records.find(
     record =>
