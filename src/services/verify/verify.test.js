@@ -1,5 +1,3 @@
-// const verify = require("@govtechsg/oa-verify");
-// const doc = require("./sample.json");
 import { isIssuerIdentityVerified, getIssuersIdentities } from "./index";
 import * as dnsprove from "@govtechsg/dnsprove";
 

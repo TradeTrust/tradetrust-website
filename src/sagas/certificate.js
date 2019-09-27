@@ -341,7 +341,8 @@ export function* verifyCertificate() {
 
   if (verified) {
     yield put(verifyingCertificateSuccess());
-    // Temporarily putting here.
+    // Temporarily putting verifyingCertificateIssuerSuccess here.
+    // Can pass the identity into verifyingCertificateSuccess and have it update the state
     yield put(
       verifyingCertificateIssuerSuccess({
         issuerIdentities: identities
@@ -349,6 +350,8 @@ export function* verifyCertificate() {
     );
     Router.push("/viewer");
   } else {
+    // Should pass in failure reasons from vertificationStatus and identities
+    // to allow component consuming those results to figure out what failed
     yield put(verifyingCertificateFailure());
   }
 }

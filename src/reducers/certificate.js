@@ -12,6 +12,24 @@ export const initialState = {
   storeError: null,
   storeLoading: false,
 
+  // To remove all the individual checks and messages and instead have one pending status
+  // and a summary similar to the return results from oa-verify
+  // components consuming the results can reduce that object to the different messages
+  /* ie
+  verificationPending: false,
+  verificationStatus: {
+    certificateHash: true,
+    certificateIssued: true,
+    certificateRevoked: false,
+    certificateIssuersIdentified: true,
+    details: {
+      issuersIdentity: [{dns: ""}],
+      issueStatus: [{smartContract: "", issued: true}]
+      revokeStatus: [{smartContract: "", revoked: true}]
+    }
+  }
+  */
+
   issuerIdentities: null,
   certificateHash: false,
   certificateIssued: false,
