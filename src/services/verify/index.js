@@ -1,6 +1,10 @@
 import { getDocumentStoreRecords } from "@govtechsg/dnsprove";
 import { get, zipWith } from "lodash";
 import { NETWORK_ID } from "../../config";
+import { getData } from "@govtechsg/open-attestation";
+import verify from "@govtechsg/oa-verify";
+import { NETWORK_NAME } from "../../config";
+
 const getSmartContractAddress = issuer =>
   issuer.certificateStore || issuer.documentStore || issuer.tokenRegistry;
 
@@ -29,4 +33,48 @@ export const getIssuersIdentities = async issuers => {
     dns: verified ? get(issuer, "identityProof.location") : null,
     smartContract: getSmartContractAddress(issuer)
   }));
+};
+
+export const mutateIssued = issued => ({
+  issuedOnAll: issued.valid,
+  details: Object.keys(issued.issued).map(contractAddress => ({
+    address: contractAddress,
+    issued: issued.issued[contractAddress]
+  }))
+});
+
+export const mutateRevoked = revoked => ({
+  revokedOnAny: !revoked.valid,
+  details: Object.keys(revoked.revoked).map(contractAddress => ({
+    address: contractAddress,
+    revoked: revoked.revoked[contractAddress]
+  }))
+});
+
+export const issuersIdentitiesAllVerified = (identities = []) =>
+  identities.reduce((prev, curr) => prev && !!curr.dns, true);
+
+// Given a document, verify it and return a summary of the verification
+export const verifyDocument = async document => {
+  const documentData = getData(document);
+
+  // Verification for hash, issue and revoke
+  const verificationStatus = await verify(document, NETWORK_NAME);
+
+  // Verification for identity
+  const identities = await getIssuersIdentities(documentData.issuers);
+  const allIdentitiesValid = issuersIdentitiesAllVerified(identities);
+
+  // Combine verification
+  const combinedVerificationResults = {
+    hash: { checksumMatch: verificationStatus.hash.valid },
+    issued: mutateIssued(verificationStatus.issued),
+    revoked: mutateRevoked(verificationStatus.revoked),
+    identity: {
+      identifiedOnAll: allIdentitiesValid,
+      details: identities
+    },
+    valid: verificationStatus.valid && allIdentitiesValid
+  };
+  return combinedVerificationResults;
 };

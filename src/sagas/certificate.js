@@ -34,18 +34,6 @@ import { IS_MAINNET, NETWORK_NAME } from "../config";
 import { getIssuersIdentities } from "../services/verify";
 const { trace, error } = getLogger("saga:certificate");
 
-const ANALYTICS_VERIFICATION_ERROR_CODE = {
-  ISSUER_IDENTITY: 0,
-  CERTIFICATE_HASH: 1,
-  UNISSUED_CERTIFICATE: 2,
-  REVOKED_CERTIFICATE: 3,
-  CERTIFICATE_STORE: 4
-};
-
-function getDocumentStore(issuer) {
-  return issuer.certificateStore || issuer.documentStore;
-}
-
 export function* verifyCertificate() {
   yield put({
     type: types.VERIFYING_CERTIFICATE
@@ -116,57 +104,6 @@ export function* networkReset() {
   });
 }
 
-export function getAnalyticsStores(certificate) {
-  return get(certificate, "issuers", [])
-    .map(issuer => getDocumentStore(issuer))
-    .toString();
-}
-
-export function* analyticsIssuerFail({ certificate }) {
-  yield analyticsEvent(window, {
-    category: "CERTIFICATE_ERROR",
-    action: getAnalyticsStores(certificate),
-    label: get(certificate, "id"),
-    value: ANALYTICS_VERIFICATION_ERROR_CODE.ISSUER_IDENTITY
-  });
-}
-
-export function* analyticsHashFail({ certificate }) {
-  yield analyticsEvent(window, {
-    category: "CERTIFICATE_ERROR",
-    action: getAnalyticsStores(certificate),
-    label: get(certificate, "id"),
-    value: ANALYTICS_VERIFICATION_ERROR_CODE.CERTIFICATE_HASH
-  });
-}
-
-export function* analyticsIssuedFail({ certificate }) {
-  yield analyticsEvent(window, {
-    category: "CERTIFICATE_ERROR",
-    action: getAnalyticsStores(certificate),
-    label: get(certificate, "id"),
-    value: ANALYTICS_VERIFICATION_ERROR_CODE.UNISSUED_CERTIFICATE
-  });
-}
-
-export function* analyticsRevocationFail({ certificate }) {
-  yield analyticsEvent(window, {
-    category: "CERTIFICATE_ERROR",
-    action: getAnalyticsStores(certificate),
-    label: get(certificate, "id"),
-    value: ANALYTICS_VERIFICATION_ERROR_CODE.REVOKED_CERTIFICATE
-  });
-}
-
-export function* analyticsStoreFail({ certificate }) {
-  yield analyticsEvent(window, {
-    category: "CERTIFICATE_ERROR",
-    action: getAnalyticsStores(certificate),
-    label: get(certificate, "id"),
-    value: ANALYTICS_VERIFICATION_ERROR_CODE.CERTIFICATE_STORE
-  });
-}
-
 export function* handleQrScanned({ payload: qrCode }) {
   const document = yield processQrCode(qrCode);
   yield put({
@@ -179,14 +116,5 @@ export default [
   takeEvery(types.CERTIFICATE_PROCESS_QR_CODE, handleQrScanned),
   takeEvery(types.UPDATE_CERTIFICATE, verifyCertificate),
   takeEvery(types.SENDING_CERTIFICATE, sendCertificate),
-  takeEvery(applicationTypes.UPDATE_WEB3, networkReset),
-
-  takeEvery(types.VERIFYING_CERTIFICATE_ISSUER_FAILURE, analyticsIssuerFail),
-  takeEvery(
-    types.VERIFYING_CERTIFICATE_REVOCATION_FAILURE,
-    analyticsRevocationFail
-  ),
-  takeEvery(types.VERIFYING_CERTIFICATE_ISSUED_FAILURE, analyticsIssuedFail),
-  takeEvery(types.VERIFYING_CERTIFICATE_HASH_FAILURE, analyticsHashFail),
-  takeEvery(types.VERIFYING_CERTIFICATE_STORE_FAILURE, analyticsStoreFail)
+  takeEvery(applicationTypes.UPDATE_WEB3, networkReset)
 ];
