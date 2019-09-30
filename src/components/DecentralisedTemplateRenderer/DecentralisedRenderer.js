@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import connectToChild from "penpal/lib/connectToChild";
 import { getData, obfuscateDocument } from "@govtechsg/open-attestation";
-import { get } from "lodash";
 import {
   getCertificate,
   getActiveTemplateTab,

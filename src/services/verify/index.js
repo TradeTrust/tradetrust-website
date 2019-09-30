@@ -1,9 +1,8 @@
 import { getDocumentStoreRecords } from "@govtechsg/dnsprove";
 import { get, zipWith } from "lodash";
-import { NETWORK_ID } from "../../config";
 import { getData } from "@govtechsg/open-attestation";
 import verify from "@govtechsg/oa-verify";
-import { NETWORK_NAME } from "../../config";
+import { NETWORK_ID, NETWORK_NAME } from "../../config";
 
 const getSmartContractAddress = issuer =>
   issuer.certificateStore || issuer.documentStore || issuer.tokenRegistry;
@@ -22,7 +21,7 @@ export const isIssuerIdentityVerified = async issuer => {
       record.type === "openatts" &&
       record.net === "ethereum"
   );
-  return matchingRecord ? true : false;
+  return !!matchingRecord;
 };
 
 export const getIssuersIdentities = async issuers => {

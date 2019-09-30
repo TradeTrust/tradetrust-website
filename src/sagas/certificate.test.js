@@ -1,15 +1,13 @@
 import { put, select } from "redux-saga/effects";
 import sinon from "sinon";
+import * as Router from "next/router";
 import { types, getCertificate } from "../reducers/certificate";
 import { sendCertificate, verifyCertificate } from "./certificate";
 import { MakeCertUtil } from "./testutils";
 import * as sendEmail from "../services/email";
-import * as Router from "next/router";
 
 jest.mock("next/router");
-jest.mock("../services/verify", () => ({
-  verifyDocument: () => {}
-}));
+jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
 
 beforeEach(() => {
   Router.default.push.mockClear();
@@ -154,7 +152,7 @@ describe("verifyCertificate", () => {
     const selectCertificate = generator.next().value;
     expect(selectCertificate).toEqual(select(getCertificate));
 
-    generator.next("CERTIFICATE_OBJECT").value;
+    generator.next("CERTIFICATE_OBJECT");
 
     // Should mark verification as completed and report the payload
     const verificationCompletionAction = generator.next(mockVerificationStatus)
@@ -167,7 +165,7 @@ describe("verifyCertificate", () => {
     );
 
     // If verification passes, update the router
-    generator.next().value;
+    generator.next();
     expect(Router.default.push.mock.calls[0]).toEqual(["/viewer"]);
   });
 
@@ -223,7 +221,7 @@ describe("verifyCertificate", () => {
     const selectCertificate = generator.next().value;
     expect(selectCertificate).toEqual(select(getCertificate));
 
-    generator.next("CERTIFICATE_OBJECT").value;
+    generator.next("CERTIFICATE_OBJECT");
 
     // Should mark verification as completed and report the payload
     const verificationCompletionAction = generator.next(mockVerificationStatus)
@@ -236,7 +234,7 @@ describe("verifyCertificate", () => {
     );
 
     // Does not update router if the validation failed
-    generator.next().value;
+    generator.next();
     expect(Router.default.push.mock.calls[0]).not.toEqual(["/viewer"]);
   });
 });

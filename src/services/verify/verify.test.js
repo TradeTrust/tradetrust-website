@@ -1,12 +1,12 @@
+import * as dnsprove from "@govtechsg/dnsprove";
+import * as verify from "@govtechsg/oa-verify";
+import * as openattestation from "@govtechsg/open-attestation";
 import {
   isIssuerIdentityVerified,
   getIssuersIdentities,
   verifyDocument,
   issuersIdentitiesAllVerified
 } from "./index";
-import * as dnsprove from "@govtechsg/dnsprove";
-import * as verify from "@govtechsg/oa-verify";
-import * as openattestation from "@govtechsg/open-attestation";
 
 jest.mock("@govtechsg/dnsprove");
 jest.mock("@govtechsg/oa-verify");

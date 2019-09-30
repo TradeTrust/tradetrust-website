@@ -4,12 +4,14 @@ import { getLogger } from "../utils/logger";
 import {
   types,
   verifyingCertificateSuccess,
+  verifyingCertificateFailure,
   getCertificate
 } from "../reducers/certificate";
 import { types as applicationTypes } from "../reducers/application";
 import sendEmail from "../services/email";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
+
 const { trace } = getLogger("saga:certificate");
 
 export function* verifyCertificate() {

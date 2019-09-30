@@ -1,3 +1,5 @@
+import { get } from "lodash";
+
 export const states = {
   INITIAL: "INITIAL",
   PENDING: "PENDING",
@@ -11,7 +13,7 @@ export const initialState = {
   store: null,
   storeError: null,
   storeLoading: false,
-  
+
   verificationPending: false,
   verificationStatus: null,
   verificationError: null,
@@ -56,7 +58,6 @@ export const types = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     // Leaving this here for the moment
-    case types.VERIFYING_CERTIFICATE_FAILURE:
     case types.RESET_CERTIFICATE:
     case types.NETWORK_RESET:
       return {
@@ -307,30 +308,11 @@ export function getCertificate(store) {
 }
 
 export function getVerifying(store) {
-  const {
-    certificateIssuerVerifying,
-    certificateHashVerifying,
-    certificateIssuedVerifying,
-    certificateNotRevokedVerifying,
-    certificateStoreVerifying
-  } = store.certificate;
-  return (
-    certificateIssuerVerifying ||
-    certificateHashVerifying ||
-    certificateIssuedVerifying ||
-    certificateNotRevokedVerifying ||
-    certificateStoreVerifying
-  );
+  return store.verificationPending;
 }
 
 export function getVerified(store) {
-  const hash = getHashStatus(store).verified;
-  const issued = getIssuedStatus(store).verified;
-  const notRevoked = getNotRevokedStatus(store).verified;
-  const identity = getIssuerIdentityStatus(store).verified;
-  const storeStatus = getStoreStatus(store).verified;
-
-  return hash && issued && notRevoked && identity && storeStatus;
+  return get(store, "verificationStatus.valid", false);
 }
 
 export function getVerificationStatus(store) {
