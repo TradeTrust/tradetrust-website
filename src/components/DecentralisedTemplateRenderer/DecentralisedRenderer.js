@@ -11,8 +11,6 @@ import {
   registerTemplates as registerTemplatesAction,
   selectTemplateTab as selectTemplateTabAction
 } from "../../reducers/certificate";
-import { analyticsEvent } from "../Analytics";
-import { getAnalyticsStores } from "../../sagas/certificate";
 
 class DecentralisedRenderer extends Component {
   constructor(props) {
@@ -81,12 +79,6 @@ class DecentralisedRenderer extends Component {
     childFrameConnection.then(frame =>
       frame.renderDocument(getData(this.props.certificate))
     );
-
-    analyticsEvent(window, {
-      category: "CERTIFICATE_VIEWED",
-      action: getAnalyticsStores(getData(this.props.certificate)),
-      label: get(getData(this.props.certificate), "id")
-    });
   }
 
   render() {

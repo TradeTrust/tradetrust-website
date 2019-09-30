@@ -11,45 +11,10 @@ export const initialState = {
   store: null,
   storeError: null,
   storeLoading: false,
-
-  // To remove all the individual checks and messages and instead have one pending status
-  // and a summary similar to the return results from oa-verify
-  // components consuming the results can reduce that object to the different messages
-  /* ie
+  
   verificationPending: false,
-  verificationStatus: {
-    certificateHash: true,
-    certificateIssued: true,
-    certificateRevoked: false,
-    certificateIssuersIdentified: true,
-    details: {
-      issuersIdentity: [{dns: ""}],
-      issueStatus: [{smartContract: "", issued: true}]
-      revokeStatus: [{smartContract: "", revoked: true}]
-    }
-  }
-  */
-
-  issuerIdentities: null,
-  certificateHash: false,
-  certificateIssued: false,
-  certificateNotRevoked: false,
-  certificateIssuer: false,
-  certificateStore: false,
-
-  certificateHashVerifying: false,
-  certificateIssuedVerifying: false,
-  certificateNotRevokedVerifying: false,
-  certificateIssuerVerifying: false,
-  certificateStoreVerifying: false,
-
-  certificateHashError: null,
-  certificateIssuedError: null,
-  certificateNotRevokedError: null,
-  certificateIssuerError: null,
-  certificateStoreError: null,
-
-  verificationStatus: [],
+  verificationStatus: null,
+  verificationError: null,
 
   emailState: states.INITIAL,
   emailError: null,
@@ -69,23 +34,6 @@ export const types = {
   LOADING_STORE_FAILURE: "LOADING_STORE_FAILURE",
 
   VERIFYING_CERTIFICATE: "VERIFYING_CERTIFICATE",
-
-  VERIFYING_CERTIFICATE_HASH_SUCCESS: "VERIFYING_CERTIFICATE_HASH_SUCCESS",
-  VERIFYING_CERTIFICATE_HASH_FAILURE: "VERIFYING_CERTIFICATE_HASH_FAILURE",
-
-  VERIFYING_CERTIFICATE_ISSUED_SUCCESS: "VERIFYING_CERTIFICATE_ISSUED_SUCCESS",
-  VERIFYING_CERTIFICATE_ISSUED_FAILURE: "VERIFYING_CERTIFICATE_ISSUED_FAILURE",
-
-  VERIFYING_CERTIFICATE_REVOCATION_SUCCESS:
-    "VERIFYING_CERTIFICATE_REVOCATION_SUCCESS",
-  VERIFYING_CERTIFICATE_REVOCATION_FAILURE:
-    "VERIFYING_CERTIFICATE_REVOCATION_FAILURE",
-
-  VERIFYING_CERTIFICATE_ISSUER_SUCCESS: "VERIFYING_CERTIFICATE_ISSUER_SUCCESS",
-  VERIFYING_CERTIFICATE_ISSUER_FAILURE: "VERIFYING_CERTIFICATE_ISSUER_FAILURE",
-
-  VERIFYING_CERTIFICATE_STORE_SUCCESS: "VERIFYING_CERTIFICATE_STORE_SUCCESS",
-  VERIFYING_CERTIFICATE_STORE_FAILURE: "VERIFYING_CERTIFICATE_STORE_FAILURE",
 
   VERIFYING_CERTIFICATE_SUCCESS: "VERIFYING_CERTIFICATE_SUCCESS",
   VERIFYING_CERTIFICATE_FAILURE: "VERIFYING_CERTIFICATE_FAILURE",
@@ -139,201 +87,20 @@ export default function reducer(state = initialState, action) {
     case types.VERIFYING_CERTIFICATE:
       return {
         ...state,
-        issuerIdentities: null,
-        certificateHash: false,
-        certificateIssued: false,
-        certificateNotRevoked: false,
-        certificateIssuer: false,
-        certificateStore: false,
-
-        certificateHashVerifying: true,
-        certificateIssuedVerifying: true,
-        certificateNotRevokedVerifying: true,
-        certificateIssuerVerifying: true,
-        certificateStoreVerifying: true,
-
-        certificateHashError: null,
-        certificateIssuedError: null,
-        certificateNotRevokedError: null,
-        certificateIssuerError: null,
-        certificateStoreError: null,
-
-        verificationStatus: []
+        verificationPending: true,
+        verificationStatus: null
       };
     case types.VERIFYING_CERTIFICATE_SUCCESS:
       return {
         ...state,
-        issuerIdentities: null,
-        certificateHash: true,
-        certificateIssued: true,
-        certificateNotRevoked: true,
-        certificateIssuer: true,
-        certificateStore: true,
-
-        certificateHashVerifying: false,
-        certificateIssuedVerifying: false,
-        certificateNotRevokedVerifying: false,
-        certificateIssuerVerifying: false,
-        certificateStoreVerifying: false,
-
-        certificateHashError: null,
-        certificateIssuedError: null,
-        certificateNotRevokedError: null,
-        certificateIssuerError: null,
-        certificateStoreError: null,
-
-        verificationStatus: []
+        verificationPending: false,
+        verificationStatus: action.payload
       };
-    case types.VERIFYING_CERTIFICATE_HASH_SUCCESS:
+    case types.VERIFYING_CERTIFICATE_FAILURE:
       return {
         ...state,
-        certificateHash: true,
-        certificateHashError: null,
-        certificateHashVerifying: false,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Certificate integrity checked",
-            warning: false,
-            error: false
-          }
-        ]
-      };
-    case types.VERIFYING_CERTIFICATE_HASH_FAILURE:
-      return {
-        ...state,
-        certificateHash: false,
-        certificateHashError: action.payload,
-        certificateHashVerifying: false,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Certificate has been tampered",
-            warning: false,
-            error: true
-          }
-        ]
-      };
-    case types.VERIFYING_CERTIFICATE_ISSUED_SUCCESS:
-      return {
-        ...state,
-        certificateIssued: true,
-        certificateIssuedError: null,
-        certificateIssuedVerifying: false,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Certificate has been issued",
-            warning: false,
-            error: false
-          }
-        ]
-      };
-    case types.VERIFYING_CERTIFICATE_ISSUED_FAILURE:
-      return {
-        ...state,
-        certificateIssued: false,
-        certificateIssuedError: action.payload,
-        certificateIssuedVerifying: false,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Certificate is not issued",
-            warning: false,
-            error: true
-          }
-        ]
-      };
-    case types.VERIFYING_CERTIFICATE_REVOCATION_SUCCESS:
-      return {
-        ...state,
-        certificateNotRevoked: true,
-        certificateNotRevokedError: null,
-        certificateNotRevokedVerifying: false,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Certificate is issued",
-            warning: false,
-            error: false
-          }
-        ]
-      };
-    case types.VERIFYING_CERTIFICATE_REVOCATION_FAILURE:
-      return {
-        ...state,
-        certificateNotRevoked: false,
-        certificateNotRevokedError: action.payload,
-        certificateNotRevokedVerifying: false,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Certificate has been revoked",
-            warning: false,
-            error: true
-          }
-        ]
-      };
-    case types.VERIFYING_CERTIFICATE_ISSUER_SUCCESS:
-      return {
-        ...state,
-        issuerIdentities: action.payload,
-        certificateIssuer: true,
-        certificateIssuerVerifying: false,
-        certificateIssuerError: null,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Unknown certificate issuer",
-            warning: false,
-            error: false
-          }
-        ]
-      };
-    case types.VERIFYING_CERTIFICATE_ISSUER_FAILURE:
-      return {
-        ...state,
-        certificateIssuer: false,
-        certificateIssuerVerifying: false,
-        certificateIssuerError: action.payload,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Unknown certificate issuer",
-            warning: false,
-            error: false
-          }
-        ]
-      };
-    case types.VERIFYING_CERTIFICATE_STORE_SUCCESS:
-      return {
-        ...state,
-        certificateStore: true,
-        certificateStoreError: null,
-        certificateStoreVerifying: false,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Certificate store checked",
-            warning: false,
-            error: false
-          }
-        ]
-      };
-    case types.VERIFYING_CERTIFICATE_STORE_FAILURE:
-      return {
-        ...state,
-        certificateStore: false,
-        certificateStoreError: action.payload,
-        certificateStoreVerifying: false,
-        verificationStatus: [
-          ...state.verificationStatus,
-          {
-            message: "Certificate store does not exist",
-            warning: false,
-            error: true
-          }
-        ]
+        verificationPending: false,
+        verificationError: action.payload
       };
     case types.SENDING_CERTIFICATE:
       return {
@@ -412,77 +179,6 @@ export function updateFilteredCertificate(payload) {
   };
 }
 
-export function verifyingCertificateIssuerSuccess({ issuerIdentities }) {
-  return {
-    type: types.VERIFYING_CERTIFICATE_ISSUER_SUCCESS,
-    payload: issuerIdentities
-  };
-}
-
-export function verifyingCertificateIssuerFailure({ error, certificate }) {
-  return {
-    type: types.VERIFYING_CERTIFICATE_ISSUER_FAILURE,
-    error,
-    certificate
-  };
-}
-
-export function verifyingCertificateStoreSuccess() {
-  return {
-    type: types.VERIFYING_CERTIFICATE_STORE_SUCCESS
-  };
-}
-
-export function verifyingCertificateStoreFailure({ error, certificate }) {
-  return {
-    type: types.VERIFYING_CERTIFICATE_STORE_FAILURE,
-    error,
-    certificate
-  };
-}
-
-export function verifyingCertificateRevocationSuccess() {
-  return {
-    type: types.VERIFYING_CERTIFICATE_REVOCATION_SUCCESS
-  };
-}
-
-export function verifyingCertificateRevocationFailure({ error, certificate }) {
-  return {
-    type: types.VERIFYING_CERTIFICATE_REVOCATION_FAILURE,
-    error,
-    certificate
-  };
-}
-
-export function verifyingCertificateIssuedSuccess() {
-  return {
-    type: types.VERIFYING_CERTIFICATE_ISSUED_SUCCESS
-  };
-}
-
-export function verifyingCertificateIssuedFailure({ error, certificate }) {
-  return {
-    type: types.VERIFYING_CERTIFICATE_ISSUED_FAILURE,
-    error,
-    certificate
-  };
-}
-
-export function verifyingCertificateHashSuccess() {
-  return {
-    type: types.VERIFYING_CERTIFICATE_HASH_SUCCESS
-  };
-}
-
-export function verifyingCertificateHashFailure({ error, certificate }) {
-  return {
-    type: types.VERIFYING_CERTIFICATE_HASH_FAILURE,
-    error,
-    certificate
-  };
-}
-
 export function sendCertificate(payload) {
   return {
     type: types.SENDING_CERTIFICATE,
@@ -528,12 +224,14 @@ export const processQrCode = payload => ({
   payload
 });
 
-export const verifyingCertificateSuccess = () => ({
-  type: types.VERIFYING_CERTIFICATE_SUCCESS
+export const verifyingCertificateSuccess = payload => ({
+  type: types.VERIFYING_CERTIFICATE_SUCCESS,
+  payload
 });
 
-export const verifyingCertificateFailure = () => ({
-  type: types.VERIFYING_CERTIFICATE_FAILURE
+export const verifyingCertificateFailure = payload => ({
+  type: types.VERIFYING_CERTIFICATE_FAILURE,
+  payload
 });
 
 // Selectors
