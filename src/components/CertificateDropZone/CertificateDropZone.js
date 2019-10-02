@@ -4,17 +4,16 @@ import DefaultView from "./Views/DefaultView";
 import VerifyingView from "./Views/VerifyingView";
 import UnverifiedView from "./Views/UnverifiedView";
 
-const renderDropzoneContent = props => {
-  const {
-    handleRenderOverwrite,
-    resetData,
-    isDragAccept,
-    isDragReject,
-    verifying,
-    fileError,
-    verificationStatus,
-    toggleQrReaderVisible
-  } = props;
+export const DropzoneContent = ({
+  handleRenderOverwrite,
+  resetData,
+  isDragAccept,
+  isDragReject,
+  verifying,
+  fileError,
+  verificationStatus,
+  toggleQrReaderVisible
+}) => {
   // isDragReject is checking for mimetype (but we skipped it)
   // fileError is when the file is not in JSON format and threw when deserilising
   // valid JSON files will be handled by handleCertificateChange()
@@ -58,8 +57,9 @@ const renderDropzoneContent = props => {
 };
 
 // Injects additional props on top of isDragReject, isDragActive, acceptedFiles & rejectedFiles
-const renderDropzoneContentCurry = additionalProps => props =>
-  renderDropzoneContent({ ...props, ...additionalProps });
+const renderDropzoneContentCurry = additionalProps => props => (
+  <DropzoneContent {...{ ...props, ...additionalProps }} />
+);
 
 const onFileDrop = (
   acceptedFiles,
@@ -125,7 +125,7 @@ CertificateDropzone.propTypes = {
   verificationStatus: PropTypes.object
 };
 
-renderDropzoneContent.propTypes = {
+DropzoneContent.propTypes = {
   handleRenderOverwrite: PropTypes.func,
   resetData: PropTypes.func,
   document: PropTypes.object,
