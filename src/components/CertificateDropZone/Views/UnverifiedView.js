@@ -6,14 +6,12 @@ import css from "./viewerStyles.scss";
 
 const DetailedErrors = ({ verificationStatus }) => {
   const errors = [];
-  if (!get(verificationStatus, "hash.checksumMatch"))
-    errors.push(TYPES.TAMPERED);
-  if (!get(verificationStatus, "issued.issuedOnAll"))
-    errors.push(TYPES.NOT_ISSUED);
+  if (!get(verificationStatus, "hash.checksumMatch")) errors.push(TYPES.HASH);
+  if (!get(verificationStatus, "issued.issuedOnAll")) errors.push(TYPES.ISSUED);
   if (get(verificationStatus, "revoked.revokedOnAny", true))
     errors.push(TYPES.REVOKED);
   if (!get(verificationStatus, "identity.identifiedOnAll"))
-    errors.push(TYPES.INVALID_ISSUER_IDENTITY);
+    errors.push(TYPES.IDENTITY);
   const renderedError = errors.map((errorType, index) => (
     <div key={index}>
       <p className={css.messages}>{MESSAGES[errorType].title}</p>
