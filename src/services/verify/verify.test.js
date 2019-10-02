@@ -1,5 +1,5 @@
 import * as dnsprove from "@govtechsg/dnsprove";
-import * as verify from "@govtechsg/oa-verify";
+import verify from "@govtechsg/oa-verify";
 import * as openattestation from "@govtechsg/open-attestation";
 import {
   resolveIsssuerIdentity,
@@ -14,36 +14,38 @@ jest.mock("@govtechsg/open-attestation");
 
 const whenVerifySucceed = () =>
   verify.mockResolvedValue({
-    hash: { valid: true },
+    hash: { checksumMatch: true },
     issued: {
-      valid: true,
-      issued: {
-        "0xA": true
-      }
+      issuedOnAll: true,
+      details: [{ address: "0xA", issued: true }]
     },
     revoked: {
-      valid: true,
-      revoked: {
-        "0xA": false
-      }
+      revokedOnAny: false,
+      details: [
+        {
+          address: "0xA",
+          revoked: false
+        }
+      ]
     },
     valid: true
   });
 
 const whenVerifyFailed = () =>
   verify.mockResolvedValue({
-    hash: { valid: true },
+    hash: { checksumMatch: true },
     issued: {
-      valid: true,
-      issued: {
-        "0xA": true
-      }
+      issuedOnAll: true,
+      details: [{ address: "0xA", issued: true }]
     },
     revoked: {
-      valid: false,
-      revoked: {
-        "0xA": true
-      }
+      revokedOnAny: true,
+      details: [
+        {
+          address: "0xA",
+          revoked: true
+        }
+      ]
     },
     valid: false
   });
@@ -266,7 +268,7 @@ describe("verifyDocument", () => {
     });
   });
 
-  it("returns true as overall valid when all the checks passes", async () => {
+  it("returns false as overall valid when any of the checks fail", async () => {
     whenVerifyFailed();
     whenGetDataReturnsDocument();
     whenDnsProveResolvesBothAddresses();

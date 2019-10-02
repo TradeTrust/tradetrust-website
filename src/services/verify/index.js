@@ -45,22 +45,6 @@ export const resolveIsssuerIdentity = async issuer => {
 export const getIssuersIdentities = async issuers =>
   Promise.all(issuers.map(resolveIsssuerIdentity));
 
-export const mutateIssued = issued => ({
-  issuedOnAll: issued.valid,
-  details: Object.keys(issued.issued).map(contractAddress => ({
-    address: contractAddress,
-    issued: issued.issued[contractAddress]
-  }))
-});
-
-export const mutateRevoked = revoked => ({
-  revokedOnAny: !revoked.valid,
-  details: Object.keys(revoked.revoked).map(contractAddress => ({
-    address: contractAddress,
-    revoked: revoked.revoked[contractAddress]
-  }))
-});
-
 export const issuersIdentitiesAllVerified = (identities = []) =>
   identities.every(identity => identity.identified);
 
@@ -70,16 +54,13 @@ export const verifyDocument = async document => {
 
   // Verification for hash, issue and revoke
   const verificationStatus = await verify(document, NETWORK_NAME);
-
   // Verification for identity
   const identities = await getIssuersIdentities(documentData.issuers);
   const allIdentitiesValid = issuersIdentitiesAllVerified(identities);
 
   // Combine verification
   const combinedVerificationResults = {
-    hash: { checksumMatch: verificationStatus.hash.valid },
-    issued: mutateIssued(verificationStatus.issued),
-    revoked: mutateRevoked(verificationStatus.revoked),
+    ...verificationStatus,
     identity: {
       identifiedOnAll: allIdentitiesValid,
       details: identities
