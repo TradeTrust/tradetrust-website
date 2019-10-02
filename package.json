@@ -89,7 +89,7 @@
     "proxyquire": "^2.1.0",
     "react-test-renderer": "^16.8.6",
     "sinon": "^7.1.1",
-    "testcafe": "^15.1.317922"
+    "testcafe": "^1.1.0"
   },
   "jest": {
     "testResultsProcessor": "jest-sonar-reporter"

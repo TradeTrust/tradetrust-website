@@ -12,10 +12,11 @@ const DetailedErrors = ({ verificationStatus }) => {
     errors.push(TYPES.REVOKED);
   if (!get(verificationStatus, "identity.identifiedOnAll"))
     errors.push(TYPES.IDENTITY);
+  console.log(errors);
   const renderedError = errors.map((errorType, index) => (
     <div key={index}>
-      <p className={css.messages}>{MESSAGES[errorType].title}</p>
-      <p>{MESSAGES[errorType].message}</p>
+      <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
+      <p>{MESSAGES[errorType].failureMessage}</p>
     </div>
   ));
   return <div className={css.verifications}>{renderedError}</div>;
