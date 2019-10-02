@@ -15,7 +15,7 @@ describe("Certificate verify block getIdentityVerificationText", () => {
         { registry: false, dns: "demo.com" }
       ];
       expect(getIdentityVerificationText(testValue)).toEqual(
-        "Issued by DEMO.COM"
+        "Issued by XYZ.COM"
       );
     });
   });

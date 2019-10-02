@@ -1,5 +1,5 @@
 import { getDocumentStoreRecords } from "@govtechsg/dnsprove";
-import { get, zipWith } from "lodash";
+import { get } from "lodash";
 import { getData } from "@govtechsg/open-attestation";
 import verify from "@govtechsg/oa-verify";
 import { NETWORK_ID, NETWORK_NAME } from "../../config";
@@ -8,31 +8,42 @@ const getSmartContractAddress = issuer =>
   issuer.certificateStore || issuer.documentStore || issuer.tokenRegistry;
 
 // Resolve identity of an issuer, currently supporting only DNS-TXT
-export const isIssuerIdentityVerified = async issuer => {
-  const smartContractAddress = getSmartContractAddress(issuer);
-  const type = get(issuer, "identityProof.type");
-  const location = get(issuer, "identityProof.location");
-  if (type !== "DNS-TXT" || !location) return false;
-  const records = await getDocumentStoreRecords(location);
-  const matchingRecord = records.find(
-    record =>
-      record.addr.toLowerCase() === smartContractAddress.toLowerCase() &&
-      record.netId === NETWORK_ID &&
-      record.type === "openatts" &&
-      record.net === "ethereum"
-  );
-  return !!matchingRecord;
+export const resolveIsssuerIdentity = async issuer => {
+  try {
+    const smartContractAddress = getSmartContractAddress(issuer);
+    const type = get(issuer, "identityProof.type");
+    const location = get(issuer, "identityProof.location");
+    if (type !== "DNS-TXT") throw new Error("Identity type not supported");
+    if (!location) throw new Error("Location is missing");
+    const records = await getDocumentStoreRecords(location);
+    const matchingRecord = records.find(
+      record =>
+        record.addr.toLowerCase() === smartContractAddress.toLowerCase() &&
+        record.netId === NETWORK_ID &&
+        record.type === "openatts" &&
+        record.net === "ethereum"
+    );
+    return matchingRecord
+      ? {
+          identified: true,
+          dns: get(issuer, "identityProof.location"),
+          smartContract: smartContractAddress
+        }
+      : {
+          identified: false,
+          smartContract: smartContractAddress
+        };
+  } catch (e) {
+    return {
+      identified: false,
+      smartContract: getSmartContractAddress(issuer),
+      error: e.message || e
+    };
+  }
 };
 
-export const getIssuersIdentities = async issuers => {
-  const identitiesVerified = await Promise.all(
-    issuers.map(isIssuerIdentityVerified)
-  );
-  return zipWith(issuers, identitiesVerified, (issuer, verified) => ({
-    dns: verified ? get(issuer, "identityProof.location") : null,
-    smartContract: getSmartContractAddress(issuer)
-  }));
-};
+export const getIssuersIdentities = async issuers =>
+  Promise.all(issuers.map(resolveIsssuerIdentity));
 
 export const mutateIssued = issued => ({
   issuedOnAll: issued.valid,
@@ -51,7 +62,7 @@ export const mutateRevoked = revoked => ({
 });
 
 export const issuersIdentitiesAllVerified = (identities = []) =>
-  identities.reduce((prev, curr) => prev && !!curr.dns, true);
+  identities.every(identity => identity.identified);
 
 // Given a document, verify it and return a summary of the verification
 export const verifyDocument = async document => {

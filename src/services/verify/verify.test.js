@@ -2,7 +2,7 @@ import * as dnsprove from "@govtechsg/dnsprove";
 import * as verify from "@govtechsg/oa-verify";
 import * as openattestation from "@govtechsg/open-attestation";
 import {
-  isIssuerIdentityVerified,
+  resolveIsssuerIdentity,
   getIssuersIdentities,
   verifyDocument,
   issuersIdentitiesAllVerified
@@ -94,10 +94,9 @@ const whenDnsProveResolvesBothAddresses = () => {
     }
   ]);
 };
-// const whenGetIssuersI
 
-describe("isIssuerIdentityVerified", () => {
-  it("returns true when there is a matching DNS record", async () => {
+describe("resolveIsssuerIdentity", () => {
+  it("returns correctly when there is a matching DNS record", async () => {
     whenDnsProveResolvesBothAddresses();
     const issuer = {
       documentStore: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
@@ -106,11 +105,15 @@ describe("isIssuerIdentityVerified", () => {
         location: "example.openattestation.com"
       }
     };
-    const identified = await isIssuerIdentityVerified(issuer);
-    expect(identified).toEqual(true);
+    const identified = await resolveIsssuerIdentity(issuer);
+    expect(identified).toEqual({
+      identified: true,
+      dns: "example.openattestation.com",
+      smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
+    });
   });
 
-  it("returns false when matching DNS record does not exist", async () => {
+  it("returns correctly when matching DNS record does not exist", async () => {
     whenDnsProveResolvesAddress1();
     const issuer = {
       documentStore: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
@@ -119,11 +122,14 @@ describe("isIssuerIdentityVerified", () => {
         location: "example.openattestation.com"
       }
     };
-    const identified = await isIssuerIdentityVerified(issuer);
-    expect(identified).toEqual(false);
+    const identified = await resolveIsssuerIdentity(issuer);
+    expect(identified).toEqual({
+      identified: false,
+      smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
+    });
   });
 
-  it("throws when the type does not exist", async () => {
+  it("return error when the type does not exist", async () => {
     const issuer = {
       documentStore: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
       identityProof: {
@@ -131,8 +137,12 @@ describe("isIssuerIdentityVerified", () => {
         location: "example.openattestation.com"
       }
     };
-    const identified = await isIssuerIdentityVerified(issuer);
-    expect(identified).toEqual(false);
+    const identified = await resolveIsssuerIdentity(issuer);
+    expect(identified).toEqual({
+      error: "Identity type not supported",
+      identified: false,
+      smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
+    });
   });
 
   it("throws when the location does not exist", async () => {
@@ -140,8 +150,12 @@ describe("isIssuerIdentityVerified", () => {
       documentStore: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
       identityProof: { type: "DNS-TXT" }
     };
-    const identified = await isIssuerIdentityVerified(issuer);
-    expect(identified).toEqual(false);
+    const identified = await resolveIsssuerIdentity(issuer);
+    expect(identified).toEqual({
+      error: "Location is missing",
+      identified: false,
+      smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
+    });
   });
 });
 
@@ -161,10 +175,12 @@ describe("getIssuersIdentities", () => {
     ];
     const expectedResults = [
       {
+        identified: true,
         dns: "domain1.com",
         smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
       },
       {
+        identified: true,
         dns: "domain2.com",
         smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
       }
@@ -173,15 +189,31 @@ describe("getIssuersIdentities", () => {
     expect(identities).toEqual(expectedResults);
   });
 
-  it("throws when any issuers is not correctly formatted", () => {
+  it("includes error when any issuers is not correctly formatted", async () => {
+    whenDnsProveResolvesAddress1();
     const issuers = [
       {
         documentStore: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
         identityProof: { location: "domain1.com" }
+      },
+      {
+        documentStore: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
+        identityProof: { location: "domain2.com", type: "DNS-TXT" }
       }
     ];
-    const identities = getIssuersIdentities(issuers);
-    expect(identities).rejects.toThrow("not supported");
+    const expectedResults = [
+      {
+        identified: false,
+        smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
+        error: "Identity type not supported"
+      },
+      {
+        identified: false,
+        smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
+      }
+    ];
+    const identities = await getIssuersIdentities(issuers);
+    expect(identities).toEqual(expectedResults);
   });
 });
 
@@ -219,10 +251,12 @@ describe("verifyDocument", () => {
         identifiedOnAll: true,
         details: [
           {
+            identified: true,
             dns: "domain1.com",
             smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
           },
           {
+            identified: true,
             dns: "domain2.com",
             smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
           }
@@ -265,10 +299,12 @@ describe("verifyDocument", () => {
         identifiedOnAll: true,
         details: [
           {
+            identified: true,
             dns: "domain1.com",
             smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
           },
           {
+            identified: true,
             dns: "domain2.com",
             smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
           }
@@ -283,10 +319,12 @@ describe("issuersIdentitiesAllVerified", () => {
   it("should reduce the issuer identities to true if all the identities resolves", () => {
     const validIdentities = [
       {
+        identified: true,
         dns: "domain1.com",
         smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
       },
       {
+        identified: true,
         dns: "domain2.com",
         smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
       }
@@ -297,10 +335,12 @@ describe("issuersIdentitiesAllVerified", () => {
   it("should reduce the issuer identities to false if any of the identities is invalid", () => {
     const validIdentities = [
       {
+        identified: false,
         dns: undefined,
         smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
       },
       {
+        identified: true,
         dns: "domain2.com",
         smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
       }
