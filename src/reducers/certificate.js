@@ -57,7 +57,6 @@ export const types = {
 // Reducers
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    // Leaving this here for the moment
     case types.RESET_CERTIFICATE:
     case types.NETWORK_RESET:
       return {
@@ -308,11 +307,11 @@ export function getCertificate(store) {
 }
 
 export function getVerifying(store) {
-  return store.verificationPending;
+  return get(store, "certificate.verificationPending");
 }
 
 export function getVerified(store) {
-  return get(store, "verificationStatus.valid", false);
+  return get(store, "certificate.verificationStatus.valid", false);
 }
 
 export function getVerificationStatus(store) {

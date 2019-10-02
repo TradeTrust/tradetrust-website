@@ -4,15 +4,9 @@ import Router from "next/router";
 import { connect } from "react-redux";
 import {
   updateCertificate,
-  getCertificate,
   getVerifying,
-  getIssuerIdentityStatus,
-  getHashStatus,
-  getIssuedStatus,
-  getNotRevokedStatus,
   getVerificationStatus,
   resetCertificateState,
-  getStoreStatus,
   processQrCode
 } from "../../reducers/certificate";
 import { updateNetworkId } from "../../reducers/application";
@@ -75,18 +69,12 @@ export class CertificateDropZoneContainer extends Component {
       </>
     ) : (
       <CertificateDropZone
-        document={this.props.document}
         fileError={this.state.fileError}
         handleCertificateChange={this.handleCertificateChange}
         handleFileError={this.handleFileError}
         verifying={this.props.verifying}
-        issuerIdentityStatus={this.props.issuerIdentityStatus}
-        hashStatus={this.props.hashStatus}
-        issuedStatus={this.props.issuedStatus}
-        notRevokedStatus={this.props.notRevokedStatus}
         verificationStatus={this.props.verificationStatus}
         resetData={this.resetData.bind(this)}
-        storeStatus={this.props.storeStatus}
         toggleQrReaderVisible={this.toggleQrReaderVisible}
       />
     );
@@ -94,16 +82,8 @@ export class CertificateDropZoneContainer extends Component {
 }
 
 const mapStateToProps = store => ({
-  document: getCertificate(store),
-
-  // Verification statuses used in verifier block
   verifying: getVerifying(store),
-  issuerIdentityStatus: getIssuerIdentityStatus(store),
-  hashStatus: getHashStatus(store),
-  issuedStatus: getIssuedStatus(store),
-  notRevokedStatus: getNotRevokedStatus(store),
-  verificationStatus: getVerificationStatus(store),
-  storeStatus: getStoreStatus(store)
+  verificationStatus: getVerificationStatus(store)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -122,16 +102,10 @@ export default ConnectedCertificateDropZoneContainer;
 
 CertificateDropZoneContainer.propTypes = {
   updateNetworkId: PropTypes.func,
-  document: PropTypes.object,
   handleCertificateChange: PropTypes.func,
   updateCertificate: PropTypes.func,
   resetData: PropTypes.func,
   verifying: PropTypes.bool,
-  issuerIdentityStatus: PropTypes.object,
-  hashStatus: PropTypes.object,
-  issuedStatus: PropTypes.object,
-  notRevokedStatus: PropTypes.object,
-  verificationStatus: PropTypes.array,
-  storeStatus: PropTypes.object,
-  processQr: PropTypes.func
+  processQr: PropTypes.func,
+  verificationStatus: PropTypes.object
 };
