@@ -59,7 +59,6 @@ const DetailedCertificateVerifyBlock = props => {
 };
 
 DetailedCertificateVerifyBlock.propTypes = {
-  statusSummary: PropTypes.string,
   verificationStatus: PropTypes.object
 };
 

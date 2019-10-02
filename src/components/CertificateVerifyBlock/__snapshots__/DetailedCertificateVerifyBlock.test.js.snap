@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly when the certificate has been revoked 1`] = `
+exports[`renders correctly when the certificate is not issued 1`] = `
 <div
   className="undefined undefined bg-white p-3"
 >
@@ -19,7 +19,7 @@ exports[`renders correctly when the certificate has been revoked 1`] = `
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -28,7 +28,7 @@ exports[`renders correctly when the certificate has been revoked 1`] = `
         <div
           className="row"
         >
-          Certificate has been tampered with
+          Certificate has not been tampered with
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@ exports[`renders correctly when the certificate has been revoked 1`] = `
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -68,7 +68,7 @@ exports[`renders correctly when the certificate has been revoked 1`] = `
         <div
           className="row"
         >
-          Certificate revoked
+          Certificate has not been revoked
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@ exports[`renders correctly when the certificate has been revoked 1`] = `
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -88,7 +88,7 @@ exports[`renders correctly when the certificate has been revoked 1`] = `
         <div
           className="row"
         >
-          Certificate issuer identity is invalid
+          Certificate issuer has been identified
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@ exports[`renders correctly when the certificate has been revoked 1`] = `
 </div>
 `;
 
-exports[`renders correctly when the certificate is invalid and hash, isseud, notRevoked, issuerIdentity status are not verified 1`] = `
+exports[`renders correctly when the certificate is revoked 1`] = `
 <div
   className="undefined undefined bg-white p-3"
 >
@@ -115,7 +115,7 @@ exports[`renders correctly when the certificate is invalid and hash, isseud, not
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -124,7 +124,7 @@ exports[`renders correctly when the certificate is invalid and hash, isseud, not
         <div
           className="row"
         >
-          Certificate has been tampered with
+          Certificate has not been tampered with
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@ exports[`renders correctly when the certificate is invalid and hash, isseud, not
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -144,7 +144,7 @@ exports[`renders correctly when the certificate is invalid and hash, isseud, not
         <div
           className="row"
         >
-          Certificate not issued
+          Certificate has been issued
         </div>
       </div>
     </div>
@@ -175,7 +175,7 @@ exports[`renders correctly when the certificate is invalid and hash, isseud, not
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -184,7 +184,7 @@ exports[`renders correctly when the certificate is invalid and hash, isseud, not
         <div
           className="row"
         >
-          Certificate issuer identity is invalid
+          Certificate issuer has been identified
         </div>
       </div>
     </div>
@@ -192,7 +192,7 @@ exports[`renders correctly when the certificate is invalid and hash, isseud, not
 </div>
 `;
 
-exports[`renders correctly when the certificate verfied 1`] = `
+exports[`renders correctly when the certificate is verified 1`] = `
 <div
   className="undefined undefined bg-white p-3"
 >
@@ -211,7 +211,7 @@ exports[`renders correctly when the certificate verfied 1`] = `
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -220,7 +220,7 @@ exports[`renders correctly when the certificate verfied 1`] = `
         <div
           className="row"
         >
-          Certificate has been tampered with
+          Certificate has not been tampered with
         </div>
       </div>
     </div>
@@ -231,7 +231,7 @@ exports[`renders correctly when the certificate verfied 1`] = `
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -240,7 +240,7 @@ exports[`renders correctly when the certificate verfied 1`] = `
         <div
           className="row"
         >
-          Certificate not issued
+          Certificate has been issued
         </div>
       </div>
     </div>
@@ -251,7 +251,7 @@ exports[`renders correctly when the certificate verfied 1`] = `
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -260,7 +260,7 @@ exports[`renders correctly when the certificate verfied 1`] = `
         <div
           className="row"
         >
-          Certificate revoked
+          Certificate has not been revoked
         </div>
       </div>
     </div>
@@ -271,7 +271,7 @@ exports[`renders correctly when the certificate verfied 1`] = `
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -280,7 +280,7 @@ exports[`renders correctly when the certificate verfied 1`] = `
         <div
           className="row"
         >
-          Certificate issuer identity is invalid
+          Certificate issuer has been identified
         </div>
       </div>
     </div>
@@ -288,7 +288,7 @@ exports[`renders correctly when the certificate verfied 1`] = `
 </div>
 `;
 
-exports[`renders correctly when the certificate\`s hash status not verified 1`] = `
+exports[`renders correctly when the hash mismatch 1`] = `
 <div
   className="undefined undefined bg-white p-3"
 >
@@ -327,7 +327,7 @@ exports[`renders correctly when the certificate\`s hash status not verified 1`] 
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -336,7 +336,7 @@ exports[`renders correctly when the certificate\`s hash status not verified 1`] 
         <div
           className="row"
         >
-          Certificate not issued
+          Certificate has been issued
         </div>
       </div>
     </div>
@@ -347,7 +347,7 @@ exports[`renders correctly when the certificate\`s hash status not verified 1`] 
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -356,7 +356,7 @@ exports[`renders correctly when the certificate\`s hash status not verified 1`] 
         <div
           className="row"
         >
-          Certificate revoked
+          Certificate has not been revoked
         </div>
       </div>
     </div>
@@ -367,7 +367,7 @@ exports[`renders correctly when the certificate\`s hash status not verified 1`] 
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -376,7 +376,7 @@ exports[`renders correctly when the certificate\`s hash status not verified 1`] 
         <div
           className="row"
         >
-          Certificate issuer identity is invalid
+          Certificate issuer has been identified
         </div>
       </div>
     </div>
@@ -384,7 +384,7 @@ exports[`renders correctly when the certificate\`s hash status not verified 1`] 
 </div>
 `;
 
-exports[`renders correctly when the certificate\`s issue status not verified 1`] = `
+exports[`renders correctly when the issuers are not identified 1`] = `
 <div
   className="undefined undefined bg-white p-3"
 >
@@ -403,7 +403,7 @@ exports[`renders correctly when the certificate\`s issue status not verified 1`]
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -412,7 +412,7 @@ exports[`renders correctly when the certificate\`s issue status not verified 1`]
         <div
           className="row"
         >
-          Certificate has been tampered with
+          Certificate has not been tampered with
         </div>
       </div>
     </div>
@@ -423,7 +423,7 @@ exports[`renders correctly when the certificate\`s issue status not verified 1`]
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -432,7 +432,7 @@ exports[`renders correctly when the certificate\`s issue status not verified 1`]
         <div
           className="row"
         >
-          Certificate not issued
+          Certificate has been issued
         </div>
       </div>
     </div>
@@ -443,7 +443,7 @@ exports[`renders correctly when the certificate\`s issue status not verified 1`]
         className="col-2"
       >
         <i
-          className="fas fa-times text-danger mr-2"
+          className="fas fa-check text-success mr-2"
         />
       </div>
       <div
@@ -452,103 +452,7 @@ exports[`renders correctly when the certificate\`s issue status not verified 1`]
         <div
           className="row"
         >
-          Certificate revoked
-        </div>
-      </div>
-    </div>
-    <div
-      className="row"
-    >
-      <div
-        className="col-2"
-      >
-        <i
-          className="fas fa-times text-danger mr-2"
-        />
-      </div>
-      <div
-        className="col-10"
-      >
-        <div
-          className="row"
-        >
-          Certificate issuer identity is invalid
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`renders correctly when the certificate\`s issuer not identified 1`] = `
-<div
-  className="undefined undefined bg-white p-3"
->
-  <div
-    className="mb-3"
-  >
-    <h5>
-      Details
-    </h5>
-  </div>
-  <div>
-    <div
-      className="row"
-    >
-      <div
-        className="col-2"
-      >
-        <i
-          className="fas fa-times text-danger mr-2"
-        />
-      </div>
-      <div
-        className="col-10"
-      >
-        <div
-          className="row"
-        >
-          Certificate has been tampered with
-        </div>
-      </div>
-    </div>
-    <div
-      className="row"
-    >
-      <div
-        className="col-2"
-      >
-        <i
-          className="fas fa-times text-danger mr-2"
-        />
-      </div>
-      <div
-        className="col-10"
-      >
-        <div
-          className="row"
-        >
-          Certificate not issued
-        </div>
-      </div>
-    </div>
-    <div
-      className="row"
-    >
-      <div
-        className="col-2"
-      >
-        <i
-          className="fas fa-times text-danger mr-2"
-        />
-      </div>
-      <div
-        className="col-10"
-      >
-        <div
-          className="row"
-        >
-          Certificate revoked
+          Certificate has not been revoked
         </div>
       </div>
     </div>

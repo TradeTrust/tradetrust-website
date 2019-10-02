@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when the certificate is not issued 1`] = `
+<div
+  className="undefined undefined"
+  style={
+    Object {
+      "backgroundColor": "#fbeae9",
+      "borderRadius": 10,
+    }
+  }
+>
+  <span>
+    <img
+      src="/static/images/dropzone/invalid.svg"
+    />
+    <span
+      className="invalid m-3"
+      style={
+        Object {
+          "fontSize": "1.5rem",
+        }
+      }
+    >
+      This certificate is not valid
+    </span>
+  </span>
+  <div>
+    <div>
+      <p>
+        Certificate not issued
+      </p>
+      <p>
+        This certificate cannot be found. Please contact your issuing institution for help or issue the certificate before trying again.
+      </p>
+    </div>
+  </div>
+  <div
+    onClick={[Function]}
+  >
+    What should I do?
+  </div>
+  <div>
+    <span>
+      <a
+        href=" "
+        onClick={[Function]}
+      >
+        Try another
+      </a>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`renders correctly when the certificate is revoked 1`] = `
+<div
+  className="undefined undefined"
+  style={
+    Object {
+      "backgroundColor": "#fbeae9",
+      "borderRadius": 10,
+    }
+  }
+>
+  <span>
+    <img
+      src="/static/images/dropzone/invalid.svg"
+    />
+    <span
+      className="invalid m-3"
+      style={
+        Object {
+          "fontSize": "1.5rem",
+        }
+      }
+    >
+      This certificate is not valid
+    </span>
+  </span>
+  <div>
+    <div>
+      <p>
+        Certificate revoked
+      </p>
+      <p>
+        This certificate has been revoked by your issuing institution. Please contact your issuing institution for more details.
+      </p>
+    </div>
+  </div>
+  <div
+    onClick={[Function]}
+  >
+    What should I do?
+  </div>
+  <div>
+    <span>
+      <a
+        href=" "
+        onClick={[Function]}
+      >
+        Try another
+      </a>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`renders correctly when the hash mismatch 1`] = `
+<div
+  className="undefined undefined"
+  style={
+    Object {
+      "backgroundColor": "#fbeae9",
+      "borderRadius": 10,
+    }
+  }
+>
+  <span>
+    <img
+      src="/static/images/dropzone/invalid.svg"
+    />
+    <span
+      className="invalid m-3"
+      style={
+        Object {
+          "fontSize": "1.5rem",
+        }
+      }
+    >
+      This certificate is not valid
+    </span>
+  </span>
+  <div>
+    <div>
+      <p>
+        Certificate has been tampered with
+      </p>
+      <p>
+        The contents of this certificate are inaccurate and have been tampered with.
+      </p>
+    </div>
+  </div>
+  <div
+    onClick={[Function]}
+  >
+    What should I do?
+  </div>
+  <div>
+    <span>
+      <a
+        href=" "
+        onClick={[Function]}
+      >
+        Try another
+      </a>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`renders correctly when the issuers are not identified 1`] = `
+<div
+  className="undefined undefined"
+  style={
+    Object {
+      "backgroundColor": "#fbeae9",
+      "borderRadius": 10,
+    }
+  }
+>
+  <span>
+    <img
+      src="/static/images/dropzone/invalid.svg"
+    />
+    <span
+      className="invalid m-3"
+      style={
+        Object {
+          "fontSize": "1.5rem",
+        }
+      }
+    >
+      This certificate is not valid
+    </span>
+  </span>
+  <div>
+    <div>
+      <p>
+        Certificate issuer identity is invalid
+      </p>
+      <p>
+        This certificate was issued by an invalid issuer.
+      </p>
+    </div>
+  </div>
+  <div
+    onClick={[Function]}
+  >
+    What should I do?
+  </div>
+  <div>
+    <span>
+      <a
+        href=" "
+        onClick={[Function]}
+      >
+        Try another
+      </a>
+    </span>
+  </div>
+</div>
+`;

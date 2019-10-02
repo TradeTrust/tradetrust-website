@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import CertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
+import UnverifiedView from "./UnverifiedView";
 
 const VALID_VERIFICATION_STATUS = {
   hash: {
@@ -38,19 +38,10 @@ const VALID_VERIFICATION_STATUS = {
   }
 };
 
-it("renders correctly when the certificate is verified", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock verificationStatus={VALID_VERIFICATION_STATUS} />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
 it("renders correctly when the hash mismatch", () => {
   const tree = renderer
     .create(
-      <CertificateVerifyBlock
+      <UnverifiedView
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           hash: { checksumMatch: false }
@@ -64,7 +55,7 @@ it("renders correctly when the hash mismatch", () => {
 it("renders correctly when the certificate is not issued", () => {
   const tree = renderer
     .create(
-      <CertificateVerifyBlock
+      <UnverifiedView
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           issued: { issuedOnAll: false }
@@ -78,7 +69,7 @@ it("renders correctly when the certificate is not issued", () => {
 it("renders correctly when the certificate is revoked", () => {
   const tree = renderer
     .create(
-      <CertificateVerifyBlock
+      <UnverifiedView
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           revoked: { revokedOnAny: true }
@@ -92,7 +83,7 @@ it("renders correctly when the certificate is revoked", () => {
 it("renders correctly when the issuers are not identified", () => {
   const tree = renderer
     .create(
-      <CertificateVerifyBlock
+      <UnverifiedView
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           identity: { identifiedOnAll: false }

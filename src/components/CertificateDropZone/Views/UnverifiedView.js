@@ -12,7 +12,6 @@ const DetailedErrors = ({ verificationStatus }) => {
     errors.push(TYPES.REVOKED);
   if (!get(verificationStatus, "identity.identifiedOnAll"))
     errors.push(TYPES.IDENTITY);
-  console.log(errors);
   const renderedError = errors.map((errorType, index) => (
     <div key={index}>
       <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
