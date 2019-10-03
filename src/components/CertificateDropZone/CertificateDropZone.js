@@ -1,8 +1,10 @@
+import React from "react";
 import Dropzone from "react-dropzone";
 import PropTypes from "prop-types";
 import DefaultView from "./Views/DefaultView";
 import VerifyingView from "./Views/VerifyingView";
 import UnverifiedView from "./Views/UnverifiedView";
+import css from "./CertificateDropzone.css";
 
 export const DropzoneContent = ({
   handleRenderOverwrite,
@@ -98,7 +100,7 @@ const CertificateDropzone = ({
     onDrop={acceptedFiles =>
       onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)
     }
-    className="h-100"
+    className={css.dropzone}
   >
     {renderDropzoneContentCurry({
       handleCertificateChange,

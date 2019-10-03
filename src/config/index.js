@@ -1,8 +1,7 @@
-import getConfig from "next/config";
 import { getLogger } from "../utils/logger";
 
 const { trace } = getLogger("config");
-const { publicRuntimeConfig } = getConfig();
+const publicRuntimeConfig = { network: process.env.NET };
 
 export const NETWORK_TYPES = {
   INFURA_MAINNET: "INFURA_MAINNET",
@@ -11,8 +10,6 @@ export const NETWORK_TYPES = {
   CUSTOM: "CUSTOM",
   MOCK: "MOCK"
 };
-
-export const URL = "https://opencerts.io";
 
 const GA_PRODUCTION_ID = "UA-130492260-1";
 const GA_DEVELOPMENT_ID = "UA-130492260-2";

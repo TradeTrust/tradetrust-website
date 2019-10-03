@@ -1,5 +1,5 @@
+import React from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
 import css from "./viewerStyles.scss";
 
 const View = ({ hover, accept, toggleQrReaderVisible }) => (
@@ -47,16 +47,18 @@ const View = ({ hover, accept, toggleQrReaderVisible }) => (
         <button type="button" className={`pointer ${css.btn}`}>
           Select File
         </button>
-        <Link href="">
-          <button
-            data-id="scan-qr-button"
-            type="button"
-            onClick={toggleQrReaderVisible}
-            className={`pointer ${css.btn}`}
-          >
-            Scan QR Code
-          </button>
-        </Link>
+        <button
+          data-id="scan-qr-button"
+          type="button"
+          onClick={event => {
+            event.preventDefault();
+            event.stopPropagation();
+            toggleQrReaderVisible();
+          }}
+          className={`pointer ${css.btn}`}
+        >
+          Scan QR Code
+        </button>
       </div>
     </div>
   </div>
