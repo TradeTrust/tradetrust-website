@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Router from "next/router";
 import { getData } from "@govtechsg/open-attestation";
 
+import { withRouter } from "react-router";
 import {
   updateCertificate,
   sendCertificate,
@@ -30,9 +30,9 @@ class MainPageContainer extends Component {
   }
 
   componentDidMount() {
-    const { document } = this.props;
+    const { document, history } = this.props;
     if (!document) {
-      Router.replace("/");
+      history.push("/");
     }
   }
 
@@ -89,7 +89,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainPageContainer);
+)(withRouter(MainPageContainer));
 
 MainPageContainer.propTypes = {
   updateCertificate: PropTypes.func,
@@ -100,5 +100,6 @@ MainPageContainer.propTypes = {
   emailSendingState: PropTypes.string,
   sendCertificate: PropTypes.func,
   sendCertificateReset: PropTypes.func,
-  updateObfuscatedCertificate: PropTypes.func
+  updateObfuscatedCertificate: PropTypes.func,
+  history: PropTypes.object
 };

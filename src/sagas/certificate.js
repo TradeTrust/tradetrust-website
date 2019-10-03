@@ -1,5 +1,5 @@
 import { put, select, takeEvery } from "redux-saga/effects";
-import Router from "next/router";
+import { push } from "connected-react-router";
 import { getLogger } from "../utils/logger";
 import {
   types,
@@ -27,7 +27,7 @@ export function* verifyCertificate() {
     // Instead of success/failure, report completeness
     yield put(verifyingCertificateSuccess(verificationStatus));
     if (verificationStatus.valid) {
-      Router.push("/viewer");
+      yield put(push("/viewer"));
     }
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));

@@ -1,5 +1,5 @@
+import React from "react";
 import PropTypes from "prop-types";
-import dynamic from "next/dynamic";
 import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
 import CertificateVerifyBlock from "./CertificateVerifyBlock";
@@ -11,10 +11,7 @@ import MultiTabs from "./MultiTabs";
 import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certificate";
 import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
-
-const CertificateSharingForm = dynamic(
-  import("./CertificateSharing/CertificateSharingForm")
-);
+import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
