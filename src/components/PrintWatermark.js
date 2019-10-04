@@ -1,4 +1,6 @@
-const PrintWatermark = () => (
+import React from "react";
+
+export const PrintWatermark = () => (
   <div className="print-only">
     <img
       style={{
@@ -11,5 +13,3 @@ const PrintWatermark = () => (
     />
   </div>
 );
-
-export default PrintWatermark;

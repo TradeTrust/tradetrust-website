@@ -1,0 +1,28 @@
+import {
+  Meta,
+  Preview,
+  Props,
+  Description
+} from "@storybook/addon-docs/blocks";
+import { PrintWatermark } from "./PrintWatermark";
+
+<Meta title="MDX|PrintWatermark" component={PrintWatermark} />
+
+# PrintWatermark component
+
+<Description of={PrintWatermark} />
+
+# Props
+
+<Props of={PrintWatermark} />
+
+# Usage
+
+With `MDX` we can define a story for `PrintWatermark` right in the middle of our
+markdown documentation.
+
+<Preview withSource>
+  <Story name="basic example">
+    <PrintWatermark />
+  </Story>
+</Preview>
