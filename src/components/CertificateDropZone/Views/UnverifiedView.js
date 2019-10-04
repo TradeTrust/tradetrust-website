@@ -47,11 +47,11 @@ const View = ({ resetData, verificationStatus }) => (
 
     <DetailedErrors verificationStatus={verificationStatus} />
 
-      <div className={css["unverified-btn-container"]}>
-        <Link to="/faq">
-          <span className={css["unverified-btn"]}>What should I do?</span>
-        </Link>
-      </div>
+    <div className={css["unverified-btn-container"]}>
+      <Link to="/faq">
+        <span className={css["unverified-btn"]}>What should I do?</span>
+      </Link>
+    </div>
 
     <div className={css["secondary-links"]}>
       <span>
