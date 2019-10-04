@@ -1,17 +1,11 @@
 import { put, select } from "redux-saga/effects";
 import sinon from "sinon";
-import * as Router from "next/router";
 import { types, getCertificate } from "../reducers/certificate";
 import { sendCertificate, verifyCertificate } from "./certificate";
 import { MakeCertUtil } from "./testutils";
 import * as sendEmail from "../services/email";
 
-jest.mock("next/router");
 jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
-
-beforeEach(() => {
-  Router.default.push.mockClear();
-});
 
 function whenThereIsOneEthereumAddressIssuer() {
   const ethereumAddresses = ["0xd2536C3cc7eb51447F6dA8d60Ba6344A79590b4F"];
@@ -165,8 +159,17 @@ describe("verifyCertificate", () => {
     );
 
     // If verification passes, update the router
-    generator.next();
-    expect(Router.default.push.mock.calls[0]).toEqual(["/viewer"]);
+    const router = generator.next({ valid: true }).value;
+    expect(router).toEqual(
+      put({
+        type: "@@router/CALL_HISTORY_METHOD",
+        payload: {
+          args: ["/viewer"],
+          method: "push"
+        }
+      })
+    );
+    expect(generator.next().done).toEqual(true);
   });
 
   it("verifies the document and change the router to /viewer when verification passes", () => {
@@ -234,7 +237,6 @@ describe("verifyCertificate", () => {
     );
 
     // Does not update router if the validation failed
-    generator.next();
-    expect(Router.default.push.mock.calls[0]).not.toEqual(["/viewer"]);
+    expect(generator.next().done).toEqual(true);
   });
 });

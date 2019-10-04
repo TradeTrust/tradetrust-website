@@ -8,7 +8,6 @@ import { trace } from "../../utils/logger";
 import { IS_MAINNET } from "../../config";
 import MAIN from "./Main-Demo.json";
 import ROPSTEN from "./Ropsten-Demo.json";
-import { analyticsEvent } from "../Analytics/index";
 
 const DEMO_CERT = IS_MAINNET ? MAIN : ROPSTEN;
 const DEMO_CONTENT_KEY = "DEMO_CONTENT";
