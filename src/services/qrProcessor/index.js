@@ -11,9 +11,9 @@ export const decodeQrCode = qrCode => {
 };
 
 export const encodeQrCode = payload =>
-  `tradetrust://${encodeURIComponent(JSON.stringify(payload))}`;
+  `tradetrust://${encodeURIComponent(payload)}`;
 
-const deceryptDocument = async uri => {
+const decryptDocument = async uri => {
   const uriPart = uri.split("#");
   const { data } = await get(uriPart[0]);
   return JSON.parse(
@@ -29,6 +29,6 @@ const deceryptDocument = async uri => {
 
 export const processQrCode = async qrCode => {
   const uri = decodeQrCode(qrCode);
-  const data = await deceryptDocument(uri);
+  const data = await decryptDocument(uri);
   return data;
 };
