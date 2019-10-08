@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import DetailedCertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
 import { MESSAGES } from "../../constants/VerificationErrorMessages";
 
@@ -41,7 +41,7 @@ const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
 
 describe("DetailedCertificateVerifyBlock", () => {
   it("displays hash error if the hash is invalid", () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <DetailedCertificateVerifyBlock
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
@@ -55,12 +55,12 @@ describe("DetailedCertificateVerifyBlock", () => {
       .forEach((child, index) => {
         const title =
           STATUS[index] === "HASH" ? "failureTitle" : "successTitle";
-        expect(child.dive().text()).toContain(MESSAGES[STATUS[index]][title]);
+        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
       });
   });
 
-  it("displays error if the document is not issued", () => {
-    const wrapper = shallow(
+  it("displays issuing error if the document is not issued", () => {
+    const wrapper = mount(
       <DetailedCertificateVerifyBlock
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
@@ -74,12 +74,12 @@ describe("DetailedCertificateVerifyBlock", () => {
       .forEach((child, index) => {
         const title =
           STATUS[index] === "ISSUED" ? "failureTitle" : "successTitle";
-        expect(child.dive().text()).toContain(MESSAGES[STATUS[index]][title]);
+        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
       });
   });
 
-  it("displays error if the document is revoked", () => {
-    const wrapper = shallow(
+  it("displays revocation error if the document is revoked", () => {
+    const wrapper = mount(
       <DetailedCertificateVerifyBlock
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
@@ -93,12 +93,12 @@ describe("DetailedCertificateVerifyBlock", () => {
       .forEach((child, index) => {
         const title =
           STATUS[index] === "REVOKED" ? "failureTitle" : "successTitle";
-        expect(child.dive().text()).toContain(MESSAGES[STATUS[index]][title]);
+        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
       });
   });
 
-  it("displays error if the identity is not verified", () => {
-    const wrapper = shallow(
+  it("displays identity error if the identity is not verified", () => {
+    const wrapper = mount(
       <DetailedCertificateVerifyBlock
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
@@ -112,12 +112,12 @@ describe("DetailedCertificateVerifyBlock", () => {
       .forEach((child, index) => {
         const title =
           STATUS[index] === "IDENTITY" ? "failureTitle" : "successTitle";
-        expect(child.dive().text()).toContain(MESSAGES[STATUS[index]][title]);
+        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
       });
   });
 
-  it("displays all errors if multiple error are there", () => {
-    const wrapper = shallow(
+  it("displays error in all fields when all verification fail", () => {
+    const wrapper = mount(
       <DetailedCertificateVerifyBlock
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
@@ -132,9 +132,7 @@ describe("DetailedCertificateVerifyBlock", () => {
       .find("#detailed-error")
       .children()
       .forEach((child, index) => {
-        expect(child.dive().text()).toContain(
-          MESSAGES[STATUS[index]].failureTitle
-        );
+        expect(child.text()).toContain(MESSAGES[STATUS[index]].failureTitle);
       });
   });
 });

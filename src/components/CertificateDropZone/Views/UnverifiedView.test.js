@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import UnverifiedView from "./UnverifiedView";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 
@@ -37,9 +37,11 @@ const VALID_VERIFICATION_STATUS = {
   }
 };
 
+const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
+
 describe("UnverifiedView", () => {
   it("displays hash error if the hash is invalid", () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <UnverifiedView
         handleRenderOverwrite={() => {}}
         verificationStatus={{
@@ -49,10 +51,7 @@ describe("UnverifiedView", () => {
         resetData={() => {}}
       />
     );
-    const errorContainerElm = wrapper
-      .find("DetailedErrors")
-      .dive()
-      .find("#error-tab0");
+    const errorContainerElm = wrapper.find("#error-tab");
     expect(errorContainerElm.text()).toContain(
       MESSAGES[TYPES.HASH].failureTitle
     );
@@ -61,8 +60,8 @@ describe("UnverifiedView", () => {
     );
   });
 
-  it("displays error if the document is not issued", () => {
-    const wrapper = shallow(
+  it("displays issuing error if the document is not issued", () => {
+    const wrapper = mount(
       <UnverifiedView
         handleRenderOverwrite={() => {}}
         verificationStatus={{
@@ -72,10 +71,7 @@ describe("UnverifiedView", () => {
         resetData={() => {}}
       />
     );
-    const errorContainerElm = wrapper
-      .find("DetailedErrors")
-      .dive()
-      .find("#error-tab0");
+    const errorContainerElm = wrapper.find("#error-tab");
     expect(errorContainerElm.text()).toContain(
       MESSAGES[TYPES.ISSUED].failureTitle
     );
@@ -84,8 +80,8 @@ describe("UnverifiedView", () => {
     );
   });
 
-  it("displays error if the document is revoked", () => {
-    const wrapper = shallow(
+  it("display revocation error if the document is revoked", () => {
+    const wrapper = mount(
       <UnverifiedView
         handleRenderOverwrite={() => {}}
         verificationStatus={{
@@ -95,10 +91,7 @@ describe("UnverifiedView", () => {
         resetData={() => {}}
       />
     );
-    const errorContainerElm = wrapper
-      .find("DetailedErrors")
-      .dive()
-      .find("#error-tab0");
+    const errorContainerElm = wrapper.find("#error-tab");
     expect(errorContainerElm.text()).toContain(
       MESSAGES[TYPES.REVOKED].failureTitle
     );
@@ -107,8 +100,8 @@ describe("UnverifiedView", () => {
     );
   });
 
-  it("displays error if the identity is not verified", () => {
-    const wrapper = shallow(
+  it("displays identity error if the identity is not verified", () => {
+    const wrapper = mount(
       <UnverifiedView
         handleRenderOverwrite={() => {}}
         verificationStatus={{
@@ -118,10 +111,7 @@ describe("UnverifiedView", () => {
         resetData={() => {}}
       />
     );
-    const errorContainerElm = wrapper
-      .find("DetailedErrors")
-      .dive()
-      .find("#error-tab0");
+    const errorContainerElm = wrapper.find("#error-tab");
     expect(errorContainerElm.text()).toContain(
       MESSAGES[TYPES.IDENTITY].failureTitle
     );
@@ -129,8 +119,8 @@ describe("UnverifiedView", () => {
       MESSAGES[TYPES.IDENTITY].failureMessage
     );
   });
-  it("displays all errors if multiple error are there", () => {
-    const wrapper = shallow(
+  it("displays error in all fields when all verification fail", () => {
+    const wrapper = mount(
       <UnverifiedView
         handleRenderOverwrite={() => {}}
         verificationStatus={{
@@ -143,45 +133,12 @@ describe("UnverifiedView", () => {
         resetData={() => {}}
       />
     );
-    const errorContainerElm0 = wrapper
-      .find("DetailedErrors")
-      .dive()
-      .find("#error-tab0");
-    expect(errorContainerElm0.text()).toContain(
-      MESSAGES[TYPES.HASH].failureTitle
-    );
-    expect(errorContainerElm0.text()).toContain(
-      MESSAGES[TYPES.HASH].failureMessage
-    );
-    const errorContainerElm1 = wrapper
-      .find("DetailedErrors")
-      .dive()
-      .find("#error-tab1");
-    expect(errorContainerElm1.text()).toContain(
-      MESSAGES[TYPES.ISSUED].failureTitle
-    );
-    expect(errorContainerElm1.text()).toContain(
-      MESSAGES[TYPES.ISSUED].failureMessage
-    );
-    const errorContainerElm2 = wrapper
-      .find("DetailedErrors")
-      .dive()
-      .find("#error-tab2");
-    expect(errorContainerElm2.text()).toContain(
-      MESSAGES[TYPES.REVOKED].failureTitle
-    );
-    expect(errorContainerElm2.text()).toContain(
-      MESSAGES[TYPES.REVOKED].failureMessage
-    );
-    const errorContainerElm3 = wrapper
-      .find("DetailedErrors")
-      .dive()
-      .find("#error-tab3");
-    expect(errorContainerElm3.text()).toContain(
-      MESSAGES[TYPES.IDENTITY].failureTitle
-    );
-    expect(errorContainerElm3.text()).toContain(
-      MESSAGES[TYPES.IDENTITY].failureMessage
-    );
+    wrapper
+      .find("#error-tab")
+      .children()
+      .forEach((child, index) => {
+        expect(child.text()).toContain(MESSAGES[STATUS[index]].failureTitle);
+        expect(child.text()).toContain(MESSAGES[STATUS[index]].failureMessage);
+      });
   });
 });
