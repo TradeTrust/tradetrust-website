@@ -121,9 +121,7 @@ const SimpleVerifyBlock = props => {
         {renderedIcon}
         {renderedText}
         <span
-          className={`d-flex justify-content-center align-items-center ${
-            css.arrow
-          }`}
+          className={`d-flex justify-content-center align-items-center ${css.arrow}`}
         >
           {icons.arrow()}
         </span>
