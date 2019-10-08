@@ -1,7 +1,6 @@
-import React from "react";
-import renderer from "react-test-renderer";
-
+import { mount } from "enzyme";
 import UnverifiedView from "./UnverifiedView";
+import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 
 const VALID_VERIFICATION_STATUS = {
   hash: {
@@ -38,58 +37,108 @@ const VALID_VERIFICATION_STATUS = {
   }
 };
 
-it("renders correctly when the hash mismatch", () => {
-  const tree = renderer
-    .create(
+const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
+
+describe("UnverifiedView", () => {
+  it("displays hash error if the hash is invalid", () => {
+    const wrapper = mount(
       <UnverifiedView
+        handleRenderOverwrite={() => {}}
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           hash: { checksumMatch: false }
         }}
+        resetData={() => {}}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.HASH].failureTitle
+    );
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.HASH].failureMessage
+    );
+  });
 
-it("renders correctly when the certificate is not issued", () => {
-  const tree = renderer
-    .create(
+  it("displays issuing error if the document is not issued", () => {
+    const wrapper = mount(
       <UnverifiedView
+        handleRenderOverwrite={() => {}}
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           issued: { issuedOnAll: false }
         }}
+        resetData={() => {}}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.ISSUED].failureTitle
+    );
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.ISSUED].failureMessage
+    );
+  });
 
-it("renders correctly when the certificate is revoked", () => {
-  const tree = renderer
-    .create(
+  it("display revocation error if the document is revoked", () => {
+    const wrapper = mount(
       <UnverifiedView
+        handleRenderOverwrite={() => {}}
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           revoked: { revokedOnAny: true }
         }}
+        resetData={() => {}}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.REVOKED].failureTitle
+    );
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.REVOKED].failureMessage
+    );
+  });
 
-it("renders correctly when the issuers are not identified", () => {
-  const tree = renderer
-    .create(
+  it("displays identity error if the identity is not verified", () => {
+    const wrapper = mount(
       <UnverifiedView
+        handleRenderOverwrite={() => {}}
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           identity: { identifiedOnAll: false }
         }}
+        resetData={() => {}}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.IDENTITY].failureTitle
+    );
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.IDENTITY].failureMessage
+    );
+  });
+  it("displays error in all fields when all verification fail", () => {
+    const wrapper = mount(
+      <UnverifiedView
+        handleRenderOverwrite={() => {}}
+        verificationStatus={{
+          ...VALID_VERIFICATION_STATUS,
+          hash: { checksumMatch: false },
+          issued: { issuedOnAll: false },
+          revoked: { revokedOnAny: true },
+          identity: { identifiedOnAll: false }
+        }}
+        resetData={() => {}}
+      />
+    );
+    wrapper
+      .find("#error-tab")
+      .children()
+      .forEach((child, index) => {
+        expect(child.text()).toContain(MESSAGES[STATUS[index]].failureTitle);
+        expect(child.text()).toContain(MESSAGES[STATUS[index]].failureMessage);
+      });
+  });
 });

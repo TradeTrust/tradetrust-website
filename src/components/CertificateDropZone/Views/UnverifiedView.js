@@ -18,7 +18,11 @@ const DetailedErrors = ({ verificationStatus }) => {
       <p>{MESSAGES[errorType].failureMessage}</p>
     </div>
   ));
-  return <div className={css.verifications}>{renderedError}</div>;
+  return (
+    <div id="error-tab" className={css.verifications}>
+      {renderedError}
+    </div>
+  );
 };
 
 DetailedErrors.propTypes = {

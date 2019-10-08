@@ -2,7 +2,7 @@ import * as dnsprove from "@govtechsg/dnsprove";
 import verify from "@govtechsg/oa-verify";
 import * as openattestation from "@govtechsg/open-attestation";
 import {
-  resolveIsssuerIdentity,
+  resolveIssuerIdentity,
   getIssuersIdentities,
   verifyDocument,
   issuersIdentitiesAllVerified
@@ -97,7 +97,7 @@ const whenDnsProveResolvesBothAddresses = () => {
   ]);
 };
 
-describe("resolveIsssuerIdentity", () => {
+describe("resolveIssuerIdentity", () => {
   it("returns correctly when there is a matching DNS record", async () => {
     whenDnsProveResolvesBothAddresses();
     const issuer = {
@@ -107,7 +107,7 @@ describe("resolveIsssuerIdentity", () => {
         location: "example.openattestation.com"
       }
     };
-    const identified = await resolveIsssuerIdentity(issuer);
+    const identified = await resolveIssuerIdentity(issuer);
     expect(identified).toEqual({
       identified: true,
       dns: "example.openattestation.com",
@@ -124,7 +124,7 @@ describe("resolveIsssuerIdentity", () => {
         location: "example.openattestation.com"
       }
     };
-    const identified = await resolveIsssuerIdentity(issuer);
+    const identified = await resolveIssuerIdentity(issuer);
     expect(identified).toEqual({
       identified: false,
       smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
@@ -139,7 +139,7 @@ describe("resolveIsssuerIdentity", () => {
         location: "example.openattestation.com"
       }
     };
-    const identified = await resolveIsssuerIdentity(issuer);
+    const identified = await resolveIssuerIdentity(issuer);
     expect(identified).toEqual({
       error: "Identity type not supported",
       identified: false,
@@ -152,7 +152,7 @@ describe("resolveIsssuerIdentity", () => {
       documentStore: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
       identityProof: { type: "DNS-TXT" }
     };
-    const identified = await resolveIsssuerIdentity(issuer);
+    const identified = await resolveIssuerIdentity(issuer);
     expect(identified).toEqual({
       error: "Location is missing",
       identified: false,

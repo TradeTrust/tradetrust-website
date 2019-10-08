@@ -32,7 +32,7 @@ const renderStatuses = verificationStatus => {
     false
   );
   return (
-    <div>
+    <div id="detailed-error">
       {renderStatusCheckRow(hashValid, MESSAGES[TYPES.HASH])}
       {renderStatusCheckRow(issuedValid, MESSAGES[TYPES.ISSUED])}
       {renderStatusCheckRow(revokedValid, MESSAGES[TYPES.REVOKED])}
