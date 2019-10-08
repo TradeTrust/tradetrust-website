@@ -1,7 +1,6 @@
-import React from "react";
-import renderer from "react-test-renderer";
-
-import CertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
+import { shallow } from "enzyme";
+import DetailedCertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
+import { MESSAGES } from "../../constants/VerificationErrorMessages";
 
 const VALID_VERIFICATION_STATUS = {
   hash: {
@@ -38,67 +37,104 @@ const VALID_VERIFICATION_STATUS = {
   }
 };
 
-it("renders correctly when the certificate is verified", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock verificationStatus={VALID_VERIFICATION_STATUS} />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
 
-it("renders correctly when the hash mismatch", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
+describe("DetailedCertificateVerifyBlock", () => {
+  it("displays hash error if the hash is invalid", () => {
+    const wrapper = shallow(
+      <DetailedCertificateVerifyBlock
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           hash: { checksumMatch: false }
         }}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        const title =
+          STATUS[index] === "HASH" ? "failureTitle" : "successTitle";
+        expect(child.dive().text()).toContain(MESSAGES[STATUS[index]][title]);
+      });
+  });
 
-it("renders correctly when the certificate is not issued", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
+  it("displays error if the document is not issued", () => {
+    const wrapper = shallow(
+      <DetailedCertificateVerifyBlock
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           issued: { issuedOnAll: false }
         }}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        const title =
+          STATUS[index] === "ISSUED" ? "failureTitle" : "successTitle";
+        expect(child.dive().text()).toContain(MESSAGES[STATUS[index]][title]);
+      });
+  });
 
-it("renders correctly when the certificate is revoked", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
+  it("displays error if the document is revoked", () => {
+    const wrapper = shallow(
+      <DetailedCertificateVerifyBlock
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           revoked: { revokedOnAny: true }
         }}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        const title =
+          STATUS[index] === "REVOKED" ? "failureTitle" : "successTitle";
+        expect(child.dive().text()).toContain(MESSAGES[STATUS[index]][title]);
+      });
+  });
 
-it("renders correctly when the issuers are not identified", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
+  it("displays error if the identity is not verified", () => {
+    const wrapper = shallow(
+      <DetailedCertificateVerifyBlock
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           identity: { identifiedOnAll: false }
         }}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        const title =
+          STATUS[index] === "IDENTITY" ? "failureTitle" : "successTitle";
+        expect(child.dive().text()).toContain(MESSAGES[STATUS[index]][title]);
+      });
+  });
+
+  it("displays all errors if multiple error are there", () => {
+    const wrapper = shallow(
+      <DetailedCertificateVerifyBlock
+        verificationStatus={{
+          ...VALID_VERIFICATION_STATUS,
+          hash: { checksumMatch: false },
+          issued: { issuedOnAll: false },
+          revoked: { revokedOnAny: true },
+          identity: { identifiedOnAll: false }
+        }}
+      />
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        expect(child.dive().text()).toContain(
+          MESSAGES[STATUS[index]].failureTitle
+        );
+      });
+  });
 });

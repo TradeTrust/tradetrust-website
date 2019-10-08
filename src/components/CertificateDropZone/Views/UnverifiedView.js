@@ -13,7 +13,7 @@ const DetailedErrors = ({ verificationStatus }) => {
   if (!get(verificationStatus, "identity.identifiedOnAll"))
     errors.push(TYPES.IDENTITY);
   const renderedError = errors.map((errorType, index) => (
-    <div key={index}>
+    <div id={`error-tab${index}`} key={index}>
       <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
       <p>{MESSAGES[errorType].failureMessage}</p>
     </div>
