@@ -1,8 +1,8 @@
 import { Selector } from "testcafe";
 
-fixture("Tampered Cert").page`http://localhost:3000`;
+fixture("Unverified Ceritifcate Rendering").page`http://localhost:3000`;
 
-const Certificate = "./tampered.opencert";
+const Certificate = "./fixture/unverified-issuer.json";
 
 const RenderedCertificate = Selector("#certificate-dropzone");
 const InvalidMessage = Selector(".invalid");
@@ -13,13 +13,13 @@ const validateTextContent = async (t, component, texts) =>
     Promise.resolve()
   );
 
-test("Tampered certificate's error message is correct'", async t => {
+test("Error view rendered when certificate issuers are unverfied", async t => {
   await t.setFilesToUpload("input[type=file]", [Certificate]);
 
   await InvalidMessage.with({ visibilityCheck: true })();
 
   await validateTextContent(t, RenderedCertificate, [
-    "This certificate is not valid",
-    "Certificate has been tampered with"
+    "Certificate issuer identity is invalid",
+    "This certificate was issued by an invalid issuer."
   ]);
 });

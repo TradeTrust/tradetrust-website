@@ -10,12 +10,8 @@ import {
   sendCertificateReset,
   getCertificate,
   getVerifying,
-  getIssuerIdentityStatus,
-  getHashStatus,
-  getIssuedStatus,
-  getNotRevokedStatus,
-  getVerified,
   getEmailSendingState,
+  getVerificationStatus,
   updateObfuscatedCertificate
 } from "../reducers/certificate";
 import CertificateViewer from "./CertificateViewer";
@@ -28,7 +24,6 @@ class MainPageContainer extends Component {
       showSharing: false,
       detailedVerifyVisible: false
     };
-    this.toggleDetailedView = this.toggleDetailedView.bind(this);
     this.handleCertificateChange = this.handleCertificateChange.bind(this);
     this.handleSharingToggle = this.handleSharingToggle.bind(this);
     this.handleSendCertificate = this.handleSendCertificate.bind(this);
@@ -46,12 +41,6 @@ class MainPageContainer extends Component {
     this.setState({ showSharing: !this.state.showSharing });
   }
 
-  toggleDetailedView() {
-    this.setState({
-      detailedVerifyVisible: !this.state.detailedVerifyVisible
-    });
-  }
-
   handleCertificateChange(certificate) {
     this.props.updateCertificate(certificate);
   }
@@ -67,17 +56,13 @@ class MainPageContainer extends Component {
         document={this.props.document}
         certificate={getData(this.props.document)}
         verifying={this.props.verifying}
-        hashStatus={this.props.hashStatus}
-        issuedStatus={this.props.issuedStatus}
-        notRevokedStatus={this.props.notRevokedStatus}
-        issuerIdentityStatus={this.props.issuerIdentityStatus}
+        verificationStatus={this.props.verificationStatus}
         handleCertificateChange={this.handleCertificateChange}
         showSharing={this.state.showSharing}
         emailAddress={this.state.emailAddress}
         handleSendCertificate={this.handleSendCertificate}
         handleSharingToggle={this.handleSharingToggle}
         emailSendingState={this.props.emailSendingState}
-        toggleDetailedView={this.toggleDetailedView}
         detailedVerifyVisible={this.state.detailedVerifyVisible}
       />
     );
@@ -90,12 +75,7 @@ const mapStateToProps = store => ({
   // Verification statuses used in verifier block
   emailSendingState: getEmailSendingState(store),
   verifying: getVerifying(store),
-  issuerIdentityStatus: getIssuerIdentityStatus(store),
-  hashStatus: getHashStatus(store),
-  issuedStatus: getIssuedStatus(store),
-  notRevokedStatus: getNotRevokedStatus(store),
-
-  verified: getVerified(store)
+  verificationStatus: getVerificationStatus(store)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -116,11 +96,7 @@ MainPageContainer.propTypes = {
   document: PropTypes.object,
   certificate: PropTypes.object,
   verifying: PropTypes.bool,
-  hashStatus: PropTypes.object,
-  issuedStatus: PropTypes.object,
-  notRevokedStatus: PropTypes.object,
-  issuerIdentityStatus: PropTypes.object,
-  verified: PropTypes.bool,
+  verificationStatus: PropTypes.object,
   emailSendingState: PropTypes.string,
   sendCertificate: PropTypes.func,
   sendCertificateReset: PropTypes.func,

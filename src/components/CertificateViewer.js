@@ -20,11 +20,7 @@ const renderVerifyBlock = props => (
   <CertificateVerifyBlock
     verifyTriggered={props.verifyTriggered}
     verifying={props.verifying}
-    hashStatus={props.hashStatus}
-    issuedStatus={props.issuedStatus}
-    notRevokedStatus={props.notRevokedStatus}
-    issuerIdentityStatus={props.issuerIdentityStatus}
-    toggleDetailedView={props.toggleDetailedView}
+    verificationStatus={props.verificationStatus}
     detailedVerifyVisible={props.detailedVerifyVisible}
   />
 );
@@ -125,16 +121,11 @@ export default connect(
 )(CertificateViewer);
 
 CertificateViewer.propTypes = {
-  toggleDetailedView: PropTypes.func,
   detailedVerifyVisible: PropTypes.bool,
   document: PropTypes.object,
   certificate: PropTypes.object,
   verifying: PropTypes.bool,
-
-  hashStatus: PropTypes.object,
-  issuedStatus: PropTypes.object,
-  notRevokedStatus: PropTypes.object,
-  issuerIdentityStatus: PropTypes.object,
+  verificationStatus: PropTypes.object,
   showSharing: PropTypes.bool,
   emailSendingState: PropTypes.string,
   handleSharingToggle: PropTypes.func,

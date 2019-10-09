@@ -20,7 +20,7 @@ test("Sample document is rendered correctly when multiple dns is verfied", async
   await StatusButton.with({ visibilityCheck: true })();
 
   await validateTextContent(t, StatusButton, [
-    "Issued by EXAMPLE.OPENATTESTATION.COM"
+    "Issued by EXAMPLE.TRADETRUST.IO"
   ]);
 
   await t.switchToIframe(IframeBlock);

@@ -8,17 +8,9 @@ import { trace } from "../../utils/logger";
 import { IS_MAINNET } from "../../config";
 import MAIN from "./Main-Demo";
 import ROPSTEN from "./Ropsten-Demo";
-import { analyticsEvent } from "../Analytics/index";
 
 const DEMO_CERT = IS_MAINNET ? MAIN : ROPSTEN;
 const DEMO_CONTENT_KEY = "DEMO_CONTENT";
-
-function demoCount() {
-  analyticsEvent(window, {
-    category: "USER_INTERACTION",
-    action: "DEMO_CERTIFICATE_VIEWED"
-  });
-}
 
 const DraggableDemoCertificate = () => (
   <div className="d-none d-lg-block">
@@ -28,7 +20,6 @@ const DraggableDemoCertificate = () => (
           className={css.pulse}
           draggable="true"
           onDragStart={e => e.dataTransfer.setData(DEMO_CONTENT_KEY, true)}
-          onDragEnd={demoCount}
         >
           <a
             href={`data:text/plain;,${JSON.stringify(DEMO_CERT, null, 2)}`}
@@ -65,7 +56,6 @@ const MobileDemoCertificate = () => (
         border: "none",
         cursor: "pointer"
       }}
-      onClick={demoCount}
     >
       Click me for a demo certificate!
     </a>

@@ -1,129 +1,53 @@
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { get, sortBy } from "lodash";
+import { get } from "lodash";
 import DetailedCertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
-import { LOG_LEVEL } from "./constants";
 import css from "./certificateVerifyBlock.scss";
 import icons from "../ViewerPageImages";
 
-const statusSummary = ({
-  verifying,
-  hashStatus,
-  issuedStatus,
-  notRevokedStatus,
-  issuerIdentityStatus
-}) => {
-  if (verifying) return LOG_LEVEL.VERIFYING;
-  if (
-    !verifying &&
-    hashStatus.verified &&
-    issuedStatus.verified &&
-    notRevokedStatus.verified &&
-    issuerIdentityStatus.verified
-  )
-    return LOG_LEVEL.VALID;
-  if (
-    !verifying &&
-    hashStatus.verified &&
-    issuedStatus.verified &&
-    notRevokedStatus.verified &&
-    !issuerIdentityStatus.verified
-  )
-    return LOG_LEVEL.WARNING;
-  return LOG_LEVEL.INVALID;
-};
+const renderIcon = () => (
+  <div
+    className={`d-flex justify-content-center align-items-center ${
+      css["verified-icon"]
+    }`}
+  >
+    {icons.checkCircle()}
+  </div>
+);
 
-const renderIcon = status => {
-  let icon;
-  switch (status) {
-    case LOG_LEVEL.CONNECTING:
-    case LOG_LEVEL.VERIFYING:
-      icon = <i id="verify-spinner" className="fa fa-spinner fa-spin fa-2x" />;
-      break;
-    case LOG_LEVEL.VALID:
-      icon = icons.checkCircle();
-      break;
-    case LOG_LEVEL.WARNING:
-      icon = (
-        <i id="verify-warning" className="fas fa-exclamation-triangle fa-2x" />
-      );
-      break;
-    default:
-      icon = <i id="verify-invalid" className="fas fa-times-circle fa-2x" />;
-  }
-  return (
-    <div
-      className={`d-flex justify-content-center align-items-center ${
-        css["verified-icon"]
-      }`}
-    >
-      {icon}
-    </div>
+export const getIdentityVerificationText = identityDetails => {
+  const dnsNames = identityDetails.map(({ dns }) =>
+    dns ? dns.toUpperCase() : null
   );
-};
-
-export const getIdentityVerificationText = identityStatus => {
-  // note filter Boolean is to remove empty values
-  const dnsNames = sortBy(identityStatus, ["dns"])
-    .map(({ dns }) => (dns ? dns.toUpperCase() : null))
-    .filter(Boolean);
   return `Issued by ${dnsNames.length > 0 ? dnsNames[0] : "Unknown"}`;
 };
 
-const renderText = (status, props) => {
-  let text;
-  switch (status) {
-    case LOG_LEVEL.CONNECTING:
-      text = "Connecting ...";
-      break;
-    case LOG_LEVEL.VERIFYING:
-      text = "Verifying Certificate ...";
-      break;
-    case LOG_LEVEL.VALID: {
-      const identity = get(props, "issuerIdentityStatus.identities", []);
-      text = getIdentityVerificationText(identity);
-      break;
-    }
-    case LOG_LEVEL.WARNING:
-      text = "Institution identity not verified";
-      break;
-    default:
-      text = "Invalid Certificate";
-  }
-  return <div className={css["verification-text"]}>{text}</div>;
-};
+const renderText = identityDetails => (
+  <div className={css["verification-text"]}>
+    {getIdentityVerificationText(identityDetails)}
+  </div>
+);
 
 const SimpleVerifyBlock = props => {
-  const status = statusSummary(props);
-  const renderedIcon = renderIcon(status);
-  const renderedText = renderText(status, props);
+  const { verificationStatus } = props;
+  const renderedIcon = renderIcon();
+  const renderedText = renderText(
+    get(verificationStatus, "identity.details", [])
+  );
 
-  let stateStyle;
-  switch (status) {
-    case LOG_LEVEL.VALID:
-      stateStyle = "valid";
-      break;
-    case LOG_LEVEL.WARNING:
-      stateStyle = "warning";
-      break;
-    case LOG_LEVEL.INVALID:
-    default:
-      stateStyle = "invalid";
-  }
   return (
     <div
-      className={`p-2 pointer ${css["simple-verify-block"]} ${
-        css[stateStyle]
-      } ${props.detailedVerifyVisible ? css.active : ""}`}
-      onClick={props.toggleDetailedView}
+      className={`p-2 pointer ${css["simple-verify-block"]} ${css.valid} ${
+        props.detailedVerifyVisible ? css.active : ""
+      }`}
+      onClick={props.toggleDetailedViewVisible}
       id="certificate-status"
     >
       <div className="row" style={{ flexWrap: "inherit" }}>
         {renderedIcon}
         {renderedText}
         <span
-          className={`d-flex justify-content-center align-items-center ${
-            css.arrow
-          }`}
+          className={`d-flex justify-content-center align-items-center ${css.arrow}`}
         >
           {icons.arrow()}
         </span>
@@ -133,7 +57,12 @@ const SimpleVerifyBlock = props => {
 };
 
 const CertificateVerifyBlock = props => {
-  const status = statusSummary(props);
+  const [detailedViewVisible, setDetailedViewVisible] = useState(false);
+  const toggleDetailedViewVisible = () =>
+    setDetailedViewVisible(!detailedViewVisible);
+
+  const { verificationStatus } = props;
+
   return (
     <div
       id="certificate-verify-block"
@@ -141,14 +70,13 @@ const CertificateVerifyBlock = props => {
         css.verifyBlocksContainer
       } mb-md-0 mb-3`}
     >
-      <SimpleVerifyBlock {...props} />
-      {props.detailedVerifyVisible ? (
+      <SimpleVerifyBlock
+        verificationStatus={verificationStatus}
+        toggleDetailedViewVisible={toggleDetailedViewVisible}
+      />
+      {detailedViewVisible ? (
         <DetailedCertificateVerifyBlock
-          statusSummary={status}
-          hashStatus={props.hashStatus}
-          issuedStatus={props.issuedStatus}
-          notRevokedStatus={props.notRevokedStatus}
-          issuerIdentityStatus={props.issuerIdentityStatus}
+          verificationStatus={verificationStatus}
         />
       ) : (
         ""
@@ -161,10 +89,7 @@ CertificateVerifyBlock.propTypes = {
   verifyTriggered: PropTypes.bool,
   verifying: PropTypes.bool,
 
-  hashStatus: PropTypes.object,
-  issuedStatus: PropTypes.object,
-  notRevokedStatus: PropTypes.object,
-  issuerIdentityStatus: PropTypes.object,
+  verificationStatus: PropTypes.object,
   toggleDetailedView: PropTypes.func,
   detailedVerifyVisible: PropTypes.bool
 };

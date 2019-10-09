@@ -1,6 +1,6 @@
 import { mount } from "enzyme";
-import DetailedCertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
-import { MESSAGES } from "../../constants/VerificationErrorMessages";
+import UnverifiedView from "./UnverifiedView";
+import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 
 const VALID_VERIFICATION_STATUS = {
   hash: {
@@ -39,86 +39,90 @@ const VALID_VERIFICATION_STATUS = {
 
 const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
 
-describe("DetailedCertificateVerifyBlock", () => {
+describe("UnverifiedView", () => {
   it("displays hash error if the hash is invalid", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <UnverifiedView
+        handleRenderOverwrite={() => {}}
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           hash: { checksumMatch: false }
         }}
+        resetData={() => {}}
       />
     );
-    wrapper
-      .find("#detailed-error")
-      .children()
-      .forEach((child, index) => {
-        const title =
-          STATUS[index] === "HASH" ? "failureTitle" : "successTitle";
-        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
-      });
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.HASH].failureTitle
+    );
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.HASH].failureMessage
+    );
   });
 
   it("displays issuing error if the document is not issued", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <UnverifiedView
+        handleRenderOverwrite={() => {}}
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           issued: { issuedOnAll: false }
         }}
+        resetData={() => {}}
       />
     );
-    wrapper
-      .find("#detailed-error")
-      .children()
-      .forEach((child, index) => {
-        const title =
-          STATUS[index] === "ISSUED" ? "failureTitle" : "successTitle";
-        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
-      });
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.ISSUED].failureTitle
+    );
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.ISSUED].failureMessage
+    );
   });
 
-  it("displays revocation error if the document is revoked", () => {
+  it("display revocation error if the document is revoked", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <UnverifiedView
+        handleRenderOverwrite={() => {}}
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           revoked: { revokedOnAny: true }
         }}
+        resetData={() => {}}
       />
     );
-    wrapper
-      .find("#detailed-error")
-      .children()
-      .forEach((child, index) => {
-        const title =
-          STATUS[index] === "REVOKED" ? "failureTitle" : "successTitle";
-        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
-      });
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.REVOKED].failureTitle
+    );
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.REVOKED].failureMessage
+    );
   });
 
   it("displays identity error if the identity is not verified", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <UnverifiedView
+        handleRenderOverwrite={() => {}}
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           identity: { identifiedOnAll: false }
         }}
+        resetData={() => {}}
       />
     );
-    wrapper
-      .find("#detailed-error")
-      .children()
-      .forEach((child, index) => {
-        const title =
-          STATUS[index] === "IDENTITY" ? "failureTitle" : "successTitle";
-        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
-      });
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.IDENTITY].failureTitle
+    );
+    expect(errorContainerElm.text()).toContain(
+      MESSAGES[TYPES.IDENTITY].failureMessage
+    );
   });
-
   it("displays error in all fields when all verification fail", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <UnverifiedView
+        handleRenderOverwrite={() => {}}
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           hash: { checksumMatch: false },
@@ -126,13 +130,15 @@ describe("DetailedCertificateVerifyBlock", () => {
           revoked: { revokedOnAny: true },
           identity: { identifiedOnAll: false }
         }}
+        resetData={() => {}}
       />
     );
     wrapper
-      .find("#detailed-error")
+      .find("#error-tab")
       .children()
       .forEach((child, index) => {
         expect(child.text()).toContain(MESSAGES[STATUS[index]].failureTitle);
+        expect(child.text()).toContain(MESSAGES[STATUS[index]].failureMessage);
       });
   });
 });
