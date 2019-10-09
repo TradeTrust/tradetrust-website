@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import DefaultView from "./DefaultView";
 
-describe("DefaultView", () => {
+describe("defaultView", () => {
   it("displays correctly if accept is true", () => {
     const wrapper = shallow(
       <DefaultView

@@ -198,7 +198,7 @@ describe("verifyDocument", () => {
     whenDnsProveResolvesBothAddresses();
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
-    expect(verificationResults).toEqual(truthyResult);
+    expect(verificationResults).toStrictEqual(truthyResult);
   });
 
   it("returns false as overall valid when any of the checks fail", async () => {
@@ -208,7 +208,7 @@ describe("verifyDocument", () => {
     whenDnsProveResolvesBothAddresses();
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
-    expect(verificationResults).toEqual(falsyResult);
+    expect(verificationResults).toStrictEqual(falsyResult);
   });
 });
 describe("resolveIssuerIdentity", () => {
@@ -217,8 +217,8 @@ describe("resolveIssuerIdentity", () => {
     whenDnsProveResolvesAddress();
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
-    expect(verificationResults.identity.identifiedOnAll).toEqual(false);
-    expect(verificationResults.valid).toEqual(false);
+    expect(verificationResults.identity.identifiedOnAll).toStrictEqual(false);
+    expect(verificationResults.valid).toStrictEqual(false);
   });
 
   it("returns error when matching DNS record does not exist", async () => {
@@ -226,9 +226,9 @@ describe("resolveIssuerIdentity", () => {
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
 
-    expect(verificationResults.identity.identifiedOnAll).toEqual(false);
-    expect(verificationResults.valid).toEqual(false);
-    expect(verificationResults.identity.details).toEqual([
+    expect(verificationResults.identity.identifiedOnAll).toStrictEqual(false);
+    expect(verificationResults.valid).toStrictEqual(false);
+    expect(verificationResults.identity.details).toStrictEqual([
       {
         identified: false,
         smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
@@ -244,9 +244,9 @@ describe("resolveIssuerIdentity", () => {
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
 
-    expect(verificationResults.identity.identifiedOnAll).toEqual(false);
-    expect(verificationResults.valid).toEqual(false);
-    expect(verificationResults.identity.details).toEqual([
+    expect(verificationResults.identity.identifiedOnAll).toStrictEqual(false);
+    expect(verificationResults.valid).toStrictEqual(false);
+    expect(verificationResults.identity.details).toStrictEqual([
       {
         identified: false,
         smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
@@ -277,8 +277,8 @@ describe("getIssuersIdentities", () => {
     ];
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
-    expect(verificationResults).toEqual(truthyResult);
-    expect(verificationResults.identity.details).toEqual(expectedResults);
+    expect(verificationResults).toStrictEqual(truthyResult);
+    expect(verificationResults.identity.details).toStrictEqual(expectedResults);
   });
 
   it("includes error when any issuers is not correctly formatted", async () => {
@@ -300,7 +300,7 @@ describe("getIssuersIdentities", () => {
     ];
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
-    expect(verificationResults.identity.identifiedOnAll).toEqual(false);
-    expect(verificationResults.identity.details).toEqual(expectedResults);
+    expect(verificationResults.identity.identifiedOnAll).toStrictEqual(false);
+    expect(verificationResults.identity.details).toStrictEqual(expectedResults);
   });
 });

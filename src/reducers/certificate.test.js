@@ -9,13 +9,15 @@ import reducer, {
 } from "./certificate";
 
 describe("reducers", () => {
-  describe("Reset certificate", () => {
+  describe("reset certificate", () => {
     it("should reset the state to initial state", () => {
       const prevState = { foo: "bar" };
-      expect(reducer(prevState, resetCertificateState())).toEqual(initialState);
+      expect(reducer(prevState, resetCertificateState())).toStrictEqual(
+        initialState
+      );
     });
   });
-  describe("CERTIFICATE_TEMPLATE_SELECT_TAB", () => {
+  describe("cERTIFICATE_TEMPLATE_SELECT_TAB", () => {
     it("should update activeTemplateTab", () => {
       const action = {
         type: types.CERTIFICATE_TEMPLATE_SELECT_TAB,
@@ -26,10 +28,10 @@ describe("reducers", () => {
         foo: "bar",
         activeTemplateTab: 2
       };
-      expect(reducer(prevState, action)).toEqual(expectedState);
+      expect(reducer(prevState, action)).toStrictEqual(expectedState);
     });
   });
-  describe("CERTIFICATE_TEMPLATE_REGISTER", () => {
+  describe("cERTIFICATE_TEMPLATE_REGISTER", () => {
     it("should update templates and activeTemplateTab for new state", () => {
       const action = {
         type: types.CERTIFICATE_TEMPLATE_REGISTER,
@@ -58,7 +60,7 @@ describe("reducers", () => {
           }
         ]
       };
-      expect(reducer(prevState, action)).toEqual(expectedState);
+      expect(reducer(prevState, action)).toStrictEqual(expectedState);
     });
 
     it("should update templates and activeTemplateTab for existing template", () => {
@@ -100,7 +102,7 @@ describe("reducers", () => {
         ],
         activeTemplateTab: 0
       };
-      expect(reducer(prevState, action)).toEqual(expectedState);
+      expect(reducer(prevState, action)).toStrictEqual(expectedState);
     });
   });
 });
@@ -125,7 +127,7 @@ describe("actions", () => {
         { id: "transcript", label: "Transcript" }
       ]
     };
-    expect(fn(payload)).toEqual(expectedAction);
+    expect(fn(payload)).toStrictEqual(expectedAction);
   });
 
   it("selectTemplateTab should generate correct action", () => {
@@ -135,14 +137,14 @@ describe("actions", () => {
       type: "CERTIFICATE_TEMPLATE_SELECT_TAB",
       payload: 2
     };
-    expect(fn(payload)).toEqual(expectedAction);
+    expect(fn(payload)).toStrictEqual(expectedAction);
   });
 });
 
 describe("selectors", () => {
   it("getActiveTemplateTab should return activeTemplateTab", () => {
     const store = { certificate: { activeTemplateTab: 2 } };
-    expect(getActiveTemplateTab(store)).toEqual(2);
+    expect(getActiveTemplateTab(store)).toStrictEqual(2);
   });
 
   it("getTemplates should return activeTemplateTab", () => {
@@ -160,7 +162,7 @@ describe("selectors", () => {
         ]
       }
     };
-    expect(getTemplates(store)).toEqual([
+    expect(getTemplates(store)).toStrictEqual([
       {
         id: "certificate",
         label: "Certificate"

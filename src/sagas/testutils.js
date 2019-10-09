@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import sinon from "sinon";
 
 export const targetHash =
