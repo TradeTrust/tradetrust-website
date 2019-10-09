@@ -1,13 +1,13 @@
 import React from "react";
 import { mount } from "enzyme";
-import ErrorBoundary from "./ErrorBoundary";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const ProblemChild = () => {
   throw new Error("Error thrown from problem child");
 };
 /* eslint-disable no-console */
 // disabled lint for the overridden console to not show the error from the problem child.
-const pauseErrorLogging = codeToRun => {
+const pauseErrorLogging = (codeToRun: () => void) => {
   const logger = console.error;
   console.error = () => {};
 
@@ -25,7 +25,9 @@ describe("<ErrorBoundary />", () => {
           <ProblemChild />
         </ErrorBoundary>
       );
-      expect(ErrorBoundary.prototype.componentDidCatch).toHaveBeenCalled();
+      expect(ErrorBoundary.prototype.componentDidCatch).toHaveBeenCalledTimes(
+        1
+      );
     });
   });
 });

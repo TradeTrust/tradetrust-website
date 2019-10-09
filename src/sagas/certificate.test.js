@@ -22,21 +22,21 @@ describe("sagas/certificate", () => {
     afterEach(() => {
       sendEmailStub.restore();
     });
-    test("should put SENDING_CERTIFICATE_SUCCESS on success", () => {
+    it("should put SENDING_CERTIFICATE_SUCCESS on success", () => {
       const { testCert } = whenThereIsOneEthereumAddressIssuer();
       const email = "admin@opencerts.io";
       const captcha = "ABCD";
       const saga = sendCertificate({ payload: { email, captcha } });
 
-      expect(saga.next().value).toEqual(select(getCertificate));
-      expect(saga.next(testCert).value).toEqual(
+      expect(saga.next().value).toStrictEqual(select(getCertificate));
+      expect(saga.next(testCert).value).toStrictEqual(
         sendEmailStub({
           certificate: testCert,
           email,
           captcha
         })
       );
-      expect(saga.next(true).value).toEqual(
+      expect(saga.next(true).value).toStrictEqual(
         put({
           type: "SENDING_CERTIFICATE_SUCCESS"
         })
@@ -44,21 +44,21 @@ describe("sagas/certificate", () => {
       expect(saga.next().done).toBe(true);
     });
 
-    test("should put SENDING_CERTIFICATE_SUCCESS on failure", () => {
+    it("should put SENDING_CERTIFICATE_SUCCESS on failure", () => {
       const { testCert } = whenThereIsOneEthereumAddressIssuer();
       const email = "admin@opencerts.io";
       const captcha = "ABCD";
       const saga = sendCertificate({ payload: { email, captcha } });
 
-      expect(saga.next().value).toEqual(select(getCertificate));
-      expect(saga.next(testCert).value).toEqual(
+      expect(saga.next().value).toStrictEqual(select(getCertificate));
+      expect(saga.next(testCert).value).toStrictEqual(
         sendEmailStub({
           certificate: testCert,
           email,
           captcha
         })
       );
-      expect(saga.next(false).value).toEqual(
+      expect(saga.next(false).value).toStrictEqual(
         put({
           type: "SENDING_CERTIFICATE_FAILURE",
           payload: "Fail to send certificate"
@@ -67,22 +67,22 @@ describe("sagas/certificate", () => {
       expect(saga.next().done).toBe(true);
     });
 
-    test("should put SENDING_CERTIFICATE_SUCCESS on error", () => {
+    it("should put SENDING_CERTIFICATE_SUCCESS on error", () => {
       const { testCert } = whenThereIsOneEthereumAddressIssuer();
       const email = "admin@opencerts.io";
       const captcha = "ABCD";
       const errorMsg = "Some unknown error has occured";
       const saga = sendCertificate({ payload: { email, captcha } });
 
-      expect(saga.next().value).toEqual(select(getCertificate));
-      expect(saga.next(testCert).value).toEqual(
+      expect(saga.next().value).toStrictEqual(select(getCertificate));
+      expect(saga.next(testCert).value).toStrictEqual(
         sendEmailStub({
           certificate: testCert,
           email,
           captcha
         })
       );
-      expect(saga.throw(new Error(errorMsg)).value).toEqual(
+      expect(saga.throw(new Error(errorMsg)).value).toStrictEqual(
         put({
           type: "SENDING_CERTIFICATE_FAILURE",
           payload: errorMsg
@@ -136,7 +136,7 @@ describe("verifyCertificate", () => {
 
     // Should dispatch VERIFYING_CERTIFICATE first
     const verifyingAction = generator.next().value;
-    expect(verifyingAction).toEqual(
+    expect(verifyingAction).toStrictEqual(
       put({
         type: types.VERIFYING_CERTIFICATE
       })
@@ -144,14 +144,14 @@ describe("verifyCertificate", () => {
 
     // Should get the document to be verified from the store next
     const selectCertificate = generator.next().value;
-    expect(selectCertificate).toEqual(select(getCertificate));
+    expect(selectCertificate).toStrictEqual(select(getCertificate));
 
     generator.next("CERTIFICATE_OBJECT");
 
     // Should mark verification as completed and report the payload
     const verificationCompletionAction = generator.next(mockVerificationStatus)
       .value;
-    expect(verificationCompletionAction).toEqual(
+    expect(verificationCompletionAction).toStrictEqual(
       put({
         type: types.VERIFYING_CERTIFICATE_SUCCESS,
         payload: mockVerificationStatus
@@ -160,7 +160,7 @@ describe("verifyCertificate", () => {
 
     // If verification passes, update the router
     const router = generator.next({ valid: true }).value;
-    expect(router).toEqual(
+    expect(router).toStrictEqual(
       put({
         type: "@@router/CALL_HISTORY_METHOD",
         payload: {
@@ -169,10 +169,10 @@ describe("verifyCertificate", () => {
         }
       })
     );
-    expect(generator.next().done).toEqual(true);
+    expect(generator.next().done).toStrictEqual(true);
   });
 
-  it("verifies the document and change the router to /viewer when verification passes", () => {
+  it("verifies the document and dont change the router to /viewer when verification passes", () => {
     const mockVerificationStatus = {
       hash: {
         checksumMatch: true
@@ -214,7 +214,7 @@ describe("verifyCertificate", () => {
 
     // Should dispatch VERIFYING_CERTIFICATE first
     const verifyingAction = generator.next().value;
-    expect(verifyingAction).toEqual(
+    expect(verifyingAction).toStrictEqual(
       put({
         type: types.VERIFYING_CERTIFICATE
       })
@@ -222,14 +222,14 @@ describe("verifyCertificate", () => {
 
     // Should get the document to be verified from the store next
     const selectCertificate = generator.next().value;
-    expect(selectCertificate).toEqual(select(getCertificate));
+    expect(selectCertificate).toStrictEqual(select(getCertificate));
 
     generator.next("CERTIFICATE_OBJECT");
 
     // Should mark verification as completed and report the payload
     const verificationCompletionAction = generator.next(mockVerificationStatus)
       .value;
-    expect(verificationCompletionAction).toEqual(
+    expect(verificationCompletionAction).toStrictEqual(
       put({
         type: types.VERIFYING_CERTIFICATE_SUCCESS,
         payload: mockVerificationStatus
@@ -237,6 +237,6 @@ describe("verifyCertificate", () => {
     );
 
     // Does not update router if the validation failed
-    expect(generator.next().done).toEqual(true);
+    expect(generator.next().done).toStrictEqual(true);
   });
 });

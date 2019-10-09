@@ -21,7 +21,7 @@ describe("decodeQrCode", () => {
       "tradetrust://%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
 
     const action = decodeQrCode(encodedQrCode);
-    expect(action).toEqual({
+    expect(action).toStrictEqual({
       uri: "https://sample.domain/document/id?q=abc#123"
     });
   });
@@ -40,7 +40,7 @@ describe("processQrCode", () => {
     };
     axios.get.mockResolvedValue({ data: "RESOURCE_FROM_URL" });
     const results = await processQrCode(encodeQrCode(action));
-    expect(axios.get.mock.calls[0]).toEqual([action.uri]);
-    expect(results).toEqual("RESOURCE_FROM_URL");
+    expect(axios.get).toHaveBeenCalledWith(action.uri);
+    expect(results).toStrictEqual("RESOURCE_FROM_URL");
   });
 });

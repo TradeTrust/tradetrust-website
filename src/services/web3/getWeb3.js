@@ -1,8 +1,8 @@
 import Web3 from "web3";
 import { NETWORK_TYPES, INFURA_PROJECT_ID } from "../../config";
 
-const ProviderEngine = require("web3-provider-engine");
-const WebsocketSubProvider = require("web3-provider-engine/subproviders/websocket.js");
+import WebsocketSubProvider from "web3-provider-engine/subproviders/websocket.js";
+import ProviderEngine from "web3-provider-engine";
 
 let web3Instance;
 

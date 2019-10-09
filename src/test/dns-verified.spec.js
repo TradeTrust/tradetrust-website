@@ -1,7 +1,6 @@
 import { Selector } from "testcafe";
 
 fixture("DNS Certificate Rendering").page`http://localhost:3000`;
-
 const Document = "./fixture/sample-dns-verified.json";
 const IframeBlock = Selector("#iframe");
 const SampleTemplate = Selector("#root");
@@ -13,7 +12,7 @@ const validateTextContent = async (t, component, texts) =>
     Promise.resolve()
   );
 
-test("Sample document is rendered correctly when dns is verified", async t => {
+test("sample document is rendered correctly when dns is verified", async t => {
   await t.setFilesToUpload("input[type=file]", [Document]);
 
   await StatusButton.with({ visibilityCheck: true })();

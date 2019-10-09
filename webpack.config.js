@@ -23,7 +23,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
@@ -87,7 +87,6 @@ module.exports = {
     compress: true,
     disableHostCheck: true,
     historyApiFallback: true,
-    // host: "127.0.0.1",
     hot: true,
     inline: true,
     port: 3000,
@@ -98,7 +97,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [".js"],
+    extensions: [".js", ".ts", ".tsx"],
     modules: ["node_modules", path.resolve(__dirname, "src")],
     alias: {
       "react-dom": "@hot-loader/react-dom"

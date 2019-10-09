@@ -1,4 +1,4 @@
-const { keccak256 } = require("ethereumjs-util");
+import { keccak256 } from "ethereumjs-util";
 
 function bufSortJoin(...args) {
   return Buffer.concat([...args].sort(Buffer.compare));

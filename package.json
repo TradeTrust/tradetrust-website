@@ -6,8 +6,8 @@
     "test:watch": "jest --watchAll",
     "test:update": "jest -u",
     "dev": "NODE_ENV=development webpack-dev-server",
-    "lint": "eslint . --ext .js --max-warnings 0",
-    "lint:fix": "eslint . --ext .js --fix",
+    "lint": "eslint ./src --ext .js,.ts,.tsx,.mdx --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix",
     "build": "NODE_ENV=production webpack --progress --mode production",
     "dev-cli": "node -r esm ./scripts/cli.js",
     "serve-static": "http-server dist -s -p 3000",
@@ -62,33 +62,33 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "7.6.0",
     "@storybook/addon-actions": "^5.2.1",
     "@storybook/addon-docs": "^5.2.1",
     "@storybook/addons": "^5.2.1",
     "@storybook/react": "^5.2.1",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.7.1",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-module-resolver": "^3.1.3",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
+    "@types/debug": "4.1.5",
+    "@types/enzyme": "3.10.3",
+    "@types/jest": "24.0.18",
+    "@types/node": "12.7.5",
+    "@types/react": "16.9.2",
+    "@typescript-eslint/eslint-plugin": "2.3.2",
+    "@typescript-eslint/parser": "2.3.2",
+    "babel-jest": "24.9.0",
+    "babel-loader": "8.0.6",
     "brotli-webpack-plugin": "^1.1.0",
     "compression-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
-    "eslint": "^5.9.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-import-resolver-babel-module": "^5.0.1",
-    "eslint-plugin-chai-expect": "^2.0.1",
-    "eslint-plugin-chai-friendly": "^0.4.1",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-mocha": "^5.2.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint": "6.5.1",
+    "eslint-config-prettier": "6.4.0",
+    "eslint-plugin-jest": "22.17.0",
+    "eslint-plugin-mdx": "1.5.6",
+    "eslint-plugin-prettier": "3.1.1",
+    "eslint-plugin-react": "7.16.0",
+    "eslint-plugin-react-hooks": "2.1.2",
     "eslint-plugin-testcafe": "^0.2.1",
     "esm": "^3.1.1",
     "gh-pages": "^2.0.1",
@@ -104,6 +104,7 @@
     "sinon": "^7.1.1",
     "style-loader": "^1.0.0",
     "testcafe": "^1.1.0",
+    "typescript": "3.6.3",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1"
@@ -118,11 +119,91 @@
           }
         }
       ],
+      "@babel/preset-typescript",
       "@babel/preset-react"
     ],
     "plugins": [
       "@babel/plugin-proposal-class-properties",
       "react-hot-loader/babel"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "env": {
+      "browser": true
+    },
+    "extends": [
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended",
+      "plugin:prettier/recommended",
+      "prettier/@typescript-eslint",
+      "prettier/react",
+      "plugin:testcafe/recommended"
+    ],
+    "plugins": [
+      "react-hooks",
+      "testcafe"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "rules": {
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "react/prop-types": "off",
+      "react/self-closing-comp": "error",
+      "array-callback-return": "error",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "error",
+      "no-unused-expressions": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.md"
+        ],
+        "rules": {
+          "prettier/prettier": [
+            2,
+            {
+              "parser": "markdown"
+            }
+          ]
+        }
+      },
+      {
+        "files": [
+          "*.mdx"
+        ],
+        "extends": [
+          "plugin:mdx/overrides",
+          "plugin:mdx/recommended"
+        ]
+      },
+      {
+        "files": [
+          "**/*.test.js"
+        ],
+        "env": {
+          "jest": true
+        },
+        "extends": [
+          "plugin:jest/all"
+        ],
+        "rules": {
+          "jest/prefer-expect-assertions": "off",
+          "jest/no-hooks": "off"
+        }
+      }
     ]
   },
   "jest": {
