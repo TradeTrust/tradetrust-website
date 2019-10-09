@@ -13,7 +13,7 @@ module.exports = {
     app: ["./src/index.js"]
   },
   context: path.resolve(__dirname),
-  mode: "development", // Defaults to development, pass --mode production to override
+  mode: IS_DEV ? "development" : "production",
   target: "web",
   output: {
     path: path.resolve(__dirname, "dist"),
