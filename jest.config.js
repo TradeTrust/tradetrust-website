@@ -10,5 +10,5 @@ module.exports = {
       "<rootDir>/_mocks_/fileMock.js",
     "\\.(css|sass|scss)$": "<rootDir>/_mocks_/styleMock.js"
   },
-  testResultsProcessor: "jest-sonar-reporter",
+  testResultsProcessor: "jest-sonar-reporter"
 };

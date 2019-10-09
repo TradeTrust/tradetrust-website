@@ -25,7 +25,7 @@ describe("<ErrorBoundary />", () => {
           <ProblemChild />
         </ErrorBoundary>
       );
-      expect(ErrorBoundary.prototype.componentDidCatch).toHaveBeenCalled();
+      expect(ErrorBoundary.prototype.componentDidCatch).toHaveBeenCalledTimes(1);
     });
   });
 });

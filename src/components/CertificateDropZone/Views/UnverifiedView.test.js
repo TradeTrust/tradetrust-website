@@ -41,7 +41,7 @@ const VALID_VERIFICATION_STATUS = {
 
 const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
 
-describe("UnverifiedView", () => {
+describe("unverifiedView", () => {
   it("displays hash error if the hash is invalid", () => {
     const wrapper = mount(
       <MemoryRouter>
@@ -56,12 +56,8 @@ describe("UnverifiedView", () => {
       </MemoryRouter>
     );
     const errorContainerElm = wrapper.find("#error-tab");
-    expect(errorContainerElm.text()).toContain(
-      MESSAGES[TYPES.HASH].failureTitle
-    );
-    expect(errorContainerElm.text()).toContain(
-      MESSAGES[TYPES.HASH].failureMessage
-    );
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.HASH].failureTitle);
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.HASH].failureMessage);
   });
 
   it("displays issuing error if the document is not issued", () => {
@@ -78,12 +74,8 @@ describe("UnverifiedView", () => {
       </MemoryRouter>
     );
     const errorContainerElm = wrapper.find("#error-tab");
-    expect(errorContainerElm.text()).toContain(
-      MESSAGES[TYPES.ISSUED].failureTitle
-    );
-    expect(errorContainerElm.text()).toContain(
-      MESSAGES[TYPES.ISSUED].failureMessage
-    );
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.ISSUED].failureTitle);
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.ISSUED].failureMessage);
   });
 
   it("display revocation error if the document is revoked", () => {
@@ -100,12 +92,8 @@ describe("UnverifiedView", () => {
       </MemoryRouter>
     );
     const errorContainerElm = wrapper.find("#error-tab");
-    expect(errorContainerElm.text()).toContain(
-      MESSAGES[TYPES.REVOKED].failureTitle
-    );
-    expect(errorContainerElm.text()).toContain(
-      MESSAGES[TYPES.REVOKED].failureMessage
-    );
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.REVOKED].failureTitle);
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.REVOKED].failureMessage);
   });
 
   it("displays identity error if the identity is not verified", () => {
@@ -122,12 +110,8 @@ describe("UnverifiedView", () => {
       </MemoryRouter>
     );
     const errorContainerElm = wrapper.find("#error-tab");
-    expect(errorContainerElm.text()).toContain(
-      MESSAGES[TYPES.IDENTITY].failureTitle
-    );
-    expect(errorContainerElm.text()).toContain(
-      MESSAGES[TYPES.IDENTITY].failureMessage
-    );
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.IDENTITY].failureTitle);
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.IDENTITY].failureMessage);
   });
   it("displays error in all fields when all verification fail", () => {
     const wrapper = mount(

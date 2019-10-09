@@ -1,12 +1,7 @@
 import * as dnsprove from "@govtechsg/dnsprove";
 import verify from "@govtechsg/oa-verify";
 import * as openattestation from "@govtechsg/open-attestation";
-import {
-  resolveIssuerIdentity,
-  getIssuersIdentities,
-  verifyDocument,
-  issuersIdentitiesAllVerified
-} from "./index";
+import { resolveIssuerIdentity, getIssuersIdentities, verifyDocument, issuersIdentitiesAllVerified } from "./index";
 
 jest.mock("@govtechsg/dnsprove");
 jest.mock("@govtechsg/oa-verify");
@@ -108,7 +103,7 @@ describe("resolveIssuerIdentity", () => {
       }
     };
     const identified = await resolveIssuerIdentity(issuer);
-    expect(identified).toEqual({
+    expect(identified).toStrictEqual({
       identified: true,
       dns: "example.openattestation.com",
       smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
@@ -125,7 +120,7 @@ describe("resolveIssuerIdentity", () => {
       }
     };
     const identified = await resolveIssuerIdentity(issuer);
-    expect(identified).toEqual({
+    expect(identified).toStrictEqual({
       identified: false,
       smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
     });
@@ -140,7 +135,7 @@ describe("resolveIssuerIdentity", () => {
       }
     };
     const identified = await resolveIssuerIdentity(issuer);
-    expect(identified).toEqual({
+    expect(identified).toStrictEqual({
       error: "Identity type not supported",
       identified: false,
       smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
@@ -153,7 +148,7 @@ describe("resolveIssuerIdentity", () => {
       identityProof: { type: "DNS-TXT" }
     };
     const identified = await resolveIssuerIdentity(issuer);
-    expect(identified).toEqual({
+    expect(identified).toStrictEqual({
       error: "Location is missing",
       identified: false,
       smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
@@ -188,7 +183,7 @@ describe("getIssuersIdentities", () => {
       }
     ];
     const identities = await getIssuersIdentities(issuers);
-    expect(identities).toEqual(expectedResults);
+    expect(identities).toStrictEqual(expectedResults);
   });
 
   it("includes error when any issuers is not correctly formatted", async () => {
@@ -215,7 +210,7 @@ describe("getIssuersIdentities", () => {
       }
     ];
     const identities = await getIssuersIdentities(issuers);
-    expect(identities).toEqual(expectedResults);
+    expect(identities).toStrictEqual(expectedResults);
   });
 });
 
@@ -227,7 +222,7 @@ describe("verifyDocument", () => {
     whenDnsProveResolvesBothAddresses();
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
-    expect(verificationResults).toEqual({
+    expect(verificationResults).toStrictEqual({
       hash: {
         checksumMatch: true
       },
@@ -275,7 +270,7 @@ describe("verifyDocument", () => {
     whenDnsProveResolvesBothAddresses();
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
-    expect(verificationResults).toEqual({
+    expect(verificationResults).toStrictEqual({
       hash: {
         checksumMatch: true
       },

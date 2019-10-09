@@ -13,22 +13,11 @@ const View = ({ hover, accept, toggleQrReaderVisible }) => (
   >
     <div className={css["image-container"]}>
       <i>
-        <img
-          alt=".tradetrust Dropzone"
-          src="/static/images/dropzone/dropzone_illustration.svg"
-        />
+        <img alt=".tradetrust Dropzone" src="/static/images/dropzone/dropzone_illustration.svg" />
       </i>
     </div>
-    {accept ? null : (
-      <div>
-        File cannot be read. Please check that you have a valid .tt or .json
-        file
-      </div>
-    )}
-    <div
-      className="text-brand-dark"
-      style={{ fontSize: "1.375rem", fontWeight: 500 }}
-    >
+    {accept ? null : <div>File cannot be read. Please check that you have a valid .tt or .json file</div>}
+    <div className="text-brand-dark" style={{ fontSize: "1.375rem", fontWeight: 500 }}>
       Drag and drop your tradetrust file
     </div>
     <div className="text-muted">to view its contents</div>

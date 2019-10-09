@@ -13,13 +13,9 @@ export const NETWORK_TYPES = {
 
 export const IS_MAINNET = publicRuntimeConfig.network === "mainnet";
 
-export const DEFAULT_NETWORK = IS_MAINNET
-  ? NETWORK_TYPES.INFURA_MAINNET
-  : NETWORK_TYPES.INFURA_ROPSTEN;
+export const DEFAULT_NETWORK = IS_MAINNET ? NETWORK_TYPES.INFURA_MAINNET : NETWORK_TYPES.INFURA_ROPSTEN;
 export const CAPTCHA_CLIENT_KEY = "6LfiL3EUAAAAAHrfLvl2KhRAcXpanNXDqu6M0CCS";
-export const EMAIL_API_URL = IS_MAINNET
-  ? "https://api.opencerts.io/email"
-  : "https://api-ropsten.opencerts.io/email";
+export const EMAIL_API_URL = IS_MAINNET ? "https://api.opencerts.io/email" : "https://api-ropsten.opencerts.io/email";
 export const INFURA_PROJECT_ID = "1f1ff2b3fca04f8d99f67d465c59e4ef";
 export const LEGACY_OPENCERTS_RENDERER = "https://legacy.opencerts.io/";
 

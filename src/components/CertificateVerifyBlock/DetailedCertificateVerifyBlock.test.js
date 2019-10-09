@@ -40,7 +40,7 @@ const VALID_VERIFICATION_STATUS = {
 
 const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
 
-describe("DetailedCertificateVerifyBlock", () => {
+describe("detailedCertificateVerifyBlock", () => {
   it("displays hash error if the hash is invalid", () => {
     const wrapper = mount(
       <DetailedCertificateVerifyBlock
@@ -54,8 +54,7 @@ describe("DetailedCertificateVerifyBlock", () => {
       .find("#detailed-error")
       .children()
       .forEach((child, index) => {
-        const title =
-          STATUS[index] === "HASH" ? "failureTitle" : "successTitle";
+        const title = STATUS[index] === "HASH" ? "failureTitle" : "successTitle";
         expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
       });
   });
@@ -73,8 +72,7 @@ describe("DetailedCertificateVerifyBlock", () => {
       .find("#detailed-error")
       .children()
       .forEach((child, index) => {
-        const title =
-          STATUS[index] === "ISSUED" ? "failureTitle" : "successTitle";
+        const title = STATUS[index] === "ISSUED" ? "failureTitle" : "successTitle";
         expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
       });
   });
@@ -92,8 +90,7 @@ describe("DetailedCertificateVerifyBlock", () => {
       .find("#detailed-error")
       .children()
       .forEach((child, index) => {
-        const title =
-          STATUS[index] === "REVOKED" ? "failureTitle" : "successTitle";
+        const title = STATUS[index] === "REVOKED" ? "failureTitle" : "successTitle";
         expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
       });
   });
@@ -111,8 +108,7 @@ describe("DetailedCertificateVerifyBlock", () => {
       .find("#detailed-error")
       .children()
       .forEach((child, index) => {
-        const title =
-          STATUS[index] === "IDENTITY" ? "failureTitle" : "successTitle";
+        const title = STATUS[index] === "IDENTITY" ? "failureTitle" : "successTitle";
         expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
       });
   });
