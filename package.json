@@ -18,7 +18,9 @@
     "serve-static": "http-server out -s -p 3000",
     "integration": "testcafe chrome src/**/*.spec.js",
     "integration:headless": "testcafe chrome:headless src/**/*.spec.js",
-    "integration:watch": "nodemon --exec \"npm run integration\" --watch src"
+    "integration:watch": "nodemon --exec \"npm run integration\" --watch src",
+    "storybook": "start-storybook -s . -p 6006",
+    "storybook:build": "build-storybook -s . -o docs"
   },
   "dependencies": {
     "@govtechsg/dnsprove": "^2.0.3",
@@ -60,6 +62,10 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "@storybook/addon-actions": "^5.2.1",
+    "@storybook/addon-docs": "^5.2.1",
+    "@storybook/addons": "^5.2.1",
+    "@storybook/react": "^5.2.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.7.1",
