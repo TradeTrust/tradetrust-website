@@ -8,7 +8,7 @@ const getSmartContractAddress = issuer =>
   issuer.certificateStore || issuer.documentStore || issuer.tokenRegistry;
 
 // Resolve identity of an issuer, currently supporting only DNS-TXT
-export const resolveIssuerIdentity = async issuer => {
+const resolveIssuerIdentity = async issuer => {
   try {
     const smartContractAddress = getSmartContractAddress(issuer);
     const type = get(issuer, "identityProof.type");
@@ -42,10 +42,10 @@ export const resolveIssuerIdentity = async issuer => {
   }
 };
 
-export const getIssuersIdentities = async issuers =>
+const getIssuersIdentities = async issuers =>
   Promise.all(issuers.map(resolveIssuerIdentity));
 
-export const issuersIdentitiesAllVerified = (identities = []) =>
+const issuersIdentitiesAllVerified = (identities = []) =>
   identities.every(identity => identity.identified);
 
 // Given a document, verify it and return a summary of the verification
