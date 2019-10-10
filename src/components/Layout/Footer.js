@@ -1,6 +1,6 @@
 import css from "./footer.scss";
 
-const NavigationBar = () => (
+const Footer = () => (
   <div className="bg-brand-dark" id={css["footer-print"]}>
     <div className={css.footer}>
       <div>
@@ -10,4 +10,4 @@ const NavigationBar = () => (
   </div>
 );
 
-export default NavigationBar;
+export default Footer;

@@ -2,7 +2,7 @@ import NextSeo from "next-seo";
 import { merge } from "lodash/fp";
 import { connect } from "react-redux";
 import NavigationBar from "../src/components/Layout/NavigationBar";
-import FooterBar from "../src/components/Layout/FooterBar";
+import Footer from "../src/components/Layout/Footer";
 import CollaboratePageContainer from "../src/components/Collaborate/CollaboratePageContainer";
 import { URL, DEFAULT_SEO } from "../src/config";
 
@@ -23,7 +23,7 @@ const CollaboratePage = () => (
     <NextSeo config={merge(DEFAULT_SEO, PAGE_SEO)} />
     <NavigationBar active="collaborate" />
     <CollaboratePageContainer />
-    <FooterBar />
+    <Footer />
   </>
 );
 
