@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
-const View = () => (
+export const VerifyingView: FunctionComponent = () => (
   <div
     className="text-center bg-light h-100 d-flex flex-column justify-content-center p-4 text-blue"
     style={{ borderRadius: 10 }}
@@ -11,5 +11,3 @@ const View = () => (
     </div>
   </div>
 );
-
-export default View;

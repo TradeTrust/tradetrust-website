@@ -1,8 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FunctionComponent } from "react";
 import css from "./viewerStyles.scss";
 
-const View = ({ hover, accept, toggleQrReaderVisible }) => (
+interface DefaultViewProps {
+  hover: boolean;
+  accept: boolean;
+  toggleQrReaderVisible: () => void;
+}
+
+export const DefaultView: FunctionComponent<DefaultViewProps> = ({ hover, accept, toggleQrReaderVisible }) => (
   <div
     data-id="viewer-container"
     className={`${css["viewer-container"]} ${
@@ -52,11 +57,3 @@ const View = ({ hover, accept, toggleQrReaderVisible }) => (
     </div>
   </div>
 );
-
-export default View;
-
-View.propTypes = {
-  hover: PropTypes.bool,
-  accept: PropTypes.bool,
-  toggleQrReaderVisible: PropTypes.func
-};

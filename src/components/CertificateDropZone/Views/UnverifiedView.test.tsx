@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
-import UnverifiedView from "./UnverifiedView";
+import { UnverifiedView } from "./UnverifiedView";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 
 const VALID_VERIFICATION_STATUS = {
@@ -46,7 +46,6 @@ describe("unverifiedView", () => {
     const wrapper = mount(
       <MemoryRouter>
         <UnverifiedView
-          handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
             hash: { checksumMatch: false }
@@ -64,7 +63,6 @@ describe("unverifiedView", () => {
     const wrapper = mount(
       <MemoryRouter>
         <UnverifiedView
-          handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
             issued: { issuedOnAll: false }
@@ -82,7 +80,6 @@ describe("unverifiedView", () => {
     const wrapper = mount(
       <MemoryRouter>
         <UnverifiedView
-          handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
             revoked: { revokedOnAny: true }
@@ -100,7 +97,6 @@ describe("unverifiedView", () => {
     const wrapper = mount(
       <MemoryRouter>
         <UnverifiedView
-          handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
             identity: { identifiedOnAll: false }
@@ -117,7 +113,6 @@ describe("unverifiedView", () => {
     const wrapper = mount(
       <MemoryRouter>
         <UnverifiedView
-          handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
             hash: { checksumMatch: false },

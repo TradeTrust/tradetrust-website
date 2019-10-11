@@ -13,8 +13,26 @@ import CertificateDropZone from "./CertificateDropZone";
 import css from "./Views/viewerStyles.scss";
 import QrReader from "../QrReader";
 
-export class CertificateDropZoneContainer extends Component {
-  constructor(props) {
+interface CertificateDropZoneContainerProps {
+  updateNetworkId: () => void;
+  handleCertificateChange: (certificate: any) => void; // TODO type me
+  updateCertificate: (certificate: any) => void; // TODO type me
+  resetData: () => void;
+  verifying?: boolean;
+  processQr: (data: any) => void; // TODO type me
+  verificationStatus: any; // TODO type me
+}
+
+interface CertificateDropZoneContainerState {
+  fileError: boolean;
+  qrReaderVisible: boolean;
+}
+
+export class CertificateDropZoneContainer extends Component<
+  CertificateDropZoneContainerProps,
+  CertificateDropZoneContainerState
+> {
+  constructor(props: CertificateDropZoneContainerProps) {
     super(props);
 
     this.state = {
@@ -31,12 +49,12 @@ export class CertificateDropZoneContainer extends Component {
     this.props.updateNetworkId();
   }
 
-  handleQrScanned(data) {
+  handleQrScanned(data: any) {
     this.props.processQr(data);
     this.setState({ qrReaderVisible: false });
   }
 
-  handleCertificateChange(certificate) {
+  handleCertificateChange(certificate: any) {
     this.setState({ fileError: false });
     this.props.updateCertificate(certificate);
   }
@@ -79,31 +97,21 @@ export class CertificateDropZoneContainer extends Component {
   }
 }
 
-const mapStateToProps = store => ({
+// TODO type me redux
+const mapStateToProps = (store: any) => ({
   verifying: getVerifying(store),
   verificationStatus: getVerificationStatus(store)
 });
 
-const mapDispatchToProps = dispatch => ({
+// TODO type me redux
+const mapDispatchToProps = (dispatch: any) => ({
   updateNetworkId: () => dispatch(updateNetworkId()),
-  updateCertificate: payload => dispatch(updateCertificate(payload)),
+  updateCertificate: (payload: any) => dispatch(updateCertificate(payload)),
   resetData: () => dispatch(resetCertificateState()),
-  processQr: payload => dispatch(processQrCode(payload))
+  processQr: (payload: any) => dispatch(processQrCode(payload))
 });
 
-const ConnectedCertificateDropZoneContainer = connect(
+export const ConnectedCertificateDropZoneContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(CertificateDropZoneContainer);
-
-export default ConnectedCertificateDropZoneContainer;
-
-CertificateDropZoneContainer.propTypes = {
-  updateNetworkId: PropTypes.func,
-  handleCertificateChange: PropTypes.func,
-  updateCertificate: PropTypes.func,
-  resetData: PropTypes.func,
-  verifying: PropTypes.bool,
-  processQr: PropTypes.func,
-  verificationStatus: PropTypes.object
-};

@@ -1,11 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { get } from "lodash";
-import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
+import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
 import css from "./viewerStyles.scss";
 
-const DetailedErrors = ({ verificationStatus }) => {
+interface DetailedErrorsProps {
+  verificationStatus: any; // TODO type me :)
+}
+const DetailedErrors: FunctionComponent<DetailedErrorsProps> = ({ verificationStatus }) => {
   const errors = [];
   if (!get(verificationStatus, "hash.checksumMatch")) errors.push(TYPES.HASH);
   if (!get(verificationStatus, "issued.issuedOnAll")) errors.push(TYPES.ISSUED);
@@ -24,11 +26,11 @@ const DetailedErrors = ({ verificationStatus }) => {
   );
 };
 
-DetailedErrors.propTypes = {
-  verificationStatus: PropTypes.object
-};
-
-const View = ({ resetData, verificationStatus }) => (
+interface UnverifiedViewProps {
+  resetData: () => void;
+  verificationStatus: any;
+}
+export const UnverifiedView: FunctionComponent<UnverifiedViewProps> = ({ resetData, verificationStatus }) => (
   <div
     className={`${css["viewer-container"]} ${css.invalid}`}
     style={{
@@ -66,12 +68,3 @@ const View = ({ resetData, verificationStatus }) => (
     </div>
   </div>
 );
-
-View.propTypes = {
-  handleRenderOverwrite: PropTypes.func,
-  resetData: PropTypes.func,
-  document: PropTypes.object,
-  verificationStatus: PropTypes.object
-};
-
-export default View;

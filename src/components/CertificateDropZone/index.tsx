@@ -1,0 +1,1 @@
+export { ConnectedCertificateDropZoneContainer } from "./CertificateDropZoneContainer";
