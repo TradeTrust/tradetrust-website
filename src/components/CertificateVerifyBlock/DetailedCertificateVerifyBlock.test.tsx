@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import DetailedCertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
+import { DetailedCertificateVerifyBlock } from "./DetailedCertificateVerifyBlock";
 import { MESSAGES } from "../../constants/VerificationErrorMessages";
 
 const VALID_VERIFICATION_STATUS = {
