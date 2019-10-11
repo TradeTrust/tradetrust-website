@@ -3,7 +3,7 @@ import css from "./aboutSection.scss";
 import images from "./AboutImages";
 
 const HowItWorks = () => {
-  const sections = [
+  const sections: { key: keyof typeof images; text: string }[] = [
     {
       key: "onetwo",
       text:
