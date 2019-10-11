@@ -125,7 +125,7 @@ const whenVerifyFailed = () =>
     valid: false
   });
 
-const whenGetDataReturnsDocument = (modifiedIssuerRecord = {}) => {
+const whenGetDataReturnsMultipleDocument = (modifiedIssuerRecord = {}) => {
   openattestation.getData.mockReturnValue({
     issuers: [
       {
@@ -144,7 +144,7 @@ const whenGetDataReturnsDocument = (modifiedIssuerRecord = {}) => {
   });
 };
 
-const whenGetDataReturnsDocument1 = (modifiedIssuerRecord = {}) => {
+const whenGetDataReturnsDocument = (modifiedIssuerRecord = {}) => {
   openattestation.getData.mockReturnValue({
     issuers: [
       {
@@ -159,7 +159,7 @@ const whenGetDataReturnsDocument1 = (modifiedIssuerRecord = {}) => {
   });
 };
 
-const whenDnsProveResolvesAddress1 = () => {
+const whenDnsProveResolvesAddress = () => {
   dnsprove.getDocumentStoreRecords.mockResolvedValueOnce([
     {
       type: "openatts",
@@ -193,7 +193,7 @@ const whenDnsProveResolvesBothAddresses = () => {
 describe("verifyDocument", () => {
   it("returns true as overall valid when all the checks passes", async () => {
     whenVerifySucceed();
-    whenGetDataReturnsDocument();
+    whenGetDataReturnsMultipleDocument();
     whenDnsProveResolvesBothAddresses();
     whenDnsProveResolvesBothAddresses();
 
@@ -203,7 +203,7 @@ describe("verifyDocument", () => {
 
   it("returns false as overall valid when any of the checks fail", async () => {
     whenVerifyFailed();
-    whenGetDataReturnsDocument();
+    whenGetDataReturnsMultipleDocument();
     whenDnsProveResolvesBothAddresses();
     whenDnsProveResolvesBothAddresses();
 
@@ -213,8 +213,8 @@ describe("verifyDocument", () => {
 });
 describe("resolveIssuerIdentity", () => {
   it("returns invalid when matching DNS record does not exist", async () => {
-    whenGetDataReturnsDocument1();
-    whenDnsProveResolvesAddress1();
+    whenGetDataReturnsDocument();
+    whenDnsProveResolvesAddress();
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
     expect(verificationResults.identity.identifiedOnAll).toEqual(false);
@@ -222,7 +222,7 @@ describe("resolveIssuerIdentity", () => {
   });
 
   it("returns error when matching DNS record does not exist", async () => {
-    whenGetDataReturnsDocument1({ identityProof: { type: "FOO-TXT" } });
+    whenGetDataReturnsDocument({ identityProof: { type: "FOO-TXT" } });
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
 
@@ -238,7 +238,7 @@ describe("resolveIssuerIdentity", () => {
   });
 
   it("throws error when location does not exist", async () => {
-    whenGetDataReturnsDocument1({
+    whenGetDataReturnsDocument({
       identityProof: { location: "", type: "DNS-TXT" }
     });
 
@@ -259,7 +259,7 @@ describe("resolveIssuerIdentity", () => {
 describe("getIssuersIdentities", () => {
   it("returns identities given a list of issuers", async () => {
     whenVerifySucceed();
-    whenGetDataReturnsDocument();
+    whenGetDataReturnsMultipleDocument();
     whenDnsProveResolvesBothAddresses();
     whenDnsProveResolvesBothAddresses();
 
@@ -282,11 +282,11 @@ describe("getIssuersIdentities", () => {
   });
 
   it("includes error when any issuers is not correctly formatted", async () => {
-    whenDnsProveResolvesAddress1();
+    whenDnsProveResolvesAddress();
     const issuers = {
       identityProof: { location: "domain1.com" }
     };
-    whenGetDataReturnsDocument(issuers);
+    whenGetDataReturnsMultipleDocument(issuers);
     const expectedResults = [
       {
         identified: false,
