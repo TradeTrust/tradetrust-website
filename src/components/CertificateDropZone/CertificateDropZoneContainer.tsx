@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
-  updateCertificate,
-  getVerifying,
   getVerificationStatus,
+  getVerifying,
+  processQrCode,
   resetCertificateState,
-  processQrCode
+  updateCertificate
 } from "../../reducers/certificate";
 import { updateNetworkId } from "../../reducers/application";
 import CertificateDropZone from "./CertificateDropZone";
@@ -15,7 +14,6 @@ import QrReader from "../QrReader";
 
 interface CertificateDropZoneContainerProps {
   updateNetworkId: () => void;
-  handleCertificateChange: (certificate: any) => void; // TODO type me
   updateCertificate: (certificate: any) => void; // TODO type me
   resetData: () => void;
   verifying?: boolean;

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import CertificateDropzone from "../CertificateDropZone";
+import { ConnectedCertificateDropZoneContainer } from "../CertificateDropZone";
 import css from "./dropZoneSection.scss";
 import { updateCertificate } from "../../reducers/certificate";
 import { trace } from "../../utils/logger";
@@ -16,14 +15,14 @@ const DraggableDemoCertificate = () => (
   <div className="d-none d-lg-block">
     <div className="row">
       <div className="col">
-        <div className={css.pulse} draggable="true" onDragStart={e => e.dataTransfer.setData(DEMO_CONTENT_KEY, true)}>
+        <div className={css.pulse} draggable onDragStart={e => e.dataTransfer.setData(DEMO_CONTENT_KEY, "true")}>
           <a href={`data:text/plain;,${JSON.stringify(DEMO_CERT, null, 2)}`} download="demo.tt">
             <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
         </div>
       </div>
       <div className="col">
-        <img src="/static/images/dropzone/arrow3.png" width="100%" draggable="false" />
+        <img src="/static/images/dropzone/arrow3.png" width="100%" draggable={false} />
       </div>
     </div>
   </div>
@@ -34,7 +33,7 @@ const MobileDemoCertificate = () => (
     <a
       className="btn btn-primary btn-lg"
       role="button"
-      draggable="false"
+      draggable={false}
       id="demoClick"
       style={{
         background: "#28a745",
@@ -47,20 +46,30 @@ const MobileDemoCertificate = () => (
   </div>
 );
 
-class DropZoneSection extends Component {
+interface DropZoneSectionProps {
+  updateCertificate: (certificate: any) => void;
+}
+
+class DropZoneSection extends Component<DropZoneSectionProps> {
   componentDidMount() {
-    document.getElementById("demoDrop").addEventListener("drop", e => {
-      if (e.dataTransfer.getData(DEMO_CONTENT_KEY)) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    document.getElementById("demoDrop")!.addEventListener("drop", e => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      if (e.dataTransfer!.getData(DEMO_CONTENT_KEY)) {
         this.props.updateCertificate(DEMO_CERT);
       }
     });
-    document.getElementById("demoClick").addEventListener("click", () => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    document.getElementById("demoClick")!.addEventListener("click", () => {
       this.props.updateCertificate(DEMO_CERT);
     });
   }
 
   componentWillUnmount() {
-    document.getElementById("demoDrop", "demoClick").removeEventListener("drop", () => this.removeListener());
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    document.getElementById("demoDrop")!.removeEventListener("drop", () => this.removeListener());
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    document.getElementById("demoClick")!.removeEventListener("click", () => this.removeListener());
   }
 
   removeListener = () => trace("drop listener removed");
@@ -79,7 +88,7 @@ class DropZoneSection extends Component {
             </div>
           </div>
           <div className="col-lg-7 col-md-12 col-sm-12" id="demoDrop">
-            <CertificateDropzone />
+            <ConnectedCertificateDropZoneContainer />
           </div>
         </div>
       </div>
@@ -87,15 +96,11 @@ class DropZoneSection extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  updateCertificate: payload => dispatch(updateCertificate(payload))
+const mapDispatchToProps = (dispatch: any) => ({
+  updateCertificate: (payload: any) => dispatch(updateCertificate(payload))
 });
 
 export default connect(
   null,
   mapDispatchToProps
 )(DropZoneSection);
-
-DropZoneSection.propTypes = {
-  updateCertificate: PropTypes.func
-};

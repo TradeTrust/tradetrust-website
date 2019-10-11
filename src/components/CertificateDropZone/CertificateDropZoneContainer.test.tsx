@@ -7,7 +7,6 @@ import CertificateDropZone from "./CertificateDropZone";
 describe("certificateDropZoneContainer", () => {
   const sharedProps = {
     updateNetworkId: () => 0,
-    handleCertificateChange: () => 0,
     updateCertificate: () => 0,
     resetData: () => 0,
     processQr: () => 0,
