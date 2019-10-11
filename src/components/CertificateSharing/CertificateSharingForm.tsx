@@ -1,12 +1,22 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { ChangeEvent, Component } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { CAPTCHA_CLIENT_KEY } from "../../config";
 import css from "./sharing.scss";
 import { states } from "../../reducers/certificate";
 
-class CertificateSharingForm extends Component {
-  constructor(props) {
+interface CertificateSharingFormProps {
+  emailSendingState: string;
+  handleSendCertificate: (data: { email: string; captcha: string }) => void;
+  handleSharingToggle: () => void;
+}
+interface CertificateSharingFormState {
+  captcha: string;
+  email: string;
+  emailAddress?: string;
+}
+
+export class CertificateSharingForm extends Component<CertificateSharingFormProps, CertificateSharingFormState> {
+  constructor(props: CertificateSharingFormProps) {
     super(props);
 
     this.state = {
@@ -19,11 +29,11 @@ class CertificateSharingForm extends Component {
     this.handleSend = this.handleSend.bind(this);
   }
 
-  handleCaptchaChange(value) {
-    this.setState({ captcha: value });
+  handleCaptchaChange(value: string | null) {
+    this.setState({ captcha: value || "" });
   }
 
-  handleEmailChange(event) {
+  handleEmailChange(event: ChangeEvent<HTMLInputElement>) {
     this.setState({ email: event.target.value });
   }
 
@@ -85,11 +95,3 @@ class CertificateSharingForm extends Component {
     );
   }
 }
-
-CertificateSharingForm.propTypes = {
-  emailSendingState: PropTypes.string,
-  handleSendCertificate: PropTypes.func,
-  handleSharingToggle: PropTypes.func
-};
-
-export default CertificateSharingForm;
