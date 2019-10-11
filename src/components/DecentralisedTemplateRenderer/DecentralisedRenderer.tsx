@@ -1,55 +1,69 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import connectToChild from "penpal/lib/connectToChild";
 import { getData, obfuscateDocument } from "@govtechsg/open-attestation";
 import {
-  getCertificate,
   getActiveTemplateTab,
-  updateObfuscatedCertificate,
+  getCertificate,
   registerTemplates as registerTemplatesAction,
-  selectTemplateTab as selectTemplateTabAction
+  selectTemplateTab as selectTemplateTabAction,
+  updateObfuscatedCertificate
 } from "../../reducers/certificate";
 
-class DecentralisedRenderer extends Component {
-  constructor(props) {
+interface DecentralisedRendererProps {
+  document: any;
+  certificate: any;
+  source: string;
+  activeTab: number;
+  registerTemplates: (templates: any) => void;
+  selectTemplateTab: (index: number) => void;
+  updateObfuscatedCertificate: (document: any) => void;
+}
+
+interface DecentralisedRendererState {
+  childFrameConnection: any;
+}
+
+class DecentralisedRenderer extends Component<DecentralisedRendererProps, DecentralisedRendererState> {
+  iframe: any;
+  constructor(props: DecentralisedRendererProps) {
     super(props);
     this.state = {
       childFrameConnection: null
     };
   }
 
-  async selectTemplateTab(i) {
+  async selectTemplateTab(i: number) {
     const { childFrameConnection } = this.state;
     const child = await childFrameConnection;
     await child.selectTemplateTab(i);
     this.props.selectTemplateTab(i);
   }
 
-  updateHeight(h) {
+  updateHeight(h: any) {
     this.iframe.height = h;
   }
 
-  updateTemplates(templates) {
+  updateTemplates(templates: any) {
     if (!templates) return;
     this.props.registerTemplates(templates);
   }
 
-  handleObfuscation(field) {
+  handleObfuscation(field: string) {
     const updatedDocument = obfuscateDocument(this.props.document, field);
     this.props.updateObfuscatedCertificate(updatedDocument);
     const updatedCertificate = getData(updatedDocument);
     this.renderDocument(updatedCertificate);
   }
 
-  async renderDocument(certificate) {
+  async renderDocument(certificate: any) {
     const { childFrameConnection } = this.state;
     const child = await childFrameConnection;
     await child.renderDocument(certificate);
   }
 
   // Do not re-render component if only activeTab changes
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: DecentralisedRendererProps) {
     if (this.props.activeTab !== nextProps.activeTab && this.props.document === nextProps.document) {
       this.selectTemplateTab(nextProps.activeTab);
       return false;
@@ -72,7 +86,7 @@ class DecentralisedRenderer extends Component {
     }).promise;
     this.setState({ childFrameConnection });
 
-    childFrameConnection.then(frame => frame.renderDocument(getData(this.props.certificate)));
+    childFrameConnection.then((frame: any) => frame.renderDocument(getData(this.props.certificate)));
   }
 
   render() {
@@ -90,28 +104,18 @@ class DecentralisedRenderer extends Component {
   }
 }
 
-const mapStateToProps = store => ({
+const mapStateToProps = (store: any) => ({
   document: getCertificate(store),
   activeTab: getActiveTemplateTab(store)
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateObfuscatedCertificate: updatedDoc => dispatch(updateObfuscatedCertificate(updatedDoc)),
-  registerTemplates: templates => dispatch(registerTemplatesAction(templates)),
-  selectTemplateTab: tabIndex => dispatch(selectTemplateTabAction(tabIndex))
+const mapDispatchToProps = (dispatch: any) => ({
+  updateObfuscatedCertificate: (updatedDoc: any) => dispatch(updateObfuscatedCertificate(updatedDoc)),
+  registerTemplates: (templates: any) => dispatch(registerTemplatesAction(templates)),
+  selectTemplateTab: (tabIndex: any) => dispatch(selectTemplateTabAction(tabIndex))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(DecentralisedRenderer);
-
-DecentralisedRenderer.propTypes = {
-  document: PropTypes.object,
-  certificate: PropTypes.object,
-  source: PropTypes.string,
-  activeTab: PropTypes.number,
-  registerTemplates: PropTypes.func,
-  selectTemplateTab: PropTypes.func,
-  updateObfuscatedCertificate: PropTypes.func
-};
