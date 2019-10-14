@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
 import { CertificateVerifyBlock } from "./CertificateVerifyBlock";
 import styles from "./certificateViewer.scss";
-import Modal from "./Modal";
+import { Modal } from "./Modal";
 import ErrorBoundary from "./ErrorBoundary";
 import DecentralisedRenderer from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import MultiTabs from "./MultiTabs";

@@ -1,8 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FunctionComponent } from "react";
 import css from "./modal.scss";
 
-const modal = ({ show, toggle, children }) =>
+interface ModalProps {
+  show: boolean;
+  toggle: () => void;
+}
+
+export const Modal: FunctionComponent<ModalProps> = ({ show, toggle, children }) =>
   show ? (
     <div className={css.modal}>
       <div className={`${css["modal-content"]} p-3`}>
@@ -13,14 +17,4 @@ const modal = ({ show, toggle, children }) =>
       </div>
       <div style={{ position: "fixed", zIndex: 10 }} className="modal-backdrop fade show" onClick={() => toggle()} />
     </div>
-  ) : (
-    ""
-  );
-
-export default modal;
-
-modal.propTypes = {
-  show: PropTypes.bool,
-  toggle: PropTypes.func,
-  children: PropTypes.object
-};
+  ) : null;
