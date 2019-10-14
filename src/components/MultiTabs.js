@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import styles from "./certificateViewer.scss";
 import { getTemplates, getActiveTemplateTab } from "../reducers/certificate";
-import Drawer from "./UI/Drawer";
+import { Drawer } from "./UI/drawer";
 
 const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => (
   <div id={styles["header-ui"]}>
