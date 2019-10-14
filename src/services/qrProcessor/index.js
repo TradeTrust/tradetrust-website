@@ -6,12 +6,12 @@ export const decodeQrCode = qrCode => {
   if (!ttRegex.test(qrCode))
     throw new Error("QR Code is not formatted to TradeTrust specifications");
   const [, encodedPayload] = ttRegex.exec(qrCode);
-  const decodedPayload = decodeURIComponent(encodedPayload);
+  const decodedPayload = JSON.parse(decodeURIComponent(encodedPayload));
   return decodedPayload;
 };
 
 export const encodeQrCode = payload =>
-  `tradetrust://${encodeURIComponent(payload)}`;
+  `tradetrust://${encodeURIComponent(JSON.stringify(payload))}`;
 
 const decryptDocument = async uri => {
   const uriPart = uri.split("#");
@@ -28,7 +28,7 @@ const decryptDocument = async uri => {
 };
 
 export const processQrCode = async qrCode => {
-  const uri = decodeQrCode(qrCode);
+  const { uri } = decodeQrCode(qrCode);
   const data = await decryptDocument(uri);
   return data;
 };
