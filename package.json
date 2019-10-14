@@ -72,6 +72,7 @@
     "@types/node": "12.7.5",
     "@types/react": "16.9.2",
     "@types/react-google-recaptcha": "^1.1.0",
+    "@types/react-qr-reader": "^2.1.2",
     "@types/react-redux": "^7.1.4",
     "@types/react-router-dom": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "2.3.2",

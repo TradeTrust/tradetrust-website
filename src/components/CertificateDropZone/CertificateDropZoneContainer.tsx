@@ -10,7 +10,7 @@ import {
 import { updateNetworkId } from "../../reducers/application";
 import CertificateDropZone from "./CertificateDropZone";
 import css from "./Views/viewerStyles.scss";
-import QrReader from "../QrReader";
+import { QrReaderZone } from "../QrReader";
 
 interface CertificateDropZoneContainerProps {
   updateNetworkId: () => void;
@@ -72,7 +72,7 @@ export class CertificateDropZoneContainer extends Component<
   render() {
     return this.state.qrReaderVisible ? (
       <>
-        <QrReader handleQrScanned={this.handleQrScanned} />
+        <QrReaderZone handleQrScanned={this.handleQrScanned} />
         <button
           type="button"
           onClick={this.toggleQrReaderVisible}
