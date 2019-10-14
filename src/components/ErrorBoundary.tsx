@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import css from "./error.scss";
 
-export default class ErrorBoundary extends Component {
-  constructor(props) {
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
+  constructor(props: {}) {
     super(props);
     this.state = { hasError: false };
   }
@@ -34,7 +36,3 @@ export default class ErrorBoundary extends Component {
     return this.props.children;
   }
 }
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.Component
-};

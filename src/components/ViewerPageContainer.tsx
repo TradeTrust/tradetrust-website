@@ -1,30 +1,45 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
 
-import { withRouter } from "react-router";
+import { withRouter, RouteComponentProps } from "react-router";
 import {
-  updateCertificate,
-  sendCertificate,
-  sendCertificateReset,
   getCertificate,
-  getVerifying,
   getEmailSendingState,
   getVerificationStatus,
+  getVerifying,
+  sendCertificate,
+  sendCertificateReset,
+  updateCertificate,
   updateObfuscatedCertificate
 } from "../reducers/certificate";
-import CertificateViewer from "./CertificateViewer";
+import { CertificateViewerContainer } from "./CertificateViewer";
 
-class MainPageContainer extends Component {
-  constructor(props) {
+type ViewerPageProps = RouteComponentProps & {
+  updateCertificate: (certificate: any) => void;
+  document: any;
+  certificate: any;
+  verifying: boolean;
+  verificationStatus: any;
+  emailSendingState: any;
+  sendCertificate: (params: { email: string; captcha: string }) => void;
+  sendCertificateReset: () => void;
+  updateObfuscatedCertificate: (updatedDoc: any) => void;
+  history: History;
+};
+interface ViewerPageState {
+  showSharing: boolean;
+  detailedVerifyVisible: boolean;
+}
+
+export class ViewerPage extends Component<ViewerPageProps, ViewerPageState> {
+  constructor(props: ViewerPageProps) {
     super(props);
 
     this.state = {
       showSharing: false,
       detailedVerifyVisible: false
     };
-    this.handleCertificateChange = this.handleCertificateChange.bind(this);
     this.handleSharingToggle = this.handleSharingToggle.bind(this);
     this.handleSendCertificate = this.handleSendCertificate.bind(this);
   }
@@ -41,25 +56,19 @@ class MainPageContainer extends Component {
     this.setState({ showSharing: !this.state.showSharing });
   }
 
-  handleCertificateChange(certificate) {
-    this.props.updateCertificate(certificate);
-  }
-
-  handleSendCertificate({ email, captcha }) {
+  handleSendCertificate({ email, captcha }: { email: string; captcha: string }) {
     this.props.sendCertificate({ email, captcha });
   }
 
   render() {
     if (!this.props.document) return null;
     return (
-      <CertificateViewer
+      <CertificateViewerContainer
         document={this.props.document}
         certificate={getData(this.props.document)}
         verifying={this.props.verifying}
         verificationStatus={this.props.verificationStatus}
-        handleCertificateChange={this.handleCertificateChange}
         showSharing={this.state.showSharing}
-        emailAddress={this.state.emailAddress}
         handleSendCertificate={this.handleSendCertificate}
         handleSharingToggle={this.handleSharingToggle}
         emailSendingState={this.props.emailSendingState}
@@ -69,7 +78,7 @@ class MainPageContainer extends Component {
   }
 }
 
-const mapStateToProps = store => ({
+const mapStateToProps = (store: any) => ({
   document: getCertificate(store),
 
   // Verification statuses used in verifier block
@@ -78,27 +87,14 @@ const mapStateToProps = store => ({
   verificationStatus: getVerificationStatus(store)
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateCertificate: payload => dispatch(updateCertificate(payload)),
-  sendCertificate: payload => dispatch(sendCertificate(payload)),
+const mapDispatchToProps = (dispatch: any) => ({
+  updateCertificate: (payload: any) => dispatch(updateCertificate(payload)),
+  sendCertificate: (payload: any) => dispatch(sendCertificate(payload)),
   sendCertificateReset: () => dispatch(sendCertificateReset()),
-  updateObfuscatedCertificate: updatedDoc => dispatch(updateObfuscatedCertificate(updatedDoc))
+  updateObfuscatedCertificate: (updatedDoc: any) => dispatch(updateObfuscatedCertificate(updatedDoc))
 });
 
-export default connect(
+export const ViewerPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(MainPageContainer));
-
-MainPageContainer.propTypes = {
-  updateCertificate: PropTypes.func,
-  document: PropTypes.object,
-  certificate: PropTypes.object,
-  verifying: PropTypes.bool,
-  verificationStatus: PropTypes.object,
-  emailSendingState: PropTypes.string,
-  sendCertificate: PropTypes.func,
-  sendCertificateReset: PropTypes.func,
-  updateObfuscatedCertificate: PropTypes.func,
-  history: PropTypes.object
-};
+)(withRouter(ViewerPage));

@@ -4,10 +4,11 @@ import createSagaMiddleware from "redux-saga";
 import { routerMiddleware } from "connected-react-router";
 import sagas from "./sagas";
 import reducers from "./reducers";
+import { History } from "history";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const initStore = history => {
+const initStore = (history: History) => {
   const store = createStore(
     reducers(history),
     composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware(history)))

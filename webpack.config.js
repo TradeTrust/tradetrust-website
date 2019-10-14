@@ -10,7 +10,7 @@ const IS_PROD = !IS_DEV;
 
 module.exports = {
   entry: {
-    app: ["./src/index.js"]
+    app: ["./src/index.tsx"]
   },
   context: path.resolve(__dirname),
   mode: IS_DEV ? "development" : "production",

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { get } from "lodash";
 import { DetailedCertificateVerifyBlock } from "./DetailedCertificateVerifyBlock";
 import css from "./certificateVerifyBlock.scss";
-import icons from "../ViewerPageImages";
+import { CheckCircle, Arrow } from "../ViewerPageImages";
 
 interface CertificateVerifyBlockProps {
   verificationStatus: any; // TODO type me
@@ -29,10 +29,12 @@ export const CertificateVerifyBlock: React.FunctionComponent<CertificateVerifyBl
       >
         <div className="row" style={{ flexWrap: "inherit" }}>
           <div className={`d-flex justify-content-center align-items-center ${css["verified-icon"]}`}>
-            {icons.checkCircle()}
+            <CheckCircle />
           </div>
           <div className={css["verification-text"]}>{`Issued by ${dnsNames.length > 0 ? dnsNames[0] : "Unknown"}`}</div>
-          <span className={`d-flex justify-content-center align-items-center ${css.arrow}`}>{icons.arrow()}</span>
+          <span className={`d-flex justify-content-center align-items-center ${css.arrow}`}>
+            <Arrow />
+          </span>
         </div>
       </div>
       {detailedViewVisible ? <DetailedCertificateVerifyBlock verificationStatus={verificationStatus} /> : ""}

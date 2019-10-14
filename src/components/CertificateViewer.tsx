@@ -1,28 +1,30 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
 import { CertificateVerifyBlock } from "./CertificateVerifyBlock";
 import styles from "./certificateViewer.scss";
 import { Modal } from "./Modal";
-import ErrorBoundary from "./ErrorBoundary";
-import DecentralisedRenderer from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
-import MultiTabs from "./MultiTabs";
+import { ErrorBoundary } from "./ErrorBoundary";
+import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
+import { MultiTabsContainer } from "./MultiTabs";
 import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certificate";
 import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import { CertificateSharingForm } from "./CertificateSharing/CertificateSharingForm";
 
-const renderVerifyBlock = props => (
+const renderVerifyBlock = (props: Pick<CertificateViewerProps, "verificationStatus" | "detailedVerifyVisible">) => (
   <CertificateVerifyBlock
-    verifyTriggered={props.verifyTriggered}
-    verifying={props.verifying}
     verificationStatus={props.verificationStatus}
     detailedVerifyVisible={props.detailedVerifyVisible}
   />
 );
 
-const renderHeaderBlock = props => {
+const renderHeaderBlock = (
+  props: Pick<
+    CertificateViewerProps,
+    "verificationStatus" | "detailedVerifyVisible" | "handleSharingToggle" | "certificate" | "document"
+  >
+) => {
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
     <div className={`container-fluid ${styles["pd-0"]}`}>
@@ -59,7 +61,19 @@ const renderHeaderBlock = props => {
   );
 };
 
-const CertificateViewer = props => {
+interface CertificateViewerProps {
+  detailedVerifyVisible: boolean;
+  document: any;
+  certificate: any;
+  verifying: boolean;
+  verificationStatus: any;
+  showSharing: boolean;
+  emailSendingState: string;
+  handleSharingToggle: () => void;
+  handleSendCertificate: (data: { email: string; captcha: string }) => void;
+  selectTemplateTab: (tabIndex: number) => void;
+}
+const CertificateViewer: FunctionComponent<CertificateViewerProps> = props => {
   const { document, selectTemplateTab } = props;
 
   const certificate = getData(document);
@@ -71,8 +85,8 @@ const CertificateViewer = props => {
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>
-      <MultiTabs selectTemplateTab={selectTemplateTab} />
-      <DecentralisedRenderer
+      <MultiTabsContainer selectTemplateTab={selectTemplateTab} />
+      <DecentralisedRendererContainer
         certificate={document}
         source={`${
           typeof document.data.$template === "object" ? certificate.$template.url : LEGACY_OPENCERTS_RENDERER
@@ -91,32 +105,11 @@ const CertificateViewer = props => {
   return <ErrorBoundary>{validCertificateContent} </ErrorBoundary>;
 };
 
-const mapDispatchToProps = dispatch => ({
-  selectTemplateTab: tabIndex => dispatch(selectTemplateTabAction(tabIndex))
+const mapDispatchToProps = (dispatch: any) => ({
+  selectTemplateTab: (tabIndex: number) => dispatch(selectTemplateTabAction(tabIndex))
 });
 
-export default connect(
+export const CertificateViewerContainer = connect(
   null,
   mapDispatchToProps
 )(CertificateViewer);
-
-CertificateViewer.propTypes = {
-  detailedVerifyVisible: PropTypes.bool,
-  document: PropTypes.object,
-  certificate: PropTypes.object,
-  verifying: PropTypes.bool,
-  verificationStatus: PropTypes.object,
-  showSharing: PropTypes.bool,
-  emailSendingState: PropTypes.string,
-  handleSharingToggle: PropTypes.func,
-  handleSendCertificate: PropTypes.func,
-
-  selectTemplateTab: PropTypes.func
-};
-
-renderVerifyBlock.propTypes = CertificateViewer.propTypes;
-renderHeaderBlock.propTypes = CertificateViewer.propTypes;
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.node
-};

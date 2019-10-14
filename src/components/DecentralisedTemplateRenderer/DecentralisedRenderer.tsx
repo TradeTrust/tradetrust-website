@@ -115,7 +115,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   selectTemplateTab: (tabIndex: any) => dispatch(selectTemplateTabAction(tabIndex))
 });
 
-export default connect(
+export const DecentralisedRendererContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(DecentralisedRenderer);
