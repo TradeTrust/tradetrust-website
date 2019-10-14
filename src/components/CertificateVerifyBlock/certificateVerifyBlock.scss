@@ -19,7 +19,7 @@
     height: 100%;
     margin: auto 0;
   }
-  
+
 }
 @mixin block-color($color) {
   background-color: $color;
@@ -45,8 +45,7 @@
 }
 
 .arrow {
-  height:100%;
-  margin: 6px 15px 0 15px;
+  margin: 0 15px 0 15px;
 }
 
 .valid {

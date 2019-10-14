@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { get } from "lodash";
-import DetailedCertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
+import { DetailedCertificateVerifyBlock } from "./DetailedCertificateVerifyBlock";
 import css from "./certificateVerifyBlock.scss";
 import icons from "../ViewerPageImages";
 

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
-import CertificateVerifyBlock from "./CertificateVerifyBlock";
+import { CertificateVerifyBlock } from "./CertificateVerifyBlock";
 import styles from "./certificateViewer.scss";
 import Modal from "./Modal";
 import ErrorBoundary from "./ErrorBoundary";
@@ -11,7 +11,7 @@ import MultiTabs from "./MultiTabs";
 import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certificate";
 import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
-import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
+import { CertificateSharingForm } from "./CertificateSharing/CertificateSharingForm";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
