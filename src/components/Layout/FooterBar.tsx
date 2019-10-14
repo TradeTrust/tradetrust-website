@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./footer.scss";
 
-const NavigationBar = () => (
+export const FooterBar = () => (
   <div className="bg-brand-dark" id={css["footer-print"]}>
     <div className={css.footer}>
       <div>
@@ -10,5 +10,3 @@ const NavigationBar = () => (
     </div>
   </div>
 );
-
-export default NavigationBar;

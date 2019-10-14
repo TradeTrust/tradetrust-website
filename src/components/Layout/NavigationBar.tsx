@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FunctionComponent } from "react";
 import css from "./navBar.scss";
 
 const navItems = [
@@ -10,7 +9,7 @@ const navItems = [
   }
 ];
 
-const renderNavItem = active => {
+const renderNavItem = (active: string) => {
   const items = navItems.map((n, i) => (
     <li className={`${css["nav-item"]} ${n.id === active ? css.active : ""}`} key={i}>
       <a href={n.path}>{n.label}</a>
@@ -19,7 +18,11 @@ const renderNavItem = active => {
   return <ul className="navbar-nav ml-auto d-none d-lg-flex d-xl-flex">{items}</ul>;
 };
 
-const NavigationBar = ({ active }) => (
+interface NavigationBarProps {
+  active: string;
+}
+
+export const NavigationBar: FunctionComponent<NavigationBarProps> = ({ active }) => (
   <nav className={`${css.navbar} ${"navbar-expand-md navbar-dark bg-brand-dark"}`}>
     <div className={css.innerbar}>
       <a className="navbar-brand" href="/">
@@ -43,9 +46,3 @@ const NavigationBar = ({ active }) => (
     </div>
   </nav>
 );
-
-export default NavigationBar;
-
-NavigationBar.propTypes = {
-  active: PropTypes.string
-};
