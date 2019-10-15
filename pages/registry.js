@@ -2,7 +2,7 @@ import NextSeo from "next-seo";
 import { merge } from "lodash/fp";
 import { connect } from "react-redux";
 import NavigationBar from "../src/components/Layout/NavigationBar";
-import FooterBar from "../src/components/Layout/FooterBar";
+import Footer from "../src/components/Layout/Footer";
 import { URL, DEFAULT_SEO } from "../src/config";
 
 const PAGE_SEO = {
@@ -21,7 +21,7 @@ const RegistryPage = () => (
   <>
     <NextSeo config={merge(DEFAULT_SEO, PAGE_SEO)} />
     <NavigationBar active="home" />
-    <FooterBar />
+    <Footer />
   </>
 );
 
