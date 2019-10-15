@@ -2,12 +2,12 @@ import css from "../registry.scss";
 import collaborators from "./collaborators";
 import Card from "../UI/Card/card";
 
-const renderMembers = () =>
+const renderCollaborators = () =>
   collaborators.map((collaborator, index) => (
     <Card key={index} info={collaborator} />
   ));
 
-const CollaboratePage = () => (
+const Collaborate = () => (
   <>
     <div className="container-fluid" style={{ backgroundColor: "#324353" }}>
       <div className={`container bg-brand-dark text-white ${css["r-section"]}`}>
@@ -45,9 +45,9 @@ const CollaboratePage = () => (
       </div>
     </div>
     <div className={`row ${css["r-section"]} ${css["section-width"]}`}>
-      {renderMembers()}
+      {renderCollaborators()}
     </div>
   </>
 );
 
-export default CollaboratePage;
+export default Collaborate;
