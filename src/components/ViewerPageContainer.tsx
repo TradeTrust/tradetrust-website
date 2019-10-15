@@ -18,7 +18,6 @@ import { CertificateViewerContainer } from "./CertificateViewer";
 type ViewerPageProps = RouteComponentProps & {
   updateCertificate: (certificate: any) => void;
   document: any;
-  certificate: any;
   verifying: boolean;
   verificationStatus: any;
   emailSendingState: any;

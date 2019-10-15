@@ -9,7 +9,7 @@ const navItems = [
   }
 ];
 
-const renderNavItem = (active: string) => {
+const renderNavItem = (active?: string) => {
   const items = navItems.map((n, i) => (
     <li className={`${css["nav-item"]} ${n.id === active ? css.active : ""}`} key={i}>
       <a href={n.path}>{n.label}</a>
@@ -19,7 +19,7 @@ const renderNavItem = (active: string) => {
 };
 
 interface NavigationBarProps {
-  active: string;
+  active?: string;
 }
 
 export const NavigationBar: FunctionComponent<NavigationBarProps> = ({ active }) => (
