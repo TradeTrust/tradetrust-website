@@ -1,5 +1,5 @@
 // TODO test components and not internals ......
-describe("certificate verify block getIdentityVerificationText", () => {
+describe.skip("certificate verify block getIdentityVerificationText", () => {
   describe("should return appropriate display text when dns is verified", () => {
     it("when registry is unverified but dns is verified", () => {
       // const testValue = [{ registry: false, dns: "abc.com" }];

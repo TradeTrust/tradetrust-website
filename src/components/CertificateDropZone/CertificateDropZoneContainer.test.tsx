@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
-import QrReader from "../QrReader";
+import { QrReaderZone } from "../QrReader";
 import CertificateDropZone from "./CertificateDropZone";
 
 describe("certificateDropZoneContainer", () => {
@@ -30,7 +30,7 @@ describe("certificateDropZoneContainer", () => {
     );
     wrapper.instance().toggleQrReaderVisible();
     expect(wrapper.state().qrReaderVisible).toBe(true);
-    expect(wrapper.find(QrReader)).toHaveLength(1);
+    expect(wrapper.find(QrReaderZone)).toHaveLength(1);
     expect(wrapper.find(CertificateDropZone)).toHaveLength(0);
   });
 
@@ -39,7 +39,7 @@ describe("certificateDropZoneContainer", () => {
       <CertificateDropZoneContainer {...sharedProps} updateNetworkId={() => {}} />
     );
     expect(wrapper.state().qrReaderVisible).toBe(false);
-    expect(wrapper.find(QrReader)).toHaveLength(0);
+    expect(wrapper.find(QrReaderZone)).toHaveLength(0);
     expect(wrapper.find(CertificateDropZone)).toHaveLength(1);
   });
 

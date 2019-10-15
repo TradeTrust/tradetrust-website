@@ -12,7 +12,7 @@ interface DropzoneContentProps {
   isDragAccept?: boolean;
   isDragReject?: boolean;
   toggleQrReaderVisible: () => void;
-  verificationStatus: any;
+  verificationStatus?: any;
 }
 export const DropzoneContent: FunctionComponent<DropzoneContentProps> = ({
   resetData,

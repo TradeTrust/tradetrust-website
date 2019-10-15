@@ -7,9 +7,7 @@ import { UnverifiedView } from "./Views/UnverifiedView";
 
 describe("dropzoneContent", () => {
   it("renders DefaultView by default", () => {
-    const wrapper = shallow(
-      <DropzoneContent resetData={() => 0} toggleQrReaderVisible={() => 0} verificationStatus={{}} />
-    );
+    const wrapper = shallow(<DropzoneContent resetData={() => 0} toggleQrReaderVisible={() => 0} />);
     expect(wrapper.find(DefaultView)).toHaveLength(1);
   });
 
