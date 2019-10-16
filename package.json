@@ -18,7 +18,7 @@
     "storybook:build": "build-storybook -s . -o docs"
   },
   "dependencies": {
-    "@govtechsg/dnsprove": "^2.0.3",
+    "@govtechsg/dnsprove": "^2.0.5",
     "@govtechsg/oa-verify": "^2.0.1",
     "@govtechsg/open-attestation": "^1.1.41",
     "@hot-loader/react-dom": "^16.9.0",
