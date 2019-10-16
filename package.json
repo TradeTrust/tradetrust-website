@@ -42,6 +42,7 @@
     "react-dom": "^16.6.3",
     "react-dropzone": "^7.0.1",
     "react-google-recaptcha": "^1.0.5",
+    "react-helmet": "^5.2.1",
     "react-hot-loader": "^4.12.14",
     "react-qr-reader": "^2.2.1",
     "react-qr-svg": "^2.2.1",
