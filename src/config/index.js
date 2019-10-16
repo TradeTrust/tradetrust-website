@@ -1,7 +1,7 @@
 import { getLogger } from "../utils/logger";
 
 const { trace } = getLogger("config");
-const publicRuntimeConfig = { network: process.env.NET };
+const config = { network: process.env.NET };
 
 export const NETWORK_TYPES = {
   INFURA_MAINNET: "INFURA_MAINNET",
@@ -11,7 +11,7 @@ export const NETWORK_TYPES = {
   MOCK: "MOCK"
 };
 
-export const IS_MAINNET = publicRuntimeConfig.network === "mainnet";
+export const IS_MAINNET = config.network === "mainnet";
 
 export const DEFAULT_NETWORK = IS_MAINNET
   ? NETWORK_TYPES.INFURA_MAINNET
