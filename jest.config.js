@@ -1,6 +1,6 @@
 module.exports = {
   setupFiles: ["<rootDir>/jest.setup.js"],
-  testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
+  testPathIgnorePatterns: ["<rootDir>/node_modules/"],
   collectCoverage: false,
   coverageDirectory: "<rootDir>/.coverage/",
   collectCoverageFrom: ["src/**/*.{js,jsx}", "scripts/**/*.{js,jsx}"],
@@ -10,5 +10,5 @@ module.exports = {
       "<rootDir>/_mocks_/fileMock.js",
     "\\.(css|sass|scss)$": "<rootDir>/_mocks_/styleMock.js"
   },
-  testResultsProcessor: "jest-sonar-reporter"
+  testResultsProcessor: "jest-sonar-reporter",
 };

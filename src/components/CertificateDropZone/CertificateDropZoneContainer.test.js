@@ -1,21 +1,10 @@
-import Router from "next/router";
+import React from "react";
 import { shallow } from "enzyme";
 import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
 import QrReader from "../QrReader";
 import CertificateDropZone from "./CertificateDropZone";
 
-// Prevent Router.prefetch from throwing;
-jest.mock("next/router");
-
 describe("CertificateDropZoneContainer", () => {
-  it("runs updateNetworkId and prefetch on mount", () => {
-    const updateNetworkId = jest.fn();
-    shallow(<CertificateDropZoneContainer updateNetworkId={updateNetworkId} />);
-    expect(Router.prefetch).toHaveBeenCalledTimes(1);
-    expect(updateNetworkId).toHaveBeenCalledTimes(1);
-    expect(Router.prefetch.mock.calls).toEqual([["/viewer"]]);
-  });
-
   it("toggles qrReaderVisible when toggleQrReaderVisible is called", () => {
     const wrapper = shallow(
       <CertificateDropZoneContainer updateNetworkId={() => {}} />

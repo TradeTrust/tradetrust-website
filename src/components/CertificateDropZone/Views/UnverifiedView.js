@@ -1,5 +1,6 @@
+import React from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { get } from "lodash";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 import css from "./viewerStyles.scss";
@@ -46,23 +47,23 @@ const View = ({ resetData, verificationStatus }) => (
 
     <DetailedErrors verificationStatus={verificationStatus} />
 
-    <Link href="/faq">
-      <div className={css["unverified-btn"]}>What should I do?</div>
-    </Link>
+    <div className={css["unverified-btn-container"]}>
+      <Link to="/faq">
+        <span className={css["unverified-btn"]}>What should I do?</span>
+      </Link>
+    </div>
 
     <div className={css["secondary-links"]}>
       <span>
-        <Link href=" ">
-          <a
-            onClick={e => {
-              e.preventDefault();
-              resetData();
-            }}
-            className={css["text-link"]}
-          >
-            Try another
-          </a>
-        </Link>
+        <a
+          onClick={e => {
+            e.preventDefault();
+            resetData();
+          }}
+          className={css["text-link"]}
+        >
+          Try another
+        </a>
       </span>
     </div>
   </div>

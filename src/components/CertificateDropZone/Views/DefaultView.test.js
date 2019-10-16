@@ -1,3 +1,4 @@
+import React from "react";
 import { shallow } from "enzyme";
 import DefaultView from "./DefaultView";
 
@@ -36,7 +37,10 @@ describe("DefaultView", () => {
       />
     );
     const buttonElm = wrapper.find("[data-id='scan-qr-button']");
-    buttonElm.simulate("click");
+    buttonElm.simulate("click", {
+      preventDefault: () => {},
+      stopPropagation: () => {}
+    });
     expect(toggleQrReaderVisible).toHaveBeenCalledTimes(1);
   });
 });

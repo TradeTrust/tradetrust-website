@@ -6,8 +6,8 @@ import css from "./dropZoneSection.scss";
 import { updateCertificate } from "../../reducers/certificate";
 import { trace } from "../../utils/logger";
 import { IS_MAINNET } from "../../config";
-import MAIN from "./Main-Demo";
-import ROPSTEN from "./Ropsten-Demo";
+import MAIN from "./Main-Demo.json";
+import ROPSTEN from "./Ropsten-Demo.json";
 
 const DEMO_CERT = IS_MAINNET ? MAIN : ROPSTEN;
 const DEMO_CONTENT_KEY = "DEMO_CONTENT";

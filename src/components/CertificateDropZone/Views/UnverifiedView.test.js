@@ -1,4 +1,6 @@
+import React from "react";
 import { mount } from "enzyme";
+import { MemoryRouter } from "react-router-dom";
 import UnverifiedView from "./UnverifiedView";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 
@@ -42,14 +44,16 @@ const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
 describe("UnverifiedView", () => {
   it("displays hash error if the hash is invalid", () => {
     const wrapper = mount(
-      <UnverifiedView
-        handleRenderOverwrite={() => {}}
-        verificationStatus={{
-          ...VALID_VERIFICATION_STATUS,
-          hash: { checksumMatch: false }
-        }}
-        resetData={() => {}}
-      />
+      <MemoryRouter>
+        <UnverifiedView
+          handleRenderOverwrite={() => {}}
+          verificationStatus={{
+            ...VALID_VERIFICATION_STATUS,
+            hash: { checksumMatch: false }
+          }}
+          resetData={() => {}}
+        />
+      </MemoryRouter>
     );
     const errorContainerElm = wrapper.find("#error-tab");
     expect(errorContainerElm.text()).toContain(
@@ -62,14 +66,16 @@ describe("UnverifiedView", () => {
 
   it("displays issuing error if the document is not issued", () => {
     const wrapper = mount(
-      <UnverifiedView
-        handleRenderOverwrite={() => {}}
-        verificationStatus={{
-          ...VALID_VERIFICATION_STATUS,
-          issued: { issuedOnAll: false }
-        }}
-        resetData={() => {}}
-      />
+      <MemoryRouter>
+        <UnverifiedView
+          handleRenderOverwrite={() => {}}
+          verificationStatus={{
+            ...VALID_VERIFICATION_STATUS,
+            issued: { issuedOnAll: false }
+          }}
+          resetData={() => {}}
+        />
+      </MemoryRouter>
     );
     const errorContainerElm = wrapper.find("#error-tab");
     expect(errorContainerElm.text()).toContain(
@@ -82,14 +88,16 @@ describe("UnverifiedView", () => {
 
   it("display revocation error if the document is revoked", () => {
     const wrapper = mount(
-      <UnverifiedView
-        handleRenderOverwrite={() => {}}
-        verificationStatus={{
-          ...VALID_VERIFICATION_STATUS,
-          revoked: { revokedOnAny: true }
-        }}
-        resetData={() => {}}
-      />
+      <MemoryRouter>
+        <UnverifiedView
+          handleRenderOverwrite={() => {}}
+          verificationStatus={{
+            ...VALID_VERIFICATION_STATUS,
+            revoked: { revokedOnAny: true }
+          }}
+          resetData={() => {}}
+        />
+      </MemoryRouter>
     );
     const errorContainerElm = wrapper.find("#error-tab");
     expect(errorContainerElm.text()).toContain(
@@ -102,14 +110,16 @@ describe("UnverifiedView", () => {
 
   it("displays identity error if the identity is not verified", () => {
     const wrapper = mount(
-      <UnverifiedView
-        handleRenderOverwrite={() => {}}
-        verificationStatus={{
-          ...VALID_VERIFICATION_STATUS,
-          identity: { identifiedOnAll: false }
-        }}
-        resetData={() => {}}
-      />
+      <MemoryRouter>
+        <UnverifiedView
+          handleRenderOverwrite={() => {}}
+          verificationStatus={{
+            ...VALID_VERIFICATION_STATUS,
+            identity: { identifiedOnAll: false }
+          }}
+          resetData={() => {}}
+        />
+      </MemoryRouter>
     );
     const errorContainerElm = wrapper.find("#error-tab");
     expect(errorContainerElm.text()).toContain(
@@ -121,17 +131,19 @@ describe("UnverifiedView", () => {
   });
   it("displays error in all fields when all verification fail", () => {
     const wrapper = mount(
-      <UnverifiedView
-        handleRenderOverwrite={() => {}}
-        verificationStatus={{
-          ...VALID_VERIFICATION_STATUS,
-          hash: { checksumMatch: false },
-          issued: { issuedOnAll: false },
-          revoked: { revokedOnAny: true },
-          identity: { identifiedOnAll: false }
-        }}
-        resetData={() => {}}
-      />
+      <MemoryRouter>
+        <UnverifiedView
+          handleRenderOverwrite={() => {}}
+          verificationStatus={{
+            ...VALID_VERIFICATION_STATUS,
+            hash: { checksumMatch: false },
+            issued: { issuedOnAll: false },
+            revoked: { revokedOnAny: true },
+            identity: { identifiedOnAll: false }
+          }}
+          resetData={() => {}}
+        />
+      </MemoryRouter>
     );
     wrapper
       .find("#error-tab")

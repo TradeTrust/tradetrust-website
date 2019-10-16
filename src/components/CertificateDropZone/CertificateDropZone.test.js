@@ -1,3 +1,4 @@
+import React from "react";
 import { shallow } from "enzyme";
 import { DropzoneContent } from "./CertificateDropZone";
 import DefaultView from "./Views/DefaultView";
