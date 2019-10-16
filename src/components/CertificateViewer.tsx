@@ -7,7 +7,7 @@ import { Modal } from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabsContainer } from "./MultiTabs";
-import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certificate";
+import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certificate.actions";
 import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import { CertificateSharingForm } from "./CertificateSharing/CertificateSharingForm";

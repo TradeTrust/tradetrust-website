@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  getVerificationStatus,
-  getVerifying,
-  processQrCode,
-  resetCertificateState,
-  updateCertificate
-} from "../../reducers/certificate";
-import { updateNetworkId } from "../../reducers/application";
+import { resetCertificateState, updateCertificate, processQrCode } from "../../reducers/certificate";
+import { getVerificationStatus, getVerifying } from "../../reducers/certificate.selectors";
 import CertificateDropZone from "./CertificateDropZone";
 import css from "./Views/viewerStyles.scss";
 import { QrReaderZone } from "../QrReader";
 
 interface CertificateDropZoneContainerProps {
-  updateNetworkId: () => void;
   updateCertificate: (certificate: any) => void; // TODO type me
   resetData: () => void;
   verifying?: boolean;
@@ -41,10 +34,6 @@ export class CertificateDropZoneContainer extends Component<
     this.handleFileError = this.handleFileError.bind(this);
     this.toggleQrReaderVisible = this.toggleQrReaderVisible.bind(this);
     this.handleQrScanned = this.handleQrScanned.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.updateNetworkId();
   }
 
   handleQrScanned(data: any) {
@@ -103,7 +92,6 @@ const mapStateToProps = (store: any) => ({
 
 // TODO type me redux
 const mapDispatchToProps = (dispatch: any) => ({
-  updateNetworkId: () => dispatch(updateNetworkId()),
   updateCertificate: (payload: any) => dispatch(updateCertificate(payload)),
   resetData: () => dispatch(resetCertificateState()),
   processQr: (payload: any) => dispatch(processQrCode(payload))

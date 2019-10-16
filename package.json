@@ -18,8 +18,8 @@
     "storybook:build": "build-storybook -s . -o docs"
   },
   "dependencies": {
-    "@govtechsg/dnsprove": "^2.0.3",
-    "@govtechsg/oa-verify": "^2.0.1",
+    "@govtechsg/dnsprove": "^2.0.4",
+    "@govtechsg/oa-verify": "^2.0.2",
     "@govtechsg/open-attestation": "^1.1.41",
     "@hot-loader/react-dom": "^16.9.0",
     "axios": "^0.19.0",
@@ -52,8 +52,7 @@
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.7",
     "redux-saga": "^0.16.0",
-    "web3": "^1.0.0-beta.52",
-    "web3-provider-engine": "14.0.6"
+    "typesafe-actions": "4.4.2"
   },
   "license": "ISC",
   "devDependencies": {
@@ -108,7 +107,7 @@
     "sinon": "^7.1.1",
     "style-loader": "^1.0.0",
     "testcafe": "^1.1.0",
-    "typescript": "3.6.3",
+    "typescript": "3.5.3",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1"

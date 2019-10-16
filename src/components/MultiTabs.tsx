@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import React, { FunctionComponent } from "react";
 import styles from "./certificateViewer.scss";
-import { getActiveTemplateTab, getTemplates } from "../reducers/certificate";
+import { getActiveTemplateTab, getTemplates } from "../reducers/certificate.selectors";
 import { Drawer } from "./UI/drawer";
 
 interface MultiTabsProps {

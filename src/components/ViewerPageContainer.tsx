@@ -7,7 +7,9 @@ import {
   getCertificate,
   getEmailSendingState,
   getVerificationStatus,
-  getVerifying,
+  getVerifying
+} from "../reducers/certificate.selectors";
+import {
   sendCertificate,
   sendCertificateReset,
   updateCertificate,

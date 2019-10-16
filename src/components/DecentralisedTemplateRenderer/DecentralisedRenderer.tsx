@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import connectToChild from "penpal/lib/connectToChild";
 import { getData, obfuscateDocument } from "@govtechsg/open-attestation";
+import { getActiveTemplateTab, getCertificate } from "../../reducers/certificate.selectors";
 import {
-  getActiveTemplateTab,
-  getCertificate,
   registerTemplates as registerTemplatesAction,
   selectTemplateTab as selectTemplateTabAction,
   updateObfuscatedCertificate

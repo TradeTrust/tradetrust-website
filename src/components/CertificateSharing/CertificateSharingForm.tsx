@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { CAPTCHA_CLIENT_KEY } from "../../config";
 import css from "./sharing.scss";
-import { states } from "../../reducers/certificate";
+import { EmailState } from "../../reducers/certificate";
 
 interface CertificateSharingFormProps {
   emailSendingState: string;
@@ -39,7 +39,7 @@ export class CertificateSharingForm extends Component<CertificateSharingFormProp
 
   handleSend() {
     const { handleSendCertificate, emailSendingState } = this.props;
-    if (emailSendingState !== states.PENDING) {
+    if (emailSendingState !== EmailState.PENDING) {
       handleSendCertificate({
         email: this.state.email,
         captcha: this.state.captcha
@@ -71,12 +71,12 @@ export class CertificateSharingForm extends Component<CertificateSharingFormProp
             <div className="row d-flex justify-content-center m-3">
               <ReCAPTCHA sitekey={CAPTCHA_CLIENT_KEY} onChange={this.handleCaptchaChange} />
             </div>
-            {emailSendingState === states.SUCCESS ? (
+            {emailSendingState === EmailState.SUCCESS ? (
               <div className="row my-4 d-flex justify-content-center">Email successfully sent!</div>
             ) : (
               ""
             )}
-            {emailSendingState === states.FAILURE ? (
+            {emailSendingState === EmailState.FAILURE ? (
               <div className="row my-4 d-flex justify-content-center">
                 An error occured, please check your email and captcha
               </div>
@@ -86,7 +86,7 @@ export class CertificateSharingForm extends Component<CertificateSharingFormProp
             <div className="row d-flex justify-content-center m-3">
               <button type="button" className={`pointer ${css.btn}`} onClick={this.handleSend}>
                 Send
-                {emailSendingState === states.PENDING ? <i className="ml-2 fas fa-spinner fa-pulse" /> : ""}
+                {emailSendingState === EmailState.PENDING ? <i className="ml-2 fas fa-spinner fa-pulse" /> : ""}
               </button>
             </div>
           </div>

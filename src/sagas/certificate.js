@@ -59,12 +59,6 @@ export function* sendCertificate({ payload }) {
   }
 }
 
-export function* networkReset() {
-  yield put({
-    type: types.NETWORK_RESET
-  });
-}
-
 export function* handleQrScanned({ payload: qrCode }) {
   const document = yield processQrCode(qrCode);
   yield put({
@@ -77,5 +71,4 @@ export default [
   takeEvery(types.CERTIFICATE_PROCESS_QR_CODE, handleQrScanned),
   takeEvery(types.UPDATE_CERTIFICATE, verifyCertificate),
   takeEvery(types.SENDING_CERTIFICATE, sendCertificate),
-  takeEvery(applicationTypes.UPDATE_WEB3, networkReset)
 ];
