@@ -1,8 +1,8 @@
 import "isomorphic-fetch";
 import { EMAIL_API_URL } from "../../config";
 
-export default function sendEmail({ certificate, email, captcha }) {
-  return window
+export const sendEmail = ({ certificate, email, captcha }) =>
+  window
     .fetch(EMAIL_API_URL, {
       method: "POST",
       headers: {
@@ -16,4 +16,3 @@ export default function sendEmail({ certificate, email, captcha }) {
       })
     })
     .then(res => res.status === 200);
-}

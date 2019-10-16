@@ -8,7 +8,7 @@ import {
   getCertificate
 } from "../reducers/certificate";
 import { types as applicationTypes } from "../reducers/application";
-import sendEmail from "../services/email";
+import { sendEmail } from "../services/email/sendEmail";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 

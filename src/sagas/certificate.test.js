@@ -4,7 +4,7 @@ import * as Router from "next/router";
 import { types, getCertificate } from "../reducers/certificate";
 import { sendCertificate, verifyCertificate } from "./certificate";
 import { MakeCertUtil } from "./testutils";
-import * as sendEmail from "../services/email";
+import * as emailService from "../services/email/sendEmail";
 
 jest.mock("next/router");
 jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
@@ -21,12 +21,12 @@ function whenThereIsOneEthereumAddressIssuer() {
 
 describe("sagas/certificate", () => {
   describe("sendCertificate", () => {
-    let emailStub;
+    let sendEmailStub;
     beforeEach(() => {
-      emailStub = sinon.stub(sendEmail, "default");
+      sendEmailStub = sinon.stub(emailService, "sendEmail");
     });
     afterEach(() => {
-      emailStub.restore();
+      sendEmailStub.restore();
     });
     test("should put SENDING_CERTIFICATE_SUCCESS on success", () => {
       const { testCert } = whenThereIsOneEthereumAddressIssuer();
@@ -36,7 +36,7 @@ describe("sagas/certificate", () => {
 
       expect(saga.next().value).toEqual(select(getCertificate));
       expect(saga.next(testCert).value).toEqual(
-        emailStub({
+        sendEmailStub({
           certificate: testCert,
           email,
           captcha
@@ -58,7 +58,7 @@ describe("sagas/certificate", () => {
 
       expect(saga.next().value).toEqual(select(getCertificate));
       expect(saga.next(testCert).value).toEqual(
-        emailStub({
+        sendEmailStub({
           certificate: testCert,
           email,
           captcha
@@ -82,7 +82,7 @@ describe("sagas/certificate", () => {
 
       expect(saga.next().value).toEqual(select(getCertificate));
       expect(saga.next(testCert).value).toEqual(
-        emailStub({
+        sendEmailStub({
           certificate: testCert,
           email,
           captcha
