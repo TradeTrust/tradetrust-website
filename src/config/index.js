@@ -1,7 +1,7 @@
 import { getLogger } from "../utils/logger";
 
 const { trace } = getLogger("config");
-const NETWORK = process.env.NET
+const NETWORK = process.env.NET;
 
 export const NETWORK_TYPES = {
   INFURA_MAINNET: "INFURA_MAINNET",
