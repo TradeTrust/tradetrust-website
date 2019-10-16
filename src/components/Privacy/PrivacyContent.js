@@ -133,7 +133,8 @@ const Policy = () => (
         you to consult the privacy notices of those sites.
       </li>
       <li>
-        Please contact Info@tech.gov.sg if you:
+        Please contact <a href="mailto:Info@tech.gov.sg">Info@tech.gov.sg</a> if
+        you:
         <ol>
           <li>
             have any enquires or feedback on our data protection policies and
