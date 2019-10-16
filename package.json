@@ -5,7 +5,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:update": "jest -u",
-    "dev": "NODE_ENV=development npx webpack-dev-server",
+    "dev": "NODE_ENV=development webpack-dev-server",
     "lint": "eslint . --ext .js --max-warnings 0",
     "lint:fix": "eslint . --ext .js --fix",
     "build": "NODE_ENV=production webpack --progress --mode production",
