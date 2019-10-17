@@ -16,29 +16,14 @@ const DraggableDemoCertificate = () => (
   <div className="d-none d-lg-block">
     <div className="row">
       <div className="col">
-        <div
-          className={css.pulse}
-          draggable="true"
-          onDragStart={e => e.dataTransfer.setData(DEMO_CONTENT_KEY, true)}
-        >
-          <a
-            href={`data:text/plain;,${JSON.stringify(DEMO_CERT, null, 2)}`}
-            download="demo.tt"
-          >
-            <img
-              style={{ cursor: "grabbing" }}
-              src="/static/images/dropzone/cert.png"
-              width="100%"
-            />
+        <div className={css.pulse} draggable="true" onDragStart={e => e.dataTransfer.setData(DEMO_CONTENT_KEY, true)}>
+          <a href={`data:text/plain;,${JSON.stringify(DEMO_CERT, null, 2)}`} download="demo.tt">
+            <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
         </div>
       </div>
       <div className="col">
-        <img
-          src="/static/images/dropzone/arrow3.png"
-          width="100%"
-          draggable="false"
-        />
+        <img src="/static/images/dropzone/arrow3.png" width="100%" draggable="false" />
       </div>
     </div>
   </div>
@@ -75,9 +60,7 @@ class DropZoneSection extends Component {
   }
 
   componentWillUnmount() {
-    document
-      .getElementById("demoDrop", "demoClick")
-      .removeEventListener("drop", () => this.removeListener());
+    document.getElementById("demoDrop", "demoClick").removeEventListener("drop", () => this.removeListener());
   }
 
   removeListener = () => trace("drop listener removed");
@@ -90,10 +73,7 @@ class DropZoneSection extends Component {
           <div className="col-lg-5 col-md-12">
             <div className={css.description}>
               <h1>An easy way to check and verify your documents</h1>
-              <p>
-                TradeTrust lets you verify the documents you have of anyone from
-                any issuer. All in one place.
-              </p>
+              <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
               <DraggableDemoCertificate />
               <MobileDemoCertificate />
             </div>

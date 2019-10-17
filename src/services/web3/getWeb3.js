@@ -49,12 +49,7 @@ async function loadWeb3Mock() {
   };
 }
 
-async function resolveWeb3(
-  resolve,
-  reject,
-  t = NETWORK_TYPES.INJECTED,
-  config
-) {
+async function resolveWeb3(resolve, reject, t = NETWORK_TYPES.INJECTED, config) {
   try {
     switch (t) {
       case NETWORK_TYPES.INFURA_ROPSTEN:

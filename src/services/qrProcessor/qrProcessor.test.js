@@ -27,8 +27,7 @@ describe("decodeQrCode", () => {
   });
 
   it("throws when qr code is malformed", () => {
-    const encodedQrCode =
-      "http://%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
+    const encodedQrCode = "http://%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
     expect(() => decodeQrCode(encodedQrCode)).toThrow("not formatted");
   });
 });

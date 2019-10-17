@@ -236,12 +236,7 @@ export const verifyingCertificateFailure = payload => ({
 
 // Selectors
 export function getIssuerIdentityStatus(store) {
-  const {
-    issuerIdentities,
-    certificateIssuerVerifying,
-    certificateIssuerError,
-    certificateIssuer
-  } = store.certificate;
+  const { issuerIdentities, certificateIssuerVerifying, certificateIssuerError, certificateIssuer } = store.certificate;
   return {
     identities: issuerIdentities,
     verified: certificateIssuer,
@@ -251,11 +246,7 @@ export function getIssuerIdentityStatus(store) {
 }
 
 export function getHashStatus(store) {
-  const {
-    certificateHash,
-    certificateHashError,
-    certificateHashVerifying
-  } = store.certificate;
+  const { certificateHash, certificateHashError, certificateHashVerifying } = store.certificate;
   return {
     verified: certificateHash,
     verifying: certificateHashVerifying,
@@ -264,11 +255,7 @@ export function getHashStatus(store) {
 }
 
 export function getStoreStatus(store) {
-  const {
-    certificateStore,
-    certificateStoreError,
-    certificateStoreVerifying
-  } = store.certificate;
+  const { certificateStore, certificateStoreError, certificateStoreVerifying } = store.certificate;
   return {
     verified: certificateStore,
     verifying: certificateStoreVerifying,
@@ -277,11 +264,7 @@ export function getStoreStatus(store) {
 }
 
 export function getIssuedStatus(store) {
-  const {
-    certificateIssued,
-    certificateIssuedError,
-    certificateIssuedVerifying
-  } = store.certificate;
+  const { certificateIssued, certificateIssuedError, certificateIssuedVerifying } = store.certificate;
   return {
     verified: certificateIssued,
     verifying: certificateIssuedVerifying,
@@ -290,11 +273,7 @@ export function getIssuedStatus(store) {
 }
 
 export function getNotRevokedStatus(store) {
-  const {
-    certificateNotRevoked,
-    certificateNotRevokedError,
-    certificateNotRevokedVerifying
-  } = store.certificate;
+  const { certificateNotRevoked, certificateNotRevokedError, certificateNotRevokedVerifying } = store.certificate;
   return {
     verified: certificateNotRevoked,
     verifying: certificateNotRevokedVerifying,

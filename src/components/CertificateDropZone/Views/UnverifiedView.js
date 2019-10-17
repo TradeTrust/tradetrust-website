@@ -9,10 +9,8 @@ const DetailedErrors = ({ verificationStatus }) => {
   const errors = [];
   if (!get(verificationStatus, "hash.checksumMatch")) errors.push(TYPES.HASH);
   if (!get(verificationStatus, "issued.issuedOnAll")) errors.push(TYPES.ISSUED);
-  if (get(verificationStatus, "revoked.revokedOnAny", true))
-    errors.push(TYPES.REVOKED);
-  if (!get(verificationStatus, "identity.identifiedOnAll"))
-    errors.push(TYPES.IDENTITY);
+  if (get(verificationStatus, "revoked.revokedOnAny", true)) errors.push(TYPES.REVOKED);
+  if (!get(verificationStatus, "identity.identifiedOnAll")) errors.push(TYPES.IDENTITY);
   const renderedError = errors.map((errorType, index) => (
     <div key={index}>
       <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>

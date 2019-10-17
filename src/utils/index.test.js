@@ -10,9 +10,7 @@ describe("combinedHash", () => {
 
 describe("isEthereumAddress", () => {
   it("should return true on a valid ethereum address", () => {
-    expect(
-      isEthereumAddress("0x314159265dd8dbb310642f98f50c066173c1259b")
-    ).toBe(true);
+    expect(isEthereumAddress("0x314159265dd8dbb310642f98f50c066173c1259b")).toBe(true);
   });
 
   it("should return false on invalid addresses", () => {

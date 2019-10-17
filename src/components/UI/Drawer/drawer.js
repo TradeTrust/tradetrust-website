@@ -58,11 +58,7 @@ export default class Drawer extends Component {
             {this.createTabs(tabs)}
           </div>
         ) : null}
-        <div
-          className={`${css.gray} ${
-            showAbsHeader ? "" : css["mb-sidenav"]
-          } container-fluid`}
-        >
+        <div className={`${css.gray} ${showAbsHeader ? "" : css["mb-sidenav"]} container-fluid`}>
           <div className={css.togglebtn} onClick={() => this.toggleDrawer()}>
             &#9776;
           </div>

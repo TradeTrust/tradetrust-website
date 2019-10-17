@@ -12,22 +12,15 @@ const navItems = [
 
 const renderNavItem = active => {
   const items = navItems.map((n, i) => (
-    <li
-      className={`${css["nav-item"]} ${n.id === active ? css.active : ""}`}
-      key={i}
-    >
+    <li className={`${css["nav-item"]} ${n.id === active ? css.active : ""}`} key={i}>
       <a href={n.path}>{n.label}</a>
     </li>
   ));
-  return (
-    <ul className="navbar-nav ml-auto d-none d-lg-flex d-xl-flex">{items}</ul>
-  );
+  return <ul className="navbar-nav ml-auto d-none d-lg-flex d-xl-flex">{items}</ul>;
 };
 
 const NavigationBar = ({ active }) => (
-  <nav
-    className={`${css.navbar} ${"navbar-expand-md navbar-dark bg-brand-dark"}`}
-  >
+  <nav className={`${css.navbar} ${"navbar-expand-md navbar-dark bg-brand-dark"}`}>
     <div className={css.innerbar}>
       <a className="navbar-brand" href="/">
         <img src="/static/images/tradetrust_logo.svg" alt="TradeTrust" />

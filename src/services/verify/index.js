@@ -4,8 +4,7 @@ import { getData } from "@govtechsg/open-attestation";
 import verify from "@govtechsg/oa-verify";
 import { NETWORK_ID, NETWORK_NAME } from "../../config";
 
-const getSmartContractAddress = issuer =>
-  issuer.certificateStore || issuer.documentStore || issuer.tokenRegistry;
+const getSmartContractAddress = issuer => issuer.certificateStore || issuer.documentStore || issuer.tokenRegistry;
 
 // Resolve identity of an issuer, currently supporting only DNS-TXT
 const resolveIssuerIdentity = async issuer => {
@@ -42,11 +41,9 @@ const resolveIssuerIdentity = async issuer => {
   }
 };
 
-const getIssuersIdentities = async issuers =>
-  Promise.all(issuers.map(resolveIssuerIdentity));
+const getIssuersIdentities = async issuers => Promise.all(issuers.map(resolveIssuerIdentity));
 
-const issuersIdentitiesAllVerified = (identities = []) =>
-  identities.every(identity => identity.identified);
+const issuersIdentitiesAllVerified = (identities = []) => identities.every(identity => identity.identified);
 
 // Given a document, verify it and return a summary of the verification
 export const verifyDocument = async document => {

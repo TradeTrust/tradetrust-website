@@ -6,9 +6,7 @@ import CertificateDropZone from "./CertificateDropZone";
 
 describe("certificateDropZoneContainer", () => {
   it("toggles qrReaderVisible when toggleQrReaderVisible is called", () => {
-    const wrapper = shallow(
-      <CertificateDropZoneContainer updateNetworkId={() => {}} />
-    );
+    const wrapper = shallow(<CertificateDropZoneContainer updateNetworkId={() => {}} />);
     expect(wrapper.state().qrReaderVisible).toBe(false);
     wrapper.instance().toggleQrReaderVisible();
     expect(wrapper.state().qrReaderVisible).toBe(true);
@@ -17,9 +15,7 @@ describe("certificateDropZoneContainer", () => {
   });
 
   it("shows QrReader when qrReaderVisible is true", () => {
-    const wrapper = shallow(
-      <CertificateDropZoneContainer updateNetworkId={() => {}} />
-    );
+    const wrapper = shallow(<CertificateDropZoneContainer updateNetworkId={() => {}} />);
     wrapper.instance().toggleQrReaderVisible();
     expect(wrapper.state().qrReaderVisible).toBe(true);
     expect(wrapper.find(QrReader)).toHaveLength(1);
@@ -27,9 +23,7 @@ describe("certificateDropZoneContainer", () => {
   });
 
   it("shows CertificateDropZone when qrReaderVisible is false", () => {
-    const wrapper = shallow(
-      <CertificateDropZoneContainer updateNetworkId={() => {}} />
-    );
+    const wrapper = shallow(<CertificateDropZoneContainer updateNetworkId={() => {}} />);
     expect(wrapper.state().qrReaderVisible).toBe(false);
     expect(wrapper.find(QrReader)).toHaveLength(0);
     expect(wrapper.find(CertificateDropZone)).toHaveLength(1);
@@ -37,12 +31,7 @@ describe("certificateDropZoneContainer", () => {
 
   it("dispatches processQr and set turn off QrReader when a code is scanned", () => {
     const processQr = jest.fn();
-    const wrapper = shallow(
-      <CertificateDropZoneContainer
-        updateNetworkId={() => {}}
-        processQr={processQr}
-      />
-    );
+    const wrapper = shallow(<CertificateDropZoneContainer updateNetworkId={() => {}} processQr={processQr} />);
     wrapper.instance().toggleQrReaderVisible();
     wrapper.instance().handleQrScanned("SOME_QR_DATA");
     expect(processQr).toHaveBeenCalledWith("SOME_QR_DATA");
@@ -52,10 +41,7 @@ describe("certificateDropZoneContainer", () => {
   it("dispatches updateCertificate and unset fileError when new certificate is presented", () => {
     const updateCertificate = jest.fn();
     const wrapper = shallow(
-      <CertificateDropZoneContainer
-        updateNetworkId={() => {}}
-        updateCertificate={updateCertificate}
-      />
+      <CertificateDropZoneContainer updateNetworkId={() => {}} updateCertificate={updateCertificate} />
     );
     wrapper.setState({ fileError: true });
     wrapper.instance().handleCertificateChange("SOME_DOCUMENT_DATA");

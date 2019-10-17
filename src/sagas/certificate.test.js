@@ -149,8 +149,7 @@ describe("verifyCertificate", () => {
     generator.next("CERTIFICATE_OBJECT");
 
     // Should mark verification as completed and report the payload
-    const verificationCompletionAction = generator.next(mockVerificationStatus)
-      .value;
+    const verificationCompletionAction = generator.next(mockVerificationStatus).value;
     expect(verificationCompletionAction).toStrictEqual(
       put({
         type: types.VERIFYING_CERTIFICATE_SUCCESS,
@@ -227,8 +226,7 @@ describe("verifyCertificate", () => {
     generator.next("CERTIFICATE_OBJECT");
 
     // Should mark verification as completed and report the payload
-    const verificationCompletionAction = generator.next(mockVerificationStatus)
-      .value;
+    const verificationCompletionAction = generator.next(mockVerificationStatus).value;
     expect(verificationCompletionAction).toStrictEqual(
       put({
         type: types.VERIFYING_CERTIFICATE_SUCCESS,

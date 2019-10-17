@@ -46,7 +46,4 @@ export function* updateNetworkId() {
   }
 }
 
-export default [
-  takeEvery(types.UPDATE_NETWORK_ID, updateNetworkId),
-  takeEvery(types.UPDATE_WEB3, updateNetworkId)
-];
+export default [takeEvery(types.UPDATE_NETWORK_ID, updateNetworkId), takeEvery(types.UPDATE_WEB3, updateNetworkId)];

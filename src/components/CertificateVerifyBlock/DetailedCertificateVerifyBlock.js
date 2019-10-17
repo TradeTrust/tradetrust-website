@@ -27,11 +27,7 @@ const renderStatuses = verificationStatus => {
   const hashValid = get(verificationStatus, "hash.checksumMatch", false);
   const issuedValid = get(verificationStatus, "issued.issuedOnAll", false);
   const revokedValid = !get(verificationStatus, "revoked.revokedOnAny", true);
-  const identityValid = get(
-    verificationStatus,
-    "identity.identifiedOnAll",
-    false
-  );
+  const identityValid = get(verificationStatus, "identity.identifiedOnAll", false);
   return (
     <div id="detailed-error">
       {renderStatusCheckRow(hashValid, MESSAGES[TYPES.HASH])}
@@ -46,11 +42,7 @@ const DetailedCertificateVerifyBlock = props => {
   const valid = get(props, "verificationStatus.valid", false);
   const borderColor = valid ? "valid-border-color" : "invalid-border-color";
   return (
-    <div
-      className={`${css["detailed-certificate-block"]} ${
-        css[borderColor]
-      } bg-white p-3`}
-    >
+    <div className={`${css["detailed-certificate-block"]} ${css[borderColor]} bg-white p-3`}>
       <div className="mb-3">
         <h5>Details</h5>
       </div>
