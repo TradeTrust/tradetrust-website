@@ -214,5 +214,8 @@
     "reportPath": ".coverage",
     "reportFile": "sonar-report.xml",
     "indent": 2
+  },
+  "prettier": {
+    "printWidth": 120
   }
 }

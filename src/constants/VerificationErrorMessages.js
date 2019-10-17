@@ -21,8 +21,7 @@ export const MESSAGES = {
   [TYPES.HASH]: {
     failureTitle: "Certificate has been tampered with",
     successTitle: "Certificate has not been tampered with",
-    failureMessage:
-      "The contents of this certificate are inaccurate and have been tampered with."
+    failureMessage: "The contents of this certificate are inaccurate and have been tampered with."
   },
   [TYPES.IDENTITY]: {
     failureTitle: "Certificate issuer identity is invalid",

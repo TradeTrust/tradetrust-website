@@ -82,8 +82,7 @@ const mapDispatchToProps = dispatch => ({
   updateCertificate: payload => dispatch(updateCertificate(payload)),
   sendCertificate: payload => dispatch(sendCertificate(payload)),
   sendCertificateReset: () => dispatch(sendCertificateReset()),
-  updateObfuscatedCertificate: updatedDoc =>
-    dispatch(updateObfuscatedCertificate(updatedDoc))
+  updateObfuscatedCertificate: updatedDoc => dispatch(updateObfuscatedCertificate(updatedDoc))
 });
 
 export default connect(

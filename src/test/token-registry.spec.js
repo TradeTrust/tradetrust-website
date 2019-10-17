@@ -8,10 +8,7 @@ const SampleTemplate = Selector("#root");
 const StatusButton = Selector("#certificate-status");
 
 const validateTextContent = async (t, component, texts) =>
-  texts.reduce(
-    async (_prev, curr) => t.expect(component.textContent).contains(curr),
-    Promise.resolve()
-  );
+  texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
 test("Token is verified and rendered correctly", async t => {
   await t.setFilesToUpload("input[type=file]", [Document]);
@@ -22,8 +19,5 @@ test("Token is verified and rendered correctly", async t => {
 
   await t.switchToIframe(IframeBlock);
 
-  await validateTextContent(t, SampleTemplate, [
-    "Name & Address of Shipping",
-    "DEMO CUSTOMS"
-  ]);
+  await validateTextContent(t, SampleTemplate, ["Name & Address of Shipping", "DEMO CUSTOMS"]);
 });

@@ -50,10 +50,7 @@ class DecentralisedRenderer extends Component {
 
   // Do not re-render component if only activeTab changes
   shouldComponentUpdate(nextProps) {
-    if (
-      this.props.activeTab !== nextProps.activeTab &&
-      this.props.document === nextProps.document
-    ) {
+    if (this.props.activeTab !== nextProps.activeTab && this.props.document === nextProps.document) {
       this.selectTemplateTab(nextProps.activeTab);
       return false;
     }
@@ -75,9 +72,7 @@ class DecentralisedRenderer extends Component {
     }).promise;
     this.setState({ childFrameConnection });
 
-    childFrameConnection.then(frame =>
-      frame.renderDocument(getData(this.props.certificate))
-    );
+    childFrameConnection.then(frame => frame.renderDocument(getData(this.props.certificate)));
   }
 
   render() {
@@ -101,8 +96,7 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateObfuscatedCertificate: updatedDoc =>
-    dispatch(updateObfuscatedCertificate(updatedDoc)),
+  updateObfuscatedCertificate: updatedDoc => dispatch(updateObfuscatedCertificate(updatedDoc)),
   registerTemplates: templates => dispatch(registerTemplatesAction(templates)),
   selectTemplateTab: tabIndex => dispatch(selectTemplateTabAction(tabIndex))
 });

@@ -20,22 +20,10 @@ export const DropzoneContent = ({
   // fileError is when the file is not in JSON format and threw when deserilising
   // valid JSON files will be handled by handleCertificateChange()
   if (isDragReject || fileError) {
-    return (
-      <DefaultView
-        fileDropped={true}
-        accept={false}
-        toggleQrReaderVisible={toggleQrReaderVisible}
-      />
-    );
+    return <DefaultView fileDropped={true} accept={false} toggleQrReaderVisible={toggleQrReaderVisible} />;
   }
   if (isDragAccept) {
-    return (
-      <DefaultView
-        fileDropped={true}
-        accept={true}
-        toggleQrReaderVisible={toggleQrReaderVisible}
-      />
-    );
+    return <DefaultView fileDropped={true} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
   }
   if (verifying) {
     return <VerifyingView verificationStatus={verificationStatus} />;
@@ -49,13 +37,7 @@ export const DropzoneContent = ({
       />
     );
   }
-  return (
-    <DefaultView
-      fileDropped={false}
-      accept={true}
-      toggleQrReaderVisible={toggleQrReaderVisible}
-    />
-  );
+  return <DefaultView fileDropped={false} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
 };
 
 // Injects additional props on top of isDragReject, isDragActive, acceptedFiles & rejectedFiles
@@ -63,11 +45,7 @@ const renderDropzoneContentCurry = additionalProps => props => (
   <DropzoneContent {...{ ...props, ...additionalProps }} />
 );
 
-const onFileDrop = (
-  acceptedFiles,
-  handleCertificateChange,
-  handleFileError
-) => {
+const onFileDrop = (acceptedFiles, handleCertificateChange, handleFileError) => {
   // eslint-disable-next-line no-undef
   const reader = new FileReader();
   if (reader.error) {
@@ -81,8 +59,7 @@ const onFileDrop = (
       handleFileError(e);
     }
   };
-  if (acceptedFiles && acceptedFiles.length && acceptedFiles.length > 0)
-    acceptedFiles.map(f => reader.readAsText(f));
+  if (acceptedFiles && acceptedFiles.length && acceptedFiles.length > 0) acceptedFiles.map(f => reader.readAsText(f));
 };
 
 const CertificateDropzone = ({
@@ -97,9 +74,7 @@ const CertificateDropzone = ({
 }) => (
   <Dropzone
     id="certificate-dropzone"
-    onDrop={acceptedFiles =>
-      onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)
-    }
+    onDrop={acceptedFiles => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
     className={css.dropzone}
   >
     {renderDropzoneContentCurry({

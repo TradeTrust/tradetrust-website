@@ -10,9 +10,7 @@ const sagaMiddleware = createSagaMiddleware();
 const initStore = history => {
   const store = createStore(
     reducers(history),
-    composeWithDevTools(
-      applyMiddleware(sagaMiddleware, routerMiddleware(history))
-    )
+    composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware(history)))
   );
   sagaMiddleware.run(sagas);
   return store;

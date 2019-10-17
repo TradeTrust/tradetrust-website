@@ -7,19 +7,14 @@ const SampleTemplate = Selector("#root");
 const StatusButton = Selector("#certificate-status");
 
 const validateTextContent = async (t, component, texts) =>
-  texts.reduce(
-    async (_prev, curr) => t.expect(component.textContent).contains(curr),
-    Promise.resolve()
-  );
+  texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
 test("sample document is rendered correctly when dns is verified", async t => {
   await t.setFilesToUpload("input[type=file]", [Document]);
 
   await StatusButton.with({ visibilityCheck: true })();
 
-  await validateTextContent(t, StatusButton, [
-    "Issued by EXAMPLE.OPENATTESTATION.COM"
-  ]);
+  await validateTextContent(t, StatusButton, ["Issued by EXAMPLE.OPENATTESTATION.COM"]);
 
   await t.switchToIframe(IframeBlock);
 

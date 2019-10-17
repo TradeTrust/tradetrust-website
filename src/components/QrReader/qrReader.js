@@ -10,15 +10,7 @@ const QrReaderZone = ({ handleQrScanned }) => {
     if (data) handleQrScanned(data);
   };
 
-  return (
-    <QrReader
-      data-id="qr-code-reader"
-      delay={100}
-      onError={error}
-      onScan={onScan}
-      style={{ width: "100%" }}
-    />
-  );
+  return <QrReader data-id="qr-code-reader" delay={100} onError={error} onScan={onScan} style={{ width: "100%" }} />;
 };
 
 export default QrReaderZone;

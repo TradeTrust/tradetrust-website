@@ -12,9 +12,7 @@ describe("reducers", () => {
   describe("reset certificate", () => {
     it("should reset the state to initial state", () => {
       const prevState = { foo: "bar" };
-      expect(reducer(prevState, resetCertificateState())).toStrictEqual(
-        initialState
-      );
+      expect(reducer(prevState, resetCertificateState())).toStrictEqual(initialState);
     });
   });
   describe("cERTIFICATE_TEMPLATE_SELECT_TAB", () => {
@@ -122,10 +120,7 @@ describe("actions", () => {
     ];
     const expectedAction = {
       type: "CERTIFICATE_TEMPLATE_REGISTER",
-      payload: [
-        { id: "certificate", label: "Certificate" },
-        { id: "transcript", label: "Transcript" }
-      ]
+      payload: [{ id: "certificate", label: "Certificate" }, { id: "transcript", label: "Transcript" }]
     };
     expect(fn(payload)).toStrictEqual(expectedAction);
   });
