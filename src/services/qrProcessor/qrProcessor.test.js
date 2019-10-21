@@ -40,7 +40,7 @@ describe("processQrCode", () => {
       data: { document: { cipherText, iv, tag } }
     });
     const results = await processQrCode(encodeQrCode(actionUri));
-    expect(axios.get.mock.calls[0]).toStrictEqual(["https://sample.domain/document"]);
+    expect(axios.get).toHaveBeenCalledWith("https://sample.domain/document");
     expect(results).toStrictEqual(document);
   });
 });
