@@ -57,6 +57,10 @@ More information at [opencerts-documentation](http://docs.opencerts.io/embedded_
 
 To enable debug logs in the browser, set `localStorage.debug="*"`
 
+### Generating CREDITS.md
+
+Run `npx @opengovsg/credits-generator`
+
 ###### Module build failed
 
 If you see module build failure message like:

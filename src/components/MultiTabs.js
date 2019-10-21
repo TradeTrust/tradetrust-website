@@ -7,9 +7,7 @@ import Drawer from "./UI/Drawer";
 
 const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => (
   <div id={styles["header-ui"]}>
-    <div
-      className={`${styles["header-container"]} d-none d-lg-block d-xl-block`}
-    >
+    <div className={`${styles["header-container"]} d-none d-lg-block d-xl-block`}>
       <div id="template-tabs-list" className="nav nav-tabs">
         {templates && templates.length > 0
           ? templates.map((t, idx) => (
@@ -36,11 +34,7 @@ const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => (
       </div>
     </div>
     <div className="d-lg-none d-xl-none">
-      <Drawer
-        tabs={templates}
-        activeIdx={activeTab}
-        toggle={idx => selectTemplateTab(idx)}
-      />
+      <Drawer tabs={templates} activeIdx={activeTab} toggle={idx => selectTemplateTab(idx)} />
     </div>
   </div>
 );

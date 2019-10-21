@@ -1,5 +1,5 @@
+import React from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
 import css from "./viewerStyles.scss";
 
 const View = ({ hover, accept, toggleQrReaderVisible }) => (
@@ -13,22 +13,11 @@ const View = ({ hover, accept, toggleQrReaderVisible }) => (
   >
     <div className={css["image-container"]}>
       <i>
-        <img
-          alt=".tradetrust Dropzone"
-          src="/static/images/dropzone/dropzone_illustration.svg"
-        />
+        <img alt=".tradetrust Dropzone" src="/static/images/dropzone/dropzone_illustration.svg" />
       </i>
     </div>
-    {accept ? null : (
-      <div>
-        File cannot be read. Please check that you have a valid .tt or .json
-        file
-      </div>
-    )}
-    <div
-      className="text-brand-dark"
-      style={{ fontSize: "1.375rem", fontWeight: 500 }}
-    >
+    {accept ? null : <div>File cannot be read. Please check that you have a valid .tt or .json file</div>}
+    <div className="text-brand-dark" style={{ fontSize: "1.375rem", fontWeight: 500 }}>
       Drag and drop your tradetrust file
     </div>
     <div className="text-muted">to view its contents</div>
@@ -47,16 +36,18 @@ const View = ({ hover, accept, toggleQrReaderVisible }) => (
         <button type="button" className={`pointer ${css.btn}`}>
           Select File
         </button>
-        <Link href="">
-          <button
-            data-id="scan-qr-button"
-            type="button"
-            onClick={toggleQrReaderVisible}
-            className={`pointer ${css.btn}`}
-          >
-            Scan QR Code
-          </button>
-        </Link>
+        <button
+          data-id="scan-qr-button"
+          type="button"
+          onClick={event => {
+            event.preventDefault();
+            event.stopPropagation();
+            toggleQrReaderVisible();
+          }}
+          className={`pointer ${css.btn}`}
+        >
+          Scan QR Code
+        </button>
       </div>
     </div>
   </div>

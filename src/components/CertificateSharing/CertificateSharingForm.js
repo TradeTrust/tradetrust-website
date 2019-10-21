@@ -48,8 +48,7 @@ class CertificateSharingForm extends Component {
               <h4>Send your certificate</h4>
             </div>
             <div className="row text-center">
-              This sends an email with your .tt attached, and instructions on
-              how to view it.
+              This sends an email with your .tt attached, and instructions on how to view it.
             </div>
             <div className="row my-4 d-flex justify-content-center">
               <input
@@ -60,15 +59,10 @@ class CertificateSharingForm extends Component {
               />
             </div>
             <div className="row d-flex justify-content-center m-3">
-              <ReCAPTCHA
-                sitekey={CAPTCHA_CLIENT_KEY}
-                onChange={this.handleCaptchaChange}
-              />
+              <ReCAPTCHA sitekey={CAPTCHA_CLIENT_KEY} onChange={this.handleCaptchaChange} />
             </div>
             {emailSendingState === states.SUCCESS ? (
-              <div className="row my-4 d-flex justify-content-center">
-                Email successfully sent!
-              </div>
+              <div className="row my-4 d-flex justify-content-center">Email successfully sent!</div>
             ) : (
               ""
             )}
@@ -80,17 +74,9 @@ class CertificateSharingForm extends Component {
               ""
             )}
             <div className="row d-flex justify-content-center m-3">
-              <button
-                type="button"
-                className={`pointer ${css.btn}`}
-                onClick={this.handleSend}
-              >
+              <button type="button" className={`pointer ${css.btn}`} onClick={this.handleSend}>
                 Send
-                {emailSendingState === states.PENDING ? (
-                  <i className="ml-2 fas fa-spinner fa-pulse" />
-                ) : (
-                  ""
-                )}
+                {emailSendingState === states.PENDING ? <i className="ml-2 fas fa-spinner fa-pulse" /> : ""}
               </button>
             </div>
           </div>

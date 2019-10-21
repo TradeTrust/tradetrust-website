@@ -20,14 +20,13 @@ describe("decodeQrCode", () => {
       "tradetrust://%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
 
     const action = decodeQrCode(encodedQrCode);
-    expect(action).toEqual({
+    expect(action).toStrictEqual({
       uri: "https://sample.domain/document/id?q=abc#123"
     });
   });
 
   it("throws when qr code is malformed", () => {
-    const encodedQrCode =
-      "http://https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123";
+    const encodedQrCode = "http://%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
     expect(() => decodeQrCode(encodedQrCode)).toThrow("not formatted");
   });
 });

@@ -1,30 +1,23 @@
+import React from "react";
 import PropTypes from "prop-types";
-import dynamic from "next/dynamic";
 import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
 import CertificateVerifyBlock from "./CertificateVerifyBlock";
 import styles from "./certificateViewer.scss";
 import Modal from "./Modal";
-import ErrorBoundary from "./ErrorBoundary";
+import { ErrorBoundary } from "./ErrorBoundary";
 import DecentralisedRenderer from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import MultiTabs from "./MultiTabs";
 import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certificate";
 import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
-
-const CertificateSharingForm = dynamic(
-  import("./CertificateSharing/CertificateSharingForm")
-);
+import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
     verifyTriggered={props.verifyTriggered}
     verifying={props.verifying}
-    hashStatus={props.hashStatus}
-    issuedStatus={props.issuedStatus}
-    notRevokedStatus={props.notRevokedStatus}
-    issuerIdentityStatus={props.issuerIdentityStatus}
-    toggleDetailedView={props.toggleDetailedView}
+    verificationStatus={props.verificationStatus}
     detailedVerifyVisible={props.detailedVerifyVisible}
   />
 );
@@ -37,11 +30,7 @@ const renderHeaderBlock = props => {
         <div className="col-sm-7 col-md-8 col-xs-12">{renderedVerifyBlock}</div>
         <div className={`row col-sm-5 col-md-4 col-xs-12 ${styles["pd-0"]}`}>
           <div className="ml-auto">
-            <div
-              id="btn-print"
-              className={styles["print-btn"]}
-              onClick={() => window.print()}
-            >
+            <div id="btn-print" className={styles["print-btn"]} onClick={() => window.print()}>
               <i className="fas fa-print" style={{ fontSize: "1.5rem" }} />
             </div>
           </div>
@@ -57,21 +46,10 @@ const renderHeaderBlock = props => {
             <a
               download={`${props.certificate.id}.tt`}
               target="_black"
-              href={`data:text/plain;,${JSON.stringify(
-                props.document,
-                null,
-                2
-              )}`}
+              href={`data:text/plain;,${JSON.stringify(props.document, null, 2)}`}
             >
-              <button
-                id="btn-download"
-                className={styles["send-btn"]}
-                title="Download"
-              >
-                <i
-                  className="fas fa-file-download"
-                  style={{ fontSize: "1.5rem" }}
-                />
+              <button id="btn-download" className={styles["send-btn"]} title="Download">
+                <i className="fas fa-file-download" style={{ fontSize: "1.5rem" }} />
               </button>
             </a>
           </div>
@@ -97,9 +75,7 @@ const CertificateViewer = props => {
       <DecentralisedRenderer
         certificate={document}
         source={`${
-          typeof document.data.$template === "object"
-            ? certificate.$template.url
-            : LEGACY_OPENCERTS_RENDERER
+          typeof document.data.$template === "object" ? certificate.$template.url : LEGACY_OPENCERTS_RENDERER
         }`}
       />
       <Modal show={props.showSharing} toggle={props.handleSharingToggle}>
@@ -125,16 +101,11 @@ export default connect(
 )(CertificateViewer);
 
 CertificateViewer.propTypes = {
-  toggleDetailedView: PropTypes.func,
   detailedVerifyVisible: PropTypes.bool,
   document: PropTypes.object,
   certificate: PropTypes.object,
   verifying: PropTypes.bool,
-
-  hashStatus: PropTypes.object,
-  issuedStatus: PropTypes.object,
-  notRevokedStatus: PropTypes.object,
-  issuerIdentityStatus: PropTypes.object,
+  verificationStatus: PropTypes.object,
   showSharing: PropTypes.bool,
   emailSendingState: PropTypes.string,
   handleSharingToggle: PropTypes.func,

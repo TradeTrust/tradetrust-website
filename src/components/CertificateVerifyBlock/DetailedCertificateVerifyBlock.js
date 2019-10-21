@@ -1,14 +1,11 @@
+import React from "react";
 import PropTypes from "prop-types";
+import { get } from "lodash";
 import css from "./detailedCertificateBlock.scss";
-import { LOG_LEVEL } from "./constants";
+import { TYPES, MESSAGES } from "../../constants/VerificationErrorMessages";
 
 const SuccessIcon = () => <i className="fas fa-check text-success mr-2" />;
-
-const FailureIcon = () => (
-  <i className="fas fa-times-circle text-danger mr-2" />
-);
-
-const WarningIcon = () => <i className="fas fa-question text-warning mr-2" />;
+const FailureIcon = () => <i className="fas fa-times text-danger mr-2" />;
 
 const CheckStatusRow = ({ message, icon }) => (
   <div className="row">
@@ -19,112 +16,43 @@ const CheckStatusRow = ({ message, icon }) => (
   </div>
 );
 
-const renderFailure = check => (
-  <CheckStatusRow message={check.failure} icon={check.failureStatusIcon()} />
+const renderStatusCheckRow = (valid, messageSet) => (
+  <CheckStatusRow
+    message={valid ? messageSet.successTitle : messageSet.failureTitle}
+    icon={valid ? SuccessIcon() : FailureIcon()}
+  />
 );
 
-const renderSuccess = check => (
-  <CheckStatusRow message={check.success} icon={SuccessIcon()} />
-);
-
-const renderStatus = (props, type, typeVerified = true) => {
-  const isVerified = props[type.id].verified;
-
-  if (isVerified !== typeVerified) return "";
-
-  return isVerified ? renderSuccess(type) : renderFailure(type);
-};
-
-const CHECKS = {
-  HASH: {
-    id: "hashStatus",
-    success: "Certificate has not been tampered with",
-    failure: "Certificate has been tampered with",
-    failureStatusIcon: FailureIcon
-  },
-  ISSUED: {
-    id: "issuedStatus",
-    success: "Certificate has been issued",
-    failure: "Certificate has not been issued",
-    failureStatusIcon: FailureIcon
-  },
-  ISSUER_IDENTITY: {
-    id: "issuerIdentityStatus",
-    success: "Certificate Verified",
-    failure: "Institution identity can not be verified by registry or dns",
-    failureStatusIcon: WarningIcon
-  },
-  NOT_REVOKED: {
-    id: "notRevokedStatus",
-    success: "Certificate has not been revoked",
-    failure: "Certificate has been revoked",
-    failureStatusIcon: WarningIcon
-  }
-};
-
-const renderVerifiedStatuses = props => (
-  <div>
-    {renderStatus(props, CHECKS.HASH)}
-    {renderStatus(props, CHECKS.ISSUED)}
-    {renderStatus(props, CHECKS.ISSUER_IDENTITY)}
-    {renderStatus(props, CHECKS.NOT_REVOKED)}
-  </div>
-);
-
-const renderUnverifiedStatuses = props => {
-  const show =
-    !props.hashStatus.verified ||
-    !props.issuedStatus.verified ||
-    !props.issuerIdentityStatus.verified ||
-    !props.notRevokedStatus.verified;
-  return show ? (
-    <div>
-      {renderStatus(props, CHECKS.HASH, false)}
-      {renderStatus(props, CHECKS.ISSUED, false)}
-      {renderStatus(props, CHECKS.ISSUER_IDENTITY, false)}
-      {renderStatus(props, CHECKS.NOT_REVOKED, false)}
-      <hr />
+const renderStatuses = verificationStatus => {
+  const hashValid = get(verificationStatus, "hash.checksumMatch", false);
+  const issuedValid = get(verificationStatus, "issued.issuedOnAll", false);
+  const revokedValid = !get(verificationStatus, "revoked.revokedOnAny", true);
+  const identityValid = get(verificationStatus, "identity.identifiedOnAll", false);
+  return (
+    <div id="detailed-error">
+      {renderStatusCheckRow(hashValid, MESSAGES[TYPES.HASH])}
+      {renderStatusCheckRow(issuedValid, MESSAGES[TYPES.ISSUED])}
+      {renderStatusCheckRow(revokedValid, MESSAGES[TYPES.REVOKED])}
+      {renderStatusCheckRow(identityValid, MESSAGES[TYPES.IDENTITY])}
     </div>
-  ) : (
-    ""
   );
 };
 
-const CertificateVerifyBlock = props => {
-  let borderColor;
-  switch (props.statusSummary) {
-    case LOG_LEVEL.VALID:
-      borderColor = "valid-border-color";
-      break;
-    case LOG_LEVEL.WARNING:
-      borderColor = "warning-border-color";
-      break;
-    case LOG_LEVEL.INVALID:
-    default:
-      borderColor = "invalid-border-color";
-  }
+const DetailedCertificateVerifyBlock = props => {
+  const valid = get(props, "verificationStatus.valid", false);
+  const borderColor = valid ? "valid-border-color" : "invalid-border-color";
   return (
-    <div
-      className={`${css["detailed-certificate-block"]} ${
-        css[borderColor]
-      } bg-white p-3`}
-    >
+    <div className={`${css["detailed-certificate-block"]} ${css[borderColor]} bg-white p-3`}>
       <div className="mb-3">
         <h5>Details</h5>
       </div>
-      {renderUnverifiedStatuses(props)}
-      {renderVerifiedStatuses(props)}
+      {renderStatuses(props.verificationStatus)}
     </div>
   );
 };
 
-CertificateVerifyBlock.propTypes = {
-  statusSummary: PropTypes.string,
-  hashStatus: PropTypes.object,
-  issuedStatus: PropTypes.object,
-  notRevokedStatus: PropTypes.object,
-  issuerIdentityStatus: PropTypes.object,
-  detailedVerifyVisible: PropTypes.bool
+DetailedCertificateVerifyBlock.propTypes = {
+  verificationStatus: PropTypes.object
 };
 
 CheckStatusRow.propTypes = {
@@ -132,6 +60,4 @@ CheckStatusRow.propTypes = {
   icon: PropTypes.element
 };
 
-renderUnverifiedStatuses.propTypes = CertificateVerifyBlock.propTypes;
-
-export default CertificateVerifyBlock;
+export default DetailedCertificateVerifyBlock;

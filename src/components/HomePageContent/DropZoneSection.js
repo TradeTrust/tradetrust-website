@@ -6,48 +6,24 @@ import css from "./dropZoneSection.scss";
 import { updateCertificate } from "../../reducers/certificate";
 import { trace } from "../../utils/logger";
 import { IS_MAINNET } from "../../config";
-import MAIN from "./Main-Demo";
-import ROPSTEN from "./Ropsten-Demo";
-import { analyticsEvent } from "../Analytics/index";
+import MAIN from "./Main-Demo.json";
+import ROPSTEN from "./Ropsten-Demo.json";
 
 const DEMO_CERT = IS_MAINNET ? MAIN : ROPSTEN;
 const DEMO_CONTENT_KEY = "DEMO_CONTENT";
-
-function demoCount() {
-  analyticsEvent(window, {
-    category: "USER_INTERACTION",
-    action: "DEMO_CERTIFICATE_VIEWED"
-  });
-}
 
 const DraggableDemoCertificate = () => (
   <div className="d-none d-lg-block">
     <div className="row">
       <div className="col">
-        <div
-          className={css.pulse}
-          draggable="true"
-          onDragStart={e => e.dataTransfer.setData(DEMO_CONTENT_KEY, true)}
-          onDragEnd={demoCount}
-        >
-          <a
-            href={`data:text/plain;,${JSON.stringify(DEMO_CERT, null, 2)}`}
-            download="demo.tt"
-          >
-            <img
-              style={{ cursor: "grabbing" }}
-              src="/static/images/dropzone/cert.png"
-              width="100%"
-            />
+        <div className={css.pulse} draggable="true" onDragStart={e => e.dataTransfer.setData(DEMO_CONTENT_KEY, true)}>
+          <a href={`data:text/plain;,${JSON.stringify(DEMO_CERT, null, 2)}`} download="demo.tt">
+            <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
         </div>
       </div>
       <div className="col">
-        <img
-          src="/static/images/dropzone/arrow3.png"
-          width="100%"
-          draggable="false"
-        />
+        <img src="/static/images/dropzone/arrow3.png" width="100%" draggable="false" />
       </div>
     </div>
   </div>
@@ -65,7 +41,6 @@ const MobileDemoCertificate = () => (
         border: "none",
         cursor: "pointer"
       }}
-      onClick={demoCount}
     >
       Click me for a demo certificate!
     </a>
@@ -85,9 +60,7 @@ class DropZoneSection extends Component {
   }
 
   componentWillUnmount() {
-    document
-      .getElementById("demoDrop", "demoClick")
-      .removeEventListener("drop", () => this.removeListener());
+    document.getElementById("demoDrop", "demoClick").removeEventListener("drop", () => this.removeListener());
   }
 
   removeListener = () => trace("drop listener removed");
@@ -100,10 +73,7 @@ class DropZoneSection extends Component {
           <div className="col-lg-5 col-md-12">
             <div className={css.description}>
               <h1>An easy way to check and verify your documents</h1>
-              <p>
-                TradeTrust lets you verify the documents you have of anyone from
-                any issuer. All in one place.
-              </p>
+              <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
               <DraggableDemoCertificate />
               <MobileDemoCertificate />
             </div>

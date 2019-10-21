@@ -1,95 +1,135 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import { LOG_LEVEL } from "./constants";
+import { mount } from "enzyme";
+import DetailedCertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
+import { MESSAGES } from "../../constants/VerificationErrorMessages";
 
-import CertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
+const VALID_VERIFICATION_STATUS = {
+  hash: {
+    checksumMatch: true
+  },
+  issued: {
+    issuedOnAll: true,
+    details: [
+      {
+        address: "0x48399Fb88bcD031C556F53e93F690EEC07963Af3",
+        issued: true
+      }
+    ]
+  },
+  revoked: {
+    revokedOnAny: false,
+    details: [
+      {
+        address: "0x48399Fb88bcD031C556F53e93F690EEC07963Af3",
+        revoked: false
+      }
+    ]
+  },
+  valid: true,
+  identity: {
+    identifiedOnAll: true,
+    details: [
+      {
+        identified: true,
+        dns: "tradetrust.io",
+        smartContract: "0x48399Fb88bcD031C556F53e93F690EEC07963Af3"
+      }
+    ]
+  }
+};
 
-it("renders correctly when the certificate verfied", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
-        statusSummary={LOG_LEVEL.VALID}
-        hashStatus={{ verified: true }}
-        issuedStatus={{ verified: true }}
-        notRevokedStatus={{ verified: true }}
-        issuerIdentityStatus={{ verified: true }}
+const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
+
+describe("detailedCertificateVerifyBlock", () => {
+  it("displays hash error if the hash is invalid", () => {
+    const wrapper = mount(
+      <DetailedCertificateVerifyBlock
+        verificationStatus={{
+          ...VALID_VERIFICATION_STATUS,
+          hash: { checksumMatch: false }
+        }}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        const title = STATUS[index] === "HASH" ? "failureTitle" : "successTitle";
+        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
+      });
+  });
 
-it("renders correctly when the certificate`s hash status not verified", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
-        statusSummary={LOG_LEVEL.INVALID}
-        hashStatus={{ verified: false }}
-        issuedStatus={{ verified: true }}
-        notRevokedStatus={{ verified: true }}
-        issuerIdentityStatus={{ verified: true }}
+  it("displays issuing error if the document is not issued", () => {
+    const wrapper = mount(
+      <DetailedCertificateVerifyBlock
+        verificationStatus={{
+          ...VALID_VERIFICATION_STATUS,
+          issued: { issuedOnAll: false }
+        }}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        const title = STATUS[index] === "ISSUED" ? "failureTitle" : "successTitle";
+        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
+      });
+  });
 
-it("renders correctly when the certificate`s issue status not verified", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
-        statusSummary={LOG_LEVEL.INVALID}
-        hashStatus={{ verified: true }}
-        issuedStatus={{ verified: false }}
-        notRevokedStatus={{ verified: true }}
-        issuerIdentityStatus={{ verified: true }}
+  it("displays revocation error if the document is revoked", () => {
+    const wrapper = mount(
+      <DetailedCertificateVerifyBlock
+        verificationStatus={{
+          ...VALID_VERIFICATION_STATUS,
+          revoked: { revokedOnAny: true }
+        }}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        const title = STATUS[index] === "REVOKED" ? "failureTitle" : "successTitle";
+        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
+      });
+  });
 
-it("renders correctly when the certificate has been revoked", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
-        statusSummary={LOG_LEVEL.INVALID}
-        hashStatus={{ verified: true }}
-        issuedStatus={{ verified: true }}
-        notRevokedStatus={{ verified: false }}
-        issuerIdentityStatus={{ verified: true }}
+  it("displays identity error if the identity is not verified", () => {
+    const wrapper = mount(
+      <DetailedCertificateVerifyBlock
+        verificationStatus={{
+          ...VALID_VERIFICATION_STATUS,
+          identity: { identifiedOnAll: false }
+        }}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        const title = STATUS[index] === "IDENTITY" ? "failureTitle" : "successTitle";
+        expect(child.text()).toContain(MESSAGES[STATUS[index]][title]);
+      });
+  });
 
-it("renders correctly when the certificate`s issuer not identified", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
-        statusSummary={LOG_LEVEL.WARNING}
-        hashStatus={{ verified: true }}
-        issuedStatus={{ verified: true }}
-        notRevokedStatus={{ verified: true }}
-        issuerIdentityStatus={{ verified: false }}
+  it("displays error in all fields when all verification fail", () => {
+    const wrapper = mount(
+      <DetailedCertificateVerifyBlock
+        verificationStatus={{
+          ...VALID_VERIFICATION_STATUS,
+          hash: { checksumMatch: false },
+          issued: { issuedOnAll: false },
+          revoked: { revokedOnAny: true },
+          identity: { identifiedOnAll: false }
+        }}
       />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-it("renders correctly when the certificate is invalid and hash, isseud, notRevoked, issuerIdentity status are not verified", () => {
-  const tree = renderer
-    .create(
-      <CertificateVerifyBlock
-        statusSummary={LOG_LEVEL.INVALID}
-        hashStatus={{ verified: false }}
-        issuedStatus={{ verified: false }}
-        notRevokedStatus={{ verified: false }}
-        issuerIdentityStatus={{ verified: false }}
-      />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+    wrapper
+      .find("#detailed-error")
+      .children()
+      .forEach((child, index) => {
+        expect(child.text()).toContain(MESSAGES[STATUS[index]].failureTitle);
+      });
+  });
 });

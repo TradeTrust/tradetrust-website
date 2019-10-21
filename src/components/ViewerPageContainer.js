@@ -1,21 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Router from "next/router";
 import { getData } from "@govtechsg/open-attestation";
 
+import { withRouter } from "react-router";
 import {
   updateCertificate,
   sendCertificate,
   sendCertificateReset,
   getCertificate,
   getVerifying,
-  getIssuerIdentityStatus,
-  getHashStatus,
-  getIssuedStatus,
-  getNotRevokedStatus,
-  getVerified,
   getEmailSendingState,
+  getVerificationStatus,
   updateObfuscatedCertificate
 } from "../reducers/certificate";
 import CertificateViewer from "./CertificateViewer";
@@ -28,28 +24,21 @@ class MainPageContainer extends Component {
       showSharing: false,
       detailedVerifyVisible: false
     };
-    this.toggleDetailedView = this.toggleDetailedView.bind(this);
     this.handleCertificateChange = this.handleCertificateChange.bind(this);
     this.handleSharingToggle = this.handleSharingToggle.bind(this);
     this.handleSendCertificate = this.handleSendCertificate.bind(this);
   }
 
   componentDidMount() {
-    const { document } = this.props;
+    const { document, history } = this.props;
     if (!document) {
-      Router.replace("/");
+      history.push("/");
     }
   }
 
   handleSharingToggle() {
     this.props.sendCertificateReset();
     this.setState({ showSharing: !this.state.showSharing });
-  }
-
-  toggleDetailedView() {
-    this.setState({
-      detailedVerifyVisible: !this.state.detailedVerifyVisible
-    });
   }
 
   handleCertificateChange(certificate) {
@@ -67,17 +56,13 @@ class MainPageContainer extends Component {
         document={this.props.document}
         certificate={getData(this.props.document)}
         verifying={this.props.verifying}
-        hashStatus={this.props.hashStatus}
-        issuedStatus={this.props.issuedStatus}
-        notRevokedStatus={this.props.notRevokedStatus}
-        issuerIdentityStatus={this.props.issuerIdentityStatus}
+        verificationStatus={this.props.verificationStatus}
         handleCertificateChange={this.handleCertificateChange}
         showSharing={this.state.showSharing}
         emailAddress={this.state.emailAddress}
         handleSendCertificate={this.handleSendCertificate}
         handleSharingToggle={this.handleSharingToggle}
         emailSendingState={this.props.emailSendingState}
-        toggleDetailedView={this.toggleDetailedView}
         detailedVerifyVisible={this.state.detailedVerifyVisible}
       />
     );
@@ -90,39 +75,30 @@ const mapStateToProps = store => ({
   // Verification statuses used in verifier block
   emailSendingState: getEmailSendingState(store),
   verifying: getVerifying(store),
-  issuerIdentityStatus: getIssuerIdentityStatus(store),
-  hashStatus: getHashStatus(store),
-  issuedStatus: getIssuedStatus(store),
-  notRevokedStatus: getNotRevokedStatus(store),
-
-  verified: getVerified(store)
+  verificationStatus: getVerificationStatus(store)
 });
 
 const mapDispatchToProps = dispatch => ({
   updateCertificate: payload => dispatch(updateCertificate(payload)),
   sendCertificate: payload => dispatch(sendCertificate(payload)),
   sendCertificateReset: () => dispatch(sendCertificateReset()),
-  updateObfuscatedCertificate: updatedDoc =>
-    dispatch(updateObfuscatedCertificate(updatedDoc))
+  updateObfuscatedCertificate: updatedDoc => dispatch(updateObfuscatedCertificate(updatedDoc))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainPageContainer);
+)(withRouter(MainPageContainer));
 
 MainPageContainer.propTypes = {
   updateCertificate: PropTypes.func,
   document: PropTypes.object,
   certificate: PropTypes.object,
   verifying: PropTypes.bool,
-  hashStatus: PropTypes.object,
-  issuedStatus: PropTypes.object,
-  notRevokedStatus: PropTypes.object,
-  issuerIdentityStatus: PropTypes.object,
-  verified: PropTypes.bool,
+  verificationStatus: PropTypes.object,
   emailSendingState: PropTypes.string,
   sendCertificate: PropTypes.func,
   sendCertificateReset: PropTypes.func,
-  updateObfuscatedCertificate: PropTypes.func
+  updateObfuscatedCertificate: PropTypes.func,
+  history: PropTypes.object
 };

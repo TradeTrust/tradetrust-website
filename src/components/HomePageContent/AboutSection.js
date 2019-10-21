@@ -1,3 +1,4 @@
+import React from "react";
 import css from "./aboutSection.scss";
 import images from "./AboutImages";
 

@@ -1,0 +1,17 @@
+/*I'm really, I dunno why using h-100 (height: 100% on the dropzone stopped working ... if you find out please tell me */
+@media only screen and (min-width: 980px) {
+  .dropzone {
+    height: 581px;
+  }
+}
+@media only screen and (max-width: 979px) {
+  .dropzone {
+    height: 308px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .dropzone {
+    height: 381px;
+  }
+}
