@@ -21,6 +21,7 @@
     "@govtechsg/dnsprove": "^2.0.5",
     "@govtechsg/oa-verify": "^2.0.1",
     "@govtechsg/open-attestation": "^1.1.41",
+    "@govtechsg/opencerts-encryption": "^1.1.0",
     "@hot-loader/react-dom": "^16.9.0",
     "axios": "^0.19.0",
     "common-tags": "^1.8.0",
