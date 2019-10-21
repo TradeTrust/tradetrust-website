@@ -34,15 +34,13 @@ describe("decodeQrCode", () => {
 describe("processQrCode", () => {
   it("fetches calls get with the right parameter when a QR code is scanned", async () => {
     const document = { name: "foo" };
-    const { cipherText, iv, tag, key } = await encryptString(
-      JSON.stringify(document)
-    );
+    const { cipherText, iv, tag, key } = await encryptString(JSON.stringify(document));
     const actionUri = { uri: `https://sample.domain/document#${key}` };
     axios.get.mockResolvedValue({
       data: { document: { cipherText, iv, tag } }
     });
     const results = await processQrCode(encodeQrCode(actionUri));
-    expect(axios.get.mock.calls[0]).toEqual(["https://sample.domain/document"]);
-    expect(results).toEqual(document);
+    expect(axios.get.mock.calls[0]).toStrictEqual(["https://sample.domain/document"]);
+    expect(results).toStrictEqual(document);
   });
 });
