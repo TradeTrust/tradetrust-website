@@ -25,16 +25,15 @@ const renderVerifyBlock = props => (
 const renderHeaderBlock = props => {
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
-    <div className={`container-fluid ${styles["pd-0"]}`}>
+    <div className={`container-fluid ${styles["pd-0"]} ${styles.container}`}>
       <div className="row">
-        <div className="col-sm-7 col-md-8 col-xs-12">{renderedVerifyBlock}</div>
-        <div className={`row col-sm-5 col-md-4 col-xs-12 ${styles["pd-0"]}`}>
-          <div className="ml-auto">
+        <div>{renderedVerifyBlock}</div>
+        <div className={`row flex-nowrap`}>
+          <div className="">
             <div id="btn-print" className={styles["print-btn"]} onClick={() => window.print()}>
               <i className="fas fa-print" style={{ fontSize: "1.5rem" }} />
             </div>
           </div>
-          <div />
           {isEmailFeatureActive && (
             <div className="ml-2" onClick={() => props.handleSharingToggle()}>
               <div id="btn-email" className={styles["send-btn"]}>

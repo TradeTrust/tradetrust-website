@@ -117,3 +117,24 @@
     padding-left: 15px !important;
   }
 }
+
+.container > :global(.row) {
+  margin-left: 0;
+  margin-right: 0;
+  align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .container > :global(.row) {
+    flex-direction: column;
+  }
+  .container > :global(.row) > :not(:first-child) {
+    margin-top: 10px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .container > :global(.row) {
+    justify-content: space-between;
+  }
+}

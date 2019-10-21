@@ -51,7 +51,7 @@ const CertificateVerifyBlock = props => {
   return (
     <div
       id="certificate-verify-block"
-      className={`align-items-start flex-nowrap ${css["d-flex"]} ${css.verifyBlocksContainer} mb-md-0 mb-3`}
+      className={`align-items-start flex-nowrap ${css["d-flex"]} ${css.verifyBlocksContainer} mb-md-0`}
     >
       <SimpleVerifyBlock
         verificationStatus={verificationStatus}
