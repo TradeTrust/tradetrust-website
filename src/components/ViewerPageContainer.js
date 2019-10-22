@@ -16,7 +16,7 @@ import {
 } from "../reducers/certificate";
 import CertificateViewer from "./CertificateViewer";
 
-class MainPageContainer extends Component {
+class ViewerPageContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -88,9 +88,9 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(MainPageContainer));
+)(withRouter(ViewerPageContainer));
 
-MainPageContainer.propTypes = {
+ViewerPageContainer.propTypes = {
   updateCertificate: PropTypes.func,
   document: PropTypes.object,
   certificate: PropTypes.object,
