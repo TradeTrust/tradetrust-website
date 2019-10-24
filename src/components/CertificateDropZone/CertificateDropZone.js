@@ -20,10 +20,10 @@ export const DropzoneContent = ({
   // fileError is when the file is not in JSON format and threw when deserilising
   // valid JSON files will be handled by handleCertificateChange()
   if (isDragReject || fileError) {
-    return <DefaultView fileDropped={true} accept={false} toggleQrReaderVisible={toggleQrReaderVisible} />;
+    return <DefaultView hover={true} accept={false} toggleQrReaderVisible={toggleQrReaderVisible} />;
   }
   if (isDragAccept) {
-    return <DefaultView fileDropped={true} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
+    return <DefaultView hover={true} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
   }
   if (verifying) {
     return <VerifyingView verificationStatus={verificationStatus} />;
@@ -37,7 +37,7 @@ export const DropzoneContent = ({
       />
     );
   }
-  return <DefaultView fileDropped={false} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
+  return <DefaultView hover={false} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
 };
 
 // Injects additional props on top of isDragReject, isDragActive, acceptedFiles & rejectedFiles
