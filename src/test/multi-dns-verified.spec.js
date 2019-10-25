@@ -11,6 +11,8 @@ const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
 test("Sample document is rendered correctly when multiple dns is verfied", async (t) => {
+  const container = Selector("#certificate-dropzone");
+  await container();
   await t.setFilesToUpload("input[type=file]", [Document]);
 
   await StatusButton.with({ visibilityCheck: true })();
