@@ -22,6 +22,8 @@ export const LEGACY_OPENCERTS_RENDERER = "https://legacy.opencerts.io/";
 export const NETWORK_ID = IS_MAINNET ? "1" : "3";
 export const NETWORK_NAME = IS_MAINNET ? "homestead" : "ropsten";
 
+export const ETHERSCAN_BASE_URL = `https://${NETWORK_NAME === "ropsten" ? "ropsten." : ""}etherscan.io/`;
+
 trace(`DEFAULT_NETWORK: ${DEFAULT_NETWORK}`);
 trace(`CAPTCHA_CLIENT_KEY: ${CAPTCHA_CLIENT_KEY}`);
 trace(`EMAIL_API_URL: ${EMAIL_API_URL}`);

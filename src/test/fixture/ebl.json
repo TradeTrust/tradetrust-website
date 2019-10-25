@@ -1,0 +1,57 @@
+{
+  "schema": "tradetrust/v1.0",
+  "data": {
+    "id": "d29151cc-7af4-409b-9230-1b936ffb2c00:string:56107057",
+    "$template": {
+      "name": "df76045b-2db7-49a0-9ff4-6dc7f7c26221:string:BILL_OF_LADING",
+      "type": "40102267-a445-4906-9dba-8745c61d0865:string:EMBEDDED_RENDERER",
+      "url": "0becc4d4-16bd-4d6a-ac24-55ebdee8b703:string:https://demo-cnm.openattestation.com"
+    },
+    "issuers": [
+      {
+        "name": "7e652043-5b29-433a-a850-23ab4c9c90f2:string:DEMO STORE",
+        "tokenRegistry": "b42ec8d4-3853-4f68-b4cb-5aa65d0efca8:string:0x48399Fb88bcD031C556F53e93F690EEC07963Af3",
+        "identityProof": {
+          "type": "3bf0918c-4f46-429f-bbbb-2a2a4edcf352:string:DNS-TXT",
+          "location": "f366cbda-f287-48a8-a232-9fe208ee1330:string:tradetrust.io"
+        }
+      }
+    ],
+    "consignee": {
+      "type": "20a929a3-a7b2-48b4-ad52-cfa0a4c4324d:string:NEGOTIABLE",
+      "name": "b6fba66b-21ab-4ec3-901f-76bad33f8396:string:THE NATIONAL COMMERCIAL BANK JEDDAH"
+    },
+    "notifyParty": {
+      "name": "b0c2fe89-8797-4e1c-99dc-869844a7a557:string:AL-JIFRI PLASTIC MATERIALS COMPANY ALHENDAWEYAH, JEDDAH, SAUDI ARABIA"
+    },
+    "shipper": {
+      "name": "2bcd940b-7a4c-4ea9-b155-17bda67f0e5a:string:BEMA GMBH",
+      "address": {
+        "street": "873e3317-1432-4588-a4ab-99eb46573b15:string:Anton Sorg Str.1 Befa GmbH 86199 Augburg",
+        "country": "4aaa4846-76f9-4d87-92ba-061dacd9fd57:string:GERMANY"
+      }
+    },
+    "vessel": "7814b707-1079-41f4-bc75-c6c660b4d705:string:LAURA MAERSK",
+    "voyageNo": "8d5c959e-3688-4067-b507-8d88d6756cec:string:1417",
+    "portOfLoading": "bba57724-ca7c-4da9-a83e-b42ff2869bbe:string:HAMBURG PORT",
+    "portOfDischarge": "5f4c24e4-6aee-447a-bef7-70de3178fd33:string:JEDDAH PORT",
+    "placeOfReceipt": "a1392a01-07d6-44c5-9ca1-db863c64fe27:string:",
+    "placeOfDelivery": "17ec1c34-967b-4e9f-9f0d-b2963bb13084:string:",
+    "packages": [
+      {
+        "description": "3bbdb53d-9836-45ab-b80e-af364c7a8bed:string:1 Container Said to Contain 890 Pieces",
+        "weight": "c487b5fd-84c0-434c-a4c5-9c647f60ff8e:string:6711.380 KGS",
+        "measurement": "f7ff8f0b-45aa-4b62-9974-adf28df37520:string:"
+      }
+    ]
+  },
+  "privacy": {
+    "obfuscatedData": []
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "624d0d7ae6f44d41d368d8280856dbaac6aa29fb3b35f45b80a7c1c90032eeb3",
+    "proof": [],
+    "merkleRoot": "624d0d7ae6f44d41d368d8280856dbaac6aa29fb3b35f45b80a7c1c90032eeb3"
+  }
+}
