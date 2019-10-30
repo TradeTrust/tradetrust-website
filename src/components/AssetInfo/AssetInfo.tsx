@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { hexToNumberString } from "web3-utils";
 
 import { ETHERSCAN_BASE_URL } from "../../config";
@@ -13,7 +13,7 @@ interface ERC721TokenParameters {
   tokenId: string;
 }
 
-export const AssetInfo = ({ registryAddress, tokenId }: ERC721TokenParameters) => {
+export const AssetInfo: FunctionComponent<ERC721TokenParameters> = ({ registryAddress, tokenId }) => {
   return (
     <div>
       <a
