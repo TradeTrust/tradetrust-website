@@ -12,6 +12,7 @@ import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certif
 import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
+import { AssetInfo } from "./AssetInfo";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
@@ -22,12 +23,25 @@ const renderVerifyBlock = props => (
   />
 );
 
+const getAssetInfo = document => {
+  const { tokenRegistry } = getData(document).issuers[0];
+  const { merkleRoot: tokenId } = document.signature;
+  return { tokenRegistry, tokenId };
+};
+
+const renderAssetInfo = props => {
+  const { tokenRegistry, tokenId } = getAssetInfo(props.document);
+
+  return tokenRegistry ? <AssetInfo registryAddress={tokenRegistry} tokenId={tokenId} /> : undefined;
+};
+
 const renderHeaderBlock = props => {
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
     <div className={`container-fluid ${styles["pd-0"]} ${styles.container}`}>
       <div className="row">
         <div>{renderedVerifyBlock}</div>
+        <div>{renderAssetInfo(props)}</div>
         <div className={`row flex-nowrap`}>
           <div className="">
             <div id="btn-print" className={styles["print-btn"]} onClick={() => window.print()}>
