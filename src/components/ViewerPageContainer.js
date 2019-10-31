@@ -14,7 +14,7 @@ import {
   getVerificationStatus,
   updateObfuscatedCertificate,
 } from "../reducers/certificate";
-import CertificateViewer from "./CertificateViewer";
+import { CertificateViewer } from "./CertificateViewer";
 
 class ViewerPageContainer extends Component {
   constructor(props) {

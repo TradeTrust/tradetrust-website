@@ -1,15 +1,22 @@
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import React from "react";
-import styles from "./certificateViewer.scss";
-import { getTemplates, getActiveTemplateTab } from "../reducers/certificate";
-import { ButtonBorderedBlue } from "./UI/Button";
-import Drawer from "./UI/Drawer";
+import React, { FunctionComponent } from "react";
+import styles from "./multiTabs.scss";
+import { Drawer } from "./Drawer";
+import { ButtonBorderedBlue } from "../UI/Button";
 
-const MultiTabs = ({
-  activeTab,
+interface MultiTabsProps {
+  templates: { id: string; label: string }[];
+  selectedTemplate: string;
+  onSelectTemplate: (id: string) => void;
+
+  isOverlayVisible: boolean;
+  setOverlayVisible: (value: boolean) => void;
+  tokenRegistryAddress: string;
+}
+
+export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
+  selectedTemplate,
   templates,
-  selectTemplateTab,
+  onSelectTemplate,
   isOverlayVisible,
   setOverlayVisible,
   tokenRegistryAddress,
@@ -35,19 +42,20 @@ const MultiTabs = ({
             </li>
           )}
           {templates && templates.length > 0
-            ? templates.map((t, idx) => (
-                <li key={idx} className="nav-item col-12 col-md-auto">
+            ? templates.map(({ id, label }) => (
+                <li key={id} className="nav-item col-12 col-md-auto">
                   <a
-                    className={`${styles.tab} ${idx === activeTab ? styles.active : ""}`}
-                    id={t.id}
+                    className={`${styles.tab}
+                    ${id === selectedTemplate ? styles.active : ""}`}
+                    id={id}
                     onClick={() => {
-                      selectTemplateTab(idx);
+                      onSelectTemplate(id);
                     }}
                     role="tab"
                     aria-controls="home"
                     aria-selected="true"
                   >
-                    {t.label}
+                    {label}
                   </a>
                 </li>
               ))
@@ -55,22 +63,8 @@ const MultiTabs = ({
         </ul>
       </div>
       <div className="d-lg-none d-xl-none">
-        <Drawer tabs={templates} activeIdx={activeTab} toggle={(idx) => selectTemplateTab(idx)} />
+        <Drawer templates={templates} selectedTemplate={selectedTemplate} onSelectTemplate={onSelectTemplate} />
       </div>
     </div>
   );
-};
-
-const mapStateToProps = (store) => ({
-  templates: getTemplates(store),
-  activeTab: getActiveTemplateTab(store),
-});
-
-export default connect(mapStateToProps, null)(MultiTabs);
-
-MultiTabs.propTypes = {
-  document: PropTypes.object,
-  templates: PropTypes.array,
-  selectTemplateTab: PropTypes.func,
-  activeTab: PropTypes.number,
 };

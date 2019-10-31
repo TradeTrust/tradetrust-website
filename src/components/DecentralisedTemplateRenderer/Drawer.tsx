@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import css from "./drawer.scss";
 
-export default class Drawer extends Component {
-  constructor(props) {
+interface DrawerProps {
+  templates: { id: string; label: string }[];
+  selectedTemplate: string;
+  onSelectTemplate: (id: string) => void;
+}
+interface DrawerState {
+  visible: boolean;
+  showAbsHeader: boolean;
+}
+
+export class Drawer extends Component<DrawerProps, DrawerState> {
+  constructor(props: DrawerProps) {
     super(props);
     this.state = {
       visible: false,
@@ -15,30 +24,30 @@ export default class Drawer extends Component {
     this.setState({ visible: !this.state.visible });
   }
 
-  createTabs(tabs) {
-    const { activeIdx } = this.props;
-    return tabs.map((tab, idx) => (
+  createTabs(templates: DrawerProps["templates"]) {
+    const { selectedTemplate } = this.props;
+    return templates.map(({ id, label }) => (
       <a
         href=""
-        className={`${css.tabs} ${activeIdx === idx ? css.active : ""} `}
-        key={idx}
+        className={`${css.tabs} ${selectedTemplate === id ? css.active : ""} `}
+        key={id}
         onClick={(e) => {
           e.preventDefault();
-          this.renderContent(idx);
+          this.renderContent(id);
         }}
       >
-        {tab.label}
+        {label}
       </a>
     ));
   }
 
-  renderContent(idx) {
-    this.props.toggle(idx);
+  renderContent(id: string) {
+    this.props.onSelectTemplate(id);
     this.toggleDrawer();
   }
 
   render() {
-    const { tabs, children } = this.props;
+    const { templates, children } = this.props;
     const { visible, showAbsHeader } = this.state;
 
     return (
@@ -55,7 +64,7 @@ export default class Drawer extends Component {
             >
               &times;
             </a>
-            {this.createTabs(tabs)}
+            {this.createTabs(templates)}
           </div>
         ) : null}
         <div className={`bg-brand-navy ${showAbsHeader ? "" : css["mb-sidenav"]}`}>
@@ -69,10 +78,3 @@ export default class Drawer extends Component {
     );
   }
 }
-
-Drawer.propTypes = {
-  toggle: PropTypes.func,
-  children: PropTypes.object,
-  tabs: PropTypes.array,
-  activeIdx: PropTypes.number,
-};
