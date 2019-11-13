@@ -46,7 +46,7 @@ const CertificateVerifyBlock = props => {
   const [detailedViewVisible, setDetailedViewVisible] = useState(false);
   const toggleDetailedViewVisible = () => setDetailedViewVisible(!detailedViewVisible);
 
-  const { verificationStatus } = props;
+  const { verificationStatus, document } = props;
 
   return (
     <div
@@ -57,7 +57,11 @@ const CertificateVerifyBlock = props => {
         verificationStatus={verificationStatus}
         toggleDetailedViewVisible={toggleDetailedViewVisible}
       />
-      {detailedViewVisible ? <DetailedCertificateVerifyBlock verificationStatus={verificationStatus} /> : ""}
+      {detailedViewVisible ? (
+        <DetailedCertificateVerifyBlock document={document} verificationStatus={verificationStatus} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

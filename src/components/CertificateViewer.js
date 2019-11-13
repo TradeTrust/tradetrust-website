@@ -16,6 +16,7 @@ import { AssetInfo } from "./AssetInfo";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
+    document={props.document}
     verifyTriggered={props.verifyTriggered}
     verifying={props.verifying}
     verificationStatus={props.verificationStatus}

@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { get } from "lodash";
-import css from "./detailedCertificateBlock.scss";
-import { TYPES, MESSAGES } from "../../constants/VerificationErrorMessages";
+import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 
 const SuccessIcon = () => <i className="fas fa-check text-success mr-2" />;
 const FailureIcon = () => <i className="fas fa-times text-danger mr-2" />;
@@ -38,20 +37,11 @@ const renderStatuses = verificationStatus => {
   );
 };
 
-const DetailedCertificateVerifyBlock = props => {
-  const valid = get(props, "verificationStatus.valid", false);
-  const borderColor = valid ? "valid-border-color" : "invalid-border-color";
-  return (
-    <div className={`${css["detailed-certificate-block"]} ${css[borderColor]} bg-white p-3`}>
-      <div className="mb-3">
-        <h5>Details</h5>
-      </div>
-      {renderStatuses(props.verificationStatus)}
-    </div>
-  );
+const CertificateVerifyCheck = props => {
+  return <>{renderStatuses(props.verificationStatus)}</>;
 };
 
-DetailedCertificateVerifyBlock.propTypes = {
+CertificateVerifyCheck.propTypes = {
   verificationStatus: PropTypes.object
 };
 
@@ -60,4 +50,4 @@ CheckStatusRow.propTypes = {
   icon: PropTypes.element
 };
 
-export default DetailedCertificateVerifyBlock;
+export default CertificateVerifyCheck;
