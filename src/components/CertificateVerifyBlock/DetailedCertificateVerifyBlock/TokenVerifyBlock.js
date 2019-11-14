@@ -21,7 +21,7 @@ const TokenVerifyBlock = ({ document }) => {
   return (
     <>
       <div>The document is a transferable record.</div>
-      <div>Owned by: {JSON.stringify(tokenOwner)}</div>
+      <div>Owned by: {tokenOwner}</div>
     </>
   );
 };
