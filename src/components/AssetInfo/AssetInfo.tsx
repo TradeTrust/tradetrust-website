@@ -19,12 +19,15 @@ export const AssetInfo: FunctionComponent<ERC721TokenParameters> = ({ registryAd
 
   return (
     <div>
-      <div
+      <a
+        href={makeEtherscanTokenURL({ registryAddress, tokenId })}
         id="asset-info-etherscan-link"
-        onClick={() => toggleSidebar(!isTokenSidebarExpand)}
+        rel="noreferrer noopener"
+        target="_blank"
       >
         Manage Asset
-      </div>
+      </a>
+      <div onClick={() => toggleSidebar(!isTokenSidebarExpand)}>Manage Asset (click to test toggle sidebar)</div>
       <TokenSidebar />
     </div>
   );
