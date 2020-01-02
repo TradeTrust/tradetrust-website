@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import styles from "./tokenSidebar.scss";
 
 class TokenSidebar extends Component {
@@ -31,7 +31,7 @@ class TokenSidebar extends Component {
             </div>
           </section>
         </div>
-        <div className={`${styles["cancel"]}`}></div>
+        <div className={`${styles["cancel"]}`} />
       </aside>
     );
   }
