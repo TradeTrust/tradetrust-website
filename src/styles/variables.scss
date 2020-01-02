@@ -5,6 +5,8 @@ $grey-blue: #c1c9d1;
 $brand-dark: #324353;
 $faint-blue: #f5f8fb;
 $faint-green: #f5fbf7;
+$color-white: #ffffff;
+$color-black: #000000;
 
 $header-ui-bg: #f3f8fc;
 $low-translucency-white: rgba(255, 255, 255, 0.7);
@@ -20,6 +22,11 @@ $round-btn-outline: $brand-dark;
 
 $max-width: 1280px;
 
+// Animation
+$easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+$easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+
 @mixin btn(
   $color,
   $hover-bg: $color,
@@ -27,6 +34,7 @@ $max-width: 1280px;
   $bg: $color,
   $hover-outline: $hover-bg
 ) {
+  transition: box-shadow 0.3s $easeOutCubic;
   border: 1px solid $color;
   color: $text;
   background-color: $bg;
@@ -73,5 +81,31 @@ $max-width: 1280px;
     line {
       stroke: #fff;
     }
+  }
+}
+
+@mixin btn-cancel($length, $cross-length, $cross-thickness, $cross-color) {
+  position: relative;
+  width: $length;
+  height: $length;
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    top: calc(50% - (#{$cross-thickness / 2}));
+    content: '';
+    position: absolute;
+    left: (100 - $cross-length) / 2;
+    width: $cross-length;
+    height: $cross-thickness;
+    background-color: $cross-color;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
   }
 }

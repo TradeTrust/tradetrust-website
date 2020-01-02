@@ -1,0 +1,86 @@
+@import "../../../styles/variables.scss";
+
+$y-lg: 30px;
+$y-md: 20px;
+
+.tokensidebar {
+  transition: transform 0.7s $easeOutCubic;
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 360px;
+  transform: translateX(0%);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 0;
+  }
+
+  h4 {
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  label {
+    width: 100%;
+  }
+}
+
+.tokensidebar-content {
+  box-shadow: 0 0 10px rgba($color-black, 0.5);
+  background-color: $color-white;
+  height: 100%;
+  padding: 30px 20px;
+}
+
+.sec {
+  margin-bottom: $y-lg;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.sec-header {
+    margin-bottom: 45px;
+  }
+}
+
+.field {
+  margin-bottom: $y-md;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.field-input {
+  width: 100%;
+  font-size: 14px;
+}
+
+.button {
+  @include btn($btn-outline);
+  color: $color-white;
+}
+
+.cancel {
+  transition: background-color 0.3s $easeOutCubic;
+  @include btn-cancel(40px, 75%, 1px, $color-black);
+  position: absolute;
+  top: 30px;
+  left: 0;
+  background-color: $color-white;
+  transform: translateX(-100%);
+  box-shadow: -5px 0 5px rgba($color-black, 0.15);
+
+  &:hover {
+    background-color: darken($color-white, 5%);
+  }
+}
