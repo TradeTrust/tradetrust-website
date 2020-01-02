@@ -24,6 +24,11 @@
   border-color: $invalid-color;
 }
 
+.transferable-record {
+  color: $dark-red;
+  font-weight: 600;
+}
+
 @media only screen and (max-width: 768px) {
   .detailed-certificate-block {
     border-radius: 0 0 5px 5px;
