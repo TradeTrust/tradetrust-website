@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { hexToNumberString } from "web3-utils";
+import TokenSidebar from "./../UI/TokenSidebar/TokenSidebar";
 
 import { ETHERSCAN_BASE_URL } from "../../config";
 
@@ -14,16 +15,17 @@ interface ERC721TokenParameters {
 }
 
 export const AssetInfo: FunctionComponent<ERC721TokenParameters> = ({ registryAddress, tokenId }) => {
+  const [isTokenSidebarExpand, toggleSidebar] = useState(false);
+
   return (
     <div>
-      <a
-        href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+      <div
         id="asset-info-etherscan-link"
-        rel="noreferrer noopener"
-        target="_blank"
+        onClick={() => toggleSidebar(!isTokenSidebarExpand)}
       >
         Manage Asset
-      </a>
+      </div>
+      <TokenSidebar />
     </div>
   );
 };
