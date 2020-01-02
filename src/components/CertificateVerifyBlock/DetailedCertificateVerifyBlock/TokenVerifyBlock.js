@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getTokenOwner } from "../../../services/erc721Token";
+import { getTokenOwner } from "../../../services/token";
 
 const TokenVerifyBlock = ({ document }) => {
   const [tokenOwner, setTokenOnwer] = useState("");
