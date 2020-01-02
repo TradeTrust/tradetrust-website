@@ -3,14 +3,14 @@ import { getTokenOwner } from "../../../services/token";
 import css from "./detailedCertificateBlock.scss";
 
 const TokenVerifyBlock = ({ document }) => {
-  const [tokenOwner, setTokenOnwer] = useState("");
+  const [tokenOwner, setTokenOwner] = useState("");
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchTokenOwner() {
       try {
         const owner = await getTokenOwner(document);
-        setTokenOnwer(owner);
+        setTokenOwner(owner);
       } catch (e) {
         setError(e.message);
       }
