@@ -3,7 +3,7 @@ import { get } from "lodash";
 import CertificateVerifyCheck from "./CertificateVerifyCheck";
 import css from "./detailedCertificateBlock.scss";
 import TokenVerifyBlock from "./TokenVerifyBlock";
-import { isERC721Token } from "../../../services/erc721Token";
+import { isERC721Token } from "../../../services/token";
 
 const DetailedCertificateVerifyBlock = ({ verificationStatus, document }) => {
   const valid = get(verificationStatus, "valid", false);

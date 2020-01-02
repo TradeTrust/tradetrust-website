@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getTokenOwner } from "../../../services/erc721Token";
+import { getTokenOwner } from "../../../services/token";
+import css from "./detailedCertificateBlock.scss";
 
 const TokenVerifyBlock = ({ document }) => {
   const [tokenOwner, setTokenOnwer] = useState("");
@@ -20,7 +21,7 @@ const TokenVerifyBlock = ({ document }) => {
   if (error) return <div className="text-danger">{error}</div>;
   return (
     <>
-      <div>The document is a transferable record.</div>
+      <div className={css["transferable-record"]}>The document is a transferable record.</div>
       <div>Owned by: {tokenOwner}</div>
     </>
   );
