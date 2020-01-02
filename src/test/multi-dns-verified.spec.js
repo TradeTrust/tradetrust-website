@@ -19,11 +19,5 @@ test("Sample document is rendered correctly when multiple dns is verfied", async
 
   await t.switchToIframe(IframeBlock);
 
-  await validateTextContent(t, SampleTemplate, [
-    "Rendered with custom template",
-    "Master of Blockchain",
-    "CUSTOM_TEMPLATE",
-    "Blockchain Academy",
-    "Bitcoin"
-  ]);
+  await validateTextContent(t, SampleTemplate, ["This is to certify that", "Mr Blockchain", "01/08/2018"]);
 });
