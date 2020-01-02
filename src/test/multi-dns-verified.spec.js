@@ -19,5 +19,9 @@ test("Sample document is rendered correctly when multiple dns is verfied", async
 
   await t.switchToIframe(IframeBlock);
 
-  await validateTextContent(t, SampleTemplate, ["This is to certify that", "Mr Blockchain", "01/08/2018"]);
+  await validateTextContent(t, SampleTemplate, [
+    "This is to certify that",
+    "Mr Blockchain",
+    "certification through training administered by"
+  ]);
 });
