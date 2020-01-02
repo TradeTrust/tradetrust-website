@@ -9,8 +9,8 @@ const TokenVerifyBlock = ({ document }) => {
   useEffect(() => {
     async function fetchTokenOwner() {
       try {
-        const tokenOwner = await getTokenOwner(document);
-        setTokenOnwer(tokenOwner);
+        const owner = await getTokenOwner(document);
+        setTokenOnwer(owner);
       } catch (e) {
         setError(e.message);
       }
