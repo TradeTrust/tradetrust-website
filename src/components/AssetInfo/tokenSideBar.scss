@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 
 $y-section: 40px;
-$y-field: 10px;
+$y-field: 15px;
 $border-color: rgba($color-black, 0.1);
 
 .tokensidebar {
@@ -41,6 +41,7 @@ $border-color: rgba($color-black, 0.1);
 
   label {
     width: 100%;
+    margin-bottom: 0;
   }
 
   header {
