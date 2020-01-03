@@ -1,4 +1,4 @@
-@import "../../../styles/variables.scss";
+@import "../../styles/variables.scss";
 
 $y-section: 40px;
 $y-field: 10px;
@@ -45,10 +45,22 @@ $border-color: rgba($color-black, 0.1);
 
   header {
     padding-bottom: $y-section;
+  }
+}
 
-    h2 {
-      margin-bottom: 30px;
-    }
+.heading {
+  margin-bottom: 30px;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    color: rgba($color-black, 0.4);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
   }
 }
 
@@ -63,12 +75,13 @@ $border-color: rgba($color-black, 0.1);
   background-color: $color-white;
   height: 100%;
   padding: 30px;
+  overflow: auto;
 }
 
 .hamburger {
   transition: background-color 0.3s $easeOutCubic;
   position: absolute;
-  top: 75px;
+  top: 95px;
   left: 0;
   width: 50px;
   height: 50px;
@@ -121,11 +134,20 @@ $border-color: rgba($color-black, 0.1);
   padding: 8px;
 }
 
+.register-address {
+  overflow-wrap: break-word;
+  font-size: 14px;
+}
+
 .button {
   @include btn($btn-outline);
   color: $color-white;
 
   &.button-danger {
     @include btn($danger-color, $text: $color-white);
+  }
+
+  &.button-success {
+    @include btn($success-color, $text: $color-white);
   }
 }
