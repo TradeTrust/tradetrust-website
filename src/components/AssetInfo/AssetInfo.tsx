@@ -16,7 +16,7 @@ interface ERC721TokenParameters {
 export const AssetInfo: FunctionComponent<ERC721TokenParameters> = ({ registryAddress, tokenId }) => {
   const [isSidebarExpand, toggleSidebar] = useState(false);
 
-  const onClickLink = event => {
+  const handlerToggleSideBar = event => {
     event.preventDefault();
     toggleSidebar(!isSidebarExpand);
   };
@@ -28,11 +28,11 @@ export const AssetInfo: FunctionComponent<ERC721TokenParameters> = ({ registryAd
         id="asset-info-etherscan-link"
         rel="noreferrer noopener"
         target="_blank"
-        onClick={onClickLink}
+        onClick={handlerToggleSideBar}
       >
         Manage Asset
       </a>
-      <TokenSidebar isSidebarExpand={isSidebarExpand} registryAddress={registryAddress} />
+      <TokenSidebar handler={handlerToggleSideBar} isSidebarExpand={isSidebarExpand} registryAddress={registryAddress} />
     </div>
   );
 };
