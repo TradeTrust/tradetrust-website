@@ -3,6 +3,8 @@ import styles from "./tokenSidebar.scss";
 import TokenSideBarHolder from "./TokenSideBarHolder.js";
 import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary.js";
 
+// isHolder: true/false - determines to show holder or beneficiary sidebar view.
+
 const TokenSidebar = props => {
   const isHolder = true;
 
@@ -40,8 +42,7 @@ const TokenSidebar = props => {
         </header>
         <TokenSideBarContent isHolder={isHolder} registryAddress={props.registryAddress} />
       </div>
-      {/*
-      <div className={`${styles["hamburger"]}`}>
+      <div className={`${styles["hamburger"]}`} onClick={props.handler}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -57,7 +58,6 @@ const TokenSidebar = props => {
           <polyline points="15 18 9 12 15 6" />
         </svg>
       </div>
-      */}
     </aside>
   );
 };
