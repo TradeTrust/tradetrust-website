@@ -1,14 +1,18 @@
 import React from "react";
 import styles from "./tokenSidebar.scss";
-import TokenSideBarHolder from "./TokenSideBarHolder.js";
-import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary.js";
+import TokenSideBarHolder from "./TokenSideBarHolder";
+import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
 
 // isHolder: true/false - determines to show holder or beneficiary sidebar view.
 
-const TokenSidebar = props => {
+const TokenSidebar = (props: {
+  isSidebarExpand: any;
+  registryAddress: any;
+  handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+}) => {
   const isHolder = true;
 
-  const TokenSideBarRole = props => {
+  const TokenSideBarRole = (props: { isHolder: any }) => {
     const isHolder = props.isHolder;
     if (isHolder) {
       return <h4>Holder</h4>;
@@ -17,7 +21,7 @@ const TokenSidebar = props => {
     }
   };
 
-  const TokenSideBarContent = props => {
+  const TokenSideBarContent = (props: { isHolder: any; registryAddress: React.ReactNode }) => {
     const isHolder = props.isHolder;
     if (isHolder) {
       return <TokenSideBarHolder registryAddress={props.registryAddress} />;

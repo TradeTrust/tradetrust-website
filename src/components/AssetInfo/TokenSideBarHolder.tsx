@@ -3,8 +3,8 @@ import styles from "./tokenSidebar.scss";
 
 // isChangeBeneficiary: true/false - only show when a beneficiary allowed transfer, else blank.
 
-const TokenSidebarHolder = props => {
-  const TokenSidebarHolderChangeBeneficiary = props => {
+const TokenSidebarHolder = (props: { registryAddress: React.ReactNode }) => {
+  const TokenSidebarHolderChangeBeneficiary = (props: { isChangeBeneficiary: any }) => {
     const isChangeBeneficiary = props.isChangeBeneficiary;
     if (isChangeBeneficiary) {
       return (
