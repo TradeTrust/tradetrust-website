@@ -32,7 +32,11 @@ export const AssetInfo: FunctionComponent<ERC721TokenParameters> = ({ registryAd
       >
         Manage Asset
       </a>
-      <TokenSidebar handler={handlerToggleSideBar} isSidebarExpand={isSidebarExpand} registryAddress={registryAddress} />
+      <TokenSidebar
+        handler={handlerToggleSideBar}
+        isSidebarExpand={isSidebarExpand}
+        registryAddress={registryAddress}
+      />
     </div>
   );
 };
