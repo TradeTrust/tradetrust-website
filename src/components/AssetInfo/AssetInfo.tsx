@@ -15,7 +15,7 @@ interface ERC721TokenParameters {
 }
 
 export const AssetInfo: FunctionComponent<ERC721TokenParameters> = ({ registryAddress, tokenId }) => {
-  const [isTokenSidebarExpand, toggleSidebar] = useState(false);
+  const [isSidebarExpand, toggleSidebar] = useState(false);
 
   return (
     <div>
@@ -27,8 +27,8 @@ export const AssetInfo: FunctionComponent<ERC721TokenParameters> = ({ registryAd
       >
         Manage Asset
       </a>
-      <div onClick={() => toggleSidebar(!isTokenSidebarExpand)}>Manage Asset (click to test toggle sidebar)</div>
-      <TokenSidebar />
+      <div onClick={() => toggleSidebar(!isSidebarExpand)}>Manage Asset (click to test toggle sidebar)</div>
+      <TokenSidebar isSidebarExpand={isSidebarExpand} />
     </div>
   );
 };
