@@ -12,7 +12,7 @@ const TokenSideBarHolder = (props: { registryAddress: React.ReactNode }) => {
           <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
         </label>
       </TokenSideBarField>
-      <TokenSideBarField title="Change Beneficiary" ctaText="Change" isChangeBeneficiary={true}>
+      <TokenSideBarField title="Change Beneficiary" ctaText="Change" ctaStatus="success" isChangeBeneficiary={false}>
         <label>
           <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
         </label>
