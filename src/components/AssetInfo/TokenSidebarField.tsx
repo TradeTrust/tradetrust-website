@@ -16,23 +16,19 @@ const TokenSideBarField = (props: {
   } else {
   }
 
-  if (props.isChangeBeneficiary) {
-    return null;
-  } else {
-    return (
-      <>
-        <section className={`${styles["sec"]}`}>
-          <div className="row">
-            <div className="col-12">
-              <h4>{props.title}</h4>
-              <div className={`${styles["field"]}`}>{props.children}</div>
-              <button className={buttonCss}>{props.ctaText}</button>
-            </div>
+  return (
+    <>
+      <section className={`${styles["sec"]}`}>
+        <div className="row">
+          <div className="col-12">
+            <h4>{props.title}</h4>
+            <div className={`${styles["field"]}`}>{props.children}</div>
+            <button className={buttonCss}>{props.ctaText}</button>
           </div>
-        </section>
-      </>
-    );
-  }
+        </div>
+      </section>
+    </>
+  );
 };
 
 export default TokenSideBarField;
