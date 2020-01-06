@@ -19,7 +19,7 @@ const TokenSideBarHolder = (props: { registryAddress: React.ReactNode }) => {
     } else {
       return null;
     }
-  }
+  };
 
   return (
     <>
