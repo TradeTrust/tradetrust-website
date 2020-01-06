@@ -1,59 +1,27 @@
 import React from "react";
 import styles from "./tokenSidebar.scss";
+import TokenSidebarField from "./TokenSidebarField";
 
 // isChangeBeneficiary: true/false - only show when a beneficiary allowed transfer, else blank.
 
 const TokenSidebarHolder = (props: { registryAddress: React.ReactNode }) => {
-  const TokenSidebarHolderChangeBeneficiary = (props: { isChangeBeneficiary: any }) => {
-    const isChangeBeneficiary = props.isChangeBeneficiary;
-    if (isChangeBeneficiary) {
-      return (
-        <section className={`${styles["sec"]}`}>
-          <div className="row">
-            <div className="col-12">
-              <h4>Change Beneficiary</h4>
-              <div className={`${styles["field"]}`}>
-                <label>
-                  <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-                </label>
-              </div>
-              <button className={`${styles["button"]} ${styles["button-success"]}`}>Change</button>
-            </div>
-          </div>
-        </section>
-      );
-    } else {
-      return null;
-    }
-  };
-
   return (
     <>
-      <section className={`${styles["sec"]}`}>
-        <div className="row">
-          <div className="col-12">
-            <h4>Transfer Ownership</h4>
-            <div className={`${styles["field"]}`}>
-              <label>
-                <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-              </label>
-            </div>
-            <button className={`${styles["button"]}`}>Transfer</button>
-          </div>
+      <TokenSidebarField title="Transfer Ownership" ctaText="Transfer">
+        <label>
+          <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
+        </label>
+      </TokenSidebarField>
+      <TokenSidebarField title="Change Beneficiary" ctaText="Change" isChangeBeneficiary={true}>
+        <label>
+          <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
+        </label>
+      </TokenSidebarField>
+      <TokenSidebarField title="Surrender Document" ctaText="Surrender" ctaStatus="danger">
+        <div className={`${styles["field"]}`}>
+          <p className={`${styles["register-address"]}`}>{props.registryAddress}</p>
         </div>
-      </section>
-      <TokenSidebarHolderChangeBeneficiary isChangeBeneficiary={false} />
-      <section className={`${styles["sec"]}`}>
-        <div className="row">
-          <div className="col-12">
-            <h4>Surrender Document</h4>
-            <div className={`${styles["field"]}`}>
-              <p className={`${styles["register-address"]}`}>{props.registryAddress}</p>
-            </div>
-            <button className={`${styles["button"]} ${styles["button-danger"]}`}>Surrender</button>
-          </div>
-        </div>
-      </section>
+      </TokenSidebarField>
     </>
   );
 };

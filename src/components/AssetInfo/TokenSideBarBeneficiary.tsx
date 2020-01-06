@@ -1,22 +1,15 @@
 import React from "react";
 import styles from "./tokenSidebar.scss";
+import TokenSidebarField from "./TokenSidebarField";
 
 const TokenSidebarBeneficiary = () => {
   return (
     <>
-      <section className={`${styles["sec"]}`}>
-        <div className="row">
-          <div className="col-12">
-            <h4>Allow Transfer</h4>
-            <div className={`${styles["field"]}`}>
-              <label>
-                <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-              </label>
-            </div>
-            <button className={`${styles["button"]} ${styles["button-success"]}`}>Allow</button>
-          </div>
-        </div>
-      </section>
+      <TokenSidebarField title="Allow Transfer" ctaText="Allow" ctaStatus="success">
+        <label>
+          <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
+        </label>
+      </TokenSidebarField>
     </>
   );
 };
