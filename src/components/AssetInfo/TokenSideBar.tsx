@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "./tokenSidebar.scss";
+import styles from "./TokenSideBar.scss";
 import TokenSideBarRole from "./TokenSideBarRole";
 import TokenSideBarHolder from "./TokenSideBarHolder";
 import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
 
 // isHolder: true/false - determines to show holder or beneficiary sidebar view.
 
-const TokenSidebar = (props: {
-  isSidebarExpand: boolean;
+const TokenSideBar = (props: {
+  isSideBarExpand: boolean;
   registryAddress?: React.ReactNode;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 }) => {
@@ -23,7 +23,7 @@ const TokenSidebar = (props: {
   };
 
   return (
-    <aside className={`${styles["tokensidebar"]} ${props.isSidebarExpand ? styles["is-expanded"] : ""}`}>
+    <aside className={`${styles["tokensidebar"]} ${props.isSideBarExpand ? styles["is-expanded"] : ""}`}>
       <div className={`${styles["tokensidebar-content"]}`}>
         <header>
           <div className="row">
@@ -58,4 +58,4 @@ const TokenSidebar = (props: {
   );
 };
 
-export default TokenSidebar;
+export default TokenSideBar;
