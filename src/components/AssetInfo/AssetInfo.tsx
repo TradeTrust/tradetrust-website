@@ -16,7 +16,7 @@ interface ERC721TokenParameters {
 export const AssetInfo: FunctionComponent<ERC721TokenParameters> = ({ registryAddress, tokenId }) => {
   const [isSideBarExpand, toggleSideBar] = useState(false);
 
-  const handlerToggleSideBar = (event: { preventDefault: () => void; }) => {
+  const handlerToggleSideBar = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     toggleSideBar(!isSideBarExpand);
   };
