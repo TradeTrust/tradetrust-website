@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./tokenSidebar.scss";
+import styles from "./TokenSideBar.scss";
 
-const TokenSidebarField = (props: {
+const TokenSideBarField = (props: {
   title: string;
   ctaText: string;
   ctaStatus?: string;
@@ -35,4 +35,4 @@ const TokenSidebarField = (props: {
   }
 };
 
-export default TokenSidebarField;
+export default TokenSideBarField;

@@ -1,16 +1,16 @@
 import React from "react";
 import { shallow } from "enzyme";
-import TokenSidebarRole from "./TokenSidebarRole";
+import TokenSideBarRole from "./TokenSideBarRole";
 
 describe("tokenSideBarRole", () => {
   it("renders Holder as role title", () => {
-    const wrapper = shallow(<TokenSidebarRole isHolder={true} />);
+    const wrapper = shallow(<TokenSideBarRole isHolder={true} />);
 
     expect(wrapper.find("h4").text()).toStrictEqual("Holder");
   });
 
   it("renders Beneficiary as role title", () => {
-    const wrapper = shallow(<TokenSidebarRole isHolder={false} />);
+    const wrapper = shallow(<TokenSideBarRole isHolder={false} />);
 
     expect(wrapper.find("h4").text()).toStrictEqual("Beneficiary");
   });
