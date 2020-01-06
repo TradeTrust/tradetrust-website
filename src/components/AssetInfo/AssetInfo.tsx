@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { hexToNumberString } from "web3-utils";
-import TokenSidebar from "./TokenSidebar";
+import { default as TokenSidebar } from "./TokenSidebar";
 import { ETHERSCAN_BASE_URL } from "../../config";
 
 const makeEtherscanTokenURL = ({ registryAddress, tokenId }: ERC721TokenParameters) => {
