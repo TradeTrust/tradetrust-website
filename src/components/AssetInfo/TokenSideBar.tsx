@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./TokenSideBar.scss";
 import TokenSideBarRole from "./TokenSideBarRole";
-import TokenSideBarHolder from "./TokenSideBarHolder";
-import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
+import TokenSideBarField from "./TokenSideBarField";
 
 // isHolder: true/false - determines to show holder or beneficiary sidebar view.
 
@@ -12,13 +11,43 @@ const TokenSideBar = (props: {
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 }) => {
   const isHolder = true;
+  const isHolderChangeBeneficiary = false;
 
-  const TokenSideBarContent = (props: { isHolder: boolean; registryAddress?: React.ReactNode }) => {
+  const TokenSideBarContent = (props: { isHolder: boolean; registryAddress?: React.ReactNode, isHolderChangeBeneficiary?: Boolean }) => {
     const isHolder = props.isHolder;
+
     if (isHolder) {
-      return <TokenSideBarHolder registryAddress={props.registryAddress} />;
+      return (
+        <>
+          <TokenSideBarField title="Transfer Ownership" ctaText="Transfer">
+            <label>
+              <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
+            </label>
+          </TokenSideBarField>
+          {props.isHolderChangeBeneficiary ? (
+            <TokenSideBarField title="Change Beneficiary" ctaText="Change" ctaStatus="success">
+              <label>
+                <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
+              </label>
+            </TokenSideBarField>
+          ) : null}
+          <TokenSideBarField title="Surrender Document" ctaText="Surrender" ctaStatus="danger">
+            <div className={`${styles["field"]}`}>
+              <p className={`${styles["register-address"]}`}>{props.registryAddress}</p>
+            </div>
+          </TokenSideBarField>
+        </>
+      );
     } else {
-      return <TokenSideBarBeneficiary />;
+      return (
+        <>
+          <TokenSideBarField title="Allow Transfer" ctaText="Allow" ctaStatus="success">
+            <label>
+              <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
+            </label>
+          </TokenSideBarField>
+        </>
+      );
     }
   };
 
@@ -36,7 +65,7 @@ const TokenSideBar = (props: {
             </div>
           </div>
         </header>
-        <TokenSideBarContent isHolder={isHolder} registryAddress={props.registryAddress} />
+        <TokenSideBarContent isHolder={isHolder} registryAddress={props.registryAddress} isHolderChangeBeneficiary={isHolderChangeBeneficiary} />
       </div>
       <div className={`${styles["hamburger"]}`} onClick={props.handler}>
         <svg
