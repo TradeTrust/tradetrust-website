@@ -13,7 +13,11 @@ const TokenSideBar = (props: {
   const isHolder = true;
   const isHolderChangeBeneficiary = false;
 
-  const TokenSideBarContent = (props: { isHolder: boolean; registryAddress?: React.ReactNode, isHolderChangeBeneficiary?: Boolean }) => {
+  const TokenSideBarContent = (props: {
+    isHolder: boolean;
+    registryAddress?: React.ReactNode;
+    isHolderChangeBeneficiary?: boolean;
+  }) => {
     const isHolder = props.isHolder;
 
     if (isHolder) {
@@ -65,7 +69,11 @@ const TokenSideBar = (props: {
             </div>
           </div>
         </header>
-        <TokenSideBarContent isHolder={isHolder} registryAddress={props.registryAddress} isHolderChangeBeneficiary={isHolderChangeBeneficiary} />
+        <TokenSideBarContent
+          isHolder={isHolder}
+          registryAddress={props.registryAddress}
+          isHolderChangeBeneficiary={isHolderChangeBeneficiary}
+        />
       </div>
       <div className={`${styles["hamburger"]}`} onClick={props.handler}>
         <svg
