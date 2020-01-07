@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import TokenSideBarField from "./TokenSideBarField";
 
-describe("tokenSideBarRole", () => {
+describe("tokenSideBarField", () => {
   it("field(Transfer Ownership) to have 1 button", () => {
     const wrapper = mount(<TokenSideBarField title="Transfer Ownership" ctaText="Transfer" />);
     expect(wrapper.find("button")).toHaveLength(1);
