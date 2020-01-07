@@ -1,10 +1,16 @@
 const initialState = {
+  initializeTokenPending: false,
+  initializeTokenSuccess: false,
+  initializeTokenError: false,
   tokenOwnershipTransferPending: false,
   tokenOwnershipTransferSuccess: false,
   tokenOwnershipTransferError: false
 };
 // Actions
 export const types = {
+  INITIALIZE_TOKEN: "INITIALIZE_TOKEN",
+  INITIALIZE_TOKEN_SUCCESS: "INITIALIZE_TOKEN_SUCCESS",
+  INITIALIZE_TOKEN_ERROR: "INITIALIZE_TOKEN_ERROR",
   TRANSFER_TOKEN_OWNERSHIP: "TRANSFER_TOKEN_OWNERSHIP",
   TRANSFER_TOKEN_OWNERSHIP_SUCCESS: "TRANSFER_TOKEN_OWNERSHIP_SUCCESS",
   TRANSFER_TOKEN_OWNERSHIP_ERROR: "TRANSFER_TOKEN_OWNERSHIP_ERROR"
@@ -13,6 +19,25 @@ export const types = {
 // Reducers
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case types.INITIALIZE_TOKEN:
+      return {
+        ...state,
+        initializeTokenPending: true,
+        initializeTokenSuccess: false,
+        initializeTokenError: false
+      };
+    case types.INITIALIZE_TOKEN_SUCCESS:
+      return {
+        ...state,
+        initializeTokenPending: false,
+        initializeTokenSuccess: action.payload
+      };
+    case types.INITIALIZE_TOKEN_ERROR:
+      return {
+        ...state,
+        initializeTokenPending: false,
+        initializeTokenError: action.payload
+      };
     case types.TRANSFER_TOKEN_OWNERSHIP:
       return {
         ...state,
@@ -24,7 +49,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         tokenOwnershipTransferPending: false,
-        tokenOwnershipTransferSuccess: action.payload
+        tokenOwnershipTransferSuccess: true
       };
     case types.TRANSFER_TOKEN_OWNERSHIP_ERROR:
       return {
@@ -36,6 +61,21 @@ export default function reducer(state = initialState, action) {
       return state;
   }
 }
+
+export const initializeToken = () => ({
+  type: types.INITIALIZE_TOKEN,
+});
+
+export const initializeTokenSuccess = () => ({
+  type: types.INITIALIZE_TOKEN_SUCCESS
+});
+
+export const initializeTokenFailure = payload => ({
+  type: types.INITIALIZE_TOKEN_ERROR,
+  payload
+});
+
+
 
 export const transferTokenOwnership = payload => ({
   type: types.TRANSFER_TOKEN_OWNERSHIP,
