@@ -7,7 +7,7 @@ $border-color: rgba($color-black, 0.1);
 .tokensidebar {
   transition: transform 0.7s $easeOutCubic;
   position: fixed;
-  z-index: 9;
+  z-index: 8;
   top: 0;
   right: 0;
   height: 100vh;
@@ -17,6 +17,10 @@ $border-color: rgba($color-black, 0.1);
 
   &.is-expanded {
     transform: translateX(0%);
+
+    .tokensidebar-content {
+      box-shadow: 0 0 10px rgba($color-black, 0.2);
+    }
 
     .hamburger {
       svg {
@@ -72,7 +76,7 @@ $border-color: rgba($color-black, 0.1);
 }
 
 .tokensidebar-content {
-  box-shadow: 0 0 15px rgba($color-black, 0.4);
+  transition: box-shadow 0.7s $easeOutCubic;
   background-color: $color-white;
   height: 100%;
   padding: 30px;
@@ -80,7 +84,7 @@ $border-color: rgba($color-black, 0.1);
 }
 
 .hamburger {
-  transition: background-color 0.3s $easeOutCubic;
+  transition: background-color 0.3s $easeOutCubic, box-shadow 0.7s $easeOutCubic;
   position: absolute;
   top: 92px; // agaration to mobile navtop
   left: 0;
@@ -88,7 +92,7 @@ $border-color: rgba($color-black, 0.1);
   height: 50px;
   background-color: $color-white;
   transform: translateX(-100%);
-  box-shadow: -8px 0 8px rgba($color-black, 0.15);
+  box-shadow: -4px 0 8px rgba($color-black, 0.1);
   cursor: pointer;
 
   display: flex;
