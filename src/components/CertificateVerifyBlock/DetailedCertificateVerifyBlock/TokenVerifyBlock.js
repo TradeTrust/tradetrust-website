@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getTokenOwner } from "../../../services/token";
+import { getTokenOwner, initializeToken } from "../../../services/token";
 import css from "./detailedCertificateBlock.scss";
 
 const TokenVerifyBlock = ({ document }) => {
@@ -9,7 +9,8 @@ const TokenVerifyBlock = ({ document }) => {
   useEffect(() => {
     async function fetchTokenOwner() {
       try {
-        const owner = await getTokenOwner(document);
+        await initializeToken(document);
+        const owner = await getTokenOwner();
         setTokenOwner(owner);
       } catch (e) {
         setError(e.message);

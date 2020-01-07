@@ -1,13 +1,16 @@
-import Token from "@govtechsg/oa-token";
+import { ReadOnlyToken, Writeable } from "@govtechsg/oa-token";
 import { getData } from "@govtechsg/open-attestation";
 import { get } from "lodash";
 
-const initializeToken = (document, web3Provider) => {
-  return new Token(document, web3Provider);
+let tokenInstance;
+
+export const initializeToken = async (document, web3Provider = undefined, wallet = undefined) => {
+  tokenInstance = await (web3Provider && wallet
+    ? new Writeable({ document, web3Provider, wallet })
+    : new ReadOnlyToken({ document }));
 };
 
-export const getTokenOwner = async (document, web3Provider = undefined) => {
-  const tokenInstance = initializeToken(document, web3Provider);
+export const getTokenOwner = async () => {
   return await tokenInstance.getOwner();
 };
 

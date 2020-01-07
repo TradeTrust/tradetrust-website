@@ -5,7 +5,8 @@ import TokenVerifyBlock from "./TokenVerifyBlock";
 import ROPSTEN from "../../HomePageContent/Ropsten-Demo.json";
 import { getTokenOwner } from "../../../services/token";
 jest.mock("../../../services/token", () => ({
-  getTokenOwner: jest.fn()
+  getTokenOwner: jest.fn(),
+  initializeToken: jest.fn()
 }));
 
 describe("tokenVerifyBlock", () => {
