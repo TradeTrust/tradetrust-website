@@ -7,6 +7,13 @@ import { transferTokenOwnership } from "../services/token";
 
 const { trace } = getLogger("saga:token");
 
+export function* getUserToken({ payload }) {
+  // getBeneficiaryAddress, getHolderAddress
+  try {
+  } catch (e) {
+  }
+}
+
 export function* transferOwnership({ payload }) {
   try {
     const document = yield select(getCertificate);
@@ -20,4 +27,4 @@ export function* transferOwnership({ payload }) {
   }
 }
 
-export default [takeEvery(types.TRANSFER_TOKEN_OWNERSHIP, transferOwnership)];
+export default [takeEvery(types.TRANSFER_TOKEN_OWNERSHIP, transferOwnership), takeEvery(types.GET_USER_TOKEN_ADDRESS, getUserToken)];

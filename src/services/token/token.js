@@ -23,3 +23,5 @@ export const transferTokenOwnership = async (document, newTokenOwner) => {
   const tokenInstance = initializeToken(document, web3Provider);
   return await tokenInstance.transferOwnership(newTokenOwner);
 };
+
+// create 2 methods getBeneficiaryAddress, getHolderAddress, with 0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C
