@@ -9,7 +9,7 @@ const TokenVerifyBlock = ({ document }) => {
   useEffect(() => {
     async function fetchTokenOwner() {
       try {
-        initializeToken(document);
+        await initializeToken(document);
         const owner = await getTokenOwner();
         setTokenOwner(owner);
       } catch (e) {

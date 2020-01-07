@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 import TokenVerifyBlock from "./TokenVerifyBlock";
 import ROPSTEN from "../../HomePageContent/Ropsten-Demo.json";
-import { getTokenOwner, initializeToken } from "../../../services/token";
+import { getTokenOwner } from "../../../services/token";
 jest.mock("../../../services/token", () => ({
   getTokenOwner: jest.fn(),
   initializeToken: jest.fn()

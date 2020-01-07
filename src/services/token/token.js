@@ -4,9 +4,10 @@ import { get } from "lodash";
 
 let tokenInstance;
 
-export const initializeToken = (document, web3Provider = undefined, wallet = undefined) => {
-  tokenInstance =
-    web3Provider && wallet ? new Writeable({ document, web3Provider, wallet }) : new ReadOnlyToken({ document });
+export const initializeToken = async (document, web3Provider = undefined, wallet = undefined) => {
+  tokenInstance = await (web3Provider && wallet
+    ? new Writeable({ document, web3Provider, wallet })
+    : new ReadOnlyToken({ document }));
 };
 
 export const getTokenOwner = async () => {
