@@ -18,3 +18,8 @@ export const isERC721Token = document => {
   const data = getData(document);
   return get(data, "issuers[0].tokenRegistry", false);
 };
+
+export const transferTokenOwnership = async (document, newTokenOwner) => {
+  const tokenInstance = initializeToken(document, web3Provider);
+  return await tokenInstance.transferOwnership(newTokenOwner);
+};
