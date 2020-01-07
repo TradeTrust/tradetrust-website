@@ -1,0 +1,159 @@
+@import "../../styles/variables.scss";
+
+$y-section: 40px;
+$y-field: 15px;
+$border-color: rgba($color-black, 0.1);
+
+.tokensidebar {
+  transition: transform 0.7s $easeOutCubic;
+  position: fixed;
+  z-index: 8;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 360px;
+  transform: translateX(100%);
+
+  &.is-expanded {
+    transform: translateX(0%);
+
+    .tokensidebar-content {
+      box-shadow: 0 0 10px rgba($color-black, 0.2);
+    }
+
+    .hamburger {
+      svg {
+        transform: rotateY(-180deg);
+      }
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 0;
+  }
+
+  h4 {
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  label {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  header {
+    padding-bottom: $y-section;
+  }
+}
+
+.heading {
+  margin-bottom: 30px;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    color: rgba($color-black, 0.4);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+}
+
+.divider {
+  width: 50px;
+  height: 4px;
+  background-color: $border-color;
+}
+
+.tokensidebar-content {
+  transition: box-shadow 0.7s $easeOutCubic;
+  background-color: $color-white;
+  height: 100%;
+  padding: 30px;
+  overflow: auto;
+}
+
+.hamburger {
+  transition: background-color 0.3s $easeOutCubic, box-shadow 0.7s $easeOutCubic;
+  position: absolute;
+  top: 92px; // agaration to mobile navtop
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background-color: $color-white;
+  transform: translateX(-100%);
+  box-shadow: -4px 0 8px rgba($color-black, 0.1);
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    transition: transform 0.9s $easeOutCubic;
+    width: 30px;
+    height: 30px;
+  }
+
+  &:hover {
+    background-color: darken($color-white, 5%);
+  }
+}
+
+.sec {
+  margin-bottom: $y-section;
+  padding-bottom: $y-section;
+  border-bottom: solid 2px $border-color;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.sec-header {
+    margin-bottom: 45px;
+    padding-bottom: 20px;
+    border-bottom: 0;
+  }
+}
+
+.field {
+  margin-bottom: $y-field;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.field-input {
+  width: 100%;
+  font-size: 14px;
+  padding: 8px;
+}
+
+.register-address {
+  overflow-wrap: break-word;
+  font-size: 14px;
+}
+
+.button {
+  @include btn($btn-outline);
+  color: $color-white;
+
+  &.button-danger {
+    @include btn($danger-color, $text: $color-white);
+  }
+
+  &.button-success {
+    @include btn($success-color, $text: $color-white);
+  }
+}
