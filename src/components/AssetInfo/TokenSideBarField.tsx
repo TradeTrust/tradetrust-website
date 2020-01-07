@@ -22,7 +22,7 @@ const TokenSideBarField = (props: {
         <div className="row">
           <div className="col-12">
             <h4>{props.title}</h4>
-            <div className={`${styles["field"]}`}>{props.children}</div>
+            <div className={`children ${styles["field"]}`}>{props.children}</div>
             <button className={buttonCss}>{props.ctaText}</button>
           </div>
         </div>
