@@ -31,6 +31,7 @@
     "date-fns": "^1.29.0",
     "debug": "^4.1.0",
     "ethereumjs-util": "^6.0.0",
+    "ethers": "^4.0.42",
     "fs-extra": "^7.0.1",
     "history": "^4.10.1",
     "inquirer": "^6.2.2",
