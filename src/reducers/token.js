@@ -1,6 +1,10 @@
 const initialState = {
-  addressBeneficiary: '',
-  addressHolder: '',
+  beneficiaryAddress: '',
+  holderAddress: '',
+  approvedBeneficiaryAddress: '',
+  getTokenUsersAddressPending: false,
+  getTokenUsersAddressSuccess: false,
+  getTokenUsersAddressError: false,
   tokenOwnershipTransferPending: false,
   tokenOwnershipTransferSuccess: false,
   tokenOwnershipTransferError: false
@@ -18,18 +22,28 @@ export const types = {
 // Reducers
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    // case types.GET_USER_TOKEN_ADDRESS:
-    //   return {
-    //     ...state,
-    //     addressBeneficiary: false,
-    //     GET_USER_TOKEN_ADDRESS: action.payload
-    //   };
-    // case types.GET_USER_TOKEN_ADDRESS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     addressBeneficiary: false,
-    //     GET_USER_TOKEN_ADDRESS_SUCCESS: action.payload
-    //   };
+    case types.GET_USER_TOKEN_ADDRESS:
+      return {
+        ...state,
+        getTokenUsersAddressPending: false,
+        getTokenUsersAddressSuccess: false,
+        getTokenUsersAddressError: false
+      };
+    case types.GET_USER_TOKEN_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        getTokenUsersAddressPending: false,
+        getTokenUsersAddressSuccess: true,
+        beneficiaryAddress: action.payload.beneficiaryAddress,
+        holderAddress: action.payload.holderAddress,
+        approvedBeneficiaryAddress: action.payload.approvedBeneficiaryAddress
+      };
+    case types.GET_USER_TOKEN_ADDRESS_ERROR:
+      return {
+        ...state,
+        getTokenUsersAddressPending: false,
+        getTokenUsersAddressError: action.payload
+      };
     case types.TRANSFER_TOKEN_OWNERSHIP:
       return {
         ...state,
@@ -54,17 +68,17 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export const getUserTokenAddress = payload => ({
-  type: types.GET_USER_TOKEN_ADDRESS,
+export const getTokenUserAddress = payload => ({
+  type: types.GET_TOKEN_USER_ADDRESS,
   payload
 });
 
-export const getUserTokenAddressSuccess = payload => ({
+export const getTokenUserAddressSuccess = payload => ({
   type: types.GET_USER_TOKEN_ADDRESS_SUCCESS,
   payload
 });
 
-export const getUserTokenAddressError = payload => ({
+export const getTokenUserAddressError = payload => ({
   type: types.GET_USER_TOKEN_ADDRESS_ERROR,
   payload
 });
