@@ -1,50 +1,33 @@
 import React from "react";
 import { mount } from "enzyme";
-import { act } from "react-dom/test-utils";
+import { hexToNumberString } from "web3-utils";
 import TokenVerifyBlock from "./TokenVerifyBlock";
 import ROPSTEN from "../../HomePageContent/Ropsten-Demo.json";
-import { getTokenOwner } from "../../../services/token";
-jest.mock("../../../services/token", () => ({
-  getTokenOwner: jest.fn(),
-  initializeToken: jest.fn()
-}));
+import TokenRegistry from "../../../test/fixture/tokenRegistry.json";
+
+const tokenOnwer = "0xA";
+const tokenError = "Can not find token owner";
 
 describe("tokenVerifyBlock", () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-  it("displays error if document is not token", async () => {
-    getTokenOwner.mockImplementation(() => {
-      throw new Error("abc");
-    });
-
-    let wrapper;
-    await act(async () => {
-      wrapper = mount(<TokenVerifyBlock document={ROPSTEN} />);
-    });
-    wrapper.setProps();
+  it("should display error if document is not token", async () => {
+    const wrapper = mount(<TokenVerifyBlock document={ROPSTEN} tokenOwner={tokenOnwer} tokenError={tokenError} />);
     expect(wrapper.find(".text-danger")).toHaveLength(1);
-    expect(wrapper.find(".text-danger").text()).toStrictEqual("abc");
+    expect(wrapper.find(".text-danger").text()).toStrictEqual(tokenError);
   });
 
-  it("displays text with owner", async () => {
-    getTokenOwner.mockImplementation(() => "0xA");
-    let wrapper;
-    await act(async () => {
-      wrapper = mount(<TokenVerifyBlock document={ROPSTEN} />);
-    });
-    wrapper.setProps();
+  it("should render correct etherscan link with owner address text", async () => {
+    const tokenRegistry = "0x48399Fb88bcD031C556F53e93F690EEC07963Af3";
+    const tokenIdDecimal = hexToNumberString("fc714dc7efa164cd0261d511c51903be392c74698daf331f6f5e4c6be0203939");
+    const wrapper = mount(<TokenVerifyBlock document={TokenRegistry} tokenOwner={tokenOnwer} tokenError={null} />);
     expect(
       wrapper
         .find("div")
         .at(0)
         .text()
     ).toStrictEqual("The document is a transferable record.");
-    expect(
-      wrapper
-        .find("div")
-        .at(1)
-        .text()
-    ).toStrictEqual("Owned by: 0xA");
+    expect(wrapper.find("a").text()).toStrictEqual("0xA");
+    expect(wrapper.find("a").prop("href")).toStrictEqual(
+      `https://ropsten.etherscan.io/token/${tokenRegistry}?a=${tokenIdDecimal}`
+    );
   });
 });
