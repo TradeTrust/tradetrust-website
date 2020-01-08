@@ -1,4 +1,4 @@
-@import "../../styles/main.scss";
+@import "../../../styles/main.scss";
 
 .detailed-certificate-block {
   border-width: 1px;
@@ -23,6 +23,11 @@
 
 .invalid-border-color {
   border-color: $invalid-color;
+}
+
+.transferable-record {
+  color: $dark-red;
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 768px) {

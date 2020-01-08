@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
-import DetailedCertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
-import { MESSAGES } from "../../constants/VerificationErrorMessages";
+import CertificateVerifyCheck from "./CertificateVerifyCheck";
+import { MESSAGES } from "../../../constants/VerificationErrorMessages";
 
 const VALID_VERIFICATION_STATUS = {
   hash: {
@@ -43,7 +43,7 @@ const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
 describe("detailedCertificateVerifyBlock", () => {
   it("displays hash error if the hash is invalid", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <CertificateVerifyCheck
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           hash: { checksumMatch: false }
@@ -61,7 +61,7 @@ describe("detailedCertificateVerifyBlock", () => {
 
   it("displays issuing error if the document is not issued", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <CertificateVerifyCheck
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           issued: { issuedOnAll: false }
@@ -79,7 +79,7 @@ describe("detailedCertificateVerifyBlock", () => {
 
   it("displays revocation error if the document is revoked", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <CertificateVerifyCheck
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           revoked: { revokedOnAny: true }
@@ -97,7 +97,7 @@ describe("detailedCertificateVerifyBlock", () => {
 
   it("displays identity error if the identity is not verified", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <CertificateVerifyCheck
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           identity: { identifiedOnAll: false }
@@ -115,7 +115,7 @@ describe("detailedCertificateVerifyBlock", () => {
 
   it("displays error in all fields when all verification fail", () => {
     const wrapper = mount(
-      <DetailedCertificateVerifyBlock
+      <CertificateVerifyCheck
         verificationStatus={{
           ...VALID_VERIFICATION_STATUS,
           hash: { checksumMatch: false },

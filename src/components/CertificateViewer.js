@@ -13,21 +13,17 @@ import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { AssetInfo } from "./AssetInfo";
+import { getAssetInfo } from "../utils";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
+    document={props.document}
     verifyTriggered={props.verifyTriggered}
     verifying={props.verifying}
     verificationStatus={props.verificationStatus}
     detailedVerifyVisible={props.detailedVerifyVisible}
   />
 );
-
-const getAssetInfo = document => {
-  const { tokenRegistry } = getData(document).issuers[0];
-  const { merkleRoot: tokenId } = document.signature;
-  return { tokenRegistry, tokenId };
-};
 
 const renderAssetInfo = props => {
   const { tokenRegistry, tokenId } = getAssetInfo(props.document);
