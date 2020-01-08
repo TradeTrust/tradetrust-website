@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../styles/main.scss";
 
 .verifyBlocksContainer {
   position: relative;
@@ -9,12 +9,14 @@
   min-width: 320px;
   color: white;
   box-shadow: 2px 2px 4px 0 $grey-blue;
+
   div {
     padding: 2px 0;
     word-break: break-all;
     margin: auto 0;
   }
 }
+
 @mixin block-color($color) {
   background-color: $color;
   border: 1px solid $color;
@@ -26,12 +28,15 @@
   &.active {
     color: $color;
     background-color: #fff;
+
     #circle {
       fill: $color;
     }
+
     #check {
       fill: #fff;
     }
+
     svg > polyline {
       stroke: $color;
     }
@@ -66,6 +71,7 @@
   .verifyBlocksContainer {
     position: relative;
   }
+
   .d-flex {
     display: block !important;
   }
@@ -75,6 +81,7 @@
   .verifyBlocksContainer {
     display: block !important;
   }
+
   .d-flex {
     display: block !important;
   }
@@ -85,6 +92,7 @@
     display: -ms-flexbox !important;
     display: flex !important;
   }
+
   .verification-text {
     font-size: 1.25rem;
   }
@@ -94,6 +102,7 @@
   .simple-verify-block {
     border-radius: 5px;
   }
+
   .simple-verify-block.active {
     border-radius: 5px 5px 0 0;
   }
@@ -103,6 +112,7 @@
   .simple-verify-block {
     border-radius: 5px;
   }
+
   .simple-verify-block.active {
     border-radius: 5px 0 0 5px;
     border-right-color: white;
