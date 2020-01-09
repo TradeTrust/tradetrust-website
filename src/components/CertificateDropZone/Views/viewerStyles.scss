@@ -1,4 +1,4 @@
-@import "../../../styles/variables.scss";
+@import "../../../styles/main.scss";
 
 .viewer-container {
   text-align: center !important;
@@ -12,19 +12,19 @@
   &.default {
     background-color: $faint-blue;
     border: 2px dashed $brand-blue;
-    box-shadow: 0 0 0px 10px $faint-blue;
+    box-shadow: 0 0 0 10px $faint-blue;
   }
 
   &.accept {
     background-color: $faint-green;
     border: 2px dashed $brand-blue;
-    box-shadow: 0 0 0px 10px $faint-green;
+    box-shadow: 0 0 0 10px $faint-green;
   }
 
   &.warning {
     background-color: $warning-background;
     border: 2px dashed $warning-color;
-    box-shadow: 0 0 0px 10px $warning-background;
+    box-shadow: 0 0 0 10px $warning-background;
     color: $warning-color;
 
     .unverified-btn {
@@ -35,7 +35,7 @@
   &.invalid {
     background-color: $invalid-background;
     border: 2px dashed $invalid-color;
-    box-shadow: 0 0 0px 10px $invalid-background;
+    box-shadow: 0 0 0 10px $invalid-background;
     color: $invalid-color;
 
     .unverified-btn {
@@ -55,6 +55,7 @@
 
 .image-container {
   margin-bottom: 1rem;
+
   img {
     height: 110px;
   }
@@ -102,6 +103,7 @@
 
   span {
     margin: auto;
+
     a {
       font-size: 14px;
     }
@@ -112,6 +114,7 @@
   color: #787878 !important;
   text-decoration: underline !important;
   cursor: pointer;
+
   &:hover {
     color: #324353 !important;
   }

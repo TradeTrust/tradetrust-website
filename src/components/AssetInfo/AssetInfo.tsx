@@ -1,20 +1,9 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getData, SignedDocument } from "@govtechsg/open-attestation";
-import { hexToNumberString } from "web3-utils";
 import TokenSideBar from "./TokenSideBar";
-import { ETHERSCAN_BASE_URL } from "../../config";
 import { getTokenUserAddress } from "../../reducers/token";
-
-interface ERC721TokenParameters {
-  registryAddress: string;
-  tokenId: string;
-}
-
-const makeEtherscanTokenURL = ({ registryAddress, tokenId }: ERC721TokenParameters) => {
-  const tokenIdDecimal = hexToNumberString(tokenId);
-  return `${ETHERSCAN_BASE_URL}token/${registryAddress}?a=${tokenIdDecimal}`;
-};
+import { makeEtherscanTokenURL } from "../../utils";
 
 const getAssetInfo = (document: SignedDocument) => {
   const { tokenRegistry } = getData(document).issuers[0];

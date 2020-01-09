@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { getTokenOwner, initializeToken } from "../../../services/token";
+import React from "react";
+import { getAssetInfo, makeEtherscanTokenURL } from "../../../utils";
 import css from "./detailedCertificateBlock.scss";
 
-const TokenVerifyBlock = ({ document }) => {
-  const [tokenOwner, setTokenOwner] = useState("");
-  const [error, setError] = useState(null);
+const TokenVerifyBlock = ({ document, tokenOwner, tokenError }) => {
+  const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
+  if (tokenError) return <div className="text-danger">{tokenError}</div>;
 
-  useEffect(() => {
-    async function fetchTokenOwner() {
-      try {
-        await initializeToken(document);
-        const owner = await getTokenOwner();
-        setTokenOwner(owner);
-      } catch (e) {
-        setError(e.message);
-      }
-    }
-    fetchTokenOwner();
-  }, [document]);
-
-  if (error) return <div className="text-danger">{error}</div>;
   return (
     <>
       <div className={css["transferable-record"]}>The document is a transferable record.</div>
-      <div>Owned by: {tokenOwner}</div>
+      <div>
+        Owned by:{" "}
+        <a
+          href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+          id="token-owner-etherscan-link"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          {tokenOwner}
+        </a>
+      </div>
     </>
   );
 };
