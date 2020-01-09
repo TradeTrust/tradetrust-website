@@ -8,26 +8,26 @@ const TokenSideBarField = (props: {
   children?: React.ReactNode;
   isChangeBeneficiary?: boolean;
 }) => {
-  let buttonCss = `${styles["button"]}`;
-  if (props.ctaStatus === "success") {
-    buttonCss = `${styles["button"]} ${styles["button-success"]}`;
-  } else if (props.ctaStatus === "danger") {
-    buttonCss = `${styles["button"]} ${styles["button-danger"]}`;
-  } else {
-  }
-
   return (
-    <>
-      <section className={`${styles["sec"]}`}>
-        <div className="row">
-          <div className="col-12">
-            <h4>{props.title}</h4>
-            <div className={`children ${styles["field"]}`}>{props.children}</div>
-            <button className={buttonCss}>{props.ctaText}</button>
-          </div>
+    <section className={`${styles["sec"]}`}>
+      <div className="row">
+        <div className="col-12">
+          <h4>{props.title}</h4>
+          <div className={`${styles["field"]}`}>{props.children}</div>
+          <button
+            className={`${styles["button"]} ${
+              props.ctaStatus === "success"
+                ? styles["button-success"]
+                : props.ctaStatus === "danger"
+                ? styles["button-danger"]
+                : ""
+            }`}
+          >
+            {props.ctaText}
+          </button>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
