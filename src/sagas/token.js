@@ -1,16 +1,29 @@
-import { put, select, takeEvery } from "redux-saga/effects";
+import { put, select, takeEvery, all, call } from "redux-saga/effects";
 import { types } from "../reducers/token";
 import { getCertificate } from "../reducers/certificate";
 import { getLogger } from "../utils/logger";
-import { transferTokenOwnershipSuccess, transferTokenOwnershipFailure } from "../reducers/token";
-import { transferTokenOwnership } from "../services/token";
+import {
+  transferTokenOwnershipSuccess,
+  transferTokenOwnershipFailure,
+  getTokenUserAddressSuccess,
+  getTokenUserAddressError
+} from "../reducers/token";
+import { transferTokenOwnership, getBeneficiaryAddress, getHolderAddress } from "../services/token";
 
 const { trace } = getLogger("saga:token");
 
-export function* getUserToken({ payload }) {
-  // getBeneficiaryAddress, getHolderAddress
+export function* getTokenUsers() {
   try {
+    const document = yield select(getCertificate);
+    const [beneficiaryAddress, holderAddress] = yield all([
+      call(getBeneficiaryAddress, document),
+      call(getHolderAddress, document)
+    ]);
+    trace(`Beneficiary Address is: ${beneficiaryAddress} and Holder Address is: ${holderAddress}`);
+
+    yield put(getTokenUserAddressSuccess({ beneficiaryAddress, holderAddress }));
   } catch (e) {
+    yield put(getTokenUserAddressError(e.message));
   }
 }
 
@@ -27,4 +40,7 @@ export function* transferOwnership({ payload }) {
   }
 }
 
-export default [takeEvery(types.TRANSFER_TOKEN_OWNERSHIP, transferOwnership), takeEvery(types.GET_USER_TOKEN_ADDRESS, getUserToken)];
+export default [
+  takeEvery(types.TRANSFER_TOKEN_OWNERSHIP, transferOwnership),
+  takeEvery(types.GET_TOKEN_USER_ADDRESS, getTokenUsers)
+];

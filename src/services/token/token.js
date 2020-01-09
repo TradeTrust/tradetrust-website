@@ -24,4 +24,12 @@ export const transferTokenOwnership = async (document, newTokenOwner) => {
   return await tokenInstance.transferOwnership(newTokenOwner);
 };
 
-// create 2 methods getBeneficiaryAddress, getHolderAddress, with 0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C
+//dummy method to replace with oa-token methods
+export const getBeneficiaryAddress = async document => {
+  console.log(document);
+  return await Promise.resolve("0xA");
+};
+
+export const getHolderAddress = async document => {
+  return await Promise.resolve("0xB");
+};
