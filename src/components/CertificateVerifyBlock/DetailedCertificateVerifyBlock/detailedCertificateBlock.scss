@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../../styles/main.scss";
 
 .detailed-certificate-block {
   border-width: 1px;
@@ -8,6 +8,7 @@
   box-shadow: 2px 2px 4px 0 $grey-blue;
   position: absolute;
 }
+
 .detailed-certificate-block :global(.col-10) {
   padding-left: 0;
 }
@@ -22,6 +23,11 @@
 
 .invalid-border-color {
   border-color: $invalid-color;
+}
+
+.transferable-record {
+  color: $dark-red;
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 768px) {
