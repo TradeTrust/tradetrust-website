@@ -30,8 +30,11 @@ export const transferTokenOwnership = async (document, newTokenOwner) => {
 };
 
 //dummy method to replace with oa-token methods
+export const isEscrowContract = async () => {
+  return await Promise.resolve(true);
+}
+
 export const getBeneficiaryAddress = async document => {
-  console.log(document);
   return await Promise.resolve("0xA");
 };
 
