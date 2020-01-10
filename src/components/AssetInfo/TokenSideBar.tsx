@@ -1,50 +1,55 @@
 import React from "react";
-import styles from "./TokenSideBar.scss";
+import css from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
 
-// metamaskAddress - hardcoded local user address to be tally with return address response.
+// adminAddress (metamask) - hardcoded local address to be tally with returned address response.
+const adminAddress = "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C";
 
-const TokenSideBar = (props: {
+interface TokenSideBarContentProps {
   holderAddress: string;
   beneficiaryAddress: string;
   approvedBeneficiaryAddress: string;
   registryAddress?: string;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
   isSideBarExpand: boolean;
-}) => {
-  const metamaskAddress = "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C";
-  let userRole = "";
+}
 
-  if (metamaskAddress === props.holderAddress && metamaskAddress === props.beneficiaryAddress) {
-    userRole = "Holder and Beneficiary";
-  } else if (metamaskAddress === props.holderAddress) {
-    userRole = "Holder";
-  } else if (metamaskAddress === props.beneficiaryAddress) {
-    userRole = "Beneficiary";
-  }
-
+const TokenSideBar = ({
+  holderAddress,
+  beneficiaryAddress,
+  approvedBeneficiaryAddress,
+  registryAddress,
+  handler,
+  isSideBarExpand
+}: TokenSideBarContentProps) => {
   return (
-    <aside className={`${styles["tokensidebar"]} ${props.isSideBarExpand ? styles["is-expanded"] : ""}`}>
-      <div className={`${styles["tokensidebar-content"]}`}>
+    <aside className={`${css.tokensidebar} ${isSideBarExpand ? css["is-expanded"] : ""}`}>
+      <div className={`${css["tokensidebar-content"]}`}>
         <header>
           <div className="row">
             <div className="col-12">
-              <div className={`${styles["heading"]}`}>
-                <TokenSideBarRole userRole={userRole} />
+              <div className={`${css.heading}`}>
+                <TokenSideBarRole
+                  adminAddress={adminAddress}
+                  holderAddress={holderAddress}
+                  beneficiaryAddress={beneficiaryAddress}
+                />
                 <h2>Manage Asset</h2>
               </div>
-              <div className={`${styles["divider"]}`} />
+              <div className={`${css.divider}`} />
             </div>
           </div>
         </header>
         <TokenSideBarContent
-          userRole={userRole}
-          registryAddress={props.registryAddress}
-          approvedBeneficiaryAddress={props.approvedBeneficiaryAddress}
+          adminAddress={adminAddress}
+          holderAddress={holderAddress}
+          beneficiaryAddress={beneficiaryAddress}
+          registryAddress={registryAddress}
+          approvedBeneficiaryAddress={approvedBeneficiaryAddress}
         />
       </div>
-      <div className={`${styles["hamburger"]}`} onClick={props.handler}>
+      <div className={`${css.hamburger}`} onClick={handler}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

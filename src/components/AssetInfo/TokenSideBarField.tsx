@@ -1,29 +1,26 @@
 import React from "react";
-import styles from "./TokenSideBar.scss";
+import css from "./TokenSideBar.scss";
 
-const TokenSideBarField = (props: {
+interface TokenSideBarFieldProps {
   title: string;
   ctaText: string;
   ctaStatus?: string;
   children?: React.ReactNode;
-  isChangeBeneficiary?: boolean;
-}) => {
+}
+
+const TokenSideBarField = ({ title, ctaText, ctaStatus, children }: TokenSideBarFieldProps) => {
   return (
-    <section className={`${styles["sec"]}`}>
+    <section className={`${css.sec}`}>
       <div className="row">
         <div className="col-12">
-          <h4>{props.title}</h4>
-          <div className={`${styles["field"]}`}>{props.children}</div>
+          <h4>{title}</h4>
+          <div className={`${css.field}`}>{children}</div>
           <button
-            className={`${styles["button"]} ${
-              props.ctaStatus === "success"
-                ? styles["button-success"]
-                : props.ctaStatus === "danger"
-                ? styles["button-danger"]
-                : ""
+            className={`${css.button} ${
+              ctaStatus === "success" ? css["button-success"] : ctaStatus === "danger" ? css["button-danger"] : ""
             }`}
           >
-            {props.ctaText}
+            {ctaText}
           </button>
         </div>
       </div>
