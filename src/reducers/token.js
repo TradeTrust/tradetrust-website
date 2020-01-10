@@ -108,7 +108,7 @@ export const getTokenUserAddressError = payload => ({
 });
 
 export const initializeToken = () => ({
-  type: types.INITIALIZE_TOKEN,
+  type: types.INITIALIZE_TOKEN
 });
 
 export const initializeTokenSuccess = () => ({
@@ -119,8 +119,6 @@ export const initializeTokenFailure = payload => ({
   type: types.INITIALIZE_TOKEN_ERROR,
   payload
 });
-
-
 
 export const transferTokenOwnership = payload => ({
   type: types.TRANSFER_TOKEN_OWNERSHIP,

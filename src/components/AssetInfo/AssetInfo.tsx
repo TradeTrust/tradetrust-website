@@ -2,7 +2,8 @@ import React, { FunctionComponent, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getData, SignedDocument } from "@govtechsg/open-attestation";
 import TokenSideBar from "./TokenSideBar";
-import { getTokenUserAddress } from "../../reducers/token";
+import { getTokenUserAddress, initializeToken } from "../../reducers/token";
+import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
 
 const getAssetInfo = (document: SignedDocument) => {
@@ -18,13 +19,15 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
 
   useEffect(() => {
     if (registryAddress) {
-      dispatch(getTokenUserAddress());
+      dispatch(initializeToken());
+      dispatch(loadAdminAddress());
     }
   }, [dispatch, document, registryAddress]);
 
-  const { beneficiaryAddress, holderAddress } = useSelector((state: any) => ({
+  const { beneficiaryAddress, holderAddress, adminAddress } = useSelector((state: any) => ({
     beneficiaryAddress: state.token.beneficiaryAddress,
-    holderAddress: state.token.holderAddress
+    holderAddress: state.token.holderAddress,
+    adminAddress: state.admin.adminAddress
   }));
 
   const handlerToggleSideBar = (event: { preventDefault: () => void }) => {

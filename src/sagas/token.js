@@ -6,12 +6,20 @@ import {
   transferTokenOwnershipSuccess,
   transferTokenOwnershipFailure,
   getTokenUserAddressSuccess,
-  getTokenUserAddressError
+  getTokenUserAddressError,
+  initializeTokenSuccess,
+  initializeTokenFailure
 } from "../reducers/token";
-import { transferTokenOwnership, getBeneficiaryAddress, initializeToken, getHolderAddress } from "../services/token";
+
+import {
+  transferTokenOwnership,
+  getBeneficiaryAddress,
+  initializeTokenInstance,
+  getHolderAddress
+} from "../services/token";
 import { getProvider } from "../services/etherjs";
 
-const { trace } = getLogger("saga:token");
+const { trace, error } = getLogger("saga:token");
 
 export function* getTokenUsers() {
   try {
@@ -31,11 +39,12 @@ export function* getTokenUsers() {
 export function* initializeToken() {
   try {
     const document = yield select(getCertificate);
-    const {provider, signer} = yield getProvider();
-    trace(`Web3 provider: ${JSON.stringify(provider)}`);
-    yield initializeToken(document, provider, signer);
+    const { provider, signer } = yield getProvider();
+    //trace(`Web3 provider: ${JSON.stringify(provider)}`);
+    yield initializeTokenInstance(document, provider, signer);
     yield put(initializeTokenSuccess());
-  } catch(e) {
+  } catch (e) {
+    error(e);
     yield put(initializeTokenFailure(e.message));
   }
 }
@@ -44,7 +53,7 @@ export function* transferOwnership({ payload }) {
   try {
     const document = yield select(getCertificate);
     const { newTokenOwner } = payload;
-    
+
     const transferStatus = yield transferTokenOwnership(document, newTokenOwner);
     trace(`Transfer Status: ${JSON.stringify(transferStatus)}`);
 

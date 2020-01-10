@@ -7,7 +7,7 @@ const { trace } = getLogger("saga:tokenService");
 
 let tokenInstance;
 
-export const initializeToken = async (document, web3Provider = undefined, wallet = undefined) => {
+export const initializeTokenInstance = async (document, web3Provider = undefined, wallet = undefined) => {
   trace(`web3 provider is: ${web3Provider} and wallet is: ${wallet}`);
   tokenInstance = await (web3Provider && wallet
     ? new WriteableToken({ document, web3Provider, wallet })
@@ -25,14 +25,13 @@ export const isERC721Token = document => {
 };
 
 export const transferTokenOwnership = async (document, newTokenOwner) => {
-  const tokenInstance = initializeToken(document, web3Provider);
   return await tokenInstance.transferOwnership(newTokenOwner);
 };
 
 //dummy method to replace with oa-token methods
 export const isEscrowContract = async () => {
   return await Promise.resolve(true);
-}
+};
 
 export const getBeneficiaryAddress = async document => {
   return await Promise.resolve("0xA");
