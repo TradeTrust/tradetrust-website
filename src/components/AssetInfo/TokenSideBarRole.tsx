@@ -7,7 +7,7 @@ interface TokenSideBarRoleProps {
 }
 
 const TokenSideBarRole = ({ adminAddress, beneficiaryAddress, holderAddress }: TokenSideBarRoleProps) => {
-  let userRole = "";
+  let userRole = "\u00A0"; // empty space to maintain layout
 
   if (adminAddress === holderAddress && adminAddress === beneficiaryAddress) {
     userRole = "Holder and Beneficiary";

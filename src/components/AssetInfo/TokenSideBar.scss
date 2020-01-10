@@ -110,6 +110,12 @@ $border-color: rgba($color-black, 0.1);
   }
 }
 
+.loader {
+  @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $grey-blue, $secondary: $light-grey);
+  position: relative;
+  top: 40px;
+}
+
 .sec {
   margin-bottom: $y-section;
   padding-bottom: $y-section;
