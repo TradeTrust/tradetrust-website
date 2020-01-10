@@ -1,59 +1,17 @@
 import React from "react";
 import styles from "./TokenSideBar.scss";
+import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
-import TokenSideBarField from "./TokenSideBarField";
 
 // isHolder: true/false - determines to show holder or beneficiary sidebar view.
 
 const TokenSideBar = (props: {
   isSideBarExpand: boolean;
-  registryAddress?: React.ReactNode;
+  registryAddress?: string;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 }) => {
   const isHolder = true;
   const isHolderChangeBeneficiary = false;
-
-  const TokenSideBarContent = (props: {
-    isHolder: boolean;
-    registryAddress?: React.ReactNode;
-    isHolderChangeBeneficiary?: boolean;
-  }) => {
-    const isHolder = props.isHolder;
-
-    if (isHolder) {
-      return (
-        <>
-          <TokenSideBarField title="Transfer Ownership" ctaText="Transfer">
-            <label>
-              <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-            </label>
-          </TokenSideBarField>
-          {props.isHolderChangeBeneficiary ? (
-            <TokenSideBarField title="Change Beneficiary" ctaText="Change" ctaStatus="success">
-              <label>
-                <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-              </label>
-            </TokenSideBarField>
-          ) : null}
-          <TokenSideBarField title="Surrender Document" ctaText="Surrender" ctaStatus="danger">
-            <div className={`${styles["field"]}`}>
-              <p className={`${styles["register-address"]}`}>{props.registryAddress}</p>
-            </div>
-          </TokenSideBarField>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <TokenSideBarField title="Allow Transfer" ctaText="Allow" ctaStatus="success">
-            <label>
-              <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-            </label>
-          </TokenSideBarField>
-        </>
-      );
-    }
-  };
 
   return (
     <aside className={`${styles["tokensidebar"]} ${props.isSideBarExpand ? styles["is-expanded"] : ""}`}>
