@@ -3,15 +3,26 @@ import styles from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
 
-// isHolder: true/false - determines to show holder or beneficiary sidebar view.
+// metamaskAddress - hardcoded local user address to be tally with return address response.
 
 const TokenSideBar = (props: {
-  isSideBarExpand: boolean;
+  holderAddress: string;
+  beneficiaryAddress: string;
+  approvedBeneficiaryAddress: string;
   registryAddress?: string;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+  isSideBarExpand: boolean;
 }) => {
-  const isHolder = true;
-  const isHolderChangeBeneficiary = false;
+  const metamaskAddress = "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C";
+  let userRole = "";
+
+  if (metamaskAddress === props.holderAddress && metamaskAddress === props.beneficiaryAddress) {
+    userRole = "Holder and Beneficiary";
+  } else if (metamaskAddress === props.holderAddress) {
+    userRole = "Holder";
+  } else if (metamaskAddress === props.beneficiaryAddress) {
+    userRole = "Beneficiary";
+  }
 
   return (
     <aside className={`${styles["tokensidebar"]} ${props.isSideBarExpand ? styles["is-expanded"] : ""}`}>
@@ -20,7 +31,7 @@ const TokenSideBar = (props: {
           <div className="row">
             <div className="col-12">
               <div className={`${styles["heading"]}`}>
-                <TokenSideBarRole isHolder={isHolder} />
+                <TokenSideBarRole userRole={userRole} />
                 <h2>Manage Asset</h2>
               </div>
               <div className={`${styles["divider"]}`} />
@@ -28,9 +39,9 @@ const TokenSideBar = (props: {
           </div>
         </header>
         <TokenSideBarContent
-          isHolder={isHolder}
+          userRole={userRole}
           registryAddress={props.registryAddress}
-          isHolderChangeBeneficiary={isHolderChangeBeneficiary}
+          approvedBeneficiaryAddress={props.approvedBeneficiaryAddress}
         />
       </div>
       <div className={`${styles["hamburger"]}`} onClick={props.handler}>

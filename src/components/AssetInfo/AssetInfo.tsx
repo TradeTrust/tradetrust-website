@@ -22,9 +22,10 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
     }
   }, [dispatch, document, registryAddress]);
 
-  const { beneficiaryAddress, holderAddress } = useSelector((state: any) => ({
+  const { holderAddress, beneficiaryAddress, approvedBeneficiaryAddress } = useSelector((state: any) => ({
+    holderAddress: state.token.holderAddress,
     beneficiaryAddress: state.token.beneficiaryAddress,
-    holderAddress: state.token.holderAddress
+    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress
   }));
 
   const handlerToggleSideBar = (event: { preventDefault: () => void }) => {
@@ -46,9 +47,12 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
         Manage Asset
       </a>
       <TokenSideBar
+        holderAddress={holderAddress}
+        beneficiaryAddress={beneficiaryAddress}
+        approvedBeneficiaryAddress={approvedBeneficiaryAddress}
+        registryAddress={registryAddress}
         handler={handlerToggleSideBar}
         isSideBarExpand={isSideBarExpand}
-        registryAddress={registryAddress}
       />
     </div>
   );
