@@ -15,7 +15,8 @@ import {
   transferTokenOwnership,
   getBeneficiaryAddress,
   initializeTokenInstance,
-  getHolderAddress
+  getHolderAddress,
+  isEscrowContract
 } from "../services/token";
 import { getProvider } from "../services/etherjs";
 
@@ -24,6 +25,9 @@ const { trace, error } = getLogger("saga:token");
 export function* getTokenUsers() {
   try {
     const document = yield select(getCertificate);
+    const isTitleEscrow = yield call(isEscrowContract, document);
+    if (!isTitleEscrow) throw new Error("Document owner is not a escrow contract");
+
     const [beneficiaryAddress, holderAddress] = yield all([
       call(getBeneficiaryAddress, document),
       call(getHolderAddress, document)

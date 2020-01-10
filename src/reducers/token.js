@@ -2,6 +2,7 @@ const initialState = {
   beneficiaryAddress: "",
   holderAddress: "",
   approvedBeneficiaryAddress: "",
+  isEscrowContract: false,
   getTokenUsersAddressPending: false,
   getTokenUsersAddressSuccess: false,
   getTokenUsersAddressError: false,
@@ -33,13 +34,15 @@ export default function reducer(state = initialState, action) {
         ...state,
         getTokenUsersAddressPending: false,
         getTokenUsersAddressSuccess: false,
-        getTokenUsersAddressError: false
+        getTokenUsersAddressError: false,
+        isEscrowContract: false
       };
     case types.GET_TOKEN_USER_ADDRESS_SUCCESS:
       return {
         ...state,
         getTokenUsersAddressPending: false,
         getTokenUsersAddressSuccess: true,
+        isEscrowContract: true,
         beneficiaryAddress: action.payload.beneficiaryAddress,
         holderAddress: action.payload.holderAddress,
         approvedBeneficiaryAddress: action.payload.approvedBeneficiaryAddress
@@ -48,6 +51,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         getTokenUsersAddressPending: false,
+        isEscrowContract: false,
         getTokenUsersAddressError: action.payload
       };
     case types.INITIALIZE_TOKEN:
@@ -61,13 +65,13 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         initializeTokenPending: false,
-        initializeTokenSuccess: action.payload
+        initializeTokenSuccess: true
       };
     case types.INITIALIZE_TOKEN_ERROR:
       return {
         ...state,
         initializeTokenPending: false,
-        initializeTokenError: action.payload
+        initializeTokenError: true
       };
     case types.TRANSFER_TOKEN_OWNERSHIP:
       return {

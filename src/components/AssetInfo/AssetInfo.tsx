@@ -17,6 +17,16 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
   const dispatch = useDispatch();
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
 
+  const { beneficiaryAddress, holderAddress, adminAddress, initializeTokenSuccess, isEscrowContract } = useSelector(
+    (state: any) => ({
+      beneficiaryAddress: state.token.beneficiaryAddress,
+      holderAddress: state.token.holderAddress,
+      initializeTokenSuccess: state.token.initializeTokenSuccess,
+      isEscrowContract: state.token.isEscrowContract,
+      adminAddress: state.admin.adminAddress
+    })
+  );
+
   useEffect(() => {
     if (registryAddress) {
       dispatch(initializeToken());
@@ -24,11 +34,11 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
     }
   }, [dispatch, document, registryAddress]);
 
-  const { beneficiaryAddress, holderAddress, adminAddress } = useSelector((state: any) => ({
-    beneficiaryAddress: state.token.beneficiaryAddress,
-    holderAddress: state.token.holderAddress,
-    adminAddress: state.admin.adminAddress
-  }));
+  useEffect(() => {
+    if (initializeTokenSuccess) {
+      dispatch(getTokenUserAddress());
+    }
+  }, [dispatch, initializeTokenSuccess]);
 
   const handlerToggleSideBar = (event: { preventDefault: () => void }) => {
     event.preventDefault();
