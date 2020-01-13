@@ -13,7 +13,6 @@ describe("tokenSideBarHolder", () => {
 
   it("should have 2 correct fields for Holder with endorsement awaiting", () => {
     const wrapper = mount(<TokenSideBarHolder isEqualBeneficiaryAndHolder={false} approvedBeneficiaryAddress="0xA" />);
-    console.log(wrapper.debug());
     expect(wrapper.text()).toMatch(/Transfer Ownership/);
     expect(wrapper.text()).toMatch(/Change Beneficiary/);
     expect(wrapper.find("section")).toHaveLength(2);
