@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   beneficiaryAddress: "",
   holderAddress: "",
   approvedBeneficiaryAddress: "",
@@ -9,6 +9,7 @@ const initialState = {
   tokenOwnershipTransferSuccess: false,
   tokenOwnershipTransferError: false
 };
+
 // Actions
 export const types = {
   GET_TOKEN_USER_ADDRESS: "GET_TOKEN_USER_ADDRESS",
@@ -22,7 +23,7 @@ export const types = {
 // Reducers
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case types.GET_USER_TOKEN_ADDRESS:
+    case types.GET_TOKEN_USER_ADDRESS:
       return {
         ...state,
         getTokenUsersAddressPending: false,
