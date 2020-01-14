@@ -36,7 +36,10 @@ export const isEscrowContract = async () => {
 export const getBeneficiaryAddress = async document => {
   return await Promise.resolve("0xA");
 };
+export const getHolderAddress = async () => {
+  return await Promise.resolve("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C");
+};
 
-export const getHolderAddress = async document => {
-  return await Promise.resolve("0xB");
+export const getApprovedBeneficiaryAddress = async () => {
+  return await Promise.resolve("");
 };

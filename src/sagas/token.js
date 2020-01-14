@@ -16,7 +16,8 @@ import {
   getBeneficiaryAddress,
   initializeTokenInstance,
   getHolderAddress,
-  isEscrowContract
+  isEscrowContract,
+  getApprovedBeneficiaryAddress
 } from "../services/token";
 import { getProvider } from "../services/etherjs";
 
@@ -28,13 +29,16 @@ export function* getTokenUsers() {
     const isTitleEscrow = yield call(isEscrowContract, document);
     if (!isTitleEscrow) throw new Error("Document owner is not a escrow contract");
 
-    const [beneficiaryAddress, holderAddress] = yield all([
+    const [beneficiaryAddress, holderAddress, approvedBeneficiaryAddress] = yield all([
       call(getBeneficiaryAddress, document),
-      call(getHolderAddress, document)
+      call(getHolderAddress, document),
+      call(getApprovedBeneficiaryAddress, document)
     ]);
-    trace(`Beneficiary Address is: ${beneficiaryAddress} and Holder Address is: ${holderAddress}`);
+    trace(
+      `Beneficiary Address is: ${beneficiaryAddress} and Holder Address is: ${holderAddress} and Approved Target Address is: ${approvedBeneficiaryAddress}`
+    );
 
-    yield put(getTokenUserAddressSuccess({ beneficiaryAddress, holderAddress }));
+    yield put(getTokenUserAddressSuccess({ beneficiaryAddress, holderAddress, approvedBeneficiaryAddress }));
   } catch (e) {
     yield put(getTokenUserAddressError(e.message));
   }

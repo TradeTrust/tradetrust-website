@@ -1,33 +1,30 @@
 import React from "react";
-import styles from "./TokenSideBar.scss";
+import css from "./TokenSideBar.scss";
 
-const TokenSideBarField = (props: {
+interface TokenSideBarFieldProps {
   title: string;
   ctaText: string;
   ctaStatus?: string;
   children?: React.ReactNode;
-  isChangeBeneficiary?: boolean;
-}) => {
-  let buttonCss = `${styles["button"]}`;
-  if (props.ctaStatus === "success") {
-    buttonCss = `${styles["button"]} ${styles["button-success"]}`;
-  } else if (props.ctaStatus === "danger") {
-    buttonCss = `${styles["button"]} ${styles["button-danger"]}`;
-  } else {
-  }
+}
 
+const TokenSideBarField = ({ title, ctaText, ctaStatus, children }: TokenSideBarFieldProps) => {
   return (
-    <>
-      <section className={`${styles["sec"]}`}>
-        <div className="row">
-          <div className="col-12">
-            <h4>{props.title}</h4>
-            <div className={`children ${styles["field"]}`}>{props.children}</div>
-            <button className={buttonCss}>{props.ctaText}</button>
-          </div>
+    <section className={`${css.sec}`}>
+      <div className="row">
+        <div className="col-12">
+          <h4>{title}</h4>
+          <div className={`${css.field}`}>{children}</div>
+          <button
+            className={`${css.button} ${
+              ctaStatus === "success" ? css["button-success"] : ctaStatus === "danger" ? css["button-danger"] : ""
+            }`}
+          >
+            {ctaText}
+          </button>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

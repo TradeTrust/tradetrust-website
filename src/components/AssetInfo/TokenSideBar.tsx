@@ -1,81 +1,55 @@
 import React from "react";
-import styles from "./TokenSideBar.scss";
+import css from "./TokenSideBar.scss";
+import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
-import TokenSideBarField from "./TokenSideBarField";
 
-// isHolder: true/false - determines to show holder or beneficiary sidebar view.
+// adminAddress (metamask) - hardcoded local address to be tally with returned address response.
+const adminAddress = "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C";
 
-const TokenSideBar = (props: {
-  isSideBarExpand: boolean;
-  registryAddress?: React.ReactNode;
+interface TokenSideBarContentProps {
+  holderAddress: string;
+  beneficiaryAddress: string;
+  approvedBeneficiaryAddress: string;
+  registryAddress?: string;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-}) => {
-  const isHolder = true;
-  const isHolderChangeBeneficiary = false;
+  isSideBarExpand: boolean;
+}
 
-  const TokenSideBarContent = (props: {
-    isHolder: boolean;
-    registryAddress?: React.ReactNode;
-    isHolderChangeBeneficiary?: boolean;
-  }) => {
-    const isHolder = props.isHolder;
-
-    if (isHolder) {
-      return (
-        <>
-          <TokenSideBarField title="Transfer Ownership" ctaText="Transfer">
-            <label>
-              <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-            </label>
-          </TokenSideBarField>
-          {props.isHolderChangeBeneficiary ? (
-            <TokenSideBarField title="Change Beneficiary" ctaText="Change" ctaStatus="success">
-              <label>
-                <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-              </label>
-            </TokenSideBarField>
-          ) : null}
-          <TokenSideBarField title="Surrender Document" ctaText="Surrender" ctaStatus="danger">
-            <div className={`${styles["field"]}`}>
-              <p className={`${styles["register-address"]}`}>{props.registryAddress}</p>
-            </div>
-          </TokenSideBarField>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <TokenSideBarField title="Allow Transfer" ctaText="Allow" ctaStatus="success">
-            <label>
-              <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-            </label>
-          </TokenSideBarField>
-        </>
-      );
-    }
-  };
-
+const TokenSideBar = ({
+  holderAddress,
+  beneficiaryAddress,
+  approvedBeneficiaryAddress,
+  registryAddress,
+  handler,
+  isSideBarExpand
+}: TokenSideBarContentProps) => {
   return (
-    <aside className={`${styles["tokensidebar"]} ${props.isSideBarExpand ? styles["is-expanded"] : ""}`}>
-      <div className={`${styles["tokensidebar-content"]}`}>
+    <aside className={`${css.tokensidebar} ${isSideBarExpand ? css["is-expanded"] : ""}`}>
+      <div className={`${css["tokensidebar-content"]}`}>
         <header>
           <div className="row">
             <div className="col-12">
-              <div className={`${styles["heading"]}`}>
-                <TokenSideBarRole isHolder={isHolder} />
+              <div className={`${css.heading}`}>
+                <TokenSideBarRole
+                  adminAddress={adminAddress}
+                  holderAddress={holderAddress}
+                  beneficiaryAddress={beneficiaryAddress}
+                />
                 <h2>Manage Asset</h2>
               </div>
-              <div className={`${styles["divider"]}`} />
+              <div className={`${css.divider}`} />
             </div>
           </div>
         </header>
         <TokenSideBarContent
-          isHolder={isHolder}
-          registryAddress={props.registryAddress}
-          isHolderChangeBeneficiary={isHolderChangeBeneficiary}
+          adminAddress={adminAddress}
+          holderAddress={holderAddress}
+          beneficiaryAddress={beneficiaryAddress}
+          registryAddress={registryAddress}
+          approvedBeneficiaryAddress={approvedBeneficiaryAddress}
         />
       </div>
-      <div className={`${styles["hamburger"]}`} onClick={props.handler}>
+      <div className={`${css.hamburger}`} onClick={handler}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
