@@ -1,7 +1,16 @@
-import { ethers } from "ethers";
+import { ethers, providers } from "ethers";
 
-export const getProvider = (): { provider: ethers.providers.JsonRpcProvider; signer: ethers.Signer } => {
-  const { ethereum, web3 } = window as any;
+declare global {
+  interface Window {
+    ethereum: providers.Web3Provider;
+    web3: {
+      currentProvider: providers.Web3Provider;
+    };
+  }
+}
+
+export const getProvider = (): { provider: providers.JsonRpcProvider; signer: ethers.Signer } => {
+  const { ethereum, web3 } = window;
   const alreadyInjected = typeof ethereum !== "undefined" || typeof web3 !== "undefined";
 
   if (!alreadyInjected) throw new Error("Metamask cannot be found");
