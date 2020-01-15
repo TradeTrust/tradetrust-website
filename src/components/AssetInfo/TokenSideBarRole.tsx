@@ -16,7 +16,7 @@ const TokenSideBarRole = ({ adminAddress, beneficiaryAddress, holderAddress }: T
       case adminAddress === beneficiaryAddress:
         return "Beneficiary";
       default:
-        return "";
+        return "\u00A0";
     }
   };
 

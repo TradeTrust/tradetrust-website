@@ -2,15 +2,16 @@ import React from "react";
 import css from "./TokenSideBar.scss";
 
 interface TokenSideBarFieldProps {
+  id: string;
   title: string;
   ctaText: string;
   ctaStatus?: string;
   children?: React.ReactNode;
 }
 
-const TokenSideBarField = ({ title, ctaText, ctaStatus, children }: TokenSideBarFieldProps) => {
+const TokenSideBarField = ({ id, title, ctaText, ctaStatus, children }: TokenSideBarFieldProps) => {
   return (
-    <section className={`${css.sec}`}>
+    <section id={id} className={`${css.sec}`}>
       <div className="row">
         <div className="col-12">
           <h4>{title}</h4>

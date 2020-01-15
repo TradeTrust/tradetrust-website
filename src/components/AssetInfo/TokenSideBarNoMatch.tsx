@@ -1,6 +1,6 @@
 import React from "react";
 
-const TokenSideBarNoMatch = ({}) => {
+const TokenSideBarNoMatch = () => {
   return (
     <>
       <h4>Oops!</h4>

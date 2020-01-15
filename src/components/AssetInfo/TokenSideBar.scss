@@ -138,11 +138,25 @@ $border-color: rgba($color-black, 0.1);
   width: 100%;
   font-size: 14px;
   padding: 8px;
+
+  color: $color-black;
+  border: solid 1px rgba($color-black, 0.2);
+
+  &[disabled] {
+    color: rgba($color-black, 0.2);
+    border: solid 1px rgba($color-black, 0.1);
+  }
+
+  &::placeholder {
+    font-style: italic;
+    color: rgba($color-black, 0.5);
+  }
 }
 
-.register-address {
-  overflow-wrap: break-word;
-  font-size: 14px;
+.loader {
+  @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $grey-blue, $secondary: $light-grey);
+  position: relative;
+  top: 40px;
 }
 
 .button {

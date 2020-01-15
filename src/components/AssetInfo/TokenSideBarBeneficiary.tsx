@@ -3,7 +3,12 @@ import css from "./TokenSideBar.scss";
 import TokenSideBarField from "./TokenSideBarField";
 
 const TokenSideBarBeneficiary = () => (
-  <TokenSideBarField title="Allow Transfer" ctaText="Allow" ctaStatus="success">
+  <TokenSideBarField
+    id="sec-approvechangebeneficiary"
+    title="Approve Change Beneficiary"
+    ctaText="Approve"
+    ctaStatus="success"
+  >
     <label>
       <input className={`${css["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
     </label>

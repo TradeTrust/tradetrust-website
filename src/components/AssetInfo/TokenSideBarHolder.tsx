@@ -4,38 +4,48 @@ import TokenSideBarField from "./TokenSideBarField";
 
 interface TokenSideBarHolderProps {
   isEqualBeneficiaryAndHolder: boolean;
-  isEqualBeneficiaryAndHolderOrHolderOnly: boolean;
   approvedBeneficiaryAddress: string;
   registryAddress?: string;
 }
 
 const TokenSideBarHolder = ({
   isEqualBeneficiaryAndHolder,
-  isEqualBeneficiaryAndHolderOrHolderOnly,
   approvedBeneficiaryAddress,
   registryAddress
 }: TokenSideBarHolderProps) => {
-  const showChangeBeneficiary = approvedBeneficiaryAddress !== "" && isEqualBeneficiaryAndHolderOrHolderOnly;
+  const showChangeBeneficiary = !!approvedBeneficiaryAddress || isEqualBeneficiaryAndHolder;
 
   return (
     <>
-      <TokenSideBarField title="Transfer Holdership" ctaText="Transfer">
+      <TokenSideBarField id="sec-transferownership" title="Transfer Holdership" ctaText="Transfer">
         <label>
           <input className={`${css["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
         </label>
       </TokenSideBarField>
       {showChangeBeneficiary && (
-        <TokenSideBarField title="Approve Change Beneficiary" ctaText="Approve" ctaStatus="success">
+        <TokenSideBarField id="sec-changebeneficiary" title="Change Beneficiary" ctaText="Submit" ctaStatus="success">
           <label>
-            <input className={`${css["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
+            <input
+              className={`${css["field-input"]}`}
+              type="text"
+              placeholder="Address (e.g. 0x483..)"
+              disabled={!!approvedBeneficiaryAddress}
+              defaultValue={approvedBeneficiaryAddress}
+            />
           </label>
         </TokenSideBarField>
       )}
       {isEqualBeneficiaryAndHolder && (
-        <TokenSideBarField title="Surrender Document" ctaText="Surrender" ctaStatus="danger">
-          <div className={`${css.field}`}>
-            <p className={`${css["register-address"]}`}>{registryAddress}</p>
-          </div>
+        <TokenSideBarField id="sec-surrenderdocument" title="Surrender Document" ctaText="Surrender" ctaStatus="danger">
+          <label>
+            <input
+              className={`${css["field-input"]}`}
+              type="text"
+              placeholder="Address (e.g. 0x483..)"
+              disabled
+              value={registryAddress}
+            />
+          </label>
         </TokenSideBarField>
       )}
     </>
