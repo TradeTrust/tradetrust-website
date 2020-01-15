@@ -30,7 +30,7 @@ const TokenSideBarContent = ({
     setFieldValue({ ...fieldValue, ...{ [e.target.name]: e.target.value } });
   };
 
-  const handleFormActions = async (fn, value) => {
+  const handleFormActions = async (fn: Function, value: string) => {
     try {
       toggleLoader(true);
       const { hash } = await fn(value);
