@@ -34,7 +34,7 @@ describe("tokenSideBar", () => {
     wrapper.find("TokenSideBarHolder section").forEach((node, index) => {
       switch (true) {
         case index === 0:
-          expect(node.find("h4").text()).toStrictEqual("Transfer Ownership");
+          expect(node.find("h4").text()).toStrictEqual("Transfer Holdership");
           break;
         case index === 2:
           expect(node.find("h4").text()).toStrictEqual("Surrender Document");
@@ -62,7 +62,7 @@ describe("tokenSideBar", () => {
     wrapper.find("TokenSideBarHolder section").forEach((node, index) => {
       switch (true) {
         case index === 0:
-          expect(node.find("h4").text()).toStrictEqual("Transfer Ownership");
+          expect(node.find("h4").text()).toStrictEqual("Transfer Holdership");
           break;
         case index === 1:
           expect(node.find("h4").text()).toStrictEqual("Approve Change Beneficiary");
@@ -89,7 +89,7 @@ describe("tokenSideBar", () => {
     expect(wrapper.find("TokenSideBarRole h4").text()).toStrictEqual("Holder");
     expect(wrapper.find("TokenSideBarHolder")).toHaveLength(1);
     expect(wrapper.find("TokenSideBarHolder section")).toHaveLength(1);
-    expect(wrapper.find("TokenSideBarField section h4").text()).toStrictEqual("Transfer Ownership");
+    expect(wrapper.find("TokenSideBarField section h4").text()).toStrictEqual("Transfer Holdership");
   });
 
   // admin address === holder, approved bene exists
@@ -110,7 +110,7 @@ describe("tokenSideBar", () => {
     wrapper.find("TokenSideBarHolder section").forEach((node, index) => {
       switch (true) {
         case index === 0:
-          expect(node.find("h4").text()).toStrictEqual("Transfer Ownership");
+          expect(node.find("h4").text()).toStrictEqual("Transfer Holdership");
           break;
         case index === 1:
           expect(node.find("h4").text()).toStrictEqual("Approve Change Beneficiary");

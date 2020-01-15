@@ -19,7 +19,7 @@ const TokenSideBarHolder = ({
 
   return (
     <>
-      <TokenSideBarField title="Transfer Ownership" ctaText="Transfer">
+      <TokenSideBarField title="Transfer Holdership" ctaText="Transfer">
         <label>
           <input className={`${css["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
         </label>

@@ -1,6 +1,8 @@
 import React from "react";
+import css from "./TokenSideBar.scss";
 import TokenSideBarHolder from "./TokenSideBarHolder";
 import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
+import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
 
 interface TokenSideBarContentProps {
   adminAddress: string;
@@ -22,9 +24,13 @@ const TokenSideBarContent = ({
     (adminAddress === holderAddress && adminAddress === beneficiaryAddress) || adminAddress === holderAddress;
   const showHolder = adminAddress === holderAddress || isEqualBeneficiaryAndHolder;
   const showBeneficiary = adminAddress === beneficiaryAddress && !isEqualBeneficiaryAndHolder;
+  const showLoader = holderAddress === "" && beneficiaryAddress === "";
+  const showNoAccess = showLoader === false && (adminAddress !== holderAddress && adminAddress !== beneficiaryAddress);
 
   return (
     <>
+      {showLoader && <div className={css.loader} />}
+      {showNoAccess && <TokenSideBarNoMatch />}
       {showHolder && (
         <TokenSideBarHolder
           isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
