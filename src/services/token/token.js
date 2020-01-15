@@ -15,6 +15,11 @@ export const initializeTokenInstance = async (document, web3Provider = undefined
   trace(`token Instance: ${tokenInstance}`);
 };
 
+export const transactionMinedReceipt = async txHash => {
+  const receipt = await tokenInstance.web3Provider.waitForTransaction(txHash);
+  return receipt;
+};
+
 export const getTokenOwner = async () => {
   return await tokenInstance.getOwner();
 };
@@ -24,7 +29,7 @@ export const isERC721Token = document => {
   return get(data, "issuers[0].tokenRegistry", false);
 };
 
-export const transferTokenOwnership = async (document, newTokenOwner) => {
+export const transferTokenOwnership = async newTokenOwner => {
   return await tokenInstance.transferOwnership(newTokenOwner);
 };
 

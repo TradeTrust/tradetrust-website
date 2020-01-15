@@ -6,9 +6,10 @@ interface TokenSideBarFieldProps {
   ctaText: string;
   ctaStatus?: string;
   children?: React.ReactNode;
+  handleClick: (e: any) => void;
 }
 
-const TokenSideBarField = ({ title, ctaText, ctaStatus, children }: TokenSideBarFieldProps) => {
+const TokenSideBarField = ({ title, ctaText, ctaStatus, children, handleClick }: TokenSideBarFieldProps) => {
   return (
     <section className={`${css.sec}`}>
       <div className="row">
@@ -19,6 +20,7 @@ const TokenSideBarField = ({ title, ctaText, ctaStatus, children }: TokenSideBar
             className={`${css.button} ${
               ctaStatus === "success" ? css["button-success"] : ctaStatus === "danger" ? css["button-danger"] : ""
             }`}
+            onClick={handleClick}
           >
             {ctaText}
           </button>
