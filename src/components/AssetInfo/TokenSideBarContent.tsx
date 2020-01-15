@@ -18,6 +18,8 @@ const TokenSideBarContent = ({
   registryAddress
 }: TokenSideBarContentProps) => {
   const isEqualBeneficiaryAndHolder = adminAddress === holderAddress && adminAddress === beneficiaryAddress;
+  const isEqualBeneficiaryAndHolderOrHolderOnly =
+    (adminAddress === holderAddress && adminAddress === beneficiaryAddress) || adminAddress === holderAddress;
   const showHolder = adminAddress === holderAddress || isEqualBeneficiaryAndHolder;
   const showBeneficiary = adminAddress === beneficiaryAddress && !isEqualBeneficiaryAndHolder;
 
@@ -26,6 +28,7 @@ const TokenSideBarContent = ({
       {showHolder && (
         <TokenSideBarHolder
           isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
+          isEqualBeneficiaryAndHolderOrHolderOnly={isEqualBeneficiaryAndHolderOrHolderOnly}
           approvedBeneficiaryAddress={approvedBeneficiaryAddress}
           registryAddress={registryAddress}
         />
