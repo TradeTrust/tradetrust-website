@@ -19,7 +19,7 @@ const DetailedCertificateVerifyBlock = ({ verificationStatus, document }) => {
   useEffect(() => {
     async function fetchTokenOwner() {
       try {
-        const owner = await getTokenOwner();
+        const owner = await getTokenOwner({ document });
         trace(`Token Owner: ${owner}`);
         setTokenOwner(owner);
       } catch (e) {
