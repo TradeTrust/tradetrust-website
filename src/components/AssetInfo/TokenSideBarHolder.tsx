@@ -6,24 +6,47 @@ interface TokenSideBarHolderProps {
   isEqualBeneficiaryAndHolder: boolean;
   approvedBeneficiaryAddress: string;
   registryAddress?: string;
+  newHolder: string;
+  setNewHolder: (e: any) => void;
+  transferHoldership: () => void;
+  changeBeneficiary: () => void;
+  surrenderDocument: () => void;
 }
 
 const TokenSideBarHolder = ({
   isEqualBeneficiaryAndHolder,
   approvedBeneficiaryAddress,
-  registryAddress
+  registryAddress,
+  setNewHolder,
+  newHolder,
+  transferHoldership,
+  changeBeneficiary,
+  surrenderDocument
 }: TokenSideBarHolderProps) => {
   const showChangeBeneficiary = !!approvedBeneficiaryAddress || isEqualBeneficiaryAndHolder;
 
   return (
     <>
-      <TokenSideBarField id="sec-transferownership" title="Transfer Holdership" ctaText="Transfer">
+      <TokenSideBarField id="sec-transferownership" title="Transfer Holdership" ctaText="Transfer" handleClick={transferHoldership}>
         <label>
-          <input className={`${css["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
+          <input
+            className={`${css["field-input"]}`}
+            name="newHolder"
+            value={newHolder}
+            onChange={setNewHolder}
+            type="text"
+            placeholder="Address (e.g. 0x483..)"
+          />
         </label>
       </TokenSideBarField>
       {showChangeBeneficiary && (
-        <TokenSideBarField id="sec-changebeneficiary" title="Change Beneficiary" ctaText="Submit" ctaStatus="success">
+        <TokenSideBarField
+          id="sec-changebeneficiary"
+          title="Change Beneficiary"
+          ctaText="Submit"
+          ctaStatus="success"
+          handleClick={changeBeneficiary}
+        >
           <label>
             <input
               className={`${css["field-input"]}`}
@@ -36,7 +59,7 @@ const TokenSideBarHolder = ({
         </TokenSideBarField>
       )}
       {isEqualBeneficiaryAndHolder && (
-        <TokenSideBarField id="sec-surrenderdocument" title="Surrender Document" ctaText="Surrender" ctaStatus="danger">
+        <TokenSideBarField id="sec-surrenderdocument" title="Surrender Document" ctaText="Surrender" ctaStatus="danger" handleClick={surrenderDocument}>
           <label>
             <input
               className={`${css["field-input"]}`}

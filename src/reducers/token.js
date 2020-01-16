@@ -2,9 +2,13 @@ export const initialState = {
   beneficiaryAddress: "",
   holderAddress: "",
   approvedBeneficiaryAddress: "",
+  isEscrowContract: false,
   getTokenUsersAddressPending: false,
   getTokenUsersAddressSuccess: false,
   getTokenUsersAddressError: false,
+  initializeTokenPending: false,
+  initializeTokenSuccess: false,
+  initializeTokenError: false,
   tokenOwnershipTransferPending: false,
   tokenOwnershipTransferSuccess: false,
   tokenOwnershipTransferError: false
@@ -15,6 +19,9 @@ export const types = {
   GET_TOKEN_USER_ADDRESS: "GET_TOKEN_USER_ADDRESS",
   GET_TOKEN_USER_ADDRESS_SUCCESS: "GET_TOKEN_USER_ADDRESS_SUCCESS",
   GET_TOKEN_USER_ADDRESS_ERROR: "GET_TOKEN_USER_ADDRESS_ERROR",
+  INITIALIZE_TOKEN: "INITIALIZE_TOKEN",
+  INITIALIZE_TOKEN_SUCCESS: "INITIALIZE_TOKEN_SUCCESS",
+  INITIALIZE_TOKEN_ERROR: "INITIALIZE_TOKEN_ERROR",
   TRANSFER_TOKEN_OWNERSHIP: "TRANSFER_TOKEN_OWNERSHIP",
   TRANSFER_TOKEN_OWNERSHIP_SUCCESS: "TRANSFER_TOKEN_OWNERSHIP_SUCCESS",
   TRANSFER_TOKEN_OWNERSHIP_ERROR: "TRANSFER_TOKEN_OWNERSHIP_ERROR"
@@ -28,13 +35,15 @@ export default function reducer(state = initialState, action) {
         ...state,
         getTokenUsersAddressPending: false,
         getTokenUsersAddressSuccess: false,
-        getTokenUsersAddressError: false
+        getTokenUsersAddressError: false,
+        isEscrowContract: false
       };
     case types.GET_TOKEN_USER_ADDRESS_SUCCESS:
       return {
         ...state,
         getTokenUsersAddressPending: false,
         getTokenUsersAddressSuccess: true,
+        isEscrowContract: true,
         beneficiaryAddress: action.payload.beneficiaryAddress,
         holderAddress: action.payload.holderAddress,
         approvedBeneficiaryAddress: action.payload.approvedBeneficiaryAddress
@@ -43,7 +52,27 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         getTokenUsersAddressPending: false,
+        isEscrowContract: false,
         getTokenUsersAddressError: action.payload
+      };
+    case types.INITIALIZE_TOKEN:
+      return {
+        ...state,
+        initializeTokenPending: true,
+        initializeTokenSuccess: false,
+        initializeTokenError: false
+      };
+    case types.INITIALIZE_TOKEN_SUCCESS:
+      return {
+        ...state,
+        initializeTokenPending: false,
+        initializeTokenSuccess: true
+      };
+    case types.INITIALIZE_TOKEN_ERROR:
+      return {
+        ...state,
+        initializeTokenPending: false,
+        initializeTokenError: true
       };
     case types.TRANSFER_TOKEN_OWNERSHIP:
       return {
@@ -56,7 +85,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         tokenOwnershipTransferPending: false,
-        tokenOwnershipTransferSuccess: action.payload
+        tokenOwnershipTransferSuccess: true
       };
     case types.TRANSFER_TOKEN_OWNERSHIP_ERROR:
       return {
@@ -80,6 +109,19 @@ export const getTokenUserAddressSuccess = payload => ({
 
 export const getTokenUserAddressError = payload => ({
   type: types.GET_TOKEN_USER_ADDRESS_ERROR,
+  payload
+});
+
+export const initializeToken = () => ({
+  type: types.INITIALIZE_TOKEN
+});
+
+export const initializeTokenSuccess = () => ({
+  type: types.INITIALIZE_TOKEN_SUCCESS
+});
+
+export const initializeTokenFailure = payload => ({
+  type: types.INITIALIZE_TOKEN_ERROR,
   payload
 });
 

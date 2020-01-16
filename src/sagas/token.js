@@ -6,20 +6,29 @@ import {
   transferTokenOwnershipSuccess,
   transferTokenOwnershipFailure,
   getTokenUserAddressSuccess,
-  getTokenUserAddressError
+  getTokenUserAddressError,
+  initializeTokenSuccess,
+  initializeTokenFailure
 } from "../reducers/token";
+
 import {
   transferTokenOwnership,
   getBeneficiaryAddress,
+  initializeTokenInstance,
   getHolderAddress,
+  isEscrowContract,
   getApprovedBeneficiaryAddress
 } from "../services/token";
+import { getProvider } from "../services/etherjs";
 
-const { trace } = getLogger("saga:token");
+const { trace, error } = getLogger("saga:token");
 
 export function* getTokenUsers() {
   try {
     const document = yield select(getCertificate);
+    const isTitleEscrow = yield call(isEscrowContract, document);
+    if (!isTitleEscrow) throw new Error("Document owner is not a escrow contract");
+
     const [beneficiaryAddress, holderAddress, approvedBeneficiaryAddress] = yield all([
       call(getBeneficiaryAddress, document),
       call(getHolderAddress, document),
@@ -35,10 +44,24 @@ export function* getTokenUsers() {
   }
 }
 
+export function* initializeToken() {
+  try {
+    const document = yield select(getCertificate);
+    const { provider, signer } = yield getProvider();
+    //trace(`Web3 provider: ${JSON.stringify(provider)}`);
+    yield initializeTokenInstance(document, provider, signer);
+    yield put(initializeTokenSuccess());
+  } catch (e) {
+    error(e);
+    yield put(initializeTokenFailure(e.message));
+  }
+}
+
 export function* transferOwnership({ payload }) {
   try {
     const document = yield select(getCertificate);
     const { newTokenOwner } = payload;
+
     const transferStatus = yield transferTokenOwnership(document, newTokenOwner);
     trace(`Transfer Status: ${JSON.stringify(transferStatus)}`);
 
@@ -49,6 +72,7 @@ export function* transferOwnership({ payload }) {
 }
 
 export default [
+  takeEvery(types.INITIALIZE_TOKEN, initializeToken),
   takeEvery(types.TRANSFER_TOKEN_OWNERSHIP, transferOwnership),
   takeEvery(types.GET_TOKEN_USER_ADDRESS, getTokenUsers)
 ];

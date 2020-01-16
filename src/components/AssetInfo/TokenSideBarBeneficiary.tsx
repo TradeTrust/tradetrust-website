@@ -1,16 +1,28 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import css from "./TokenSideBar.scss";
 import TokenSideBarField from "./TokenSideBarField";
 
-const TokenSideBarBeneficiary = () => (
-  <TokenSideBarField
-    id="sec-approvechangebeneficiary"
-    title="Approve Change Beneficiary"
-    ctaText="Approve"
-    ctaStatus="success"
-  >
+interface TokenBeneficiaryInterface {
+  setBeneficiary: (e: any) => void;
+  approvedBeneficiary: string;
+  approveChangeBeneficiary: () => void;
+}
+
+const TokenSideBarBeneficiary = ({
+  setBeneficiary,
+  approvedBeneficiary,
+  approveChangeBeneficiary
+}: TokenBeneficiaryInterface): ReactElement => (
+  <TokenSideBarField id="sec-approvechangebeneficiary" title="Approve Change Beneficiary" ctaText="Approve" ctaStatus="success" handleClick={approveChangeBeneficiary}>
     <label>
-      <input className={`${css["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
+      <input
+        className={`${css["field-input"]}`}
+        type="text"
+        placeholder="Address (e.g. 0x483..)"
+        name="approvedBeneficiary"
+        value={approvedBeneficiary}
+        onChange={setBeneficiary}
+      />
     </label>
   </TokenSideBarField>
 );

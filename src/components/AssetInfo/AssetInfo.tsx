@@ -2,7 +2,8 @@ import React, { FunctionComponent, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getData, SignedDocument } from "@govtechsg/open-attestation";
 import TokenSideBar from "./TokenSideBar";
-import { getTokenUserAddress } from "../../reducers/token";
+import { getTokenUserAddress, initializeToken } from "../../reducers/token";
+import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
 
 const getAssetInfo = (document: SignedDocument) => {
@@ -16,17 +17,34 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
   const dispatch = useDispatch();
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
 
+  const {
+    beneficiaryAddress,
+    holderAddress,
+    approvedBeneficiaryAddress,
+    adminAddress,
+    initializeTokenSuccess,
+    isEscrowContract
+  } = useSelector((state: any) => ({
+    beneficiaryAddress: state.token.beneficiaryAddress,
+    holderAddress: state.token.holderAddress,
+    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
+    initializeTokenSuccess: state.token.initializeTokenSuccess,
+    isEscrowContract: state.token.isEscrowContract,
+    adminAddress: state.admin.adminAddress
+  }));
+
   useEffect(() => {
     if (registryAddress) {
-      dispatch(getTokenUserAddress());
+      dispatch(initializeToken());
+      dispatch(loadAdminAddress());
     }
   }, [dispatch, document, registryAddress]);
 
-  const { holderAddress, beneficiaryAddress, approvedBeneficiaryAddress } = useSelector((state: any) => ({
-    holderAddress: state.token.holderAddress,
-    beneficiaryAddress: state.token.beneficiaryAddress,
-    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress
-  }));
+  useEffect(() => {
+    if (initializeTokenSuccess) {
+      dispatch(getTokenUserAddress());
+    }
+  }, [dispatch, initializeTokenSuccess]);
 
   const handlerToggleSideBar = (event: { preventDefault: () => void }) => {
     event.preventDefault();

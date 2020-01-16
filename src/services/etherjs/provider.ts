@@ -1,4 +1,6 @@
 import { ethers, providers } from "ethers";
+import { getLogger } from "../../utils/logger";
+const { trace } = getLogger("service:etherjs:provider");
 
 declare global {
   interface Window {
@@ -17,5 +19,6 @@ export const getProvider = (): { provider: providers.JsonRpcProvider; signer: et
 
   const provider = new ethers.providers.Web3Provider(ethereum || web3.currentProvider);
   const signer = provider.getSigner();
+  trace(`provider is ${provider} and signer is ${signer}`);
   return { provider, signer };
 };
