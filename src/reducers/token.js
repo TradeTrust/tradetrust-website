@@ -19,6 +19,8 @@ export const types = {
   GET_TOKEN_USER_ADDRESS: "GET_TOKEN_USER_ADDRESS",
   GET_TOKEN_USER_ADDRESS_SUCCESS: "GET_TOKEN_USER_ADDRESS_SUCCESS",
   GET_TOKEN_USER_ADDRESS_ERROR: "GET_TOKEN_USER_ADDRESS_ERROR",
+  IS_ESCROW_CONTRACT_SUCCESS: "IS_ESCROW_CONTRACT_SUCCESS",
+  IS_ESCROW_CONTRACT_ERROR: "IS_ESCROW_CONTRACT_ERROR",
   INITIALIZE_TOKEN: "INITIALIZE_TOKEN",
   INITIALIZE_TOKEN_SUCCESS: "INITIALIZE_TOKEN_SUCCESS",
   INITIALIZE_TOKEN_ERROR: "INITIALIZE_TOKEN_ERROR",
@@ -43,7 +45,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         getTokenUsersAddressPending: false,
         getTokenUsersAddressSuccess: true,
-        isEscrowContract: true,
         beneficiaryAddress: action.payload.beneficiaryAddress,
         holderAddress: action.payload.holderAddress,
         approvedBeneficiaryAddress: action.payload.approvedBeneficiaryAddress
@@ -52,9 +53,18 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         getTokenUsersAddressPending: false,
-        isEscrowContract: false,
         getTokenUsersAddressError: action.payload
       };
+    case type.IS_ESCROW_CONTRACT_ERROR: 
+      return {
+        ...state,
+        isEscrowContract: false
+      }
+    case type.IS_ESCROW_CONTRACT_SUCCESS: 
+      return {
+        ...state,
+        isEscrowContract: true
+      }
     case types.INITIALIZE_TOKEN:
       return {
         ...state,
@@ -111,6 +121,14 @@ export const getTokenUserAddressError = payload => ({
   type: types.GET_TOKEN_USER_ADDRESS_ERROR,
   payload
 });
+
+export const setIsEscrowContractSuccess = ({
+  type: types.IS_ESCROW_CONTRACT_SUCCESS
+});
+
+export const setIsEscrowContractError = ({
+  type: types.IS_ESCROW_CONTRACT_ERROR
+})
 
 export const initializeToken = () => ({
   type: types.INITIALIZE_TOKEN
