@@ -1,8 +1,26 @@
 import React from "react";
 
-const TokenSideBarRole = (props: { isHolder: any }) => {
-  const roleStr = props.isHolder ? "Holder" : "Beneficiary";
-  return <h4>{roleStr}</h4>;
+interface TokenSideBarRoleProps {
+  adminAddress: string;
+  beneficiaryAddress: string;
+  holderAddress: string;
+}
+
+const TokenSideBarRole = ({ adminAddress, beneficiaryAddress, holderAddress }: TokenSideBarRoleProps) => {
+  const getUserRole = () => {
+    switch (true) {
+      case adminAddress === holderAddress && adminAddress === beneficiaryAddress:
+        return "Holder and Beneficiary";
+      case adminAddress === holderAddress:
+        return "Holder";
+      case adminAddress === beneficiaryAddress:
+        return "Beneficiary";
+      default:
+        return "\u00A0";
+    }
+  };
+
+  return <h4>{getUserRole()}</h4>;
 };
 
 export default TokenSideBarRole;

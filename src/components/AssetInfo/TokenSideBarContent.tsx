@@ -1,45 +1,44 @@
 import React from "react";
-import styles from "./TokenSideBar.scss";
-import TokenSideBarField from "./TokenSideBarField";
+import css from "./TokenSideBar.scss";
+import TokenSideBarHolder from "./TokenSideBarHolder";
+import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
+import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
 
-const TokenSideBarContent = (props: {
-  isHolder: boolean;
+interface TokenSideBarContentProps {
+  adminAddress: string;
+  beneficiaryAddress: string;
+  holderAddress: string;
+  approvedBeneficiaryAddress: string;
   registryAddress?: string;
-  isHolderChangeBeneficiary?: boolean;
-}) => {
-  if (props.isHolder) {
-    return (
-      <>
-        <TokenSideBarField title="Transfer Ownership" ctaText="Transfer">
-          <label>
-            <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-          </label>
-        </TokenSideBarField>
-        {props.isHolderChangeBeneficiary ? (
-          <TokenSideBarField title="Change Beneficiary" ctaText="Change" ctaStatus="success">
-            <label>
-              <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-            </label>
-          </TokenSideBarField>
-        ) : null}
-        <TokenSideBarField title="Surrender Document" ctaText="Surrender" ctaStatus="danger">
-          <div className={`${styles["field"]}`}>
-            <p className={`${styles["register-address"]}`}>{props.registryAddress}</p>
-          </div>
-        </TokenSideBarField>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <TokenSideBarField title="Allow Transfer" ctaText="Allow" ctaStatus="success">
-          <label>
-            <input className={`${styles["field-input"]}`} type="text" placeholder="Address (e.g. 0x483..)" />
-          </label>
-        </TokenSideBarField>
-      </>
-    );
-  }
+}
+
+const TokenSideBarContent = ({
+  adminAddress,
+  beneficiaryAddress,
+  holderAddress,
+  approvedBeneficiaryAddress,
+  registryAddress
+}: TokenSideBarContentProps) => {
+  const isEqualBeneficiaryAndHolder = adminAddress === holderAddress && adminAddress === beneficiaryAddress;
+  const showHolder = adminAddress === holderAddress || isEqualBeneficiaryAndHolder;
+  const showBeneficiary = adminAddress === beneficiaryAddress && !isEqualBeneficiaryAndHolder;
+  const showLoader = holderAddress === "" && beneficiaryAddress === "";
+  const showNoAccess = showLoader === false && (adminAddress !== holderAddress && adminAddress !== beneficiaryAddress);
+
+  return (
+    <>
+      {showLoader && <div className={css.loader} />}
+      {showNoAccess && <TokenSideBarNoMatch />}
+      {showHolder && (
+        <TokenSideBarHolder
+          isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
+          approvedBeneficiaryAddress={approvedBeneficiaryAddress}
+          registryAddress={registryAddress}
+        />
+      )}
+      {showBeneficiary && <TokenSideBarBeneficiary />}
+    </>
+  );
 };
 
 export default TokenSideBarContent;

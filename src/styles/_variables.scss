@@ -19,6 +19,7 @@ $low-translucency-white: rgba(255, 255, 255, 0.7);
 $success-color: #28a745;
 $warning-color: #ffbf00;
 $warning-background: #fff9e8;
+$danger-color: #c12323;
 $invalid-color: #e46767;
 $invalid-background: #fbebe7;
 $danger-color: #c12323;
@@ -27,3 +28,8 @@ $btn-outline: $brand-dark;
 $round-btn-outline: $brand-dark;
 
 $max-width: 1280px;
+
+// Animation
+$easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+$easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
