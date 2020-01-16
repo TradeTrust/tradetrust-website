@@ -13,7 +13,13 @@ const TokenSideBarBeneficiary = ({
   approvedBeneficiary,
   approveChangeBeneficiary
 }: TokenBeneficiaryInterface): ReactElement => (
-  <TokenSideBarField id="sec-approvechangebeneficiary" title="Approve Change Beneficiary" ctaText="Approve" ctaStatus="success" handleClick={approveChangeBeneficiary}>
+  <TokenSideBarField
+    id="sec-approvechangebeneficiary"
+    title="Approve Change Beneficiary"
+    ctaText="Approve"
+    ctaStatus="success"
+    handleClick={approveChangeBeneficiary}
+  >
     <label>
       <input
         className={`${css["field-input"]}`}

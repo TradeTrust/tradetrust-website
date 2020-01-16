@@ -20,6 +20,7 @@ export const transactionMinedReceipt = async txHash => {
 
 export const getTokenOwner = async ({ document }) => {
   if (!readOnlyTokenInstance) await initializeTokenInstance(document);
+  trace(`read only token instance ${readOnlyTokenInstance}`);
   return await readOnlyTokenInstance.getOwner();
 };
 
@@ -41,11 +42,8 @@ export const isEscrowContract = async () => {
   return await Promise.resolve(true);
 };
 
-export const getBeneficiaryAddress = async document => {
+export const getBeneficiaryAddress = async () => {
   return await Promise.resolve("0xA");
-};
-export const getHolderAddress = async () => {
-  return await Promise.resolve("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C");
 };
 
 export const getApprovedBeneficiaryAddress = async () => {

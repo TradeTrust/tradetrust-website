@@ -27,7 +27,12 @@ const TokenSideBarHolder = ({
 
   return (
     <>
-      <TokenSideBarField id="sec-transferownership" title="Transfer Holdership" ctaText="Transfer" handleClick={transferHoldership}>
+      <TokenSideBarField
+        id="sec-transferownership"
+        title="Transfer Holdership"
+        ctaText="Transfer"
+        handleClick={transferHoldership}
+      >
         <label>
           <input
             className={`${css["field-input"]}`}
@@ -59,7 +64,13 @@ const TokenSideBarHolder = ({
         </TokenSideBarField>
       )}
       {isEqualBeneficiaryAndHolder && (
-        <TokenSideBarField id="sec-surrenderdocument" title="Surrender Document" ctaText="Surrender" ctaStatus="danger" handleClick={surrenderDocument}>
+        <TokenSideBarField
+          id="sec-surrenderdocument"
+          title="Surrender Document"
+          ctaText="Surrender"
+          ctaStatus="danger"
+          handleClick={surrenderDocument}
+        >
           <label>
             <input
               className={`${css["field-input"]}`}
