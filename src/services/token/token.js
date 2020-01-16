@@ -5,23 +5,22 @@ import { getLogger } from "../../utils/logger";
 
 const { trace } = getLogger("saga:tokenService");
 
-let tokenInstance;
+let writeableTokenInstance;
+let readOnlyTokenInstance;
 
 export const initializeTokenInstance = async (document, web3Provider = undefined, wallet = undefined) => {
-  trace(`web3 provider is: ${web3Provider} and wallet is: ${wallet}`);
-  tokenInstance = await (web3Provider && wallet
-    ? new WriteableToken({ document, web3Provider, wallet })
-    : new ReadOnlyToken({ document }));
-  trace(`token Instance: ${tokenInstance}`);
+  if (web3Provider && wallet) writeableTokenInstance = await new WriteableToken({ document, web3Provider, wallet });
+  else readOnlyTokenInstance = await new ReadOnlyToken({ document });
 };
 
 export const transactionMinedReceipt = async txHash => {
-  const receipt = await tokenInstance.web3Provider.waitForTransaction(txHash);
+  const receipt = await writeableTokenInstance.web3Provider.waitForTransaction(txHash);
   return receipt;
 };
 
-export const getTokenOwner = async () => {
-  return await tokenInstance.getOwner();
+export const getTokenOwner = async ({ document }) => {
+  if (!readOnlyTokenInstance) await initializeTokenInstance(document);
+  return await readOnlyTokenInstance.getOwner();
 };
 
 export const isERC721Token = document => {
@@ -30,7 +29,7 @@ export const isERC721Token = document => {
 };
 
 export const transferTokenOwnership = async newTokenOwner => {
-  return await tokenInstance.transferOwnership(newTokenOwner);
+  return await writeableTokenInstance.transferOwnership(newTokenOwner);
 };
 
 //dummy method to replace with oa-token methods
