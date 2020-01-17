@@ -27,21 +27,21 @@ const { trace, error } = getLogger("saga:token");
 
 function* checkIfTitleEscrow(document) {
   try {
-  const isTitleEscrow = yield call(isEscrowContract, document);
-    if (!isTitleEscrow) throw new Error("Document owner is not a escrow contract")
+    const isTitleEscrow = yield call(isEscrowContract, document);
+    if (!isTitleEscrow) throw new Error("Document owner is not a escrow contract");
     yield put(setIsEscrowContractSuccess());
-  } catch(e) {
+  } catch (e) {
+    error(`checkIfTitleEscrow: ${JSON.stringify(e)}`);
     yield put(setIsEscrowContractError());
   }
 }
-
 
 export function* getTokenUsers() {
   try {
     const document = yield select(getCertificate);
     const isTitleEscrow = yield call(checkIfTitleEscrow, document);
     if (!isTitleEscrow) return;
-    
+
     yield put(setIsEscrowContractSuccess());
     const [beneficiaryAddress, holderAddress, approvedBeneficiaryAddress] = yield all([
       call(getBeneficiaryAddress, document),

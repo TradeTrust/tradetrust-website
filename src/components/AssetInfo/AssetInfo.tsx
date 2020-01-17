@@ -34,16 +34,15 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
   }));
 
   useEffect(() => {
-    if (registryAddress) {
-      dispatch(initializeToken());
-      dispatch(loadAdminAddress());
-    }
+    if (registryAddress) dispatch(loadAdminAddress());
   }, [dispatch, document, registryAddress]);
 
   useEffect(() => {
-    if (initializeTokenSuccess) {
-      dispatch(getTokenUserAddress());
-    }
+    if (adminAddress) dispatch(initializeToken());
+  }, [dispatch, adminAddress]);
+
+  useEffect(() => {
+    if (initializeTokenSuccess) dispatch(getTokenUserAddress());
   }, [dispatch, initializeTokenSuccess]);
 
   const handlerToggleSideBar = (event: { preventDefault: () => void }) => {
@@ -65,6 +64,7 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
         Manage Asset
       </a>
       <TokenSideBar
+        adminAddress={adminAddress}
         holderAddress={holderAddress}
         beneficiaryAddress={beneficiaryAddress}
         approvedBeneficiaryAddress={approvedBeneficiaryAddress}

@@ -3,10 +3,8 @@ import css from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
 
-// adminAddress (metamask) - hardcoded local address to be tally with returned address response.
-const adminAddress = "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C";
-
 interface TokenSideBarContentProps {
+  adminAddress: string;
   holderAddress: string;
   beneficiaryAddress: string;
   approvedBeneficiaryAddress: string;
@@ -16,6 +14,7 @@ interface TokenSideBarContentProps {
 }
 
 const TokenSideBar = ({
+  adminAddress,
   holderAddress,
   beneficiaryAddress,
   approvedBeneficiaryAddress,

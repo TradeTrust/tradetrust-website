@@ -23,12 +23,11 @@ const TokenSideBarContent = ({
   const [fieldValue, setFieldValue] = useState({ newHolder: "", approvedBeneficiary: "" });
   const [showLoader, toggleLoader] = useState(false);
   const [error, setError] = useState("");
-
   const isEqualBeneficiaryAndHolder = adminAddress === holderAddress && adminAddress === beneficiaryAddress;
   const showHolder = adminAddress === holderAddress || isEqualBeneficiaryAndHolder;
   const showBeneficiary = adminAddress === beneficiaryAddress && !isEqualBeneficiaryAndHolder;
   const showLoaderCheck = holderAddress === "" && beneficiaryAddress === "";
-  const showNoAccess = showLoader === false && (adminAddress !== holderAddress && adminAddress !== beneficiaryAddress);
+  const showNoAccess = adminAddress !== holderAddress && adminAddress !== beneficiaryAddress;
 
   const handleInputChange = (e: any) => {
     setFieldValue({ ...fieldValue, ...{ [e.target.name]: e.target.value } });
@@ -59,7 +58,7 @@ const TokenSideBarContent = ({
 
   return (
     <>
-      {showLoaderCheck && <div className={css.loader} />}
+      {/* {showLoaderCheck && <div className={css.loader} />} */}
       {showNoAccess && <TokenSideBarNoMatch />}
       {showHolder && (
         <TokenSideBarHolder

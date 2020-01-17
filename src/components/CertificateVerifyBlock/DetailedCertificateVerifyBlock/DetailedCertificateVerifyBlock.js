@@ -3,7 +3,7 @@ import { get } from "lodash";
 import CertificateVerifyCheck from "./CertificateVerifyCheck";
 import css from "./detailedCertificateBlock.scss";
 import TokenVerifyBlock from "./TokenVerifyBlock";
-import { isERC721Token, getTokenOwner, initializeToken } from "../../../services/token";
+import { isERC721Token, getTokenOwner } from "../../../services/token";
 import { getLogger } from "../../../utils/logger";
 
 const { trace, error } = getLogger("Component:DetailedCertificateVerifyBlock");

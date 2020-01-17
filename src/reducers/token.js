@@ -55,16 +55,16 @@ export default function reducer(state = initialState, action) {
         getTokenUsersAddressPending: false,
         getTokenUsersAddressError: action.payload
       };
-    case type.IS_ESCROW_CONTRACT_ERROR: 
+    case types.IS_ESCROW_CONTRACT_ERROR:
       return {
         ...state,
         isEscrowContract: false
-      }
-    case type.IS_ESCROW_CONTRACT_SUCCESS: 
+      };
+    case types.IS_ESCROW_CONTRACT_SUCCESS:
       return {
         ...state,
         isEscrowContract: true
-      }
+      };
     case types.INITIALIZE_TOKEN:
       return {
         ...state,
@@ -122,13 +122,13 @@ export const getTokenUserAddressError = payload => ({
   payload
 });
 
-export const setIsEscrowContractSuccess = ({
+export const setIsEscrowContractSuccess = {
   type: types.IS_ESCROW_CONTRACT_SUCCESS
-});
+};
 
-export const setIsEscrowContractError = ({
+export const setIsEscrowContractError = {
   type: types.IS_ESCROW_CONTRACT_ERROR
-})
+};
 
 export const initializeToken = () => ({
   type: types.INITIALIZE_TOKEN
