@@ -38,11 +38,6 @@ $border-color: rgba($color-black, 0.1);
     margin-bottom: 0;
   }
 
-  h4 {
-    margin-bottom: 8px;
-    font-size: 18px;
-  }
-
   label {
     width: 100%;
     margin-bottom: 0;
@@ -131,6 +126,58 @@ $border-color: rgba($color-black, 0.1);
 
   &:last-child {
     margin-bottom: 0;
+  }
+}
+
+.field-title {
+  margin-bottom: 8px;
+
+  h4 {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+  }
+
+  p {
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .field-tooltip {
+    display: inline-block;
+
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+      width: 16px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    [data-id="tooltip"] {
+      padding: 8px 12px;
+      max-width: 240px;
+
+      &[id="tooltip-alert"] {
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        padding: 4px 8px;
+        background-color: $warning-color;
+
+        &::after {
+          border-bottom-color: $warning-color;
+        }
+      }
+    }
+
+    [data-for="tooltip-alert"] {
+      path,
+      line {
+        color: $warning-color;
+      }
+    }
   }
 }
 

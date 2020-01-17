@@ -14,7 +14,7 @@ const TokenSideBarBeneficiary = ({
   approveChangeBeneficiary
 }: TokenBeneficiaryInterface): ReactElement => (
   <TokenSideBarField
-    id="sec-approvechangebeneficiary"
+    id="approvechangebeneficiary"
     title="Approve Change Beneficiary"
     ctaText="Approve"
     ctaStatus="success"

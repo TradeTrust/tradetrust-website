@@ -32,8 +32,8 @@ describe("tokenSideBar", () => {
     expect(wrapper.find("TokenSideBarHolder")).toHaveLength(1);
     expect(wrapper.find("TokenSideBarHolder section")).toHaveLength(3);
 
-    expect(wrapper.find("#sec-transferownership h4").text()).toStrictEqual("Transfer Holdership");
-    expect(wrapper.find("#sec-transferownership button").text()).toStrictEqual("Transfer");
+    expect(wrapper.find("#sec-transferholdership h4").text()).toStrictEqual("Transfer Holdership");
+    expect(wrapper.find("#sec-transferholdership button").text()).toStrictEqual("Transfer");
 
     expect(wrapper.find("#sec-changebeneficiary h4").text()).toStrictEqual("Change Beneficiary");
     expect(wrapper.find("#sec-changebeneficiary button").text()).toStrictEqual("Submit");
@@ -57,8 +57,8 @@ describe("tokenSideBar", () => {
     expect(wrapper.find("TokenSideBarHolder")).toHaveLength(1);
     expect(wrapper.find("TokenSideBarHolder section")).toHaveLength(1);
 
-    expect(wrapper.find("#sec-transferownership h4").text()).toStrictEqual("Transfer Holdership");
-    expect(wrapper.find("#sec-transferownership button").text()).toStrictEqual("Transfer");
+    expect(wrapper.find("#sec-transferholdership h4").text()).toStrictEqual("Transfer Holdership");
+    expect(wrapper.find("#sec-transferholdership button").text()).toStrictEqual("Transfer");
   });
 
   // admin address === holder, change bene exists
@@ -77,8 +77,8 @@ describe("tokenSideBar", () => {
     expect(wrapper.find("TokenSideBarHolder")).toHaveLength(1);
     expect(wrapper.find("TokenSideBarHolder section")).toHaveLength(2);
 
-    expect(wrapper.find("#sec-transferownership h4").text()).toStrictEqual("Transfer Holdership");
-    expect(wrapper.find("#sec-transferownership button").text()).toStrictEqual("Transfer");
+    expect(wrapper.find("#sec-transferholdership h4").text()).toStrictEqual("Transfer Holdership");
+    expect(wrapper.find("#sec-transferholdership button").text()).toStrictEqual("Transfer");
 
     expect(wrapper.find("#sec-changebeneficiary h4").text()).toStrictEqual("Change Beneficiary");
     expect(wrapper.find("#sec-changebeneficiary button").text()).toStrictEqual("Submit");
