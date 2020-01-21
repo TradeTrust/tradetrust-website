@@ -4,13 +4,13 @@ import css from "./TokenSideBar.scss";
 interface TokenSideBarFieldProps {
   id: string;
   title: string;
-  ctaText: string;
-  ctaStatus?: string;
+  label: string;
+  status?: string;
   children?: React.ReactNode;
   handleClick: (e: any) => void;
 }
 
-const TokenSideBarField = ({ id, title, ctaText, ctaStatus, children, handleClick }: TokenSideBarFieldProps) => {
+const TokenSideBarField = ({ id, title, label, status, children, handleClick }: TokenSideBarFieldProps) => {
   return (
     <section id={id} className={`${css.sec}`}>
       <div className="row">
@@ -19,11 +19,11 @@ const TokenSideBarField = ({ id, title, ctaText, ctaStatus, children, handleClic
           <div className={`${css.field}`}>{children}</div>
           <button
             className={`${css.button} ${
-              ctaStatus === "success" ? css["button-success"] : ctaStatus === "danger" ? css["button-danger"] : ""
+              status === "success" ? css["button-success"] : status === "danger" ? css["button-danger"] : ""
             }`}
             onClick={handleClick}
           >
-            {ctaText}
+            {label}
           </button>
         </div>
       </div>
