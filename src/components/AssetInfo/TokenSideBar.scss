@@ -38,6 +38,10 @@ $border-color: rgba($color-black, 0.1);
     margin-bottom: 0;
   }
 
+  h4 {
+    margin-bottom: 8px;
+  }
+
   label {
     width: 100%;
     margin-bottom: 0;
@@ -136,6 +140,7 @@ $border-color: rgba($color-black, 0.1);
     display: inline-block;
     vertical-align: middle;
     font-size: 18px;
+    margin-bottom: 0;
   }
 
   p {
