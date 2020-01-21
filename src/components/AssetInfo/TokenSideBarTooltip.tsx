@@ -8,26 +8,26 @@ interface TokenSideBarTooltipProps {
 
 const TokenSideBarTooltip = ({ id, approvedBeneficiaryAddress }: TokenSideBarTooltipProps) => {
   const getTooltipContent = () => {
-    switch (true) {
-      case id === "transferholdership":
+    switch (id) {
+      case "transferholdership":
         return (
           <p>
             Holdership in <b>TradeTrust</b> is similar to physical possession of a <b>Bill of Lading</b>.
           </p>
         );
-      case id === "changebeneficiary":
+      case "changebeneficiary":
         return (
           <p>
             Giving up legal ownserhip of the goods to the endorsed beneficiary indicated in <b>Bill of Lading</b>.
           </p>
         );
-      case id === "surrenderdocument":
+      case "surrenderdocument":
         return (
           <p>
             Return this <b>Bill of Lading</b> to the Shipping Line.
           </p>
         );
-      case id === "approvechangebeneficiary":
+      case "approvechangebeneficiary":
         return <p>Allow holder to execute change of beneficiary to the input specified address.</p>;
       default:
         return null;
@@ -55,7 +55,7 @@ const TokenSideBarTooltip = ({ id, approvedBeneficiaryAddress }: TokenSideBarToo
         <line x1="12" y1="8" x2="12.01" y2="8" />
       </svg>
       <ReactTooltip id={`tooltip-${id}`} place="bottom" type="dark" effect="solid" getContent={getTooltipContent} />
-      {id === "changebeneficiary" && approvedBeneficiaryAddress !== "" && (
+      {id === "changebeneficiary" && !!approvedBeneficiaryAddress && (
         <>
           <svg
             data-tip
@@ -80,9 +80,7 @@ const TokenSideBarTooltip = ({ id, approvedBeneficiaryAddress }: TokenSideBarToo
             place="bottom"
             type="dark"
             effect="solid"
-            getContent={() => {
-              return <p>Endorsement awaiting</p>;
-            }}
+            getContent={() => <p>Endorsement awaiting</p>}
           />
         </>
       )}
