@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { getLogger } from "../../utils/logger";
 import css from "./TokenSideBar.scss";
 import TokenSideBarHolder from "./TokenSideBarHolder";
 import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
 import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
-import { transferTokenOwnership, transactionMinedReceipt } from "../../services/token";
+import { transferTokenOwnership } from "../../services/token";
+
+const { trace, error } = getLogger("component:TokenSideBarContent");
 
 interface TokenSideBarContentProps {
   adminAddress: string;
@@ -28,6 +31,7 @@ const TokenSideBarContent = ({
   const showBeneficiary = adminAddress === beneficiaryAddress && !isEqualBeneficiaryAndHolder;
   const showLoaderCheck = holderAddress === "" && beneficiaryAddress === "";
   const showNoAccess = adminAddress !== holderAddress && adminAddress !== beneficiaryAddress;
+  trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
 
   const handleInputChange = (e: any) => {
     setFieldValue({ ...fieldValue, ...{ [e.target.name]: e.target.value } });
@@ -37,7 +41,6 @@ const TokenSideBarContent = ({
     try {
       toggleLoader(true);
       const { hash } = await fn(value);
-      await transactionMinedReceipt(hash);
       toggleLoader(false);
     } catch (e) {
       toggleLoader(false);

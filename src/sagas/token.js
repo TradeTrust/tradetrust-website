@@ -19,7 +19,8 @@ import {
   initializeTokenInstance,
   getHolderAddress,
   isEscrowContract,
-  getApprovedBeneficiaryAddress
+  getApprovedBeneficiaryAddress,
+  createTokenOwnerInstance
 } from "../services/token";
 import { getProvider } from "../services/etherjs";
 
@@ -64,6 +65,7 @@ export function* initializeToken() {
     const { provider, signer } = yield getProvider();
     //trace(`Web3 provider: ${JSON.stringify(provider)}`);
     yield initializeTokenInstance(document, provider, signer);
+    yield createTokenOwnerInstance();
     yield put(initializeTokenSuccess());
   } catch (e) {
     error(e);
