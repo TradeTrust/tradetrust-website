@@ -22,8 +22,7 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
     holderAddress,
     approvedBeneficiaryAddress,
     adminAddress,
-    initializeTokenSuccess,
-    isEscrowContract
+    initializeTokenSuccess
   } = useSelector((state: any) => ({
     beneficiaryAddress: state.token.beneficiaryAddress,
     holderAddress: state.token.holderAddress,

@@ -30,9 +30,11 @@ function* checkIfTitleEscrow(document) {
     const isTitleEscrow = yield call(isEscrowContract, document);
     if (!isTitleEscrow) throw new Error("Document owner is not a escrow contract");
     yield put(setIsEscrowContractSuccess());
+    return isTitleEscrow;
   } catch (e) {
     error(`checkIfTitleEscrow: ${JSON.stringify(e)}`);
     yield put(setIsEscrowContractError());
+    return false;
   }
 }
 
@@ -40,9 +42,8 @@ export function* getTokenUsers() {
   try {
     const document = yield select(getCertificate);
     const isTitleEscrow = yield call(checkIfTitleEscrow, document);
-    if (!isTitleEscrow) return;
+    if (!isTitleEscrow) throw new Error("Can not get escrow contract users");
 
-    yield put(setIsEscrowContractSuccess());
     const [beneficiaryAddress, holderAddress, approvedBeneficiaryAddress] = yield all([
       call(getBeneficiaryAddress, document),
       call(getHolderAddress, document),

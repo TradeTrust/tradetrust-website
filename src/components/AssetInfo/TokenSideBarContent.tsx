@@ -21,12 +21,11 @@ const TokenSideBarContent = ({
   registryAddress
 }: TokenSideBarContentProps) => {
   const [fieldValue, setFieldValue] = useState({ newHolder: "", approvedBeneficiary: "" });
-  const [showLoader, toggleLoader] = useState(false);
-  const [error, setError] = useState("");
+  const [showActionLoader, toggleActionLoader] = useState(false);
   const isEqualBeneficiaryAndHolder = adminAddress === holderAddress && adminAddress === beneficiaryAddress;
   const showHolder = adminAddress === holderAddress || isEqualBeneficiaryAndHolder;
   const showBeneficiary = adminAddress === beneficiaryAddress && !isEqualBeneficiaryAndHolder;
-  const showLoaderCheck = holderAddress === "" && beneficiaryAddress === "";
+  const loadUserAddress = holderAddress === "" && beneficiaryAddress === "";
   const showNoAccess = adminAddress !== holderAddress && adminAddress !== beneficiaryAddress;
 
   const handleInputChange = (e: any) => {
@@ -35,13 +34,13 @@ const TokenSideBarContent = ({
 
   const handleFormActions = async (fn: Function, value: string) => {
     try {
-      toggleLoader(true);
+      toggleActionLoader(true);
       const { hash } = await fn(value);
       await transactionMinedReceipt(hash);
-      toggleLoader(false);
+      toggleActionLoader(false);
     } catch (e) {
-      toggleLoader(false);
-      setError(e.message);
+      toggleActionLoader(false);
+      //setError(e.message);
     }
   };
 
@@ -58,7 +57,7 @@ const TokenSideBarContent = ({
 
   return (
     <>
-      {/* {showLoaderCheck && <div className={css.loader} />} */}
+      {(loadUserAddress || showActionLoader) && <div className={css.loader} />}
       {showNoAccess && <TokenSideBarNoMatch />}
       {showHolder && (
         <TokenSideBarHolder
