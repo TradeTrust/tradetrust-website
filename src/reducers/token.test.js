@@ -14,7 +14,8 @@ describe("reducer", () => {
     const expectedState = {
       getTokenUsersAddressPending: false,
       getTokenUsersAddressSuccess: false,
-      getTokenUsersAddressError: false
+      getTokenUsersAddressError: false,
+      isEscrowContract: false
     };
     expect(reducer(prevState, action)).toStrictEqual(expectedState);
   });

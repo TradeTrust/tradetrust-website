@@ -1,12 +1,15 @@
-import { put, select } from "redux-saga/effects";
+import { put, select, call, all } from "redux-saga/effects";
 import { getCertificate } from "../reducers/certificate";
 import { types } from "../reducers/token";
-import { getTokenUsers, transferOwnership } from "./token";
+import { getTokenUsers, transferOwnership, checkIfTitleEscrow } from "./token";
+import { getBeneficiaryAddress, getApprovedBeneficiaryAddress, getHolderAddress } from "../services/token";
+
 jest.mock("../services/token", () => ({
   transferTokenOwnership: () => {},
   getHolderAddress: () => {},
   getBeneficiaryAddress: () => {},
-  getApprovedBeneficiaryAddress: () => {}
+  getApprovedBeneficiaryAddress: () => {},
+  isEscrowContract: () => true
 }));
 
 describe("sagas/token", () => {
@@ -24,10 +27,18 @@ describe("sagas/token", () => {
       const selectDocument = generator.next().value;
       expect(selectDocument).toStrictEqual(select(getCertificate));
 
-      generator.next(); // yield all step
+      const checkTitleEscrow = generator.next("document").value;
+      expect(checkTitleEscrow).toStrictEqual(call(checkIfTitleEscrow, "document"));
 
       const transferCompletionAction = generator.next(["0xA", "0xB", "0xC"]).value;
       expect(transferCompletionAction).toStrictEqual(
+        all([
+          call(getBeneficiaryAddress, "document"),
+          call(getHolderAddress, "document"),
+          call(getApprovedBeneficiaryAddress, "document")
+        ])
+      );
+      expect(generator.next(["0xA", "0xB", "0xC"]).value).toStrictEqual(
         put({
           type: types.GET_TOKEN_USER_ADDRESS_SUCCESS,
           payload: mockTransferStatus

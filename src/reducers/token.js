@@ -122,13 +122,13 @@ export const getTokenUserAddressError = payload => ({
   payload
 });
 
-export const setIsEscrowContractSuccess = {
+export const setIsEscrowContractSuccess = () => ({
   type: types.IS_ESCROW_CONTRACT_SUCCESS
-};
+});
 
-export const setIsEscrowContractError = {
+export const setIsEscrowContractError = () => ({
   type: types.IS_ESCROW_CONTRACT_ERROR
-};
+});
 
 export const initializeToken = () => ({
   type: types.INITIALIZE_TOKEN
