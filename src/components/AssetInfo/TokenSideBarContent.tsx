@@ -3,6 +3,7 @@ import css from "./TokenSideBar.scss";
 import TokenSideBarHolder from "./TokenSideBarHolder";
 import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
 import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
+import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
 import { transferTokenOwnership, transactionMinedReceipt } from "../../services/token";
 
 interface TokenSideBarContentProps {
@@ -20,13 +21,13 @@ const TokenSideBarContent = ({
   approvedBeneficiaryAddress,
   registryAddress
 }: TokenSideBarContentProps) => {
+  const userRole = getUserRoles({ adminAddress, holderAddress, beneficiaryAddress });
   const [fieldValue, setFieldValue] = useState({ newHolder: "", approvedBeneficiary: "" });
   const [showActionLoader, toggleActionLoader] = useState(false);
-  const isEqualBeneficiaryAndHolder = adminAddress === holderAddress && adminAddress === beneficiaryAddress;
-  const showHolder = adminAddress === holderAddress || isEqualBeneficiaryAndHolder;
-  const showBeneficiary = adminAddress === beneficiaryAddress && !isEqualBeneficiaryAndHolder;
-  const loadUserAddress = holderAddress === "" && beneficiaryAddress === "";
-  const showNoAccess = adminAddress !== holderAddress && adminAddress !== beneficiaryAddress;
+  const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
+  const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
+  const showBeneficiary = userRole === UserRole.Beneficiary && !isEqualBeneficiaryAndHolder;
+  const showNoAccess = userRole === UserRole.NoMatch;
 
   const handleInputChange = (e: any) => {
     setFieldValue({ ...fieldValue, ...{ [e.target.name]: e.target.value } });
@@ -57,8 +58,8 @@ const TokenSideBarContent = ({
 
   return (
     <>
-      {(loadUserAddress || showActionLoader) && <div className={css.loader} />}
-      {showNoAccess && <TokenSideBarNoMatch />}
+      {showActionLoader && <div className={css.loader} />}
+      {!showActionLoader && showNoAccess && <TokenSideBarNoMatch />}
       {showHolder && (
         <TokenSideBarHolder
           isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}

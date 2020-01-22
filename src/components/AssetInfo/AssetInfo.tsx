@@ -18,18 +18,18 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
 
   const {
-    beneficiaryAddress,
-    holderAddress,
-    approvedBeneficiaryAddress,
     adminAddress,
+    holderAddress,
+    beneficiaryAddress,
+    approvedBeneficiaryAddress,
     initializeTokenSuccess
   } = useSelector((state: any) => ({
-    beneficiaryAddress: state.token.beneficiaryAddress,
+    adminAddress: state.admin.adminAddress,
     holderAddress: state.token.holderAddress,
+    beneficiaryAddress: state.token.beneficiaryAddress,
     approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
     initializeTokenSuccess: state.token.initializeTokenSuccess,
-    isEscrowContract: state.token.isEscrowContract,
-    adminAddress: state.admin.adminAddress
+    isEscrowContract: state.token.isEscrowContract
   }));
 
   useEffect(() => {
