@@ -39,7 +39,7 @@ const TokenSideBarContent = ({
 
   useEffect(() => {
     setFieldValue({ ...fieldValue, ...{ approvedBeneficiary: approvedBeneficiaryAddress } });
-  }, [approvedBeneficiaryAddress, fieldValue]);
+  }, [approvedBeneficiaryAddress]);
 
   const handleInputChange = (e: any) => {
     setFieldValue({ ...fieldValue, ...{ [e.target.name]: e.target.value } });
