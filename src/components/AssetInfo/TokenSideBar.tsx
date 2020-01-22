@@ -8,7 +8,7 @@ interface TokenSideBarContentProps {
   holderAddress: string;
   beneficiaryAddress: string;
   approvedBeneficiaryAddress: string;
-  registryAddress?: string;
+  registryAddress: string;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
   isSideBarExpand: boolean;
 }
