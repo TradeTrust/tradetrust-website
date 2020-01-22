@@ -29,23 +29,14 @@ export const isERC721Token = document => {
   return get(data, "issuers[0].tokenRegistry", false);
 };
 
-export const transferTokenOwnership = async newTokenOwner => {
-  return await writeableTokenInstance.transferOwnership(newTokenOwner);
-};
+export const transferTokenOwnership = async newTokenOwner => await writeableTokenInstance.transferOwnership(newTokenOwner);
 
-export const getHolderAddress = async () => {
-  return await tokenOwnerInstance.holder();
-};
+export const isEscrowContract = async () => await tokenOwnerInstance.isTitleEscrow();
 
-export const isEscrowContract = async () => {
-  return await tokenOwnerInstance.isTitleEscrow();
-};
+export const getHolderAddress = async () => await tokenOwnerInstance.holder();
+export const getBeneficiaryAddress = async () => await tokenOwnerInstance.beneficiary();
+export const getApprovedBeneficiaryAddress = async () => await tokenOwnerInstance.endorsedTransferTarget();
 
-export const getBeneficiaryAddress = async () => {
-  return await tokenOwnerInstance.beneficiary();
-};
-
-//dummy method to replace with oa-token methods
-export const getApprovedBeneficiaryAddress = async () => {
-  return await Promise.resolve(""); // 0xdkySHKrLdB1llgdj65Vf8gCipxilZBikNros1Nu9
-};
+export const changeHolder = async (newHolder) => await tokenOwnerInstance.changeHolder(newHolder);
+export const changeBeneficiary = async (newBeneficiary) => await tokenOwnerInstance.transferTo(newBeneficiary);
+export const endorseTransfer = async (newBeneficiary) => await tokenOwnerInstance.endorseTransfer(newBeneficiary);

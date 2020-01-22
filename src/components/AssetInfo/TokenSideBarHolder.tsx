@@ -30,7 +30,7 @@ const TokenSideBarHolder = ({
       <TokenSideBarField
         id="sec-transferownership"
         title="Transfer Holdership"
-        ctaText="Transfer"
+        label="Transfer"
         handleClick={transferHoldership}
       >
         <label>
@@ -48,8 +48,8 @@ const TokenSideBarHolder = ({
         <TokenSideBarField
           id="sec-changebeneficiary"
           title="Change Beneficiary"
-          ctaText="Submit"
-          ctaStatus="success"
+          label="Submit"
+          status="success"
           handleClick={changeBeneficiary}
         >
           <label>
@@ -67,8 +67,8 @@ const TokenSideBarHolder = ({
         <TokenSideBarField
           id="sec-surrenderdocument"
           title="Surrender Document"
-          ctaText="Surrender"
-          ctaStatus="danger"
+          label="Surrender"
+          status="danger"
           handleClick={surrenderDocument}
         >
           <label>

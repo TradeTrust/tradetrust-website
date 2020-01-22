@@ -7,6 +7,7 @@ import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
 import { transferTokenOwnership } from "../../services/token";
 
 const { trace, error } = getLogger("component:TokenSideBarContent");
+import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
 
 interface TokenSideBarContentProps {
   adminAddress: string;
@@ -23,15 +24,15 @@ const TokenSideBarContent = ({
   approvedBeneficiaryAddress,
   registryAddress
 }: TokenSideBarContentProps) => {
+  const userRole = getUserRoles({ adminAddress, holderAddress, beneficiaryAddress });
   const [fieldValue, setFieldValue] = useState({ newHolder: "", approvedBeneficiary: "" });
-  const [showLoader, toggleLoader] = useState(false);
-  const [error, setError] = useState("");
-  const isEqualBeneficiaryAndHolder = adminAddress === holderAddress && adminAddress === beneficiaryAddress;
-  const showHolder = adminAddress === holderAddress || isEqualBeneficiaryAndHolder;
-  const showBeneficiary = adminAddress === beneficiaryAddress && !isEqualBeneficiaryAndHolder;
   const showLoaderCheck = holderAddress === "" && beneficiaryAddress === "";
-  const showNoAccess = adminAddress !== holderAddress && adminAddress !== beneficiaryAddress;
   trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
+  const [showActionLoader, toggleActionLoader] = useState(false);
+  const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
+  const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
+  const showBeneficiary = userRole === UserRole.Beneficiary && !isEqualBeneficiaryAndHolder;
+  const showNoAccess = userRole === UserRole.NoMatch;
 
   const handleInputChange = (e: any) => {
     setFieldValue({ ...fieldValue, ...{ [e.target.name]: e.target.value } });
@@ -39,30 +40,37 @@ const TokenSideBarContent = ({
 
   const handleFormActions = async (fn: Function, value: string) => {
     try {
-      toggleLoader(true);
+      toggleActionLoader(true);
       const { hash } = await fn(value);
-      toggleLoader(false);
+      toggleActionLoader(false);
     } catch (e) {
-      toggleLoader(false);
-      setError(e.message);
+      error(`handle action error ${e}`);
+      toggleActionLoader(false);
+      //setError(e.message);
     }
   };
 
-  const approveChangeBeneficiary = () => {};
+  const approveChangeBeneficiary = () => {
+    const { approvedBeneficiary } = fieldValue;
+    handleFormActions(transferTokenOwnership, approvedBeneficiary);
+  };
 
   const transferHoldership = async () => {
     const { newHolder } = fieldValue;
     handleFormActions(transferTokenOwnership, newHolder);
   };
 
-  const changeBeneficiary = () => {};
+  const changeBeneficiary = () => {
+    const { approvedBeneficiary } = fieldValue;
+    handleFormActions(transferTokenOwnership, approvedBeneficiary);
+  };
 
   const surrenderDocument = () => {};
 
   return (
     <>
-      {/* {showLoaderCheck && <div className={css.loader} />} */}
-      {showNoAccess && <TokenSideBarNoMatch />}
+      {showActionLoader && <div className={css.loader} />}
+      {!showActionLoader && showNoAccess && <TokenSideBarNoMatch />}
       {showHolder && (
         <TokenSideBarHolder
           isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}

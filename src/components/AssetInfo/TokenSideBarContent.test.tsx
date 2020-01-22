@@ -16,4 +16,11 @@ describe("tokenSideBarContent", () => {
     );
     expect(wrapper.find("TokenSideBarBeneficiary")).toHaveLength(1);
   });
+
+  it("should render TokenSideBarBeneficiary view", () => {
+    const wrapper = mount(
+      <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="0xC" approvedBeneficiaryAddress="" />
+    );
+    expect(wrapper.find("TokenSideBarNoMatch")).toHaveLength(1);
+  });
 });

@@ -16,8 +16,8 @@ const TokenSideBarBeneficiary = ({
   <TokenSideBarField
     id="sec-approvechangebeneficiary"
     title="Approve Change Beneficiary"
-    ctaText="Approve"
-    ctaStatus="success"
+    label="Approve"
+    status="success"
     handleClick={approveChangeBeneficiary}
   >
     <label>

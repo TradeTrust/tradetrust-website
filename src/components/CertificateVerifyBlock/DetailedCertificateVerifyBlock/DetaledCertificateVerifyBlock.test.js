@@ -3,15 +3,13 @@ import { shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
 import DetailedCertificateVerifyBlock from ".";
 import ROPSTEN from "../../HomePageContent/Ropsten-Demo.json";
-import TokenRegistry from "../../../test/fixture/tokenRegistry.json";
+import sampleToken from "../../../test/fixture/sample-token.json";
 
 describe("detailedCertificateVerifyBlock", () => {
   it("render document is token", async () => {
     let wrapper;
     await act(async () => {
-      wrapper = shallow(
-        <DetailedCertificateVerifyBlock verificationStatus={{ valid: true }} document={TokenRegistry} />
-      );
+      wrapper = shallow(<DetailedCertificateVerifyBlock verificationStatus={{ valid: true }} document={sampleToken} />);
     });
     wrapper.setProps();
     expect(wrapper.find("h5").text()).toStrictEqual("Details");

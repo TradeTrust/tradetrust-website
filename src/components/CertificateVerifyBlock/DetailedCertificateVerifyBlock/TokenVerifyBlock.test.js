@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import { hexToNumberString } from "web3-utils";
 import TokenVerifyBlock from "./TokenVerifyBlock";
 import ROPSTEN from "../../HomePageContent/Ropsten-Demo.json";
-import TokenRegistry from "../../../test/fixture/tokenRegistry.json";
+import sampleToken from "../../../test/fixture/sample-token.json";
 
 const tokenOnwer = "0xA";
 const tokenError = "Can not find token owner";
@@ -18,7 +18,7 @@ describe("tokenVerifyBlock", () => {
   it("should render correct etherscan link with owner address text", async () => {
     const tokenRegistry = "0x48399Fb88bcD031C556F53e93F690EEC07963Af3";
     const tokenIdDecimal = hexToNumberString("fc714dc7efa164cd0261d511c51903be392c74698daf331f6f5e4c6be0203939");
-    const wrapper = mount(<TokenVerifyBlock document={TokenRegistry} tokenOwner={tokenOnwer} tokenError={null} />);
+    const wrapper = mount(<TokenVerifyBlock document={sampleToken} tokenOwner={tokenOnwer} tokenError={null} />);
     expect(
       wrapper
         .find("div")

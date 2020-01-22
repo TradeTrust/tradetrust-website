@@ -26,14 +26,16 @@ import { getProvider } from "../services/etherjs";
 
 const { trace, error } = getLogger("saga:token");
 
-function* checkIfTitleEscrow(document) {
+export function* checkIfTitleEscrow(document) {
   try {
     const isTitleEscrow = yield call(isEscrowContract, document);
     if (!isTitleEscrow) throw new Error("Document owner is not a escrow contract");
     yield put(setIsEscrowContractSuccess());
+    return isTitleEscrow;
   } catch (e) {
-    error(`checkIfTitleEscrow: ${JSON.stringify(e)}`);
+    error(`checkIfTitleEscrow: ${e}`);
     yield put(setIsEscrowContractError());
+    return false;
   }
 }
 
@@ -41,9 +43,8 @@ export function* getTokenUsers() {
   try {
     const document = yield select(getCertificate);
     const isTitleEscrow = yield call(checkIfTitleEscrow, document);
-    if (!isTitleEscrow) return;
+    if (!isTitleEscrow) throw new Error("Can not get escrow contract users");
 
-    yield put(setIsEscrowContractSuccess());
     const [beneficiaryAddress, holderAddress, approvedBeneficiaryAddress] = yield all([
       call(getBeneficiaryAddress, document),
       call(getHolderAddress, document),
@@ -55,6 +56,7 @@ export function* getTokenUsers() {
 
     yield put(getTokenUserAddressSuccess({ beneficiaryAddress, holderAddress, approvedBeneficiaryAddress }));
   } catch (e) {
+    error(`getTokenUsers: ${e}`);
     yield put(getTokenUserAddressError(e.message));
   }
 }
@@ -63,7 +65,6 @@ export function* initializeToken() {
   try {
     const document = yield select(getCertificate);
     const { provider, signer } = yield getProvider();
-    //trace(`Web3 provider: ${JSON.stringify(provider)}`);
     yield initializeTokenInstance(document, provider, signer);
     yield createTokenOwnerInstance();
     yield put(initializeTokenSuccess());

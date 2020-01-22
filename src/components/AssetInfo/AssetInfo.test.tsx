@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { SignedDocument } from "@govtechsg/open-attestation";
 import { AssetInfo } from "./AssetInfo";
-import TokenRegistry from "../../test/fixture/tokenRegistry.json";
+import sampleToken from "../../test/fixture/sample-token.json";
 
 jest.mock("react-redux", () => ({
   useDispatch: () => jest.fn(),
@@ -23,7 +23,7 @@ describe("assetInfo", () => {
   it("renders with correct etherscan url", async () => {
     let wrapper: any;
     await act(async () => {
-      wrapper = mount(<AssetInfo document={TokenRegistry as SignedDocument} />);
+      wrapper = mount(<AssetInfo document={sampleToken as SignedDocument} />);
     });
     expect(wrapper.find("#asset-info-etherscan-link").text()).toStrictEqual("Manage Asset");
     expect(wrapper.find("a").prop("href")).toStrictEqual(

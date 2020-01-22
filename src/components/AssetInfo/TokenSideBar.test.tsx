@@ -6,6 +6,7 @@ describe("tokenSideBar", () => {
   it("should have a Manage Asset heading", () => {
     const wrapper = mount(
       <TokenSideBar
+        adminAddress=""
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress=""
@@ -20,6 +21,7 @@ describe("tokenSideBar", () => {
   it("should show holder and beneficiary role, holder view, only 3 correct fields", () => {
     const wrapper = mount(
       <TokenSideBar
+        adminAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         isSideBarExpand={true}
         holderAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         beneficiaryAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -46,6 +48,7 @@ describe("tokenSideBar", () => {
   it("should show holder role, holder view, only 1 correct field", () => {
     const wrapper = mount(
       <TokenSideBar
+        adminAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         isSideBarExpand={true}
         holderAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         beneficiaryAddress=""
@@ -65,6 +68,7 @@ describe("tokenSideBar", () => {
   it("should show holder role, holder view, only 2 correct fields", () => {
     const wrapper = mount(
       <TokenSideBar
+        adminAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         isSideBarExpand={true}
         holderAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         beneficiaryAddress=""
@@ -88,6 +92,7 @@ describe("tokenSideBar", () => {
   it("should show bene role, bene view, only 1 correct field", () => {
     const wrapper = mount(
       <TokenSideBar
+        adminAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -107,6 +112,7 @@ describe("tokenSideBar", () => {
   it("should show no match view, no access text", () => {
     const wrapper = mount(
       <TokenSideBar
+        adminAddress="0xc"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
