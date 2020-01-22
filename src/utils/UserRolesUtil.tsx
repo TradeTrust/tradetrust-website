@@ -34,7 +34,8 @@ const getUserRoles = ({ adminAddress, holderAddress, beneficiaryAddress }: Token
       return UserRole.Holder;
     case adminAddress === beneficiaryAddress:
       return UserRole.Beneficiary;
-    case adminAddress !== holderAddress || adminAddress !== beneficiaryAddress:
+    case adminAddress !== holderAddress:
+    case adminAddress !== beneficiaryAddress:
       return UserRole.NoMatch;
     default:
       return UserRole.NoMatch;
