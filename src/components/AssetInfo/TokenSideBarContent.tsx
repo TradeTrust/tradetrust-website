@@ -25,7 +25,7 @@ const TokenSideBarContent = ({
   registryAddress
 }: TokenSideBarContentProps) => {
   const userRole = getUserRoles({ adminAddress, holderAddress, beneficiaryAddress });
-  const [fieldValue, setFieldValue] = useState({ newHolder: "", approvedBeneficiary: "" });
+  const [fieldValue, setFieldValue] = useState({ newHolder: "", approvedBeneficiary: approvedBeneficiaryAddress || "" });
   const showLoaderCheck = holderAddress === "" && beneficiaryAddress === "";
   trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
   const [showActionLoader, toggleActionLoader] = useState(false);
