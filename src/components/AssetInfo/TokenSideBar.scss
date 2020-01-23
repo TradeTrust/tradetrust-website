@@ -168,6 +168,11 @@ $border-color: rgba($color-black, 0.1);
   background-color: rgba(0,0,0,0.5); /*dim the background*/
 }
 
+.error {
+  color: $danger-color;
+  margin-bottom: 15px;
+}
+
 .button {
   @include btn($btn-outline);
   color: $color-white;

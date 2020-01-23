@@ -29,9 +29,10 @@ const TokenSideBarContent = ({
     newHolder: "",
     approvedBeneficiary: approvedBeneficiaryAddress || ""
   });
-  //const showLoaderCheck = holderAddress === "" && beneficiaryAddress === "";
+  
   trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
   const [showActionLoader, toggleActionLoader] = useState(false);
+  const [actionError, setActionError] = useState(false);
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
   const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
   const showBeneficiary = userRole === UserRole.Beneficiary && !isEqualBeneficiaryAndHolder;
@@ -47,6 +48,7 @@ const TokenSideBarContent = ({
 
   const handleFormActions = async (fn: Function, value = "") => {
     try {
+      setActionError(false);
       toggleActionLoader(true);
       const { hash } = await fn(value);
       trace(`transaction mined hash: ${hash}`);
@@ -54,7 +56,7 @@ const TokenSideBarContent = ({
     } catch (e) {
       error(`handle action error ${JSON.stringify(e)}`);
       toggleActionLoader(false);
-      //setError(e.message);
+      setActionError(e.message || e.reason);
     }
   };
 
@@ -85,6 +87,7 @@ const TokenSideBarContent = ({
         </div>
       )}
       {!showActionLoader && showNoAccess && <TokenSideBarNoMatch />}
+      {actionError && <li className={css.error}> { actionError } </li>}
       {showHolder && (
         <TokenSideBarHolder
           isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
