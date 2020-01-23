@@ -29,7 +29,7 @@ const TokenSideBarContent = ({
     newHolder: "",
     approvedBeneficiary: approvedBeneficiaryAddress || ""
   });
-  
+
   trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
   const [showActionLoader, toggleActionLoader] = useState(false);
   const [actionError, setActionError] = useState(false);
@@ -40,6 +40,7 @@ const TokenSideBarContent = ({
 
   useEffect(() => {
     setFieldValue({ ...fieldValue, ...{ approvedBeneficiary: approvedBeneficiaryAddress } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [approvedBeneficiaryAddress]);
 
   const handleInputChange = (e: any) => {
@@ -87,14 +88,14 @@ const TokenSideBarContent = ({
         </div>
       )}
       {!showActionLoader && showNoAccess && <TokenSideBarNoMatch />}
-      {actionError && <li className={css.error}> { actionError } </li>}
+      {actionError && <li className={css.error}> {actionError} </li>}
       {showHolder && (
         <TokenSideBarHolder
           isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
-          approvedBeneficiaryAddress={approvedBeneficiaryAddress}
+          approvedBeneficiaryAddress={fieldValue.approvedBeneficiary}
           registryAddress={registryAddress}
           newHolder={fieldValue.newHolder}
-          setNewHolder={handleInputChange}
+          handleInputChange={handleInputChange}
           transferHoldership={transferHoldership}
           changeBeneficiary={changeBeneficiary}
           surrenderDocument={surrenderDocument}
