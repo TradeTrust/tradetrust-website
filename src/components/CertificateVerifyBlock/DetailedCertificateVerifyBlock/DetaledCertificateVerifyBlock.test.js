@@ -6,7 +6,7 @@ import ROPSTEN from "../../HomePageContent/Ropsten-Demo.json";
 import sampleToken from "../../../test/fixture/sample-token.json";
 
 describe("detailedCertificateVerifyBlock", () => {
-  it("render document is token", async () => {
+  it("renders if document is a token", async () => {
     let wrapper;
     await act(async () => {
       wrapper = shallow(<DetailedCertificateVerifyBlock verificationStatus={{ valid: true }} document={sampleToken} />);
