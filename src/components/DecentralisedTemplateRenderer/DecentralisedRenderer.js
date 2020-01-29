@@ -78,7 +78,7 @@ class DecentralisedRenderer extends Component {
   render() {
     return (
       <iframe
-        title="Decentralised Rendered Certificate"
+        title="Decentralised Rendered Document"
         id="iframe"
         ref={iframe => {
           this.iframe = iframe;

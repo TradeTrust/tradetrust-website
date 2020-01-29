@@ -41,7 +41,7 @@ const MobileDemoCertificate = () => (
         cursor: "pointer"
       }}
     >
-      Click me for a demo certificate!
+      Click me for a demo document!
     </a>
   </div>
 );
