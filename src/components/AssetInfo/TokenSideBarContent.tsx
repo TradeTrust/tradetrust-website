@@ -5,6 +5,7 @@ import TokenSideBarHolder from "./TokenSideBarHolder";
 import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
 import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
 import { changeHolder, endorseBeneficiaryTransfer, endorseTransfer, surrenderToken } from "../../services/token";
+import TokenTransactionSuccess from "./TokenTransactionSuccess";
 
 const { trace, error } = getLogger("component:TokenSideBarContent");
 import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
@@ -33,6 +34,7 @@ const TokenSideBarContent = ({
   trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
   const [showActionLoader, toggleActionLoader] = useState(false);
   const [actionError, setActionError] = useState(false);
+  const [transactionHash, setTransactionHash] = useState("");
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
   const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
   const showBeneficiary = userRole === UserRole.Beneficiary && !isEqualBeneficiaryAndHolder;
@@ -50,9 +52,11 @@ const TokenSideBarContent = ({
   const handleFormActions = async (fn: Function, value = "") => {
     try {
       setActionError(false);
+      setTransactionHash("");
       toggleActionLoader(true);
       const { hash } = await fn(value);
       trace(`transaction mined hash: ${hash}`);
+      setTransactionHash(hash);
       toggleActionLoader(false);
     } catch (e) {
       error(`handle action error ${JSON.stringify(e)}`);
@@ -79,6 +83,10 @@ const TokenSideBarContent = ({
   const surrenderDocument = () => {
     handleFormActions(surrenderToken);
   };
+
+  if (transactionHash) {
+    return <TokenTransactionSuccess hash={transactionHash} />;
+  }
 
   return (
     <>
