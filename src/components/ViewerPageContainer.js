@@ -85,10 +85,7 @@ const mapDispatchToProps = dispatch => ({
   updateObfuscatedCertificate: updatedDoc => dispatch(updateObfuscatedCertificate(updatedDoc))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(ViewerPageContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ViewerPageContainer));
 
 ViewerPageContainer.propTypes = {
   updateCertificate: PropTypes.func,
