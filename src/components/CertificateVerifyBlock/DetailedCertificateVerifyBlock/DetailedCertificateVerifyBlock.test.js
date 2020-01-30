@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 import DetailedCertificateVerifyBlock from ".";
 import ROPSTEN from "../../HomePageContent/Ropsten-Demo.json";
-import TokenRegistry from "../../../test/fixture/tokenRegistry.json";
+import sampleToken from "../../../test/fixture/sample-token.json";
 import { getTokenOwner } from "../../../services/token";
 
 jest.mock("../../../services/token", () => ({
@@ -19,7 +19,7 @@ describe("detailedCertificateVerifyBlock", () => {
   it("should render when document is token", async () => {
     let wrapper;
     await act(async () => {
-      wrapper = mount(<DetailedCertificateVerifyBlock verificationStatus={{ valid: true }} document={TokenRegistry} />);
+      wrapper = mount(<DetailedCertificateVerifyBlock verificationStatus={{ valid: true }} document={sampleToken} />);
     });
     wrapper.setProps();
     expect(wrapper.find("h5").text()).toStrictEqual("Details");
@@ -43,7 +43,7 @@ describe("detailedCertificateVerifyBlock", () => {
     });
     let wrapper;
     await act(async () => {
-      wrapper = mount(<DetailedCertificateVerifyBlock verificationStatus={{ valid: true }} document={TokenRegistry} />);
+      wrapper = mount(<DetailedCertificateVerifyBlock verificationStatus={{ valid: true }} document={sampleToken} />);
     });
     wrapper.setProps();
     expect(
