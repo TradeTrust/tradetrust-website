@@ -61,7 +61,7 @@ const TokenSideBarHolder = ({
               onChange={handleInputChange}
               placeholder="Address (e.g. 0x483..)"
               disabled={!!approvedBeneficiaryAddress && !isEqualBeneficiaryAndHolder}
-             />
+            />
           </label>
         </TokenSideBarField>
       )}
