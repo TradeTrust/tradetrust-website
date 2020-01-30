@@ -2,26 +2,26 @@ import { ReadOnlyToken, WriteableToken } from "@govtechsg/oa-token";
 import { getData } from "@govtechsg/open-attestation";
 import { get } from "lodash";
 import { getLogger } from "../../utils/logger";
-
 const { trace } = getLogger("saga:tokenService");
 
 let writeableTokenInstance;
 let readOnlyTokenInstance;
+let tokenOwnerInstance;
 
 export const initializeTokenInstance = async (document, web3Provider = undefined, wallet = undefined) => {
   if (web3Provider && wallet) writeableTokenInstance = await new WriteableToken({ document, web3Provider, wallet });
   else readOnlyTokenInstance = await new ReadOnlyToken({ document });
 };
 
-export const transactionMinedReceipt = async txHash => {
-  const receipt = await writeableTokenInstance.web3Provider.waitForTransaction(txHash);
-  return receipt;
-};
-
 export const getTokenOwner = async ({ document }) => {
   if (!readOnlyTokenInstance) await initializeTokenInstance(document);
-  trace(`read only token instance ${readOnlyTokenInstance}`);
-  return await readOnlyTokenInstance.getOwner();
+  const tokenOwner = await readOnlyTokenInstance.getOwner();
+  trace(`token owner when instance is read only ${tokenOwner}`);
+  return tokenOwner.address;
+};
+
+export const createTokenOwnerInstance = async () => {
+  tokenOwnerInstance = await writeableTokenInstance.getOwner();
 };
 
 export const isERC721Token = document => {
@@ -29,23 +29,26 @@ export const isERC721Token = document => {
   return get(data, "issuers[0].tokenRegistry", false);
 };
 
-export const transferTokenOwnership = async newTokenOwner => {
-  return await writeableTokenInstance.transferOwnership(newTokenOwner);
-};
+export const transferTokenOwnership = async newTokenOwner =>
+  await writeableTokenInstance.transferOwnership(newTokenOwner);
 
-//dummy method to replace with oa-token methods
-export const getHolderAddress = async () => {
-  return await Promise.resolve("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"); // 0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C
-};
+export const isEscrowContract = async () => await tokenOwnerInstance.isTitleEscrow();
 
-export const isEscrowContract = async () => {
-  return await Promise.resolve(true);
-};
-
-export const getBeneficiaryAddress = async () => {
-  return await Promise.resolve("0xA");
-};
-
+export const getHolderAddress = async () => await tokenOwnerInstance.holder();
+export const getBeneficiaryAddress = async () => await tokenOwnerInstance.beneficiary();
 export const getApprovedBeneficiaryAddress = async () => {
-  return await Promise.resolve(""); // 0xdkySHKrLdB1llgdj65Vf8gCipxilZBikNros1Nu9
+  const addressZero = "0x0000000000000000000000000000000000000000";
+  const endorsedAddress = await tokenOwnerInstance.endorsedTransferTarget();
+  return endorsedAddress === addressZero ? "" : endorsedAddress;
 };
+
+export const changeHolder = async newHolder => {
+  trace(`new holder address: ${newHolder}`);
+  await tokenOwnerInstance.changeHolder(newHolder);
+};
+export const endorseBeneficiaryTransfer = async newBeneficiary => {
+  trace(`new beneficiary address: ${newBeneficiary}`);
+  await tokenOwnerInstance.transferTo(newBeneficiary);
+};
+export const endorseTransfer = async newBeneficiary => await tokenOwnerInstance.endorseTransfer(newBeneficiary);
+export const surrenderToken = async () => await writeableTokenInstance.surrender();

@@ -10,7 +10,7 @@ describe("tokenSideBarHolder", () => {
         approvedBeneficiaryAddress=""
         registryAddress={"0xA"}
         newHolder={"0xB"}
-        setNewHolder={() => {}}
+        handleInputChange={() => {}}
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
@@ -28,7 +28,7 @@ describe("tokenSideBarHolder", () => {
         approvedBeneficiaryAddress="0xC"
         registryAddress={"0xA"}
         newHolder={"0xB"}
-        setNewHolder={() => {}}
+        handleInputChange={() => {}}
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
@@ -47,7 +47,7 @@ describe("tokenSideBarHolder", () => {
         approvedBeneficiaryAddress=""
         registryAddress={"0xA"}
         newHolder={"0xB"}
-        setNewHolder={() => {}}
+        handleInputChange={() => {}}
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}

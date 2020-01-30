@@ -19,7 +19,8 @@ import {
   initializeTokenInstance,
   getHolderAddress,
   isEscrowContract,
-  getApprovedBeneficiaryAddress
+  getApprovedBeneficiaryAddress,
+  createTokenOwnerInstance
 } from "../services/token";
 import { getProvider } from "../services/etherjs";
 
@@ -65,6 +66,7 @@ export function* initializeToken() {
     const document = yield select(getCertificate);
     const { provider, signer } = yield getProvider();
     yield initializeTokenInstance(document, provider, signer);
+    yield createTokenOwnerInstance();
     yield put(initializeTokenSuccess());
   } catch (e) {
     error(e);
