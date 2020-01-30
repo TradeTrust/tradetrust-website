@@ -2,19 +2,19 @@ export enum TOKEN_ACTION_TYPES {
   "CHANGE_HOLDER",
   "CHANGE_BENEFICIARY",
   "ENDORSE_BENEFICIARY",
-  "SURRENDER"
+  "SURRENDER_DOCUMENT"
 }
 
 export function getSuccessResponse(actionType: TOKEN_ACTION_TYPES): string {
   switch (actionType) {
     case TOKEN_ACTION_TYPES.CHANGE_HOLDER:
-      return "";
+      return "Change Holder Success";
     case TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY:
-      return "";
+      return "Change Beneficiary Success";
     case TOKEN_ACTION_TYPES.ENDORSE_BENEFICIARY:
-      return "";
-    case TOKEN_ACTION_TYPES.SURRENDER:
-      return "";
+      return "Endorse Change of Beneficiary Success";
+    case TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT:
+      return "Surrender Document Success";
     default:
       return "";
   }

@@ -34,7 +34,7 @@ const TokenSideBarContent = ({
 
   trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
   const [showActionLoader, toggleActionLoader] = useState(false);
-  const [actionError, setActionError] = useState<{ type: TOKEN_ACTION_TYPES; error: string } | null>(null);
+  const [actionError, setActionError] = useState<{ type: TOKEN_ACTION_TYPES; message: string } | null>(null);
   const [transactionSuccessResponse, setTransactionSuccessResponse] = useState<{
     type: TOKEN_ACTION_TYPES;
     hash: string;
@@ -66,7 +66,7 @@ const TokenSideBarContent = ({
     } catch (e) {
       error(`handle action error ${JSON.stringify(e)}`);
       toggleActionLoader(false);
-      setActionError({ type: actionType, error: e.message || e.reason });
+      setActionError({ type: actionType, message: e.message || e.reason });
     }
   };
 
@@ -86,7 +86,7 @@ const TokenSideBarContent = ({
   };
 
   const surrenderDocument = () => {
-    handleFormActions(surrenderToken, TOKEN_ACTION_TYPES.SURRENDER);
+    handleFormActions(surrenderToken, TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT);
   };
 
   if (transactionSuccessResponse) {
@@ -103,7 +103,6 @@ const TokenSideBarContent = ({
         </div>
       )}
       {!showActionLoader && showNoAccess && <TokenSideBarNoMatch />}
-      {actionError && <li className={css.error}> {actionError} </li>}
       {showHolder && (
         <TokenSideBarHolder
           isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
@@ -114,6 +113,7 @@ const TokenSideBarContent = ({
           transferHoldership={transferHoldership}
           changeBeneficiary={changeBeneficiary}
           surrenderDocument={surrenderDocument}
+          error={actionError}
         />
       )}
       {showBeneficiary && (
@@ -121,6 +121,7 @@ const TokenSideBarContent = ({
           setBeneficiary={handleInputChange}
           approveChangeBeneficiary={approveChangeBeneficiary}
           approvedBeneficiary={fieldValue.approvedBeneficiary}
+          error={actionError}
         />
       )}
     </>
