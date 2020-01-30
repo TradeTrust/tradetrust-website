@@ -51,7 +51,7 @@ const TokenSideBarContent = ({
     try {
       setActionError(false);
       toggleActionLoader(true);
-      const { hash } = await fn(value);
+      const hash = await fn(value);
       trace(`transaction mined hash: ${hash}`);
       toggleActionLoader(false);
     } catch (e) {

@@ -44,11 +44,11 @@ export const getApprovedBeneficiaryAddress = async () => {
 
 export const changeHolder = async newHolder => {
   trace(`new holder address: ${newHolder}`);
-  await tokenOwnerInstance.changeHolder(newHolder);
+  return await tokenOwnerInstance.changeHolder(newHolder);
 };
 export const endorseBeneficiaryTransfer = async newBeneficiary => {
   trace(`new beneficiary address: ${newBeneficiary}`);
-  await tokenOwnerInstance.transferTo(newBeneficiary);
+  return await tokenOwnerInstance.transferTo(newBeneficiary);
 };
 export const endorseTransfer = async newBeneficiary => await tokenOwnerInstance.endorseTransfer(newBeneficiary);
 export const surrenderToken = async () => await writeableTokenInstance.surrender();
