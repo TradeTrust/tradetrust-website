@@ -44,7 +44,10 @@ const mapStateToProps = store => ({
   activeTab: getActiveTemplateTab(store)
 });
 
-export default connect(mapStateToProps, null)(MultiTabs);
+export default connect(
+  mapStateToProps,
+  null
+)(MultiTabs);
 
 MultiTabs.propTypes = {
   document: PropTypes.object,

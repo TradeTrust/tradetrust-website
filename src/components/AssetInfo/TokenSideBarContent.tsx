@@ -6,7 +6,7 @@ import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
 import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
 import { changeHolder, endorseBeneficiaryTransfer, endorseTransfer, surrenderToken } from "../../services/token";
 import TokenTransactionSuccess from "./TokenTransactionSuccess";
-import {TOKEN_ACTION_TYPES, getSuccessResponse} from "./util";
+import { TOKEN_ACTION_TYPES, getSuccessResponse } from "./util";
 
 const { trace, error } = getLogger("component:TokenSideBarContent");
 import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
@@ -34,8 +34,12 @@ const TokenSideBarContent = ({
 
   trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
   const [showActionLoader, toggleActionLoader] = useState(false);
-  const [actionError, setActionError] = useState<{type: TOKEN_ACTION_TYPES, error: string} | null>(null);
-  const [transactionSuccessResponse, setTransactionSuccessResponse] = useState<{type: TOKEN_ACTION_TYPES, hash: string, message: string} | null>(null);
+  const [actionError, setActionError] = useState<{ type: TOKEN_ACTION_TYPES; error: string } | null>(null);
+  const [transactionSuccessResponse, setTransactionSuccessResponse] = useState<{
+    type: TOKEN_ACTION_TYPES;
+    hash: string;
+    message: string;
+  } | null>(null);
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
   const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
   const showBeneficiary = userRole === UserRole.Beneficiary && !isEqualBeneficiaryAndHolder;
@@ -57,12 +61,12 @@ const TokenSideBarContent = ({
       toggleActionLoader(true);
       const { hash } = await fn(value);
       trace(`transaction mined hash: ${hash}`);
-      setTransactionSuccessResponse({type: actionType, hash, message: getSuccessResponse(actionType)});
+      setTransactionSuccessResponse({ type: actionType, hash, message: getSuccessResponse(actionType) });
       toggleActionLoader(false);
     } catch (e) {
       error(`handle action error ${JSON.stringify(e)}`);
       toggleActionLoader(false);
-      setActionError({ type: actionType, error:  e.message || e.reason });
+      setActionError({ type: actionType, error: e.message || e.reason });
     }
   };
 
@@ -86,7 +90,9 @@ const TokenSideBarContent = ({
   };
 
   if (transactionSuccessResponse) {
-    return <TokenTransactionSuccess hash={transactionSuccessResponse.hash} message={transactionSuccessResponse.message} />;
+    return (
+      <TokenTransactionSuccess hash={transactionSuccessResponse.hash} message={transactionSuccessResponse.message} />
+    );
   }
 
   return (

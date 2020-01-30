@@ -100,4 +100,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   updateCertificate: (payload: any) => dispatch(updateCertificate(payload))
 });
 
-export const DropZoneSectionContainer = connect(null, mapDispatchToProps)(DropZoneSection);
+export const DropZoneSectionContainer = connect(
+  null,
+  mapDispatchToProps
+)(DropZoneSection);

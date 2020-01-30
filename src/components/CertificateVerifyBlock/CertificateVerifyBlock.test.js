@@ -25,10 +25,7 @@ describe("certificate verify block getIdentityVerificationText", () => {
     });
 
     it("should return appropriate display text when multiple dns is verified", () => {
-      const testValue = [
-        { registry: false, dns: "xyz.com" },
-        { registry: false, dns: "demo.com" }
-      ];
+      const testValue = [{ registry: false, dns: "xyz.com" }, { registry: false, dns: "demo.com" }];
       expect(getIdentityVerificationText(testValue)).toStrictEqual("Issued by XYZ.COM");
     });
   });
