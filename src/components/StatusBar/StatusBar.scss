@@ -1,0 +1,61 @@
+@import "../../styles/main.scss";
+
+.statusbar {
+  background-color: $color-red-lighter;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.statusbar-title {
+  display: inline-block;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  color: $danger-color;
+  font-size: 24px;
+
+  b {
+    font-weight: 700;
+  }
+}
+
+.statusbar-dropdown {
+  cursor: pointer;
+
+  &:hover {
+    @media only screen and (min-width: $lg) {
+      .statusbar-dropdown-menu {
+        display: block;
+      }
+    }
+  }
+
+  .statusbar-dropdown-toggle {
+    &::after {
+      color: $danger-color;
+    }
+  }
+
+  .statusbar-dropdown-menu {
+    padding: 15px 20px;
+    right: 0;
+    box-shadow: 0 5px 10px rgba($color-black, 0.2);
+
+    @media only screen and (min-width: $lg) {
+      left: auto;
+      transform: translateX(calc(50% - 10px));
+    }
+
+    h6 {
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.statusbar-address {
+  margin-bottom: 20px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
