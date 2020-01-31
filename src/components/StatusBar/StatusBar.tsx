@@ -17,14 +17,15 @@ const StatusBar = ({ document }: StatusBarProps) => {
   const isToken = isERC721Token(document);
   useEffect(() => {
     async function fetchTokenOwner() {
-      console.log("fetching");
+      // console.log("fetching");
       try {
         const owner = await getTokenOwner({ document });
+        // throw new Error("Cannot find token owner");
         trace(`Token Owner: ${owner}`);
         setTokenOwner(owner);
       } catch (e) {
         error(`error in fetching token owner: ${JSON.stringify(e)}`);
-        console.log("error !!!", e.message);
+        // console.log("error !!!", e.message);
         setError(e.message);
       }
     }

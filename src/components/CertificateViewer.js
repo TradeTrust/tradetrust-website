@@ -15,7 +15,7 @@ import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm"
 import { AssetInfo } from "./AssetInfo";
 import StatusBar from "./StatusBar/StatusBar";
 
-const renderVerifyBlock = props => (
+const RenderVerifyBlock = props => (
   <CertificateVerifyBlock
     document={props.document}
     verifyTriggered={props.verifyTriggered}
@@ -25,8 +25,8 @@ const renderVerifyBlock = props => (
   />
 );
 
-const renderHeaderBlock = props => {
-  const renderedVerifyBlock = renderVerifyBlock(props);
+const RenderHeaderBlock = props => {
+  const renderedVerifyBlock = RenderVerifyBlock(props);
   return (
     <div className={`container-fluid ${styles["pd-0"]} ${styles.container}`}>
       <div className="row">
@@ -67,7 +67,7 @@ const CertificateViewer = props => {
 
   const certificate = getData(document);
 
-  const renderedHeaderBlock = renderHeaderBlock(props);
+  const renderedHeaderBlock = RenderHeaderBlock(props);
 
   const validCertificateContent = (
     <div>
@@ -115,8 +115,8 @@ CertificateViewer.propTypes = {
   selectTemplateTab: PropTypes.func
 };
 
-renderVerifyBlock.propTypes = CertificateViewer.propTypes;
-renderHeaderBlock.propTypes = CertificateViewer.propTypes;
+RenderVerifyBlock.propTypes = CertificateViewer.propTypes;
+RenderHeaderBlock.propTypes = CertificateViewer.propTypes;
 
 ErrorBoundary.propTypes = {
   children: PropTypes.node
