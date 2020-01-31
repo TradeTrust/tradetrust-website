@@ -7,6 +7,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress=""
+        registryAddress="0xA"
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress=""
@@ -22,6 +23,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+        registryAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         beneficiaryAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -49,6 +51,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+        registryAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         beneficiaryAddress=""
@@ -69,6 +72,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+        registryAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         beneficiaryAddress=""
@@ -93,6 +97,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+        registryAddress="0xA"
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -113,6 +118,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xc"
+        registryAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""

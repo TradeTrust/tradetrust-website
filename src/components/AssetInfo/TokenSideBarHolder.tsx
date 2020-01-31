@@ -7,7 +7,7 @@ interface TokenSideBarHolderProps {
   approvedBeneficiaryAddress: string;
   registryAddress?: string;
   newHolder: string;
-  setNewHolder: (e: any) => void;
+  handleInputChange: (e: any) => void;
   transferHoldership: () => void;
   changeBeneficiary: () => void;
   surrenderDocument: () => void;
@@ -17,7 +17,7 @@ const TokenSideBarHolder = ({
   isEqualBeneficiaryAndHolder,
   approvedBeneficiaryAddress,
   registryAddress,
-  setNewHolder,
+  handleInputChange,
   newHolder,
   transferHoldership,
   changeBeneficiary,
@@ -38,7 +38,7 @@ const TokenSideBarHolder = ({
             className={`${css["field-input"]}`}
             name="newHolder"
             value={newHolder}
-            onChange={setNewHolder}
+            onChange={handleInputChange}
             type="text"
             placeholder="Address (e.g. 0x483..)"
           />
@@ -56,9 +56,11 @@ const TokenSideBarHolder = ({
             <input
               className={`${css["field-input"]}`}
               type="text"
+              name="approvedBeneficiary"
+              value={approvedBeneficiaryAddress}
+              onChange={handleInputChange}
               placeholder="Address (e.g. 0x483..)"
-              disabled={!!approvedBeneficiaryAddress}
-              defaultValue={approvedBeneficiaryAddress}
+              disabled={!!approvedBeneficiaryAddress && !isEqualBeneficiaryAndHolder}
             />
           </label>
         </TokenSideBarField>
@@ -77,7 +79,7 @@ const TokenSideBarHolder = ({
               type="text"
               placeholder="Address (e.g. 0x483..)"
               disabled
-              value={registryAddress}
+              defaultValue={registryAddress}
             />
           </label>
         </TokenSideBarField>
