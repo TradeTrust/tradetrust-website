@@ -60,7 +60,7 @@ const TokenSideBarContent = ({
       setActionError(null);
       setTransactionSuccessResponse(null);
       toggleActionLoader(true);
-      const { hash } = await fn(value);
+      const hash = await fn(value);
       trace(`transaction mined hash: ${hash}`);
       setTransactionSuccessResponse({ type: actionType, hash, message: getSuccessResponse(actionType) });
       toggleActionLoader(false);
