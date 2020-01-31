@@ -31,8 +31,9 @@ const TokenSideBarContent = ({
     newHolder: "",
     approvedBeneficiary: approvedBeneficiaryAddress || ""
   });
-
-  trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
+  +trace(
+    `admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`
+  );
   const [showActionLoader, toggleActionLoader] = useState(false);
   const [actionError, setActionError] = useState<{ type: TOKEN_ACTION_TYPES; message: string } | null>(null);
   const [transactionSuccessResponse, setTransactionSuccessResponse] = useState<{

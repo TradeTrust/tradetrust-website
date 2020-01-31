@@ -5,6 +5,7 @@ import TokenSideBar from "./TokenSideBar";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
 import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
+import { FeatureFlag } from "../FeatureFlag";
 
 const getAssetInfo = (document: SignedDocument) => {
   const { tokenRegistry } = getData(document).issuers[0];
@@ -52,25 +53,42 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
   if (!registryAddress) return null;
 
   return (
-    <div>
-      <a
-        href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-        id="asset-info-etherscan-link"
-        rel="noreferrer noopener"
-        target="_blank"
-        onClick={handlerToggleSideBar}
-      >
-        Manage Asset
-      </a>
-      <TokenSideBar
-        adminAddress={adminAddress}
-        holderAddress={holderAddress}
-        beneficiaryAddress={beneficiaryAddress}
-        approvedBeneficiaryAddress={approvedBeneficiaryAddress}
-        registryAddress={registryAddress}
-        handler={handlerToggleSideBar}
-        isSideBarExpand={isSideBarExpand}
+    <>
+      <FeatureFlag
+        name="MANAGE_ASSET"
+        render={() => (
+          <div>
+            <a
+              href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+              id="asset-info-etherscan-link"
+              rel="noreferrer noopener"
+              target="_blank"
+              onClick={handlerToggleSideBar}
+            >
+              Manage Asset
+            </a>
+            <TokenSideBar
+              adminAddress={adminAddress}
+              holderAddress={holderAddress}
+              beneficiaryAddress={beneficiaryAddress}
+              approvedBeneficiaryAddress={approvedBeneficiaryAddress}
+              registryAddress={registryAddress}
+              handler={handlerToggleSideBar}
+              isSideBarExpand={isSideBarExpand}
+            />
+          </div>
+        )}
+        fallback={() => (
+          <a
+            href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+            id="asset-info-etherscan-link"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Manage Asset
+          </a>
+        )}
       />
-    </div>
+    </>
   );
 };

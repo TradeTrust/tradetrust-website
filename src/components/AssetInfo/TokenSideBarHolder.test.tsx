@@ -10,10 +10,11 @@ describe("tokenSideBarHolder", () => {
         approvedBeneficiaryAddress=""
         registryAddress={"0xA"}
         newHolder={"0xB"}
-        setNewHolder={() => {}}
+        handleInputChange={() => {}}
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
+        error={null}
       />
     );
     const inputInstance = wrapper.find("#sec-changebeneficiary input").instance() as any;
@@ -28,10 +29,11 @@ describe("tokenSideBarHolder", () => {
         approvedBeneficiaryAddress="0xC"
         registryAddress={"0xA"}
         newHolder={"0xB"}
-        setNewHolder={() => {}}
+        handleInputChange={() => {}}
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
+        error={null}
       />
     );
 
@@ -47,10 +49,11 @@ describe("tokenSideBarHolder", () => {
         approvedBeneficiaryAddress=""
         registryAddress={"0xA"}
         newHolder={"0xB"}
-        setNewHolder={() => {}}
+        handleInputChange={() => {}}
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
+        error={null}
       />
     );
     expect(wrapper.find("section")).toHaveLength(1);

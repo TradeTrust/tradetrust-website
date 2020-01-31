@@ -84,57 +84,57 @@ $border-color: rgba($color-black, 0.1);
 }
 
 .etherscan-address {
-  margin-bottom: 40px;
-}
-
-.transaction-message {
-  text-align: center;
-  max-width: 240px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 40px;
-}
-
-.success-checked {
-  width: 100px;
-  height: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-  border-radius: 50%;
-  border: solid 2px $success-color;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  svg {
-    stroke: $success-color;
-    stroke-width: 3px;
-    width: 40px;
-    height: 40px;
+    margin-bottom: 40px;
   }
-}
-
-.message {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-.message-success {
-  color: $success-color;
-}
-
-.message-error {
-  color: $danger-color;
-  margin-top: 10px;
-  margin-bottom: 20px;
-
-  p {
-    margin-bottom: 0;
+  
+  .transaction-message {
+    text-align: center;
+    max-width: 240px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
   }
-}
+  
+  .success-checked {
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    border: solid 2px $success-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    svg {
+      stroke: $success-color;
+      stroke-width: 3px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  .message {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  
+  .message-success {
+    color: $success-color;
+  }
+  
+  .message-error {
+    color: $danger-color;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  
+    p {
+      margin-bottom: 0;
+    }
+  }
 
 .hamburger {
   transition: background-color 0.3s $easeOutCubic, box-shadow 0.7s $easeOutCubic;
@@ -204,7 +204,6 @@ $border-color: rgba($color-black, 0.1);
     font-style: italic;
     color: rgba($color-black, 0.5);
   }
-
   &.is-error {
     border-color: $danger-color;
   }
@@ -213,22 +212,23 @@ $border-color: rgba($color-black, 0.1);
 .loader {
   @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $grey-blue, $secondary: $light-grey);
   position: relative;
+  top: 40px;
 }
 
 .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.5); /* dim the background */
-}
-
-.error {
-  color: $danger-color;
-  margin-bottom: 15px;
-}
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5); /* dim the background */
+  }
+  
+  .error {
+    color: $danger-color;
+    margin-bottom: 15px;
+   }
 
 .button {
   @include btn($btn-outline);
