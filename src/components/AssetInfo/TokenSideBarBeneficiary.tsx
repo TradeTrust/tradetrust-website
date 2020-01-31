@@ -13,8 +13,8 @@ interface TokenBeneficiaryInterface {
 const TokenSideBarBeneficiary = ({
   setBeneficiary,
   approvedBeneficiary,
-  approveChangeBeneficiary,
-  error
+  error,
+  approveChangeBeneficiary
 }: TokenBeneficiaryInterface): ReactElement => (
   <TokenSideBarField
     id="sec-approvechangebeneficiary"

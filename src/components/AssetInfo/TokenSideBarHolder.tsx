@@ -49,7 +49,7 @@ const TokenSideBarHolder = ({
           />
         </label>
         {error && error.type === TOKEN_ACTION_TYPES.CHANGE_HOLDER && (
-          <div className={`${css["message"]} ${css["message-error"]}`}>
+          <div className={`${css["message"]} ${css["messageerror"]}`}>
             <p>{error.message}</p>
           </div>
         )}
