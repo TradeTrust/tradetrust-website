@@ -45,7 +45,7 @@ class CertificateSharingForm extends Component {
           <div className="col-2" />
           <div className="col-8">
             <div className="row d-flex justify-content-center">
-              <h4>Send your document</h4>
+              <h4>Send your certificate</h4>
             </div>
             <div className="row text-center">
               This sends an email with your .tt attached, and instructions on how to view it.

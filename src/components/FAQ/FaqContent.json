@@ -40,7 +40,7 @@
       },
       {
         "question": "What does it mean by Signature?",
-        "answer": "In every properly issued TradeTrust document file, there is a hash-based message authentication code which cryptographically certifies that the content of the document has not been altered. If you would like to know more about the technical nitty-gritty of how this works, check out our <a href=\"https://docs.opencerts.io\">technical documentation</a>."
+        "answer": "In every properly issued TradeTrust certificate file, there is a hash-based message authentication code which cryptographically certifies that the content of the document has not been altered. If you would like to know more about the technical nitty-gritty of how this works, check out our <a href=\"https://docs.opencerts.io\">technical documentation</a>."
       }
     ]
   },
@@ -50,7 +50,7 @@
     "faq": [
       {
         "question": "What does it mean by Unascertained Issuer?",
-        "answer": "TradeTrust has to maintain a list of identified issuing institutes in order to detect fraudulent issuing institutes masquerading as legitimate ones. At this point in time, it is not unlikely that a legitimate issuing institute is not on our list of recognised institutions. If you are sure that your document is from a legitimate issuer, contact the institute directly."
+        "answer": "TradeTrust has to maintain a list of identified issuing institutes in order to detect fraudulent issuing institutes masquerading as legitimate ones. At this point in time, it is not unlikely that a legitimate issuing institute is not on our list of recognised institutions. If you are sure that your certificate is from a legitimate issuer, contact the institute directly."
       },
       {
         "question": "What does it mean by Ethereum Blockchain?",
@@ -62,7 +62,7 @@
       },
       {
         "question": "Is this safe to use? Can't anyone just copy my document file and pass off as me?",
-        "answer": "Yes, the document file can trivially be duplicated. However, the recipient's name in the document cannot be altered without failing our verification process. Thus it is extremely important that the person doing the verification ensures that the recipient indicated in the document is actually the entity presenting the document. For more advanced institutions, there is the possibility of using Distributed IDs to associate the document recipient's public key for further authentication using public/private key signing in the future."
+        "answer": "Yes, the document file can trivially be duplicated. However, the recipient's name in the document cannot be altered without failing our verification process. Thus it is extremely important that the person doing the verification ensures that the recipient indicated in the document is actually the entity presenting the document. For more advanced institutions, there is the possibility of using Distributed IDs to associate the certificate recipient's public key for further authentication using public/private key signing in the future."
       }
     ]
   }

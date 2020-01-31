@@ -7,7 +7,7 @@ const HowItWorks = () => {
     {
       key: "onetwo",
       text:
-        "When a TradeTrust document is created, a unique digital code is tagged to it. This code, together with condensed information from the document, is stored on the blockchain."
+        "When a TradeTrust certificate is created, a unique digital code is tagged to it. This code, together with condensed information from the document, is stored on the blockchain."
     },
     {
       key: "three",
