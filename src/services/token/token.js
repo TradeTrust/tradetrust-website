@@ -2,7 +2,6 @@ import { ReadOnlyToken, WriteableToken } from "@govtechsg/oa-token";
 import { getData } from "@govtechsg/open-attestation";
 import { get } from "lodash";
 import { getLogger } from "../../utils/logger";
-
 const { trace } = getLogger("saga:tokenService");
 
 let writeableTokenInstance;
@@ -47,11 +46,9 @@ export const changeHolder = async newHolder => {
   trace(`new holder address: ${newHolder}`);
   return await tokenOwnerInstance.changeHolder(newHolder);
 };
-
 export const endorseBeneficiaryTransfer = async newBeneficiary => {
   trace(`new beneficiary address: ${newBeneficiary}`);
   return await tokenOwnerInstance.transferTo(newBeneficiary);
 };
-
 export const endorseTransfer = async newBeneficiary => await tokenOwnerInstance.endorseTransfer(newBeneficiary);
 export const surrenderToken = async () => await writeableTokenInstance.surrender();

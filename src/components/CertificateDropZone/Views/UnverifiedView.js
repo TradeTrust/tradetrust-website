@@ -39,7 +39,7 @@ const View = ({ resetData, verificationStatus }) => (
     <span className={css["message-container"]}>
       <img src="/static/images/dropzone/invalid.svg" />
       <span className="invalid m-3" style={{ fontSize: "1.5rem" }}>
-        This certificate is not valid
+        This document is not valid
       </span>
     </span>
 

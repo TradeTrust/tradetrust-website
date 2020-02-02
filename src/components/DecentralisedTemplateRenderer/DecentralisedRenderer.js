@@ -78,7 +78,7 @@ class DecentralisedRenderer extends Component {
   render() {
     return (
       <iframe
-        title="Decentralised Rendered Certificate"
+        title="Decentralised Rendered Document"
         id="iframe"
         ref={iframe => {
           this.iframe = iframe;
@@ -101,10 +101,7 @@ const mapDispatchToProps = dispatch => ({
   selectTemplateTab: tabIndex => dispatch(selectTemplateTabAction(tabIndex))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DecentralisedRenderer);
+export default connect(mapStateToProps, mapDispatchToProps)(DecentralisedRenderer);
 
 DecentralisedRenderer.propTypes = {
   document: PropTypes.object,

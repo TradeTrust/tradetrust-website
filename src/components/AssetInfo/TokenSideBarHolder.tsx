@@ -98,7 +98,7 @@ const TokenSideBarHolder = ({
               type="text"
               placeholder="Address (e.g. 0x483..)"
               disabled
-              value={registryAddress}
+              defaultValue={registryAddress}
             />
           </label>
           {error && error.type === TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT && (

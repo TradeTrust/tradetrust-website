@@ -41,7 +41,7 @@ const MobileDemoCertificate = () => (
         cursor: "pointer"
       }}
     >
-      Click me for a demo certificate!
+      Click me for a demo document!
     </a>
   </div>
 );
@@ -100,7 +100,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   updateCertificate: (payload: any) => dispatch(updateCertificate(payload))
 });
 
-export const DropZoneSectionContainer = connect(
-  null,
-  mapDispatchToProps
-)(DropZoneSection);
+export const DropZoneSectionContainer = connect(null, mapDispatchToProps)(DropZoneSection);
