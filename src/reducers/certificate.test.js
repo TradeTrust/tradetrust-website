@@ -120,7 +120,10 @@ describe("actions", () => {
     ];
     const expectedAction = {
       type: "CERTIFICATE_TEMPLATE_REGISTER",
-      payload: [{ id: "certificate", label: "Certificate" }, { id: "transcript", label: "Transcript" }]
+      payload: [
+        { id: "certificate", label: "Certificate" },
+        { id: "transcript", label: "Transcript" }
+      ]
     };
     expect(fn(payload)).toStrictEqual(expectedAction);
   });

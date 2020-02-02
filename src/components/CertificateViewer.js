@@ -97,10 +97,7 @@ const mapDispatchToProps = dispatch => ({
   selectTemplateTab: tabIndex => dispatch(selectTemplateTabAction(tabIndex))
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(CertificateViewer);
+export default connect(null, mapDispatchToProps)(CertificateViewer);
 
 CertificateViewer.propTypes = {
   detailedVerifyVisible: PropTypes.bool,

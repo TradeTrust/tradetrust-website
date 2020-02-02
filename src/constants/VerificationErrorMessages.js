@@ -7,25 +7,25 @@ export const TYPES = {
 
 export const MESSAGES = {
   [TYPES.REVOKED]: {
-    failureTitle: "Certificate revoked",
-    successTitle: "Certificate has not been revoked",
+    failureTitle: "Document revoked",
+    successTitle: "Document has not been revoked",
     failureMessage:
-      "This certificate has been revoked by your issuing institution. Please contact your issuing institution for more details."
+      "This document has been revoked by your issuing institution. Please contact your issuing institution for more details."
   },
   [TYPES.ISSUED]: {
-    failureTitle: "Certificate not issued",
-    successTitle: "Certificate has been issued",
+    failureTitle: "Document not issued",
+    successTitle: "Document has been issued",
     failureMessage:
-      "This certificate cannot be found. Please contact your issuing institution for help or issue the certificate before trying again."
+      "This document cannot be found. Please contact your issuing institution for help or issue the document before trying again."
   },
   [TYPES.HASH]: {
-    failureTitle: "Certificate has been tampered with",
-    successTitle: "Certificate has not been tampered with",
-    failureMessage: "The contents of this certificate are inaccurate and have been tampered with."
+    failureTitle: "Document has been tampered with",
+    successTitle: "Document has not been tampered with",
+    failureMessage: "The contents of this document are inaccurate and have been tampered with."
   },
   [TYPES.IDENTITY]: {
-    failureTitle: "Certificate issuer identity is invalid",
-    successTitle: "Certificate issuer has been identified",
-    failureMessage: "This certificate was issued by an invalid issuer."
+    failureTitle: "Document issuer identity is invalid",
+    successTitle: "Document issuer has been identified",
+    failureMessage: "This document was issued by an invalid issuer."
   }
 };
