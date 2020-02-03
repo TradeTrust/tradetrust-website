@@ -1,4 +1,5 @@
 import React from "react";
+import TokenSideBarTooltip from "./TokenSideBarTooltip";
 import css from "./TokenSideBar.scss";
 
 interface TokenSideBarFieldProps {
@@ -6,16 +7,30 @@ interface TokenSideBarFieldProps {
   title: string;
   label: string;
   status?: string;
+  isEndorseChangeOfBeneAwaiting?: boolean;
   children?: React.ReactNode;
   handleClick: (e: any) => void;
 }
 
-const TokenSideBarField = ({ id, title, label, status, children, handleClick }: TokenSideBarFieldProps) => {
+const TokenSideBarField = ({
+  id,
+  title,
+  label,
+  status,
+  isEndorseChangeOfBeneAwaiting,
+  children,
+  handleClick
+}: TokenSideBarFieldProps) => {
   return (
-    <section id={id} className={`${css.sec}`}>
+    <section id={`sec-${id}`} className={`${css.sec}`}>
       <div className="row">
         <div className="col-12">
-          <h4>{title}</h4>
+          <div className={`${css["field-title"]}`}>
+            <h4>{title}</h4>
+            <div className={`${css["field-tooltip"]}`}>
+              <TokenSideBarTooltip id={id} isEndorseChangeOfBeneAwaiting={isEndorseChangeOfBeneAwaiting} />
+            </div>
+          </div>
           <div className={`${css.field}`}>{children}</div>
           <button
             className={`${css.button} ${
