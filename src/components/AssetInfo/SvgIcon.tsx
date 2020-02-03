@@ -3,7 +3,7 @@ import React, { ReactElement } from "react";
 interface SvgIconProps {
   className: string;
   children: ReactElement;
-  handler?: ((event: any) => void) | undefined;
+  handler?: (event: any) => void;
 }
 
 export const SvgIcon = ({ className, children, handler }: SvgIconProps): ReactElement => (
