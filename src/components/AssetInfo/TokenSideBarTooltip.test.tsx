@@ -19,15 +19,6 @@ describe("tokenSideBarTooltip", () => {
     expect(wrapper.find(".feather-info")).toHaveLength(1);
   });
 
-  it("should show the 2 correct alert tooltip for Change Beneficiary with awaiting endorsement", () => {
-    const wrapper = mount(<TokenSideBarTooltip id="changebeneficiary" isEndorseChangeOfBeneAwaiting={true} />);
-    expect(wrapper.find("#tooltip-changebeneficiary p").text()).toStrictEqual(
-      "Giving up legal ownserhip of the goods to the endorsed beneficiary indicated in Bill of Lading."
-    );
-    expect(wrapper.find("#tooltip-alert p").text()).toStrictEqual("Endorsement awaiting");
-    expect(wrapper.find(".feather")).toHaveLength(2);
-  });
-
   it("should show the 1 correct tooltip for Surrender Document", () => {
     const wrapper = mount(<TokenSideBarTooltip id="surrenderdocument" />);
     expect(wrapper.find("p").text()).toStrictEqual("Return this Bill of Lading to the Shipping Line.");

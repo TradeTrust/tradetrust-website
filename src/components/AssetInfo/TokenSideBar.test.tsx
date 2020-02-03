@@ -7,7 +7,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress=""
-        registryAddress=""
+        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress=""
@@ -23,7 +23,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress=""
+        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress="0xA"
@@ -51,7 +51,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress=""
+        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
@@ -72,7 +72,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress=""
+        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
@@ -88,8 +88,8 @@ describe("tokenSideBar", () => {
     expect(wrapper.find("#sec-transferholdership h4").text()).toStrictEqual("Transfer Holdership");
     expect(wrapper.find("#sec-transferholdership button").text()).toStrictEqual("Transfer");
 
-    expect(wrapper.find("#sec-changebeneficiary h4").text()).toStrictEqual("Approve Endorsed Beneficiary");
-    expect(wrapper.find("#sec-changebeneficiary button").text()).toStrictEqual("Approve");
+    expect(wrapper.find("#sec-changebeneficiary h4").text()).toStrictEqual("Change Beneficiary");
+    expect(wrapper.find("#sec-changebeneficiary button").text()).toStrictEqual("Change");
   });
 
   // admin address === bene
@@ -97,7 +97,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress=""
+        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress="0xA"
@@ -118,7 +118,7 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress=""
+        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress="0xC"
         beneficiaryAddress=""

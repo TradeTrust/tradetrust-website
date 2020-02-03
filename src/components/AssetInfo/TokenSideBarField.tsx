@@ -7,20 +7,11 @@ interface TokenSideBarFieldProps {
   title: string;
   label: string;
   status?: string;
-  isEndorseChangeOfBeneAwaiting?: boolean;
   children?: React.ReactNode;
   handleClick: (e: any) => void;
 }
 
-const TokenSideBarField = ({
-  id,
-  title,
-  label,
-  status,
-  isEndorseChangeOfBeneAwaiting,
-  children,
-  handleClick
-}: TokenSideBarFieldProps) => {
+const TokenSideBarField = ({ id, title, label, status, children, handleClick }: TokenSideBarFieldProps) => {
   return (
     <section id={`sec-${id}`} className={`${css.sec}`}>
       <div className="row">
@@ -28,7 +19,7 @@ const TokenSideBarField = ({
           <div className={`${css["field-title"]}`}>
             <h4>{title}</h4>
             <div className={`${css["field-tooltip"]}`}>
-              <TokenSideBarTooltip id={id} isEndorseChangeOfBeneAwaiting={isEndorseChangeOfBeneAwaiting} />
+              <TokenSideBarTooltip id={id} />
             </div>
           </div>
           <div className={`${css.field}`}>{children}</div>

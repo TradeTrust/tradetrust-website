@@ -24,7 +24,7 @@ const TokenSideBarHolder = ({
   surrenderDocument
 }: TokenSideBarHolderProps) => {
   const showChangeBeneficiary = !!approvedBeneficiaryAddress || isEqualBeneficiaryAndHolder;
-  const isEndorseChangeOfBeneAwaiting = !!approvedBeneficiaryAddress && !isEqualBeneficiaryAndHolder;
+  const isEndorseChangeOfBeneficiaryAwaiting = !!approvedBeneficiaryAddress && !isEqualBeneficiaryAndHolder;
 
   return (
     <>
@@ -48,10 +48,9 @@ const TokenSideBarHolder = ({
       {showChangeBeneficiary && (
         <TokenSideBarField
           id="changebeneficiary"
-          title={isEndorseChangeOfBeneAwaiting ? "Approve Endorsed Beneficiary" : "Change Beneficiary"}
-          label={isEndorseChangeOfBeneAwaiting ? "Approve" : "Change"}
+          title="Change Beneficiary"
+          label="Change"
           status="success"
-          isEndorseChangeOfBeneAwaiting={isEndorseChangeOfBeneAwaiting}
           handleClick={changeBeneficiary}
         >
           <label>
@@ -62,7 +61,7 @@ const TokenSideBarHolder = ({
               value={approvedBeneficiaryAddress}
               onChange={handleInputChange}
               placeholder="Address (e.g. 0x483..)"
-              disabled={isEndorseChangeOfBeneAwaiting}
+              disabled={isEndorseChangeOfBeneficiaryAwaiting}
             />
           </label>
         </TokenSideBarField>

@@ -5,7 +5,7 @@ import { SvgIcon } from "./SvgIcon";
 describe("svgIcon", () => {
   it("should has feather css class ", () => {
     const wrapper = mount(
-      <SvgIcon className="">
+      <SvgIcon cssClass="">
         <></>
       </SvgIcon>
     );
