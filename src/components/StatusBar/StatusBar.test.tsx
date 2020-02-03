@@ -11,6 +11,12 @@ jest.mock("../../services/token", () => ({
   getTokenOwner: jest.fn()
 }));
 
+jest.mock("react-redux", () => ({
+  useSelector: () => ({
+    token: { beneficiaryAddress: "", holderAddress: "" }
+  })
+}));
+
 const mockedGetTokenOwner = getTokenOwner as jest.Mock;
 
 describe("StatusBar", () => {
@@ -24,7 +30,7 @@ describe("StatusBar", () => {
     });
     wrapper.setProps({});
     expect(wrapper.find(".statusbar-title").text()).toStrictEqual("The document is a transferable record.");
-    expect(wrapper.find("a").prop("href")).toStrictEqual(
+    expect(wrapper.find(".statusbar-dropdown a").prop("href")).toStrictEqual(
       `https://ropsten.etherscan.io/token/${tokenRegistry}?a=${tokenIdDecimal}`
     );
   });

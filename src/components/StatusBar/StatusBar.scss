@@ -53,9 +53,13 @@
 }
 
 .statusbar-address {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   &:last-of-type {
     margin-bottom: 0;
   }
+}
+
+.statusbar-address-text {
+  margin-bottom: 0;
 }
