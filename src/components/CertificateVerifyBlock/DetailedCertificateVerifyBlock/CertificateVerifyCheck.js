@@ -7,7 +7,7 @@ const SuccessIcon = () => <i className="fas fa-check text-success mr-2" />;
 const FailureIcon = () => <i className="fas fa-times text-danger mr-2" />;
 
 const CheckStatusRow = ({ message, icon }) => (
-  <div className="row">
+  <div className="row align-items-center">
     <div className="col-2">{icon}</div>
     <div className="col-10">
       <div className="row">{message}</div>

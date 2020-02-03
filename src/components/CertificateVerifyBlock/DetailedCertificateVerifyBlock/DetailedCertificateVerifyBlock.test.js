@@ -2,14 +2,10 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 import DetailedCertificateVerifyBlock from ".";
-import ROPSTEN from "../../HomePageContent/Ropsten-Demo.json";
 import sampleToken from "../../../test/fixture/sample-token.json";
-import { getTokenOwner } from "../../../services/token";
 
 jest.mock("../../../services/token", () => ({
-  ...jest.requireActual("../../../services/token"),
-  getTokenOwner: jest.fn(),
-  initializeToken: jest.fn()
+  ...jest.requireActual("../../../services/token")
 }));
 
 describe("detailedCertificateVerifyBlock", () => {
@@ -23,34 +19,6 @@ describe("detailedCertificateVerifyBlock", () => {
     });
     wrapper.setProps();
     expect(wrapper.find("h5").text()).toStrictEqual("Details");
-    expect(wrapper.find("TokenVerifyBlock")).toHaveLength(1);
     expect(wrapper.find("CertificateVerifyCheck")).toHaveLength(1);
-  });
-
-  it("doesnt render TokenVerifyBlock if document is not token", async () => {
-    let wrapper;
-    await act(async () => {
-      wrapper = mount(<DetailedCertificateVerifyBlock verificationStatus={{ valid: true }} document={ROPSTEN} />);
-    });
-    wrapper.setProps();
-    expect(wrapper.find("TokenVerifyBlock")).toHaveLength(0);
-    expect(wrapper.find("CertificateVerifyCheck")).toHaveLength(1);
-  });
-
-  it("should throw  error if can not fetch owner", async () => {
-    getTokenOwner.mockImplementation(() => {
-      throw new Error("owner error");
-    });
-    let wrapper;
-    await act(async () => {
-      wrapper = mount(<DetailedCertificateVerifyBlock verificationStatus={{ valid: true }} document={sampleToken} />);
-    });
-    wrapper.setProps();
-    expect(
-      wrapper
-        .find(".text-danger")
-        .at(0)
-        .text()
-    ).toStrictEqual("owner error");
   });
 });
