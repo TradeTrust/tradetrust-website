@@ -18,6 +18,12 @@ interface TokenSideBarHolderProps {
   error: ErrorType | null;
 }
 
+const isChangeHolderError = (error: any): error is ErrorType => error?.type === TOKEN_ACTION_TYPES.CHANGE_HOLDER;
+const isChangeBeneficiaryError = (error: any): error is ErrorType =>
+  error?.type === TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY;
+const isSurrenderDocumentError = (error: any): error is ErrorType =>
+  error?.type === TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT;
+
 const TokenSideBarHolder = ({
   isEqualBeneficiaryAndHolder,
   approvedBeneficiaryAddress,
@@ -30,11 +36,6 @@ const TokenSideBarHolder = ({
   error
 }: TokenSideBarHolderProps) => {
   const showChangeBeneficiary = !!approvedBeneficiaryAddress || isEqualBeneficiaryAndHolder;
-  const isChangeHolderError = (error: any): error is ErrorType => error?.type === TOKEN_ACTION_TYPES.CHANGE_HOLDER;
-  const isChangeBeneficiaryError = (error: any): error is ErrorType =>
-    error?.type === TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY;
-  const isSurrenderDocumentError = (error: any): error is ErrorType =>
-    error?.type === TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT;
   const isApprovedBeneficiaryAddress = !!approvedBeneficiaryAddress && !isEqualBeneficiaryAndHolder;
 
   return (

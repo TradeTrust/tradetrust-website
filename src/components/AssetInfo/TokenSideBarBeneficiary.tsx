@@ -13,35 +13,34 @@ interface TokenBeneficiaryInterface {
   approveChangeBeneficiary: () => void;
 }
 
+const isEndorseBeneficiaryError = (error: any): error is ErrorType =>
+  error?.type === TOKEN_ACTION_TYPES.ENDORSE_BENEFICIARY;
+
 const TokenSideBarBeneficiary = ({
   setBeneficiary,
   approvedBeneficiary,
   approveChangeBeneficiary,
   error
-}: TokenBeneficiaryInterface): ReactElement => {
-  const isEndorseBeneficiaryError = (error: any): error is ErrorType =>
-    error?.type === TOKEN_ACTION_TYPES.ENDORSE_BENEFICIARY;
-  return (
-    <TokenSideBarField
-      id="approvechangebeneficiary"
-      title="Endorse Change of Beneficiary"
-      label="Endorse"
-      status="success"
-      handleClick={approveChangeBeneficiary}
-    >
-      <label>
-        <input
-          className={`${css["field-input"]} ${isEndorseBeneficiaryError(error) ? css["is-error"] : ""}`}
-          type="text"
-          placeholder="Address (e.g. 0x483..)"
-          name="approvedBeneficiary"
-          value={approvedBeneficiary}
-          onChange={setBeneficiary}
-        />
-      </label>
-      {isEndorseBeneficiaryError(error) && <TokenErrorMessage errorMessage={error.message} />}
-    </TokenSideBarField>
-  );
-};
+}: TokenBeneficiaryInterface): ReactElement => (
+  <TokenSideBarField
+    id="approvechangebeneficiary"
+    title="Endorse Change of Beneficiary"
+    label="Endorse"
+    status="success"
+    handleClick={approveChangeBeneficiary}
+  >
+    <label>
+      <input
+        className={`${css["field-input"]} ${isEndorseBeneficiaryError(error) ? css["is-error"] : ""}`}
+        type="text"
+        placeholder="Address (e.g. 0x483..)"
+        name="approvedBeneficiary"
+        value={approvedBeneficiary}
+        onChange={setBeneficiary}
+      />
+    </label>
+    {isEndorseBeneficiaryError(error) && <TokenErrorMessage errorMessage={error.message} />}
+  </TokenSideBarField>
+);
 
 export default TokenSideBarBeneficiary;
