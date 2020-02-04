@@ -38,63 +38,59 @@ const StatusBar = ({ document }: StatusBarProps) => {
   if (!isToken) return null;
 
   return (
-    <>
-      {isToken && (
-        <div className={css.statusbar}>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-auto ml-auto mr-auto">
-                {tokenError ? (
-                  <h3 className={css["statusbar-title"]}>{tokenError}</h3>
-                ) : (
-                  <div className={`dropdown ${css["statusbar-dropdown"]}`}>
-                    <div
-                      className={`dropdown-toggle ${css["statusbar-dropdown-toggle"]}`}
-                      id="dropdownMenuAddresses"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
+    <div className={css.statusbar}>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-auto ml-auto mr-auto">
+            {tokenError ? (
+              <h3 className={css["statusbar-title"]}>{tokenError}</h3>
+            ) : (
+              <div className={`dropdown ${css["statusbar-dropdown"]}`}>
+                <div
+                  className={`dropdown-toggle ${css["statusbar-dropdown-toggle"]}`}
+                  id="dropdownMenuAddresses"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <h3 className={css["statusbar-title"]}>
+                    The document is a <b>transferable</b> record.
+                  </h3>
+                </div>
+                <div
+                  className={`dropdown-menu ${css["statusbar-dropdown-menu"]}`}
+                  aria-labelledby="dropdownMenuAddresses"
+                >
+                  <div className={css["statusbar-address"]}>
+                    <h6>Token Address:</h6>
+                    <a
+                      href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+                      id="token-owner-etherscan-link"
+                      rel="noreferrer noopener"
+                      target="_blank"
                     >
-                      <h3 className={css["statusbar-title"]}>
-                        The document is a <b>transferable</b> record.
-                      </h3>
-                    </div>
-                    <div
-                      className={`dropdown-menu ${css["statusbar-dropdown-menu"]}`}
-                      aria-labelledby="dropdownMenuAddresses"
-                    >
-                      <div className={css["statusbar-address"]}>
-                        <h6>Token Address:</h6>
-                        <a
-                          href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-                          id="token-owner-etherscan-link"
-                          rel="noreferrer noopener"
-                          target="_blank"
-                        >
-                          {tokenOwner}
-                        </a>
-                      </div>
-                      {holderAddress && (
-                        <div className={css["statusbar-address"]}>
-                          <h6>Holder Address:</h6>
-                          <p className={css["statusbar-address-text"]}>{holderAddress}</p>
-                        </div>
-                      )}
-                      {beneficiaryAddress && (
-                        <div className={css["statusbar-address"]}>
-                          <h6>Beneficiary Address:</h6>
-                          <p className={css["statusbar-address-text"]}>{beneficiaryAddress}</p>
-                        </div>
-                      )}
-                    </div>
+                      {tokenOwner}
+                    </a>
                   </div>
-                )}
+                  {holderAddress && (
+                    <div className={css["statusbar-address"]}>
+                      <h6>Holder Address:</h6>
+                      <p className={css["statusbar-address-text"]}>{holderAddress}</p>
+                    </div>
+                  )}
+                  {beneficiaryAddress && (
+                    <div className={css["statusbar-address"]}>
+                      <h6>Beneficiary Address:</h6>
+                      <p className={css["statusbar-address-text"]}>{beneficiaryAddress}</p>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 };
 
