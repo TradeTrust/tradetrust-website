@@ -1,6 +1,10 @@
 import React from "react";
 import css from "./TokenSideBar.scss";
 import TokenSideBarField from "./TokenSideBarField";
+import { TOKEN_ACTION_TYPES } from "./util";
+import { TokenErrorMessage } from "./TokenErrorMessage";
+
+type ErrorType = { type: TOKEN_ACTION_TYPES; message: string };
 
 interface TokenSideBarHolderProps {
   isEqualBeneficiaryAndHolder: boolean;
@@ -11,7 +15,14 @@ interface TokenSideBarHolderProps {
   transferHoldership: () => void;
   changeBeneficiary: () => void;
   surrenderDocument: () => void;
+  error: ErrorType | null;
 }
+
+const isChangeHolderError = (error: any): error is ErrorType => error?.type === TOKEN_ACTION_TYPES.CHANGE_HOLDER;
+const isChangeBeneficiaryError = (error: any): error is ErrorType =>
+  error?.type === TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY;
+const isSurrenderDocumentError = (error: any): error is ErrorType =>
+  error?.type === TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT;
 
 const TokenSideBarHolder = ({
   isEqualBeneficiaryAndHolder,
@@ -21,7 +32,8 @@ const TokenSideBarHolder = ({
   newHolder,
   transferHoldership,
   changeBeneficiary,
-  surrenderDocument
+  surrenderDocument,
+  error
 }: TokenSideBarHolderProps) => {
   const showChangeBeneficiary = !!approvedBeneficiaryAddress || isEqualBeneficiaryAndHolder;
   const isApprovedBeneficiaryAddress = !!approvedBeneficiaryAddress && !isEqualBeneficiaryAndHolder;
@@ -36,7 +48,7 @@ const TokenSideBarHolder = ({
       >
         <label>
           <input
-            className={`${css["field-input"]}`}
+            className={`${css["field-input"]} ${isChangeHolderError(error) ? css["is-error"] : ""}`}
             name="newHolder"
             value={newHolder}
             onChange={handleInputChange}
@@ -44,6 +56,7 @@ const TokenSideBarHolder = ({
             placeholder="Address (e.g. 0x483..)"
           />
         </label>
+        {isChangeHolderError(error) && <TokenErrorMessage errorMessage={error.message} />}
       </TokenSideBarField>
       {showChangeBeneficiary && (
         <TokenSideBarField
@@ -55,7 +68,7 @@ const TokenSideBarHolder = ({
         >
           <label>
             <input
-              className={`${css["field-input"]}`}
+              className={`${css["field-input"]} ${isChangeBeneficiaryError(error) ? css["is-error"] : ""}`}
               type="text"
               name="approvedBeneficiary"
               value={approvedBeneficiaryAddress}
@@ -64,6 +77,7 @@ const TokenSideBarHolder = ({
               disabled={isApprovedBeneficiaryAddress}
             />
           </label>
+          {isChangeBeneficiaryError(error) && <TokenErrorMessage errorMessage={error.message} />}
         </TokenSideBarField>
       )}
       {isEqualBeneficiaryAndHolder && (
@@ -76,13 +90,14 @@ const TokenSideBarHolder = ({
         >
           <label>
             <input
-              className={`${css["field-input"]}`}
+              className={`${css["field-input"]} ${isSurrenderDocumentError(error) ? css["is-error"] : ""}`}
               type="text"
               placeholder="Address (e.g. 0x483..)"
               disabled
               defaultValue={registryAddress}
             />
           </label>
+          {isSurrenderDocumentError(error) && <TokenErrorMessage errorMessage={error.message} />}
         </TokenSideBarField>
       )}
     </>

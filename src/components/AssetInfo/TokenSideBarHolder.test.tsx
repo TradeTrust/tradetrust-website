@@ -14,6 +14,7 @@ describe("tokenSideBarHolder", () => {
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
+        error={null}
       />
     );
     const inputInstance = wrapper.find("#sec-changebeneficiary input").instance() as any;
@@ -32,6 +33,7 @@ describe("tokenSideBarHolder", () => {
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
+        error={null}
       />
     );
 
@@ -51,6 +53,7 @@ describe("tokenSideBarHolder", () => {
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
+        error={null}
       />
     );
     expect(wrapper.find("section")).toHaveLength(1);
