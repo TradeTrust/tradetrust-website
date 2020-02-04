@@ -93,7 +93,7 @@ const TokenSideBarHolder = ({
               type="text"
               placeholder="Address (e.g. 0x483..)"
               disabled
-              value={registryAddress}
+              defaultValue={registryAddress}
             />
           </label>
           {isSurrenderDocumentError(error) && <TokenErrorMessage errorMessage={error.message} />}
