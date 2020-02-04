@@ -4,7 +4,9 @@ import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
 
 describe("tokenSideBarBeneficiary", () => {
   it("should have 1 field for Beneficiary", () => {
-    const wrapper = mount(<TokenSideBarBeneficiary />);
+    const wrapper = mount(
+      <TokenSideBarBeneficiary setBeneficiary={() => {}} approvedBeneficiary="" approveChangeBeneficiary={() => {}} />
+    );
     expect(wrapper.find("section")).toHaveLength(1);
   });
 });
