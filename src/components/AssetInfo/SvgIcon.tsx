@@ -1,13 +1,16 @@
 import React, { ReactElement } from "react";
 
 interface SvgIconProps {
-  className: string;
+  tooltipId?: string;
+  cssClass: string;
   children: ReactElement;
-  handler?: ((event: any) => void) | undefined;
+  handler?: (event: any) => void;
 }
 
-export const SvgIcon = ({ className, children, handler }: SvgIconProps): ReactElement => (
+export const SvgIcon = ({ tooltipId, cssClass, children, handler }: SvgIconProps): ReactElement => (
   <svg
+    data-tip
+    data-for={`tooltip-${tooltipId}`}
     onClick={handler}
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -18,7 +21,7 @@ export const SvgIcon = ({ className, children, handler }: SvgIconProps): ReactEl
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={`feather ${className}`}
+    className={`feather ${cssClass}`}
   >
     {children}
   </svg>

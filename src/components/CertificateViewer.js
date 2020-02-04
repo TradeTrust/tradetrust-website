@@ -13,6 +13,7 @@ import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { AssetInfo } from "./AssetInfo";
+import StatusBar from "./StatusBar/StatusBar";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
@@ -70,6 +71,7 @@ const CertificateViewer = props => {
 
   const validCertificateContent = (
     <div>
+      <StatusBar document={document} />
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>

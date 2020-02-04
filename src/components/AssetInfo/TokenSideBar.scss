@@ -12,8 +12,12 @@ $border-color: rgba($color-black, 0.1);
   right: 0;
   height: 100vh;
   width: 100%;
-  max-width: 360px;
+  max-width: 340px;
   transform: translateX(100%);
+
+  @media only screen and (min-width: 992px) {
+    max-width: 380px;
+  }
 
   &.is-expanded {
     transform: translateX(0%);
@@ -184,6 +188,64 @@ $border-color: rgba($color-black, 0.1);
 
   &:last-child {
     margin-bottom: 0;
+  }
+}
+
+.field-title {
+  margin-bottom: 8px;
+
+  h4 {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    margin-bottom: 0;
+    margin-right: 8px;
+  }
+
+  p {
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .field-tooltip {
+    display: inline-block;
+
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+      width: 16px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    [data-id="tooltip"] {
+      padding: 8px 12px;
+      max-width: 240px;
+
+      &[id="tooltip-alert"] {
+        padding: 4px 8px;
+        background-color: $warning-color;
+
+        p {
+          text-transform: uppercase;
+          text-align: center;
+          font-weight: 700;
+          letter-spacing: 0.03em;
+        }
+
+        &::after {
+          border-bottom-color: $warning-color;
+        }
+      }
+    }
+
+    [data-for="tooltip-alert"] {
+      path,
+      line {
+        color: $warning-color;
+      }
+    }
   }
 }
 
