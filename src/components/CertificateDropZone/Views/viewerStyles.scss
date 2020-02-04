@@ -1,13 +1,17 @@
 @import "../../../styles/main.scss";
 
 .viewer-container {
-  text-align: center !important;
+  text-align: center;
   padding: 1.5rem;
-  height: 100%;
-  justify-content: center !important;
-  flex-direction: column !important;
-  display: flex !important;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
   border-radius: 10px;
+  min-height: 400px;
+
+  @media only screen and (min-width: $lg) {
+    min-height: 600px;
+  }
 
   &.default {
     background-color: $faint-blue;

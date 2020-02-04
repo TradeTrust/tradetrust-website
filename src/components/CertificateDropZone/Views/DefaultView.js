@@ -9,7 +9,6 @@ const View = ({ hover, accept, toggleQrReaderVisible }) => (
       // eslint-disable-next-line no-nested-ternary
       hover ? (accept ? css.accept : css.invalid) : css.default
     }`}
-    style={{ borderRadius: 10 }}
   >
     <div className={css["image-container"]}>
       <i>
