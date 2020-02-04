@@ -7,6 +7,10 @@
   z-index: 100;
   box-shadow: 2px 2px 4px 0 $grey-blue;
   position: absolute;
+
+  h5 {
+    padding-bottom: 0;
+  }
 }
 
 .detailed-certificate-block :global(.col-10) {

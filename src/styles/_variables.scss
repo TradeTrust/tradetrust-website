@@ -2,6 +2,20 @@
 // Variables
 // =====================================================================
 
+// bootstrap 4.3.1 (variables)
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$sm: map-get($grid-breakpoints, "sm");
+$md: map-get($grid-breakpoints, "md");
+$lg: map-get($grid-breakpoints, "lg");
+$xl: map-get($grid-breakpoints, "xl");
+
 $brand-blue: #0099cc;
 $brand-orange: #ff9933;
 $light-grey: #e5e5e5;
@@ -10,6 +24,7 @@ $brand-dark: #324353;
 $faint-blue: #f5f8fb;
 $faint-green: #f5fbf7;
 $dark-red: #8b0000;
+$color-red-lighter: #fbeae9;
 $color-white: #ffffff;
 $color-black: #000000;
 
@@ -22,7 +37,6 @@ $warning-background: #fff9e8;
 $danger-color: #c12323;
 $invalid-color: #e46767;
 $invalid-background: #fbebe7;
-$danger-color: #c12323;
 
 $btn-outline: $brand-dark;
 $round-btn-outline: $brand-dark;
