@@ -35,6 +35,8 @@ const StatusBar = ({ document }: StatusBarProps) => {
     if (isToken) fetchTokenOwner();
   }, [document, isToken]);
 
+  if (!isToken) return null;
+
   return (
     <>
       {isToken && (
