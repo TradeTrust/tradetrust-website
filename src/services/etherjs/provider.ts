@@ -2,9 +2,13 @@ import { ethers, providers } from "ethers";
 import { getLogger } from "../../utils/logger";
 const { trace } = getLogger("service:etherjs:provider");
 
+interface Ethereum extends providers.Web3Provider {
+  enable: () => void;
+}
+
 declare global {
   interface Window {
-    ethereum: providers.Web3Provider;
+    ethereum: Ethereum;
     web3: {
       currentProvider: providers.Web3Provider;
     };
@@ -21,4 +25,9 @@ export const getProvider = (): { provider: providers.JsonRpcProvider; signer: et
   const signer = provider.getSigner();
   trace(`provider is ${provider} and signer is ${signer}`);
   return { provider, signer };
+};
+
+export const connectToMetamask = async () => {
+  const { ethereum } = window;
+  await ethereum.enable();
 };
