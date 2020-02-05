@@ -1,6 +1,6 @@
 {
     "MANAGE_ASSET": {
       "development": true,
-      "production": false
+      "production": true
     }
   }
