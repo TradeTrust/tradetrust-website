@@ -5,6 +5,7 @@ import TokenSideBar from "./TokenSideBar";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
 import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
+import { connectToMetamask } from "../../services/etherjs";
 import { FeatureFlag } from "../FeatureFlag";
 
 const getAssetInfo = (document: SignedDocument) => {
@@ -45,8 +46,12 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
     if (initializeTokenSuccess) dispatch(getTokenUserAddress());
   }, [dispatch, initializeTokenSuccess]);
 
-  const handlerToggleSideBar = (event: { preventDefault: () => void }) => {
+  const handlerToggleSideBar = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    if (!adminAddress) {
+      await connectToMetamask();
+      dispatch(loadAdminAddress());
+    }
     toggleSideBar(!isSideBarExpand);
   };
 
