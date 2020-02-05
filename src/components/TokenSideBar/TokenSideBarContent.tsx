@@ -6,7 +6,7 @@ import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
 import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
 import { changeHolder, endorseBeneficiaryTransfer, endorseTransfer, surrenderToken } from "../../services/token";
 import TokenTransactionSuccess from "./TokenTransactionSuccess";
-import { TOKEN_ACTION_TYPES, getSuccessResponse } from "./util";
+import { TOKEN_ACTION_TYPES, getSuccessResponse } from "./../../utils/TokenSuccessUtil";
 
 const { trace, error } = getLogger("component:TokenSideBarContent");
 import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";

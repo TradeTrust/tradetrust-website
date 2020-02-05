@@ -16,6 +16,9 @@ import {
 } from "../reducers/certificate";
 import CertificateViewer from "./CertificateViewer";
 
+import { FeatureFlag } from "../components/FeatureFlag";
+import TokenSideBar from "../components/TokenSideBar/TokenSideBar";
+
 class ViewerPageContainer extends Component {
   constructor(props) {
     super(props);
@@ -52,19 +55,22 @@ class ViewerPageContainer extends Component {
   render() {
     if (!this.props.document) return null;
     return (
-      <CertificateViewer
-        document={this.props.document}
-        certificate={getData(this.props.document)}
-        verifying={this.props.verifying}
-        verificationStatus={this.props.verificationStatus}
-        handleCertificateChange={this.handleCertificateChange}
-        showSharing={this.state.showSharing}
-        emailAddress={this.state.emailAddress}
-        handleSendCertificate={this.handleSendCertificate}
-        handleSharingToggle={this.handleSharingToggle}
-        emailSendingState={this.props.emailSendingState}
-        detailedVerifyVisible={this.state.detailedVerifyVisible}
-      />
+      <>
+        <CertificateViewer
+          document={this.props.document}
+          certificate={getData(this.props.document)}
+          verifying={this.props.verifying}
+          verificationStatus={this.props.verificationStatus}
+          handleCertificateChange={this.handleCertificateChange}
+          showSharing={this.state.showSharing}
+          emailAddress={this.state.emailAddress}
+          handleSendCertificate={this.handleSendCertificate}
+          handleSharingToggle={this.handleSharingToggle}
+          emailSendingState={this.props.emailSendingState}
+          detailedVerifyVisible={this.state.detailedVerifyVisible}
+        />
+        <FeatureFlag name="MANAGE_ASSET" render={() => <TokenSideBar document={this.props.document} />} />
+      </>
     );
   }
 }

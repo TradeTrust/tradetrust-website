@@ -1,8 +1,6 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { FunctionComponent, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { getData, SignedDocument } from "@govtechsg/open-attestation";
-import TokenSideBar from "./TokenSideBar";
-import { getTokenUserAddress, initializeToken } from "../../reducers/token";
 import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
 import { FeatureFlag } from "../FeatureFlag";
@@ -14,41 +12,12 @@ const getAssetInfo = (document: SignedDocument) => {
 };
 
 export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ document }) => {
-  const [isSideBarExpand, toggleSideBar] = useState(false);
   const dispatch = useDispatch();
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
-
-  const {
-    adminAddress,
-    holderAddress,
-    beneficiaryAddress,
-    approvedBeneficiaryAddress,
-    initializeTokenSuccess
-  } = useSelector((state: any) => ({
-    adminAddress: state.admin.adminAddress,
-    holderAddress: state.token.holderAddress,
-    beneficiaryAddress: state.token.beneficiaryAddress,
-    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
-    initializeTokenSuccess: state.token.initializeTokenSuccess,
-    isEscrowContract: state.token.isEscrowContract
-  }));
 
   useEffect(() => {
     if (registryAddress) dispatch(loadAdminAddress());
   }, [dispatch, document, registryAddress]);
-
-  useEffect(() => {
-    if (adminAddress) dispatch(initializeToken());
-  }, [dispatch, adminAddress]);
-
-  useEffect(() => {
-    if (initializeTokenSuccess) dispatch(getTokenUserAddress());
-  }, [dispatch, initializeTokenSuccess]);
-
-  const handlerToggleSideBar = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    toggleSideBar(!isSideBarExpand);
-  };
 
   if (!registryAddress) return null;
 
@@ -56,6 +25,7 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
     <>
       <FeatureFlag
         name="MANAGE_ASSET"
+<<<<<<< HEAD
         render={() => (
           <div>
             <a
@@ -77,6 +47,9 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
             />
           </div>
         )}
+=======
+        render={() => <></>}
+>>>>>>> refactor: move tokensidebar out as its own
         fallback={() => (
           <a
             href={makeEtherscanTokenURL({ registryAddress, tokenId })}
