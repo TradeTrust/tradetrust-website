@@ -64,17 +64,34 @@ const TokenSideBarHolder = ({
           status="success"
           handleClick={changeBeneficiary}
         >
-          <label>
-            <input
-              className={`${css["field-input"]} ${isChangeBeneficiaryError(error) ? css["is-error"] : ""}`}
-              type="text"
-              name="approvedBeneficiary"
-              value={approvedBeneficiaryAddress}
-              onChange={handleInputChange}
-              placeholder="Address (e.g. 0x483..)"
-              disabled={isApprovedBeneficiaryAddress}
-            />
-          </label>
+          <div className={`${css["field-single"]}`}>
+            <h6>Holder Address</h6>
+            <label>
+              <input
+                className={`${css["field-input"]} ${isChangeBeneficiaryError(error) ? css["is-error"] : ""}`}
+                type="text"
+                name="approvedBeneficiary"
+                value={approvedBeneficiaryAddress}
+                onChange={handleInputChange}
+                disabled={isApprovedBeneficiaryAddress}
+                placeholder="Address (e.g. 0x483..)"
+              />
+            </label>
+          </div>
+          <div className={`${css["field-single"]}`}>
+            <h6>Beneficiary Address</h6>
+            <label>
+              <input
+                className={`${css["field-input"]} ${isChangeBeneficiaryError(error) ? css["is-error"] : ""}`}
+                type="text"
+                name="approvedBeneficiary"
+                value={approvedBeneficiaryAddress}
+                onChange={handleInputChange}
+                disabled={isApprovedBeneficiaryAddress}
+                placeholder="Address (e.g. 0x483..)"
+              />
+            </label>
+          </div>
           {isChangeBeneficiaryError(error) && <TokenErrorMessage errorMessage={error.message} />}
         </TokenSideBarField>
       )}
