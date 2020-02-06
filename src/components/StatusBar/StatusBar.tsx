@@ -62,7 +62,7 @@ const StatusBar = ({ document }: StatusBarProps) => {
                   aria-labelledby="dropdownMenuAddresses"
                 >
                   <div className={css["statusbar-address"]}>
-                    <h6>Escrow Address:</h6>
+                    <h6>Escrow Address: </h6>
                     <a
                       href={makeEtherscanTokenURL({ registryAddress, tokenId })}
                       id="token-owner-etherscan-link"
