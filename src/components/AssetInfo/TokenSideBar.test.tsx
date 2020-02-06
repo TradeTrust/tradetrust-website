@@ -7,7 +7,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress=""
-        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress=""
@@ -23,7 +22,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress="0xA"
@@ -51,7 +49,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
@@ -72,7 +69,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
@@ -97,7 +93,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress="0xA"
@@ -118,7 +113,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        registryAddress="0xD"
         isSideBarExpand={true}
         holderAddress="0xC"
         beneficiaryAddress=""

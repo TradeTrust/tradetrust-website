@@ -8,7 +8,6 @@ describe("tokenSideBarHolder", () => {
       <TokenSideBarHolder
         isEqualBeneficiaryAndHolder={true}
         approvedBeneficiaryAddress=""
-        registryAddress={"0xA"}
         newHolder={"0xB"}
         handleInputChange={() => {}}
         transferHoldership={() => {}}
@@ -27,7 +26,6 @@ describe("tokenSideBarHolder", () => {
       <TokenSideBarHolder
         isEqualBeneficiaryAndHolder={false}
         approvedBeneficiaryAddress="0xC"
-        registryAddress={"0xA"}
         newHolder={"0xB"}
         handleInputChange={() => {}}
         transferHoldership={() => {}}
@@ -47,7 +45,6 @@ describe("tokenSideBarHolder", () => {
       <TokenSideBarHolder
         isEqualBeneficiaryAndHolder={false}
         approvedBeneficiaryAddress=""
-        registryAddress={"0xA"}
         newHolder={"0xB"}
         handleInputChange={() => {}}
         transferHoldership={() => {}}
