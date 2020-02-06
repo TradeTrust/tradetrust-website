@@ -6,12 +6,7 @@ describe("tokenSideBarContent", () => {
   // adminAddress === holder
   it("should show holder role, holder view, only 1 correct field", () => {
     const wrapper = mount(
-      <TokenSideBarContent
-        adminAddress="0xA"
-        holderAddress="0xA"
-        beneficiaryAddress=""
-        approvedBeneficiaryAddress=""
-      />
+      <TokenSideBarContent adminAddress="0xA" holderAddress="0xA" beneficiaryAddress="" approvedBeneficiaryAddress="" />
     );
 
     expect(wrapper.find("TokenSideBarHolder section")).toHaveLength(1);
@@ -65,12 +60,7 @@ describe("tokenSideBarContent", () => {
   // adminAddress === beneficiaryAddress
   it("should show bene role, bene view, only 1 correct field", () => {
     const wrapper = mount(
-      <TokenSideBarContent
-        adminAddress="0xA"
-        holderAddress=""
-        beneficiaryAddress="0xA"
-        approvedBeneficiaryAddress=""
-      />
+      <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="0xA" approvedBeneficiaryAddress="" />
     );
 
     expect(wrapper.find("TokenSideBarBeneficiary section")).toHaveLength(1);
@@ -82,12 +72,7 @@ describe("tokenSideBarContent", () => {
   // adminAddress !== beneficiaryAddress and adminAddress !== holderAddress
   it("should show no match view, no access text", () => {
     const wrapper = mount(
-      <TokenSideBarContent
-        adminAddress="0xA"
-        holderAddress=""
-        beneficiaryAddress=""
-        approvedBeneficiaryAddress=""
-      />
+      <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="" approvedBeneficiaryAddress="" />
     );
     expect(wrapper.find("TokenSideBarNoMatch")).toHaveLength(1);
     expect(wrapper.find("TokenSideBarNoMatch h4").text()).toStrictEqual("Oops!");

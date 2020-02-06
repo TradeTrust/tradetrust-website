@@ -1,19 +1,12 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getData, SignedDocument } from "@govtechsg/open-attestation";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
-import { loadAdminAddress } from "../../reducers/admin";
 
 import css from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
 
-const getAssetInfo = (document: SignedDocument) => {
-  const { tokenRegistry } = getData(document).issuers[0];
-  return { tokenRegistry };
-};
-
-export const TokenSideBar: FunctionComponent<{ document: SignedDocument }> = ({ document }) => {
+export const TokenSideBar = () => {
   const {
     adminAddress,
     holderAddress,
@@ -31,11 +24,6 @@ export const TokenSideBar: FunctionComponent<{ document: SignedDocument }> = ({ 
 
   const [isSideBarExpand, toggleSideBar] = useState(false);
   const dispatch = useDispatch();
-  const { tokenRegistry: registryAddress } = getAssetInfo(document);
-
-  useEffect(() => {
-    if (registryAddress) dispatch(loadAdminAddress());
-  }, [dispatch, document, registryAddress]);
 
   useEffect(() => {
     if (adminAddress) dispatch(initializeToken());
@@ -49,8 +37,6 @@ export const TokenSideBar: FunctionComponent<{ document: SignedDocument }> = ({ 
     event.preventDefault();
     toggleSideBar(!isSideBarExpand);
   };
-
-  if (!registryAddress) return null;
 
   return (
     <aside className={`${css.tokensidebar} ${isSideBarExpand ? css["is-expanded"] : ""}`}>
@@ -74,7 +60,6 @@ export const TokenSideBar: FunctionComponent<{ document: SignedDocument }> = ({ 
           adminAddress={adminAddress}
           holderAddress={holderAddress}
           beneficiaryAddress={beneficiaryAddress}
-          registryAddress={registryAddress}
           approvedBeneficiaryAddress={approvedBeneficiaryAddress}
         />
       </div>
