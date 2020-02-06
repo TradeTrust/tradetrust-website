@@ -9,7 +9,6 @@ type ErrorType = { type: TOKEN_ACTION_TYPES; message: string };
 interface TokenSideBarHolderProps {
   isEqualBeneficiaryAndHolder: boolean;
   approvedBeneficiaryAddress: string;
-  registryAddress?: string;
   newHolder: string;
   handleInputChange: (e: any) => void;
   transferHoldership: () => void;
@@ -27,7 +26,6 @@ const isSurrenderDocumentError = (error: any): error is ErrorType =>
 const TokenSideBarHolder = ({
   isEqualBeneficiaryAndHolder,
   approvedBeneficiaryAddress,
-  registryAddress,
   handleInputChange,
   newHolder,
   transferHoldership,
@@ -88,15 +86,6 @@ const TokenSideBarHolder = ({
           status="danger"
           handleClick={surrenderDocument}
         >
-          <label>
-            <input
-              className={`${css["field-input"]} ${isSurrenderDocumentError(error) ? css["is-error"] : ""}`}
-              type="text"
-              placeholder="Address (e.g. 0x483..)"
-              disabled
-              defaultValue={registryAddress}
-            />
-          </label>
           {isSurrenderDocumentError(error) && <TokenErrorMessage errorMessage={error.message} />}
         </TokenSideBarField>
       )}
