@@ -89,7 +89,7 @@ class ViewerPageContainer extends Component {
             />
           )}
           fallback={() => {
-            <AssetInfo document={this.props.document} />;
+            <AssetInfo document={this.props.document} />
           }}
         />
       </>
