@@ -3,8 +3,7 @@ import { mount } from "enzyme";
 import TokenSideBarContent from "./TokenSideBarContent";
 
 describe("tokenSideBarContent", () => {
-  // adminAddress === holder
-  it("should show holder role, holder view, only 1 correct field", () => {
+  it("should render holder role with 1 correct field, when adminAddress === holder", () => {
     const wrapper = mount(
       <TokenSideBarContent adminAddress="0xA" holderAddress="0xA" beneficiaryAddress="" approvedBeneficiaryAddress="" />
     );
@@ -14,8 +13,7 @@ describe("tokenSideBarContent", () => {
     expect(wrapper.find("#sec-transferholdership button").text()).toStrictEqual("Transfer");
   });
 
-  // holderAddress === beneficiaryAddress
-  it("should show holder and beneficiary role, holder view, only 3 correct fields", () => {
+  it("should render holder and beneficiary role with 3 correct fields, when holderAddress === beneficiaryAddress", () => {
     const wrapper = mount(
       <TokenSideBarContent
         adminAddress="0xA"
@@ -37,8 +35,7 @@ describe("tokenSideBarContent", () => {
     expect(wrapper.find("#sec-surrenderdocument button").text()).toStrictEqual("Surrender");
   });
 
-  // adminAddress === holderAddress, endorse change of bene exists
-  it("should show holder role, holder view, only 2 correct fields", () => {
+  it("should render holder role with 2 correct fields, when adminAddress === holderAddress && endorse change of bene exists", () => {
     const wrapper = mount(
       <TokenSideBarContent
         adminAddress="0xA"
@@ -57,8 +54,7 @@ describe("tokenSideBarContent", () => {
     expect(wrapper.find("#sec-changebeneficiary button").text()).toStrictEqual("Change");
   });
 
-  // adminAddress === beneficiaryAddress
-  it("should show bene role, bene view, only 1 correct field", () => {
+  it("should render bene role with 1 correct field when adminAddress === beneficiaryAddress", () => {
     const wrapper = mount(
       <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="0xA" approvedBeneficiaryAddress="" />
     );
@@ -69,8 +65,7 @@ describe("tokenSideBarContent", () => {
     expect(wrapper.find("#sec-approvechangebeneficiary button").text()).toStrictEqual("Endorse");
   });
 
-  // adminAddress !== beneficiaryAddress and adminAddress !== holderAddress
-  it("should show no match view, no access text", () => {
+  it("should render no match view, when adminAddress !== beneficiaryAddress and adminAddress !== holderAddress", () => {
     const wrapper = mount(
       <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="" approvedBeneficiaryAddress="" />
     );

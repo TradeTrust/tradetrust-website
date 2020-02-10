@@ -25,7 +25,6 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
     <>
       <FeatureFlag
         name="MANAGE_ASSET"
-<<<<<<< HEAD
         render={() => (
           <div>
             <a
@@ -33,23 +32,11 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
               id="asset-info-etherscan-link"
               rel="noreferrer noopener"
               target="_blank"
-              onClick={handlerToggleSideBar}
             >
               Manage Asset
             </a>
-            <TokenSideBar
-              adminAddress={adminAddress}
-              holderAddress={holderAddress}
-              beneficiaryAddress={beneficiaryAddress}
-              approvedBeneficiaryAddress={approvedBeneficiaryAddress}
-              handler={handlerToggleSideBar}
-              isSideBarExpand={isSideBarExpand}
-            />
           </div>
         )}
-=======
-        render={() => <></>}
->>>>>>> refactor: move tokensidebar out as its own
         fallback={() => (
           <a
             href={makeEtherscanTokenURL({ registryAddress, tokenId })}
