@@ -1,17 +1,13 @@
 import React, { FunctionComponent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getData, SignedDocument } from "@govtechsg/open-attestation";
+import { SignedDocument } from "@govtechsg/open-attestation";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
 import { loadAdminAddress } from "../../reducers/admin";
+import { getAssetInfo } from "../../utils";
 
 import css from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
-
-const getAssetInfo = (document: SignedDocument) => {
-  const { tokenRegistry } = getData(document).issuers[0];
-  return { tokenRegistry };
-};
 
 export const TokenSideBar: FunctionComponent<{
   document: SignedDocument;

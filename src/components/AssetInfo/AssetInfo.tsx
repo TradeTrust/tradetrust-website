@@ -1,15 +1,10 @@
 import React, { FunctionComponent, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getData, SignedDocument } from "@govtechsg/open-attestation";
+import { SignedDocument } from "@govtechsg/open-attestation";
 import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
 import { FeatureFlag } from "../FeatureFlag";
-
-const getAssetInfo = (document: SignedDocument) => {
-  const { tokenRegistry } = getData(document).issuers[0];
-  const { merkleRoot: tokenId } = document.signature;
-  return { tokenRegistry, tokenId };
-};
+import { getAssetInfo } from "../../utils";
 
 export const AssetInfo: FunctionComponent<{ document: SignedDocument; handleToggleSideBar: any }> = ({
   document,

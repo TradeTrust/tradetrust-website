@@ -18,6 +18,7 @@ import CertificateViewer from "./CertificateViewer";
 
 import { FeatureFlag } from "../components/FeatureFlag";
 import TokenSideBar from "../components/TokenSideBar/TokenSideBar";
+import { AssetInfo } from "./AssetInfo";
 
 class ViewerPageContainer extends Component {
   constructor(props) {
@@ -87,6 +88,9 @@ class ViewerPageContainer extends Component {
               isSideBarExpand={this.state.isSideBarExpand}
             />
           )}
+          fallback={() => {
+            <AssetInfo document={this.props.document} />;
+          }}
         />
       </>
     );
