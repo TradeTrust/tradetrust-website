@@ -16,15 +16,13 @@ interface TokenSideBarContentProps {
   beneficiaryAddress: string;
   holderAddress: string;
   approvedBeneficiaryAddress: string;
-  registryAddress: string;
 }
 
 const TokenSideBarContent = ({
   adminAddress,
   beneficiaryAddress,
   holderAddress,
-  approvedBeneficiaryAddress,
-  registryAddress
+  approvedBeneficiaryAddress
 }: TokenSideBarContentProps) => {
   const userRole = getUserRoles({ adminAddress, holderAddress, beneficiaryAddress });
   const [fieldValue, setFieldValue] = useState({
@@ -106,7 +104,6 @@ const TokenSideBarContent = ({
         <TokenSideBarHolder
           isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
           approvedBeneficiaryAddress={fieldValue.approvedBeneficiary}
-          registryAddress={registryAddress}
           newHolder={fieldValue.newHolder}
           handleInputChange={handleInputChange}
           transferHoldership={transferHoldership}

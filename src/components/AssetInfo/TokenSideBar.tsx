@@ -8,7 +8,6 @@ interface TokenSideBarContentProps {
   holderAddress: string;
   beneficiaryAddress: string;
   approvedBeneficiaryAddress: string;
-  registryAddress: string;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
   isSideBarExpand: boolean;
 }
@@ -18,7 +17,6 @@ const TokenSideBar = ({
   holderAddress,
   beneficiaryAddress,
   approvedBeneficiaryAddress,
-  registryAddress,
   handler,
   isSideBarExpand
 }: TokenSideBarContentProps) => {
@@ -44,7 +42,6 @@ const TokenSideBar = ({
           adminAddress={adminAddress}
           holderAddress={holderAddress}
           beneficiaryAddress={beneficiaryAddress}
-          registryAddress={registryAddress}
           approvedBeneficiaryAddress={approvedBeneficiaryAddress}
         />
       </div>

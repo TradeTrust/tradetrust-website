@@ -72,7 +72,6 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
               holderAddress={holderAddress}
               beneficiaryAddress={beneficiaryAddress}
               approvedBeneficiaryAddress={approvedBeneficiaryAddress}
-              registryAddress={registryAddress}
               handler={handlerToggleSideBar}
               isSideBarExpand={isSideBarExpand}
             />
