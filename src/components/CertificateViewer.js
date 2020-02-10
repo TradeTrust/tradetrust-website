@@ -31,7 +31,7 @@ const renderHeaderBlock = props => {
     <div className={`container-fluid ${styles["pd-0"]} ${styles.container}`}>
       <div className="row">
         <div>{renderedVerifyBlock}</div>
-        <AssetInfo document={props.document} />
+        <AssetInfo document={props.document} handleToggleSideBar={props.handleToggleSideBar} />
         <div className={`row flex-nowrap`}>
           <div className="">
             <div id="btn-print" className={styles["print-btn"]} onClick={() => window.print()}>
@@ -111,6 +111,7 @@ CertificateViewer.propTypes = {
   emailSendingState: PropTypes.string,
   handleSharingToggle: PropTypes.func,
   handleSendCertificate: PropTypes.func,
+  handleToggleSideBar: PropTypes.func,
 
   selectTemplateTab: PropTypes.func
 };

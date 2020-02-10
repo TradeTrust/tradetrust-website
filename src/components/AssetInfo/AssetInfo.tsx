@@ -11,7 +11,10 @@ const getAssetInfo = (document: SignedDocument) => {
   return { tokenRegistry, tokenId };
 };
 
-export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ document }) => {
+export const AssetInfo: FunctionComponent<{ document: SignedDocument; handleToggleSideBar: any }> = ({
+  document,
+  handleToggleSideBar
+}) => {
   const dispatch = useDispatch();
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
 
@@ -32,6 +35,7 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
               id="asset-info-etherscan-link"
               rel="noreferrer noopener"
               target="_blank"
+              onClick={handleToggleSideBar}
             >
               Manage Asset
             </a>

@@ -8,6 +8,7 @@ describe("tokenSideBarContent", () => {
       <TokenSideBarContent adminAddress="0xA" holderAddress="0xA" beneficiaryAddress="" approvedBeneficiaryAddress="" />
     );
 
+    expect(wrapper.find("TokenSideBarHolder")).toHaveLength(1);
     expect(wrapper.find("TokenSideBarHolder section")).toHaveLength(1);
     expect(wrapper.find("#sec-transferholdership h4").text()).toStrictEqual("Transfer Holdership");
     expect(wrapper.find("#sec-transferholdership button").text()).toStrictEqual("Transfer");
@@ -23,6 +24,7 @@ describe("tokenSideBarContent", () => {
       />
     );
 
+    expect(wrapper.find("TokenSideBarHolder")).toHaveLength(1);
     expect(wrapper.find("TokenSideBarHolder section")).toHaveLength(3);
 
     expect(wrapper.find("#sec-transferholdership h4").text()).toStrictEqual("Transfer Holdership");
@@ -45,6 +47,7 @@ describe("tokenSideBarContent", () => {
       />
     );
 
+    expect(wrapper.find("TokenSideBarHolder")).toHaveLength(1);
     expect(wrapper.find("TokenSideBarHolder section")).toHaveLength(2);
 
     expect(wrapper.find("#sec-transferholdership h4").text()).toStrictEqual("Transfer Holdership");
@@ -59,6 +62,7 @@ describe("tokenSideBarContent", () => {
       <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="0xA" approvedBeneficiaryAddress="" />
     );
 
+    expect(wrapper.find("TokenSideBarBeneficiary")).toHaveLength(1);
     expect(wrapper.find("TokenSideBarBeneficiary section")).toHaveLength(1);
 
     expect(wrapper.find("#sec-approvechangebeneficiary h4").text()).toStrictEqual("Endorse Change of Beneficiary");

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getData, SignedDocument } from "@govtechsg/open-attestation";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
@@ -13,7 +13,11 @@ const getAssetInfo = (document: SignedDocument) => {
   return { tokenRegistry };
 };
 
-export const TokenSideBar: FunctionComponent<{ document: SignedDocument }> = ({ document }) => {
+export const TokenSideBar: FunctionComponent<{
+  document: SignedDocument;
+  handleToggleSideBar?: any;
+  isSideBarExpand?: boolean;
+}> = ({ document, handleToggleSideBar, isSideBarExpand }) => {
   const {
     adminAddress,
     holderAddress,
@@ -29,7 +33,6 @@ export const TokenSideBar: FunctionComponent<{ document: SignedDocument }> = ({ 
     isEscrowContract: state.token.isEscrowContract
   }));
 
-  const [isSideBarExpand, toggleSideBar] = useState(false);
   const dispatch = useDispatch();
   const { tokenRegistry: registryAddress } = getAssetInfo(document);
 
@@ -44,11 +47,6 @@ export const TokenSideBar: FunctionComponent<{ document: SignedDocument }> = ({ 
   useEffect(() => {
     if (initializeTokenSuccess) dispatch(getTokenUserAddress());
   }, [dispatch, initializeTokenSuccess]);
-
-  const handlerToggleSideBar = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    toggleSideBar(!isSideBarExpand);
-  };
 
   if (!registryAddress) return null;
 
@@ -77,7 +75,7 @@ export const TokenSideBar: FunctionComponent<{ document: SignedDocument }> = ({ 
           approvedBeneficiaryAddress={approvedBeneficiaryAddress}
         />
       </div>
-      <div className={`${css.hamburger}`} onClick={handlerToggleSideBar}>
+      <div className={`${css.hamburger}`} onClick={handleToggleSideBar}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
