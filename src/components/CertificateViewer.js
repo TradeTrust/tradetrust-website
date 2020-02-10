@@ -31,7 +31,7 @@ const renderHeaderBlock = props => {
     <div className={`container-fluid ${styles["pd-0"]} ${styles.container}`}>
       <div className="row">
         <div>{renderedVerifyBlock}</div>
-        <AssetInfo document={props.document} handleToggleSideBar={props.handleToggleSideBar} />
+        <AssetInfo document={props.document} />
         <div className={`row flex-nowrap`}>
           <div className="">
             <div id="btn-print" className={styles["print-btn"]} onClick={() => window.print()}>

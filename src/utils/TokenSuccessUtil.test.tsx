@@ -15,5 +15,8 @@ describe("userRolesUtil", () => {
 
     responseText = getSuccessResponse(TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT);
     expect(responseText).toStrictEqual("Surrender Document Success");
+
+    responseText = "";
+    expect(responseText).toStrictEqual("");
   });
 });
