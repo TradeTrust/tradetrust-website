@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getData, SignedDocument } from "@govtechsg/open-attestation";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
+import { loadAdminAddress } from "../../reducers/admin";
 
 import css from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
 
-export const TokenSideBar = () => {
+const getAssetInfo = (document: SignedDocument) => {
+  const { tokenRegistry } = getData(document).issuers[0];
+  return { tokenRegistry };
+};
+
+export const TokenSideBar: FunctionComponent<{ document: SignedDocument }> = ({ document }) => {
   const {
     adminAddress,
     holderAddress,
@@ -24,6 +31,11 @@ export const TokenSideBar = () => {
 
   const [isSideBarExpand, toggleSideBar] = useState(false);
   const dispatch = useDispatch();
+  const { tokenRegistry: registryAddress } = getAssetInfo(document);
+
+  useEffect(() => {
+    if (registryAddress) dispatch(loadAdminAddress());
+  }, [dispatch, document, registryAddress]);
 
   useEffect(() => {
     if (adminAddress) dispatch(initializeToken());
@@ -37,6 +49,8 @@ export const TokenSideBar = () => {
     event.preventDefault();
     toggleSideBar(!isSideBarExpand);
   };
+
+  if (!registryAddress) return null;
 
   return (
     <aside className={`${css.tokensidebar} ${isSideBarExpand ? css["is-expanded"] : ""}`}>
