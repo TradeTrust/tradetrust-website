@@ -1,5 +1,6 @@
 import React from "react";
 import TokenSideBarTooltip from "./TokenSideBarTooltip";
+import TokenSideBarButton from "./TokenSideBarButton";
 import css from "./TokenSideBar.scss";
 
 interface TokenSideBarFieldProps {
@@ -23,14 +24,7 @@ const TokenSideBarField = ({ id, title, label, status, children, handleClick }: 
             </div>
           </div>
           <div className={`${css.field}`}>{children}</div>
-          <button
-            className={`${css.button} ${
-              status === "success" ? css["button-success"] : status === "danger" ? css["button-danger"] : ""
-            }`}
-            onClick={handleClick}
-          >
-            {label}
-          </button>
+          <TokenSideBarButton label={label} status={status} handleClick={handleClick} />
         </div>
       </div>
     </section>
