@@ -1,8 +1,38 @@
 import React from "react";
 import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
 import TokenSideBarContent from "./TokenSideBarContent";
 
 describe("tokenSideBarContent", () => {
+  it("simulate click and on change events", async () => {
+    // const mockCallBack = jest.fn();
+    let wrapper = mount(<></>);
+
+    await act(async () => {
+      wrapper = mount(
+        <TokenSideBarContent
+          adminAddress="0xA"
+          holderAddress="0xA"
+          beneficiaryAddress=""
+          approvedBeneficiaryAddress=""
+        />
+      );
+
+      const button = wrapper.find("#sec-transferholdership button");
+      button.simulate("click");
+
+      const input = wrapper.find("#sec-transferholdership input");
+      input.simulate("change", {
+        target: {
+          name: "newHolder",
+          value: ""
+        }
+      });
+      expect(input.prop("value")).toBe("");
+      // expect(mockCallBack.mock.calls.length).toEqual(1);
+    });
+  });
+
   it("should render holder role with 1 correct field, when adminAddress === holder", () => {
     const wrapper = mount(
       <TokenSideBarContent adminAddress="0xA" holderAddress="0xA" beneficiaryAddress="" approvedBeneficiaryAddress="" />
