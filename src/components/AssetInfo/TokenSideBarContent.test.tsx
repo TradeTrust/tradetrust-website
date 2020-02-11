@@ -2,7 +2,21 @@ import React from "react";
 import { mount } from "enzyme";
 import TokenSideBarContent from "./TokenSideBarContent";
 
+jest.mock("react-redux", () => ({
+  useSelector: () => ({
+    metamaskNotFound: false,
+    networkIdVerbose: "ropsten"
+  })
+}));
+
 describe("tokenSideBarContent", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
   it("should render TokenSideBarHolder view", () => {
     const wrapper = mount(
       <TokenSideBarContent adminAddress="0xA" holderAddress="0xA" beneficiaryAddress="" approvedBeneficiaryAddress="" />

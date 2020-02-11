@@ -25,7 +25,6 @@ export function* loadAdminAddress() {
         payload: e.message
       });
     }
-    console.log("here it is");
     yield put({
       type: types.METAMASK_NOT_FOUND,
       payload: e.message
