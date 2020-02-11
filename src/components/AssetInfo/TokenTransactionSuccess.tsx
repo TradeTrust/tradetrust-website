@@ -7,7 +7,7 @@ const TokenTransactionSuccess = ({ hash, message }: { hash: string; message: str
     <>
       <div className={css["transaction-message"]}>
         <div className={css["success-checked"]}>
-          <SvgIcon className="feather-check">
+          <SvgIcon cssClass="feather-check">
             <polyline points="20 6 9 17 4 12" />
           </SvgIcon>
         </div>

@@ -7,10 +7,10 @@ import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
 import { changeHolder, endorseBeneficiaryTransfer, endorseTransfer, surrenderToken } from "../../services/token";
 import TokenTransactionSuccess from "./TokenTransactionSuccess";
 import { TOKEN_ACTION_TYPES, getSuccessResponse } from "./util";
-
 const { trace, error } = getLogger("component:TokenSideBarContent");
 import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
-
+import { useSelector } from "react-redux";
+import { NETWORK_NAME } from "../../config";
 interface TokenSideBarContentProps {
   adminAddress: string;
   beneficiaryAddress: string;
@@ -29,6 +29,7 @@ const TokenSideBarContent = ({
     newHolder: "",
     approvedBeneficiary: approvedBeneficiaryAddress || ""
   });
+  const tokenSidebarError = { accessDenied: false, networkMismatch: false, metamaskNotFound: false };
   trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
   const [showActionLoader, toggleActionLoader] = useState(false);
   const [actionError, setActionError] = useState<{ type: TOKEN_ACTION_TYPES; message: string } | null>(null);
@@ -37,11 +38,19 @@ const TokenSideBarContent = ({
     hash: string;
     message: string;
   } | null>(null);
+
+  const { network, metamaskNotFound } = useSelector((state: any) => ({
+    network: state.application.networkIdVerbose,
+    metamaskNotFound: state.admin.metamaskNotFound
+  }));
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
   const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
   const showBeneficiary = userRole === UserRole.Beneficiary && !isEqualBeneficiaryAndHolder;
-  const showNoAccess = userRole === UserRole.NoMatch;
-
+  tokenSidebarError.accessDenied = userRole === UserRole.NoMatch;
+  tokenSidebarError.networkMismatch = NETWORK_NAME.toLowerCase() !== network.toLowerCase();
+  tokenSidebarError.metamaskNotFound = metamaskNotFound;
+  trace(`config network: ${NETWORK_NAME} and metamask network: ${network}`);
+  trace(`error in sidebar access ${JSON.stringify(tokenSidebarError)}`);
   useEffect(() => {
     setFieldValue({ ...fieldValue, ...{ approvedBeneficiary: approvedBeneficiaryAddress } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,31 +103,35 @@ const TokenSideBarContent = ({
 
   return (
     <>
-      {showActionLoader && (
+      {showActionLoader ? (
         <div className={css.overlay}>
           <div className={css.loader} />
         </div>
-      )}
-      {!showActionLoader && showNoAccess && <TokenSideBarNoMatch />}
-      {showHolder && (
-        <TokenSideBarHolder
-          isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
-          approvedBeneficiaryAddress={fieldValue.approvedBeneficiary}
-          newHolder={fieldValue.newHolder}
-          handleInputChange={handleInputChange}
-          transferHoldership={transferHoldership}
-          changeBeneficiary={changeBeneficiary}
-          surrenderDocument={surrenderDocument}
-          error={actionError}
-        />
-      )}
-      {showBeneficiary && (
-        <TokenSideBarBeneficiary
-          setBeneficiary={handleInputChange}
-          approveChangeBeneficiary={approveChangeBeneficiary}
-          approvedBeneficiary={fieldValue.approvedBeneficiary}
-          error={actionError}
-        />
+      ) : (
+        <TokenSideBarNoMatch errorType={tokenSidebarError}>
+          <>
+            {showHolder && (
+              <TokenSideBarHolder
+                isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
+                approvedBeneficiaryAddress={fieldValue.approvedBeneficiary}
+                newHolder={fieldValue.newHolder}
+                handleInputChange={handleInputChange}
+                transferHoldership={transferHoldership}
+                changeBeneficiary={changeBeneficiary}
+                surrenderDocument={surrenderDocument}
+                error={actionError}
+              />
+            )}
+            {showBeneficiary && (
+              <TokenSideBarBeneficiary
+                setBeneficiary={handleInputChange}
+                approveChangeBeneficiary={approveChangeBeneficiary}
+                approvedBeneficiary={fieldValue.approvedBeneficiary}
+                error={actionError}
+              />
+            )}
+          </>
+        </TokenSideBarNoMatch>
       )}
     </>
   );
