@@ -39,17 +39,19 @@ const TokenSideBarContent = ({
     message: string;
   } | null>(null);
 
-  const { network, metamaskNotFound } = useSelector((state: any) => ({
-    network: state.application.networkIdVerbose,
+  const { networkIdVerbose, metamaskNotFound } = useSelector((state: any) => ({
+    networkIdVerbose: state.application.networkIdVerbose,
     metamaskNotFound: state.admin.metamaskNotFound
   }));
+
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
   const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
   const showBeneficiary = userRole === UserRole.Beneficiary && !isEqualBeneficiaryAndHolder;
   tokenSidebarError.accessDenied = userRole === UserRole.NoMatch;
-  tokenSidebarError.networkMismatch = NETWORK_NAME.toLowerCase() !== network.toLowerCase();
+  tokenSidebarError.networkMismatch = NETWORK_NAME.toLowerCase() !== networkIdVerbose.toLowerCase();
   tokenSidebarError.metamaskNotFound = metamaskNotFound;
-  trace(`config network: ${NETWORK_NAME} and metamask network: ${network}`);
+
+  trace(`config network: ${NETWORK_NAME} and metamask network: ${networkIdVerbose}`);
   trace(`error in sidebar access ${JSON.stringify(tokenSidebarError)}`);
   useEffect(() => {
     setFieldValue({ ...fieldValue, ...{ approvedBeneficiary: approvedBeneficiaryAddress } });
@@ -103,36 +105,36 @@ const TokenSideBarContent = ({
 
   return (
     <>
-      {showActionLoader ? (
+      {showActionLoader && (
         <div className={css.overlay}>
           <div className={css.loader} />
         </div>
-      ) : (
-        <TokenSideBarNoMatch errorType={tokenSidebarError}>
-          <>
-            {showHolder && (
-              <TokenSideBarHolder
-                isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
-                approvedBeneficiaryAddress={fieldValue.approvedBeneficiary}
-                newHolder={fieldValue.newHolder}
-                handleInputChange={handleInputChange}
-                transferHoldership={transferHoldership}
-                changeBeneficiary={changeBeneficiary}
-                surrenderDocument={surrenderDocument}
-                error={actionError}
-              />
-            )}
-            {showBeneficiary && (
-              <TokenSideBarBeneficiary
-                setBeneficiary={handleInputChange}
-                approveChangeBeneficiary={approveChangeBeneficiary}
-                approvedBeneficiary={fieldValue.approvedBeneficiary}
-                error={actionError}
-              />
-            )}
-          </>
-        </TokenSideBarNoMatch>
       )}
+      <TokenSideBarNoMatch errorType={tokenSidebarError}>
+        <>
+          {showHolder && (
+            <TokenSideBarHolder
+              isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
+              approvedBeneficiaryAddress={fieldValue.approvedBeneficiary}
+              newHolder={fieldValue.newHolder}
+              handleInputChange={handleInputChange}
+              transferHoldership={transferHoldership}
+              changeBeneficiary={changeBeneficiary}
+              surrenderDocument={surrenderDocument}
+              error={actionError}
+            />
+          )}
+          {showBeneficiary && (
+            <TokenSideBarBeneficiary
+              setBeneficiary={handleInputChange}
+              approveChangeBeneficiary={approveChangeBeneficiary}
+              approvedBeneficiary={fieldValue.approvedBeneficiary}
+              error={actionError}
+            />
+          )}
+        </>
+      </TokenSideBarNoMatch>
+      )
     </>
   );
 };

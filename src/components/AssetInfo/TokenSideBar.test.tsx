@@ -2,7 +2,21 @@ import React from "react";
 import { mount } from "enzyme";
 import TokenSideBar from "./TokenSideBar";
 
+jest.mock("react-redux", () => ({
+  useSelector: () => ({
+    metamaskNotFound: false,
+    networkIdVerbose: "ropsten"
+  })
+}));
+
 describe("tokenSideBar", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
   it("should have a Manage Asset heading", () => {
     const wrapper = mount(
       <TokenSideBar
