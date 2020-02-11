@@ -28,15 +28,15 @@ export interface TokenSideBarRoleProps {
 
 const getUserRoles = ({ adminAddress, holderAddress, beneficiaryAddress }: TokenSideBarRoleProps) => {
   switch (true) {
+    case adminAddress !== holderAddress && adminAddress !== beneficiaryAddress:
+    case !holderAddress && !beneficiaryAddress:
+      return UserRole.NoMatch;
     case adminAddress === holderAddress && adminAddress === beneficiaryAddress:
       return UserRole.HolderBeneficiary;
     case adminAddress === holderAddress:
       return UserRole.Holder;
     case adminAddress === beneficiaryAddress:
       return UserRole.Beneficiary;
-    case adminAddress !== holderAddress:
-    case adminAddress !== beneficiaryAddress:
-      return UserRole.NoMatch;
     default:
       return UserRole.NoMatch;
   }
