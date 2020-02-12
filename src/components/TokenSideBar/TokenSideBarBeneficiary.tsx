@@ -33,7 +33,6 @@ const TokenSideBarBeneficiary = ({
       <input
         className={`${css["field-input"]} ${isEndorseBeneficiaryError(error) ? css["is-error"] : ""}`}
         type="text"
-        placeholder="Address (e.g. 0x483..)"
         name="approvedBeneficiary"
         value={approvedBeneficiary}
         onChange={setBeneficiary}

@@ -51,7 +51,6 @@ const TokenSideBarHolder = ({
             value={newHolder}
             onChange={handleInputChange}
             type="text"
-            placeholder="Address (e.g. 0x483..)"
           />
         </label>
         {isChangeHolderError(error) && <TokenErrorMessage errorMessage={error.message} />}
@@ -71,7 +70,6 @@ const TokenSideBarHolder = ({
               name="approvedBeneficiary"
               value={approvedBeneficiaryAddress}
               onChange={handleInputChange}
-              placeholder="Address (e.g. 0x483..)"
               disabled={isApprovedBeneficiaryAddress}
             />
           </label>
