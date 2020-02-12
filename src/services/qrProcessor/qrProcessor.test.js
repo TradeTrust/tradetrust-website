@@ -1,5 +1,5 @@
 import axios from "axios";
-import { encryptString } from "@govtechsg/opencerts-encryption";
+import { encryptString } from "@govtechsg/oa-encryption";
 import { encodeQrCode, decodeQrCode, processQrCode } from "./index";
 
 jest.mock("axios");
