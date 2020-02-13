@@ -12,8 +12,11 @@ import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certif
 import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
-import { AssetInfo } from "./AssetInfo";
 import StatusBar from "./StatusBar/StatusBar";
+
+import { AssetInfo } from "./AssetInfo";
+import { FeatureFlag } from "./FeatureFlag";
+import TokenSideBarContainer from "./TokenSideBar";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
@@ -31,7 +34,11 @@ const renderHeaderBlock = props => {
     <div className={`container-fluid ${styles["pd-0"]} ${styles.container}`}>
       <div className="row">
         <div>{renderedVerifyBlock}</div>
-        <AssetInfo document={props.document} handleToggleSideBar={props.handleToggleSideBar} />
+        <FeatureFlag
+          name="MANAGE_ASSET"
+          render={() => <TokenSideBarContainer document={props.document} />}
+          fallback={() => <AssetInfo document={props.document} />}
+        />
         <div className={`row flex-nowrap`}>
           <div className="">
             <div id="btn-print" className={styles["print-btn"]} onClick={() => window.print()}>
@@ -111,7 +118,6 @@ CertificateViewer.propTypes = {
   emailSendingState: PropTypes.string,
   handleSharingToggle: PropTypes.func,
   handleSendCertificate: PropTypes.func,
-  handleToggleSideBar: PropTypes.func,
 
   selectTemplateTab: PropTypes.func
 };

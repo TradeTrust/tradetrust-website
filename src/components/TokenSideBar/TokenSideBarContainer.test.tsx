@@ -12,6 +12,6 @@ jest.mock("react-redux", () => ({
 describe("tokenSideBarContainer", () => {
   it("should have a Manage Asset heading", () => {
     const wrapper = shallow(<TokenSideBarContainer document={sampleToken as SignedDocument} />);
-    expect(wrapper.find("h2").text()).toStrictEqual("Manage Asset");
+    expect(wrapper.find("#asset-info-etherscan-link").text()).toStrictEqual("Manage Asset");
   });
 });
