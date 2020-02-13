@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import TokenSideBar from "./TokenSideBar";
+import TokenSideBarContainer from "./TokenSideBarContainer";
 import { SignedDocument } from "@govtechsg/open-attestation";
 import sampleToken from "../../test/fixture/sample-token.json";
 
@@ -9,9 +9,9 @@ jest.mock("react-redux", () => ({
   useDispatch: jest.fn()
 }));
 
-describe("tokenSideBar", () => {
+describe("tokenSideBarContainer", () => {
   it("should have a Manage Asset heading", () => {
-    const wrapper = shallow(<TokenSideBar document={sampleToken as SignedDocument} />);
+    const wrapper = shallow(<TokenSideBarContainer document={sampleToken as SignedDocument} />);
     expect(wrapper.find("h2").text()).toStrictEqual("Manage Asset");
   });
 });

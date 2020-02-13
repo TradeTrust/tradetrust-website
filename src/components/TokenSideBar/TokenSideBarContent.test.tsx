@@ -5,9 +5,6 @@ import TokenSideBarContent from "./TokenSideBarContent";
 
 describe("tokenSideBarContent", () => {
   it("simulate input onchange events", () => {
-    // let mockInputValue1 = "";
-    // let mockInputValue2 = "";
-
     const wrapper = mount(
       <TokenSideBarContent
         adminAddress="0xA"
@@ -20,19 +17,6 @@ describe("tokenSideBarContent", () => {
     const input1 = wrapper.find("#sec-transferholdership input");
     const input2 = wrapper.find("#sec-changebeneficiary input");
 
-    // const inputMock1 = mount(input1.get(0));
-    // inputMock1.setProps({
-    //   value: mockInputValue1,
-    //   onChange: (event: any) => {
-    //     mockInputValue1 = event.target.value;
-    //   }
-    // });
-    // inputMock1.simulate("change", {
-    //   target: {
-    //     value: "Hello World 1"
-    //   }
-    // });
-
     input1.simulate("change", {
       target: {
         value: "Hello World 1"
@@ -44,16 +28,9 @@ describe("tokenSideBarContent", () => {
         value: "Hello World 2"
       }
     });
-
-    // expect(mockInputValue1).toBe("Hello World 1");
-    // expect(mockInputValue2).toBe("Hello World 2");
   });
 
   it("simulate click events", async () => {
-    // const mockOnButtonClick1 = jest.fn();
-    // const mockOnButtonClick2 = jest.fn();
-    // const mockOnButtonClick3 = jest.fn();
-
     const wrapper = mount(
       <TokenSideBarContent
         adminAddress="0xA"
@@ -67,21 +44,11 @@ describe("tokenSideBarContent", () => {
     const button2 = wrapper.find("#sec-changebeneficiary button");
     const button3 = wrapper.find("#sec-surrenderdocument button");
 
-    // const buttonMock1 = mount(button1.get(0));
-    // buttonMock1.setProps({
-    //   onClick: mockOnButtonClick1
-    // });
-    // buttonMock1.simulate("click");
-
     await act(async () => {
       button1.simulate("click");
       button2.simulate("click");
       button3.simulate("click");
     });
-
-    // expect(mockOnButtonClick1.mock.calls.length).toEqual(1);
-    // expect(mockOnButtonClick2.mock.calls.length).toEqual(1);
-    // expect(mockOnButtonClick3.mock.calls.length).toEqual(1);
   });
 
   it("should render holder role with 1 correct field, when adminAddress === holder", () => {

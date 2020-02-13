@@ -9,7 +9,7 @@ import css from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
 
-export const TokenSideBar: FunctionComponent<{
+export const TokenSideBarContainer: FunctionComponent<{
   document: SignedDocument;
 }> = ({ document }) => {
   const {
@@ -95,4 +95,4 @@ export const TokenSideBar: FunctionComponent<{
   );
 };
 
-export default TokenSideBar;
+export default TokenSideBarContainer;

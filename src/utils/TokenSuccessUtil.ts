@@ -15,5 +15,7 @@ export function getSuccessResponse(actionType: TOKEN_ACTION_TYPES): string {
       return "Endorse Change of Beneficiary Success";
     case TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT:
       return "Surrender Document Success";
+    default:
+      return "";
   }
 }

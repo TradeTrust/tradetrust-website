@@ -17,7 +17,7 @@ import {
 import CertificateViewer from "./CertificateViewer";
 
 import { FeatureFlag } from "../components/FeatureFlag";
-import TokenSideBar from "../components/TokenSideBar/TokenSideBar";
+import TokenSideBarContainer from "./TokenSideBar/TokenSideBarContainer";
 import { AssetInfo } from "./AssetInfo";
 
 class ViewerPageContainer extends Component {
@@ -72,7 +72,7 @@ class ViewerPageContainer extends Component {
         />
         <FeatureFlag
           name="MANAGE_ASSET"
-          render={() => <TokenSideBar document={this.props.document} />}
+          render={() => <TokenSideBarContainer document={this.props.document} />}
           fallback={() => <AssetInfo document={this.props.document} />}
         />
       </>
