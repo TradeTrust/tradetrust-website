@@ -16,7 +16,13 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument; handleTogg
     <FeatureFlag
       name="MANAGE_ASSET"
       render={() => (
-        <a href="#" id="asset-info-etherscan-link" onClick={handleToggleSideBar}>
+        <a
+          href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+          id="asset-info-etherscan-link"
+          rel="noreferrer noopener"
+          target="_blank"
+          onClick={handleToggleSideBar}
+        >
           Manage Asset
         </a>
       )}
