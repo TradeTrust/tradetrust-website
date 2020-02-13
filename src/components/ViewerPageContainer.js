@@ -18,7 +18,6 @@ import CertificateViewer from "./CertificateViewer";
 
 import { FeatureFlag } from "../components/FeatureFlag";
 import TokenSideBarContainer from "./TokenSideBar/TokenSideBarContainer";
-import { AssetInfo } from "./AssetInfo";
 
 class ViewerPageContainer extends Component {
   constructor(props) {
@@ -26,11 +25,13 @@ class ViewerPageContainer extends Component {
 
     this.state = {
       showSharing: false,
-      detailedVerifyVisible: false
+      detailedVerifyVisible: false,
+      isSideBarExpand: false
     };
     this.handleCertificateChange = this.handleCertificateChange.bind(this);
     this.handleSharingToggle = this.handleSharingToggle.bind(this);
     this.handleSendCertificate = this.handleSendCertificate.bind(this);
+    this.handleToggleSideBar = this.handleToggleSideBar.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +54,11 @@ class ViewerPageContainer extends Component {
     this.props.sendCertificate({ email, captcha });
   }
 
+  handleToggleSideBar = event => {
+    event.preventDefault();
+    this.setState({ isSideBarExpand: !this.state.isSideBarExpand });
+  };
+
   render() {
     if (!this.props.document) return null;
     return (
@@ -69,11 +75,17 @@ class ViewerPageContainer extends Component {
           handleSharingToggle={this.handleSharingToggle}
           emailSendingState={this.props.emailSendingState}
           detailedVerifyVisible={this.state.detailedVerifyVisible}
+          handleToggleSideBar={this.handleToggleSideBar}
         />
         <FeatureFlag
           name="MANAGE_ASSET"
-          render={() => <TokenSideBarContainer document={this.props.document} />}
-          fallback={() => <AssetInfo document={this.props.document} />}
+          render={() => (
+            <TokenSideBarContainer
+              document={this.props.document}
+              handleToggleSideBar={this.handleToggleSideBar}
+              isSideBarExpand={this.state.isSideBarExpand}
+            />
+          )}
         />
       </>
     );

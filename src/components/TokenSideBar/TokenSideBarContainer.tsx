@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SignedDocument } from "@govtechsg/open-attestation";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
@@ -11,7 +11,9 @@ import TokenSideBarRole from "./TokenSideBarRole";
 
 export const TokenSideBarContainer: FunctionComponent<{
   document: SignedDocument;
-}> = ({ document }) => {
+  handleToggleSideBar: any;
+  isSideBarExpand: boolean;
+}> = ({ document, handleToggleSideBar, isSideBarExpand }) => {
   const {
     adminAddress,
     holderAddress,
@@ -27,7 +29,6 @@ export const TokenSideBarContainer: FunctionComponent<{
     isEscrowContract: state.token.isEscrowContract
   }));
 
-  const [isSideBarExpand, toggleSideBar] = useState(false);
   const dispatch = useDispatch();
   const { tokenRegistry: registryAddress } = getAssetInfo(document);
 
@@ -42,11 +43,6 @@ export const TokenSideBarContainer: FunctionComponent<{
   useEffect(() => {
     if (initializeTokenSuccess) dispatch(getTokenUserAddress());
   }, [dispatch, initializeTokenSuccess]);
-
-  const handleToggleSideBar = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    toggleSideBar(!isSideBarExpand);
-  };
 
   if (!registryAddress) return null;
 
