@@ -4,6 +4,7 @@ import { SignedDocument } from "@govtechsg/open-attestation";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
 import { loadAdminAddress } from "../../reducers/admin";
 import { getAssetInfo } from "../../utils";
+import { makeEtherscanTokenURL } from "../../utils";
 
 import TokenSideBar from "./TokenSideBar";
 
@@ -28,7 +29,7 @@ export const TokenSideBarContainer: FunctionComponent<{
   const [isSideBarExpand, toggleSideBar] = useState(false);
 
   const dispatch = useDispatch();
-  const { tokenRegistry: registryAddress } = getAssetInfo(document);
+  const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
 
   useEffect(() => {
     if (registryAddress) dispatch(loadAdminAddress());
@@ -51,7 +52,13 @@ export const TokenSideBarContainer: FunctionComponent<{
 
   return (
     <>
-      <a href="#" id="asset-info-etherscan-link" onClick={handleToggleSideBar}>
+      <a
+        href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+        id="asset-info-etherscan-link"
+        rel="noreferrer noopener"
+        target="_blank"
+        onClick={handleToggleSideBar}
+      >
         Manage Asset
       </a>
       <TokenSideBar
