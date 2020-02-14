@@ -134,7 +134,6 @@ const TokenSideBarContent = ({
           )}
         </>
       </TokenSideBarNoMatch>
-      )
     </>
   );
 };
