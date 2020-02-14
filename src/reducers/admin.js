@@ -1,5 +1,7 @@
 export const initialState = {
   adminAddress: "",
+  metamaskAccountError: false,
+  metamaskNotFound: false,
   isAdminAddressLoading: false
 };
 
@@ -9,7 +11,8 @@ export const types = {
 
   LOADING_ADMIN_ADDRESS: "LOADING_ADMIN_ADDRESS",
   LOADING_ADMIN_ADDRESS_SUCCESS: "LOADING_ADMIN_ADDRESS_SUCCESS",
-  LOADING_ADMIN_ADDRESS_FAILURE: "LOADING_ADMIN_ADDRESS_FAILURE"
+  LOADING_ADMIN_ADDRESS_FAILURE: "LOADING_ADMIN_ADDRESS_FAILURE",
+  METAMASK_NOT_FOUND: "METAMASK_NOT_FOUND"
 };
 
 // Reducers
@@ -23,6 +26,16 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         adminAddress: "",
+        metamaskAccountError: true,
+        metamaskNotFound: false,
+        isAdminAddressLoading: false
+      };
+    case types.METAMASK_NOT_FOUND:
+      return {
+        ...state,
+        adminAddress: "",
+        metamaskAccountError: false,
+        metamaskNotFound: true,
         isAdminAddressLoading: false
       };
     case types.LOADING_ADMIN_ADDRESS_SUCCESS:
@@ -34,6 +47,8 @@ export default function reducer(state = initialState, action) {
     case types.LOADING_ADMIN_ADDRESS:
       return {
         ...state,
+        metamaskAccountError: false,
+        metamaskNotFound: false,
         isAdminAddressLoading: true
       };
     default:

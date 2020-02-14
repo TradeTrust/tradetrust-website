@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { getData, SignedDocument } from "@govtechsg/open-attestation";
 import TokenSideBar from "./TokenSideBar";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
+import { updateNetworkId } from "../../reducers/application";
 import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
+import { connectToMetamask } from "../../services/etherjs";
 import { FeatureFlag } from "../FeatureFlag";
 
 const getAssetInfo = (document: SignedDocument) => {
@@ -23,13 +25,15 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
     holderAddress,
     beneficiaryAddress,
     approvedBeneficiaryAddress,
-    initializeTokenSuccess
+    initializeTokenSuccess,
+    metamaskAccountError
   } = useSelector((state: any) => ({
     adminAddress: state.admin.adminAddress,
     holderAddress: state.token.holderAddress,
     beneficiaryAddress: state.token.beneficiaryAddress,
     approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
     initializeTokenSuccess: state.token.initializeTokenSuccess,
+    metamaskAccountError: state.admin.metamaskAccountError,
     isEscrowContract: state.token.isEscrowContract
   }));
 
@@ -38,20 +42,30 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
   }, [dispatch, document, registryAddress]);
 
   useEffect(() => {
-    if (adminAddress) dispatch(initializeToken());
+    if (adminAddress) {
+      window.ethereum.on("networkChanged", () => {
+        dispatch(updateNetworkId());
+        dispatch(initializeToken());
+      });
+      window.ethereum.on("accountsChanged", () => dispatch(loadAdminAddress()));
+      dispatch(initializeToken());
+    }
   }, [dispatch, adminAddress]);
 
   useEffect(() => {
     if (initializeTokenSuccess) dispatch(getTokenUserAddress());
   }, [dispatch, initializeTokenSuccess]);
 
-  const handlerToggleSideBar = (event: { preventDefault: () => void }) => {
+  const handlerToggleSideBar = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    if (!adminAddress && metamaskAccountError) {
+      await connectToMetamask();
+      dispatch(loadAdminAddress());
+    }
     toggleSideBar(!isSideBarExpand);
   };
 
   if (!registryAddress) return null;
-
   return (
     <>
       <FeatureFlag
