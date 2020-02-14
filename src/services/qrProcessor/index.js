@@ -1,5 +1,5 @@
 import { get } from "axios";
-import { decryptString } from "@govtechsg/opencerts-encryption";
+import { decryptString } from "@govtechsg/oa-encryption";
 
 export const decodeQrCode = qrCode => {
   const ttRegex = /tradetrust:\/\/(.*)/;

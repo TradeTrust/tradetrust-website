@@ -29,13 +29,7 @@ DetailedErrors.propTypes = {
 };
 
 const View = ({ resetData, verificationStatus }) => (
-  <div
-    className={`${css["viewer-container"]} ${css.invalid}`}
-    style={{
-      backgroundColor: "#fbeae9",
-      borderRadius: 10
-    }}
-  >
+  <div className={`${css["viewer-container"]} ${css.invalid}`}>
     <span className={css["message-container"]}>
       <img src="/static/images/dropzone/invalid.svg" />
       <span className="invalid m-3" style={{ fontSize: "1.5rem" }}>

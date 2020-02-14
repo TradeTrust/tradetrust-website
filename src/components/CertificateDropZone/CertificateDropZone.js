@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import DefaultView from "./Views/DefaultView";
 import VerifyingView from "./Views/VerifyingView";
 import UnverifiedView from "./Views/UnverifiedView";
-import css from "./CertificateDropzone.css";
+import css from "./CertificateDropzone.scss";
 
 export const DropzoneContent = ({
   handleRenderOverwrite,
