@@ -8,6 +8,7 @@ type ErrorType = { type: TOKEN_ACTION_TYPES; message: string };
 
 interface TokenSideBarHolderProps {
   isEqualBeneficiaryAndHolder: boolean;
+  approvedHolderAddress: string;
   approvedBeneficiaryAddress: string;
   newHolder: string;
   handleInputChange: (e: any) => void;
@@ -26,6 +27,7 @@ const isSurrenderDocumentError = (error: any): error is ErrorType =>
 const TokenSideBarHolder = ({
   isEqualBeneficiaryAndHolder,
   approvedBeneficiaryAddress,
+  approvedHolderAddress,
   handleInputChange,
   newHolder,
   transferHoldership,
@@ -33,9 +35,9 @@ const TokenSideBarHolder = ({
   surrenderDocument,
   error
 }: TokenSideBarHolderProps) => {
-  const showChangeBeneficiary = !!approvedBeneficiaryAddress || isEqualBeneficiaryAndHolder;
-  const isApprovedBeneficiaryAddress = !!approvedBeneficiaryAddress && !isEqualBeneficiaryAndHolder;
-
+  const isApprovedAddress = !!approvedBeneficiaryAddress && !!approvedHolderAddress;
+  const showChangeBeneficiary = isApprovedAddress || isEqualBeneficiaryAndHolder;
+  const isApprovedEscrowAddress = isApprovedAddress && !isEqualBeneficiaryAndHolder;
   return (
     <>
       <TokenSideBarField
@@ -70,10 +72,10 @@ const TokenSideBarHolder = ({
               <input
                 className={`${css["field-input"]} ${isChangeBeneficiaryError(error) ? css["is-error"] : ""}`}
                 type="text"
-                name="approvedBeneficiary"
-                value={approvedBeneficiaryAddress}
+                name="approvedHolder"
+                value={approvedHolderAddress}
                 onChange={handleInputChange}
-                disabled={isApprovedBeneficiaryAddress}
+                disabled={isApprovedEscrowAddress}
                 placeholder="Address (e.g. 0x483..)"
               />
             </label>
@@ -87,7 +89,7 @@ const TokenSideBarHolder = ({
                 name="approvedBeneficiary"
                 value={approvedBeneficiaryAddress}
                 onChange={handleInputChange}
-                disabled={isApprovedBeneficiaryAddress}
+                disabled={isApprovedEscrowAddress}
                 placeholder="Address (e.g. 0x483..)"
               />
             </label>
