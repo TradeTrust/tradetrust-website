@@ -26,7 +26,7 @@ describe("reducer", () => {
       payload: {
         beneficiaryAddress: "0xA",
         holderAddress: "0xB",
-        approvedBeneficiaryAddress: "0aC"
+        approvedEscrowContractAddress: "0aC"
       }
     };
     const prevState = {};
@@ -36,7 +36,7 @@ describe("reducer", () => {
       getTokenUsersAddressSuccess: true,
       beneficiaryAddress: "0xA",
       holderAddress: "0xB",
-      approvedBeneficiaryAddress: "0aC"
+      approvedEscrowContractAddress: "0aC"
     };
     expect(reducer(prevState, action)).toStrictEqual(expectedState);
   });

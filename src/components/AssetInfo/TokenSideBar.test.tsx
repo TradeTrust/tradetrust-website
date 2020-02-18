@@ -21,10 +21,13 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress=""
+        registryAddress=""
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress=""
+        approvedHolderAddress=""
         approvedBeneficiaryAddress=""
+        approvedEscrowContractAddress=""
         handler={() => {}}
       />
     );
@@ -40,6 +43,9 @@ describe("tokenSideBar", () => {
         holderAddress="0xA"
         beneficiaryAddress="0xA"
         approvedBeneficiaryAddress=""
+        registryAddress=""
+        approvedHolderAddress=""
+        approvedEscrowContractAddress=""
         handler={() => {}}
       />
     );
@@ -67,6 +73,9 @@ describe("tokenSideBar", () => {
         holderAddress="0xA"
         beneficiaryAddress=""
         approvedBeneficiaryAddress=""
+        registryAddress=""
+        approvedHolderAddress=""
+        approvedEscrowContractAddress=""
         handler={() => {}}
       />
     );
@@ -87,6 +96,9 @@ describe("tokenSideBar", () => {
         holderAddress="0xA"
         beneficiaryAddress=""
         approvedBeneficiaryAddress="0xB"
+        registryAddress=""
+        approvedHolderAddress="0xB"
+        approvedEscrowContractAddress=""
         handler={() => {}}
       />
     );
@@ -111,6 +123,9 @@ describe("tokenSideBar", () => {
         holderAddress=""
         beneficiaryAddress="0xA"
         approvedBeneficiaryAddress=""
+        registryAddress=""
+        approvedHolderAddress=""
+        approvedEscrowContractAddress=""
         handler={() => {}}
       />
     );
@@ -131,6 +146,9 @@ describe("tokenSideBar", () => {
         holderAddress="0xC"
         beneficiaryAddress=""
         approvedBeneficiaryAddress=""
+        registryAddress=""
+        approvedHolderAddress=""
+        approvedEscrowContractAddress=""
         handler={() => {}}
       />
     );
