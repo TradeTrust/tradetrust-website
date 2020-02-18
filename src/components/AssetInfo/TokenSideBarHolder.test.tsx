@@ -7,6 +7,7 @@ describe("tokenSideBarHolder", () => {
     const wrapper = mount(
       <TokenSideBarHolder
         isEqualBeneficiaryAndHolder={true}
+        approvedHolderAddress=""
         approvedBeneficiaryAddress=""
         newHolder={"0xB"}
         handleInputChange={() => {}}
@@ -25,6 +26,7 @@ describe("tokenSideBarHolder", () => {
     const wrapper = mount(
       <TokenSideBarHolder
         isEqualBeneficiaryAndHolder={false}
+        approvedHolderAddress="0xC"
         approvedBeneficiaryAddress="0xC"
         newHolder={"0xB"}
         handleInputChange={() => {}}
@@ -44,6 +46,7 @@ describe("tokenSideBarHolder", () => {
     const wrapper = mount(
       <TokenSideBarHolder
         isEqualBeneficiaryAndHolder={false}
+        approvedHolderAddress=""
         approvedBeneficiaryAddress=""
         newHolder={"0xB"}
         handleInputChange={() => {}}

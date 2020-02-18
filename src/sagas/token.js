@@ -47,7 +47,7 @@ export function* getApprovedUserAddressess({ contractAddress }) {
   try {
     yield put(getApprovedEscrowUsers());
     const { provider } = yield getProvider();
-    const { approvedBeneficiary, approvedHolder } = yield getApprovedEscrowContractUsers({
+    const { approvedBeneficiary, approvedHolder } = yield call(getApprovedEscrowContractUsers, {
       contractAddress,
       web3Provider: provider
     });
