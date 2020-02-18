@@ -8,6 +8,9 @@ interface TokenSideBarContentProps {
   holderAddress: string;
   beneficiaryAddress: string;
   approvedBeneficiaryAddress: string;
+  approvedHolderAddress: string;
+  approvedEscrowContractAddress: string;
+  registryAddress: string;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
   isSideBarExpand: boolean;
 }
@@ -16,7 +19,10 @@ const TokenSideBar = ({
   adminAddress,
   holderAddress,
   beneficiaryAddress,
+  approvedEscrowContractAddress,
   approvedBeneficiaryAddress,
+  approvedHolderAddress,
+  registryAddress,
   handler,
   isSideBarExpand
 }: TokenSideBarContentProps) => {
@@ -40,9 +46,12 @@ const TokenSideBar = ({
         </header>
         <TokenSideBarContent
           adminAddress={adminAddress}
+          registryAddress={registryAddress}
           holderAddress={holderAddress}
           beneficiaryAddress={beneficiaryAddress}
+          approvedEscrowContractAddress={approvedEscrowContractAddress}
           approvedBeneficiaryAddress={approvedBeneficiaryAddress}
+          approvedHolderAddress={approvedHolderAddress}
         />
       </div>
       <div className={`${css.hamburger}`} onClick={handler}>

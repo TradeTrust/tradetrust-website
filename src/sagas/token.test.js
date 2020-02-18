@@ -1,15 +1,22 @@
 import { put, select, call, all } from "redux-saga/effects";
 import { getCertificate } from "../reducers/certificate";
 import { types } from "../reducers/token";
-import { getTokenUsers, transferOwnership, checkIfTitleEscrow } from "./token";
-import { getBeneficiaryAddress, getApprovedBeneficiaryAddress, getHolderAddress } from "../services/token";
+import { getTokenUsers, transferOwnership, checkIfTitleEscrow, getApprovedUserAddressess } from "./token";
+import { getBeneficiaryAddress, getApprovedEscrowContractAddress, getHolderAddress } from "../services/token";
 
 jest.mock("../services/token", () => ({
   transferTokenOwnership: () => {},
   getHolderAddress: () => {},
   getBeneficiaryAddress: () => {},
-  getApprovedBeneficiaryAddress: () => {},
+  getApprovedEscrowContractAddress: () => {},
+  getApprovedEscrowContractUsers: () => {},
   isEscrowContract: () => true
+}));
+
+jest.mock("../services/etherjs", () => ({
+  getProvider: () => {
+    provider: null;
+  }
 }));
 
 describe("sagas/token", () => {
@@ -18,8 +25,43 @@ describe("sagas/token", () => {
       const mockTransferStatus = {
         beneficiaryAddress: "0xA",
         holderAddress: "0xB",
-        approvedBeneficiaryAddress: "0xC"
+        approvedEscrowContractAddress: ""
       };
+
+      const generator = getTokenUsers();
+
+      // Should get the token to be transferred from the store next
+      const selectDocument = generator.next().value;
+      expect(selectDocument).toStrictEqual(select(getCertificate));
+
+      const checkTitleEscrow = generator.next("document").value;
+      expect(checkTitleEscrow).toStrictEqual(call(checkIfTitleEscrow, "document"));
+
+      const transferCompletionAction = generator.next(["0xA", "0xB", ""]).value;
+      expect(transferCompletionAction).toStrictEqual(
+        all([
+          call(getBeneficiaryAddress, "document"),
+          call(getHolderAddress, "document"),
+          call(getApprovedEscrowContractAddress, "document")
+        ])
+      );
+      expect(generator.next(["0xA", "0xB", ""]).value).toStrictEqual(
+        put({
+          type: types.GET_TOKEN_USER_ADDRESS_SUCCESS,
+          payload: mockTransferStatus
+        })
+      );
+      expect(generator.next().done).toStrictEqual(true);
+    });
+
+    it("should get token user addresses and approved addresses when approved target address is there", () => {
+      const mockTransferStatus = {
+        beneficiaryAddress: "0xA",
+        holderAddress: "0xB",
+        approvedEscrowContractAddress: "0xC"
+      };
+
+      const mockApprovedAddressess = { approvedBeneficiary: "0xD", approvedHolder: "0xE" };
 
       const generator = getTokenUsers();
 
@@ -35,7 +77,7 @@ describe("sagas/token", () => {
         all([
           call(getBeneficiaryAddress, "document"),
           call(getHolderAddress, "document"),
-          call(getApprovedBeneficiaryAddress, "document")
+          call(getApprovedEscrowContractAddress, "document")
         ])
       );
       expect(generator.next(["0xA", "0xB", "0xC"]).value).toStrictEqual(
@@ -44,7 +86,22 @@ describe("sagas/token", () => {
           payload: mockTransferStatus
         })
       );
-      expect(generator.next().done).toStrictEqual(true);
+
+      const approvedAddresssGenerator = getApprovedUserAddressess({ contractAddress: "0xC" });
+      expect(approvedAddresssGenerator.next().value).toStrictEqual(
+        put({
+          type: types.GET_APPROVED_ESCROW_USERS
+        })
+      );
+      approvedAddresssGenerator.next();
+      approvedAddresssGenerator.next({ contractAddress: "0xC" });
+      expect(approvedAddresssGenerator.next(mockApprovedAddressess).value).toStrictEqual(
+        put({
+          type: types.GET_APPROVED_ESCROW_USERS_SUCCESS,
+          payload: mockApprovedAddressess
+        })
+      );
+      expect(approvedAddresssGenerator.next().done).toStrictEqual(true);
     });
 
     it("should get token user addresses failure", () => {
