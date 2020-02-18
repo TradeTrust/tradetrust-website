@@ -1,7 +1,12 @@
 export const initialState = {
   beneficiaryAddress: "",
   holderAddress: "",
+  approvedEscrowContractAddress: "",
+  approvedHolderAddress: "",
   approvedBeneficiaryAddress: "",
+  getApprovedEscrowUsersPending: false,
+  getApprovedEscrowUsersSuccess: false,
+  getApprovedEscrowUsersError: false,
   isEscrowContract: false,
   getTokenUsersAddressPending: false,
   getTokenUsersAddressSuccess: false,
@@ -26,7 +31,10 @@ export const types = {
   INITIALIZE_TOKEN_ERROR: "INITIALIZE_TOKEN_ERROR",
   TRANSFER_TOKEN_OWNERSHIP: "TRANSFER_TOKEN_OWNERSHIP",
   TRANSFER_TOKEN_OWNERSHIP_SUCCESS: "TRANSFER_TOKEN_OWNERSHIP_SUCCESS",
-  TRANSFER_TOKEN_OWNERSHIP_ERROR: "TRANSFER_TOKEN_OWNERSHIP_ERROR"
+  TRANSFER_TOKEN_OWNERSHIP_ERROR: "TRANSFER_TOKEN_OWNERSHIP_ERROR",
+  GET_APPROVED_ESCROW_USERS: "GET_APPROVED_ESCROW_USERS",
+  GET_APPROVED_ESCROW_USERS_SUCCESS: "GET_APPROVED_ESCROW_USERS_SUCCESS",
+  GET_APPROVED_ESCROW_USERS_ERROR: "GET_APPROVED_ESCROW_USERS_ERROR"
 };
 
 // Reducers
@@ -47,13 +55,34 @@ export default function reducer(state = initialState, action) {
         getTokenUsersAddressSuccess: true,
         beneficiaryAddress: action.payload.beneficiaryAddress,
         holderAddress: action.payload.holderAddress,
-        approvedBeneficiaryAddress: action.payload.approvedBeneficiaryAddress
+        approvedEscrowContractAddress: action.payload.approvedEscrowContractAddress
       };
     case types.GET_TOKEN_USER_ADDRESS_ERROR:
       return {
         ...state,
         getTokenUsersAddressPending: false,
         getTokenUsersAddressError: action.payload
+      };
+    case types.GET_APPROVED_ESCROW_USERS:
+      return {
+        ...state,
+        getApprovedEscrowUsersPending: true,
+        getApprovedEscrowUsersSuccess: false,
+        getApprovedEscrowUsersError: false
+      };
+    case types.GET_APPROVED_ESCROW_USERS_SUCCESS:
+      return {
+        ...state,
+        getApprovedEscrowUsersPending: false,
+        getApprovedEscrowUsersSuccess: true,
+        approvedBeneficiaryAddress: action.payload.approvedBeneficiary,
+        approvedHolderAddress: action.payload.approvedHolder
+      };
+    case types.GET_APPROVED_ESCROW_USERS_ERROR:
+      return {
+        ...state,
+        getTokenUsersAddressPending: false,
+        getApprovedEscrowUsersError: action.payload
       };
     case types.IS_ESCROW_CONTRACT_ERROR:
       return {
@@ -119,6 +148,20 @@ export const getTokenUserAddressSuccess = payload => ({
 
 export const getTokenUserAddressError = payload => ({
   type: types.GET_TOKEN_USER_ADDRESS_ERROR,
+  payload
+});
+
+export const getApprovedEscrowUsers = () => ({
+  type: types.GET_APPROVED_ESCROW_USERS
+});
+
+export const getApprovedEscrowUsersSuccess = payload => ({
+  type: types.GET_APPROVED_ESCROW_USERS_SUCCESS,
+  payload
+});
+
+export const getApprovedEscrowUsersError = payload => ({
+  type: types.GET_APPROVED_ESCROW_USERS_ERROR,
   payload
 });
 

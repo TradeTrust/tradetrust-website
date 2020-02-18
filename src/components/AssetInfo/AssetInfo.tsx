@@ -24,7 +24,9 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
     adminAddress,
     holderAddress,
     beneficiaryAddress,
+    approvedEscrowContractAddress,
     approvedBeneficiaryAddress,
+    approvedHolderAddress,
     initializeTokenSuccess,
     metamaskAccountError
   } = useSelector((state: any) => ({
@@ -32,6 +34,8 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
     holderAddress: state.token.holderAddress,
     beneficiaryAddress: state.token.beneficiaryAddress,
     approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
+    approvedHolderAddress: state.token.approvedHolderAddress,
+    approvedEscrowContractAddress: state.token.approvedEscrowContractAddress,
     initializeTokenSuccess: state.token.initializeTokenSuccess,
     metamaskAccountError: state.admin.metamaskAccountError,
     isEscrowContract: state.token.isEscrowContract
@@ -83,9 +87,12 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
             </a>
             <TokenSideBar
               adminAddress={adminAddress}
+              registryAddress={registryAddress}
               holderAddress={holderAddress}
               beneficiaryAddress={beneficiaryAddress}
+              approvedEscrowContractAddress={approvedEscrowContractAddress}
               approvedBeneficiaryAddress={approvedBeneficiaryAddress}
+              approvedHolderAddress={approvedHolderAddress}
               handler={handlerToggleSideBar}
               isSideBarExpand={isSideBarExpand}
             />
