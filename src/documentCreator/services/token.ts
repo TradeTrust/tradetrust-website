@@ -28,7 +28,7 @@ export const initializeTokenInstance = async ({
   const contractAddress = get(documentData, "issuers[0].tokenRegistry", "");
   trace(`contract address is : ${contractAddress}`);
   if (!contractAddress) throw new Error("Please submit valid token");
-  registryInstance = await new TokenRegistry({ contractAddress, web3Provider, wallet });
+  registryInstance = new TokenRegistry({ contractAddress, web3Provider, wallet });
   trace(`token Instance: ${registryInstance}`);
 };
 

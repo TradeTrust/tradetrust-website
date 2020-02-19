@@ -18,9 +18,9 @@ export const DocumentPreview = ({ document }: DocumentPreviewProps): React.React
   const [templates, setTemplates] = useState<{ id: string; label: string }[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<string>("");
   const sourceUrl = get(document, "$template.url", "");
-  const fn = useCallback((toFrame: HostActionsHandler) => {
+  const fn = useCallback((handler: HostActionsHandler) => {
     // wrap into a function otherwise toFrame function will be executed
-    setToFrame(() => toFrame);
+    setToFrame(() => handler);
   }, []);
 
   const fromFrame = (action: FrameActions): void => {

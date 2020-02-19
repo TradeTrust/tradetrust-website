@@ -30,9 +30,13 @@ export const PopupModal = ({
           if (!showLoader) {
             toggleDisplay(false);
           }
+          break;
         case 13: // enter
-          document.getElementById("modal-button-submit")?.click(); //eslint-disable-line mdx/no-unused-expressions
+          const submitBtn = document.getElementById("modal-button-submit");
+          submitBtn?.click(); //eslint-disable-line mdx/no-unused-expressions
+          break;
         default:
+          break;
       }
     };
 

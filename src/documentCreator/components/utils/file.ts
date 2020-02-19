@@ -12,5 +12,5 @@ export const readFileData = (acceptedFiles: File[], handleUpdate: Function, hand
     }
   };
 
-  acceptedFiles.map(file => reader.readAsText(file));
+  acceptedFiles.forEach(file => reader.readAsText(file));
 };

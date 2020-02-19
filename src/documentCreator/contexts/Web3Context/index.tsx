@@ -30,7 +30,7 @@ export class Web3Provider extends React.Component<any, Web3ContextProps> {
       },
       setWallet: async (walletEncryptedJson: EncryptedJsonWallet, password: string) => {
         const decryptedWallet = await ethers.Wallet.fromEncryptedJson(JSON.stringify(walletEncryptedJson), password);
-        const connectedWallet = await decryptedWallet.connect(this.state.web3);
+        const connectedWallet = decryptedWallet.connect(this.state.web3);
         this.setState(prevState => {
           return { ...prevState, wallet: connectedWallet };
         });

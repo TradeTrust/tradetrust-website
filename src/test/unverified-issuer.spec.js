@@ -4,7 +4,7 @@ fixture("Unverified Document Rendering").page`http://localhost:3000`;
 
 const Document = "./fixture/unverified-issuer.json";
 
-const RenderedDocument = Selector("#certificate-dropzone");
+const RenderedDocument = Selector("#demoDrop");
 const InvalidMessage = Selector(".invalid");
 
 const validateTextContent = async (t, component, texts) =>

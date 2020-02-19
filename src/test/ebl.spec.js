@@ -11,7 +11,7 @@ const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
 test("Token is verified and rendered correctly", async t => {
-  const container = Selector("#certificate-dropzone");
+  const container = Selector("#demoDrop");
   await container();
   await t.setFilesToUpload("input[type=file]", [Document]);
 
