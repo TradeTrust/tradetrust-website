@@ -56,20 +56,22 @@ export const surrenderToken = async () => await writeableTokenInstance.surrender
 
 export const deployEscrowContract = async ({ registryAddress, beneficiaryAddress, holderAddress }) => {
   const { provider, signer } = await getProvider();
-  const contractOnwerInstance = await WriteableTitleEscrowOwner.deployEscrowContract({
+  const contractOwnerInstance = await WriteableTitleEscrowOwner.deployEscrowContract({
     registryAddress,
     beneficiaryAddress,
     holderAddress,
     wallet: signer,
     web3Provider: provider
   });
-  return contractOnwerInstance.address;
+  return contractOwnerInstance.address;
 };
 
 export const getApprovedEscrowContractUsers = async ({ contractAddress, web3Provider }) => {
   const titleEscrowInstance = await createOwner({ address: contractAddress, web3Provider });
-  const approvedBeneficiary = await titleEscrowInstance.beneficiary();
-  const approvedHolder = await titleEscrowInstance.holder();
+  const [approvedBeneficiary, approvedHolder] = await Promise.all([
+    titleEscrowInstance.beneficiary(),
+    titleEscrowInstance.holder()
+  ]);
   trace(`approved beneficiary: ${JSON.stringify(approvedBeneficiary)}, approved holder: ${approvedHolder}`);
   return { approvedBeneficiary, approvedHolder };
 };
