@@ -7,6 +7,11 @@ const navItems = [
     id: "home",
     label: "Home",
     path: "/"
+  },
+  {
+    id: "documentCreator",
+    label: "Document Creator",
+    path: "/document-creator"
   }
 ];
 

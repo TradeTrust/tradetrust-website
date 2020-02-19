@@ -14,16 +14,35 @@ export const DropzoneContent = ({
   verifying,
   fileError,
   verificationStatus,
-  toggleQrReaderVisible
+  toggleQrReaderVisible,
+  getRootProps,
+  getInputProps
 }) => {
   // isDragReject is checking for mimetype (but we skipped it)
   // fileError is when the file is not in JSON format and threw when deserilising
   // valid JSON files will be handled by handleCertificateChange()
+
   if (isDragReject || fileError) {
-    return <DefaultView hover={true} accept={false} toggleQrReaderVisible={toggleQrReaderVisible} />;
+    return (
+      <DefaultView
+        hover={true}
+        accept={false}
+        getRootProps={getRootProps}
+        getInputProps={getInputProps}
+        toggleQrReaderVisible={toggleQrReaderVisible}
+      />
+    );
   }
   if (isDragAccept) {
-    return <DefaultView hover={true} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
+    return (
+      <DefaultView
+        hover={true}
+        accept={true}
+        getRootProps={getRootProps}
+        getInputProps={getInputProps}
+        toggleQrReaderVisible={toggleQrReaderVisible}
+      />
+    );
   }
   if (verifying) {
     return <VerifyingView verificationStatus={verificationStatus} />;
@@ -37,13 +56,19 @@ export const DropzoneContent = ({
       />
     );
   }
-  return <DefaultView hover={false} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
+  return (
+    <DefaultView
+      hover={false}
+      accept={true}
+      getRootProps={getRootProps}
+      getInputProps={getInputProps}
+      toggleQrReaderVisible={toggleQrReaderVisible}
+    />
+  );
 };
 
 // Injects additional props on top of isDragReject, isDragActive, acceptedFiles & rejectedFiles
-const renderDropzoneContentCurry = additionalProps => props => (
-  <DropzoneContent {...{ ...props, ...additionalProps }} />
-);
+const renderDropzoneContentCurry = props => <DropzoneContent {...props} />;
 
 const onFileDrop = (acceptedFiles, handleCertificateChange, handleFileError) => {
   // eslint-disable-next-line no-undef
@@ -77,15 +102,21 @@ const CertificateDropzone = ({
     onDrop={acceptedFiles => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
     className={css.dropzone}
   >
-    {renderDropzoneContentCurry({
-      handleCertificateChange,
-      resetData,
-      handleRenderOverwrite,
-      fileError,
-      verifying,
-      verificationStatus,
-      toggleQrReaderVisible
-    })}
+    {({ getRootProps, getInputProps, isDragAccept, isDragReject }) =>
+      renderDropzoneContentCurry({
+        handleCertificateChange,
+        resetData,
+        handleRenderOverwrite,
+        fileError,
+        verifying,
+        verificationStatus,
+        toggleQrReaderVisible,
+        getRootProps,
+        getInputProps,
+        isDragAccept,
+        isDragReject
+      })
+    }
   </Dropzone>
 );
 

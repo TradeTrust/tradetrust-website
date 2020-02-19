@@ -1,0 +1,33 @@
+[ {
+"blNumber": "123",
+"name": "Demo Document",
+"beneficiaryAddress": "0x4BD9B0838FcC487DBc883ad0E417aEd98001268a",
+"holderAddress": "0x4BD9B0838FcC487DBc883ad0E417aEd98001268a",
+"consignee": {
+    "name": "Demo Consignee",
+    "type": "To the owner of"
+},
+"notifyParty": {
+    "name": "Demo Notify"
+    },
+"shipper": {
+    "name": "Demo Shipper",
+    "address": {
+    "street": "One North",
+    "country": "Singapore"
+      }
+    },
+"vessel": "1",
+"voyageNo": 100,
+"portOfLoading": "Singapore Port",
+"portOfDischarge": "China Port",
+"placeOfReceipt": "Beijing",
+"placeOfDelivery": "Singapore",
+"packages": [
+      {
+    "description": "Green Apples",
+    "weight": 20,
+    "measurement": "100"
+      }
+    ]
+  }]

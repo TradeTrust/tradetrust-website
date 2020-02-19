@@ -2,14 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import css from "./viewerStyles.scss";
 
-const View = ({ hover, accept, toggleQrReaderVisible }) => (
+const View = ({ hover, accept, getRootProps, getInputProps, toggleQrReaderVisible }) => (
   <div
     data-id="viewer-container"
     className={`${css["viewer-container"]} ${
       // eslint-disable-next-line no-nested-ternary
       hover ? (accept ? css.accept : css.invalid) : css.default
     }`}
+    {...getRootProps()}
   >
+    <input {...getInputProps()} />
     <div className={css["image-container"]}>
       <i>
         <img alt=".tradetrust Dropzone" src="/static/images/dropzone/dropzone_illustration.svg" />

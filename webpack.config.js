@@ -46,7 +46,8 @@ module.exports = {
           "sass-loader"
         ],
         include: path.resolve(__dirname, "src")
-      }
+      },
+      { test: /\.css$/, loader: "style-loader!css-loader" }
     ]
   },
   plugins: [
@@ -71,7 +72,6 @@ module.exports = {
       cacheGroups: {
         vendors: {
           test: /\/node_modules\//,
-          filename: "vendor.[hash:7].js",
           name: "vendor",
           chunks: "all"
         }

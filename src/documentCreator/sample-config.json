@@ -1,0 +1,158 @@
+{
+  "modules": ["issue-token"],
+  "application": {
+    "wallet": {
+      "address": "28edac5b7e03e63b3d7a0a22e3898bed319e906c",
+      "id": "5315908e-af03-465f-b246-63ba3d2065f2",
+      "version": 3,
+      "Crypto": {
+        "cipher": "aes-128-ctr",
+        "cipherparams": { "iv": "ce9b424f6ea8b39f382e9612f52ac5ae" },
+        "ciphertext": "3b55ed835cfaffe054ca23a5b32839161b25e18a29e0be8f618fc0366540b636",
+        "kdf": "scrypt",
+        "kdfparams": {
+          "salt": "b8b0875eeb7012abee34f78058323537aa7cfc326917d767b32133f52f92897a",
+          "n": 131072,
+          "dklen": 32,
+          "p": 1,
+          "r": 8
+        },
+        "mac": "59ea7b6a638a76afd2aedc588152b82d8cc01955f82e416161dde0b7d95c185f"
+      }
+    },
+    "network": "ethereum-ropsten"
+  },
+  "documentMeta": {
+    "name": "Maersk Bill of Lading",
+    "$template": {
+      "name": "BILL_OF_LADING",
+      "type": "EMBEDDED_RENDERER",
+      "url": "https://demo-cnm.open-attestation.com"
+    },
+    "issuers": [
+      {
+        "name": "DEMO STORE",
+        "tokenRegistry": "",
+        "identityProof": {
+          "type": "DNS-TXT",
+          "location": "tradetrust.io"
+        }
+      }
+    ]
+  },
+  "formSchema": [
+    {
+      "$id": "123",
+      "name": "Maersk Bill of Lading Data Entry Form",
+        "type": "object",
+        "properties": {
+          "consignee": {
+            "type": "object",
+            "title": "Consignee",
+            "ui": {
+              "classNames": "item-pd-0",
+              "name": {},
+              "type": {}
+            },
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "notifyParty": {
+            "type": "object",
+            "title": "Notify Party",
+            "ui": {
+              "classNames": "item-pd-0",
+              "name": {}
+            },
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "shipper": {
+            "type": "object",
+            "title": "Shipper",
+            "ui": {
+              "classNames": "item-pd-0",
+              "name": {},
+              "address": {
+                "street": {},
+                "country": {}
+              }
+            },
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "address": {
+                "type": "object",
+                "properties": {
+                  "street": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "vessel": {
+            "type": "string",
+            "title": "Vessel"
+          },
+          "voyageNo": {
+            "type": "number",
+            "title": "Voyage No"
+          },
+          "portOfLoading": {
+            "type": "string",
+            "title": "Port of Loading"
+          },
+          "portOfDischarge": {
+            "type": "string",
+            "title": "Port of Discharge"
+          },
+          "placeOfReceipt": {
+            "type": "string",
+            "title": "Place of receipt"
+          },
+          "placeOfDelivery": {
+            "type": "string",
+            "title": "Place of delivery"
+          },
+          "packages": {
+            "type": "array",
+            "title": "Packages",
+            "ui": {
+              "ui:options": {
+                "orderable": false
+              },
+              "classNames": "item-pd-0"
+            },
+            "items": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "weight": {
+                  "type": "number",
+                  "ui": {
+                    "ui:help": "in kg"
+                  }
+                },
+                "measurement": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+  ]
+}
