@@ -68,8 +68,9 @@ export const DropzoneContent = ({
 };
 
 // Injects additional props on top of isDragReject, isDragActive, acceptedFiles & rejectedFiles
-const renderDropzoneContentCurry = props => <DropzoneContent {...props} />;
-
+const renderDropzoneContentCurry = additionalProps => props => (
+  <DropzoneContent {...{ ...props, ...additionalProps }} />
+);
 const onFileDrop = (acceptedFiles, handleCertificateChange, handleFileError) => {
   // eslint-disable-next-line no-undef
   const reader = new FileReader();
@@ -102,21 +103,15 @@ const CertificateDropzone = ({
     onDrop={acceptedFiles => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
     className={css.dropzone}
   >
-    {({ getRootProps, getInputProps, isDragAccept, isDragReject }) =>
-      renderDropzoneContentCurry({
-        handleCertificateChange,
-        resetData,
-        handleRenderOverwrite,
-        fileError,
-        verifying,
-        verificationStatus,
-        toggleQrReaderVisible,
-        getRootProps,
-        getInputProps,
-        isDragAccept,
-        isDragReject
-      })
-    }
+    {renderDropzoneContentCurry({
+      handleCertificateChange,
+      resetData,
+      handleRenderOverwrite,
+      fileError,
+      verifying,
+      verificationStatus,
+      toggleQrReaderVisible
+    })}
   </Dropzone>
 );
 
