@@ -17,8 +17,12 @@ describe("tokenSideBarHolder", () => {
         error={null}
       />
     );
-    // const inputInstance = wrapper.find("#sec-changebeneficiary input").instance() as any;
-    // expect(inputInstance.value).toEqual("");
+    const holderInstance = wrapper.find("#sec-changebeneficiary input[name='approvedHolder']").instance() as any;
+    expect(holderInstance.value).toEqual("");
+    const beneficiaryInstance = wrapper
+      .find("#sec-changebeneficiary input[name='approvedBeneficiary']")
+      .instance() as any;
+    expect(beneficiaryInstance.value).toEqual("");
     expect(wrapper.find("section")).toHaveLength(3);
   });
 
@@ -27,7 +31,7 @@ describe("tokenSideBarHolder", () => {
       <TokenSideBarHolder
         isEqualBeneficiaryAndHolder={false}
         approvedHolderAddress="0xC"
-        approvedBeneficiaryAddress="0xC"
+        approvedBeneficiaryAddress="0xD"
         newHolder={"0xB"}
         handleInputChange={() => {}}
         transferHoldership={() => {}}
@@ -37,8 +41,12 @@ describe("tokenSideBarHolder", () => {
       />
     );
 
-    // const inputInstance = wrapper.find("#sec-changebeneficiary input").instance() as any;
-    // expect(inputInstance.value).toEqual("0xC");
+    const holderInstance = wrapper.find("#sec-changebeneficiary input[name='approvedHolder']").instance() as any;
+    expect(holderInstance.value).toEqual("0xC");
+    const beneficiaryInstance = wrapper
+      .find("#sec-changebeneficiary input[name='approvedBeneficiary']")
+      .instance() as any;
+    expect(beneficiaryInstance.value).toEqual("0xD");
     expect(wrapper.find("section")).toHaveLength(2);
   });
 
