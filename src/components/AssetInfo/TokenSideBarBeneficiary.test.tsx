@@ -6,7 +6,8 @@ describe("tokenSideBarBeneficiary", () => {
   it("should have 1 field for Beneficiary", () => {
     const wrapper = mount(
       <TokenSideBarBeneficiary
-        handleInputChange={() => {}}
+        setApprovedHolder={() => {}}
+        setApprovedBeneficiary={() => {}}
         approvedHolder=""
         approvedBeneficiary=""
         approveChangeBeneficiary={() => {}}

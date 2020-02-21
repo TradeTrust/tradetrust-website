@@ -20,26 +20,16 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
   const dispatch = useDispatch();
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
 
-  const {
-    adminAddress,
-    holderAddress,
-    beneficiaryAddress,
-    approvedEscrowContractAddress,
-    approvedBeneficiaryAddress,
-    approvedHolderAddress,
-    initializeTokenSuccess,
-    metamaskAccountError
-  } = useSelector((state: any) => ({
-    adminAddress: state.admin.adminAddress,
-    holderAddress: state.token.holderAddress,
-    beneficiaryAddress: state.token.beneficiaryAddress,
-    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
-    approvedHolderAddress: state.token.approvedHolderAddress,
-    approvedEscrowContractAddress: state.token.approvedEscrowContractAddress,
-    initializeTokenSuccess: state.token.initializeTokenSuccess,
-    metamaskAccountError: state.admin.metamaskAccountError,
-    isEscrowContract: state.token.isEscrowContract
-  }));
+  const { adminAddress, holderAddress, beneficiaryAddress, initializeTokenSuccess, metamaskAccountError } = useSelector(
+    (state: any) => ({
+      adminAddress: state.admin.adminAddress,
+      holderAddress: state.token.holderAddress,
+      beneficiaryAddress: state.token.beneficiaryAddress,
+      initializeTokenSuccess: state.token.initializeTokenSuccess,
+      metamaskAccountError: state.admin.metamaskAccountError,
+      isEscrowContract: state.token.isEscrowContract
+    })
+  );
 
   useEffect(() => {
     if (registryAddress) dispatch(loadAdminAddress());
@@ -90,9 +80,6 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
               registryAddress={registryAddress}
               holderAddress={holderAddress}
               beneficiaryAddress={beneficiaryAddress}
-              approvedEscrowContractAddress={approvedEscrowContractAddress}
-              approvedBeneficiaryAddress={approvedBeneficiaryAddress}
-              approvedHolderAddress={approvedHolderAddress}
               handler={handlerToggleSideBar}
               isSideBarExpand={isSideBarExpand}
             />

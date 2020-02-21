@@ -19,21 +19,21 @@ describe("tokenSideBarContent", () => {
   });
   it("should render TokenSideBarHolder view", () => {
     const wrapper = mount(
-      <TokenSideBarContent adminAddress="0xA" holderAddress="0xA" beneficiaryAddress="" approvedBeneficiaryAddress="" />
+      <TokenSideBarContent adminAddress="0xA" holderAddress="0xA" beneficiaryAddress="" registryAddress="" />
     );
     expect(wrapper.find("TokenSideBarHolder")).toHaveLength(1);
   });
 
   it("should render TokenSideBarBeneficiary view", () => {
     const wrapper = mount(
-      <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="0xA" approvedBeneficiaryAddress="" />
+      <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="0xA" registryAddress="" />
     );
     expect(wrapper.find("TokenSideBarBeneficiary")).toHaveLength(1);
   });
 
   it("should render TokenSideBarBeneficiary view", () => {
     const wrapper = mount(
-      <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="0xC" approvedBeneficiaryAddress="" />
+      <TokenSideBarContent adminAddress="0xA" holderAddress="" beneficiaryAddress="0xC" registryAddress="" />
     );
     expect(wrapper.find("TokenSideBarNoMatch")).toHaveLength(1);
   });
