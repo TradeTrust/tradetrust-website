@@ -10,7 +10,9 @@ describe("tokenSideBarHolder", () => {
         approvedHolderAddress=""
         approvedBeneficiaryAddress=""
         newHolder={"0xB"}
-        handleInputChange={() => {}}
+        setNewHolder={() => {}}
+        setApprovedHolder={() => {}}
+        setApprovedBeneficiary={() => {}}
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
@@ -33,7 +35,9 @@ describe("tokenSideBarHolder", () => {
         approvedHolderAddress="0xC"
         approvedBeneficiaryAddress="0xD"
         newHolder={"0xB"}
-        handleInputChange={() => {}}
+        setNewHolder={() => {}}
+        setApprovedHolder={() => {}}
+        setApprovedBeneficiary={() => {}}
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}
@@ -57,7 +61,9 @@ describe("tokenSideBarHolder", () => {
         approvedHolderAddress=""
         approvedBeneficiaryAddress=""
         newHolder={"0xB"}
-        handleInputChange={() => {}}
+        setNewHolder={() => {}}
+        setApprovedHolder={() => {}}
+        setApprovedBeneficiary={() => {}}
         transferHoldership={() => {}}
         changeBeneficiary={() => {}}
         surrenderDocument={() => {}}

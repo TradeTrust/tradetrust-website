@@ -7,7 +7,8 @@ import { TokenErrorMessage } from "./TokenErrorMessage";
 type ErrorType = { type: TOKEN_ACTION_TYPES; message: string };
 
 interface TokenBeneficiaryInterface {
-  handleInputChange: (e: any) => void;
+  setApprovedBeneficiary: (e: any) => void;
+  setApprovedHolder: (e: any) => void;
   approvedHolder: string;
   approvedBeneficiary: string;
   error: ErrorType | null;
@@ -18,7 +19,8 @@ const isEndorseBeneficiaryError = (error: any): error is ErrorType =>
   error?.type === TOKEN_ACTION_TYPES.ENDORSE_BENEFICIARY;
 
 const TokenSideBarBeneficiary = ({
-  handleInputChange,
+  setApprovedBeneficiary,
+  setApprovedHolder,
   approvedHolder,
   approvedBeneficiary,
   approveChangeBeneficiary,
@@ -39,7 +41,7 @@ const TokenSideBarBeneficiary = ({
           type="text"
           name="approvedHolder"
           value={approvedHolder}
-          onChange={handleInputChange}
+          onChange={e => setApprovedHolder(e.target.value)}
           placeholder="Address (e.g. 0x483..)"
         />
       </label>
@@ -52,7 +54,7 @@ const TokenSideBarBeneficiary = ({
           type="text"
           name="approvedBeneficiary"
           value={approvedBeneficiary}
-          onChange={handleInputChange}
+          onChange={e => setApprovedBeneficiary(e.target.value)}
           placeholder="Address (e.g. 0x483..)"
         />
       </label>

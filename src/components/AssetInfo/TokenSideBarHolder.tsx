@@ -11,7 +11,9 @@ interface TokenSideBarHolderProps {
   approvedHolderAddress: string;
   approvedBeneficiaryAddress: string;
   newHolder: string;
-  handleInputChange: (e: any) => void;
+  setNewHolder: (e: any) => void;
+  setApprovedHolder: (e: any) => void;
+  setApprovedBeneficiary: (e: any) => void;
   transferHoldership: () => void;
   changeBeneficiary: () => void;
   surrenderDocument: () => void;
@@ -28,7 +30,9 @@ const TokenSideBarHolder = ({
   isEqualBeneficiaryAndHolder,
   approvedBeneficiaryAddress,
   approvedHolderAddress,
-  handleInputChange,
+  setNewHolder,
+  setApprovedHolder,
+  setApprovedBeneficiary,
   newHolder,
   transferHoldership,
   changeBeneficiary,
@@ -51,7 +55,7 @@ const TokenSideBarHolder = ({
             className={`${css["field-input"]} ${isChangeHolderError(error) ? css["is-error"] : ""}`}
             name="newHolder"
             value={newHolder}
-            onChange={handleInputChange}
+            onChange={e => setNewHolder(e.target.value)}
             type="text"
             placeholder="Address (e.g. 0x483..)"
           />
@@ -74,7 +78,7 @@ const TokenSideBarHolder = ({
                 type="text"
                 name="approvedHolder"
                 value={approvedHolderAddress}
-                onChange={handleInputChange}
+                onChange={e => setApprovedHolder(e.target.value)}
                 disabled={isApprovedEscrowAddress}
                 placeholder="Address (e.g. 0x483..)"
               />
@@ -88,7 +92,7 @@ const TokenSideBarHolder = ({
                 type="text"
                 name="approvedBeneficiary"
                 value={approvedBeneficiaryAddress}
-                onChange={handleInputChange}
+                onChange={e => setApprovedBeneficiary(e.target.value)}
                 disabled={isApprovedEscrowAddress}
                 placeholder="Address (e.g. 0x483..)"
               />
