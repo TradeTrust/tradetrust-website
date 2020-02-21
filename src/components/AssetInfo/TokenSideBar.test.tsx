@@ -55,8 +55,8 @@ describe("tokenSideBar", () => {
     expect(wrapper.find("#sec-transferholdership h4").text()).toStrictEqual("Transfer Holdership");
     expect(wrapper.find("#sec-transferholdership button").text()).toStrictEqual("Transfer");
 
-    expect(wrapper.find("#sec-changebeneficiary h4").text()).toStrictEqual("Change Beneficiary");
-    expect(wrapper.find("#sec-changebeneficiary button").text()).toStrictEqual("Change");
+    expect(wrapper.find("#sec-changebeneficiary h4").text()).toStrictEqual("Endorse Change of Beneficiary");
+    expect(wrapper.find("#sec-changebeneficiary button").text()).toStrictEqual("Endorse");
 
     expect(wrapper.find("#sec-surrenderdocument h4").text()).toStrictEqual("Surrender Document");
     expect(wrapper.find("#sec-surrenderdocument button").text()).toStrictEqual("Surrender");
@@ -110,8 +110,8 @@ describe("tokenSideBar", () => {
     expect(wrapper.find("#sec-transferholdership h4").text()).toStrictEqual("Transfer Holdership");
     expect(wrapper.find("#sec-transferholdership button").text()).toStrictEqual("Transfer");
 
-    expect(wrapper.find("#sec-changebeneficiary h4").text()).toStrictEqual("Change Beneficiary");
-    expect(wrapper.find("#sec-changebeneficiary button").text()).toStrictEqual("Change");
+    expect(wrapper.find("#sec-changebeneficiary h4").text()).toStrictEqual("Endorse Change of Beneficiary");
+    expect(wrapper.find("#sec-changebeneficiary button").text()).toStrictEqual("Confirm");
   });
 
   // admin address === bene
