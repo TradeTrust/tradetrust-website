@@ -1,6 +1,16 @@
 // =====================================================================
-// Import SCSS files
+// Typography
 // =====================================================================
 
-@import "abstracts/__abstracts";
-@import "base/__base";
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include font-montserrat-regular;
+}
+
+body {
+  @include font-sourcesanspro-regular;
+}

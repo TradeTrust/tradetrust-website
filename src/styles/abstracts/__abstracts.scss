@@ -1,6 +1,7 @@
 // =====================================================================
-// Import SCSS files
+// Abstracts
 // =====================================================================
 
-@import "abstracts/__abstracts";
-@import "base/__base";
+@import "variables";
+@import "mixins";
+@import "animation";
