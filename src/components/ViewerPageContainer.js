@@ -9,9 +9,9 @@ import {
   sendCertificate,
   sendCertificateReset,
   getCertificate,
-  getVerifying,
+  ying,
   getEmailSendingState,
-  getVerificationStatus,
+  icationStatus,
   updateObfuscatedCertificate
 } from "../reducers/certificate";
 import CertificateViewer from "./CertificateViewer";
@@ -74,8 +74,8 @@ const mapStateToProps = store => ({
 
   // Verification statuses used in verifier block
   emailSendingState: getEmailSendingState(store),
-  verifying: getVerifying(store),
-  verificationStatus: getVerificationStatus(store)
+  verifying: ying(store),
+  verificationStatus: icationStatus(store)
 });
 
 const mapDispatchToProps = dispatch => ({

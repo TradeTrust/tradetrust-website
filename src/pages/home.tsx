@@ -1,32 +1,30 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import NavigationBar from "../components/Layout/NavigationBar";
 import Footer from "../components/Layout/Footer";
 import MainPageContainer from "../components/MainPageContainer";
 import { connect } from "react-redux";
-
 import {
   resetCertificateState,
   retrieveCertificateByAction,
   retrieveCertificateByActionFailure
 } from "../reducers/certificate";
 
-export const HomePage = ({ location }) => {
+export const HomePage = props => {
   useEffect(() => {
     if (location) {
-      console.log(location);
+      props.resetCertificateState();
+      console.log(props.location.search.substring(3));
 
-      // props.resetCertificateState();
-      // const action = JSON.parse(window.decodeURI(router.query.q));
-      // if (action.type === "DOCUMENT") {
-      //   props.retrieveCertificateByAction(action.payload);
-      // } else {
-      //   props.retrieveCertificateByActionFailure(
-      //     `The type ${action.type} provided from the action is not supported`
-      //   );
-      // }
+      const action = JSON.parse(window.decodeURI(props.location.search.substring(3)));
+      if (action.type === "DOCUMENT") {
+        props.retrieveCertificateByAction(action.payload);
+      } else {
+        props.retrieveCertificateByActionFailure(`The type ${action.type} provided from the action is not supported`);
+      }
     }
-  }, [location]);
+  }, [props]);
 
   return (
     <>
@@ -44,16 +42,16 @@ export const HomePage = ({ location }) => {
   );
 };
 
-// const mapDispatchToProps = dispatch => ({
-//   retrieveCertificateByAction: payload => dispatch(retrieveCertificateByAction(payload)),
-//   retrieveCertificateByActionFailure: payload => dispatch(retrieveCertificateByActionFailure(payload)),
-//   resetCertificateState: () => dispatch(resetCertificateState())
-// });
+const mapDispatchToProps = dispatch => ({
+  retrieveCertificateByAction: payload => dispatch(retrieveCertificateByAction(payload)),
+  retrieveCertificateByActionFailure: payload => dispatch(retrieveCertificateByActionFailure(payload)),
+  resetCertificateState: () => dispatch(resetCertificateState())
+});
 
-// export default connect(null, mapDispatchToProps)(HomePage)
+export const HomePageContainer = connect(null, mapDispatchToProps)(HomePage);
 
-// HomePage.propTypes = {
-//   retrieveCertificateByAction: PropTypes.func,
-//   resetCertificateState: PropTypes.func,
-//   retrieveCertificateByActionFailure: PropTypes.func
-// };
+HomePage.propTypes = {
+  retrieveCertificateByAction: PropTypes.func,
+  resetCertificateState: PropTypes.func,
+  retrieveCertificateByActionFailure: PropTypes.func
+};

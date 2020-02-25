@@ -36,7 +36,6 @@ const View = ({ resetData, verificationStatus, retrieveCertificateByActionError 
         This document is not valid
       </span>
     </span>
-    {console.log(retrieveCertificateByActionError)}
     <DetailedErrors verificationStatus={verificationStatus} />
 
     <div className={css["unverified-btn-container"]}>

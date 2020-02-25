@@ -327,26 +327,6 @@ export function getVerifying(store) {
   return get(store, "certificate.verificationPending");
 }
 
-// Why is this function so much different from the one in openCerts?
-// export function getVerifying(store) {
-//   const {
-//     certificateIssuerVerifying,
-//     certificateHashVerifying,
-//     certificateIssuedVerifying,
-//     certificateNotRevokedVerifying,
-//     certificateStoreVerifying,
-//     retrieveCertificateByActionState
-//   } = store.certificate;
-//   return (
-//     certificateIssuerVerifying ||
-//     certificateHashVerifying ||
-//     certificateIssuedVerifying ||
-//     certificateNotRevokedVerifying ||
-//     certificateStoreVerifying ||
-//     retrieveCertificateByActionState === states.PENDING
-//   );
-// }
-
 export function getVerified(store) {
   return get(store, "certificate.verificationStatus.valid", false);
 }
