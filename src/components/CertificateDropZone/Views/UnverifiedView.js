@@ -28,7 +28,7 @@ DetailedErrors.propTypes = {
   verificationStatus: PropTypes.object
 };
 
-const View = ({ resetData, verificationStatus }) => (
+const View = ({ resetData, verificationStatus, retrieveCertificateByActionError }) => (
   <div className={`${css["viewer-container"]} ${css.invalid}`}>
     <span className={css["message-container"]}>
       <img src="/static/images/dropzone/invalid.svg" />
@@ -36,7 +36,7 @@ const View = ({ resetData, verificationStatus }) => (
         This document is not valid
       </span>
     </span>
-
+    {console.log(retrieveCertificateByActionError)}
     <DetailedErrors verificationStatus={verificationStatus} />
 
     <div className={css["unverified-btn-container"]}>

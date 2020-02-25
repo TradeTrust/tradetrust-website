@@ -6,8 +6,7 @@ import {
   types,
   verifyingCertificateSuccess,
   verifyingCertificateFailure,
-  getCertificate,
-  retrieveCertificateByAction
+  getCertificate
 } from "../reducers/certificate";
 import { types as applicationTypes } from "../reducers/application";
 import { sendEmail } from "../services/email/sendEmail";
