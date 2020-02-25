@@ -28,7 +28,7 @@ const renderVerifyBlock = props => (
 const renderHeaderBlock = props => {
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
-    <div className={`container-fluid ${styles["pd-0"]} ${styles.container}`}>
+    <div className={`container-fluid ${styles.container}`}>
       <div className="row">
         <div>{renderedVerifyBlock}</div>
         <AssetInfo document={props.document} />

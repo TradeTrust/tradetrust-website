@@ -7,14 +7,6 @@
   }
 }
 
-:global(.frameless-tabs .react-tabs .d-lg-none.d-xl-none) {
-  display: none;
-}
-
-:global(.frameless-tabs .react-tabs .d-none.d-lg-block.d-xl-block) {
-  display: none !important;
-}
-
 #top-header-ui,
 #header-ui {
   background-color: $header-ui-bg;
@@ -29,7 +21,6 @@
 #header-ui {
   box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
   padding: 0 2rem;
-  margin-bottom: 25px;
 }
 
 .header-container {
@@ -72,19 +63,16 @@
   }
 }
 
-.pd-0 {
-  padding-right: 0 !important;
-  padding-left: 0 !important;
+iframe { // renderer from OA
+  padding: 0 10px;
+  margin: 20px 0;
 }
 
 .view-another {
   @include btn($btn-outline);
   background-color: #fff;
-  margin: auto;
-  margin-right: 0;
+  margin: auto 0 auto auto;
   float: right;
-  margin-top: 15px;
-  text-decoration: none !important;
 }
 
 .print-btn,
@@ -114,11 +102,6 @@
 @media only screen and (max-width: 550px) {
   #top-header-ui {
     padding: 1rem 0.5rem;
-  }
-
-  .pd-0 {
-    padding-right: 15px !important;
-    padding-left: 15px !important;
   }
 }
 
