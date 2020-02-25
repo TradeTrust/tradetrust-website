@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import AppContainer from "./AppContainer";
 import initStore from "./store";
+import "libraries.scss";
 
 const history = createBrowserHistory();
 
