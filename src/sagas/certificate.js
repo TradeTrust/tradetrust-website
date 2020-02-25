@@ -1,6 +1,5 @@
 import { put, select, takeEvery } from "redux-saga/effects";
 import { push } from "connected-react-router";
-import "isomorphic-fetch";
 import { getLogger } from "../utils/logger";
 import {
   types,

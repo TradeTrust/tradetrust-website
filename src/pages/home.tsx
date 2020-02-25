@@ -13,10 +13,8 @@ import {
 
 export const HomePage = props => {
   useEffect(() => {
-    if (location) {
+    if (props.location.search !== "") {
       props.resetCertificateState();
-      console.log(props.location.search.substring(3));
-
       const action = JSON.parse(window.decodeURI(props.location.search.substring(3)));
       if (action.type === "DOCUMENT") {
         props.retrieveCertificateByAction(action.payload);
