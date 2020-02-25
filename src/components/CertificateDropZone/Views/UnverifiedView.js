@@ -8,7 +8,7 @@ import css from "./viewerStyles.scss";
 const DetailedErrors = ({ verificationStatus }) => {
   const errors = [];
   if (!get(verificationStatus, "hash.checksumMatch")) errors.push(TYPES.HASH);
-  if (!get(verificationStatus, "issued.issuedOnAll")) errors.push(TYPES.ISSUED);
+  if (!get(verificationStatus, "issued.issuedOnAll") && !get(verificationStatus, "revoked.revokedOnAny")) errors.push(TYPES.ISSUED); // if it is revoked on any then it should only show revoked
   if (get(verificationStatus, "revoked.revokedOnAny", true)) errors.push(TYPES.REVOKED);
   if (!get(verificationStatus, "identity.identifiedOnAll")) errors.push(TYPES.IDENTITY);
   const renderedError = errors.map((errorType, index) => (

@@ -10,13 +10,13 @@ export const MESSAGES = {
     failureTitle: "Document revoked",
     successTitle: "Document has not been revoked",
     failureMessage:
-      "This document has been revoked by your issuing institution. Please contact your issuing institution for more details."
+      "This document has been revoked by the issuing authority. Please contact them for more details."
   },
   [TYPES.ISSUED]: {
     failureTitle: "Document not issued",
     successTitle: "Document has been issued",
     failureMessage:
-      "This document cannot be found. Please contact your issuing institution for help or issue the document before trying again."
+      "This document cannot be found. Please contact your issuing authority for help or issue the document before trying again."
   },
   [TYPES.HASH]: {
     failureTitle: "Document has been tampered with",
