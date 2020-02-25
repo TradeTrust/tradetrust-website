@@ -15,6 +15,7 @@ export const HomePage = ({ location }) => {
   useEffect(() => {
     if (location) {
       console.log(location);
+
       // props.resetCertificateState();
       // const action = JSON.parse(window.decodeURI(router.query.q));
       // if (action.type === "DOCUMENT") {
@@ -49,7 +50,7 @@ export const HomePage = ({ location }) => {
 //   resetCertificateState: () => dispatch(resetCertificateState())
 // });
 
-// export default connect(null, mapDispatchToProps)(HomePage);
+// export default connect(null, mapDispatchToProps)(HomePage)
 
 // HomePage.propTypes = {
 //   retrieveCertificateByAction: PropTypes.func,
