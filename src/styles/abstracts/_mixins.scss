@@ -2,10 +2,15 @@
 // Mixins
 // =====================================================================
 
-// Animation
-$easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-$easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
-$easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+@mixin font-montserrat-regular {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+@mixin font-sourcesanspro-regular {
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
 
 @mixin btn(
   $color,
