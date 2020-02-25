@@ -22,7 +22,10 @@ export const initialState = {
   emailError: null,
 
   templates: null,
-  activeTemplateTab: 0
+  activeTemplateTab: 0,
+
+  retrieveCertificateByActionState: states.INITIAL,
+  retrieveCertificateByActionStateError: null
 };
 
 // Actions
@@ -51,7 +54,12 @@ export const types = {
   CERTIFICATE_TEMPLATE_REGISTER: "CERTIFICATE_TEMPLATE_REGISTER",
   CERTIFICATE_TEMPLATE_SELECT_TAB: "CERTIFICATE_TEMPLATE_SELECT_TAB",
 
-  CERTIFICATE_PROCESS_QR_CODE: "CERTIFICATE_PROCESS_QR_CODE"
+  CERTIFICATE_PROCESS_QR_CODE: "CERTIFICATE_PROCESS_QR_CODE",
+
+  RETRIEVE_CERTIFICATE_BY_ACTION: "RETRIEVE_CERTIFICATE_BY_ACTION",
+  RETRIEVE_CERTIFICATE_BY_ACTION_PENDING: "RETRIEVE_CERTIFICATE_BY_ACTION_PENDING",
+  RETRIEVE_CERTIFICATE_BY_ACTION_SUCCESS: "RETRIEVE_CERTIFICATE_BY_ACTION_SUCCESS",
+  RETRIEVE_CERTIFICATE_BY_ACTION_FAILURE: "RETRIEVE_CERTIFICATE_BY_ACTION_FAILURE"
 };
 
 // Reducers
@@ -146,6 +154,22 @@ export default function reducer(state = initialState, action) {
         ...state,
         activeTemplateTab: action.payload
       };
+    case types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING:
+      return {
+        ...state,
+        retrieveCertificateByActionState: states.PENDING
+      };
+    case types.RETRIEVE_CERTIFICATE_BY_ACTION_SUCCESS:
+      return {
+        ...state,
+        retrieveCertificateByActionState: states.SUCCESS
+      };
+    case types.RETRIEVE_CERTIFICATE_BY_ACTION_FAILURE:
+      return {
+        ...state,
+        retrieveCertificateByActionState: states.FAILURE,
+        retrieveCertificateByActionError: action.payload
+      };
     default:
       return state;
   }
@@ -234,6 +258,20 @@ export const verifyingCertificateFailure = payload => ({
   payload
 });
 
+export function retrieveCertificateByAction(payload) {
+  return {
+    type: types.RETRIEVE_CERTIFICATE_BY_ACTION,
+    payload
+  };
+}
+
+export function retrieveCertificateByActionFailure(payload) {
+  return {
+    type: types.RETRIEVE_CERTIFICATE_BY_ACTION_FAILURE,
+    payload
+  };
+}
+
 // Selectors
 export function getIssuerIdentityStatus(store) {
   const { issuerIdentities, certificateIssuerVerifying, certificateIssuerError, certificateIssuer } = store.certificate;
@@ -289,6 +327,26 @@ export function getVerifying(store) {
   return get(store, "certificate.verificationPending");
 }
 
+// Why is this function so much different from the one in openCerts?
+// export function getVerifying(store) {
+//   const {
+//     certificateIssuerVerifying,
+//     certificateHashVerifying,
+//     certificateIssuedVerifying,
+//     certificateNotRevokedVerifying,
+//     certificateStoreVerifying,
+//     retrieveCertificateByActionState
+//   } = store.certificate;
+//   return (
+//     certificateIssuerVerifying ||
+//     certificateHashVerifying ||
+//     certificateIssuedVerifying ||
+//     certificateNotRevokedVerifying ||
+//     certificateStoreVerifying ||
+//     retrieveCertificateByActionState === states.PENDING
+//   );
+// }
+
 export function getVerified(store) {
   return get(store, "certificate.verificationStatus.valid", false);
 }
@@ -307,4 +365,8 @@ export function getActiveTemplateTab(store) {
 
 export function getTemplates(store) {
   return store.certificate.templates;
+}
+
+export function getCertificateByActionError(store) {
+  return store.certificate.retrieveCertificateByActionError;
 }

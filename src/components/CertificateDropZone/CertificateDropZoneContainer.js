@@ -6,7 +6,18 @@ import {
   getVerifying,
   getVerificationStatus,
   resetCertificateState,
-  processQrCode
+  processQrCode,
+  getCertificate,
+  getCertificateByActionError,
+  getHashStatus,
+  getIssuedStatus,
+  getIssuerIdentityStatus,
+  getNotRevokedStatus,
+  getStoreStatus,
+  getVerificationStatus,
+  getVerifying,
+  resetCertificateState,
+  updateCertificate
 } from "../../reducers/certificate";
 import { updateNetworkId } from "../../reducers/application";
 import CertificateDropZone from "./CertificateDropZone";
