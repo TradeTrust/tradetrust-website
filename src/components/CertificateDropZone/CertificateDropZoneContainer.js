@@ -75,7 +75,7 @@ export class CertificateDropZoneContainer extends Component {
         verificationStatus={this.props.verificationStatus}
         resetData={this.resetData.bind(this)}
         toggleQrReaderVisible={this.toggleQrReaderVisible}
-        retrieveCertificateByActionError={this.retrieveCertificateByActionError}
+        retrieveCertificateByActionError={this.props.retrieveCertificateByActionError}
       />
     );
   }

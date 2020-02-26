@@ -11,16 +11,21 @@ const DetailedErrors = ({ verificationStatus, retrieveCertificateByActionError }
   if (!get(verificationStatus, "issued.issuedOnAll")) errors.push(TYPES.ISSUED);
   if (get(verificationStatus, "revoked.revokedOnAny", true)) errors.push(TYPES.REVOKED);
   if (!get(verificationStatus, "identity.identifiedOnAll")) errors.push(TYPES.IDENTITY);
-  if (retrieveCertificateByActionError) errors.push(retrieveCertificateByActionError);
-  const renderedError = errors.map((errorType, index) => (
-    <div key={index}>
-      <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
-      <p>{MESSAGES[errorType].failureMessage}</p>
-    </div>
-  ));
   return (
     <div id="error-tab" className={css.verifications}>
-      {renderedError}
+      {retrieveCertificateByActionError ? (
+        <div>
+          <p className={css.messages}>Unable to load certificate with the provided parameters</p>
+          <p>{retrieveCertificateByActionError}</p>
+        </div>
+      ) : (
+        errors.map((errorType, index) => (
+          <div key={index}>
+            <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
+            <p>{MESSAGES[errorType].failureMessage}</p>
+          </div>
+        ))
+      )}
     </div>
   );
 };
@@ -31,7 +36,7 @@ DetailedErrors.propTypes = {
 };
 
 const View = ({ resetData, verificationStatus, retrieveCertificateByActionError }) => (
-  <div className={`${css["viewer-container"]} ${css.invalid}`}>
+  <div id="viewer-container" className={`${css["viewer-container"]} ${css.invalid}`}>
     <span className={css["message-container"]}>
       <img src="/static/images/dropzone/invalid.svg" />
       <span className="invalid m-3" style={{ fontSize: "1.5rem" }}>
