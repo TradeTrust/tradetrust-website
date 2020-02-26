@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import PropTypes, { string } from "prop-types";
+import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import queryString from "query-string";
 import NavigationBar from "../components/Layout/NavigationBar";
