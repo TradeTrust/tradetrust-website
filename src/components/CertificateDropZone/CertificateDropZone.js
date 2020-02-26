@@ -14,7 +14,8 @@ export const DropzoneContent = ({
   verifying,
   fileError,
   verificationStatus,
-  toggleQrReaderVisible
+  toggleQrReaderVisible,
+  retrieveCertificateByActionError
 }) => {
   // isDragReject is checking for mimetype (but we skipped it)
   // fileError is when the file is not in JSON format and threw when deserilising
@@ -28,12 +29,13 @@ export const DropzoneContent = ({
   if (verifying) {
     return <VerifyingView verificationStatus={verificationStatus} />;
   }
-  if (verificationStatus && !verificationStatus.valid) {
+  if (!!retrieveCertificateByActionError || (verificationStatus && !verificationStatus.valid)) {
     return (
       <UnverifiedView
         handleRenderOverwrite={handleRenderOverwrite}
         verificationStatus={verificationStatus}
         resetData={resetData}
+        retrieveCertificateByActionError={retrieveCertificateByActionError}
       />
     );
   }
@@ -70,7 +72,8 @@ const CertificateDropzone = ({
   fileError,
   verifying,
   verificationStatus,
-  toggleQrReaderVisible
+  toggleQrReaderVisible,
+  retrieveCertificateByActionError
 }) => (
   <Dropzone
     id="certificate-dropzone"
@@ -84,7 +87,8 @@ const CertificateDropzone = ({
       fileError,
       verifying,
       verificationStatus,
-      toggleQrReaderVisible
+      toggleQrReaderVisible,
+      retrieveCertificateByActionError
     })}
   </Dropzone>
 );
@@ -99,7 +103,8 @@ CertificateDropzone.propTypes = {
   verifying: PropTypes.bool,
   issuerIdentityStatus: PropTypes.object,
   toggleQrReaderVisible: PropTypes.func,
-  verificationStatus: PropTypes.object
+  verificationStatus: PropTypes.object,
+  retrieveCertificateByActionError: PropTypes.string
 };
 
 DropzoneContent.propTypes = {
@@ -112,7 +117,8 @@ DropzoneContent.propTypes = {
   isDragReject: PropTypes.bool,
   issuerIdentityStatus: PropTypes.object,
   toggleQrReaderVisible: PropTypes.func,
-  verificationStatus: PropTypes.object
+  verificationStatus: PropTypes.object,
+  retrieveCertificateByActionError: PropTypes.string
 };
 
 export default CertificateDropzone;

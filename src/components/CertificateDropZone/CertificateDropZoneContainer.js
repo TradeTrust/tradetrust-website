@@ -6,7 +6,8 @@ import {
   getVerifying,
   getVerificationStatus,
   resetCertificateState,
-  processQrCode
+  processQrCode,
+  getCertificateByActionError
 } from "../../reducers/certificate";
 import { updateNetworkId } from "../../reducers/application";
 import CertificateDropZone from "./CertificateDropZone";
@@ -74,6 +75,7 @@ export class CertificateDropZoneContainer extends Component {
         verificationStatus={this.props.verificationStatus}
         resetData={this.resetData.bind(this)}
         toggleQrReaderVisible={this.toggleQrReaderVisible}
+        retrieveCertificateByActionError={this.props.retrieveCertificateByActionError}
       />
     );
   }
@@ -81,7 +83,8 @@ export class CertificateDropZoneContainer extends Component {
 
 const mapStateToProps = store => ({
   verifying: getVerifying(store),
-  verificationStatus: getVerificationStatus(store)
+  verificationStatus: getVerificationStatus(store),
+  retrieveCertificateByActionError: getCertificateByActionError(store)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -105,5 +108,6 @@ CertificateDropZoneContainer.propTypes = {
   resetData: PropTypes.func,
   verifying: PropTypes.bool,
   processQr: PropTypes.func,
-  verificationStatus: PropTypes.object
+  verificationStatus: PropTypes.object,
+  retrieveCertificateByActionError: PropTypes.string
 };

@@ -1,9 +1,9 @@
 import { ViewerPage } from "./pages/viewer";
-import { HomePage } from "./pages/home";
+import { HomePageContainer } from "./pages/home";
 import { FaqPage } from "./pages/faq";
 
 export const routes = [
-  { path: "/", exact: true, component: HomePage },
+  { path: "/", exact: true, component: HomePageContainer },
   { path: "/viewer", exact: true, component: ViewerPage },
   { path: "/faq", exact: true, component: FaqPage }
 ];

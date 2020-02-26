@@ -5,39 +5,48 @@ import { get } from "lodash";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 import css from "./viewerStyles.scss";
 
-const DetailedErrors = ({ verificationStatus }) => {
+const DetailedErrors = ({ verificationStatus, retrieveCertificateByActionError }) => {
   const errors = [];
   if (!get(verificationStatus, "hash.checksumMatch")) errors.push(TYPES.HASH);
   if (!get(verificationStatus, "issued.issuedOnAll")) errors.push(TYPES.ISSUED);
   if (get(verificationStatus, "revoked.revokedOnAny", true)) errors.push(TYPES.REVOKED);
   if (!get(verificationStatus, "identity.identifiedOnAll")) errors.push(TYPES.IDENTITY);
-  const renderedError = errors.map((errorType, index) => (
-    <div key={index}>
-      <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
-      <p>{MESSAGES[errorType].failureMessage}</p>
-    </div>
-  ));
   return (
     <div id="error-tab" className={css.verifications}>
-      {renderedError}
+      {retrieveCertificateByActionError ? (
+        <div>
+          <p className={css.messages}>Unable to load certificate with the provided parameters</p>
+          <p>{retrieveCertificateByActionError}</p>
+        </div>
+      ) : (
+        errors.map((errorType, index) => (
+          <div key={index}>
+            <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
+            <p>{MESSAGES[errorType].failureMessage}</p>
+          </div>
+        ))
+      )}
     </div>
   );
 };
 
 DetailedErrors.propTypes = {
-  verificationStatus: PropTypes.object
+  verificationStatus: PropTypes.object,
+  retrieveCertificateByActionError: PropTypes.string
 };
 
-const View = ({ resetData, verificationStatus }) => (
-  <div className={`${css["viewer-container"]} ${css.invalid}`}>
+const View = ({ resetData, verificationStatus, retrieveCertificateByActionError }) => (
+  <div id="viewer-container" className={`${css["viewer-container"]} ${css.invalid}`}>
     <span className={css["message-container"]}>
       <img src="/static/images/dropzone/invalid.svg" />
       <span className="invalid m-3" style={{ fontSize: "1.5rem" }}>
         This document is not valid
       </span>
     </span>
-
-    <DetailedErrors verificationStatus={verificationStatus} />
+    <DetailedErrors
+      verificationStatus={verificationStatus}
+      retrieveCertificateByActionError={retrieveCertificateByActionError}
+    />
 
     <div className={css["unverified-btn-container"]}>
       <Link to="/faq">
