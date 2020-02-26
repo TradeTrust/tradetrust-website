@@ -46,16 +46,14 @@ const View = ({ resetData, verificationStatus }) => (
     </div>
 
     <div className={css["secondary-links"]}>
-      <span>
-        <a
-          onClick={e => {
-            e.preventDefault();
-            resetData();
-          }}
-          className={css["text-link"]}
-        >
-          Try another
-        </a>
+      <span
+        onClick={e => {
+          e.preventDefault();
+          resetData();
+        }}
+        className={css["text-link"]}
+      >
+        Try another
       </span>
     </div>
   </div>

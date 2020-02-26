@@ -1,22 +1,14 @@
 // =====================================================================
 // Variables
 // =====================================================================
-
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400|Source+Sans+Pro:400&display=swap');
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
 
-// bootstrap 4.3.1 (variables)
-$grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px
-);
-
-$sm: map-get($grid-breakpoints, "sm");
-$md: map-get($grid-breakpoints, "md");
-$lg: map-get($grid-breakpoints, "lg");
-$xl: map-get($grid-breakpoints, "xl");
+$sm: map-get($grid-breakpoints, "sm"); // 576px
+$md: map-get($grid-breakpoints, "md"); // 768px
+$lg: map-get($grid-breakpoints, "lg"); // 992px
+$xl: map-get($grid-breakpoints, "xl"); // 1200px
 
 $brand-blue: #0099cc;
 $brand-orange: #ff9933;

@@ -1,6 +1,11 @@
 // =====================================================================
-// External libraries
-// (static classnames, not to be resolved by localIdentName in webpack)
+// Global
 // =====================================================================
 
-@import "~bootstrap/scss/bootstrap";
+:root {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: $color-white;
+}
