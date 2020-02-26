@@ -28,7 +28,7 @@ DetailedErrors.propTypes = {
   verificationStatus: PropTypes.object
 };
 
-const View = ({ resetData, verificationStatus, retrieveCertificateByActionError }) => (
+const View = ({ resetData, verificationStatus }) => (
   <div className={`${css["viewer-container"]} ${css.invalid}`}>
     <span className={css["message-container"]}>
       <img src="/static/images/dropzone/invalid.svg" />
