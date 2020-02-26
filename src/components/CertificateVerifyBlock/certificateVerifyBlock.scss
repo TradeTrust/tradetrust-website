@@ -1,4 +1,4 @@
-@import "../../styles/main.scss";
+@import "../../styles/abstracts/__abstracts.scss";
 
 .verifyBlocksContainer {
   position: relative;
@@ -10,10 +10,8 @@
   color: white;
   box-shadow: 2px 2px 4px 0 $grey-blue;
 
-  div {
+  > div {
     padding: 2px 0;
-    word-break: break-all;
-    margin: auto 0;
   }
 }
 
@@ -61,38 +59,20 @@
 
 .verification-text {
   font-size: 1.25rem;
+  word-break: break-all;
 }
 
 .verified-icon {
-  margin: 0 10px !important;
+  margin: 0 10px;
 }
 
 @media only screen and (max-width: 575px) {
   .verifyBlocksContainer {
     position: relative;
   }
-
-  .d-flex {
-    display: block !important;
-  }
-}
-
-@media only screen and (min-width: 576px) and (max-width: 979px) {
-  .verifyBlocksContainer {
-    display: block !important;
-  }
-
-  .d-flex {
-    display: block !important;
-  }
 }
 
 @media only screen and (min-width: 980px) {
-  .d-flex {
-    display: -ms-flexbox !important;
-    display: flex !important;
-  }
-
   .verification-text {
     font-size: 1.25rem;
   }

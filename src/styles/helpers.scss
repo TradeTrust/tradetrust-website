@@ -1,0 +1,72 @@
+// =====================================================================
+// Helpers
+// (static classnames, not to be resolved by localIdentName in webpack)
+// =====================================================================
+
+.bg-light {
+  background-color: #f7fafc;
+}
+
+.bg-brand-dark {
+  background-color: #324353;
+  -webkit-print-color-adjust: exact;
+}
+
+.text-red {
+  color: #ff5268;
+}
+
+.text-blue {
+  color: #099de3;
+}
+
+.text-orange {
+  color: #ffb152;
+}
+
+.text-green {
+  color: #00c04a;
+}
+
+.text-brand-dark {
+  color: #324353;
+}
+
+.fill {
+  min-height: 100%;
+  min-height: 100vh;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.bg-red {
+  background: #ff6565;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.exact-print {
+  -webkit-print-color-adjust: exact;
+}
+
+.print-only {
+  display: none;
+}
+
+.screen-only {
+  display: block;
+}
+
+@media print {
+  .print-only {
+    display: block;
+  }
+
+  .screen-only {
+    display: none;
+  }
+}

@@ -33,7 +33,7 @@ const SimpleVerifyBlock = props => {
       onClick={props.toggleDetailedViewVisible}
       id="certificate-status"
     >
-      <div className="row" style={{ flexWrap: "inherit" }}>
+      <div className="row no-gutters" style={{ flexWrap: "inherit" }}>
         {renderedIcon}
         {renderedText}
         <span className={`d-flex justify-content-center align-items-center ${css.arrow}`}>{icons.arrow()}</span>

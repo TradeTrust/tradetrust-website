@@ -38,7 +38,12 @@ module.exports = {
             options: {
               localsConvention: "camelCase",
               modules: {
-                localIdentName: "[name]__[local]___[hash:base64:5]"
+                localIdentName: "[name]__[local]___[hash:base64:5]",
+                getLocalIdent: (loaderContext, localIdentName, localName, options) => {
+                  if (loaderContext.resourcePath.includes('libraries.scss') || loaderContext.resourcePath.includes('helpers.scss')) {
+                    return localName;
+                  }
+                }
               },
               importLoaders: 1
             }

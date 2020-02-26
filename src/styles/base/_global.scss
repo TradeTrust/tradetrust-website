@@ -1,6 +1,11 @@
 // =====================================================================
-// Import SCSS files
+// Global
 // =====================================================================
 
-@import "abstracts/__abstracts";
-@import "base/__base";
+:root {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: $color-white;
+}

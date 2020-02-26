@@ -2,10 +2,22 @@
 // Mixins
 // =====================================================================
 
-// Animation
-$easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-$easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
-$easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+@mixin font-montserrat-regular {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+@mixin font-sourcesanspro-regular {
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+@mixin l-main {
+  max-width: 1280px;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
 
 @mixin btn(
   $color,
@@ -14,6 +26,7 @@ $easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
   $bg: $color,
   $hover-outline: $hover-bg
 ) {
+  @include font-sourcesanspro-regular;
   transition: box-shadow 0.3s $easeOutCubic;
   border: 1px solid $color;
   color: $text;
@@ -30,7 +43,7 @@ $easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
     border: 1px solid $hover-bg;
     background-color: $hover-bg;
     box-shadow: 2px 2px 6px 0 #a7afb7;
-    text-decoration: none !important;
+    text-decoration: none;
     color: #fff;
   }
 }

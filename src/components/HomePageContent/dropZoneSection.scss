@@ -1,12 +1,12 @@
-@import "../../styles/main.scss";
+@import "../../styles/abstracts/__abstracts.scss";
 
 h3 {
   color: #fff;
 }
 
 .main {
-  max-width: 1280px;
-  display: flex;
+  @include l-main;
+  padding: 2rem;
   margin: auto;
 }
 

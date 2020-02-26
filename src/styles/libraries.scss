@@ -1,6 +1,6 @@
 // =====================================================================
-// Import SCSS files
+// External libraries
+// (static classnames, not to be resolved by localIdentName in webpack)
 // =====================================================================
 
-@import "abstracts/__abstracts";
-@import "base/__base";
+@import "~bootstrap/scss/bootstrap";

@@ -1,9 +1,9 @@
-@import "../../styles/main.scss";
+@import "../../styles/abstracts/__abstracts.scss";
 
 .main {
-  margin: 0 auto;
+  @include l-main;
   padding: 2rem;
-  width: 100%;
+  margin: 0 auto;
 
   h1 {
     color: $brand-dark;
