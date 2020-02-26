@@ -5,12 +5,13 @@ import { get } from "lodash";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 import css from "./viewerStyles.scss";
 
-const DetailedErrors = ({ verificationStatus }) => {
+const DetailedErrors = ({ verificationStatus, retrieveCertificateByActionError }) => {
   const errors = [];
   if (!get(verificationStatus, "hash.checksumMatch")) errors.push(TYPES.HASH);
   if (!get(verificationStatus, "issued.issuedOnAll")) errors.push(TYPES.ISSUED);
   if (get(verificationStatus, "revoked.revokedOnAny", true)) errors.push(TYPES.REVOKED);
   if (!get(verificationStatus, "identity.identifiedOnAll")) errors.push(TYPES.IDENTITY);
+  if (retrieveCertificateByActionError) errors.push(retrieveCertificateByActionError);
   const renderedError = errors.map((errorType, index) => (
     <div key={index}>
       <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
@@ -25,10 +26,11 @@ const DetailedErrors = ({ verificationStatus }) => {
 };
 
 DetailedErrors.propTypes = {
-  verificationStatus: PropTypes.object
+  verificationStatus: PropTypes.object,
+  retrieveCertificateByActionError: PropTypes.string
 };
 
-const View = ({ resetData, verificationStatus }) => (
+const View = ({ resetData, verificationStatus, retrieveCertificateByActionError }) => (
   <div className={`${css["viewer-container"]} ${css.invalid}`}>
     <span className={css["message-container"]}>
       <img src="/static/images/dropzone/invalid.svg" />
@@ -36,7 +38,10 @@ const View = ({ resetData, verificationStatus }) => (
         This document is not valid
       </span>
     </span>
-    <DetailedErrors verificationStatus={verificationStatus} />
+    <DetailedErrors
+      verificationStatus={verificationStatus}
+      retrieveCertificateByActionError={retrieveCertificateByActionError}
+    />
 
     <div className={css["unverified-btn-container"]}>
       <Link to="/faq">

@@ -29,7 +29,7 @@ export const DropzoneContent = ({
   if (verifying) {
     return <VerifyingView verificationStatus={verificationStatus} />;
   }
-  if (retrieveCertificateByActionError || (verificationStatus && !verificationStatus.valid)) {
+  if (!!retrieveCertificateByActionError || (verificationStatus && !verificationStatus.valid)) {
     return (
       <UnverifiedView
         handleRenderOverwrite={handleRenderOverwrite}
