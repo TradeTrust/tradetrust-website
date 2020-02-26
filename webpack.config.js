@@ -40,7 +40,7 @@ module.exports = {
               modules: {
                 localIdentName: "[name]__[local]___[hash:base64:5]",
                 getLocalIdent: (loaderContext, localIdentName, localName, options) => {
-                  if (loaderContext.resourcePath.includes('libraries.scss')) {
+                  if (loaderContext.resourcePath.includes('libraries.scss') || loaderContext.resourcePath.includes('helpers.scss')) {
                     return localName;
                   }
                 }

@@ -12,6 +12,13 @@
   font-weight: 400;
 }
 
+@mixin l-main {
+  max-width: 1280px;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 @mixin btn(
   $color,
   $hover-bg: $color,
@@ -19,6 +26,7 @@
   $bg: $color,
   $hover-outline: $hover-bg
 ) {
+  @include font-sourcesanspro-regular;
   transition: box-shadow 0.3s $easeOutCubic;
   border: 1px solid $color;
   color: $text;

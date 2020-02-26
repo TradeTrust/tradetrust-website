@@ -5,8 +5,8 @@ h3 {
 }
 
 .main {
-  max-width: 1280px;
-  display: flex;
+  @include l-main;
+  padding: 2rem;
   margin: auto;
 }
 
