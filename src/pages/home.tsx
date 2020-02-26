@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 import { Helmet } from "react-helmet";
+import queryString from "query-string";
 import NavigationBar from "../components/Layout/NavigationBar";
 import Footer from "../components/Layout/Footer";
 import MainPageContainer from "../components/MainPageContainer";
@@ -14,8 +15,9 @@ import {
 export const HomePage = props => {
   useEffect(() => {
     if (props.location.search !== "") {
+      const queryParams = queryString.parse(props.location.search);
       props.resetCertificateState();
-      const action = JSON.parse(window.decodeURI(props.location.search.substring(3)));
+      const action = JSON.parse(queryParams.q as string);
       if (action.type === "DOCUMENT") {
         props.retrieveCertificateByAction(action.payload);
       } else {
