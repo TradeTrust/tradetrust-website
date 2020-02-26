@@ -14,36 +14,36 @@
   }
 
   &.default {
-    background-color: $faint-blue;
+    background-color: $color-blue-lightest;
     border: 2px dashed $brand-blue;
-    box-shadow: 0 0 0 10px $faint-blue;
+    box-shadow: 0 0 0 10px $color-blue-lightest;
   }
 
   &.accept {
-    background-color: $faint-green;
+    background-color: $color-green-lightest;
     border: 2px dashed $brand-blue;
-    box-shadow: 0 0 0 10px $faint-green;
+    box-shadow: 0 0 0 10px $color-green-lightest;
   }
 
   &.warning {
-    background-color: $warning-background;
-    border: 2px dashed $warning-color;
-    box-shadow: 0 0 0 10px $warning-background;
-    color: $warning-color;
+    background-color: $bg-warning;
+    border: 2px dashed $color-warning;
+    box-shadow: 0 0 0 10px $bg-warning;
+    color: $color-warning;
 
     .unverified-btn {
-      @include btn($warning-color, lighten($warning-color, 5%), #fff);
+      @include btn($color-warning, lighten($color-warning, 5%), #fff);
     }
   }
 
   &.invalid {
-    background-color: $invalid-background;
-    border: 2px dashed $invalid-color;
-    box-shadow: 0 0 0 10px $invalid-background;
-    color: $invalid-color;
+    background-color: $bg-invalid;
+    border: 2px dashed $color-invalid;
+    box-shadow: 0 0 0 10px $bg-invalid;
+    color: $color-invalid;
 
     .unverified-btn {
-      @include btn($invalid-color, lighten($invalid-color, 5%), #fff);
+      @include btn($color-invalid, lighten($color-invalid, 5%), #fff);
     }
   }
 }
@@ -68,7 +68,7 @@
 .message-container {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  color: #000;
+  color: $color-black;
 
   span {
     vertical-align: middle;
@@ -87,7 +87,7 @@
 
 .btn {
   @include btn($brand-blue);
-  background-color: #fff;
+  background-color: $color-white;
   margin: 0 auto;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -115,11 +115,11 @@
 }
 
 .text-link {
-  color: #787878;
+  color: $color-grey;
   text-decoration: underline;
   cursor: pointer;
 
   &:hover {
-    color: #324353;
+    color: $brand-navy;
   }
 }

@@ -20,7 +20,7 @@ const renderNavItem = active => {
 };
 
 const NavigationBar = ({ active }) => (
-  <nav className={`${css.navbar} ${"navbar-expand-md navbar-dark bg-brand-dark"}`}>
+  <nav className={`${css.navbar} ${"navbar-expand-md navbar-dark bg-brand-navy"}`}>
     <div className={css.innerbar}>
       <a className="navbar-brand" href="/">
         <img src="/static/images/tradetrust_logo.svg" alt="TradeTrust" />

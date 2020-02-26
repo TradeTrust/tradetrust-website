@@ -9,7 +9,7 @@
 
 #top-header-ui,
 #header-ui {
-  background-color: $header-ui-bg;
+  background-color: $color-blue-lighter;
 }
 
 #top-header-ui {
@@ -29,8 +29,8 @@
 }
 
 .tab {
-  color: #8f8f8f;
-  font-family: "Montserrat", sans-serif;
+  @include font-montserrat-regular;
+  color: $color-grey;
   background-color: transparent;
   border-color: transparent;
   z-index: 1;
@@ -42,18 +42,18 @@
   margin: 0 7px;
   cursor: pointer;
   text-transform: uppercase;
-  border-bottom: 5px solid $grey-blue;
+  border-bottom: 5px solid $color-greyblue;
 
   &:hover {
-    color: $brand-dark;
-    border-bottom: 5px solid $brand-dark;
+    color: $brand-navy;
+    border-bottom: 5px solid $brand-navy;
   }
 
   &.active {
+    @include font-montserrat-semibold;
     pointer-events: none;
-    color: $brand-dark;
-    font-weight: bold;
-    border-bottom: 5px solid $brand-dark;
+    color: $brand-navy;
+    border-bottom: 5px solid $brand-navy;
   }
 }
 
@@ -70,7 +70,7 @@ iframe { // renderer from OA
 
 .view-another {
   @include btn($btn-outline);
-  background-color: #fff;
+  background-color: $color-white;
   margin: auto 0 auto auto;
   float: right;
 }
@@ -82,7 +82,7 @@ iframe { // renderer from OA
   margin-left: 1rem;
 
   i {
-    color: #343a40;
+    color: $color-greyblue-darker;
   }
 
   svg {
@@ -95,7 +95,7 @@ iframe { // renderer from OA
 .print-btn:hover,
 .send-btn:hover {
   i {
-    color: #fff;
+    color: $color-white;
   }
 }
 

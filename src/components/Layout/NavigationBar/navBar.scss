@@ -1,9 +1,7 @@
 @import "../../../styles/abstracts/__abstracts.scss";
 
 .innerbar {
-  max-width: 1280px;
-  display: flex;
-  justify-content: flex-start;
+  @include l-main;
   margin: 0 auto;
 
   img {
@@ -15,7 +13,7 @@
   display: block;
   justify-content: flex-start;
   margin: 0 auto;
-  background-color: $brand-dark;
+  background-color: $brand-navy;
   padding: 1rem 1rem;
 
   @media print {
@@ -24,23 +22,22 @@
 }
 
 .nav-item {
-  font-family: "Montserrat", sans-serif;
+  @include font-montserrat-medium;
 
   a {
-    font-family: "Montserrat", sans-serif;
-    color: $grey-blue;
+    @include font-montserrat-medium;
+    color: $color-greyblue;
     font-size: 1.15rem;
-    font-weight: 500;
 
     &:hover {
-      color: #fff;
+      color: $color-white;
       text-decoration: none;
     }
   }
 
   &.active {
     a {
-      color: #fff;
+      color: $color-white;
       pointer-events: none;
     }
   }

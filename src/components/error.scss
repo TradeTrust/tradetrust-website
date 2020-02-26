@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Cabin&display=swap");
+@import "../styles/abstracts/__abstracts.scss";
 
 .box {
   width: 100%;
@@ -23,10 +23,9 @@
   line-height: 1.4;
 
   h2 {
-    font-family: "Cabin", sans-serif;
-    font-weight: 700;
+    @include font-cabin-bold;
     font-size: 35px;
-    color: #ff9933;
+    color: $brand-orange;
     text-transform: uppercase;
     letter-spacing: 7px;
     padding-top: 20px;
@@ -58,10 +57,9 @@
   }
 
   p {
-    font-family: "Cabin", sans-serif;
+    @include font-cabin-regular;
     font-size: 16px;
-    color: #000;
-    font-weight: 400;
+    color: $color-black;
     padding-bottom: 10px;
 
     @media (max-width: 200px) {
@@ -90,15 +88,14 @@
   }
 
   a {
-    font-family: "Cabin", sans-serif;
+    @include font-cabin-bold;
     display: inline-block;
     padding: 15px 35px;
-    background-color: #324353;
+    background-color: $brand-navy;
     border: none;
     border-radius: 40px;
-    color: #fff;
+    color: $color-white;
     font-size: 14px;
-    font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
     -webkit-transition: 0.2s all;
@@ -130,14 +127,14 @@
   }
 
   a:hover {
-    background-color: #ff9933;
-    color: #fff;
+    background-color: $brand-orange;
+    color: $color-white;
     text-decoration: none;
   }
 }
 
 .icon {
-  color: #ff9933;
+  color: $brand-orange;
   font-size: 50px;
   margin-bottom: 20px;
 

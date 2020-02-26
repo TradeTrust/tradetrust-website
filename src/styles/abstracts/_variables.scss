@@ -1,7 +1,7 @@
 // =====================================================================
 // Variables
 // =====================================================================
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400|Source+Sans+Pro:400&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600|Source+Sans+Pro:400|Cabin:400,700&display=swap');
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
@@ -10,34 +10,42 @@ $md: map-get($grid-breakpoints, "md"); // 768px
 $lg: map-get($grid-breakpoints, "lg"); // 992px
 $xl: map-get($grid-breakpoints, "xl"); // 1200px
 
-$brand-blue: #0099cc;
 $brand-orange: #ff9933;
-$light-grey: #e5e5e5;
-$grey-blue: #c1c9d1;
-$brand-dark: #324353;
-$faint-blue: #f5f8fb;
-$faint-green: #f5fbf7;
-$dark-red: #8b0000;
+$brand-blue: #0099cc;
+$brand-navy: #324353;
+
+$color-blue-lighter: #f3f8fc;
+$color-blue-lightest: #f5f8fb;
+$color-green-lightest: #f5fbf7;
+$color-greyblue: #c1c9d1;
+$color-greyblue-dark: #a7afb7;
+$color-greyblue-darker: #343a40;
+$color-blue: #099de3;
+$color-green: #00c04a;
+$color-orange: #ffb152;
+$color-red: #ff5268;
+$color-red-dark: #8b0000;
 $color-red-lighter: #fbeae9;
+$color-grey-dark: #5a5a5a;
+$color-grey: #8f8f8f;
+$color-grey-light: #e5e5e5;
+$color-grey-lightest: #f7fafc;
 $color-white: #ffffff;
 $color-black: #000000;
 
-$header-ui-bg: #f3f8fc;
-$low-translucency-white: rgba(255, 255, 255, 0.7);
+$color-success: #28a745;
+$color-warning: #ffbf00;
+$color-danger: #c12323;
+$color-invalid: #e46767;
 
-$success-color: #28a745;
-$warning-color: #ffbf00;
-$warning-background: #fff9e8;
-$danger-color: #c12323;
-$invalid-color: #e46767;
-$invalid-background: #fbebe7;
+$bg-warning: #fff9e8;
+$bg-invalid: #fbebe7;
 
-$btn-outline: $brand-dark;
-$round-btn-outline: $brand-dark;
+$btn-outline: $brand-navy;
+$round-btn-outline: $brand-navy;
 
 $max-width: 1280px;
 
-// Animation
 $easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 $easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 $easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);

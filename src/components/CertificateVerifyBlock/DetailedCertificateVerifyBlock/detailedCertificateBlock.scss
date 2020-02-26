@@ -5,7 +5,7 @@
   border-style: solid;
   min-width: 320px;
   z-index: 100;
-  box-shadow: 2px 2px 4px 0 $grey-blue;
+  box-shadow: 2px 2px 4px 0 $color-greyblue;
   position: absolute;
 
   h5 {
@@ -18,19 +18,19 @@
 }
 
 .valid-border-color {
-  border-color: $success-color;
+  border-color: $color-success;
 }
 
 .warning-border-color {
-  border-color: $warning-color;
+  border-color: $color-warning;
 }
 
 .invalid-border-color {
-  border-color: $invalid-color;
+  border-color: $color-invalid;
 }
 
 .transferable-record {
-  color: $dark-red;
+  color: $color-red-dark;
   font-weight: 600;
 }
 

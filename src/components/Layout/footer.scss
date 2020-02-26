@@ -6,17 +6,17 @@
   bottom: 0;
   width: 100%;
   height: auto;
-  background-color: #324353;
+  background-color: $brand-navy;
   padding-top: 15px;
   padding-bottom: 15px;
-  max-width: 1280px;
+  max-width: $max-width;
 
   a {
-    font-family: "Montserrat", sans-serif;
-    color: $grey-blue;
+    @include font-montserrat-regular;
+    color: $color-greyblue;
 
     &:hover {
-      color: #fff;
+      color: $color-white;
       text-decoration: none;
     }
   }

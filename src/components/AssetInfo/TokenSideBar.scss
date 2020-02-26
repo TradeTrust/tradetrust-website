@@ -106,13 +106,13 @@ $border-color: rgba($color-black, 0.1);
   margin-right: auto;
   margin-bottom: 20px;
   border-radius: 50%;
-  border: solid 2px $success-color;
+  border: solid 2px $color-success;
   display: flex;
   justify-content: center;
   align-items: center;
 
   svg {
-    stroke: $success-color;
+    stroke: $color-success;
     stroke-width: 3px;
     width: 40px;
     height: 40px;
@@ -120,18 +120,17 @@ $border-color: rgba($color-black, 0.1);
 }
 
 .message {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
+  @include font-montserrat-semibold;
   text-transform: uppercase;
   font-size: 14px;
 }
 
 .message-success {
-  color: $success-color;
+  color: $color-success;
 }
 
 .message-error {
-  color: $danger-color;
+  color: $color-danger;
   margin-top: 10px;
   margin-bottom: 20px;
 
@@ -225,7 +224,7 @@ $border-color: rgba($color-black, 0.1);
 
       &[id="tooltip-alert"] {
         padding: 4px 8px;
-        background-color: $warning-color;
+        background-color: $color-warning;
 
         p {
           text-transform: uppercase;
@@ -235,7 +234,7 @@ $border-color: rgba($color-black, 0.1);
         }
 
         &::after {
-          border-bottom-color: $warning-color;
+          border-bottom-color: $color-warning;
         }
       }
     }
@@ -243,7 +242,7 @@ $border-color: rgba($color-black, 0.1);
     [data-for="tooltip-alert"] {
       path,
       line {
-        color: $warning-color;
+        color: $color-warning;
       }
     }
   }
@@ -268,12 +267,12 @@ $border-color: rgba($color-black, 0.1);
   }
 
   &.is-error {
-    border-color: $danger-color;
+    border-color: $color-danger;
   }
 }
 
 .loader {
-  @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $grey-blue, $secondary: $light-grey);
+  @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $color-greyblue, $secondary: $color-grey-light);
   position: relative;
 }
 
@@ -288,7 +287,7 @@ $border-color: rgba($color-black, 0.1);
 }
 
 .error {
-  color: $danger-color;
+  color: $color-danger;
   margin-bottom: 15px;
 }
 
@@ -297,10 +296,10 @@ $border-color: rgba($color-black, 0.1);
   color: $color-white;
 
   &.button-danger {
-    @include btn($danger-color, $text: $color-white);
+    @include btn($color-danger, $text: $color-white);
   }
 
   &.button-success {
-    @include btn($success-color, $text: $color-white);
+    @include btn($color-success, $text: $color-white);
   }
 }

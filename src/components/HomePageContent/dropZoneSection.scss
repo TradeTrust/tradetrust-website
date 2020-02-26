@@ -1,7 +1,7 @@
 @import "../../styles/abstracts/__abstracts.scss";
 
 h3 {
-  color: #fff;
+  color: $color-white;
 }
 
 .main {
@@ -16,7 +16,7 @@ h3 {
   p {
     padding: 1.5rem 0;
     font-size: 1.1rem;
-    color: $low-translucency-white;
+    color: rgba($color-white, 0.7);
   }
 }
 
