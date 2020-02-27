@@ -7,8 +7,7 @@
 }
 
 .statusbar-title {
-  display: inline-block;
-  margin-bottom: 0;
+  display: inline;
   padding-bottom: 0;
   color: $color-danger;
   font-size: 24px;
@@ -30,8 +29,16 @@
   }
 
   .statusbar-dropdown-toggle {
+    text-align: center;
+    white-space: normal;
+    width: 100%;
+
     &::after {
       color: $color-danger;
+    }
+
+    @media only screen and (min-width: $lg) {
+      pointer-events: none;
     }
   }
 
@@ -57,6 +64,10 @@
 
   &:last-of-type {
     margin-bottom: 0;
+  }
+
+  a {
+    word-break: break-all;
   }
 }
 

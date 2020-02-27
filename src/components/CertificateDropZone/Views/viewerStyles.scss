@@ -88,9 +88,7 @@
 .btn {
   @include btn($brand-blue);
   background-color: $color-white;
-  margin: 0 auto;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin: 0 10px 10px;
 }
 
 .disable-btn {
