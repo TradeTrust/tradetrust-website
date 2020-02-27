@@ -3,33 +3,38 @@
 // (static classnames, not to be resolved by localIdentName in webpack)
 // =====================================================================
 
+@import "./abstracts/__abstracts.scss";
+
 .bg-light {
-  background-color: #f7fafc;
+  background-color: $color-grey-lightest;
 }
 
-.bg-brand-dark {
-  background-color: #324353;
-  -webkit-print-color-adjust: exact;
+.bg-brand-navy {
+  background-color: $brand-navy;
+}
+
+.bg-red {
+  background: $color-red;
 }
 
 .text-red {
-  color: #ff5268;
+  color: $color-red;
 }
 
 .text-blue {
-  color: #099de3;
+  color: $color-blue;
 }
 
 .text-orange {
-  color: #ffb152;
+  color: $color-orange;
 }
 
 .text-green {
-  color: #00c04a;
+  color: $color-green;
 }
 
-.text-brand-dark {
-  color: #324353;
+.text-brand-navy {
+  color: $brand-navy;
 }
 
 .fill {
@@ -39,10 +44,6 @@
 
 .pointer {
   cursor: pointer;
-}
-
-.bg-red {
-  background: #ff6565;
 }
 
 .no-padding {

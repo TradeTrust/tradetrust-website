@@ -12,10 +12,10 @@ $border-color: rgba($color-black, 0.1);
   right: 0;
   height: 100vh;
   width: 100%;
-  max-width: 340px;
+  max-width: 260px;
   transform: translateX(100%);
 
-  @media only screen and (min-width: 992px) {
+  @media only screen and (min-width: $md) {
     max-width: 380px;
   }
 
@@ -62,6 +62,11 @@ $border-color: rgba($color-black, 0.1);
 
   h2 {
     margin-bottom: 10px;
+    font-size: 28px;
+
+    @media only screen and (min-width: $md) {
+      font-size: 32px;
+    }
   }
 
   h4 {
@@ -106,13 +111,13 @@ $border-color: rgba($color-black, 0.1);
   margin-right: auto;
   margin-bottom: 20px;
   border-radius: 50%;
-  border: solid 2px $success-color;
+  border: solid 2px $color-success;
   display: flex;
   justify-content: center;
   align-items: center;
 
   svg {
-    stroke: $success-color;
+    stroke: $color-success;
     stroke-width: 3px;
     width: 40px;
     height: 40px;
@@ -127,11 +132,11 @@ $border-color: rgba($color-black, 0.1);
 }
 
 .message-success {
-  color: $success-color;
+  color: $color-success;
 }
 
 .message-error {
-  color: $danger-color;
+  color: $color-danger;
   margin-top: 10px;
   margin-bottom: 20px;
 
@@ -195,10 +200,9 @@ $border-color: rgba($color-black, 0.1);
   margin-bottom: 8px;
 
   h4 {
-    display: inline-block;
+    display: inline;
     vertical-align: middle;
     font-size: 16px;
-    margin-bottom: 0;
     margin-right: 8px;
   }
 
@@ -225,7 +229,7 @@ $border-color: rgba($color-black, 0.1);
 
       &[id="tooltip-alert"] {
         padding: 4px 8px;
-        background-color: $warning-color;
+        background-color: $color-warning;
 
         p {
           text-transform: uppercase;
@@ -235,7 +239,7 @@ $border-color: rgba($color-black, 0.1);
         }
 
         &::after {
-          border-bottom-color: $warning-color;
+          border-bottom-color: $color-warning;
         }
       }
     }
@@ -243,7 +247,7 @@ $border-color: rgba($color-black, 0.1);
     [data-for="tooltip-alert"] {
       path,
       line {
-        color: $warning-color;
+        color: $color-warning;
       }
     }
   }
@@ -268,12 +272,12 @@ $border-color: rgba($color-black, 0.1);
   }
 
   &.is-error {
-    border-color: $danger-color;
+    border-color: $color-danger;
   }
 }
 
 .loader {
-  @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $grey-blue, $secondary: $light-grey);
+  @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $color-greyblue, $secondary: $color-grey-light);
   position: relative;
 }
 
@@ -288,7 +292,7 @@ $border-color: rgba($color-black, 0.1);
 }
 
 .error {
-  color: $danger-color;
+  color: $color-danger;
   margin-bottom: 15px;
 }
 
@@ -297,10 +301,10 @@ $border-color: rgba($color-black, 0.1);
   color: $color-white;
 
   &.button-danger {
-    @include btn($danger-color, $text: $color-white);
+    @include btn($color-danger, $text: $color-white);
   }
 
   &.button-success {
-    @include btn($success-color, $text: $color-white);
+    @include btn($color-success, $text: $color-white);
   }
 }

@@ -8,36 +8,10 @@
   width: 100%;
   min-width: 320px;
   color: white;
-  box-shadow: 2px 2px 4px 0 $grey-blue;
+  box-shadow: 2px 2px 4px 0 $color-greyblue;
 
   > div {
     padding: 2px 0;
-  }
-}
-
-@mixin block-color($color) {
-  background-color: $color;
-  border: 1px solid $color;
-
-  &:hover {
-    box-shadow: 2px 2px 6px 0 #a7afb7;
-  }
-
-  &.active {
-    color: $color;
-    background-color: #fff;
-
-    #circle {
-      fill: $color;
-    }
-
-    #check {
-      fill: #fff;
-    }
-
-    svg > polyline {
-      stroke: $color;
-    }
   }
 }
 
@@ -46,15 +20,15 @@
 }
 
 .valid {
-  @include block-color($success-color);
+  @include block-color($color-success);
 }
 
 .warning {
-  @include block-color($warning-color);
+  @include block-color($color-warning);
 }
 
 .invalid {
-  @include block-color($invalid-color);
+  @include block-color($color-invalid);
 }
 
 .verification-text {
