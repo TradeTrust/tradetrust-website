@@ -15,7 +15,7 @@
     "serve-static": "http-server dist -s -p 3000",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook -o docs",
-    "stylelint": "stylelint 'src/**/*.scss'; exit 0",
+    "stylelint": "stylelint 'src/**/*.scss'",
     "stylelint:fix": "stylelint 'src/**/*.scss' --syntax scss --fix",
     "test": "jest",
     "test:coverage": "jest --collectCoverage",

@@ -19,6 +19,9 @@ jobs:
           name: lint
           command: npm run lint
       - run:
+          name: stylelint
+          command: npm run stylelint
+      - run:
           name: test
           command: npm run test
       - run:
