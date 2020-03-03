@@ -9,8 +9,7 @@ export const MESSAGES = {
   [TYPES.REVOKED]: {
     failureTitle: "Document revoked",
     successTitle: "Document has not been revoked",
-    failureMessage:
-      "This document has been revoked by the issuing authority. Please contact them for more details."
+    failureMessage: "This document has been revoked by the issuing authority. Please contact them for more details."
   },
   [TYPES.ISSUED]: {
     failureTitle: "Document not issued",
