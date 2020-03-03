@@ -4,7 +4,13 @@ import css from "./TokenSideBar.scss";
 import TokenSideBarHolder from "./TokenSideBarHolder";
 import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
 import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
-import { changeHolder, endorseBeneficiaryTransfer, endorseTransfer, surrenderToken } from "../../services/token";
+import {
+  changeHolder,
+  endorseBeneficiaryTransfer,
+  endorseTransfer,
+  surrenderToken,
+  deployEscrowContract
+} from "../../services/token";
 import TokenTransactionSuccess from "./TokenTransactionSuccess";
 import { TOKEN_ACTION_TYPES, getSuccessResponse } from "./util";
 const { trace, error } = getLogger("component:TokenSideBarContent");
@@ -15,20 +21,20 @@ interface TokenSideBarContentProps {
   adminAddress: string;
   beneficiaryAddress: string;
   holderAddress: string;
-  approvedBeneficiaryAddress: string;
+  registryAddress: string;
 }
 
 const TokenSideBarContent = ({
   adminAddress,
   beneficiaryAddress,
   holderAddress,
-  approvedBeneficiaryAddress
+  registryAddress
 }: TokenSideBarContentProps) => {
   const userRole = getUserRoles({ adminAddress, holderAddress, beneficiaryAddress });
-  const [fieldValue, setFieldValue] = useState({
-    newHolder: "",
-    approvedBeneficiary: approvedBeneficiaryAddress || ""
-  });
+  const [newHolder, setNewHolder] = useState("");
+  const [approvedBeneficiary, setApprovedBeneficiary] = useState("");
+  const [approvedHolder, setApprovedHolder] = useState("");
+
   const tokenSidebarError = { accessDenied: false, networkMismatch: false, metamaskNotFound: false };
   trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
   const [showActionLoader, toggleActionLoader] = useState(false);
@@ -39,9 +45,18 @@ const TokenSideBarContent = ({
     message: string;
   } | null>(null);
 
-  const { networkIdVerbose, metamaskNotFound } = useSelector((state: any) => ({
+  const {
+    networkIdVerbose,
+    metamaskNotFound,
+    approvedEscrowContractAddress,
+    approvedBeneficiaryAddress,
+    approvedHolderAddress
+  } = useSelector((state: any) => ({
     networkIdVerbose: state.application.networkIdVerbose,
-    metamaskNotFound: state.admin.metamaskNotFound
+    metamaskNotFound: state.admin.metamaskNotFound,
+    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
+    approvedHolderAddress: state.token.approvedHolderAddress,
+    approvedEscrowContractAddress: state.token.approvedEscrowContractAddress
   }));
 
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
@@ -54,13 +69,9 @@ const TokenSideBarContent = ({
   trace(`config network: ${NETWORK_NAME} and metamask network: ${networkIdVerbose}`);
   trace(`error in sidebar access ${JSON.stringify(tokenSidebarError)}`);
   useEffect(() => {
-    setFieldValue({ ...fieldValue, ...{ approvedBeneficiary: approvedBeneficiaryAddress } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [approvedBeneficiaryAddress]);
-
-  const handleInputChange = (e: any) => {
-    setFieldValue({ ...fieldValue, ...{ [e.target.name]: e.target.value } });
-  };
+    if (approvedBeneficiaryAddress) setApprovedBeneficiary(approvedBeneficiaryAddress);
+    if (approvedHolderAddress) setApprovedHolder(approvedHolderAddress);
+  }, [approvedBeneficiaryAddress, approvedHolderAddress]);
 
   const handleFormActions = async (fn: Function, actionType: TOKEN_ACTION_TYPES, value = "") => {
     try {
@@ -78,19 +89,40 @@ const TokenSideBarContent = ({
     }
   };
 
-  const approveChangeBeneficiary = () => {
-    const { approvedBeneficiary } = fieldValue;
-    handleFormActions(endorseTransfer, TOKEN_ACTION_TYPES.ENDORSE_BENEFICIARY, approvedBeneficiary);
+  const deployEscrowContractAction = async () => {
+    try {
+      setActionError(null);
+      setTransactionSuccessResponse(null);
+      toggleActionLoader(true);
+      const contractAddress = approvedEscrowContractAddress
+        ? approvedEscrowContractAddress
+        : await deployEscrowContract({
+            registryAddress,
+            beneficiaryAddress: approvedBeneficiary,
+            holderAddress: approvedHolder
+          });
+      trace(`escrow contract address to mint ${contractAddress}`);
+      toggleActionLoader(false);
+      return contractAddress;
+    } catch (e) {
+      error(`handle action error ${JSON.stringify(e)}`);
+      toggleActionLoader(false);
+      setActionError({ type: TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY, message: e.message || e.reason });
+    }
+  };
+
+  const approveChangeBeneficiary = async () => {
+    const contractAddress = await deployEscrowContractAction();
+    handleFormActions(endorseTransfer, TOKEN_ACTION_TYPES.ENDORSE_BENEFICIARY, contractAddress);
   };
 
   const transferHoldership = async () => {
-    const { newHolder } = fieldValue;
     handleFormActions(changeHolder, TOKEN_ACTION_TYPES.CHANGE_HOLDER, newHolder);
   };
 
-  const changeBeneficiary = () => {
-    const { approvedBeneficiary } = fieldValue;
-    handleFormActions(endorseBeneficiaryTransfer, TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY, approvedBeneficiary);
+  const changeBeneficiary = async () => {
+    const contractAddress = await deployEscrowContractAction();
+    handleFormActions(endorseBeneficiaryTransfer, TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY, contractAddress);
   };
 
   const surrenderDocument = () => {
@@ -115,9 +147,12 @@ const TokenSideBarContent = ({
           {showHolder && (
             <TokenSideBarHolder
               isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
-              approvedBeneficiaryAddress={fieldValue.approvedBeneficiary}
-              newHolder={fieldValue.newHolder}
-              handleInputChange={handleInputChange}
+              approvedBeneficiaryAddress={approvedBeneficiary}
+              approvedHolderAddress={approvedHolder}
+              newHolder={newHolder}
+              setApprovedBeneficiary={setApprovedBeneficiary}
+              setApprovedHolder={setApprovedHolder}
+              setNewHolder={setNewHolder}
               transferHoldership={transferHoldership}
               changeBeneficiary={changeBeneficiary}
               surrenderDocument={surrenderDocument}
@@ -126,9 +161,11 @@ const TokenSideBarContent = ({
           )}
           {showBeneficiary && (
             <TokenSideBarBeneficiary
-              setBeneficiary={handleInputChange}
+              setApprovedBeneficiary={setApprovedBeneficiary}
+              setApprovedHolder={setApprovedHolder}
               approveChangeBeneficiary={approveChangeBeneficiary}
-              approvedBeneficiary={fieldValue.approvedBeneficiary}
+              approvedHolder={approvedHolder}
+              approvedBeneficiary={approvedBeneficiary}
               error={actionError}
             />
           )}

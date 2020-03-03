@@ -8,9 +8,12 @@ type ErrorType = { type: TOKEN_ACTION_TYPES; message: string };
 
 interface TokenSideBarHolderProps {
   isEqualBeneficiaryAndHolder: boolean;
+  approvedHolderAddress: string;
   approvedBeneficiaryAddress: string;
   newHolder: string;
-  handleInputChange: (e: any) => void;
+  setNewHolder: (e: any) => void;
+  setApprovedHolder: (e: any) => void;
+  setApprovedBeneficiary: (e: any) => void;
   transferHoldership: () => void;
   changeBeneficiary: () => void;
   surrenderDocument: () => void;
@@ -26,16 +29,19 @@ const isSurrenderDocumentError = (error: any): error is ErrorType =>
 const TokenSideBarHolder = ({
   isEqualBeneficiaryAndHolder,
   approvedBeneficiaryAddress,
-  handleInputChange,
+  approvedHolderAddress,
+  setNewHolder,
+  setApprovedHolder,
+  setApprovedBeneficiary,
   newHolder,
   transferHoldership,
   changeBeneficiary,
   surrenderDocument,
   error
 }: TokenSideBarHolderProps) => {
-  const showChangeBeneficiary = !!approvedBeneficiaryAddress || isEqualBeneficiaryAndHolder;
-  const isApprovedBeneficiaryAddress = !!approvedBeneficiaryAddress && !isEqualBeneficiaryAndHolder;
-
+  const isApprovedAddress = !!approvedBeneficiaryAddress && !!approvedHolderAddress;
+  const showChangeBeneficiary = isApprovedAddress || isEqualBeneficiaryAndHolder;
+  const isApprovedEscrowAddress = isApprovedAddress && !isEqualBeneficiaryAndHolder;
   return (
     <>
       <TokenSideBarField
@@ -49,7 +55,7 @@ const TokenSideBarHolder = ({
             className={`${css["field-input"]} ${isChangeHolderError(error) ? css["is-error"] : ""}`}
             name="newHolder"
             value={newHolder}
-            onChange={handleInputChange}
+            onChange={e => setNewHolder(e.target.value)}
             type="text"
             placeholder="Address (e.g. 0x483..)"
           />
@@ -64,17 +70,34 @@ const TokenSideBarHolder = ({
           status="success"
           handleClick={changeBeneficiary}
         >
-          <label>
-            <input
-              className={`${css["field-input"]} ${isChangeBeneficiaryError(error) ? css["is-error"] : ""}`}
-              type="text"
-              name="approvedBeneficiary"
-              value={approvedBeneficiaryAddress}
-              onChange={handleInputChange}
-              placeholder="Address (e.g. 0x483..)"
-              disabled={isApprovedBeneficiaryAddress}
-            />
-          </label>
+          <div className={`${css["field-single"]}`}>
+            <h6>Holder Address</h6>
+            <label>
+              <input
+                className={`${css["field-input"]} ${isChangeBeneficiaryError(error) ? css["is-error"] : ""}`}
+                type="text"
+                name="approvedHolder"
+                value={approvedHolderAddress}
+                onChange={e => setApprovedHolder(e.target.value)}
+                disabled={isApprovedEscrowAddress}
+                placeholder="Address (e.g. 0x483..)"
+              />
+            </label>
+          </div>
+          <div className={`${css["field-single"]}`}>
+            <h6>Beneficiary Address</h6>
+            <label>
+              <input
+                className={`${css["field-input"]} ${isChangeBeneficiaryError(error) ? css["is-error"] : ""}`}
+                type="text"
+                name="approvedBeneficiary"
+                value={approvedBeneficiaryAddress}
+                onChange={e => setApprovedBeneficiary(e.target.value)}
+                disabled={isApprovedEscrowAddress}
+                placeholder="Address (e.g. 0x483..)"
+              />
+            </label>
+          </div>
           {isChangeBeneficiaryError(error) && <TokenErrorMessage errorMessage={error.message} />}
         </TokenSideBarField>
       )}

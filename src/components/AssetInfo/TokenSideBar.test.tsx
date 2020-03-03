@@ -1,12 +1,16 @@
 import React from "react";
 import { mount } from "enzyme";
 import TokenSideBar from "./TokenSideBar";
+import { useSelector } from "react-redux";
 
 jest.mock("react-redux", () => ({
-  useSelector: () => ({
+  useSelector: jest.fn(() => ({
     metamaskNotFound: false,
-    networkIdVerbose: "ropsten"
-  })
+    networkIdVerbose: "ropsten",
+    approvedEscrowContractAddress: "",
+    approvedBeneficiaryAddress: "",
+    approvedHolderAddress: ""
+  }))
 }));
 
 describe("tokenSideBar", () => {
@@ -21,10 +25,10 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress=""
+        registryAddress=""
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress=""
-        approvedBeneficiaryAddress=""
         handler={() => {}}
       />
     );
@@ -39,7 +43,7 @@ describe("tokenSideBar", () => {
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress="0xA"
-        approvedBeneficiaryAddress=""
+        registryAddress=""
         handler={() => {}}
       />
     );
@@ -66,7 +70,7 @@ describe("tokenSideBar", () => {
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
-        approvedBeneficiaryAddress=""
+        registryAddress=""
         handler={() => {}}
       />
     );
@@ -80,13 +84,21 @@ describe("tokenSideBar", () => {
 
   // admin address === holder, endorse change of bene exists
   it("should show holder role, holder view, only 2 correct fields", () => {
+    const useSelectorMock = useSelector as jest.Mock<any>;
+    useSelectorMock.mockImplementation(() => ({
+      metamaskNotFound: false,
+      networkIdVerbose: "ropsten",
+      approvedEscrowContractAddress: "0xC",
+      approvedBeneficiaryAddress: "0xB",
+      approvedHolderAddress: "0xB"
+    }));
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
-        approvedBeneficiaryAddress="0xB"
+        registryAddress=""
         handler={() => {}}
       />
     );
@@ -110,7 +122,7 @@ describe("tokenSideBar", () => {
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress="0xA"
-        approvedBeneficiaryAddress=""
+        registryAddress=""
         handler={() => {}}
       />
     );
@@ -130,7 +142,7 @@ describe("tokenSideBar", () => {
         isSideBarExpand={true}
         holderAddress="0xC"
         beneficiaryAddress=""
-        approvedBeneficiaryAddress=""
+        registryAddress=""
         handler={() => {}}
       />
     );

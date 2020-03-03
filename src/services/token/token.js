@@ -1,7 +1,8 @@
-import { ReadOnlyToken, WriteableToken } from "@govtechsg/oa-token";
+import { ReadOnlyToken, WriteableToken, createOwner, WriteableTitleEscrowOwner } from "@govtechsg/oa-token";
 import { getData } from "@govtechsg/open-attestation";
 import { get } from "lodash";
 import { getLogger } from "../../utils/logger";
+import { getProvider } from "../etherjs";
 const { trace } = getLogger("saga:tokenService");
 
 let writeableTokenInstance;
@@ -36,7 +37,7 @@ export const isEscrowContract = async () => await tokenOwnerInstance.isTitleEscr
 
 export const getHolderAddress = async () => await tokenOwnerInstance.holder();
 export const getBeneficiaryAddress = async () => await tokenOwnerInstance.beneficiary();
-export const getApprovedBeneficiaryAddress = async () => {
+export const getApprovedEscrowContractAddress = async () => {
   const addressZero = "0x0000000000000000000000000000000000000000";
   const endorsedAddress = await tokenOwnerInstance.endorsedTransferTarget();
   return endorsedAddress === addressZero ? "" : endorsedAddress;
@@ -52,3 +53,25 @@ export const endorseBeneficiaryTransfer = async newBeneficiary => {
 };
 export const endorseTransfer = async newBeneficiary => await tokenOwnerInstance.endorseTransfer(newBeneficiary);
 export const surrenderToken = async () => await writeableTokenInstance.surrender();
+
+export const deployEscrowContract = async ({ registryAddress, beneficiaryAddress, holderAddress }) => {
+  const { provider, signer } = await getProvider();
+  const contractOwnerInstance = await WriteableTitleEscrowOwner.deployEscrowContract({
+    registryAddress,
+    beneficiaryAddress,
+    holderAddress,
+    wallet: signer,
+    web3Provider: provider
+  });
+  return contractOwnerInstance.address;
+};
+
+export const getApprovedEscrowContractUsers = async ({ contractAddress, web3Provider }) => {
+  const titleEscrowInstance = await createOwner({ address: contractAddress, web3Provider });
+  const [approvedBeneficiary, approvedHolder] = await Promise.all([
+    titleEscrowInstance.beneficiary(),
+    titleEscrowInstance.holder()
+  ]);
+  trace(`approved beneficiary: ${JSON.stringify(approvedBeneficiary)}, approved holder: ${approvedHolder}`);
+  return { approvedBeneficiary, approvedHolder };
+};

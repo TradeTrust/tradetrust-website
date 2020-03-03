@@ -7,7 +7,9 @@ import { TokenErrorMessage } from "./TokenErrorMessage";
 type ErrorType = { type: TOKEN_ACTION_TYPES; message: string };
 
 interface TokenBeneficiaryInterface {
-  setBeneficiary: (e: any) => void;
+  setApprovedBeneficiary: (e: any) => void;
+  setApprovedHolder: (e: any) => void;
+  approvedHolder: string;
   approvedBeneficiary: string;
   error: ErrorType | null;
   approveChangeBeneficiary: () => void;
@@ -17,7 +19,9 @@ const isEndorseBeneficiaryError = (error: any): error is ErrorType =>
   error?.type === TOKEN_ACTION_TYPES.ENDORSE_BENEFICIARY;
 
 const TokenSideBarBeneficiary = ({
-  setBeneficiary,
+  setApprovedBeneficiary,
+  setApprovedHolder,
+  approvedHolder,
   approvedBeneficiary,
   approveChangeBeneficiary,
   error
@@ -29,16 +33,32 @@ const TokenSideBarBeneficiary = ({
     status="success"
     handleClick={approveChangeBeneficiary}
   >
-    <label>
-      <input
-        className={`${css["field-input"]} ${isEndorseBeneficiaryError(error) ? css["is-error"] : ""}`}
-        type="text"
-        placeholder="Address (e.g. 0x483..)"
-        name="approvedBeneficiary"
-        value={approvedBeneficiary}
-        onChange={setBeneficiary}
-      />
-    </label>
+    <div className={`${css["field-single"]}`}>
+      <h6>Holder Address</h6>
+      <label>
+        <input
+          className={`${css["field-input"]} ${isEndorseBeneficiaryError(error) ? css["is-error"] : ""}`}
+          type="text"
+          name="approvedHolder"
+          value={approvedHolder}
+          onChange={e => setApprovedHolder(e.target.value)}
+          placeholder="Address (e.g. 0x483..)"
+        />
+      </label>
+    </div>
+    <div className={`${css["field-single"]}`}>
+      <h6>Beneficiary Address</h6>
+      <label>
+        <input
+          className={`${css["field-input"]} ${isEndorseBeneficiaryError(error) ? css["is-error"] : ""}`}
+          type="text"
+          name="approvedBeneficiary"
+          value={approvedBeneficiary}
+          onChange={e => setApprovedBeneficiary(e.target.value)}
+          placeholder="Address (e.g. 0x483..)"
+        />
+      </label>
+    </div>
     {isEndorseBeneficiaryError(error) && <TokenErrorMessage errorMessage={error.message} />}
   </TokenSideBarField>
 );

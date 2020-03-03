@@ -196,6 +196,18 @@ $border-color: rgba($color-black, 0.1);
   }
 }
 
+.field-single {
+  margin: 20px 0;
+
+  h6 {
+    text-transform: uppercase;
+    color: $color-grey-dark;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+}
+
 .field-title {
   margin-bottom: 8px;
 
