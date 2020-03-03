@@ -113,28 +113,23 @@ describe("unverifiedView", () => {
     expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.IDENTITY].failureTitle);
     expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.IDENTITY].failureMessage);
   });
-  it("displays error in all fields when all verification fail", () => {
+
+  it("displays revoked error if both issue and revoked fail", () => {
     const wrapper = mount(
       <MemoryRouter>
         <UnverifiedView
           handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
-            hash: { checksumMatch: false },
             issued: { issuedOnAll: false },
-            revoked: { revokedOnAny: true },
-            identity: { identifiedOnAll: false }
+            revoked: { revokedOnAny: true }
           }}
           resetData={() => {}}
         />
       </MemoryRouter>
     );
-    wrapper
-      .find("#error-tab")
-      .children()
-      .forEach((child, index) => {
-        expect(child.text()).toContain(MESSAGES[STATUS[index]].failureTitle);
-        expect(child.text()).toContain(MESSAGES[STATUS[index]].failureMessage);
-      });
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.REVOKED].failureTitle);
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.REVOKED].failureMessage);
   });
 });
