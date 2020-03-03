@@ -39,8 +39,6 @@ const VALID_VERIFICATION_STATUS = {
   }
 };
 
-const STATUS = ["HASH", "ISSUED", "REVOKED", "IDENTITY"];
-
 describe("unverifiedView", () => {
   it("displays hash error if the hash is invalid", () => {
     const wrapper = mount(
