@@ -1,47 +1,42 @@
 @import "../styles/abstracts/__abstracts.scss";
 
-@media print {
-  #header-ui,
-  #top-header-ui {
-    display: none;
-  }
-}
-
 #top-header-ui,
 #header-ui {
   background-color: $color-blue-lighter;
+
+  @media print {
+    display: none;
+  }
 }
 
 #top-header-ui {
   z-index: 3;
   position: relative;
-  padding: 1rem 2rem;
+  padding: 16px 32px;
 }
 
 #header-ui {
   box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
-  padding: 0 2rem;
+  padding: 0 32px;
 }
 
 .header-container {
-  max-width: $max-width;
-  margin: auto;
+  @include container-custom;
 }
 
 .tab {
   @include font-montserrat-regular;
-  color: $color-grey;
   background-color: transparent;
   border-color: transparent;
   z-index: 1;
   position: relative;
   display: inline-block;
-  padding: 1.5em 1.5em 1em;
-  -webkit-text-decoration: none;
+  padding: 24px 24px 16px;
   text-decoration: none;
   margin: 0 7px;
   cursor: pointer;
   text-transform: uppercase;
+  color: $color-grey;
   border-bottom: 5px solid $color-greyblue;
 
   &:hover {
@@ -50,10 +45,11 @@
   }
 
   &.active {
-    @include font-montserrat-semibold;
-    pointer-events: none;
     color: $brand-navy;
     border-bottom: 5px solid $brand-navy;
+
+    @include font-montserrat-semibold;
+    pointer-events: none;
   }
 }
 
@@ -78,8 +74,8 @@ iframe { // renderer from OA
 .print-btn,
 .send-btn {
   @include round-btn;
-  padding: 0.75rem;
-  margin-left: 1rem;
+  padding: 12px;
+  margin-left: 16px;
 
   i {
     color: $color-greyblue-darker;
@@ -90,39 +86,10 @@ iframe { // renderer from OA
     height: 100%;
     width: 100%;
   }
-}
 
-.print-btn:hover,
-.send-btn:hover {
-  i {
-    color: $color-white;
-  }
-}
-
-@media only screen and (max-width: 550px) {
-  #top-header-ui {
-    padding: 1rem 0.5rem;
-  }
-}
-
-.container > :global(.row) {
-  margin-left: 0;
-  margin-right: 0;
-  align-items: center;
-}
-
-@media only screen and (max-width: 768px) {
-  .container > :global(.row) {
-    flex-direction: column;
-  }
-
-  .container > :global(.row) > :not(:first-child) {
-    margin-top: 10px;
-  }
-}
-
-@media only screen and (min-width: 769px) {
-  .container > :global(.row) {
-    justify-content: space-between;
+  &:hover {
+    i {
+      color: $color-white;
+    }
   }
 }

@@ -1,142 +1,59 @@
 @import "../../styles/abstracts/__abstracts.scss";
 
-.main {
-  @include l-main;
-  padding: 2rem 3rem;
-  margin: 0 auto;
+.section {
+  padding: 60px 0;
 
   h3 {
     color: $brand-navy;
     border-left: 6px solid $brand-orange;
-    padding-left: 2rem;
+    padding-left: 32px;
+    margin-bottom: 45px;
   }
 
   p {
-    font-size: 1.125rem;
+    @include font-size(18);
   }
 }
 
-.section {
-  padding-top: 2rem;
-  width: 100%;
-}
-
-.container {
-  display: flex;
-  padding: 4rem 0;
-  margin: auto;
-  max-width: 1080px;
-
-  div {
-    text-align: center;
-  }
-}
-
-.howitworks {
-  background-color: white;
+.content {
+  background-color: $color-white;
   border-radius: 3px;
   border: none;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   display: block;
-  max-width: 1080px;
-  margin: 3rem auto;
-  padding: 3rem;
+  padding: 48px;
 
-  .hiw-container {
-    max-width: 800px;
-    display: block;
-    margin: auto;
-
-    div {
-      display: flex;
-      padding: 3rem 0;
-
-      p {
-        text-align: left;
-        padding-left: 3rem;
-        margin: auto;
-        white-space: pre-wrap;
-      }
-
-      svg {
-        width: auto;
-      }
-
-      &#onetwo {
-        svg {
-          height: 145px;
-        }
-      }
-
-      &#three {
-        svg {
-          height: 105px;
-        }
-      }
-
-      &#four {
-        i {
-          margin-left: 11%;
-
-          svg {
-            height: 120px;
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .main {
-    padding: 1rem;
+  svg {
+    width: auto;
   }
 
-  .howitworks {
-    padding: 1rem;
-
-    .hiw-container {
-      div {
-        display: block;
-        padding: 1rem 0;
-        text-align: center;
-
-        p {
-          padding: 1rem;
-        }
-
-        i {
-          width: auto;
-          height: 80%;
-        }
-      }
+  #onetwo {
+    svg {
+      height: 145px;
     }
   }
-}
 
-@media (max-width: 992px) {
-  .howitworks {
-    .hiw-container {
-      div {
-        display: block;
-        padding: 1rem 0;
-        text-align: center;
-
-        p {
-          padding-top: 1rem;
-        }
-
-        i {
-          width: auto;
-          height: 80%;
-        }
-
-        &#four {
-          i {
-            margin: 0;
-          }
-        }
-      }
+  #three {
+    svg {
+      height: 105px;
     }
+  }
+
+  #four {
+    svg {
+      height: 120px;
+    }
+  }
+
+  .step {
+    margin-bottom: 60px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .steptext {
+    padding: 15px;
   }
 }

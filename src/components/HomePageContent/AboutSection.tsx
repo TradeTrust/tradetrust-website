@@ -22,28 +22,32 @@ const HowItWorks = () => {
   ];
 
   const section = sections.map((item, i) => (
-    <div key={i} id={css[item.key]}>
-      {images[item.key]()}
-      <p>{item.text}</p>
+    <div className={css.step} key={i} id={css[item.key]}>
+      <div className="row no-gutters align-items-center">
+        <div className="col-12 col-lg-6 col-xl-5 text-center">{images[item.key]()}</div>
+        <div className="col-12 col-lg">
+          <div className={css.steptext}>
+            <p>{item.text}</p>
+          </div>
+        </div>
+      </div>
     </div>
   ));
 
-  return (
-    <div className={css.howitworks}>
-      <div className={css["hiw-container"]}>{section}</div>
-    </div>
-  );
+  return <div className={css.content}>{section}</div>;
 };
 
 const AboutSection = () => (
-  <div className="row bg-light" id="how-it-works">
-    <div className={css.main}>
-      <div className={css.section}>
-        <h3>How it works</h3>
-        <HowItWorks />
+  <section className={`bg-light ${css["section"]}`} id="how-it-works">
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <h3>How it works</h3>
+          <HowItWorks />
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 );
 
 export default AboutSection;

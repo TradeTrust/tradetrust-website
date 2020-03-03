@@ -1,9 +1,6 @@
 // =====================================================================
 // Helpers
-// (static classnames, not to be resolved by localIdentName in webpack)
 // =====================================================================
-
-@import "./abstracts/__abstracts.scss";
 
 .bg-light {
   background-color: $color-grey-lightest;

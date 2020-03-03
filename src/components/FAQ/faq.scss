@@ -1,17 +1,11 @@
 @import "../../styles/abstracts/__abstracts.scss";
 
 .main {
-  @include l-main;
-  padding: 2rem;
-  margin: 0 auto;
+  padding: 32px;
 
   h1 {
     color: $brand-navy;
   }
-}
-
-.header-container {
-  padding: 3rem;
 }
 
 .title {
@@ -19,25 +13,21 @@
 }
 
 .content-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1.5rem 0;
+  padding: 24px 0;
 
   h4 {
-    padding: 0;
-    font-weight: 600;
+    @include font-montserrat-semibold;
     color: $brand-orange;
-    margin-bottom: 0;
   }
 }
 
 .question {
-  font-size: 1.125rem;
+  @include font-size(18);
 
   h5 {
-    padding: 0;
-    font-weight: 600;
+    @include font-montserrat-semibold;
     color: $color-grey-dark;
+    padding-bottom: 0;
   }
 }
 

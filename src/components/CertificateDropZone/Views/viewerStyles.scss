@@ -2,7 +2,7 @@
 
 .viewer-container {
   text-align: center;
-  padding: 1.5rem;
+  padding: 24px;
   justify-content: center;
   flex-direction: column;
   display: flex;
@@ -14,36 +14,28 @@
   }
 
   &.default {
-    background-color: $color-blue-lightest;
-    border: 2px dashed $brand-blue;
-    box-shadow: 0 0 0 10px $color-blue-lightest;
+    @include dropzone-status($color-blue-lightest, $brand-blue);
   }
 
   &.accept {
-    background-color: $color-green-lightest;
-    border: 2px dashed $brand-blue;
-    box-shadow: 0 0 0 10px $color-green-lightest;
+    @include dropzone-status($color-green-lightest, $brand-blue);
   }
 
   &.warning {
-    background-color: $bg-warning;
-    border: 2px dashed $color-warning;
-    box-shadow: 0 0 0 10px $bg-warning;
+    @include dropzone-status(lighten($color-warning, 25%), $color-warning);
     color: $color-warning;
 
     .unverified-btn {
-      @include btn($color-warning, lighten($color-warning, 5%), #fff);
+      @include btn($color-warning, lighten($color-warning, 5%), $color-white);
     }
   }
 
   &.invalid {
-    background-color: $bg-invalid;
-    border: 2px dashed $color-invalid;
-    box-shadow: 0 0 0 10px $bg-invalid;
+    @include dropzone-status(lighten($color-invalid, 25%), $color-invalid);
     color: $color-invalid;
 
     .unverified-btn {
-      @include btn($color-invalid, lighten($color-invalid, 5%), #fff);
+      @include btn($color-invalid, lighten($color-invalid, 5%), $color-white);
     }
   }
 }
@@ -51,14 +43,16 @@
 .unverified-btn-container {
   margin: auto;
   text-decoration: none;
-}
 
-.unverified-btn-container a:hover {
-  text-decoration: none;
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 .image-container {
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 
   img {
     height: 110px;
@@ -66,8 +60,8 @@
 }
 
 .message-container {
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 24px;
+  margin-bottom: 8px;
   color: $color-black;
 
   span {
@@ -76,10 +70,10 @@
 }
 
 .verifications {
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 
   .messages {
-    font-size: 18px;
+    @include font-size(18);
     font-weight: 600;
     margin-bottom: 0;
   }
@@ -101,13 +95,13 @@
 .secondary-links {
   width: 50%;
   display: flex;
-  margin: 1rem auto 0 auto;
+  margin: 16px auto 0;
 
   span {
     margin: auto;
 
     a {
-      font-size: 14px;
+      @include font-size(14);
     }
   }
 }

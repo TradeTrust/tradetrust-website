@@ -28,33 +28,39 @@ const renderVerifyBlock = props => (
 const renderHeaderBlock = props => {
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
-    <div className={`container-fluid ${styles.container}`}>
-      <div className="row">
-        <div>{renderedVerifyBlock}</div>
-        <AssetInfo document={props.document} />
-        <div className={`row flex-nowrap`}>
-          <div className="">
-            <div id="btn-print" className={styles["print-btn"]} onClick={() => window.print()}>
-              <i className="fas fa-print" style={{ fontSize: "1.5rem" }} />
-            </div>
+    <div className={`${styles.container}`}>
+      <div className="row no-gutters align-items-center">
+        <div className="col-12 col-md-auto">{renderedVerifyBlock}</div>
+        <div className="col-12 col-md-auto">
+          <div className="my-3 my-md-0 px-md-4 text-center">
+            <AssetInfo document={props.document} />
           </div>
-          {isEmailFeatureActive && (
-            <div className="ml-2" onClick={() => props.handleSharingToggle()}>
-              <div id="btn-email" className={styles["send-btn"]}>
-                <i className="fas fa-envelope" style={{ fontSize: "1.5rem" }} />
+        </div>
+        <div className="col-12 col-md-auto ml-auto">
+          <div className="row no-gutters flex-nowrap justify-content-center">
+            <div className="">
+              <div id="btn-print" className={styles["print-btn"]} onClick={() => window.print()}>
+                <i className="fas fa-print" style={{ fontSize: "1.5rem" }} />
               </div>
             </div>
-          )}
-          <div className="ml-2">
-            <a
-              download={`${props.certificate.id}.tt`}
-              target="_black"
-              href={`data:text/plain;,${encodeURIComponent(JSON.stringify(props.document, null, 2))}`}
-            >
-              <button id="btn-download" className={styles["send-btn"]} title="Download">
-                <i className="fas fa-file-download" style={{ fontSize: "1.5rem" }} />
-              </button>
-            </a>
+            {isEmailFeatureActive && (
+              <div className="ml-2" onClick={() => props.handleSharingToggle()}>
+                <div id="btn-email" className={styles["send-btn"]}>
+                  <i className="fas fa-envelope" style={{ fontSize: "1.5rem" }} />
+                </div>
+              </div>
+            )}
+            <div className="ml-2">
+              <a
+                download={`${props.certificate.id}.tt`}
+                target="_black"
+                href={`data:text/plain;,${encodeURIComponent(JSON.stringify(props.document, null, 2))}`}
+              >
+                <button id="btn-download" className={styles["send-btn"]} title="Download">
+                  <i className="fas fa-file-download" style={{ fontSize: "1.5rem" }} />
+                </button>
+              </a>
+            </div>
           </div>
         </div>
       </div>

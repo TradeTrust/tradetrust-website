@@ -1,15 +1,16 @@
 @import "../../styles/abstracts/__abstracts.scss";
 
 .footer {
-  margin: 0 auto;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  height: auto;
   background-color: $brand-navy;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  max-width: $max-width;
+  padding: 15px;
+
+  @media print {
+    display: none;
+  }
+}
+
+.footer-content {
+  @include container-custom;
 
   a {
     @include font-montserrat-regular;
@@ -19,16 +20,5 @@
       color: $color-white;
       text-decoration: none;
     }
-  }
-
-  div {
-    text-align: left;
-    margin-left: 2rem;
-  }
-}
-
-@media print {
-  #footer-print {
-    display: none;
   }
 }

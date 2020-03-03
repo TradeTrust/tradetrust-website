@@ -1,11 +1,16 @@
 @import "../../../styles/abstracts/__abstracts.scss";
 
 .innerbar {
-  @include l-main;
-  margin: 0 auto;
+  @include container-custom;
+  display: block;
 
   img {
     height: 50px;
+  }
+
+  @media screen and (min-width: $md) {
+    display: flex;
+    justify-content: flex-start;
   }
 }
 
@@ -14,7 +19,7 @@
   justify-content: flex-start;
   margin: 0 auto;
   background-color: $brand-navy;
-  padding: 1rem 1rem;
+  padding: 16px;
 
   @media print {
     display: none;
@@ -23,11 +28,17 @@
 
 .nav-item {
   @include font-montserrat-medium;
+  margin-right: 30px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
 
   a {
     @include font-montserrat-medium;
     color: $color-greyblue;
-    font-size: 1.15rem;
+
+    @include font-size(18);
 
     &:hover {
       color: $color-white;
@@ -45,39 +56,4 @@
 
 .navbar-toggler {
   display: none;
-}
-
-@media (max-width: 767px) {
-  .innerbar {
-    display: block;
-  }
-
-  .nav-item {
-    display: block;
-    padding: 0.5rem 0;
-    text-align: right;
-  }
-
-  .navbar-toggler {
-    display: inline-block;
-    position: absolute;
-    right: 30px;
-    padding: 0.25rem 0;
-    line-height: 1;
-    // color: rgba(255,255,255,.5);
-
-    background-color: transparent;
-    border: transparent;
-
-    &:hover {
-      text-decoration: none;
-      filter: brightness(110%);
-    }
-  }
-
-  .toggler-icon {
-    height: 2em;
-    width: 2em;
-    color: $brand-blue;
-  }
 }

@@ -2,6 +2,15 @@
 // Mixins
 // =====================================================================
 
+@function px-rem($size, $base: 16) {
+  @return ($size / $base) * 1rem;
+}
+
+@mixin font-size($size: 16) {
+  font-size: $size + px;
+  font-size: px-rem($size);
+}
+
 @mixin font-montserrat-regular {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: 400;
@@ -32,11 +41,10 @@
   font-weight: 700;
 }
 
-@mixin l-main {
-  max-width: $max-width;
-  display: flex;
-  justify-content: flex-start;
+@mixin container-custom {
   width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
 }
 
 @mixin btn(
@@ -123,6 +131,12 @@
       stroke: $color;
     }
   }
+}
+
+@mixin dropzone-status($bg-color, $border-color) {
+  background-color: $bg-color;
+  box-shadow: 0 0 0 10px $bg-color;
+  border: 2px dashed $border-color;
 }
 
 @mixin loading($w: 24px, $border-w: 4px, $spd: 0.9s, $primary: darken($color-white, 45%), $secondary: darken($color-white, 25%)) {

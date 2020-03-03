@@ -30,27 +30,49 @@ module.exports = {
         }
       },
       {
-        test: /\.s?css$/,
-        loaders: [
-          "style-loader",
+        // For pure CSS (without CSS modules)
+        test: /\.s?css$/i,
+        use: [
           {
-            loader: "css-loader",
+            loader: 'style-loader',
             options: {
-              localsConvention: "camelCase",
+              insert: function insertAtTop(element) {
+                const parent = document.querySelector('head');
+                const lastInsertedElement = window._lastElementInsertedByStyleLoader;
+
+                if (!lastInsertedElement) {
+                  parent.insertBefore(element, parent.firstChild);
+                } else if (lastInsertedElement.nextSibling) {
+                  parent.insertBefore(element, lastInsertedElement.nextSibling);
+                } else {
+                  parent.appendChild(element);
+                }
+
+                window._lastElementInsertedByStyleLoader = element;
+              },
+            },
+          },
+          'css-loader',
+          'sass-loader'
+        ],
+        include: path.resolve(__dirname, "src/styles")
+      },
+      {
+        // For CSS modules
+        test: /\.s?css$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
               modules: {
                 localIdentName: "[name]__[local]___[hash:base64:5]",
-                getLocalIdent: (loaderContext, localIdentName, localName, options) => {
-                  if (loaderContext.resourcePath.includes('libraries.scss') || loaderContext.resourcePath.includes('helpers.scss')) {
-                    return localName;
-                  }
-                }
               },
-              importLoaders: 1
-            }
+            },
           },
-          "sass-loader"
+          'sass-loader'
         ],
-        include: path.resolve(__dirname, "src")
+        include: path.resolve(__dirname, "src/components")
       }
     ]
   },
@@ -65,8 +87,8 @@ module.exports = {
           new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
           new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
           new CopyWebpackPlugin([
-            { from: "static/images", to: "static/images" },
-            { from: "static/style.css", to: "static" }
+            { from: "static/images", to: "static/images" }
+            // { from: "static/style.css", to: "static" }
           ])
         ]
       : [])

@@ -11,10 +11,6 @@
   padding-bottom: 0;
   color: $color-danger;
   font-size: 24px;
-
-  b {
-    font-weight: 700;
-  }
 }
 
 .statusbar-dropdown {
@@ -53,7 +49,7 @@
     }
 
     h6 {
-      font-weight: 600;
+      @include font-montserrat-semibold;
       margin-bottom: 0;
     }
   }

@@ -77,7 +77,7 @@ class DropZoneSection extends Component<DropZoneSectionProps> {
   // eslint-disable-next-line class-methods-use-this
   render() {
     return (
-      <div className="row p-5 bg-brand-navy text-white">
+      <section className="p-5 bg-brand-navy text-white">
         <div className={css.main}>
           <div className="col-lg-5 col-md-12">
             <div className={css.description}>
@@ -91,7 +91,7 @@ class DropZoneSection extends Component<DropZoneSectionProps> {
             <CertificateDropzoneContainer />
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 }

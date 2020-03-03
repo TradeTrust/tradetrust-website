@@ -5,76 +5,41 @@ h3 {
 }
 
 .main {
-  @include l-main;
-  margin: auto;
+  @include container-custom;
+  display: block;
+  justify-content: flex-start;
+
+  @media only screen and (min-width: $lg) {
+    display: flex;
+  }
 }
 
 .description {
-  padding: 2rem 4rem 3rem 0;
+  padding: 32px 0;
+  text-align: center;
+
+  @media only screen and (min-width: $md) {
+    padding: 48px 64px;
+  }
+
+  @media only screen and (min-width: $lg) {
+    padding: 32px 64px 48px 0;
+    text-align: left;
+  }
 
   p {
-    padding: 1.5rem 0;
-    font-size: 1.1rem;
+    @include font-size(18);
+    padding: 24px 0;
     color: rgba($color-white, 0.7);
   }
 }
 
-h5 {
-  font-weight: 700;
-  padding-bottom: 1rem;
-}
-
-@media (max-width: 992px) {
-  .main {
-    display: block;
-  }
-
-  .description {
-    padding: 3rem 5rem;
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .description {
-    padding: 2rem 0;
-  }
-}
-
 .pulse {
-  animation: pulse 3s infinite;
   margin: 0 auto;
   display: table;
   margin-top: 50px;
-  animation-direction: alternate;
-  -webkit-animation-name: pulse;
-  animation-name: pulse;
-}
 
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: scale(1);
-  }
-
-  50% {
-    -webkit-transform: scale(1.1);
-  }
-
-  100% {
-    -webkit-transform: scale(1);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.1);
-  }
-
-  100% {
-    transform: scale(1);
+  :global {
+    animation: pulse 3s alternate infinite;
   }
 }
