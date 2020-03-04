@@ -7,7 +7,7 @@ interface SvgIconProps {
   handler?: (event: any) => void;
 }
 
-export const SvgIcon = ({ tooltipId, cssClass, children, handler }: SvgIconProps): ReactElement => (
+const SvgIcon = ({ tooltipId, cssClass, children, handler }: SvgIconProps): ReactElement => (
   <svg
     data-tip
     data-for={`tooltip-${tooltipId}`}
@@ -26,3 +26,5 @@ export const SvgIcon = ({ tooltipId, cssClass, children, handler }: SvgIconProps
     {children}
   </svg>
 );
+
+export default SvgIcon;

@@ -1,6 +1,6 @@
 import React from "react";
 import css from "./TokenSideBar.scss";
-import { SvgIcon } from "./SvgIcon";
+import SvgIcon from "./../Helpers/SvgIcon";
 
 const TokenTransactionSuccess = ({ hash, message }: { hash: string; message: string }) => {
   return (
