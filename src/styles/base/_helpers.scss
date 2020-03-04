@@ -1,9 +1,6 @@
 // =====================================================================
 // Helpers
-// (static classnames, not to be resolved by localIdentName in webpack)
 // =====================================================================
-
-@import "./abstracts/__abstracts.scss";
 
 .bg-light {
   background-color: $color-grey-lightest;
@@ -35,6 +32,11 @@
 
 .text-brand-navy {
   color: $brand-navy;
+}
+
+.loader {
+  @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $color-greyblue, $secondary: $color-grey-light);
+  position: relative;
 }
 
 .fill {

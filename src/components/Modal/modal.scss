@@ -1,3 +1,5 @@
+@import "../../styles/abstracts/__abstracts.scss";
+
 .modal {
   position: fixed;
   display: flex;
@@ -16,11 +18,10 @@
   z-index: 15;
   min-width: 300px;
   min-height: 300px;
-  top: 10%;
-  background-color: white;
+  background-color: $color-white;
   border-radius: 5px;
 }
 
 .modal-cross {
-  float: right;
+  text-align: right;
 }

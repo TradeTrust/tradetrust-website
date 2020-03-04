@@ -2,88 +2,48 @@
 
 .box {
   width: 100%;
-  height: 100%;
-  min-width: 100%;
-  min-height: calc(100vh - 214px);
-  position: relative;
-  display: inline-block;
-  padding-top: 50px;
-  padding-left: 10px;
-  padding-right: 10px;
+  min-height: 100vh;
+  padding: 50px 15px;
 }
 
 .error {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1200px;
-  width: 100%;
+  @include container-custom;
   text-align: center;
-  height: auto;
-  line-height: 1.4;
 
   h2 {
     @include font-cabin-bold;
-    font-size: 35px;
     color: $brand-orange;
     text-transform: uppercase;
-    letter-spacing: 7px;
     padding-top: 20px;
     padding-bottom: 10px;
 
-    @media (max-width: 200px) {
-      font-size: 1.5em;
+    @include font-size(32);
+    letter-spacing: 2px;
+
+    @media only screen and (min-width: $md) {
+      @include font-size(36);
+      letter-spacing: 4px;
     }
 
-    @media (min-width: 599px) {
-      font-size: 2em;
-    }
-
-    @media (min-width: 600px) {
-      font-size: 2.5em;
-    }
-
-    @media (min-width: 900px) {
-      font-size: 3em;
-    }
-
-    @media (min-width: 1200px) {
-      font-size: 3.5em;
-    }
-
-    @media (min-width: 1800px) {
-      font-size: 4em;
+    @media only screen and (min-width: $lg) {
+      @include font-size(40);
+      letter-spacing: 6px;
     }
   }
 
   p {
     @include font-cabin-regular;
-    font-size: 16px;
     color: $color-black;
     padding-bottom: 10px;
 
-    @media (max-width: 200px) {
-      font-size: 0.5em;
+    @include font-size(16);
+
+    @media only screen and (min-width: $md) {
+      @include font-size(20);
     }
 
-    @media (min-width: 599px) {
-      font-size: 0.75em;
-    }
-
-    @media (min-width: 600px) {
-      font-size: 1em;
-    }
-
-    @media (min-width: 900px) {
-      font-size: 1.25em;
-    }
-
-    @media (min-width: 1200px) {
-      font-size: 1.5em;
-    }
-
-    @media (min-width: 1800px) {
-      font-size: 1.75em;
+    @media only screen and (min-width: $lg) {
+      @include font-size(24);
     }
   }
 
@@ -95,70 +55,15 @@
     border: none;
     border-radius: 40px;
     color: $color-white;
-    font-size: 14px;
     text-transform: uppercase;
     text-decoration: none;
-    -webkit-transition: 0.2s all;
-    transition: 0.2s all;
+    transition: 0.3s background-color $easeOutCubic, 0.3s color $easeOutCubic;
 
-    @media (max-width: 200px) {
-      font-size: 0.5em;
+    @include font-size(14);
+
+    &:hover {
+      background-color: $brand-orange;
+      color: $color-white;
     }
-
-    @media (min-width: 599px) {
-      font-size: 0.75em;
-    }
-
-    @media (min-width: 600px) {
-      font-size: 1em;
-    }
-
-    @media (min-width: 900px) {
-      font-size: 1.25em;
-    }
-
-    @media (min-width: 1200px) {
-      font-size: 1.5em;
-    }
-
-    @media (min-width: 1800px) {
-      font-size: 1.75em;
-    }
-  }
-
-  a:hover {
-    background-color: $brand-orange;
-    color: $color-white;
-    text-decoration: none;
-  }
-}
-
-.icon {
-  color: $brand-orange;
-  font-size: 50px;
-  margin-bottom: 20px;
-
-  @media (max-width: 200px) {
-    font-size: 4em;
-  }
-
-  @media (min-width: 599px) {
-    font-size: 4.5em;
-  }
-
-  @media (min-width: 600px) {
-    font-size: 5em;
-  }
-
-  @media (min-width: 900px) {
-    font-size: 5.5em;
-  }
-
-  @media (min-width: 1200px) {
-    font-size: 6em;
-  }
-
-  @media (min-width: 1800px) {
-    font-size: 6.5em;
   }
 }

@@ -2,7 +2,6 @@
 // Variables
 // =====================================================================
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600|Source+Sans+Pro:400|Cabin:400,700&display=swap');
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
@@ -35,12 +34,9 @@ $color-white: #ffffff;
 $color-black: #000000;
 
 $color-success: #28a745;
-$color-warning: #ffbf00;
 $color-danger: #c12323;
+$color-warning: #ffbf00;
 $color-invalid: #e46767;
-
-$bg-warning: #fff9e8;
-$bg-invalid: #fbebe7;
 
 $btn-outline: $brand-navy;
 $round-btn-outline: $brand-navy;

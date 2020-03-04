@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { get } from "lodash";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 
-const SuccessIcon = () => <i className="fas fa-check text-success mr-2" />;
-const FailureIcon = () => <i className="fas fa-times text-danger mr-2" />;
+const SuccessIcon = () => <i className="fas fa-check text-success" />;
+const FailureIcon = () => <i className="fas fa-times text-danger" />;
 
 const CheckStatusRow = ({ message, icon }) => (
-  <div className="row align-items-center">
-    <div className="col-2">{icon}</div>
-    <div className="col-10">
-      <div className="row">{message}</div>
+  <div className="row no-gutters align-items-center">
+    <div className="col-auto">{icon}</div>
+    <div className="col">
+      <div className="px-2">{message}</div>
     </div>
   </div>
 );

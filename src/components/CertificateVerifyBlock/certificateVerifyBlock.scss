@@ -1,17 +1,35 @@
 @import "../../styles/abstracts/__abstracts.scss";
 
-.verifyBlocksContainer {
-  position: relative;
-}
-
 .simple-verify-block {
   width: 100%;
   min-width: 320px;
-  color: white;
+  color: $color-white;
   box-shadow: 2px 2px 4px 0 $color-greyblue;
+  border-radius: 5px;
 
   > div {
     padding: 2px 0;
+  }
+
+  &.valid {
+    @include block-color($color-success);
+  }
+
+  &.warning {
+    @include block-color($color-warning);
+  }
+
+  &.invalid {
+    @include block-color($color-invalid);
+  }
+
+  &.active {
+    border-radius: 5px 5px 0 0;
+
+    @media only screen and (min-width: $lg) {
+      border-radius: 5px 0 0 5px;
+      border-right-color: $color-white;
+    }
   }
 }
 
@@ -19,56 +37,11 @@
   margin: 0 15px;
 }
 
-.valid {
-  @include block-color($color-success);
-}
-
-.warning {
-  @include block-color($color-warning);
-}
-
-.invalid {
-  @include block-color($color-invalid);
-}
-
 .verification-text {
-  font-size: 1.25rem;
+  @include font-size(20);
   word-break: break-all;
 }
 
 .verified-icon {
   margin: 0 10px;
-}
-
-@media only screen and (max-width: 575px) {
-  .verifyBlocksContainer {
-    position: relative;
-  }
-}
-
-@media only screen and (min-width: 980px) {
-  .verification-text {
-    font-size: 1.25rem;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .simple-verify-block {
-    border-radius: 5px;
-  }
-
-  .simple-verify-block.active {
-    border-radius: 5px 5px 0 0;
-  }
-}
-
-@media only screen and (min-width: 769px) {
-  .simple-verify-block {
-    border-radius: 5px;
-  }
-
-  .simple-verify-block.active {
-    border-radius: 5px 0 0 5px;
-    border-right-color: white;
-  }
 }
