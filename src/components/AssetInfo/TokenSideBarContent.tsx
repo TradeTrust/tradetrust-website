@@ -139,7 +139,7 @@ const TokenSideBarContent = ({
     <>
       {showActionLoader && (
         <div className={css.overlay}>
-          <div className={css.loader} />
+          <div className="loader" />
         </div>
       )}
       <TokenSideBarNoMatch errorType={tokenSidebarError}>
