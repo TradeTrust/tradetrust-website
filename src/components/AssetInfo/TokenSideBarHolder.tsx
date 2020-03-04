@@ -66,7 +66,7 @@ const TokenSideBarHolder = ({
         <TokenSideBarField
           id="changebeneficiary"
           title="Endorse Change of Beneficiary"
-          label={isApprovedBeneficiaryAddress ? "Confirm" : "Endorse"}
+          label={isApprovedAddress ? "Confirm" : "Endorse"}
           status="success"
           handleClick={changeBeneficiary}
         >
