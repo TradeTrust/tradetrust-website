@@ -7,7 +7,7 @@
     "test:watch": "jest --watchAll",
     "test:update": "jest -u",
     "dev": "NODE_ENV=development webpack-dev-server",
-    "lint": "eslint ./src --ext .js,.ts,.tsx --max-warnings 0",
+    "lint": "eslint ./src --ext .js,.ts,.tsx,.mdx --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
     "stylelint": "stylelint 'src/**/*.scss'; exit 0",
     "stylelint:fix": "stylelint 'src/**/*.scss' --syntax scss --fix",
