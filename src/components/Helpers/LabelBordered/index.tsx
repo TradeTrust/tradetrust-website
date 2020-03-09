@@ -1,3 +1,1 @@
-import LabelBordered from "./LabelBordered";
-
-export default LabelBordered;
+export * from "./LabelBordered";

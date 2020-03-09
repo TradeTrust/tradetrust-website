@@ -4,9 +4,14 @@ module.exports = async ({ config, mode }) => {
   config.module.rules.push({
     test: /\.(ts|js)x?$/,
     exclude: /node_modules/,
-    use: {
-      loader: "babel-loader"
-    }
+    use: [
+      {
+        loader: "babel-loader"
+      },
+      {
+        loader: require.resolve('react-docgen-typescript-loader'),
+      },
+    ]
   });
 
   config.module.rules.push({

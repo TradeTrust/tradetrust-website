@@ -1,0 +1,49 @@
+@import "../../../styles/abstracts/__abstracts.scss";
+
+.button-solid {
+  transition: background-color 0.3s $easeOutCubic, color 0.3s $easeOutCubic, box-shadow 0.3s $easeOutCubic;
+  display: inline-block;
+  outline: none;
+  border: 0;
+  padding: 6px 12px;
+  letter-spacing: 0.01rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba($color-black, 0.15);
+  background-color: $color-grey;
+  color: $color-white;
+
+  @include font-sourcesanspro-bold;
+  @include font-size(18);
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background-color: darken($color-grey, 15%);
+    box-shadow: 0 2px 6px rgba($color-black, 0.3);
+  }
+
+  &.white {
+    background-color: $color-white;
+    color: $brand-orange;
+
+    &:hover {
+      background-color: rgba($brand-orange, 0.1);
+    }
+  }
+
+  &.orange {
+    background-color: $brand-orange;
+
+    &:hover {
+      background-color: darken($color-orange, 20%);
+    }
+  }
+
+  &.green {
+    border-color: $color-green;
+    color: $color-green;
+  }
+}

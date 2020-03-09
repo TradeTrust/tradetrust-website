@@ -1,5 +1,5 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
-import LabelBordered from "./LabelBordered.tsx";
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import { LabelBordered } from "./LabelBordered.tsx";
 
 <Meta title="MDX|LabelBordered" component={LabelBordered} />
 
@@ -7,11 +7,23 @@ import LabelBordered from "./LabelBordered.tsx";
 
 Label, bordered look.
 
+## Props
+
+<Props of={LabelBordered} />
+
+Default.
+
+<Preview>
+  <Story name="Default">
+    <LabelBordered>Default</LabelBordered>
+  </Story>
+</Preview>
+
 Negotiable.
 
 <Preview>
   <Story name="Negotiable">
-    <LabelBordered>Negotiable</LabelBordered>
+    <LabelBordered color="green">Negotiable</LabelBordered>
   </Story>
 </Preview>
 
@@ -19,6 +31,6 @@ Non-Negotiable.
 
 <Preview>
   <Story name="Non-Negotiable">
-    <LabelBordered>Non-Negotiable</LabelBordered>
+    <LabelBordered color="red">Non-Negotiable</LabelBordered>
   </Story>
 </Preview>
