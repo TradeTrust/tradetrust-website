@@ -2,7 +2,7 @@ import React from "react";
 import css from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
-import SvgIcon from "./../Helpers/SvgIcon";
+import { SvgIcon } from "./../Helpers/SvgIcon";
 
 interface TokenSideBarContentProps {
   adminAddress: string;

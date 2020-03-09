@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import SvgIcon from "./SvgIcon";
+import { SvgIcon } from "./SvgIcon";
 
 describe("svgIcon", () => {
   it("should has feather css class ", () => {
