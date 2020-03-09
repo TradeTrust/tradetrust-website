@@ -12,7 +12,7 @@ import {
   deployEscrowContract
 } from "../../services/token";
 import TokenTransactionSuccess from "./TokenTransactionSuccess";
-import { TOKEN_ACTION_TYPES } from "./../../utils/TokenActionUtil";
+import { TOKEN_ACTION_TYPES, getSuccessResponse } from "./../../utils/TokenActionUtil";
 const { trace, error } = getLogger("component:TokenSideBarContent");
 import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
 import { useSelector } from "react-redux";
