@@ -34,7 +34,7 @@ export const SvgIconEdit = () => {
   );
 };
 
-export const SvgIcon = ({ tooltipId, cssClass = "", children, handler }: SvgIconProps) => {
+export const SvgIcon = ({ tooltipId, cssClass, children, handler }: SvgIconProps) => {
   return (
     <svg
       data-tip

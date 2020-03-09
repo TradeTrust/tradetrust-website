@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import css from "./LabelBordered.scss";
+import css from "./LabelBordered.module.scss";
 
 interface LabelBorderedProps {
   color?: string;

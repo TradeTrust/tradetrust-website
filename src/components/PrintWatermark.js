@@ -1,7 +1,7 @@
 import React from "react";
 
 export const PrintWatermark = () => (
-  <div className="print-only">
+  <div>
     <img
       style={{
         position: "absolute",
@@ -10,6 +10,7 @@ export const PrintWatermark = () => (
         height: "100%"
       }}
       src="/static/images/watermark.svg"
+      alt="PrintWatermark"
     />
   </div>
 );

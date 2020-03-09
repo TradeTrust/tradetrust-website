@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import css from "./ButtonSolid.scss";
+import css from "./ButtonSolid.module.scss";
 
 interface ButtonSolidProps {
   color?: string;
