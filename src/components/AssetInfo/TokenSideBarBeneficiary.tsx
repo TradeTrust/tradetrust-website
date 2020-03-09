@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import css from "./TokenSideBar.scss";
 import TokenSideBarField from "./TokenSideBarField";
-import { TOKEN_ACTION_TYPES } from "./util";
+import { TOKEN_ACTION_TYPES } from "./TokenActionUtil";
 import { TokenErrorMessage } from "./TokenErrorMessage";
 
 type ErrorType = { type: TOKEN_ACTION_TYPES; message: string };

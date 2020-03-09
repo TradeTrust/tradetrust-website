@@ -1,0 +1,12 @@
+@import "../../../styles/abstracts/__abstracts.scss";
+
+.label-bordered {
+  display: inline-block;
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: solid 2px $color-red;
+  color: $color-red;
+
+  @include font-cabin-bold;
+  @include font-size(18);
+}

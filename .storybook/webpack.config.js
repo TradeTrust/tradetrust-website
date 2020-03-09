@@ -2,6 +2,14 @@ const path = require("path");
 
 module.exports = async ({ config, mode }) => {
   config.module.rules.push({
+    test: /\.(ts|js)x?$/,
+    exclude: /node_modules/,
+    use: {
+      loader: "babel-loader"
+    }
+  });
+
+  config.module.rules.push({
     test: /\.s?css$/,
     loaders: [
       "style-loader",

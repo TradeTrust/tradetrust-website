@@ -1,6 +1,6 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
-import { SvgIcon } from "./SvgIcon";
+import { SvgIcon } from "./../Helpers/SvgIcon";
 
 interface TokenSideBarTooltipProps {
   id: string;
