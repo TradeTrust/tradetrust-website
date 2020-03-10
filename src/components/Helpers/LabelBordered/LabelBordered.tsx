@@ -1,12 +1,13 @@
 import React, { ReactElement } from "react";
-import css from "./LabelBordered.scss";
+import css from "./LabelBordered.module.scss";
 
 interface LabelBorderedProps {
+  color?: string;
   children: ReactElement;
 }
 
-const LabelBordered = ({ children }: LabelBorderedProps): ReactElement => (
-  <div className={css["label-bordered"]}>{children}</div>
-);
+export const LabelBordered = ({ color = "", children }: LabelBorderedProps) => {
+  const modifier = css[color] ? css[color] : "";
 
-export default LabelBordered;
+  return <div className={`${css["label-bordered"]} ${modifier}`}>{children}</div>;
+};

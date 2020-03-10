@@ -1,0 +1,55 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import { ButtonSolid } from "./ButtonSolid";
+import { SvgIcon, SvgIconEdit } from "./../SvgIcon";
+
+<Meta title="MDX|ButtonSolid" component={ButtonSolid} />
+
+# ButtonSolid
+
+Button, solid look.
+
+## Props
+
+<Props of={ButtonSolid} />
+
+## Default
+
+Default.
+
+<Preview>
+  <Story name="Default">
+    <ButtonSolid>Default</ButtonSolid>
+  </Story>
+</Preview>
+
+## Icon
+
+Edit.
+
+<Preview>
+  <Story name="Edit">
+    <ButtonSolid color="white">
+      <SvgIcon>
+        <SvgIconEdit />
+      </SvgIcon>
+    </ButtonSolid>
+  </Story>
+</Preview>
+
+## Text
+
+Transfer.
+
+<Preview>
+  <Story name="Transfer">
+    <ButtonSolid color="orange">Transfer</ButtonSolid>
+  </Story>
+</Preview>
+
+Endorse.
+
+<Preview>
+  <Story name="Endorse">
+    <ButtonSolid color="orange">Endorse</ButtonSolid>
+  </Story>
+</Preview>

@@ -1,20 +1,22 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
-import { SvgIcon } from "./SvgIcon.tsx";
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import { SvgIcon, SvgIconInfo, SvgIconChecked, SvgIconChervonLeft, SvgIconEdit } from "./SvgIcon";
 
-<Meta title="MDX|Icons" component={SvgIcon} />
+<Meta title="MDX|SvgIcon" component={SvgIcon} />
 
 # SvgIcon
 
 Icons used in application.
+
+## Props
+
+<Props of={SvgIcon} />
 
 Info.
 
 <Preview>
   <Story name="Info">
     <SvgIcon cssClass="feather-info">
-      <circle cx="12" cy="12" r="10" />
-      <line x1="12" y1="16" x2="12" y2="12" />
-      <line x1="12" y1="8" x2="12.01" y2="8" />
+      <SvgIconInfo />
     </SvgIcon>
   </Story>
 </Preview>
@@ -24,7 +26,7 @@ Checked.
 <Preview>
   <Story name="Checked">
     <SvgIcon cssClass="feather-check">
-      <polyline points="20 6 9 17 4 12" />
+      <SvgIconChecked />
     </SvgIcon>
   </Story>
 </Preview>
@@ -34,7 +36,17 @@ Chevron Left.
 <Preview>
   <Story name="Chevron Left">
     <SvgIcon cssClass="feather-chevron-left">
-      <polyline points="15 18 9 12 15 6" />
+      <SvgIconChervonLeft />
+    </SvgIcon>
+  </Story>
+</Preview>
+
+Edit.
+
+<Preview>
+  <Story name="Edit">
+    <SvgIcon cssClass="feather-edit-3">
+      <SvgIconEdit />
     </SvgIcon>
   </Story>
 </Preview>

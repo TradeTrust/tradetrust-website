@@ -34,10 +34,10 @@ module.exports = {
         test: /\.s?css$/i,
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader",
             options: {
               insert: function insertAtTop(element) {
-                const parent = document.querySelector('head');
+                const parent = document.querySelector("head");
                 const lastInsertedElement = window._lastElementInsertedByStyleLoader;
 
                 if (!lastInsertedElement) {
@@ -52,8 +52,8 @@ module.exports = {
               },
             },
           },
-          'css-loader',
-          'sass-loader'
+          "css-loader",
+          "sass-loader"
         ],
         include: path.resolve(__dirname, "src/styles")
       },
@@ -61,16 +61,16 @@ module.exports = {
         // For CSS modules
         test: /\.s?css$/i,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: {
                 localIdentName: "[name]__[local]___[hash:base64:5]",
               },
             },
           },
-          'sass-loader'
+          "sass-loader"
         ],
         include: path.resolve(__dirname, "src/components")
       }
