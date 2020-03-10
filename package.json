@@ -120,7 +120,6 @@
     "nodemon": "^1.18.10",
     "prettier": "^1.19.1",
     "proxyquire": "^2.1.0",
-    "react-docgen-typescript-loader": "^3.7.0",
     "react-test-renderer": "^16.8.6",
     "sass-loader": "^8.0.0",
     "sinon": "^7.1.1",
