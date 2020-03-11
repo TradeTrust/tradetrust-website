@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
+import { states } from "../../reducers/certificate";
 
 export interface TransactionState {
   status: TransactionStateStatus;
@@ -24,16 +25,25 @@ export enum TransactionStateStatus {
   ERROR = "error"
 }
 
-export const useEthereumTransactionState = (): UseEthereumTransactionState => {
-  const [state, setState] = useState<TransactionState>({ status: TransactionStateStatus.LOADING, error: undefined });
+function ethereumStateReducer(state, action) {
+    switch (action.type) {
+        case TransactionStateStatus.LOADING:
+            return {...state, ...{ status: TransactionStateStatus.LOADING, error: undefined }}
+        case TransactionStateStatus.READY:
+            return {...state, ...{ status: TransactionStateStatus.READY, error: undefined }}
+        case TransactionStateStatus.NO_WALLET:
+            return {...state, ...{ status: TransactionStateStatus.NO_WALLET, error: undefined }}
+        case TransactionStateStatus.SUCCESS:
+            return {...state, ...{ status: TransactionStateStatus.SUCCESS, error: undefined }}
+        case TransactionStateStatus.TRANSACTION_MINING:
+            return {...state, ...{ status: TransactionStateStatus.TRANSACTION_MINING, error: undefined }}
+        case TransactionStateStatus.ERROR:
+            return {...state, ...{ status: TransactionStateStatus.ERROR, error: action.message }}
+        default:
+            return {...state, ...{ status: TransactionStateStatus.LOADING, error: undefined }}
+    }
+}
 
-  const setLoading = (): void => setState({ status: TransactionStateStatus.LOADING, error: undefined });
-  const setNoWallet = (): void => setState({ status: TransactionStateStatus.NO_WALLET, error: undefined });
-  const setReady = (): void => setState({ status: TransactionStateStatus.READY, error: undefined });
-  const setSuccess = (): void => setState({ status: TransactionStateStatus.SUCCESS, error: undefined });
-  const setMining = (): void => setState({ status: TransactionStateStatus.TRANSACTION_MINING, error: undefined });
-
-  const setError = (e: any): void => setState({ status: TransactionStateStatus.ERROR, error: e.message });
-
-  return { state, setLoading, setNoWallet, setReady, setSuccess, setMining, setError };
+export const useEthereumTransactionState = () => {
+  return useReducer(ethereumStateReducer, { status: TransactionStateStatus.LOADING, error: undefined });
 };
