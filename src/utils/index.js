@@ -29,6 +29,10 @@ export function isEthereumAddress(address) {
   return ethereumAddressMatcher.test(address);
 }
 
+export const makeEtherscanAddressURL = address => {
+  return `${ETHERSCAN_BASE_URL}address/${address}`;
+};
+
 export const makeEtherscanTokenURL = ({ registryAddress, tokenId }) => {
   const tokenIdDecimal = hexToNumberString(`0x${tokenId}`);
   return `${ETHERSCAN_BASE_URL}token/${registryAddress}?a=${tokenIdDecimal}`;

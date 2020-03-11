@@ -1,17 +1,29 @@
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { SvgIcon, SvgIconInfo, SvgIconChecked, SvgIconChervonLeft, SvgIconEdit } from "./SvgIcon";
+import {
+  SvgIcon,
+  SvgIconInfo,
+  SvgIconChecked,
+  SvgIconChervonLeft,
+  SvgIconEdit,
+  SvgIconBook,
+  SvgIconX
+} from "./SvgIcon";
 
-<Meta title="MDX|SvgIcon" component={SvgIcon} />
+<Meta title="Icon/SvgIcon" component={SvgIcon} />
 
 # SvgIcon
 
 Icons used in application.
 
-## Props
+---
+
+### Props
 
 <Props of={SvgIcon} />
 
-Info.
+---
+
+### Svg Icons
 
 <Preview>
   <Story name="Info">
@@ -19,34 +31,29 @@ Info.
       <SvgIconInfo />
     </SvgIcon>
   </Story>
-</Preview>
-
-Checked.
-
-<Preview>
   <Story name="Checked">
     <SvgIcon cssClass="feather-check">
       <SvgIconChecked />
     </SvgIcon>
   </Story>
-</Preview>
-
-Chevron Left.
-
-<Preview>
   <Story name="Chevron Left">
     <SvgIcon cssClass="feather-chevron-left">
       <SvgIconChervonLeft />
     </SvgIcon>
   </Story>
-</Preview>
-
-Edit.
-
-<Preview>
   <Story name="Edit">
     <SvgIcon cssClass="feather-edit-3">
       <SvgIconEdit />
+    </SvgIcon>
+  </Story>
+  <Story name="Book">
+    <SvgIcon cssClass="feather-book">
+      <SvgIconBook />
+    </SvgIcon>
+  </Story>
+  <Story name="X">
+    <SvgIcon cssClass="feather-x">
+      <SvgIconX />
     </SvgIcon>
   </Story>
 </Preview>

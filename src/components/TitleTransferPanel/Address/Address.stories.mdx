@@ -1,0 +1,48 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+// import { action } from '@storybook/addon-actions';
+import { Address } from "./Address";
+import { AddressLink } from "./../AddressLink";
+
+<Meta title="TitleTransferPanel/Address" component={Address} />
+
+# Address
+
+Address with information.
+
+---
+
+### Props
+
+<Props of={Address} />
+
+---
+
+### Address
+
+With title, name and address.
+
+<Preview>
+  <Story name="Default">
+    <Address title="Role" name="Name (Identifier)">
+      <div>0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e</div>
+    </Address>
+  </Story>
+</Preview>
+
+---
+
+### Address (with links)
+
+With title, name and address links.
+
+<Preview>
+  <Story name="AddressLink">
+    <Address title="Role" name="Name (Identifier)">
+      <div>
+        <AddressLink name="Contract Address" href="#" />
+        <br />
+        <AddressLink name="See Token History" href="#" />
+      </div>
+    </Address>
+  </Story>
+</Preview>

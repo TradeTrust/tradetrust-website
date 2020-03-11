@@ -1,0 +1,31 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import { Tooltip } from "./Tooltip";
+
+<Meta title="Tooltip/Info" component={Tooltip} />
+
+# Tooltip
+
+Icon with tooltip.
+
+---
+
+### Props
+
+<Props of={Tooltip} />
+
+---
+
+### Tooltips
+
+Icon hover with informative tooltip.
+
+<Preview>
+  <Story name="Default">
+    <Tooltip
+      id="test"
+      getContent={() => {
+        return <span>dummy text</span>;
+      }}
+    />
+  </Story>
+</Preview>

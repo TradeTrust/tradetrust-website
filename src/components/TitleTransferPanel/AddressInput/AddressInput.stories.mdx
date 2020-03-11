@@ -1,0 +1,159 @@
+import { useState } from "react";
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+// import { action } from '@storybook/addon-actions';
+import { AddressInput } from "./AddressInput";
+import { AddressCta } from "./../AddressCta";
+
+<Meta title="TitleTransferPanel/AddressInput" component={AddressInput} />
+
+# Address Input Single
+
+Address Input Single.
+
+---
+
+### Props
+
+<Props of={AddressInput} />
+
+---
+
+### Transfer
+
+Without text input.
+
+<Preview>
+  <Story name="Transfer">
+    {() => {
+      const [address, setAddress] = useState("");
+      return (
+        <AddressInput
+          address={address}
+          setAddress={setAddress}
+          layoutCtaRight={<AddressCta buttonText="Transfer" onButtonSubmit={() => {}} holderAddress={address} />}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Endorse
+
+With text input.
+
+<Preview>
+  <Story name="Endorse">
+    {() => {
+      const [outgoingHolderAddress, setOutgoingHolderAddress] = useState("0x48399Fb88bcD031C556F53e9303CaF7aB32C9302");
+      const [outgoingBeneficiaryAddress, setOutgoingBeneficiaryAddress] = useState(
+        "0x28F7aB32C521D13F2E6980d072Ca7CA493020145"
+      );
+      return (
+        <div>
+          <AddressInput address={outgoingHolderAddress} setAddress={setOutgoingHolderAddress} />
+          <AddressInput
+            address={outgoingBeneficiaryAddress}
+            setAddress={setOutgoingBeneficiaryAddress}
+            layoutCtaBottom={
+              <AddressCta
+                buttonText="Endorse"
+                onButtonSubmit={() => {}}
+                holderAddress={outgoingHolderAddress}
+                beneficiaryAddress={outgoingBeneficiaryAddress}
+              />
+            }
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Confirm Endorse
+
+With text input. Confirm Finalised Endorse Change of Beneficiary.
+
+<Preview>
+  <Story name="Confirm Endorse">
+    <div>
+      <AddressInput address="0x28F7aB32C521D13F2E6980d072Ca7CA493020145" setAddress={() => {}} disabled />
+      <AddressInput
+        address="0x48399Fb88bcD031C556F53e9303CaF7aB32C9302"
+        setAddress={() => {}}
+        disabled
+        layoutCtaBottom={
+          <AddressCta
+            buttonText="Confirm"
+            onButtonSubmit={() => {}}
+            holderAddress="0x28F7aB32C521D13F2E6980d072Ca7CA493020145"
+            beneficiaryAddress="0x48399Fb88bcD031C556F53e9303CaF7aB32C9302"
+            isDisabledAddressBook={true}
+          />
+        }
+      />
+    </div>
+  </Story>
+</Preview>
+
+---
+
+### Error
+
+Error state for Transfer Holdership.
+
+<Preview>
+  <Story name="Error">
+    {() => {
+      const [address, setAddress] = useState("");
+      return (
+        <AddressInput
+          address={address}
+          setAddress={setAddress}
+          layoutCtaRight={<AddressCta buttonText="Transfer" onButtonSubmit={() => {}} holderAddress={address} />}
+          errorMessage="There's an error."
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Errors
+
+Errors state for Endorse.
+
+<Preview>
+  <Story name="Errors">
+    {() => {
+      const [outgoingHolderAddress, setOutgoingHolderAddress] = useState("");
+      const [outgoingBeneficiaryAddress, setOutgoingBeneficiaryAddress] = useState("");
+      return (
+        <div>
+          <AddressInput
+            address={outgoingHolderAddress}
+            setAddress={setOutgoingHolderAddress}
+            errorMessage="There's an error with holder address."
+          />
+          <AddressInput
+            address={outgoingBeneficiaryAddress}
+            setAddress={setOutgoingBeneficiaryAddress}
+            layoutCtaBottom={
+              <AddressCta
+                buttonText="Endorse"
+                onButtonSubmit={() => {}}
+                holderAddress={outgoingHolderAddress}
+                beneficiaryAddress={outgoingBeneficiaryAddress}
+              />
+            }
+            errorMessage="There's an error with beneficiary address."
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>

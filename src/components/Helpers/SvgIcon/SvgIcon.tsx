@@ -1,10 +1,9 @@
 import React, { ReactElement } from "react";
 
 interface SvgIconProps {
-  cssClass: string;
+  cssClass?: string;
   tooltipId?: string;
   children: ReactElement;
-  handler?: (event: any) => void;
 }
 
 export const SvgIconInfo = () => {
@@ -34,12 +33,35 @@ export const SvgIconEdit = () => {
   );
 };
 
-export const SvgIcon = ({ tooltipId, cssClass, children, handler }: SvgIconProps) => {
+export const SvgIconBook = () => {
+  return (
+    <>
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+    </>
+  );
+};
+
+export const SvgIconX = () => {
+  return (
+    <>
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </>
+  );
+};
+
+export const SvgIcon = ({ tooltipId, cssClass = "", children }: SvgIconProps) => {
+  const tooltipProps = tooltipId
+    ? {
+        "data-tip": "",
+        "data-for": `tooltip-${tooltipId}`
+      }
+    : null;
+
   return (
     <svg
-      data-tip
-      data-for={`tooltip-${tooltipId}`}
-      onClick={handler}
+      {...tooltipProps}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"

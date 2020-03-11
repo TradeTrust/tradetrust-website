@@ -1,0 +1,66 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+// import { text } from "@storybook/addon-knobs";
+import { Beneficiary } from "./Beneficiary";
+
+<Meta title="TitleTransferPanel/TitleView" component={Beneficiary} />
+
+# TitleView (Beneficiary)
+
+TitleView.
+
+---
+
+### Props
+
+<Props of={Beneficiary} />
+
+---
+
+### Beneficiary
+
+When userWalletAddress matches BeneficiaryAddress.
+
+<Preview>
+  <Story name="Beneficiary">
+    <Beneficiary
+      userWalletAddress="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+      beneficiaryAddress="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+      finaliseEndorsementHolderAddress=""
+      finaliseEndorsementBeneficiaryAddress=""
+    />
+  </Story>
+</Preview>
+
+---
+
+### Beneficiary (not match)
+
+When userWalletAddress not match BeneficiaryAddress.
+
+<Preview>
+  <Story name="Beneficiary (not match)">
+    <Beneficiary
+      userWalletAddress="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+      beneficiaryAddress="0x28F7aB32C521D13F2E6980d072Ca7CA493020145"
+      finaliseEndorsementHolderAddress=""
+      finaliseEndorsementBeneficiaryAddress=""
+    />
+  </Story>
+</Preview>
+
+---
+
+### Beneficiary (finalising endorsement)
+
+When userWalletAddress not match BeneficiaryAddress.
+
+<Preview>
+  <Story name="Beneficiary (finalising endorsement)">
+    <Beneficiary
+      userWalletAddress="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+      beneficiaryAddress="0x28F7aB32C521D13F2E6980d072Ca7CA493020145"
+      finaliseEndorsementHolderAddress="0x48399Fb88bcD031C556F53e9303CaF7aB32C9302"
+      finaliseEndorsementBeneficiaryAddress="0x48399Fb88bcD031C556F53e9303CaF7aB32C9302"
+    />
+  </Story>
+</Preview>
