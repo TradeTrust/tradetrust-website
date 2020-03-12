@@ -13,7 +13,8 @@
     "jsx": "react",
     "sourceMap": true,
     "types": ["jest", "node"],
-    "allowJs": true
+    "allowJs": true,
+    "noEmit": true
   },
   "include": ["src"]
 }

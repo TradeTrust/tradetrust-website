@@ -12,7 +12,7 @@ import {
   retrieveCertificateByActionFailure
 } from "../reducers/certificate";
 
-export const HomePage = props => {
+export const HomePage = (props: any) => {
   useEffect(() => {
     if (props.location.search !== "") {
       const queryParams = queryString.parse(props.location.search);
@@ -42,9 +42,9 @@ export const HomePage = props => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  retrieveCertificateByAction: payload => dispatch(retrieveCertificateByAction(payload)),
-  retrieveCertificateByActionFailure: payload => dispatch(retrieveCertificateByActionFailure(payload)),
+const mapDispatchToProps = (dispatch: any) => ({
+  retrieveCertificateByAction: (payload: any) => dispatch(retrieveCertificateByAction(payload)),
+  retrieveCertificateByActionFailure: (payload: any) => dispatch(retrieveCertificateByActionFailure(payload)),
   resetCertificateState: () => dispatch(resetCertificateState())
 });
 
