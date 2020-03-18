@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import css from "./StatusBar.scss";
 import { getAssetInfo, makeEtherscanTokenURL } from "./../../utils";
 import { isERC721Token, getTokenOwner } from "./../../services/token";
 import { getLogger } from "./../../utils/logger";
 const { trace, error } = getLogger("Component:DetailedCertificateVerifyBlock");
+import { useEscrowContractUsers } from "../../hooks";
 
 interface StatusBarProps {
   document: object;
@@ -13,13 +13,10 @@ interface StatusBarProps {
 const StatusBar = ({ document }: StatusBarProps) => {
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
 
-  const { holderAddress, beneficiaryAddress } = useSelector((state: any) => ({
-    holderAddress: state.token.holderAddress,
-    beneficiaryAddress: state.token.beneficiaryAddress
-  }));
-
   const [tokenError, setError] = useState(null);
   const [tokenOwner, setTokenOwner] = useState("");
+  const { holderAddress, beneficiaryAddress } = useEscrowContractUsers({ escrowContractAddress: tokenOwner });
+
   const isToken = isERC721Token(document);
   useEffect(() => {
     async function fetchTokenOwner() {
