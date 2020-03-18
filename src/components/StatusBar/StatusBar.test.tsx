@@ -11,10 +11,8 @@ jest.mock("../../services/token", () => ({
   getTokenOwner: jest.fn()
 }));
 
-jest.mock("react-redux", () => ({
-  useSelector: () => ({
-    token: { beneficiaryAddress: "", holderAddress: "" }
-  })
+jest.mock("../../hooks", () => ({
+  useEscrowContractUsers: () => ({ beneficiaryAddress: "", holderAddress: "" })
 }));
 
 const mockedGetTokenOwner = getTokenOwner as jest.Mock;
