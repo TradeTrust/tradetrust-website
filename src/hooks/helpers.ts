@@ -24,7 +24,10 @@ export enum TransactionStateStatus {
   ERROR = "error"
 }
 
-function ethereumStateReducer(state, action) {
+export type ActionType = { type: TransactionStateStatus; message?: string };
+export type StateType = { status: TransactionStateStatus; error: undefined | string };
+
+function ethereumStateReducer(state: StateType, action: ActionType) {
   switch (action.type) {
     case TransactionStateStatus.LOADING:
       return { ...state, ...{ status: TransactionStateStatus.LOADING, error: undefined } };

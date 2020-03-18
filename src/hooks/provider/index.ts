@@ -26,7 +26,7 @@ export const useProvider = () => {
 
   const getProvider = () => {
     try {
-      setDispatchCallback({ type: TransactionStateStatus.LOADING, error: undefined });
+      setDispatchCallback({ type: TransactionStateStatus.LOADING });
       const { ethereum, web3 } = window;
       const alreadyInjected = typeof ethereum !== "undefined" || typeof web3 !== "undefined";
 
@@ -34,7 +34,7 @@ export const useProvider = () => {
       const web3Provider = new ethers.providers.Web3Provider(ethereum || web3.currentProvider);
       const signer = web3Provider.getSigner();
       trace(`provider is ${web3Provider} and signer is ${signer}`);
-      setDispatchCallback({ type: TransactionStateStatus.SUCCESS, error: undefined });
+      setDispatchCallback({ type: TransactionStateStatus.SUCCESS });
       return { web3Provider, signer };
     } catch (e) {
       error(`Error in metamask : ${e}`);

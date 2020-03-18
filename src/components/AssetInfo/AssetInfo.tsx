@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getData, SignedDocument } from "@govtechsg/open-attestation";
+import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import TokenSideBar from "./TokenSideBar";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
 import { updateNetworkId } from "../../reducers/application";
@@ -9,13 +9,13 @@ import { makeEtherscanTokenURL } from "../../utils";
 import { connectToMetamask } from "../../services/etherjs";
 import { FeatureFlag } from "../FeatureFlag";
 
-const getAssetInfo = (document: SignedDocument) => {
+const getAssetInfo = (document: WrappedDocument) => {
   const { tokenRegistry } = getData(document).issuers[0];
   const { merkleRoot: tokenId } = document.signature;
   return { tokenRegistry, tokenId };
 };
 
-export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ document }) => {
+export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ document }) => {
   const [isSideBarExpand, toggleSideBar] = useState(false);
   const dispatch = useDispatch();
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);

@@ -3,11 +3,11 @@ import { createOwner, TitleEscrowOwner } from "@govtechsg/oa-token";
 import { getLogger } from "../../utils/logger";
 
 import { useCallback, useEffect, useState } from "react";
-import { useEthereumTransactionState, TransactionStateStatus } from "../helpers";
+import { useEthereumTransactionState, TransactionStateStatus, StateType } from "../helpers";
 import { useProvider } from "../provider";
 const { trace, error } = getLogger("hooks:escrowContractUsers");
 
-type UseEscrowContractUsers = { state: TransactionStateStatus; holderAddress: string; beneficiaryAddress: string };
+type UseEscrowContractUsers = { state: StateType; holderAddress: string; beneficiaryAddress: string };
 
 export const useEscrowContractUsers = ({
   escrowContractAddress
@@ -33,9 +33,9 @@ export const useEscrowContractUsers = ({
   useEffect(() => {
     (async () => {
       try {
-        setDispatchCallback({ type: TransactionStateStatus.LOADING, error: undefined });
+        setDispatchCallback({ type: TransactionStateStatus.LOADING });
         await getApprovedEscrowContractUsers();
-        setDispatchCallback({ type: TransactionStateStatus.SUCCESS, error: undefined });
+        setDispatchCallback({ type: TransactionStateStatus.SUCCESS });
       } catch (e) {
         error(`Error initialising token: ${e}`);
         setDispatchCallback({ type: TransactionStateStatus.ERROR, message: e.message });
