@@ -2,11 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import css from "./TitleView.module.scss";
 import { Address } from "../Address";
-import { AddressLink } from "./../AddressLink";
+import { AddressLink } from "../AddressLink";
 import { getAssetInfo } from "../../../utils";
 import { makeEtherscanAddressURL, makeEtherscanTokenURL } from "../../../utils";
 
-export const EscrowContract = () => {
+export const BLinfo = () => {
   const { document } = useSelector((state: any) => ({
     document: state.certificate.raw
   }));
@@ -16,11 +16,11 @@ export const EscrowContract = () => {
 
   return (
     <div className={css["title-view"]}>
-      <Address title="Escrow Contract" name="Maersk">
+      <Address title="BL information">
         <>
-          <AddressLink name="Token Registry" href={tokenRegistryHref} />
+          <AddressLink name="View BL Registry" href={tokenRegistryHref} />
           <br />
-          <AddressLink name="See Token History" href={tokenHistoryHref} />
+          <AddressLink name="View Endorsement Chain" href={tokenHistoryHref} />
         </>
       </Address>
     </div>

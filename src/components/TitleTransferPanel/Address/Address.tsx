@@ -3,7 +3,7 @@ import css from "./Address.module.scss";
 
 interface AddressProps {
   title: string;
-  name: string;
+  name?: string;
   children: ReactElement;
 }
 

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import css from "./TitleEscrow.module.scss";
 import { Holder } from "../TitleView/Holder";
 import { Beneficiary } from "../TitleView/Beneficiary";
-import { EscrowContract } from "../TitleView/EscrowContract";
+import { BLinfo } from "../TitleView/BLinfo";
 import { SurrenderDocument } from "../Actions/SurrenderDocument";
 import {
   // holderAddress,
@@ -35,7 +35,7 @@ export const TitleEscrow = () => {
           </div>
         )}
         <div className="col-12 col-lg">
-          <EscrowContract />
+          <BLinfo />
         </div>
       </div>
       <FeatureFlag
