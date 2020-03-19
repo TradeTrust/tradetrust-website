@@ -23,33 +23,31 @@ describe("featureFlag", () => {
   afterEach(() => {
     process.env = OLD_ENV;
   });
+
   it("should render component when MANAGE_ASSET feature flag is set to true", () => {
+    const fallback = <div>This feature is not available</div>;
     const wrapper = mount(
-      <FeatureFlag
-        name="MANAGE_ASSET"
-        render={() => <div>Share link is active</div>}
-        fallback={() => <div>This feature is not available</div>}
-      />
+      <FeatureFlag name="MANAGE_ASSET" fallback={fallback}>
+        <div>Share link is active</div>
+      </FeatureFlag>
     );
     expect(wrapper.find("div").text()).toStrictEqual("Share link is active");
   });
   it("should render fallback component when OTHER feature flag is set to false", () => {
+    const fallback = <div>This feature is not available</div>;
     const wrapper = mount(
-      <FeatureFlag
-        name="jobPost"
-        render={() => <div>Other feature is active</div>}
-        fallback={() => <div>This feature is not available</div>}
-      />
+      <FeatureFlag name="jobPost" fallback={fallback}>
+        <div>Other feature is active</div>
+      </FeatureFlag>
     );
     expect(wrapper.find("div").text()).toStrictEqual("This feature is not available");
   });
   it("should render fallback component when EXTRA_FEATURE feature flag is not set", () => {
+    const fallback = <div>This feature is not available</div>;
     const wrapper = mount(
-      <FeatureFlag
-        name="EXTRA_FEATURE"
-        render={() => <div>Extra feature is active</div>}
-        fallback={() => <div>This feature is not available</div>}
-      />
+      <FeatureFlag name="EXTRA_FEATURE" fallback={fallback}>
+        <div>Extra feature is active</div>
+      </FeatureFlag>
     );
     expect(wrapper.find("div").text()).toStrictEqual("This feature is not available");
   });
