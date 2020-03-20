@@ -3,14 +3,14 @@ import css from "./Button.module.scss";
 
 interface ButtonProps {
   className?: string;
-  color?: string;
+  color?: "grey" | "orange" | "white";
   disabled?: boolean;
   children?: ReactElement;
   onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-export const ButtonSolid = ({ className, color = "", disabled, children, onClick }: ButtonProps) => {
-  const modifierColor = css[color] ? css[color] : "";
+export const ButtonSolid = ({ className, color, disabled, children, onClick }: ButtonProps) => {
+  const modifierColor = color !== undefined ? (css[color] ? css[color] : "") : "";
 
   return (
     <button className={`${css["button"]} ${className} ${modifierColor}`} disabled={disabled} onClick={onClick}>

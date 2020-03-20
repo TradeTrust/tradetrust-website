@@ -1,10 +1,28 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
+import _uniqueId from "lodash/uniqueId";
+import ReactTooltip from "react-tooltip";
 
 interface SvgIconProps {
   cssClass?: string;
   tooltipId?: string;
   children: ReactElement;
 }
+
+interface TooltipIconProps {
+  getContent: any;
+  children: ReactElement;
+}
+
+export const TooltipIcon = ({ getContent, children }: TooltipIconProps) => {
+  const [id] = useState(_uniqueId("tt-"));
+
+  return (
+    <>
+      <SvgIcon tooltipId={id}>{children}</SvgIcon>
+      <ReactTooltip id={`tooltip-${id}`} place="right" type="dark" effect="solid" getContent={getContent} />
+    </>
+  );
+};
 
 export const SvgIconInfo = () => {
   return (

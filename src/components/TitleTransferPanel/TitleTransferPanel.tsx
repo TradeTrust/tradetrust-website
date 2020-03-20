@@ -1,6 +1,6 @@
 import React from "react";
-import { LabelBordered } from "../Helpers/LabelBordered";
-import { TitleEscrow } from "./TitleEscrow";
+import { LabelBordered } from "../UI/LabelBordered";
+import { TitleTransferPanelContent } from "./TitleTransferPanelContent";
 
 export const TitleTransferPanel = () => {
   return (
@@ -9,16 +9,12 @@ export const TitleTransferPanel = () => {
         <div className="row">
           <div className="col-12">
             <div className="py-2">
-              <LabelBordered color="red">
-                <p>This is a transferable record</p>
-              </LabelBordered>
-              <LabelBordered color="red">
-                <p>Negotiable</p>
-              </LabelBordered>
+              <LabelBordered color="red">This is a transferable record</LabelBordered>
+              <LabelBordered color="red">Negotiable</LabelBordered>
             </div>
           </div>
         </div>
-        <TitleEscrow />
+        <TitleTransferPanelContent />
       </div>
     </section>
   );

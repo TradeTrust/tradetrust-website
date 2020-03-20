@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import css from "./TitleView.module.scss";
 import { Address } from "../Address";
-import { AddressLink } from "../AddressLink";
+import { ExternalLink } from "../../Helpers/ExternalLink";
 import { getAssetInfo } from "../../../utils";
 import { makeEtherscanAddressURL, makeEtherscanTokenURL } from "../../../utils";
 
@@ -18,9 +18,9 @@ export const BLinfo = () => {
     <div className={css["title-view"]}>
       <Address title="BL information">
         <>
-          <AddressLink name="View BL Registry" href={tokenRegistryHref} />
+          <ExternalLink name="View BL Registry" href={tokenRegistryHref} />
           <br />
-          <AddressLink name="View Endorsement Chain" href={tokenHistoryHref} />
+          <ExternalLink name="View Endorsement Chain" href={tokenHistoryHref} />
         </>
       </Address>
     </div>

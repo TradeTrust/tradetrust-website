@@ -1,13 +1,13 @@
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
 // import { action } from '@storybook/addon-actions';
 import { ButtonSolid, ButtonIcon, ButtonCircle } from "./Button";
-import { SvgIcon, SvgIconEdit, SvgIconBook, SvgIconX } from "./../SvgIcon";
+import { SvgIcon, SvgIconEdit, SvgIconBook, SvgIconX } from "./../../Helpers/SvgIcon";
 
-<Meta title="Button/ButtonSolid" component={ButtonSolid} />
+<Meta title="UI/Button" component={ButtonSolid} />
 
-# ButtonSolid
+# Button
 
-Button, solid look.
+Button look.
 
 ---
 
@@ -17,7 +17,7 @@ Button, solid look.
 
 ---
 
-### Textual Buttons
+### ButtonSolid (Textual)
 
 <Preview>
   <Story name="Default">
@@ -36,7 +36,7 @@ Button, solid look.
 
 ---
 
-### Iconic Buttons
+### ButtonIcon (Iconic)
 
 <Preview>
   <Story name="Edit">
@@ -64,7 +64,7 @@ Button, solid look.
 
 ---
 
-### Circle Buttons
+### ButtonCircle (Circular)
 
 <Preview>
   <Story name="Cancel">

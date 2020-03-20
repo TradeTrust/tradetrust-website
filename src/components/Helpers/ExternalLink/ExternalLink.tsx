@@ -1,11 +1,11 @@
 import React from "react";
 
-interface AddressLinkProps {
+interface ExternalLinkProps {
   name: string;
   href: string;
 }
 
-export const AddressLink = ({ name, href }: AddressLinkProps) => {
+export const ExternalLink = ({ name, href }: ExternalLinkProps) => {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
       {name}

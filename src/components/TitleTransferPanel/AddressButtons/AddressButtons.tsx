@@ -1,8 +1,9 @@
 import React from "react";
+import css from "./AddressButtons.module.scss";
 import { SvgIcon, SvgIconBook, SvgIconX } from "../../Helpers/SvgIcon";
-import { ButtonIcon, ButtonSolid, ButtonCircle } from "../../Helpers/Button";
+import { ButtonIcon, ButtonSolid, ButtonCircle } from "../../UI/Button";
 
-interface AddressCtaProps {
+interface AddressButtonsProps {
   holderAddress: string;
   beneficiaryAddress?: string;
   isDisabledAddressBook?: boolean;
@@ -10,19 +11,20 @@ interface AddressCtaProps {
   onButtonSubmit?(event: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-export const AddressCta = ({
+export const AddressButtons = ({
   holderAddress,
   beneficiaryAddress,
   isDisabledAddressBook,
   buttonText,
   onButtonSubmit
-}: AddressCtaProps) => {
-  const isDisableButtonSubmit =
-    beneficiaryAddress !== undefined
-      ? holderAddress.length === 0 || beneficiaryAddress.length === 0
-      : holderAddress.length === 0;
+}: AddressButtonsProps) => {
+  const isSubmitEnabled =
+    beneficiaryAddress === undefined
+      ? holderAddress.length === 0
+      : holderAddress.length === 0 || beneficiaryAddress.length === 0;
+
   return (
-    <>
+    <div className={css["address-cta"]}>
       <ButtonIcon color="white" disabled={isDisabledAddressBook}>
         <div className="row no-gutters align-items-center">
           <div className="col-auto mr-2">
@@ -35,7 +37,7 @@ export const AddressCta = ({
           </div>
         </div>
       </ButtonIcon>
-      <ButtonSolid color="orange" disabled={isDisableButtonSubmit} onClick={onButtonSubmit}>
+      <ButtonSolid color="orange" disabled={isSubmitEnabled} onClick={onButtonSubmit}>
         <p>{buttonText}</p>
       </ButtonSolid>
       <ButtonCircle color="grey">
@@ -43,6 +45,6 @@ export const AddressCta = ({
           <SvgIconX />
         </SvgIcon>
       </ButtonCircle>
-    </>
+    </div>
   );
 };
