@@ -1,20 +1,5 @@
 import { useReducer } from "react";
 
-export interface TransactionState {
-  status: TransactionStateStatus;
-  error: any;
-}
-
-export interface UseEthereumTransactionState {
-  state: TransactionState;
-  setLoading: () => void;
-  setNoWallet: () => void;
-  setReady: () => void;
-  setSuccess: () => void;
-  setMining: () => void;
-  setError: (e: any) => void;
-}
-
 export enum TransactionStateStatus {
   LOADING = "loading",
   READY = "ready",

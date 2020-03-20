@@ -1,1 +1,1 @@
-export * from "./escrowContractUsers";
+export * from "./useEscrowContractUsers";
