@@ -2,7 +2,7 @@ import { createOwner, TitleEscrowOwner } from "@govtechsg/oa-token";
 
 import { getLogger } from "../utils/logger";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useEthereumTransactionState, TransactionStateStatus, StateType } from "./useEthereumTransactionState";
 import { useWeb3Provider } from "./useWeb3Provider";
 const { trace, error } = getLogger("hooks:useEscrowContractUsers");
@@ -19,8 +19,6 @@ export const useEscrowContractUsers = ({
   const [beneficiaryAddress, setBeneficiaryAddress] = useState("");
   const { web3Provider } = useWeb3Provider();
   const [state, dispatch] = useEthereumTransactionState();
-
-  const getEscrowContractUsers = useCallback(async () => {}, []);
 
   useEffect(() => {
     async function fetchEscrowContractUsers() {
@@ -42,6 +40,6 @@ export const useEscrowContractUsers = ({
       }
     }
     if (escrowContractAddress) fetchEscrowContractUsers();
-  }, [escrowContractAddress, getEscrowContractUsers, dispatch, web3Provider]);
+  }, [escrowContractAddress, dispatch, web3Provider]);
   return { state, beneficiaryAddress, holderAddress };
 };
