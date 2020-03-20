@@ -60,42 +60,40 @@ export const AssetInfo: FunctionComponent<{ document: SignedDocument }> = ({ doc
   };
 
   if (!registryAddress) return null;
+
+  const legacyView = (
+    <a
+      href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+      id="asset-info-etherscan-link"
+      rel="noreferrer noopener"
+      target="_blank"
+    >
+      Manage Asset
+    </a>
+  );
   return (
     <>
-      <FeatureFlag
-        name="MANAGE_ASSET"
-        render={() => (
-          <div>
-            <a
-              href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-              id="asset-info-etherscan-link"
-              rel="noreferrer noopener"
-              target="_blank"
-              onClick={handlerToggleSideBar}
-            >
-              Manage Asset
-            </a>
-            <TokenSideBar
-              adminAddress={adminAddress}
-              registryAddress={registryAddress}
-              holderAddress={holderAddress}
-              beneficiaryAddress={beneficiaryAddress}
-              handler={handlerToggleSideBar}
-              isSideBarExpand={isSideBarExpand}
-            />
-          </div>
-        )}
-        fallback={() => (
+      <FeatureFlag name="MANAGE_ASSET" fallback={legacyView}>
+        <div>
           <a
             href={makeEtherscanTokenURL({ registryAddress, tokenId })}
             id="asset-info-etherscan-link"
             rel="noreferrer noopener"
             target="_blank"
+            onClick={handlerToggleSideBar}
           >
             Manage Asset
           </a>
-        )}
-      />
+          <TokenSideBar
+            adminAddress={adminAddress}
+            registryAddress={registryAddress}
+            holderAddress={holderAddress}
+            beneficiaryAddress={beneficiaryAddress}
+            handler={handlerToggleSideBar}
+            isSideBarExpand={isSideBarExpand}
+          />
+        </div>
+      </FeatureFlag>
     </>
   );
 };
