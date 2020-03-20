@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import styles from "./certificateViewer.scss";
 import { getTemplates, getActiveTemplateTab } from "../reducers/certificate";
+import { FeatureFlag } from "./FeatureFlag";
+import { CsvUploadButton, RawAddressBookData } from "./AddressBook/CsvUploadButton";
 import Drawer from "./UI/Drawer";
 
 const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => (
@@ -31,6 +33,10 @@ const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => (
         <a id="btn-view-another" href=" " className={styles["view-another"]}>
           View another
         </a>
+        <FeatureFlag name="ADDRESS_BOOK_UPLOAD">
+          <CsvUploadButton />
+          <RawAddressBookData />
+        </FeatureFlag>
       </div>
     </div>
     <div className="d-lg-none d-xl-none">

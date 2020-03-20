@@ -1,4 +1,5 @@
 import React from "react";
+import web3 from "web3";
 import { parse } from "papaparse";
 import { useAddressBook, AddressBook } from "../../common/hooks/useAddressBook";
 
@@ -17,11 +18,13 @@ const csvToAddressBook = (csv: string) => {
   const { data } = parse(csv, { skipEmptyLines: true, header: true });
   const addressBook: AddressBook = {};
   data.forEach((row, index) => {
-    const identifierText = row.Identifier || row.identifier;
-    const addressText = row.Address || row.address;
+    const identifierText: string = row.Identifier || row.identifier;
+    const addressText: string = row.Address || row.address;
     if (!identifierText) throw new Error(`Row ${index} does not have an identifer`);
     if (!addressText) throw new Error(`Row ${index} does not have an address`);
-    addressBook[addressText] = identifierText;
+    if (!web3.utils.isAddress(addressText))
+      throw new Error(`${addressText} in row ${index} is not a valid Ethereum address`);
+    addressBook[addressText.toLowerCase()] = identifierText;
   });
   return addressBook;
 };
@@ -29,16 +32,27 @@ const csvToAddressBook = (csv: string) => {
 export const CsvUploadButton = () => {
   const { setAddressBook } = useAddressBook();
   const handleUploadedFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const csvFile = event.target.files && event.target.files[0];
-    if (!csvFile) return;
-    const csv = await readAsText(csvFile);
-    const addressBook = csvToAddressBook(csv);
-    setAddressBook(addressBook);
+    try {
+      const csvFile = event.target.files && event.target.files[0];
+      if (csvFile?.type !== "text/csv") throw new Error("Uploaded file is not a csv file");
+      const csv = await readAsText(csvFile);
+      const addressBook = csvToAddressBook(csv);
+      setAddressBook(addressBook);
+    } catch (e) {
+      alert(e.message || e);
+    }
   };
-  return <input type="file" name="file" onChange={handleUploadedFile} />;
+  return (
+    <div className="m-1">
+      <input id="csv-file-input" type="file" name="file" onChange={handleUploadedFile} style={{ display: "none" }} />
+      <label className="p-3" style={{ cursor: "pointer" }} htmlFor="csv-file-input">
+        Upload Address Book
+      </label>
+    </div>
+  );
 };
 
 export const RawAddressBookData = () => {
   const { addressBook } = useAddressBook();
-  return <div>{JSON.stringify(addressBook)}</div>;
+  return <pre>{JSON.stringify(addressBook, null, 2)}</pre>;
 };
