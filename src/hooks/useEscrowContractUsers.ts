@@ -1,10 +1,10 @@
 import { createOwner, TitleEscrowOwner } from "@govtechsg/oa-token";
 
-import { getLogger } from "../../utils/logger";
+import { getLogger } from "../utils/logger";
 
 import { useCallback, useEffect, useState } from "react";
-import { useEthereumTransactionState, TransactionStateStatus, StateType } from "../useEthereumTransactionState";
-import { useWeb3Provider } from "../provider/useWeb3Provider";
+import { useEthereumTransactionState, TransactionStateStatus, StateType } from "./useEthereumTransactionState";
+import { useWeb3Provider } from "./useWeb3Provider";
 const { trace, error } = getLogger("hooks:useEscrowContractUsers");
 
 type UseEscrowContractUsers = { state: StateType; holderAddress: string; beneficiaryAddress: string };

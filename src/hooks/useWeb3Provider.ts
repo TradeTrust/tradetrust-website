@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { useEthereumTransactionState, TransactionStateStatus } from "../useEthereumTransactionState";
+import { useEthereumTransactionState, TransactionStateStatus } from "./useEthereumTransactionState";
 import { ethers, providers } from "ethers";
 
-import { getLogger } from "../../utils/logger";
+import { getLogger } from "../utils/logger";
 const { trace, error } = getLogger("hook:etherjs:provider");
 
 type GetProvider = { web3Provider: providers.Web3Provider; signer: ethers.Signer };
