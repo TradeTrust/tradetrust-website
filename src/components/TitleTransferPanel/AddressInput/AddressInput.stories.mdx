@@ -17,12 +17,12 @@ Address Input Single.
 
 ---
 
-### Transfer
+### Inlined
 
-Without text input.
+Buttons beside input block.
 
 <Preview>
-  <Story name="Transfer">
+  <Story name="Inlined">
     {() => {
       const [address, setAddress] = useState("");
       return (
@@ -36,63 +36,12 @@ Without text input.
 
 ---
 
-### Endorse
-
-With text input.
-
-<Preview>
-  <Story name="Endorse">
-    {() => {
-      const [outgoingHolderAddress, setOutgoingHolderAddress] = useState("0x48399Fb88bcD031C556F53e9303CaF7aB32C9302");
-      const [outgoingBeneficiaryAddress, setOutgoingBeneficiaryAddress] = useState(
-        "0x28F7aB32C521D13F2E6980d072Ca7CA493020145"
-      );
-      return (
-        <div>
-          <AddressInput address={outgoingHolderAddress} setAddress={setOutgoingHolderAddress} />
-          <AddressInput address={outgoingBeneficiaryAddress} setAddress={setOutgoingBeneficiaryAddress} />
-          <AddressButtons
-            buttonText="Endorse"
-            onButtonSubmit={() => {}}
-            holderAddress={outgoingHolderAddress}
-            beneficiaryAddress={outgoingBeneficiaryAddress}
-          />
-        </div>
-      );
-    }}
-  </Story>
-</Preview>
-
----
-
-### Confirm Endorse
-
-With text input. Confirm Finalised Endorse Change of Beneficiary.
-
-<Preview>
-  <Story name="Confirm Endorse">
-    <div>
-      <AddressInput address="0x28F7aB32C521D13F2E6980d072Ca7CA493020145" setAddress={() => {}} disabled />
-      <AddressInput address="0x48399Fb88bcD031C556F53e9303CaF7aB32C9302" setAddress={() => {}} disabled />
-      <AddressButtons
-        buttonText="Confirm"
-        onButtonSubmit={() => {}}
-        holderAddress="0x28F7aB32C521D13F2E6980d072Ca7CA493020145"
-        beneficiaryAddress="0x48399Fb88bcD031C556F53e9303CaF7aB32C9302"
-        isDisabledAddressBook={true}
-      />
-    </div>
-  </Story>
-</Preview>
-
----
-
 ### Error
 
-Error state for Transfer Holdership.
+Inlined error state.
 
 <Preview>
-  <Story name="Error">
+  <Story name="InlinedErrored">
     {() => {
       const [address, setAddress] = useState("");
       return (
@@ -106,17 +55,46 @@ Error state for Transfer Holdership.
 
 ---
 
-### Errors
+### Block
 
-Errors state for Endorse.
+Buttons below input block.
 
 <Preview>
-  <Story name="Errors">
+  <Story name="Block">
+    {() => {
+      const [outgoingHolderAddress, setOutgoingHolderAddress] = useState("0x48399Fb88bcD031C556F53e9303CaF7aB32C9302");
+      const [outgoingBeneficiaryAddress, setOutgoingBeneficiaryAddress] = useState(
+        "0x28F7aB32C521D13F2E6980d072Ca7CA493020145"
+      );
+      return (
+        <>
+          <AddressInput address={outgoingHolderAddress} setAddress={setOutgoingHolderAddress} />
+          <AddressInput address={outgoingBeneficiaryAddress} setAddress={setOutgoingBeneficiaryAddress} />
+          <AddressButtons
+            buttonText="Endorse"
+            onButtonSubmit={() => {}}
+            holderAddress={outgoingHolderAddress}
+            beneficiaryAddress={outgoingBeneficiaryAddress}
+          />
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Errors
+
+Block error state.
+
+<Preview>
+  <Story name="BlockErrored">
     {() => {
       const [outgoingHolderAddress, setOutgoingHolderAddress] = useState("");
       const [outgoingBeneficiaryAddress, setOutgoingBeneficiaryAddress] = useState("");
       return (
-        <div>
+        <>
           <AddressInput
             address={outgoingHolderAddress}
             setAddress={setOutgoingHolderAddress}
@@ -133,8 +111,30 @@ Errors state for Endorse.
             holderAddress={outgoingHolderAddress}
             beneficiaryAddress={outgoingBeneficiaryAddress}
           />
-        </div>
+        </>
       );
     }}
+  </Story>
+</Preview>
+
+---
+
+### Disabled
+
+Disabled buttons below input block.
+
+<Preview>
+  <Story name="Disabled">
+    <>
+      <AddressInput address="0x28F7aB32C521D13F2E6980d072Ca7CA493020145" setAddress={() => {}} disabled />
+      <AddressInput address="0x48399Fb88bcD031C556F53e9303CaF7aB32C9302" setAddress={() => {}} disabled />
+      <AddressButtons
+        buttonText="Confirm"
+        onButtonSubmit={() => {}}
+        holderAddress="0x28F7aB32C521D13F2E6980d072Ca7CA493020145"
+        beneficiaryAddress="0x48399Fb88bcD031C556F53e9303CaF7aB32C9302"
+        isDisabledAddressBook={true}
+      />
+    </>
   </Story>
 </Preview>

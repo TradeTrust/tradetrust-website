@@ -9,17 +9,25 @@ interface SvgIconProps {
 }
 
 interface TooltipIconProps {
-  getContent: any;
+  content: ReactElement;
   children: ReactElement;
 }
 
-export const TooltipIcon = ({ getContent, children }: TooltipIconProps) => {
+export const TooltipIcon = ({ content, children }: TooltipIconProps) => {
   const [id] = useState(_uniqueId("tt-"));
 
   return (
     <>
       <SvgIcon tooltipId={id}>{children}</SvgIcon>
-      <ReactTooltip id={`tooltip-${id}`} place="right" type="dark" effect="solid" getContent={getContent} />
+      <ReactTooltip
+        id={`tooltip-${id}`}
+        place="right"
+        type="dark"
+        effect="solid"
+        getContent={() => {
+          return content;
+        }}
+      />
     </>
   );
 };

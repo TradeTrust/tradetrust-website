@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./TitleView.module.scss";
-import { Address } from "../Address";
-import { ExternalLink } from "../../Helpers/ExternalLink";
+import { AddressInfo } from "../AddressInfo";
+import { ExternalLink } from "../../UI/ExternalLink";
 import { makeEtherscanAddressURL } from "../../../utils";
 
 interface HolderProps {
@@ -13,9 +13,9 @@ export const Holder = ({ holderAddress }: HolderProps) => {
 
   return (
     <div className={css["title-view"]}>
-      <Address title="Holder" name="Bank of China">
+      <AddressInfo title="Holder" name="Bank of China">
         <ExternalLink name={holderAddress} href={holderAddressHref} />
-      </Address>
+      </AddressInfo>
     </div>
   );
 };

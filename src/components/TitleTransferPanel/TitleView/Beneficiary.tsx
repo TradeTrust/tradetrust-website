@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./TitleView.module.scss";
-import { Address } from "../Address";
-import { ExternalLink } from "../../Helpers/ExternalLink";
+import { AddressInfo } from "../AddressInfo";
+import { ExternalLink } from "../../UI/ExternalLink";
 import { makeEtherscanAddressURL } from "../../../utils";
 
 interface BeneficiaryProps {
@@ -13,9 +13,9 @@ export const Beneficiary = ({ beneficiaryAddress }: BeneficiaryProps) => {
 
   return (
     <div className={css["title-view"]}>
-      <Address title="Beneficiary" name="Bank of China">
+      <AddressInfo title="Beneficiary" name="Bank of China">
         <ExternalLink name={beneficiaryAddress} href={beneficiaryAddressHref} />
-      </Address>
+      </AddressInfo>
     </div>
   );
 };

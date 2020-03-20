@@ -1,6 +1,6 @@
 import React from "react";
 import css from "./AddressButtons.module.scss";
-import { SvgIcon, SvgIconBook, SvgIconX } from "../../Helpers/SvgIcon";
+import { SvgIcon, SvgIconBook, SvgIconX } from "../../UI/SvgIcon";
 import { ButtonIcon, ButtonSolid, ButtonCircle } from "../../UI/Button";
 
 interface AddressButtonsProps {

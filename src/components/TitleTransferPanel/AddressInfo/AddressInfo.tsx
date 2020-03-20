@@ -1,15 +1,15 @@
 import React, { ReactElement } from "react";
-import css from "./Address.module.scss";
+import css from "./AddressInfo.module.scss";
 
-interface AddressProps {
+interface AddressInfoProps {
   title: string;
   name?: string;
   children: ReactElement;
 }
 
-export const Address = ({ title, name, children }: AddressProps) => {
+export const AddressInfo = ({ title, name, children }: AddressInfoProps) => {
   return (
-    <div className={`${css["address"]}`}>
+    <div className={`${css["address-info"]}`}>
       <h6>{title}:</h6>
       <div className="row mb-2 align-items-end">
         <div className="col-auto">

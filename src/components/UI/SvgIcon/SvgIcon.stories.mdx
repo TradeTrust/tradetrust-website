@@ -6,10 +6,11 @@ import {
   SvgIconChervonLeft,
   SvgIconEdit,
   SvgIconBook,
-  SvgIconX
+  SvgIconX,
+  TooltipIcon
 } from "./SvgIcon";
 
-<Meta title="Icon/SvgIcon" component={SvgIcon} />
+<Meta title="UI/Icon" component={SvgIcon} />
 
 # SvgIcon
 
@@ -55,5 +56,17 @@ Icons used in application.
     <SvgIcon cssClass="feather-x">
       <SvgIconX />
     </SvgIcon>
+  </Story>
+</Preview>
+
+---
+
+### Svg Icons
+
+<Preview>
+  <Story name="TooltipIcon">
+    <TooltipIcon cssClass="feather-info" content={<>dummy info here</>}>
+      <SvgIconInfo />
+    </TooltipIcon>
   </Story>
 </Preview>
