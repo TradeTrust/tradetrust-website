@@ -14,33 +14,34 @@ export const useEscrowContractUsers = ({
 }: {
   escrowContractAddress: string;
 }): UseEscrowContractUsers => {
-  trace(`document to initialize ${JSON.stringify(document)}`);
+  trace(`escrow contract address ${escrowContractAddress}`);
   const [holderAddress, setHolderAddress] = useState("");
   const [beneficiaryAddress, setBeneficiaryAddress] = useState("");
   const { web3Provider } = useProvider();
   const [state, dispatch] = useEthereumTransactionState();
   const setDispatchCallback = useCallback(dispatch, []);
 
-  const getApprovedEscrowContractUsers = useCallback(async () => {
+  const getEscrowContractUsers = useCallback(async () => {
     const titleEscrowInstance = await createOwner({ address: escrowContractAddress, web3Provider });
     if (!(titleEscrowInstance instanceof TitleEscrowOwner)) throw new Error("Address is not an Escrow contract");
     const [beneficiary, holder] = await Promise.all([titleEscrowInstance.beneficiary(), titleEscrowInstance.holder()]);
-    trace(`approved beneficiary: ${JSON.stringify(beneficiary)}, approved holder: ${holder}`);
+    trace(`beneficiary: ${beneficiary}, holder: ${holder}`);
     setHolderAddress(holder);
     setBeneficiaryAddress(beneficiary);
   }, [escrowContractAddress, web3Provider]);
 
   useEffect(() => {
-    (async () => {
+    async function fetchEscrowContractUsers() {
       try {
         setDispatchCallback({ type: TransactionStateStatus.LOADING });
-        await getApprovedEscrowContractUsers();
+        await getEscrowContractUsers();
         setDispatchCallback({ type: TransactionStateStatus.SUCCESS });
       } catch (e) {
         error(`Error initialising token: ${e}`);
         setDispatchCallback({ type: TransactionStateStatus.ERROR, message: e.message });
       }
-    })();
-  }, [escrowContractAddress, getApprovedEscrowContractUsers, setDispatchCallback]);
+    }
+    if (escrowContractAddress) fetchEscrowContractUsers();
+  }, [escrowContractAddress, getEscrowContractUsers, setDispatchCallback]);
   return { state, beneficiaryAddress, holderAddress };
 };
