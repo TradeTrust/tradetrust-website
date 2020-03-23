@@ -2,6 +2,7 @@ import React from "react";
 import web3 from "web3";
 import { parse } from "papaparse";
 import { useAddressBook, AddressBook } from "../../common/hooks/useAddressBook";
+import { ButtonBordered } from "../UI/Button";
 
 const readAsText = async (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -43,18 +44,22 @@ export const CsvUploadButton = () => {
     }
   };
   return (
-    <div className="m-1">
-      <input
-        id="csv-file-input"
-        type="file"
-        name="file"
-        onChange={handleUploadedFile}
-        style={{ display: "none" }}
-        accept=".csv"
-      />
-      <label className="p-3" style={{ cursor: "pointer" }} htmlFor="csv-file-input">
-        Upload Address Book
-      </label>
+    <div className="my-auto ml-2">
+      <ButtonBordered color="tertiary">
+        <>
+          <input
+            id="csv-file-input"
+            type="file"
+            name="file"
+            onChange={handleUploadedFile}
+            style={{ display: "none" }}
+            accept=".csv"
+          />
+          <label className="mb-0" style={{ cursor: "pointer" }} htmlFor="csv-file-input">
+            Upload Address Book
+          </label>
+        </>
+      </ButtonBordered>
     </div>
   );
 };

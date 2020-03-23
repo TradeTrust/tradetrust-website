@@ -37,7 +37,7 @@ export const AddressButtons = ({
           </div>
         </div>
       </ButtonIcon>
-      <ButtonSolid color="orange" disabled={isSubmitEnabled} onClick={onButtonSubmit}>
+      <ButtonSolid color="primary" disabled={isSubmitEnabled} onClick={onButtonSubmit}>
         <p>{buttonText}</p>
       </ButtonSolid>
       <ButtonCircle color="grey">

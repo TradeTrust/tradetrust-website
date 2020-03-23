@@ -53,22 +53,9 @@
   }
 }
 
-#frameless-container {
-  .view-another {
-    display: none;
-  }
-}
-
 iframe { // renderer from OA
   padding: 0 10px;
   margin: 20px 0;
-}
-
-.view-another {
-  @include btn($btn-outline);
-  background-color: $color-white;
-  margin: auto 0 auto auto;
-  float: right;
 }
 
 .print-btn,
