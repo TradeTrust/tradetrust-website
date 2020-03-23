@@ -1,0 +1,72 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import {
+  SvgIcon,
+  SvgIconInfo,
+  SvgIconChecked,
+  SvgIconChervonLeft,
+  SvgIconEdit,
+  SvgIconBook,
+  SvgIconX,
+  TooltipIcon
+} from "./SvgIcon";
+
+<Meta title="UI/Icon" component={SvgIcon} />
+
+# SvgIcon
+
+Icons used in application.
+
+---
+
+### Props
+
+<Props of={SvgIcon} />
+
+---
+
+### Svg Icons
+
+<Preview>
+  <Story name="Info">
+    <SvgIcon cssClass="feather-info">
+      <SvgIconInfo />
+    </SvgIcon>
+  </Story>
+  <Story name="Checked">
+    <SvgIcon cssClass="feather-check">
+      <SvgIconChecked />
+    </SvgIcon>
+  </Story>
+  <Story name="Chevron Left">
+    <SvgIcon cssClass="feather-chevron-left">
+      <SvgIconChervonLeft />
+    </SvgIcon>
+  </Story>
+  <Story name="Edit">
+    <SvgIcon cssClass="feather-edit-3">
+      <SvgIconEdit />
+    </SvgIcon>
+  </Story>
+  <Story name="Book">
+    <SvgIcon cssClass="feather-book">
+      <SvgIconBook />
+    </SvgIcon>
+  </Story>
+  <Story name="X">
+    <SvgIcon cssClass="feather-x">
+      <SvgIconX />
+    </SvgIcon>
+  </Story>
+</Preview>
+
+---
+
+### Svg Icons
+
+<Preview>
+  <Story name="TooltipIcon">
+    <TooltipIcon cssClass="feather-info" content={<>dummy info here</>}>
+      <SvgIconInfo />
+    </TooltipIcon>
+  </Story>
+</Preview>
