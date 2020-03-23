@@ -11,7 +11,11 @@
 }
 
 .bg-red {
-  background: $color-red;
+  background-color: $color-red;
+}
+
+.bg-blue-lighter {
+  background-color: $color-blue-lighter;
 }
 
 .text-red {
@@ -39,7 +43,7 @@
 }
 
 .loader {
-  @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $color-greyblue, $secondary: $color-grey-light);
+  @include loading($w: 40px, $border-w: 4px, $spd: 1.3s, $primary: $color-greyblue, $secondary: $color-grey-lighter);
   position: relative;
 }
 

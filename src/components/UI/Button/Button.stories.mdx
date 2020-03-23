@@ -1,0 +1,77 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+// import { action } from '@storybook/addon-actions';
+import { ButtonSolid, ButtonIcon, ButtonCircle } from "./Button";
+import { SvgIcon, SvgIconEdit, SvgIconBook, SvgIconX } from "./../../UI/SvgIcon";
+
+<Meta title="UI/Button" component={ButtonSolid} />
+
+# Button
+
+Button look.
+
+---
+
+### Props
+
+<Props of={ButtonSolid} />
+
+---
+
+### ButtonSolid (Textual)
+
+<Preview>
+  <Story name="Default">
+    <ButtonSolid>Default</ButtonSolid>
+  </Story>
+  <Story name="Textual Disabled">
+    <ButtonSolid disabled>Disabled</ButtonSolid>
+  </Story>
+  <Story name="Primary">
+    <ButtonSolid color="orange">Primary</ButtonSolid>
+  </Story>
+  <Story name="White">
+    <ButtonSolid color="white">White</ButtonSolid>
+  </Story>
+</Preview>
+
+---
+
+### ButtonIcon (Iconic)
+
+<Preview>
+  <Story name="Edit">
+    <ButtonIcon color="white">
+      <SvgIcon>
+        <SvgIconEdit />
+      </SvgIcon>
+    </ButtonIcon>
+  </Story>
+  <Story name="Iconic Disabled">
+    <ButtonIcon color="white" disabled>
+      <SvgIcon>
+        <SvgIconEdit />
+      </SvgIcon>
+    </ButtonIcon>
+  </Story>
+  <Story name="Book">
+    <ButtonIcon color="white">
+      <SvgIcon>
+        <SvgIconBook />
+      </SvgIcon>
+    </ButtonIcon>
+  </Story>
+</Preview>
+
+---
+
+### ButtonCircle (Circular)
+
+<Preview>
+  <Story name="Cancel">
+    <ButtonCircle color="grey">
+      <SvgIcon>
+        <SvgIconX />
+      </SvgIcon>
+    </ButtonCircle>
+  </Story>
+</Preview>
