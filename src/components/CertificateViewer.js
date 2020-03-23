@@ -77,7 +77,7 @@ const CertificateViewer = props => {
 
   const validCertificateContent = (
     <div>
-      {isTokenRegistry && <TitleTransferPanel />}
+      {isTokenRegistry && <TitleTransferPanel document={document} />}
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>

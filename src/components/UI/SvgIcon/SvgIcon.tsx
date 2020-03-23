@@ -1,16 +1,16 @@
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import _uniqueId from "lodash/uniqueId";
 import ReactTooltip from "react-tooltip";
 
 interface SvgIconProps {
   cssClass?: string;
   tooltipId?: string;
-  children: ReactElement;
+  children: React.ReactNode;
 }
 
 interface TooltipIconProps {
-  content: ReactElement;
-  children: ReactElement;
+  content: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export const TooltipIcon = ({ content, children }: TooltipIconProps) => {

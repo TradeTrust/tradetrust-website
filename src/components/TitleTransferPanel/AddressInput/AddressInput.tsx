@@ -1,9 +1,9 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import css from "./AddressInput.module.scss";
 
 interface AddressInputProps {
   errorMessage?: string;
-  children?: ReactElement;
+  children?: React.ReactNode;
   address: string;
   setAddress: (e: any) => void;
   disabled?: boolean;

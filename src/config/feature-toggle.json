@@ -5,6 +5,6 @@
   },
   "ADDRESS_BOOK_UPLOAD": {
     "development": true,
-    "production": false
+    "production": true
   }
 }
