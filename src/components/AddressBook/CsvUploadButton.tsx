@@ -44,7 +44,7 @@ export const CsvUploadButton = () => {
   };
   return (
     <div className="m-1">
-      <input id="csv-file-input" type="file" name="file" onChange={handleUploadedFile} style={{ display: "none" }} />
+      <input id="csv-file-input" type="file" name="file" onChange={handleUploadedFile} style={{ display: "none" }} accept=".csv" />
       <label className="p-3" style={{ cursor: "pointer" }} htmlFor="csv-file-input">
         Upload Address Book
       </label>
