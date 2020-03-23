@@ -73,8 +73,8 @@
   margin-bottom: 32px;
 
   .messages {
+    @include font-sourcesanspro-bold;
     @include font-size(18);
-    font-weight: 600;
     margin-bottom: 0;
   }
 }

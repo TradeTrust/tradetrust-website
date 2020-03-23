@@ -11,7 +11,7 @@
   text-align: center;
 
   h2 {
-    @include font-cabin-bold;
+    @include font-sourcesanspro-bold;
     color: $brand-orange;
     text-transform: uppercase;
     padding-top: 20px;
@@ -32,7 +32,6 @@
   }
 
   p {
-    @include font-cabin-regular;
     color: $color-black;
     padding-bottom: 10px;
 
@@ -48,7 +47,7 @@
   }
 
   a {
-    @include font-cabin-bold;
+    @include font-sourcesanspro-bold;
     display: inline-block;
     padding: 15px 35px;
     background-color: $brand-navy;

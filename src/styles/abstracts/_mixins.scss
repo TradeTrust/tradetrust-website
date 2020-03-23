@@ -36,16 +36,6 @@
   font-weight: 700;
 }
 
-@mixin font-cabin-regular {
-  font-family: "Cabin", Helvetica, Arial, sans-serif;
-  font-weight: 400;
-}
-
-@mixin font-cabin-bold {
-  font-family: "Cabin", Helvetica, Arial, sans-serif;
-  font-weight: 700;
-}
-
 @mixin container-custom($mw: $max-width) {
   width: 100%;
   max-width: $mw;
