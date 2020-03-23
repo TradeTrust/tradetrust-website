@@ -7,7 +7,7 @@ interface FeatureFlag {
   fallback?: React.ReactElement;
 }
 
-type Environment = "test" | "development" | "production";
+type Environment = "development" | "production";
 
 interface EnvironmentToggle {
   development: boolean;

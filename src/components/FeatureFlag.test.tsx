@@ -25,53 +25,53 @@ describe("featureFlag", () => {
   });
 
   it("should follow default behavior when override is not present", () => {
-    const notFound = mount(
+    const wrapperJob = mount(
       <FeatureFlag name="JOB_POST">
         <div>Job post</div>
       </FeatureFlag>
     );
-    expect(notFound.find("div").length).toBe(0);
+    expect(wrapperJob.find("div").length).toBe(0);
 
-    const found = mount(
+    const wrapperAsset = mount(
       <FeatureFlag name="MANAGE_ASSET">
         <div>Manage asset</div>
       </FeatureFlag>
     );
-    expect(found.find("div").text()).toStrictEqual("Manage asset");
+    expect(wrapperAsset.find("div").text()).toStrictEqual("Manage asset");
   });
   it("should render component when override is true", () => {
     mockGetFeature.mockReturnValue(true);
 
-    const notFound = mount(
+    const wrapperJob = mount(
       <FeatureFlag name="JOB_POST">
         <div>Job post</div>
       </FeatureFlag>
     );
-    expect(notFound.find("div").text()).toStrictEqual("Job post");
+    expect(wrapperJob.find("div").text()).toStrictEqual("Job post");
 
-    const found = mount(
+    const wrapperAsset = mount(
       <FeatureFlag name="MANAGE_ASSET">
         <div>Manage asset</div>
       </FeatureFlag>
     );
-    expect(found.find("div").text()).toStrictEqual("Manage asset");
+    expect(wrapperAsset.find("div").text()).toStrictEqual("Manage asset");
   });
   it("should not render component when override is false", () => {
     mockGetFeature.mockReturnValue(false);
 
-    const notFound = mount(
+    const wrapperJob = mount(
       <FeatureFlag name="JOB_POST">
         <div>Job post</div>
       </FeatureFlag>
     );
-    expect(notFound.find("div").length).toBe(0);
+    expect(wrapperJob.find("div").length).toBe(0);
 
-    const found = mount(
+    const wrapperAsset = mount(
       <FeatureFlag name="MANAGE_ASSET">
         <div>Manage asset</div>
       </FeatureFlag>
     );
-    expect(found.find("div").length).toBe(0);
+    expect(wrapperAsset.find("div").length).toBe(0);
   });
 
   it("should render component when MANAGE_ASSET feature flag is set to true", () => {
