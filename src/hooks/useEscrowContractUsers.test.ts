@@ -1,15 +1,10 @@
-const { accounts, contract, provider } = require("@openzeppelin/test-environment");
+import { accounts, contract, provider } from "@openzeppelin/test-environment";
 import { renderHook } from "@testing-library/react-hooks";
-import { setWeb3Provider, setWallet } from "@govtechsg/oa-token";
+import { ethers } from "ethers";
+import { TitleEscrowABI, TitleEscrowByteCode, TokenRegistryByteCode, TokenRegistryABI } from "@govtechsg/oa-token";
 
-import { abi as TitleEscrowABI, bytecode as TitleEscrowBytecode } from "./build/contracts/TitleEscrow.json";
-import {
-  abi as TradeTrustERC721ABI,
-  bytecode as TradeTrustERC721Bytecode
-} from "./build/contracts/TradeTrustERC721.json";
-
-const TradeTrustERC721 = contract.fromABI(TradeTrustERC721ABI, TradeTrustERC721Bytecode);
-const TitleEscrow = contract.fromABI(TitleEscrowABI, TitleEscrowBytecode);
+const TradeTrustERC721 = contract.fromABI(TokenRegistryABI, TokenRegistryByteCode);
+const TitleEscrow = contract.fromABI(TitleEscrowABI, TitleEscrowByteCode);
 import { useEscrowContractUsers } from "./useEscrowContractUsers";
 import { useWeb3Provider } from "./useWeb3Provider";
 
@@ -18,29 +13,44 @@ jest.mock("./useWeb3Provider");
 describe("UseEscrowContractUsersHook", () => {
   let ERC721Address;
   let ERC721Instance;
+  let web3Provider;
 
   const [sender, receiver] = accounts;
   beforeEach(async () => {
     ERC721Instance = await TradeTrustERC721.new("foo", "bar");
     ERC721Address = ERC721Instance.address;
-    setWeb3Provider(provider);
-  });
-
-  afterEach(() => {
-    setWeb3Provider(undefined);
-    setWallet(undefined);
+    web3Provider = new ethers.providers.Web3Provider(provider);
   });
 
   it("should return beneficiary and holder address from the escrow contract", async () => {
-    useWeb3Provider.mockReturnValue({ web3Provider: provider });
+    useWeb3Provider.mockReturnValue({ web3Provider });
     const escrowInstance = await TitleEscrow.new(ERC721Address, sender, receiver, {
       from: sender
     });
+
     const { result, waitForNextUpdate } = renderHook(() =>
       useEscrowContractUsers({ escrowContractAddress: escrowInstance.address })
     );
+
+    expect(result.current.state.status).toEqual("loading");
+    expect(result.current.holderAddress).toEqual("");
+    expect(result.current.beneficiaryAddress).toEqual("");
     await waitForNextUpdate();
-    expect(result.current.holderAddress).toEqual(sender);
-    expect(result.current.beneficiaryAddress).toEqual(receiver);
+    expect(result.current.state.status).toEqual("success");
+    expect(result.current.holderAddress).toEqual(receiver);
+    expect(result.current.beneficiaryAddress).toEqual(sender);
+  });
+
+  it("should throw error if address is not an escrow contract", async () => {
+    useWeb3Provider.mockReturnValue({ web3Provider });
+
+    const { result, waitForNextUpdate } = renderHook(() => useEscrowContractUsers({ escrowContractAddress: sender }));
+
+    expect(result.current.state.status).toEqual("loading");
+    expect(result.current.holderAddress).toEqual("");
+    expect(result.current.beneficiaryAddress).toEqual("");
+    await waitForNextUpdate();
+    expect(result.current.state.status).toEqual("error");
+    expect(result.current.state.error).toEqual("Address is not an Escrow contract");
   });
 });
