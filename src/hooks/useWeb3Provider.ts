@@ -14,10 +14,10 @@ export const useWeb3Provider = () => {
     try {
       dispatch({ type: TransactionStateStatus.LOADING });
       const { ethereum, web3 } = window;
-      const alreadyInjected = typeof ethereum !== "undefined" || typeof web3 !== "undefined";
+      const provider = ethereum || web3.currentProvider;
 
-      if (!alreadyInjected) throw new Error("Metamask cannot be found");
-      const web3Provider = new ethers.providers.Web3Provider(ethereum || web3.currentProvider);
+      if (!provider) throw new Error("Metamask cannot be found");
+      const web3Provider = new ethers.providers.Web3Provider(provider);
       const signer = web3Provider.getSigner();
       trace(`provider is ${web3Provider} and signer is ${signer}`);
       dispatch({ type: TransactionStateStatus.SUCCESS });
