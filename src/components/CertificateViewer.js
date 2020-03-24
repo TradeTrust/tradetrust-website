@@ -13,7 +13,8 @@ import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { AssetInfo } from "./AssetInfo";
-import StatusBar from "./StatusBar/StatusBar";
+import { TitleTransferPanel } from "./TitleTransferPanel";
+import { get } from "lodash";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
@@ -70,14 +71,13 @@ const renderHeaderBlock = props => {
 
 const CertificateViewer = props => {
   const { document, selectTemplateTab } = props;
-
   const certificate = getData(document);
-
   const renderedHeaderBlock = renderHeaderBlock(props);
+  const isTokenRegistry = get(document, "data.issuers[0].tokenRegistry");
 
   const validCertificateContent = (
     <div>
-      <StatusBar document={document} />
+      {isTokenRegistry && <TitleTransferPanel />}
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>

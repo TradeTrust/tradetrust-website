@@ -13,3 +13,9 @@ html {
 body {
   background-color: $color-white;
 }
+
+button {
+  &:focus {
+    outline: none;
+  }
+}

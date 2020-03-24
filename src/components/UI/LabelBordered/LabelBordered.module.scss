@@ -2,13 +2,24 @@
 
 .label-bordered {
   display: inline-block;
-  padding: 2px 8px;
+  padding: 0 6px;
   letter-spacing: 0.01rem;
   border-radius: 4px;
   border-style: solid;
   border-width: 2px;
   border-color: $color-grey;
   color: $color-grey;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  background-color: $color-white;
+
+  @media only screen and (min-width: $lg) {
+    margin-bottom: 0;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
+  }
 
   @include font-sourcesanspro-bold;
   @include font-size(18);
