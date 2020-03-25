@@ -28,7 +28,7 @@ export const useEscrowContractUsers = ({
           address: escrowContractAddress,
           web3Provider
         })) as TitleEscrowOwner;
-        if (!titleEscrowInstance.isTitleEscrow?.()) throw new Error("Address is not an Escrow contract");
+        if (!titleEscrowInstance.isTitleEscrow()) throw new Error("Address is not an Escrow contract");
         const [beneficiary, holder] = await Promise.all([
           titleEscrowInstance.beneficiary(),
           titleEscrowInstance.holder()
