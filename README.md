@@ -4,7 +4,7 @@
 
 See also:
 
-* [tradetrust-documentation](https://github.com/OpenCerts/opencerts-documentation)
+* [tradetrust-documentation](https://docs.tradetrust.io)
 * [open-certificate](https://github.com/OpenCerts/open-certificate)
 * [certificate-contract](https://github.com/OpenCerts/certificate-store-contract)
 * [certificate-cli](https://github.com/OpenCerts/certificate-cli)
@@ -13,15 +13,6 @@ See also:
 ## Development
 
 We develop primarily on a OS X / Linux environment so please lodge an issue if you are using Windows and find that you cannot successfully set up a local instance of this software.
-
-### Developer CLI
-
-There is a rudimentary interface for adding a new template for organisations that are doing it for the first time. (support for adding templates to existing organisations will come in a later release)
-
-```bash
-npm run dev-cli
-```
-
 
 ### OS X / Linux
 ```bash
@@ -46,12 +37,6 @@ E.g:
 ```bash
 NET=mainnet npm run dev
 ```
-
-### Frameless Viewer
-
-For embedded certificate rendering, we have provided a frameless view located at `/frameless-viewer`
-
-More information at [opencerts-documentation](http://docs.opencerts.io/embedded_viewer.html)
 
 ### Troubleshooting
 
