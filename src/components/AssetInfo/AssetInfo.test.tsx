@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { SignedDocument } from "@govtechsg/open-attestation";
+import { WrappedDocument } from "@govtechsg/open-attestation";
 import { AssetInfo } from "./AssetInfo";
 import sampleToken from "../../test/fixture/sample-token.json";
 
@@ -23,7 +23,7 @@ describe("assetInfo", () => {
   it("renders with correct etherscan url", async () => {
     let wrapper: any;
     await act(async () => {
-      wrapper = mount(<AssetInfo document={sampleToken as SignedDocument} />);
+      wrapper = mount(<AssetInfo document={sampleToken as WrappedDocument} />);
     });
     expect(wrapper.find("#asset-info-etherscan-link").text()).toStrictEqual("Manage Asset");
     expect(wrapper.find("a").prop("href")).toStrictEqual(

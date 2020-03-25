@@ -1,5 +1,6 @@
 {
     "schema": "tradetrust/v1.0",
+    "version": "1.0",
     "data": {
       "id": "41847724-c4b2-489e-8505-2bbb652b205c:string:SGCNM21566325",
       "$template": {
