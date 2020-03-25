@@ -19,3 +19,7 @@ button {
     outline: none;
   }
 }
+
+svg {
+  transition: color 0.3s $easeOutCubic;
+}
