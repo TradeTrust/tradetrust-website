@@ -1,4 +1,4 @@
-import { createOwner } from "@govtechsg/oa-token";
+import { createOwner, TitleEscrowOwner } from "@govtechsg/oa-token";
 
 import { getLogger } from "../utils/logger";
 
@@ -24,7 +24,10 @@ export const useEscrowContractUsers = ({
     async function fetchEscrowContractUsers() {
       try {
         dispatch({ type: TransactionStateStatus.LOADING });
-        const titleEscrowInstance = await createOwner({ address: escrowContractAddress, web3Provider });
+        const titleEscrowInstance = (await createOwner({
+          address: escrowContractAddress,
+          web3Provider
+        })) as TitleEscrowOwner;
         if (!(await titleEscrowInstance?.isTitleEscrow?.())) throw new Error("Address is not an Escrow contract");
         const [beneficiary, holder] = await Promise.all([
           titleEscrowInstance.beneficiary(),
