@@ -13,13 +13,13 @@ export const TitleTransferPanelContent = ({ document }: TitleTransferPanelConten
   const [tokenOwnerAddress, setTokenOwnerAddress] = useState("");
   const { holderAddress, beneficiaryAddress } = useEscrowContractUsers({ escrowContractAddress: tokenOwnerAddress });
 
-  useEffect(() => {
-    const fetchTokenOwner = async () => {
-      const address = await getTokenOwner({ document });
-      setTokenOwnerAddress(address);
-    };
+  const fetchTokenOwner = async (document: WrappedDocument) => {
+    const address = await getTokenOwner({ document });
+    setTokenOwnerAddress(address);
+  };
 
-    fetchTokenOwner();
+  useEffect(() => {
+    fetchTokenOwner(document);
   }, [document]);
 
   return (
