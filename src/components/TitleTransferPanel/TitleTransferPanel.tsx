@@ -1,10 +1,15 @@
 import React from "react";
 import { LabelBordered } from "../UI/LabelBordered";
 import { TitleTransferPanelContent } from "./TitleTransferPanelContent";
+import { WrappedDocument } from "@govtechsg/open-attestation";
 
-export const TitleTransferPanel = () => {
+interface TitleTransferPanelProps {
+  document: WrappedDocument;
+}
+
+export const TitleTransferPanel = ({ document }: TitleTransferPanelProps) => {
   return (
-    <section className="bg-blue-lighter py-3">
+    <section id="title-transfer-panel" className="bg-blue-lighter py-3">
       <div className="container-custom">
         <div className="row">
           <div className="col-12">
@@ -14,7 +19,7 @@ export const TitleTransferPanel = () => {
             </div>
           </div>
         </div>
-        <TitleTransferPanelContent />
+        <TitleTransferPanelContent document={document} />
       </div>
     </section>
   );

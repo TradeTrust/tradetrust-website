@@ -4,8 +4,9 @@ import React from "react";
 import styles from "./certificateViewer.scss";
 import { getTemplates, getActiveTemplateTab } from "../reducers/certificate";
 import { FeatureFlag } from "./FeatureFlag";
-import { CsvUploadButton, RawAddressBookData } from "./AddressBook/CsvUploadButton";
+import { CsvUploadButton } from "./AddressBook/CsvUploadButton";
 import Drawer from "./UI/Drawer";
+import { ButtonBordered } from "./UI/Button";
 
 const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => (
   <div id={styles["header-ui"]}>
@@ -30,12 +31,11 @@ const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => (
               </li>
             ))
           : null}
-        <a id="btn-view-another" href=" " className={styles["view-another"]}>
-          View another
+        <a href=" " className="my-auto ml-auto">
+          <ButtonBordered bg="tertiary">View another</ButtonBordered>
         </a>
         <FeatureFlag name="ADDRESS_BOOK_UPLOAD">
           <CsvUploadButton />
-          <RawAddressBookData />
         </FeatureFlag>
       </div>
     </div>

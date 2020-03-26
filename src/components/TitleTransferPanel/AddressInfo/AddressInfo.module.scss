@@ -20,4 +20,6 @@
 .etherum-address {
   display: inline-block;
   word-break: break-all;
+
+  @include skeleton-loader;
 }

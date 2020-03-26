@@ -1,10 +1,10 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import css from "./AddressInfo.module.scss";
 
 interface AddressInfoProps {
   title: string;
   name?: string;
-  children: ReactElement;
+  children: React.ReactNode;
 }
 
 export const AddressInfo = ({ title, name, children }: AddressInfoProps) => {

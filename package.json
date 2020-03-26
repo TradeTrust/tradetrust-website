@@ -11,6 +11,7 @@
     "integration": "testcafe chrome src/**/*.spec.js",
     "integration:headless": "testcafe chrome:headless src/**/*.spec.js",
     "integration:watch": "nodemon --exec \"npm run integration\" --watch src",
+    "prep": "npm run lint:fix && npm run stylelint:fix && npm run test && npm run integration",
     "serve-static": "http-server dist -s -p 3000",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook -o docs",
