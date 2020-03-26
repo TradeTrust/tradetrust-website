@@ -55,7 +55,7 @@ export const CsvUploadButton = () => {
         accept=".csv"
       />
       <label
-        className={`mb-0 ${cssBtn["button"]} ${cssBtn["icontext"]} ${cssBtn["white"]} ${cssBtn["secondary"]} ${cssBtn["text-secondary"]}`}
+        className={`mb-0 ${cssBtn["button"]} ${cssBtn["icon-text"]} ${cssBtn["white"]} ${cssBtn["secondary"]} ${cssBtn["text-secondary"]}`}
         htmlFor="csv-file-input"
       >
         <div className="row align-items-center no-gutters">
