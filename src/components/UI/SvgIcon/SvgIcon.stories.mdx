@@ -8,7 +8,8 @@ import {
   SvgIconBook,
   SvgIconX,
   TooltipIcon,
-  SvgIconFilePlus
+  SvgIconFilePlus,
+  SvgIconSearch
 } from "./SvgIcon";
 
 <Meta title="UI/Icon" component={SvgIcon} />
@@ -38,6 +39,11 @@ Icons used in application.
       <SvgIconChecked />
     </SvgIcon>
   </Story>
+  <Story name="X">
+    <SvgIcon cssClass="feather-x">
+      <SvgIconX />
+    </SvgIcon>
+  </Story>
   <Story name="Chevron Left">
     <SvgIcon cssClass="feather-chevron-left">
       <SvgIconChervonLeft />
@@ -53,14 +59,14 @@ Icons used in application.
       <SvgIconBook />
     </SvgIcon>
   </Story>
-  <Story name="X">
-    <SvgIcon cssClass="feather-x">
-      <SvgIconX />
+  <Story name="File Plus">
+    <SvgIcon cssClass="feather-file-plus">
+      <SvgIconFilePlus />
     </SvgIcon>
   </Story>
-  <Story name="File Plus">
-    <SvgIcon cssClass="file-plus">
-      <SvgIconFilePlus />
+  <Story name="Search">
+    <SvgIcon cssClass="feather-search">
+      <SvgIconSearch />
     </SvgIcon>
   </Story>
 </Preview>

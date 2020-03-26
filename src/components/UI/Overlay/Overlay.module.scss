@@ -3,6 +3,7 @@
 .overlay {
   transition: visibility 0.4s 0.1s $easeOutCubic, opacity 0.4s 0.1s $easeOutCubic;
   position: fixed;
+  z-index: 9;
   top: 0;
   left: 0;
   width: 100%;
@@ -81,6 +82,27 @@
     svg {
       color: $color-grey-light;
     }
+  }
+}
+
+.overlay-searchbar {
+  border: solid 1px $color-grey-light;
+  padding: 5px 10px;
+  max-width: 300px;
+
+  input {
+    border: none;
+    outline: none;
+    width: 100%;
+
+    &::placeholder {
+      font-style: italic;
+      color: $color-grey-light;
+    }
+  }
+
+  svg {
+    color: $color-grey;
   }
 }
 

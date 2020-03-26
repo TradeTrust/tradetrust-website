@@ -1,6 +1,6 @@
 import React from "react";
 import css from "./Overlay.module.scss";
-import { SvgIcon, SvgIconX, SvgIconFilePlus } from "../../UI/SvgIcon";
+import { SvgIcon, SvgIconX, SvgIconFilePlus, SvgIconSearch } from "../../UI/SvgIcon";
 import { ButtonIconText } from "../../UI/Button";
 import { AddressBook } from "../../../common/hooks/useAddressBook";
 import { makeEtherscanAddressURL } from "../../../utils";
@@ -23,22 +23,26 @@ export const Overlay = ({ isOverlayVisible, title, className, children, onClick 
       <div className={css["overlay-bg"]} onClick={onClick} />
       <div className={css["overlay-content"]}>
         <div className={css["overlay-header"]}>
-          <div className="row align-items-center">
-            <div className="col">
-              <h3 className={css.title}>{title}</h3>
-            </div>
-            <div className="col-auto ml-auto">
-              <div className={css["overlay-cancel"]} onClick={onClick}>
-                <SvgIcon>
-                  <SvgIconX />
-                </SvgIcon>
+          <div className="container-fluid">
+            <div className="row align-items-center">
+              <div className="col">
+                <h3 className={css.title}>{title}</h3>
+              </div>
+              <div className="col-auto ml-auto">
+                <div className={css["overlay-cancel"]} onClick={onClick}>
+                  <SvgIcon>
+                    <SvgIconX />
+                  </SvgIcon>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className={css["overlay-body"]}>
-          <div className="row">
-            <div className="col-12">{children}</div>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-12">{children}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,10 +91,30 @@ export const OverlayAddressBookTable = ({ addressBook }: OverlayAddressBookTable
   );
 };
 
+export const OverlayAddressBookSearchBar = () => {
+  return (
+    <div className={css["overlay-searchbar"]}>
+      <div className="row no-gutters align-items-center">
+        <div className="col">
+          <input type="text" placeholder="Search" />
+        </div>
+        <div className="col-auto">
+          <SvgIcon>
+            <SvgIconSearch />
+          </SvgIcon>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const OverlayAddressBookActionsBar = () => {
   return (
     <div className={css["overlay-actionsbar"]}>
       <div className="row align-items-center">
+        <div className="col">
+          <OverlayAddressBookSearchBar />
+        </div>
         <div className="col-auto ml-auto">
           <ButtonIconText text="Import .csv" color="secondary" bg="white">
             <SvgIcon>
