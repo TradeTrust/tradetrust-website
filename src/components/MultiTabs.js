@@ -32,7 +32,7 @@ const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => (
             ))
           : null}
         <a href=" " className="my-auto ml-auto">
-          <ButtonBordered color="tertiary">View another</ButtonBordered>
+          <ButtonBordered bg="tertiary">View another</ButtonBordered>
         </a>
         <FeatureFlag name="ADDRESS_BOOK_UPLOAD">
           <CsvUploadButton />

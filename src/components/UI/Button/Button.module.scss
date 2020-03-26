@@ -16,6 +16,7 @@
   background-color: $color-grey;
   color: $color-white;
   min-height: 40px;
+  cursor: pointer;
 
   &[disabled] {
     pointer-events: none;
@@ -28,13 +29,26 @@
 
     &.white {
       background-color: darken($color-white, 3%);
+    }
+
+    &.text-primary {
       color: lighten($brand-orange, 20%);
+    }
+
+    &.text-secondary {
+      color: lighten($brand-blue, 20%);
     }
   }
 
   &.icon {
     svg {
       max-width: 16px;
+    }
+  }
+
+  &.icontext {
+    svg {
+      padding-right: 8px;
     }
   }
 
@@ -80,6 +94,7 @@
   }
 
   svg {
+    display: block;
     width: 100%;
   }
 
@@ -95,11 +110,6 @@
 
   &.white {
     background-color: $color-white;
-    color: $brand-orange;
-
-    &:hover {
-      background-color: rgba($brand-orange, 0.1);
-    }
   }
 
   &.primary {
@@ -110,12 +120,28 @@
     }
   }
 
-  &.grey {
+  &.grey-light {
     background-color: $color-grey-light;
 
     &:hover {
       background-color: $color-grey-lighter;
       box-shadow: none;
+    }
+  }
+
+  &.text-primary {
+    color: $brand-orange;
+
+    &:hover {
+      background-color: rgba($brand-orange, 0.1);
+    }
+  }
+
+  &.text-secondary {
+    color: $brand-blue;
+
+    &:hover {
+      background-color: rgba($brand-blue, 0.1);
     }
   }
 }
