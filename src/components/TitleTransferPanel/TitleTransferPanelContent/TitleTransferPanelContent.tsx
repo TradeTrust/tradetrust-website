@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TitleView } from "../TitleView";
 import { BLinfo } from "../TitleView/BLinfo";
 import { getTokenOwner } from "./../../../services/token";
@@ -12,15 +12,15 @@ interface TitleTransferPanelContentProps {
 export const TitleTransferPanelContent = ({ document }: TitleTransferPanelContentProps) => {
   const [tokenOwnerAddress, setTokenOwnerAddress] = useState("");
   const { holderAddress, beneficiaryAddress } = useEscrowContractUsers({ escrowContractAddress: tokenOwnerAddress });
-  const fetchTokenOwner = async () => {
-    try {
+
+  useEffect(() => {
+    const fetchTokenOwner = async () => {
       const address = await getTokenOwner({ document });
       setTokenOwnerAddress(address);
-    } finally {
-      // prevent code smell in sonar
-    }
-  };
-  fetchTokenOwner();
+    };
+
+    fetchTokenOwner();
+  }, [document]);
 
   return (
     <>
