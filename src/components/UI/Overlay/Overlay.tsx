@@ -1,12 +1,13 @@
 import React from "react";
 import css from "./Overlay.module.scss";
-import { SvgIcon, SvgIconX, SvgIconFilePlus, SvgIconSearch } from "../../UI/SvgIcon";
-import { ButtonIconText } from "../../UI/Button";
+import { SvgIcon, SvgIconX, SvgIconSearch } from "../../UI/SvgIcon";
+import { CsvUploadButton } from "../../AddressBook/CsvUploadButton";
 import { AddressBook } from "../../../common/hooks/useAddressBook";
 import { makeEtherscanAddressURL } from "../../../utils";
 import { isEmpty } from "lodash";
 
 interface OverlayProps {
+  id?: string;
   isOverlayVisible: boolean;
   title: string;
   className?: string;
@@ -14,12 +15,12 @@ interface OverlayProps {
   onClick(event: React.MouseEvent<HTMLElement>): void;
 }
 
-export const Overlay = ({ isOverlayVisible, title, className, children, onClick }: OverlayProps) => {
+export const Overlay = ({ id, isOverlayVisible, title, className, children, onClick }: OverlayProps) => {
   const modifierClassName = className ? className : "";
   const toggle = isOverlayVisible ? css["is-visible"] : "";
 
   return (
-    <div className={`${css.overlay} ${modifierClassName} ${toggle}`}>
+    <div id={id} className={`${css.overlay} ${modifierClassName} ${toggle}`}>
       <div className={css["overlay-bg"]} onClick={onClick} />
       <div className={css["overlay-content"]}>
         <div className={css["overlay-header"]}>
@@ -116,11 +117,7 @@ export const OverlayAddressBookActionsBar = () => {
           <OverlayAddressBookSearchBar />
         </div>
         <div className="col-auto ml-auto">
-          <ButtonIconText text="Import .csv" color="secondary" bg="white">
-            <SvgIcon>
-              <SvgIconFilePlus />
-            </SvgIcon>
-          </ButtonIconText>
+          <CsvUploadButton />
         </div>
       </div>
     </div>
