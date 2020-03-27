@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import css from "./TitleView.module.scss";
 import { AddressInfo } from "../AddressInfo";
 import { ExternalLink } from "../../UI/ExternalLink";
-import { getAssetInfo } from "../../../utils";
-import { makeEtherscanAddressURL, makeEtherscanTokenURL } from "../../../utils";
+import { makeEtherscanAddressURL, makeEtherscanTokenURL, getAssetInfo } from "../../../utils";
 
 export const BLinfo = () => {
   const { document } = useSelector((state: any) => ({
