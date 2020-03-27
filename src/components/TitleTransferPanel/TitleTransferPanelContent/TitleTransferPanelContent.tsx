@@ -37,7 +37,5 @@ export const TitleTransferPanelContentContainer = ({
   const { provider } = useDefaultProvider(); // Component only need read only access
   const { titleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
 
-  console.log("Rerender");
-
   return titleEscrow ? <TitleTransferPanelContent titleEscrow={titleEscrow} /> : null;
 };
