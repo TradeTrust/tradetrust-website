@@ -13,7 +13,7 @@ const OverlayAddressBook = Selector("#overlay-addressbook");
 const OverlayAddressBookTableBodyRows = Selector("#overlay-addressbook tbody tr");
 const OverlayAddressBookTableFirstRow = Selector("#overlay-addressbook tbody tr:first-of-type");
 const OverlayAddressBookSearchInput = Selector("#overlay-addressbook input[type='text']");
-const ButtonUploadAddressBook = Selector("button").withText("Upload Address Book");
+const ButtonUploadAddressBook = Selector("button").withText("Address Book");
 const CSVFileInput = Selector("#csv-file-input");
 
 const validateTextContent = async (t, component, texts) =>
@@ -29,7 +29,6 @@ test("AddressBook local names to be resolved correctly, search filtered to 1", a
   await validateTextContent(t, OverlayAddressBookTableFirstRow.find("td"), ["No Address found."]);
 
   await t.setFilesToUpload(CSVFileInput, [AddressBook]);
-  await validateTextContent(t, OverlayAddressBookTableFirstRow.find("th"), ["Bank of China"]);
   await validateTextContent(t, BeneficiaryName, ["Bank of China"]);
   await validateTextContent(t, HolderName, ["DBS"]);
 

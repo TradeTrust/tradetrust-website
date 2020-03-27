@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import css from "./Overlay.module.scss";
 import { SvgIcon, SvgIconX, SvgIconSearch } from "../../UI/SvgIcon";
 import { CsvUploadButton } from "../../AddressBook/CsvUploadButton";
@@ -11,17 +11,18 @@ interface OverlayProps {
   isOverlayVisible: boolean;
   title: string;
   className?: string;
-  children: React.ReactNode;
-  onClick(event: React.MouseEvent<HTMLElement>): void;
+  children?: React.ReactNode;
+  handleCloseOverlay(event: React.MouseEvent<HTMLElement>): void;
+  addressBook?: AddressBook;
 }
 
-export const Overlay = ({ id, isOverlayVisible, title, className, children, onClick }: OverlayProps) => {
+export const Overlay = ({ id, isOverlayVisible, title, className, children, handleCloseOverlay }: OverlayProps) => {
   const modifierClassName = className ? className : "";
   const toggle = isOverlayVisible ? css["is-visible"] : "";
 
   return (
     <div id={id} className={`${css.overlay} ${modifierClassName} ${toggle}`}>
-      <div className={css["overlay-bg"]} onClick={onClick} />
+      <div className={css["overlay-bg"]} onClick={handleCloseOverlay} />
       <div className={css["overlay-content"]}>
         <div className={css["overlay-header"]}>
           <div className="container-fluid">
@@ -30,7 +31,7 @@ export const Overlay = ({ id, isOverlayVisible, title, className, children, onCl
                 <h3 className={css.title}>{title}</h3>
               </div>
               <div className="col-auto ml-auto">
-                <div className={css["overlay-cancel"]} onClick={onClick}>
+                <div className={css["overlay-cancel"]} onClick={handleCloseOverlay}>
                   <SvgIcon>
                     <SvgIconX />
                   </SvgIcon>
@@ -51,53 +52,41 @@ export const Overlay = ({ id, isOverlayVisible, title, className, children, onCl
   );
 };
 
-export const OverlayAddressBook = ({ children, ...props }: OverlayProps) => {
-  return (
-    <Overlay className={`${css.addressbook}`} {...props}>
-      {children}
-    </Overlay>
-  );
-};
-
-interface OverlayAddressBookContentProps {
-  addressBook: AddressBook;
-}
-
-export const OverlayAddressBookContent = ({ addressBook }: OverlayAddressBookContentProps) => {
-  const [searchName, setSearchName] = useState("");
+export const OverlayAddressBook = ({ addressBook = {}, ...props }: OverlayProps) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredAddressBook, setFilteredAddressBook] = useState(addressBook);
 
-  useEffect(() => {
-    if (searchName.length > 0) {
-      const filtered = pickBy(addressBook, value => {
-        const searchTerm = searchName.toLowerCase();
-        const name = value.toLowerCase();
-        if (name.includes(searchTerm)) {
-          return value;
+  const updateFilteredAddressBook = (text: string) => {
+    if (text.length > 0) {
+      const filtered = pickBy(addressBook, (name, address) => {
+        const textLowerCase = text.toLowerCase();
+        const nameLowerCase = name.toLowerCase();
+        const addressLowerCase = address.toLowerCase();
+        if (nameLowerCase.includes(textLowerCase) || addressLowerCase.includes(textLowerCase)) {
+          return name;
         }
       });
       setFilteredAddressBook(filtered);
     } else {
       setFilteredAddressBook(addressBook);
     }
-  }, [searchName, addressBook]);
+  };
+
+  const onSearchTermChanged = (event: { target: { value: string } }) => {
+    const inputText = event.target.value;
+    setSearchTerm(inputText);
+    updateFilteredAddressBook(inputText);
+  };
 
   return (
-    <>
+    <Overlay className={`${css.addressbook}`} {...props}>
       <div className={css["overlay-actionsbar"]}>
         <div className="row align-items-center">
           <div className="col">
             <div className={css["overlay-searchbar"]}>
               <div className="row no-gutters align-items-center">
                 <div className="col">
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    value={searchName}
-                    onChange={e => {
-                      setSearchName(e.target.value);
-                    }}
-                  />
+                  <input type="text" placeholder="Search" value={searchTerm} onChange={onSearchTermChanged} />
                 </div>
                 <div className="col-auto">
                   <SvgIcon>
@@ -144,6 +133,6 @@ export const OverlayAddressBookContent = ({ addressBook }: OverlayAddressBookCon
           </tbody>
         </table>
       </div>
-    </>
+    </Overlay>
   );
 };

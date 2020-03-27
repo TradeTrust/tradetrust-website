@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { Overlay, OverlayAddressBook, OverlayAddressBookContent } from "./Overlay";
+import { Overlay, OverlayAddressBook } from "./Overlay";
 
 <Meta title="UI/Overlay" component={Overlay} />
 
@@ -27,6 +27,8 @@ Overlay look.
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur</p>
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur</p>
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur</p>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur</p>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur</p>
         </Overlay>
       );
     }}
@@ -43,9 +45,7 @@ Overlay look.
       const [isOverlayVisible, setOverlayVisible] = useState(true);
       const addressBook = {};
       return (
-        <OverlayAddressBook title="Address Book" isOverlayVisible={isOverlayVisible} onClick={() => {setOverlayVisible(!isOverlayVisible)}}>
-          <OverlayAddressBookContent addressBook={addressBook} />
-        </OverlayAddressBook>
+        <OverlayAddressBook title="Address Book" isOverlayVisible={isOverlayVisible} onClick={() => {setOverlayVisible(!isOverlayVisible)}} addressBook={addressBook} />
       );
     }}
   </Story>
@@ -62,21 +62,19 @@ Overlay look.
       const addressBook = {
         "0xe94e4f16ad40adc90c29dc85b42f1213e034947c": "Bank of China",
         "0xa61b056da0084a5f391ec137583073096880c2e3": "DBS",
-        "0xe94e4f16ad40adc90c29dc85b42f1213e0349471": "Bank of China",
-        "0xa61b056da0084a5f391ec137583073096880c2e2": "DBS",
-        "0xe94e4f16ad40adc90c29dc85b42f1213e0349473": "Bank of China",
-        "0xa61b056da0084a5f391ec137583073096880c2e4": "DBS",
-        "0xe94e4f16ad40adc90c29dc85b42f1213e0349475": "Bank of China",
-        "0xa61b056da0084a5f391ec137583073096880c2e6": "DBS",
-        "0xe94e4f16ad40adc90c29dc85b42f1213e0349477": "Bank of China",
-        "0xa61b056da0084a5f391ec137583073096880c2e8": "DBS",
-        "0xe94e4f16ad40adc90c29dc85b42f1213e0349479": "Bank of China",
-        "0xa61b056da0084a5f391ec137583073096880c2e0": "DBS"
+        "0x1d350495b4c2a51fbf1c9dedadeab288250c703e": "China Oil",
+        "0x28f7ab32c521d13f2e6980d072ca7ca493020145": "Standard Chartered",
+        "0xa": "Name A",
+        "0xb": "Name B",
+        "0xc": "Name C",
+        "0xd": "Name D",
+        "0xe": "Name E",
+        "0xf": "Name F",
+        "0xg": "Name G",
+        "0xh": "Name H",
       };
       return (
-        <OverlayAddressBook title="Address Book" isOverlayVisible={isOverlayVisible} onClick={() => {setOverlayVisible(!isOverlayVisible)}}>
-          <OverlayAddressBookContent addressBook={addressBook} />
-        </OverlayAddressBook>
+        <OverlayAddressBook title="Address Book" isOverlayVisible={isOverlayVisible} onClick={() => {setOverlayVisible(!isOverlayVisible)}} addressBook={addressBook} />
       );
     }}
   </Story>
