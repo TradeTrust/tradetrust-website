@@ -1,13 +1,13 @@
 import React from "react";
 import { LabelBordered } from "../UI/LabelBordered";
-import { TitleTransferPanelContent } from "./TitleTransferPanelContent";
-import { WrappedDocument } from "@govtechsg/open-attestation";
+import { TitleTransferPanelContentContainer } from "./TitleTransferPanelContent";
 
 interface TitleTransferPanelProps {
-  document: WrappedDocument;
+  tokenRegistryAddress: string;
+  tokenId: string;
 }
 
-export const TitleTransferPanel = ({ document }: TitleTransferPanelProps) => {
+export const TitleTransferPanel = ({ tokenRegistryAddress, tokenId }: TitleTransferPanelProps) => {
   return (
     <section id="title-transfer-panel" className="bg-blue-lighter py-3">
       <div className="container-custom">
@@ -19,7 +19,7 @@ export const TitleTransferPanel = ({ document }: TitleTransferPanelProps) => {
             </div>
           </div>
         </div>
-        <TitleTransferPanelContent document={document} />
+        <TitleTransferPanelContentContainer tokenRegistryAddress={tokenRegistryAddress} tokenId={tokenId} />
       </div>
     </section>
   );
