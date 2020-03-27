@@ -1,6 +1,5 @@
 # TradeTrust Web UI 
-  
-[![Build Status](https://travis-ci.org/OpenCerts/opencerts-website.svg?branch=master)](https://travis-ci.org/OpenCerts/opencerts-website)
+  [![CircleCI](https://circleci.com/gh/tradetrust/tradetrust-website.svg?style=svg)](https://circleci.com/gh/tradetrust/tradetrust-website)
 
 See also:
 
