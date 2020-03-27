@@ -1,5 +1,5 @@
 # TradeTrust Web UI 
-  [![CircleCI](https://circleci.com/gh/tradetrust/tradetrust-website.svg?style=svg)](https://circleci.com/gh/tradetrust/tradetrust-website)
+[![CircleCI](https://circleci.com/gh/tradetrust/tradetrust-website.svg?style=svg)](https://circleci.com/gh/tradetrust/tradetrust-website)
 
 See also:
 
