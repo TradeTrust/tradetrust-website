@@ -7,6 +7,7 @@
     "dev": "NODE_ENV=development webpack-dev-server",
     "lint": "eslint ./src --ext .js,.ts,.tsx,.mdx --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
+    "int": "testcafe chrome",
     "integration": "testcafe chrome src/**/*.spec.js",
     "integration:headless": "testcafe chrome:headless src/**/*.spec.js",
     "integration:watch": "nodemon --exec \"npm run integration\" --watch src",

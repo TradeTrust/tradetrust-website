@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { Overlay, OverlayAddressBook, OverlayAddressBookActionsBar, OverlayAddressBookTable } from "./Overlay";
+import { Overlay, OverlayAddressBook, OverlayAddressBookContent } from "./Overlay";
 
 <Meta title="UI/Overlay" component={Overlay} />
 
@@ -44,8 +44,7 @@ Overlay look.
       const addressBook = {};
       return (
         <OverlayAddressBook title="Address Book" isOverlayVisible={isOverlayVisible} onClick={() => {setOverlayVisible(!isOverlayVisible)}}>
-          <OverlayAddressBookActionsBar />
-          <OverlayAddressBookTable addressBook={addressBook} />
+          <OverlayAddressBookContent addressBook={addressBook} />
         </OverlayAddressBook>
       );
     }}
@@ -76,8 +75,7 @@ Overlay look.
       };
       return (
         <OverlayAddressBook title="Address Book" isOverlayVisible={isOverlayVisible} onClick={() => {setOverlayVisible(!isOverlayVisible)}}>
-          <OverlayAddressBookActionsBar />
-          <OverlayAddressBookTable addressBook={addressBook} />
+          <OverlayAddressBookContent addressBook={addressBook} />
         </OverlayAddressBook>
       );
     }}

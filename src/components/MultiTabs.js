@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styles from "./certificateViewer.scss";
 import { getTemplates, getActiveTemplateTab } from "../reducers/certificate";
 import { FeatureFlag } from "./FeatureFlag";
-import { OverlayAddressBook, OverlayAddressBookActionsBar, OverlayAddressBookTable } from "./UI/Overlay";
+import { OverlayAddressBook, OverlayAddressBookContent } from "./UI/Overlay";
 import { useAddressBook } from "../common/hooks/useAddressBook";
 import { ButtonBordered } from "./UI/Button";
 import Drawer from "./UI/Drawer";
@@ -41,8 +41,7 @@ const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => {
                     setOverlayVisible(!isOverlayVisible);
                   }}
                 >
-                  <OverlayAddressBookActionsBar />
-                  <OverlayAddressBookTable addressBook={addressBook} />
+                  <OverlayAddressBookContent addressBook={addressBook} />
                 </OverlayAddressBook>
               </li>
             </FeatureFlag>
