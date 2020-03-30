@@ -29,9 +29,11 @@ test("AddressBook local names to be resolved correctly, search filtered to 1", a
   await validateTextContent(t, OverlayAddressBookTableFirstRow.find("td"), ["No Address found."]);
 
   await t.setFilesToUpload(CSVFileInput, [AddressBook]);
+  await t.expect(OverlayAddressBookTableBodyRows.count).notEql(0);
   await validateTextContent(t, BeneficiaryName, ["Bank of China"]);
   await validateTextContent(t, HolderName, ["DBS"]);
 
   await t.typeText(OverlayAddressBookSearchInput, "Bank of China");
-  await t.expect(OverlayAddressBookTableBodyRows.count).eql(1);
+  await t.expect(OverlayAddressBookTableFirstRow.visible).ok();
+  await t.expect(OverlayAddressBookTableFirstRow.nextSibling().visible).notOk();
 });

@@ -4,7 +4,7 @@ import { SvgIcon, SvgIconX, SvgIconSearch } from "../../UI/SvgIcon";
 import { CsvUploadButton } from "../../AddressBook/CsvUploadButton";
 import { AddressBook } from "../../../common/hooks/useAddressBook";
 import { makeEtherscanAddressURL } from "../../../utils";
-import { isEmpty, pickBy } from "lodash";
+import { isEmpty } from "lodash";
 import { CSSTransition } from "react-transition-group";
 
 interface OverlayProps {
@@ -23,7 +23,7 @@ export const Overlay = ({ id, title, className, children, isOverlayVisible, hand
   return (
     <div id={id} className={`${css.overlay} ${modifierClassName}`}>
       <div className={css["overlay-bg"]} onClick={handleCloseOverlay} />
-      <CSSTransition in={isOverlayVisible} timeout={400} classNames="fadescale" appear>
+      <CSSTransition in={isOverlayVisible} timeout={300} classNames="fadescale" appear>
         <div className={css["overlay-content"]}>
           <div className={css["overlay-header"]}>
             <div className="container-fluid">
@@ -56,28 +56,10 @@ export const Overlay = ({ id, title, className, children, isOverlayVisible, hand
 
 export const OverlayAddressBook = ({ addressBook = {}, ...props }: OverlayProps) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredAddressBook, setFilteredAddressBook] = useState(addressBook);
-
-  const updateFilteredAddressBook = (text: string) => {
-    if (text.length > 0) {
-      const filtered = pickBy(addressBook, (name, address) => {
-        const textLowerCase = text.toLowerCase();
-        const nameLowerCase = name.toLowerCase();
-        const addressLowerCase = address.toLowerCase();
-        if (nameLowerCase.includes(textLowerCase) || addressLowerCase.includes(textLowerCase)) {
-          return name;
-        }
-      });
-      setFilteredAddressBook(filtered);
-    } else {
-      setFilteredAddressBook(addressBook);
-    }
-  };
 
   const onSearchTermChanged = (event: { target: { value: string } }) => {
     const inputText = event.target.value;
     setSearchTerm(inputText);
-    updateFilteredAddressBook(inputText);
   };
 
   return (
@@ -112,20 +94,33 @@ export const OverlayAddressBook = ({ addressBook = {}, ...props }: OverlayProps)
             </tr>
           </thead>
           <tbody className={`${css["overlay-table-tbody"]}`}>
-            {isEmpty(filteredAddressBook) ? (
+            {isEmpty(addressBook) ? (
               <tr className="text-center p-2">
                 <td className="border-0">No Address found.</td>
               </tr>
             ) : (
-              Object.keys(filteredAddressBook).map(key => {
+              Object.keys(addressBook).map(key => {
+                const name = addressBook[key];
+                const address = key;
                 const addressHref = makeEtherscanAddressURL(key);
 
+                const searchTermLowerCase = searchTerm.toLowerCase();
+                const nameLowerCase = name.toLowerCase();
+                const addressLowerCase = address.toLowerCase();
+
                 return (
-                  <tr key={key}>
-                    <th>{filteredAddressBook[key]}</th>
+                  <tr
+                    key={key}
+                    className={
+                      nameLowerCase.includes(searchTermLowerCase) || addressLowerCase.includes(searchTermLowerCase)
+                        ? ""
+                        : "d-none"
+                    }
+                  >
+                    <th>{name}</th>
                     <td>
                       <a href={addressHref} target="_blank" rel="noreferrer noopener">
-                        {key}
+                        {address}
                       </a>
                     </td>
                   </tr>
