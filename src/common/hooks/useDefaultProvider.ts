@@ -3,11 +3,10 @@ import { ethers, providers } from "ethers";
 import { NETWORK_NAME } from "../../config";
 
 export const useDefaultProvider = (): { provider: providers.Provider } => {
-  const provider = ethers.getDefaultProvider(NETWORK_NAME);
   return useMemo(
     () => ({
-      provider
+      provider: ethers.getDefaultProvider(NETWORK_NAME)
     }),
-    [NETWORK_NAME, ethers] // eslint-disable-line react-hooks/exhaustive-deps
+    []
   );
 };
