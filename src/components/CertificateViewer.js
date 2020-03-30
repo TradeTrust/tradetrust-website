@@ -16,6 +16,7 @@ import { AssetInfo } from "./AssetInfo";
 import { TitleTransferPanel } from "./TitleTransferPanel";
 import { getTokenRegistryAddress, getDocumentId } from "../common/utils/document";
 import { OverlayAddressBook } from "./UI/Overlay";
+import { useAddressBook } from "../common/hooks/useAddressBook";
 import { CSSTransition } from "react-transition-group";
 
 const renderVerifyBlock = props => (
@@ -76,6 +77,8 @@ const CertificateViewer = props => {
   const certificate = getData(document);
   const renderedHeaderBlock = renderHeaderBlock(props);
   const tokenRegistryAddress = getTokenRegistryAddress(document);
+  const [isOverlayVisible, setOverlayVisible] = useState(false);
+  const { addressBook } = useAddressBook();
 
   const validCertificateContent = (
     <>
