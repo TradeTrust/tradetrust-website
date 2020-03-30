@@ -14,7 +14,7 @@ import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { AssetInfo } from "./AssetInfo";
 import { TitleTransferPanel } from "./TitleTransferPanel";
-import { get } from "lodash";
+import { getTokenRegistryAddress, getDocumentId } from "../common/utils/document";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
@@ -73,11 +73,13 @@ const CertificateViewer = props => {
   const { document, selectTemplateTab } = props;
   const certificate = getData(document);
   const renderedHeaderBlock = renderHeaderBlock(props);
-  const isTokenRegistry = get(document, "data.issuers[0].tokenRegistry");
+  const tokenRegistryAddress = getTokenRegistryAddress(document);
 
   const validCertificateContent = (
     <div>
-      {isTokenRegistry && <TitleTransferPanel document={document} />}
+      {tokenRegistryAddress && (
+        <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
+      )}
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>

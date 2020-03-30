@@ -13,7 +13,7 @@ interface TitleViewProps {
 export const TitleView = ({ role, address }: TitleViewProps) => {
   const addressHref = makeEtherscanAddressURL(address);
   const { getIdentifier } = useAddressBook();
-  const name = getIdentifier(address);
+  const name = address && getIdentifier(address);
 
   return (
     <div className={css["title-view"]}>

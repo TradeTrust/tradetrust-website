@@ -2,30 +2,30 @@ import { getLogger } from "../utils/logger";
 
 import { useEffect, useState, useCallback } from "react";
 import { useEthereumTransactionState, TransactionStateStatus } from "./useEthereumTransactionState";
-import { useWeb3Provider } from "./useWeb3Provider";
+import { useInjectedProvider } from "./useInjectedProvider";
 const { trace, error } = getLogger("hooks:useEscrowContractUsers");
 
 export const useUserWallet = () => {
-  const { web3Provider } = useWeb3Provider();
+  const { provider } = useInjectedProvider();
   const [state, dispatch] = useEthereumTransactionState();
   const [userWalletAddress, setUserWalletAddress] = useState("");
   const [networkId, setNetworkId] = useState(3);
   const [network, setNetwork] = useState("ropsten");
 
   const loadUserWalletAddress = useCallback(async () => {
-    const accounts = await web3Provider?.listAccounts();
+    const accounts = await provider?.listAccounts();
     if (!accounts || !accounts.length || accounts.length === 0) throw new Error("Accounts not found");
     trace(`user wallet address: ${accounts[0]}`);
     setUserWalletAddress(accounts[0]);
-  }, [web3Provider]);
+  }, [provider]);
 
   const getNetwork = useCallback(async () => {
-    const network = await web3Provider?.getNetwork();
+    const network = await provider?.getNetwork();
     if (!network) throw new Error("Can not detect metamask network");
     trace(`network fetched: ${JSON.stringify(network)}`);
     setNetwork(network.name);
     setNetworkId(network.chainId);
-  }, [web3Provider]);
+  }, [provider]);
 
   const enableMetamask = () => {
     window.ethereum?.enable();
@@ -48,8 +48,8 @@ export const useUserWallet = () => {
   }, [fetchUserWallet]);
 
   useEffect(() => {
-    if (web3Provider) fetchUserWallet();
-  }, [fetchUserWallet, web3Provider]);
+    if (provider) fetchUserWallet();
+  }, [fetchUserWallet, provider]);
 
   return { state, userWalletAddress, network, networkId, enableMetamask };
 };
