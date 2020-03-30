@@ -1,13 +1,18 @@
 import React from "react";
 import { LabelBordered } from "../UI/LabelBordered";
+import { useDefaultProvider } from "../../common/hooks/useDefaultProvider";
+import { useTitleEscrowContract } from "../../common/hooks/useTitleEscrowContract";
 import { TitleTransferPanelContent } from "./TitleTransferPanelContent";
-import { WrappedDocument } from "@govtechsg/open-attestation";
 
 interface TitleTransferPanelProps {
-  document: WrappedDocument;
+  tokenRegistryAddress: string;
+  tokenId: string;
 }
 
-export const TitleTransferPanel = ({ document }: TitleTransferPanelProps) => {
+export const TitleTransferPanel = ({ tokenRegistryAddress, tokenId }: TitleTransferPanelProps) => {
+  const { provider } = useDefaultProvider(); // Component only need read only access
+  const { titleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
+
   return (
     <section id="title-transfer-panel" className="bg-blue-lighter py-3">
       <div className="container-custom">
@@ -19,7 +24,7 @@ export const TitleTransferPanel = ({ document }: TitleTransferPanelProps) => {
             </div>
           </div>
         </div>
-        <TitleTransferPanelContent document={document} />
+        {titleEscrow && <TitleTransferPanelContent titleEscrow={titleEscrow} />}
       </div>
     </section>
   );
