@@ -1,6 +1,8 @@
 import React from "react";
 import { LabelBordered } from "../UI/LabelBordered";
-import { TitleTransferPanelContentContainer } from "./TitleTransferPanelContent";
+import { useDefaultProvider } from "../../common/hooks/useDefaultProvider";
+import { useTitleEscrowContract } from "../../common/hooks/useTitleEscrowContract";
+import { TitleTransferPanelContent } from "./TitleTransferPanelContent";
 
 interface TitleTransferPanelProps {
   tokenRegistryAddress: string;
@@ -8,6 +10,9 @@ interface TitleTransferPanelProps {
 }
 
 export const TitleTransferPanel = ({ tokenRegistryAddress, tokenId }: TitleTransferPanelProps) => {
+  const { provider } = useDefaultProvider(); // Component only need read only access
+  const { titleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
+
   return (
     <section id="title-transfer-panel" className="bg-blue-lighter py-3">
       <div className="container-custom">
@@ -19,7 +24,7 @@ export const TitleTransferPanel = ({ tokenRegistryAddress, tokenId }: TitleTrans
             </div>
           </div>
         </div>
-        <TitleTransferPanelContentContainer tokenRegistryAddress={tokenRegistryAddress} tokenId={tokenId} />
+        {titleEscrow && <TitleTransferPanelContent titleEscrow={titleEscrow} />}
       </div>
     </section>
   );

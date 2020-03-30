@@ -7,7 +7,7 @@ import { useAddressBook } from "../../../common/hooks/useAddressBook";
 
 interface TitleViewProps {
   role: string;
-  address?: string;
+  address: string;
 }
 
 export const TitleView = ({ role, address }: TitleViewProps) => {

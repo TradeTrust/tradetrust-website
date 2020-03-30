@@ -8,6 +8,6 @@ export const useDefaultProvider = (): { provider: providers.Provider } => {
     () => ({
       provider
     }),
-    [] // eslint-disable-line react-hooks/exhaustive-deps
+    [NETWORK_NAME, ethers] // eslint-disable-line react-hooks/exhaustive-deps
   );
 };
