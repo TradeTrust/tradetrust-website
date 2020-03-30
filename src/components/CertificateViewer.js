@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
@@ -76,14 +76,18 @@ const CertificateViewer = props => {
   const tokenRegistryAddress = getTokenRegistryAddress(document);
 
   const validCertificateContent = (
-    <div>
+    <>
       {tokenRegistryAddress && (
         <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
       )}
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>
-      <MultiTabs selectTemplateTab={selectTemplateTab} />
+      <MultiTabs
+        selectTemplateTab={selectTemplateTab}
+        isOverlayVisible={isOverlayVisible}
+        setOverlayVisible={setOverlayVisible}
+      />
       <DecentralisedRenderer
         certificate={document}
         source={`${
@@ -97,7 +101,7 @@ const CertificateViewer = props => {
           handleSharingToggle={props.handleSharingToggle}
         />
       </Modal>
-    </div>
+    </>
   );
 
   return <ErrorBoundary>{validCertificateContent} </ErrorBoundary>;

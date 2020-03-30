@@ -1,17 +1,12 @@
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
 import styles from "./certificateViewer.scss";
 import { getTemplates, getActiveTemplateTab } from "../reducers/certificate";
-import { OverlayAddressBook } from "./UI/Overlay";
-import { useAddressBook } from "../common/hooks/useAddressBook";
 import { ButtonBordered } from "./UI/Button";
 import Drawer from "./UI/Drawer";
 
-const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => {
-  const [isOverlayVisible, setOverlayVisible] = useState(false);
-  const { addressBook } = useAddressBook();
-
+const MultiTabs = ({ activeTab, templates, selectTemplateTab, isOverlayVisible, setOverlayVisible }) => {
   return (
     <div id={styles["header-ui"]} className="pt-3 pt-md-0">
       <div className={`${styles["header-container"]}`}>
@@ -30,15 +25,6 @@ const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => {
             >
               Address Book
             </ButtonBordered>
-            <OverlayAddressBook
-              id="overlay-addressbook"
-              title="Address Book"
-              isOverlayVisible={isOverlayVisible}
-              handleCloseOverlay={() => {
-                setOverlayVisible(!isOverlayVisible);
-              }}
-              addressBook={addressBook}
-            />
           </li>
           {templates && templates.length > 0
             ? templates.map((t, idx) => (
