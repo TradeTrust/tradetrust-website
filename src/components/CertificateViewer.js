@@ -110,6 +110,7 @@ const CertificateViewer = props => {
         selectTemplateTab={selectTemplateTab}
         isOverlayVisible={isOverlayVisible}
         setOverlayVisible={setOverlayVisible}
+        tokenRegistryAddress={tokenRegistryAddress}
       />
       <DecentralisedRenderer
         certificate={document}

@@ -6,7 +6,14 @@ import { getTemplates, getActiveTemplateTab } from "../reducers/certificate";
 import { ButtonBordered } from "./UI/Button";
 import Drawer from "./UI/Drawer";
 
-const MultiTabs = ({ activeTab, templates, selectTemplateTab, isOverlayVisible, setOverlayVisible }) => {
+const MultiTabs = ({
+  activeTab,
+  templates,
+  selectTemplateTab,
+  isOverlayVisible,
+  setOverlayVisible,
+  tokenRegistryAddress
+}) => {
   return (
     <div id={styles["header-ui"]} className="pt-3 pt-md-0">
       <div className={`${styles["header-container"]}`}>
@@ -16,16 +23,18 @@ const MultiTabs = ({ activeTab, templates, selectTemplateTab, isOverlayVisible, 
               <ButtonBordered bg="tertiary">View another</ButtonBordered>
             </a>
           </li>
-          <li className="nav-item col-auto col-md-auto ml-2 order-md-2">
-            <ButtonBordered
-              bg="tertiary"
-              onClick={() => {
-                setOverlayVisible(!isOverlayVisible);
-              }}
-            >
-              Address Book
-            </ButtonBordered>
-          </li>
+          {tokenRegistryAddress && (
+            <li className="nav-item col-auto col-md-auto ml-2 order-md-2">
+              <ButtonBordered
+                bg="tertiary"
+                onClick={() => {
+                  setOverlayVisible(!isOverlayVisible);
+                }}
+              >
+                Address Book
+              </ButtonBordered>
+            </li>
+          )}
           {templates && templates.length > 0
             ? templates.map((t, idx) => (
                 <li key={idx} className="nav-item col-12 col-md-auto">
