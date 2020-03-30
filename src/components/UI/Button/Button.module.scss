@@ -16,25 +16,61 @@
   background-color: $color-grey;
   color: $color-white;
   min-height: 40px;
+  cursor: pointer;
 
   &[disabled] {
     pointer-events: none;
     box-shadow: none;
     background-color: $color-grey-lighter;
 
-    &.orange {
-      background-color: lighten($color-orange, 20%);
+    &.primary {
+      background-color: lighten($brand-orange, 20%);
     }
 
     &.white {
       background-color: darken($color-white, 3%);
-      color: lighten($color-orange, 20%);
+    }
+
+    &.text-primary {
+      color: lighten($brand-orange, 20%);
+    }
+
+    &.text-secondary {
+      color: lighten($brand-blue, 20%);
     }
   }
 
   &.icon {
     svg {
       max-width: 16px;
+    }
+  }
+
+  &.icontext {
+    svg {
+      padding-right: 8px;
+    }
+  }
+
+  &.bordered {
+    @include font-sourcesanspro-regular;
+    background-color: $color-white;
+    border: solid 1px $color-grey;
+    color: $color-grey;
+
+    &:hover {
+      background-color: $color-grey;
+      color: $color-white;
+    }
+
+    &.tertiary {
+      border: solid 1px $brand-navy;
+      color: $brand-navy;
+
+      &:hover {
+        background-color: $brand-navy;
+        color: $color-white;
+      }
     }
   }
 
@@ -58,6 +94,7 @@
   }
 
   svg {
+    display: block;
     width: 100%;
   }
 
@@ -73,6 +110,26 @@
 
   &.white {
     background-color: $color-white;
+  }
+
+  &.primary {
+    background-color: $brand-orange;
+
+    &:hover {
+      background-color: darken($brand-orange, 20%);
+    }
+  }
+
+  &.grey-light {
+    background-color: $color-grey-light;
+
+    &:hover {
+      background-color: $color-grey-lighter;
+      box-shadow: none;
+    }
+  }
+
+  &.text-primary {
     color: $brand-orange;
 
     &:hover {
@@ -80,20 +137,11 @@
     }
   }
 
-  &.orange {
-    background-color: $brand-orange;
+  &.text-secondary {
+    color: $brand-blue;
 
     &:hover {
-      background-color: darken($color-orange, 20%);
-    }
-  }
-
-  &.grey {
-    background-color: $color-grey-light;
-
-    &:hover {
-      background-color: $color-grey-lighter;
-      box-shadow: none;
+      background-color: rgba($brand-blue, 0.1);
     }
   }
 }

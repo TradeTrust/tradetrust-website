@@ -20,3 +20,8 @@
     transform: scale(1);
   }
 }
+
+@keyframes skeleton-loading {
+  from { background-position: -100% 0; }
+  to { background-position: 200% 0; }
+}

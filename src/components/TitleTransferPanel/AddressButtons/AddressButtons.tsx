@@ -25,7 +25,7 @@ export const AddressButtons = ({
 
   return (
     <div className={css["address-cta"]}>
-      <ButtonIcon color="white" disabled={isDisabledAddressBook}>
+      <ButtonIcon bg="white" color="primary" disabled={isDisabledAddressBook}>
         <div className="row no-gutters align-items-center">
           <div className="col-auto mr-2">
             <SvgIcon>
@@ -37,10 +37,10 @@ export const AddressButtons = ({
           </div>
         </div>
       </ButtonIcon>
-      <ButtonSolid color="orange" disabled={isSubmitEnabled} onClick={onButtonSubmit}>
+      <ButtonSolid bg="primary" disabled={isSubmitEnabled} onClick={onButtonSubmit}>
         <p>{buttonText}</p>
       </ButtonSolid>
-      <ButtonCircle color="grey">
+      <ButtonCircle bg="grey-light">
         <SvgIcon>
           <SvgIconX />
         </SvgIcon>
