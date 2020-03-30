@@ -10,7 +10,7 @@ export const TitleTransferPanelContent = ({ titleEscrow }: { titleEscrow: TitleE
   useEffect(() => {
     getBeneficiary();
     getHolder();
-  }, [titleEscrow]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [titleEscrow, getBeneficiary, getHolder]);
   return (
     <div className="row">
       <div className="col-12 col-lg">
