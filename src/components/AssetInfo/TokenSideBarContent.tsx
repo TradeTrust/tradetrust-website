@@ -17,6 +17,8 @@ const { trace, error } = getLogger("component:TokenSideBarContent");
 import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
 import { useSelector } from "react-redux";
 import { NETWORK_NAME } from "../../config";
+import { useUserWallet } from "../../hooks";
+import { TransactionStateStatus } from "../../hooks/useEthereumTransactionState";
 interface TokenSideBarContentProps {
   adminAddress: string;
   beneficiaryAddress: string;
@@ -45,28 +47,24 @@ const TokenSideBarContent = ({
     message: string;
   } | null>(null);
 
-  const {
-    networkIdVerbose,
-    metamaskNotFound,
-    approvedEscrowContractAddress,
-    approvedBeneficiaryAddress,
-    approvedHolderAddress
-  } = useSelector((state: any) => ({
-    networkIdVerbose: state.application.networkIdVerbose,
-    metamaskNotFound: state.admin.metamaskNotFound,
-    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
-    approvedHolderAddress: state.token.approvedHolderAddress,
-    approvedEscrowContractAddress: state.token.approvedEscrowContractAddress
-  }));
+  const { state: useWalletState, network } = useUserWallet();
+
+  const { approvedEscrowContractAddress, approvedBeneficiaryAddress, approvedHolderAddress } = useSelector(
+    (state: any) => ({
+      approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
+      approvedHolderAddress: state.token.approvedHolderAddress,
+      approvedEscrowContractAddress: state.token.approvedEscrowContractAddress
+    })
+  );
 
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
   const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
   const showBeneficiary = userRole === UserRole.Beneficiary && !isEqualBeneficiaryAndHolder;
   tokenSidebarError.accessDenied = userRole === UserRole.NoMatch;
-  tokenSidebarError.networkMismatch = NETWORK_NAME.toLowerCase() !== networkIdVerbose.toLowerCase();
-  tokenSidebarError.metamaskNotFound = metamaskNotFound;
+  tokenSidebarError.networkMismatch = NETWORK_NAME.toLowerCase() !== network.toLowerCase();
+  tokenSidebarError.metamaskNotFound = useWalletState.status === TransactionStateStatus.ERROR;
 
-  trace(`config network: ${NETWORK_NAME} and metamask network: ${networkIdVerbose}`);
+  trace(`config network: ${NETWORK_NAME} and metamask network: ${network}`);
   trace(`error in sidebar access ${JSON.stringify(tokenSidebarError)}`);
   useEffect(() => {
     if (approvedBeneficiaryAddress) setApprovedBeneficiary(approvedBeneficiaryAddress);
