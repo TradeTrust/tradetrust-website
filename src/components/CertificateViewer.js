@@ -15,6 +15,8 @@ import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm"
 import { AssetInfo } from "./AssetInfo";
 import { TitleTransferPanel } from "./TitleTransferPanel";
 import { getTokenRegistryAddress, getDocumentId } from "../common/utils/document";
+import { OverlayAddressBook } from "./UI/Overlay";
+import { CSSTransition } from "react-transition-group";
 
 const renderVerifyBlock = props => (
   <CertificateVerifyBlock
@@ -77,6 +79,24 @@ const CertificateViewer = props => {
 
   const validCertificateContent = (
     <>
+      <CSSTransition
+        in={isOverlayVisible}
+        timeout={400}
+        classNames="fade"
+        unmountOnExit
+        onEnter={() => setOverlayVisible(true)}
+        onExited={() => setOverlayVisible(false)}
+      >
+        <OverlayAddressBook
+          id="overlay-addressbook"
+          title="Address Book"
+          isOverlayVisible={isOverlayVisible}
+          handleCloseOverlay={() => {
+            setOverlayVisible(!isOverlayVisible);
+          }}
+          addressBook={addressBook}
+        />
+      </CSSTransition>
       {tokenRegistryAddress && (
         <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
       )}

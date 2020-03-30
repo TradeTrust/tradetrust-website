@@ -12,19 +12,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  visibility: hidden;
-  opacity: 0;
-
-  &.is-visible {
-    visibility: visible;
-    opacity: 1;
-
-    .overlay-content {
-      transform: scale(1);
-      visibility: visible;
-      opacity: 1;
-    }
-  }
 
   &.addressbook {
     .overlay-content {
@@ -51,9 +38,6 @@
 
 .overlay-content {
   transition: visibility 0.3s $easeOutCubic, opacity 0.3s $easeOutCubic, transform 0.3s $easeOutCubic;
-  visibility: hidden;
-  opacity: 0;
-  transform: scale(0.95);
   box-shadow: 0 8px 20px rgba($color-black, 0.2);
   position: relative;
   z-index: 1;

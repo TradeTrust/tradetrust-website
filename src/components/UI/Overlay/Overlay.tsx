@@ -5,49 +5,51 @@ import { CsvUploadButton } from "../../AddressBook/CsvUploadButton";
 import { AddressBook } from "../../../common/hooks/useAddressBook";
 import { makeEtherscanAddressURL } from "../../../utils";
 import { isEmpty, pickBy } from "lodash";
+import { CSSTransition } from "react-transition-group";
 
 interface OverlayProps {
   id?: string;
-  isOverlayVisible: boolean;
   title: string;
   className?: string;
   children?: React.ReactNode;
+  isOverlayVisible: boolean;
   handleCloseOverlay(event: React.MouseEvent<HTMLElement>): void;
   addressBook?: AddressBook;
 }
 
-export const Overlay = ({ id, isOverlayVisible, title, className, children, handleCloseOverlay }: OverlayProps) => {
+export const Overlay = ({ id, title, className, children, isOverlayVisible, handleCloseOverlay }: OverlayProps) => {
   const modifierClassName = className ? className : "";
-  const toggle = isOverlayVisible ? css["is-visible"] : "";
 
   return (
-    <div id={id} className={`${css.overlay} ${modifierClassName} ${toggle}`}>
+    <div id={id} className={`${css.overlay} ${modifierClassName}`}>
       <div className={css["overlay-bg"]} onClick={handleCloseOverlay} />
-      <div className={css["overlay-content"]}>
-        <div className={css["overlay-header"]}>
-          <div className="container-fluid">
-            <div className="row align-items-center">
-              <div className="col">
-                <h3 className={css.title}>{title}</h3>
-              </div>
-              <div className="col-auto ml-auto">
-                <div className={css["overlay-cancel"]} onClick={handleCloseOverlay}>
-                  <SvgIcon>
-                    <SvgIconX />
-                  </SvgIcon>
+      <CSSTransition in={isOverlayVisible} timeout={400} classNames="fadescale" appear>
+        <div className={css["overlay-content"]}>
+          <div className={css["overlay-header"]}>
+            <div className="container-fluid">
+              <div className="row align-items-center">
+                <div className="col">
+                  <h3 className={css.title}>{title}</h3>
+                </div>
+                <div className="col-auto ml-auto">
+                  <div className={css["overlay-cancel"]} onClick={handleCloseOverlay}>
+                    <SvgIcon>
+                      <SvgIconX />
+                    </SvgIcon>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={css["overlay-body"]}>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-12">{children}</div>
+          <div className={css["overlay-body"]}>
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-12">{children}</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </CSSTransition>
     </div>
   );
 };
