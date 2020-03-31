@@ -53,7 +53,7 @@ const TokenSideBarContent = ({
     (state: any) => ({
       approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
       approvedHolderAddress: state.token.approvedHolderAddress,
-      approvedEscrowContractAddress: state.token.approvedEscrowContractAddress
+      approvedEscrowContractAddress: state.token.approvedEscrowContractAddress,
     })
   );
 

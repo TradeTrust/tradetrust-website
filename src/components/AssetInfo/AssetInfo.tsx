@@ -22,7 +22,7 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
     holderAddress: state.token.holderAddress,
     beneficiaryAddress: state.token.beneficiaryAddress,
     initializeTokenSuccess: state.token.initializeTokenSuccess,
-    isEscrowContract: state.token.isEscrowContract
+    isEscrowContract: state.token.isEscrowContract,
   }));
 
   useEffect(() => {

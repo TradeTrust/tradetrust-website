@@ -34,8 +34,8 @@ describe("UseUserWallet", () => {
     (useInjectedProvider as jest.Mock).mockReturnValue({
       provider: {
         ...web3Provider,
-        ...{ listAccounts: () => [], getNetwork: () => ({ chainId: 1, network: "abc" }) }
-      }
+        ...{ listAccounts: () => [], getNetwork: () => ({ chainId: 1, network: "abc" }) },
+      },
     });
     const { result, waitForNextUpdate } = renderHook(() => useUserWallet());
 
@@ -50,7 +50,7 @@ describe("UseUserWallet", () => {
 
   it("should throw error Can not detect metamask network", async () => {
     (useInjectedProvider as jest.Mock).mockReturnValue({
-      provider: { ...web3Provider, ...{ listAccounts: () => ["0xABC"], getNetwork: () => null } }
+      provider: { ...web3Provider, ...{ listAccounts: () => ["0xABC"], getNetwork: () => null } },
     });
     const { result, waitForNextUpdate } = renderHook(() => useUserWallet());
 
