@@ -273,62 +273,12 @@ export function retrieveCertificateByActionFailure(payload) {
 }
 
 // Selectors
-export function getIssuerIdentityStatus(store) {
-  const { issuerIdentities, certificateIssuerVerifying, certificateIssuerError, certificateIssuer } = store.certificate;
-  return {
-    identities: issuerIdentities,
-    verified: certificateIssuer,
-    verifying: certificateIssuerVerifying,
-    error: certificateIssuerError,
-  };
-}
-
-export function getHashStatus(store) {
-  const { certificateHash, certificateHashError, certificateHashVerifying } = store.certificate;
-  return {
-    verified: certificateHash,
-    verifying: certificateHashVerifying,
-    error: certificateHashError,
-  };
-}
-
-export function getStoreStatus(store) {
-  const { certificateStore, certificateStoreError, certificateStoreVerifying } = store.certificate;
-  return {
-    verified: certificateStore,
-    verifying: certificateStoreVerifying,
-    error: certificateStoreError,
-  };
-}
-
-export function getIssuedStatus(store) {
-  const { certificateIssued, certificateIssuedError, certificateIssuedVerifying } = store.certificate;
-  return {
-    verified: certificateIssued,
-    verifying: certificateIssuedVerifying,
-    error: certificateIssuedError,
-  };
-}
-
-export function getNotRevokedStatus(store) {
-  const { certificateNotRevoked, certificateNotRevokedError, certificateNotRevokedVerifying } = store.certificate;
-  return {
-    verified: certificateNotRevoked,
-    verifying: certificateNotRevokedVerifying,
-    error: certificateNotRevokedError,
-  };
-}
-
 export function getCertificate(store) {
   return store.certificate.rawModified;
 }
 
 export function getVerifying(store) {
   return get(store, "certificate.verificationPending");
-}
-
-export function getVerified(store) {
-  return get(store, "certificate.verificationStatus.valid", false);
 }
 
 export function getVerificationStatus(store) {
