@@ -10,8 +10,8 @@ jest.mock("../../common/hooks/useInjectedProvider");
 jest.mock("react-redux", () => ({
   useSelector: () => ({
     metamaskNotFound: false,
-    networkIdVerbose: "ropsten"
-  })
+    networkIdVerbose: "ropsten",
+  }),
 }));
 
 describe("tokenSideBarContent", () => {

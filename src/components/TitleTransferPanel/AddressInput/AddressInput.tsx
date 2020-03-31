@@ -17,7 +17,7 @@ export const AddressInput = ({ errorMessage = "", children, address, setAddress,
           <input
             className={`${css["input"]} ${errorMessage && address.length === 0 ? css["is-error"] : ""}`}
             value={address}
-            onChange={e => setAddress(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
             disabled={disabled}
             type="text"
           />

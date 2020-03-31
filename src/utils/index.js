@@ -7,7 +7,7 @@ export function isEthereumAddress(address) {
   return ethereumAddressMatcher.test(address);
 }
 
-export const makeEtherscanAddressURL = address => {
+export const makeEtherscanAddressURL = (address) => {
   return `${ETHERSCAN_BASE_URL}address/${address}`;
 };
 
@@ -16,7 +16,7 @@ export const makeEtherscanTokenURL = ({ registryAddress, tokenId }) => {
   return `${ETHERSCAN_BASE_URL}token/${registryAddress}?a=${tokenIdDecimal}`;
 };
 
-export const getAssetInfo = document => {
+export const getAssetInfo = (document) => {
   const { tokenRegistry } = getData(document).issuers[0];
   const { merkleRoot: tokenId } = document.signature;
   return { tokenRegistry, tokenId };

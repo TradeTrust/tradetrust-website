@@ -6,5 +6,5 @@ export const error = (namespace: string): debug.Debugger => debug(`tradetrust-we
 
 export const getLogger = (namespace: string): { trace: debug.Debugger; error: debug.Debugger } => ({
   trace: trace(namespace),
-  error: error(namespace)
+  error: error(namespace),
 });

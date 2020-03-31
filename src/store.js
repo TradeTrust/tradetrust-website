@@ -7,7 +7,7 @@ import reducers from "./reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const initStore = history => {
+const initStore = (history) => {
   const store = createStore(
     reducers(history),
     composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware(history)))

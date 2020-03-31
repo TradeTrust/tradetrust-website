@@ -16,18 +16,18 @@ export function* loadAdminAddress() {
     if (!accounts || !accounts.length || accounts.length === 0) throw new Error("Accounts not found");
     yield put({
       type: types.LOADING_ADMIN_ADDRESS_SUCCESS,
-      payload: accounts[0]
+      payload: accounts[0],
     });
   } catch (e) {
     if (e.message === "Accounts not found") {
       return yield put({
         type: types.LOADING_ADMIN_ADDRESS_FAILURE,
-        payload: e.message
+        payload: e.message,
       });
     }
     yield put({
       type: types.METAMASK_NOT_FOUND,
-      payload: e.message
+      payload: e.message,
     });
     error("loadAdminAddress:", e);
   }

@@ -6,7 +6,7 @@ export enum TransactionStateStatus {
   SUCCESS = "success",
   NO_WALLET = "no_wallet",
   TRANSACTION_MINING = "transaction-mining",
-  ERROR = "error"
+  ERROR = "error",
 }
 
 export type ActionType = { type: TransactionStateStatus; message?: string };

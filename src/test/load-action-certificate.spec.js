@@ -10,14 +10,14 @@ const ViewerContainer = Selector("#viewer-container");
 const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
-test("Load document from action should work when url is valid", async t => {
+test("Load document from action should work when url is valid", async (t) => {
   const action = {
     type: "DOCUMENT",
     payload: {
       uri: `https://api.myjson.com/bins/kv1de`,
       permittedActions: ["VIEW", "STORE"],
-      redirect: "https://dev.tradetrust.io/"
-    }
+      redirect: "https://dev.tradetrust.io/",
+    },
   };
 
   await t.navigateTo(`http://localhost:3000/?q=${encodeURI(JSON.stringify(action))}`);
@@ -31,13 +31,13 @@ test("Load document from action should work when url is valid", async t => {
   await validateTextContent(t, SampleTemplate, ["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 });
 
-test("Load document from action should fail when url is invalid", async t => {
+test("Load document from action should fail when url is invalid", async (t) => {
   const action = {
     type: "DOCUMENT",
     payload: {
       uri: `https://api.myjson.com/bins/error`,
-      redirect: "https://dev.tradetrust.io/"
-    }
+      redirect: "https://dev.tradetrust.io/",
+    },
   };
 
   await t.navigateTo(`http://localhost:3000/?q=${encodeURI(JSON.stringify(action))}`);
@@ -47,6 +47,6 @@ test("Load document from action should fail when url is invalid", async t => {
   await validateTextContent(t, ViewerContainer, [
     "This document is not valid",
     "Unable to load certificate with the provided parameters",
-    "Unable to load the certificate from https://api.myjson.com/bins/error"
+    "Unable to load the certificate from https://api.myjson.com/bins/error",
   ]);
 });

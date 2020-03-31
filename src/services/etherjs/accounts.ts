@@ -5,8 +5,8 @@ export const getAccounts = (provider: ethers.providers.JsonRpcProvider) =>
   new Promise((resolve, reject) => {
     provider
       .listAccounts()
-      .then(accounts => resolve(accounts))
-      .catch(error => reject(error));
+      .then((accounts) => resolve(accounts))
+      .catch((error) => reject(error));
   });
 
 export default getAccounts;

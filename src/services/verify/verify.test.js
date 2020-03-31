@@ -9,25 +9,25 @@ jest.mock("@govtechsg/open-attestation");
 
 const falsyResult = {
   hash: {
-    checksumMatch: true
+    checksumMatch: true,
   },
   issued: {
     issuedOnAll: true,
     details: [
       {
         address: "0xA",
-        issued: true
-      }
-    ]
+        issued: true,
+      },
+    ],
   },
   revoked: {
     revokedOnAny: true,
     details: [
       {
         address: "0xA",
-        revoked: true
-      }
-    ]
+        revoked: true,
+      },
+    ],
   },
   identity: {
     identifiedOnAll: true,
@@ -35,39 +35,39 @@ const falsyResult = {
       {
         identified: true,
         dns: "domain1.com",
-        smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
+        smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
       },
       {
         identified: true,
         dns: "domain2.com",
-        smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
-      }
-    ]
+        smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
+      },
+    ],
   },
-  valid: false
+  valid: false,
 };
 
 const truthyResult = {
   hash: {
-    checksumMatch: true
+    checksumMatch: true,
   },
   issued: {
     issuedOnAll: true,
     details: [
       {
         address: "0xA",
-        issued: true
-      }
-    ]
+        issued: true,
+      },
+    ],
   },
   revoked: {
     revokedOnAny: false,
     details: [
       {
         address: "0xA",
-        revoked: false
-      }
-    ]
+        revoked: false,
+      },
+    ],
   },
   identity: {
     identifiedOnAll: true,
@@ -75,16 +75,16 @@ const truthyResult = {
       {
         identified: true,
         dns: "domain1.com",
-        smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
+        smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
       },
       {
         identified: true,
         dns: "domain2.com",
-        smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
-      }
-    ]
+        smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
+      },
+    ],
   },
-  valid: true
+  valid: true,
 };
 
 const whenVerifySucceed = () =>
@@ -92,18 +92,18 @@ const whenVerifySucceed = () =>
     hash: { checksumMatch: true },
     issued: {
       issuedOnAll: true,
-      details: [{ address: "0xA", issued: true }]
+      details: [{ address: "0xA", issued: true }],
     },
     revoked: {
       revokedOnAny: false,
       details: [
         {
           address: "0xA",
-          revoked: false
-        }
-      ]
+          revoked: false,
+        },
+      ],
     },
-    valid: true
+    valid: true,
   });
 
 const whenVerifyFailed = () =>
@@ -111,18 +111,18 @@ const whenVerifyFailed = () =>
     hash: { checksumMatch: true },
     issued: {
       issuedOnAll: true,
-      details: [{ address: "0xA", issued: true }]
+      details: [{ address: "0xA", issued: true }],
     },
     revoked: {
       revokedOnAny: true,
       details: [
         {
           address: "0xA",
-          revoked: true
-        }
-      ]
+          revoked: true,
+        },
+      ],
     },
-    valid: false
+    valid: false,
   });
 
 const whenGetDataReturnsMultipleDocument = (modifiedIssuerRecord = {}) => {
@@ -131,16 +131,16 @@ const whenGetDataReturnsMultipleDocument = (modifiedIssuerRecord = {}) => {
       {
         ...{
           documentStore: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
-          identityProof: { location: "domain1.com", type: "DNS-TXT" }
+          identityProof: { location: "domain1.com", type: "DNS-TXT" },
         },
-        ...modifiedIssuerRecord
+        ...modifiedIssuerRecord,
       },
       {
         documentStore: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
-        identityProof: { location: "domain2.com", type: "DNS-TXT" }
-      }
+        identityProof: { location: "domain2.com", type: "DNS-TXT" },
+      },
     ],
-    foo: "bar"
+    foo: "bar",
   });
 };
 
@@ -150,12 +150,12 @@ const whenGetDataReturnsDocument = (modifiedIssuerRecord = {}) => {
       {
         ...{
           documentStore: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
-          identityProof: { location: "domain2.com", type: "DNS-TXT" }
+          identityProof: { location: "domain2.com", type: "DNS-TXT" },
         },
-        ...modifiedIssuerRecord
-      }
+        ...modifiedIssuerRecord,
+      },
     ],
-    foo: "bar"
+    foo: "bar",
   });
 };
 
@@ -166,8 +166,8 @@ const whenDnsProveResolvesAddress = () => {
       net: "ethereum",
       netId: "3",
       addr: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
-      dnssec: true
-    }
+      dnssec: true,
+    },
   ]);
 };
 
@@ -178,15 +178,15 @@ const whenDnsProveResolvesBothAddresses = () => {
       net: "ethereum",
       netId: "3",
       addr: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
-      dnssec: true
+      dnssec: true,
     },
     {
       type: "openatts",
       net: "ethereum",
       netId: "3",
       addr: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
-      dnssec: true
-    }
+      dnssec: true,
+    },
   ]);
 };
 
@@ -232,14 +232,14 @@ describe("resolveIssuerIdentity", () => {
       {
         identified: false,
         smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
-        error: "Identity type not supported"
-      }
+        error: "Identity type not supported",
+      },
     ]);
   });
 
   it("throws error when location does not exist", async () => {
     whenGetDataReturnsDocument({
-      identityProof: { location: "", type: "DNS-TXT" }
+      identityProof: { location: "", type: "DNS-TXT" },
     });
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
@@ -250,8 +250,8 @@ describe("resolveIssuerIdentity", () => {
       {
         identified: false,
         smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
-        error: "Location is missing"
-      }
+        error: "Location is missing",
+      },
     ]);
   });
 });
@@ -267,13 +267,13 @@ describe("getIssuersIdentities", () => {
       {
         identified: true,
         dns: "domain1.com",
-        smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C"
+        smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
       },
       {
         identified: true,
         dns: "domain2.com",
-        smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
-      }
+        smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
+      },
     ];
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");
@@ -284,19 +284,19 @@ describe("getIssuersIdentities", () => {
   it("includes error when any issuers is not correctly formatted", async () => {
     whenDnsProveResolvesAddress();
     const issuers = {
-      identityProof: { location: "domain1.com" }
+      identityProof: { location: "domain1.com" },
     };
     whenGetDataReturnsMultipleDocument(issuers);
     const expectedResults = [
       {
         identified: false,
         smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
-        error: "Identity type not supported"
+        error: "Identity type not supported",
       },
       {
         identified: false,
-        smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811"
-      }
+        smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
+      },
     ];
 
     const verificationResults = await verifyDocument("RAW_DOCUMENT");

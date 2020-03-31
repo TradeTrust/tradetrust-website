@@ -1,6 +1,6 @@
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { ButtonSolid, ButtonIcon, ButtonCircle, ButtonBordered } from "./Button";
-import { SvgIcon, SvgIconEdit, SvgIconBook, SvgIconX } from "./../../UI/SvgIcon";
+import { ButtonSolid, ButtonIcon, ButtonIconText, ButtonCircle, ButtonBordered } from "./Button";
+import { SvgIcon, SvgIconEdit, SvgIconBook, SvgIconX, SvgIconFilePlus } from "./../../UI/SvgIcon";
 
 <Meta title="UI/Button" component={ButtonSolid} />
 
@@ -29,7 +29,9 @@ Button look.
     <ButtonSolid bg="primary">Primary</ButtonSolid>
   </Story>
   <Story name="White">
-    <ButtonSolid bg="white" color="primary">White</ButtonSolid>
+    <ButtonSolid bg="white" color="primary">
+      White
+    </ButtonSolid>
   </Story>
   <Story name="Grey Light">
     <ButtonSolid bg="grey-light">Grey Light</ButtonSolid>
@@ -42,10 +44,28 @@ Button look.
 
 <Preview>
   <Story name="Text Primary">
-    <ButtonSolid bg="white" color="primary">Text Primary</ButtonSolid>
+    <ButtonSolid bg="white" color="primary">
+      Text Primary
+    </ButtonSolid>
   </Story>
   <Story name="Text Secondary">
-    <ButtonSolid bg="white" color="secondary">Text Secondary</ButtonSolid>
+    <ButtonSolid bg="white" color="secondary">
+      Text Secondary
+    </ButtonSolid>
+  </Story>
+</Preview>
+
+---
+
+### ButtonIconText
+
+<Preview>
+  <Story name="Icon Text">
+    <ButtonIconText text="Import" bg="white" color="secondary">
+      <SvgIcon>
+        <SvgIconFilePlus />
+      </SvgIcon>
+    </ButtonIconText>
   </Story>
 </Preview>
 
@@ -97,8 +117,6 @@ Button look.
 
 <Preview>
   <Story name="Bordered">
-    <ButtonBordered bg="tertiary">
-      Load Addressbook
-    </ButtonBordered>
+    <ButtonBordered bg="tertiary">Load Addressbook</ButtonBordered>
   </Story>
 </Preview>

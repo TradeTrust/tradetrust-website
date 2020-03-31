@@ -5,7 +5,7 @@ import DetailedCertificateVerifyBlock from ".";
 import sampleToken from "../../../test/fixture/sample-token.json";
 
 jest.mock("../../../services/token", () => ({
-  ...jest.requireActual("../../../services/token")
+  ...jest.requireActual("../../../services/token"),
 }));
 
 describe("detailedCertificateVerifyBlock", () => {

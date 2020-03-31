@@ -14,8 +14,8 @@ jest.mock("react-redux", () => ({
     networkIdVerbose: "ropsten",
     approvedEscrowContractAddress: "",
     approvedBeneficiaryAddress: "",
-    approvedHolderAddress: ""
-  }))
+    approvedHolderAddress: "",
+  })),
 }));
 
 describe("tokenSideBar", () => {
@@ -100,7 +100,7 @@ describe("tokenSideBar", () => {
       networkIdVerbose: "ropsten",
       approvedEscrowContractAddress: "0xC",
       approvedBeneficiaryAddress: "0xB",
-      approvedHolderAddress: "0xB"
+      approvedHolderAddress: "0xB",
     }));
     const wrapper = mount(
       <TokenSideBar

@@ -2,7 +2,7 @@ export enum UserRole {
   Holder,
   Beneficiary,
   HolderBeneficiary,
-  NoMatch
+  NoMatch,
 }
 
 export const userRoleText = (role: UserRole) => {

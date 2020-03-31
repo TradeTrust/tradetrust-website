@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
@@ -15,8 +15,11 @@ import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm"
 import { AssetInfo } from "./AssetInfo";
 import { TitleTransferPanel } from "./TitleTransferPanel";
 import { getTokenRegistryAddress, getDocumentId } from "../common/utils/document";
+import { OverlayAddressBook } from "./UI/Overlay";
+import { useAddressBook } from "../common/hooks/useAddressBook";
+import { CSSTransition } from "react-transition-group";
 
-const renderVerifyBlock = props => (
+const renderVerifyBlock = (props) => (
   <CertificateVerifyBlock
     document={props.document}
     verifyTriggered={props.verifyTriggered}
@@ -26,7 +29,7 @@ const renderVerifyBlock = props => (
   />
 );
 
-const renderHeaderBlock = props => {
+const renderHeaderBlock = (props) => {
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
     <div className={`${styles.container}`}>
@@ -69,21 +72,46 @@ const renderHeaderBlock = props => {
   );
 };
 
-const CertificateViewer = props => {
+const CertificateViewer = (props) => {
   const { document, selectTemplateTab } = props;
   const certificate = getData(document);
   const renderedHeaderBlock = renderHeaderBlock(props);
   const tokenRegistryAddress = getTokenRegistryAddress(document);
+  const [isOverlayVisible, setOverlayVisible] = useState(false);
+  const { addressBook } = useAddressBook();
 
   const validCertificateContent = (
-    <div>
+    <>
+      <CSSTransition
+        in={isOverlayVisible}
+        timeout={400}
+        classNames="fade"
+        unmountOnExit
+        onEnter={() => setOverlayVisible(true)}
+        onExited={() => setOverlayVisible(false)}
+      >
+        <OverlayAddressBook
+          id="overlay-addressbook"
+          title="Address Book"
+          isOverlayVisible={isOverlayVisible}
+          handleCloseOverlay={() => {
+            setOverlayVisible(!isOverlayVisible);
+          }}
+          addressBook={addressBook}
+        />
+      </CSSTransition>
       {tokenRegistryAddress && (
         <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
       )}
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>
-      <MultiTabs selectTemplateTab={selectTemplateTab} />
+      <MultiTabs
+        selectTemplateTab={selectTemplateTab}
+        isOverlayVisible={isOverlayVisible}
+        setOverlayVisible={setOverlayVisible}
+        tokenRegistryAddress={tokenRegistryAddress}
+      />
       <DecentralisedRenderer
         certificate={document}
         source={`${
@@ -97,14 +125,14 @@ const CertificateViewer = props => {
           handleSharingToggle={props.handleSharingToggle}
         />
       </Modal>
-    </div>
+    </>
   );
 
   return <ErrorBoundary>{validCertificateContent} </ErrorBoundary>;
 };
 
-const mapDispatchToProps = dispatch => ({
-  selectTemplateTab: tabIndex => dispatch(selectTemplateTabAction(tabIndex))
+const mapDispatchToProps = (dispatch) => ({
+  selectTemplateTab: (tabIndex) => dispatch(selectTemplateTabAction(tabIndex)),
 });
 
 export default connect(null, mapDispatchToProps)(CertificateViewer);
@@ -120,12 +148,12 @@ CertificateViewer.propTypes = {
   handleSharingToggle: PropTypes.func,
   handleSendCertificate: PropTypes.func,
 
-  selectTemplateTab: PropTypes.func
+  selectTemplateTab: PropTypes.func,
 };
 
 renderVerifyBlock.propTypes = CertificateViewer.propTypes;
 renderHeaderBlock.propTypes = CertificateViewer.propTypes;
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };

@@ -7,7 +7,7 @@ import { makeEtherscanAddressURL, makeEtherscanTokenURL, getAssetInfo } from "..
 
 export const BLinfo = () => {
   const { document } = useSelector((state: any) => ({
-    document: state.certificate.raw
+    document: state.certificate.raw,
   }));
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
   const tokenRegistryHref = makeEtherscanAddressURL(registryAddress);

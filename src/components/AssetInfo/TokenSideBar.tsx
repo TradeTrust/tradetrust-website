@@ -19,7 +19,7 @@ const TokenSideBar = ({
   beneficiaryAddress,
   registryAddress,
   handler,
-  isSideBarExpand
+  isSideBarExpand,
 }: TokenSideBarContentProps) => {
   return (
     <aside className={`${css.tokensidebar} ${isSideBarExpand ? css["is-expanded"] : ""}`}>

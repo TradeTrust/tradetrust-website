@@ -11,16 +11,16 @@ const renderIcon = () => (
   </div>
 );
 
-export const getIdentityVerificationText = identityDetails => {
+export const getIdentityVerificationText = (identityDetails) => {
   const dnsNames = identityDetails.map(({ dns }) => (dns ? dns.toUpperCase() : null));
   return `Issued by ${dnsNames.length > 0 ? dnsNames[0] : "Unknown"}`;
 };
 
-const renderText = identityDetails => (
+const renderText = (identityDetails) => (
   <div className={css["verification-text"]}>{getIdentityVerificationText(identityDetails)}</div>
 );
 
-const SimpleVerifyBlock = props => {
+const SimpleVerifyBlock = (props) => {
   const { verificationStatus } = props;
   const renderedIcon = renderIcon();
   const renderedText = renderText(get(verificationStatus, "identity.details", []));
@@ -42,7 +42,7 @@ const SimpleVerifyBlock = props => {
   );
 };
 
-const CertificateVerifyBlock = props => {
+const CertificateVerifyBlock = (props) => {
   const [detailedViewVisible, setDetailedViewVisible] = useState(false);
   const toggleDetailedViewVisible = () => setDetailedViewVisible(!detailedViewVisible);
 
@@ -70,7 +70,7 @@ CertificateVerifyBlock.propTypes = {
 
   verificationStatus: PropTypes.object,
   toggleDetailedView: PropTypes.func,
-  detailedVerifyVisible: PropTypes.bool
+  detailedVerifyVisible: PropTypes.bool,
 };
 
 SimpleVerifyBlock.propTypes = CertificateVerifyBlock.propTypes;

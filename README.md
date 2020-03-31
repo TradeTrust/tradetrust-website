@@ -1,5 +1,6 @@
-# TradeTrust Web UI 
-[![CircleCI](https://circleci.com/gh/tradetrust/tradetrust-website.svg?style=svg)](https://circleci.com/gh/tradetrust/tradetrust-website)
+# TradeTrust Web UI
+
+[![CircleCI](https://circleci.com/gh/TradeTrust/tradetrust-website.svg?style=svg)](https://circleci.com/gh/TradeTrust/tradetrust-website)
 
 See also:
 
@@ -40,6 +41,10 @@ NET=mainnet npm run dev
 ### Troubleshooting
 
 To enable debug logs in the browser, set `localStorage.debug="*"`
+
+### Running single integration test
+
+`npm run integration:single <path>`, for the path, you can copy paste relative path via text editor.
 
 ### Generating CREDITS.md
 

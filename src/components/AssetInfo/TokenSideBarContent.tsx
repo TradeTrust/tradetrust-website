@@ -9,7 +9,7 @@ import {
   endorseBeneficiaryTransfer,
   endorseTransfer,
   surrenderToken,
-  deployEscrowContract
+  deployEscrowContract,
 } from "../../services/token";
 import TokenTransactionSuccess from "./TokenTransactionSuccess";
 import { TOKEN_ACTION_TYPES, getSuccessResponse } from "./TokenActionUtil";
@@ -30,7 +30,7 @@ const TokenSideBarContent = ({
   adminAddress,
   beneficiaryAddress,
   holderAddress,
-  registryAddress
+  registryAddress,
 }: TokenSideBarContentProps) => {
   const userRole = getUserRoles({ adminAddress, holderAddress, beneficiaryAddress });
   const [newHolder, setNewHolder] = useState("");
@@ -97,7 +97,7 @@ const TokenSideBarContent = ({
         : await deployEscrowContract({
             registryAddress,
             beneficiaryAddress: approvedBeneficiary,
-            holderAddress: approvedHolder
+            holderAddress: approvedHolder,
           });
       trace(`escrow contract address to mint ${contractAddress}`);
       toggleActionLoader(false);

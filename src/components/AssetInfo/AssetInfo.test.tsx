@@ -13,8 +13,8 @@ jest.mock("../../common/hooks/useInjectedProvider");
 jest.mock("react-redux", () => ({
   useDispatch: () => jest.fn(),
   useSelector: () => ({
-    token: { beneficiaryAddress: "", holderAddress: "" }
-  })
+    token: { beneficiaryAddress: "", holderAddress: "" },
+  }),
 }));
 
 describe("assetInfo", () => {

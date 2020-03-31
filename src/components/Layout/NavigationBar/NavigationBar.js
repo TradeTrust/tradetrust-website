@@ -6,11 +6,11 @@ const navItems = [
   {
     id: "home",
     label: "Home",
-    path: "/"
-  }
+    path: "/",
+  },
 ];
 
-const renderNavItem = active => {
+const renderNavItem = (active) => {
   const items = navItems.map((n, i) => (
     <li className={`${css["nav-item"]} ${n.id === active ? css.active : ""}`} key={i}>
       <a href={n.path}>{n.label}</a>
@@ -47,5 +47,5 @@ const NavigationBar = ({ active }) => (
 export default NavigationBar;
 
 NavigationBar.propTypes = {
-  active: PropTypes.string
+  active: PropTypes.string,
 };

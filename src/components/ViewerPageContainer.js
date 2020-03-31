@@ -12,7 +12,7 @@ import {
   getVerifying,
   getEmailSendingState,
   getVerificationStatus,
-  updateObfuscatedCertificate
+  updateObfuscatedCertificate,
 } from "../reducers/certificate";
 import CertificateViewer from "./CertificateViewer";
 
@@ -22,7 +22,7 @@ class ViewerPageContainer extends Component {
 
     this.state = {
       showSharing: false,
-      detailedVerifyVisible: false
+      detailedVerifyVisible: false,
     };
     this.handleCertificateChange = this.handleCertificateChange.bind(this);
     this.handleSharingToggle = this.handleSharingToggle.bind(this);
@@ -69,20 +69,20 @@ class ViewerPageContainer extends Component {
   }
 }
 
-const mapStateToProps = store => ({
+const mapStateToProps = (store) => ({
   document: getCertificate(store),
 
   // Verification statuses used in verifier block
   emailSendingState: getEmailSendingState(store),
   verifying: getVerifying(store),
-  verificationStatus: getVerificationStatus(store)
+  verificationStatus: getVerificationStatus(store),
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateCertificate: payload => dispatch(updateCertificate(payload)),
-  sendCertificate: payload => dispatch(sendCertificate(payload)),
+const mapDispatchToProps = (dispatch) => ({
+  updateCertificate: (payload) => dispatch(updateCertificate(payload)),
+  sendCertificate: (payload) => dispatch(sendCertificate(payload)),
   sendCertificateReset: () => dispatch(sendCertificateReset()),
-  updateObfuscatedCertificate: updatedDoc => dispatch(updateObfuscatedCertificate(updatedDoc))
+  updateObfuscatedCertificate: (updatedDoc) => dispatch(updateObfuscatedCertificate(updatedDoc)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ViewerPageContainer));
@@ -97,5 +97,5 @@ ViewerPageContainer.propTypes = {
   sendCertificate: PropTypes.func,
   sendCertificateReset: PropTypes.func,
   updateObfuscatedCertificate: PropTypes.func,
-  history: PropTypes.object
+  history: PropTypes.object,
 };

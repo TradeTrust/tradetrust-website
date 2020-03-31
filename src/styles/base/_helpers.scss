@@ -47,6 +47,10 @@
   position: relative;
 }
 
+.loader-skeleton {
+  @include loader-skeleton;
+}
+
 .fill {
   min-height: 100%;
   min-height: 100vh;

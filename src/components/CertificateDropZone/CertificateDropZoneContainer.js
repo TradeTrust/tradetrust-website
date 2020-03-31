@@ -7,7 +7,7 @@ import {
   getVerificationStatus,
   resetCertificateState,
   processQrCode,
-  getCertificateByActionError
+  getCertificateByActionError,
 } from "../../reducers/certificate";
 import { updateNetworkId } from "../../reducers/application";
 import CertificateDropZone from "./CertificateDropZone";
@@ -20,7 +20,7 @@ export class CertificateDropZoneContainer extends Component {
 
     this.state = {
       fileError: false,
-      qrReaderVisible: false
+      qrReaderVisible: false,
     };
     this.handleCertificateChange = this.handleCertificateChange.bind(this);
     this.handleFileError = this.handleFileError.bind(this);
@@ -81,17 +81,17 @@ export class CertificateDropZoneContainer extends Component {
   }
 }
 
-const mapStateToProps = store => ({
+const mapStateToProps = (store) => ({
   verifying: getVerifying(store),
   verificationStatus: getVerificationStatus(store),
-  retrieveCertificateByActionError: getCertificateByActionError(store)
+  retrieveCertificateByActionError: getCertificateByActionError(store),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   updateNetworkId: () => dispatch(updateNetworkId()),
-  updateCertificate: payload => dispatch(updateCertificate(payload)),
+  updateCertificate: (payload) => dispatch(updateCertificate(payload)),
   resetData: () => dispatch(resetCertificateState()),
-  processQr: payload => dispatch(processQrCode(payload))
+  processQr: (payload) => dispatch(processQrCode(payload)),
 });
 
 const ConnectedCertificateDropZoneContainer = connect(
@@ -109,5 +109,5 @@ CertificateDropZoneContainer.propTypes = {
   verifying: PropTypes.bool,
   processQr: PropTypes.func,
   verificationStatus: PropTypes.object,
-  retrieveCertificateByActionError: PropTypes.string
+  retrieveCertificateByActionError: PropTypes.string,
 };

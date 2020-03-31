@@ -6,7 +6,7 @@ import { getLogger } from "../../utils/logger";
 const { error } = getLogger("services:qr");
 
 const QrReaderZone = ({ handleQrScanned }) => {
-  const onScan = data => {
+  const onScan = (data) => {
     if (data) handleQrScanned(data);
   };
 
@@ -16,5 +16,5 @@ const QrReaderZone = ({ handleQrScanned }) => {
 export default QrReaderZone;
 
 QrReaderZone.propTypes = {
-  handleQrScanned: PropTypes.func.isRequired
+  handleQrScanned: PropTypes.func.isRequired,
 };

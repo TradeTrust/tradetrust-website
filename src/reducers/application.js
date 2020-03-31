@@ -9,7 +9,7 @@ export const initialState = {
   networkUpdatePending: true,
   txPollingList: {},
   currentBlockContents: undefined,
-  currentBlockNumber: 0
+  currentBlockNumber: 0,
 };
 
 // Actions
@@ -24,7 +24,7 @@ export const types = {
   TRANSACTION_MINED: "TRANSACTION_MINED",
 
   TX_POLLING_ADD: "TX_POLLING_ADD",
-  TX_POLLING_REMOVE: "TX_POLLING_REMOVE"
+  TX_POLLING_REMOVE: "TX_POLLING_REMOVE",
 
   // polling_started
   // add to poll : should take a tx hash and a callback action
@@ -39,7 +39,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         network: action.payload.network,
-        customRpc: action.payload.customRpc
+        customRpc: action.payload.customRpc,
       };
     case types.UPDATE_NETWORK_ID:
       return {
@@ -48,31 +48,31 @@ export default function reducer(state = initialState, action) {
         networkIdVerbose: "",
         networkUpdatePending: true,
         currentBlockNumber: 0,
-        currentBlockContents: undefined
+        currentBlockContents: undefined,
       };
     case types.UPDATE_NETWORK_ID_SUCCESS:
       return {
         ...state,
         networkId: action.payload.networkId,
         networkIdVerbose: action.payload.networkIdVerbose,
-        networkUpdatePending: false
+        networkUpdatePending: false,
       };
     case types.UPDATE_NETWORK_ID_FAILURE:
       return {
         ...state,
         networkId: null,
         networkIdVerbose: "",
-        networkUpdatePending: false
+        networkUpdatePending: false,
       };
     case types.TX_POLLING_ADD:
       return {
         ...state,
-        txPollingList: { ...state.txPollingList, [action.payload.txHash]: true }
+        txPollingList: { ...state.txPollingList, [action.payload.txHash]: true },
       };
     case types.TX_POLLING_REMOVE:
       return {
         ...state,
-        txPollingList: omit(state.txPollingList, action.payload.txHash)
+        txPollingList: omit(state.txPollingList, action.payload.txHash),
       };
 
     case types.TRANSACTION_MINED:
@@ -80,14 +80,14 @@ export default function reducer(state = initialState, action) {
         ...state,
         minedTransactions: {
           ...state.minedTransactions,
-          [action.payload.txHash]: action.payload.txReceipt
-        }
+          [action.payload.txHash]: action.payload.txReceipt,
+        },
       };
     case types.NEW_BLOCK:
       return {
         ...state,
         currentBlockNumber: action.payload.blockNumber,
-        currentBlockContents: action.payload.blockContents
+        currentBlockContents: action.payload.blockContents,
       };
     default:
       return state;
@@ -98,34 +98,34 @@ export default function reducer(state = initialState, action) {
 export function updateWeb3(payload) {
   return {
     type: types.UPDATE_WEB3,
-    payload
+    payload,
   };
 }
 
 export function updateNetworkId() {
   return {
-    type: types.UPDATE_NETWORK_ID
+    type: types.UPDATE_NETWORK_ID,
   };
 }
 
 export function foundNewBlock(payload) {
   return {
     type: types.NEW_BLOCK,
-    payload
+    payload,
   };
 }
 
 export function announceMinedTransaction(payload) {
   return {
     type: types.TRANSACTION_MINED,
-    payload
+    payload,
   };
 }
 
 export function removeTxFromPollingList(payload) {
   return {
     type: types.TX_POLLING_REMOVE,
-    payload
+    payload,
   };
 }
 
