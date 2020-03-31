@@ -20,25 +20,27 @@ import { NETWORK_NAME } from "../../config";
 import { useUserWallet } from "../../common/hooks/useUserWallet";
 import { TransactionStateStatus } from "../../common/hooks/useEthereumTransactionState";
 interface TokenSideBarContentProps {
-  adminAddress: string;
+  userWalletAddress: string;
   beneficiaryAddress: string;
   holderAddress: string;
   registryAddress: string;
 }
 
 const TokenSideBarContent = ({
-  adminAddress,
+  userWalletAddress,
   beneficiaryAddress,
   holderAddress,
   registryAddress,
 }: TokenSideBarContentProps) => {
-  const userRole = getUserRoles({ adminAddress, holderAddress, beneficiaryAddress });
+  const userRole = getUserRoles({ userWalletAddress, holderAddress, beneficiaryAddress });
   const [newHolder, setNewHolder] = useState("");
   const [approvedBeneficiary, setApprovedBeneficiary] = useState("");
   const [approvedHolder, setApprovedHolder] = useState("");
 
   const tokenSidebarError = { accessDenied: false, networkMismatch: false, metamaskNotFound: false };
-  trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
+  trace(
+    `admin address: ${userWalletAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`
+  );
   const [showActionLoader, toggleActionLoader] = useState(false);
   const [actionError, setActionError] = useState<{ type: TOKEN_ACTION_TYPES; message: string } | null>(null);
   const [transactionSuccessResponse, setTransactionSuccessResponse] = useState<{

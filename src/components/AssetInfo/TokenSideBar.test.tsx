@@ -34,7 +34,7 @@ describe("tokenSideBar", () => {
   it("should have a Manage Asset heading", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress=""
+        userWalletAddress=""
         registryAddress=""
         isSideBarExpand={true}
         holderAddress=""
@@ -49,7 +49,7 @@ describe("tokenSideBar", () => {
   it("should show holder and beneficiary role, holder view, only 3 correct fields", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress="0xA"
@@ -76,7 +76,7 @@ describe("tokenSideBar", () => {
   it("should show holder role, holder view, only 1 correct field", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
@@ -104,7 +104,7 @@ describe("tokenSideBar", () => {
     }));
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
@@ -128,7 +128,7 @@ describe("tokenSideBar", () => {
   it("should show bene role, bene view, only 1 correct field", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress="0xA"
@@ -148,7 +148,7 @@ describe("tokenSideBar", () => {
   it("should show no match view, no access text", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xC"
         beneficiaryAddress=""

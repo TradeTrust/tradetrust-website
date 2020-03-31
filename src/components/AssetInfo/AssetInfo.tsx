@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import TokenSideBar from "./TokenSideBar";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
-import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
 import { FeatureFlag } from "../FeatureFlag";
 import { useUserWallet } from "../../common/hooks/useUserWallet";
@@ -24,10 +23,6 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
     initializeTokenSuccess: state.token.initializeTokenSuccess,
     isEscrowContract: state.token.isEscrowContract,
   }));
-
-  useEffect(() => {
-    if (registryAddress) dispatch(loadAdminAddress());
-  }, [dispatch, document, registryAddress]);
 
   useEffect(() => {
     if (userWalletAddress) {
@@ -73,7 +68,7 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
             Manage Asset
           </a>
           <TokenSideBar
-            adminAddress={userWalletAddress}
+            userWalletAddress={userWalletAddress}
             registryAddress={registryAddress}
             holderAddress={holderAddress}
             beneficiaryAddress={beneficiaryAddress}
