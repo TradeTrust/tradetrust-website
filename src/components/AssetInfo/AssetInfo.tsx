@@ -6,7 +6,7 @@ import { getTokenUserAddress, initializeToken } from "../../reducers/token";
 import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
 import { FeatureFlag } from "../FeatureFlag";
-import { useUserWallet } from "../../hooks";
+import { useUserWallet } from "../../common/hooks/useUserWallet";
 const getAssetInfo = (document: WrappedDocument) => {
   const { tokenRegistry } = getData(document).issuers[0];
   const { merkleRoot: tokenId } = document.signature;

@@ -17,8 +17,8 @@ const { trace, error } = getLogger("component:TokenSideBarContent");
 import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
 import { useSelector } from "react-redux";
 import { NETWORK_NAME } from "../../config";
-import { useUserWallet } from "../../hooks";
-import { TransactionStateStatus } from "../../hooks/useEthereumTransactionState";
+import { useUserWallet } from "../../common/hooks/useUserWallet";
+import { TransactionStateStatus } from "../../common/hooks/useEthereumTransactionState";
 interface TokenSideBarContentProps {
   adminAddress: string;
   beneficiaryAddress: string;

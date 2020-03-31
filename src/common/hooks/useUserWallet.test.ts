@@ -3,9 +3,9 @@ import { renderHook } from "@testing-library/react-hooks";
 import { ethers, providers } from "ethers";
 import { useUserWallet } from "./useUserWallet";
 
-import { useWeb3Provider } from "./useWeb3Provider";
+import { useInjectedProvider } from "./useInjectedProvider";
 
-jest.mock("./useWeb3Provider");
+jest.mock("./useInjectedProvider");
 
 describe("UseUserWallet", () => {
   let web3Provider: providers.Web3Provider;
@@ -14,7 +14,8 @@ describe("UseUserWallet", () => {
   });
 
   it("should return use wallet address and network name and id", async () => {
-    (useWeb3Provider as jest.Mock).mockReturnValue({ web3Provider });
+    (useInjectedProvider as jest.Mock).mockReturnValue({ provider: web3Provider });
+
     const { result, waitForNextUpdate } = renderHook(() => useUserWallet());
 
     expect(result.current.state.status).toEqual("loading");
@@ -30,8 +31,8 @@ describe("UseUserWallet", () => {
   });
 
   it("should throw error Accounts not found", async () => {
-    (useWeb3Provider as jest.Mock).mockReturnValue({
-      web3Provider: {
+    (useInjectedProvider as jest.Mock).mockReturnValue({
+      provider: {
         ...web3Provider,
         ...{ listAccounts: () => [], getNetwork: () => ({ chainId: 1, network: "abc" }) }
       }
@@ -48,8 +49,8 @@ describe("UseUserWallet", () => {
   });
 
   it("should throw error Can not detect metamask network", async () => {
-    (useWeb3Provider as jest.Mock).mockReturnValue({
-      web3Provider: { ...web3Provider, ...{ listAccounts: () => ["0xABC"], getNetwork: () => null } }
+    (useInjectedProvider as jest.Mock).mockReturnValue({
+      provider: { ...web3Provider, ...{ listAccounts: () => ["0xABC"], getNetwork: () => null } }
     });
     const { result, waitForNextUpdate } = renderHook(() => useUserWallet());
 

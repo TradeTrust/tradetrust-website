@@ -1,9 +1,14 @@
 import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { provider } from "@openzeppelin/test-environment";
 import { WrappedDocument } from "@govtechsg/open-attestation";
+import { ethers, providers } from "ethers";
 import { AssetInfo } from "./AssetInfo";
 import sampleToken from "../../test/fixture/sample-token.json";
+import { useInjectedProvider } from "../../common/hooks/useInjectedProvider";
+
+jest.mock("../../common/hooks/useInjectedProvider");
 
 jest.mock("react-redux", () => ({
   useDispatch: () => jest.fn(),
@@ -19,6 +24,11 @@ describe("assetInfo", () => {
 
   afterAll(() => {
     jest.restoreAllMocks();
+  });
+  let web3Provider: providers.Web3Provider;
+  beforeAll(async () => {
+    web3Provider = new ethers.providers.Web3Provider(provider as any);
+    (useInjectedProvider as jest.Mock).mockReturnValue({ web3Provider });
   });
   it("renders with correct etherscan url", async () => {
     let wrapper: any;

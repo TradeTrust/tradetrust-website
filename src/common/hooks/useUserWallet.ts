@@ -1,4 +1,4 @@
-import { getLogger } from "../utils/logger";
+import { getLogger } from "../../utils/logger";
 
 import { useEffect, useState, useCallback } from "react";
 import { useEthereumTransactionState, TransactionStateStatus } from "./useEthereumTransactionState";
