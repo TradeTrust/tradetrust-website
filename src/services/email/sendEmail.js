@@ -7,12 +7,12 @@ export const sendEmail = ({ certificate, email, captcha }) =>
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         data: certificate,
         to: email,
-        captcha
-      })
+        captcha,
+      }),
     })
-    .then(res => res.status === 200);
+    .then((res) => res.status === 200);

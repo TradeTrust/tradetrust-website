@@ -2,7 +2,7 @@ export enum TOKEN_ACTION_TYPES {
   "CHANGE_HOLDER",
   "CHANGE_BENEFICIARY",
   "ENDORSE_BENEFICIARY",
-  "SURRENDER_DOCUMENT"
+  "SURRENDER_DOCUMENT",
 }
 
 export function getSuccessResponse(actionType: TOKEN_ACTION_TYPES): string {

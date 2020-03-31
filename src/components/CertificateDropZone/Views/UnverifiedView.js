@@ -33,7 +33,7 @@ const DetailedErrors = ({ verificationStatus, retrieveCertificateByActionError }
 
 DetailedErrors.propTypes = {
   verificationStatus: PropTypes.object,
-  retrieveCertificateByActionError: PropTypes.string
+  retrieveCertificateByActionError: PropTypes.string,
 };
 
 const View = ({ resetData, verificationStatus, retrieveCertificateByActionError }) => (
@@ -57,7 +57,7 @@ const View = ({ resetData, verificationStatus, retrieveCertificateByActionError 
 
     <div className={css["secondary-links"]}>
       <span
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           resetData();
         }}
@@ -73,7 +73,7 @@ View.propTypes = {
   handleRenderOverwrite: PropTypes.func,
   resetData: PropTypes.func,
   document: PropTypes.object,
-  verificationStatus: PropTypes.object
+  verificationStatus: PropTypes.object,
 };
 
 export default View;

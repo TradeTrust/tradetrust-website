@@ -12,7 +12,7 @@ export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
 
   componentDidCatch() {
     this.setState({
-      hasError: true
+      hasError: true,
     });
   }
 

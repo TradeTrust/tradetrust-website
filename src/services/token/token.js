@@ -25,12 +25,12 @@ export const createTokenOwnerInstance = async () => {
   tokenOwnerInstance = await writeableTokenInstance.getOwner();
 };
 
-export const isERC721Token = document => {
+export const isERC721Token = (document) => {
   const data = getData(document);
   return get(data, "issuers[0].tokenRegistry", false);
 };
 
-export const transferTokenOwnership = async newTokenOwner =>
+export const transferTokenOwnership = async (newTokenOwner) =>
   await writeableTokenInstance.transferOwnership(newTokenOwner);
 
 export const isEscrowContract = async () => await tokenOwnerInstance.isTitleEscrow();
@@ -43,15 +43,15 @@ export const getApprovedEscrowContractAddress = async () => {
   return endorsedAddress === addressZero ? "" : endorsedAddress;
 };
 
-export const changeHolder = async newHolder => {
+export const changeHolder = async (newHolder) => {
   trace(`new holder address: ${newHolder}`);
   return await tokenOwnerInstance.changeHolder(newHolder);
 };
-export const endorseBeneficiaryTransfer = async newBeneficiary => {
+export const endorseBeneficiaryTransfer = async (newBeneficiary) => {
   trace(`new beneficiary address: ${newBeneficiary}`);
   return await tokenOwnerInstance.transferTo(newBeneficiary);
 };
-export const endorseTransfer = async newBeneficiary => await tokenOwnerInstance.endorseTransfer(newBeneficiary);
+export const endorseTransfer = async (newBeneficiary) => await tokenOwnerInstance.endorseTransfer(newBeneficiary);
 export const surrenderToken = async () => await writeableTokenInstance.surrender();
 
 export const deployEscrowContract = async ({ registryAddress, beneficiaryAddress, holderAddress }) => {
@@ -61,7 +61,7 @@ export const deployEscrowContract = async ({ registryAddress, beneficiaryAddress
     beneficiaryAddress,
     holderAddress,
     wallet: signer,
-    web3Provider: provider
+    web3Provider: provider,
   });
   return contractOwnerInstance.address;
 };
@@ -70,7 +70,7 @@ export const getApprovedEscrowContractUsers = async ({ contractAddress, web3Prov
   const titleEscrowInstance = await createOwner({ address: contractAddress, web3Provider });
   const [approvedBeneficiary, approvedHolder] = await Promise.all([
     titleEscrowInstance.beneficiary(),
-    titleEscrowInstance.holder()
+    titleEscrowInstance.holder(),
   ]);
   trace(`approved beneficiary: ${JSON.stringify(approvedBeneficiary)}, approved holder: ${approvedHolder}`);
   return { approvedBeneficiary, approvedHolder };

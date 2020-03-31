@@ -8,7 +8,7 @@ export const NETWORK_TYPES = {
   INFURA_ROPSTEN: "INFURA_ROPSTEN",
   INJECTED: "INJECTED",
   CUSTOM: "CUSTOM",
-  MOCK: "MOCK"
+  MOCK: "MOCK",
 };
 
 export const IS_MAINNET = NETWORK === "mainnet";

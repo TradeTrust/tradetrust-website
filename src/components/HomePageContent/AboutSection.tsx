@@ -7,18 +7,18 @@ const HowItWorks = () => {
     {
       key: "onetwo",
       text:
-        "When a TradeTrust document is created, a unique digital code is tagged to it. This code, together with condensed information from the document, is stored on the blockchain."
+        "When a TradeTrust document is created, a unique digital code is tagged to it. This code, together with condensed information from the document, is stored on the blockchain.",
     },
     {
       key: "three",
       text:
-        "When you open the .tt file on this site, its contents will be compared with what was stored on the blockchain."
+        "When you open the .tt file on this site, its contents will be compared with what was stored on the blockchain.",
     },
     {
       key: "four",
       text:
-        "We'll check if the contents match and if the document comes from a recognised issuer.\n\nThis way, you'll know if the document is valid when you try to view it."
-    }
+        "We'll check if the contents match and if the document comes from a recognised issuer.\n\nThis way, you'll know if the document is valid when you try to view it.",
+    },
   ];
 
   const section = sections.map((item, i) => (

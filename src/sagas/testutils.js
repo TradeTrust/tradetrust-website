@@ -10,14 +10,14 @@ export const mockStore = () => {
   const stubbedFn = sinon.stub();
   return {
     methods: {
-      isRevoked: h => ({
-        call: () => stubbedFn(h)
+      isRevoked: (h) => ({
+        call: () => stubbedFn(h),
       }),
-      isIssued: h => ({
-        call: () => stubbedFn(h)
-      })
+      isIssued: (h) => ({
+        call: () => stubbedFn(h),
+      }),
     },
-    stub: stubbedFn
+    stub: stubbedFn,
   };
 };
 
@@ -27,12 +27,12 @@ export class MakeCertUtil {
       schema: "opencerts/v1.4",
       data: {
         id: "71f10d54-d483-489b-b06f-fa2bed75ce16:string:certificate-id",
-        issuers: []
+        issuers: [],
       },
       signature: {
         targetHash,
-        proof: [proof0, proof1]
-      }
+        proof: [proof0, proof1],
+      },
     };
     return this;
   }
@@ -53,7 +53,7 @@ export class MakeCertUtil {
 
   addIssuer(issuerString) {
     const newIssuerObj = {
-      certificateStore: `71f10d54-d483-489b-b06f-fa2bed75ce16:string:${issuerString}`
+      certificateStore: `71f10d54-d483-489b-b06f-fa2bed75ce16:string:${issuerString}`,
     };
     this.cert.data.issuers.push(newIssuerObj);
     return this;

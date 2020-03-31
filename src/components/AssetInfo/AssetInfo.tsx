@@ -27,7 +27,7 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
       beneficiaryAddress: state.token.beneficiaryAddress,
       initializeTokenSuccess: state.token.initializeTokenSuccess,
       metamaskAccountError: state.admin.metamaskAccountError,
-      isEscrowContract: state.token.isEscrowContract
+      isEscrowContract: state.token.isEscrowContract,
     })
   );
 

@@ -11,10 +11,10 @@ const identityVerificationStatus = {
       {
         identified: true,
         dns: "tradetrust.io",
-        smartContract: "0x48399Fb88bcD031C556F53e93F690EEC07963Af3"
-      }
-    ]
-  }
+        smartContract: "0x48399Fb88bcD031C556F53e93F690EEC07963Af3",
+      },
+    ],
+  },
 };
 
 describe("certificate verify block getIdentityVerificationText", () => {
@@ -27,7 +27,7 @@ describe("certificate verify block getIdentityVerificationText", () => {
     it("should return appropriate display text when multiple dns is verified", () => {
       const testValue = [
         { registry: false, dns: "xyz.com" },
-        { registry: false, dns: "demo.com" }
+        { registry: false, dns: "demo.com" },
       ];
       expect(getIdentityVerificationText(testValue)).toStrictEqual("Issued by XYZ.COM");
     });

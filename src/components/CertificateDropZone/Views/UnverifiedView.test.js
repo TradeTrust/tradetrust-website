@@ -6,25 +6,25 @@ import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 
 const VALID_VERIFICATION_STATUS = {
   hash: {
-    checksumMatch: true
+    checksumMatch: true,
   },
   issued: {
     issuedOnAll: true,
     details: [
       {
         address: "0x48399Fb88bcD031C556F53e93F690EEC07963Af3",
-        issued: true
-      }
-    ]
+        issued: true,
+      },
+    ],
   },
   revoked: {
     revokedOnAny: false,
     details: [
       {
         address: "0x48399Fb88bcD031C556F53e93F690EEC07963Af3",
-        revoked: false
-      }
-    ]
+        revoked: false,
+      },
+    ],
   },
   valid: true,
   identity: {
@@ -33,10 +33,10 @@ const VALID_VERIFICATION_STATUS = {
       {
         identified: true,
         dns: "tradetrust.io",
-        smartContract: "0x48399Fb88bcD031C556F53e93F690EEC07963Af3"
-      }
-    ]
-  }
+        smartContract: "0x48399Fb88bcD031C556F53e93F690EEC07963Af3",
+      },
+    ],
+  },
 };
 
 describe("unverifiedView", () => {
@@ -47,7 +47,7 @@ describe("unverifiedView", () => {
           handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
-            hash: { checksumMatch: false }
+            hash: { checksumMatch: false },
           }}
           resetData={() => {}}
         />
@@ -65,7 +65,7 @@ describe("unverifiedView", () => {
           handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
-            issued: { issuedOnAll: false }
+            issued: { issuedOnAll: false },
           }}
           resetData={() => {}}
         />
@@ -83,7 +83,7 @@ describe("unverifiedView", () => {
           handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
-            revoked: { revokedOnAny: true }
+            revoked: { revokedOnAny: true },
           }}
           resetData={() => {}}
         />
@@ -101,7 +101,7 @@ describe("unverifiedView", () => {
           handleRenderOverwrite={() => {}}
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
-            identity: { identifiedOnAll: false }
+            identity: { identifiedOnAll: false },
           }}
           resetData={() => {}}
         />
@@ -120,7 +120,7 @@ describe("unverifiedView", () => {
           verificationStatus={{
             ...VALID_VERIFICATION_STATUS,
             issued: { issuedOnAll: false },
-            revoked: { revokedOnAny: true }
+            revoked: { revokedOnAny: true },
           }}
           resetData={() => {}}
         />

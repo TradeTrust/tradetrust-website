@@ -16,7 +16,7 @@ export const initialState = {
   initializeTokenError: false,
   tokenOwnershipTransferPending: false,
   tokenOwnershipTransferSuccess: false,
-  tokenOwnershipTransferError: false
+  tokenOwnershipTransferError: false,
 };
 
 // Actions
@@ -34,7 +34,7 @@ export const types = {
   TRANSFER_TOKEN_OWNERSHIP_ERROR: "TRANSFER_TOKEN_OWNERSHIP_ERROR",
   GET_APPROVED_ESCROW_USERS: "GET_APPROVED_ESCROW_USERS",
   GET_APPROVED_ESCROW_USERS_SUCCESS: "GET_APPROVED_ESCROW_USERS_SUCCESS",
-  GET_APPROVED_ESCROW_USERS_ERROR: "GET_APPROVED_ESCROW_USERS_ERROR"
+  GET_APPROVED_ESCROW_USERS_ERROR: "GET_APPROVED_ESCROW_USERS_ERROR",
 };
 
 // Reducers
@@ -46,7 +46,7 @@ export default function reducer(state = initialState, action) {
         getTokenUsersAddressPending: false,
         getTokenUsersAddressSuccess: false,
         getTokenUsersAddressError: false,
-        isEscrowContract: false
+        isEscrowContract: false,
       };
     case types.GET_TOKEN_USER_ADDRESS_SUCCESS:
       return {
@@ -55,20 +55,20 @@ export default function reducer(state = initialState, action) {
         getTokenUsersAddressSuccess: true,
         beneficiaryAddress: action.payload.beneficiaryAddress,
         holderAddress: action.payload.holderAddress,
-        approvedEscrowContractAddress: action.payload.approvedEscrowContractAddress
+        approvedEscrowContractAddress: action.payload.approvedEscrowContractAddress,
       };
     case types.GET_TOKEN_USER_ADDRESS_ERROR:
       return {
         ...state,
         getTokenUsersAddressPending: false,
-        getTokenUsersAddressError: action.payload
+        getTokenUsersAddressError: action.payload,
       };
     case types.GET_APPROVED_ESCROW_USERS:
       return {
         ...state,
         getApprovedEscrowUsersPending: true,
         getApprovedEscrowUsersSuccess: false,
-        getApprovedEscrowUsersError: false
+        getApprovedEscrowUsersError: false,
       };
     case types.GET_APPROVED_ESCROW_USERS_SUCCESS:
       return {
@@ -76,61 +76,61 @@ export default function reducer(state = initialState, action) {
         getApprovedEscrowUsersPending: false,
         getApprovedEscrowUsersSuccess: true,
         approvedBeneficiaryAddress: action.payload.approvedBeneficiary,
-        approvedHolderAddress: action.payload.approvedHolder
+        approvedHolderAddress: action.payload.approvedHolder,
       };
     case types.GET_APPROVED_ESCROW_USERS_ERROR:
       return {
         ...state,
         getTokenUsersAddressPending: false,
-        getApprovedEscrowUsersError: action.payload
+        getApprovedEscrowUsersError: action.payload,
       };
     case types.IS_ESCROW_CONTRACT_ERROR:
       return {
         ...state,
-        isEscrowContract: false
+        isEscrowContract: false,
       };
     case types.IS_ESCROW_CONTRACT_SUCCESS:
       return {
         ...state,
-        isEscrowContract: true
+        isEscrowContract: true,
       };
     case types.INITIALIZE_TOKEN:
       return {
         ...state,
         initializeTokenPending: true,
         initializeTokenSuccess: false,
-        initializeTokenError: false
+        initializeTokenError: false,
       };
     case types.INITIALIZE_TOKEN_SUCCESS:
       return {
         ...state,
         initializeTokenPending: false,
-        initializeTokenSuccess: true
+        initializeTokenSuccess: true,
       };
     case types.INITIALIZE_TOKEN_ERROR:
       return {
         ...state,
         initializeTokenPending: false,
-        initializeTokenError: true
+        initializeTokenError: true,
       };
     case types.TRANSFER_TOKEN_OWNERSHIP:
       return {
         ...state,
         tokenOwnershipTransferPending: true,
         tokenOwnershipTransferSuccess: false,
-        tokenOwnershipTransferError: false
+        tokenOwnershipTransferError: false,
       };
     case types.TRANSFER_TOKEN_OWNERSHIP_SUCCESS:
       return {
         ...state,
         tokenOwnershipTransferPending: false,
-        tokenOwnershipTransferSuccess: true
+        tokenOwnershipTransferSuccess: true,
       };
     case types.TRANSFER_TOKEN_OWNERSHIP_ERROR:
       return {
         ...state,
         tokenOwnershipTransferPending: false,
-        tokenOwnershipTransferError: action.payload
+        tokenOwnershipTransferError: action.payload,
       };
     default:
       return state;
@@ -138,65 +138,65 @@ export default function reducer(state = initialState, action) {
 }
 
 export const getTokenUserAddress = () => ({
-  type: types.GET_TOKEN_USER_ADDRESS
+  type: types.GET_TOKEN_USER_ADDRESS,
 });
 
-export const getTokenUserAddressSuccess = payload => ({
+export const getTokenUserAddressSuccess = (payload) => ({
   type: types.GET_TOKEN_USER_ADDRESS_SUCCESS,
-  payload
+  payload,
 });
 
-export const getTokenUserAddressError = payload => ({
+export const getTokenUserAddressError = (payload) => ({
   type: types.GET_TOKEN_USER_ADDRESS_ERROR,
-  payload
+  payload,
 });
 
 export const getApprovedEscrowUsers = () => ({
-  type: types.GET_APPROVED_ESCROW_USERS
+  type: types.GET_APPROVED_ESCROW_USERS,
 });
 
-export const getApprovedEscrowUsersSuccess = payload => ({
+export const getApprovedEscrowUsersSuccess = (payload) => ({
   type: types.GET_APPROVED_ESCROW_USERS_SUCCESS,
-  payload
+  payload,
 });
 
-export const getApprovedEscrowUsersError = payload => ({
+export const getApprovedEscrowUsersError = (payload) => ({
   type: types.GET_APPROVED_ESCROW_USERS_ERROR,
-  payload
+  payload,
 });
 
 export const setIsEscrowContractSuccess = () => ({
-  type: types.IS_ESCROW_CONTRACT_SUCCESS
+  type: types.IS_ESCROW_CONTRACT_SUCCESS,
 });
 
 export const setIsEscrowContractError = () => ({
-  type: types.IS_ESCROW_CONTRACT_ERROR
+  type: types.IS_ESCROW_CONTRACT_ERROR,
 });
 
 export const initializeToken = () => ({
-  type: types.INITIALIZE_TOKEN
+  type: types.INITIALIZE_TOKEN,
 });
 
 export const initializeTokenSuccess = () => ({
-  type: types.INITIALIZE_TOKEN_SUCCESS
+  type: types.INITIALIZE_TOKEN_SUCCESS,
 });
 
-export const initializeTokenFailure = payload => ({
+export const initializeTokenFailure = (payload) => ({
   type: types.INITIALIZE_TOKEN_ERROR,
-  payload
+  payload,
 });
 
-export const transferTokenOwnership = payload => ({
+export const transferTokenOwnership = (payload) => ({
   type: types.TRANSFER_TOKEN_OWNERSHIP,
-  payload
+  payload,
 });
 
-export const transferTokenOwnershipSuccess = payload => ({
+export const transferTokenOwnershipSuccess = (payload) => ({
   type: types.TRANSFER_TOKEN_OWNERSHIP_SUCCESS,
-  payload
+  payload,
 });
 
-export const transferTokenOwnershipFailure = payload => ({
+export const transferTokenOwnershipFailure = (payload) => ({
   type: types.TRANSFER_TOKEN_OWNERSHIP_ERROR,
-  payload
+  payload,
 });

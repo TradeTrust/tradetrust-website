@@ -37,7 +37,7 @@ const TokenSideBarHolder = ({
   transferHoldership,
   changeBeneficiary,
   surrenderDocument,
-  error
+  error,
 }: TokenSideBarHolderProps) => {
   const isApprovedAddress = !!approvedBeneficiaryAddress && !!approvedHolderAddress;
   const showChangeBeneficiary = isApprovedAddress || isEqualBeneficiaryAndHolder;
@@ -55,7 +55,7 @@ const TokenSideBarHolder = ({
             className={`${css["field-input"]} ${isChangeHolderError(error) ? css["is-error"] : ""}`}
             name="newHolder"
             value={newHolder}
-            onChange={e => setNewHolder(e.target.value)}
+            onChange={(e) => setNewHolder(e.target.value)}
             type="text"
             placeholder="Address (e.g. 0x483..)"
           />
@@ -78,7 +78,7 @@ const TokenSideBarHolder = ({
                 type="text"
                 name="approvedHolder"
                 value={approvedHolderAddress}
-                onChange={e => setApprovedHolder(e.target.value)}
+                onChange={(e) => setApprovedHolder(e.target.value)}
                 disabled={isApprovedEscrowAddress}
                 placeholder="Address (e.g. 0x483..)"
               />
@@ -92,7 +92,7 @@ const TokenSideBarHolder = ({
                 type="text"
                 name="approvedBeneficiary"
                 value={approvedBeneficiaryAddress}
-                onChange={e => setApprovedBeneficiary(e.target.value)}
+                onChange={(e) => setApprovedBeneficiary(e.target.value)}
                 disabled={isApprovedEscrowAddress}
                 placeholder="Address (e.g. 0x483..)"
               />

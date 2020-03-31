@@ -9,7 +9,7 @@ import {
   endorseBeneficiaryTransfer,
   endorseTransfer,
   surrenderToken,
-  deployEscrowContract
+  deployEscrowContract,
 } from "../../services/token";
 import TokenTransactionSuccess from "./TokenTransactionSuccess";
 import { TOKEN_ACTION_TYPES, getSuccessResponse } from "./TokenActionUtil";
@@ -28,7 +28,7 @@ const TokenSideBarContent = ({
   adminAddress,
   beneficiaryAddress,
   holderAddress,
-  registryAddress
+  registryAddress,
 }: TokenSideBarContentProps) => {
   const userRole = getUserRoles({ adminAddress, holderAddress, beneficiaryAddress });
   const [newHolder, setNewHolder] = useState("");
@@ -50,13 +50,13 @@ const TokenSideBarContent = ({
     metamaskNotFound,
     approvedEscrowContractAddress,
     approvedBeneficiaryAddress,
-    approvedHolderAddress
+    approvedHolderAddress,
   } = useSelector((state: any) => ({
     networkIdVerbose: state.application.networkIdVerbose,
     metamaskNotFound: state.admin.metamaskNotFound,
     approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
     approvedHolderAddress: state.token.approvedHolderAddress,
-    approvedEscrowContractAddress: state.token.approvedEscrowContractAddress
+    approvedEscrowContractAddress: state.token.approvedEscrowContractAddress,
   }));
 
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
@@ -99,7 +99,7 @@ const TokenSideBarContent = ({
         : await deployEscrowContract({
             registryAddress,
             beneficiaryAddress: approvedBeneficiary,
-            holderAddress: approvedHolder
+            holderAddress: approvedHolder,
           });
       trace(`escrow contract address to mint ${contractAddress}`);
       toggleActionLoader(false);

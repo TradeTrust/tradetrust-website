@@ -5,7 +5,7 @@ import {
   types,
   verifyingCertificateSuccess,
   verifyingCertificateFailure,
-  getCertificate
+  getCertificate,
 } from "../reducers/certificate";
 import { types as applicationTypes } from "../reducers/application";
 import { sendEmail } from "../services/email/sendEmail";
@@ -17,7 +17,7 @@ const { trace } = getLogger("saga:certificate");
 export function* verifyCertificate() {
   try {
     yield put({
-      type: types.VERIFYING_CERTIFICATE
+      type: types.VERIFYING_CERTIFICATE,
     });
 
     const certificate = yield select(getCertificate);
@@ -41,7 +41,7 @@ export function* sendCertificate({ payload }) {
     const success = yield sendEmail({
       certificate,
       email,
-      captcha
+      captcha,
     });
 
     if (!success) {
@@ -49,19 +49,19 @@ export function* sendCertificate({ payload }) {
     }
 
     yield put({
-      type: types.SENDING_CERTIFICATE_SUCCESS
+      type: types.SENDING_CERTIFICATE_SUCCESS,
     });
   } catch (e) {
     yield put({
       type: types.SENDING_CERTIFICATE_FAILURE,
-      payload: e.message
+      payload: e.message,
     });
   }
 }
 
 export function* networkReset() {
   yield put({
-    type: types.NETWORK_RESET
+    type: types.NETWORK_RESET,
   });
 }
 
@@ -70,7 +70,7 @@ export function* handleQrScanned({ payload: qrCode }) {
     const document = yield processQrCode(qrCode);
     yield put({
       type: types.UPDATE_CERTIFICATE,
-      payload: document
+      payload: document,
     });
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));
@@ -80,11 +80,11 @@ export function* handleQrScanned({ payload: qrCode }) {
 export function* retrieveCertificateByAction({ payload: { uri, key } }) {
   try {
     yield put({
-      type: types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING
+      type: types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING,
     });
 
     // if a key has been provided, let's assume
-    let certificate = yield window.fetch(uri).then(response => {
+    let certificate = yield window.fetch(uri).then((response) => {
       if (response.status >= 400 && response.status < 600) {
         throw new Error(`Unable to load the certificate from ${uri}`);
       }
@@ -103,7 +103,7 @@ export function* retrieveCertificateByAction({ payload: { uri, key } }) {
           cipherText: certificate.cipherText,
           iv: certificate.iv,
           key,
-          type: certificate.type
+          type: certificate.type,
         })
       );
     } else if (key || certificate.type) {
@@ -112,15 +112,15 @@ export function* retrieveCertificateByAction({ payload: { uri, key } }) {
 
     yield put({
       type: types.UPDATE_CERTIFICATE,
-      payload: certificate
+      payload: certificate,
     });
     yield put({
-      type: types.RETRIEVE_CERTIFICATE_BY_ACTION_SUCCESS
+      type: types.RETRIEVE_CERTIFICATE_BY_ACTION_SUCCESS,
     });
   } catch (e) {
     yield put({
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION_FAILURE,
-      payload: e.message
+      payload: e.message,
     });
   }
 }
@@ -130,5 +130,5 @@ export default [
   takeEvery(types.UPDATE_CERTIFICATE, verifyCertificate),
   takeEvery(types.SENDING_CERTIFICATE, sendCertificate),
   takeEvery(applicationTypes.UPDATE_WEB3, networkReset),
-  takeEvery(types.RETRIEVE_CERTIFICATE_BY_ACTION, retrieveCertificateByAction)
+  takeEvery(types.RETRIEVE_CERTIFICATE_BY_ACTION, retrieveCertificateByAction),
 ];

@@ -38,7 +38,7 @@ const View = ({ hover, accept, toggleQrReaderVisible }) => (
         <button
           data-id="scan-qr-button"
           type="button"
-          onClick={event => {
+          onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();
             toggleQrReaderVisible();
@@ -57,5 +57,5 @@ export default View;
 View.propTypes = {
   hover: PropTypes.bool,
   accept: PropTypes.bool,
-  toggleQrReaderVisible: PropTypes.func
+  toggleQrReaderVisible: PropTypes.func,
 };

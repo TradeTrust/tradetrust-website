@@ -7,7 +7,7 @@ describe("reducer", () => {
 
   it("should handle GET_TOKEN_USER_ADDRESS", () => {
     const action = {
-      type: types.GET_TOKEN_USER_ADDRESS
+      type: types.GET_TOKEN_USER_ADDRESS,
     };
     const prevState = {};
 
@@ -15,7 +15,7 @@ describe("reducer", () => {
       getTokenUsersAddressPending: false,
       getTokenUsersAddressSuccess: false,
       getTokenUsersAddressError: false,
-      isEscrowContract: false
+      isEscrowContract: false,
     };
     expect(reducer(prevState, action)).toStrictEqual(expectedState);
   });
@@ -26,8 +26,8 @@ describe("reducer", () => {
       payload: {
         beneficiaryAddress: "0xA",
         holderAddress: "0xB",
-        approvedEscrowContractAddress: "0aC"
-      }
+        approvedEscrowContractAddress: "0aC",
+      },
     };
     const prevState = {};
 
@@ -36,7 +36,7 @@ describe("reducer", () => {
       getTokenUsersAddressSuccess: true,
       beneficiaryAddress: "0xA",
       holderAddress: "0xB",
-      approvedEscrowContractAddress: "0aC"
+      approvedEscrowContractAddress: "0aC",
     };
     expect(reducer(prevState, action)).toStrictEqual(expectedState);
   });
@@ -44,27 +44,27 @@ describe("reducer", () => {
   it("should handle GET_TOKEN_USER_ADDRESS_ERROR", () => {
     const action = {
       type: types.GET_TOKEN_USER_ADDRESS_ERROR,
-      payload: true
+      payload: true,
     };
     const prevState = {};
 
     const expectedState = {
       getTokenUsersAddressPending: false,
-      getTokenUsersAddressError: true
+      getTokenUsersAddressError: true,
     };
     expect(reducer(prevState, action)).toStrictEqual(expectedState);
   });
 
   it("should handle TRANSFER_TOKEN_OWNERSHIP", () => {
     const action = {
-      type: types.TRANSFER_TOKEN_OWNERSHIP
+      type: types.TRANSFER_TOKEN_OWNERSHIP,
     };
     const prevState = {};
 
     const expectedState = {
       tokenOwnershipTransferPending: true,
       tokenOwnershipTransferSuccess: false,
-      tokenOwnershipTransferError: false
+      tokenOwnershipTransferError: false,
     };
     expect(reducer(prevState, action)).toStrictEqual(expectedState);
   });
@@ -72,13 +72,13 @@ describe("reducer", () => {
   it("should handle TRANSFER_TOKEN_OWNERSHIP_SUCCESS", () => {
     const action = {
       type: types.TRANSFER_TOKEN_OWNERSHIP_SUCCESS,
-      payload: true
+      payload: true,
     };
     const prevState = {};
 
     const expectedState = {
       tokenOwnershipTransferPending: false,
-      tokenOwnershipTransferSuccess: true
+      tokenOwnershipTransferSuccess: true,
     };
     expect(reducer(prevState, action)).toStrictEqual(expectedState);
   });
@@ -86,13 +86,13 @@ describe("reducer", () => {
   it("should handle TRANSFER_TOKEN_OWNERSHIP_ERROR", () => {
     const action = {
       type: types.TRANSFER_TOKEN_OWNERSHIP_ERROR,
-      payload: true
+      payload: true,
     };
     const prevState = {};
 
     const expectedState = {
       tokenOwnershipTransferPending: false,
-      tokenOwnershipTransferError: true
+      tokenOwnershipTransferError: true,
     };
     expect(reducer(prevState, action)).toStrictEqual(expectedState);
   });

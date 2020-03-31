@@ -1,7 +1,7 @@
 import { get } from "axios";
 import { decryptString } from "@govtechsg/oa-encryption";
 
-export const decodeQrCode = qrCode => {
+export const decodeQrCode = (qrCode) => {
   const ttRegex = /tradetrust:\/\/(.*)/;
   if (!ttRegex.test(qrCode)) throw new Error("QR Code is not formatted to TradeTrust specifications");
   const [, encodedPayload] = ttRegex.exec(qrCode);
@@ -9,9 +9,9 @@ export const decodeQrCode = qrCode => {
   return decodedPayload;
 };
 
-export const encodeQrCode = payload => `tradetrust://${encodeURIComponent(JSON.stringify(payload))}`;
+export const encodeQrCode = (payload) => `tradetrust://${encodeURIComponent(JSON.stringify(payload))}`;
 
-const decryptDocument = async uri => {
+const decryptDocument = async (uri) => {
   try {
     const uriPart = uri.split("#");
     const { data } = await get(uriPart[0]);
@@ -21,7 +21,7 @@ const decryptDocument = async uri => {
         cipherText: data.document.cipherText,
         iv: data.document.iv,
         key: uriPart[1],
-        type: "OPEN-ATTESTATION-TYPE-1"
+        type: "OPEN-ATTESTATION-TYPE-1",
       })
     );
   } catch (e) {
@@ -29,7 +29,7 @@ const decryptDocument = async uri => {
   }
 };
 
-export const processQrCode = async qrCode => {
+export const processQrCode = async (qrCode) => {
   try {
     const { uri } = decodeQrCode(qrCode);
     const data = await decryptDocument(uri);

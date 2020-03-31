@@ -19,7 +19,7 @@ import { OverlayAddressBook } from "./UI/Overlay";
 import { useAddressBook } from "../common/hooks/useAddressBook";
 import { CSSTransition } from "react-transition-group";
 
-const renderVerifyBlock = props => (
+const renderVerifyBlock = (props) => (
   <CertificateVerifyBlock
     document={props.document}
     verifyTriggered={props.verifyTriggered}
@@ -29,7 +29,7 @@ const renderVerifyBlock = props => (
   />
 );
 
-const renderHeaderBlock = props => {
+const renderHeaderBlock = (props) => {
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
     <div className={`${styles.container}`}>
@@ -72,7 +72,7 @@ const renderHeaderBlock = props => {
   );
 };
 
-const CertificateViewer = props => {
+const CertificateViewer = (props) => {
   const { document, selectTemplateTab } = props;
   const certificate = getData(document);
   const renderedHeaderBlock = renderHeaderBlock(props);
@@ -131,8 +131,8 @@ const CertificateViewer = props => {
   return <ErrorBoundary>{validCertificateContent} </ErrorBoundary>;
 };
 
-const mapDispatchToProps = dispatch => ({
-  selectTemplateTab: tabIndex => dispatch(selectTemplateTabAction(tabIndex))
+const mapDispatchToProps = (dispatch) => ({
+  selectTemplateTab: (tabIndex) => dispatch(selectTemplateTabAction(tabIndex)),
 });
 
 export default connect(null, mapDispatchToProps)(CertificateViewer);
@@ -148,12 +148,12 @@ CertificateViewer.propTypes = {
   handleSharingToggle: PropTypes.func,
   handleSendCertificate: PropTypes.func,
 
-  selectTemplateTab: PropTypes.func
+  selectTemplateTab: PropTypes.func,
 };
 
 renderVerifyBlock.propTypes = CertificateViewer.propTypes;
 renderHeaderBlock.propTypes = CertificateViewer.propTypes;
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
