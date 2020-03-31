@@ -16,7 +16,7 @@ export const AddressButtons = ({
   beneficiaryAddress,
   isDisabledAddressBook,
   buttonText,
-  onButtonSubmit
+  onButtonSubmit,
 }: AddressButtonsProps) => {
   const isSubmitEnabled =
     beneficiaryAddress === undefined

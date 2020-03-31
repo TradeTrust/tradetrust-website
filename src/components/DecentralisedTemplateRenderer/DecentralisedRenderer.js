@@ -8,14 +8,14 @@ import {
   getActiveTemplateTab,
   updateObfuscatedCertificate,
   registerTemplates as registerTemplatesAction,
-  selectTemplateTab as selectTemplateTabAction
+  selectTemplateTab as selectTemplateTabAction,
 } from "../../reducers/certificate";
 
 class DecentralisedRenderer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      childFrameConnection: null
+      childFrameConnection: null,
     };
   }
 
@@ -67,12 +67,12 @@ class DecentralisedRenderer extends Component {
       methods: {
         updateHeight,
         updateTemplates,
-        handleObfuscation
-      }
+        handleObfuscation,
+      },
     }).promise;
     this.setState({ childFrameConnection });
 
-    childFrameConnection.then(frame => frame.renderDocument(getData(this.props.certificate)));
+    childFrameConnection.then((frame) => frame.renderDocument(getData(this.props.certificate)));
   }
 
   render() {
@@ -80,7 +80,7 @@ class DecentralisedRenderer extends Component {
       <iframe
         title="Decentralised Rendered Document"
         id="iframe"
-        ref={iframe => {
+        ref={(iframe) => {
           this.iframe = iframe;
         }}
         src={this.props.source}
@@ -90,15 +90,15 @@ class DecentralisedRenderer extends Component {
   }
 }
 
-const mapStateToProps = store => ({
+const mapStateToProps = (store) => ({
   document: getCertificate(store),
-  activeTab: getActiveTemplateTab(store)
+  activeTab: getActiveTemplateTab(store),
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateObfuscatedCertificate: updatedDoc => dispatch(updateObfuscatedCertificate(updatedDoc)),
-  registerTemplates: templates => dispatch(registerTemplatesAction(templates)),
-  selectTemplateTab: tabIndex => dispatch(selectTemplateTabAction(tabIndex))
+const mapDispatchToProps = (dispatch) => ({
+  updateObfuscatedCertificate: (updatedDoc) => dispatch(updateObfuscatedCertificate(updatedDoc)),
+  registerTemplates: (templates) => dispatch(registerTemplatesAction(templates)),
+  selectTemplateTab: (tabIndex) => dispatch(selectTemplateTabAction(tabIndex)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DecentralisedRenderer);
@@ -110,5 +110,5 @@ DecentralisedRenderer.propTypes = {
   activeTab: PropTypes.number,
   registerTemplates: PropTypes.func,
   selectTemplateTab: PropTypes.func,
-  updateObfuscatedCertificate: PropTypes.func
+  updateObfuscatedCertificate: PropTypes.func,
 };

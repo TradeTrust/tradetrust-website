@@ -10,7 +10,7 @@ const ButtonUploadAddressBook = Selector("#template-tabs-list button").withText(
 const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
-test("sample document is rendered correctly when dns is verified", async t => {
+test("sample document is rendered correctly when dns is verified", async (t) => {
   await t.setFilesToUpload("input[type=file]", [Document]);
 
   await StatusButton.with({ visibilityCheck: true })();
@@ -24,6 +24,6 @@ test("sample document is rendered correctly when dns is verified", async t => {
     "CERTIFICATE OF NON-MANIPULATION",
     "DEMO JOHN TAN",
     "Certification by Singapore Customs",
-    "AQSIQ170923130"
+    "AQSIQ170923130",
   ]);
 });

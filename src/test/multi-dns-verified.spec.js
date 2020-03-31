@@ -10,7 +10,7 @@ const StatusButton = Selector("#certificate-status");
 const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
-test("Sample document is rendered correctly when multiple dns is verfied", async t => {
+test("Sample document is rendered correctly when multiple dns is verfied", async (t) => {
   await t.setFilesToUpload("input[type=file]", [Document]);
 
   await StatusButton.with({ visibilityCheck: true })();
@@ -22,6 +22,6 @@ test("Sample document is rendered correctly when multiple dns is verfied", async
   await validateTextContent(t, SampleTemplate, [
     "This is to certify that",
     "Mr Blockchain",
-    "certification through training administered by"
+    "certification through training administered by",
   ]);
 });

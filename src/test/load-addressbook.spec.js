@@ -18,7 +18,7 @@ const CSVFileInput = Selector("#csv-file-input");
 const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
-test("AddressBook local names to be resolved correctly, search filtered to 1", async t => {
+test("AddressBook local names to be resolved correctly, search filtered to 1", async (t) => {
   await t.setFilesToUpload("input[type=file]", [Document]);
   await TitleTransferPanel.with({ visibilityCheck: true })();
   await t.expect(ButtonUploadAddressBook.count).eql(1);

@@ -13,7 +13,7 @@ import {
   setIsEscrowContractError,
   getApprovedEscrowUsers,
   getApprovedEscrowUsersSuccess,
-  getApprovedEscrowUsersError
+  getApprovedEscrowUsersError,
 } from "../reducers/token";
 
 import {
@@ -24,7 +24,7 @@ import {
   isEscrowContract,
   getApprovedEscrowContractAddress,
   createTokenOwnerInstance,
-  getApprovedEscrowContractUsers
+  getApprovedEscrowContractUsers,
 } from "../services/token";
 import { getProvider } from "../services/etherjs";
 
@@ -49,7 +49,7 @@ export function* getApprovedUserAddressess({ contractAddress }) {
     const { provider } = yield getProvider();
     const { approvedBeneficiary, approvedHolder } = yield call(getApprovedEscrowContractUsers, {
       contractAddress,
-      web3Provider: provider
+      web3Provider: provider,
     });
     yield put(getApprovedEscrowUsersSuccess({ approvedBeneficiary, approvedHolder }));
   } catch (e) {
@@ -67,7 +67,7 @@ export function* getTokenUsers() {
     const [beneficiaryAddress, holderAddress, approvedEscrowContractAddress] = yield all([
       call(getBeneficiaryAddress, document),
       call(getHolderAddress, document),
-      call(getApprovedEscrowContractAddress, document)
+      call(getApprovedEscrowContractAddress, document),
     ]);
     trace(
       `Beneficiary Address is: ${beneficiaryAddress} and Holder Address is: ${holderAddress} and Approved Target Address is: ${approvedEscrowContractAddress}`
@@ -113,5 +113,5 @@ export function* transferOwnership({ payload }) {
 export default [
   takeEvery(types.INITIALIZE_TOKEN, initializeToken),
   takeEvery(types.TRANSFER_TOKEN_OWNERSHIP, transferOwnership),
-  takeEvery(types.GET_TOKEN_USER_ADDRESS, getTokenUsers)
+  takeEvery(types.GET_TOKEN_USER_ADDRESS, getTokenUsers),
 ];

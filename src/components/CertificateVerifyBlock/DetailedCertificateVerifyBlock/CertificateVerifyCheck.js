@@ -22,7 +22,7 @@ const renderStatusCheckRow = (valid, messageSet) => (
   />
 );
 
-const renderStatuses = verificationStatus => {
+const renderStatuses = (verificationStatus) => {
   const hashValid = get(verificationStatus, "hash.checksumMatch", false);
   const issuedValid = get(verificationStatus, "issued.issuedOnAll", false);
   const revokedValid = !get(verificationStatus, "revoked.revokedOnAny", true);
@@ -37,17 +37,17 @@ const renderStatuses = verificationStatus => {
   );
 };
 
-const CertificateVerifyCheck = props => {
+const CertificateVerifyCheck = (props) => {
   return <>{renderStatuses(props.verificationStatus)}</>;
 };
 
 CertificateVerifyCheck.propTypes = {
-  verificationStatus: PropTypes.object
+  verificationStatus: PropTypes.object,
 };
 
 CheckStatusRow.propTypes = {
   message: PropTypes.string,
-  icon: PropTypes.element
+  icon: PropTypes.element,
 };
 
 export default CertificateVerifyCheck;

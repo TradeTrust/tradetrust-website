@@ -11,7 +11,7 @@ class CertificateSharingForm extends Component {
 
     this.state = {
       captcha: "",
-      email: ""
+      email: "",
     };
 
     this.handleCaptchaChange = this.handleCaptchaChange.bind(this);
@@ -32,7 +32,7 @@ class CertificateSharingForm extends Component {
     if (emailSendingState !== states.PENDING) {
       handleSendCertificate({
         email: this.state.email,
-        captcha: this.state.captcha
+        captcha: this.state.captcha,
       });
     }
   }
@@ -89,7 +89,7 @@ class CertificateSharingForm extends Component {
 CertificateSharingForm.propTypes = {
   emailSendingState: PropTypes.string,
   handleSendCertificate: PropTypes.func,
-  handleSharingToggle: PropTypes.func
+  handleSharingToggle: PropTypes.func,
 };
 
 export default CertificateSharingForm;

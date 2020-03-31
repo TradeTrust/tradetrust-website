@@ -5,5 +5,5 @@ import { FaqPage } from "./pages/faq";
 export const routes = [
   { path: "/", exact: true, component: HomePageContainer },
   { path: "/viewer", exact: true, component: ViewerPage },
-  { path: "/faq", exact: true, component: FaqPage }
+  { path: "/faq", exact: true, component: FaqPage },
 ];

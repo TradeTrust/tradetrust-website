@@ -15,7 +15,7 @@ const DraggableDemoCertificate = () => (
   <div className="d-none d-lg-block">
     <div className="row">
       <div className="col">
-        <div className={css.pulse} draggable onDragStart={e => e.dataTransfer.setData(DEMO_CONTENT_KEY, "true")}>
+        <div className={css.pulse} draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CONTENT_KEY, "true")}>
           <a href={`data:text/plain;,${JSON.stringify(DEMO_CERT, null, 2)}`} download="demo.tt">
             <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
@@ -38,7 +38,7 @@ const MobileDemoCertificate = () => (
       style={{
         background: "#28a745",
         border: "none",
-        cursor: "pointer"
+        cursor: "pointer",
       }}
     >
       Click me for a demo document!
@@ -53,7 +53,7 @@ interface DropZoneSectionProps {
 class DropZoneSection extends Component<DropZoneSectionProps> {
   componentDidMount() {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById("demoDrop")!.addEventListener("drop", e => {
+    document.getElementById("demoDrop")!.addEventListener("drop", (e) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (e.dataTransfer!.getData(DEMO_CONTENT_KEY)) {
         this.props.updateCertificate(DEMO_CERT);
@@ -97,7 +97,7 @@ class DropZoneSection extends Component<DropZoneSectionProps> {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  updateCertificate: (payload: any) => dispatch(updateCertificate(payload))
+  updateCertificate: (payload: any) => dispatch(updateCertificate(payload)),
 });
 
 export const DropZoneSectionContainer = connect(null, mapDispatchToProps)(DropZoneSection);

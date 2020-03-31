@@ -5,8 +5,8 @@ import TokenSideBarContent from "./TokenSideBarContent";
 jest.mock("react-redux", () => ({
   useSelector: () => ({
     metamaskNotFound: false,
-    networkIdVerbose: "ropsten"
-  })
+    networkIdVerbose: "ropsten",
+  }),
 }));
 
 describe("tokenSideBarContent", () => {

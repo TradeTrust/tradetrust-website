@@ -22,5 +22,5 @@ export default modal;
 modal.propTypes = {
   show: PropTypes.bool,
   toggle: PropTypes.func,
-  children: PropTypes.object
+  children: PropTypes.object,
 };

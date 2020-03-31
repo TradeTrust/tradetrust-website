@@ -21,7 +21,7 @@ describe("defaultView", () => {
     const buttonElm = wrapper.find("[data-id='scan-qr-button']");
     buttonElm.simulate("click", {
       preventDefault: () => {},
-      stopPropagation: () => {}
+      stopPropagation: () => {},
     });
     expect(toggleQrReaderVisible).toHaveBeenCalledTimes(1);
   });

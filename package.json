@@ -119,7 +119,7 @@
     "jest": "^25.0.0",
     "jest-sonar-reporter": "^2.0.0",
     "nodemon": "^1.18.10",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.2",
     "react-scripts": "^3.4.0",
     "react-test-renderer": "^16.8.6",
     "sass-loader": "^8.0.0",

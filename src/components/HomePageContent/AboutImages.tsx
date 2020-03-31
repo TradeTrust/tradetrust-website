@@ -823,7 +823,7 @@ const aboutImages = {
         </g>
       </svg>
     </i>
-  )
+  ),
 };
 
 export default aboutImages;

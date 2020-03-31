@@ -15,7 +15,7 @@ describe("dropzoneContent", () => {
     const wrapper = shallow(
       <DropzoneContent
         verificationStatus={{
-          valid: false
+          valid: false,
         }}
       />
     );

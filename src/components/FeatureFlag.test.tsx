@@ -4,11 +4,11 @@ import { FeatureFlag } from "./FeatureFlag";
 
 jest.mock("../config/feature-toggle.json", () => ({
   MANAGE_ASSET: {
-    development: true
+    development: true,
   },
   jobPost: {
-    development: false
-  }
+    development: false,
+  },
 }));
 
 describe("featureFlag", () => {

@@ -21,7 +21,7 @@ describe("decodeQrCode", () => {
 
     const action = decodeQrCode(encodedQrCode);
     expect(action).toStrictEqual({
-      uri: "https://sample.domain/document/id?q=abc#123"
+      uri: "https://sample.domain/document/id?q=abc#123",
     });
   });
 
@@ -37,7 +37,7 @@ describe("processQrCode", () => {
     const { cipherText, iv, tag, key } = await encryptString(JSON.stringify(document));
     const actionUri = { uri: `https://sample.domain/document#${key}` };
     axios.get.mockResolvedValue({
-      data: { document: { cipherText, iv, tag } }
+      data: { document: { cipherText, iv, tag } },
     });
     const results = await processQrCode(encodeQrCode(actionUri));
     expect(axios.get).toHaveBeenCalledWith("https://sample.domain/document");

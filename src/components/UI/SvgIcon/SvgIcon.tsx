@@ -101,7 +101,7 @@ export const SvgIcon = ({ tooltipId, cssClass = "", children }: SvgIconProps) =>
   const tooltipProps = tooltipId
     ? {
         "data-tip": "",
-        "data-for": `tooltip-${tooltipId}`
+        "data-for": `tooltip-${tooltipId}`,
       }
     : null;
 

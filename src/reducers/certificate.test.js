@@ -5,7 +5,7 @@ import reducer, {
   selectTemplateTab,
   getActiveTemplateTab,
   getTemplates,
-  resetCertificateState
+  resetCertificateState,
 } from "./certificate";
 
 describe("reducers", () => {
@@ -19,12 +19,12 @@ describe("reducers", () => {
     it("should update activeTemplateTab", () => {
       const action = {
         type: types.CERTIFICATE_TEMPLATE_SELECT_TAB,
-        payload: 2
+        payload: 2,
       };
       const prevState = { foo: "bar" };
       const expectedState = {
         foo: "bar",
-        activeTemplateTab: 2
+        activeTemplateTab: 2,
       };
       expect(reducer(prevState, action)).toStrictEqual(expectedState);
     });
@@ -36,13 +36,13 @@ describe("reducers", () => {
         payload: [
           {
             id: "certificate",
-            label: "Certificate"
+            label: "Certificate",
           },
           {
             id: "transcript",
-            label: "Transcript"
-          }
-        ]
+            label: "Transcript",
+          },
+        ],
       };
       const prevState = { foo: "bar" };
       const expectedState = {
@@ -50,13 +50,13 @@ describe("reducers", () => {
         templates: [
           {
             id: "certificate",
-            label: "Certificate"
+            label: "Certificate",
           },
           {
             id: "transcript",
-            label: "Transcript"
-          }
-        ]
+            label: "Transcript",
+          },
+        ],
       };
       expect(reducer(prevState, action)).toStrictEqual(expectedState);
     });
@@ -67,38 +67,38 @@ describe("reducers", () => {
         payload: [
           {
             id: "certificate",
-            label: "Certificate"
+            label: "Certificate",
           },
           {
             id: "transcript",
-            label: "Transcript"
-          }
-        ]
+            label: "Transcript",
+          },
+        ],
       };
       const prevState = {
         foo: "bar",
         templates: [
           {
             id: "transcript",
-            label: "Transcript"
+            label: "Transcript",
           },
-          { id: "certificate", label: "Certificate" }
+          { id: "certificate", label: "Certificate" },
         ],
-        activeTemplateTab: 0
+        activeTemplateTab: 0,
       };
       const expectedState = {
         foo: "bar",
         templates: [
           {
             id: "certificate",
-            label: "Certificate"
+            label: "Certificate",
           },
           {
             id: "transcript",
-            label: "Transcript"
-          }
+            label: "Transcript",
+          },
         ],
-        activeTemplateTab: 0
+        activeTemplateTab: 0,
       };
       expect(reducer(prevState, action)).toStrictEqual(expectedState);
     });
@@ -111,19 +111,19 @@ describe("actions", () => {
     const payload = [
       {
         id: "certificate",
-        label: "Certificate"
+        label: "Certificate",
       },
       {
         id: "transcript",
-        label: "Transcript"
-      }
+        label: "Transcript",
+      },
     ];
     const expectedAction = {
       type: "CERTIFICATE_TEMPLATE_REGISTER",
       payload: [
         { id: "certificate", label: "Certificate" },
-        { id: "transcript", label: "Transcript" }
-      ]
+        { id: "transcript", label: "Transcript" },
+      ],
     };
     expect(fn(payload)).toStrictEqual(expectedAction);
   });
@@ -133,7 +133,7 @@ describe("actions", () => {
     const payload = 2;
     const expectedAction = {
       type: "CERTIFICATE_TEMPLATE_SELECT_TAB",
-      payload: 2
+      payload: 2,
     };
     expect(fn(payload)).toStrictEqual(expectedAction);
   });
@@ -151,24 +151,24 @@ describe("selectors", () => {
         templates: [
           {
             id: "certificate",
-            label: "Certificate"
+            label: "Certificate",
           },
           {
             id: "transcript",
-            label: "Transcript"
-          }
-        ]
-      }
+            label: "Transcript",
+          },
+        ],
+      },
     };
     expect(getTemplates(store)).toStrictEqual([
       {
         id: "certificate",
-        label: "Certificate"
+        label: "Certificate",
       },
       {
         id: "transcript",
-        label: "Transcript"
-      }
+        label: "Transcript",
+      },
     ]);
   });
 });

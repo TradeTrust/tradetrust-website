@@ -8,8 +8,8 @@ import sampleToken from "../../test/fixture/sample-token.json";
 jest.mock("react-redux", () => ({
   useDispatch: () => jest.fn(),
   useSelector: () => ({
-    token: { beneficiaryAddress: "", holderAddress: "" }
-  })
+    token: { beneficiaryAddress: "", holderAddress: "" },
+  }),
 }));
 
 describe("assetInfo", () => {

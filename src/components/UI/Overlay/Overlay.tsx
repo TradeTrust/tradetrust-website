@@ -99,7 +99,7 @@ export const OverlayAddressBook = ({ addressBook = {}, ...props }: OverlayProps)
                 <td className="border-0">No Address found.</td>
               </tr>
             ) : (
-              Object.keys(addressBook).map(key => {
+              Object.keys(addressBook).map((key) => {
                 const name = addressBook[key];
                 const address = key;
                 const addressHref = makeEtherscanAddressURL(key);

@@ -44,8 +44,8 @@ async function loadWeb3Mock() {
   return {
     eth: {
       currentProvider: {},
-      getAccounts: () => []
-    }
+      getAccounts: () => [],
+    },
   };
 }
 
@@ -94,7 +94,7 @@ export function setNewWeb3(t, config) {
 
 export function getWeb3(t, config) {
   if (web3Instance) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       resolve(web3Instance);
     });
   }

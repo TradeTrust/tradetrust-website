@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import {
   resetCertificateState,
   retrieveCertificateByAction,
-  retrieveCertificateByActionFailure
+  retrieveCertificateByActionFailure,
 } from "../reducers/certificate";
 
 export const HomePage = (props: any) => {
@@ -45,7 +45,7 @@ export const HomePage = (props: any) => {
 const mapDispatchToProps = (dispatch: any) => ({
   retrieveCertificateByAction: (payload: any) => dispatch(retrieveCertificateByAction(payload)),
   retrieveCertificateByActionFailure: (payload: any) => dispatch(retrieveCertificateByActionFailure(payload)),
-  resetCertificateState: () => dispatch(resetCertificateState())
+  resetCertificateState: () => dispatch(resetCertificateState()),
 });
 
 export const HomePageContainer = connect(null, mapDispatchToProps)(HomePage);
@@ -53,5 +53,5 @@ export const HomePageContainer = connect(null, mapDispatchToProps)(HomePage);
 HomePage.propTypes = {
   retrieveCertificateByAction: PropTypes.func,
   resetCertificateState: PropTypes.func,
-  retrieveCertificateByActionFailure: PropTypes.func
+  retrieveCertificateByActionFailure: PropTypes.func,
 };

@@ -10,13 +10,13 @@ jest.mock("../services/token", () => ({
   getBeneficiaryAddress: () => {},
   getApprovedEscrowContractAddress: () => {},
   getApprovedEscrowContractUsers: () => {},
-  isEscrowContract: () => true
+  isEscrowContract: () => true,
 }));
 
 jest.mock("../services/etherjs", () => ({
   getProvider: () => {
     provider: null;
-  }
+  },
 }));
 
 describe("sagas/token", () => {
@@ -25,7 +25,7 @@ describe("sagas/token", () => {
       const mockTransferStatus = {
         beneficiaryAddress: "0xA",
         holderAddress: "0xB",
-        approvedEscrowContractAddress: ""
+        approvedEscrowContractAddress: "",
       };
 
       const generator = getTokenUsers();
@@ -42,13 +42,13 @@ describe("sagas/token", () => {
         all([
           call(getBeneficiaryAddress, "document"),
           call(getHolderAddress, "document"),
-          call(getApprovedEscrowContractAddress, "document")
+          call(getApprovedEscrowContractAddress, "document"),
         ])
       );
       expect(generator.next(["0xA", "0xB", ""]).value).toStrictEqual(
         put({
           type: types.GET_TOKEN_USER_ADDRESS_SUCCESS,
-          payload: mockTransferStatus
+          payload: mockTransferStatus,
         })
       );
       expect(generator.next().done).toStrictEqual(true);
@@ -58,7 +58,7 @@ describe("sagas/token", () => {
       const mockTransferStatus = {
         beneficiaryAddress: "0xA",
         holderAddress: "0xB",
-        approvedEscrowContractAddress: "0xC"
+        approvedEscrowContractAddress: "0xC",
       };
 
       const mockApprovedAddressess = { approvedBeneficiary: "0xD", approvedHolder: "0xE" };
@@ -77,20 +77,20 @@ describe("sagas/token", () => {
         all([
           call(getBeneficiaryAddress, "document"),
           call(getHolderAddress, "document"),
-          call(getApprovedEscrowContractAddress, "document")
+          call(getApprovedEscrowContractAddress, "document"),
         ])
       );
       expect(generator.next(["0xA", "0xB", "0xC"]).value).toStrictEqual(
         put({
           type: types.GET_TOKEN_USER_ADDRESS_SUCCESS,
-          payload: mockTransferStatus
+          payload: mockTransferStatus,
         })
       );
 
       const approvedAddresssGenerator = getApprovedUserAddressess({ contractAddress: "0xC" });
       expect(approvedAddresssGenerator.next().value).toStrictEqual(
         put({
-          type: types.GET_APPROVED_ESCROW_USERS
+          type: types.GET_APPROVED_ESCROW_USERS,
         })
       );
       approvedAddresssGenerator.next();
@@ -98,7 +98,7 @@ describe("sagas/token", () => {
       expect(approvedAddresssGenerator.next(mockApprovedAddressess).value).toStrictEqual(
         put({
           type: types.GET_APPROVED_ESCROW_USERS_SUCCESS,
-          payload: mockApprovedAddressess
+          payload: mockApprovedAddressess,
         })
       );
       expect(approvedAddresssGenerator.next().done).toStrictEqual(true);
@@ -117,7 +117,7 @@ describe("sagas/token", () => {
       expect(generator.throw(new Error(mockTransferStatusFailure)).value).toStrictEqual(
         put({
           type: types.GET_TOKEN_USER_ADDRESS_ERROR,
-          payload: mockTransferStatusFailure
+          payload: mockTransferStatusFailure,
         })
       );
       expect(generator.next().done).toStrictEqual(true);
@@ -129,7 +129,7 @@ describe("sagas/token", () => {
       const newTokenOwner = "0xA";
       const mockTransferStatus = {
         owner: newTokenOwner,
-        message: "success"
+        message: "success",
       };
       const generator = transferOwnership({ payload: { newTokenOwner } });
 
@@ -144,7 +144,7 @@ describe("sagas/token", () => {
       expect(transferCompletionAction).toStrictEqual(
         put({
           type: types.TRANSFER_TOKEN_OWNERSHIP_SUCCESS,
-          payload: mockTransferStatus
+          payload: mockTransferStatus,
         })
       );
       expect(generator.next().done).toStrictEqual(true);
@@ -164,7 +164,7 @@ describe("sagas/token", () => {
       expect(generator.throw(new Error(mockTransferStatusFailure)).value).toStrictEqual(
         put({
           type: types.TRANSFER_TOKEN_OWNERSHIP_ERROR,
-          payload: mockTransferStatusFailure
+          payload: mockTransferStatusFailure,
         })
       );
       expect(generator.next().done).toStrictEqual(true);

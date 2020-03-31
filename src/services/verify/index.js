@@ -4,10 +4,10 @@ import { getData } from "@govtechsg/open-attestation";
 import verify from "@govtechsg/oa-verify";
 import { NETWORK_ID, NETWORK_NAME } from "../../config";
 
-const getSmartContractAddress = issuer => issuer.certificateStore || issuer.documentStore || issuer.tokenRegistry;
+const getSmartContractAddress = (issuer) => issuer.certificateStore || issuer.documentStore || issuer.tokenRegistry;
 
 // Resolve identity of an issuer, currently supporting only DNS-TXT
-const resolveIssuerIdentity = async issuer => {
+const resolveIssuerIdentity = async (issuer) => {
   try {
     const smartContractAddress = getSmartContractAddress(issuer);
     const type = get(issuer, "identityProof.type");
@@ -16,7 +16,7 @@ const resolveIssuerIdentity = async issuer => {
     if (!location) throw new Error("Location is missing");
     const records = await getDocumentStoreRecords(location);
     const matchingRecord = records.find(
-      record =>
+      (record) =>
         record.addr.toLowerCase() === smartContractAddress.toLowerCase() &&
         record.netId === NETWORK_ID &&
         record.type === "openatts" &&
@@ -26,27 +26,27 @@ const resolveIssuerIdentity = async issuer => {
       ? {
           identified: true,
           dns: get(issuer, "identityProof.location"),
-          smartContract: smartContractAddress
+          smartContract: smartContractAddress,
         }
       : {
           identified: false,
-          smartContract: smartContractAddress
+          smartContract: smartContractAddress,
         };
   } catch (e) {
     return {
       identified: false,
       smartContract: getSmartContractAddress(issuer),
-      error: e.message || e
+      error: e.message || e,
     };
   }
 };
 
-const getIssuersIdentities = async issuers => Promise.all(issuers.map(resolveIssuerIdentity));
+const getIssuersIdentities = async (issuers) => Promise.all(issuers.map(resolveIssuerIdentity));
 
-const issuersIdentitiesAllVerified = (identities = []) => identities.every(identity => identity.identified);
+const issuersIdentitiesAllVerified = (identities = []) => identities.every((identity) => identity.identified);
 
 // Given a document, verify it and return a summary of the verification
-export const verifyDocument = async document => {
+export const verifyDocument = async (document) => {
   const documentData = getData(document);
 
   // Verification for hash, issue and revoke
@@ -60,9 +60,9 @@ export const verifyDocument = async document => {
     ...verificationStatus,
     identity: {
       identifiedOnAll: allIdentitiesValid,
-      details: identities
+      details: identities,
     },
-    valid: verificationStatus.valid && allIdentitiesValid
+    valid: verificationStatus.valid && allIdentitiesValid,
   };
   return combinedVerificationResults;
 };

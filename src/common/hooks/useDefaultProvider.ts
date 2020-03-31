@@ -5,7 +5,7 @@ import { NETWORK_NAME } from "../../config";
 export const useDefaultProvider = (): { provider: providers.Provider } => {
   return useMemo(
     () => ({
-      provider: ethers.getDefaultProvider(NETWORK_NAME)
+      provider: ethers.getDefaultProvider(NETWORK_NAME),
     }),
     []
   );

@@ -7,7 +7,7 @@ export default class Drawer extends Component {
     super(props);
     this.state = {
       visible: false,
-      showAbsHeader: false
+      showAbsHeader: false,
     };
   }
 
@@ -22,7 +22,7 @@ export default class Drawer extends Component {
         href=""
         className={`${css.tabs} ${activeIdx === idx ? css.active : ""} `}
         key={idx}
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           this.renderContent(idx);
         }}
@@ -48,7 +48,7 @@ export default class Drawer extends Component {
             <a
               href=""
               className={css.closebtn}
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 this.toggleDrawer();
               }}
@@ -74,5 +74,5 @@ Drawer.propTypes = {
   toggle: PropTypes.func,
   children: PropTypes.object,
   tabs: PropTypes.array,
-  activeIdx: PropTypes.number
+  activeIdx: PropTypes.number,
 };

@@ -12,14 +12,14 @@ export function* updateNetworkId() {
       type: types.UPDATE_NETWORK_ID_SUCCESS,
       payload: {
         networkId: network.chainId,
-        networkIdVerbose: network.name
-      }
+        networkIdVerbose: network.name,
+      },
     });
   } catch (e) {
     console.error(e); // eslint-disable-line
     yield put({
       type: types.UPDATE_NETWORK_ID_FAILURE,
-      payload: e
+      payload: e,
     });
   }
 }

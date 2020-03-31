@@ -12,7 +12,7 @@ const MultiTabs = ({
   selectTemplateTab,
   isOverlayVisible,
   setOverlayVisible,
-  tokenRegistryAddress
+  tokenRegistryAddress,
 }) => {
   return (
     <div id={styles["header-ui"]} className="pt-3 pt-md-0">
@@ -56,15 +56,15 @@ const MultiTabs = ({
         </ul>
       </div>
       <div className="d-lg-none d-xl-none">
-        <Drawer tabs={templates} activeIdx={activeTab} toggle={idx => selectTemplateTab(idx)} />
+        <Drawer tabs={templates} activeIdx={activeTab} toggle={(idx) => selectTemplateTab(idx)} />
       </div>
     </div>
   );
 };
 
-const mapStateToProps = store => ({
+const mapStateToProps = (store) => ({
   templates: getTemplates(store),
-  activeTab: getActiveTemplateTab(store)
+  activeTab: getActiveTemplateTab(store),
 });
 
 export default connect(mapStateToProps, null)(MultiTabs);
@@ -73,5 +73,5 @@ MultiTabs.propTypes = {
   document: PropTypes.object,
   templates: PropTypes.array,
   selectTemplateTab: PropTypes.func,
-  activeTab: PropTypes.number
+  activeTab: PropTypes.number,
 };

@@ -24,7 +24,7 @@ const TokenSideBarBeneficiary = ({
   approvedHolder,
   approvedBeneficiary,
   approveChangeBeneficiary,
-  error
+  error,
 }: TokenBeneficiaryInterface): ReactElement => (
   <TokenSideBarField
     id="approvechangebeneficiary"
@@ -41,7 +41,7 @@ const TokenSideBarBeneficiary = ({
           type="text"
           name="approvedHolder"
           value={approvedHolder}
-          onChange={e => setApprovedHolder(e.target.value)}
+          onChange={(e) => setApprovedHolder(e.target.value)}
           placeholder="Address (e.g. 0x483..)"
         />
       </label>
@@ -54,7 +54,7 @@ const TokenSideBarBeneficiary = ({
           type="text"
           name="approvedBeneficiary"
           value={approvedBeneficiary}
-          onChange={e => setApprovedBeneficiary(e.target.value)}
+          onChange={(e) => setApprovedBeneficiary(e.target.value)}
           placeholder="Address (e.g. 0x483..)"
         />
       </label>

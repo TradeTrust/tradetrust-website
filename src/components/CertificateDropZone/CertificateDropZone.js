@@ -15,7 +15,7 @@ export const DropzoneContent = ({
   fileError,
   verificationStatus,
   toggleQrReaderVisible,
-  retrieveCertificateByActionError
+  retrieveCertificateByActionError,
 }) => {
   // isDragReject is checking for mimetype (but we skipped it)
   // fileError is when the file is not in JSON format and threw when deserilising
@@ -43,7 +43,7 @@ export const DropzoneContent = ({
 };
 
 // Injects additional props on top of isDragReject, isDragActive, acceptedFiles & rejectedFiles
-const renderDropzoneContentCurry = additionalProps => props => (
+const renderDropzoneContentCurry = (additionalProps) => (props) => (
   <DropzoneContent {...{ ...props, ...additionalProps }} />
 );
 
@@ -61,7 +61,7 @@ const onFileDrop = (acceptedFiles, handleCertificateChange, handleFileError) => 
       handleFileError(e);
     }
   };
-  if (acceptedFiles && acceptedFiles.length && acceptedFiles.length > 0) acceptedFiles.map(f => reader.readAsText(f));
+  if (acceptedFiles && acceptedFiles.length && acceptedFiles.length > 0) acceptedFiles.map((f) => reader.readAsText(f));
 };
 
 const CertificateDropzone = ({
@@ -73,11 +73,11 @@ const CertificateDropzone = ({
   verifying,
   verificationStatus,
   toggleQrReaderVisible,
-  retrieveCertificateByActionError
+  retrieveCertificateByActionError,
 }) => (
   <Dropzone
     id="certificate-dropzone"
-    onDrop={acceptedFiles => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
+    onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
     className={css.dropzone}
   >
     {renderDropzoneContentCurry({
@@ -88,7 +88,7 @@ const CertificateDropzone = ({
       verifying,
       verificationStatus,
       toggleQrReaderVisible,
-      retrieveCertificateByActionError
+      retrieveCertificateByActionError,
     })}
   </Dropzone>
 );
@@ -104,7 +104,7 @@ CertificateDropzone.propTypes = {
   issuerIdentityStatus: PropTypes.object,
   toggleQrReaderVisible: PropTypes.func,
   verificationStatus: PropTypes.object,
-  retrieveCertificateByActionError: PropTypes.string
+  retrieveCertificateByActionError: PropTypes.string,
 };
 
 DropzoneContent.propTypes = {
@@ -118,7 +118,7 @@ DropzoneContent.propTypes = {
   issuerIdentityStatus: PropTypes.object,
   toggleQrReaderVisible: PropTypes.func,
   verificationStatus: PropTypes.object,
-  retrieveCertificateByActionError: PropTypes.string
+  retrieveCertificateByActionError: PropTypes.string,
 };
 
 export default CertificateDropzone;
