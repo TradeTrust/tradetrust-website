@@ -2,6 +2,7 @@ import React from "react";
 import web3 from "web3";
 import { parse } from "papaparse";
 import { useAddressBook, AddressBook } from "../../common/hooks/useAddressBook";
+import { SvgIcon, SvgIconFilePlus } from "../UI/SvgIcon";
 import cssBtn from "./../UI/Button/Button.module.scss";
 
 const readAsText = async (file: File): Promise<string> => {
@@ -54,10 +55,17 @@ export const CsvUploadButton = () => {
         accept=".csv"
       />
       <label
-        className={`mb-0 ${cssBtn["button"]} ${cssBtn["bordered"]}  ${cssBtn["white"]} ${cssBtn["tertiary"]}`}
+        className={`mb-0 ${cssBtn["button"]} ${cssBtn["icon-text"]} ${cssBtn["white"]} ${cssBtn["secondary"]} ${cssBtn["text-secondary"]}`}
         htmlFor="csv-file-input"
       >
-        Upload Address Book
+        <div className="row align-items-center no-gutters">
+          <div className="col-auto">
+            <SvgIcon>
+              <SvgIconFilePlus />
+            </SvgIcon>
+          </div>
+          <div className="col-auto">Import .csv</div>
+        </div>
       </label>
     </div>
   );

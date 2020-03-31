@@ -25,7 +25,7 @@ export const ButtonSolid = ({ className, color, bg, children, ...props }: Button
 
 export const ButtonIconText = ({ text, children, ...props }: ButtonProps) => {
   return (
-    <ButtonSolid className={`${css.icontext}`} {...props}>
+    <ButtonSolid className={`${css["icon-text"]}`} {...props}>
       <div className="row align-items-center no-gutters">
         <div className="col-auto">{children}</div>
         <div className="col-auto">{text}</div>

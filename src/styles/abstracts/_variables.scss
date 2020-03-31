@@ -9,6 +9,7 @@ $sm: map-get($grid-breakpoints, "sm"); // 576px
 $md: map-get($grid-breakpoints, "md"); // 768px
 $lg: map-get($grid-breakpoints, "lg"); // 992px
 $xl: map-get($grid-breakpoints, "xl"); // 1200px
+$bs-padding: $grid-gutter-width / 2; // bootstrap column padding
 
 $brand-orange: #ff9933;
 $brand-blue: #0099cc;

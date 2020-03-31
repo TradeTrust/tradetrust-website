@@ -3,47 +3,64 @@ import PropTypes from "prop-types";
 import React from "react";
 import styles from "./certificateViewer.scss";
 import { getTemplates, getActiveTemplateTab } from "../reducers/certificate";
-import { FeatureFlag } from "./FeatureFlag";
-import { CsvUploadButton } from "./AddressBook/CsvUploadButton";
-import Drawer from "./UI/Drawer";
 import { ButtonBordered } from "./UI/Button";
+import Drawer from "./UI/Drawer";
 
-const MultiTabs = ({ activeTab, templates, selectTemplateTab }) => (
-  <div id={styles["header-ui"]}>
-    <div className={`${styles["header-container"]} d-none d-lg-block d-xl-block`}>
-      <div id="template-tabs-list" className="nav nav-tabs">
-        {templates && templates.length > 0
-          ? templates.map((t, idx) => (
-              <li key={idx} className="nav-item">
-                <a
-                  className={`${styles.tab}
-                    ${idx === activeTab ? styles.active : ""}`}
-                  id={t.id}
-                  onClick={() => {
-                    selectTemplateTab(idx);
-                  }}
-                  role="tab"
-                  aria-controls="home"
-                  aria-selected="true"
-                >
-                  {t.label}
-                </a>
-              </li>
-            ))
-          : null}
-        <a href=" " className="my-auto ml-auto">
-          <ButtonBordered bg="tertiary">View another</ButtonBordered>
-        </a>
-        <FeatureFlag name="ADDRESS_BOOK_UPLOAD">
-          <CsvUploadButton />
-        </FeatureFlag>
+const MultiTabs = ({
+  activeTab,
+  templates,
+  selectTemplateTab,
+  isOverlayVisible,
+  setOverlayVisible,
+  tokenRegistryAddress
+}) => {
+  return (
+    <div id={styles["header-ui"]} className="pt-3 pt-md-0">
+      <div className={`${styles["header-container"]}`}>
+        <ul id="template-tabs-list" className="nav nav-tabs row no-gutters align-items-center">
+          <li className="nav-item col-auto col-md-auto ml-md-auto order-md-2">
+            <a href=" " className="my-auto ml-auto">
+              <ButtonBordered bg="tertiary">View another</ButtonBordered>
+            </a>
+          </li>
+          {tokenRegistryAddress && (
+            <li className="nav-item col-auto col-md-auto ml-2 order-md-2">
+              <ButtonBordered
+                bg="tertiary"
+                onClick={() => {
+                  setOverlayVisible(!isOverlayVisible);
+                }}
+              >
+                Address Book
+              </ButtonBordered>
+            </li>
+          )}
+          {templates && templates.length > 0
+            ? templates.map((t, idx) => (
+                <li key={idx} className="nav-item col-12 col-md-auto">
+                  <a
+                    className={`${styles.tab} ${idx === activeTab ? styles.active : ""}`}
+                    id={t.id}
+                    onClick={() => {
+                      selectTemplateTab(idx);
+                    }}
+                    role="tab"
+                    aria-controls="home"
+                    aria-selected="true"
+                  >
+                    {t.label}
+                  </a>
+                </li>
+              ))
+            : null}
+        </ul>
+      </div>
+      <div className="d-lg-none d-xl-none">
+        <Drawer tabs={templates} activeIdx={activeTab} toggle={idx => selectTemplateTab(idx)} />
       </div>
     </div>
-    <div className="d-lg-none d-xl-none">
-      <Drawer tabs={templates} activeIdx={activeTab} toggle={idx => selectTemplateTab(idx)} />
-    </div>
-  </div>
-);
+  );
+};
 
 const mapStateToProps = store => ({
   templates: getTemplates(store),

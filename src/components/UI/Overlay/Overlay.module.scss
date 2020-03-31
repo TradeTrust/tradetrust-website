@@ -1,0 +1,143 @@
+@import "../../../styles/abstracts/__abstracts.scss";
+
+.overlay {
+  transition: visibility 0.4s 0.1s $easeOutCubic, opacity 0.4s 0.1s $easeOutCubic;
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &.addressbook {
+    .overlay-content {
+      max-width: 760px;
+      max-height: 600px;
+    }
+  }
+}
+
+.title {
+  @include font-sourcesanspro-bold;
+  color: $color-grey;
+  margin-bottom: 0;
+}
+
+.overlay-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color-black, 0.4);
+}
+
+.overlay-content {
+  transition: visibility 0.3s $easeOutCubic, opacity 0.3s $easeOutCubic, transform 0.3s $easeOutCubic;
+  box-shadow: 0 8px 20px rgba($color-black, 0.2);
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  background-color: $color-white;
+  width: calc(100vw - #{$bs-padding * 2});
+  height: calc(100vh - #{$bs-padding * 2});
+  max-width: 960px;
+  padding: 20px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.overlay-header {
+  margin-bottom: 20px;
+}
+
+.overlay-body {
+  display: block;
+}
+
+.overlay-cancel {
+  cursor: pointer;
+
+  &:hover {
+    svg {
+      color: $color-grey-light;
+    }
+  }
+}
+
+.overlay-searchbar {
+  border: solid 1px $color-grey-light;
+  padding: 5px 10px;
+  max-width: 300px;
+
+  input {
+    border: none;
+    outline: none;
+    width: 100%;
+
+    &::placeholder {
+      font-style: italic;
+      color: $color-grey-light;
+    }
+  }
+
+  svg {
+    color: $color-grey;
+  }
+}
+
+.overlay-actionsbar {
+  margin-bottom: 20px;
+}
+
+.overlay-table-responsive {
+  border: solid 1px $color-grey-light;
+}
+
+.overlay-table {
+  width: 100%;
+  margin-bottom: 0;
+
+  tr {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  th {
+    flex: 0 1 180px;
+    min-width: 180px;
+  }
+
+  td {
+    flex: 1 0 auto;
+  }
+
+  .overlay-table-thead {
+    th,
+    td {
+      border: none;
+    }
+  }
+}
+
+.overlay-table-thead {
+  color: $color-white;
+  background-color: $brand-navy;
+}
+
+.overlay-table-tbody {
+  display: block;
+  height: 360px;
+  overflow: auto;
+
+  tr {
+    &:nth-child(even) {
+      background-color: $color-blue-lighter;
+    }
+  }
+}

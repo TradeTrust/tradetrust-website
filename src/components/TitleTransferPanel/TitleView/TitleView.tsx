@@ -18,7 +18,7 @@ export const TitleView = ({ role, address }: TitleViewProps) => {
   return (
     <div className={css["title-view"]}>
       <AddressInfo title={role} name={name}>
-        {address && <ExternalLink name={address} href={addressHref} />}
+        <ExternalLink name={address} href={addressHref} />
       </AddressInfo>
     </div>
   );

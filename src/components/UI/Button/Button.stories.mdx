@@ -1,6 +1,6 @@
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { ButtonSolid, ButtonIcon, ButtonCircle, ButtonBordered } from "./Button";
-import { SvgIcon, SvgIconEdit, SvgIconBook, SvgIconX } from "./../../UI/SvgIcon";
+import { ButtonSolid, ButtonIcon, ButtonIconText, ButtonCircle, ButtonBordered } from "./Button";
+import { SvgIcon, SvgIconEdit, SvgIconBook, SvgIconX, SvgIconFilePlus } from "./../../UI/SvgIcon";
 
 <Meta title="UI/Button" component={ButtonSolid} />
 
@@ -46,6 +46,20 @@ Button look.
   </Story>
   <Story name="Text Secondary">
     <ButtonSolid bg="white" color="secondary">Text Secondary</ButtonSolid>
+  </Story>
+</Preview>
+
+---
+
+### ButtonIconText
+
+<Preview>
+  <Story name="Icon Text">
+    <ButtonIconText text="Import" bg="white" color="secondary">
+      <SvgIcon>
+        <SvgIconFilePlus />
+      </SvgIcon>
+    </ButtonIconText>
   </Story>
 </Preview>
 

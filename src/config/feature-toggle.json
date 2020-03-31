@@ -2,9 +2,5 @@
   "MANAGE_ASSET": {
     "development": true,
     "production": true
-  },
-  "ADDRESS_BOOK_UPLOAD": {
-    "development": true,
-    "production": true
   }
 }
