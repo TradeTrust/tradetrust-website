@@ -5,6 +5,7 @@ import DefaultView from "./Views/DefaultView";
 import VerifyingView from "./Views/VerifyingView";
 import UnverifiedView from "./Views/UnverifiedView";
 import css from "./CertificateDropzone.scss";
+import RetrievalErrorView from "./Views/RetrievalErrorView";
 
 export const DropzoneContent = ({
   handleRenderOverwrite,
@@ -29,13 +30,17 @@ export const DropzoneContent = ({
   if (verifying) {
     return <VerifyingView verificationStatus={verificationStatus} />;
   }
-  if (!!retrieveCertificateByActionError || (verificationStatus && !verificationStatus.valid)) {
+  if (!!retrieveCertificateByActionError) {
+    return (
+      <RetrievalErrorView resetData={resetData} retrieveCertificateByActionError={retrieveCertificateByActionError} />
+    );
+  }
+  if (verificationStatus && !verificationStatus.valid) {
     return (
       <UnverifiedView
         handleRenderOverwrite={handleRenderOverwrite}
         verificationStatus={verificationStatus}
         resetData={resetData}
-        retrieveCertificateByActionError={retrieveCertificateByActionError}
       />
     );
   }
