@@ -4,6 +4,7 @@ import { types, getCertificate } from "../reducers/certificate";
 import { sendCertificate, verifyCertificate } from "./certificate";
 import { MakeCertUtil } from "./testutils";
 import * as emailService from "../services/email/sendEmail";
+import { whenDocumentValidAndIssued, whenDocumentHashInvalidAndNotIssued } from "../test/fixture/verifier-responses";
 
 jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
 
@@ -95,43 +96,6 @@ describe("sagas/certificate", () => {
 
 describe("verifyCertificate", () => {
   it("verifies the document and change the router to /viewer when verification passes", () => {
-    const mockVerificationStatus = {
-      hash: {
-        checksumMatch: true,
-      },
-      issued: {
-        issuedOnAll: true,
-        details: [
-          {
-            address: "0xA",
-            issued: true,
-          },
-        ],
-      },
-      revoked: {
-        revokedOnAny: false,
-        details: [
-          {
-            address: "0xA",
-            revoked: false,
-          },
-        ],
-      },
-      identity: {
-        identifiedOnAll: true,
-        details: [
-          {
-            dns: "domain1.com",
-            smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
-          },
-          {
-            dns: "domain2.com",
-            smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
-          },
-        ],
-      },
-      valid: true,
-    };
     const generator = verifyCertificate();
 
     // Should dispatch VERIFYING_CERTIFICATE first
@@ -149,11 +113,11 @@ describe("verifyCertificate", () => {
     generator.next("CERTIFICATE_OBJECT");
 
     // Should mark verification as completed and report the payload
-    const verificationCompletionAction = generator.next(mockVerificationStatus).value;
+    const verificationCompletionAction = generator.next(whenDocumentValidAndIssued).value;
     expect(verificationCompletionAction).toStrictEqual(
       put({
-        type: types.VERIFYING_CERTIFICATE_SUCCESS,
-        payload: mockVerificationStatus,
+        type: types.VERIFYING_CERTIFICATE_COMPLETED,
+        payload: whenDocumentValidAndIssued,
       })
     );
 
@@ -171,44 +135,7 @@ describe("verifyCertificate", () => {
     expect(generator.next().done).toStrictEqual(true);
   });
 
-  it("verifies the document and dont change the router to /viewer when verification passes", () => {
-    const mockVerificationStatus = {
-      hash: {
-        checksumMatch: true,
-      },
-      issued: {
-        issuedOnAll: true,
-        details: [
-          {
-            address: "0xA",
-            issued: true,
-          },
-        ],
-      },
-      revoked: {
-        revokedOnAny: true,
-        details: [
-          {
-            address: "0xA",
-            revoked: true,
-          },
-        ],
-      },
-      identity: {
-        identifiedOnAll: true,
-        details: [
-          {
-            dns: "domain1.com",
-            smartContract: "0x2f60375e8144e16Adf1979936301D8341D58C36C",
-          },
-          {
-            dns: "domain2.com",
-            smartContract: "0x53f3a47C129Ea30D80bC727556b015F02bE63811",
-          },
-        ],
-      },
-      valid: false,
-    };
+  it("verifies the document and dont change the router to /viewer when verification fails", () => {
     const generator = verifyCertificate();
 
     // Should dispatch VERIFYING_CERTIFICATE first
@@ -226,11 +153,11 @@ describe("verifyCertificate", () => {
     generator.next("CERTIFICATE_OBJECT");
 
     // Should mark verification as completed and report the payload
-    const verificationCompletionAction = generator.next(mockVerificationStatus).value;
+    const verificationCompletionAction = generator.next(whenDocumentHashInvalidAndNotIssued).value;
     expect(verificationCompletionAction).toStrictEqual(
       put({
-        type: types.VERIFYING_CERTIFICATE_SUCCESS,
-        payload: mockVerificationStatus,
+        type: types.VERIFYING_CERTIFICATE_COMPLETED,
+        payload: whenDocumentHashInvalidAndNotIssued,
       })
     );
 

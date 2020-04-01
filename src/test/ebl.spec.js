@@ -23,7 +23,7 @@ test("Token is verified and rendered correctly", async (t) => {
     .eql(
       "https://ropsten.etherscan.io/token/0x48399Fb88bcD031C556F53e93F690EEC07963Af3?a=44462799421286370332860487499556741868509423910583906203271800828184419823283"
     );
-  await validateTextContent(t, StatusButton, ["Issued by TRADETRUST.IO"]);
+  await validateTextContent(t, StatusButton, ["Document issued by TRADETRUST.IO"]);
 
   await t.switchToIframe(IframeBlock);
 

@@ -108,6 +108,6 @@ CertificateDropZoneContainer.propTypes = {
   resetData: PropTypes.func,
   verifying: PropTypes.bool,
   processQr: PropTypes.func,
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
   retrieveCertificateByActionError: PropTypes.string,
 };

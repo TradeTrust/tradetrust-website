@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import css from "./viewerStyles.scss";
 
-const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError }) => (
+export const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError }) => (
   <div id="viewer-container" className={`${css["viewer-container"]} ${css.invalid}`}>
     <span className={css["message-container"]}>
       <img src="/static/images/dropzone/invalid.svg" />
@@ -39,10 +39,6 @@ const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError }) => 
 );
 
 RetrievalErrorView.propTypes = {
-  handleRenderOverwrite: PropTypes.func,
   resetData: PropTypes.func,
   document: PropTypes.object,
-  verificationStatus: PropTypes.object,
 };
-
-export default RetrievalErrorView;

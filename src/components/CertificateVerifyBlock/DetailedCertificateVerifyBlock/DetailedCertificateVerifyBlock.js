@@ -1,11 +1,10 @@
 import React from "react";
-import { get } from "lodash";
+import { isValid } from "../../../services/verify/fragments";
 import CertificateVerifyCheck from "./CertificateVerifyCheck";
 import css from "./detailedCertificateBlock.scss";
 
 const DetailedCertificateVerifyBlock = ({ verificationStatus }) => {
-  const valid = get(verificationStatus, "valid", false);
-  const borderColor = valid ? "valid-border-color" : "invalid-border-color";
+  const borderColor = isValid(verificationStatus) ? "valid-border-color" : "invalid-border-color";
 
   return (
     <div className={`${css["detailed-certificate-block"]} ${css[borderColor]} bg-white p-3`}>

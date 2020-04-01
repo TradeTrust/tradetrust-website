@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { get } from "lodash";
 import DetailedCertificateVerifyBlock from "./DetailedCertificateVerifyBlock";
 import css from "./certificateVerifyBlock.scss";
 import icons from "../ViewerPageImages";
@@ -11,9 +10,15 @@ const renderIcon = () => (
   </div>
 );
 
-export const getIdentityVerificationText = (identityDetails) => {
-  const dnsNames = identityDetails.map(({ dns }) => (dns ? dns.toUpperCase() : null));
-  return `Issued by ${dnsNames.length > 0 ? dnsNames[0] : "Unknown"}`;
+export const getIdentityVerificationText = (verificationStatus) => {
+  const dnsFragmentName = "OpenAttestationDnsTxt";
+  const dnsFragment = verificationStatus.find((status) => status.name === dnsFragmentName);
+  // using concat to handle arrays and single element
+  const dnsIdentity = dnsFragment?.data?.every((issuer) => issuer.status === "VALID");
+  if (dnsIdentity) {
+    return `Document issued by ${dnsFragment.data.map((issuer) => issuer.location.toUpperCase()).join(" and ")}`;
+  }
+  return "Document issued by Unknown";
 };
 
 const renderText = (identityDetails) => (
@@ -23,7 +28,7 @@ const renderText = (identityDetails) => (
 const SimpleVerifyBlock = (props) => {
   const { verificationStatus } = props;
   const renderedIcon = renderIcon();
-  const renderedText = renderText(get(verificationStatus, "identity.details", []));
+  const renderedText = renderText(verificationStatus);
 
   return (
     <div
@@ -68,7 +73,7 @@ CertificateVerifyBlock.propTypes = {
   verifyTriggered: PropTypes.bool,
   verifying: PropTypes.bool,
 
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
   toggleDetailedView: PropTypes.func,
   detailedVerifyVisible: PropTypes.bool,
 };
