@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FunctionComponent, useState, useEffect, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import TokenSideBar from "./TokenSideBar";
@@ -8,6 +8,7 @@ import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
 import { connectToMetamask } from "../../services/etherjs";
 import { FeatureFlag } from "../FeatureFlag";
+import {TokenInstanceContext} from "../../common/contexts/tokenInstancesContext"
 
 const getAssetInfo = (document: WrappedDocument) => {
   const { tokenRegistry } = getData(document).issuers[0];
@@ -20,6 +21,10 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
   const dispatch = useDispatch();
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
 
+  const {tokenRegistryInstance, titleEscrowInstance} = useContext(TokenInstanceContext);
+  console.log(tokenRegistryInstance)
+  console.log(titleEscrowInstance)
+  console.log("checkl the approajhc")
   const { adminAddress, holderAddress, beneficiaryAddress, initializeTokenSuccess, metamaskAccountError } = useSelector(
     (state: any) => ({
       adminAddress: state.admin.adminAddress,

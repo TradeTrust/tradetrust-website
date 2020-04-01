@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { ethers, providers, Signer } from "ethers";
 
 interface ProviderAndSigner {
-  provider: providers.Provider;
+  provider: providers.Web3Provider;
   signer: Signer;
 }
 
