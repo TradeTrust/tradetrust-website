@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import queryString from "query-string";
-import NavigationBar from "../components/Layout/NavigationBar";
-import Footer from "../components/Layout/Footer";
 import MainPageContainer from "../components/MainPageContainer";
 import { connect } from "react-redux";
 import {
@@ -35,9 +33,7 @@ export const HomePage = (props: any) => {
         <meta property="og:url" content={`${window.location.origin}`} />
         <title>TradeTrust - An easy way to check and verify your documents</title>
       </Helmet>
-      <NavigationBar active="home" />
       <MainPageContainer />
-      <Footer />
     </>
   );
 };

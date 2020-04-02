@@ -1,7 +1,5 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import NavigationBar from "../components/Layout/NavigationBar";
-import Footer from "../components/Layout/Footer";
 import ViewerPageContainer from "../components/ViewerPageContainer";
 import { PrintWatermark } from "../components/PrintWatermark";
 import { isWatermarkFeatureActive } from "../config/feature-config";
@@ -16,8 +14,6 @@ export const ViewerPage = () => (
       <title>TradeTrust - An easy way to check and verify your documents</title>
     </Helmet>
     {isWatermarkFeatureActive && <PrintWatermark />}
-    <NavigationBar />
     <ViewerPageContainer />
-    <Footer />
   </>
 );

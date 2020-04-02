@@ -21,7 +21,7 @@ export const SectionEmail = styled(Section)`
 
 export const EmailSection = () => {
   return (
-    <SectionEmail>
+    <SectionEmail id="contact">
       <div className="row text-center">
         <div className="col-12 col-lg-7 mx-lg-auto col-xl-6">
           <h1 className="mb-4">Get in Touch</h1>
