@@ -37,6 +37,7 @@ a {
   min-height: 100vh;
 
   > main {
+    background-color: $color-grey-lightest;
     flex: 1;
   }
 }
