@@ -80,32 +80,30 @@ const baseStyleBtn = ({ bgColor, textColor }: BaseStyleBtnProps) => {
   `;
 };
 
-interface BaseStyleModifierProps {
-  bgColor: string;
-  textColor: string;
+interface BgWhiteModifierProps {
+  hoverColor: string;
 }
 
-const baseStyleModifier = ({ bgColor, textColor }: BaseStyleModifierProps) => {
+const bgWhiteModifier = ({ hoverColor }: BgWhiteModifierProps) => {
   return `
     &[disabled] {
-      background-color: ${darken(0.05, bgColor)};
+      background-color: ${darken(0.05, vars.white)};
     }
 
     &:hover {
-      background-color: ${rgba(textColor, 0.15)};
+      background-color: ${rgba(hoverColor, 0.15)};
     }
   `;
 };
 
-const WhiteSecondary = `
+const bgWhiteTextSecondary = `
   ${baseStyleBtn({
     bgColor: vars.white,
     textColor: vars.brandBlue,
   })}
 
-  ${baseStyleModifier({
-    bgColor: vars.white,
-    textColor: vars.brandBlue,
+  ${bgWhiteModifier({
+    hoverColor: vars.brandBlue,
   })}
 `;
 
@@ -144,14 +142,13 @@ export const ButtonWhitePrimary = styled(Button)`
     textColor: vars.brandOrange,
   })}
 
-  ${baseStyleModifier({
-    bgColor: vars.white,
-    textColor: vars.brandOrange,
+  ${bgWhiteModifier({
+    hoverColor: vars.brandOrange,
   })}
 `;
 
 export const ButtonWhiteSecondary = styled(Button)`
-  ${WhiteSecondary}
+  ${bgWhiteTextSecondary}
 `;
 
 export const ButtonIconWhitePrimary = styled(Button)`
@@ -160,9 +157,8 @@ export const ButtonIconWhitePrimary = styled(Button)`
     textColor: vars.brandOrange,
   })}
 
-  ${baseStyleModifier({
-    bgColor: vars.white,
-    textColor: vars.brandOrange,
+  ${bgWhiteModifier({
+    hoverColor: vars.brandOrange,
   })}
 
   svg {
@@ -195,5 +191,5 @@ export const ButtonCircleGreyLight = styled(Button)`
 `;
 
 export const LabelWhiteSecondary = styled(Label)`
-  ${WhiteSecondary}
+  ${bgWhiteTextSecondary}
 `;
