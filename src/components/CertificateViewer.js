@@ -14,11 +14,12 @@ import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { AssetInfo } from "./AssetInfo";
 import { TitleTransferPanel } from "./TitleTransferPanel";
-import { getTokenRegistryAddress, getDocumentId } from "../common/utils/document";
+import { getTokenRegistryAddress } from "../common/utils/document";
 import { OverlayAddressBook } from "./UI/Overlay";
 import { useAddressBook } from "../common/hooks/useAddressBook";
 import { CSSTransition } from "react-transition-group";
-import TokenInstanceContextProvider from "../common/contexts/tokenInstancesContext"
+import { TokenInstanceProvider } from "../common/contexts/tokenInstancesContext";
+
 const renderVerifyBlock = (props) => (
   <CertificateVerifyBlock
     document={props.document}
@@ -100,14 +101,14 @@ const CertificateViewer = (props) => {
           addressBook={addressBook}
         />
       </CSSTransition>
-      <TokenInstanceContextProvider document={document}>
       {tokenRegistryAddress && (
-        <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
+        <TokenInstanceProvider document={document}>
+          <TitleTransferPanel />
+        </TokenInstanceProvider>
       )}
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>
-      </TokenInstanceContextProvider>
       <MultiTabs
         selectTemplateTab={selectTemplateTab}
         isOverlayVisible={isOverlayVisible}
