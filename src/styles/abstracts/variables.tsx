@@ -27,9 +27,9 @@ export const danger = "#c12323";
 export const warning = "#ffbf00";
 export const invalid = "#e46767";
 
-export const btnRadius = "4px";
-export const btnOutline = brandNavy;
-export const roundBtnOutline = brandNavy;
+export const buttonRadius = "4px";
+export const buttonOutline = brandNavy;
+export const roundButtonOutline = brandNavy;
 
 export const maxWidth = "1280px";
 

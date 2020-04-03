@@ -32,12 +32,12 @@ export const Label = ({ className, children, ...props }: LabelProps) => {
   );
 };
 
-interface BaseStyleBtnProps {
+interface BaseStyleButtonProps {
   bgColor: string;
   textColor: string;
 }
 
-const baseStyleBtn = ({ bgColor, textColor }: BaseStyleBtnProps) => {
+const baseStyleButton = ({ bgColor, textColor }: BaseStyleButtonProps) => {
   return `
     ${mixin.fontSourcesansproBold()}
     ${mixin.fontSize(18)};
@@ -52,7 +52,7 @@ const baseStyleBtn = ({ bgColor, textColor }: BaseStyleBtnProps) => {
     letter-spacing: 0.01rem;
     min-height: 40px;
     cursor: pointer;
-    border-radius: ${vars.btnRadius};
+    border-radius: ${vars.buttonRadius};
     box-shadow: 0 2px 8px ${rgba(vars.black, 0.15)};
     background-color: ${bgColor};
     color: ${textColor};
@@ -97,7 +97,7 @@ const bgWhiteModifier = ({ hoverColor }: BgWhiteModifierProps) => {
 };
 
 const bgWhiteTextSecondary = `
-  ${baseStyleBtn({
+  ${baseStyleButton({
     bgColor: vars.white,
     textColor: vars.brandBlue,
   })}
@@ -108,21 +108,21 @@ const bgWhiteTextSecondary = `
 `;
 
 export const ButtonSolid = styled(Button)`
-  ${baseStyleBtn({
+  ${baseStyleButton({
     bgColor: vars.grey,
     textColor: vars.white,
   })}
 `;
 
 export const ButtonSolidPrimary = styled(Button)`
-  ${baseStyleBtn({
+  ${baseStyleButton({
     bgColor: vars.brandOrange,
     textColor: vars.white,
   })}
 `;
 
 export const ButtonBorderedTertiary = styled(Button)`
-  ${baseStyleBtn({
+  ${baseStyleButton({
     bgColor: vars.white,
     textColor: vars.brandNavy,
   })}
@@ -137,7 +137,7 @@ export const ButtonBorderedTertiary = styled(Button)`
 `;
 
 export const ButtonWhitePrimary = styled(Button)`
-  ${baseStyleBtn({
+  ${baseStyleButton({
     bgColor: vars.white,
     textColor: vars.brandOrange,
   })}
@@ -152,7 +152,7 @@ export const ButtonWhiteSecondary = styled(Button)`
 `;
 
 export const ButtonIconWhitePrimary = styled(Button)`
-  ${baseStyleBtn({
+  ${baseStyleButton({
     bgColor: vars.white,
     textColor: vars.brandOrange,
   })}
@@ -167,7 +167,7 @@ export const ButtonIconWhitePrimary = styled(Button)`
 `;
 
 export const ButtonCircleGreyLight = styled(Button)`
-  ${baseStyleBtn({
+  ${baseStyleButton({
     bgColor: vars.greyLight,
     textColor: vars.white,
   })}
