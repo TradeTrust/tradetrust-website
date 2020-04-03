@@ -3,13 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import TokenSideBar from "./TokenSideBar";
 import { getTokenUserAddress, initializeToken } from "../../reducers/token";
-import { updateNetworkId } from "../../reducers/application";
-import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
-import { connectToMetamask } from "../../services/etherjs";
 import { FeatureFlag } from "../FeatureFlag";
 import {TokenInstanceProviderWithSigner} from "../../common/contexts/tokenInstancesContextWithSigner";
 
+import { useUserWallet } from "../../common/hooks/useUserWallet";
 const getAssetInfo = (document: WrappedDocument) => {
   const { tokenRegistry } = getData(document).issuers[0];
   const { merkleRoot: tokenId } = document.signature;
@@ -18,44 +16,18 @@ const getAssetInfo = (document: WrappedDocument) => {
 
 export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ document }) => {
   const [isSideBarExpand, toggleSideBar] = useState(false);
-  const dispatch = useDispatch();
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
-
-  const { adminAddress, holderAddress, beneficiaryAddress, initializeTokenSuccess, metamaskAccountError } = useSelector(
-    (state: any) => ({
-      adminAddress: state.admin.adminAddress,
-      holderAddress: state.token.holderAddress,
-      beneficiaryAddress: state.token.beneficiaryAddress,
-      initializeTokenSuccess: state.token.initializeTokenSuccess,
-      metamaskAccountError: state.admin.metamaskAccountError,
-      isEscrowContract: state.token.isEscrowContract,
-    })
-  );
-
-  useEffect(() => {
-    if (registryAddress) dispatch(loadAdminAddress());
-  }, [dispatch, document, registryAddress]);
-
-  useEffect(() => {
-    if (adminAddress) {
-      window.ethereum.on("networkChanged", () => {
-        dispatch(updateNetworkId());
-        dispatch(initializeToken());
-      });
-      window.ethereum.on("accountsChanged", () => dispatch(loadAdminAddress()));
-      dispatch(initializeToken());
-    }
-  }, [dispatch, adminAddress]);
-
-  useEffect(() => {
-    if (initializeTokenSuccess) dispatch(getTokenUserAddress());
-  }, [dispatch, initializeTokenSuccess]);
+  const { state: useWalletState, userWalletAddress, enableMetamask } = useUserWallet();
+  const { holderAddress, beneficiaryAddress } = useSelector((state: any) => ({
+    holderAddress: state.token.holderAddress,
+    beneficiaryAddress: state.token.beneficiaryAddress,
+    isEscrowContract: state.token.isEscrowContract,
+  }));
 
   const handlerToggleSideBar = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    if (!adminAddress && metamaskAccountError) {
-      await connectToMetamask();
-      dispatch(loadAdminAddress());
+    if (!userWalletAddress && useWalletState.error) {
+      await enableMetamask();
     }
     toggleSideBar(!isSideBarExpand);
   };
@@ -86,7 +58,7 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
             Manage Asset
           </a>
           <TokenSideBar
-            adminAddress={adminAddress}
+            userWalletAddress={userWalletAddress}
             registryAddress={registryAddress}
             holderAddress={holderAddress}
             beneficiaryAddress={beneficiaryAddress}

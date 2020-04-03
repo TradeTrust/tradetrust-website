@@ -5,7 +5,7 @@ import TokenSideBarRole from "./TokenSideBarRole";
 import { SvgIcon } from "./../UI/SvgIcon";
 
 interface TokenSideBarContentProps {
-  adminAddress: string;
+  userWalletAddress: string;
   holderAddress: string;
   beneficiaryAddress: string;
   registryAddress: string;
@@ -14,7 +14,7 @@ interface TokenSideBarContentProps {
 }
 
 const TokenSideBar = ({
-  adminAddress,
+  userWalletAddress,
   holderAddress,
   beneficiaryAddress,
   registryAddress,
@@ -36,7 +36,7 @@ const TokenSideBar = ({
           </div>
         </header>
         <TokenSideBarContent
-          adminAddress={adminAddress}
+          userWalletAddress={userWalletAddress}
           registryAddress={registryAddress}
           holderAddress={holderAddress}
           beneficiaryAddress={beneficiaryAddress}

@@ -21,21 +21,21 @@ export const userRoleText = (role: UserRole) => {
 };
 
 export interface TokenSideBarRoleProps {
-  adminAddress: string;
+  userWalletAddress: string;
   beneficiaryAddress: string;
   holderAddress: string;
 }
 
-const getUserRoles = ({ adminAddress, holderAddress, beneficiaryAddress }: TokenSideBarRoleProps) => {
+const getUserRoles = ({ userWalletAddress, holderAddress, beneficiaryAddress }: TokenSideBarRoleProps) => {
   switch (true) {
-    case adminAddress !== holderAddress && adminAddress !== beneficiaryAddress:
+    case userWalletAddress !== holderAddress && userWalletAddress !== beneficiaryAddress:
     case !holderAddress && !beneficiaryAddress:
       return UserRole.NoMatch;
-    case adminAddress === holderAddress && adminAddress === beneficiaryAddress:
+    case userWalletAddress === holderAddress && userWalletAddress === beneficiaryAddress:
       return UserRole.HolderBeneficiary;
-    case adminAddress === holderAddress:
+    case userWalletAddress === holderAddress:
       return UserRole.Holder;
-    case adminAddress === beneficiaryAddress:
+    case userWalletAddress === beneficiaryAddress:
       return UserRole.Beneficiary;
     default:
       return UserRole.NoMatch;

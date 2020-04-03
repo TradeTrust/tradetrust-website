@@ -17,26 +17,30 @@ const { trace, error } = getLogger("component:TokenSideBarContent");
 import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
 import { useSelector } from "react-redux";
 import { NETWORK_NAME } from "../../config";
+import { useUserWallet } from "../../common/hooks/useUserWallet";
+import { TransactionStateStatus } from "../../common/hooks/useEthereumTransactionState";
 interface TokenSideBarContentProps {
-  adminAddress: string;
+  userWalletAddress: string;
   beneficiaryAddress: string;
   holderAddress: string;
   registryAddress: string;
 }
 
 const TokenSideBarContent = ({
-  adminAddress,
+  userWalletAddress,
   beneficiaryAddress,
   holderAddress,
   registryAddress,
 }: TokenSideBarContentProps) => {
-  const userRole = getUserRoles({ adminAddress, holderAddress, beneficiaryAddress });
+  const userRole = getUserRoles({ userWalletAddress, holderAddress, beneficiaryAddress });
   const [newHolder, setNewHolder] = useState("");
   const [approvedBeneficiary, setApprovedBeneficiary] = useState("");
   const [approvedHolder, setApprovedHolder] = useState("");
 
   const tokenSidebarError = { accessDenied: false, networkMismatch: false, metamaskNotFound: false };
-  trace(`admin address: ${adminAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`);
+  trace(
+    `admin address: ${userWalletAddress}, holder address: ${holderAddress}, beneficiary address: ${beneficiaryAddress}`
+  );
   const [showActionLoader, toggleActionLoader] = useState(false);
   const [actionError, setActionError] = useState<{ type: TOKEN_ACTION_TYPES; message: string } | null>(null);
   const [transactionSuccessResponse, setTransactionSuccessResponse] = useState<{
@@ -45,28 +49,24 @@ const TokenSideBarContent = ({
     message: string;
   } | null>(null);
 
-  const {
-    networkIdVerbose,
-    metamaskNotFound,
-    approvedEscrowContractAddress,
-    approvedBeneficiaryAddress,
-    approvedHolderAddress,
-  } = useSelector((state: any) => ({
-    networkIdVerbose: state.application.networkIdVerbose,
-    metamaskNotFound: state.admin.metamaskNotFound,
-    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
-    approvedHolderAddress: state.token.approvedHolderAddress,
-    approvedEscrowContractAddress: state.token.approvedEscrowContractAddress,
-  }));
+  const { state: useWalletState, network } = useUserWallet();
+
+  const { approvedEscrowContractAddress, approvedBeneficiaryAddress, approvedHolderAddress } = useSelector(
+    (state: any) => ({
+      approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
+      approvedHolderAddress: state.token.approvedHolderAddress,
+      approvedEscrowContractAddress: state.token.approvedEscrowContractAddress,
+    })
+  );
 
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
   const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
   const showBeneficiary = userRole === UserRole.Beneficiary && !isEqualBeneficiaryAndHolder;
   tokenSidebarError.accessDenied = userRole === UserRole.NoMatch;
-  tokenSidebarError.networkMismatch = NETWORK_NAME.toLowerCase() !== networkIdVerbose.toLowerCase();
-  tokenSidebarError.metamaskNotFound = metamaskNotFound;
+  tokenSidebarError.networkMismatch = NETWORK_NAME.toLowerCase() !== network.toLowerCase();
+  tokenSidebarError.metamaskNotFound = useWalletState.status === TransactionStateStatus.ERROR;
 
-  trace(`config network: ${NETWORK_NAME} and metamask network: ${networkIdVerbose}`);
+  trace(`config network: ${NETWORK_NAME} and metamask network: ${network}`);
   trace(`error in sidebar access ${JSON.stringify(tokenSidebarError)}`);
   useEffect(() => {
     if (approvedBeneficiaryAddress) setApprovedBeneficiary(approvedBeneficiaryAddress);

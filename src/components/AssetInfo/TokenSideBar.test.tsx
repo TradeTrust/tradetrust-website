@@ -1,7 +1,12 @@
 import React from "react";
 import { mount } from "enzyme";
+import { provider } from "@openzeppelin/test-environment";
 import TokenSideBar from "./TokenSideBar";
 import { useSelector } from "react-redux";
+import { ethers, providers } from "ethers";
+import { useInjectedProvider } from "../../common/hooks/useInjectedProvider";
+
+jest.mock("../../common/hooks/useInjectedProvider");
 
 jest.mock("react-redux", () => ({
   useSelector: jest.fn(() => ({
@@ -21,10 +26,15 @@ describe("tokenSideBar", () => {
   afterAll(() => {
     jest.restoreAllMocks();
   });
+  let web3Provider: providers.Web3Provider;
+  beforeAll(async () => {
+    web3Provider = new ethers.providers.Web3Provider(provider as any);
+    (useInjectedProvider as jest.Mock).mockReturnValue({ web3Provider });
+  });
   it("should have a Manage Asset heading", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress=""
+        userWalletAddress=""
         registryAddress=""
         isSideBarExpand={true}
         holderAddress=""
@@ -39,7 +49,7 @@ describe("tokenSideBar", () => {
   it("should show holder and beneficiary role, holder view, only 3 correct fields", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress="0xA"
@@ -66,7 +76,7 @@ describe("tokenSideBar", () => {
   it("should show holder role, holder view, only 1 correct field", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
@@ -94,7 +104,7 @@ describe("tokenSideBar", () => {
     }));
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
@@ -118,7 +128,7 @@ describe("tokenSideBar", () => {
   it("should show bene role, bene view, only 1 correct field", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress="0xA"
@@ -138,7 +148,7 @@ describe("tokenSideBar", () => {
   it("should show no match view, no access text", () => {
     const wrapper = mount(
       <TokenSideBar
-        adminAddress="0xA"
+        userWalletAddress="0xA"
         isSideBarExpand={true}
         holderAddress="0xC"
         beneficiaryAddress=""
