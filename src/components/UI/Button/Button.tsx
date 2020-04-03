@@ -114,14 +114,14 @@ export const ButtonSolid = styled(Button)`
   })}
 `;
 
-export const ButtonSolidPrimary = styled(Button)`
+export const ButtonSolidOrange = styled(Button)`
   ${baseStyleButton({
     bgColor: vars.brandOrange,
     textColor: vars.white,
   })}
 `;
 
-export const ButtonBorderedTertiary = styled(Button)`
+export const ButtonBorderedBlue = styled(Button)`
   ${baseStyleButton({
     bgColor: vars.white,
     textColor: vars.brandNavy,
@@ -136,7 +136,7 @@ export const ButtonBorderedTertiary = styled(Button)`
   }
 `;
 
-export const ButtonWhitePrimary = styled(Button)`
+export const ButtonSolidWhiteOrange = styled(Button)`
   ${baseStyleButton({
     bgColor: vars.white,
     textColor: vars.brandOrange,
@@ -147,11 +147,11 @@ export const ButtonWhitePrimary = styled(Button)`
   })}
 `;
 
-export const ButtonWhiteSecondary = styled(Button)`
+export const ButtonSolidWhiteBlue = styled(Button)`
   ${bgWhiteTextSecondary}
 `;
 
-export const ButtonIconWhitePrimary = styled(Button)`
+export const ButtonIconWhiteOrange = styled(Button)`
   ${baseStyleButton({
     bgColor: vars.white,
     textColor: vars.brandOrange,
@@ -166,7 +166,7 @@ export const ButtonIconWhitePrimary = styled(Button)`
   }
 `;
 
-export const ButtonCircleGreyLight = styled(Button)`
+export const ButtonCircleGreylight = styled(Button)`
   ${baseStyleButton({
     bgColor: vars.greyLight,
     textColor: vars.white,

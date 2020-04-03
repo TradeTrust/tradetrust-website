@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import styles from "./certificateViewer.scss";
 import { getTemplates, getActiveTemplateTab } from "../reducers/certificate";
-import { ButtonBorderedTertiary } from "./UI/Button";
+import { ButtonBorderedBlue } from "./UI/Button";
 import Drawer from "./UI/Drawer";
 
 const MultiTabs = ({
@@ -20,18 +20,18 @@ const MultiTabs = ({
         <ul id="template-tabs-list" className="nav nav-tabs row no-gutters align-items-center">
           <li className="nav-item col-auto col-md-auto ml-md-auto order-md-2">
             <a href=" " className="my-auto ml-auto">
-              <ButtonBorderedTertiary>View another</ButtonBorderedTertiary>
+              <ButtonBorderedBlue>View another</ButtonBorderedBlue>
             </a>
           </li>
           {tokenRegistryAddress && (
             <li className="nav-item col-auto col-md-auto ml-2 order-md-2">
-              <ButtonBorderedTertiary
+              <ButtonBorderedBlue
                 onClick={() => {
                   setOverlayVisible(!isOverlayVisible);
                 }}
               >
                 Address Book
-              </ButtonBorderedTertiary>
+              </ButtonBorderedBlue>
             </li>
           )}
           {templates && templates.length > 0

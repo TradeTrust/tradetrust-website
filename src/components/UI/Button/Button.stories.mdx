@@ -2,12 +2,12 @@ import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
 import {
   Button,
   ButtonSolid,
-  ButtonSolidPrimary,
-  ButtonBorderedTertiary,
-  ButtonWhitePrimary,
-  ButtonWhiteSecondary,
-  ButtonIconWhitePrimary,
-  ButtonCircleGreyLight,
+  ButtonSolidOrange,
+  ButtonBorderedBlue,
+  ButtonSolidWhiteOrange,
+  ButtonSolidWhiteBlue,
+  ButtonIconWhiteOrange,
+  ButtonCircleGreylight,
 } from "./Button";
 import { SvgIcon, SvgIconEdit, SvgIconX } from "./../../UI/SvgIcon";
 
@@ -15,7 +15,7 @@ import { SvgIcon, SvgIconEdit, SvgIconX } from "./../../UI/SvgIcon";
 
 # Button
 
-Button look.
+Button look. Button type, background color, text color.
 
 ---
 
@@ -31,11 +31,17 @@ Button look.
   <Story name="ButtonSolid">
     <ButtonSolid>Default</ButtonSolid>
   </Story>
-  <Story name="ButtonSolidPrimary">
-    <ButtonSolidPrimary>Primary</ButtonSolidPrimary>
-  </Story>
   <Story name="ButtonSolidDisabled">
-    <ButtonSolidPrimary disabled>Disabled</ButtonSolidPrimary>
+    <ButtonSolid disabled>Disabled</ButtonSolid>
+  </Story>
+  <Story name="ButtonSolidOrange">
+    <ButtonSolidOrange>Orange</ButtonSolidOrange>
+  </Story>
+  <Story name="ButtonSolidWhiteOrange">
+    <ButtonSolidWhiteOrange>WhiteOrange</ButtonSolidWhiteOrange>
+  </Story>
+  <Story name="ButtonSolidWhiteBlue">
+    <ButtonSolidWhiteBlue>WhiteBlue</ButtonSolidWhiteBlue>
   </Story>
 </Preview>
 
@@ -44,21 +50,8 @@ Button look.
 ### ButtonBordered
 
 <Preview>
-  <Story name="ButtonBorderedTertiary">
-    <ButtonBorderedTertiary>Addressbook</ButtonBorderedTertiary>
-  </Story>
-</Preview>
-
----
-
-### ButtonWhite
-
-<Preview>
-  <Story name="ButtonWhitePrimary">
-    <ButtonWhitePrimary>Primary</ButtonWhitePrimary>
-  </Story>
-  <Story name="ButtonWhiteSecondary">
-    <ButtonWhiteSecondary>Tertiary</ButtonWhiteSecondary>
+  <Story name="ButtonBorderedBlue">
+    <ButtonBorderedBlue>BorderedBlue</ButtonBorderedBlue>
   </Story>
 </Preview>
 
@@ -67,19 +60,19 @@ Button look.
 ### ButtonIconWhite
 
 <Preview>
-  <Story name="ButtonIconWhitePrimary">
-    <ButtonIconWhitePrimary>
+  <Story name="ButtonIconWhiteOrange">
+    <ButtonIconWhiteOrange>
       <SvgIcon>
         <SvgIconEdit />
       </SvgIcon>
-    </ButtonIconWhitePrimary>
+    </ButtonIconWhiteOrange>
   </Story>
-  <Story name="ButtonIconWhitePrimary Disabled">
-    <ButtonIconWhitePrimary disabled>
+  <Story name="ButtonIconWhiteOrangeDisabled">
+    <ButtonIconWhiteOrange disabled>
       <SvgIcon>
         <SvgIconEdit />
       </SvgIcon>
-    </ButtonIconWhitePrimary>
+    </ButtonIconWhiteOrange>
   </Story>
 </Preview>
 
@@ -88,11 +81,11 @@ Button look.
 ### ButtonCircle
 
 <Preview>
-  <Story name="ButtonCircleGreyLight">
-    <ButtonCircleGreyLight>
+  <Story name="ButtonCircleGreylight">
+    <ButtonCircleGreylight>
       <SvgIcon>
         <SvgIconX />
       </SvgIcon>
-    </ButtonCircleGreyLight>
+    </ButtonCircleGreylight>
   </Story>
 </Preview>
