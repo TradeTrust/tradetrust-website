@@ -8,6 +8,7 @@ import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
 import { connectToMetamask } from "../../services/etherjs";
 import { FeatureFlag } from "../FeatureFlag";
+import {TokenInstanceProviderWithSigner} from "../../common/contexts/tokenInstancesContextWithSigner";
 
 const getAssetInfo = (document: WrappedDocument) => {
   const { tokenRegistry } = getData(document).issuers[0];
@@ -72,7 +73,7 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
     </a>
   );
   return (
-    <>
+    <TokenInstanceProviderWithSigner document={document}>
       <FeatureFlag name="MANAGE_ASSET" fallback={legacyView}>
         <div>
           <a
@@ -94,6 +95,6 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
           />
         </div>
       </FeatureFlag>
-    </>
+    </TokenInstanceProviderWithSigner>
   );
 };

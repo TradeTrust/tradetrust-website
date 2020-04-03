@@ -28,11 +28,7 @@ const TokenSideBar = ({
           <div className="row">
             <div className="col-12">
               <div className={`${css.heading}`}>
-                <TokenSideBarRole
-                  adminAddress={adminAddress}
-                  holderAddress={holderAddress}
-                  beneficiaryAddress={beneficiaryAddress}
-                />
+                <TokenSideBarRole />
                 <h2>Manage Asset</h2>
               </div>
               <div className={`${css.divider}`} />
