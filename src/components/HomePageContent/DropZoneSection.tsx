@@ -77,18 +77,20 @@ class DropZoneSection extends Component<DropZoneSectionProps> {
   // eslint-disable-next-line class-methods-use-this
   render() {
     return (
-      <section className="p-5 bg-brand-navy text-white">
-        <div className={css.main}>
-          <div className="col-lg-5 col-md-12">
-            <div className={css.description}>
-              <h1>An easy way to check and verify your documents</h1>
-              <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
-              <DraggableDemoCertificate />
-              <MobileDemoCertificate />
+      <section className="py-5 bg-brand-navy text-white">
+        <div className="container-custom">
+          <div className="row">
+            <div className="col-lg-5 col-md-12">
+              <div className={css.description}>
+                <h1>An easy way to check and verify your documents</h1>
+                <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
+                <DraggableDemoCertificate />
+                <MobileDemoCertificate />
+              </div>
             </div>
-          </div>
-          <div className="col-lg-7 col-md-12 col-sm-12" id="demoDrop">
-            <CertificateDropzoneContainer />
+            <div className="col-lg-7 col-md-12 col-sm-12" id="demoDrop">
+              <CertificateDropzoneContainer />
+            </div>
           </div>
         </div>
       </section>

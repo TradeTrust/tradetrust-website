@@ -4,16 +4,6 @@ h3 {
   color: $color-white;
 }
 
-.main {
-  @include container-custom;
-  display: block;
-  justify-content: flex-start;
-
-  @media only screen and (min-width: $lg) {
-    display: flex;
-  }
-}
-
 .description {
   padding: 32px 0;
   text-align: center;

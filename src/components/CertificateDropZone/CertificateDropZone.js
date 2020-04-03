@@ -80,22 +80,24 @@ const CertificateDropzone = ({
   toggleQrReaderVisible,
   retrieveCertificateByActionError,
 }) => (
-  <Dropzone
-    id="certificate-dropzone"
-    onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
-    className={css.dropzone}
-  >
-    {renderDropzoneContentCurry({
-      handleCertificateChange,
-      resetData,
-      handleRenderOverwrite,
-      fileError,
-      verifying,
-      verificationStatus,
-      toggleQrReaderVisible,
-      retrieveCertificateByActionError,
-    })}
-  </Dropzone>
+  <div className={css["padding-dropzone-boxshadow"]}>
+    <Dropzone
+      id="certificate-dropzone"
+      onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
+      className={css.dropzone}
+    >
+      {renderDropzoneContentCurry({
+        handleCertificateChange,
+        resetData,
+        handleRenderOverwrite,
+        fileError,
+        verifying,
+        verificationStatus,
+        toggleQrReaderVisible,
+        retrieveCertificateByActionError,
+      })}
+    </Dropzone>
+  </div>
 );
 
 CertificateDropzone.propTypes = {
