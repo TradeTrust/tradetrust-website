@@ -37,6 +37,20 @@ const pxToRem = (size: number, base = 16) => {
   return (size / base) * 1 + "rem";
 };
 
+/*
+The mixin fontSize(size) is to have a fallback to px value, if rem is somehow not supported in IE. it will look like these:
+
+supported:
+font-size: 16px; (Strikethrough, succeeding font-size overwrites)
+font-size: 1rem;
+
+not supported:
+font-size: 16px;
+font-size: 1rem; (Strikethrough, preceding font-size used)
+
+The default value will be 16px, if size is not defined.
+*/
+
 export const fontSize = (size = 16) => {
   return `
     font-size: ${size}px;
