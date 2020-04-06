@@ -3,7 +3,7 @@ import { push } from "connected-react-router";
 import { getLogger } from "../utils/logger";
 import {
   types,
-  verifyingCertificateSuccess,
+  verifyingCertificateCompleted,
   verifyingCertificateFailure,
   getCertificate,
 } from "../reducers/certificate";
@@ -11,6 +11,7 @@ import { types as applicationTypes } from "../reducers/application";
 import { sendEmail } from "../services/email/sendEmail";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
+import { isValid } from "../services/verify/fragments";
 
 const { trace } = getLogger("saga:certificate");
 
@@ -25,8 +26,8 @@ export function* verifyCertificate() {
     trace(`Verification Status: ${JSON.stringify(verificationStatus)}`);
 
     // Instead of success/failure, report completeness
-    yield put(verifyingCertificateSuccess(verificationStatus));
-    if (verificationStatus.valid) {
+    yield put(verifyingCertificateCompleted(verificationStatus));
+    if (isValid(verificationStatus)) {
       yield put(push("/viewer"));
     }
   } catch (e) {

@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { get } from "lodash";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
+import { isValid } from "../../../services/verify/fragments";
+import { getAllButRevokeFragment, getRevokeFragment, certificateNotIssued } from "../../../services/verify/fragments";
 
 const SuccessIcon = () => <i className="fas fa-check text-success" />;
 const FailureIcon = () => <i className="fas fa-times text-danger" />;
@@ -23,10 +24,16 @@ const renderStatusCheckRow = (valid, messageSet) => (
 );
 
 const renderStatuses = (verificationStatus) => {
-  const hashValid = get(verificationStatus, "hash.checksumMatch", false);
-  const issuedValid = get(verificationStatus, "issued.issuedOnAll", false);
-  const revokedValid = !get(verificationStatus, "revoked.revokedOnAny", true);
-  const identityValid = get(verificationStatus, "identity.identifiedOnAll", false);
+  const positiveFragments = getAllButRevokeFragment(verificationStatus);
+  const negativeFragments = [getRevokeFragment(verificationStatus)];
+  const hashValid = isValid(positiveFragments, ["DOCUMENT_INTEGRITY"]);
+  const issuedValid = isValid(positiveFragments, ["DOCUMENT_STATUS"]) && !certificateNotIssued(positiveFragments);
+  const revokedValid = isValid(
+    // TODO: Will need to amend this when we add revocation detection for tokens
+    negativeFragments,
+    ["DOCUMENT_STATUS"]
+  );
+  const identityValid = isValid(verificationStatus, ["ISSUER_IDENTITY"]);
   return (
     <div id="detailed-error">
       {renderStatusCheckRow(hashValid, MESSAGES[TYPES.HASH])}
@@ -42,7 +49,7 @@ const CertificateVerifyCheck = (props) => {
 };
 
 CertificateVerifyCheck.propTypes = {
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
 };
 
 CheckStatusRow.propTypes = {

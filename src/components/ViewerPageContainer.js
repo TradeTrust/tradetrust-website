@@ -92,7 +92,7 @@ ViewerPageContainer.propTypes = {
   document: PropTypes.object,
   certificate: PropTypes.object,
   verifying: PropTypes.bool,
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
   emailSendingState: PropTypes.string,
   sendCertificate: PropTypes.func,
   sendCertificateReset: PropTypes.func,
