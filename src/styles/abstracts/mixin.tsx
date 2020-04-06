@@ -33,13 +33,13 @@ export const fontSourcesansproBold = () => {
   `;
 };
 
-const pxRem = (size: number, base = 16) => {
+const pxToRem = (size: number, base = 16) => {
   return (size / base) * 1 + "rem";
 };
 
 export const fontSize = (size = 16) => {
   return `
     font-size: ${size}px;
-    font-size: ${pxRem(size)};
+    font-size: ${pxToRem(size)};
   `;
 };
