@@ -14,7 +14,7 @@ test("sample document is rendered correctly when dns is verified", async (t) => 
   await t.setFilesToUpload("input[type=file]", [Document]);
 
   await StatusButton.with({ visibilityCheck: true })();
-  await validateTextContent(t, StatusButton, ["Document issued by EXAMPLE.OPENATTESTATION.COM"]);
+  await validateTextContent(t, StatusButton, ["Issued by EXAMPLE.OPENATTESTATION.COM"]);
 
   await t.expect(ButtonUploadAddressBook.count).eql(0);
 

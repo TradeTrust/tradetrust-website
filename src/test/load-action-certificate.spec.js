@@ -24,7 +24,7 @@ test("Load document from action should work when url is valid", async (t) => {
 
   await StatusButton.with({ visibilityCheck: true })();
 
-  await validateTextContent(t, StatusButton, ["Document issued by TRADETRUST.IO"]);
+  await validateTextContent(t, StatusButton, ["Issued by TRADETRUST.IO"]);
 
   await t.switchToIframe(IframeBlock);
 

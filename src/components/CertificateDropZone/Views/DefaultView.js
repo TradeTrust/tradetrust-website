@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import css from "./viewerStyles.scss";
+import css from "./viewerStyles.module.scss";
 
 export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
   <div

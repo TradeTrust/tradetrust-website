@@ -11,7 +11,7 @@ import {
 } from "../../reducers/certificate";
 import { updateNetworkId } from "../../reducers/application";
 import CertificateDropZone from "./CertificateDropZone";
-import css from "./Views/viewerStyles.scss";
+import css from "./Views/viewerStyles.module.scss";
 import QrReader from "../QrReader";
 
 export class CertificateDropZoneContainer extends Component {

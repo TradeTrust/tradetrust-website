@@ -10,7 +10,7 @@ const IS_PROD = !IS_DEV;
 
 module.exports = {
   entry: {
-    app: ["./src/index.js"]
+    app: ["./src/index.js"],
   },
   context: path.resolve(__dirname),
   mode: IS_DEV ? "development" : "production",
@@ -18,7 +18,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[hash:7].js",
-    publicPath: "/"
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -26,8 +26,8 @@ module.exports = {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: "babel-loader",
+        },
       },
       {
         // For pure CSS (without CSS modules)
@@ -53,9 +53,9 @@ module.exports = {
             },
           },
           "css-loader",
-          "sass-loader"
+          "sass-loader",
         ],
-        include: path.resolve(__dirname, "src/styles")
+        include: path.resolve(__dirname, "src/styles"),
       },
       {
         // For CSS modules
@@ -70,28 +70,28 @@ module.exports = {
               },
             },
           },
-          "sass-loader"
+          "sass-loader",
         ],
-        include: path.resolve(__dirname, "src/components")
-      }
-    ]
+        include: path.resolve(__dirname, "src/components"),
+      },
+    ],
   },
   plugins: [
     new webpack.EnvironmentPlugin(["NODE_ENV", "NET"]),
     new HtmlWebpackPlugin({
       filename: "index.html",
-      template: `${__dirname}/static/index.html`
+      template: `${__dirname}/public/static/index.html`,
     }),
     ...(IS_PROD
       ? [
           new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
           new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
           new CopyWebpackPlugin([
-            { from: "static/images", to: "static/images" }
+            { from: "public/static/images", to: "static/images" },
             // { from: "static/style.css", to: "static" }
-          ])
+          ]),
         ]
-      : [])
+      : []),
   ],
   optimization: {
     splitChunks: {
@@ -100,10 +100,10 @@ module.exports = {
           test: /\/node_modules\//,
           filename: "vendor.[hash:7].js",
           name: "vendor",
-          chunks: "all"
-        }
-      }
-    }
+          chunks: "all",
+        },
+      },
+    },
   },
 
   // Using cheap-eval-source-map for build times
@@ -112,6 +112,7 @@ module.exports = {
 
   devServer: {
     compress: true,
+    contentBase: path.join(__dirname, "public"),
     disableHostCheck: true,
     historyApiFallback: true,
     hot: true,
@@ -119,16 +120,16 @@ module.exports = {
     port: 3000,
     stats: {
       colors: true,
-      progress: true
-    }
+      progress: true,
+    },
   },
 
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
     modules: ["node_modules", path.resolve(__dirname, "src")],
     alias: {
-      "react-dom": "@hot-loader/react-dom"
-    }
+      "react-dom": "@hot-loader/react-dom",
+    },
   },
-  bail: true
+  bail: true,
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import css from "./viewerStyles.scss";
+import css from "./viewerStyles.module.scss";
 
 export const VerifyingView = () => (
   <div className={`${css["viewer-container"]} bg-light text-blue`}>

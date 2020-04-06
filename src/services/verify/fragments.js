@@ -13,14 +13,12 @@ export const addressInvalid = (fragments) => {
   const documentStoreIssuedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumDocumentStoreIssued");
   const tokenRegistryMintedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumTokenRegistryMinted");
   // 2 is the error code used by oa-verify in case of invalid address
-  return (
-    (documentStoreIssuedFragment &&
-      documentStoreIssuedFragment.reason &&
-      documentStoreIssuedFragment.reason.code === 2) ||
-    (tokenRegistryMintedFragment && tokenRegistryMintedFragment.reason && tokenRegistryMintedFragment.reason.code === 2)
-  );
+  return documentStoreIssuedFragment?.reason?.code === 2 || tokenRegistryMintedFragment?.reason?.code === 2;
 };
 
+// using a custom isValid because @govtechsg/oa-verify will NOT throw an error when there are 2 identities
+// with one skipped and one valid.
+// in the case of Tradetrust, we want to make sure all identities are valid
 export const isValid = (
   verificationFragments,
   types = ["DOCUMENT_STATUS", "DOCUMENT_INTEGRITY", "ISSUER_IDENTITY"]
@@ -41,10 +39,5 @@ export const certificateNotIssued = (fragments) => {
   const documentStoreIssuedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumDocumentStoreIssued");
   const tokenRegistryMintedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumTokenRegistryMinted");
   // 1 is the error code used by oa-verify in case of document / token not issued / minted
-  return (
-    (documentStoreIssuedFragment &&
-      documentStoreIssuedFragment.reason &&
-      documentStoreIssuedFragment.reason.code === 1) ||
-    (tokenRegistryMintedFragment && tokenRegistryMintedFragment.reason && tokenRegistryMintedFragment.reason.code === 1)
-  );
+  return documentStoreIssuedFragment?.reason?.code === 1 || tokenRegistryMintedFragment?.reason?.code === 1;
 };

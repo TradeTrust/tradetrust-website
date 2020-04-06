@@ -16,7 +16,7 @@ describe("certificate verify block getIdentityVerificationText", () => {
           ],
         },
       ];
-      expect(getIdentityVerificationText(fragments)).toStrictEqual("Document issued by ABC.COM");
+      expect(getIdentityVerificationText(fragments)).toStrictEqual("Issued by ABC.COM");
     });
 
     it("should return appropriate display text when multiple dns is verified", () => {
@@ -37,7 +37,7 @@ describe("certificate verify block getIdentityVerificationText", () => {
           ],
         },
       ];
-      expect(getIdentityVerificationText(fragments)).toStrictEqual("Document issued by XYZ.COM and DEMO.COM");
+      expect(getIdentityVerificationText(fragments)).toStrictEqual("Issued by XYZ.COM and DEMO.COM");
     });
   });
 });

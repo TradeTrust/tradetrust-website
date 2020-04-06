@@ -16,9 +16,9 @@ export const getIdentityVerificationText = (verificationStatus) => {
   // using concat to handle arrays and single element
   const dnsIdentity = dnsFragment?.data?.every((issuer) => issuer.status === "VALID");
   if (dnsIdentity) {
-    return `Document issued by ${dnsFragment.data.map((issuer) => issuer.location.toUpperCase()).join(" and ")}`;
+    return `Issued by ${dnsFragment.data.map((issuer) => issuer.location.toUpperCase()).join(" and ")}`;
   }
-  return "Document issued by Unknown";
+  return "Issued by Unknown";
 };
 
 const renderText = (identityDetails) => (

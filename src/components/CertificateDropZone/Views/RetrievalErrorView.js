@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import css from "./viewerStyles.scss";
+import css from "./viewerStyles.module.scss";
 
 export const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError }) => (
   <div id="viewer-container" className={`${css["viewer-container"]} ${css.invalid}`}>
     <span className={css["message-container"]}>
-      <img src="/static/images/dropzone/invalid.svg" />
+      <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
       <span className="invalid m-3" style={{ fontSize: "1.5rem" }}>
         This document is not valid
       </span>
