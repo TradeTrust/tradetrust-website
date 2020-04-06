@@ -39,7 +39,7 @@ const HowItWorks = () => {
 
 const AboutSection = () => (
   <section className={`bg-light ${css["section"]}`} id="how-it-works">
-    <div className="container">
+    <div className="container-custom">
       <div className="row">
         <div className="col-12">
           <h3>How it works</h3>

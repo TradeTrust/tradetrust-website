@@ -153,7 +153,7 @@
 
 @mixin dropzone-status($bg-color, $border-color) {
   background-color: $bg-color;
-  box-shadow: 0 0 0 10px $bg-color;
+  box-shadow: 0 0 0 $padding-dropzone-boxshadow $bg-color;
   border: 2px dashed $border-color;
 }
 
