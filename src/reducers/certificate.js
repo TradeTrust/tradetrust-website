@@ -40,7 +40,7 @@ export const types = {
 
   VERIFYING_CERTIFICATE: "VERIFYING_CERTIFICATE",
 
-  VERIFYING_CERTIFICATE_SUCCESS: "VERIFYING_CERTIFICATE_SUCCESS",
+  VERIFYING_CERTIFICATE_COMPLETED: "VERIFYING_CERTIFICATE_COMPLETED",
   VERIFYING_CERTIFICATE_FAILURE: "VERIFYING_CERTIFICATE_FAILURE",
 
   SENDING_CERTIFICATE: "SENDING_CERTIFICATE",
@@ -98,7 +98,7 @@ export default function reducer(state = initialState, action) {
         verificationPending: true,
         verificationStatus: null,
       };
-    case types.VERIFYING_CERTIFICATE_SUCCESS:
+    case types.VERIFYING_CERTIFICATE_COMPLETED:
       return {
         ...state,
         verificationPending: false,
@@ -248,8 +248,8 @@ export const processQrCode = (payload) => ({
   payload,
 });
 
-export const verifyingCertificateSuccess = (payload) => ({
-  type: types.VERIFYING_CERTIFICATE_SUCCESS,
+export const verifyingCertificateCompleted = (payload) => ({
+  type: types.VERIFYING_CERTIFICATE_COMPLETED,
   payload,
 });
 

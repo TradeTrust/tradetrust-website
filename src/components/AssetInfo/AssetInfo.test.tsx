@@ -9,6 +9,7 @@ jest.mock("react-redux", () => ({
   useDispatch: () => jest.fn(),
   useSelector: () => ({
     token: { beneficiaryAddress: "", holderAddress: "" },
+    networkIdVerbose: "ropsten",
   }),
 }));
 

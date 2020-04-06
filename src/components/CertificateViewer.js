@@ -142,7 +142,7 @@ CertificateViewer.propTypes = {
   document: PropTypes.object,
   certificate: PropTypes.object,
   verifying: PropTypes.bool,
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
   showSharing: PropTypes.bool,
   emailSendingState: PropTypes.string,
   handleSharingToggle: PropTypes.func,

@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import DefaultView from "./DefaultView";
+import { DefaultView } from "./DefaultView";
 
 describe("defaultView", () => {
   it("displays correctly if accept is true", () => {

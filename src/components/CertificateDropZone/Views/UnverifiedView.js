@@ -1,53 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { get } from "lodash";
+import {
+  certificateNotIssued,
+  getAllButRevokeFragment,
+  getRevokeFragment,
+  isValid,
+} from "../../../services/verify/fragments";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
-import css from "./viewerStyles.scss";
+import css from "./viewerStyles.module.scss";
 
-const DetailedErrors = ({ verificationStatus, retrieveCertificateByActionError }) => {
+const DetailedErrors = ({ verificationStatus }) => {
   const errors = [];
-  if (!get(verificationStatus, "hash.checksumMatch")) errors.push(TYPES.HASH);
-  if (!get(verificationStatus, "issued.issuedOnAll") && !get(verificationStatus, "revoked.revokedOnAny"))
-    errors.push(TYPES.ISSUED); // if it is revoked on any then it should only show revoked
-  if (get(verificationStatus, "revoked.revokedOnAny", true)) errors.push(TYPES.REVOKED);
-  if (!get(verificationStatus, "identity.identifiedOnAll")) errors.push(TYPES.IDENTITY);
+  const positiveFragments = getAllButRevokeFragment(verificationStatus);
+  const negativeFragments = [getRevokeFragment(verificationStatus)];
+
+  if (!isValid(positiveFragments, ["DOCUMENT_INTEGRITY"])) errors.push(TYPES.HASH);
+  if (!isValid(positiveFragments, ["DOCUMENT_STATUS"]) && certificateNotIssued(positiveFragments))
+    errors.push(TYPES.ISSUED);
+  if (!isValid(negativeFragments, ["DOCUMENT_STATUS"])) errors.push(TYPES.REVOKED);
+  if (!isValid(positiveFragments, ["ISSUER_IDENTITY"])) errors.push(TYPES.IDENTITY);
+
   return (
     <div id="error-tab" className={css.verifications}>
-      {retrieveCertificateByActionError ? (
-        <div>
-          <p className={css.messages}>Unable to load certificate with the provided parameters</p>
-          <p>{retrieveCertificateByActionError}</p>
+      {errors.map((errorType, index) => (
+        <div key={index}>
+          <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
+          <p>{MESSAGES[errorType].failureMessage}</p>
         </div>
-      ) : (
-        errors.map((errorType, index) => (
-          <div key={index}>
-            <p className={css.messages}>{MESSAGES[errorType].failureTitle}</p>
-            <p>{MESSAGES[errorType].failureMessage}</p>
-          </div>
-        ))
-      )}
+      ))}
     </div>
   );
 };
 
 DetailedErrors.propTypes = {
-  verificationStatus: PropTypes.object,
-  retrieveCertificateByActionError: PropTypes.string,
+  verificationStatus: PropTypes.array,
 };
 
-const View = ({ resetData, verificationStatus, retrieveCertificateByActionError }) => (
+export const UnverifiedView = ({ resetData, verificationStatus }) => (
   <div id="viewer-container" className={`${css["viewer-container"]} ${css.invalid}`}>
     <span className={css["message-container"]}>
-      <img src="/static/images/dropzone/invalid.svg" />
+      <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
       <span className="invalid m-3" style={{ fontSize: "1.5rem" }}>
         This document is not valid
       </span>
     </span>
-    <DetailedErrors
-      verificationStatus={verificationStatus}
-      retrieveCertificateByActionError={retrieveCertificateByActionError}
-    />
+    <DetailedErrors verificationStatus={verificationStatus} />
 
     <div className={css["unverified-btn-container"]}>
       <Link to="/faq">
@@ -69,11 +67,9 @@ const View = ({ resetData, verificationStatus, retrieveCertificateByActionError 
   </div>
 );
 
-View.propTypes = {
+UnverifiedView.propTypes = {
   handleRenderOverwrite: PropTypes.func,
   resetData: PropTypes.func,
   document: PropTypes.object,
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
 };
-
-export default View;

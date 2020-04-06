@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import VerifyingView from "./VerifyingView";
+import { VerifyingView } from "./VerifyingView";
 
 describe("defaultView", () => {
   it("should display correct text while verifying document", () => {

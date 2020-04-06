@@ -19,7 +19,8 @@
   justify-content: flex-start;
   margin: 0 auto;
   background-color: $brand-navy;
-  padding: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 
   @media print {
     display: none;
