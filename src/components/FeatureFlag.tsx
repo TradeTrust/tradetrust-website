@@ -27,6 +27,9 @@ export const FeatureFlag: FunctionComponent<FeatureFlag> = ({ name, children, fa
   const features = Features as FeatureJson;
   const featureFlag: boolean = features?.[name]?.[environment];
 
+  // display the feature if the flag has been overridden
+  // OR
+  // if the flag HAS NOT been set to FALSE (override === undefined) and the flag is enabled
   if ((override || (featureFlag && override === undefined)) && children) {
     // Casting because of incompatibility of ReactNode with FunctionComponent
     // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18051
