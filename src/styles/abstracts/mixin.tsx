@@ -1,3 +1,33 @@
+export const centerVertical = () => {
+  return `
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  `;
+};
+
+export const aspectRatio = (width = 16, height = 9) => {
+  return `
+    position: relative;
+    width: 100%;
+
+    &::before {
+      content: '';
+      width: 1px;
+      margin-left: -1px;
+      float: left;
+      height: 0;
+      padding-top: ${(height / width) * 100}%;
+    }
+
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+  `;
+};
+
 export const fontMontserratRegular = () => {
   return `
     font-family: "Montserrat", Helvetica, Arial, sans-serif;

@@ -1,5 +1,15 @@
 @import "../../styles/abstracts/__abstracts.scss";
 
+.section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+
+  @media only screen and (min-width: $lg) {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
 h3 {
   color: $color-white;
 }
