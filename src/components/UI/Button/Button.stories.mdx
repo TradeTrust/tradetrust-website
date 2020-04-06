@@ -1,113 +1,47 @@
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { ButtonSolid, ButtonIcon, ButtonIconText, ButtonCircle, ButtonBordered } from "./Button";
-import { SvgIcon, SvgIconEdit, SvgIconBook, SvgIconX, SvgIconFilePlus } from "./../../UI/SvgIcon";
+import {
+  Button,
+  ButtonSolid,
+  ButtonSolidOrange,
+  ButtonBorderedBlue,
+  ButtonSolidWhiteOrange,
+  ButtonSolidWhiteBlue,
+  ButtonIconWhiteOrange,
+  ButtonCircleGreylight,
+} from "./Button";
+import { SvgIcon, SvgIconEdit, SvgIconX } from "./../../UI/SvgIcon";
 
-<Meta title="UI/Button" component={ButtonSolid} />
+<Meta title="UI/Button" component={Button} />
 
 # Button
 
-Button look.
+Button look. Button type, background color, text color.
 
 ---
 
 ### Props
 
-<Props of={ButtonSolid} />
+<Props of={Button} />
 
 ---
 
-### ButtonSolid (Bg)
+### ButtonSolid
 
 <Preview>
-  <Story name="Default">
+  <Story name="ButtonSolid">
     <ButtonSolid>Default</ButtonSolid>
   </Story>
-  <Story name="Disabled">
+  <Story name="ButtonSolidDisabled">
     <ButtonSolid disabled>Disabled</ButtonSolid>
   </Story>
-  <Story name="Primary">
-    <ButtonSolid bg="primary">Primary</ButtonSolid>
+  <Story name="ButtonSolidOrange">
+    <ButtonSolidOrange>Orange</ButtonSolidOrange>
   </Story>
-  <Story name="White">
-    <ButtonSolid bg="white" color="primary">
-      White
-    </ButtonSolid>
+  <Story name="ButtonSolidWhiteOrange">
+    <ButtonSolidWhiteOrange>WhiteOrange</ButtonSolidWhiteOrange>
   </Story>
-  <Story name="Grey Light">
-    <ButtonSolid bg="grey-light">Grey Light</ButtonSolid>
-  </Story>
-</Preview>
-
----
-
-### ButtonSolid (Color)
-
-<Preview>
-  <Story name="Text Primary">
-    <ButtonSolid bg="white" color="primary">
-      Text Primary
-    </ButtonSolid>
-  </Story>
-  <Story name="Text Secondary">
-    <ButtonSolid bg="white" color="secondary">
-      Text Secondary
-    </ButtonSolid>
-  </Story>
-</Preview>
-
----
-
-### ButtonIconText
-
-<Preview>
-  <Story name="Icon Text">
-    <ButtonIconText text="Import" bg="white" color="secondary">
-      <SvgIcon>
-        <SvgIconFilePlus />
-      </SvgIcon>
-    </ButtonIconText>
-  </Story>
-</Preview>
-
----
-
-### ButtonIcon
-
-<Preview>
-  <Story name="Edit">
-    <ButtonIcon bg="white" color="primary">
-      <SvgIcon>
-        <SvgIconEdit />
-      </SvgIcon>
-    </ButtonIcon>
-  </Story>
-  <Story name="Iconic Disabled">
-    <ButtonIcon bg="white" color="primary" disabled>
-      <SvgIcon>
-        <SvgIconEdit />
-      </SvgIcon>
-    </ButtonIcon>
-  </Story>
-  <Story name="Book">
-    <ButtonIcon bg="white" color="primary">
-      <SvgIcon>
-        <SvgIconBook />
-      </SvgIcon>
-    </ButtonIcon>
-  </Story>
-</Preview>
-
----
-
-### ButtonCircle
-
-<Preview>
-  <Story name="Cancel">
-    <ButtonCircle bg="grey-light">
-      <SvgIcon>
-        <SvgIconX />
-      </SvgIcon>
-    </ButtonCircle>
+  <Story name="ButtonSolidWhiteBlue">
+    <ButtonSolidWhiteBlue>WhiteBlue</ButtonSolidWhiteBlue>
   </Story>
 </Preview>
 
@@ -116,7 +50,42 @@ Button look.
 ### ButtonBordered
 
 <Preview>
-  <Story name="Bordered">
-    <ButtonBordered bg="tertiary">Load Addressbook</ButtonBordered>
+  <Story name="ButtonBorderedBlue">
+    <ButtonBorderedBlue>BorderedBlue</ButtonBorderedBlue>
+  </Story>
+</Preview>
+
+---
+
+### ButtonIconWhite
+
+<Preview>
+  <Story name="ButtonIconWhiteOrange">
+    <ButtonIconWhiteOrange>
+      <SvgIcon>
+        <SvgIconEdit />
+      </SvgIcon>
+    </ButtonIconWhiteOrange>
+  </Story>
+  <Story name="ButtonIconWhiteOrangeDisabled">
+    <ButtonIconWhiteOrange disabled>
+      <SvgIcon>
+        <SvgIconEdit />
+      </SvgIcon>
+    </ButtonIconWhiteOrange>
+  </Story>
+</Preview>
+
+---
+
+### ButtonCircle
+
+<Preview>
+  <Story name="ButtonCircleGreylight">
+    <ButtonCircleGreylight>
+      <SvgIcon>
+        <SvgIconX />
+      </SvgIcon>
+    </ButtonCircleGreylight>
   </Story>
 </Preview>
