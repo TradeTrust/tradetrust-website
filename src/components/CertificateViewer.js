@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { getData } from "@govtechsg/open-attestation";
 import CertificateVerifyBlock from "./CertificateVerifyBlock";
 import styles from "./certificateViewer.scss";
 import Modal from "./Modal";
@@ -86,6 +85,11 @@ export const CertificateViewer = (props) => {
     }
   }, [escapePress]);
 
+  const updateTemplates = useCallback((templates) => {
+    setTemplates(templates);
+    setSelectedTemplate(templates[0].id);
+  }, []);
+
   const validCertificateContent = (
     <>
       <CSSTransition
@@ -120,14 +124,7 @@ export const CertificateViewer = (props) => {
         setOverlayVisible={setOverlayVisible}
         tokenRegistryAddress={tokenRegistryAddress}
       />
-      <DecentralisedRendererContainer
-        rawDocument={document}
-        updateTemplates={(templates) => {
-          // console.log(templates);
-          setTemplates(templates);
-          setSelectedTemplate(action.payload[0].id);
-        }}
-      />
+      <DecentralisedRendererContainer rawDocument={document} updateTemplates={updateTemplates} />
       <Modal show={props.showSharing} toggle={props.handleSharingToggle}>
         <CertificateSharingForm
           emailSendingState={props.emailSendingState}
