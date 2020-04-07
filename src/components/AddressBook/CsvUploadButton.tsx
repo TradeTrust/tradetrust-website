@@ -36,7 +36,7 @@ export const CsvUploadButton = () => {
   const handleUploadedFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const csvFile = event.target.files && event.target.files[0];
-      if (csvFile?.type !== "text/csv") throw new Error("Uploaded file is not a csv file");
+      if (!csvFile) throw new Error("No file selected");
       const csv = await readAsText(csvFile);
       const addressBook = csvToAddressBook(csv);
       setAddressBook(addressBook);
