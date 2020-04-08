@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { LandingSection } from "./HomePageContent/LandingSection";
 import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
 import { DocumentationSection } from "./HomePageContent/DocumentationSection";
+import { EmailSection } from "./HomePageContent/EmailSection";
 import { DropZoneSectionContainer } from "./HomePageContent/DropZoneSection";
 import { OverlayYoutube } from "./UI/Overlay";
 import { CSSTransition } from "react-transition-group";
@@ -39,6 +40,7 @@ const MainPageContainer = () => {
       <DropZoneSectionContainer />
       <LandingSection isOverlayVisible={isOverlayVisible} setOverlayVisible={setOverlayVisible} />
       <MainBenefitsSection />
+      <EmailSection />
       <DocumentationSection />
     </>
   );

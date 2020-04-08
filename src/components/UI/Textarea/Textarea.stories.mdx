@@ -1,0 +1,24 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import { Textarea, TextareaDefault } from "./Textarea";
+
+<Meta title="UI/Textarea" component={Textarea} />
+
+# Textarea
+
+Textarea look.
+
+---
+
+### Props
+
+<Props of={Textarea} />
+
+---
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <TextareaDefault name="test" placeholder="Placeholder" />
+  </Story>
+</Preview>
