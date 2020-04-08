@@ -19,3 +19,8 @@ export function getSuccessResponse(actionType: TOKEN_ACTION_TYPES): string {
       return "";
   }
 }
+
+export const checkIfApprovedAddress = (approvedEscrowContractAddress: string) => {
+  const addressZero = "0x0000000000000000000000000000000000000000";
+  return approvedEscrowContractAddress !== addressZero;
+};

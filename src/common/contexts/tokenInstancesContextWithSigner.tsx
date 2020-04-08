@@ -27,9 +27,9 @@ export const TokenInstanceProviderWithSigner = ({
   const tokenId = getDocumentId(document);
   const tokenRegistryAddress = getTokenRegistryAddress(document);
 
-  const { provider } = useInjectedProvider();
-  const tokenRegistryInstance = useTokenRegistryContract(tokenRegistryAddress, provider).tokenRegistry;
-  const titleEscrowInstance = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider).titleEscrow;
+  const { signer } = useInjectedProvider();
+  const tokenRegistryInstance = useTokenRegistryContract(tokenRegistryAddress, signer).tokenRegistry;
+  const titleEscrowInstance = useTitleEscrowContract(tokenRegistryAddress, tokenId, signer).titleEscrow;
 
   return (
     <TokenInstanceContextWithSigner.Provider value={{ tokenRegistryInstance, titleEscrowInstance }}>

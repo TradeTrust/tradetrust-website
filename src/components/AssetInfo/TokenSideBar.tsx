@@ -1,26 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import css from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
 import { SvgIcon } from "./../UI/SvgIcon";
+import { TokenInstanceContextWithSigner } from "../../common/contexts/tokenInstancesContextWithSigner";
 
 interface TokenSideBarContentProps {
   userWalletAddress: string;
-  holderAddress: string;
-  beneficiaryAddress: string;
   registryAddress: string;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
   isSideBarExpand: boolean;
 }
 
-const TokenSideBar = ({
-  userWalletAddress,
-  holderAddress,
-  beneficiaryAddress,
-  registryAddress,
-  handler,
-  isSideBarExpand,
-}: TokenSideBarContentProps) => {
+const TokenSideBar = ({ userWalletAddress, registryAddress, handler, isSideBarExpand }: TokenSideBarContentProps) => {
+  const { titleEscrowInstance } = useContext(TokenInstanceContextWithSigner);
   return (
     <aside className={`${css.tokensidebar} ${isSideBarExpand ? css["is-expanded"] : ""}`}>
       <div className={`${css["tokensidebar-content"]}`}>
@@ -28,19 +21,20 @@ const TokenSideBar = ({
           <div className="row">
             <div className="col-12">
               <div className={`${css.heading}`}>
-                <TokenSideBarRole />
+                {titleEscrowInstance && <TokenSideBarRole titleEscrowInstance={titleEscrowInstance} />}
                 <h2>Manage Asset</h2>
               </div>
               <div className={`${css.divider}`} />
             </div>
           </div>
         </header>
-        <TokenSideBarContent
-          userWalletAddress={userWalletAddress}
-          registryAddress={registryAddress}
-          holderAddress={holderAddress}
-          beneficiaryAddress={beneficiaryAddress}
-        />
+        {titleEscrowInstance && (
+          <TokenSideBarContent
+            userWalletAddress={userWalletAddress}
+            registryAddress={registryAddress}
+            titleEscrowInstance={titleEscrowInstance}
+          />
+        )}
       </div>
       <div className={`${css.hamburger}`} onClick={handler}>
         <SvgIcon cssClass="feather-chevron-left">
