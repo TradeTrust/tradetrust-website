@@ -2,23 +2,21 @@
 
 #top-header-ui {
   background-color: $color-blue-lighter;
+  z-index: 3;
+  position: relative;
+  padding: 16px 32px;
 
   @media print {
     display: none;
   }
 }
 
-#top-header-ui {
-  z-index: 3;
-  position: relative;
-  padding: 16px 32px;
-}
-
 .header-container {
   @include container-custom;
 }
 
-iframe { // renderer from OA
+iframe {
+  // renderer from OA
   padding: 0 10px;
   margin: 20px 0;
 }
