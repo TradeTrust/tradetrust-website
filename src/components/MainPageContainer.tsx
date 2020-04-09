@@ -1,13 +1,20 @@
-import React, { useState } from "react";
-import AboutSection from "./HomePageContent/AboutSection";
+import React, { useState, useEffect } from "react";
 import { LandingSection } from "./HomePageContent/LandingSection";
 import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
 import { DropZoneSectionContainer } from "./HomePageContent/DropZoneSection";
 import { OverlayYoutube } from "./UI/Overlay";
 import { CSSTransition } from "react-transition-group";
+import { useKeyPress } from "./../common/hooks/useKeyPress";
 
 const MainPageContainer = () => {
   const [isOverlayVisible, setOverlayVisible] = useState(false);
+  const escapePress = useKeyPress("Escape");
+
+  useEffect(() => {
+    if (escapePress) {
+      setOverlayVisible(false);
+    }
+  }, [escapePress]);
 
   return (
     <>
@@ -28,10 +35,9 @@ const MainPageContainer = () => {
           }}
         />
       </CSSTransition>
+      <DropZoneSectionContainer />
       <LandingSection isOverlayVisible={isOverlayVisible} setOverlayVisible={setOverlayVisible} />
       <MainBenefitsSection />
-      <DropZoneSectionContainer />
-      <AboutSection />
     </>
   );
 };

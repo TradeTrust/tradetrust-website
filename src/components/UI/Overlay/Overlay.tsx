@@ -8,6 +8,7 @@ import { CSSTransition } from "react-transition-group";
 import styled from "@emotion/styled";
 import { rgba } from "polished";
 import { mixin, vars } from "../../../styles";
+import { useLockBodyScroll } from "./../../../common/hooks/useLockBodyScroll";
 
 interface OverlayProps {
   className?: string;
@@ -15,8 +16,14 @@ interface OverlayProps {
   title: string;
   isOverlayVisible: boolean;
   handleCloseOverlay(event: React.MouseEvent<HTMLElement>): void;
-  addressBook?: AddressBook;
-  youtubeId?: string;
+}
+
+interface OverlayAdressBookProps extends OverlayProps {
+  addressBook: AddressBook;
+}
+
+interface OverlayYoutubeProps extends OverlayProps {
+  youtubeId: string;
 }
 
 export const Overlay = ({
@@ -27,6 +34,8 @@ export const Overlay = ({
   handleCloseOverlay,
   ...props
 }: OverlayProps) => {
+  useLockBodyScroll();
+
   return (
     <div className={`overlay ${className}`} {...props}>
       <div className="overlay-bg" onClick={handleCloseOverlay} />
@@ -74,7 +83,7 @@ export const OverlayDefault = styled(Overlay)`
   justify-content: center;
   align-items: center;
 
-  &.addressbook {
+  &.address-book {
     .overlay-content {
       max-width: 760px;
       max-height: 600px;
@@ -222,7 +231,7 @@ export const OverlayDefault = styled(Overlay)`
   }
 `;
 
-export const OverlayAddressBook = ({ addressBook = {}, ...props }: OverlayProps) => {
+export const OverlayAddressBook = ({ addressBook = {}, ...props }: OverlayAdressBookProps) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const onSearchTermChanged = (event: { target: { value: string } }) => {
@@ -231,7 +240,7 @@ export const OverlayAddressBook = ({ addressBook = {}, ...props }: OverlayProps)
   };
 
   return (
-    <OverlayDefault className="addressbook" {...props}>
+    <OverlayDefault className="address-book" {...props}>
       <div className="overlay-actionsbar">
         <div className="row align-items-center">
           <div className="col">
@@ -302,7 +311,7 @@ export const OverlayAddressBook = ({ addressBook = {}, ...props }: OverlayProps)
   );
 };
 
-export const OverlayYoutube = ({ youtubeId, ...props }: OverlayProps) => {
+export const OverlayYoutube = ({ youtubeId, ...props }: OverlayYoutubeProps) => {
   return (
     <OverlayDefault className="youtube" {...props}>
       <div className="video">

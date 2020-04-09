@@ -12,7 +12,7 @@ interface ButtonProps {
 
 export const Button = ({ className, children, ...props }: ButtonProps) => {
   return (
-    <button className={className} {...props}>
+    <button type="submit" className={className} {...props}>
       {children}
     </button>
   );
@@ -76,6 +76,7 @@ const baseStyleButton = ({ bgColor, textColor }: BaseStyleButtonProps) => {
     svg {
       display: block;
       width: 100%;
+      max-width: 24px;
     }
   `;
 };

@@ -45,10 +45,10 @@ export const MainBenefitsSection = () => {
       <div className="row">
         <div className="col-12 col-lg-8 mx-lg-auto">
           <div className="row mb-4">
-            <div className="col-auto">
-              <img className="img-icon" src="/static/images/benefitsection/icon-secure-doc.png" />
+            <div className="col-12 col-sm-auto">
+              <img className="img-icon mb-3 mb-sm-0" src="/static/images/benefitsection/icon-secure-doc.png" />
             </div>
-            <div className="col">
+            <div className="col-12 col-sm">
               <h5>Increased efficiencies through certainty</h5>
               <p>
                 Reduce the risk of receiving fake documents/information as sources will be accredited. Removes the need
@@ -58,10 +58,10 @@ export const MainBenefitsSection = () => {
             </div>
           </div>
           <div className="row mb-4">
-            <div className="col-auto">
-              <img className="img-icon" src="/static/images/benefitsection/icon-reduce-cost.png" />
+            <div className="col-12 col-sm-auto">
+              <img className="img-icon mb-3 mb-sm-0" src="/static/images/benefitsection/icon-reduce-cost.png" />
             </div>
-            <div className="col">
+            <div className="col-12 col-sm">
               <h5>Reduced costs of documentation</h5>
               <p>
                 Digitalising paper documents would eliminate costs associated with printing, including the handling and
@@ -71,10 +71,10 @@ export const MainBenefitsSection = () => {
             </div>
           </div>
           <div className="row mb-4">
-            <div className="col-auto">
-              <img className="img-icon" src="/static/images/benefitsection/icon-trade.png" />
+            <div className="col-12 col-sm-auto">
+              <img className="img-icon mb-3 mb-sm-0" src="/static/images/benefitsection/icon-trade.png" />
             </div>
-            <div className="col">
+            <div className="col-12 col-sm">
               <h5>Support for new service offerings through digitalisation and interoperability </h5>
               <p>
                 Current digitalisation efforts are fragmented digital ecosystems consisting of silo groups of trade
