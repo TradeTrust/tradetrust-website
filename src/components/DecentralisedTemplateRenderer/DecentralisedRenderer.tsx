@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import { updateObfuscatedCertificate } from "../../reducers/certificate";
 import { FrameActions, FrameConnector, HostActionsHandler } from "@govtechsg/decentralized-renderer-react-components";
+import { LEGACY_OPENCERTS_RENDERER } from "../../config";
 
 interface DecentralisedRendererProps {
   rawDocument: WrappedDocument;
@@ -35,7 +36,6 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   );
   useEffect(() => {
     if (toFrame) {
-      console.log("render_document");
       toFrame({
         type: "RENDER_DOCUMENT",
         payload: {
@@ -58,10 +58,9 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
     <div>
       <FrameConnector
         style={{ height: `${height}px`, width: "100%", border: "0px" }}
-        source={`http://localhost:3010`}
-        // source={`${
-        //   typeof rawDocument.data.$template === "object" ? document.$template.url : LEGACY_OPENCERTS_RENDERER
-        // }
+        source={`${
+          typeof rawDocument.data.$template === "object" ? document.$template.url : LEGACY_OPENCERTS_RENDERER
+        }`}
         dispatch={fromFrame}
         onConnected={onConnected}
       />
