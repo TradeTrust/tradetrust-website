@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
@@ -18,6 +18,7 @@ import { getTokenRegistryAddress, getDocumentId } from "../common/utils/document
 import { OverlayAddressBook } from "./UI/Overlay";
 import { useAddressBook } from "../common/hooks/useAddressBook";
 import { CSSTransition } from "react-transition-group";
+import { useKeyPress } from "./../common/hooks/useKeyPress";
 
 const renderVerifyBlock = (props) => (
   <CertificateVerifyBlock
@@ -79,6 +80,13 @@ const CertificateViewer = (props) => {
   const tokenRegistryAddress = getTokenRegistryAddress(document);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const { addressBook } = useAddressBook();
+  const escapePress = useKeyPress("Escape");
+
+  useEffect(() => {
+    if (escapePress) {
+      setOverlayVisible(false);
+    }
+  }, [escapePress]);
 
   const validCertificateContent = (
     <>

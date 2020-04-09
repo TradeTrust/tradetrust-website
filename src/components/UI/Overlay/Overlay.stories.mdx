@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { Overlay, OverlayAddressBook } from "./Overlay";
+import { Overlay, OverlayDefault, OverlayYoutube, OverlayAddressBook } from "./Overlay";
 
 <Meta title="UI/Overlay" component={Overlay} />
 
@@ -16,14 +16,14 @@ Overlay look.
 
 ---
 
-### Overlay
+### Overlay (Default)
 
 <Preview>
   <Story name="Default">
     {() => {
       const [isOverlayVisible, setOverlayVisible] = useState(true);
       return (
-        <Overlay
+        <OverlayDefault
           title="Default"
           isOverlayVisible={isOverlayVisible}
           handleCloseOverlay={() => {
@@ -85,7 +85,29 @@ Overlay look.
             ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
             nulla pariatur
           </p>
-        </Overlay>
+        </OverlayDefault>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (Youtube)
+
+<Preview>
+  <Story name="Youtube">
+    {() => {
+      const [isOverlayVisible, setOverlayVisible] = useState(true);
+      return (
+        <OverlayYoutube
+          title="Youtube"
+          youtubeId="tgbNymZ7vqY"
+          isOverlayVisible={isOverlayVisible}
+          handleCloseOverlay={() => {
+            setOverlayVisible(!isOverlayVisible);
+          }}
+        />
       );
     }}
   </Story>

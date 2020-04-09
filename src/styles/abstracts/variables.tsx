@@ -4,10 +4,12 @@ export const brandNavy = "#324353";
 
 export const blueLightest = "#f5f8fb";
 export const blueLighter = "#f3f8fc";
+export const blueLight = "#a6c1ee";
 export const blue = "#099de3";
 export const greyblue = "#c1c9d1";
 export const greyblueDark = "#a7afb7";
 export const greyblueDarker = "#343a40";
+export const pink = "#fbc2eb";
 export const greenLightest = "#f5fbf7";
 export const green = "#00c04a";
 export const orange = "#ffb152";
