@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getData } from "@govtechsg/open-attestation";
 import CertificateVerifyBlock from "./CertificateVerifyBlock";
 import styles from "./certificateViewer.scss";
 import Modal from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
-import DecentralisedRenderer from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
-import MultiTabs from "./MultiTabs";
-import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certificate";
-import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { AssetInfo } from "./AssetInfo";
 import { TitleTransferPanel } from "./TitleTransferPanel";
-import { getTokenRegistryAddress, getDocumentId } from "../common/utils/document";
+import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
 import { OverlayAddressBook } from "./UI/Overlay";
 import { useAddressBook } from "../common/hooks/useAddressBook";
 import { CSSTransition } from "react-transition-group";
+import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
+import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { useKeyPress } from "./../common/hooks/useKeyPress";
 
 const renderVerifyBlock = (props) => (
@@ -73,11 +69,12 @@ const renderHeaderBlock = (props) => {
   );
 };
 
-const CertificateViewer = (props) => {
-  const { document, selectTemplateTab } = props;
-  const certificate = getData(document);
+export const CertificateViewer = (props) => {
+  const { document } = props;
   const renderedHeaderBlock = renderHeaderBlock(props);
   const tokenRegistryAddress = getTokenRegistryAddress(document);
+  const [templates, setTemplates] = useState([]);
+  const [selectedTemplate, setSelectedTemplate] = useState("");
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const { addressBook } = useAddressBook();
   const escapePress = useKeyPress("Escape");
@@ -87,6 +84,11 @@ const CertificateViewer = (props) => {
       setOverlayVisible(false);
     }
   }, [escapePress]);
+
+  const updateTemplates = useCallback((templates) => {
+    setTemplates(templates);
+    setSelectedTemplate(templates[0].id);
+  }, []);
 
   const validCertificateContent = (
     <>
@@ -115,17 +117,14 @@ const CertificateViewer = (props) => {
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>
       <MultiTabs
-        selectTemplateTab={selectTemplateTab}
+        templates={templates}
+        selectedTemplate={selectedTemplate}
+        onSelectTemplate={(selectedTemplate) => setSelectedTemplate(selectedTemplate)}
         isOverlayVisible={isOverlayVisible}
         setOverlayVisible={setOverlayVisible}
         tokenRegistryAddress={tokenRegistryAddress}
       />
-      <DecentralisedRenderer
-        certificate={document}
-        source={`${
-          typeof document.data.$template === "object" ? certificate.$template.url : LEGACY_OPENCERTS_RENDERER
-        }`}
-      />
+      <DecentralisedRendererContainer rawDocument={document} updateTemplates={updateTemplates} />
       <Modal show={props.showSharing} toggle={props.handleSharingToggle}>
         <CertificateSharingForm
           emailSendingState={props.emailSendingState}
@@ -139,12 +138,6 @@ const CertificateViewer = (props) => {
   return <ErrorBoundary>{validCertificateContent} </ErrorBoundary>;
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  selectTemplateTab: (tabIndex) => dispatch(selectTemplateTabAction(tabIndex)),
-});
-
-export default connect(null, mapDispatchToProps)(CertificateViewer);
-
 CertificateViewer.propTypes = {
   detailedVerifyVisible: PropTypes.bool,
   document: PropTypes.object,
@@ -155,7 +148,6 @@ CertificateViewer.propTypes = {
   emailSendingState: PropTypes.string,
   handleSharingToggle: PropTypes.func,
   handleSendCertificate: PropTypes.func,
-
   selectTemplateTab: PropTypes.func,
 };
 

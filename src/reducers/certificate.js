@@ -21,9 +21,6 @@ export const initialState = {
   emailState: states.INITIAL,
   emailError: null,
 
-  templates: null,
-  activeTemplateTab: 0,
-
   retrieveCertificateByActionState: states.INITIAL,
   retrieveCertificateByActionStateError: null,
 };
@@ -50,9 +47,6 @@ export const types = {
 
   CERTIFICATE_OBFUSCATE_RESET: "CERTIFICATE_OBFUSCATE_RESET",
   CERTIFICATE_OBFUSCATE_UPDATE: "CERTIFICATE_OBFUSCATE_UPDATE",
-
-  CERTIFICATE_TEMPLATE_REGISTER: "CERTIFICATE_TEMPLATE_REGISTER",
-  CERTIFICATE_TEMPLATE_SELECT_TAB: "CERTIFICATE_TEMPLATE_SELECT_TAB",
 
   CERTIFICATE_PROCESS_QR_CODE: "CERTIFICATE_PROCESS_QR_CODE",
 
@@ -144,16 +138,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         rawModified: action.payload,
       };
-    case types.CERTIFICATE_TEMPLATE_REGISTER:
-      return {
-        ...state,
-        templates: action.payload,
-      };
-    case types.CERTIFICATE_TEMPLATE_SELECT_TAB:
-      return {
-        ...state,
-        activeTemplateTab: action.payload,
-      };
     case types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING:
       return {
         ...state,
@@ -196,13 +180,6 @@ export function verifyCertificate(payload) {
   };
 }
 
-export function updateFilteredCertificate(payload) {
-  return {
-    type: types.UPDATE_FILTERED_CERTIFICATE,
-    payload,
-  };
-}
-
 export function sendCertificate(payload) {
   return {
     type: types.SENDING_CERTIFICATE,
@@ -216,29 +193,9 @@ export function sendCertificateReset() {
   };
 }
 
-export function resetCertificateObfuscation() {
-  return {
-    type: types.CERTIFICATE_OBFUSCATE_RESET,
-  };
-}
-
 export function updateObfuscatedCertificate(payload) {
   return {
     type: types.CERTIFICATE_OBFUSCATE_UPDATE,
-    payload,
-  };
-}
-
-export function registerTemplates(payload) {
-  return {
-    type: types.CERTIFICATE_TEMPLATE_REGISTER,
-    payload,
-  };
-}
-
-export function selectTemplateTab(payload) {
-  return {
-    type: types.CERTIFICATE_TEMPLATE_SELECT_TAB,
     payload,
   };
 }
@@ -287,14 +244,6 @@ export function getVerificationStatus(store) {
 
 export function getEmailSendingState(store) {
   return store.certificate.emailState;
-}
-
-export function getActiveTemplateTab(store) {
-  return store.certificate.activeTemplateTab;
-}
-
-export function getTemplates(store) {
-  return store.certificate.templates;
 }
 
 export function getCertificateByActionError(store) {
