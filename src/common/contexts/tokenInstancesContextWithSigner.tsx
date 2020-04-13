@@ -8,12 +8,12 @@ import { getDocumentId, getTokenRegistryAddress } from "../utils/document";
 import { useInjectedProvider } from "../hooks/useInjectedProvider";
 
 interface TokenInstanceContextType {
-  titleEscrowInstance?: TitleEscrow;
+  titleEscrow?: TitleEscrow;
   tokenRegistryInstance?: TradeTrustERC721;
 }
 
 export const TokenInstanceContextWithSigner = React.createContext<TokenInstanceContextType>({
-  titleEscrowInstance: undefined,
+  titleEscrow: undefined,
   tokenRegistryInstance: undefined,
 });
 
@@ -29,10 +29,10 @@ export const TokenInstanceProviderWithSigner = ({
 
   const { signer } = useInjectedProvider();
   const tokenRegistryInstance = useTokenRegistryContract(tokenRegistryAddress, signer).tokenRegistry;
-  const titleEscrowInstance = useTitleEscrowContract(tokenRegistryAddress, tokenId, signer).titleEscrow;
+  const titleEscrow = useTitleEscrowContract(tokenRegistryAddress, tokenId, signer).titleEscrow;
 
   return (
-    <TokenInstanceContextWithSigner.Provider value={{ tokenRegistryInstance, titleEscrowInstance }}>
+    <TokenInstanceContextWithSigner.Provider value={{ tokenRegistryInstance, titleEscrow }}>
       {children}
     </TokenInstanceContextWithSigner.Provider>
   );

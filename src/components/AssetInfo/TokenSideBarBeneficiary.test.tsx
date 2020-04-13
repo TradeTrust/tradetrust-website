@@ -1,11 +1,11 @@
 import React from "react";
 import { mount } from "enzyme";
-import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
+import { EndorseChangeBeneficiary } from "./EndorseChangeBeneficiary";
 
 describe("tokenSideBarBeneficiary", () => {
   it("should have 1 field for Beneficiary", () => {
     const wrapper = mount(
-      <TokenSideBarBeneficiary
+      <EndorseChangeBeneficiary
         setApprovedHolder={() => {}}
         setApprovedBeneficiary={() => {}}
         approvedHolder=""

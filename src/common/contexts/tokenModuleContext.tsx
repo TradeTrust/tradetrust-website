@@ -4,7 +4,7 @@ import { TOKEN_ACTION_TYPES } from "../../components/AssetInfo/TokenActionUtil";
 type STATE = {
   showLoader: boolean;
   transactionHash: string;
-  actiontype: TOKEN_ACTION_TYPES;
+  actionType: TOKEN_ACTION_TYPES;
 };
 
 interface TokenState {

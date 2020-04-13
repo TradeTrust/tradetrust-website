@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import { getLogger } from "../../utils/logger";
 import css from "./TokenSideBar.scss";
 import TokenSideBarHolder from "./TokenSideBarHolder";
-import TokenSideBarBeneficiary from "./TokenSideBarBeneficiary";
+import { EndorseChangeBeneficiary } from "./EndorseChangeBeneficiary";
 import TokenSideBarNoMatch from "./TokenSideBarNoMatch";
-import { endorseTransfer, deployEscrowContract } from "../../services/token";
 import TokenTransactionSuccess from "./TokenTransactionSuccess";
-import { TOKEN_ACTION_TYPES, getSuccessResponse, checkIfApprovedAddress } from "./TokenActionUtil";
-const { trace, error } = getLogger("component:TokenSideBarContent");
+import { getSuccessResponse } from "./TokenActionUtil";
+const { trace } = getLogger("component:TokenSideBarContent");
 import getUserRoles, { UserRole } from "../../utils/UserRolesUtil";
-import { useSelector } from "react-redux";
 import { NETWORK_NAME } from "../../config";
 import { useUserWallet } from "../../common/hooks/useUserWallet";
 import { TransactionStateStatus } from "../../common/hooks/useEthereumTransactionState";
@@ -21,33 +19,21 @@ import { TokenModuleContext } from "../../common/contexts/tokenModuleContext";
 interface TokenSideBarContentProps {
   userWalletAddress: string;
   registryAddress: string;
-  titleEscrowInstance: TitleEscrow;
+  titleEscrow: TitleEscrow;
 }
 
-const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrowInstance }: TokenSideBarContentProps) => {
-  const { beneficiary, holder } = useTitleEscrowUsers({ titleEscrow: titleEscrowInstance });
+const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrow }: TokenSideBarContentProps) => {
+  const { beneficiary, holder } = useTitleEscrowUsers({ titleEscrow });
   const userRole = getUserRoles({
     userWalletAddress,
     holderAddress: holder || "",
     beneficiaryAddress: beneficiary || "",
   });
-  const [newHolder, setNewHolder] = useState("");
-  const [approvedBeneficiary, setApprovedBeneficiary] = useState("");
-  const [approvedHolder, setApprovedHolder] = useState("");
-
   const tokenSidebarError = { accessDenied: false, networkMismatch: false, metamaskNotFound: false };
   trace(`admin address: ${userWalletAddress}, holder address: ${holder}, beneficiary address: ${beneficiary}`);
-  const [actionError, setActionError] = useState<{ type: TOKEN_ACTION_TYPES; message: string } | null>(null);
-
-  const [actionType, setActionType] = useState<TOKEN_ACTION_TYPES>(TOKEN_ACTION_TYPES.CHANGE_HOLDER);
 
   const { state: useWalletState, network } = useUserWallet();
-  const { state: tokenState, dispatch } = useContext(TokenModuleContext);
-
-  const { approvedBeneficiaryAddress, approvedHolderAddress } = useSelector((state: any) => ({
-    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
-    approvedHolderAddress: state.token.approvedHolderAddress,
-  }));
+  const { state: tokenState } = useContext(TokenModuleContext);
 
   const isEqualBeneficiaryAndHolder = userRole === UserRole.HolderBeneficiary;
   const showHolder = userRole === UserRole.Holder || isEqualBeneficiaryAndHolder;
@@ -58,85 +44,18 @@ const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrowIn
 
   trace(`config network: ${NETWORK_NAME} and metamask network: ${network}`);
   trace(`error in sidebar access ${JSON.stringify(tokenSidebarError)}`);
+
   const { call: getApprovedTitleEscrowAddress, value: approvedEscrowContractAddress } = useContractFunctionHook(
-    titleEscrowInstance,
+    titleEscrow,
     "approvedTransferTarget"
-  );
-  const {
-    send: changeHolder,
-    transactionHash: changeHolderHash,
-    errorMessage: changeHolderError,
-  } = useContractFunctionHook(titleEscrowInstance, "changeHolder");
-  const { send: transferTo, transactionHash: transferHash, errorMessage: transferError } = useContractFunctionHook(
-    titleEscrowInstance,
-    "transferTo"
   );
 
   useEffect(() => {
     getApprovedTitleEscrowAddress();
-    const isApprovedAddress = approvedEscrowContractAddress && checkIfApprovedAddress(approvedEscrowContractAddress);
-    if (isApprovedAddress) setApprovedBeneficiary(approvedBeneficiaryAddress);
-    if (isApprovedAddress) setApprovedHolder(approvedHolderAddress);
-  }, [approvedBeneficiaryAddress, approvedEscrowContractAddress, approvedHolderAddress, getApprovedTitleEscrowAddress]);
+  }, [getApprovedTitleEscrowAddress]);
 
-  const handleFormActions = async (fn: Function, actionType: TOKEN_ACTION_TYPES, value = "") => {
-    try {
-      setActionError(null);
-      setActionType(actionType);
-      dispatch({ type: "SET_LOADER", showLoader: true });
-      await fn(value);
-      const hash = changeHolderHash || transferHash;
-      trace(`transaction mined hash: ${hash}`);
-      dispatch({ type: "SET_LOADER", showLoader: false });
-    } catch (e) {
-      error(`handle action error ${JSON.stringify(e)}`);
-      dispatch({ type: "SET_LOADER", showLoader: false });
-      setActionError({ type: actionType, message: e.message || e.reason });
-    }
-  };
-
-  const deployEscrowContractAction = async () => {
-    try {
-      setActionError(null);
-      dispatch({ type: "SET_LOADER", showLoader: true });
-      const contractAddress = approvedEscrowContractAddress
-        ? approvedEscrowContractAddress
-        : await deployEscrowContract({
-            registryAddress,
-            beneficiaryAddress: approvedBeneficiary,
-            holderAddress: approvedHolder,
-          });
-      trace(`escrow contract address to mint ${contractAddress}`);
-      dispatch({ type: "SET_LOADER", showLoader: false });
-      return contractAddress;
-    } catch (e) {
-      error(`handle action error ${JSON.stringify(e)}`);
-      dispatch({ type: "SET_LOADER", showLoader: false });
-      setActionError({ type: TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY, message: e.message || e.reason });
-    }
-  };
-
-  const approveChangeBeneficiary = async () => {
-    const contractAddress = await deployEscrowContractAction();
-    handleFormActions(endorseTransfer, TOKEN_ACTION_TYPES.ENDORSE_BENEFICIARY, contractAddress);
-  };
-
-  const transferHoldership = async () => {
-    handleFormActions(changeHolder, TOKEN_ACTION_TYPES.CHANGE_HOLDER, newHolder);
-  };
-
-  const changeBeneficiary = async () => {
-    const contractAddress = await deployEscrowContractAction();
-    handleFormActions(transferTo, TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY, contractAddress);
-  };
-
-  const surrenderDocument = () => {
-    handleFormActions(transferTo, TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT, registryAddress);
-  };
-
-  const txnError = changeHolderError || transferError;
   if (tokenState.transactionHash) {
-    const message = getSuccessResponse(actionType);
+    const message = getSuccessResponse(tokenState.actionType);
     return <TokenTransactionSuccess hash={tokenState.transactionHash} message={message} />;
   }
 
@@ -151,27 +70,17 @@ const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrowIn
         <>
           {showHolder && (
             <TokenSideBarHolder
+              titleEscrow={titleEscrow}
               isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
-              approvedBeneficiaryAddress={approvedBeneficiary}
-              approvedHolderAddress={approvedHolder}
-              newHolder={newHolder}
-              setApprovedBeneficiary={setApprovedBeneficiary}
-              setApprovedHolder={setApprovedHolder}
-              setNewHolder={setNewHolder}
-              transferHoldership={transferHoldership}
-              changeBeneficiary={changeBeneficiary}
-              surrenderDocument={surrenderDocument}
-              error={actionError || (txnError ? { type: actionType, message: txnError } : null)}
+              approvedEscrowContractAddress={approvedEscrowContractAddress}
+              registryAddress={registryAddress}
             />
           )}
           {showBeneficiary && (
-            <TokenSideBarBeneficiary
-              setApprovedBeneficiary={setApprovedBeneficiary}
-              setApprovedHolder={setApprovedHolder}
-              approveChangeBeneficiary={approveChangeBeneficiary}
-              approvedHolder={approvedHolder}
-              approvedBeneficiary={approvedBeneficiary}
-              error={actionError || (txnError ? { type: actionType, message: txnError } : null)}
+            <EndorseChangeBeneficiary
+              titleEscrow={titleEscrow}
+              approvedEscrowContractAddress={approvedEscrowContractAddress}
+              registryAddress={registryAddress}
             />
           )}
         </>

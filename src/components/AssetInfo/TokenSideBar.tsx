@@ -14,7 +14,7 @@ interface TokenSideBarContentProps {
 }
 
 const TokenSideBar = ({ userWalletAddress, registryAddress, handler, isSideBarExpand }: TokenSideBarContentProps) => {
-  const { titleEscrowInstance } = useContext(TokenInstanceContextWithSigner);
+  const { titleEscrow } = useContext(TokenInstanceContextWithSigner);
   return (
     <TokenStateProvider>
       <aside className={`${css.tokensidebar} ${isSideBarExpand ? css["is-expanded"] : ""}`}>
@@ -23,18 +23,18 @@ const TokenSideBar = ({ userWalletAddress, registryAddress, handler, isSideBarEx
             <div className="row">
               <div className="col-12">
                 <div className={`${css.heading}`}>
-                  {titleEscrowInstance && <TokenSideBarRole titleEscrowInstance={titleEscrowInstance} />}
+                  {titleEscrow && <TokenSideBarRole titleEscrowInstance={titleEscrow} />}
                   <h2>Manage Asset</h2>
                 </div>
                 <div className={`${css.divider}`} />
               </div>
             </div>
           </header>
-          {titleEscrowInstance && (
+          {titleEscrow && (
             <TokenSideBarContent
               userWalletAddress={userWalletAddress}
               registryAddress={registryAddress}
-              titleEscrowInstance={titleEscrowInstance}
+              titleEscrow={titleEscrow}
             />
           )}
         </div>
