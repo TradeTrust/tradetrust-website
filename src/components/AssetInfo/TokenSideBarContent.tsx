@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import { getLogger } from "../../utils/logger";
 import css from "./TokenSideBar.scss";
@@ -16,6 +16,8 @@ import { useUserWallet } from "../../common/hooks/useUserWallet";
 import { TransactionStateStatus } from "../../common/hooks/useEthereumTransactionState";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import { useTitleEscrowUsers } from "../../common/hooks/useTitleEscrowUsers";
+import { TokenModuleContext } from "../../common/contexts/tokenModuleContext";
+
 interface TokenSideBarContentProps {
   userWalletAddress: string;
   registryAddress: string;
@@ -35,12 +37,12 @@ const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrowIn
 
   const tokenSidebarError = { accessDenied: false, networkMismatch: false, metamaskNotFound: false };
   trace(`admin address: ${userWalletAddress}, holder address: ${holder}, beneficiary address: ${beneficiary}`);
-  const [showActionLoader, toggleActionLoader] = useState(false);
   const [actionError, setActionError] = useState<{ type: TOKEN_ACTION_TYPES; message: string } | null>(null);
 
   const [actionType, setActionType] = useState<TOKEN_ACTION_TYPES>(TOKEN_ACTION_TYPES.CHANGE_HOLDER);
 
   const { state: useWalletState, network } = useUserWallet();
+  const { state: tokenState, dispatch } = useContext(TokenModuleContext);
 
   const { approvedBeneficiaryAddress, approvedHolderAddress } = useSelector((state: any) => ({
     approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
@@ -81,14 +83,14 @@ const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrowIn
     try {
       setActionError(null);
       setActionType(actionType);
-      toggleActionLoader(true);
+      dispatch({ type: "SET_LOADER", showLoader: true });
       await fn(value);
       const hash = changeHolderHash || transferHash;
       trace(`transaction mined hash: ${hash}`);
-      toggleActionLoader(false);
+      dispatch({ type: "SET_LOADER", showLoader: false });
     } catch (e) {
       error(`handle action error ${JSON.stringify(e)}`);
-      toggleActionLoader(false);
+      dispatch({ type: "SET_LOADER", showLoader: false });
       setActionError({ type: actionType, message: e.message || e.reason });
     }
   };
@@ -96,7 +98,7 @@ const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrowIn
   const deployEscrowContractAction = async () => {
     try {
       setActionError(null);
-      toggleActionLoader(true);
+      dispatch({ type: "SET_LOADER", showLoader: true });
       const contractAddress = approvedEscrowContractAddress
         ? approvedEscrowContractAddress
         : await deployEscrowContract({
@@ -105,11 +107,11 @@ const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrowIn
             holderAddress: approvedHolder,
           });
       trace(`escrow contract address to mint ${contractAddress}`);
-      toggleActionLoader(false);
+      dispatch({ type: "SET_LOADER", showLoader: false });
       return contractAddress;
     } catch (e) {
       error(`handle action error ${JSON.stringify(e)}`);
-      toggleActionLoader(false);
+      dispatch({ type: "SET_LOADER", showLoader: false });
       setActionError({ type: TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY, message: e.message || e.reason });
     }
   };
@@ -131,16 +133,16 @@ const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrowIn
   const surrenderDocument = () => {
     handleFormActions(transferTo, TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT, registryAddress);
   };
-  const hash = changeHolderHash || transferHash;
+
   const txnError = changeHolderError || transferError;
-  if (hash) {
+  if (tokenState.transactionHash) {
     const message = getSuccessResponse(actionType);
-    return <TokenTransactionSuccess hash={hash} message={message} />;
+    return <TokenTransactionSuccess hash={tokenState.transactionHash} message={message} />;
   }
 
   return (
     <>
-      {showActionLoader && (
+      {tokenState.showLoader && (
         <div className={css.overlay}>
           <div className="loader" />
         </div>
