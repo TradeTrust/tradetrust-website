@@ -1,22 +1,18 @@
-import React, { useState, useContext } from "react";
-import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
+import React, { useState } from "react";
 
 import css from "./TokenSideBar.scss";
 import TokenSideBarField from "./TokenSideBarField";
 import { TokenErrorMessage } from "./TokenErrorMessage";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import { TokenModuleContext } from "../../common/contexts/tokenModuleContext";
+import { TOKEN_ACTION_TYPES } from "./TokenActionUtil";
+import { useTokenActions } from "../../common/hooks/useTokenActions";
 
 export const TransferHoldership = ({ titleEscrow }: { titleEscrow: TitleEscrow }) => {
   const [newHolder, setNewHolder] = useState("");
-  const { dispatch } = useContext(TokenModuleContext);
-  const { send, errorMessage } = useContractFunctionHook(titleEscrow, "changeHolder");
-
-  const changeHolder = () => {
-    dispatch({ type: "SET_LOADER", showLoader: true });
-    send(newHolder);
-    dispatch({ type: "SET_LOADER", showLoader: false });
-  };
+  const { executeAction, errorMessage } = useTokenActions({
+    titleEscrow,
+    actionType: TOKEN_ACTION_TYPES.CHANGE_HOLDER,
+  });
 
   return (
     <>
@@ -24,7 +20,7 @@ export const TransferHoldership = ({ titleEscrow }: { titleEscrow: TitleEscrow }
         id="transferholdership"
         title="Transfer Holdership"
         label="Transfer"
-        handleClick={changeHolder}
+        handleClick={() => executeAction(newHolder)}
       >
         <label>
           <input

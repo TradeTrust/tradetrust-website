@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
+import React from "react";
 
 import TokenSideBarField from "./TokenSideBarField";
 import { TokenErrorMessage } from "./TokenErrorMessage";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import { TokenModuleContext } from "../../common/contexts/tokenModuleContext";
+import { TOKEN_ACTION_TYPES } from "./TokenActionUtil";
+import { useTokenActions } from "../../common/hooks/useTokenActions";
 
 export const SurrenderDocument = ({
   titleEscrow,
@@ -13,14 +13,10 @@ export const SurrenderDocument = ({
   titleEscrow: TitleEscrow;
   registryAddress: string;
 }) => {
-  const { dispatch } = useContext(TokenModuleContext);
-  const { send, errorMessage } = useContractFunctionHook(titleEscrow, "transferTo");
-
-  const surrenderDocument = () => {
-    dispatch({ type: "SET_LOADER", showLoader: true });
-    send(registryAddress);
-    dispatch({ type: "SET_LOADER", showLoader: false });
-  };
+  const { executeAction, errorMessage } = useTokenActions({
+    titleEscrow,
+    actionType: TOKEN_ACTION_TYPES.SURRENDER_DOCUMENT,
+  });
 
   return (
     <TokenSideBarField
@@ -28,7 +24,7 @@ export const SurrenderDocument = ({
       title="Surrender Document"
       label="Surrender"
       status="danger"
-      handleClick={surrenderDocument}
+      handleClick={() => executeAction(registryAddress)}
     >
       {errorMessage && <TokenErrorMessage errorMessage={errorMessage} />}
     </TokenSideBarField>

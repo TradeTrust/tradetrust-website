@@ -1,6 +1,12 @@
 import React, { createContext, useReducer, ReactElement } from "react";
 import { TOKEN_ACTION_TYPES } from "../../components/AssetInfo/TokenActionUtil";
 
+export enum TOKEN_MODULE {
+  "SET_LOADER",
+  "SET_TRANSACTION_HASH",
+  "SET_ACTION_TYPE",
+}
+
 type STATE = {
   showLoader: boolean;
   transactionHash: string;
@@ -18,12 +24,12 @@ const TokenModuleContext = createContext({} as TokenState);
 const TokenStateProvider = ({ children }: { children: ReactElement }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
-      case "SET_LOADER":
-        return { ...state, showLoader: action.payload.showLoader };
-      case "SET_TRANSACTION_HASH":
-        return { ...state, transactionHash: action.payload.transactionHash };
-      case "SET_ACTION_TYPE":
-        return { ...state, actionType: action.payload.actionType };
+      case TOKEN_MODULE.SET_LOADER:
+        return { ...state, showLoader: action.showLoader };
+      case TOKEN_MODULE.SET_TRANSACTION_HASH:
+        return { ...state, transactionHash: action.transactionHash };
+      case TOKEN_MODULE.SET_ACTION_TYPE:
+        return { ...state, actionType: action.actionType };
       default:
         throw new Error();
     }

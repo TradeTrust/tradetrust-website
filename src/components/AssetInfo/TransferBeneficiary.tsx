@@ -1,71 +1,58 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { TitleEscrowFactory } from "@govtechsg/token-registry";
-import { checkIfApprovedAddress } from "./TokenActionUtil";
-import { useInjectedProvider } from "../../common/hooks/useInjectedProvider";
+import React, { useState, useContext } from "react";
 import { deployEscrowContract } from "../../services/token";
 
 import css from "./TokenSideBar.scss";
 import TokenSideBarField from "./TokenSideBarField";
 import { TokenErrorMessage } from "./TokenErrorMessage";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import { TokenModuleContext } from "../../common/contexts/tokenModuleContext";
+import { TokenModuleContext, TOKEN_MODULE } from "../../common/contexts/tokenModuleContext";
 import { useTitleEscrowUsers } from "../../common/hooks/useTitleEscrowUsers";
+import { useTokenActions } from "../../common/hooks/useTokenActions";
+import { TOKEN_ACTION_TYPES } from "./TokenActionUtil";
 
 export const TransferBeneficiary = ({
   titleEscrow,
   approvedEscrowContractAddress,
   registryAddress,
+  approvedEscrowInstance,
 }: {
   titleEscrow: TitleEscrow;
   approvedEscrowContractAddress: string;
+  approvedEscrowInstance: TitleEscrow;
   registryAddress: string;
 }) => {
-  const [newHolder, setNewHolder] = useState("");
+  const [newHolder, setNewHolder] = useState<string>("");
   const [newBeneficiary, setNewBeneficiary] = useState("");
-  const [deployedContractAddress, setDeployedContractAddress] = useState("");
 
-  const { signer } = useInjectedProvider();
   const { dispatch } = useContext(TokenModuleContext);
-  const { send, errorMessage } = useContractFunctionHook(titleEscrow, "transferTo");
-
-  useEffect(() => {
-    try {
-      if (checkIfApprovedAddress(approvedEscrowContractAddress)) {
-        const instance = TitleEscrowFactory.connect(approvedEscrowContractAddress, signer);
-        const { beneficiary: approvedBeneficiary, holder: approvedHolder } = useTitleEscrowUsers({
-          titleEscrow: instance,
-        });
-        if (approvedBeneficiary) setNewBeneficiary(approvedBeneficiary);
-        if (approvedHolder) setNewHolder(approvedHolder);
-      }
-    } catch (e) {
-      console.error("no approved escrow contract");
-    }
-  }, [approvedEscrowContractAddress, signer]);
+  const { executeAction, errorMessage } = useTokenActions({
+    titleEscrow,
+    actionType: TOKEN_ACTION_TYPES.CHANGE_BENEFICIARY,
+  });
+  const { beneficiary, holder } = useTitleEscrowUsers({
+    titleEscrow: approvedEscrowInstance,
+  });
 
   const deployEscrowContractAction = async () => {
     try {
-      dispatch({ type: "SET_LOADER", showLoader: true });
+      dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: true });
       const contractAddress = approvedEscrowContractAddress
         ? approvedEscrowContractAddress
         : await deployEscrowContract({
             registryAddress,
-            beneficiaryAddress: newBeneficiary,
-            holderAddress: newHolder,
+            beneficiaryAddress: beneficiary || newBeneficiary,
+            holderAddress: holder || newHolder,
           });
-      setDeployedContractAddress(contractAddress);
-      dispatch({ type: "SET_LOADER", showLoader: false });
+      dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: false });
+      return contractAddress;
     } catch (e) {
-      dispatch({ type: "SET_LOADER", showLoader: false });
+      dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: false });
     }
   };
 
   const changeBeneficiary = async () => {
-    dispatch({ type: "SET_LOADER", showLoader: true });
-    await deployEscrowContractAction();
-    send(deployedContractAddress);
-    dispatch({ type: "SET_LOADER", showLoader: false });
+    const contractAddress = await deployEscrowContractAction();
+    executeAction(contractAddress);
   };
 
   return (
@@ -83,7 +70,7 @@ export const TransferBeneficiary = ({
             className={`${css["field-input"]} ${errorMessage ? css["is-error"] : ""}`}
             type="text"
             name="approvedHolder"
-            value={newHolder}
+            value={holder || newHolder}
             onChange={(e) => setNewHolder(e.target.value)}
             disabled={!!approvedEscrowContractAddress}
             placeholder="Address (e.g. 0x483..)"
@@ -97,7 +84,7 @@ export const TransferBeneficiary = ({
             className={`${css["field-input"]} ${errorMessage ? css["is-error"] : ""}`}
             type="text"
             name="approvedBeneficiary"
-            value={newBeneficiary}
+            value={beneficiary || newBeneficiary}
             onChange={(e) => setNewBeneficiary(e.target.value)}
             disabled={!!approvedEscrowContractAddress}
             placeholder="Address (e.g. 0x483..)"

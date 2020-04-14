@@ -19,7 +19,6 @@ export const useInjectedProvider = () => {
       if (!injectedWeb3) throw new Error("Metamask cannot be found");
       const web3Provider = new ethers.providers.Web3Provider(injectedWeb3);
       const signer = web3Provider.getSigner();
-      console.log(web3Provider);
       trace(`provider is ${web3Provider} and signer is ${signer}`);
       dispatch({ type: TransactionStateStatus.SUCCESS });
       return { web3Provider, signer };

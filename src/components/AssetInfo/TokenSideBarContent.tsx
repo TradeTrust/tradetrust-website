@@ -15,7 +15,7 @@ import { TransactionStateStatus } from "../../common/hooks/useEthereumTransactio
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import { useTitleEscrowUsers } from "../../common/hooks/useTitleEscrowUsers";
 import { TokenModuleContext } from "../../common/contexts/tokenModuleContext";
-
+import { checkIfApprovedAddress } from "./TokenActionUtil";
 interface TokenSideBarContentProps {
   userWalletAddress: string;
   registryAddress: string;
@@ -72,14 +72,18 @@ const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrow }
             <TokenSideBarHolder
               titleEscrow={titleEscrow}
               isEqualBeneficiaryAndHolder={isEqualBeneficiaryAndHolder}
-              approvedEscrowContractAddress={approvedEscrowContractAddress}
+              approvedEscrowContractAddress={
+                checkIfApprovedAddress(approvedEscrowContractAddress) ? approvedEscrowContractAddress : ""
+              }
               registryAddress={registryAddress}
             />
           )}
           {showBeneficiary && (
             <EndorseChangeBeneficiary
               titleEscrow={titleEscrow}
-              approvedEscrowContractAddress={approvedEscrowContractAddress}
+              approvedEscrowContractAddress={
+                checkIfApprovedAddress(approvedEscrowContractAddress) ? approvedEscrowContractAddress : ""
+              }
               registryAddress={registryAddress}
             />
           )}
