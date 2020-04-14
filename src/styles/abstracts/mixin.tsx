@@ -1,3 +1,5 @@
+import * as vars from "./variables";
+
 export const centerVertical = () => {
   return `
     display: flex;
@@ -85,5 +87,24 @@ export const fontSize = (size = 16) => {
   return `
     font-size: ${size}px;
     font-size: ${pxToRem(size)};
+  `;
+};
+
+export const baseStyleInput = () => {
+  return `
+    border: 1px solid ${vars.greyLight};
+    padding: ${vars.inputPadding};
+    margin-bottom: 10px;
+
+    &[type="text"],
+    &[type="email"] {
+      width: 100%;
+    }
+
+    &::placeholder {
+      font-style: italic;
+      color: ${vars.grey};
+      ${fontSize(16)}
+    }
   `;
 };
