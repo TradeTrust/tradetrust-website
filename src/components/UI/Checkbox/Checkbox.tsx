@@ -1,13 +1,10 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 import styled from "@emotion/styled";
 import { InputDefault } from "../Input";
 
-interface CheckboxProps {
+interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   text: string;
-  name: string;
-  value?: string;
-  required?: boolean;
 }
 
 export const Checkbox = ({ className, text, ...props }: CheckboxProps) => {
