@@ -95,7 +95,7 @@ export const EmailForm = () => {
               text="I agree to receive other communications from TradeTrust."
             />
             <CheckboxDefault
-              name="personaldata"
+              name="Personal Data"
               text="I agree to allow TradeTrust to store and process my personal data.*"
               required
             />

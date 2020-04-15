@@ -38,6 +38,19 @@
     />
   </head>
   <body>
+    <form name="contact" netlify netlify-honeypot="bot-field" action="/email/success" hidden>
+      <input type="text" name="Full Name" />
+      <input type="email" name="Email" />
+      <input type="text" name="Organisation" />
+      <input name="Business Category" />
+      <input name="Region of Operations" />
+      <textarea name="Message"></textarea>
+      <input type="hidden" name="Receive communications" value="No" />
+      <input type="checkbox" name="Receive communications" value="Yes" />
+      <input type="hidden" name="Personal Data" value="No" />
+      <input type="checkbox" name="Personal Data" value="Yes" />
+    </form>
+
     <div id="root"></div>
 
     <script
