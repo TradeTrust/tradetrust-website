@@ -26,26 +26,79 @@ export const optionsRegion = [
   { value: "Africa", label: "Africa" },
 ];
 
+export const encode = (data: { [x: string]: string | number | boolean }) => {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+};
+
 export const EmailForm = () => {
   const [selectedBusiness, setSelectedBusiness] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState([]);
+  const [form, setForm] = useState({});
 
   const handleSelectedBusiness = (option: any) => {
     setSelectedBusiness(option);
+
+    setForm({ ...form, ["Business Category"]: option[0].value });
   };
 
   const handleSelectedRegion = (option: any) => {
     setSelectedRegion(option);
+
+    setForm({ ...form, ["Region of Operations"]: option[0].value });
+  };
+
+  const handleInputOrTextareaChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [event.target.name]: event.target.checked ? "Yes" : "No" });
+  };
+
+  const handleFormSubmit = (event: { preventDefault: () => void }) => {
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ "form-name": "contact", ...form }),
+    })
+      .then(() => {
+        window.location.href = "/email/success";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    event.preventDefault();
   };
 
   return (
-    <form name="contact" method="post" className="my-4">
+    <form name="contact" className="my-4" onSubmit={handleFormSubmit}>
       <input type="hidden" name="form-name" value="contact" />
       <div className="row">
         <div className="col-12 col-md-7 col-xl-5 mx-auto">
-          <InputDefault type="text" name="Full Name" placeholder="Full Name" required />
-          <InputDefault type="email" name="Email" placeholder="Email Address" required />
-          <InputDefault type="text" name="Organisation" placeholder="Name of your organisation" required />
+          <InputDefault
+            type="text"
+            name="Full Name"
+            placeholder="Full Name"
+            required
+            onChange={handleInputOrTextareaChange}
+          />
+          <InputDefault
+            type="email"
+            name="Email"
+            placeholder="Email Address"
+            required
+            onChange={handleInputOrTextareaChange}
+          />
+          <InputDefault
+            type="text"
+            name="Organisation"
+            placeholder="Name of your organisation"
+            required
+            onChange={handleInputOrTextareaChange}
+          />
           <SelectDefault
             name="Business Category"
             values={selectedBusiness}
@@ -62,7 +115,7 @@ export const EmailForm = () => {
             placeholder="Please select your region of operations"
             required
           />
-          <TextareaDefault name="Message" placeholder="Message" required />
+          <TextareaDefault name="Message" placeholder="Message" required onChange={handleInputOrTextareaChange} />
           <div className="my-4">
             <div className="mb-4">
               <h6>Consent to communicate</h6>
@@ -86,6 +139,7 @@ export const EmailForm = () => {
             <CheckboxDefault
               name="Receive communications"
               text="I agree to receive other communications from TradeTrust."
+              onChange={handleCheckboxChange}
             />
             <CheckboxDefault
               name="Personal Data"
