@@ -25,7 +25,7 @@ export const SectionEmailSuccess = styled(Section)`
     color: ${vars.white};
   }
 
-  .success {
+  .success-card {
     background-color: ${vars.white};
     max-width: 420px;
     margin-left: auto;
@@ -54,30 +54,26 @@ export const SectionEmailSuccess = styled(Section)`
 export const EmailSuccessPageContainer = () => {
   return (
     <SectionEmailSuccess>
-      <div className="success">
-        <div className="px-3 py-5 bg-gradient">
-          <div className="row no-gutters align-items-center">
-            <div className="col-auto mx-auto">
-              <div className="tick mb-3">
-                <SvgIcon>
-                  <SvgIconChecked />
-                </SvgIcon>
-              </div>
-            </div>
-            <div className="col-12">
-              <h1 className="mb-0">Success</h1>
+      <div className="success-card">
+        <div className="row no-gutters align-items-center px-3 py-5 bg-gradient">
+          <div className="col-auto mx-auto">
+            <div className="tick mb-3">
+              <SvgIcon>
+                <SvgIconChecked />
+              </SvgIcon>
             </div>
           </div>
+          <div className="col-12">
+            <h1 className="mb-0">Success</h1>
+          </div>
         </div>
-        <div className="px-3 py-5">
-          <div className="row">
-            <div className="col-12">
-              <h5>Thank you for your email enquiry.</h5>
-              <p>We will get back to you shortly!</p>
-              <p>
-                Back to <a href="/">home page</a>.
-              </p>
-            </div>
+        <div className="row no-gutters px-3 py-5">
+          <div className="col-12">
+            <h5>Thank you for your email enquiry.</h5>
+            <p>We will get back to you shortly!</p>
+            <p>
+              Back to <a href="/">home page</a>.
+            </p>
           </div>
         </div>
       </div>
