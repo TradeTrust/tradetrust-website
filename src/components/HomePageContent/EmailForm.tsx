@@ -42,9 +42,6 @@ export const EmailForm = () => {
     <form
       name="contact"
       method="post"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
-      action="/email/success"
       className="my-4"
     >
       <input type="hidden" name="form-name" value="contact" />
