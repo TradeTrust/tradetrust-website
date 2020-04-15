@@ -1,9 +1,7 @@
 import React, { useState, useContext, ReactElement } from "react";
-import {TitleEscrowFactory} from "@govtechsg/token-registry";
+import { TitleEscrowFactory } from "@govtechsg/token-registry";
 
 import { TOKEN_ACTION_TYPES } from "./TokenActionUtil";
-import { deployEscrowContract } from "../../services/token";
-
 import css from "./TokenSideBar.scss";
 import TokenSideBarField from "./TokenSideBarField";
 import { TokenErrorMessage } from "./TokenErrorMessage";
@@ -38,16 +36,14 @@ export const EndorseChangeBeneficiary = ({
     const factory = new TitleEscrowFactory(signer);
     const escrowInstance = await factory.deploy(registryAddress, newBeneficiary, newHolder);
     return escrowInstance.address;
-  }
+  };
 
   const deployEscrowContractAction = async () => {
     console.log("approved address");
     console.log(approvedEscrowContractAddress);
     try {
       dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: true });
-      const contractAddress = approvedEscrowContractAddress
-        ? approvedEscrowContractAddress
-        : await deployEscrow();
+      const contractAddress = approvedEscrowContractAddress ? approvedEscrowContractAddress : await deployEscrow();
       dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: false });
       return contractAddress;
     } catch (e) {

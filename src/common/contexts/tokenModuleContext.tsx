@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, ReactElement } from "react";
-import { TOKEN_ACTION_TYPES } from "../../components/AssetInfo/TokenActionUtil";
+import { TOKEN_ACTION_TYPES } from "../../components/TokenSidebar/TokenActionUtil";
 
 export enum TOKEN_MODULE {
   "SET_LOADER",

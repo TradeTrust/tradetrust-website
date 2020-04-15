@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { TOKEN_ACTION_TYPES } from "../../components/AssetInfo/TokenActionUtil";
+import { TOKEN_ACTION_TYPES } from "../../components/TokenSidebar/TokenActionUtil";
 import { TokenModuleContext, TOKEN_MODULE } from "../contexts/tokenModuleContext";
 
 const getActionName = (actionType: TOKEN_ACTION_TYPES) => {

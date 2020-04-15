@@ -13,6 +13,9 @@ import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { AssetInfo } from "./AssetInfo";
+import { TokenSideBarContainer } from "./TokenSidebar";
+import { TokenInstanceProviderWithSigner } from "../common/contexts/tokenInstancesContextWithSigner";
+
 import { TitleTransferPanel } from "./TitleTransferPanel";
 import { getTokenRegistryAddress, getDocumentId } from "../common/utils/document";
 import { OverlayAddressBook } from "./UI/Overlay";
@@ -30,6 +33,7 @@ const renderVerifyBlock = (props) => (
 );
 
 const renderHeaderBlock = (props) => {
+  console.log(props);
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
     <div className={`${styles.container}`}>
@@ -37,7 +41,11 @@ const renderHeaderBlock = (props) => {
         <div className="col-12 col-md-auto">{renderedVerifyBlock}</div>
         <div className="col-12 col-md-auto">
           <div className="my-3 my-md-0 px-md-4 text-center">
-            <AssetInfo document={props.document} />
+            <AssetInfo
+              document={props.document}
+              isSidebarVisible={props.isSidebarVisible}
+              toggleSidebar={props.toggleSidebar}
+            />
           </div>
         </div>
         <div className="col-12 col-md-auto ml-auto">
@@ -75,7 +83,8 @@ const renderHeaderBlock = (props) => {
 const CertificateViewer = (props) => {
   const { document, selectTemplateTab } = props;
   const certificate = getData(document);
-  const renderedHeaderBlock = renderHeaderBlock(props);
+  const [isSidebarVisible, toggleSidebar] = useState(false);
+  const renderedHeaderBlock = renderHeaderBlock({ ...props, isSidebarVisible, toggleSidebar });
   const tokenRegistryAddress = getTokenRegistryAddress(document);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const { addressBook } = useAddressBook();
@@ -103,6 +112,9 @@ const CertificateViewer = (props) => {
       {tokenRegistryAddress && (
         <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
       )}
+      <TokenInstanceProviderWithSigner document={document}>
+        <TokenSideBarContainer document={document} isSidebarVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+      </TokenInstanceProviderWithSigner>
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
       </div>

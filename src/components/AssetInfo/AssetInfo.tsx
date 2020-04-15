@@ -1,28 +1,25 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
-import TokenSideBar from "./TokenSideBar";
 import { makeEtherscanTokenURL } from "../../utils";
 import { FeatureFlag } from "../FeatureFlag";
-import { TokenInstanceProviderWithSigner } from "../../common/contexts/tokenInstancesContextWithSigner";
 
-import { useUserWallet } from "../../common/hooks/useUserWallet";
 const getAssetInfo = (document: WrappedDocument) => {
   const { tokenRegistry } = getData(document).issuers[0];
   const { merkleRoot: tokenId } = document.signature;
   return { tokenRegistry, tokenId };
 };
 
-export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ document }) => {
-  const [isSideBarExpand, toggleSideBar] = useState(false);
+export const AssetInfo: FunctionComponent<{
+  document: WrappedDocument;
+  isSidebarVisible: boolean;
+  toggleSidebar: (val: boolean) => void;
+}> = ({ document, isSidebarVisible, toggleSidebar }) => {
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
-  const { state: useWalletState, userWalletAddress, enableMetamask } = useUserWallet();
-
-  const handlerToggleSideBar = async (event: { preventDefault: () => void }) => {
+  console.log(isSidebarVisible);
+  console.log(toggleSidebar);
+  const setSidebar = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    if (!userWalletAddress && useWalletState.error) {
-      await enableMetamask();
-    }
-    toggleSideBar(!isSideBarExpand);
+    toggleSidebar(!isSidebarVisible);
   };
 
   if (!registryAddress) return null;
@@ -38,26 +35,10 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
     </a>
   );
   return (
-    <TokenInstanceProviderWithSigner document={document}>
-      <FeatureFlag name="MANAGE_ASSET" fallback={legacyView}>
-        <div>
-          <a
-            href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-            id="asset-info-etherscan-link"
-            rel="noreferrer noopener"
-            target="_blank"
-            onClick={handlerToggleSideBar}
-          >
-            Manage Asset
-          </a>
-          <TokenSideBar
-            userWalletAddress={userWalletAddress}
-            registryAddress={registryAddress}
-            handler={handlerToggleSideBar}
-            isSideBarExpand={isSideBarExpand}
-          />
-        </div>
-      </FeatureFlag>
-    </TokenInstanceProviderWithSigner>
+    <FeatureFlag name="MANAGE_ASSET" fallback={legacyView}>
+      <a href="#" id="asset-info-etherscan" rel="noreferrer noopener" target="_blank" onClick={setSidebar}>
+        Manage Asset
+      </a>
+    </FeatureFlag>
   );
 };

@@ -1,7 +1,5 @@
 import React, { useState, useContext } from "react";
-import {TitleEscrowFactory} from "@govtechsg/token-registry";
-
-import { deployEscrowContract } from "../../services/token";
+import { TitleEscrowFactory } from "@govtechsg/token-registry";
 
 import css from "./TokenSideBar.scss";
 import TokenSideBarField from "./TokenSideBarField";
@@ -42,14 +40,12 @@ export const TransferBeneficiary = ({
     const factory = new TitleEscrowFactory(signer);
     const escrowInstance = await factory.deploy(registryAddress, newBeneficiary, newHolder);
     return escrowInstance.address;
-  }
+  };
 
   const deployEscrowContractAction = async () => {
     try {
       dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: true });
-      const contractAddress = approvedEscrowContractAddress
-        ? approvedEscrowContractAddress
-        : await deployEscrow();
+      const contractAddress = approvedEscrowContractAddress ? approvedEscrowContractAddress : await deployEscrow();
       dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: false });
       return contractAddress;
     } catch (e) {
