@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react";
+import {TitleEscrowFactory} from "@govtechsg/token-registry";
+
 import { deployEscrowContract } from "../../services/token";
 
 import css from "./TokenSideBar.scss";
@@ -9,6 +11,7 @@ import { TokenModuleContext, TOKEN_MODULE } from "../../common/contexts/tokenMod
 import { useTitleEscrowUsers } from "../../common/hooks/useTitleEscrowUsers";
 import { useTokenActions } from "../../common/hooks/useTokenActions";
 import { TOKEN_ACTION_TYPES } from "./TokenActionUtil";
+import { useInjectedProvider } from "../../common/hooks/useInjectedProvider";
 
 export const TransferBeneficiary = ({
   titleEscrow,
@@ -33,16 +36,20 @@ export const TransferBeneficiary = ({
     titleEscrow: approvedEscrowInstance,
   });
 
+  const { signer } = useInjectedProvider();
+
+  const deployEscrow = async () => {
+    const factory = new TitleEscrowFactory(signer);
+    const escrowInstance = await factory.deploy(registryAddress, newBeneficiary, newHolder);
+    return escrowInstance.address;
+  }
+
   const deployEscrowContractAction = async () => {
     try {
       dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: true });
       const contractAddress = approvedEscrowContractAddress
         ? approvedEscrowContractAddress
-        : await deployEscrowContract({
-            registryAddress,
-            beneficiaryAddress: beneficiary || newBeneficiary,
-            holderAddress: holder || newHolder,
-          });
+        : await deployEscrow();
       dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: false });
       return contractAddress;
     } catch (e) {
