@@ -59,7 +59,7 @@ export const SectionDocumentation = styled(Section)`
 
 export const DocumentationSection = () => {
   return (
-    <SectionDocumentation className="bg-light">
+    <SectionDocumentation id="integrate" className="bg-grey-lightest">
       <div className="row mb-5">
         <div className="col-12">
           <h1 className="mb-3">Integrate Tradetust into your platform?</h1>

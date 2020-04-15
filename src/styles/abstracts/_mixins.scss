@@ -56,6 +56,12 @@
   font-weight: 700;
 }
 
+@mixin reset-list {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
 @mixin container-custom($mw: $max-width) {
   width: 100%;
   max-width: $mw;

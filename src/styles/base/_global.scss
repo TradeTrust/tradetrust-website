@@ -25,3 +25,18 @@ button {
 svg {
   transition: color 0.3s $easeOutCubic;
 }
+
+a {
+  transition: color 0.3s $easeOutCubic;
+}
+
+// "sticky" footer, allow footer to flush to bottom when in viewer page, while document is loading
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  > main {
+    flex: 1;
+  }
+}

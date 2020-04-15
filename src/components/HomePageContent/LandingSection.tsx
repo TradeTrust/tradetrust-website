@@ -65,7 +65,7 @@ interface LandingSectionProps {
 
 export const LandingSection = ({ isOverlayVisible, setOverlayVisible }: LandingSectionProps) => {
   return (
-    <SectionLanding>
+    <SectionLanding id="about">
       <div className="row">
         <div className="col-12 col-lg-7 mx-lg-auto col-xl-6">
           <h1 className="mb-4">A Trust Network for Trading Partners</h1>

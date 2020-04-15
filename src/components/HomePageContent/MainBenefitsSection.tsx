@@ -31,7 +31,7 @@ export const SectionMainBenefits = styled(Section)`
 
 export const MainBenefitsSection = () => {
   return (
-    <SectionMainBenefits className="bg-light">
+    <SectionMainBenefits className="bg-grey-lightest">
       <div className="row">
         <div className="col-12 col-lg-auto mx-lg-auto">
           <h1 className="mb-4">Main Benefits</h1>

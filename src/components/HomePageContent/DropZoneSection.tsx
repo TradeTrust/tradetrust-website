@@ -77,7 +77,7 @@ class DropZoneSection extends Component<DropZoneSectionProps> {
   // eslint-disable-next-line class-methods-use-this
   render() {
     return (
-      <section className={`${css.section} bg-brand-navy text-white`}>
+      <section id="verify-documents" className={`${css.section} bg-brand-navy text-white`}>
         <div className="container-custom">
           <div className="row">
             <div className="col-lg-5 col-md-12">

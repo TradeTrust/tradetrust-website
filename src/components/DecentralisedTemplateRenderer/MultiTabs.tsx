@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
 import styles from "./multiTabs.scss";
-import { Drawer } from "./Drawer";
 import { ButtonBorderedBlue } from "../UI/Button";
 
 interface MultiTabsProps {
@@ -61,9 +60,6 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
               ))
             : null}
         </ul>
-      </div>
-      <div className="d-lg-none d-xl-none">
-        <Drawer templates={templates} selectedTemplate={selectedTemplate} onSelectTemplate={onSelectTemplate} />
       </div>
     </div>
   );
