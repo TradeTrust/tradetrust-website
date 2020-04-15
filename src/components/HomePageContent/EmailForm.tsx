@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { ButtonSolidOrange } from "./../UI/Button";
 import { InputDefault } from "./../UI/Input";
 import { TextareaDefault } from "./../UI/Textarea";
@@ -36,6 +37,7 @@ export const EmailForm = () => {
   const [selectedBusiness, setSelectedBusiness] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState([]);
   const [form, setForm] = useState({});
+  const history = useHistory();
 
   const handleSelectedBusiness = (option: any) => {
     setSelectedBusiness(option);
@@ -64,7 +66,7 @@ export const EmailForm = () => {
       body: encode({ "form-name": "contact", ...form }),
     })
       .then(() => {
-        window.location.href = "/email/success";
+        history.push("/email/success");
       })
       .catch((error) => {
         console.log(error);
