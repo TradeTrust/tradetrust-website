@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { Section } from "./Layout/Section";
 import { vars, mixin } from "../styles";
@@ -72,7 +73,7 @@ export const EmailSuccessPageContainer = () => {
             <h5>Thank you for your email enquiry.</h5>
             <p>We will get back to you shortly!</p>
             <p>
-              Back to <a href="/">home page</a>.
+              Back to <Link to="/">home page</Link>.
             </p>
           </div>
         </div>

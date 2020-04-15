@@ -36,7 +36,9 @@ export const encode = (data: { [x: string]: string | number | boolean }) => {
 export const EmailForm = () => {
   const [selectedBusiness, setSelectedBusiness] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState([]);
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    "Receive communications": "No",
+  } as any);
   const history = useHistory();
 
   const handleSelectedBusiness = (option: any) => {
