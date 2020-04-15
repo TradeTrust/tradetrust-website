@@ -39,11 +39,7 @@ export const EmailForm = () => {
   };
 
   return (
-    <form
-      name="contact"
-      method="post"
-      className="my-4"
-    >
+    <form name="contact" method="post" className="my-4">
       <input type="hidden" name="form-name" value="contact" />
       <div className="row">
         <div className="col-12 col-md-7 col-xl-5 mx-auto">
