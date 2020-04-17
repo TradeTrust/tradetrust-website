@@ -36,7 +36,7 @@ const TokenSideBarTooltip = ({ id }: TokenSideBarTooltipProps) => {
 
   return (
     <>
-      <SvgIcon tooltipId={id} cssClass="feather-info">
+      <SvgIcon tooltipId={id}>
         <>
           <circle cx="12" cy="12" r="10" />
           <line x1="12" y1="16" x2="12" y2="12" />

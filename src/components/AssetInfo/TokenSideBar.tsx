@@ -47,7 +47,7 @@ const TokenSideBar = ({
         />
       </div>
       <div className={`${css.hamburger}`} onClick={handler}>
-        <SvgIcon cssClass="feather-chevron-left">
+        <SvgIcon>
           <polyline points="15 18 9 12 15 6" />
         </SvgIcon>
       </div>
