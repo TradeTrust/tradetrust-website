@@ -55,7 +55,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   }, [selectedTemplate, toFrame]);
 
   return (
-    <div>
+    <section>
       <FrameConnector
         style={{ height: `${height}px`, width: "100%", border: "0px" }}
         source={`${
@@ -64,7 +64,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
         dispatch={fromFrame}
         onConnected={onConnected}
       />
-    </div>
+    </section>
   );
 };
 

@@ -1,0 +1,91 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import { DocumentStatus, DocumentStatusDefault } from "./DocumentStatus";
+import {
+  whenDocumentValidAndIssued,
+  whenDocumentHashInvalid,
+  whenDocumentRevoked,
+  whenDocumentIssuerIdentityInvalid,
+  whenDocumentHashInvalidAndNotIssued,
+} from "../../test/fixture/verifier-responses";
+
+<Meta title="DocumentStatus" component={DocumentStatus} />
+
+# DocumentStatus
+
+DocumentStatus look.
+
+---
+
+### Props
+
+<Props of={DocumentStatus} />
+
+---
+
+### Document is Valid
+
+Document is issued, has integrity, not revoked and has a verified issuer identity
+
+<Preview>
+  <Story name="Valid Document">
+    {() => {
+      return <DocumentStatusDefault verificationStatus={whenDocumentValidAndIssued} />;
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Document Hash is invalid
+
+Document was tampered with
+
+<Preview>
+  <Story name="Tampered Document">
+    {() => {
+      return <DocumentStatusDefault verificationStatus={whenDocumentHashInvalid} />;
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Document revoked
+
+Document was issued and subsequently revoked
+
+<Preview>
+  <Story name="Revoked Document">
+    {() => {
+      return <DocumentStatusDefault verificationStatus={whenDocumentRevoked} />;
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Document Issuer Identity invalid
+
+Document's issuer identity cannot be verified
+
+<Preview>
+  <Story name="Invalid Issuer">
+    {() => {
+      return <DocumentStatusDefault verificationStatus={whenDocumentIssuerIdentityInvalid} />;
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Document all failed
+
+Document when all verification fail
+
+<Preview>
+  <Story name="All Failed">
+    {() => {
+      return <DocumentStatusDefault verificationStatus={whenDocumentHashInvalidAndNotIssued} />;
+    }}
+  </Story>
+</Preview>

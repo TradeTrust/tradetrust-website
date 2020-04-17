@@ -15,6 +15,7 @@ import { CSSTransition } from "react-transition-group";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { useKeyPress } from "./../common/hooks/useKeyPress";
+import { DocumentStatusDefault } from "./DocumentStatus";
 
 const renderVerifyBlock = (props) => (
   <CertificateVerifyBlock
@@ -29,7 +30,7 @@ const renderVerifyBlock = (props) => (
 const renderHeaderBlock = (props) => {
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
-    <div className={`${styles.container}`}>
+    <div className="container-custom">
       <div className="row no-gutters align-items-center">
         <div className="col-12 col-md-auto">{renderedVerifyBlock}</div>
         <div className="col-12 col-md-auto">
@@ -110,12 +111,11 @@ export const CertificateViewer = (props) => {
           addressBook={addressBook}
         />
       </CSSTransition>
+      <DocumentStatusDefault verificationStatus={props.verificationStatus} />
       {tokenRegistryAddress && (
         <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
       )}
-      <div id={styles["top-header-ui"]}>
-        <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
-      </div>
+      <section id={styles["top-header-ui"]}>{renderedHeaderBlock}</section>
       <MultiTabs
         templates={templates}
         selectedTemplate={selectedTemplate}
@@ -151,7 +151,6 @@ CertificateViewer.propTypes = {
   selectTemplateTab: PropTypes.func,
 };
 
-renderVerifyBlock.propTypes = CertificateViewer.propTypes;
 renderHeaderBlock.propTypes = CertificateViewer.propTypes;
 
 ErrorBoundary.propTypes = {

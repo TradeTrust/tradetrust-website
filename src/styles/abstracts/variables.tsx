@@ -12,6 +12,7 @@ export const greyblueDarker = "#343a40";
 export const pink = "#fbc2eb";
 export const greenLightest = "#f5fbf7";
 export const green = "#00c04a";
+export const teal = "#00cbbc";
 export const orange = "#ffb152";
 export const redLighter = "#fbeae9";
 export const red = "#ff5268";

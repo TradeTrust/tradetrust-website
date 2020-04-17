@@ -21,8 +21,8 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
   tokenRegistryAddress,
 }) => {
   return (
-    <div id={styles["header-ui"]} className="pt-3 pt-md-0">
-      <div className={`${styles["header-container"]}`}>
+    <section id={styles["header-ui"]} className="pt-3 pt-md-0">
+      <div className="container-custom">
         <ul id="template-tabs-list" className="nav nav-tabs row no-gutters align-items-center">
           <li className="nav-item col-auto col-md-auto ml-md-auto order-md-2">
             <a href=" " className="my-auto ml-auto">
@@ -61,6 +61,6 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
             : null}
         </ul>
       </div>
-    </div>
+    </section>
   );
 };
