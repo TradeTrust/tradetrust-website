@@ -12,10 +12,7 @@ interface TokenInstanceContextType {
   tokenRegistryInstance?: TradeTrustERC721;
 }
 
-export const TokenInstanceContext = React.createContext<TokenInstanceContextType>({
-  titleEscrowInstance: undefined,
-  tokenRegistryInstance: undefined,
-});
+export const TokenInstanceContext = React.createContext({} as TokenInstanceContextType);
 
 export const TokenInstanceProvider = ({
   document,
