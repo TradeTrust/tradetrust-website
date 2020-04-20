@@ -57,15 +57,15 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   const dnsFragmentName = "OpenAttestationDnsTxt";
   const dnsFragment = verificationStatus.find((status) => status.name === dnsFragmentName);
   const dnsIdentity = dnsFragment?.data?.every((issuer: { status: string }) => issuer.status === "VALID");
+  const domainNames = dnsFragment?.data
+    ?.map((issuer: { location: string }) => issuer.location.toUpperCase())
+    .join(", ");
+  const formattedDomainNames = domainNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
 
   return (
     <h3 id="issuedby" className={`mb-0 issuedby`}>
       <span className="mr-1">Issued by</span>
-      <span className="domain">
-        {dnsIdentity
-          ? `${dnsFragment?.data.map((issuer: { location: string }) => issuer.location.toUpperCase()).join(" and ")}`
-          : "Unknown"}
-      </span>
+      <span className="domain">{dnsIdentity ? `${formattedDomainNames}` : "Unknown"}</span>
     </h3>
   );
 };

@@ -38,6 +38,10 @@ describe("IssuedBy", () => {
         data: [
           {
             status: "VALID",
+            location: "abc.com",
+          },
+          {
+            status: "VALID",
             location: "xyz.com",
           },
           {
@@ -48,7 +52,7 @@ describe("IssuedBy", () => {
       },
     ];
     const container = render(<IssuedBy verificationStatus={fragments} />);
-    expect(container.queryByText("XYZ.COM and DEMO.COM")).not.toBeNull();
+    expect(container.queryByText("ABC.COM, XYZ.COM and DEMO.COM")).not.toBeNull();
   });
 });
 
