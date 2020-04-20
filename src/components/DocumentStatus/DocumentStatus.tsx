@@ -59,7 +59,7 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   const dnsIdentity = dnsFragment?.data?.every((issuer: { status: string }) => issuer.status === "VALID");
 
   return (
-    <h3 id="issuedby" className={`pl-2 mb-0 issuedby`}>
+    <h3 id="issuedby" className={`mb-0 issuedby`}>
       <span className="mr-1">Issued by</span>
       <span className="domain">
         {dnsIdentity

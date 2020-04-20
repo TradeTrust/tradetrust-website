@@ -3,6 +3,7 @@ import { DocumentStatus } from "./DocumentStatus";
 import {
   whenDocumentValidAndIssued,
   whenDocumentHashInvalid,
+  whenDocumentNotIssued,
   whenDocumentRevoked,
   whenDocumentIssuerIdentityInvalid,
   whenDocumentHashInvalidAndNotIssued,
@@ -44,6 +45,20 @@ Document was tampered with
   <Story name="Tampered Document">
     {() => {
       return <DocumentStatus verificationStatus={whenDocumentHashInvalid} />;
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Document not issued
+
+Document is not issued
+
+<Preview>
+  <Story name="Not Issued Document">
+    {() => {
+      return <DocumentStatus verificationStatus={whenDocumentNotIssued} />;
     }}
   </Story>
 </Preview>
