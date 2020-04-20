@@ -2,7 +2,7 @@ import React from "react";
 import css from "./TokenSideBar.scss";
 import TokenSideBarContent from "./TokenSideBarContent";
 import TokenSideBarRole from "./TokenSideBarRole";
-import { SvgIcon } from "./../UI/SvgIcon";
+import { SvgIcon, SvgIconChervonLeft } from "./../UI/SvgIcon";
 
 interface TokenSideBarContentProps {
   adminAddress: string;
@@ -47,8 +47,8 @@ const TokenSideBar = ({
         />
       </div>
       <div className={`${css.hamburger}`} onClick={handler}>
-        <SvgIcon cssClass="feather-chevron-left">
-          <polyline points="15 18 9 12 15 6" />
+        <SvgIcon>
+          <SvgIconChervonLeft />
         </SvgIcon>
       </div>
     </aside>

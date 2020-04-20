@@ -4,15 +4,11 @@
   background-color: $color-blue-lighter;
   z-index: 3;
   position: relative;
-  padding: 16px 32px;
+  padding: 16px 0;
 
   @media print {
     display: none;
   }
-}
-
-.header-container {
-  @include container-custom;
 }
 
 iframe {

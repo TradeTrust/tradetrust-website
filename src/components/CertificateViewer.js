@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import CertificateVerifyBlock from "./CertificateVerifyBlock";
 import styles from "./certificateViewer.scss";
 import Modal from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
@@ -15,23 +14,12 @@ import { CSSTransition } from "react-transition-group";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { useKeyPress } from "./../common/hooks/useKeyPress";
-
-const renderVerifyBlock = (props) => (
-  <CertificateVerifyBlock
-    document={props.document}
-    verifyTriggered={props.verifyTriggered}
-    verifying={props.verifying}
-    verificationStatus={props.verificationStatus}
-    detailedVerifyVisible={props.detailedVerifyVisible}
-  />
-);
+import { DocumentStatus } from "./DocumentStatus";
 
 const renderHeaderBlock = (props) => {
-  const renderedVerifyBlock = renderVerifyBlock(props);
   return (
-    <div className={`${styles.container}`}>
+    <div className="container-custom">
       <div className="row no-gutters align-items-center">
-        <div className="col-12 col-md-auto">{renderedVerifyBlock}</div>
         <div className="col-12 col-md-auto">
           <div className="my-3 my-md-0 px-md-4 text-center">
             <AssetInfo document={props.document} />
@@ -110,12 +98,11 @@ export const CertificateViewer = (props) => {
           addressBook={addressBook}
         />
       </CSSTransition>
+      <DocumentStatus verificationStatus={props.verificationStatus} />
       {tokenRegistryAddress && (
         <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
       )}
-      <div id={styles["top-header-ui"]}>
-        <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
-      </div>
+      <section id={styles["top-header-ui"]}>{renderedHeaderBlock}</section>
       <MultiTabs
         templates={templates}
         selectedTemplate={selectedTemplate}
@@ -150,9 +137,6 @@ CertificateViewer.propTypes = {
   handleSendCertificate: PropTypes.func,
   selectTemplateTab: PropTypes.func,
 };
-
-renderVerifyBlock.propTypes = CertificateViewer.propTypes;
-renderHeaderBlock.propTypes = CertificateViewer.propTypes;
 
 ErrorBoundary.propTypes = {
   children: PropTypes.node,

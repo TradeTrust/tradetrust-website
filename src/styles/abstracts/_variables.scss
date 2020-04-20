@@ -5,6 +5,11 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
+$mw-sm: map-get($container-max-widths, "sm"); // 540px
+$mw-md: map-get($container-max-widths, "md"); // 720px
+$mw-lg: map-get($container-max-widths, "lg"); // 960px
+$mw-xl: map-get($container-max-widths, "xl"); // 1140px
+
 $sm: map-get($grid-breakpoints, "sm"); // 576px
 $md: map-get($grid-breakpoints, "md"); // 768px
 $lg: map-get($grid-breakpoints, "lg"); // 992px

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
-import { SvgIcon } from "./../UI/SvgIcon";
+import { SvgIcon, SvgIconInfo } from "./../UI/SvgIcon";
 
 interface TokenSideBarTooltipProps {
   id: string;
@@ -36,12 +36,8 @@ const TokenSideBarTooltip = ({ id }: TokenSideBarTooltipProps) => {
 
   return (
     <>
-      <SvgIcon tooltipId={id} cssClass="feather-info">
-        <>
-          <circle cx="12" cy="12" r="10" />
-          <line x1="12" y1="16" x2="12" y2="12" />
-          <line x1="12" y1="8" x2="12.01" y2="8" />
-        </>
+      <SvgIcon tooltipId={id}>
+        <SvgIconInfo />
       </SvgIcon>
       <ReactTooltip id={`tooltip-${id}`} place="bottom" type="dark" effect="solid" getContent={getTooltipContent} />
     </>
