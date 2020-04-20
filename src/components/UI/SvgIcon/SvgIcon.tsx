@@ -143,7 +143,6 @@ export const SvgIcon = ({ tooltipId, children }: SvgIconProps) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={`feather`}
     >
       {children}
     </svg>

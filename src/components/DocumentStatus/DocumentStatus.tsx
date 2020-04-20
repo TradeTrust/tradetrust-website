@@ -70,7 +70,7 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   );
 };
 
-export const DocumentStatus = ({ verificationStatus, className }: DocumentStatusProps) => {
+export const DocumentStatus = styled(({ verificationStatus, className }: DocumentStatusProps) => {
   const positiveFragments = getAllButRevokeFragment(verificationStatus);
   const negativeFragments = [getRevokeFragment(verificationStatus)];
   const hashValid = isValid(positiveFragments, ["DOCUMENT_INTEGRITY"]);
@@ -85,16 +85,7 @@ export const DocumentStatus = ({ verificationStatus, className }: DocumentStatus
           <div className="container-fluid">
             <div className="row align-items-center">
               <div className="col-12 col-xl-4 mb-3 mb-xl-0">
-                <div className="row align-items-center no-gutters">
-                  <div className="col-auto">
-                    <SvgIcon>
-                      <SvgIconCheckCircle />
-                    </SvgIcon>
-                  </div>
-                  <div className="col">
-                    <IssuedBy verificationStatus={verificationStatus} />
-                  </div>
-                </div>
+                <IssuedBy verificationStatus={verificationStatus} />
               </div>
               <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
                 <StatusCheck valid={hashValid} messageSet={MESSAGES[TYPES.HASH]} />
@@ -114,9 +105,7 @@ export const DocumentStatus = ({ verificationStatus, className }: DocumentStatus
       </div>
     </section>
   );
-};
-
-export const DocumentStatusDefault = styled(DocumentStatus)`
+})`
   .statusbar {
     background-color: ${vars.white};
     padding: 10px 0;

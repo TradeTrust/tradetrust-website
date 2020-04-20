@@ -1,5 +1,5 @@
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { DocumentStatus, DocumentStatusDefault } from "./DocumentStatus";
+import { DocumentStatus } from "./DocumentStatus";
 import {
   whenDocumentValidAndIssued,
   whenDocumentHashInvalid,
@@ -29,7 +29,7 @@ Document is issued, has integrity, not revoked and has a verified issuer identit
 <Preview>
   <Story name="Valid Document">
     {() => {
-      return <DocumentStatusDefault verificationStatus={whenDocumentValidAndIssued} />;
+      return <DocumentStatus verificationStatus={whenDocumentValidAndIssued} />;
     }}
   </Story>
 </Preview>
@@ -43,7 +43,7 @@ Document was tampered with
 <Preview>
   <Story name="Tampered Document">
     {() => {
-      return <DocumentStatusDefault verificationStatus={whenDocumentHashInvalid} />;
+      return <DocumentStatus verificationStatus={whenDocumentHashInvalid} />;
     }}
   </Story>
 </Preview>
@@ -57,7 +57,7 @@ Document was issued and subsequently revoked
 <Preview>
   <Story name="Revoked Document">
     {() => {
-      return <DocumentStatusDefault verificationStatus={whenDocumentRevoked} />;
+      return <DocumentStatus verificationStatus={whenDocumentRevoked} />;
     }}
   </Story>
 </Preview>
@@ -71,7 +71,7 @@ Document's issuer identity cannot be verified
 <Preview>
   <Story name="Invalid Issuer">
     {() => {
-      return <DocumentStatusDefault verificationStatus={whenDocumentIssuerIdentityInvalid} />;
+      return <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalid} />;
     }}
   </Story>
 </Preview>
@@ -85,7 +85,7 @@ Document when all verification fail
 <Preview>
   <Story name="All Failed">
     {() => {
-      return <DocumentStatusDefault verificationStatus={whenDocumentHashInvalidAndNotIssued} />;
+      return <DocumentStatus verificationStatus={whenDocumentHashInvalidAndNotIssued} />;
     }}
   </Story>
 </Preview>

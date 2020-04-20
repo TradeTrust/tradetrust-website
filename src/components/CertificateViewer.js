@@ -14,7 +14,7 @@ import { CSSTransition } from "react-transition-group";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { useKeyPress } from "./../common/hooks/useKeyPress";
-import { DocumentStatusDefault } from "./DocumentStatus";
+import { DocumentStatus } from "./DocumentStatus";
 
 const renderHeaderBlock = (props) => {
   return (
@@ -98,7 +98,7 @@ export const CertificateViewer = (props) => {
           addressBook={addressBook}
         />
       </CSSTransition>
-      <DocumentStatusDefault verificationStatus={props.verificationStatus} />
+      <DocumentStatus verificationStatus={props.verificationStatus} />
       {tokenRegistryAddress && (
         <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
       )}
