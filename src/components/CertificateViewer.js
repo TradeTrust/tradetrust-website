@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import CertificateVerifyBlock from "./CertificateVerifyBlock";
 import styles from "./certificateViewer.scss";
 import Modal from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
@@ -17,22 +16,10 @@ import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { useKeyPress } from "./../common/hooks/useKeyPress";
 import { DocumentStatusDefault } from "./DocumentStatus";
 
-const renderVerifyBlock = (props) => (
-  <CertificateVerifyBlock
-    document={props.document}
-    verifyTriggered={props.verifyTriggered}
-    verifying={props.verifying}
-    verificationStatus={props.verificationStatus}
-    detailedVerifyVisible={props.detailedVerifyVisible}
-  />
-);
-
 const renderHeaderBlock = (props) => {
-  const renderedVerifyBlock = renderVerifyBlock(props);
   return (
     <div className="container-custom">
       <div className="row no-gutters align-items-center">
-        <div className="col-12 col-md-auto">{renderedVerifyBlock}</div>
         <div className="col-12 col-md-auto">
           <div className="my-3 my-md-0 px-md-4 text-center">
             <AssetInfo document={props.document} />
@@ -150,8 +137,6 @@ CertificateViewer.propTypes = {
   handleSendCertificate: PropTypes.func,
   selectTemplateTab: PropTypes.func,
 };
-
-renderHeaderBlock.propTypes = CertificateViewer.propTypes;
 
 ErrorBoundary.propTypes = {
   children: PropTypes.node,

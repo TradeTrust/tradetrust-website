@@ -4,7 +4,8 @@ fixture("Load action from plain certificate").page`http://localhost:3000`;
 
 const IframeBlock = Selector("#iframe");
 const SampleTemplate = Selector("#root");
-const StatusButton = Selector("#certificate-status");
+const DocumentStatus = Selector("#document-status");
+const IssuedByDomainName = Selector("#issuedby .domain");
 const ViewerContainer = Selector("#viewer-container");
 
 const validateTextContent = async (t, component, texts) =>
@@ -22,9 +23,9 @@ test("Load document from action should work when url is valid", async (t) => {
 
   await t.navigateTo(`http://localhost:3000/?q=${encodeURI(JSON.stringify(action))}`);
 
-  await StatusButton.with({ visibilityCheck: true })();
+  await DocumentStatus.with({ visibilityCheck: true })();
 
-  await validateTextContent(t, StatusButton, ["Issued by TRADETRUST.IO"]);
+  await validateTextContent(t, IssuedByDomainName, ["TRADETRUST.IO"]);
 
   await t.switchToIframe(IframeBlock);
 
@@ -42,7 +43,7 @@ test("Load document from action should fail when url is invalid", async (t) => {
 
   await t.navigateTo(`http://localhost:3000/?q=${encodeURI(JSON.stringify(action))}`);
 
-  await StatusButton.with({ visibilityCheck: false })();
+  await DocumentStatus.with({ visibilityCheck: false })();
 
   await validateTextContent(t, ViewerContainer, [
     "This document is not valid",

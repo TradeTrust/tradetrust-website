@@ -59,7 +59,7 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   const dnsIdentity = dnsFragment?.data?.every((issuer: { status: string }) => issuer.status === "VALID");
 
   return (
-    <h3 className={`pl-2 mb-0 issuedby`}>
+    <h3 id="issuedby" className={`pl-2 mb-0 issuedby`}>
       <span className="mr-1">Issued by</span>
       <span className="domain">
         {dnsIdentity
@@ -81,31 +81,33 @@ export const DocumentStatus = ({ verificationStatus, className }: DocumentStatus
   return (
     <section className={`bg-blue-lighter py-3 ${className}`}>
       <div className="container-custom">
-        <div className="statusbar">
-          <div className="row align-items-center">
-            <div className="col-12 col-xl-4 mb-3 mb-xl-0">
-              <div className="row align-items-center no-gutters">
-                <div className="col-auto">
-                  <SvgIcon>
-                    <SvgIconCheckCircle />
-                  </SvgIcon>
-                </div>
-                <div className="col">
-                  <IssuedBy verificationStatus={verificationStatus} />
+        <div id="document-status" className="statusbar">
+          <div className="container-fluid">
+            <div className="row align-items-center">
+              <div className="col-12 col-xl-4 mb-3 mb-xl-0">
+                <div className="row align-items-center no-gutters">
+                  <div className="col-auto">
+                    <SvgIcon>
+                      <SvgIconCheckCircle />
+                    </SvgIcon>
+                  </div>
+                  <div className="col">
+                    <IssuedBy verificationStatus={verificationStatus} />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-              <StatusCheck valid={hashValid} messageSet={MESSAGES[TYPES.HASH]} />
-            </div>
-            <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-              <StatusCheck valid={issuedValid} messageSet={MESSAGES[TYPES.ISSUED]} />
-            </div>
-            <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-              <StatusCheck valid={revokedValid} messageSet={MESSAGES[TYPES.REVOKED]} />
-            </div>
-            <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-              <StatusCheck valid={identityValid} messageSet={MESSAGES[TYPES.IDENTITY]} />
+              <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
+                <StatusCheck valid={hashValid} messageSet={MESSAGES[TYPES.HASH]} />
+              </div>
+              <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
+                <StatusCheck valid={issuedValid} messageSet={MESSAGES[TYPES.ISSUED]} />
+              </div>
+              <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
+                <StatusCheck valid={revokedValid} messageSet={MESSAGES[TYPES.REVOKED]} />
+              </div>
+              <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
+                <StatusCheck valid={identityValid} messageSet={MESSAGES[TYPES.IDENTITY]} />
+              </div>
             </div>
           </div>
         </div>
@@ -117,7 +119,7 @@ export const DocumentStatus = ({ verificationStatus, className }: DocumentStatus
 export const DocumentStatusDefault = styled(DocumentStatus)`
   .statusbar {
     background-color: ${vars.white};
-    padding: 10px;
+    padding: 10px 0;
     border-radius: ${vars.buttonRadius};
   }
 
