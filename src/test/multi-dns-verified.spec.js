@@ -5,17 +5,20 @@ fixture("Multiple DNS Verified for Certificate Rendering").page`http://localhost
 const Document = "./fixture/sample-multidns-verified.json";
 const IframeBlock = Selector("#iframe");
 const SampleTemplate = Selector("#rendered-certificate");
-const StatusButton = Selector("#certificate-status");
+const DocumentStatus = Selector("#document-status");
+const IssuedByDomainName = Selector("#issuedby .domain");
 
 const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
 test("Sample document is rendered correctly when multiple dns is verfied", async (t) => {
+  const container = Selector("#certificate-dropzone");
+  await container();
   await t.setFilesToUpload("input[type=file]", [Document]);
 
-  await StatusButton.with({ visibilityCheck: true })();
+  await DocumentStatus.with({ visibilityCheck: true })();
 
-  await validateTextContent(t, StatusButton, ["Issued by EXAMPLE.TRADETRUST.IO"]);
+  await validateTextContent(t, IssuedByDomainName, ["EXAMPLE.TRADETRUST.IO and EXAMPLE.OPENATTESTATION.COM"]);
 
   await t.switchToIframe(IframeBlock);
 

@@ -21,9 +21,6 @@ export const initialState = {
   emailState: states.INITIAL,
   emailError: null,
 
-  templates: null,
-  activeTemplateTab: 0,
-
   retrieveCertificateByActionState: states.INITIAL,
   retrieveCertificateByActionStateError: null,
 };
@@ -40,7 +37,7 @@ export const types = {
 
   VERIFYING_CERTIFICATE: "VERIFYING_CERTIFICATE",
 
-  VERIFYING_CERTIFICATE_SUCCESS: "VERIFYING_CERTIFICATE_SUCCESS",
+  VERIFYING_CERTIFICATE_COMPLETED: "VERIFYING_CERTIFICATE_COMPLETED",
   VERIFYING_CERTIFICATE_FAILURE: "VERIFYING_CERTIFICATE_FAILURE",
 
   SENDING_CERTIFICATE: "SENDING_CERTIFICATE",
@@ -50,9 +47,6 @@ export const types = {
 
   CERTIFICATE_OBFUSCATE_RESET: "CERTIFICATE_OBFUSCATE_RESET",
   CERTIFICATE_OBFUSCATE_UPDATE: "CERTIFICATE_OBFUSCATE_UPDATE",
-
-  CERTIFICATE_TEMPLATE_REGISTER: "CERTIFICATE_TEMPLATE_REGISTER",
-  CERTIFICATE_TEMPLATE_SELECT_TAB: "CERTIFICATE_TEMPLATE_SELECT_TAB",
 
   CERTIFICATE_PROCESS_QR_CODE: "CERTIFICATE_PROCESS_QR_CODE",
 
@@ -98,7 +92,7 @@ export default function reducer(state = initialState, action) {
         verificationPending: true,
         verificationStatus: null,
       };
-    case types.VERIFYING_CERTIFICATE_SUCCESS:
+    case types.VERIFYING_CERTIFICATE_COMPLETED:
       return {
         ...state,
         verificationPending: false,
@@ -144,16 +138,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         rawModified: action.payload,
       };
-    case types.CERTIFICATE_TEMPLATE_REGISTER:
-      return {
-        ...state,
-        templates: action.payload,
-      };
-    case types.CERTIFICATE_TEMPLATE_SELECT_TAB:
-      return {
-        ...state,
-        activeTemplateTab: action.payload,
-      };
     case types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING:
       return {
         ...state,
@@ -196,13 +180,6 @@ export function verifyCertificate(payload) {
   };
 }
 
-export function updateFilteredCertificate(payload) {
-  return {
-    type: types.UPDATE_FILTERED_CERTIFICATE,
-    payload,
-  };
-}
-
 export function sendCertificate(payload) {
   return {
     type: types.SENDING_CERTIFICATE,
@@ -216,29 +193,9 @@ export function sendCertificateReset() {
   };
 }
 
-export function resetCertificateObfuscation() {
-  return {
-    type: types.CERTIFICATE_OBFUSCATE_RESET,
-  };
-}
-
 export function updateObfuscatedCertificate(payload) {
   return {
     type: types.CERTIFICATE_OBFUSCATE_UPDATE,
-    payload,
-  };
-}
-
-export function registerTemplates(payload) {
-  return {
-    type: types.CERTIFICATE_TEMPLATE_REGISTER,
-    payload,
-  };
-}
-
-export function selectTemplateTab(payload) {
-  return {
-    type: types.CERTIFICATE_TEMPLATE_SELECT_TAB,
     payload,
   };
 }
@@ -248,8 +205,8 @@ export const processQrCode = (payload) => ({
   payload,
 });
 
-export const verifyingCertificateSuccess = (payload) => ({
-  type: types.VERIFYING_CERTIFICATE_SUCCESS,
+export const verifyingCertificateCompleted = (payload) => ({
+  type: types.VERIFYING_CERTIFICATE_COMPLETED,
   payload,
 });
 
@@ -273,52 +230,6 @@ export function retrieveCertificateByActionFailure(payload) {
 }
 
 // Selectors
-export function getIssuerIdentityStatus(store) {
-  const { issuerIdentities, certificateIssuerVerifying, certificateIssuerError, certificateIssuer } = store.certificate;
-  return {
-    identities: issuerIdentities,
-    verified: certificateIssuer,
-    verifying: certificateIssuerVerifying,
-    error: certificateIssuerError,
-  };
-}
-
-export function getHashStatus(store) {
-  const { certificateHash, certificateHashError, certificateHashVerifying } = store.certificate;
-  return {
-    verified: certificateHash,
-    verifying: certificateHashVerifying,
-    error: certificateHashError,
-  };
-}
-
-export function getStoreStatus(store) {
-  const { certificateStore, certificateStoreError, certificateStoreVerifying } = store.certificate;
-  return {
-    verified: certificateStore,
-    verifying: certificateStoreVerifying,
-    error: certificateStoreError,
-  };
-}
-
-export function getIssuedStatus(store) {
-  const { certificateIssued, certificateIssuedError, certificateIssuedVerifying } = store.certificate;
-  return {
-    verified: certificateIssued,
-    verifying: certificateIssuedVerifying,
-    error: certificateIssuedError,
-  };
-}
-
-export function getNotRevokedStatus(store) {
-  const { certificateNotRevoked, certificateNotRevokedError, certificateNotRevokedVerifying } = store.certificate;
-  return {
-    verified: certificateNotRevoked,
-    verifying: certificateNotRevokedVerifying,
-    error: certificateNotRevokedError,
-  };
-}
-
 export function getCertificate(store) {
   return store.certificate.rawModified;
 }
@@ -327,24 +238,12 @@ export function getVerifying(store) {
   return get(store, "certificate.verificationPending");
 }
 
-export function getVerified(store) {
-  return get(store, "certificate.verificationStatus.valid", false);
-}
-
 export function getVerificationStatus(store) {
   return store.certificate.verificationStatus;
 }
 
 export function getEmailSendingState(store) {
   return store.certificate.emailState;
-}
-
-export function getActiveTemplateTab(store) {
-  return store.certificate.activeTemplateTab;
-}
-
-export function getTemplates(store) {
-  return store.certificate.templates;
 }
 
 export function getCertificateByActionError(store) {

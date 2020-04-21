@@ -1,0 +1,10 @@
+@import "./../../styles/abstracts/__abstracts.scss";
+
+.dropzone {
+  width: 100%;
+  height: auto;
+}
+
+.padding-dropzone-boxshadow {
+  padding: $padding-dropzone-boxshadow;
+}

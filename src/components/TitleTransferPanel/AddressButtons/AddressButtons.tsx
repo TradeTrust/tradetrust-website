@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./AddressButtons.module.scss";
 import { SvgIcon, SvgIconBook, SvgIconX } from "../../UI/SvgIcon";
-import { ButtonIcon, ButtonSolid, ButtonCircle } from "../../UI/Button";
+import { ButtonSolidWhiteOrange, ButtonSolidOrange, ButtonCircleGreylight } from "../../UI/Button";
 
 interface AddressButtonsProps {
   holderAddress: string;
@@ -25,7 +25,7 @@ export const AddressButtons = ({
 
   return (
     <div className={css["address-cta"]}>
-      <ButtonIcon bg="white" color="primary" disabled={isDisabledAddressBook}>
+      <ButtonSolidWhiteOrange disabled={isDisabledAddressBook}>
         <div className="row no-gutters align-items-center">
           <div className="col-auto mr-2">
             <SvgIcon>
@@ -36,15 +36,15 @@ export const AddressButtons = ({
             <p>Address</p>
           </div>
         </div>
-      </ButtonIcon>
-      <ButtonSolid bg="primary" disabled={isSubmitEnabled} onClick={onButtonSubmit}>
-        <p>{buttonText}</p>
-      </ButtonSolid>
-      <ButtonCircle bg="grey-light">
+      </ButtonSolidWhiteOrange>
+      <ButtonSolidOrange disabled={isSubmitEnabled} onClick={onButtonSubmit}>
+        {buttonText}
+      </ButtonSolidOrange>
+      <ButtonCircleGreylight>
         <SvgIcon>
           <SvgIconX />
         </SvgIcon>
-      </ButtonCircle>
+      </ButtonCircleGreylight>
     </div>
   );
 };

@@ -1,14 +1,14 @@
 import React from "react";
 import css from "./TokenSideBar.scss";
-import { SvgIcon } from "./../UI/SvgIcon";
+import { SvgIcon, SvgIconChecked } from "./../UI/SvgIcon";
 
 const TokenTransactionSuccess = ({ hash, message }: { hash: string; message: string }) => {
   return (
     <>
       <div className={css["transaction-message"]}>
         <div className={css["success-checked"]}>
-          <SvgIcon cssClass="feather-check">
-            <polyline points="20 6 9 17 4 12" />
+          <SvgIcon>
+            <SvgIconChecked />
           </SvgIcon>
         </div>
         <p className={`${css["message"]} ${css["message-success"]}`}>{message}</p>

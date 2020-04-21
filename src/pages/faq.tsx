@@ -1,8 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import NavigationBar from "../components/Layout/NavigationBar";
 import { FaqContent } from "../components/FAQ/FaqContent";
-import Footer from "../components/Layout/Footer";
 
 export const FaqPage = () => (
   <>
@@ -19,8 +17,6 @@ export const FaqPage = () => (
       <meta property="og:url" content={`${window.location.origin}/faq`} />
       <title>TradeTrust - Frequently Asked Questions</title>
     </Helmet>
-    <NavigationBar active="faq" />
     <FaqContent />
-    <Footer />
   </>
 );

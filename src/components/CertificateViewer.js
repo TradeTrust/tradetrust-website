@@ -1,15 +1,8 @@
-import React, { useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getData } from "@govtechsg/open-attestation";
-import CertificateVerifyBlock from "./CertificateVerifyBlock";
 import styles from "./certificateViewer.scss";
 import Modal from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
-import DecentralisedRenderer from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
-import MultiTabs from "./MultiTabs";
-import { selectTemplateTab as selectTemplateTabAction } from "../reducers/certificate";
-import { LEGACY_OPENCERTS_RENDERER } from "../config";
 import { isEmailFeatureActive } from "../config/feature-config";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { AssetInfo } from "./AssetInfo";
@@ -19,23 +12,15 @@ import { OverlayAddressBook } from "./UI/Overlay";
 import { useAddressBook } from "../common/hooks/useAddressBook";
 import { CSSTransition } from "react-transition-group";
 import { TokenProvider } from "../common/contexts/tokenInstancesContext";
-
-const renderVerifyBlock = (props) => (
-  <CertificateVerifyBlock
-    document={props.document}
-    verifyTriggered={props.verifyTriggered}
-    verifying={props.verifying}
-    verificationStatus={props.verificationStatus}
-    detailedVerifyVisible={props.detailedVerifyVisible}
-  />
-);
+import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
+import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
+import { useKeyPress } from "./../common/hooks/useKeyPress";
+import { DocumentStatus } from "./DocumentStatus";
 
 const renderHeaderBlock = (props) => {
-  const renderedVerifyBlock = renderVerifyBlock(props);
   return (
-    <div className={`${styles.container}`}>
+    <div className="container-custom">
       <div className="row no-gutters align-items-center">
-        <div className="col-12 col-md-auto">{renderedVerifyBlock}</div>
         <div className="col-12 col-md-auto">
           <div className="my-3 my-md-0 px-md-4 text-center">
             <AssetInfo document={props.document} />
@@ -73,13 +58,26 @@ const renderHeaderBlock = (props) => {
   );
 };
 
-const CertificateViewer = (props) => {
-  const { document, selectTemplateTab } = props;
-  const certificate = getData(document);
+export const CertificateViewer = (props) => {
+  const { document } = props;
   const renderedHeaderBlock = renderHeaderBlock(props);
   const tokenRegistryAddress = getTokenRegistryAddress(document);
+  const [templates, setTemplates] = useState([]);
+  const [selectedTemplate, setSelectedTemplate] = useState("");
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const { addressBook } = useAddressBook();
+  const escapePress = useKeyPress("Escape");
+
+  useEffect(() => {
+    if (escapePress) {
+      setOverlayVisible(false);
+    }
+  }, [escapePress]);
+
+  const updateTemplates = useCallback((templates) => {
+    setTemplates(templates);
+    setSelectedTemplate(templates[0].id);
+  }, []);
 
   const validCertificateContent = (
     <>
@@ -101,26 +99,22 @@ const CertificateViewer = (props) => {
           addressBook={addressBook}
         />
       </CSSTransition>
+      <DocumentStatus verificationStatus={props.verificationStatus} />
       {tokenRegistryAddress && (
         <TokenProvider document={document}>
           <TitleTransferPanel />
         </TokenProvider>
       )}
-      <div id={styles["top-header-ui"]}>
-        <div className={styles["header-container"]}>{renderedHeaderBlock}</div>
-      </div>
+      <section id={styles["top-header-ui"]}>{renderedHeaderBlock}</section>
       <MultiTabs
-        selectTemplateTab={selectTemplateTab}
+        templates={templates}
+        selectedTemplate={selectedTemplate}
+        onSelectTemplate={(selectedTemplate) => setSelectedTemplate(selectedTemplate)}
         isOverlayVisible={isOverlayVisible}
         setOverlayVisible={setOverlayVisible}
         tokenRegistryAddress={tokenRegistryAddress}
       />
-      <DecentralisedRenderer
-        certificate={document}
-        source={`${
-          typeof document.data.$template === "object" ? certificate.$template.url : LEGACY_OPENCERTS_RENDERER
-        }`}
-      />
+      <DecentralisedRendererContainer rawDocument={document} updateTemplates={updateTemplates} />
       <Modal show={props.showSharing} toggle={props.handleSharingToggle}>
         <CertificateSharingForm
           emailSendingState={props.emailSendingState}
@@ -134,28 +128,18 @@ const CertificateViewer = (props) => {
   return <ErrorBoundary>{validCertificateContent} </ErrorBoundary>;
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  selectTemplateTab: (tabIndex) => dispatch(selectTemplateTabAction(tabIndex)),
-});
-
-export default connect(null, mapDispatchToProps)(CertificateViewer);
-
 CertificateViewer.propTypes = {
   detailedVerifyVisible: PropTypes.bool,
   document: PropTypes.object,
   certificate: PropTypes.object,
   verifying: PropTypes.bool,
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
   showSharing: PropTypes.bool,
   emailSendingState: PropTypes.string,
   handleSharingToggle: PropTypes.func,
   handleSendCertificate: PropTypes.func,
-
   selectTemplateTab: PropTypes.func,
 };
-
-renderVerifyBlock.propTypes = CertificateViewer.propTypes;
-renderHeaderBlock.propTypes = CertificateViewer.propTypes;
 
 ErrorBoundary.propTypes = {
   children: PropTypes.node,

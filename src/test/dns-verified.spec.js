@@ -4,17 +4,20 @@ fixture("DNS Certificate Rendering").page`http://localhost:3000`;
 const Document = "./fixture/sample-dns-verified.json";
 const IframeBlock = Selector("#iframe");
 const SampleTemplate = Selector("#root");
-const StatusButton = Selector("#certificate-status");
+const DocumentStatus = Selector("#document-status");
+const IssuedByDomainName = Selector("#issuedby .domain");
 const ButtonUploadAddressBook = Selector("#template-tabs-list button").withText("Address Book");
 
 const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
 test("sample document is rendered correctly when dns is verified", async (t) => {
+  const container = Selector("#certificate-dropzone");
+  await container();
   await t.setFilesToUpload("input[type=file]", [Document]);
 
-  await StatusButton.with({ visibilityCheck: true })();
-  await validateTextContent(t, StatusButton, ["Issued by EXAMPLE.OPENATTESTATION.COM"]);
+  await DocumentStatus.with({ visibilityCheck: true })();
+  await validateTextContent(t, IssuedByDomainName, ["EXAMPLE.OPENATTESTATION.COM"]);
 
   await t.expect(ButtonUploadAddressBook.count).eql(0);
 

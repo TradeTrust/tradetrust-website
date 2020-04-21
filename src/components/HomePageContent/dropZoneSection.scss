@@ -1,17 +1,17 @@
 @import "../../styles/abstracts/__abstracts.scss";
 
-h3 {
-  color: $color-white;
-}
-
-.main {
-  @include container-custom;
-  display: block;
-  justify-content: flex-start;
+.section {
+  padding-top: 60px;
+  padding-bottom: 60px;
 
   @media only screen and (min-width: $lg) {
-    display: flex;
+    padding-top: 120px;
+    padding-bottom: 120px;
   }
+}
+
+h3 {
+  color: $color-white;
 }
 
 .description {

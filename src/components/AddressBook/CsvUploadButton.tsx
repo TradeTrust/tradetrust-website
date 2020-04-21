@@ -3,7 +3,7 @@ import web3 from "web3";
 import { parse } from "papaparse";
 import { useAddressBook, AddressBook } from "../../common/hooks/useAddressBook";
 import { SvgIcon, SvgIconFilePlus } from "../UI/SvgIcon";
-import cssBtn from "./../UI/Button/Button.module.scss";
+import { LabelWhiteSecondary } from "../UI/Button";
 
 const readAsText = async (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -36,7 +36,7 @@ export const CsvUploadButton = () => {
   const handleUploadedFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const csvFile = event.target.files && event.target.files[0];
-      if (csvFile?.type !== "text/csv") throw new Error("Uploaded file is not a csv file");
+      if (!csvFile) throw new Error("No file selected");
       const csv = await readAsText(csvFile);
       const addressBook = csvToAddressBook(csv);
       setAddressBook(addressBook);
@@ -54,19 +54,16 @@ export const CsvUploadButton = () => {
         style={{ display: "none" }}
         accept=".csv"
       />
-      <label
-        className={`mb-0 ${cssBtn["button"]} ${cssBtn["icon-text"]} ${cssBtn["white"]} ${cssBtn["secondary"]} ${cssBtn["text-secondary"]}`}
-        htmlFor="csv-file-input"
-      >
+      <LabelWhiteSecondary htmlFor="csv-file-input">
         <div className="row align-items-center no-gutters">
-          <div className="col-auto">
+          <div className="col-auto mr-2">
             <SvgIcon>
               <SvgIconFilePlus />
             </SvgIcon>
           </div>
           <div className="col-auto">Import .csv</div>
         </div>
-      </label>
+      </LabelWhiteSecondary>
     </div>
   );
 };

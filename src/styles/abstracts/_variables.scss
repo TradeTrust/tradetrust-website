@@ -5,6 +5,11 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
+$mw-sm: map-get($container-max-widths, "sm"); // 540px
+$mw-md: map-get($container-max-widths, "md"); // 720px
+$mw-lg: map-get($container-max-widths, "lg"); // 960px
+$mw-xl: map-get($container-max-widths, "xl"); // 1140px
+
 $sm: map-get($grid-breakpoints, "sm"); // 576px
 $md: map-get($grid-breakpoints, "md"); // 768px
 $lg: map-get($grid-breakpoints, "lg"); // 992px
@@ -27,7 +32,7 @@ $color-orange: #ffb152;
 $color-red-lighter: #fbeae9;
 $color-red: #ff5268;
 $color-red-dark: #8b0000;
-$color-grey-lightest: #f7fafc;
+$color-grey-lightest: #f5f5f5;
 $color-grey-lighter: #e5e5e5;
 $color-grey-light: #dddddd;
 $color-grey: #8f8f8f;
@@ -45,6 +50,7 @@ $btn-outline: $brand-navy;
 $round-btn-outline: $brand-navy;
 
 $max-width: 1280px;
+$padding-dropzone-boxshadow: 10px;
 
 $easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 $easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);

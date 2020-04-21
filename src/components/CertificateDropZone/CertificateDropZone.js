@@ -1,10 +1,12 @@
 import React from "react";
 import Dropzone from "react-dropzone";
 import PropTypes from "prop-types";
-import DefaultView from "./Views/DefaultView";
-import VerifyingView from "./Views/VerifyingView";
-import UnverifiedView from "./Views/UnverifiedView";
-import css from "./CertificateDropzone.scss";
+import { DefaultView } from "./Views/DefaultView";
+import { VerifyingView } from "./Views/VerifyingView";
+import { UnverifiedView } from "./Views/UnverifiedView";
+import css from "./CertificateDropzone.module.scss";
+import { RetrievalErrorView } from "./Views/RetrievalErrorView";
+import { isValid } from "../../services/verify/fragments";
 
 export const DropzoneContent = ({
   handleRenderOverwrite,
@@ -27,15 +29,19 @@ export const DropzoneContent = ({
     return <DefaultView hover={true} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
   }
   if (verifying) {
-    return <VerifyingView verificationStatus={verificationStatus} />;
+    return <VerifyingView />;
   }
-  if (!!retrieveCertificateByActionError || (verificationStatus && !verificationStatus.valid)) {
+  if (!!retrieveCertificateByActionError) {
+    return (
+      <RetrievalErrorView resetData={resetData} retrieveCertificateByActionError={retrieveCertificateByActionError} />
+    );
+  }
+  if (verificationStatus && !isValid(verificationStatus)) {
     return (
       <UnverifiedView
         handleRenderOverwrite={handleRenderOverwrite}
         verificationStatus={verificationStatus}
         resetData={resetData}
-        retrieveCertificateByActionError={retrieveCertificateByActionError}
       />
     );
   }
@@ -75,22 +81,24 @@ const CertificateDropzone = ({
   toggleQrReaderVisible,
   retrieveCertificateByActionError,
 }) => (
-  <Dropzone
-    id="certificate-dropzone"
-    onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
-    className={css.dropzone}
-  >
-    {renderDropzoneContentCurry({
-      handleCertificateChange,
-      resetData,
-      handleRenderOverwrite,
-      fileError,
-      verifying,
-      verificationStatus,
-      toggleQrReaderVisible,
-      retrieveCertificateByActionError,
-    })}
-  </Dropzone>
+  <div className={css["padding-dropzone-boxshadow"]}>
+    <Dropzone
+      id="certificate-dropzone"
+      onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
+      className={css.dropzone}
+    >
+      {renderDropzoneContentCurry({
+        handleCertificateChange,
+        resetData,
+        handleRenderOverwrite,
+        fileError,
+        verifying,
+        verificationStatus,
+        toggleQrReaderVisible,
+        retrieveCertificateByActionError,
+      })}
+    </Dropzone>
+  </div>
 );
 
 CertificateDropzone.propTypes = {
@@ -103,7 +111,7 @@ CertificateDropzone.propTypes = {
   verifying: PropTypes.bool,
   issuerIdentityStatus: PropTypes.object,
   toggleQrReaderVisible: PropTypes.func,
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
   retrieveCertificateByActionError: PropTypes.string,
 };
 
@@ -117,7 +125,7 @@ DropzoneContent.propTypes = {
   isDragReject: PropTypes.bool,
   issuerIdentityStatus: PropTypes.object,
   toggleQrReaderVisible: PropTypes.func,
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
   retrieveCertificateByActionError: PropTypes.string,
 };
 

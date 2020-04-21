@@ -56,13 +56,35 @@
   font-weight: 700;
 }
 
-@mixin container-custom($mw: $max-width) {
+@mixin reset-list {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+@mixin container-custom($mw-custom: $max-width) {
   width: 100%;
-  max-width: $mw;
+  max-width: 100%;
   padding-left: $grid-gutter-width / 2;
   padding-right: $grid-gutter-width / 2;
   margin-left: auto;
   margin-right: auto;
+
+  @media only screen and (min-width: $sm) {
+    max-width: $mw-sm;
+  }
+
+  @media only screen and (min-width: $md) {
+    max-width: $mw-md;
+  }
+
+  @media only screen and (min-width: $lg) {
+    max-width: $mw-lg;
+  }
+
+  @media only screen and (min-width: $xl) {
+    max-width: $mw-custom;
+  }
 }
 
 @mixin btn(
@@ -153,7 +175,7 @@
 
 @mixin dropzone-status($bg-color, $border-color) {
   background-color: $bg-color;
-  box-shadow: 0 0 0 10px $bg-color;
+  box-shadow: 0 0 0 $padding-dropzone-boxshadow $bg-color;
   border: 2px dashed $border-color;
 }
 

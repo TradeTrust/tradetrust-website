@@ -1,0 +1,58 @@
+@import "../../styles/abstracts/__abstracts.scss";
+
+.sidenav {
+  height: 100%;
+  width: 70%;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  background-color: $brand-navy;
+  overflow-x: hidden;
+  transition: color 0.3s $easeOutCubic;
+
+  .tabs {
+    border-bottom: 0.1px solid $color-greyblue-dark;
+
+    &.active {
+      color: $color-greyblue;
+    }
+  }
+
+  a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+
+    @include font-size(25);
+    color: $color-white;
+    display: block;
+    transition: color 0.3s $easeOutCubic;
+
+    &:hover {
+      color: $color-greyblue;
+    }
+  }
+
+  .closebtn {
+    @include font-size(36);
+  }
+}
+
+.mb-sidenav {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 2;
+  text-align: right;
+  border-radius: 50%;
+  height: 50px;
+  max-width: 50px;
+}
+
+.togglebtn {
+  @include font-size(35);
+  display: block;
+  text-align: right;
+  color: $color-white;
+  cursor: pointer;
+}

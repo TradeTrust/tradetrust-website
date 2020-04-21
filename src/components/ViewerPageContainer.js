@@ -14,7 +14,7 @@ import {
   getVerificationStatus,
   updateObfuscatedCertificate,
 } from "../reducers/certificate";
-import CertificateViewer from "./CertificateViewer";
+import { CertificateViewer } from "./CertificateViewer";
 
 class ViewerPageContainer extends Component {
   constructor(props) {
@@ -92,7 +92,7 @@ ViewerPageContainer.propTypes = {
   document: PropTypes.object,
   certificate: PropTypes.object,
   verifying: PropTypes.bool,
-  verificationStatus: PropTypes.object,
+  verificationStatus: PropTypes.array,
   emailSendingState: PropTypes.string,
   sendCertificate: PropTypes.func,
   sendCertificateReset: PropTypes.func,
