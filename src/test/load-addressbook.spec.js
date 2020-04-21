@@ -6,8 +6,8 @@ const Document = "./fixture/maersk-bill-of-lading.tt";
 const AddressBook = "./fixture/local-addressbook.csv";
 
 const TitleTransferPanel = Selector("#title-transfer-panel");
-const BeneficiaryName = Selector("[class^='TitleView']:nth-of-type(1)").find("h5");
-const HolderName = Selector("[class^='TitleView']:nth-of-type(2)").find("h5");
+const BeneficiaryName = Selector("[data-testid='Beneficiary']").find("h5");
+const HolderName = Selector("[data-testid='Holder']").find("h5");
 const OverlayAddressBook = Selector("#overlay-addressbook");
 const OverlayAddressBookTableBodyRows = Selector("#overlay-addressbook tbody tr");
 const OverlayAddressBookTableFirstRow = Selector("#overlay-addressbook tbody tr:first-of-type");

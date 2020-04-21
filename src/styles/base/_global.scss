@@ -28,6 +28,11 @@ svg {
 
 a {
   transition: color 0.3s $easeOutCubic;
+  color: $brand-blue;
+
+  &:hover {
+    color: darken($brand-blue, 15%);
+  }
 }
 
 // "sticky" footer, allow footer to flush to bottom when in viewer page, while document is loading

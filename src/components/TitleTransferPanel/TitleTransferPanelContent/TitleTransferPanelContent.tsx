@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import css from "./TitleTransferPanelContent.module.scss";
 import { TitleView } from "../TitleView";
 import { BLinfo } from "../TitleView/BLinfo";
+import { LoaderSkeleton } from "../../UI/Loader";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 
@@ -16,8 +16,8 @@ export const TitleTransferPanelContent = ({ titleEscrow }: { titleEscrow: TitleE
   const SkeletonPlaceholder = () => {
     return (
       <div className="mt-3 mb-4">
-        <div className={`mb-2 ${css["skeleton-title"]}`} />
-        <div className={css["skeleton-address"]} />
+        <LoaderSkeleton className="mb-2" width="90px" />
+        <LoaderSkeleton />
       </div>
     );
   };
@@ -25,11 +25,13 @@ export const TitleTransferPanelContent = ({ titleEscrow }: { titleEscrow: TitleE
   return (
     <div className="row">
       <div className="col-12 col-lg">
-        {beneficiary ? <TitleView role="Beneficiary" address={beneficiary} /> : <SkeletonPlaceholder />}
-        {holder ? <TitleView role="Holder" address={holder} /> : <SkeletonPlaceholder />}
+        <BLinfo />
       </div>
       <div className="col-12 col-lg">
-        <BLinfo />
+        {beneficiary ? <TitleView role="Beneficiary" address={beneficiary} /> : <SkeletonPlaceholder />}
+      </div>
+      <div className="col-12 col-lg">
+        {holder ? <TitleView role="Holder" address={holder} /> : <SkeletonPlaceholder />}
       </div>
     </div>
   );
