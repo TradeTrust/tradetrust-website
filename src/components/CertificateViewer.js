@@ -33,7 +33,6 @@ const renderVerifyBlock = (props) => (
 );
 
 const renderHeaderBlock = (props) => {
-  console.log(props);
   const renderedVerifyBlock = renderVerifyBlock(props);
   return (
     <div className={`${styles.container}`}>

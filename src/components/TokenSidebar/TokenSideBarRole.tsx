@@ -3,6 +3,7 @@ import getUserRoles, { userRoleText } from "../../utils/UserRolesUtil";
 import { useTitleEscrowUsers } from "../../common/hooks/useTitleEscrowUsers";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import { useUserWallet } from "../../common/hooks/useUserWallet";
+
 const TokenSideBarRole = ({ titleEscrowInstance }: { titleEscrowInstance: TitleEscrow }) => {
   const { userWalletAddress } = useUserWallet();
   const { holder, beneficiary } = useTitleEscrowUsers({ titleEscrow: titleEscrowInstance });

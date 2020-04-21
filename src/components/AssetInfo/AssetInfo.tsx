@@ -15,8 +15,6 @@ export const AssetInfo: FunctionComponent<{
   toggleSidebar: (val: boolean) => void;
 }> = ({ document, isSidebarVisible, toggleSidebar }) => {
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
-  console.log(isSidebarVisible);
-  console.log(toggleSidebar);
   const setSidebar = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     toggleSidebar(!isSidebarVisible);

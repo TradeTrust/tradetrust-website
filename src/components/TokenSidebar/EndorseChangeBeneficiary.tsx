@@ -39,8 +39,6 @@ export const EndorseChangeBeneficiary = ({
   };
 
   const deployEscrowContractAction = async () => {
-    console.log("approved address");
-    console.log(approvedEscrowContractAddress);
     try {
       dispatch({ type: TOKEN_MODULE.SET_LOADER, showLoader: true });
       const contractAddress = approvedEscrowContractAddress ? approvedEscrowContractAddress : await deployEscrow();

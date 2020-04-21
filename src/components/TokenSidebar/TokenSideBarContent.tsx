@@ -53,7 +53,6 @@ const TokenSideBarContent = ({ userWalletAddress, registryAddress, titleEscrow }
   useEffect(() => {
     getApprovedTitleEscrowAddress();
   }, [getApprovedTitleEscrowAddress]);
-
   if (tokenState.transactionHash) {
     const message = getSuccessResponse(tokenState.actionType);
     return <TokenTransactionSuccess hash={tokenState.transactionHash} message={message} />;
