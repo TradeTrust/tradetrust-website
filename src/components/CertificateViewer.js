@@ -18,7 +18,7 @@ import { getTokenRegistryAddress } from "../common/utils/document";
 import { OverlayAddressBook } from "./UI/Overlay";
 import { useAddressBook } from "../common/hooks/useAddressBook";
 import { CSSTransition } from "react-transition-group";
-import { TokenInstanceProvider } from "../common/contexts/tokenInstancesContext";
+import { TokenProvider } from "../common/contexts/tokenInstancesContext";
 
 const renderVerifyBlock = (props) => (
   <CertificateVerifyBlock
@@ -102,9 +102,9 @@ const CertificateViewer = (props) => {
         />
       </CSSTransition>
       {tokenRegistryAddress && (
-        <TokenInstanceProvider document={document}>
+        <TokenProvider document={document}>
           <TitleTransferPanel />
-        </TokenInstanceProvider>
+        </TokenProvider>
       )}
       <div id={styles["top-header-ui"]}>
         <div className={styles["header-container"]}>{renderedHeaderBlock}</div>

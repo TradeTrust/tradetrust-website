@@ -7,30 +7,20 @@ import { useTokenRegistryContract } from "../hooks/useTokenRegistryContract";
 import { getDocumentId, getTokenRegistryAddress } from "../utils/document";
 import { useDefaultProvider } from "../hooks/useDefaultProvider";
 
-interface TokenInstanceContextType {
-  titleEscrowInstance?: TitleEscrow;
-  tokenRegistryInstance?: TradeTrustERC721;
+interface TokenContextType {
+  titleEscrow?: TitleEscrow;
+  tokenRegistry?: TradeTrustERC721;
 }
 
-export const TokenInstanceContext = React.createContext({} as TokenInstanceContextType);
+export const TokenContext = React.createContext({} as TokenContextType);
 
-export const TokenInstanceProvider = ({
-  document,
-  children,
-}: {
-  document: WrappedDocument;
-  children: ReactElement;
-}) => {
+export const TokenProvider = ({ document, children }: { document: WrappedDocument; children: ReactElement }) => {
   const tokenId = getDocumentId(document);
   const tokenRegistryAddress = getTokenRegistryAddress(document);
 
   const { provider } = useDefaultProvider(); // Component only need read only access
-  const tokenRegistryInstance = useTokenRegistryContract(tokenRegistryAddress, provider).tokenRegistry;
-  const titleEscrowInstance = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider).titleEscrow;
+  const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
+  const { titleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
 
-  return (
-    <TokenInstanceContext.Provider value={{ tokenRegistryInstance, titleEscrowInstance }}>
-      {children}
-    </TokenInstanceContext.Provider>
-  );
+  return <TokenContext.Provider value={{ tokenRegistry, titleEscrow }}>{children}</TokenContext.Provider>;
 };

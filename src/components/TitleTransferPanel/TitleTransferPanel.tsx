@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { LabelBordered } from "../UI/LabelBordered";
 
 import { TitleTransferPanelContent } from "./TitleTransferPanelContent";
-import { TokenInstanceContext } from "../../common/contexts/tokenInstancesContext";
+import { TokenContext } from "../../common/contexts/tokenInstancesContext";
 
 export const TitleTransferPanel = () => {
-  const { titleEscrowInstance } = useContext(TokenInstanceContext);
+  const { titleEscrow } = useContext(TokenContext);
 
   return (
     <section id="title-transfer-panel" className="bg-blue-lighter py-3">
@@ -18,7 +18,7 @@ export const TitleTransferPanel = () => {
             </div>
           </div>
         </div>
-        {titleEscrowInstance && <TitleTransferPanelContent titleEscrow={titleEscrowInstance} />}
+        {titleEscrow && <TitleTransferPanelContent titleEscrow={titleEscrow} />}
       </div>
     </section>
   );
