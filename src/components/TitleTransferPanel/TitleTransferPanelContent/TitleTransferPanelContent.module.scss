@@ -1,9 +1,0 @@
-@import "../../../styles/abstracts/__abstracts.scss";
-
-.skeleton-title {
-  @include loader-skeleton($w: 90px);
-}
-
-.skeleton-address {
-  @include loader-skeleton;
-}

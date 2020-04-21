@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import css from "./TitleView.module.scss";
 import { AddressInfo } from "../AddressInfo";
 import { ExternalLink } from "../../UI/ExternalLink";
 import { makeEtherscanAddressURL, makeEtherscanTokenURL, getAssetInfo } from "../../../utils";
@@ -14,7 +13,7 @@ export const BLinfo = () => {
   const tokenHistoryHref = makeEtherscanTokenURL({ registryAddress, tokenId });
 
   return (
-    <div className={css["title-view"]}>
+    <div className="py-3">
       <AddressInfo title="BL information">
         <>
           <ExternalLink name="View BL Registry" href={tokenRegistryHref} />

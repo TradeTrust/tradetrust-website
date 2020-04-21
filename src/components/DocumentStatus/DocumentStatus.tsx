@@ -106,6 +106,10 @@ export const DocumentStatus = styled(({ verificationStatus, className }: Documen
     </section>
   );
 })`
+  @media print {
+    display: none;
+  }
+
   .statusbar {
     background-color: ${vars.white};
     padding: 10px 0;

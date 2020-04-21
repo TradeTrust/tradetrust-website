@@ -1,5 +1,4 @@
 import React from "react";
-import css from "./TitleView.module.scss";
 import { AddressInfo } from "../AddressInfo";
 import { ExternalLink } from "../../UI/ExternalLink";
 import { makeEtherscanAddressURL } from "../../../utils";
@@ -16,7 +15,7 @@ export const TitleView = ({ role, address }: TitleViewProps) => {
   const name = address && getIdentifier(address);
 
   return (
-    <div className={css["title-view"]}>
+    <div data-testid={role} className="py-3">
       <AddressInfo title={role} name={name}>
         <ExternalLink name={address} href={addressHref} />
       </AddressInfo>

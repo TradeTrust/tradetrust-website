@@ -1,5 +1,30 @@
 import * as vars from "./variables";
 
+export const loaderSkeleton = (
+  w = "260px",
+  h = "24px",
+  bg = vars.greyLighter,
+  loaderBg = vars.greyLightest,
+  loaderW = "50%"
+) => {
+  return `
+    &:empty {
+      &::after {
+        content: "";
+        display: block;
+        background-repeat: no-repeat;
+        background-color: ${bg};
+        background-image: linear-gradient(to left, ${bg} 0%, ${loaderBg} 50%, ${bg} 100%);
+        background-size: ${loaderW} 100%;
+        width: ${w};
+        height: ${h};
+        border-radius: 2px;
+        animation: skeleton-loading 1.4s infinite;
+      }
+    }
+  `;
+};
+
 export const centerVertical = () => {
   return `
     display: flex;
