@@ -55,16 +55,12 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   }, [selectedTemplate, toFrame]);
 
   return (
-    <section>
-      <FrameConnector
-        style={{ height: `${height}px`, width: "100%", border: "0px" }}
-        source={`${
-          typeof rawDocument.data.$template === "object" ? document.$template.url : LEGACY_OPENCERTS_RENDERER
-        }`}
-        dispatch={fromFrame}
-        onConnected={onConnected}
-      />
-    </section>
+    <FrameConnector
+      style={{ height: `${height}px`, width: "100%", border: "0px" }}
+      source={`${typeof rawDocument.data.$template === "object" ? document.$template.url : LEGACY_OPENCERTS_RENDERER}`}
+      dispatch={fromFrame}
+      onConnected={onConnected}
+    />
   );
 };
 

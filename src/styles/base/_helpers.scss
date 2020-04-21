@@ -68,20 +68,8 @@
   -webkit-print-color-adjust: exact;
 }
 
-.print-only {
-  display: none;
-}
-
-.screen-only {
-  display: block;
-}
-
-@media print {
-  .print-only {
-    display: block;
-  }
-
-  .screen-only {
+.no-print {
+  @media print {
     display: none;
   }
 }

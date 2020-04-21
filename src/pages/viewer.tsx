@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import ViewerPageContainer from "../components/ViewerPageContainer";
 import { PrintWatermark } from "../components/PrintWatermark";
-import { isWatermarkFeatureActive } from "../config/feature-config";
+import { FeatureFlag } from "../components/FeatureFlag";
 
 export const ViewerPage = () => (
   <>
@@ -13,7 +13,9 @@ export const ViewerPage = () => (
       <meta property="og:url" content={`${window.location.origin}`} />
       <title>TradeTrust - An easy way to check and verify your documents</title>
     </Helmet>
-    {isWatermarkFeatureActive && <PrintWatermark />}
+    <FeatureFlag name="WATERMARK">
+      <PrintWatermark />
+    </FeatureFlag>
     <ViewerPageContainer />
   </>
 );

@@ -2,5 +2,13 @@
   "MANAGE_ASSET": {
     "development": true,
     "production": true
+  },
+  "SHARE_BY_EMAIL": {
+    "development": false,
+    "production": false
+  },
+  "WATERMARK": {
+    "development": false,
+    "production": false
   }
 }
