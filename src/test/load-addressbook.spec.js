@@ -2,7 +2,7 @@ import { Selector } from "testcafe";
 
 fixture("Load AddressBook").page`http://localhost:3000`;
 
-const Document = "./fixture/maersk-bill-of-lading.tt";
+const Document = "./fixture/maersk-bill-of-lading.json";
 const AddressBook = "./fixture/local-addressbook.csv";
 
 const TitleTransferPanel = Selector("#title-transfer-panel");

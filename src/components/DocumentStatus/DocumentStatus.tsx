@@ -79,7 +79,7 @@ export const DocumentStatus = styled(({ verificationStatus, className }: Documen
   const identityValid = isValid(verificationStatus, ["ISSUER_IDENTITY"]);
 
   return (
-    <section className={`bg-blue-lighter py-3 ${className}`}>
+    <div className={`py-3 ${className}`}>
       <div className="container-custom">
         <div id="document-status" className="statusbar">
           <div className="container-fluid">
@@ -103,13 +103,9 @@ export const DocumentStatus = styled(({ verificationStatus, className }: Documen
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 })`
-  @media print {
-    display: none;
-  }
-
   .statusbar {
     background-color: ${vars.white};
     padding: 10px 0;

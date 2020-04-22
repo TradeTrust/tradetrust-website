@@ -6,7 +6,6 @@ interface MultiTabsProps {
   templates: { id: string; label: string }[];
   selectedTemplate: string;
   onSelectTemplate: (id: string) => void;
-
   isOverlayVisible: boolean;
   setOverlayVisible: (value: boolean) => void;
   tokenRegistryAddress: string;
@@ -21,7 +20,7 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
   tokenRegistryAddress,
 }) => {
   return (
-    <section id={styles["header-ui"]} className="pt-3 pt-md-0">
+    <div className={`${styles.shadow}`}>
       <div className="container-custom">
         <ul id="template-tabs-list" className="nav nav-tabs row no-gutters align-items-center">
           <li className="nav-item col-auto col-md-auto ml-md-auto order-md-2">
@@ -61,6 +60,6 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
             : null}
         </ul>
       </div>
-    </section>
+    </div>
   );
 };

@@ -6,6 +6,7 @@ import { mixin, vars } from "../../../styles";
 interface ButtonProps {
   children?: React.ReactNode;
   className?: string;
+  title?: string;
   disabled?: boolean;
   onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
 }
@@ -160,6 +161,21 @@ export const ButtonIconWhiteOrange = styled(Button)`
 
   ${bgWhiteModifier({
     hoverColor: vars.brandOrange,
+  })}
+
+  svg {
+    max-width: 16px;
+  }
+`;
+
+export const ButtonIconWhiteBlue = styled(Button)`
+  ${baseStyleButton({
+    bgColor: vars.white,
+    textColor: vars.brandBlue,
+  })}
+
+  ${bgWhiteModifier({
+    hoverColor: vars.brandBlue,
   })}
 
   svg {
