@@ -8,3 +8,14 @@ configure({ adapter: new Adapter() });
 if (process.env.DEBUG) {
   debug.log = console.log.bind(console);
 }
+
+// polyfill (https://stackoverflow.com/questions/42213522/mocking-document-createrange-for-jest)
+document.createRange = () => ({
+  setStart: () => {},
+  setEnd: () => {},
+  commonAncestorContainer: {
+    nodeName: "BODY",
+    ownerDocument: document,
+  },
+});
+window.alert = jest.fn();

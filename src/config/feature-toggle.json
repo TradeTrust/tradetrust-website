@@ -10,5 +10,9 @@
   "WATERMARK": {
     "development": false,
     "production": false
+  },
+  "TITLE_TRANSFER": {
+    "development": true,
+    "production": false
   }
 }

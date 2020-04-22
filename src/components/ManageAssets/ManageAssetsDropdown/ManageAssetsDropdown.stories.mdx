@@ -1,0 +1,221 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import { ManageAssetsDropdown, ManageAssetsDropdownPrimaryWhite } from "./ManageAssetsDropdown";
+import { createBrowserHistory } from "history";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import initStore from "./../../../store";
+
+<Meta title="ManageAssetsDropdown" component={ManageAssetsDropdown} />
+
+# ManageAssetsDropdown
+
+ManageAssetsDropdown look.
+
+---
+
+### Props
+
+<Props of={ManageAssetsDropdown} />
+
+---
+
+### Beneficiary
+
+When userWalletAddress === beneficiaryAddress.
+
+<Preview>
+  <Story name="Beneficiary">
+    {() => {
+      const history = createBrowserHistory();
+      const store = initStore(history);
+      return (
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <ManageAssetsDropdownPrimaryWhite
+              userWalletAddress="0xA"
+              approvedBeneficiaryAddress=""
+              approvedHolderAddress=""
+              beneficiaryAddress="0xA"
+              holderAddress=""
+              metamaskAccountError=""
+            />
+          </ConnectedRouter>
+        </Provider>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Beneficiary, after endorse change of beneficiary
+
+When userWalletAddress === BeneficiaryAddress and approvedBeneficiaryAddress && approvedHolderAddress exists.
+
+<Preview>
+  <Story name="BeneficiaryAfterEndorse">
+    {() => {
+      const history = createBrowserHistory();
+      const store = initStore(history);
+      return (
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <ManageAssetsDropdownPrimaryWhite
+              userWalletAddress="0xA"
+              approvedBeneficiaryAddress="0xB"
+              approvedHolderAddress="0xC"
+              beneficiaryAddress="0xA"
+              holderAddress=""
+              metamaskAccountError=""
+            />
+          </ConnectedRouter>
+        </Provider>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Holder
+
+When userWalletAddress === HolderAddress.
+
+<Preview>
+  <Story name="Holder">
+    {() => {
+      const history = createBrowserHistory();
+      const store = initStore(history);
+      return (
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <ManageAssetsDropdownPrimaryWhite
+              userWalletAddress="0xA"
+              approvedBeneficiaryAddress=""
+              approvedHolderAddress=""
+              beneficiaryAddress=""
+              holderAddress="0xA"
+              metamaskAccountError=""
+            />
+          </ConnectedRouter>
+        </Provider>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Holder, with endorse change of beneficiary awaiting approval
+
+When userWalletAddress === HolderAddress and approvedBeneficiaryAddress && approvedHolderAddress exists.
+
+<Preview>
+  <Story name="HolderAwaitingEndorseApproval">
+    {() => {
+      const history = createBrowserHistory();
+      const store = initStore(history);
+      return (
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <ManageAssetsDropdownPrimaryWhite
+              userWalletAddress="0xA"
+              approvedBeneficiaryAddress="0xB"
+              approvedHolderAddress="0xC"
+              beneficiaryAddress=""
+              holderAddress="0xA"
+              metamaskAccountError=""
+            />
+          </ConnectedRouter>
+        </Provider>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Beneficiary and Holder
+
+When userWalletAddress === BeneficiaryAddress and HolderAddress.
+
+<Preview>
+  <Story name="BeneficiaryAndHolder">
+    {() => {
+      const history = createBrowserHistory();
+      const store = initStore(history);
+      return (
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <ManageAssetsDropdownPrimaryWhite
+              userWalletAddress="0xA"
+              approvedBeneficiaryAddress=""
+              approvedHolderAddress=""
+              beneficiaryAddress="0xA"
+              holderAddress="0xA"
+              metamaskAccountError=""
+            />
+          </ConnectedRouter>
+        </Provider>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Beneficiary and Holder, after endorse change of beneficiary
+
+When userWalletAddress === BeneficiaryAddress and HolderAddress and approvedBeneficiaryAddress && approvedHolderAddress exists.
+
+<Preview>
+  <Story name="BeneficiaryAndHolderAfterEndorse">
+    {() => {
+      const history = createBrowserHistory();
+      const store = initStore(history);
+      return (
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <ManageAssetsDropdownPrimaryWhite
+              userWalletAddress="0xA"
+              approvedBeneficiaryAddress="0xB"
+              approvedHolderAddress="0xC"
+              beneficiaryAddress="0xA"
+              holderAddress="0xA"
+              metamaskAccountError=""
+            />
+          </ConnectedRouter>
+        </Provider>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### NoMatch
+
+When userWalletAddress !== BeneficiaryAddress || HolderAddress
+
+<Preview>
+  <Story name="NoMatch">
+    {() => {
+      const history = createBrowserHistory();
+      const store = initStore(history);
+      return (
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <ManageAssetsDropdownPrimaryWhite
+              userWalletAddress="0xA"
+              approvedBeneficiaryAddress=""
+              approvedHolderAddress=""
+              beneficiaryAddress=""
+              holderAddress=""
+              metamaskAccountError=""
+            />
+          </ConnectedRouter>
+        </Provider>
+      );
+    }}
+  </Story>
+</Preview>
