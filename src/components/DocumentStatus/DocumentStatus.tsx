@@ -7,12 +7,13 @@ import { SvgIcon, SvgIconCheckCircle, SvgIconXCircle } from "./../UI/SvgIcon";
 import { mixin, vars } from "../../styles";
 
 interface StatusProps {
+  id: string;
   message: string;
   icon: React.ReactNode;
 }
 
-const Status = ({ message, icon }: StatusProps) => (
-  <div className="status">
+const Status = ({ id, message, icon }: StatusProps) => (
+  <div className="status" data-testid={id}>
     <div className="row no-gutters align-items-center">
       <div className="col-auto">
         <SvgIcon>{icon}</SvgIcon>
@@ -25,6 +26,7 @@ const Status = ({ message, icon }: StatusProps) => (
 );
 
 interface StatusCheck {
+  id: string;
   valid: boolean;
   messageSet: {
     failureTitle: string;
@@ -33,11 +35,11 @@ interface StatusCheck {
   };
 }
 
-const StatusCheck = ({ valid, messageSet }: StatusCheck) => {
+const StatusCheck = ({ id, valid, messageSet }: StatusCheck) => {
   const message = valid ? messageSet.successTitle : messageSet.failureTitle;
   const icon = valid ? <SvgIconCheckCircle /> : <SvgIconXCircle />;
 
-  return <Status message={message} icon={icon} />;
+  return <Status id={id} message={message} icon={icon} />;
 };
 
 interface DocumentStatusProps {
@@ -88,16 +90,16 @@ export const DocumentStatus = styled(({ verificationStatus, className }: Documen
                 <IssuedBy verificationStatus={verificationStatus} />
               </div>
               <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-                <StatusCheck valid={hashValid} messageSet={MESSAGES[TYPES.HASH]} />
+                <StatusCheck id="hash" valid={hashValid} messageSet={MESSAGES[TYPES.HASH]} />
               </div>
               <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-                <StatusCheck valid={issuedValid} messageSet={MESSAGES[TYPES.ISSUED]} />
+                <StatusCheck id="issued" valid={issuedValid} messageSet={MESSAGES[TYPES.ISSUED]} />
               </div>
               <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-                <StatusCheck valid={revokedValid} messageSet={MESSAGES[TYPES.REVOKED]} />
+                <StatusCheck id="revoked" valid={revokedValid} messageSet={MESSAGES[TYPES.REVOKED]} />
               </div>
               <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-                <StatusCheck valid={identityValid} messageSet={MESSAGES[TYPES.IDENTITY]} />
+                <StatusCheck id="identity" valid={identityValid} messageSet={MESSAGES[TYPES.IDENTITY]} />
               </div>
             </div>
           </div>
