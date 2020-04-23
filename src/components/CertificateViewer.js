@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Modal from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
-import { AssetInfo } from "./AssetInfo";
 import { TitleTransferPanel } from "./TitleTransferPanel";
 import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
 import { OverlayAddressBook } from "./UI/Overlay";
@@ -14,24 +13,10 @@ import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { useKeyPress } from "./../common/hooks/useKeyPress";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
-
-const renderHeaderBlock = (props) => {
-  return (
-    <div className="container-custom">
-      <div className="row no-gutters align-items-center">
-        <div className="col-12 col-md-auto">
-          <div className="my-3 my-md-0 px-md-4 text-center">
-            <AssetInfo document={props.document} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { ManageAssets } from "./ManageAssets";
 
 export const CertificateViewer = (props) => {
   const { document } = props;
-  const renderedHeaderBlock = renderHeaderBlock(props);
   const tokenRegistryAddress = getTokenRegistryAddress(document);
   const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
@@ -73,9 +58,11 @@ export const CertificateViewer = (props) => {
       <section className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={props.verificationStatus} />
         {tokenRegistryAddress && (
-          <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
+          <>
+            <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
+            <ManageAssets document={document} />
+          </>
         )}
-        <div className="py-4">{renderedHeaderBlock}</div>
         <MultiTabs
           templates={templates}
           selectedTemplate={selectedTemplate}

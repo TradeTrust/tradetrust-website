@@ -22,7 +22,7 @@ test("Token is verified and rendered correctly", async (t) => {
   await t
     .expect(assetInfoLinkElement.getAttribute("href"))
     .eql(
-      "https://ropsten.etherscan.io/token/0x48399Fb88bcD031C556F53e93F690EEC07963Af3?a=44462799421286370332860487499556741868509423910583906203271800828184419823283"
+      "https://ropsten.etherscan.io/token/0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2?a=42076119213045156803506746051443966107776518614691501105642894103730326470758"
     );
   await validateTextContent(t, IssuedByDomainName, ["TRADETRUST.IO"]);
 
