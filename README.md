@@ -46,6 +46,32 @@ To enable debug logs in the browser, set `localStorage.debug="*"`
 
 `npm run integration:single <path>`, for the path, you can copy paste relative path via text editor.
 
+### Test single feature flag
+
+To test, simply run the following in console and refresh the website:
+
+```
+localStorage.setItem("FEATURE_FLAG", JSON.stringify({ADDRESS_BOOK_UPLOAD: true}))
+```
+
+or
+
+```
+localStorage.FEATURE_FLAG =  JSON.stringify({ADDRESS_BOOK_UPLOAD: true})
+```
+
+### Test all feature flags
+
+```
+localStorage.setItem("FEATURE_FLAG", JSON.stringify({ALL: true}))
+```
+
+or
+
+```
+localStorage.FEATURE_FLAG =  JSON.stringify({ALL: true})
+```
+
 ### Generating CREDITS.md
 
 Run `npx @opengovsg/credits-generator`
