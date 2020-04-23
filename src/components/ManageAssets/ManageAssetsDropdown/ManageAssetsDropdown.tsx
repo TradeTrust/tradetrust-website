@@ -27,11 +27,11 @@ export const ManageAssetsDropdown = ({
 }: ManageAssetsDropdownProps) => {
   const dispatch = useDispatch();
 
-  const isApprovedAddressPending = !!approvedBeneficiaryAddress && !!approvedHolderAddress;
+  const haveApprovedAddresses = !!approvedBeneficiaryAddress && !!approvedHolderAddress;
   const userNotLoginMetamask = !userWalletAddress && metamaskAccountError;
   const userNoManagePrivileges =
     (userWalletAddress !== holderAddress && userWalletAddress !== beneficiaryAddress) ||
-    (userWalletAddress !== holderAddress && userWalletAddress === beneficiaryAddress && isApprovedAddressPending);
+    (userWalletAddress !== holderAddress && userWalletAddress === beneficiaryAddress && haveApprovedAddresses);
 
   const handleSelectedTransfer = (event: { target: any }) => {
     console.log(event.target);
@@ -62,12 +62,12 @@ export const ManageAssetsDropdown = ({
         {userWalletAddress === holderAddress && (
           <>
             <Dropdown.Item onClick={handleSelectedTransfer}>Transfer holdership</Dropdown.Item>
-            {isApprovedAddressPending && <Dropdown.Item>Confirm endorse change of beneficiary</Dropdown.Item>}
+            {haveApprovedAddresses && <Dropdown.Item>Confirm endorse change of beneficiary</Dropdown.Item>}
           </>
         )}
         {userWalletAddress === beneficiaryAddress && (
           <>
-            {!isApprovedAddressPending && (
+            {!haveApprovedAddresses && (
               <Dropdown.Item onClick={handleSelectedTransfer}>Endorse change of beneficiary</Dropdown.Item>
             )}
           </>
