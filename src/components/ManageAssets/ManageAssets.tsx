@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import { ManageAssetsDropdownPrimaryWhite } from "./ManageAssetsDropdown";
 import { AssetInfo } from "../AssetInfo";
 import { FeatureFlag } from "../FeatureFlag";
+import { WrappedDocument } from "@govtechsg/open-attestation";
 
 interface ManageAssetsProps {
-  document: any;
+  document: WrappedDocument;
 }
 
 export const ManageAssets = ({ document }: ManageAssetsProps) => {
@@ -25,14 +26,19 @@ export const ManageAssets = ({ document }: ManageAssetsProps) => {
     metamaskAccountError: state.admin.metamaskAccountError,
   }));
 
+  const legacyView = () => {
+    return (
+      <div className="col-12 col-md-auto">
+        <AssetInfo document={document} />
+      </div>
+    );
+  };
+
   return (
     <div className="py-4">
       <div className="container-custom">
         <div className="row no-gutters align-items-center">
-          <div className="col-12 col-md-auto">
-            <AssetInfo document={document} />
-          </div>
-          <FeatureFlag name="TITLE_TRANSFER">
+          <FeatureFlag name="TITLE_TRANSFER" fallback={legacyView()}>
             <div className="col-12 col-md-auto ml-md-auto">
               <ManageAssetsDropdownPrimaryWhite
                 userWalletAddress={userWalletAddress}

@@ -12,7 +12,7 @@
     "production": false
   },
   "TITLE_TRANSFER": {
-    "development": true,
+    "development": false,
     "production": false
   }
 }
