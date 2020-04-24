@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { darken } from "polished";
 import { mixin, vars } from "../../styles";
 import { Section } from "../Layout/Section";
+import { OverlayId, OverlayContext } from "../../common/context/OverlayContext";
 
 export const SectionLanding = styled(Section)`
   position: relative;
@@ -58,12 +59,9 @@ export const SectionLanding = styled(Section)`
   }
 `;
 
-interface LandingSectionProps {
-  isOverlayVisible: boolean;
-  setOverlayVisible: any;
-}
+export const LandingSection = () => {
+  const { setOverlayId, setOverlayVisible } = useContext(OverlayContext);
 
-export const LandingSection = ({ isOverlayVisible, setOverlayVisible }: LandingSectionProps) => {
   return (
     <SectionLanding id="about">
       <div className="row">
@@ -81,7 +79,8 @@ export const LandingSection = ({ isOverlayVisible, setOverlayVisible }: LandingS
           <div
             className="play mx-auto mt-4"
             onClick={() => {
-              setOverlayVisible(!isOverlayVisible);
+              setOverlayId(OverlayId.VideoCrossBorderTrade);
+              setOverlayVisible(true);
             }}
           >
             <i className="fas fa-play" />

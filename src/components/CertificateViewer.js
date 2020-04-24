@@ -1,16 +1,12 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import Modal from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { TitleTransferPanel } from "./TitleTransferPanel";
 import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
-import { OverlayAddressBook } from "./UI/Overlay";
-import { useAddressBook } from "../common/hooks/useAddressBook";
-import { CSSTransition } from "react-transition-group";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
-import { useKeyPress } from "./../common/hooks/useKeyPress";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
 import { ManageAssets } from "./ManageAssets";
@@ -20,15 +16,6 @@ export const CertificateViewer = (props) => {
   const tokenRegistryAddress = getTokenRegistryAddress(document);
   const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
-  const [isOverlayVisible, setOverlayVisible] = useState(false);
-  const { addressBook } = useAddressBook();
-  const escapePress = useKeyPress("Escape");
-
-  useEffect(() => {
-    if (escapePress) {
-      setOverlayVisible(false);
-    }
-  }, [escapePress]);
 
   const updateTemplates = useCallback((templates) => {
     setTemplates(templates);
@@ -37,24 +24,6 @@ export const CertificateViewer = (props) => {
 
   const validCertificateContent = (
     <>
-      <CSSTransition
-        in={isOverlayVisible}
-        timeout={400}
-        classNames="fade"
-        unmountOnExit
-        onEnter={() => setOverlayVisible(true)}
-        onExited={() => setOverlayVisible(false)}
-      >
-        <OverlayAddressBook
-          id="overlay-addressbook"
-          title="Address Book"
-          isOverlayVisible={isOverlayVisible}
-          handleCloseOverlay={() => {
-            setOverlayVisible(!isOverlayVisible);
-          }}
-          addressBook={addressBook}
-        />
-      </CSSTransition>
       <section className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={props.verificationStatus} />
         {tokenRegistryAddress && (
@@ -67,8 +36,6 @@ export const CertificateViewer = (props) => {
           templates={templates}
           selectedTemplate={selectedTemplate}
           onSelectTemplate={(selectedTemplate) => setSelectedTemplate(selectedTemplate)}
-          isOverlayVisible={isOverlayVisible}
-          setOverlayVisible={setOverlayVisible}
           tokenRegistryAddress={tokenRegistryAddress}
         />
       </section>

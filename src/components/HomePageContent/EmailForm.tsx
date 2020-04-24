@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ButtonSolidOrange } from "./../UI/Button";
+import { ButtonSolidOrangeWhite } from "./../UI/Button";
 import { InputDefault } from "./../UI/Input";
 import { TextareaDefault } from "./../UI/Textarea";
 import { CheckboxDefault } from "./../UI/Checkbox";
@@ -151,7 +151,7 @@ export const EmailForm = () => {
               required
             />
           </div>
-          <ButtonSolidOrange className="w-100">Send Enquiry</ButtonSolidOrange>
+          <ButtonSolidOrangeWhite className="w-100">Send Enquiry</ButtonSolidOrangeWhite>
         </div>
       </div>
     </form>
