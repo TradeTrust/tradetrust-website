@@ -4,7 +4,7 @@ import Modal from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { TitleTransferPanel } from "./TitleTransferPanel";
-import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
+import { getTokenRegistryAddress } from "../common/utils/document";
 import { OverlayAddressBook } from "./UI/Overlay";
 import { useAddressBook } from "../common/hooks/useAddressBook";
 import { CSSTransition } from "react-transition-group";
@@ -13,7 +13,6 @@ import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { useKeyPress } from "./../common/hooks/useKeyPress";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
-import { ManageAssets } from "./ManageAssets";
 
 export const CertificateViewer = (props) => {
   const { document } = props;
@@ -57,12 +56,7 @@ export const CertificateViewer = (props) => {
       </CSSTransition>
       <section className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={props.verificationStatus} />
-        {tokenRegistryAddress && (
-          <>
-            <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
-            <ManageAssets document={document} />
-          </>
-        )}
+        {tokenRegistryAddress && <TitleTransferPanel document={document} />}
         <MultiTabs
           templates={templates}
           selectedTemplate={selectedTemplate}

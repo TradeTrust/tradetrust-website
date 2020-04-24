@@ -1,30 +1,49 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ManageAssetsDropdownPrimaryWhite } from "./ManageAssetsDropdown";
 import { AssetInfo } from "../AssetInfo";
 import { FeatureFlag } from "../FeatureFlag";
+import { loadAdminAddress } from "../../reducers/admin";
+import { getTokenRegistryAddress } from "../../common/utils/document";
+import { updateNetworkId } from "../../reducers/application";
+import { initializeToken } from "../../reducers/token";
 import { WrappedDocument } from "@govtechsg/open-attestation";
+import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
+import { useTitleEscrowUsers } from "../../common/hooks/useTitleEscrowUsres";
 
 interface ManageAssetsProps {
   document: WrappedDocument;
+  titleEscrow: TitleEscrow;
 }
 
-export const ManageAssets = ({ document }: ManageAssetsProps) => {
-  const {
-    userWalletAddress,
-    approvedBeneficiaryAddress,
-    approvedHolderAddress,
-    beneficiaryAddress,
-    holderAddress,
-    metamaskAccountError,
-  } = useSelector((state: any) => ({
-    userWalletAddress: state.admin.adminAddress,
-    approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
-    approvedHolderAddress: state.token.approvedHolderAddress,
-    beneficiaryAddress: state.token.beneficiaryAddress,
-    holderAddress: state.token.holderAddress,
-    metamaskAccountError: state.admin.metamaskAccountError,
-  }));
+export const ManageAssets = ({ document, titleEscrow }: ManageAssetsProps) => {
+  const dispatch = useDispatch();
+  const tokenRegistryAddress = getTokenRegistryAddress(document);
+  const { holder, beneficiary } = useTitleEscrowUsers({ titleEscrow });
+
+  const { userWalletAddress, approvedBeneficiaryAddress, approvedHolderAddress, metamaskAccountError } = useSelector(
+    (state: any) => ({
+      userWalletAddress: state.admin.adminAddress,
+      approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
+      approvedHolderAddress: state.token.approvedHolderAddress,
+      metamaskAccountError: state.admin.metamaskAccountError,
+    })
+  );
+
+  useEffect(() => {
+    if (tokenRegistryAddress) dispatch(loadAdminAddress());
+  }, [dispatch, document, tokenRegistryAddress]);
+
+  useEffect(() => {
+    if (userWalletAddress) {
+      window.ethereum.on("networkChanged", () => {
+        dispatch(updateNetworkId());
+        dispatch(initializeToken());
+      });
+      window.ethereum.on("accountsChanged", () => dispatch(loadAdminAddress()));
+      dispatch(initializeToken());
+    }
+  }, [dispatch, userWalletAddress]);
 
   const legacyView = () => {
     return (
@@ -44,8 +63,8 @@ export const ManageAssets = ({ document }: ManageAssetsProps) => {
                 userWalletAddress={userWalletAddress}
                 approvedBeneficiaryAddress={approvedBeneficiaryAddress}
                 approvedHolderAddress={approvedHolderAddress}
-                beneficiaryAddress={beneficiaryAddress}
-                holderAddress={holderAddress}
+                beneficiaryAddress={beneficiary || ""}
+                holderAddress={holder || ""}
                 metamaskAccountError={metamaskAccountError}
               />
             </div>

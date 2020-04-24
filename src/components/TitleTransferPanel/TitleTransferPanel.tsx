@@ -3,14 +3,21 @@ import { LabelBordered } from "../UI/LabelBordered";
 import { useDefaultProvider } from "../../common/hooks/useDefaultProvider";
 import { useTitleEscrowContract } from "../../common/hooks/useTitleEscrowContract";
 import { TitleTransferPanelContent } from "./TitleTransferPanelContent";
+import { getDocumentId, getTokenRegistryAddress } from "../../common/utils/document";
+
+import { ManageAssets } from "../ManageAssets";
+import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
+import { WrappedDocument } from "@govtechsg/open-attestation";
 
 interface TitleTransferProps {
-  tokenRegistryAddress: string;
-  tokenId: string;
+  document: WrappedDocument;
+  titleEscrow: TitleEscrow;
 }
 
-export const TitleTransferPanel = ({ tokenRegistryAddress, tokenId }: TitleTransferProps) => {
+export const TitleTransferPanel = ({ document }: TitleTransferProps) => {
   const { provider } = useDefaultProvider(); // Component only need read only access
+  const tokenRegistryAddress = getTokenRegistryAddress(document);
+  const tokenId = getDocumentId(document);
   const { titleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
 
   return (
@@ -26,6 +33,7 @@ export const TitleTransferPanel = ({ tokenRegistryAddress, tokenId }: TitleTrans
         </div>
         {titleEscrow && <TitleTransferPanelContent titleEscrow={titleEscrow} />}
       </div>
+      {titleEscrow && <ManageAssets titleEscrow={titleEscrow} document={document} />}
     </div>
   );
 };

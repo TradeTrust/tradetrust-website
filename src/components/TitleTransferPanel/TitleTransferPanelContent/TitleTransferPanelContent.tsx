@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { TitleView } from "../TitleView";
 import { BLinfo } from "../TitleView/BLinfo";
 import { LoaderSkeleton } from "../../UI/Loader";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
+import { useTitleEscrowUsers } from "../../../common/hooks/useTitleEscrowUsres";
 
 export const TitleTransferPanelContent = ({ titleEscrow }: { titleEscrow: TitleEscrow }) => {
-  const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
-  const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
-  useEffect(() => {
-    getBeneficiary();
-    getHolder();
-  }, [titleEscrow, getBeneficiary, getHolder]);
+  const { holder, beneficiary } = useTitleEscrowUsers({ titleEscrow });
 
   const SkeletonPlaceholder = () => {
     return (
