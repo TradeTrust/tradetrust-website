@@ -5,6 +5,7 @@ import { routes } from "./routes";
 import { NavigationBar } from "./components/Layout/NavigationBar";
 import { FooterDefault } from "./components/Layout/Footer";
 import {
+  Overlay,
   OverlayYoutube,
   OverlayAddressBook,
   OverlayMessagePromptNoMetamask,
@@ -56,30 +57,38 @@ const AppContainer = () => {
         >
           <>
             {overlayId === OverlayId.VideoCrossBorderTrade && (
-              <OverlayYoutube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />
+              <Overlay>
+                <OverlayYoutube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />
+              </Overlay>
             )}
             {overlayId === OverlayId.AddressBook && (
-              <OverlayAddressBook title="Address Book" addressBook={addressBook} data-testid="overlay-addressbook" />
+              <Overlay data-testid="overlay-addressbook">
+                <OverlayAddressBook title="Address Book" addressBook={addressBook} />
+              </Overlay>
             )}
             {overlayId === OverlayId.MessagePromptNoMetamask && (
-              <OverlayMessagePromptNoMetamask
-                title="Metamask not installed"
-                titleIcon={
-                  <SvgIcon>
-                    <SvgIconXCircle />
-                  </SvgIcon>
-                }
-              />
+              <Overlay>
+                <OverlayMessagePromptNoMetamask
+                  title="Metamask not installed"
+                  titleIcon={
+                    <SvgIcon>
+                      <SvgIconXCircle />
+                    </SvgIcon>
+                  }
+                />
+              </Overlay>
             )}
             {overlayId === OverlayId.MessagePromptNoManageAccess && (
-              <OverlayMessagePromptNoManageAccess
-                title="No manage assets access"
-                titleIcon={
-                  <SvgIcon>
-                    <SvgIconXCircle />
-                  </SvgIcon>
-                }
-              />
+              <Overlay>
+                <OverlayMessagePromptNoManageAccess
+                  title="No manage assets access"
+                  titleIcon={
+                    <SvgIcon>
+                      <SvgIconXCircle />
+                    </SvgIcon>
+                  }
+                />
+              </Overlay>
             )}
           </>
         </CSSTransition>

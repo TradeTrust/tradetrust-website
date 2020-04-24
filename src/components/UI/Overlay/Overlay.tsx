@@ -34,6 +34,30 @@ const OverlayBaseStyle = () => {
       height: 100%;
       background-color: ${rgba(vars.black, 0.4)};
     }
+  `;
+};
+
+const OverlayContentBaseStyle = () => {
+  return `
+    transition: visibility 0.3s ${vars.easeOutCubic}, opacity 0.3s ${vars.easeOutCubic}, transform 0.3s ${
+    vars.easeOutCubic
+  };
+    box-shadow: 0 8px 20px ${rgba(vars.black, 0.2)};
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: ${vars.white};
+    width: calc(100vw - (15px * 2));
+    height: calc(100vh - (15px * 2));
+    max-width: ${vars.maxWidth};
+    padding: 20px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .overlay-header {
+      margin-bottom: 20px;
+    }
 
     .title-icon {
       svg {
@@ -49,28 +73,6 @@ const OverlayBaseStyle = () => {
       ${mixin.fontSourcesansproBold()}
       color: ${vars.grey};
       margin-bottom: 0;
-    }
-
-    .overlay-content {
-      transition: visibility 0.3s ${vars.easeOutCubic}, opacity 0.3s ${vars.easeOutCubic}, transform 0.3s ${
-    vars.easeOutCubic
-  };
-      box-shadow: 0 8px 20px ${rgba(vars.black, 0.2)};
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      background-color: ${vars.white};
-      width: calc(100vw - (15px * 2));
-      height: calc(100vh - (15px * 2));
-      max-width: ${vars.maxWidth};
-      padding: 20px;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .overlay-header {
-
     }
 
     .overlay-body {
@@ -89,11 +91,52 @@ const OverlayBaseStyle = () => {
   `;
 };
 
+interface OverlayContent {
+  className?: string;
+  children?: React.ReactNode;
+  title?: string;
+  titleIcon?: React.ReactNode;
+}
+
+export const OverlayContent = ({ className, children, title, titleIcon }: OverlayContent) => {
+  const { isOverlayVisible, setOverlayVisible } = useContext(OverlayContext);
+  const handleCloseOverlay = () => {
+    setOverlayVisible(false);
+  };
+
+  return (
+    <CSSTransition in={isOverlayVisible} timeout={300} classNames="fadescale" appear>
+      <div className={`overlay-content ${className}`}>
+        <div className="overlay-header">
+          <div className="row no-gutters align-items-center">
+            {titleIcon && (
+              <div className="col-auto mr-1">
+                <div className="title-icon">{titleIcon}</div>
+              </div>
+            )}
+            <div className="col">
+              <h3 className="overlay-title">{title}</h3>
+            </div>
+            <div className="col-auto ml-auto">
+              <div className="overlay-cancel" onClick={handleCloseOverlay}>
+                <SvgIcon>
+                  <SvgIconX />
+                </SvgIcon>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="overlay-body">
+          <div className="d-flex flex-column h-100">{children}</div>
+        </div>
+      </div>
+    </CSSTransition>
+  );
+};
+
 interface OverlayProps {
   className?: string;
   children?: React.ReactNode;
-  title: string;
-  titleIcon?: React.ReactNode;
 }
 
 interface OverlayAdressBookProps extends OverlayProps {
@@ -101,49 +144,32 @@ interface OverlayAdressBookProps extends OverlayProps {
 }
 
 interface OverlayYoutubeProps extends OverlayProps {
+  title: string;
   youtubeId: string;
 }
 
-export const Overlay = styled(({ className, children, title, titleIcon, ...props }: OverlayProps) => {
-  useLockBodyScroll();
-  const { isOverlayVisible, setOverlayVisible } = useContext(OverlayContext);
+export const Overlay = styled(({ className, children, ...props }: OverlayProps) => {
+  const { setOverlayVisible } = useContext(OverlayContext);
   const handleCloseOverlay = () => {
     setOverlayVisible(false);
   };
 
+  useLockBodyScroll();
+
   return (
     <div className={`overlay ${className}`} {...props}>
       <div className="overlay-bg" onClick={handleCloseOverlay} />
-      <CSSTransition in={isOverlayVisible} timeout={300} classNames="fadescale" appear>
-        <div className="overlay-content">
-          <div className="overlay-header mb-3">
-            <div className="row no-gutters align-items-center">
-              {titleIcon && (
-                <div className="col-auto mr-1">
-                  <div className="title-icon">{titleIcon}</div>
-                </div>
-              )}
-              <div className="col">
-                <h3 className="overlay-title">{title}</h3>
-              </div>
-              <div className="col-auto ml-auto">
-                <div className="overlay-cancel" onClick={handleCloseOverlay}>
-                  <SvgIcon>
-                    <SvgIconX />
-                  </SvgIcon>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="overlay-body">
-            <div className="d-flex flex-column h-100">{children}</div>
-          </div>
-        </div>
-      </CSSTransition>
+      {children}
     </div>
   );
 })`
   ${OverlayBaseStyle()}
+`;
+
+export const OverlayDefault = styled(({ children, ...props }: OverlayProps) => {
+  return <OverlayContent {...props}>{children}</OverlayContent>;
+})`
+  ${OverlayContentBaseStyle()}
 `;
 
 export const OverlayAddressBook = styled(({ addressBook = {}, ...props }: OverlayAdressBookProps) => {
@@ -155,7 +181,7 @@ export const OverlayAddressBook = styled(({ addressBook = {}, ...props }: Overla
   };
 
   return (
-    <Overlay className="address-book" {...props}>
+    <OverlayContent {...props}>
       <div className="overlay-actionsbar">
         <div className="row align-items-center">
           <div className="col">
@@ -222,14 +248,13 @@ export const OverlayAddressBook = styled(({ addressBook = {}, ...props }: Overla
           </tbody>
         </table>
       </div>
-    </Overlay>
+    </OverlayContent>
   );
 })`
-  ${OverlayBaseStyle()}
-  .overlay-content {
-    max-width: 760px;
-    max-height: 600px;
-  }
+  ${OverlayContentBaseStyle()}
+
+  max-width: 760px;
+  max-height: 600px;
 
   .overlay-searchbar {
     border: solid 1px ${vars.greyLight};
@@ -307,18 +332,15 @@ export const OverlayAddressBook = styled(({ addressBook = {}, ...props }: Overla
 
 export const OverlayYoutube = styled(({ youtubeId, ...props }: OverlayYoutubeProps) => {
   return (
-    <Overlay {...props}>
+    <OverlayContent {...props}>
       <div className="video">
         <iframe title={youtubeId} src={`https://www.youtube.com/embed/${youtubeId}?rel=0`} />
       </div>
-    </Overlay>
+    </OverlayContent>
   );
 })`
-  ${OverlayBaseStyle()}
-
-  .overlay-content {
-    height: auto;
-  }
+  ${OverlayContentBaseStyle()}
+  height: auto;
 
   .video {
     ${mixin.aspectRatio(16, 9)}
@@ -338,7 +360,7 @@ export const OverlayYoutube = styled(({ youtubeId, ...props }: OverlayYoutubePro
 
 export const OverlayMessagePromptNoMetamask = styled(({ ...props }) => {
   return (
-    <Overlay {...props}>
+    <OverlayContent {...props}>
       <div className="flex-fill">
         <p>Oops! It seems like you have not installed the Metamask extension.</p>
         <p>You would need to install it before proceeding.</p>
@@ -354,15 +376,13 @@ export const OverlayMessagePromptNoMetamask = styled(({ ...props }) => {
           </AnchorLinkButtonSolidOrangeWhite>
         </div>
       </div>
-    </Overlay>
+    </OverlayContent>
   );
 })`
-  ${OverlayBaseStyle()}
+  ${OverlayContentBaseStyle()}
 
-  .overlay-content {
-    max-width: 400px;
-    max-height: 240px;
-  }
+  max-width: 400px;
+  max-height: 240px;
 
   .overlay-title {
     ${mixin.fontSize(26)};
@@ -376,7 +396,7 @@ export const OverlayMessagePromptNoManageAccess = styled(({ ...props }) => {
   };
 
   return (
-    <Overlay {...props}>
+    <OverlayContent {...props}>
       <div className="flex-fill">
         <p>Oops! It seems like you do not have access to manage assets.</p>
       </div>
@@ -385,15 +405,13 @@ export const OverlayMessagePromptNoManageAccess = styled(({ ...props }) => {
           <ButtonSolidOrangeWhite onClick={handleCloseOverlay}>Close</ButtonSolidOrangeWhite>
         </div>
       </div>
-    </Overlay>
+    </OverlayContent>
   );
 })`
-  ${OverlayBaseStyle()}
+  ${OverlayContentBaseStyle()}
 
-  .overlay-content {
-    max-width: 400px;
-    max-height: 240px;
-  }
+  max-width: 400px;
+  max-height: 240px;
 
   .overlay-title {
     ${mixin.fontSize(26)};

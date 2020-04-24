@@ -9,9 +9,9 @@ export enum OverlayId {
 
 interface OverlayProps {
   overlayId: string;
-  setOverlayId: Function;
+  setOverlayId: (overlayId: string) => void;
   isOverlayVisible: boolean;
-  setOverlayVisible: Function;
+  setOverlayVisible: (isOverlayVisible: boolean) => void;
 }
 
 export const OverlayContext = React.createContext({} as OverlayProps);
