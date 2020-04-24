@@ -41,7 +41,7 @@ export const DocumentUtility = styled(({ document, handleSharingToggle, classNam
               target="_black"
               href={`data:text/plain;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
             >
-              <ButtonIconWhiteBlue title="Download">
+              <ButtonIconWhiteBlue>
                 <SvgIcon>
                   <SvgIconDownload />
                 </SvgIcon>
