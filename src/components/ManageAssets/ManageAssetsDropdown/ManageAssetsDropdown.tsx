@@ -52,8 +52,8 @@ export const ManageAssetsDropdown = ({
       <Dropdown.Toggle
         variant="primary"
         id="dropdown-basic"
-        {...(userNotLoginMetamask && { onClick: handleConnectMetamask })}
         {...(userNoManagePrivileges && { onClick: handleNoAccess })}
+        {...(userNotLoginMetamask && { onClick: handleConnectMetamask })}
       >
         Manage Assets
       </Dropdown.Toggle>
