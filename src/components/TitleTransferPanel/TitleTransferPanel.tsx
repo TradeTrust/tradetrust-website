@@ -6,12 +6,10 @@ import { TitleTransferPanelContent } from "./TitleTransferPanelContent";
 import { getDocumentId, getTokenRegistryAddress } from "../../common/utils/document";
 
 import { ManageAssets } from "../ManageAssets";
-import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import { WrappedDocument } from "@govtechsg/open-attestation";
 
 interface TitleTransferProps {
   document: WrappedDocument;
-  titleEscrow: TitleEscrow;
 }
 
 export const TitleTransferPanel = ({ document }: TitleTransferProps) => {
