@@ -23,14 +23,7 @@ describe("tokenSideBar", () => {
   });
   it("should have a Manage Asset heading", () => {
     const wrapper = mount(
-      <TokenSideBar
-        adminAddress=""
-        registryAddress=""
-        isSideBarExpand={true}
-        holderAddress=""
-        beneficiaryAddress=""
-        handler={() => {}}
-      />
+      <TokenSideBar adminAddress="" registryAddress="" holderAddress="" beneficiaryAddress="" handler={() => {}} />
     );
     expect(wrapper.find("h2").text()).toStrictEqual("Manage Asset");
   });
@@ -40,7 +33,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress="0xA"
         registryAddress=""
@@ -67,7 +59,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
         registryAddress=""
@@ -95,7 +86,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        isSideBarExpand={true}
         holderAddress="0xA"
         beneficiaryAddress=""
         registryAddress=""
@@ -119,7 +109,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        isSideBarExpand={true}
         holderAddress=""
         beneficiaryAddress="0xA"
         registryAddress=""
@@ -139,7 +128,6 @@ describe("tokenSideBar", () => {
     const wrapper = mount(
       <TokenSideBar
         adminAddress="0xA"
-        isSideBarExpand={true}
         holderAddress="0xC"
         beneficiaryAddress=""
         registryAddress=""
