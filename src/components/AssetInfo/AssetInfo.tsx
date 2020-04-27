@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { WrappedDocument } from "@govtechsg/open-attestation";
 import TokenSideBar from "./TokenSideBar";
-import { makeEtherscanTokenURL } from "../../utils";
 import { useProviderContext } from "../../common/contexts/provider";
 import { useTitleEscrowContract } from "../../common/hooks/useTitleEscrowContract";
 import { getDocumentId, getTokenRegistryAddress } from "../../common/utils/document";
