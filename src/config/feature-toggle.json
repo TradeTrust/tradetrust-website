@@ -8,7 +8,7 @@
     "production": false
   },
   "TITLE_TRANSFER": {
-    "development": false,
+    "development": true,
     "production": false
   }
 }

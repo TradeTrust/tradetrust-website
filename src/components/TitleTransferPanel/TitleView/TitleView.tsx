@@ -1,5 +1,5 @@
 import React from "react";
-import { AddressInfo } from "../AddressInfo";
+import { AddressInfo } from "../../AddressInfo";
 import { ExternalLink } from "../../UI/ExternalLink";
 import { makeEtherscanAddressURL } from "../../../utils";
 import { useAddressBook } from "../../../common/hooks/useAddressBook";

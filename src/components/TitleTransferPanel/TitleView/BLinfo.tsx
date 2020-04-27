@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { AddressInfo } from "../AddressInfo";
+import { AddressInfo } from "../../AddressInfo";
 import { ExternalLink } from "../../UI/ExternalLink";
 import { makeEtherscanAddressURL, makeEtherscanTokenURL, getAssetInfo } from "../../../utils";
 
