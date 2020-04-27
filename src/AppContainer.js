@@ -1,33 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
+import { CSSTransition } from "react-transition-group";
 import { routes } from "./routes";
 import { NavigationBar } from "./components/Layout/NavigationBar";
 import { FooterDefault } from "./components/Layout/Footer";
-import {
-  Overlay,
-  OverlayYoutube,
-  OverlayAddressBook,
-  OverlayMessagePromptNoMetamask,
-  OverlayMessagePromptNoManageAccess,
-} from "./components/UI/Overlay";
-import { CSSTransition } from "react-transition-group";
+import { Overlay } from "./components/UI/Overlay";
 import { useKeyPress } from "./common/hooks/useKeyPress";
-import { OverlayId, OverlayProvider } from "./common/contexts/OverlayContext";
-import { useAddressBook } from "./common/hooks/useAddressBook";
-import { SvgIcon, SvgIconXCircle } from "./components/UI/SvgIcon";
+import { OverlayProvider } from "./common/contexts/OverlayContext";
 
 const AppContainer = () => {
-  const [overlayId, setOverlayId] = useState("");
+  const [overlayContent, setOverlayContent] = useState(<></>);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const overlayStore = {
-    overlayId: overlayId,
-    setOverlayId: setOverlayId,
+    overlayContent: overlayContent,
+    setOverlayContent: setOverlayContent,
     isOverlayVisible: isOverlayVisible,
     setOverlayVisible: setOverlayVisible,
   };
   const escapePress = useKeyPress("Escape");
-  const { addressBook } = useAddressBook();
 
   useEffect(() => {
     if (escapePress) {
@@ -55,42 +46,7 @@ const AppContainer = () => {
           onEnter={() => setOverlayVisible(true)}
           onExited={() => setOverlayVisible(false)}
         >
-          <>
-            {overlayId === OverlayId.VideoCrossBorderTrade && (
-              <Overlay>
-                <OverlayYoutube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />
-              </Overlay>
-            )}
-            {overlayId === OverlayId.AddressBook && (
-              <Overlay data-testid="overlay-addressbook">
-                <OverlayAddressBook title="Address Book" addressBook={addressBook} />
-              </Overlay>
-            )}
-            {overlayId === OverlayId.MessagePromptNoMetamask && (
-              <Overlay>
-                <OverlayMessagePromptNoMetamask
-                  title="Metamask not installed"
-                  titleIcon={
-                    <SvgIcon>
-                      <SvgIconXCircle />
-                    </SvgIcon>
-                  }
-                />
-              </Overlay>
-            )}
-            {overlayId === OverlayId.MessagePromptNoManageAccess && (
-              <Overlay>
-                <OverlayMessagePromptNoManageAccess
-                  title="No manage assets access"
-                  titleIcon={
-                    <SvgIcon>
-                      <SvgIconXCircle />
-                    </SvgIcon>
-                  }
-                />
-              </Overlay>
-            )}
-          </>
+          <Overlay>{overlayContent}</Overlay>
         </CSSTransition>
       </OverlayProvider>
     </>

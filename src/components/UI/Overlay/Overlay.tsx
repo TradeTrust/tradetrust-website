@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { SvgIcon, SvgIconX, SvgIconSearch } from "../../UI/SvgIcon";
 import { CsvUploadButton } from "../../AddressBook/CsvUploadButton";
-import { AddressBook } from "../../../common/hooks/useAddressBook";
 import { makeEtherscanAddressURL } from "../../../utils";
 import { isEmpty } from "lodash";
 import { CSSTransition } from "react-transition-group";
@@ -11,6 +10,7 @@ import { mixin, vars } from "../../../styles";
 import { useLockBodyScroll } from "./../../../common/hooks/useLockBodyScroll";
 import { OverlayContext } from "../../../common/contexts/OverlayContext";
 import { ButtonSolidOrangeWhite, AnchorLinkButtonSolidOrangeWhite } from "./../../UI/Button";
+import { useAddressBook } from "../../../common/hooks/useAddressBook";
 
 const OverlayBaseStyle = () => {
   return `
@@ -91,14 +91,21 @@ const OverlayContentBaseStyle = () => {
   `;
 };
 
-interface OverlayContent {
+interface OverlayProps {
+  title: string;
   className?: string;
   children?: React.ReactNode;
-  title?: string;
+}
+
+interface OverlayContent extends OverlayProps {
   titleIcon?: React.ReactNode;
 }
 
-export const OverlayContent = ({ className, children, title, titleIcon }: OverlayContent) => {
+interface OverlayYoutubeProps extends OverlayProps {
+  youtubeId: string;
+}
+
+export const OverlayContent = ({ className, children, title, titleIcon, ...props }: OverlayContent) => {
   const { isOverlayVisible, setOverlayVisible } = useContext(OverlayContext);
   const handleCloseOverlay = () => {
     setOverlayVisible(false);
@@ -106,7 +113,7 @@ export const OverlayContent = ({ className, children, title, titleIcon }: Overla
 
   return (
     <CSSTransition in={isOverlayVisible} timeout={300} classNames="fadescale" appear>
-      <div className={`overlay-content ${className}`}>
+      <div className={`overlay-content ${className}`} {...props}>
         <div className="overlay-header">
           <div className="row no-gutters align-items-center">
             {titleIcon && (
@@ -134,20 +141,6 @@ export const OverlayContent = ({ className, children, title, titleIcon }: Overla
   );
 };
 
-interface OverlayProps {
-  className?: string;
-  children?: React.ReactNode;
-}
-
-interface OverlayAdressBookProps extends OverlayProps {
-  addressBook: AddressBook;
-}
-
-interface OverlayYoutubeProps extends OverlayProps {
-  title: string;
-  youtubeId: string;
-}
-
 export const Overlay = styled(({ className, children, ...props }: OverlayProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
   const handleCloseOverlay = () => {
@@ -172,7 +165,8 @@ export const OverlayDefault = styled(({ children, ...props }: OverlayProps) => {
   ${OverlayContentBaseStyle()}
 `;
 
-export const OverlayAddressBook = styled(({ addressBook = {}, ...props }: OverlayAdressBookProps) => {
+export const OverlayAddressBook = styled(({ ...props }: OverlayProps) => {
+  const { addressBook } = useAddressBook();
   const [searchTerm, setSearchTerm] = useState("");
 
   const onSearchTermChanged = (event: { target: { value: string } }) => {
@@ -358,7 +352,7 @@ export const OverlayYoutube = styled(({ youtubeId, ...props }: OverlayYoutubePro
   }
 `;
 
-export const OverlayMessagePromptNoMetamask = styled(({ ...props }) => {
+export const OverlayMessagePromptNoMetamask = styled(({ ...props }: OverlayProps) => {
   return (
     <OverlayContent {...props}>
       <div className="flex-fill">
@@ -389,7 +383,7 @@ export const OverlayMessagePromptNoMetamask = styled(({ ...props }) => {
   }
 `;
 
-export const OverlayMessagePromptNoManageAccess = styled(({ ...props }) => {
+export const OverlayMessagePromptNoManageAccess = styled(({ ...props }: OverlayProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
   const handleCloseOverlay = () => {
     setOverlayVisible(false);

@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 import { darken } from "polished";
 import { mixin, vars } from "../../styles";
 import { Section } from "../Layout/Section";
-import { OverlayId, OverlayContext } from "../../common/contexts/OverlayContext";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
+import { OverlayYoutube } from "./../../components/UI/Overlay";
 
 export const SectionLanding = styled(Section)`
   position: relative;
@@ -60,7 +61,7 @@ export const SectionLanding = styled(Section)`
 `;
 
 export const LandingSection = () => {
-  const { setOverlayId, setOverlayVisible } = useContext(OverlayContext);
+  const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
 
   return (
     <SectionLanding id="about">
@@ -79,7 +80,9 @@ export const LandingSection = () => {
           <div
             className="play mx-auto mt-4"
             onClick={() => {
-              setOverlayId(OverlayId.VideoCrossBorderTrade);
+              setOverlayContent(
+                <OverlayYoutube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />
+              );
               setOverlayVisible(true);
             }}
           >

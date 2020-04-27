@@ -117,9 +117,10 @@ Overlay look.
   <Story name="AddressBook Empty">
     {() => {
       const addressBook = {};
+      localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
       return (
         <Overlay>
-          <OverlayAddressBook title="Address Book" addressBook={addressBook} />
+          <OverlayAddressBook title="Address Book" />
         </Overlay>
       );
     }}
@@ -147,9 +148,10 @@ Overlay look.
         "0xg": "Name G",
         "0xh": "Name H",
       };
+      localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
       return (
         <Overlay>
-          <OverlayAddressBook title="Address Book" addressBook={addressBook} />
+          <OverlayAddressBook title="Address Book" />
         </Overlay>
       );
     }}
@@ -158,10 +160,10 @@ Overlay look.
 
 ---
 
-### Overlay (OverlayMessagePromptNoMetamask)
+### Overlay (MessagePromptNoMetamask)
 
 <Preview>
-  <Story name="OverlayMessagePromptNoMetamask">
+  <Story name="MessagePromptNoMetamask">
     {() => {
       return (
         <Overlay>
