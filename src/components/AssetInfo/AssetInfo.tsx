@@ -19,26 +19,11 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
 };
 
 interface ManageAssetToggleProps {
-  registryAddress: string;
-  tokenId: string;
   toggleSidebar: () => Promise<void>;
 }
 
-export const ManageAssetToggle: FunctionComponent<ManageAssetToggleProps> = ({
-  registryAddress,
-  tokenId,
-  toggleSidebar,
-}) => (
-  <a
-    href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-    id="asset-info-etherscan-link"
-    rel="noreferrer noopener"
-    target="_blank"
-    onClick={(event) => {
-      event.preventDefault;
-      toggleSidebar();
-    }}
-  >
+export const ManageAssetToggle: FunctionComponent<ManageAssetToggleProps> = ({ toggleSidebar }) => (
+  <a id="asset-info-etherscan-link" onClick={toggleSidebar}>
     Manage Asset
   </a>
 );
