@@ -10,7 +10,6 @@ interface TokenSideBarContentProps {
   beneficiaryAddress: string;
   registryAddress: string;
   handler: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-  isSideBarExpand: boolean;
 }
 
 const TokenSideBar = ({
@@ -19,10 +18,9 @@ const TokenSideBar = ({
   beneficiaryAddress,
   registryAddress,
   handler,
-  isSideBarExpand,
 }: TokenSideBarContentProps) => {
   return (
-    <aside className={`${css.tokensidebar} ${isSideBarExpand ? css["is-expanded"] : ""}`}>
+    <aside className={`${css.tokensidebar} ${css["is-expanded"]}`}>
       <div className={`${css["tokensidebar-content"]}`}>
         <header>
           <div className="row">

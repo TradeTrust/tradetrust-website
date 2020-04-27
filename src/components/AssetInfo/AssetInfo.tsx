@@ -1,99 +1,75 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getData, WrappedDocument } from "@govtechsg/open-attestation";
+import { WrappedDocument } from "@govtechsg/open-attestation";
 import TokenSideBar from "./TokenSideBar";
-import { getTokenUserAddress, initializeToken } from "../../reducers/token";
-import { updateNetworkId } from "../../reducers/application";
-import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
-import { connectToMetamask } from "../../services/etherjs";
-import { FeatureFlag } from "../FeatureFlag";
-
-const getAssetInfo = (document: WrappedDocument) => {
-  const { tokenRegistry } = getData(document).issuers[0];
-  const { merkleRoot: tokenId } = document.signature;
-  return { tokenRegistry, tokenId };
-};
+import { useProviderContext } from "../../common/contexts/provider";
+import { useTitleEscrowContract } from "../../common/hooks/useTitleEscrowContract";
+import { getDocumentId, getTokenRegistryAddress } from "../../common/utils/document";
+import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
+import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 
 export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ document }) => {
+  const { provider } = useProviderContext();
+  const registryAddress = getTokenRegistryAddress(document);
+  const tokenId = getDocumentId(document);
+  const { titleEscrow } = useTitleEscrowContract(registryAddress, tokenId, provider);
+
+  if (!titleEscrow) return null;
+  return <AssetInfoContent titleEscrow={titleEscrow} registryAddress={registryAddress} tokenId={tokenId} />;
+};
+
+interface AssetInfoContentProps {
+  titleEscrow: TitleEscrow;
+  registryAddress: string;
+  tokenId: string;
+}
+
+export const AssetInfoContent: FunctionComponent<AssetInfoContentProps> = ({
+  titleEscrow,
+  registryAddress,
+  tokenId,
+}) => {
+  const { upgradeProvider, isUpgraded, account } = useProviderContext();
+  const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow!, "holder");
+  const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow!, "beneficiary");
+
   const [isSideBarExpand, toggleSideBar] = useState(false);
-  const dispatch = useDispatch();
-  const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
-
-  const { adminAddress, holderAddress, beneficiaryAddress, initializeTokenSuccess, metamaskAccountError } = useSelector(
-    (state: any) => ({
-      adminAddress: state.admin.adminAddress,
-      holderAddress: state.token.holderAddress,
-      beneficiaryAddress: state.token.beneficiaryAddress,
-      initializeTokenSuccess: state.token.initializeTokenSuccess,
-      metamaskAccountError: state.admin.metamaskAccountError,
-      isEscrowContract: state.token.isEscrowContract,
-    })
-  );
-
-  useEffect(() => {
-    if (registryAddress) dispatch(loadAdminAddress());
-  }, [dispatch, document, registryAddress]);
-
-  useEffect(() => {
-    if (adminAddress) {
-      window.ethereum.on("networkChanged", () => {
-        dispatch(updateNetworkId());
-        dispatch(initializeToken());
-      });
-      window.ethereum.on("accountsChanged", () => dispatch(loadAdminAddress()));
-      dispatch(initializeToken());
-    }
-  }, [dispatch, adminAddress]);
-
-  useEffect(() => {
-    if (initializeTokenSuccess) dispatch(getTokenUserAddress());
-  }, [dispatch, initializeTokenSuccess]);
 
   const handlerToggleSideBar = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    if (!adminAddress && metamaskAccountError) {
-      await connectToMetamask();
-      dispatch(loadAdminAddress());
+    if (!isUpgraded) {
+      await upgradeProvider();
     }
     toggleSideBar(!isSideBarExpand);
   };
 
-  if (!registryAddress) return null;
+  useEffect(() => {
+    getHolder();
+    getBeneficiary();
+  }, [document]);
 
-  const legacyView = (
-    <a
-      href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-      id="asset-info-etherscan-link"
-      rel="noreferrer noopener"
-      target="_blank"
-    >
-      Manage Asset
-    </a>
-  );
   return (
     <>
-      <FeatureFlag name="MANAGE_ASSET" fallback={legacyView}>
-        <div>
-          <a
-            href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-            id="asset-info-etherscan-link"
-            rel="noreferrer noopener"
-            target="_blank"
-            onClick={handlerToggleSideBar}
-          >
-            Manage Asset
-          </a>
+      <div>
+        <a
+          href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+          id="asset-info-etherscan-link"
+          rel="noreferrer noopener"
+          target="_blank"
+          onClick={handlerToggleSideBar}
+        >
+          Manage Asset
+        </a>
+        {isSideBarExpand && (
           <TokenSideBar
-            adminAddress={adminAddress}
+            adminAddress={account || ""} // TODO accounts can be retrieved from inside
             registryAddress={registryAddress}
-            holderAddress={holderAddress}
-            beneficiaryAddress={beneficiaryAddress}
+            holderAddress={holder || ""}
+            beneficiaryAddress={beneficiary || ""}
             handler={handlerToggleSideBar}
-            isSideBarExpand={isSideBarExpand}
           />
-        </div>
-      </FeatureFlag>
+        )}
+      </div>
     </>
   );
 };
