@@ -6,17 +6,20 @@ import { ConnectedRouter } from "connected-react-router";
 import AppContainer from "./AppContainer";
 import initStore from "./store";
 import "styles/main.scss";
+import { ProviderContextProvider } from "./common/contexts/provider";
 
 const history = createBrowserHistory();
 
 const App = () => {
   const store = initStore(history);
   return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <AppContainer />
-      </ConnectedRouter>
-    </Provider>
+    <ProviderContextProvider>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <AppContainer />
+        </ConnectedRouter>
+      </Provider>
+    </ProviderContextProvider>
   );
 };
 ReactDOM.render(<App />, document.getElementById("root"));
