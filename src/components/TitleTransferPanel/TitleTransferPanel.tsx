@@ -1,8 +1,8 @@
 import React from "react";
 import { LabelBordered } from "../UI/LabelBordered";
-import { useDefaultProvider } from "../../common/hooks/useDefaultProvider";
 import { useTitleEscrowContract } from "../../common/hooks/useTitleEscrowContract";
 import { TitleTransferPanelContent } from "./TitleTransferPanelContent";
+import { useProviderContext } from "../../common/contexts/provider";
 
 interface TitleTransferProps {
   tokenRegistryAddress: string;
@@ -10,7 +10,7 @@ interface TitleTransferProps {
 }
 
 export const TitleTransferPanel = ({ tokenRegistryAddress, tokenId }: TitleTransferProps) => {
-  const { provider } = useDefaultProvider(); // Component only need read only access
+  const { provider } = useProviderContext();
   const { titleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
 
   return (

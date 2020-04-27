@@ -7,7 +7,6 @@ import { updateNetworkId } from "../../reducers/application";
 import { loadAdminAddress } from "../../reducers/admin";
 import { makeEtherscanTokenURL } from "../../utils";
 import { connectToMetamask } from "../../services/etherjs";
-import { FeatureFlag } from "../FeatureFlag";
 
 const getAssetInfo = (document: WrappedDocument) => {
   const { tokenRegistry } = getData(document).issuers[0];
@@ -61,39 +60,25 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
 
   if (!registryAddress) return null;
 
-  const legacyView = (
-    <a
-      href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-      id="asset-info-etherscan-link"
-      rel="noreferrer noopener"
-      target="_blank"
-    >
-      Manage Asset
-    </a>
-  );
   return (
-    <>
-      <FeatureFlag name="MANAGE_ASSET" fallback={legacyView}>
-        <div>
-          <a
-            href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-            id="asset-info-etherscan-link"
-            rel="noreferrer noopener"
-            target="_blank"
-            onClick={handlerToggleSideBar}
-          >
-            Manage Asset
-          </a>
-          <TokenSideBar
-            adminAddress={adminAddress}
-            registryAddress={registryAddress}
-            holderAddress={holderAddress}
-            beneficiaryAddress={beneficiaryAddress}
-            handler={handlerToggleSideBar}
-            isSideBarExpand={isSideBarExpand}
-          />
-        </div>
-      </FeatureFlag>
-    </>
+    <div>
+      <a
+        href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+        id="asset-info-etherscan-link"
+        rel="noreferrer noopener"
+        target="_blank"
+        onClick={handlerToggleSideBar}
+      >
+        Manage Asset
+      </a>
+      <TokenSideBar
+        adminAddress={adminAddress}
+        registryAddress={registryAddress}
+        holderAddress={holderAddress}
+        beneficiaryAddress={beneficiaryAddress}
+        handler={handlerToggleSideBar}
+        isSideBarExpand={isSideBarExpand}
+      />
+    </div>
   );
 };
