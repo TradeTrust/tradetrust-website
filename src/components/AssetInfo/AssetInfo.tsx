@@ -58,7 +58,7 @@ export const AssetInfoContent: FunctionComponent<AssetInfoContentProps> = ({
 
   return (
     <div>
-      <ManageAssetToggle tokenId={tokenId} toggleSidebar={handleToggleSidebar} registryAddress={registryAddress} />
+      <ManageAssetToggle toggleSidebar={handleToggleSidebar} />
       {showSidebar && account && registryAddress && beneficiary && holder && (
         <TokenSideBar
           adminAddress={account}
