@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { darken } from "polished";
 import { mixin, vars } from "../../styles";
 import { Section } from "../Layout/Section";
-import { OverlayId, OverlayContext } from "../../common/context/OverlayContext";
+import { OverlayId, OverlayContext } from "../../common/contexts/OverlayContext";
 
 export const SectionLanding = styled(Section)`
   position: relative;

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext } from "react";
 import styles from "./multiTabs.scss";
 import { ButtonBorderedBlue } from "../UI/Button";
-import { OverlayId, OverlayContext } from "../../common/context/OverlayContext";
+import { OverlayId, OverlayContext } from "../../common/contexts/OverlayContext";
 
 interface MultiTabsProps {
   templates: { id: string; label: string }[];

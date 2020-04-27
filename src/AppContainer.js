@@ -13,7 +13,7 @@ import {
 } from "./components/UI/Overlay";
 import { CSSTransition } from "react-transition-group";
 import { useKeyPress } from "./common/hooks/useKeyPress";
-import { OverlayId, OverlayProvider } from "./common/context/OverlayContext";
+import { OverlayId, OverlayProvider } from "./common/contexts/OverlayContext";
 import { useAddressBook } from "./common/hooks/useAddressBook";
 import { SvgIcon, SvgIconXCircle } from "./components/UI/SvgIcon";
 

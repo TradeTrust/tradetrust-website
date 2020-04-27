@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 import { rgba } from "polished";
 import { mixin, vars } from "../../../styles";
 import { useLockBodyScroll } from "./../../../common/hooks/useLockBodyScroll";
-import { OverlayContext } from "../../../common/context/OverlayContext";
+import { OverlayContext } from "../../../common/contexts/OverlayContext";
 import { ButtonSolidOrangeWhite, AnchorLinkButtonSolidOrangeWhite } from "./../../UI/Button";
 
 const OverlayBaseStyle = () => {
