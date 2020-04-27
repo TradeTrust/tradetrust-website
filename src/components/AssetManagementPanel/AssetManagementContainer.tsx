@@ -40,9 +40,9 @@ interface AssetManagementForm {
   formAction: AssetManagementActions;
   beneficiary?: string;
   holder?: string;
-  onSurrender: () => {};
-  onTransferHolder: (nextHolder: string) => {};
-  onEndorseBeneficiary: (nextBeneficiary: string) => {}; // Assuming holder is default to current holder
+  onSurrender?: () => {};
+  onTransferHolder?: (nextHolder: string) => {};
+  onEndorseBeneficiary?: (nextBeneficiary: string) => {}; // Assuming holder is default to current holder
 }
 
 export const AssetManagementForm: FunctionComponent<AssetManagementForm> = ({ tokenId, tokenRegistryAddress }) => {
