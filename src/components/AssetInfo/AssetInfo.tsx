@@ -30,8 +30,8 @@ export const AssetInfoContent: FunctionComponent<AssetInfoContentProps> = ({
   tokenId,
 }) => {
   const { upgradeProvider, isUpgraded, account } = useProviderContext();
-  const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow!, "holder");
-  const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow!, "beneficiary");
+  const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
+  const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
 
   const [isSideBarExpand, toggleSideBar] = useState(false);
 
@@ -46,7 +46,7 @@ export const AssetInfoContent: FunctionComponent<AssetInfoContentProps> = ({
   useEffect(() => {
     getHolder();
     getBeneficiary();
-  }, [document]);
+  }, [getBeneficiary, getHolder]);
 
   return (
     <>

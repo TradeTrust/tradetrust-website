@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { ethers, providers, Signer } from "ethers";
 import { NETWORK_NAME } from "../../config";
 
@@ -43,11 +43,4 @@ export const ProviderContextProvider = ({ children }: { children: React.ReactNod
   );
 };
 
-export const useProviderContext = (requireUpgrade = false): ProviderContextProps => {
-  const providerContext = useContext<ProviderContextProps>(ProviderContext);
-  if (requireUpgrade)
-    useEffect(() => {
-      if (!providerContext.isUpgraded) providerContext.upgradeProvider();
-    }, []);
-  return providerContext;
-};
+export const useProviderContext = (): ProviderContextProps => useContext<ProviderContextProps>(ProviderContext);
