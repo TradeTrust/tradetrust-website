@@ -18,6 +18,31 @@ export const AssetInfo: FunctionComponent<{ document: WrappedDocument }> = ({ do
   return <AssetInfoContent titleEscrow={titleEscrow} registryAddress={registryAddress} tokenId={tokenId} />;
 };
 
+interface ManageAssetToggleProps {
+  registryAddress: string;
+  tokenId: string;
+  toggleSidebar: () => Promise<void>;
+}
+
+export const ManageAssetToggle: FunctionComponent<ManageAssetToggleProps> = ({
+  registryAddress,
+  tokenId,
+  toggleSidebar,
+}) => (
+  <a
+    href={makeEtherscanTokenURL({ registryAddress, tokenId })}
+    id="asset-info-etherscan-link"
+    rel="noreferrer noopener"
+    target="_blank"
+    onClick={(event) => {
+      event.preventDefault;
+      toggleSidebar();
+    }}
+  >
+    Manage Asset
+  </a>
+);
+
 interface AssetInfoContentProps {
   titleEscrow: TitleEscrow;
   registryAddress: string;
@@ -33,14 +58,13 @@ export const AssetInfoContent: FunctionComponent<AssetInfoContentProps> = ({
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
 
-  const [isSideBarExpand, toggleSideBar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
-  const handlerToggleSideBar = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
+  const handleToggleSidebar = async () => {
     if (!isUpgraded) {
       await upgradeProvider();
     }
-    toggleSideBar(!isSideBarExpand);
+    setShowSidebar(!showSidebar);
   };
 
   useEffect(() => {
@@ -49,27 +73,17 @@ export const AssetInfoContent: FunctionComponent<AssetInfoContentProps> = ({
   }, [getBeneficiary, getHolder]);
 
   return (
-    <>
-      <div>
-        <a
-          href={makeEtherscanTokenURL({ registryAddress, tokenId })}
-          id="asset-info-etherscan-link"
-          rel="noreferrer noopener"
-          target="_blank"
-          onClick={handlerToggleSideBar}
-        >
-          Manage Asset
-        </a>
-        {isSideBarExpand && (
-          <TokenSideBar
-            adminAddress={account || ""} // TODO accounts can be retrieved from inside
-            registryAddress={registryAddress}
-            holderAddress={holder || ""}
-            beneficiaryAddress={beneficiary || ""}
-            handler={handlerToggleSideBar}
-          />
-        )}
-      </div>
-    </>
+    <div>
+      <ManageAssetToggle tokenId={tokenId} toggleSidebar={handleToggleSidebar} registryAddress={registryAddress} />
+      {showSidebar && account && registryAddress && beneficiary && holder && (
+        <TokenSideBar
+          adminAddress={account}
+          registryAddress={registryAddress}
+          holderAddress={holder}
+          beneficiaryAddress={beneficiary}
+          handler={handleToggleSidebar}
+        />
+      )}
+    </div>
   );
 };
