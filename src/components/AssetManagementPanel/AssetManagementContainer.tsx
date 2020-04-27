@@ -6,7 +6,7 @@ import { getDocumentId, getTokenRegistryAddress } from "../../common/utils/docum
 import { useTitleEscrowContract } from "../../common/hooks/useTitleEscrowContract";
 import { useProviderContext } from "../../common/contexts/provider";
 import { AssetInformationPanel } from "./AssetInformationPanel";
-import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
+import { useContractFunctionHook, ContractFunctionState } from "@govtechsg/ethers-contract-hook";
 interface ManageAssetButton {
   isProviderConnected: boolean;
   onConnectProvider: () => Promise<void>;
@@ -24,7 +24,7 @@ export const ManageAssetButton: FunctionComponent<ManageAssetButton> = ({
     return <div onClick={onConnectProvider}>Connect Wallet</div>;
   }
   // Other functions goes here, for now, we will only be working on Surrender feature
-  return canSurrender ? <div>Surrender</div> : <div>No actions available</div>;
+  return canSurrender ? <div onClick={onSurrender}>Manage Asset (surrender)</div> : <div>No actions available</div>;
 };
 
 enum AssetManagementActions {
@@ -40,17 +40,28 @@ interface AssetManagementForm {
   formAction: AssetManagementActions;
   beneficiary?: string;
   holder?: string;
-  onSurrender?: () => {};
-  onTransferHolder?: (nextHolder: string) => {};
-  onEndorseBeneficiary?: (nextBeneficiary: string) => {}; // Assuming holder is default to current holder
+  surrenderingState: ContractFunctionState;
+  onSurrender: () => void;
+  onTransferHolder?: (nextHolder: string) => void;
+  onEndorseBeneficiary?: (nextBeneficiary: string) => void; // Assuming holder is default to current holder
 }
 
-export const AssetManagementForm: FunctionComponent<AssetManagementForm> = ({ tokenId, tokenRegistryAddress }) => {
+export const AssetManagementForm: FunctionComponent<AssetManagementForm> = ({
+  formAction,
+  tokenId,
+  tokenRegistryAddress,
+  onSurrender,
+  surrenderingState,
+  beneficiary,
+  holder,
+}) => {
   // const [nextHolder, setNextHolder] = useState("");
   // const [nextBeneficiary, setNextBeneficiary] = useState("");
 
   const handleFormAction = () => {
-    // Depending on the form type, perform different things
+    // Depending on the form type, perform different things, right now we know it's only just surrender so...
+    if (formAction !== AssetManagementActions.Surrender) return alert("Only surrender is supported now");
+    onSurrender();
   };
 
   return (
@@ -59,10 +70,11 @@ export const AssetManagementForm: FunctionComponent<AssetManagementForm> = ({ to
         <div className="col-12 col-lg">
           <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
         </div>
-        <div className="col-12 col-lg">Editable(?) beneficiary</div>
-        <div className="col-12 col-lg">Editable(?) holder</div>
+        <div className="col-12 col-lg">Beneficiary: {beneficiary}</div>
+        <div className="col-12 col-lg">Holder: {holder}</div>
       </div>
       <div className="row">
+        {surrenderingState}
         <button onClick={handleFormAction}>Surrender</button>
       </div>
     </>
@@ -84,8 +96,13 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   const { provider, isUpgraded, upgradeProvider, account } = useProviderContext();
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
+  const { send: sendSurrender, state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
 
   const canSurrender = account === holder && account === beneficiary;
+  const onSurrender = () => {
+    alert("Surrendering");
+    sendSurrender(tokenRegistryAddress);
+  };
 
   useEffect(() => {
     getHolder();
@@ -102,6 +119,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
           formAction={assetManagementAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
+          onSurrender={onSurrender}
+          surrenderingState={surrenderingState}
         />
         <ManageAssetButton
           canSurrender={canSurrender}
