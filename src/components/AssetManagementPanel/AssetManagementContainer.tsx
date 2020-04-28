@@ -36,7 +36,7 @@ export const ManageAssetButton: FunctionComponent<ManageAssetButton> = ({
   );
 };
 
-enum AssetManagementActions {
+export enum AssetManagementActions {
   None = "None",
   TransferHolder = "TransferHolder",
   EndorseBeneficiary = "EndorseBeneficiary",
