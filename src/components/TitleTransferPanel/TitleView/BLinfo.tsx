@@ -18,7 +18,7 @@ export const BLinfo = () => {
         <>
           <ExternalLink name="View BL Registry" href={tokenRegistryHref} />
           <br />
-          <ExternalLink name="View Endorsement Chain" href={tokenHistoryHref} />
+          <ExternalLink name="View Endorsement Chain" href={tokenHistoryHref} data-testid="token-address" />
         </>
       </AddressInfo>
     </div>

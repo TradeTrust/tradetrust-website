@@ -5,9 +5,9 @@ interface ExternalLinkProps {
   href: string;
 }
 
-export const ExternalLink = ({ name, href }: ExternalLinkProps) => {
+export const ExternalLink = ({ name, href, ...props }: ExternalLinkProps) => {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer">
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
       {name}
     </a>
   );

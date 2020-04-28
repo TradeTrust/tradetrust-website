@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
 import { AssetManagementForm } from "./AssetManagementForm";
+import { AssetManagementActions } from "./../AssetManagementContainer";
 
 <Meta title="AssetManagementForm" component={AssetManagementForm} />
 
@@ -15,69 +17,132 @@ Address with information.
 
 ---
 
-### AssetManagementForm (formAction = None)
+### Not Logged in
 
-When user not logged in to wallet (!isConnectedToWallet).
+When user not logged in to wallet.
+
+(formAction === None, !isConnectedToWallet)
 
 <Preview>
   <Story name="Not Logged in">
-    <AssetManagementForm
-      isConnectedToWallet={false}
-      onConnectToWallet={() => alert("Login to Metamask")}
-      formAction="None"
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      onSurrender={() => {}}
-      surrenderingState="UNINITIALIZED"
-      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-    />
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+      return (
+        <AssetManagementForm
+          isConnectedToWallet={false}
+          onConnectToWallet={() => alert("Login to Metamask")}
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSurrender={() => {}}
+          surrenderingState="UNINITIALIZED"
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          onSetFormAction={() => {
+            setAssetManagementAction(AssetManagementActions.None);
+          }}
+        />
+      );
+    }}
   </Story>
 </Preview>
 
 ---
 
-### AssetManagementForm (formAction = Surrender)
+### Logged in
 
-When user is logged in to wallet (account === beneficiary && account === holder).
+When user is logged in to wallet.
+
+(formAction === Surrender, account === beneficiary && account === holder)
 
 <Preview>
   <Story name="Logged in">
-    <AssetManagementForm
-      isConnectedToWallet={true}
-      onConnectToWallet={() => alert("Login to Metamask")}
-      formAction="None"
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      onSurrender={() => {}}
-      surrenderingState="UNINITIALIZED"
-      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-    />
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+      return (
+        <AssetManagementForm
+          isConnectedToWallet={true}
+          onConnectToWallet={() => alert("Login to Metamask")}
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSurrender={() => {}}
+          surrenderingState="UNINITIALIZED"
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          onSetFormAction={() => {
+            setAssetManagementAction(AssetManagementActions.Surrender);
+          }}
+        />
+      );
+    }}
   </Story>
 </Preview>
 
 ---
 
-### AssetManagementForm (formAction = Surrender)
+### Surrender
 
-When user is logged in to wallet (account === beneficiary && account === holder).
+When user is logged in to wallet, clicked on surrender document dropdown.
+
+(formAction === Surrender, account === beneficiary && account === holder)
 
 <Preview>
   <Story name="Surrender">
-    <AssetManagementForm
-      isConnectedToWallet={true}
-      onConnectToWallet={() => alert("Login to Metamask")}
-      formAction="Surrender"
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      onSurrender={() => {}}
-      surrenderingState="UNINITIALIZED"
-      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-    />
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
+      return (
+        <AssetManagementForm
+          isConnectedToWallet={true}
+          onConnectToWallet={() => alert("Login to Metamask")}
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSurrender={() => {}}
+          surrenderingState="UNINITIALIZED"
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          onSetFormAction={() => {
+            setAssetManagementAction(AssetManagementActions.Surrender);
+          }}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Surrender
+
+When user is logged in to wallet, clicked on surrender document dropdown, clicked on surender document.
+
+(formAction === Surrender, account === beneficiary && account === holder)
+
+<Preview>
+  <Story name="Surrender/Pending">
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
+      return (
+        <AssetManagementForm
+          isConnectedToWallet={true}
+          onConnectToWallet={() => alert("Login to Metamask")}
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSurrender={() => {}}
+          surrenderingState="PENDING_CONFIRMATION"
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          onSetFormAction={() => {
+            setAssetManagementAction(AssetManagementActions.Surrender);
+          }}
+        />
+      );
+    }}
   </Story>
 </Preview>

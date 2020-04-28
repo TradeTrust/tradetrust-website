@@ -24,12 +24,11 @@ export const ManageAssetsDropdown = styled(
         <Dropdown.Toggle variant="primary" id="dropdown-basic">
           Manage Assets
         </Dropdown.Toggle>
-
         <Dropdown.Menu>
           {account === holder && account === beneficiary && (
             <Dropdown.Item
               data-testid={"surrenderDropdown"}
-              onClick={() => onSetFormAction(AssetManagementActions.None)}
+              onClick={() => onSetFormAction(AssetManagementActions.Surrender)}
             >
               Surrender document
             </Dropdown.Item>
@@ -123,72 +122,79 @@ export const AssetManagementForm: FunctionComponent<AssetManagementForm> = style
     };
 
     return (
-      <div className={`${className}`}>
-        {isConnectedToWallet && formAction === AssetManagementActions.Surrender && (
-          <div className="row">
-            <div className="col-12">
-              <div className="action-back" onClick={() => onSetFormAction(AssetManagementActions.None)}>
-                <div className="row align-items-center no-gutters">
-                  <div className="col-auto mr-1">
-                    <SvgIcon>
-                      <SvgIconArrowLeft />
-                    </SvgIcon>
+      <div className="row py-3">
+        <div className="col-12">
+          <div className={`${className}`}>
+            {isConnectedToWallet && formAction !== AssetManagementActions.None && (
+              <div className="row">
+                <div className="col-12">
+                  <div className="action-back" onClick={() => onSetFormAction(AssetManagementActions.None)}>
+                    <div className="row align-items-center no-gutters">
+                      <div className="col-auto mr-1">
+                        <SvgIcon>
+                          <SvgIconArrowLeft />
+                        </SvgIcon>
+                      </div>
+                      <div className="col-auto">
+                        <p className="mb-0">Back</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="col-auto">
-                    <p className="mb-0">Back</p>
-                  </div>
+                  <h3 className="action-title">
+                    {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
+                  </h3>
                 </div>
               </div>
-              <h3 className="action-title">Surrender Document</h3>
+            )}
+            <div className="row mb-3">
+              <div className="col-12 col-lg">
+                <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
+              </div>
+              <div className="col-12 col-lg">
+                {beneficiary ? <AssetTitle role="Beneficiary" address={beneficiary} /> : <SkeletonPlaceholder />}
+              </div>
+              <div className="col-12 col-lg">
+                {holder ? <AssetTitle role="Holder" address={holder} /> : <SkeletonPlaceholder />}
+              </div>
             </div>
-          </div>
-        )}
-        <div className="row">
-          <div className="col-12 col-lg">
-            <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
-          </div>
-          <div className="col-12 col-lg">
-            {beneficiary ? <AssetTitle role="Beneficiary" address={beneficiary} /> : <SkeletonPlaceholder />}
-          </div>
-          <div className="col-12 col-lg">
-            {holder ? <AssetTitle role="Holder" address={holder} /> : <SkeletonPlaceholder />}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-auto">
-            {surrenderingState}
-            <button onClick={handleFormAction}>Surrender</button>
-          </div>
-          {isConnectedToWallet ? (
-            <div className="col-auto ml-auto">
-              {formAction === AssetManagementActions.Surrender && (
-                <div className="row no-gutters">
-                  <div className="col-auto">
-                    <ButtonSolidWhiteGrey onClick={() => onSetFormAction(AssetManagementActions.None)}>
-                      Cancel
-                    </ButtonSolidWhiteGrey>
-                  </div>
-                  <div className="col-auto ml-2">
-                    <ButtonSolidRedWhite onClick={handleFormAction}>Surrender</ButtonSolidRedWhite>
-                  </div>
+            {/* <h1>{surrenderingState}</h1> */}
+            <div className="row mb-3">
+              {isConnectedToWallet ? (
+                <div className="col-auto ml-auto">
+                  {formAction === AssetManagementActions.None ? (
+                    <ManageAssetsDropdown
+                      account={account}
+                      beneficiary={beneficiary}
+                      holder={holder}
+                      onSetFormAction={onSetFormAction}
+                    />
+                  ) : (
+                    <div className="row no-gutters">
+                      <div className="col-auto">
+                        <ButtonSolidWhiteGrey onClick={() => onSetFormAction(AssetManagementActions.None)}>
+                          Cancel
+                        </ButtonSolidWhiteGrey>
+                      </div>
+                      <div className="col-auto ml-2">
+                        <ButtonSolidRedWhite
+                          onClick={handleFormAction}
+                          disabled={surrenderingState === "PENDING_CONFIRMATION" || surrenderingState === "CONFIRMED"}
+                        >
+                          {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
+                        </ButtonSolidRedWhite>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="col-auto ml-auto">
+                  <ButtonSolidOrange data-testid={"connectToWallet"} onClick={onConnectToWallet}>
+                    Connect Wallet
+                  </ButtonSolidOrange>
                 </div>
               )}
-              {formAction === AssetManagementActions.None && (
-                <ManageAssetsDropdown
-                  account={account}
-                  beneficiary={beneficiary}
-                  holder={holder}
-                  onSetFormAction={onSetFormAction}
-                />
-              )}
             </div>
-          ) : (
-            <div className="col-auto ml-auto">
-              <ButtonSolidOrange data-testid={"connectToWallet"} onClick={onConnectToWallet}>
-                Connect Wallet
-              </ButtonSolidOrange>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     );
