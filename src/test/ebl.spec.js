@@ -1,6 +1,6 @@
 import { Selector } from "testcafe";
 
-fixture("Token Document Rendering").page`http://localhost:3000`;
+fixture.skip("Token Document Rendering").page`http://localhost:3000`;
 
 const Document = "./fixture/ebl.json";
 const IframeBlock = Selector("#iframe");

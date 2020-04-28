@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { AssetInformationPanel } from "./../AssetInformationPanel";
 import { AssetTitle } from "../AssetTitle";
 import { LoaderSkeleton } from "../../UI/Loader";
 import { AssetManagementActions } from "../AssetManagementContainer";
-import { ButtonSolid, ButtonSolidRedWhite, ButtonSolidWhiteGrey, ButtonSolidOrange } from "../../UI/Button";
+import { ButtonSolidRedWhite, ButtonSolidWhiteGrey, ButtonSolidOrange } from "../../UI/Button";
 import { Dropdown } from "react-bootstrap";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../../styles";
@@ -103,7 +103,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementForm> = style
     holder,
     className,
     onSetFormAction,
-    setAssetManagementAction,
   }) => {
     // const [nextHolder, setNextHolder] = useState("");
     // const [nextBeneficiary, setNextBeneficiary] = useState("");
@@ -122,8 +121,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementForm> = style
         </div>
       );
     };
-
-    console.log(surrenderingState === "UNINITIALIZED", "!11");
 
     return (
       <div className={`${className}`}>
@@ -164,9 +161,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementForm> = style
           </div>
           {isConnectedToWallet ? (
             <div className="col-auto ml-auto">
-              {/* {surrenderingState === "UNINITIALIZED" (
-            ) : (              
-            )} */}
               {formAction === AssetManagementActions.Surrender && (
                 <div className="row no-gutters">
                   <div className="col-auto">

@@ -36,10 +36,10 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   );
   const { send: sendSurrender, state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
 
-  const isHolder = account === holder;
-  const isBeneficiary = account === beneficiary;
+  // const isHolder = account === holder;
+  // const isBeneficiary = account === beneficiary;
   // Can surrender when current user is both beneficiary and holder
-  const canSurrender = isHolder && isBeneficiary;
+  // const canSurrender = isHolder && isBeneficiary;
   // // Can name the next beneficiary if current user is the beneficiary
   // const canEndorseBeneficiary = isBeneficiary;
   // // Can execute transfer when either (the current user is both the beneficiary and holder)

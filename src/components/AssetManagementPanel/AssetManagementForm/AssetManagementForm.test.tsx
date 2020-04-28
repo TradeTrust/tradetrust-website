@@ -1,7 +1,5 @@
 import React from "react";
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from "history";
-import { render, getByTestId, fireEvent } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { AssetManagementActions } from "../AssetManagementContainer";
 import { AssetManagementForm } from "./AssetManagementForm";
