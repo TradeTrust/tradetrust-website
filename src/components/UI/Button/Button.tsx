@@ -130,6 +130,20 @@ export const ButtonSolidOrangeWhite = styled(Button)`
   })}
 `;
 
+export const ButtonSolidRedWhite = styled(Button)`
+  ${baseStyleButton({
+    bgColor: vars.red,
+    textColor: vars.white,
+  })}
+`;
+
+export const ButtonSolidWhiteGrey = styled(Button)`
+  ${baseStyleButton({
+    bgColor: vars.white,
+    textColor: vars.grey,
+  })}
+`;
+
 export const ButtonBorderedBlue = styled(Button)`
   ${baseStyleButton({
     bgColor: vars.white,
