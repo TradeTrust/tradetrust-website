@@ -3,7 +3,7 @@ import { TitleView } from "../TitleView";
 import { BLinfo } from "../TitleView/BLinfo";
 import { LoaderSkeleton } from "../../UI/Loader";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import { useTitleEscrowUsers } from "../../../common/hooks/useTitleEscrowUsres";
+import { useTitleEscrowUsers } from "../../../common/hooks/useTitleEscrowUsers";
 
 export const TitleTransferPanelContent = ({ titleEscrow }: { titleEscrow: TitleEscrow }) => {
   const { holder, beneficiary } = useTitleEscrowUsers({ titleEscrow });

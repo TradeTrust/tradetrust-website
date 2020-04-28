@@ -1,1 +1,1 @@
-export * from "./TitleTransferPanel";
+export * from "./TitleTransferContainer";

@@ -37,6 +37,8 @@ export const ManageAssetsDropdown = ({
     console.log(event.target);
   };
 
+  console.log(approvedBeneficiaryAddress, approvedHolderAddress);
+
   const handleNoAccess = () => {
     alert("User has no manage asset privileges.");
   };

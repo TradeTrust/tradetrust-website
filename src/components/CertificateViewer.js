@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Modal from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
-import { TitleTransferPanel } from "./TitleTransferPanel";
+import { TitleTransferContainer } from "./TitleTransferPanel";
 import { getTokenRegistryAddress } from "../common/utils/document";
 import { OverlayAddressBook } from "./UI/Overlay";
 import { useAddressBook } from "../common/hooks/useAddressBook";
@@ -56,7 +56,7 @@ export const CertificateViewer = (props) => {
       </CSSTransition>
       <section className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={props.verificationStatus} />
-        {tokenRegistryAddress && <TitleTransferPanel document={document} />}
+        {tokenRegistryAddress && <TitleTransferContainer document={document} />}
         <MultiTabs
           templates={templates}
           selectedTemplate={selectedTemplate}

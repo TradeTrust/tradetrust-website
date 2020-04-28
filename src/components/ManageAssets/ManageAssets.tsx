@@ -9,26 +9,26 @@ import { updateNetworkId } from "../../reducers/application";
 import { initializeToken } from "../../reducers/token";
 import { WrappedDocument } from "@govtechsg/open-attestation";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import { useTitleEscrowUsers } from "../../common/hooks/useTitleEscrowUsres";
+import { useTitleEscrowUsers } from "../../common/hooks/useTitleEscrowUsers";
 
 interface ManageAssetsProps {
   document: WrappedDocument;
   titleEscrow: TitleEscrow;
+  approvedEscrowInstance?: TitleEscrow;
 }
 
-export const ManageAssets = ({ document, titleEscrow }: ManageAssetsProps) => {
+export const ManageAssets = ({ document, approvedEscrowInstance, titleEscrow }: ManageAssetsProps) => {
   const dispatch = useDispatch();
   const tokenRegistryAddress = getTokenRegistryAddress(document);
   const { holder, beneficiary } = useTitleEscrowUsers({ titleEscrow });
+  const { holder: approvedHolderAddress, beneficiary: approvedBeneficiaryAddress } = useTitleEscrowUsers({
+    titleEscrow: approvedEscrowInstance,
+  });
 
-  const { userWalletAddress, approvedBeneficiaryAddress, approvedHolderAddress, metamaskAccountError } = useSelector(
-    (state: any) => ({
-      userWalletAddress: state.admin.adminAddress,
-      approvedBeneficiaryAddress: state.token.approvedBeneficiaryAddress,
-      approvedHolderAddress: state.token.approvedHolderAddress,
-      metamaskAccountError: state.admin.metamaskAccountError,
-    })
-  );
+  const { userWalletAddress, metamaskAccountError } = useSelector((state: any) => ({
+    userWalletAddress: state.admin.adminAddress,
+    metamaskAccountError: state.admin.metamaskAccountError,
+  }));
 
   useEffect(() => {
     if (tokenRegistryAddress) dispatch(loadAdminAddress());
@@ -61,8 +61,8 @@ export const ManageAssets = ({ document, titleEscrow }: ManageAssetsProps) => {
             <div className="col-12 col-md-auto ml-md-auto">
               <ManageAssetsDropdownPrimaryWhite
                 userWalletAddress={userWalletAddress}
-                approvedBeneficiaryAddress={approvedBeneficiaryAddress}
-                approvedHolderAddress={approvedHolderAddress}
+                approvedBeneficiaryAddress={approvedBeneficiaryAddress || ""}
+                approvedHolderAddress={approvedHolderAddress || ""}
                 beneficiaryAddress={beneficiary || ""}
                 holderAddress={holder || ""}
                 metamaskAccountError={metamaskAccountError}
