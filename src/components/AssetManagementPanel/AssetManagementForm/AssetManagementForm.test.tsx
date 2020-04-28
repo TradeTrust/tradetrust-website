@@ -5,8 +5,6 @@ import { AssetManagementActions } from "../AssetManagementContainer";
 import { AssetManagementForm } from "./AssetManagementForm";
 
 describe("None", () => {
-  xit("should not display manage asset at all when account not match beneficiary or holder address", () => {});
-
   it("should display the non-editable beneficiary & holder when the app is in None state", () => {
     const container = render(
       <AssetManagementForm

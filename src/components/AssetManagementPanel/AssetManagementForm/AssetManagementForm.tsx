@@ -161,7 +161,7 @@ export const AssetManagementForm = ({
 }: AssetManagementFormProps) => {
   // const [nextHolder, setNextHolder] = useState("");
   // const [nextBeneficiary, setNextBeneficiary] = useState("");
-  // console.log(account);
+  // console.log(account, beneficiary, holder);
 
   const handleFormAction = () => {
     // Depending on the form type, perform different things, right now we know it's only just surrender so...
@@ -196,69 +196,77 @@ export const AssetManagementForm = ({
           </div>
         </div>
         {/* <h1>{surrenderingState}</h1> */}
-        {account !== beneficiary && account !== holder ? (
-          <></>
-        ) : (
-          <div className="row mb-3">
-            {isConnectedToWallet ? (
-              <div className="col-auto ml-auto">
-                {formAction === AssetManagementActions.None ? (
-                  <ManageAssetsDropdown
-                    account={account}
-                    beneficiary={beneficiary}
-                    holder={holder}
-                    onSetFormAction={onSetFormAction}
-                  />
-                ) : (
-                  <>
-                    {surrenderingState === "CONFIRMED" ? (
-                      <div className="row">
-                        <div className="col-auto">
-                          <ButtonSolidGreenWhite
-                            onClick={() => {
-                              onSetFormAction(AssetManagementActions.None);
-                            }}
-                          >
-                            Success
-                          </ButtonSolidGreenWhite>
-                        </div>
+        <div className="row mb-3">
+          {isConnectedToWallet ? (
+            <div className="col-auto ml-auto">
+              {formAction === AssetManagementActions.None ? (
+                <>
+                  {account !== beneficiary && account !== holder ? (
+                    <ButtonSolidOrange
+                      onClick={() => {
+                        alert("Your wallet address has no manage assets privileges.");
+                      }}
+                    >
+                      No Access
+                    </ButtonSolidOrange>
+                  ) : (
+                    <ManageAssetsDropdown
+                      account={account}
+                      beneficiary={beneficiary}
+                      holder={holder}
+                      onSetFormAction={onSetFormAction}
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  {surrenderingState === "CONFIRMED" ? (
+                    <div className="row">
+                      <div className="col-auto">
+                        <ButtonSolidGreenWhite
+                          onClick={() => {
+                            onSetFormAction(AssetManagementActions.None);
+                          }}
+                        >
+                          Success
+                        </ButtonSolidGreenWhite>
                       </div>
-                    ) : (
-                      <div className="row no-gutters">
-                        <div className="col-auto">
-                          <ButtonSolidWhiteGrey
-                            onClick={() => onSetFormAction(AssetManagementActions.None)}
-                            disabled={surrenderingState === "PENDING_CONFIRMATION"}
-                          >
-                            Cancel
-                          </ButtonSolidWhiteGrey>
-                        </div>
-                        <div className="col-auto ml-2">
-                          <ButtonSolidRedWhite
-                            onClick={handleFormAction}
-                            disabled={surrenderingState === "PENDING_CONFIRMATION"}
-                          >
-                            {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
-                            {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
-                            {formAction === AssetManagementActions.EndorseBeneficiary && (
-                              <>Endorse Change of Beneficiary</>
-                            )}
-                          </ButtonSolidRedWhite>
-                        </div>
+                    </div>
+                  ) : (
+                    <div className="row no-gutters">
+                      <div className="col-auto">
+                        <ButtonSolidWhiteGrey
+                          onClick={() => onSetFormAction(AssetManagementActions.None)}
+                          disabled={surrenderingState === "PENDING_CONFIRMATION"}
+                        >
+                          Cancel
+                        </ButtonSolidWhiteGrey>
                       </div>
-                    )}
-                  </>
-                )}
-              </div>
-            ) : (
-              <div className="col-auto ml-auto">
-                <ButtonSolidOrange data-testid={"connectToWallet"} onClick={onConnectToWallet}>
-                  Connect Wallet
-                </ButtonSolidOrange>
-              </div>
-            )}
-          </div>
-        )}
+                      <div className="col-auto ml-2">
+                        <ButtonSolidRedWhite
+                          onClick={handleFormAction}
+                          disabled={surrenderingState === "PENDING_CONFIRMATION"}
+                        >
+                          {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
+                          {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
+                          {formAction === AssetManagementActions.EndorseBeneficiary && (
+                            <>Endorse Change of Beneficiary</>
+                          )}
+                        </ButtonSolidRedWhite>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          ) : (
+            <div className="col-auto ml-auto">
+              <ButtonSolidOrange data-testid={"connectToWallet"} onClick={onConnectToWallet}>
+                Connect Wallet
+              </ButtonSolidOrange>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

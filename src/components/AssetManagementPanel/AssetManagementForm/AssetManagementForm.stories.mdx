@@ -17,39 +17,6 @@ AssetManagementForm with information.
 
 ---
 
-### No Match
-
-(account !== beneficiary && account !== holder)
-
-(formAction === None, !isConnectedToWallet)
-
-<Preview>
-  <Story name="No Match">
-    {() => {
-      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-      return (
-        <AssetManagementForm
-          isConnectedToWallet={false}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          formAction={assetManagementAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState="UNINITIALIZED"
-          account="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          onSetFormAction={() => {
-            setAssetManagementAction(AssetManagementActions.None);
-          }}
-        />
-      );
-    }}
-  </Story>
-</Preview>
-
----
-
 ### Not Logged in
 
 (account === beneficiary && account === holder)
@@ -106,6 +73,39 @@ AssetManagementForm with information.
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Logged in, No Match
+
+(account !== beneficiary && account !== holder)
+
+(formAction === None, isConnectedToWallet)
+
+<Preview>
+  <Story name="No Match">
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+      return (
+        <AssetManagementForm
+          isConnectedToWallet={true}
+          onConnectToWallet={() => alert("Login to Metamask")}
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSurrender={() => {}}
+          surrenderingState="UNINITIALIZED"
+          account="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          onSetFormAction={() => {
+            setAssetManagementAction(AssetManagementActions.None);
+          }}
         />
       );
     }}
