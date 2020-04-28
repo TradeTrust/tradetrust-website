@@ -7,6 +7,9 @@ import { useTitleEscrowContract } from "../../common/hooks/useTitleEscrowContrac
 import { useProviderContext } from "../../common/contexts/provider";
 import { AssetInformationPanel } from "./AssetInformationPanel";
 import { useContractFunctionHook, ContractFunctionState } from "@govtechsg/ethers-contract-hook";
+import { AssetTitle } from "./AssetTitle";
+import { LoaderSkeleton } from "./../UI/Loader";
+
 interface ManageAssetButton {
   isProviderConnected: boolean;
   onConnectProvider: () => Promise<void>;
@@ -24,7 +27,13 @@ export const ManageAssetButton: FunctionComponent<ManageAssetButton> = ({
     return <div onClick={onConnectProvider}>Connect Wallet</div>;
   }
   // Other functions goes here, for now, we will only be working on Surrender feature
-  return canSurrender ? <div onClick={onSurrender}>Manage Asset (surrender)</div> : <div>No actions available</div>;
+  return (
+    <div className="row">
+      <div className="col-12">
+        {canSurrender ? <div onClick={onSurrender}>Manage Asset (surrender)</div> : <div>No actions available</div>}
+      </div>
+    </div>
+  );
 };
 
 enum AssetManagementActions {
@@ -64,18 +73,33 @@ export const AssetManagementForm: FunctionComponent<AssetManagementForm> = ({
     onSurrender();
   };
 
+  const SkeletonPlaceholder = () => {
+    return (
+      <div className="mt-3 mb-4">
+        <LoaderSkeleton className="mb-2" width="90px" />
+        <LoaderSkeleton />
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="row">
         <div className="col-12 col-lg">
           <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
         </div>
-        <div className="col-12 col-lg">Beneficiary: {beneficiary}</div>
-        <div className="col-12 col-lg">Holder: {holder}</div>
+        <div className="col-12 col-lg">
+          {beneficiary ? <AssetTitle role="Beneficiary" address={beneficiary} /> : <SkeletonPlaceholder />}
+        </div>
+        <div className="col-12 col-lg">
+          {holder ? <AssetTitle role="Holder" address={holder} /> : <SkeletonPlaceholder />}
+        </div>
       </div>
       <div className="row">
-        {surrenderingState}
-        <button onClick={handleFormAction}>Surrender</button>
+        <div className="col-12">
+          {surrenderingState}
+          <button onClick={handleFormAction}>Surrender</button>
+        </div>
       </div>
     </>
   );
@@ -93,7 +117,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   titleEscrow,
 }) => {
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-  const { provider, isUpgraded, upgradeProvider, account } = useProviderContext();
+  const { isUpgraded, upgradeProvider, account } = useProviderContext();
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
   const { send: sendSurrender, state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
@@ -107,7 +131,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   useEffect(() => {
     getHolder();
     getBeneficiary();
-  }, [titleEscrow]);
+  }, [getBeneficiary, getHolder, titleEscrow]);
 
   return (
     <div id="title-transfer-panel">
