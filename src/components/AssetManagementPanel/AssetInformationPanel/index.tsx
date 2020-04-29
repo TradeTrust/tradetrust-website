@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { AddressInfo } from "../../AddressInfo";
-import { ExternalLink } from "../../UI/ExternalLink";
-import { makeEtherscanAddressURL, makeEtherscanTokenURL } from "../../../utils";
+import { ExternalLinkEtherscanAddress, ExternalLinkEtherscanToken } from "../../UI/ExternalLink";
 
 interface AssetInformationPanel {
   tokenRegistryAddress: string;
@@ -9,18 +8,19 @@ interface AssetInformationPanel {
 }
 
 export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = ({ tokenId, tokenRegistryAddress }) => {
-  const tokenRegistryHref = makeEtherscanAddressURL(tokenRegistryAddress);
-  const tokenHistoryHref = makeEtherscanTokenURL({ registryAddress: tokenRegistryAddress, tokenId });
-
   return (
     <div className="py-3">
       <AddressInfo title="BL information">
         <>
           <div>
-            <ExternalLink name="View BL Registry" address={tokenRegistryHref} />
+            <ExternalLinkEtherscanAddress name="View BL Registry" address={tokenRegistryAddress} />
           </div>
           <div>
-            <ExternalLink name="View Endorsement Chain" address={tokenHistoryHref} />
+            <ExternalLinkEtherscanToken
+              name="View Endorsement Chain"
+              tokenId={tokenId}
+              tokenRegistryAddress={tokenRegistryAddress}
+            />
           </div>
         </>
       </AddressInfo>

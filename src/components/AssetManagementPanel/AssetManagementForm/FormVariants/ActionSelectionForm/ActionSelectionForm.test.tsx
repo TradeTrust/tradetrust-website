@@ -7,7 +7,6 @@ describe("ActionSelectionForm", () => {
   it("should display the non-editable beneficiary & holder", () => {
     const container = render(
       <ActionSelectionForm
-        isConnectedToWallet={false}
         onSetFormAction={() => {}}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -34,13 +33,12 @@ describe("ActionSelectionForm", () => {
 
     const container = render(
       <ActionSelectionForm
-        isConnectedToWallet={false}
         onSetFormAction={() => {}}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+        account=""
         canSurrender={false}
         onConnectToWallet={mockOnConnectToWallet}
       />
@@ -53,14 +51,13 @@ describe("ActionSelectionForm", () => {
   it("should display the Manage Assets dropdown if user is logged in", () => {
     const container = render(
       <ActionSelectionForm
-        isConnectedToWallet={true}
         onSetFormAction={() => {}}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        canSurrender={false}
+        canSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
       />
     );
@@ -72,7 +69,6 @@ describe("ActionSelectionForm", () => {
   it("should allow the selection of Surrender if user can surrender", async () => {
     const container = render(
       <ActionSelectionForm
-        isConnectedToWallet={true}
         onSetFormAction={() => {}}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -94,14 +90,13 @@ describe("ActionSelectionForm", () => {
   it("should not display the selection of Surrender if user cannot surrender", () => {
     const container = render(
       <ActionSelectionForm
-        isConnectedToWallet={true}
         onSetFormAction={() => {}}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        canSurrender={false}
+        canSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
       />
     );

@@ -1,40 +1,31 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import { WrappedDocument } from "@govtechsg/open-attestation";
+import React, { useState, useEffect } from "react";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import { AssetManagementTags } from "./AssetManagementTags";
-import { getDocumentId, getTokenRegistryAddress } from "../../common/utils/document";
-import { useTitleEscrowContract } from "../../common/hooks/useTitleEscrowContract";
-import { useProviderContext } from "../../common/contexts/provider";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { AssetManagementForm } from "./AssetManagementForm";
+import { AssetManagementTags } from "./../AssetManagementTags";
+import { AssetManagementForm } from "./../AssetManagementForm";
+import { useProviderContext } from "../../../common/contexts/provider";
+import { AssetManagementActions } from "../AssetManagementActions";
 
-export enum AssetManagementActions {
-  None = "None",
-  TransferHolder = "TransferHolder",
-  EndorseBeneficiary = "EndorseBeneficiary",
-  Surrender = "Surrender",
-}
-
-interface AssetManagementApplication {
+interface AssetManagementApplicationProps {
   tokenId: string;
   tokenRegistryAddress: string;
   titleEscrow: TitleEscrow;
 }
 
-export const AssetManagementApplication: FunctionComponent<AssetManagementApplication> = ({
+export const AssetManagementApplication = ({
   tokenId,
   tokenRegistryAddress,
   titleEscrow,
-}) => {
+}: AssetManagementApplicationProps) => {
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-  const { isUpgraded, upgradeProvider, account } = useProviderContext();
+  const { upgradeProvider, account } = useProviderContext();
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
   const { call: getApprovedTransferTarget, value: approvedTransferTarget } = useContractFunctionHook(
     titleEscrow,
     "approvedTransferTarget"
   );
-  const { send: sendSurrender, state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
+  const { state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
 
   // const isHolder = account === holder;
   // const isBeneficiary = account === beneficiary;
@@ -49,10 +40,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   // // Can change holder when current user is holder
   // const canChangeHolder = isHolder;
 
-  const onSurrender = () => {
-    sendSurrender(tokenRegistryAddress);
-  };
-
   useEffect(() => {
     getHolder();
     getBeneficiary();
@@ -65,7 +52,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
         <AssetManagementTags />
         <AssetManagementForm
           account={account}
-          isConnectedToWallet={isUpgraded}
           onConnectToWallet={upgradeProvider}
           beneficiary={beneficiary}
           holder={holder}
@@ -73,28 +59,11 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
           formAction={assetManagementAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
-          onSurrender={onSurrender}
-          surrenderingState={surrenderingState}
+          titleEscrow={titleEscrow}
           onSetFormAction={setAssetManagementAction}
+          surrenderingState={surrenderingState}
         />
       </div>
     </div>
-  );
-};
-
-export const AssetManagementContainer = ({ document }: { document: WrappedDocument }) => {
-  const tokenId = getDocumentId(document);
-  const tokenRegistryAddress = getTokenRegistryAddress(document);
-  const { provider } = useProviderContext();
-  const { titleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
-
-  if (!titleEscrow) return null;
-
-  return (
-    <AssetManagementApplication
-      tokenId={tokenId}
-      tokenRegistryAddress={tokenRegistryAddress}
-      titleEscrow={titleEscrow}
-    />
   );
 };

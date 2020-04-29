@@ -1,24 +1,24 @@
 import React from "react";
-import { AssetManagementActions } from "../AssetManagementContainer";
+import { AssetManagementActions } from "../AssetManagementActions";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
 import { SurrenderForm } from "./FormVariants/SurrenderForm";
+import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
+import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 
 interface AssetManagementFormProps {
   beneficiary?: string;
   holder?: string;
   approvedTransferTarget?: string;
-
   tokenId: string;
   tokenRegistryAddress: string;
   account?: string;
   formAction: AssetManagementActions;
-  surrenderingState: any;
-  isConnectedToWallet: boolean;
   onConnectToWallet: () => void;
-  onSurrender: () => void;
+  titleEscrow: TitleEscrow;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   onTransferHolder?: (nextHolder: string) => void;
   onEndorseBeneficiary?: (nextBeneficiary: string) => void; // Assuming holder is default to current holder
+  surrenderingState: string;
 }
 
 export const AssetManagementForm = ({
@@ -26,18 +26,19 @@ export const AssetManagementForm = ({
   formAction,
   tokenId,
   tokenRegistryAddress,
-  onSurrender,
-  surrenderingState,
-  isConnectedToWallet,
   onConnectToWallet,
   beneficiary,
   holder,
+  titleEscrow,
   onSetFormAction,
+  surrenderingState,
 }: AssetManagementFormProps) => {
+  const { send: sendSurrender } = useContractFunctionHook(titleEscrow, "transferTo");
+
   const handleFormAction = () => {
     // Depending on the form type, perform different things, right now we know it's only just surrender so...
     if (formAction !== AssetManagementActions.Surrender) return alert("Only surrender is supported now");
-    onSurrender();
+    sendSurrender(tokenRegistryAddress);
   };
 
   const isHolder = account === holder;
@@ -53,13 +54,12 @@ export const AssetManagementForm = ({
         tokenRegistryAddress={tokenRegistryAddress}
         beneficiary={beneficiary}
         holder={holder}
-        surrenderingState={surrenderingState}
         handleFormAction={handleFormAction}
+        surrenderingState={surrenderingState}
       />
     );
   return (
     <ActionSelectionForm
-      isConnectedToWallet={isConnectedToWallet}
       onSetFormAction={onSetFormAction}
       tokenId={tokenId}
       tokenRegistryAddress={tokenRegistryAddress}

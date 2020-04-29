@@ -1,5 +1,5 @@
 import React from "react";
-import { AssetManagementActions } from "./../../AssetManagementContainer";
+import { AssetManagementActions } from "./../../AssetManagementActions";
 import { SvgIcon, SvgIconArrowLeft } from "../../../UI/SvgIcon";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../../../styles";
@@ -8,13 +8,14 @@ interface AssetManagementTitleProps {
   className?: string;
   onBack: () => void;
   formAction: AssetManagementActions;
+  disabled: boolean;
 }
 
-export const AssetManagementTitle = styled(({ className, onBack, formAction }: AssetManagementTitleProps) => {
+export const AssetManagementTitle = styled(({ className, onBack, formAction, disabled }: AssetManagementTitleProps) => {
   return (
     <div className={`row ${className}`}>
       <div className="col-12">
-        <div className="action-back" onClick={onBack}>
+        <div className="action-back" onClick={onBack} data-disabled={disabled}>
           <div className="row align-items-center no-gutters">
             <div className="col-auto mr-1">
               <SvgIcon>
@@ -39,6 +40,11 @@ export const AssetManagementTitle = styled(({ className, onBack, formAction }: A
     color: ${vars.grey};
     cursor: pointer;
     margin-bottom: 10px;
+
+    &[data-disabled="true"] {
+      color: ${vars.greyLight};
+      cursor: default;
+    }
   }
 
   .action-title {

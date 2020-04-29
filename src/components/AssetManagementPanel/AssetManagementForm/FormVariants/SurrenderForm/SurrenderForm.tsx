@@ -2,7 +2,7 @@ import React from "react";
 import { ButtonSolidGreenWhite, ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
-import { AssetManagementActions } from "../../../AssetManagementContainer";
+import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
@@ -11,10 +11,10 @@ interface SurrenderFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenId: string;
   tokenRegistryAddress: string;
-  beneficiary: string;
-  holder: string;
-  surrenderingState: string;
+  beneficiary?: string;
+  holder?: string;
   handleFormAction: () => void;
+  surrenderingState: string;
 }
 
 export const SurrenderForm = ({
@@ -24,24 +24,23 @@ export const SurrenderForm = ({
   tokenRegistryAddress,
   beneficiary,
   holder,
-  surrenderingState,
   handleFormAction,
+  surrenderingState,
 }: SurrenderFormProps) => {
   const isPendingConfirmation = surrenderingState === "PENDING_CONFIRMATION";
   const isConfirmed = surrenderingState === "CONFIRMED";
 
   const onBackHandler = () => {
-    if (isPendingConfirmation) {
-      return false;
-    } else {
-      onSetFormAction(AssetManagementActions.None);
-    }
+    if (isPendingConfirmation) return;
+    onSetFormAction(AssetManagementActions.None);
   };
 
   return (
     <div className="row py-3">
       <div className="col-12">
-        <AssetManagementTitle onBack={onBackHandler} formAction={formAction} />
+        {!isConfirmed && (
+          <AssetManagementTitle onBack={onBackHandler} formAction={formAction} disabled={isPendingConfirmation} />
+        )}
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -58,13 +57,7 @@ export const SurrenderForm = ({
             {isConfirmed ? (
               <div className="row">
                 <div className="col-auto">
-                  <ButtonSolidGreenWhite
-                    onClick={() => {
-                      onSetFormAction(AssetManagementActions.None);
-                    }}
-                  >
-                    Success
-                  </ButtonSolidGreenWhite>
+                  <ButtonSolidGreenWhite disabled>Success</ButtonSolidGreenWhite>
                 </div>
               </div>
             ) : (
@@ -84,15 +77,7 @@ export const SurrenderForm = ({
                     disabled={isPendingConfirmation}
                     data-testid={"surrenderBtn"}
                   >
-                    {isPendingConfirmation ? (
-                      <LoaderSpinner data-testid={"loader"} />
-                    ) : (
-                      <>
-                        {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
-                        {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
-                        {formAction === AssetManagementActions.EndorseBeneficiary && <>Endorse Change of Beneficiary</>}
-                      </>
-                    )}
+                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Surrender Document</>}
                   </ButtonSolidRedWhite>
                 </div>
               </div>

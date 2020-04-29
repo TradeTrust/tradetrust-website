@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { AssetManagementActions } from "./../../AssetManagementContainer";
+import { AssetManagementActions } from "./../../AssetManagementActions";
 import { Dropdown } from "react-bootstrap";
 import { mixin, vars } from "../../../../styles";
 

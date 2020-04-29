@@ -1,20 +1,12 @@
 import React from "react";
-import { ExternalLink } from "../../../../UI/ExternalLink";
+import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
 import { InputEditableAssetTitle } from "../../../../UI/Input";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 
-// import {
-//   ButtonIconOrangeWhite,
-// } from "../../../../UI/Button";
-// import {
-//   SvgIcon,
-//   SvgIconBook,
-// } from "../../../../UI/SvgIcon";
-
 interface EditableAssetTitleProps {
   role: string;
-  value: string;
+  value?: string;
   isEditable: boolean;
   newValue?: string | null;
   onSetNewValue: (newBeneficiary: string) => void;
@@ -25,7 +17,7 @@ export const EditableAssetTitle = ({ role, value, isEditable, onSetNewValue }: E
   if (!isEditable)
     return (
       <AssetTitle role={role} address={value}>
-        <ExternalLink name={value} address={value} />
+        <ExternalLinkEtherscanAddress name={value} address={value} />
       </AssetTitle>
     );
   return (
@@ -41,15 +33,6 @@ export const EditableAssetTitle = ({ role, value, isEditable, onSetNewValue }: E
             }}
           />
         </div>
-        {/*
-      <div className="col-auto ml-2">
-        <ButtonIconOrangeWhite>
-          <SvgIcon>
-            <SvgIconBook />
-          </SvgIcon>
-        </ButtonIconOrangeWhite>
-      </div>
-      */}
       </div>
     </AssetTitle>
   );

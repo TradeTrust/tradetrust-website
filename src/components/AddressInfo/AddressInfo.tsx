@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { mixin } from "../../styles";
+import { mixin, vars } from "../../styles";
 
 interface AddressInfoProps {
   className?: string;
@@ -29,7 +29,7 @@ export const AddressInfo = styled(({ className, title, name, children }: Address
   }
 
   h6 {
-    color: $color-grey;
+    color: ${vars.grey};
     margin-bottom: 8px;
   }
 
