@@ -14,7 +14,7 @@ export const ManageAssetsDropdown = styled(
   ({ onSetFormAction, className, canSurrender }: ManageAssetsDropdownProps) => {
     return (
       <Dropdown className={`${className}`} alignRight data-testid={"manageAssetsDropdown"}>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+        <Dropdown.Toggle variant="primary" id="dropdown-basic" data-testid={"clickDropdown"}>
           Manage Assets
         </Dropdown.Toggle>
         <Dropdown.Menu>

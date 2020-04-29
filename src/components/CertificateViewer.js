@@ -11,6 +11,7 @@ import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
 import { ManageAssets } from "./ManageAssets";
 import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagementContainer";
+import { FeatureFlag } from "./FeatureFlag";
 
 export const CertificateViewer = (props) => {
   const { document } = props;
@@ -30,7 +31,9 @@ export const CertificateViewer = (props) => {
         {tokenRegistryAddress && (
           <>
             <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
-            <ManageAssets document={document} />
+            <FeatureFlag name="NEW_ASSET_MANAGEMENT">
+              <ManageAssets document={document} />
+            </FeatureFlag>
           </>
         )}
         {tokenRegistryAddress && <AssetManagementContainer document={document} />}

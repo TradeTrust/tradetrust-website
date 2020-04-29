@@ -211,6 +211,21 @@ export const ButtonIconWhiteBlue = styled(Button)`
   }
 `;
 
+export const ButtonIconOrangeWhite = styled(Button)`
+  ${baseStyleButton({
+    bgColor: vars.brandOrange,
+    textColor: vars.white,
+  })}
+
+  ${bgWhiteModifier({
+    hoverColor: vars.brandOrange,
+  })}
+
+  svg {
+    max-width: 16px;
+  }
+`;
+
 export const ButtonCircleGreylight = styled(Button)`
   ${baseStyleButton({
     bgColor: vars.greyLight,

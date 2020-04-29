@@ -6,16 +6,15 @@ import { mixin, vars } from "../../../../styles";
 
 interface AssetManagementTitleProps {
   className?: string;
-  formAction: AssetManagementActions;
   onBack: () => void;
-  onSetFormAction: (nextFormAction: AssetManagementActions) => void;
+  formAction: AssetManagementActions;
 }
 
-export const AssetManagementTitle = styled(({ className, formAction, onBack, onSetFormAction }: AssetManagementTitleProps) => {
+export const AssetManagementTitle = styled(({ className, onBack, formAction }: AssetManagementTitleProps) => {
   return (
     <div className={`row ${className}`}>
       <div className="col-12">
-        <div className="action-back" onClick={() => onSetFormAction(AssetManagementActions.None)}>
+        <div className="action-back" onClick={onBack}>
           <div className="row align-items-center no-gutters">
             <div className="col-auto mr-1">
               <SvgIcon>

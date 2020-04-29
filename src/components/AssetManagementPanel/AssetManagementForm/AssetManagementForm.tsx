@@ -1,14 +1,5 @@
 import React from "react";
-// import { AssetInformationPanel } from "./../AssetInformationPanel";
-// import { AssetTitle } from "../AssetTitle";
-import { LoaderSkeleton } from "../../UI/Loader";
 import { AssetManagementActions } from "../AssetManagementContainer";
-// import { ButtonSolidGreenWhite, ButtonSolidRedWhite, ButtonSolidWhiteGrey, ButtonSolidOrange } from "../../UI/Button";
-// import { Dropdown } from "react-bootstrap";
-// import styled from "@emotion/styled";
-// import { mixin, vars } from "../../../styles";
-// import { SvgIcon, SvgIconArrowLeft } from "../../UI/SvgIcon";
-// import { LoaderSpinner } from "../../UI/Loader";
 import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
 
@@ -52,15 +43,6 @@ export const AssetManagementForm = ({
     onSurrender();
   };
 
-  const SkeletonPlaceholder = () => {
-    return (
-      <div className="mt-3 mb-4">
-        <LoaderSkeleton className="mb-2" width="90px" />
-        <LoaderSkeleton />
-      </div>
-    );
-  };
-
   const isHolder = account === holder;
   const isBeneficiary = account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
@@ -68,25 +50,19 @@ export const AssetManagementForm = ({
   if (formAction === AssetManagementActions.Surrender)
     return (
       <SurrenderForm
-        isConnectedToWallet={isConnectedToWallet}
         formAction={formAction}
         onSetFormAction={onSetFormAction}
         tokenId={tokenId}
         tokenRegistryAddress={tokenRegistryAddress}
         beneficiary={beneficiary}
         holder={holder}
-        account={account}
-        canSurrender={canSurrender}
         surrenderingState={surrenderingState}
         handleFormAction={handleFormAction}
-        onConnectToWallet={onConnectToWallet}
-        SkeletonPlaceholder={SkeletonPlaceholder}
       />
     );
   return (
     <ActionSelectionForm
       isConnectedToWallet={isConnectedToWallet}
-      formAction={formAction}
       onSetFormAction={onSetFormAction}
       tokenId={tokenId}
       tokenRegistryAddress={tokenRegistryAddress}
@@ -94,10 +70,7 @@ export const AssetManagementForm = ({
       holder={holder}
       account={account}
       canSurrender={canSurrender}
-      surrenderingState={surrenderingState}
-      handleFormAction={handleFormAction}
       onConnectToWallet={onConnectToWallet}
-      SkeletonPlaceholder={SkeletonPlaceholder}
     />
   );
 

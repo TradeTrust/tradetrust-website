@@ -10,5 +10,9 @@
   "TITLE_TRANSFER": {
     "development": true,
     "production": false
+  },
+  "NEW_ASSET_MANAGEMENT": {
+    "development": true,
+    "production": false
   }
 }

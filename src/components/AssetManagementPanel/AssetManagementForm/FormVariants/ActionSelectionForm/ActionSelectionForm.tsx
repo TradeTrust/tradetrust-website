@@ -1,14 +1,14 @@
 import React from "react";
-import { ButtonSolidOrange } from "../../../UI/Button";
-import { AssetManagementActions } from "../../AssetManagementContainer";
-import { AssetInformationPanel } from "../../AssetInformationPanel";
-import { AssetTitle } from "../../AssetTitle";
-import { AssetManagementTitle } from "./../AssetManagementTitle";
-import { ManageAssetsDropdown } from "../AssetManagementDropdown";
+import { ButtonSolidOrange } from "../../../../UI/Button";
+import { AssetManagementActions } from "../../../AssetManagementContainer";
+import { AssetInformationPanel } from "../../../AssetInformationPanel";
+import { AssetTitle } from "../../../AssetTitle";
+import { ManageAssetsDropdown } from "../../AssetManagementDropdown";
+import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
+import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface ActionSelectionFormProps {
   isConnectedToWallet: boolean;
-  formAction: AssetManagementActions;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenId: string;
   tokenRegistryAddress: string;
@@ -16,15 +16,11 @@ interface ActionSelectionFormProps {
   holder?: string;
   account?: string;
   canSurrender: boolean;
-  surrenderingState: any;
-  handleFormAction: () => void;
   onConnectToWallet: () => void;
-  SkeletonPlaceholder: React.FC;
 }
 
 export const ActionSelectionForm = ({
   isConnectedToWallet,
-  formAction,
   onSetFormAction,
   tokenId,
   tokenRegistryAddress,
@@ -32,24 +28,44 @@ export const ActionSelectionForm = ({
   holder,
   account,
   canSurrender,
-  surrenderingState,
-  handleFormAction,
   onConnectToWallet,
-  SkeletonPlaceholder,
 }: ActionSelectionFormProps) => {
   return (
     <div className="row py-3">
       <div className="col-12">
-        {isConnectedToWallet && <AssetManagementTitle formAction={formAction} onSetFormAction={onSetFormAction} />}
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
           </div>
           <div className="col-12 col-lg">
-            {beneficiary ? <AssetTitle role="Beneficiary" address={beneficiary} /> : <SkeletonPlaceholder />}
+            {beneficiary ? (
+              <AssetTitle role="Beneficiary" address={beneficiary}>
+                <EditableAssetTitle
+                  role="Beneficiary"
+                  value={beneficiary}
+                  isEditable={false}
+                  newValue=""
+                  onSetNewValue={() => {}}
+                />
+              </AssetTitle>
+            ) : (
+              <SkeletonPlaceholder />
+            )}
           </div>
           <div className="col-12 col-lg">
-            {holder ? <AssetTitle role="Holder" address={holder} /> : <SkeletonPlaceholder />}
+            {holder ? (
+              <AssetTitle role="Holder" address={holder}>
+                <EditableAssetTitle
+                  role="Holder"
+                  value={holder}
+                  isEditable={false}
+                  newValue=""
+                  onSetNewValue={() => {}}
+                />
+              </AssetTitle>
+            ) : (
+              <SkeletonPlaceholder />
+            )}
           </div>
         </div>
         <div className="row mb-3">
@@ -64,13 +80,7 @@ export const ActionSelectionForm = ({
                   No Access
                 </ButtonSolidOrange>
               ) : (
-                <ManageAssetsDropdown
-                  // account={account}
-                  beneficiary={beneficiary}
-                  holder={holder}
-                  onSetFormAction={onSetFormAction}
-                  canSurrender={canSurrender}
-                />
+                <ManageAssetsDropdown onSetFormAction={onSetFormAction} canSurrender={canSurrender} />
               )}
             </div>
           ) : (
