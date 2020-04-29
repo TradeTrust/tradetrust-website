@@ -16,20 +16,20 @@ describe("None", () => {
         onSurrender={() => {}}
         surrenderingState="UNINITIALIZED"
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+        beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         onSetFormAction={() => {}}
       />
     );
     const beneficiaryComponent = container.getByTestId("Beneficiary");
-    // const beneficiaryText = container.getByText("0xa61B056dA0084a5f391EC137583073096880C2e3");
+    const beneficiaryText = container.getByText("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C");
     const holderComponent = container.getByTestId("Holder");
-    // const holderText = container.getByText("0xa61B056dA0084a5f391EC137583073096880C2e3");
+    const holderText = container.getByText("0xa61B056dA0084a5f391EC137583073096880C2e3");
 
     expect(beneficiaryComponent).not.toBeNull();
-    // expect(beneficiaryText).not.toBeNull();
+    expect(beneficiaryText).not.toBeNull();
     expect(holderComponent).not.toBeNull();
-    // expect(holderText).not.toBeNull();
+    expect(holderText).not.toBeNull();
   });
 
   it("should fire login to browser wallet if user is not logged in", () => {

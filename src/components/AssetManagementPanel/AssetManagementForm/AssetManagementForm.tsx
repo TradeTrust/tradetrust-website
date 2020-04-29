@@ -8,6 +8,7 @@ import { Dropdown } from "react-bootstrap";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../../styles";
 import { SvgIcon, SvgIconArrowLeft } from "../../UI/SvgIcon";
+import { LoaderSpinner } from "../../UI/Loader";
 
 interface ManageAssetsDropdownProps {
   account?: string;
@@ -247,10 +248,16 @@ export const AssetManagementForm = ({
                           onClick={handleFormAction}
                           disabled={surrenderingState === "PENDING_CONFIRMATION"}
                         >
-                          {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
-                          {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
-                          {formAction === AssetManagementActions.EndorseBeneficiary && (
-                            <>Endorse Change of Beneficiary</>
+                          {surrenderingState === "PENDING_CONFIRMATION" ? (
+                            <LoaderSpinner />
+                          ) : (
+                            <>
+                              {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
+                              {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
+                              {formAction === AssetManagementActions.EndorseBeneficiary && (
+                                <>Endorse Change of Beneficiary</>
+                              )}
+                            </>
                           )}
                         </ButtonSolidRedWhite>
                       </div>
