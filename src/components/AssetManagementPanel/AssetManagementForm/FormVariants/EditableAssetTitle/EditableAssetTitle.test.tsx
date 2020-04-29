@@ -1,6 +1,6 @@
-import React from "react";
-import { render, fireEvent, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { render } from "@testing-library/react";
+import React from "react";
 import { EditableAssetTitle } from "./EditableAssetTitle";
 
 it("should display both the role and the value when not in editable format", () => {
@@ -10,7 +10,6 @@ it("should display both the role and the value when not in editable format", () 
       value="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       isEditable={false}
       onSetNewValue={() => {}}
-      newValue=""
     />
   );
   const beneficiaryLabel = container.getByText("Beneficiary:");
@@ -26,8 +25,8 @@ it("should display both the role and the editable field when in editable format"
       role="Beneficiary"
       value="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       isEditable={true}
-      onSetNewValue={() => {}}
       newValue="0xE"
+      onSetNewValue={() => {}}
     />
   );
 

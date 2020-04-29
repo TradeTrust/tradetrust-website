@@ -1,7 +1,7 @@
 import React from "react";
 import { AssetManagementActions } from "../AssetManagementContainer";
-import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
+import { SurrenderForm } from "./FormVariants/SurrenderForm";
 
 interface AssetManagementFormProps {
   beneficiary?: string;
@@ -34,9 +34,6 @@ export const AssetManagementForm = ({
   holder,
   onSetFormAction,
 }: AssetManagementFormProps) => {
-  // const [nextHolder, setNextHolder] = useState("");
-  // const [nextBeneficiary, setNextBeneficiary] = useState("");
-
   const handleFormAction = () => {
     // Depending on the form type, perform different things, right now we know it's only just surrender so...
     if (formAction !== AssetManagementActions.Surrender) return alert("Only surrender is supported now");
@@ -73,103 +70,4 @@ export const AssetManagementForm = ({
       onConnectToWallet={onConnectToWallet}
     />
   );
-
-  // return (
-  //   <div className="row py-3">
-  //     <div className="col-12">
-  //       {isConnectedToWallet && formAction !== AssetManagementActions.None && (
-  //         <AssetManagementTitle formAction={formAction} onSetFormAction={onSetFormAction} />
-  //       )}
-  //       <div className="row mb-3">
-  //         <div className="col-12 col-lg">
-  //           <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
-  //         </div>
-  //         <div className="col-12 col-lg">
-  //           {beneficiary ? <AssetTitle role="Beneficiary" address={beneficiary} /> : <SkeletonPlaceholder />}
-  //         </div>
-  //         <div className="col-12 col-lg">
-  //           {holder ? <AssetTitle role="Holder" address={holder} /> : <SkeletonPlaceholder />}
-  //         </div>
-  //       </div>
-  //       <div className="row mb-3">
-  //         {isConnectedToWallet ? (
-  //           <div className="col-auto ml-auto">
-  //             {formAction === AssetManagementActions.None ? (
-  //               <>
-  //                 {account !== beneficiary && account !== holder ? (
-  //                   <ButtonSolidOrange
-  //                     onClick={() => {
-  //                       alert("Your wallet address has no manage assets privileges.");
-  //                     }}
-  //                   >
-  //                     No Access
-  //                   </ButtonSolidOrange>
-  //                 ) : (
-  //                   <ManageAssetsDropdown
-  //                     account={account}
-  //                     beneficiary={beneficiary}
-  //                     holder={holder}
-  //                     onSetFormAction={onSetFormAction}
-  //                     canSurrender={canSurrender}
-  //                   />
-  //                 )}
-  //               </>
-  //             ) : (
-  //               <>
-  //                 {surrenderingState === "CONFIRMED" ? (
-  //                   <div className="row">
-  //                     <div className="col-auto">
-  //                       <ButtonSolidGreenWhite
-  //                         onClick={() => {
-  //                           onSetFormAction(AssetManagementActions.None);
-  //                         }}
-  //                       >
-  //                         Success
-  //                       </ButtonSolidGreenWhite>
-  //                     </div>
-  //                   </div>
-  //                 ) : (
-  //                   <div className="row no-gutters">
-  //                     <div className="col-auto">
-  //                       <ButtonSolidWhiteGrey
-  //                         onClick={() => onSetFormAction(AssetManagementActions.None)}
-  //                         disabled={surrenderingState === "PENDING_CONFIRMATION"}
-  //                       >
-  //                         Cancel
-  //                       </ButtonSolidWhiteGrey>
-  //                     </div>
-  //                     <div className="col-auto ml-2">
-  //                       <ButtonSolidRedWhite
-  //                         onClick={handleFormAction}
-  //                         disabled={surrenderingState === "PENDING_CONFIRMATION"}
-  //                       >
-  //                         {surrenderingState === "PENDING_CONFIRMATION" ? (
-  //                           <LoaderSpinner />
-  //                         ) : (
-  //                           <>
-  //                             {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
-  //                             {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
-  //                             {formAction === AssetManagementActions.EndorseBeneficiary && (
-  //                               <>Endorse Change of Beneficiary</>
-  //                             )}
-  //                           </>
-  //                         )}
-  //                       </ButtonSolidRedWhite>
-  //                     </div>
-  //                   </div>
-  //                 )}
-  //               </>
-  //             )}
-  //           </div>
-  //         ) : (
-  //           <div className="col-auto ml-auto">
-  //             <ButtonSolidOrange data-testid={"connectToWallet"} onClick={onConnectToWallet}>
-  //               Connect Wallet
-  //             </ButtonSolidOrange>
-  //           </div>
-  //         )}
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 };

@@ -1,10 +1,8 @@
 import React from "react";
 import { ButtonSolidOrange } from "../../../../UI/Button";
-import { AssetManagementActions } from "../../../AssetManagementContainer";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
-import { AssetTitle } from "../../../AssetTitle";
+import { AssetManagementActions } from "../../../AssetManagementContainer";
 import { ManageAssetsDropdown } from "../../AssetManagementDropdown";
-import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface ActionSelectionFormProps {
@@ -12,8 +10,8 @@ interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenId: string;
   tokenRegistryAddress: string;
-  beneficiary?: string;
-  holder?: string;
+  beneficiary: string;
+  holder: string;
   account?: string;
   canSurrender: boolean;
   onConnectToWallet: () => void;
@@ -38,34 +36,10 @@ export const ActionSelectionForm = ({
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
           </div>
           <div className="col-12 col-lg">
-            {beneficiary ? (
-              <AssetTitle role="Beneficiary" address={beneficiary}>
-                <EditableAssetTitle
-                  role="Beneficiary"
-                  value={beneficiary}
-                  isEditable={false}
-                  newValue=""
-                  onSetNewValue={() => {}}
-                />
-              </AssetTitle>
-            ) : (
-              <SkeletonPlaceholder />
-            )}
+            <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
           </div>
           <div className="col-12 col-lg">
-            {holder ? (
-              <AssetTitle role="Holder" address={holder}>
-                <EditableAssetTitle
-                  role="Holder"
-                  value={holder}
-                  isEditable={false}
-                  newValue=""
-                  onSetNewValue={() => {}}
-                />
-              </AssetTitle>
-            ) : (
-              <SkeletonPlaceholder />
-            )}
+            <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
           </div>
         </div>
         <div className="row mb-3">

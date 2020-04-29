@@ -1,6 +1,6 @@
 import React from "react";
-import { AddressInfo } from "../../AddressInfo";
 import { useAddressBook } from "../../../common/hooks/useAddressBook";
+import { AddressInfo } from "../../AddressInfo";
 
 interface AssetTitleProps {
   role: string;
@@ -13,7 +13,7 @@ export const AssetTitle = ({ role, address, children }: AssetTitleProps) => {
   const name = address && getIdentifier(address);
 
   return (
-    <div data-testid={role} className="py-3">
+    <div data-testid={`asset-title-${role.toLowerCase()}`} className="py-3">
       <AddressInfo title={role} name={name}>
         {children}
       </AddressInfo>

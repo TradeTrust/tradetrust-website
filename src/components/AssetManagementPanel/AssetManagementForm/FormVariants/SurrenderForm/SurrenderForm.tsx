@@ -1,11 +1,9 @@
 import React from "react";
 import { ButtonSolidGreenWhite, ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
-import { AssetManagementActions } from "../../../AssetManagementContainer";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
-import { AssetTitle } from "../../../AssetTitle";
+import { AssetManagementActions } from "../../../AssetManagementContainer";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
-import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface SurrenderFormProps {
@@ -13,8 +11,8 @@ interface SurrenderFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenId: string;
   tokenRegistryAddress: string;
-  beneficiary?: string;
-  holder?: string;
+  beneficiary: string;
+  holder: string;
   surrenderingState: string;
   handleFormAction: () => void;
 }
@@ -49,34 +47,10 @@ export const SurrenderForm = ({
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
           </div>
           <div className="col-12 col-lg">
-            {beneficiary ? (
-              <AssetTitle role="Beneficiary" address={beneficiary}>
-                <EditableAssetTitle
-                  role="Beneficiary"
-                  value={beneficiary}
-                  isEditable={false}
-                  newValue=""
-                  onSetNewValue={() => {}}
-                />
-              </AssetTitle>
-            ) : (
-              <SkeletonPlaceholder />
-            )}
+            <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
           </div>
           <div className="col-12 col-lg">
-            {holder ? (
-              <AssetTitle role="Holder" address={holder}>
-                <EditableAssetTitle
-                  role="Holder"
-                  value={holder}
-                  isEditable={false}
-                  newValue=""
-                  onSetNewValue={() => {}}
-                />
-              </AssetTitle>
-            ) : (
-              <SkeletonPlaceholder />
-            )}
+            <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
           </div>
         </div>
         <div className="row mb-3">
@@ -111,7 +85,7 @@ export const SurrenderForm = ({
                     data-testid={"surrenderBtn"}
                   >
                     {isPendingConfirmation ? (
-                      <LoaderSpinner data-testid={"loader"}/>
+                      <LoaderSpinner data-testid={"loader"} />
                     ) : (
                       <>
                         {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
