@@ -16,9 +16,12 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = (
     <div className="py-3">
       <AddressInfo title="BL information">
         <>
-          <ExternalLink name="View BL Registry" address={tokenRegistryHref} />
-          <br />
-          <ExternalLink name="View Endorsement Chain" address={tokenHistoryHref} />
+          <div>
+            <ExternalLink name="View BL Registry" address={tokenRegistryHref} />
+          </div>
+          <div>
+            <ExternalLink name="View Endorsement Chain" address={tokenHistoryHref} />
+          </div>
         </>
       </AddressInfo>
     </div>

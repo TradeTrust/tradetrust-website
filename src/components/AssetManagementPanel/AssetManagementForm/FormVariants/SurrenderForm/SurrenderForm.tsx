@@ -111,7 +111,7 @@ export const SurrenderForm = ({
                     data-testid={"surrenderBtn"}
                   >
                     {isPendingConfirmation ? (
-                      <LoaderSpinner />
+                      <LoaderSpinner data-testid={"loader"}/>
                     ) : (
                       <>
                         {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
