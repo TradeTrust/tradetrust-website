@@ -76,8 +76,8 @@ describe("None", () => {
     expect(manageAssetsDropdown).not.toBeNull();
   });
 
-  xit("should allow the selection of Surrender if canSurrender is true", () => {});
-  xit("should not display the selection of Surrender if canSurrender is false", () => {});
+  xit("should allow the selection of Surrender if user cannot surrender", () => {});
+  xit("should not display the selection of Surrender if user cannot surrender", () => {});
 
   xit("should change the state of the application to EndorseBeneficiary when we clicked on EndorseBeneficiary", () => {});
   xit("should change the state of the application to TransferHolder when we clicked on TransferHolder", () => {});
