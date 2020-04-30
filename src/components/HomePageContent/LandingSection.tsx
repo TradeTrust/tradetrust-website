@@ -4,7 +4,7 @@ import { darken } from "polished";
 import { mixin, vars } from "../../styles";
 import { Section } from "../Layout/Section";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
-import { OverlayYoutube } from "./../../components/UI/Overlay";
+import { Youtube } from "./../../components/UI/Overlay/OverlayContent/Youtube";
 
 export const SectionLanding = styled(Section)`
   position: relative;
@@ -63,7 +63,7 @@ export const SectionLanding = styled(Section)`
 export const LandingSection = () => {
   const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
   const onOverlayHandler = () => {
-    setOverlayContent(<OverlayYoutube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />);
+    setOverlayContent(<Youtube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />);
     setOverlayVisible(true);
   };
 

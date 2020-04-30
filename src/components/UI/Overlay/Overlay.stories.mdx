@@ -1,12 +1,10 @@
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import {
-  Overlay,
-  OverlayDefault,
-  OverlayYoutube,
-  OverlayAddressBook,
-  OverlayMessagePromptNoMetamask,
-  OverlayMessagePromptNoManageAccess,
-} from "./Overlay";
+import { Overlay } from "./Overlay";
+import { Textual } from "./OverlayContent/Textual";
+import { Youtube } from "./OverlayContent/Youtube";
+import { AddressBook } from "./OverlayContent/AddressBook";
+import { MessagePromptNoMetamask } from "./OverlayContent/MessagePromptNoMetamask";
+import { MessagePromptNoManageAccess } from "./OverlayContent/MessagePromptNoManageAccess";
 import { SvgIcon, SvgIconXCircle } from "./../SvgIcon";
 
 <Meta title="UI/Overlay" component={Overlay} />
@@ -26,11 +24,11 @@ Overlay look.
 ### Overlay (Default)
 
 <Preview>
-  <Story name="Default">
+  <Story name="Textual">
     {() => {
       return (
         <Overlay>
-          <OverlayDefault title="Default">
+          <Textual title="Textual">
             <p>
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
               rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
@@ -86,7 +84,7 @@ Overlay look.
               vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
               dolorem eum fugiat quo voluptas nulla pariatur
             </p>
-          </OverlayDefault>
+          </Textual>
         </Overlay>
       );
     }}
@@ -102,7 +100,7 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <OverlayYoutube title="Youtube" youtubeId="tgbNymZ7vqY" />
+          <Youtube title="Youtube" youtubeId="tgbNymZ7vqY" />
         </Overlay>
       );
     }}
@@ -120,7 +118,7 @@ Overlay look.
       localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
       return (
         <Overlay>
-          <OverlayAddressBook title="Address Book" />
+          <AddressBook title="Address Book" />
         </Overlay>
       );
     }}
@@ -151,7 +149,7 @@ Overlay look.
       localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
       return (
         <Overlay>
-          <OverlayAddressBook title="Address Book" />
+          <AddressBook title="Address Book" />
         </Overlay>
       );
     }}
@@ -167,7 +165,7 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <OverlayMessagePromptNoMetamask
+          <MessagePromptNoMetamask
             title="Metamask not installed"
             titleIcon={
               <SvgIcon>
@@ -190,7 +188,7 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <OverlayMessagePromptNoManageAccess
+          <MessagePromptNoManageAccess
             title="No manage assets access"
             titleIcon={
               <SvgIcon>

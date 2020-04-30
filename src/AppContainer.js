@@ -10,13 +10,14 @@ import { useKeyPress } from "./common/hooks/useKeyPress";
 import { OverlayProvider } from "./common/contexts/OverlayContext";
 
 const AppContainer = () => {
-  const [overlayContent, setOverlayContent] = useState(<></>);
+  const [overlayContent, setOverlayContent] = useState(null);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
+
   const overlayStore = {
-    overlayContent: overlayContent,
-    setOverlayContent: setOverlayContent,
-    isOverlayVisible: isOverlayVisible,
-    setOverlayVisible: setOverlayVisible,
+    overlayContent,
+    setOverlayContent,
+    isOverlayVisible,
+    setOverlayVisible,
   };
   const escapePress = useKeyPress("Escape");
 
@@ -25,6 +26,10 @@ const AppContainer = () => {
       setOverlayVisible(false);
     }
   }, [escapePress]);
+
+  const onOverlayTransitionEnded = () => {
+    setOverlayContent(null);
+  };
 
   return (
     <>
@@ -43,8 +48,7 @@ const AppContainer = () => {
           timeout={400}
           classNames="fade"
           unmountOnExit
-          onEnter={() => setOverlayVisible(true)}
-          onExited={() => setOverlayVisible(false)}
+          onExited={onOverlayTransitionEnded}
         >
           <Overlay>{overlayContent}</Overlay>
         </CSSTransition>
