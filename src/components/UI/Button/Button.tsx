@@ -6,14 +6,13 @@ import { mixin, vars } from "../../../styles";
 interface ButtonProps {
   children?: React.ReactNode;
   className?: string;
-  title?: string;
   disabled?: boolean;
   onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-export const Button = ({ className, children, ...props }: ButtonProps) => {
+export const Button = ({ children, ...props }: ButtonProps) => {
   return (
-    <button type="submit" className={className} {...props}>
+    <button type="submit" {...props}>
       {children}
     </button>
   );
@@ -25,12 +24,20 @@ interface LabelProps {
   htmlFor: string;
 }
 
-export const Label = ({ className, children, ...props }: LabelProps) => {
-  return (
-    <label className={className} {...props}>
-      {children}
-    </label>
-  );
+export const Label = ({ children, ...props }: LabelProps) => {
+  return <label {...props}>{children}</label>;
+};
+
+interface AnchorLinkProps {
+  children?: React.ReactNode;
+  className?: string;
+  href: string;
+  target: string;
+  rel: string;
+}
+
+export const AnchorLink = ({ children, ...props }: AnchorLinkProps) => {
+  return <a {...props}>{children}</a>;
 };
 
 interface BaseStyleButtonProps {
@@ -116,7 +123,7 @@ export const ButtonSolid = styled(Button)`
   })}
 `;
 
-export const ButtonSolidOrange = styled(Button)`
+export const ButtonSolidOrangeWhite = styled(Button)`
   ${baseStyleButton({
     bgColor: vars.brandOrange,
     textColor: vars.white,
@@ -209,4 +216,14 @@ export const ButtonCircleGreylight = styled(Button)`
 
 export const LabelWhiteSecondary = styled(Label)`
   ${bgWhiteTextSecondary}
+`;
+
+export const AnchorLinkButtonSolidOrangeWhite = styled(AnchorLink)`
+  ${baseStyleButton({
+    bgColor: vars.brandOrange,
+    textColor: vars.white,
+  })} :hover {
+    text-decoration: none;
+    color: ${vars.white};
+  }
 `;

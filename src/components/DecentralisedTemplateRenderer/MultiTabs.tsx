@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import styles from "./multiTabs.scss";
 import { ButtonBorderedBlue } from "../UI/Button";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
+import { AddressBook } from "./../../components/UI/Overlay/OverlayContent/AddressBook";
 
 interface MultiTabsProps {
   templates: { id: string; label: string }[];
   selectedTemplate: string;
   onSelectTemplate: (id: string) => void;
-  isOverlayVisible: boolean;
-  setOverlayVisible: (value: boolean) => void;
   tokenRegistryAddress: string;
 }
 
@@ -15,10 +15,14 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
   selectedTemplate,
   templates,
   onSelectTemplate,
-  isOverlayVisible,
-  setOverlayVisible,
   tokenRegistryAddress,
 }) => {
+  const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
+  const onOverlayHandler = () => {
+    setOverlayContent(<AddressBook title="Address Book" data-testid="overlay-addressbook" />);
+    setOverlayVisible(true);
+  };
+
   return (
     <div className={`${styles.shadow}`}>
       <div className="container-custom">
@@ -30,13 +34,7 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
           </li>
           {tokenRegistryAddress && (
             <li className="nav-item col-auto col-md-auto ml-2 order-md-2">
-              <ButtonBorderedBlue
-                onClick={() => {
-                  setOverlayVisible(!isOverlayVisible);
-                }}
-              >
-                Address Book
-              </ButtonBorderedBlue>
+              <ButtonBorderedBlue onClick={onOverlayHandler}>Address Book</ButtonBorderedBlue>
             </li>
           )}
           {templates && templates.length > 0

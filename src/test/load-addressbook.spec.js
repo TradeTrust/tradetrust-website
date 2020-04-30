@@ -8,10 +8,10 @@ const AddressBook = "./fixture/local-addressbook.csv";
 const TitleTransferPanel = Selector("#title-transfer-panel");
 const BeneficiaryName = Selector("[data-testid='Beneficiary']").find("h5");
 const HolderName = Selector("[data-testid='Holder']").find("h5");
-const OverlayAddressBook = Selector("#overlay-addressbook");
-const OverlayAddressBookTableBodyRows = Selector("#overlay-addressbook tbody tr");
-const OverlayAddressBookTableFirstRow = Selector("#overlay-addressbook tbody tr:first-of-type");
-const OverlayAddressBookSearchInput = Selector("#overlay-addressbook input[type='text']");
+const OverlayAddressBook = Selector("[data-testid='overlay-addressbook']");
+const OverlayAddressBookTableBodyRows = Selector("[data-testid='overlay-addressbook'] tbody tr");
+const OverlayAddressBookTableFirstRow = Selector("[data-testid='overlay-addressbook'] tbody tr:first-of-type");
+const OverlayAddressBookSearchInput = Selector("[data-testid='overlay-addressbook'] input[type='text']");
 const ButtonUploadAddressBook = Selector("#template-tabs-list button").withText("Address Book");
 const CSVFileInput = Selector("#csv-file-input");
 

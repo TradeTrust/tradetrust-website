@@ -1,6 +1,11 @@
-import { useState } from "react";
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { Overlay, OverlayDefault, OverlayYoutube, OverlayAddressBook } from "./Overlay";
+import { Overlay } from "./Overlay";
+import { Textual } from "./OverlayContent/Textual";
+import { Youtube } from "./OverlayContent/Youtube";
+import { AddressBook } from "./OverlayContent/AddressBook";
+import { MessagePromptNoMetamask } from "./OverlayContent/MessagePromptNoMetamask";
+import { MessagePromptNoManageAccess } from "./OverlayContent/MessagePromptNoManageAccess";
+import { SvgIcon, SvgIconXCircle } from "./../SvgIcon";
 
 <Meta title="UI/Overlay" component={Overlay} />
 
@@ -19,73 +24,68 @@ Overlay look.
 ### Overlay (Default)
 
 <Preview>
-  <Story name="Default">
+  <Story name="Textual">
     {() => {
-      const [isOverlayVisible, setOverlayVisible] = useState(true);
       return (
-        <OverlayDefault
-          title="Default"
-          isOverlayVisible={isOverlayVisible}
-          handleCloseOverlay={() => {
-            setOverlayVisible(!isOverlayVisible);
-          }}
-        >
-          <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
-            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
-            nulla pariatur
-          </p>
-          <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
-            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
-            nulla pariatur
-          </p>
-          <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
-            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
-            nulla pariatur
-          </p>
-          <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
-            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
-            nulla pariatur
-          </p>
-          <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
-            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
-            nulla pariatur
-          </p>
-        </OverlayDefault>
+        <Overlay>
+          <Textual title="Textual">
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+              explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+              consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+              dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+              incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+              exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+              vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
+              dolorem eum fugiat quo voluptas nulla pariatur
+            </p>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+              explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+              consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+              dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+              incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+              exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+              vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
+              dolorem eum fugiat quo voluptas nulla pariatur
+            </p>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+              explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+              consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+              dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+              incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+              exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+              vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
+              dolorem eum fugiat quo voluptas nulla pariatur
+            </p>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+              explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+              consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+              dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+              incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+              exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+              vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
+              dolorem eum fugiat quo voluptas nulla pariatur
+            </p>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+              explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+              consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+              dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+              incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+              exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+              vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
+              dolorem eum fugiat quo voluptas nulla pariatur
+            </p>
+          </Textual>
+        </Overlay>
       );
     }}
   </Story>
@@ -98,16 +98,10 @@ Overlay look.
 <Preview>
   <Story name="Youtube">
     {() => {
-      const [isOverlayVisible, setOverlayVisible] = useState(true);
       return (
-        <OverlayYoutube
-          title="Youtube"
-          youtubeId="tgbNymZ7vqY"
-          isOverlayVisible={isOverlayVisible}
-          handleCloseOverlay={() => {
-            setOverlayVisible(!isOverlayVisible);
-          }}
-        />
+        <Overlay>
+          <Youtube title="Youtube" youtubeId="tgbNymZ7vqY" />
+        </Overlay>
       );
     }}
   </Story>
@@ -120,17 +114,12 @@ Overlay look.
 <Preview>
   <Story name="AddressBook Empty">
     {() => {
-      const [isOverlayVisible, setOverlayVisible] = useState(true);
       const addressBook = {};
+      localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
       return (
-        <OverlayAddressBook
-          title="Address Book"
-          isOverlayVisible={isOverlayVisible}
-          handleCloseOverlay={() => {
-            setOverlayVisible(!isOverlayVisible);
-          }}
-          addressBook={addressBook}
-        />
+        <Overlay>
+          <AddressBook title="Address Book" />
+        </Overlay>
       );
     }}
   </Story>
@@ -143,7 +132,6 @@ Overlay look.
 <Preview>
   <Story name="AddressBook Populated">
     {() => {
-      const [isOverlayVisible, setOverlayVisible] = useState(true);
       const addressBook = {
         "0xe94e4f16ad40adc90c29dc85b42f1213e034947c": "Bank of China",
         "0xa61b056da0084a5f391ec137583073096880c2e3": "DBS",
@@ -158,15 +146,57 @@ Overlay look.
         "0xg": "Name G",
         "0xh": "Name H",
       };
+      localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
       return (
-        <OverlayAddressBook
-          title="Address Book"
-          isOverlayVisible={isOverlayVisible}
-          handleCloseOverlay={() => {
-            setOverlayVisible(!isOverlayVisible);
-          }}
-          addressBook={addressBook}
-        />
+        <Overlay>
+          <AddressBook title="Address Book" />
+        </Overlay>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (MessagePromptNoMetamask)
+
+<Preview>
+  <Story name="MessagePromptNoMetamask">
+    {() => {
+      return (
+        <Overlay>
+          <MessagePromptNoMetamask
+            title="Metamask not installed"
+            titleIcon={
+              <SvgIcon>
+                <SvgIconXCircle />
+              </SvgIcon>
+            }
+          />
+        </Overlay>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (MessagePromptNoManageAccess)
+
+<Preview>
+  <Story name="MessagePromptNoManageAccess">
+    {() => {
+      return (
+        <Overlay>
+          <MessagePromptNoManageAccess
+            title="No manage assets access"
+            titleIcon={
+              <SvgIcon>
+                <SvgIconXCircle />
+              </SvgIcon>
+            }
+          />
+        </Overlay>
       );
     }}
   </Story>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { darken } from "polished";
 import { mixin, vars } from "../../styles";
 import { Section } from "../Layout/Section";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
+import { Youtube } from "./../../components/UI/Overlay/OverlayContent/Youtube";
 
 export const SectionLanding = styled(Section)`
   position: relative;
@@ -58,12 +60,13 @@ export const SectionLanding = styled(Section)`
   }
 `;
 
-interface LandingSectionProps {
-  isOverlayVisible: boolean;
-  setOverlayVisible: any;
-}
+export const LandingSection = () => {
+  const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
+  const onOverlayHandler = () => {
+    setOverlayContent(<Youtube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />);
+    setOverlayVisible(true);
+  };
 
-export const LandingSection = ({ isOverlayVisible, setOverlayVisible }: LandingSectionProps) => {
   return (
     <SectionLanding id="about">
       <div className="row">
@@ -78,12 +81,7 @@ export const LandingSection = ({ isOverlayVisible, setOverlayVisible }: LandingS
             governments and businesses to a public blockchain to enable trusted interoperability and exchanges of
             electronic trade documents across digital platforms.
           </p>
-          <div
-            className="play mx-auto mt-4"
-            onClick={() => {
-              setOverlayVisible(!isOverlayVisible);
-            }}
-          >
+          <div className="play mx-auto mt-4" onClick={onOverlayHandler}>
             <i className="fas fa-play" />
           </div>
         </div>

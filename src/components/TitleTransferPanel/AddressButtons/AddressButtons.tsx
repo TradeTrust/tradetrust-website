@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./AddressButtons.module.scss";
 import { SvgIcon, SvgIconBook, SvgIconX } from "../../UI/SvgIcon";
-import { ButtonSolidWhiteOrange, ButtonSolidOrange, ButtonCircleGreylight } from "../../UI/Button";
+import { ButtonSolidWhiteOrange, ButtonSolidOrangeWhite, ButtonCircleGreylight } from "../../UI/Button";
 
 interface AddressButtonsProps {
   holderAddress: string;
@@ -37,9 +37,9 @@ export const AddressButtons = ({
           </div>
         </div>
       </ButtonSolidWhiteOrange>
-      <ButtonSolidOrange disabled={isSubmitEnabled} onClick={onButtonSubmit}>
+      <ButtonSolidOrangeWhite disabled={isSubmitEnabled} onClick={onButtonSubmit}>
         {buttonText}
-      </ButtonSolidOrange>
+      </ButtonSolidOrangeWhite>
       <ButtonCircleGreylight>
         <SvgIcon>
           <SvgIconX />
