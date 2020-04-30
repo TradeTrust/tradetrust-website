@@ -62,6 +62,10 @@ export const SectionLanding = styled(Section)`
 
 export const LandingSection = () => {
   const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
+  const onOverlayHandler = () => {
+    setOverlayContent(<OverlayYoutube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />);
+    setOverlayVisible(true);
+  };
 
   return (
     <SectionLanding id="about">
@@ -77,15 +81,7 @@ export const LandingSection = () => {
             governments and businesses to a public blockchain to enable trusted interoperability and exchanges of
             electronic trade documents across digital platforms.
           </p>
-          <div
-            className="play mx-auto mt-4"
-            onClick={() => {
-              setOverlayContent(
-                <OverlayYoutube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />
-              );
-              setOverlayVisible(true);
-            }}
-          >
+          <div className="play mx-auto mt-4" onClick={onOverlayHandler}>
             <i className="fas fa-play" />
           </div>
         </div>

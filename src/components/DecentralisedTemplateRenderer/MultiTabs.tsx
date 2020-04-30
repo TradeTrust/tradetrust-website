@@ -18,6 +18,10 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
   tokenRegistryAddress,
 }) => {
   const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
+  const onOverlayHandler = () => {
+    setOverlayContent(<OverlayAddressBook title="Address Book" data-testid="overlay-addressbook" />);
+    setOverlayVisible(true);
+  };
 
   return (
     <div className={`${styles.shadow}`}>
@@ -30,14 +34,7 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
           </li>
           {tokenRegistryAddress && (
             <li className="nav-item col-auto col-md-auto ml-2 order-md-2">
-              <ButtonBorderedBlue
-                onClick={() => {
-                  setOverlayContent(<OverlayAddressBook title="Address Book" data-testid="overlay-addressbook" />);
-                  setOverlayVisible(true);
-                }}
-              >
-                Address Book
-              </ButtonBorderedBlue>
+              <ButtonBorderedBlue onClick={onOverlayHandler}>Address Book</ButtonBorderedBlue>
             </li>
           )}
           {templates && templates.length > 0
