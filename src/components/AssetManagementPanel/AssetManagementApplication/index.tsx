@@ -25,7 +25,11 @@ export const AssetManagementApplication = ({
     titleEscrow,
     "approvedTransferTarget"
   );
-  const { state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
+  const { send: sendSurrender, state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
+
+  const onSurrender = () => {
+    sendSurrender(tokenRegistryAddress);
+  };
 
   useEffect(() => {
     getHolder();
@@ -46,9 +50,9 @@ export const AssetManagementApplication = ({
           formAction={assetManagementAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
-          titleEscrow={titleEscrow}
           onSetFormAction={setAssetManagementAction}
           surrenderingState={surrenderingState}
+          onSurrender={onSurrender}
         />
       </div>
     </div>
