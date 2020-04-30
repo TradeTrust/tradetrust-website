@@ -13,7 +13,7 @@ interface SurrenderFormProps {
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleFormAction: () => void;
+  handleSurrender: () => void;
   surrenderingState: string;
 }
 
@@ -24,7 +24,7 @@ export const SurrenderForm = ({
   tokenRegistryAddress,
   beneficiary,
   holder,
-  handleFormAction,
+  handleSurrender,
   surrenderingState,
 }: SurrenderFormProps) => {
   const isPendingConfirmation = surrenderingState === "PENDING_CONFIRMATION";
@@ -73,7 +73,7 @@ export const SurrenderForm = ({
                 </div>
                 <div className="col-auto ml-2">
                   <ButtonSolidRedWhite
-                    onClick={handleFormAction}
+                    onClick={handleSurrender}
                     disabled={isPendingConfirmation}
                     data-testid={"surrenderBtn"}
                   >

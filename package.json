@@ -201,7 +201,8 @@
       "array-callback-return": "error",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "error",
-      "no-unused-expressions": "off"
+      "no-unused-expressions": "off",
+      "jest/no-disabled-tests": "error"
     },
     "overrides": [
       {

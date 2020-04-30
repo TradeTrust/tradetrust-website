@@ -15,7 +15,7 @@ describe("Surrender", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         surrenderingState="UNINITIALIZED"
-        handleFormAction={() => {}}
+        handleSurrender={() => {}}
       />
     );
     const beneficiaryComponent = container.getByTestId("asset-title-beneficiary");
@@ -39,7 +39,7 @@ describe("Surrender", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         surrenderingState="UNINITIALIZED"
-        handleFormAction={() => {}}
+        handleSurrender={() => {}}
       />
     );
 
@@ -47,10 +47,8 @@ describe("Surrender", () => {
     expect(container.queryByTestId("surrenderBtn")).not.toBeNull();
   });
 
-  xit("should fire surrender when the button is clicked with the right parameter", () => {});
-
   it("should change the state of the application to Surrender when we clicked on Surrender", () => {
-    const mockHandleFormAction = jest.fn();
+    const mockHandleSurrender = jest.fn();
 
     const container = render(
       <SurrenderForm
@@ -61,12 +59,12 @@ describe("Surrender", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         surrenderingState="UNINITIALIZED"
-        handleFormAction={mockHandleFormAction}
+        handleSurrender={mockHandleSurrender}
       />
     );
 
     fireEvent.click(container.getByTestId("surrenderBtn"));
-    expect(mockHandleFormAction).toHaveBeenCalled();
+    expect(mockHandleSurrender).toHaveBeenCalled();
   });
 
   it("should change the state of the application to None when we clicked on Cancel", () => {
@@ -81,15 +79,13 @@ describe("Surrender", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         surrenderingState="UNINITIALIZED"
-        handleFormAction={() => {}}
+        handleSurrender={() => {}}
       />
     );
 
     fireEvent.click(container.getByTestId("cancelSurrenderBtn"));
     expect(mockOnSetFormAction).toHaveBeenCalled();
   });
-
-  xit("should show a info to confirm the transaction when the surrender state is in INITIALIZED", () => {});
 
   it("should show a loader when the surrender state is in PENDING_CONFIRMATION", () => {
     const container = render(
@@ -101,7 +97,7 @@ describe("Surrender", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         surrenderingState="PENDING_CONFIRMATION"
-        handleFormAction={() => {}}
+        handleSurrender={() => {}}
       />
     );
 
@@ -109,7 +105,7 @@ describe("Surrender", () => {
   });
 
   it("should disable surrender button when the surrender state is in INITIALIZED or PENDING_CONFIRMATION", () => {
-    const mockHandleFormAction = jest.fn();
+    const mockHandleSurrender = jest.fn();
 
     const container = render(
       <SurrenderForm
@@ -120,11 +116,11 @@ describe("Surrender", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         surrenderingState="PENDING_CONFIRMATION"
-        handleFormAction={mockHandleFormAction}
+        handleSurrender={mockHandleSurrender}
       />
     );
 
     fireEvent.click(container.getByTestId("surrenderBtn"));
-    expect(mockHandleFormAction).not.toHaveBeenCalled();
+    expect(mockHandleSurrender).not.toHaveBeenCalled();
   });
 });

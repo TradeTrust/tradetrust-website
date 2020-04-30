@@ -8,11 +8,11 @@ interface EditableAssetTitleProps {
   role: string;
   value?: string;
   isEditable: boolean;
-  newValue?: string | null;
-  onSetNewValue: (newBeneficiary: string) => void;
+  newValue?: string;
+  onSetNewValue?: (newBeneficiary: string) => void;
 }
 
-export const EditableAssetTitle = ({ role, value, isEditable, onSetNewValue }: EditableAssetTitleProps) => {
+export const EditableAssetTitle = ({ role, value, newValue, isEditable, onSetNewValue }: EditableAssetTitleProps) => {
   if (!value) return <SkeletonPlaceholder />;
   if (!isEditable)
     return (
@@ -26,9 +26,9 @@ export const EditableAssetTitle = ({ role, value, isEditable, onSetNewValue }: E
         <div className="col">
           <InputEditableAssetTitle
             data-testid={`editable-input-${role.toLowerCase()}`}
-            value={value}
+            value={newValue}
             onChange={(event) => {
-              console.log(event);
+              if (!onSetNewValue) return;
               onSetNewValue(event.target.value);
             }}
           />

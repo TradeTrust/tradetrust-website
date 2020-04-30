@@ -54,7 +54,7 @@ export const AssetManagementForm = ({
         tokenRegistryAddress={tokenRegistryAddress}
         beneficiary={beneficiary}
         holder={holder}
-        handleFormAction={handleFormAction}
+        handleSurrender={handleFormAction}
         surrenderingState={surrenderingState}
       />
     );

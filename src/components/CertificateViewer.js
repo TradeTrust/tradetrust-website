@@ -31,12 +31,12 @@ export const CertificateViewer = (props) => {
         {tokenRegistryAddress && (
           <>
             <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
-            <FeatureFlag name="NEW_ASSET_MANAGEMENT">
-              <ManageAssets document={document} />
-            </FeatureFlag>
+            <ManageAssets document={document} />
           </>
         )}
-        {tokenRegistryAddress && <AssetManagementContainer document={document} />}
+        <FeatureFlag name="NEW_ASSET_MANAGEMENT">
+          {tokenRegistryAddress && <AssetManagementContainer document={document} />}
+        </FeatureFlag>
         <MultiTabs
           templates={templates}
           selectedTemplate={selectedTemplate}

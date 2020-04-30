@@ -36,10 +36,10 @@ export const ActionSelectionForm = ({
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
+            <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
+            <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
           </div>
         </div>
         <div className="row mb-3">
