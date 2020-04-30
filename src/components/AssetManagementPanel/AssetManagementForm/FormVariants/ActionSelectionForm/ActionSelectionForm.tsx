@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonSolidOrange } from "../../../../UI/Button";
+import { ButtonSolidOrangeWhite } from "../../../../UI/Button";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { ManageAssetsDropdown } from "../../AssetManagementDropdown";
@@ -49,19 +49,19 @@ export const ActionSelectionForm = ({
                 {canManage ? (
                   <ManageAssetsDropdown onSetFormAction={onSetFormAction} canSurrender={canSurrender} />
                 ) : (
-                  <ButtonSolidOrange
+                  <ButtonSolidOrangeWhite
                     onClick={() => {
                       alert("Your wallet address has no manage assets privileges.");
                     }}
                   >
                     No Access
-                  </ButtonSolidOrange>
+                  </ButtonSolidOrangeWhite>
                 )}
               </>
             ) : (
-              <ButtonSolidOrange data-testid={"connectToWallet"} onClick={onConnectToWallet}>
+              <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={onConnectToWallet}>
                 Connect Wallet
-              </ButtonSolidOrange>
+              </ButtonSolidOrangeWhite>
             )}
           </div>
         </div>
