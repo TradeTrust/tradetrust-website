@@ -1,24 +1,27 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { AddressInfo } from "../AddressInfo";
-import { ExternalLink } from "../../UI/ExternalLink";
-import { makeEtherscanAddressURL, makeEtherscanTokenURL, getAssetInfo } from "../../../utils";
+import { AddressInfo } from "../../AddressInfo";
+import { ExternalLinkEtherscanAddress, ExternalLinkEtherscanToken } from "../../UI/ExternalLink";
+import { getAssetInfo } from "../../../utils";
 
 export const BLinfo = () => {
   const { document } = useSelector((state: any) => ({
     document: state.certificate.raw,
   }));
   const { tokenRegistry: registryAddress, tokenId } = getAssetInfo(document);
-  const tokenRegistryHref = makeEtherscanAddressURL(registryAddress);
-  const tokenHistoryHref = makeEtherscanTokenURL({ registryAddress, tokenId });
 
   return (
     <div className="py-3">
       <AddressInfo title="BL information">
         <>
-          <ExternalLink name="View BL Registry" href={tokenRegistryHref} />
+          <ExternalLinkEtherscanAddress name="View BL Registry" address={registryAddress} />
           <br />
-          <ExternalLink name="View Endorsement Chain" href={tokenHistoryHref} />
+          <ExternalLinkEtherscanToken
+            name="View Endorsement Chain"
+            tokenId={tokenId}
+            tokenRegistryAddress={registryAddress}
+            data-testid="token-address"
+          />
         </>
       </AddressInfo>
     </div>

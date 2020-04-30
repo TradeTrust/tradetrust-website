@@ -1,8 +1,4 @@
 {
-  "MANAGE_ASSET": {
-    "development": true,
-    "production": true
-  },
   "SHARE_BY_EMAIL": {
     "development": false,
     "production": false
@@ -12,7 +8,11 @@
     "production": false
   },
   "TITLE_TRANSFER": {
-    "development": false,
+    "development": true,
+    "production": false
+  },
+  "NEW_ASSET_MANAGEMENT": {
+    "development": true,
     "production": false
   }
 }

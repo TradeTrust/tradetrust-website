@@ -6,11 +6,15 @@ import {
   ButtonBorderedBlue,
   ButtonSolidWhiteOrange,
   ButtonSolidWhiteBlue,
+  ButtonSolidRedWhite,
+  ButtonSolidWhiteGrey,
+  ButtonSolidGreenWhite,
   ButtonIconWhiteOrange,
   ButtonIconWhiteBlue,
+  ButtonIconOrangeWhite,
   ButtonCircleGreylight,
 } from "./Button";
-import { SvgIcon, SvgIconEdit, SvgIconX, SvgIconPrinter } from "./../../UI/SvgIcon";
+import { SvgIcon, SvgIconEdit, SvgIconX, SvgIconPrinter, SvgIconBook } from "./../../UI/SvgIcon";
 
 <Meta title="UI/Button" component={Button} />
 
@@ -43,6 +47,15 @@ Button look. Button type, background color, text color.
   </Story>
   <Story name="ButtonSolidWhiteBlue">
     <ButtonSolidWhiteBlue>WhiteBlue</ButtonSolidWhiteBlue>
+  </Story>
+  <Story name="ButtonSolidRedWhite">
+    <ButtonSolidRedWhite>RedWhite</ButtonSolidRedWhite>
+  </Story>
+  <Story name="ButtonSolidWhiteGrey">
+    <ButtonSolidWhiteGrey>WhiteGrey</ButtonSolidWhiteGrey>
+  </Story>
+  <Story name="ButtonSolidGreenWhite">
+    <ButtonSolidGreenWhite>GreenWhite</ButtonSolidGreenWhite>
   </Story>
 </Preview>
 
@@ -81,6 +94,13 @@ Button look. Button type, background color, text color.
         <SvgIconPrinter />
       </SvgIcon>
     </ButtonIconWhiteBlue>
+  </Story>
+  <Story name="ButtonIconOrangeWhite">
+    <ButtonIconOrangeWhite>
+      <SvgIcon>
+        <SvgIconBook />
+      </SvgIcon>
+    </ButtonIconOrangeWhite>
   </Story>
 </Preview>
 

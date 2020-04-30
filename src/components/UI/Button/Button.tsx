@@ -130,6 +130,27 @@ export const ButtonSolidOrangeWhite = styled(Button)`
   })}
 `;
 
+export const ButtonSolidRedWhite = styled(Button)`
+  ${baseStyleButton({
+    bgColor: vars.red,
+    textColor: vars.white,
+  })}
+`;
+
+export const ButtonSolidWhiteGrey = styled(Button)`
+  ${baseStyleButton({
+    bgColor: vars.white,
+    textColor: vars.grey,
+  })}
+`;
+
+export const ButtonSolidGreenWhite = styled(Button)`
+  ${baseStyleButton({
+    bgColor: vars.green,
+    textColor: vars.white,
+  })}
+`;
+
 export const ButtonBorderedBlue = styled(Button)`
   ${baseStyleButton({
     bgColor: vars.white,
@@ -183,6 +204,21 @@ export const ButtonIconWhiteBlue = styled(Button)`
 
   ${bgWhiteModifier({
     hoverColor: vars.brandBlue,
+  })}
+
+  svg {
+    max-width: 16px;
+  }
+`;
+
+export const ButtonIconOrangeWhite = styled(Button)`
+  ${baseStyleButton({
+    bgColor: vars.brandOrange,
+    textColor: vars.white,
+  })}
+
+  ${bgWhiteModifier({
+    hoverColor: vars.brandOrange,
   })}
 
   svg {

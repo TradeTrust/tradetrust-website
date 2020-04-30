@@ -18,7 +18,7 @@ test("Token is verified and rendered correctly", async (t) => {
 
   await DocumentStatus.with({ visibilityCheck: true })();
 
-  const assetInfoLinkElement = await Selector("#asset-info-etherscan-link");
+  const assetInfoLinkElement = await Selector("[data-testid='token-address']");
   await t
     .expect(assetInfoLinkElement.getAttribute("href"))
     .eql(

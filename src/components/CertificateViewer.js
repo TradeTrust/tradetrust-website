@@ -10,6 +10,8 @@ import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
 import { ManageAssets } from "./ManageAssets";
+import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagementContainer";
+import { FeatureFlag } from "./FeatureFlag";
 
 export const CertificateViewer = (props) => {
   const { document } = props;
@@ -32,6 +34,9 @@ export const CertificateViewer = (props) => {
             <ManageAssets document={document} />
           </>
         )}
+        <FeatureFlag name="NEW_ASSET_MANAGEMENT">
+          {tokenRegistryAddress && <AssetManagementContainer document={document} />}
+        </FeatureFlag>
         <MultiTabs
           templates={templates}
           selectedTemplate={selectedTemplate}

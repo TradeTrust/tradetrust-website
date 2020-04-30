@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { useTokenRegistryContract } from "./useTokenRegistryContract";
-import { Provider } from "ethers/providers";
+import { providers, Signer } from "ethers";
 import { TitleEscrowFactory } from "@govtechsg/token-registry";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 
-export const useTitleEscrowContract = (tokenRegistryAddress: string, tokenId: string, provider: Provider) => {
+export const useTitleEscrowContract = (
+  tokenRegistryAddress: string,
+  tokenId: string,
+  provider: providers.Provider | Signer
+) => {
   const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
 
