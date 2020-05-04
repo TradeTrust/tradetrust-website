@@ -3,9 +3,15 @@ import { Overlay } from "./Overlay";
 import { Textual } from "./OverlayContent/Textual";
 import { Youtube } from "./OverlayContent/Youtube";
 import { AddressBook } from "./OverlayContent/AddressBook";
-import { MessagePromptNoMetamask } from "./OverlayContent/MessagePromptNoMetamask";
-import { MessagePromptNoManageAccess } from "./OverlayContent/MessagePromptNoManageAccess";
-import { SvgIcon, SvgIconXCircle } from "./../SvgIcon";
+import {
+  DocumentTransferMessage,
+  MessageNoMetamask,
+  MessageNoManageAccess,
+  MessageError,
+  MessageSurrenderSuccess,
+  MessageBeneficiarySuccess,
+  MessageHolderSuccess,
+} from "./OverlayContent/DocumentTransferMessage";
 
 <Meta title="UI/Overlay" component={Overlay} />
 
@@ -158,21 +164,16 @@ Overlay look.
 
 ---
 
-### Overlay (MessagePromptNoMetamask)
+### Overlay (DocumentTransferMessage NoMetamask)
 
 <Preview>
-  <Story name="MessagePromptNoMetamask">
+  <Story name="DocumentTransferMessageNoMetamask">
     {() => {
       return (
         <Overlay>
-          <MessagePromptNoMetamask
-            title="Metamask not installed"
-            titleIcon={
-              <SvgIcon>
-                <SvgIconXCircle />
-              </SvgIcon>
-            }
-          />
+          <DocumentTransferMessage title="Metamask not installed" isTitleIconSuccess={false} isMetamaskLink={true}>
+            <MessageNoMetamask />
+          </DocumentTransferMessage>
         </Overlay>
       );
     }}
@@ -181,21 +182,88 @@ Overlay look.
 
 ---
 
-### Overlay (MessagePromptNoManageAccess)
+### Overlay (DocumentTransferMessage NoManageAccess)
 
 <Preview>
-  <Story name="MessagePromptNoManageAccess">
+  <Story name="DocumentTransferMessageNoManageAccess">
     {() => {
       return (
         <Overlay>
-          <MessagePromptNoManageAccess
-            title="No manage assets access"
-            titleIcon={
-              <SvgIcon>
-                <SvgIconXCircle />
-              </SvgIcon>
-            }
-          />
+          <DocumentTransferMessage title="No manage assets access" isTitleIconSuccess={false}>
+            <MessageNoManageAccess />
+          </DocumentTransferMessage>
+        </Overlay>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage Error)
+
+<Preview>
+  <Story name="DocumentTransferMessageError">
+    {() => {
+      return (
+        <Overlay>
+          <DocumentTransferMessage title="Error - Failed transaction" isTitleIconSuccess={false}>
+            <MessageError error="Blockchain error message" />
+          </DocumentTransferMessage>
+        </Overlay>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage Surrender)
+
+<Preview>
+  <Story name="DocumentTransferMessageSurrender">
+    {() => {
+      return (
+        <Overlay>
+          <DocumentTransferMessage title="Surrender Document Success" isTitleIconSuccess={true}>
+            <MessageSurrenderSuccess />
+          </DocumentTransferMessage>
+        </Overlay>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage Beneficiary)
+
+<Preview>
+  <Story name="DocumentTransferMessageBeneficiary">
+    {() => {
+      return (
+        <Overlay>
+          <DocumentTransferMessage title="Change Beneficiary Success" isTitleIconSuccess={true}>
+            <MessageBeneficiarySuccess name="Bank of China Pte Ltd" />
+          </DocumentTransferMessage>
+        </Overlay>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage Holder)
+
+<Preview>
+  <Story name="DocumentTransferMessageHolder">
+    {() => {
+      return (
+        <Overlay>
+          <DocumentTransferMessage title="Transfer Holder Success" isTitleIconSuccess={true}>
+            <MessageHolderSuccess name="Bank of China Pte Ltd" />
+          </DocumentTransferMessage>
         </Overlay>
       );
     }}

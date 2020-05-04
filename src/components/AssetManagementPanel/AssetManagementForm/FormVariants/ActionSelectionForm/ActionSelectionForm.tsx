@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ButtonSolidOrangeWhite } from "../../../../UI/Button";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { ManageAssetsDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
+import {
+  DocumentTransferMessage,
+  MessageNoManageAccess,
+} from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
@@ -30,6 +35,16 @@ export const ActionSelectionForm = ({
 }: ActionSelectionFormProps) => {
   const canManage = canSurrender || canChangeHolder;
 
+  const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
+  const onNoAccessHandle = () => {
+    setOverlayContent(
+      <DocumentTransferMessage title="No manage assets access" isTitleIconSuccess={false}>
+        <MessageNoManageAccess />
+      </DocumentTransferMessage>
+    );
+    setOverlayVisible(true);
+  };
+
   return (
     <div className="row py-3">
       <div className="col-12">
@@ -55,13 +70,7 @@ export const ActionSelectionForm = ({
                     canChangeHolder={canChangeHolder}
                   />
                 ) : (
-                  <ButtonSolidOrangeWhite
-                    onClick={() => {
-                      alert("Your wallet address has no manage assets privileges.");
-                    }}
-                  >
-                    No Access
-                  </ButtonSolidOrangeWhite>
+                  <ButtonSolidOrangeWhite onClick={onNoAccessHandle}>No Access</ButtonSolidOrangeWhite>
                 )}
               </>
             ) : (

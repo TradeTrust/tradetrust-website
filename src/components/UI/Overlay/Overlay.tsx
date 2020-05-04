@@ -59,6 +59,10 @@ export const OverlayContentBaseStyle = () => {
         .x-circle {
           color: ${vars.red};
         }
+
+        .check-circle {
+          color: ${vars.teal};
+        }
       }
     }
 
