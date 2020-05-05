@@ -36,15 +36,14 @@ export const SurrenderForm = ({
   const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = surrenderingState === FormState.CONFIRMED;
 
-  const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
+  const { setOverlayContent } = useContext(OverlayContext);
   const showDocumentSurrenderSuccess = useCallback(() => {
     setOverlayContent(
       <DocumentTransferMessage title="Surrender Document Success" isSuccess={true}>
         <MessageSurrenderSuccess />
       </DocumentTransferMessage>
     );
-    setOverlayVisible(true);
-  }, [setOverlayContent, setOverlayVisible]);
+  }, [setOverlayContent]);
 
   useEffect(() => {
     if (isConfirmed) {

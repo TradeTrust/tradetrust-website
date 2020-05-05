@@ -37,14 +37,13 @@ export const ActionSelectionForm = ({
 }: ActionSelectionFormProps) => {
   const canManage = canSurrender || canChangeHolder;
 
-  const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
+  const { setOverlayContent } = useContext(OverlayContext);
   const handleNoAccess = () => {
     setOverlayContent(
       <DocumentTransferMessage title="No manage assets access" isSuccess={false}>
         <MessageNoManageAccess />
       </DocumentTransferMessage>
     );
-    setOverlayVisible(true);
   };
 
   const handleMetamaskError = (errorMesssage: string, errorCode: number) => {
@@ -59,7 +58,6 @@ export const ActionSelectionForm = ({
         {isUserDeniedAccountAuthorization ? <MessageNoUserAuthorization /> : <MessageNoMetamask />}
       </DocumentTransferMessage>
     );
-    setOverlayVisible(true);
   };
 
   const handleConnectWallet = async () => {

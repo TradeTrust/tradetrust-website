@@ -27,6 +27,12 @@ const AppContainer = () => {
     }
   }, [escapePress]);
 
+  useEffect(() => {
+    if (overlayContent !== null) {
+      setOverlayVisible(true);
+    }
+  }, [overlayContent]); // callback when setOverlayContent is called
+
   const onOverlayTransitionEnded = () => {
     setOverlayContent(null);
   };

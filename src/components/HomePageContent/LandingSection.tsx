@@ -61,10 +61,9 @@ export const SectionLanding = styled(Section)`
 `;
 
 export const LandingSection = () => {
-  const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
+  const { setOverlayContent } = useContext(OverlayContext);
   const onOverlayHandler = () => {
     setOverlayContent(<Youtube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />);
-    setOverlayVisible(true);
   };
 
   return (
