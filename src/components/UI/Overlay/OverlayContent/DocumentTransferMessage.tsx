@@ -9,7 +9,7 @@ import { OverlayContext } from "../../../../common/contexts/OverlayContext";
 export enum MessageTitle {
   NO_METAMASK = "Metamask not installed",
   NO_MANAGE_ACCESS = "No manage assets access",
-  NO_USER_AUTHORIZATION = "User denied account authorization", // this error message must match error message from etherjs
+  NO_USER_AUTHORIZATION = "User denied account authorization", // this error message must match error message from metamask extension itself
   TRANSACTION_ERROR = "Error - Failed transaction",
   SURRENDER_DOCUMENT_SUCCESS = "Surrender Document Success",
   CHANGE_BENEFICIARY_SUCCESS = "Change Beneficiary Success",
