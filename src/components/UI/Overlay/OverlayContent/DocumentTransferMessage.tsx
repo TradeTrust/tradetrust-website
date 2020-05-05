@@ -7,7 +7,7 @@ import { ButtonSolidOrangeWhite, AnchorLinkButtonSolidOrangeWhite } from "../../
 import { OverlayContext } from "../../../../common/contexts/OverlayContext";
 
 interface MessageProps {
-  name?: string;
+  address?: string;
   error?: string;
 }
 
@@ -43,23 +43,23 @@ export const MessageTransactionError = ({ error }: MessageProps) => {
 };
 
 export const MessageSurrenderSuccess = () => {
-  return <p>This Bill of Lading has been surrendered.</p>;
+  return <p>This transferable document has been surrendered.</p>;
 };
 
-export const MessageBeneficiarySuccess = ({ name }: MessageProps) => {
+export const MessageBeneficiarySuccess = ({ address }: MessageProps) => {
   return (
     <>
       <h6>Current Beneficiary</h6>
-      <p>{name}</p>
+      <p>{address}</p>
     </>
   );
 };
 
-export const MessageHolderSuccess = ({ name }: MessageProps) => {
+export const MessageHolderSuccess = ({ address }: MessageProps) => {
   return (
     <>
       <h6>Current Holder</h6>
-      <p>{name}</p>
+      <p>{address}</p>
     </>
   );
 };

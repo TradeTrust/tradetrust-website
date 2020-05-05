@@ -38,22 +38,22 @@ export const ActionSelectionForm = ({
   const canManage = canSurrender || canChangeHolder;
 
   const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
-  const onNoAccessHandle = () => {
+  const handleNoAccess = () => {
     setOverlayContent(
-      <DocumentTransferMessage title="No manage assets access" isTitleIconSuccess={false}>
+      <DocumentTransferMessage title="No manage assets access" isSuccess={false}>
         <MessageNoManageAccess />
       </DocumentTransferMessage>
     );
     setOverlayVisible(true);
   };
 
-  const onMetamaskErrorHandle = (errorMesssage: string, errorCode: number) => {
+  const handleMetamaskError = (errorMesssage: string, errorCode: number) => {
     const isUserDeniedAccountAuthorization = errorCode === 4001;
 
     setOverlayContent(
       <DocumentTransferMessage
         title={errorMesssage}
-        isTitleIconSuccess={false}
+        isSuccess={false}
         isMetamaskLink={!isUserDeniedAccountAuthorization}
       >
         {isUserDeniedAccountAuthorization ? <MessageNoUserAuthorization /> : <MessageNoMetamask />}
@@ -62,11 +62,11 @@ export const ActionSelectionForm = ({
     setOverlayVisible(true);
   };
 
-  const onConnectWalletHandle = async () => {
+  const handleConnectWallet = async () => {
     try {
       await onConnectToWallet();
     } catch (error) {
-      onMetamaskErrorHandle(error.message, error.code);
+      handleMetamaskError(error.message, error.code);
     }
   };
 
@@ -95,11 +95,11 @@ export const ActionSelectionForm = ({
                     canChangeHolder={canChangeHolder}
                   />
                 ) : (
-                  <ButtonSolidOrangeWhite onClick={onNoAccessHandle}>No Access</ButtonSolidOrangeWhite>
+                  <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
                 )}
               </>
             ) : (
-              <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={onConnectWalletHandle}>
+              <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
                 Connect Wallet
               </ButtonSolidOrangeWhite>
             )}

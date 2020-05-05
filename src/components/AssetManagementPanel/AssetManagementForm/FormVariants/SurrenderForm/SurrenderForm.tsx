@@ -39,7 +39,7 @@ export const SurrenderForm = ({
   const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
   const showDocumentSurrenderSuccess = useCallback(() => {
     setOverlayContent(
-      <DocumentTransferMessage title="Surrender Document Success" isTitleIconSuccess={true}>
+      <DocumentTransferMessage title="Surrender Document Success" isSuccess={true}>
         <MessageSurrenderSuccess />
       </DocumentTransferMessage>
     );

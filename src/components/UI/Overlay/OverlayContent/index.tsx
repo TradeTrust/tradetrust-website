@@ -6,11 +6,11 @@ import { SvgIcon, SvgIconX, SvgIconXCircle, SvgIconCheckCircle } from "../../../
 export interface OverlayContentProps {
   className?: string;
   title: string;
-  isTitleIconSuccess?: boolean;
+  isSuccess?: boolean;
   children?: React.ReactNode;
 }
 
-export const OverlayContent = ({ className, title, isTitleIconSuccess, children, ...props }: OverlayContentProps) => {
+export const OverlayContent = ({ className, title, isSuccess, children, ...props }: OverlayContentProps) => {
   const { isOverlayVisible, setOverlayVisible } = useContext(OverlayContext);
   const handleCloseOverlay = () => {
     setOverlayVisible(false);
@@ -21,10 +21,10 @@ export const OverlayContent = ({ className, title, isTitleIconSuccess, children,
       <div className={`overlay-content ${className}`} {...props}>
         <div className="overlay-header">
           <div className="row no-gutters align-items-center">
-            {isTitleIconSuccess !== undefined && (
+            {isSuccess !== undefined && (
               <div className="col-auto mr-1">
                 <div className="title-icon">
-                  <SvgIcon>{isTitleIconSuccess ? <SvgIconCheckCircle /> : <SvgIconXCircle />}</SvgIcon>
+                  <SvgIcon>{isSuccess ? <SvgIconCheckCircle /> : <SvgIconXCircle />}</SvgIcon>
                 </div>
               </div>
             )}
