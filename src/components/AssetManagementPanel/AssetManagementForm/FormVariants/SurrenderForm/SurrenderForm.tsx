@@ -6,6 +6,11 @@ import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
+import {
+  DocumentTransferMessage,
+  MessageSurrenderSuccess,
+} from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
 interface SurrenderFormProps {
   formAction: AssetManagementActions;
@@ -31,6 +36,22 @@ export const SurrenderForm = ({
   const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = surrenderingState === FormState.CONFIRMED;
 
+  const { setOverlayContent, setOverlayVisible } = useContext(OverlayContext);
+  const showDocumentSurrenderSuccess = useCallback(() => {
+    setOverlayContent(
+      <DocumentTransferMessage title="Surrender Document Success" isTitleIconSuccess={true}>
+        <MessageSurrenderSuccess />
+      </DocumentTransferMessage>
+    );
+    setOverlayVisible(true);
+  }, [setOverlayContent, setOverlayVisible]);
+
+  useEffect(() => {
+    if (isConfirmed) {
+      showDocumentSurrenderSuccess();
+    }
+  }, [isConfirmed, showDocumentSurrenderSuccess]);
+
   return (
     <div className="row py-3">
       <div className="col-12">
@@ -53,7 +74,7 @@ export const SurrenderForm = ({
             {isConfirmed ? (
               <div className="row">
                 <div className="col-auto">
-                  <ButtonSolidGreenWhite disabled>Success</ButtonSolidGreenWhite>
+                  <ButtonSolidGreenWhite disabled>Surrender Successful</ButtonSolidGreenWhite>
                 </div>
               </div>
             ) : (
