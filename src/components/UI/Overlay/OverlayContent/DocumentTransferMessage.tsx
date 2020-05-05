@@ -20,11 +20,19 @@ export const MessageNoMetamask = () => {
   );
 };
 
+export const MessageNoUserAuthorization = () => {
+  return (
+    <>
+      <p>Oops! It seems like you did not authorize to use Metamask extension.</p>
+    </>
+  );
+};
+
 export const MessageNoManageAccess = () => {
   return <p>Oops! It seems like you do not have access to manage assets.</p>;
 };
 
-export const MessageError = ({ error }: MessageProps) => {
+export const MessageTransactionError = ({ error }: MessageProps) => {
   return (
     <>
       <p>Oops! It seems like there&apos;s a failed transaction.</p>

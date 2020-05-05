@@ -7,7 +7,8 @@ import {
   DocumentTransferMessage,
   MessageNoMetamask,
   MessageNoManageAccess,
-  MessageError,
+  MessageNoUserAuthorization,
+  MessageTransactionError,
   MessageSurrenderSuccess,
   MessageBeneficiarySuccess,
   MessageHolderSuccess,
@@ -200,15 +201,33 @@ Overlay look.
 
 ---
 
+### Overlay (DocumentTransferMessage NoUserAuthorization)
+
+<Preview>
+  <Story name="DocumentTransferMessageNoUserAuthorization">
+    {() => {
+      return (
+        <Overlay>
+          <DocumentTransferMessage title="User denied account authorization" isTitleIconSuccess={false}>
+            <MessageNoUserAuthorization />
+          </DocumentTransferMessage>
+        </Overlay>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
 ### Overlay (DocumentTransferMessage Error)
 
 <Preview>
-  <Story name="DocumentTransferMessageError">
+  <Story name="DocumentTransferMessageTransactionError">
     {() => {
       return (
         <Overlay>
           <DocumentTransferMessage title="Error - Failed transaction" isTitleIconSuccess={false}>
-            <MessageError error="Blockchain error message" />
+            <MessageTransactionError error="Blockchain error message" />
           </DocumentTransferMessage>
         </Overlay>
       );

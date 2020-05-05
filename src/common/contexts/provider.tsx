@@ -24,6 +24,10 @@ export const ProviderContextProvider = ({ children }: { children: React.ReactNod
   const upgradeProvider = async () => {
     if (isUpgraded) return;
     const { ethereum, web3 } = window;
+
+    const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
+    if (metamaskExtensionNotFound) throw new Error("Metamask not installed");
+
     await ethereum.enable();
     const injectedWeb3 = ethereum || web3.currentProvider;
     if (!injectedWeb3) throw new Error("No injected web3 provider found");

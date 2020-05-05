@@ -8,6 +8,8 @@ import { OverlayContext } from "./../../../../../common/contexts/OverlayContext"
 import {
   DocumentTransferMessage,
   MessageNoManageAccess,
+  MessageNoMetamask,
+  MessageNoUserAuthorization,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
 interface ActionSelectionFormProps {
@@ -45,6 +47,29 @@ export const ActionSelectionForm = ({
     setOverlayVisible(true);
   };
 
+  const onMetamaskErrorHandle = (errorMesssage: string, errorCode: number) => {
+    const isUserDeniedAccountAuthorization = errorCode === 4001;
+
+    setOverlayContent(
+      <DocumentTransferMessage
+        title={errorMesssage}
+        isTitleIconSuccess={false}
+        isMetamaskLink={!isUserDeniedAccountAuthorization}
+      >
+        {isUserDeniedAccountAuthorization ? <MessageNoUserAuthorization /> : <MessageNoMetamask />}
+      </DocumentTransferMessage>
+    );
+    setOverlayVisible(true);
+  };
+
+  const onConnectWalletHandle = async () => {
+    try {
+      await onConnectToWallet();
+    } catch (error) {
+      onMetamaskErrorHandle(error.message, error.code);
+    }
+  };
+
   return (
     <div className="row py-3">
       <div className="col-12">
@@ -74,7 +99,7 @@ export const ActionSelectionForm = ({
                 )}
               </>
             ) : (
-              <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={onConnectToWallet}>
+              <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={onConnectWalletHandle}>
                 Connect Wallet
               </ButtonSolidOrangeWhite>
             )}
