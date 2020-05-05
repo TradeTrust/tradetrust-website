@@ -6,6 +6,16 @@ import { vars, mixin } from "../../../../styles";
 import { ButtonSolidOrangeWhite, AnchorLinkButtonSolidOrangeWhite } from "../../Button";
 import { OverlayContext } from "../../../../common/contexts/OverlayContext";
 
+export enum MessageTitle {
+  NO_METAMASK = "Metamask not installed",
+  NO_MANAGE_ACCESS = "No manage assets access",
+  NO_USER_AUTHORIZATION = "User denied account authorization",
+  TRANSACTION_ERROR = "Error - Failed transaction",
+  SURRENDER_DOCUMENT_SUCCESS = "Surrender Document Success",
+  CHANGE_BENEFICIARY_SUCCESS = "Change Beneficiary Success",
+  TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
+}
+
 interface MessageProps {
   address?: string;
   error?: string;
@@ -20,16 +30,16 @@ export const MessageNoMetamask = () => {
   );
 };
 
+export const MessageNoManageAccess = () => {
+  return <p>Oops! It seems like you do not have access to manage assets.</p>;
+};
+
 export const MessageNoUserAuthorization = () => {
   return (
     <>
       <p>Oops! It seems like you did not authorize to use Metamask extension.</p>
     </>
   );
-};
-
-export const MessageNoManageAccess = () => {
-  return <p>Oops! It seems like you do not have access to manage assets.</p>;
 };
 
 export const MessageTransactionError = ({ error }: MessageProps) => {

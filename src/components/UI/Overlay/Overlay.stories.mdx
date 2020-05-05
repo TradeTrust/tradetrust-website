@@ -4,6 +4,7 @@ import { Textual } from "./OverlayContent/Textual";
 import { Youtube } from "./OverlayContent/Youtube";
 import { AddressBook } from "./OverlayContent/AddressBook";
 import {
+  MessageTitle,
   DocumentTransferMessage,
   MessageNoMetamask,
   MessageNoManageAccess,
@@ -172,7 +173,7 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <DocumentTransferMessage title="Metamask not installed" isSuccess={false} isMetamaskLink={true}>
+          <DocumentTransferMessage title={MessageTitle.NO_METAMASK} isSuccess={false} isMetamaskLink={true}>
             <MessageNoMetamask />
           </DocumentTransferMessage>
         </Overlay>
@@ -190,7 +191,7 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <DocumentTransferMessage title="No manage assets access" isSuccess={false}>
+          <DocumentTransferMessage title={MessageTitle.NO_MANAGE_ACCESS} isSuccess={false}>
             <MessageNoManageAccess />
           </DocumentTransferMessage>
         </Overlay>
@@ -208,7 +209,7 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <DocumentTransferMessage title="User denied account authorization" isSuccess={false}>
+          <DocumentTransferMessage title={MessageTitle.NO_USER_AUTHORIZATION} isSuccess={false}>
             <MessageNoUserAuthorization />
           </DocumentTransferMessage>
         </Overlay>
@@ -226,7 +227,7 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <DocumentTransferMessage title="Error - Failed transaction" isSuccess={false}>
+          <DocumentTransferMessage title={MessageTitle.TRANSACTION_ERROR} isSuccess={false}>
             <MessageTransactionError error="Blockchain error message" />
           </DocumentTransferMessage>
         </Overlay>
@@ -244,7 +245,7 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <DocumentTransferMessage title="Surrender Document Success" isSuccess={true}>
+          <DocumentTransferMessage title={MessageTitle.SURRENDER_DOCUMENT_SUCCESS} isSuccess={true}>
             <MessageSurrenderSuccess />
           </DocumentTransferMessage>
         </Overlay>
@@ -262,8 +263,8 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <DocumentTransferMessage title="Change Beneficiary Success" isSuccess={true}>
-            <MessageBeneficiarySuccess name="Bank of China Pte Ltd" />
+          <DocumentTransferMessage title={MessageTitle.CHANGE_BENEFICIARY_SUCCESS} isSuccess={true}>
+            <MessageBeneficiarySuccess address="Bank of China Pte Ltd" />
           </DocumentTransferMessage>
         </Overlay>
       );
@@ -280,8 +281,8 @@ Overlay look.
     {() => {
       return (
         <Overlay>
-          <DocumentTransferMessage title="Transfer Holder Success" isSuccess={true}>
-            <MessageHolderSuccess name="Bank of China Pte Ltd" />
+          <DocumentTransferMessage title={MessageTitle.TRANSFER_HOLDER_SUCCESS} isSuccess={true}>
+            <MessageHolderSuccess address="Bank of China Pte Ltd" />
           </DocumentTransferMessage>
         </Overlay>
       );
