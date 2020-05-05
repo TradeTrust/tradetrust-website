@@ -1,6 +1,6 @@
 import React from "react";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
-import { InputEditableAssetTitle } from "../../../../UI/Input";
+import { InputEditableAssetTitle, InputEditableWrapper, InputError } from "../../../../UI/Input";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 
@@ -10,9 +10,17 @@ interface EditableAssetTitleProps {
   isEditable: boolean;
   newValue?: string;
   onSetNewValue?: (newBeneficiary: string) => void;
+  errorState?: string;
 }
 
-export const EditableAssetTitle = ({ role, value, newValue, isEditable, onSetNewValue }: EditableAssetTitleProps) => {
+export const EditableAssetTitle = ({
+  role,
+  value,
+  newValue,
+  isEditable,
+  onSetNewValue,
+  errorState,
+}: EditableAssetTitleProps) => {
   if (!value) return <SkeletonPlaceholder />;
   if (!isEditable)
     return (
@@ -23,16 +31,21 @@ export const EditableAssetTitle = ({ role, value, newValue, isEditable, onSetNew
   return (
     <AssetTitle role={role} address={value}>
       <div className="row no-gutters align-items-center">
-        <div className="col">
+        <InputEditableWrapper className="col">
           <InputEditableAssetTitle
             data-testid={`editable-input-${role.toLowerCase()}`}
             value={newValue}
+            errorState={errorState === "ERROR"}
+            placeholder={`Input ${role}'s address`}
             onChange={(event) => {
               if (!onSetNewValue) return;
               onSetNewValue(event.target.value);
             }}
           />
-        </div>
+          {errorState === "ERROR" && (
+            <InputError data-testid={"error-msg"}>Unidentified address. Please check and input again.</InputError>
+          )}
+        </InputEditableWrapper>
       </div>
     </AssetTitle>
   );

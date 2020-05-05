@@ -15,6 +15,7 @@ describe("ActionSelectionForm", () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         canSurrender={false}
         onConnectToWallet={() => alert("Login to Metamask")}
+        isHolder={true}
       />
     );
     const beneficiaryComponent = container.getByTestId("asset-title-beneficiary");
@@ -41,6 +42,7 @@ describe("ActionSelectionForm", () => {
         account=""
         canSurrender={false}
         onConnectToWallet={mockOnConnectToWallet}
+        isHolder={false}
       />
     );
 
@@ -59,10 +61,11 @@ describe("ActionSelectionForm", () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         canSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
+        isHolder={true}
       />
     );
 
-    const manageAssetsDropdown = container.getByTestId("manageAssetsDropdown");
+    const manageAssetsDropdown = container.getByTestId("manageAssetDropdown");
     expect(manageAssetsDropdown).not.toBeNull();
   });
 
@@ -77,11 +80,12 @@ describe("ActionSelectionForm", () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         canSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
+        isHolder={true}
       />
     );
 
     await act(async () => {
-      fireEvent.click(container.getByTestId("clickDropdown"));
+      fireEvent.click(container.getByTestId("manageAssetDropdown"));
     });
 
     expect(container.queryByTestId("surrenderDropdown")).not.toBeNull();
@@ -98,12 +102,39 @@ describe("ActionSelectionForm", () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         canSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
+        isHolder={true}
       />
     );
 
     expect(container.queryByTestId("SurrenderDropdown")).toBeNull();
   });
 
+  it("should change the state of the application to TransferHolder when we clicked on TransferHolder", async () => {
+    const mockOnSetFormAction = jest.fn();
+
+    const container = render(
+      <ActionSelectionForm
+        onSetFormAction={mockOnSetFormAction}
+        tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+        tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+        beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+        holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+        account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+        canSurrender={true}
+        onConnectToWallet={() => alert("Login to Metamask")}
+        isHolder={true}
+      />
+    );
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("manageAssetDropdown"));
+    });
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("transferHolderDropdown"));
+    });
+
+    expect(mockOnSetFormAction).toHaveBeenCalled();
+  });
   // xit("should change the state of the application to EndorseBeneficiary when we clicked on EndorseBeneficiary", () => {});
-  // xit("should change the state of the application to TransferHolder when we clicked on TransferHolder", () => {});
 });

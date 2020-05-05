@@ -1,30 +1,36 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { AssetManagementActions } from "./../../AssetManagementActions";
+import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { mixin, vars } from "../../../../styles";
+import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface ManageAssetsDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   className?: string;
   canSurrender: boolean;
+  isHolder: boolean;
 }
 
 export const ManageAssetsDropdown = styled(
-  ({ onSetFormAction, className, canSurrender }: ManageAssetsDropdownProps) => {
+  ({ onSetFormAction, className, canSurrender, isHolder }: ManageAssetsDropdownProps) => {
     return (
-      <Dropdown className={`${className}`} alignRight data-testid={"manageAssetsDropdown"}>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic" data-testid={"clickDropdown"}>
+      <Dropdown alignRight className={`${className}`}>
+        <Dropdown.Toggle variant="primary" id="dropdown-basic" data-testid={"manageAssetDropdown"}>
           Manage Assets
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {/*
-          {account === holder && (
+          {isHolder && (
             <>
-              <Dropdown.Item onClick={() => onSetFormAction(AssetManagementActions.TransferHolder)}>Transfer holdership</Dropdown.Item>
-              {haveApprovedAddresses && <Dropdown.Item>Confirm endorse change of beneficiary</Dropdown.Item>}
+              <Dropdown.Item
+                data-testid={"transferHolderDropdown"}
+                onClick={() => onSetFormAction(AssetManagementActions.TransferHolder)}
+              >
+                Transfer holdership
+              </Dropdown.Item>
+              {/* {haveApprovedAddresses && <Dropdown.Item>Confirm endorse change of beneficiary</Dropdown.Item>} */}
             </>
           )}
+          {/*
           {account === beneficiary && (
             <>
               {!haveApprovedAddresses && (

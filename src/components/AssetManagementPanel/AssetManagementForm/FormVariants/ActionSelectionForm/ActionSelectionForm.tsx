@@ -14,6 +14,7 @@ interface ActionSelectionFormProps {
   account?: string;
   canSurrender: boolean;
   onConnectToWallet: () => void;
+  isHolder: boolean;
 }
 
 export const ActionSelectionForm = ({
@@ -25,6 +26,7 @@ export const ActionSelectionForm = ({
   account,
   canSurrender,
   onConnectToWallet,
+  isHolder,
 }: ActionSelectionFormProps) => {
   const canManage = canSurrender;
 
@@ -47,7 +49,11 @@ export const ActionSelectionForm = ({
             {account ? (
               <>
                 {canManage ? (
-                  <ManageAssetsDropdown onSetFormAction={onSetFormAction} canSurrender={canSurrender} />
+                  <ManageAssetsDropdown
+                    onSetFormAction={onSetFormAction}
+                    canSurrender={canSurrender}
+                    isHolder={isHolder}
+                  />
                 ) : (
                   <ButtonSolidOrangeWhite
                     onClick={() => {
