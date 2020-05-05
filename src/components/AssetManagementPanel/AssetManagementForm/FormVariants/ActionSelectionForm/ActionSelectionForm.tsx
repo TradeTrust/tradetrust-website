@@ -6,10 +6,8 @@ import { ManageAssetsDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
 import {
-  DocumentTransferMessage,
-  MessageNoManageAccess,
-  MessageNoMetamask,
-  MessageNoUserAuthorization,
+  MessageTitle,
+  showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
 interface ActionSelectionFormProps {
@@ -39,25 +37,18 @@ export const ActionSelectionForm = ({
 
   const { setOverlayContent } = useContext(OverlayContext);
   const handleNoAccess = () => {
-    setOverlayContent(
-      <DocumentTransferMessage title="No manage assets access" isSuccess={false}>
-        <MessageNoManageAccess />
-      </DocumentTransferMessage>
-    );
+    setOverlayContent(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
   };
 
   const handleMetamaskError = (errorMesssage: string, errorCode: number) => {
     const isUserDeniedAccountAuthorization = errorCode === 4001;
 
     setOverlayContent(
-      <DocumentTransferMessage
-        title={errorMesssage}
-        isSuccess={false}
-        isMetamaskLink={!isUserDeniedAccountAuthorization}
-      >
-        {isUserDeniedAccountAuthorization ? <MessageNoUserAuthorization /> : <MessageNoMetamask />}
-      </DocumentTransferMessage>
-    );
+      showDocumentTransferMessage(errorMesssage, {
+        isSuccess: false,
+        isMetamaskLink: !isUserDeniedAccountAuthorization,
+      })
+    ); // there is 2 type of errors that will be handled here, 1st = NO_METAMASK (error thrown from provider.tsx), 2nd = NO_USER_AUTHORIZATION (error from etherjs).
   };
 
   const handleConnectWallet = async () => {

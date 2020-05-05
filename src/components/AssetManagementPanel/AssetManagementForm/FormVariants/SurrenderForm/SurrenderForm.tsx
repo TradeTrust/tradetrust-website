@@ -8,8 +8,8 @@ import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
 import {
-  DocumentTransferMessage,
-  MessageSurrenderSuccess,
+  MessageTitle,
+  showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
 interface SurrenderFormProps {
@@ -38,11 +38,7 @@ export const SurrenderForm = ({
 
   const { setOverlayContent } = useContext(OverlayContext);
   const showDocumentSurrenderSuccess = useCallback(() => {
-    setOverlayContent(
-      <DocumentTransferMessage title="Surrender Document Success" isSuccess={true}>
-        <MessageSurrenderSuccess />
-      </DocumentTransferMessage>
-    );
+    setOverlayContent(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
   }, [setOverlayContent]);
 
   useEffect(() => {

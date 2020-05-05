@@ -9,12 +9,64 @@ import { OverlayContext } from "../../../../common/contexts/OverlayContext";
 export enum MessageTitle {
   NO_METAMASK = "Metamask not installed",
   NO_MANAGE_ACCESS = "No manage assets access",
-  NO_USER_AUTHORIZATION = "User denied account authorization",
+  NO_USER_AUTHORIZATION = "User denied account authorization", // this error message must match error message from etherjs
   TRANSACTION_ERROR = "Error - Failed transaction",
   SURRENDER_DOCUMENT_SUCCESS = "Surrender Document Success",
   CHANGE_BENEFICIARY_SUCCESS = "Change Beneficiary Success",
   TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
 }
+
+interface DocumentTransferMessageProps extends OverlayContentProps {
+  isMetamaskLink?: boolean;
+}
+
+export const DocumentTransferMessage = styled(
+  ({ isMetamaskLink, children, ...props }: DocumentTransferMessageProps) => {
+    const { setOverlayVisible } = useContext(OverlayContext);
+    const handleCloseOverlay = () => {
+      setOverlayVisible(false);
+    };
+
+    return (
+      <OverlayContent {...props}>
+        <div className="flex-fill">
+          <div className="message">{children}</div>
+        </div>
+        <div className="row no-gutters">
+          <div className="col-auto ml-auto">
+            {isMetamaskLink ? (
+              <AnchorLinkButtonSolidOrangeWhite
+                href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Install Metamask
+              </AnchorLinkButtonSolidOrangeWhite>
+            ) : (
+              <ButtonSolidOrangeWhite onClick={handleCloseOverlay}>Close</ButtonSolidOrangeWhite>
+            )}
+          </div>
+        </div>
+      </OverlayContent>
+    );
+  }
+)`
+  ${OverlayContentBaseStyle()}
+
+  max-width: 420px;
+  height: auto;
+
+  .overlay-title {
+    ${mixin.fontSize(24)};
+  }
+
+  .message {
+    h6 {
+      ${mixin.fontSourcesansproBold};
+      color: ${vars.greyDark};
+    }
+  }
+`;
 
 interface MessageProps {
   address?: string;
@@ -74,54 +126,26 @@ export const MessageHolderSuccess = ({ address }: MessageProps) => {
   );
 };
 
-interface DocumentTransferMessageProps extends OverlayContentProps {
+interface ShowDocumentTransferMessageOptionProps {
+  isSuccess: boolean;
   isMetamaskLink?: boolean;
+  error?: string;
+  beneficiaryAddress?: string;
+  holderAddress?: string;
 }
 
-export const DocumentTransferMessage = styled(
-  ({ isMetamaskLink, children, ...props }: DocumentTransferMessageProps) => {
-    const { setOverlayVisible } = useContext(OverlayContext);
-    const handleCloseOverlay = () => {
-      setOverlayVisible(false);
-    };
-
-    return (
-      <OverlayContent {...props}>
-        <div className="flex-fill">
-          <div className="message">{children}</div>
-        </div>
-        <div className="row no-gutters">
-          <div className="col-auto ml-auto">
-            {isMetamaskLink ? (
-              <AnchorLinkButtonSolidOrangeWhite
-                href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Install Metamask
-              </AnchorLinkButtonSolidOrangeWhite>
-            ) : (
-              <ButtonSolidOrangeWhite onClick={handleCloseOverlay}>Close</ButtonSolidOrangeWhite>
-            )}
-          </div>
-        </div>
-      </OverlayContent>
-    );
-  }
-)`
-  ${OverlayContentBaseStyle()}
-
-  max-width: 420px;
-  height: auto;
-
-  .overlay-title {
-    ${mixin.fontSize(24)};
-  }
-
-  .message {
-    h6 {
-      ${mixin.fontSourcesansproBold};
-      color: ${vars.greyDark};
-    }
-  }
-`;
+export const showDocumentTransferMessage = (title: string, option: ShowDocumentTransferMessageOptionProps) => {
+  return (
+    <DocumentTransferMessage title={title} isSuccess={option.isSuccess} isMetamaskLink={option.isMetamaskLink}>
+      {title === MessageTitle.NO_METAMASK && <MessageNoMetamask />}
+      {title === MessageTitle.NO_MANAGE_ACCESS && <MessageNoManageAccess />}
+      {title === MessageTitle.NO_USER_AUTHORIZATION && <MessageNoUserAuthorization />}
+      {title === MessageTitle.TRANSACTION_ERROR && <MessageTransactionError error={option.error} />}
+      {title === MessageTitle.SURRENDER_DOCUMENT_SUCCESS && <MessageSurrenderSuccess />}
+      {title === MessageTitle.CHANGE_BENEFICIARY_SUCCESS && (
+        <MessageBeneficiarySuccess address={option.beneficiaryAddress} />
+      )}
+      {title === MessageTitle.TRANSFER_HOLDER_SUCCESS && <MessageHolderSuccess address={option.holderAddress} />}
+    </DocumentTransferMessage>
+  );
+};
