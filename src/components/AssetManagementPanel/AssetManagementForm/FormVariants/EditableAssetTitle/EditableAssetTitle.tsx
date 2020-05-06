@@ -35,7 +35,7 @@ export const EditableAssetTitle = ({
           <InputEditableAssetTitle
             data-testid={`editable-input-${role.toLowerCase()}`}
             value={newValue}
-            errorState={errorState === "ERROR"}
+            hasError={errorState === "ERROR"}
             placeholder={`Input ${role}'s address`}
             onChange={(event) => {
               if (!onSetNewValue) return;

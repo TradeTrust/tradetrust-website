@@ -8,27 +8,24 @@ interface ManageAssetsDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   className?: string;
   canSurrender: boolean;
-  isHolder: boolean;
+  canChangeHolder: boolean;
 }
 
 export const ManageAssetsDropdown = styled(
-  ({ onSetFormAction, className, canSurrender, isHolder }: ManageAssetsDropdownProps) => {
+  ({ onSetFormAction, className, canSurrender, canChangeHolder }: ManageAssetsDropdownProps) => {
     return (
       <Dropdown alignRight className={`${className}`}>
         <Dropdown.Toggle variant="primary" id="dropdown-basic" data-testid={"manageAssetDropdown"}>
           Manage Assets
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {isHolder && (
-            <>
-              <Dropdown.Item
-                data-testid={"transferHolderDropdown"}
-                onClick={() => onSetFormAction(AssetManagementActions.TransferHolder)}
-              >
-                Transfer holdership
-              </Dropdown.Item>
-              {/* {haveApprovedAddresses && <Dropdown.Item>Confirm endorse change of beneficiary</Dropdown.Item>} */}
-            </>
+          {canChangeHolder && (
+            <Dropdown.Item
+              data-testid={"transferHolderDropdown"}
+              onClick={() => onSetFormAction(AssetManagementActions.TransferHolder)}
+            >
+              Transfer holdership
+            </Dropdown.Item>
           )}
           {/*
           {account === beneficiary && (

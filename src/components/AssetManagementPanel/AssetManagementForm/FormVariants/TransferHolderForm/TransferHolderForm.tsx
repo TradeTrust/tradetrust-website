@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -13,7 +13,7 @@ interface TransferHolderProps {
   beneficiary?: string;
   holder?: string;
   handleTransfer: (newHolder: string) => void;
-  holderState: string;
+  holderTransferringState: string;
 }
 
 export const TransferHolderForm = ({
@@ -24,16 +24,12 @@ export const TransferHolderForm = ({
   beneficiary,
   holder,
   handleTransfer,
-  holderState,
+  holderTransferringState,
 }: TransferHolderProps) => {
-  const [newHolder, setNewHolder] = React.useState<string>("");
+  const [newHolder, setNewHolder] = useState("");
 
   const onBackHandler = () => {
     onSetFormAction(AssetManagementActions.None);
-  };
-
-  const onSetNewHolder = (value: string) => {
-    setNewHolder(value);
   };
 
   const onHandleTransfer = () => {
@@ -64,8 +60,8 @@ export const TransferHolderForm = ({
               value={holder}
               newValue={newHolder}
               isEditable={true}
-              onSetNewValue={onSetNewHolder}
-              errorState={holderState}
+              onSetNewValue={setNewHolder}
+              errorState={holderTransferringState}
             />
           </div>
         </div>
@@ -73,10 +69,7 @@ export const TransferHolderForm = ({
           <div className="col-auto ml-auto">
             <div className="row no-gutters">
               <div className="col-auto">
-                <ButtonSolidWhiteGrey
-                  onClick={() => onSetFormAction(AssetManagementActions.None)}
-                  data-testid={"cancelTransferBtn"}
-                >
+                <ButtonSolidWhiteGrey onClick={onBackHandler} data-testid={"cancelTransferBtn"}>
                   Cancel
                 </ButtonSolidWhiteGrey>
               </div>

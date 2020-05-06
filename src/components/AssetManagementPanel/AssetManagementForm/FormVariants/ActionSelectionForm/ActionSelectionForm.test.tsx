@@ -15,7 +15,7 @@ describe("ActionSelectionForm", () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         canSurrender={false}
         onConnectToWallet={() => alert("Login to Metamask")}
-        isHolder={true}
+        canChangeHolder={true}
       />
     );
     const beneficiaryComponent = container.getByTestId("asset-title-beneficiary");
@@ -42,7 +42,7 @@ describe("ActionSelectionForm", () => {
         account=""
         canSurrender={false}
         onConnectToWallet={mockOnConnectToWallet}
-        isHolder={false}
+        canChangeHolder={false}
       />
     );
 
@@ -61,7 +61,7 @@ describe("ActionSelectionForm", () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         canSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
-        isHolder={true}
+        canChangeHolder={true}
       />
     );
 
@@ -80,7 +80,7 @@ describe("ActionSelectionForm", () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         canSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
-        isHolder={true}
+        canChangeHolder={true}
       />
     );
 
@@ -102,7 +102,7 @@ describe("ActionSelectionForm", () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         canSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
-        isHolder={true}
+        canChangeHolder={true}
       />
     );
 
@@ -122,7 +122,7 @@ describe("ActionSelectionForm", () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         canSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
-        isHolder={true}
+        canChangeHolder={true}
       />
     );
 

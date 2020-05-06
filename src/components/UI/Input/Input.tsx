@@ -6,14 +6,14 @@ export const InputDefault = styled.input`
 `;
 
 interface EditableAssetTitleProps {
-  errorState?: boolean;
+  hasError?: boolean;
 }
 
 export const InputEditableAssetTitle = styled.input`
   ${mixin.baseStyleInput()};
   margin-bottom: 0;
   width: 100%;
-  ${({ errorState }: EditableAssetTitleProps) => errorState && `border: 1px solid ${vars.red}`};
+  ${({ hasError }: EditableAssetTitleProps) => hasError && `border: 1px solid ${vars.red}`};
 `;
 
 export const InputEditableWrapper = styled.div`

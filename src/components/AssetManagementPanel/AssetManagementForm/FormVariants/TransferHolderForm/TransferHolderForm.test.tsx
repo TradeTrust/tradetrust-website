@@ -5,7 +5,7 @@ import { AssetManagementActions } from "../../../AssetManagementActions";
 import { TransferHolderForm } from "./TransferHolderForm";
 
 describe("Transfer Holder", () => {
-  it("should display the editable beneficiary & holder when the app is in TransferHolder state", () => {
+  it("should display the static beneficiary & editable holder when the app is in TransferHolder state", () => {
     const container = render(
       <TransferHolderForm
         formAction={AssetManagementActions.TransferHolder}
@@ -15,7 +15,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={() => {}}
-        holderState=""
+        holderTransferringState=""
       />
     );
 
@@ -28,7 +28,7 @@ describe("Transfer Holder", () => {
     expect(holderComponent).not.toBeNull();
   });
 
-  it("should have the endorse button and cancel button", () => {
+  it("should have the transfer holder button and cancel button", () => {
     const container = render(
       <TransferHolderForm
         formAction={AssetManagementActions.TransferHolder}
@@ -38,7 +38,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={() => {}}
-        holderState=""
+        holderTransferringState=""
       />
     );
 
@@ -58,7 +58,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={() => {}}
-        holderState=""
+        holderTransferringState=""
       />
     );
 
@@ -66,7 +66,7 @@ describe("Transfer Holder", () => {
     expect(mockOnSetFormAction).toHaveBeenCalled();
   });
 
-  it("should disable endorse button when holder is empty", () => {
+  it("should disable transfer button when holder is empty", () => {
     const mockHandleTransfer = jest.fn();
 
     const container = render(
@@ -78,7 +78,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={mockHandleTransfer}
-        holderState=""
+        holderTransferringState=""
       />
     );
 
@@ -96,7 +96,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={() => {}}
-        holderState="ERROR"
+        holderTransferringState="ERROR"
       />
     );
 

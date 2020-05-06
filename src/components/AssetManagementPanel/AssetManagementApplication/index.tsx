@@ -18,7 +18,7 @@ export const AssetManagementApplication = ({
   titleEscrow,
 }: AssetManagementApplicationProps) => {
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-  const [holderErrorState, setHolderErrorState] = useState("");
+  const [holderTransferringState, setHolderTransferringState] = useState("");
   const { upgradeProvider, account } = useProviderContext();
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
@@ -28,33 +28,24 @@ export const AssetManagementApplication = ({
   );
   const { send: sendSurrender, state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
 
-  const { send: changeHolder, state: holderState } = useContractFunctionHook(titleEscrow, "changeHolder");
+  const { send: changeHolder, state: changeHolderState } = useContractFunctionHook(titleEscrow, "changeHolder");
 
   const onSurrender = () => {
     sendSurrender(tokenRegistryAddress);
   };
 
-  const onTransfer = (nextHolder: string) => {
-    changeHolder(nextHolder);
-  };
-
   const onSetFormAction = (AssetManagementActions: AssetManagementActions) => {
     setAssetManagementAction(AssetManagementActions);
-    setHolderErrorState("");
+    setHolderTransferringState("");
   };
 
   useEffect(() => {
-    setHolderErrorState(holderState);
-    console.log("reseting holder error state", holderState);
+    setHolderTransferringState(changeHolderState);
 
-    if (holderState === "PENDING_CONFIRMATION") {
+    if (changeHolderState === "PENDING_CONFIRMATION") {
       onSetFormAction(AssetManagementActions.None);
     }
-
-    if (holderState === "CONFIRMED") {
-      getHolder();
-    }
-  }, [holderState, getHolder]);
+  }, [changeHolderState]);
 
   useEffect(() => {
     getHolder();
@@ -78,8 +69,8 @@ export const AssetManagementApplication = ({
           onSetFormAction={onSetFormAction}
           surrenderingState={surrenderingState}
           onSurrender={onSurrender}
-          onTransferHolder={onTransfer}
-          holderState={holderErrorState}
+          onTransferHolder={changeHolder}
+          holderTransferringState={holderTransferringState}
         />
       </div>
     </div>
