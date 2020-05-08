@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { isEmpty, transform } from "lodash";
-import { useAddressBook, AddressBook } from "./../../common/hooks/useAddressBook";
-import { ThirdPartyAPIEntryProps, useThirdPartyAPIEndpoints } from "./../../common/hooks/useThirdPartyAPIEndpoints";
+import { useAddressResolved } from "../../common/hooks/useAddressResolved";
+import { useAddressBook } from "../../common/hooks/useAddressBook";
+import { ThirdPartyAPIEntryProps, useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 
-export const AddressResolved = () => {
+export const AddressesDemo = () => {
   const { addressBook } = useAddressBook();
+  const { addressResolved, setAddressResolved } = useAddressResolved();
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
-  const [addressResolved, setAddressResolved] = useState({} as AddressBook);
 
   useEffect(() => {
     const APIrequests: {}[] = [];
@@ -39,12 +40,12 @@ export const AddressResolved = () => {
     } else {
       setAddressResolved({ ...addressBook });
     }
-  }, [addressBook, thirdPartyAPIEndpoints]);
+  }, [addressBook, setAddressResolved, thirdPartyAPIEndpoints]);
 
   return (
     <div className="row my-4">
       <div className="col-12">
-        <b>AddressResolved (AssetInformationPanel):</b>
+        <b>AddressesDemo:</b>
         {isEmpty(addressResolved) ? (
           <p>Nothing from local addressbook or third party api.</p>
         ) : (

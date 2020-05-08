@@ -8,7 +8,7 @@ export interface ThirdPartyAPIEntryProps {
 
 export const useThirdPartyAPIEndpoints = () => {
   const defaultThirdPartyAPIEndpoints: ThirdPartyAPIEntryProps[] = [];
-  const [thirdPartyAPIEndpoints, setThirdPartyAPIEndpoints] = createPersistedState("ADDRESS_RESOLVER_API_ENDPOINTS")(
+  const [thirdPartyAPIEndpoints, setThirdPartyAPIEndpoints] = createPersistedState("ADDRESS_THIRD_PARTY_ENDPOINTS")(
     defaultThirdPartyAPIEndpoints
   );
 

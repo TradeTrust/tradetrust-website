@@ -2,6 +2,7 @@ import React from "react";
 import { isAddress } from "web3-utils";
 import { parse } from "papaparse";
 import { useAddressBook, AddressBook } from "../../common/hooks/useAddressBook";
+import { useAddressResolved } from "../../common/hooks/useAddressResolved";
 import { SvgIcon, SvgIconFilePlus } from "../UI/SvgIcon";
 import { LabelWhiteSecondary } from "../UI/Button";
 
@@ -32,6 +33,7 @@ const csvToAddressBook = (csv: string) => {
 
 export const CsvUploadButton = () => {
   const { setAddressBook } = useAddressBook();
+  const { addressResolved, setAddressResolved } = useAddressResolved();
   const handleUploadedFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const csvFile = event.target.files && event.target.files[0];
@@ -39,6 +41,7 @@ export const CsvUploadButton = () => {
       const csv = await readAsText(csvFile);
       const addressBook = csvToAddressBook(csv);
       setAddressBook(addressBook);
+      setAddressResolved({ ...addressBook, ...addressResolved });
     } catch (e) {
       alert(e.message || e);
     }

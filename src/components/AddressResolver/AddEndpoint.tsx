@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { InputDefault } from "./../UI/Input";
-import { ButtonSolidOrangeWhite } from "./../UI/Button";
-import { useThirdPartyAPIEndpoints } from "./../../common/hooks/useThirdPartyAPIEndpoints";
+import { InputDefault } from "../UI/Input";
+import { ButtonSolidOrangeWhite } from "../UI/Button";
+import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 
 export const AddEndpoint = () => {
   const [endpointAPI, setEndpointAPIValue] = useState("");

@@ -1,6 +1,6 @@
 import React from "react";
 import { AddressEndpoints } from "./AddressEndpoints";
-import { AddressResolved } from "./AddressResolved";
+import { AddressesDemo } from "./AddressesDemo";
 import { AddEndpoint } from "./AddEndpoint";
 
 export const AddressResolver = () => {
@@ -35,7 +35,7 @@ export const AddressResolver = () => {
       </div>
       <AddEndpoint />
       <AddressEndpoints />
-      <AddressResolved />
+      <AddressesDemo />
     </div>
   );
 };

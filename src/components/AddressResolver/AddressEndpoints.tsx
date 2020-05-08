@@ -1,5 +1,5 @@
 import React from "react";
-import { useThirdPartyAPIEndpoints, ThirdPartyAPIEntryProps } from "./../../common/hooks/useThirdPartyAPIEndpoints";
+import { useThirdPartyAPIEndpoints, ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
 
 export const AddressEndpoints = () => {
   const { thirdPartyAPIEndpoints, removeThirdPartyAPIEndpoint } = useThirdPartyAPIEndpoints();
@@ -11,7 +11,7 @@ export const AddressEndpoints = () => {
   return (
     <div className="row my-4">
       <div className="col-12">
-        <b>AddressEndpoints (Settings [LocalStorage]):</b>
+        <b>AddressEndpoints (Settings):</b>
         {thirdPartyAPIEndpoints.map((item: ThirdPartyAPIEntryProps, key) => {
           return (
             <div className="row my-2" key={key}>

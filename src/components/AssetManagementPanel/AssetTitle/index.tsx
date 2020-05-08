@@ -1,5 +1,5 @@
 import React from "react";
-import { useAddressBook } from "../../../common/hooks/useAddressBook";
+import { useAddressResolved } from "../../../common/hooks/useAddressResolved";
 import { AddressInfo } from "../../AddressInfo";
 
 interface AssetTitleProps {
@@ -9,7 +9,7 @@ interface AssetTitleProps {
 }
 
 export const AssetTitle = ({ role, address, children }: AssetTitleProps) => {
-  const { getIdentifier } = useAddressBook();
+  const { getIdentifier } = useAddressResolved();
   const name = address && getIdentifier(address);
 
   return (
