@@ -1,4 +1,5 @@
 import createPersistedState from "use-persisted-state";
+import { reject } from "lodash";
 
 export interface ThirdPartyAPIEntryProps {
   name: string;
@@ -6,10 +7,24 @@ export interface ThirdPartyAPIEntryProps {
 }
 
 export const useThirdPartyAPIEndpoints = () => {
-  const defaultThirdPartyAPIEndpoints: { name: string; endpoint: string }[] = [];
+  const defaultThirdPartyAPIEndpoints: ThirdPartyAPIEntryProps[] = [];
   const [thirdPartyAPIEndpoints, setThirdPartyAPIEndpoints] = createPersistedState("ADDRESS_RESOLVER_API_ENDPOINTS")(
     defaultThirdPartyAPIEndpoints
   );
 
-  return { thirdPartyAPIEndpoints, setThirdPartyAPIEndpoints };
+  const addThirdPartyAPIEndpoint = ({ name, endpoint }: ThirdPartyAPIEntryProps) => {
+    const endpoints = [...thirdPartyAPIEndpoints];
+    endpoints.unshift({
+      name,
+      endpoint,
+    });
+    setThirdPartyAPIEndpoints(endpoints);
+  };
+
+  const removeThirdPartyAPIEndpoint = (endpointToRemove: string) => {
+    const endpoints = reject(thirdPartyAPIEndpoints, { endpoint: endpointToRemove });
+    setThirdPartyAPIEndpoints(endpoints);
+  };
+
+  return { thirdPartyAPIEndpoints, setThirdPartyAPIEndpoints, addThirdPartyAPIEndpoint, removeThirdPartyAPIEndpoint };
 };

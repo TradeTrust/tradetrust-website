@@ -1,23 +1,18 @@
 import React from "react";
+import { AddressEndpoints } from "./AddressEndpoints";
+import { AddressResolved } from "./AddressResolved";
+import { AddEndpoint } from "./AddEndpoint";
 
-// child component called 2nd time when custom hook is used.
-// deleting api should re-update resolved addresses, without calling api multiple times due to component re-render.
-
-interface AddressResolverProps {
-  children: React.ReactNode;
-}
-
-export const AddressResolver = ({ children }: AddressResolverProps) => {
+export const AddressResolver = () => {
   const apiSwift = "/static/api-swift.json";
   const apiNDI = "/static/api-ndi.json";
-
-  console.log({}, "parent");
+  const apiDnB = "/static/api-dnb.json";
 
   return (
     <div className="container-custom">
       <div className="row my-4">
         <div className="col-12">
-          <b>Example:</b>
+          <b>Examples:</b>
           <br />
           /static/api-swift.json (
           <a href={apiSwift} target="_blank" rel="noreferrer noopener">
@@ -30,9 +25,17 @@ export const AddressResolver = ({ children }: AddressResolverProps) => {
             endpoint response
           </a>
           )
+          <br />
+          /static/api-dnb.json (
+          <a href={apiDnB} target="_blank" rel="noreferrer noopener">
+            endpoint response
+          </a>
+          )
         </div>
       </div>
-      {children}
+      <AddEndpoint />
+      <AddressEndpoints />
+      <AddressResolved />
     </div>
   );
 };

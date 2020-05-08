@@ -11,9 +11,6 @@ import {
 } from "../reducers/certificate";
 import { FeatureFlag } from "./../components/FeatureFlag";
 import { AddressResolver } from "../components/AddressResolver";
-import { AddressEndpoints } from "../components/AddressResolver/AddressEndpoints";
-import { AddressResolved } from "../components/AddressResolver/AddressResolved";
-import { AddEndpoint } from "../components/AddressResolver/AddEndpoint";
 
 export const HomePage = (props: any) => {
   useEffect(() => {
@@ -39,11 +36,7 @@ export const HomePage = (props: any) => {
         <title>TradeTrust - An easy way to check and verify your documents</title>
       </Helmet>
       <FeatureFlag name="ADDRESS_RESOLVER">
-        <AddressResolver>
-          <AddEndpoint />
-          <AddressEndpoints />
-          <AddressResolved />
-        </AddressResolver>
+        <AddressResolver />
       </FeatureFlag>
       <MainPageContainer />
     </>
