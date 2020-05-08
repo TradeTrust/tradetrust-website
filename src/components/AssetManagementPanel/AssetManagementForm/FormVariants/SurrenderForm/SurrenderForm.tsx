@@ -8,38 +8,33 @@ import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface SurrenderFormProps {
   formAction: AssetManagementActions;
-  onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenId: string;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
   handleSurrender: () => void;
   surrenderingState: string;
+  onBack: (isPendingConfirmation: boolean) => void;
 }
 
 export const SurrenderForm = ({
   formAction,
-  onSetFormAction,
   tokenId,
   tokenRegistryAddress,
   beneficiary,
   holder,
   handleSurrender,
   surrenderingState,
+  onBack,
 }: SurrenderFormProps) => {
   const isPendingConfirmation = surrenderingState === "PENDING_CONFIRMATION";
   const isConfirmed = surrenderingState === "CONFIRMED";
-
-  const onBackHandler = () => {
-    if (isPendingConfirmation) return;
-    onSetFormAction(AssetManagementActions.None);
-  };
 
   return (
     <div className="row py-3">
       <div className="col-12">
         {!isConfirmed && (
-          <AssetManagementTitle onBack={onBackHandler} formAction={formAction} disabled={isPendingConfirmation} />
+          <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
         )}
         <div className="row mb-3">
           <div className="col-12 col-lg">
@@ -64,7 +59,7 @@ export const SurrenderForm = ({
               <div className="row no-gutters">
                 <div className="col-auto">
                   <ButtonSolidWhiteGrey
-                    onClick={() => onSetFormAction(AssetManagementActions.None)}
+                    onClick={() => onBack(isPendingConfirmation)}
                     disabled={isPendingConfirmation}
                     data-testid={"cancelSurrenderBtn"}
                   >

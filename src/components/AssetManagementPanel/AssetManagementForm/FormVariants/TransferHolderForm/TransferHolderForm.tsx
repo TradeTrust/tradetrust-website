@@ -8,49 +8,45 @@ import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface TransferHolderProps {
   formAction: AssetManagementActions;
-  onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenId: string;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
   handleTransfer: (newHolder: string) => void;
   holderTransferringState: string;
+  onBack: (isPendingConfirmation: boolean) => void;
 }
 
 export const TransferHolderForm = ({
   formAction,
-  onSetFormAction,
   tokenId,
   tokenRegistryAddress,
   beneficiary,
   holder,
   handleTransfer,
   holderTransferringState,
+  onBack,
 }: TransferHolderProps) => {
   const [newHolder, setNewHolder] = useState("");
   const isPendingConfirmation = holderTransferringState === "PENDING_CONFIRMATION";
   const isConfirmed = holderTransferringState === "CONFIRMED";
 
-  const onBackHandler = () => {
-    onSetFormAction(AssetManagementActions.None);
-  };
-
   const onHandleTransfer = () => {
     handleTransfer(newHolder);
   };
 
-  const validateTransfer = () => {
-    if (!newHolder) return true;
-    if (newHolder === holder) return true;
+  const isValidTransfer = () => {
+    if (!newHolder) return false;
+    if (newHolder === holder) return false;
 
-    return false;
+    return true;
   };
 
   return (
     <div className="row py-3">
       <div className="col-12">
         {!isConfirmed && (
-          <AssetManagementTitle onBack={onBackHandler} formAction={formAction} disabled={isPendingConfirmation} />
+          <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
         )}
         <div className="row mb-3">
           <div className="col-12 col-lg">
@@ -66,7 +62,7 @@ export const TransferHolderForm = ({
               newValue={newHolder}
               isEditable={true}
               onSetNewValue={setNewHolder}
-              errorState={holderTransferringState}
+              error={holderTransferringState === "ERROR"}
             />
           </div>
         </div>
@@ -82,7 +78,7 @@ export const TransferHolderForm = ({
               <div className="row no-gutters">
                 <div className="col-auto">
                   <ButtonSolidWhiteGrey
-                    onClick={onBackHandler}
+                    onClick={() => onBack(isPendingConfirmation)}
                     disabled={isPendingConfirmation}
                     data-testid={"cancelTransferBtn"}
                   >
@@ -91,7 +87,7 @@ export const TransferHolderForm = ({
                 </div>
                 <div className="col-auto ml-2">
                   <ButtonSolidOrangeWhite
-                    disabled={validateTransfer() || isPendingConfirmation}
+                    disabled={!isValidTransfer() || isPendingConfirmation}
                     onClick={onHandleTransfer}
                     data-testid={"transferBtn"}
                   >

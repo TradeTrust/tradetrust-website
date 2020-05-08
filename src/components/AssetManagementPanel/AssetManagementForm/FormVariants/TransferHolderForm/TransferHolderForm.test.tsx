@@ -9,7 +9,7 @@ describe("Transfer Holder", () => {
     const container = render(
       <TransferHolderForm
         formAction={AssetManagementActions.TransferHolder}
-        onSetFormAction={() => {}}
+        onBack={() => {}}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -32,7 +32,7 @@ describe("Transfer Holder", () => {
     const container = render(
       <TransferHolderForm
         formAction={AssetManagementActions.TransferHolder}
-        onSetFormAction={() => {}}
+        onBack={() => {}}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -52,7 +52,7 @@ describe("Transfer Holder", () => {
     const container = render(
       <TransferHolderForm
         formAction={AssetManagementActions.TransferHolder}
-        onSetFormAction={mockOnSetFormAction}
+        onBack={mockOnSetFormAction}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -72,7 +72,7 @@ describe("Transfer Holder", () => {
     const container = render(
       <TransferHolderForm
         formAction={AssetManagementActions.TransferHolder}
-        onSetFormAction={() => {}}
+        onBack={() => {}}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -90,7 +90,7 @@ describe("Transfer Holder", () => {
     const container = render(
       <TransferHolderForm
         formAction={AssetManagementActions.TransferHolder}
-        onSetFormAction={() => {}}
+        onBack={() => {}}
         tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"

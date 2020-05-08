@@ -10,7 +10,7 @@ interface EditableAssetTitleProps {
   isEditable: boolean;
   newValue?: string;
   onSetNewValue?: (newBeneficiary: string) => void;
-  errorState?: string;
+  error?: boolean;
 }
 
 export const EditableAssetTitle = ({
@@ -19,7 +19,7 @@ export const EditableAssetTitle = ({
   newValue,
   isEditable,
   onSetNewValue,
-  errorState,
+  error,
 }: EditableAssetTitleProps) => {
   if (!value) return <SkeletonPlaceholder />;
   if (!isEditable)
@@ -35,14 +35,14 @@ export const EditableAssetTitle = ({
           <InputEditableAssetTitle
             data-testid={`editable-input-${role.toLowerCase()}`}
             value={newValue}
-            hasError={errorState === "ERROR"}
+            hasError={error}
             placeholder={`Input ${role}'s address`}
             onChange={(event) => {
               if (!onSetNewValue) return;
               onSetNewValue(event.target.value);
             }}
           />
-          {errorState === "ERROR" && (
+          {error && (
             <InputError data-testid={"error-msg"}>Unidentified address. Please check and input again.</InputError>
           )}
         </InputEditableWrapper>

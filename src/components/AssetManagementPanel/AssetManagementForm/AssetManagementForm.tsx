@@ -39,18 +39,23 @@ export const AssetManagementForm = ({
   const isBeneficiary = account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
 
+  const onBack = (isPendingConfirmation: boolean) => {
+    if (isPendingConfirmation) return;
+    onSetFormAction(AssetManagementActions.None);
+  };
+
   switch (formAction) {
     case AssetManagementActions.Surrender:
       return (
         <SurrenderForm
           formAction={formAction}
-          onSetFormAction={onSetFormAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
           handleSurrender={onSurrender}
           surrenderingState={surrenderingState}
+          onBack={onBack}
         />
       );
 
@@ -58,13 +63,13 @@ export const AssetManagementForm = ({
       return (
         <TransferHolderForm
           formAction={formAction}
-          onSetFormAction={onSetFormAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
           handleTransfer={onTransferHolder}
           holderTransferringState={holderTransferringState}
+          onBack={onBack}
         />
       );
 
