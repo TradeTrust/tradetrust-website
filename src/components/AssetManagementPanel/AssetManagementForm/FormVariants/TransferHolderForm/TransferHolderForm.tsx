@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
+import { ButtonSolidGreenWhite, ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
+import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
@@ -27,6 +28,8 @@ export const TransferHolderForm = ({
   holderTransferringState,
 }: TransferHolderProps) => {
   const [newHolder, setNewHolder] = useState("");
+  const isPendingConfirmation = holderTransferringState === "PENDING_CONFIRMATION";
+  const isConfirmed = holderTransferringState === "CONFIRMED";
 
   const onBackHandler = () => {
     onSetFormAction(AssetManagementActions.None);
@@ -46,7 +49,9 @@ export const TransferHolderForm = ({
   return (
     <div className="row py-3">
       <div className="col-12">
-        <AssetManagementTitle onBack={onBackHandler} formAction={formAction} disabled={false} />
+        {!isConfirmed && (
+          <AssetManagementTitle onBack={onBackHandler} formAction={formAction} disabled={isPendingConfirmation} />
+        )}
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -67,22 +72,34 @@ export const TransferHolderForm = ({
         </div>
         <div className="row mb-3">
           <div className="col-auto ml-auto">
-            <div className="row no-gutters">
-              <div className="col-auto">
-                <ButtonSolidWhiteGrey onClick={onBackHandler} data-testid={"cancelTransferBtn"}>
-                  Cancel
-                </ButtonSolidWhiteGrey>
+            {isConfirmed ? (
+              <div className="row">
+                <div className="col-auto">
+                  <ButtonSolidGreenWhite disabled>Success</ButtonSolidGreenWhite>
+                </div>
               </div>
-              <div className="col-auto ml-2">
-                <ButtonSolidOrangeWhite
-                  disabled={validateTransfer()}
-                  onClick={onHandleTransfer}
-                  data-testid={"transferBtn"}
-                >
-                  Transfer
-                </ButtonSolidOrangeWhite>
+            ) : (
+              <div className="row no-gutters">
+                <div className="col-auto">
+                  <ButtonSolidWhiteGrey
+                    onClick={onBackHandler}
+                    disabled={isPendingConfirmation}
+                    data-testid={"cancelTransferBtn"}
+                  >
+                    Cancel
+                  </ButtonSolidWhiteGrey>
+                </div>
+                <div className="col-auto ml-2">
+                  <ButtonSolidOrangeWhite
+                    disabled={validateTransfer() || isPendingConfirmation}
+                    onClick={onHandleTransfer}
+                    data-testid={"transferBtn"}
+                  >
+                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}
+                  </ButtonSolidOrangeWhite>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

@@ -41,10 +41,6 @@ export const AssetManagementApplication = ({
 
   useEffect(() => {
     setHolderTransferringState(changeHolderState);
-
-    if (changeHolderState === "PENDING_CONFIRMATION") {
-      onSetFormAction(AssetManagementActions.None);
-    }
   }, [changeHolderState]);
 
   useEffect(() => {
