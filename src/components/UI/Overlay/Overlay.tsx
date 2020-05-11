@@ -1,10 +1,9 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 import styled from "@emotion/styled";
 import { rgba } from "polished";
 import { mixin, vars } from "../../../styles";
 import { OverlayContext } from "../../../common/contexts/OverlayContext";
-import { useKeyPress } from "../../../common/hooks/useKeyPress";
 
 const OverlayBaseStyle = () => {
   return `
@@ -91,32 +90,18 @@ export const OverlayContentBaseStyle = () => {
 
 interface OverlayProps {
   className?: string;
-  children?: React.ReactNode;
 }
 
-export const Overlay = styled(({ className, children }: OverlayProps) => {
+export const Overlay = styled(({ className }: OverlayProps) => {
   const { overlayContent, setOverlayContent, isOverlayVisible, setOverlayVisible } = useContext(OverlayContext);
 
   const handleCloseOverlay = () => {
     setOverlayVisible(false);
   };
-  const escapePress = useKeyPress("Escape");
 
   const onOverlayTransitionEnded = () => {
-    setOverlayContent(null);
+    setOverlayContent(undefined);
   };
-
-  useEffect(() => {
-    if (escapePress) {
-      setOverlayVisible(false);
-    }
-  }, [escapePress, setOverlayVisible]);
-
-  useEffect(() => {
-    if (overlayContent !== null) {
-      setOverlayVisible(true);
-    }
-  }, [overlayContent, setOverlayVisible]);
 
   return (
     <CSSTransition
@@ -128,7 +113,7 @@ export const Overlay = styled(({ className, children }: OverlayProps) => {
     >
       <div className={`overlay ${className}`}>
         <div className="overlay-bg" onClick={handleCloseOverlay} />
-        {children}
+        {overlayContent}
       </div>
     </CSSTransition>
   );

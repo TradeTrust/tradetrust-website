@@ -1,20 +1,20 @@
 import { action } from "@storybook/addon-actions";
-import { OverlayProvider } from "../common/contexts/OverlayContext";
+import { OverlayContextProvider } from "../common/contexts/OverlayContext";
 
 // https://www.npmjs.com/package/@storybook/addon-contexts
 export const contexts = [
   {
     icon: "box",
     title: "Overlays",
-    components: [OverlayProvider],
+    components: [OverlayContextProvider],
     params: [
       {
         name: "Overlay",
         props: {
           value: {
-            overlayId: "",
-            setOverlayId: () => {
-              action("Set overlay ID")();
+            overlayContent: undefined,
+            setOverlayContent: () => {
+              action("Set overlay Content")();
             },
             isOverlayVisible: false,
             setOverlayVisible: () => {

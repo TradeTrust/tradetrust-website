@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidGreenWhite, ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
@@ -33,19 +33,18 @@ export const SurrenderForm = ({
   surrenderingState,
   onBack,
 }: SurrenderFormProps) => {
-  const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
-  const isConfirmed = surrenderingState === FormState.CONFIRMED;
+  const [isConfirmedSurrenderSuccess, setConfirmedSurrenderSuccess] = useState(false);
+  const isPendingConfirmation = surrenderingState === "PENDING_CONFIRMATION";
+  const isConfirmed = surrenderingState === "CONFIRMED";
 
   const { setOverlayContent } = useContext(OverlayContext);
-  const showDocumentSurrenderSuccess = useCallback(() => {
-    setOverlayContent(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
-  }, [setOverlayContent]);
 
   useEffect(() => {
-    if (isConfirmed) {
-      showDocumentSurrenderSuccess();
+    if (isConfirmed && !isConfirmedSurrenderSuccess) {
+      setOverlayContent(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
+      setConfirmedSurrenderSuccess(true);
     }
-  }, [isConfirmed, showDocumentSurrenderSuccess]);
+  }, [isConfirmed, isConfirmedSurrenderSuccess, setOverlayContent]);
 
   return (
     <div className="row py-3">
