@@ -1,12 +1,12 @@
-import React from "react";
-import { AssetManagementActions } from "./../../AssetManagementActions";
-import { SvgIcon, SvgIconArrowLeft } from "../../../UI/SvgIcon";
 import styled from "@emotion/styled";
+import React from "react";
 import { mixin, vars } from "../../../../styles";
+import { SvgIcon, SvgIconArrowLeft } from "../../../UI/SvgIcon";
+import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementTitleProps {
   className?: string;
-  onBack: () => void;
+  onBack: (isPendingConfirmation: boolean) => void;
   formAction: AssetManagementActions;
   disabled: boolean;
 }
@@ -15,7 +15,7 @@ export const AssetManagementTitle = styled(({ className, onBack, formAction, dis
   return (
     <div className={`row ${className}`}>
       <div className="col-12">
-        <div className="action-back" onClick={onBack} data-disabled={disabled}>
+        <div className="action-back" onClick={() => onBack(disabled)} data-disabled={disabled}>
           <div className="row align-items-center no-gutters">
             <div className="col-auto mr-1">
               <SvgIcon>

@@ -1,7 +1,9 @@
 import React from "react";
+import { FormState } from "../../../constants/FormState";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
 import { SurrenderForm } from "./FormVariants/SurrenderForm";
+import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
 
 interface AssetManagementFormProps {
   beneficiary?: string;
@@ -13,10 +15,11 @@ interface AssetManagementFormProps {
   formAction: AssetManagementActions;
   onConnectToWallet: () => void;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
-  onTransferHolder?: (nextHolder: string) => void;
+  onTransferHolder: (nextHolder: string) => void;
   onEndorseBeneficiary?: (nextBeneficiary: string) => void; // Assuming holder is default to current holder
   surrenderingState: string;
   onSurrender: () => void;
+  holderTransferringState: string;
 }
 
 export const AssetManagementForm = ({
@@ -30,40 +33,64 @@ export const AssetManagementForm = ({
   onSetFormAction,
   surrenderingState,
   onSurrender,
+  onTransferHolder,
+  holderTransferringState,
 }: AssetManagementFormProps) => {
-  const handleFormAction = () => {
-    // Depending on the form type, perform different things, right now we know it's only just surrender so...
-    if (formAction !== AssetManagementActions.Surrender) return alert("Only surrender is supported now");
-    onSurrender();
-  };
-
   const isHolder = account === holder;
   const isBeneficiary = account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
 
-  if (formAction === AssetManagementActions.Surrender)
-    return (
-      <SurrenderForm
-        formAction={formAction}
-        onSetFormAction={onSetFormAction}
-        tokenId={tokenId}
-        tokenRegistryAddress={tokenRegistryAddress}
-        beneficiary={beneficiary}
-        holder={holder}
-        handleSurrender={handleFormAction}
-        surrenderingState={surrenderingState}
-      />
-    );
-  return (
-    <ActionSelectionForm
-      onSetFormAction={onSetFormAction}
-      tokenId={tokenId}
-      tokenRegistryAddress={tokenRegistryAddress}
-      beneficiary={beneficiary}
-      holder={holder}
-      account={account}
-      canSurrender={canSurrender}
-      onConnectToWallet={onConnectToWallet}
-    />
-  );
+  const onBack = () => {
+    if (
+      surrenderingState === FormState.PENDING_CONFIRMATION ||
+      holderTransferringState === FormState.PENDING_CONFIRMATION
+    )
+      return;
+    onSetFormAction(AssetManagementActions.None);
+  };
+
+  switch (formAction) {
+    case AssetManagementActions.Surrender:
+      return (
+        <SurrenderForm
+          formAction={formAction}
+          tokenId={tokenId}
+          tokenRegistryAddress={tokenRegistryAddress}
+          beneficiary={beneficiary}
+          holder={holder}
+          handleSurrender={onSurrender}
+          surrenderingState={surrenderingState}
+          onBack={onBack}
+        />
+      );
+
+    case AssetManagementActions.TransferHolder:
+      return (
+        <TransferHolderForm
+          formAction={formAction}
+          tokenId={tokenId}
+          tokenRegistryAddress={tokenRegistryAddress}
+          beneficiary={beneficiary}
+          holder={holder}
+          handleTransfer={onTransferHolder}
+          holderTransferringState={holderTransferringState}
+          onBack={onBack}
+        />
+      );
+
+    default:
+      return (
+        <ActionSelectionForm
+          onSetFormAction={onSetFormAction}
+          tokenId={tokenId}
+          tokenRegistryAddress={tokenRegistryAddress}
+          beneficiary={beneficiary}
+          holder={holder}
+          account={account}
+          canSurrender={canSurrender}
+          onConnectToWallet={onConnectToWallet}
+          canChangeHolder={isHolder}
+        />
+      );
+  }
 };

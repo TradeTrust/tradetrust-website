@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { AssetManagementTags } from "./../AssetManagementTags";
-import { AssetManagementForm } from "./../AssetManagementForm";
+import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
+import React, { useEffect, useState } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { AssetManagementActions } from "../AssetManagementActions";
+import { AssetManagementForm } from "./../AssetManagementForm";
+import { AssetManagementTags } from "./../AssetManagementTags";
 
 interface AssetManagementApplicationProps {
   tokenId: string;
@@ -18,6 +18,7 @@ export const AssetManagementApplication = ({
   titleEscrow,
 }: AssetManagementApplicationProps) => {
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [holderTransferringState, setHolderTransferringState] = useState("");
   const { upgradeProvider, account } = useProviderContext();
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
@@ -27,9 +28,20 @@ export const AssetManagementApplication = ({
   );
   const { send: sendSurrender, state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
 
+  const { send: changeHolder, state: changeHolderState } = useContractFunctionHook(titleEscrow, "changeHolder");
+
   const onSurrender = () => {
     sendSurrender(tokenRegistryAddress);
   };
+
+  const onSetFormAction = (AssetManagementActions: AssetManagementActions) => {
+    setAssetManagementAction(AssetManagementActions);
+    setHolderTransferringState("");
+  };
+
+  useEffect(() => {
+    setHolderTransferringState(changeHolderState);
+  }, [changeHolderState]);
 
   useEffect(() => {
     getHolder();
@@ -50,9 +62,11 @@ export const AssetManagementApplication = ({
           formAction={assetManagementAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
-          onSetFormAction={setAssetManagementAction}
+          onSetFormAction={onSetFormAction}
           surrenderingState={surrenderingState}
           onSurrender={onSurrender}
+          onTransferHolder={changeHolder}
+          holderTransferringState={holderTransferringState}
         />
       </div>
     </div>

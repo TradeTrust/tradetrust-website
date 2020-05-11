@@ -1,35 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
-import { ButtonSolidGreenWhite, ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
+import { ButtonSolidGreenWhite, ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
-interface SurrenderFormProps {
+interface TransferHolderProps {
   formAction: AssetManagementActions;
   tokenId: string;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleSurrender: () => void;
-  surrenderingState: string;
+  handleTransfer: (newHolder: string) => void;
+  holderTransferringState: string;
   onBack: () => void;
 }
 
-export const SurrenderForm = ({
+export const TransferHolderForm = ({
   formAction,
   tokenId,
   tokenRegistryAddress,
   beneficiary,
   holder,
-  handleSurrender,
-  surrenderingState,
+  handleTransfer,
+  holderTransferringState,
   onBack,
-}: SurrenderFormProps) => {
-  const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
-  const isConfirmed = surrenderingState === FormState.CONFIRMED;
+}: TransferHolderProps) => {
+  const [newHolder, setNewHolder] = useState("");
+  const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
+  const isConfirmed = holderTransferringState === FormState.CONFIRMED;
+
+  const onHandleTransfer = () => {
+    handleTransfer(newHolder);
+  };
+
+  const isValidTransfer = () => {
+    if (!newHolder) return false;
+    if (newHolder === holder) return false;
+
+    return true;
+  };
 
   return (
     <div className="row py-3">
@@ -45,7 +57,14 @@ export const SurrenderForm = ({
             <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
+            <EditableAssetTitle
+              role="Holder"
+              value={holder}
+              newValue={newHolder}
+              isEditable={true}
+              onSetNewValue={setNewHolder}
+              error={holderTransferringState === FormState.ERROR}
+            />
           </div>
         </div>
         <div className="row mb-3">
@@ -62,19 +81,19 @@ export const SurrenderForm = ({
                   <ButtonSolidWhiteGrey
                     onClick={onBack}
                     disabled={isPendingConfirmation}
-                    data-testid={"cancelSurrenderBtn"}
+                    data-testid={"cancelTransferBtn"}
                   >
                     Cancel
                   </ButtonSolidWhiteGrey>
                 </div>
                 <div className="col-auto ml-2">
-                  <ButtonSolidRedWhite
-                    onClick={handleSurrender}
-                    disabled={isPendingConfirmation}
-                    data-testid={"surrenderBtn"}
+                  <ButtonSolidOrangeWhite
+                    disabled={!isValidTransfer() || isPendingConfirmation}
+                    onClick={onHandleTransfer}
+                    data-testid={"transferBtn"}
                   >
-                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Surrender Document</>}
-                  </ButtonSolidRedWhite>
+                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}
+                  </ButtonSolidOrangeWhite>
                 </div>
               </div>
             )}
