@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 import { OverlayContext } from "../../../../common/contexts/OverlayContext";
 import { SvgIcon, SvgIconX, SvgIconXCircle, SvgIconCheckCircle } from "../../../UI/SvgIcon";
+import { useLockBodyScroll } from "../../../../common/hooks/useLockBodyScroll";
 
 export interface OverlayContentProps {
   className?: string;
@@ -15,6 +16,8 @@ export const OverlayContent = ({ className, title, isSuccess, children, ...props
   const handleCloseOverlay = () => {
     setOverlayVisible(false);
   };
+
+  useLockBodyScroll();
 
   return (
     <CSSTransition in={isOverlayVisible} timeout={300} classNames="fadescale" appear>
