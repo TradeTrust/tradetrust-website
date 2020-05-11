@@ -1,4 +1,5 @@
 import React from "react";
+import { FormState } from "../../../constants/FormState";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
 import { SurrenderForm } from "./FormVariants/SurrenderForm";
@@ -39,8 +40,12 @@ export const AssetManagementForm = ({
   const isBeneficiary = account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
 
-  const onBack = (isPendingConfirmation: boolean) => {
-    if (isPendingConfirmation) return;
+  const onBack = () => {
+    if (
+      surrenderingState === FormState.PENDING_CONFIRMATION ||
+      holderTransferringState === FormState.PENDING_CONFIRMATION
+    )
+      return;
     onSetFormAction(AssetManagementActions.None);
   };
 

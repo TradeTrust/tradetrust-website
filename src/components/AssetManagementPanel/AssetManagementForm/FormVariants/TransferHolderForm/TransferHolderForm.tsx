@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidGreenWhite, ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -14,7 +15,7 @@ interface TransferHolderProps {
   holder?: string;
   handleTransfer: (newHolder: string) => void;
   holderTransferringState: string;
-  onBack: (isPendingConfirmation: boolean) => void;
+  onBack: () => void;
 }
 
 export const TransferHolderForm = ({
@@ -28,8 +29,8 @@ export const TransferHolderForm = ({
   onBack,
 }: TransferHolderProps) => {
   const [newHolder, setNewHolder] = useState("");
-  const isPendingConfirmation = holderTransferringState === "PENDING_CONFIRMATION";
-  const isConfirmed = holderTransferringState === "CONFIRMED";
+  const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
+  const isConfirmed = holderTransferringState === FormState.CONFIRMED;
 
   const onHandleTransfer = () => {
     handleTransfer(newHolder);
@@ -62,7 +63,7 @@ export const TransferHolderForm = ({
               newValue={newHolder}
               isEditable={true}
               onSetNewValue={setNewHolder}
-              error={holderTransferringState === "ERROR"}
+              error={holderTransferringState === FormState.ERROR}
             />
           </div>
         </div>
@@ -78,7 +79,7 @@ export const TransferHolderForm = ({
               <div className="row no-gutters">
                 <div className="col-auto">
                   <ButtonSolidWhiteGrey
-                    onClick={() => onBack(isPendingConfirmation)}
+                    onClick={onBack}
                     disabled={isPendingConfirmation}
                     data-testid={"cancelTransferBtn"}
                   >

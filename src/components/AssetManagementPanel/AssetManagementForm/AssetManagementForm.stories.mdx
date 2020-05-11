@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
 import { AssetManagementForm } from "./AssetManagementForm";
 import { AssetManagementActions } from "./../AssetManagementActions";
+import { FormState } from "../../../constants/FormState";
 
 <Meta title="AssetManagementForm" component={AssetManagementForm} />
 
@@ -34,7 +35,7 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="UNINITIALIZED"
+          surrenderingState={FormState.UNINITIALIZED}
           account=""
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -66,7 +67,7 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="UNINITIALIZED"
+          surrenderingState={FormState.UNINITIALIZED}
           account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -96,7 +97,7 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="UNINITIALIZED"
+          surrenderingState={FormState.UNINITIALIZED}
           account="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -128,7 +129,7 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="UNINITIALIZED"
+          surrenderingState={FormState.UNINITIALIZED}
           account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -158,7 +159,7 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="PENDING_CONFIRMATION"
+          surrenderingState={FormState.PENDING_CONFIRMATION}
           account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -188,7 +189,7 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="CONFIRMED"
+          surrenderingState={FormState.CONFIRMED}
           account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -214,13 +215,13 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="UNINITIALIZED"
+          surrenderingState={FormState.UNINITIALIZED}
           account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState="UNINITIALIZED"
+          holderTransferringState={FormState.UNINITIALIZED}
         />
       );
     }}
@@ -242,13 +243,13 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="UNINITIALIZED"
+          surrenderingState={FormState.UNINITIALIZED}
           account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState="ERROR"
+          holderTransferringState={FormState.ERROR}
         />
       );
     }}
@@ -270,13 +271,13 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="UNINITIALIZED"
+          surrenderingState={FormState.UNINITIALIZED}
           account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState="PENDING_CONFIRMATION"
+          holderTransferringState={FormState.PENDING_CONFIRMATION}
         />
       );
     }}
@@ -298,13 +299,13 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState="UNINITIALIZED"
+          surrenderingState={FormState.UNINITIALIZED}
           account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState="CONFIRMED"
+          holderTransferringState={FormState.CONFIRMED}
         />
       );
     }}

@@ -1,4 +1,5 @@
 import React from "react";
+import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidGreenWhite, ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -14,7 +15,7 @@ interface SurrenderFormProps {
   holder?: string;
   handleSurrender: () => void;
   surrenderingState: string;
-  onBack: (isPendingConfirmation: boolean) => void;
+  onBack: () => void;
 }
 
 export const SurrenderForm = ({
@@ -27,8 +28,8 @@ export const SurrenderForm = ({
   surrenderingState,
   onBack,
 }: SurrenderFormProps) => {
-  const isPendingConfirmation = surrenderingState === "PENDING_CONFIRMATION";
-  const isConfirmed = surrenderingState === "CONFIRMED";
+  const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
+  const isConfirmed = surrenderingState === FormState.CONFIRMED;
 
   return (
     <div className="row py-3">
@@ -59,7 +60,7 @@ export const SurrenderForm = ({
               <div className="row no-gutters">
                 <div className="col-auto">
                   <ButtonSolidWhiteGrey
-                    onClick={() => onBack(isPendingConfirmation)}
+                    onClick={onBack}
                     disabled={isPendingConfirmation}
                     data-testid={"cancelSurrenderBtn"}
                   >

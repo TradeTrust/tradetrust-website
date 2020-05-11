@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
+import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { TransferHolderForm } from "./TransferHolderForm";
 
@@ -15,7 +16,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={() => {}}
-        holderTransferringState=""
+        holderTransferringState={FormState.UNINITIALIZED}
       />
     );
 
@@ -38,7 +39,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={() => {}}
-        holderTransferringState=""
+        holderTransferringState={FormState.UNINITIALIZED}
       />
     );
 
@@ -58,7 +59,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={() => {}}
-        holderTransferringState=""
+        holderTransferringState={FormState.UNINITIALIZED}
       />
     );
 
@@ -78,7 +79,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={mockHandleTransfer}
-        holderTransferringState=""
+        holderTransferringState={FormState.UNINITIALIZED}
       />
     );
 
@@ -96,7 +97,7 @@ describe("Transfer Holder", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         handleTransfer={() => {}}
-        holderTransferringState="ERROR"
+        holderTransferringState={FormState.ERROR}
       />
     );
 
