@@ -34,8 +34,8 @@ export const SurrenderForm = ({
   onBack,
 }: SurrenderFormProps) => {
   const [isConfirmedSurrenderSuccess, setConfirmedSurrenderSuccess] = useState(false);
-  const isPendingConfirmation = surrenderingState === "PENDING_CONFIRMATION";
-  const isConfirmed = surrenderingState === "CONFIRMED";
+  const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
+  const isConfirmed = surrenderingState === FormState.CONFIRMED;
 
   const { setOverlayContent } = useContext(OverlayContext);
 
