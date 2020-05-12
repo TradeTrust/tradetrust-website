@@ -16,15 +16,39 @@ export enum MessageTitle {
   TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
 }
 
+const ButtonClose = () => {
+  const { setOverlayVisible } = useContext(OverlayContext);
+  const handleCloseOverlay = () => {
+    setOverlayVisible(false);
+  };
+
+  return <ButtonSolidOrangeWhite onClick={handleCloseOverlay}>Close</ButtonSolidOrangeWhite>;
+};
+
+const ButtonMetamaskInstall = () => {
+  return (
+    <AnchorLinkButtonSolidOrangeWhite
+      href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Install Metamask
+    </AnchorLinkButtonSolidOrangeWhite>
+  );
+};
+
 interface DocumentTransferMessageProps extends OverlayContentProps {
-  isMetamaskLink?: boolean;
+  children: React.ReactNode;
+  isButtonMetamaskInstall?: boolean;
 }
 
 export const DocumentTransferMessage = styled(
-  ({ isMetamaskLink, children, ...props }: DocumentTransferMessageProps) => {
-    const { setOverlayVisible } = useContext(OverlayContext);
-    const handleCloseOverlay = () => {
-      setOverlayVisible(false);
+  ({ isButtonMetamaskInstall, children, ...props }: DocumentTransferMessageProps) => {
+    const documentTransferButton = () => {
+      if (isButtonMetamaskInstall) {
+        return <ButtonMetamaskInstall />;
+      }
+      return <ButtonClose />;
     };
 
     return (
@@ -33,19 +57,7 @@ export const DocumentTransferMessage = styled(
           <div className="message">{children}</div>
         </div>
         <div className="row no-gutters">
-          <div className="col-auto ml-auto">
-            {isMetamaskLink ? (
-              <AnchorLinkButtonSolidOrangeWhite
-                href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Install Metamask
-              </AnchorLinkButtonSolidOrangeWhite>
-            ) : (
-              <ButtonSolidOrangeWhite onClick={handleCloseOverlay}>Close</ButtonSolidOrangeWhite>
-            )}
-          </div>
+          <div className="col-auto ml-auto">{documentTransferButton()}</div>
         </div>
       </OverlayContent>
     );
@@ -128,15 +140,19 @@ export const MessageHolderSuccess = ({ address }: MessageProps) => {
 
 interface ShowDocumentTransferMessageOptionProps {
   isSuccess: boolean;
-  isMetamaskLink?: boolean;
   error?: string;
   beneficiaryAddress?: string;
   holderAddress?: string;
+  isButtonMetamaskInstall?: boolean;
 }
 
 export const showDocumentTransferMessage = (title: string, option: ShowDocumentTransferMessageOptionProps) => {
   return (
-    <DocumentTransferMessage title={title} isSuccess={option.isSuccess} isMetamaskLink={option.isMetamaskLink}>
+    <DocumentTransferMessage
+      title={title}
+      isSuccess={option.isSuccess}
+      isButtonMetamaskInstall={option.isButtonMetamaskInstall}
+    >
       {title === MessageTitle.NO_METAMASK && <MessageNoMetamask />}
       {title === MessageTitle.NO_MANAGE_ACCESS && <MessageNoManageAccess />}
       {title === MessageTitle.NO_USER_AUTHORIZATION && <MessageNoUserAuthorization />}

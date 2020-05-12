@@ -46,7 +46,7 @@ export const ActionSelectionForm = ({
     showOverlay(
       showDocumentTransferMessage(errorMesssage, {
         isSuccess: false,
-        isMetamaskLink: !isUserDeniedAccountAuthorization,
+        isButtonMetamaskInstall: !isUserDeniedAccountAuthorization,
       })
     ); // there is 2 type of errors that will be handled here, 1st = NO_METAMASK (error thrown from provider.tsx), 2nd = NO_USER_AUTHORIZATION (error from metamask extension itself).
   };
