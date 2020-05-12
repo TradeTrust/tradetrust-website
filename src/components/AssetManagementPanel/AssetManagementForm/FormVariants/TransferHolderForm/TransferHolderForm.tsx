@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidGreenWhite, ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
@@ -29,6 +29,7 @@ export const TransferHolderForm = ({
   onBack,
 }: TransferHolderProps) => {
   const [newHolder, setNewHolder] = useState("");
+  const [isEditable, setIsEditable] = useState(true);
   const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = holderTransferringState === FormState.CONFIRMED;
 
@@ -42,6 +43,12 @@ export const TransferHolderForm = ({
 
     return true;
   };
+
+  useEffect(() => {
+    if (holderTransferringState === FormState.PENDING_CONFIRMATION || holderTransferringState === FormState.CONFIRMED) {
+      setIsEditable(false);
+    } else setIsEditable(true);
+  }, [holderTransferringState]);
 
   return (
     <div className="row py-3">
@@ -61,7 +68,7 @@ export const TransferHolderForm = ({
               role="Holder"
               value={holder}
               newValue={newHolder}
-              isEditable={true}
+              isEditable={isEditable}
               onSetNewValue={setNewHolder}
               error={holderTransferringState === FormState.ERROR}
             />
