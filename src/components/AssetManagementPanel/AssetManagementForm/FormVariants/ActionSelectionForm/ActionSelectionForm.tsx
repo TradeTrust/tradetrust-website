@@ -35,15 +35,15 @@ export const ActionSelectionForm = ({
 }: ActionSelectionFormProps) => {
   const canManage = canSurrender || canChangeHolder;
 
-  const { setOverlayContent } = useContext(OverlayContext);
+  const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
-    setOverlayContent(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
+    showOverlay(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
   };
 
   const handleMetamaskError = (errorMesssage: string, errorCode: number) => {
     const isUserDeniedAccountAuthorization = errorCode === 4001;
 
-    setOverlayContent(
+    showOverlay(
       showDocumentTransferMessage(errorMesssage, {
         isSuccess: false,
         isMetamaskLink: !isUserDeniedAccountAuthorization,

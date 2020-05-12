@@ -6,6 +6,7 @@ import { ConnectedRouter } from "connected-react-router";
 import AppContainer from "./AppContainer";
 import initStore from "./store";
 import "styles/main.scss";
+import { OverlayContextProvider } from "./common/contexts/OverlayContext";
 import { ProviderContextProvider } from "./common/contexts/provider";
 
 const history = createBrowserHistory();
@@ -13,13 +14,15 @@ const history = createBrowserHistory();
 const App = () => {
   const store = initStore(history);
   return (
-    <ProviderContextProvider>
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <AppContainer />
-        </ConnectedRouter>
-      </Provider>
-    </ProviderContextProvider>
+    <OverlayContextProvider>
+      <ProviderContextProvider>
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <AppContainer />
+          </ConnectedRouter>
+        </Provider>
+      </ProviderContextProvider>
+    </OverlayContextProvider>
   );
 };
 ReactDOM.render(<App />, document.getElementById("root"));

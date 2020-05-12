@@ -17,9 +17,9 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
   onSelectTemplate,
   tokenRegistryAddress,
 }) => {
-  const { setOverlayContent } = useContext(OverlayContext);
+  const { showOverlay } = useContext(OverlayContext);
   const onOverlayHandler = () => {
-    setOverlayContent(<AddressBook title="Address Book" data-testid="overlay-addressbook" />);
+    showOverlay(<AddressBook title="Address Book" data-testid="overlay-addressbook" />);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidGreenWhite, ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
@@ -33,18 +33,16 @@ export const SurrenderForm = ({
   surrenderingState,
   onBack,
 }: SurrenderFormProps) => {
-  const [isConfirmedSurrenderSuccess, setConfirmedSurrenderSuccess] = useState(false);
   const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = surrenderingState === FormState.CONFIRMED;
 
-  const { setOverlayContent } = useContext(OverlayContext);
+  const { showOverlay } = useContext(OverlayContext);
 
   useEffect(() => {
-    if (isConfirmed && !isConfirmedSurrenderSuccess) {
-      setOverlayContent(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
-      setConfirmedSurrenderSuccess(true);
+    if (isConfirmed) {
+      showOverlay(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
     }
-  }, [isConfirmed, isConfirmedSurrenderSuccess, setOverlayContent]);
+  }, [isConfirmed, showOverlay]);
 
   return (
     <div className="row py-3">

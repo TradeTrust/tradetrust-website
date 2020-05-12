@@ -5,11 +5,10 @@ import { routes } from "./routes";
 import { NavigationBar } from "./components/Layout/NavigationBar";
 import { FooterDefault } from "./components/Layout/Footer";
 import { Overlay } from "./components/UI/Overlay";
-import { OverlayContextProvider } from "./common/contexts/OverlayContext";
 
 const AppContainer = () => {
   return (
-    <OverlayContextProvider>
+    <>
       <NavigationBar />
       <main>
         <Switch>
@@ -20,7 +19,7 @@ const AppContainer = () => {
       </main>
       <FooterDefault />
       <Overlay />
-    </OverlayContextProvider>
+    </>
   );
 };
 

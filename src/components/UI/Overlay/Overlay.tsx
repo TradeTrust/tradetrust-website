@@ -93,14 +93,14 @@ interface OverlayProps {
 }
 
 export const Overlay = styled(({ className }: OverlayProps) => {
-  const { overlayContent, setOverlayContent, isOverlayVisible, setOverlayVisible } = useContext(OverlayContext);
+  const { overlayContent, showOverlay, isOverlayVisible, setOverlayVisible } = useContext(OverlayContext);
 
   const handleCloseOverlay = () => {
     setOverlayVisible(false);
   };
 
   const onOverlayTransitionEnded = () => {
-    setOverlayContent(undefined);
+    showOverlay(undefined);
   };
 
   return (
