@@ -31,7 +31,8 @@ export const TransferHolderForm = ({
   const [newHolder, setNewHolder] = useState("");
   const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = holderTransferringState === FormState.CONFIRMED;
-  const isEditable = isPendingConfirmation || isConfirmed ? false : true;
+  const isEditable =
+    holderTransferringState !== FormState.PENDING_CONFIRMATION && holderTransferringState !== FormState.CONFIRMED;
 
   const onHandleTransfer = () => {
     handleTransfer(newHolder);
