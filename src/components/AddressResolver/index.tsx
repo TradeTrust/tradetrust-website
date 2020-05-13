@@ -1,9 +1,9 @@
 import React from "react";
 import { AddressEndpoints } from "./AddressEndpoints";
-import { AddressesResolvedDemo } from "./AddressesResolvedDemo";
 import { AddEndpoint } from "./AddEndpoint";
-import { AddressResolveDemo } from "./AddressResolveDemo";
-// import { AddressesDemo } from "./AddressesDemo";
+
+import { AddressesResolved } from "./AddressesResolved";
+import { AddressResolvedDemo } from "./AddressResolvedDemo";
 
 export const demoResolverAddress = "0x0103e04ecaa67c4e5a8c6dc1ddda35340e2c6bc8";
 export const demoResolver = "https://demo-resolver.tradetrust.io/identifier/";
@@ -27,8 +27,8 @@ export const AddressResolver = () => {
       </div>
       <AddEndpoint />
       <AddressEndpoints />
-      <AddressesResolvedDemo />
-      {/* <AddressResolveDemo /> */}
+      <AddressesResolved />
+      <AddressResolvedDemo />
     </div>
   );
 };
