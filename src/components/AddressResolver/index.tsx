@@ -1,33 +1,25 @@
 import React from "react";
 import { AddressEndpoints } from "./AddressEndpoints";
-import { AddressesDemo } from "./AddressesDemo";
+import { AddressesResolvedDemo } from "./AddressesResolvedDemo";
 import { AddEndpoint } from "./AddEndpoint";
+import { AddressResolveDemo } from "./AddressResolveDemo";
+// import { AddressesDemo } from "./AddressesDemo";
+
+export const demoResolverAddress = "0x0103e04ecaa67c4e5a8c6dc1ddda35340e2c6bc8";
+export const demoResolver = "https://demo-resolver.tradetrust.io/identifier/";
 
 export const AddressResolver = () => {
-  const apiSwift = "/static/api-swift.json";
-  const apiNDI = "/static/api-ndi.json";
-  const apiDnB = "/static/api-dnb.json";
-
   return (
     <div className="container-custom">
+      {/* <AddressesDemo /> */}
       <div className="row my-4">
         <div className="col-12">
           <b>Examples:</b>
           <br />
-          /static/api-swift.json (
-          <a href={apiSwift} target="_blank" rel="noreferrer noopener">
-            endpoint response
-          </a>
-          )
+          {demoResolver} (endpoint)
           <br />
-          /static/api-ndi.json (
-          <a href={apiNDI} target="_blank" rel="noreferrer noopener">
-            endpoint response
-          </a>
-          )
-          <br />
-          /static/api-dnb.json (
-          <a href={apiDnB} target="_blank" rel="noreferrer noopener">
+          {demoResolver + demoResolverAddress} (
+          <a href={demoResolver + demoResolverAddress} target="_blank" rel="noreferrer noopener">
             endpoint response
           </a>
           )
@@ -35,7 +27,8 @@ export const AddressResolver = () => {
       </div>
       <AddEndpoint />
       <AddressEndpoints />
-      <AddressesDemo />
+      <AddressesResolvedDemo />
+      <AddressResolveDemo />
     </div>
   );
 };

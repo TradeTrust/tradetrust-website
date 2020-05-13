@@ -10,6 +10,10 @@ export const AddressesDemo = () => {
   const { addressResolved, setAddressResolved } = useAddressResolved();
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
 
+  const apiSwift = "/static/api-swift.json";
+  const apiNDI = "/static/api-ndi.json";
+  const apiDnB = "/static/api-dnb.json";
+
   useEffect(() => {
     const APIrequests: {}[] = [];
     let APIAddresses = {};
@@ -43,26 +47,52 @@ export const AddressesDemo = () => {
   }, [addressBook, setAddressResolved, thirdPartyAPIEndpoints]);
 
   return (
-    <div className="row my-4">
-      <div className="col-12">
-        <b>AddressesDemo:</b>
-        {isEmpty(addressResolved) ? (
-          <p>Nothing from local addressbook or third party api.</p>
-        ) : (
-          <ul>
-            {Object.keys(addressResolved).map((key) => {
-              const name = addressResolved[key];
-              const address = key;
-
-              return (
-                <li key={key}>
-                  {address} : <b>{name}</b>
-                </li>
-              );
-            })}
-          </ul>
-        )}
+    <>
+      <div className="row my-4">
+        <div className="col-12">
+          <b>Examples:</b>
+          <br />
+          {apiSwift} (
+          <a href={apiSwift} target="_blank" rel="noreferrer noopener">
+            endpoint response
+          </a>
+          )
+          <br />
+          {apiNDI} (
+          <a href={apiNDI} target="_blank" rel="noreferrer noopener">
+            endpoint response
+          </a>
+          )
+          <br />
+          {apiDnB} (
+          <a href={apiDnB} target="_blank" rel="noreferrer noopener">
+            endpoint response
+          </a>
+          )
+        </div>
       </div>
-    </div>
+      <div className="row my-4">
+        <div className="col-12">
+          <b>AddressesDemo:</b>
+          {isEmpty(addressResolved) ? (
+            <p>Nothing from local addressbook or third party api.</p>
+          ) : (
+            <ul>
+              {Object.keys(addressResolved).map((key) => {
+                const name = addressResolved[key];
+                const address = key;
+
+                return (
+                  <li key={key}>
+                    {address} : <b>{name}</b>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+      </div>
+      <hr />
+    </>
   );
 };

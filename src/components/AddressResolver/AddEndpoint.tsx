@@ -19,7 +19,7 @@ export const AddEndpoint = () => {
   const onSaveApiEndpoint = () => {
     addThirdPartyAPIEndpoint({
       name: endpointName,
-      endpoint: endpointAPI,
+      endpoint: endpointAPI.trim(),
     });
     setEndpointAPIValue("");
     setEndpointNameValue("");

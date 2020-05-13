@@ -1,5 +1,4 @@
 import createPersistedState from "use-persisted-state";
-import { reject } from "lodash";
 
 export interface ThirdPartyAPIEntryProps {
   name: string;
@@ -13,17 +12,14 @@ export const useThirdPartyAPIEndpoints = () => {
   );
 
   const addThirdPartyAPIEndpoint = ({ name, endpoint }: ThirdPartyAPIEntryProps) => {
-    const endpoints = [...thirdPartyAPIEndpoints];
-    endpoints.unshift({
-      name,
-      endpoint,
-    });
-    setThirdPartyAPIEndpoints(endpoints);
+    setThirdPartyAPIEndpoints([{ name, endpoint }, ...thirdPartyAPIEndpoints]);
   };
 
-  const removeThirdPartyAPIEndpoint = (endpointToRemove: string) => {
-    const endpoints = reject(thirdPartyAPIEndpoints, { endpoint: endpointToRemove });
-    setThirdPartyAPIEndpoints(endpoints);
+  const removeThirdPartyAPIEndpoint = (name: string) => {
+    const filtered = thirdPartyAPIEndpoints.filter((item) => {
+      return item.endpoint !== name;
+    });
+    setThirdPartyAPIEndpoints(filtered);
   };
 
   return { thirdPartyAPIEndpoints, setThirdPartyAPIEndpoints, addThirdPartyAPIEndpoint, removeThirdPartyAPIEndpoint };
