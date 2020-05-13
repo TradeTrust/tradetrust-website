@@ -28,7 +28,7 @@ export const AddressResolver = () => {
       <AddEndpoint />
       <AddressEndpoints />
       <AddressesResolvedDemo />
-      <AddressResolveDemo />
+      {/* <AddressResolveDemo /> */}
     </div>
   );
 };

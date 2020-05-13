@@ -4,12 +4,15 @@ import { useAddressResolved } from "../../common/hooks/useAddressResolved";
 import { useIdentifierResolver } from "./../../common/hooks/useIdentifierResolver";
 
 export const AddressResolved = ({ address }: { address: string }) => {
-  const { resolvedIdentifier } = useIdentifierResolver(address);
-  console.log(resolvedIdentifier);
+  const { resolvedIdentifier, resolvedRemarks } = useIdentifierResolver(address);
+  console.log(resolvedIdentifier, "   !!!");
 
   return (
     <div>
       {address} : <b>{resolvedIdentifier}</b>
+      {resolvedRemarks !== "" &&
+        <span> ({resolvedRemarks})</span>
+      }
     </div>
   );
 };
