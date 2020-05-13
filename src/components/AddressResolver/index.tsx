@@ -11,7 +11,6 @@ export const demoResolver = "https://demo-resolver.tradetrust.io/identifier/";
 export const AddressResolver = () => {
   return (
     <div className="container-custom">
-      {/* <AddressesDemo /> */}
       <div className="row my-4">
         <div className="col-12">
           <b>Examples:</b>
