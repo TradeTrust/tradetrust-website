@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { FormState } from "../../../../../constants/FormState";
-import { ButtonSolidGreenWhite, ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
+import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -83,15 +83,9 @@ export const TransferHolderForm = ({
             />
           </div>
         </div>
-        <div className="row mb-3">
-          <div className="col-auto ml-auto">
-            {isConfirmed ? (
-              <div className="row">
-                <div className="col-auto">
-                  <ButtonSolidGreenWhite disabled>Success</ButtonSolidGreenWhite>
-                </div>
-              </div>
-            ) : (
+        {!isConfirmed && (
+          <div className="row mb-3">
+            <div className="col-auto ml-auto">
               <div className="row no-gutters">
                 <div className="col-auto">
                   <ButtonSolidWhiteGrey
@@ -112,9 +106,9 @@ export const TransferHolderForm = ({
                   </ButtonSolidOrangeWhite>
                 </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
