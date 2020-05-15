@@ -7,12 +7,12 @@ import { AssetManagementActions } from "./../../AssetManagementActions";
 interface ManageAssetsDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   className?: string;
-  canSurrender: boolean;
+  canEndorseAndSurrender: boolean;
   canChangeHolder: boolean;
 }
 
 export const ManageAssetsDropdown = styled(
-  ({ onSetFormAction, className, canSurrender, canChangeHolder }: ManageAssetsDropdownProps) => {
+  ({ onSetFormAction, className, canEndorseAndSurrender, canChangeHolder }: ManageAssetsDropdownProps) => {
     return (
       <Dropdown alignRight className={`${className}`}>
         <Dropdown.Toggle variant="primary" id="dropdown-basic" data-testid={"manageAssetDropdown"}>
@@ -27,22 +27,21 @@ export const ManageAssetsDropdown = styled(
               Transfer holdership
             </Dropdown.Item>
           )}
-          {/*
-          {account === beneficiary && (
+
+          {canEndorseAndSurrender && (
             <>
-              {!haveApprovedAddresses && (
-                <Dropdown.Item onClick={() => onSetFormAction(AssetManagementActions.EndorseBeneficiary)}>Endorse change of beneficiary</Dropdown.Item>
-              )}
+              {/* {!haveApprovedAddresses && ( */}
+              <Dropdown.Item onClick={() => onSetFormAction(AssetManagementActions.EndorseBeneficiary)}>
+                Endorse change of beneficiary
+              </Dropdown.Item>
+              {/* )} */}
+              <Dropdown.Item
+                data-testid={"surrenderDropdown"}
+                onClick={() => onSetFormAction(AssetManagementActions.Surrender)}
+              >
+                Surrender document
+              </Dropdown.Item>
             </>
-          )}
-          */}
-          {canSurrender && (
-            <Dropdown.Item
-              data-testid={"surrenderDropdown"}
-              onClick={() => onSetFormAction(AssetManagementActions.Surrender)}
-            >
-              Surrender document
-            </Dropdown.Item>
           )}
         </Dropdown.Menu>
       </Dropdown>

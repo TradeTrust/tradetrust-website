@@ -17,7 +17,7 @@ interface ActionSelectionFormProps {
   beneficiary?: string;
   holder?: string;
   account?: string;
-  canSurrender: boolean;
+  canEndorseAndSurrender: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
 }
@@ -29,11 +29,11 @@ export const ActionSelectionForm = ({
   beneficiary,
   holder,
   account,
-  canSurrender,
+  canEndorseAndSurrender,
   onConnectToWallet,
   canChangeHolder,
 }: ActionSelectionFormProps) => {
-  const canManage = canSurrender || canChangeHolder;
+  const canManage = canEndorseAndSurrender || canChangeHolder;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -80,7 +80,7 @@ export const ActionSelectionForm = ({
                 {canManage ? (
                   <ManageAssetsDropdown
                     onSetFormAction={onSetFormAction}
-                    canSurrender={canSurrender}
+                    canEndorseAndSurrender={canEndorseAndSurrender}
                     canChangeHolder={canChangeHolder}
                   />
                 ) : (

@@ -13,7 +13,7 @@ describe("ActionSelectionForm", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        canSurrender={false}
+        canEndorseAndSurrender={false}
         onConnectToWallet={() => alert("Login to Metamask")}
         canChangeHolder={true}
       />
@@ -40,7 +40,7 @@ describe("ActionSelectionForm", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         account=""
-        canSurrender={false}
+        canEndorseAndSurrender={false}
         onConnectToWallet={mockOnConnectToWallet}
         canChangeHolder={false}
       />
@@ -59,7 +59,7 @@ describe("ActionSelectionForm", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        canSurrender={true}
+        canEndorseAndSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
         canChangeHolder={true}
       />
@@ -78,7 +78,7 @@ describe("ActionSelectionForm", () => {
         beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        canSurrender={true}
+        canEndorseAndSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
         canChangeHolder={true}
       />
@@ -100,7 +100,7 @@ describe("ActionSelectionForm", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        canSurrender={true}
+        canEndorseAndSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
         canChangeHolder={true}
       />
@@ -120,7 +120,7 @@ describe("ActionSelectionForm", () => {
         beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        canSurrender={true}
+        canEndorseAndSurrender={true}
         onConnectToWallet={() => alert("Login to Metamask")}
         canChangeHolder={true}
       />
