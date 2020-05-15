@@ -15,29 +15,28 @@ export const TableStyle = () => {
     .table {
       width: 100%;
       margin-bottom: 0;
+    }
 
-      th {
-        border-top: none;
-      }
+    tr {
+      white-space: nowrap;
+      border-top: solid 1px ${vars.greyLighter};;
+    }
 
-      tr {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        align-items: center;
-        border-top: solid 1px ${vars.greyLighter};;
-      }
+    th {
+      vertical-align: middle;
+      border-top: none;
+    }
 
+    td {
+      vertical-align: middle;
+      white-space: nowrap;
+      border-top: none;
+    }
+
+    .table-thead {
+      th,
       td {
-        flex: 1 0 auto;
-        border-top: none;
-      }
-
-      .table-thead {
-        th,
-        td {
-          border: none;
-        }
+        border: none;
       }
     }
 
@@ -47,8 +46,6 @@ export const TableStyle = () => {
     }
 
     .table-tbody {
-      display: block;
-      overflow: auto;
       background-color: ${vars.white};
 
       tr {
@@ -79,13 +76,16 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                 <th>Order</th>
                 <td>Name</td>
                 <td>Endpoint</td>
-                <td />
+                <td>&nbsp;</td>
               </tr>
             </thead>
             <tbody className="table-tbody">
               {thirdPartyAPIEndpoints.length === 0 && newEndpointsEntries.length === 0 && (
-                <tr className="text-center px-2">
-                  <td className="border-0 w-100">No third party&apos;s endpoint found.</td>
+                <tr>
+                  <th>&mdash;</th>
+                  <td>&mdash;</td>
+                  <td>No third party&apos;s endpoint found.</td>
+                  <td>&nbsp;</td>
                 </tr>
               )}
               {newEndpointsEntries.length > 0 &&
@@ -102,27 +102,20 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                       <td>{item.name}</td>
                       <td>{item.endpoint}</td>
                       <td>
-                        <div className="row no-gutters">
-                          <div className="col-auto">
-                            <SvgIcon
-                              onClick={() => {
-                                alert("not implemented yet");
-                              }}
-                            >
-                              <SvgIconEdit2 />
-                            </SvgIcon>
-                          </div>
-
-                          <div className="col-auto ml-3">
-                            <SvgIcon
-                              onClick={() => {
-                                removeThirdPartyAPIEndpoint(index);
-                              }}
-                            >
-                              <SvgIconTrash2 />
-                            </SvgIcon>
-                          </div>
-                        </div>
+                        <SvgIcon
+                          onClick={() => {
+                            alert("not implemented yet");
+                          }}
+                        >
+                          <SvgIconEdit2 />
+                        </SvgIcon>
+                        <SvgIcon
+                          onClick={() => {
+                            removeThirdPartyAPIEndpoint(index);
+                          }}
+                        >
+                          <SvgIconTrash2 />
+                        </SvgIcon>
                       </td>
                     </tr>
                   );
@@ -136,30 +129,33 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
 })`
   ${TableStyle()}
 
-  .table {
-    th {
-      flex: 0 1 80px;
-      min-width: 80px;
-    }
-
-    td {
-      &:first-of-type {
-        flex: 0 1 180px;
-        min-width: 180px;
-      }
-
-      &:last-of-type {
-        flex: 0 1 auto;
-      }
-    }
+  th {
+    width: 80px;
   }
 
-  svg {
-    cursor: pointer;
+  td {
+    &:nth-of-type(1) {
+      width: 200px;
+    }
 
-    path,
-    line {
-      color: ${vars.grey};
+    &:last-of-type {
+      text-align: right;
+      width: 100px;
+
+      svg {
+        cursor: pointer;
+        margin-left: 15px;
+
+        polyline,
+        path,
+        line {
+          color: ${vars.grey};
+        }
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
     }
   }
 `;

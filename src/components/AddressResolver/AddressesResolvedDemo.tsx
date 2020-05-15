@@ -1,3 +1,5 @@
+// THIS COMPONENT IS TO BE REMOVED, FOR DEMO PURPOSES ONLY
+
 import React, { useState } from "react";
 import { isEmpty } from "lodash";
 import { AddressResolvedDemo } from "./AddressResolvedDemo";
@@ -23,7 +25,7 @@ export const AddressesResolvedDemo = () => {
           <b>Examples:</b>
           <div>{demoResolver} (endpoint)</div>
           <div>
-            <span>{demoResolver + demoResolverAddress1} </span>
+            <span>{demoResolverAddress1} </span>
             <span>
               (
               <a href={demoResolver + demoResolverAddress1} target="_blank" rel="noreferrer noopener">
@@ -33,7 +35,7 @@ export const AddressesResolvedDemo = () => {
             </span>
           </div>
           <div>
-            <span>{demoResolver + demoResolverAddress2} </span>
+            <span>{demoResolverAddress2} </span>
             <span>
               (
               <a href={demoResolver + demoResolverAddress2} target="_blank" rel="noreferrer noopener">
@@ -43,7 +45,7 @@ export const AddressesResolvedDemo = () => {
             </span>
           </div>
           <div>
-            <span>{demoResolver + demoResolverAddress3} </span>
+            <span>{demoResolverAddress3} </span>
             <span>
               (
               <a href={demoResolver + demoResolverAddress3} target="_blank" rel="noreferrer noopener">

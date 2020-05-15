@@ -32,7 +32,7 @@ export const AddressResolver = () => {
           <p className="mb-0 text-grey">Add third party’s endpoint to resolve addresses. </p>
         </div>
         <div className="col-12 col-lg-auto">
-          <ButtonSolidOrangeWhite onClick={addNewEndpoint}>
+          <ButtonSolidOrangeWhite className="my-3 my-lg-0" onClick={addNewEndpoint}>
             <div className="row align-items-center no-gutters">
               <div className="col-auto mr-2">
                 <SvgIcon>

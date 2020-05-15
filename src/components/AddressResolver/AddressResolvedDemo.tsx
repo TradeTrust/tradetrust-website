@@ -1,3 +1,5 @@
+// THIS COMPONENT IS TO BE REMOVED, FOR DEMO PURPOSES ONLY
+
 import React from "react";
 import { useIdentifierResolver } from "../../common/hooks/useIdentifierResolver";
 

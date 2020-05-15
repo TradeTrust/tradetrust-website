@@ -47,13 +47,14 @@ export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
           <thead className="table-thead">
             <tr>
               <th>Name</th>
-              <td>ID</td>
+              <td>Address</td>
             </tr>
           </thead>
           <tbody className="table-tbody">
             {isEmpty(addressResolved) ? (
-              <tr className="text-center p-2">
-                <td className="border-0">No Address found.</td>
+              <tr>
+                <th>&mdash;</th>
+                <td>No Address found.</td>
               </tr>
             ) : (
               Object.keys(addressResolved).map((key) => {
@@ -121,14 +122,13 @@ export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
     margin-bottom: 20px;
   }
 
-  .table {
-    th {
-      flex: 0 1 180px;
-      min-width: 180px;
-    }
-  }
-
   .table-tbody {
     height: 360px;
+  }
+
+  .table {
+    th {
+      width: 120px;
+    }
   }
 `;

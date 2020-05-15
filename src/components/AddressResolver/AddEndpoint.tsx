@@ -26,16 +26,23 @@ export const AddEndpoint = styled(({ className, order, id, removeNewEndpoint }: 
   };
 
   const onSaveApiEndpoint = (id: string) => {
-    addThirdPartyAPIEndpoint({
-      name: endpointName,
-      endpoint: endpointAPI.trim(),
-    });
-    setEndpointAPIValue("");
-    setEndpointNameValue("");
+    const name = endpointName.trim();
+    const endpoint = endpointAPI.trim();
 
-    setTimeout(() => {
-      removeNewEndpoint(id);
-    }, 0);
+    if (name === "" || endpoint === "") {
+      alert("fields must not be blank, to implement validation"); // to implement string check, url check for endpoint
+    } else {
+      addThirdPartyAPIEndpoint({
+        name: endpointName.trim(),
+        endpoint: endpointAPI.trim(),
+      });
+      setEndpointAPIValue("");
+      setEndpointNameValue("");
+
+      setTimeout(() => {
+        removeNewEndpoint(id);
+      }, 0);
+    }
   };
 
   return (
@@ -60,35 +67,33 @@ export const AddEndpoint = styled(({ className, order, id, removeNewEndpoint }: 
         />
       </td>
       <td>
-        <div className="row no-gutters">
-          <div className="col-auto">
-            <SvgIcon
-              onClick={() => {
-                onSaveApiEndpoint(id);
-              }}
-            >
-              <SvgIconSave />
-            </SvgIcon>
-          </div>
-          <div className="col-auto ml-3">
-            <SvgIcon
-              onClick={() => {
-                removeNewEndpoint(id);
-              }}
-            >
-              <SvgIconTrash2 />
-            </SvgIcon>
-          </div>
-        </div>
+        <SvgIcon
+          onClick={() => {
+            onSaveApiEndpoint(id);
+          }}
+        >
+          <SvgIconSave />
+        </SvgIcon>
+        <SvgIcon
+          onClick={() => {
+            removeNewEndpoint(id);
+          }}
+        >
+          <SvgIconTrash2 />
+        </SvgIcon>
       </td>
     </tr>
   );
 })`
-  svg {
-    polyline,
-    path,
-    line {
-      color: ${vars.teal};
+  td {
+    &:last-of-type {
+      svg {
+        polyline,
+        path,
+        line {
+          color: ${vars.teal};
+        }
+      }
     }
   }
 `;

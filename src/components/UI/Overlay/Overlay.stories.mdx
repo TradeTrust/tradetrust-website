@@ -120,7 +120,7 @@ Overlay look.
   <Story name="AddressBook Empty">
     {() => {
       const addressBook = {};
-      localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
+      localStorage.setItem("ADDRESS_RESOLVER", JSON.stringify(addressBook));
       return (
         <OverlayStorybookWrapper>
           <AddressBook title="Address Book" />
@@ -151,7 +151,7 @@ Overlay look.
         "0xg": "Name G",
         "0xh": "Name H",
       };
-      localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
+      localStorage.setItem("ADDRESS_RESOLVER", JSON.stringify(addressBook));
       return (
         <OverlayStorybookWrapper>
           <AddressBook title="Address Book" />
