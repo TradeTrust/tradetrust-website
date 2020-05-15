@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { FormState } from "../../../../../constants/FormState";
-import { ButtonSolidGreenWhite, ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
+import { ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
+import {
+  MessageTitle,
+  showDocumentTransferMessage,
+} from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
 interface SurrenderFormProps {
   formAction: AssetManagementActions;
@@ -31,6 +36,14 @@ export const SurrenderForm = ({
   const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = surrenderingState === FormState.CONFIRMED;
 
+  const { showOverlay } = useContext(OverlayContext);
+
+  useEffect(() => {
+    if (isConfirmed) {
+      showOverlay(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
+    }
+  }, [isConfirmed, showOverlay]);
+
   return (
     <div className="row py-3">
       <div className="col-12">
@@ -48,15 +61,9 @@ export const SurrenderForm = ({
             <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
           </div>
         </div>
-        <div className="row mb-3">
-          <div className="col-auto ml-auto">
-            {isConfirmed ? (
-              <div className="row">
-                <div className="col-auto">
-                  <ButtonSolidGreenWhite disabled>Success</ButtonSolidGreenWhite>
-                </div>
-              </div>
-            ) : (
+        {!isConfirmed && (
+          <div className="row mb-3">
+            <div className="col-auto ml-auto">
               <div className="row no-gutters">
                 <div className="col-auto">
                   <ButtonSolidWhiteGrey
@@ -77,9 +84,9 @@ export const SurrenderForm = ({
                   </ButtonSolidRedWhite>
                 </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

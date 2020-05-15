@@ -3,9 +3,18 @@ import { Overlay } from "./Overlay";
 import { Textual } from "./OverlayContent/Textual";
 import { Youtube } from "./OverlayContent/Youtube";
 import { AddressBook } from "./OverlayContent/AddressBook";
-import { MessagePromptNoMetamask } from "./OverlayContent/MessagePromptNoMetamask";
-import { MessagePromptNoManageAccess } from "./OverlayContent/MessagePromptNoManageAccess";
-import { SvgIcon, SvgIconXCircle } from "./../SvgIcon";
+import {
+  MessageTitle,
+  DocumentTransferMessage,
+  MessageNoMetamask,
+  MessageNoManageAccess,
+  MessageNoUserAuthorization,
+  MessageTransactionError,
+  MessageSurrenderSuccess,
+  MessageBeneficiarySuccess,
+  MessageHolderSuccess,
+} from "./OverlayContent/DocumentTransferMessage";
+import { OverlayStorybookWrapper } from "./OverlayStorybookWrapper";
 
 <Meta title="UI/Overlay" component={Overlay} />
 
@@ -27,7 +36,7 @@ Overlay look.
   <Story name="Textual">
     {() => {
       return (
-        <Overlay>
+        <OverlayStorybookWrapper>
           <Textual title="Textual">
             <p>
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
@@ -85,7 +94,7 @@ Overlay look.
               dolorem eum fugiat quo voluptas nulla pariatur
             </p>
           </Textual>
-        </Overlay>
+        </OverlayStorybookWrapper>
       );
     }}
   </Story>
@@ -97,13 +106,9 @@ Overlay look.
 
 <Preview>
   <Story name="Youtube">
-    {() => {
-      return (
-        <Overlay>
-          <Youtube title="Youtube" youtubeId="tgbNymZ7vqY" />
-        </Overlay>
-      );
-    }}
+    <OverlayStorybookWrapper>
+      <Youtube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />
+    </OverlayStorybookWrapper>
   </Story>
 </Preview>
 
@@ -117,9 +122,9 @@ Overlay look.
       const addressBook = {};
       localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
       return (
-        <Overlay>
+        <OverlayStorybookWrapper>
           <AddressBook title="Address Book" />
-        </Overlay>
+        </OverlayStorybookWrapper>
       );
     }}
   </Story>
@@ -148,9 +153,9 @@ Overlay look.
       };
       localStorage.setItem("ADDRESS_BOOK", JSON.stringify(addressBook));
       return (
-        <Overlay>
+        <OverlayStorybookWrapper>
           <AddressBook title="Address Book" />
-        </Overlay>
+        </OverlayStorybookWrapper>
       );
     }}
   </Story>
@@ -158,22 +163,17 @@ Overlay look.
 
 ---
 
-### Overlay (MessagePromptNoMetamask)
+### Overlay (DocumentTransferMessage NoMetamask)
 
 <Preview>
-  <Story name="MessagePromptNoMetamask">
+  <Story name="DocumentTransferMessageNoMetamask">
     {() => {
       return (
-        <Overlay>
-          <MessagePromptNoMetamask
-            title="Metamask not installed"
-            titleIcon={
-              <SvgIcon>
-                <SvgIconXCircle />
-              </SvgIcon>
-            }
-          />
-        </Overlay>
+        <OverlayStorybookWrapper>
+          <DocumentTransferMessage title={MessageTitle.NO_METAMASK} isSuccess={false} isButtonMetamaskInstall={true}>
+            <MessageNoMetamask />
+          </DocumentTransferMessage>
+        </OverlayStorybookWrapper>
       );
     }}
   </Story>
@@ -181,22 +181,107 @@ Overlay look.
 
 ---
 
-### Overlay (MessagePromptNoManageAccess)
+### Overlay (DocumentTransferMessage NoManageAccess)
 
 <Preview>
-  <Story name="MessagePromptNoManageAccess">
+  <Story name="DocumentTransferMessageNoManageAccess">
     {() => {
       return (
-        <Overlay>
-          <MessagePromptNoManageAccess
-            title="No manage assets access"
-            titleIcon={
-              <SvgIcon>
-                <SvgIconXCircle />
-              </SvgIcon>
-            }
-          />
-        </Overlay>
+        <OverlayStorybookWrapper>
+          <DocumentTransferMessage title={MessageTitle.NO_MANAGE_ACCESS} isSuccess={false}>
+            <MessageNoManageAccess />
+          </DocumentTransferMessage>
+        </OverlayStorybookWrapper>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage NoUserAuthorization)
+
+<Preview>
+  <Story name="DocumentTransferMessageNoUserAuthorization">
+    {() => {
+      return (
+        <OverlayStorybookWrapper>
+          <DocumentTransferMessage title={MessageTitle.NO_USER_AUTHORIZATION} isSuccess={false}>
+            <MessageNoUserAuthorization />
+          </DocumentTransferMessage>
+        </OverlayStorybookWrapper>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage Error)
+
+<Preview>
+  <Story name="DocumentTransferMessageTransactionError">
+    {() => {
+      return (
+        <OverlayStorybookWrapper>
+          <DocumentTransferMessage title={MessageTitle.TRANSACTION_ERROR} isSuccess={false}>
+            <MessageTransactionError error="Blockchain error message" />
+          </DocumentTransferMessage>
+        </OverlayStorybookWrapper>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage Surrender)
+
+<Preview>
+  <Story name="DocumentTransferMessageSurrender">
+    {() => {
+      return (
+        <OverlayStorybookWrapper>
+          <DocumentTransferMessage title={MessageTitle.SURRENDER_DOCUMENT_SUCCESS} isSuccess={true}>
+            <MessageSurrenderSuccess />
+          </DocumentTransferMessage>
+        </OverlayStorybookWrapper>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage Beneficiary)
+
+<Preview>
+  <Story name="DocumentTransferMessageBeneficiary">
+    {() => {
+      return (
+        <OverlayStorybookWrapper>
+          <DocumentTransferMessage title={MessageTitle.CHANGE_BENEFICIARY_SUCCESS} isSuccess={true}>
+            <MessageBeneficiarySuccess address="Bank of China Pte Ltd" />
+          </DocumentTransferMessage>
+        </OverlayStorybookWrapper>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage Holder)
+
+<Preview>
+  <Story name="DocumentTransferMessageHolder">
+    {() => {
+      return (
+        <OverlayStorybookWrapper>
+          <DocumentTransferMessage title={MessageTitle.TRANSFER_HOLDER_SUCCESS} isSuccess={true}>
+            <MessageHolderSuccess address="Bank of China Pte Ltd" />
+          </DocumentTransferMessage>
+        </OverlayStorybookWrapper>
       );
     }}
   </Story>

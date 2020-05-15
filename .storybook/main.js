@@ -6,7 +6,6 @@ module.exports = {
     '@storybook/preset-create-react-app',
     '@storybook/addon-actions',
     '@storybook/addon-docs',
-    '@storybook/addon-knobs',
-    '@storybook/addon-contexts'
+    '@storybook/addon-knobs'
   ],
 };

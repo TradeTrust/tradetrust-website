@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { ethers, providers, Signer } from "ethers";
 import { NETWORK_NAME } from "../../config";
+import { MessageTitle } from "./../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
 interface ProviderContextProps {
   isUpgraded: boolean;
@@ -24,6 +25,10 @@ export const ProviderContextProvider = ({ children }: { children: React.ReactNod
   const upgradeProvider = async () => {
     if (isUpgraded) return;
     const { ethereum, web3 } = window;
+
+    const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
+    if (metamaskExtensionNotFound) throw new Error(MessageTitle.NO_METAMASK);
+
     await ethereum.enable();
     const injectedWeb3 = ethereum || web3.currentProvider;
     if (!injectedWeb3) throw new Error("No injected web3 provider found");
