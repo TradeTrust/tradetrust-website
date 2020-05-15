@@ -5,11 +5,15 @@ import { useAddressResolved } from "./useAddressResolved";
 
 export const useIdentifierResolver = (address: string) => {
   const addressLowercase = address.toLowerCase();
-  const [resolvedIdentifier, setResolvedIdentifier] = useState(addressLowercase);
+  const [resolvedIdentifier, setResolvedIdentifier] = useState("");
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
   const { addressResolved, setAddressResolved } = useAddressResolved();
 
   useEffect(() => {
+    if (address === "") {
+      return;
+    }
+
     const resolvedAddressByAddressBook: string | undefined = Object.keys(addressResolved).find((key) => {
       return addressLowercase === key;
     }); // look through addressbook
@@ -18,23 +22,28 @@ export const useIdentifierResolver = (address: string) => {
       axios
         .get(url)
         .then((response) => {
-          setResolvedIdentifier(response.data.identity.name);
           addressResolved[response.data.identity.identifier] = response.data.identity.name;
           setAddressResolved({ ...addressResolved });
+          setResolvedIdentifier(response.data.identity.name);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.message);
+          setResolvedIdentifier(addressLowercase);
         });
     }; // look through 3 party api
 
     if (resolvedAddressByAddressBook !== undefined) {
       setResolvedIdentifier(addressResolved[resolvedAddressByAddressBook]);
     } else {
-      thirdPartyAPIEndpoints.forEach((item) => {
-        fetchData(item.endpoint + addressLowercase);
-      });
+      if (thirdPartyAPIEndpoints.length > 0) {
+        thirdPartyAPIEndpoints.forEach((item) => {
+          fetchData(item.endpoint + addressLowercase);
+        });
+      } else {
+        setResolvedIdentifier(addressLowercase);
+      }
     }
-  }, [addressLowercase, addressResolved, setAddressResolved, thirdPartyAPIEndpoints]);
+  }, [address, addressLowercase, addressResolved, setAddressResolved, thirdPartyAPIEndpoints]);
 
   return { resolvedIdentifier };
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { OverlayContentBaseStyle } from "./../Overlay";
+import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
 import styled from "@emotion/styled";
 import { useAddressResolved } from "../../../../common/hooks/useAddressResolved";
@@ -41,15 +42,15 @@ export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
           </div>
         </div>
       </div>
-      <div className="table-responsive overlay-table-responsive">
-        <table className="table overlay-table">
-          <thead className="overlay-table-thead">
+      <div className="table-responsive">
+        <table className="table">
+          <thead className="table-thead">
             <tr>
               <th>Name</th>
               <td>ID</td>
             </tr>
           </thead>
-          <tbody className="overlay-table-tbody">
+          <tbody className="table-tbody">
             {isEmpty(addressResolved) ? (
               <tr className="text-center p-2">
                 <td className="border-0">No Address found.</td>
@@ -90,6 +91,7 @@ export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
   );
 })`
   ${OverlayContentBaseStyle()}
+  ${TableStyle()}
 
   max-width: 760px;
   max-height: 600px;
@@ -119,51 +121,14 @@ export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
     margin-bottom: 20px;
   }
 
-  .overlay-table-responsive {
-    border: solid 1px ${vars.greyLight};
-  }
-
-  .overlay-table {
-    width: 100%;
-    margin-bottom: 0;
-
-    tr {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-    }
-
+  .table {
     th {
       flex: 0 1 180px;
       min-width: 180px;
     }
-
-    td {
-      flex: 1 0 auto;
-    }
-
-    .overlay-table-thead {
-      th,
-      td {
-        border: none;
-      }
-    }
   }
 
-  .overlay-table-thead {
-    color: ${vars.white};
-    background-color: ${vars.brandNavy};
-  }
-
-  .overlay-table-tbody {
-    display: block;
+  .table-tbody {
     height: 360px;
-    overflow: auto;
-
-    tr {
-      &:nth-of-type(even) {
-        background-color: ${vars.blueLighter};
-      }
-    }
   }
 `;

@@ -9,8 +9,6 @@ import {
   retrieveCertificateByAction,
   retrieveCertificateByActionFailure,
 } from "../reducers/certificate";
-import { FeatureFlag } from "./../components/FeatureFlag";
-import { AddressResolver } from "../components/AddressResolver";
 
 export const HomePage = (props: any) => {
   useEffect(() => {
@@ -35,9 +33,6 @@ export const HomePage = (props: any) => {
         <meta property="og:url" content={`${window.location.origin}`} />
         <title>TradeTrust - An easy way to check and verify your documents</title>
       </Helmet>
-      <FeatureFlag name="ADDRESS_RESOLVER">
-        <AddressResolver />
-      </FeatureFlag>
       <MainPageContainer />
     </>
   );

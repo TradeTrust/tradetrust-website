@@ -1,33 +1,51 @@
-import React from "react";
-import { AddressEndpoints } from "./AddressEndpoints";
-import { AddEndpoint } from "./AddEndpoint";
+import React, { useState } from "react";
+import _uniqueId from "lodash/uniqueId";
+import { ButtonSolidOrangeWhite } from "../UI/Button";
+import { SvgIcon, SvgIconPlus } from "../UI/SvgIcon";
+import { AddressesTable } from "./AddressesTable";
+import { AddressesResolvedDemo } from "./AddressesResolvedDemo";
 
-import { AddressesResolved } from "./AddressesResolved";
-import { AddressResolvedDemo } from "./AddressResolvedDemo";
-
-export const demoResolverAddress = "0x0103e04ecaa67c4e5a8c6dc1ddda35340e2c6bc8";
-export const demoResolver = "https://demo-resolver.tradetrust.io/identifier/";
+export interface NewEndpointsEntryProps {
+  id: string;
+}
 
 export const AddressResolver = () => {
+  const defaultnewEndpointsEntry: NewEndpointsEntryProps[] = [];
+  const [newEndpointsEntries, setNewEndpointsEntries] = useState(defaultnewEndpointsEntry);
+
+  const addNewEndpoint = () => {
+    setNewEndpointsEntries([{ id: _uniqueId("api_") }, ...newEndpointsEntries]); // id to track as component key value
+  };
+
+  const removeNewEndpoint = (id: string) => {
+    const filtered = newEndpointsEntries.filter((item: NewEndpointsEntryProps) => {
+      return item.id !== id;
+    });
+    setNewEndpointsEntries(filtered);
+  };
+
   return (
-    <div className="container-custom">
-      <div className="row my-4">
-        <div className="col-12">
-          <b>Examples:</b>
-          <br />
-          {demoResolver} (endpoint)
-          <br />
-          {demoResolver + demoResolverAddress} (
-          <a href={demoResolver + demoResolverAddress} target="_blank" rel="noreferrer noopener">
-            endpoint response
-          </a>
-          )
+    <div className="container-custom py-5">
+      <div className="row align-items-end">
+        <div className="col-12 col-lg">
+          <h2>Settings: Address Resolver</h2>
+          <p className="mb-0 text-grey">Add third party’s endpoint to resolve addresses. </p>
+        </div>
+        <div className="col-12 col-lg-auto">
+          <ButtonSolidOrangeWhite onClick={addNewEndpoint}>
+            <div className="row align-items-center no-gutters">
+              <div className="col-auto mr-2">
+                <SvgIcon>
+                  <SvgIconPlus />
+                </SvgIcon>
+              </div>
+              <div className="col-auto">Add</div>
+            </div>
+          </ButtonSolidOrangeWhite>
         </div>
       </div>
-      <AddEndpoint />
-      <AddressEndpoints />
-      <AddressesResolved />
-      <AddressResolvedDemo />
+      <AddressesTable newEndpointsEntries={newEndpointsEntries} removeNewEndpoint={removeNewEndpoint} />
+      <AddressesResolvedDemo />
     </div>
   );
 };

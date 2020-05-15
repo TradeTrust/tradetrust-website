@@ -2,13 +2,16 @@
 // Typography
 // =====================================================================
 
-h1,
+h1 {
+  @include font-montserrat-regular;
+}
+
 h2,
 h3,
 h4,
 h5,
 h6 {
-  @include font-montserrat-regular;
+  @include font-sourcesanspro-bold;
 }
 
 body {

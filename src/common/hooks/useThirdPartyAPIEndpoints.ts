@@ -15,9 +15,9 @@ export const useThirdPartyAPIEndpoints = () => {
     setThirdPartyAPIEndpoints([{ name, endpoint }, ...thirdPartyAPIEndpoints]);
   };
 
-  const removeThirdPartyAPIEndpoint = (name: string) => {
-    const filtered = thirdPartyAPIEndpoints.filter((item) => {
-      return item.endpoint !== name;
+  const removeThirdPartyAPIEndpoint = (id: number) => {
+    const filtered = thirdPartyAPIEndpoints.filter((item, key) => {
+      return key !== id;
     });
     setThirdPartyAPIEndpoints(filtered);
   };
