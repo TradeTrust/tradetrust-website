@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { vars } from "./../../styles";
-import { AddEndpoint } from "./AddEndpoint";
-import { SvgIcon, SvgIconTrash2, SvgIconEdit2 } from "../UI/SvgIcon";
+import { EndpointEntry } from "./EndpointEntry";
 import { useThirdPartyAPIEndpoints, ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { NewEndpointsEntryProps } from "./index";
 
@@ -66,6 +65,10 @@ interface AddressesTableProps {
 export const AddressesTable = styled(({ className, newEndpointsEntries, removeNewEndpoint }: AddressesTableProps) => {
   const { thirdPartyAPIEndpoints, removeThirdPartyAPIEndpoint } = useThirdPartyAPIEndpoints();
 
+  const removeExistingEndpoint = (id: number) => {
+    removeThirdPartyAPIEndpoint(id);
+  };
+
   return (
     <div className={`${className} row py-4`}>
       <div className="col-12 col-lg">
@@ -92,33 +95,30 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                 thirdPartyAPIEndpoints.map((item: ThirdPartyAPIEntryProps, index) => {
                   const order = index + 1;
                   return (
-                    <tr key={index}>
-                      <th>{order}</th>
-                      <td>{item.name}</td>
-                      <td>{item.endpoint}</td>
-                      <td>
-                        <SvgIcon
-                          onClick={() => {
-                            alert("not implemented yet");
-                          }}
-                        >
-                          <SvgIconEdit2 />
-                        </SvgIcon>
-                        <SvgIcon
-                          onClick={() => {
-                            removeThirdPartyAPIEndpoint(index);
-                          }}
-                        >
-                          <SvgIconTrash2 />
-                        </SvgIcon>
-                      </td>
-                    </tr>
+                    <EndpointEntry
+                      key={index}
+                      order={order}
+                      removeEndpoint={() => {
+                        removeExistingEndpoint(index);
+                      }}
+                      api={item.endpoint}
+                      name={item.name}
+                    />
                   );
                 })}
               {newEndpointsEntries.length > 0 &&
                 newEndpointsEntries.map((item, index) => {
                   const order = index + 1 + thirdPartyAPIEndpoints.length;
-                  return <AddEndpoint key={item.id} id={item.id} order={order} removeNewEndpoint={removeNewEndpoint} />;
+                  return (
+                    <EndpointEntry
+                      key={item.id}
+                      order={order}
+                      removeEndpoint={() => {
+                        removeNewEndpoint(item.id);
+                      }}
+                      canEdit={true}
+                    />
+                  );
                 })}
             </tbody>
           </table>

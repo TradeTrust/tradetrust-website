@@ -18,7 +18,7 @@ export const AddressResolver = () => {
   };
 
   const removeNewEndpoint = (id: string) => {
-    const filtered = newEndpointsEntries.filter((item: NewEndpointsEntryProps) => {
+    const filtered = newEndpointsEntries.filter((item) => {
       return item.id !== id;
     });
     setNewEndpointsEntries(filtered);
