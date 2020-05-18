@@ -13,6 +13,8 @@ interface AddEndpointProps {
 }
 
 export const AddEndpoint = styled(({ className, order, id, removeNewEndpoint }: AddEndpointProps) => {
+  const [inputErrorMessageName, setInputErrorMessageName] = useState("");
+  const [inputMessageEndpoint, setInputErrorMessageEndpoint] = useState("");
   const [endpointAPI, setEndpointAPIValue] = useState("");
   const [endpointName, setEndpointNameValue] = useState("");
   const { addThirdPartyAPIEndpoint } = useThirdPartyAPIEndpoints();
@@ -29,20 +31,31 @@ export const AddEndpoint = styled(({ className, order, id, removeNewEndpoint }: 
     const name = endpointName.trim();
     const endpoint = endpointAPI.trim();
 
-    if (name === "" || endpoint === "") {
-      alert("fields must not be blank, to implement validation"); // to implement string check, url check for endpoint
-    } else {
-      addThirdPartyAPIEndpoint({
-        name: endpointName.trim(),
-        endpoint: endpointAPI.trim(),
-      });
-      setEndpointAPIValue("");
-      setEndpointNameValue("");
-
-      setTimeout(() => {
-        removeNewEndpoint(id);
-      }, 0);
+    if (name === "") {
+      setInputErrorMessageName("Name must not be blank.");
     }
+
+    if (endpoint === "") {
+      setInputErrorMessageEndpoint("Endpoint must not be blank.");
+    }
+
+    if (name === "" || endpoint === "") {
+      return;
+    } // basic validation
+
+    setInputErrorMessageName("");
+    setInputErrorMessageEndpoint("");
+
+    addThirdPartyAPIEndpoint({
+      name: endpointName.trim(),
+      endpoint: endpointAPI.trim(),
+    });
+    setEndpointAPIValue("");
+    setEndpointNameValue("");
+
+    setTimeout(() => {
+      removeNewEndpoint(id);
+    }, 0);
   };
 
   return (
@@ -51,19 +64,19 @@ export const AddEndpoint = styled(({ className, order, id, removeNewEndpoint }: 
       <td>
         <InputDefault
           className="mb-0 w-100"
-          onChange={onEndpointNameChanged}
-          value={endpointName}
           placeholder="Name"
-          required
+          value={endpointName}
+          onChange={onEndpointNameChanged}
+          errorMessage={inputErrorMessageName}
         />
       </td>
       <td>
         <InputDefault
           className="mb-0 w-100"
-          onChange={onEndpointAPIChanged}
-          value={endpointAPI}
           placeholder="Endpoint"
-          required
+          value={endpointAPI}
+          onChange={onEndpointAPIChanged}
+          errorMessage={inputMessageEndpoint}
         />
       </td>
       <td>

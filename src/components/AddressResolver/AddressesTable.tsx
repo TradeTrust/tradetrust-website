@@ -115,7 +115,7 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                     </tr>
                   );
                 })}
-                {newEndpointsEntries.length > 0 &&
+              {newEndpointsEntries.length > 0 &&
                 newEndpointsEntries.map((item, index) => {
                   const order = index + 1 + thirdPartyAPIEndpoints.length;
                   return <AddEndpoint key={item.id} id={item.id} order={order} removeNewEndpoint={removeNewEndpoint} />;

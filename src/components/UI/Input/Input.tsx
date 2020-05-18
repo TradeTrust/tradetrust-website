@@ -1,8 +1,46 @@
+import React from "react";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../../styles";
 
-export const InputDefault = styled.input`
-  ${mixin.baseStyleInput()};
+interface InputProps {
+  className: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  placeholder?: string;
+  required?: boolean;
+  errorMessage: string;
+}
+
+export const Input = ({ className, errorMessage = "", ...props }: InputProps) => {
+  const isError = errorMessage !== "";
+
+  return (
+    <div className={`${className} ${isError ? "is-error" : ""}`}>
+      <input type="text" {...props} />
+      {isError && <p className="message">{errorMessage}</p>}
+    </div>
+  );
+};
+
+export const InputDefault = styled(Input)`
+  &.is-error {
+    input {
+      border: 1px solid ${vars.red};
+    }
+
+    .message {
+      color: ${vars.red};
+    }
+  }
+
+  input {
+    ${mixin.baseStyleInput()};
+    margin-bottom: 0;
+  }
+
+  .message {
+    margin: 8px 0;
+  }
 `;
 
 interface EditableAssetTitleProps {
