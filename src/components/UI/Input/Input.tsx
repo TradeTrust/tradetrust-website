@@ -3,9 +3,11 @@ import styled from "@emotion/styled";
 import { mixin, vars } from "../../../styles";
 
 interface InputProps {
-  className: string;
+  className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string;
+  name?: string;
+  type?: string;
+  value?: string | number | string[];
   placeholder?: string;
   required?: boolean;
   errorMessage?: string;
