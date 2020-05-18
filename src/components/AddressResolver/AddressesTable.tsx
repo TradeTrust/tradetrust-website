@@ -88,14 +88,9 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                   <td>&nbsp;</td>
                 </tr>
               )}
-              {newEndpointsEntries.length > 0 &&
-                newEndpointsEntries.map((item, index) => {
-                  const order = index + 1;
-                  return <AddEndpoint key={item.id} id={item.id} order={order} removeNewEndpoint={removeNewEndpoint} />;
-                })}
               {thirdPartyAPIEndpoints.length > 0 &&
                 thirdPartyAPIEndpoints.map((item: ThirdPartyAPIEntryProps, index) => {
-                  const order = index + 1 + newEndpointsEntries.length;
+                  const order = index + 1;
                   return (
                     <tr key={index}>
                       <th>{order}</th>
@@ -119,6 +114,11 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                       </td>
                     </tr>
                   );
+                })}
+                {newEndpointsEntries.length > 0 &&
+                newEndpointsEntries.map((item, index) => {
+                  const order = index + 1 + thirdPartyAPIEndpoints.length;
+                  return <AddEndpoint key={item.id} id={item.id} order={order} removeNewEndpoint={removeNewEndpoint} />;
                 })}
             </tbody>
           </table>

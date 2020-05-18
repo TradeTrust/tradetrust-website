@@ -3,7 +3,7 @@ import { OverlayContentBaseStyle } from "./../Overlay";
 import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
 import styled from "@emotion/styled";
-import { useAddressResolved } from "../../../../common/hooks/useAddressResolved";
+import { useAddressBook } from "../../../../common/hooks/useAddressBook";
 import { SvgIcon, SvgIconSearch } from "../../../UI/SvgIcon";
 import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
 import { isEmpty } from "lodash";
@@ -11,7 +11,7 @@ import { makeEtherscanAddressURL } from "../../../../utils";
 import { vars } from "../../../../styles";
 
 export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
-  const { addressResolved } = useAddressResolved();
+  const { addressBook } = useAddressBook();
   const [searchTerm, setSearchTerm] = useState("");
 
   const onSearchTermChanged = (event: { target: { value: string } }) => {
@@ -51,14 +51,14 @@ export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
             </tr>
           </thead>
           <tbody className="table-tbody">
-            {isEmpty(addressResolved) ? (
+            {isEmpty(addressBook) ? (
               <tr>
                 <th>&mdash;</th>
                 <td>No Address found.</td>
               </tr>
             ) : (
-              Object.keys(addressResolved).map((key) => {
-                const name = addressResolved[key];
+              Object.keys(addressBook).map((key) => {
+                const name = addressBook[key];
                 const address = key;
                 const addressHref = makeEtherscanAddressURL(key);
 

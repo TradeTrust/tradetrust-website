@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { isEmpty } from "lodash";
 import { AddressResolvedDemo } from "./AddressResolvedDemo";
-import { useAddressResolved } from "../../common/hooks/useAddressResolved";
+import { useAddressBook } from "../../common/hooks/useAddressBook";
 
 const demoResolver = "https://demo-resolver.tradetrust.io/identifier/";
 const demoResolverAddress1 = "0x0103e04ecaa67c4e5a8c6dc1ddda35340e2c6bc8";
@@ -12,7 +12,7 @@ const demoResolverAddress3 = "0x74306E2163d72BF2f3241dd5730893463433474F";
 
 export const AddressesResolvedDemo = () => {
   const [address, setAddress] = useState("");
-  const { addressResolved } = useAddressResolved();
+  const { addressBook } = useAddressBook();
 
   const onInputChanged = (event: any) => {
     setAddress(event.target.value);
@@ -22,7 +22,7 @@ export const AddressesResolvedDemo = () => {
     <>
       <div className="row my-5">
         <div className="col-12">
-          <b>Examples:</b>
+          <b>Examples: (thirdparty api)</b>
           <div>{demoResolver} (endpoint)</div>
           <div>
             <span>{demoResolverAddress1} </span>
@@ -57,6 +57,25 @@ export const AddressesResolvedDemo = () => {
           </div>
         </div>
       </div>
+      <div className="row mb-5">
+        <div className="col-12">
+          <b>Examples: (localStorage, ADDRESS_BOOK)</b>
+          {isEmpty(addressBook) ? (
+            <div>No addresses found from local addressbook.</div>
+          ) : (
+            Object.keys(addressBook).map((key) => {
+              const name = addressBook[key];
+              const address = key;
+
+              return (
+                <div key={key}>
+                  {address} : <b>{name}</b>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
       <div className="row my-5">
         <div className="col-12">
           <b>AddressesResolvedDemo:</b>
@@ -74,23 +93,6 @@ export const AddressesResolvedDemo = () => {
               <AddressResolvedDemo address={address} />
             </div>
           </div>
-        </div>
-        <div className="col-12">
-          <p className="mt-4 mb-2">ADDRESS_RESOLVER (localStorage)</p>
-          {isEmpty(addressResolved) ? (
-            <div>No addresses found from local addressbook or resolved from api.</div>
-          ) : (
-            Object.keys(addressResolved).map((key) => {
-              const name = addressResolved[key];
-              const address = key;
-
-              return (
-                <div key={key}>
-                  {address} : <b>{name}</b>
-                </div>
-              );
-            })
-          )}
         </div>
       </div>
     </>
