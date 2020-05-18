@@ -12,7 +12,7 @@ export const useThirdPartyAPIEndpoints = () => {
   );
 
   const addThirdPartyAPIEndpoint = ({ name, endpoint }: ThirdPartyAPIEntryProps) => {
-    setThirdPartyAPIEndpoints([{ name, endpoint }, ...thirdPartyAPIEndpoints]);
+    setThirdPartyAPIEndpoints([...thirdPartyAPIEndpoints, { name, endpoint }]);
   };
 
   const removeThirdPartyAPIEndpoint = (id: number) => {

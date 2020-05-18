@@ -8,7 +8,7 @@ interface InputProps {
   value?: string;
   placeholder?: string;
   required?: boolean;
-  errorMessage: string;
+  errorMessage?: string;
 }
 
 export const Input = ({ className, errorMessage = "", ...props }: InputProps) => {
