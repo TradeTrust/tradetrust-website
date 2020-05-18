@@ -3,12 +3,12 @@ import { ButtonSolidOrangeWhite } from "../../../../UI/Button";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { ManageAssetsDropdown } from "../../AssetManagementDropdown";
-import { EditableAssetTitle } from "./../EditableAssetTitle";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
 import {
   MessageTitle,
   showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
+import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
@@ -17,9 +17,10 @@ interface ActionSelectionFormProps {
   beneficiary?: string;
   holder?: string;
   account?: string;
-  canEndorseAndSurrender: boolean;
+  canSurrender: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
+  canEndorseBeneficiary: boolean;
 }
 
 export const ActionSelectionForm = ({
@@ -29,11 +30,12 @@ export const ActionSelectionForm = ({
   beneficiary,
   holder,
   account,
-  canEndorseAndSurrender,
+  canSurrender,
   onConnectToWallet,
   canChangeHolder,
+  canEndorseBeneficiary,
 }: ActionSelectionFormProps) => {
-  const canManage = canEndorseAndSurrender || canChangeHolder;
+  const canManage = canSurrender || canChangeHolder || canEndorseBeneficiary;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -80,8 +82,9 @@ export const ActionSelectionForm = ({
                 {canManage ? (
                   <ManageAssetsDropdown
                     onSetFormAction={onSetFormAction}
-                    canEndorseAndSurrender={canEndorseAndSurrender}
+                    canSurrender={canSurrender}
                     canChangeHolder={canChangeHolder}
+                    canEndorseBeneficiary={canEndorseBeneficiary}
                   />
                 ) : (
                   <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>

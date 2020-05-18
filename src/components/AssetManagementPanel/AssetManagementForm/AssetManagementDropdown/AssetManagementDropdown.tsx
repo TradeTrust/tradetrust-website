@@ -7,12 +7,13 @@ import { AssetManagementActions } from "./../../AssetManagementActions";
 interface ManageAssetsDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   className?: string;
-  canEndorseAndSurrender: boolean;
+  canSurrender: boolean;
   canChangeHolder: boolean;
+  canEndorseBeneficiary: boolean;
 }
 
 export const ManageAssetsDropdown = styled(
-  ({ onSetFormAction, className, canEndorseAndSurrender, canChangeHolder }: ManageAssetsDropdownProps) => {
+  ({ onSetFormAction, className, canSurrender, canChangeHolder, canEndorseBeneficiary }: ManageAssetsDropdownProps) => {
     return (
       <Dropdown alignRight className={`${className}`}>
         <Dropdown.Toggle variant="primary" id="dropdown-basic" data-testid={"manageAssetDropdown"}>
@@ -27,21 +28,21 @@ export const ManageAssetsDropdown = styled(
               Transfer holdership
             </Dropdown.Item>
           )}
-
-          {canEndorseAndSurrender && (
-            <>
-              {/* {!haveApprovedAddresses && ( */}
-              <Dropdown.Item onClick={() => onSetFormAction(AssetManagementActions.EndorseBeneficiary)}>
-                Endorse change of beneficiary
-              </Dropdown.Item>
-              {/* )} */}
-              <Dropdown.Item
-                data-testid={"surrenderDropdown"}
-                onClick={() => onSetFormAction(AssetManagementActions.Surrender)}
-              >
-                Surrender document
-              </Dropdown.Item>
-            </>
+          {canEndorseBeneficiary && (
+            <Dropdown.Item
+              data-testid={"endorseBeneficiaryDropdown"}
+              onClick={() => onSetFormAction(AssetManagementActions.EndorseBeneficiary)}
+            >
+              Endorse change of beneficiary
+            </Dropdown.Item>
+          )}
+          {canSurrender && (
+            <Dropdown.Item
+              data-testid={"surrenderDropdown"}
+              onClick={() => onSetFormAction(AssetManagementActions.Surrender)}
+            >
+              Surrender document
+            </Dropdown.Item>
           )}
         </Dropdown.Menu>
       </Dropdown>

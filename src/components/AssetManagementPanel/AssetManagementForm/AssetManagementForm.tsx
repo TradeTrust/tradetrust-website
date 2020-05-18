@@ -42,7 +42,8 @@ export const AssetManagementForm = ({
 }: AssetManagementFormProps) => {
   const isHolder = account === holder;
   const isBeneficiary = account === beneficiary;
-  const canEndorseAndSurrender = isBeneficiary && isHolder;
+  const canSurrender = isBeneficiary && isHolder;
+  const canEndorseBeneficiary = isBeneficiary && isHolder;
 
   const onBack = () => {
     if (
@@ -106,9 +107,10 @@ export const AssetManagementForm = ({
           beneficiary={beneficiary}
           holder={holder}
           account={account}
-          canEndorseAndSurrender={canEndorseAndSurrender}
+          canSurrender={canSurrender}
           onConnectToWallet={onConnectToWallet}
           canChangeHolder={isHolder}
+          canEndorseBeneficiary={canEndorseBeneficiary}
         />
       );
   }

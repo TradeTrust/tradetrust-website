@@ -18,8 +18,6 @@ export const AssetManagementApplication = ({
   titleEscrow,
 }: AssetManagementApplicationProps) => {
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-  const [holderTransferringState, setHolderTransferringState] = useState("");
-  const [beneficiaryEndorseState, setBeneficiaryEndorseState] = useState("");
   const { upgradeProvider, account } = useProviderContext();
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
@@ -40,17 +38,7 @@ export const AssetManagementApplication = ({
 
   const onSetFormAction = (AssetManagementActions: AssetManagementActions) => {
     setAssetManagementAction(AssetManagementActions);
-    setHolderTransferringState("");
-    setBeneficiaryEndorseState("");
   };
-
-  useEffect(() => {
-    setHolderTransferringState(changeHolderState);
-  }, [changeHolderState]);
-
-  useEffect(() => {
-    setBeneficiaryEndorseState(endorseBeneficiaryState);
-  }, [endorseBeneficiaryState]);
 
   useEffect(() => {
     getHolder();
@@ -75,9 +63,9 @@ export const AssetManagementApplication = ({
           surrenderingState={surrenderingState}
           onSurrender={onSurrender}
           onTransferHolder={changeHolder}
-          holderTransferringState={holderTransferringState}
+          holderTransferringState={changeHolderState}
           onEndorseBeneficiary={endorseBeneficiary}
-          beneficiaryEndorseState={beneficiaryEndorseState}
+          beneficiaryEndorseState={endorseBeneficiaryState}
         />
       </div>
     </div>
