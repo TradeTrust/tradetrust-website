@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
 
 export const resolveAddressNameByEndpoint = async (url: string) => {
   try {
@@ -7,4 +8,14 @@ export const resolveAddressNameByEndpoint = async (url: string) => {
   } catch (e) {
     return undefined;
   }
+};
+
+export const getIdentityName = async (addresses: ThirdPartyAPIEntryProps[], address: string) => {
+  const identityName = await addresses.reduce(async (accumulator, currentValue) => {
+    if ((await accumulator) !== undefined) return accumulator;
+    const result = await resolveAddressNameByEndpoint(currentValue.endpoint + address);
+    return result;
+  }, Promise.resolve(undefined));
+
+  return identityName;
 };

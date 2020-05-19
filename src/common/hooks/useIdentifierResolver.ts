@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { useAddressBook } from "./useAddressBook";
-import { resolveAddressNameByEndpoint } from "./../../services/addressResolver";
+import { getIdentityName } from "./../../services/addressResolver";
 
 export const useIdentifierResolver = (address: string) => {
   const addressLowercase = address.toLowerCase();
@@ -20,21 +20,17 @@ export const useIdentifierResolver = (address: string) => {
       return;
     } // resolved from addressbook
 
-    const resolvedAddress = async () => {
-      const resolvedName = await thirdPartyAPIEndpoints.reduce(async (accumulator, currentValue) => {
-        if ((await accumulator) !== undefined) return accumulator;
-        const result = await resolveAddressNameByEndpoint(currentValue.endpoint + address);
-        return result;
-      }, Promise.resolve(undefined));
+    const resolveIdentityName = async () => {
+      const identityName = await getIdentityName(thirdPartyAPIEndpoints, address); // resolved from thirdparty endpoint
 
-      if (resolvedName === undefined) {
+      if (identityName === undefined) {
         setResolvedIdentifier("");
       } else {
-        setResolvedIdentifier(resolvedName);
+        setResolvedIdentifier(identityName);
       }
-    }; // resolved from thirdpary endpoint
+    };
 
-    resolvedAddress();
+    resolveIdentityName();
   }, [address, addressLowercase, getIdentifier, thirdPartyAPIEndpoints]);
 
   return { resolvedIdentifier };
