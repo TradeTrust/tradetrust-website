@@ -1,6 +1,7 @@
 import React from "react";
-import { useAddressBook } from "../../../common/hooks/useAddressBook";
 import { AddressInfo } from "../../AddressInfo";
+import { ExternalLinkEtherscanAddress } from "../../UI/ExternalLink";
+import { useIdentifierResolver } from "../../../common/hooks/useIdentifierResolver";
 
 interface AssetTitleProps {
   role: string;
@@ -8,14 +9,13 @@ interface AssetTitleProps {
   children?: React.ReactNode;
 }
 
-export const AssetTitle = ({ role, address, children }: AssetTitleProps) => {
-  const { getIdentifier } = useAddressBook();
-  const name = address && getIdentifier(address);
+export const TitleView = ({ role, address }: AssetTitleProps) => {
+  const { resolvedIdentifier } = useIdentifierResolver(address);
 
   return (
-    <div data-testid={`asset-title-${role.toLowerCase()}`} className="py-3">
-      <AddressInfo title={role} name={name}>
-        {children}
+    <div data-testid={role} className="py-3">
+      <AddressInfo title={role} name={resolvedIdentifier}>
+        <ExternalLinkEtherscanAddress name={address} address={address} />
       </AddressInfo>
     </div>
   );

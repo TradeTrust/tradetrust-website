@@ -25,6 +25,8 @@ export const Input = ({ className, errorMessage = "", ...props }: InputProps) =>
 };
 
 export const InputDefault = styled(Input)`
+  margin-bottom: 10px;
+
   &.is-error {
     input {
       border: 1px solid ${vars.red};

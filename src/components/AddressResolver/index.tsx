@@ -3,7 +3,6 @@ import { generateUniqueId } from "./../../common/utils/generateUniqueId";
 import { ButtonSolidOrangeWhite } from "../UI/Button";
 import { SvgIcon, SvgIconPlus } from "../UI/SvgIcon";
 import { AddressesTable } from "./AddressesTable";
-import { AddressesResolvedDemo } from "./AddressesResolvedDemo";
 
 export interface NewEndpointsEntryProps {
   id: string;
@@ -45,7 +44,6 @@ export const AddressResolver = () => {
         </div>
       </div>
       <AddressesTable newEndpointsEntries={newEndpointsEntries} removeNewEndpoint={removeNewEndpoint} />
-      <AddressesResolvedDemo />
     </div>
   );
 };

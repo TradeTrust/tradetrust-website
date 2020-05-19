@@ -5,6 +5,8 @@ import { SvgIcon, SvgIconTrash2, SvgIconSave, SvgIconEdit2 } from "../UI/SvgIcon
 import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { vars } from "../../styles";
 import { generateUniqueId } from "./../../common/utils/generateUniqueId";
+import isURL from "validator/lib/isURL";
+import isEmpty from "validator/lib/isEmpty";
 
 interface EndpointEntryProps {
   className?: string;
@@ -58,15 +60,19 @@ export const EndpointEntry = styled(
       const name = endpointName.trim();
       const endpoint = endpointAPI.trim();
 
-      if (name === "") {
+      if (isEmpty(name)) {
         setInputErrorMessageName("Name must not be blank.");
       }
 
-      if (endpoint === "") {
+      if (isEmpty(endpoint)) {
         setInputErrorMessageEndpoint("Endpoint must not be blank.");
       }
 
-      if (name === "" || endpoint === "") {
+      if (!isURL(endpoint)) {
+        setInputErrorMessageEndpoint("Endpoint must not be a valid url.");
+      }
+
+      if (isEmpty(name) || isEmpty(endpoint) || !isURL(endpoint)) {
         return;
       } // basic validation
 

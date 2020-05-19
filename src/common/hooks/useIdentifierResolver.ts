@@ -14,7 +14,7 @@ export const useIdentifierResolver = (address: string) => {
       return;
     }
 
-    const identifierFromAddressBook = getIdentifier(address);
+    const identifierFromAddressBook = getIdentifier(addressLowercase);
     if (identifierFromAddressBook) {
       setResolvedIdentifier(identifierFromAddressBook);
       return;
@@ -28,7 +28,7 @@ export const useIdentifierResolver = (address: string) => {
       }, Promise.resolve(undefined));
 
       if (resolvedName === undefined) {
-        setResolvedIdentifier(addressLowercase);
+        setResolvedIdentifier("");
       } else {
         setResolvedIdentifier(resolvedName);
       }
