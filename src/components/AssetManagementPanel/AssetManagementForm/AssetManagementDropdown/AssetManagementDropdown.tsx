@@ -9,10 +9,11 @@ interface ManageAssetsDropdownProps {
   className?: string;
   canSurrender: boolean;
   canChangeHolder: boolean;
+  canEndorseBeneficiary: boolean;
 }
 
 export const ManageAssetsDropdown = styled(
-  ({ onSetFormAction, className, canSurrender, canChangeHolder }: ManageAssetsDropdownProps) => {
+  ({ onSetFormAction, className, canSurrender, canChangeHolder, canEndorseBeneficiary }: ManageAssetsDropdownProps) => {
     return (
       <Dropdown alignRight className={`${className}`}>
         <Dropdown.Toggle variant="primary" id="dropdown-basic" data-testid={"manageAssetDropdown"}>
@@ -27,15 +28,14 @@ export const ManageAssetsDropdown = styled(
               Transfer holdership
             </Dropdown.Item>
           )}
-          {/*
-          {account === beneficiary && (
-            <>
-              {!haveApprovedAddresses && (
-                <Dropdown.Item onClick={() => onSetFormAction(AssetManagementActions.EndorseBeneficiary)}>Endorse change of beneficiary</Dropdown.Item>
-              )}
-            </>
+          {canEndorseBeneficiary && (
+            <Dropdown.Item
+              data-testid={"endorseBeneficiaryDropdown"}
+              onClick={() => onSetFormAction(AssetManagementActions.EndorseBeneficiary)}
+            >
+              Endorse change of beneficiary
+            </Dropdown.Item>
           )}
-          */}
           {canSurrender && (
             <Dropdown.Item
               data-testid={"surrenderDropdown"}

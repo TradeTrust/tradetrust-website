@@ -18,7 +18,6 @@ export const AssetManagementApplication = ({
   titleEscrow,
 }: AssetManagementApplicationProps) => {
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-  const [holderTransferringState, setHolderTransferringState] = useState("");
   const { upgradeProvider, account } = useProviderContext();
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
@@ -27,8 +26,11 @@ export const AssetManagementApplication = ({
     "approvedTransferTarget"
   );
   const { send: sendSurrender, state: surrenderingState } = useContractFunctionHook(titleEscrow, "transferTo");
-
   const { send: changeHolder, state: changeHolderState } = useContractFunctionHook(titleEscrow, "changeHolder");
+  const { send: endorseBeneficiary, state: endorseBeneficiaryState } = useContractFunctionHook(
+    titleEscrow,
+    "transferToNewEscrow"
+  );
 
   const onSurrender = () => {
     sendSurrender(tokenRegistryAddress);
@@ -36,12 +38,7 @@ export const AssetManagementApplication = ({
 
   const onSetFormAction = (AssetManagementActions: AssetManagementActions) => {
     setAssetManagementAction(AssetManagementActions);
-    setHolderTransferringState("");
   };
-
-  useEffect(() => {
-    setHolderTransferringState(changeHolderState);
-  }, [changeHolderState]);
 
   useEffect(() => {
     getHolder();
@@ -66,7 +63,9 @@ export const AssetManagementApplication = ({
           surrenderingState={surrenderingState}
           onSurrender={onSurrender}
           onTransferHolder={changeHolder}
-          holderTransferringState={holderTransferringState}
+          holderTransferringState={changeHolderState}
+          onEndorseBeneficiary={endorseBeneficiary}
+          beneficiaryEndorseState={endorseBeneficiaryState}
         />
       </div>
     </div>
