@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import _uniqueId from "lodash/uniqueId";
+import { generateUniqueId } from "./../../common/utils/generateUniqueId";
 import { ButtonSolidOrangeWhite } from "../UI/Button";
 import { SvgIcon, SvgIconPlus } from "../UI/SvgIcon";
 import { AddressesTable } from "./AddressesTable";
@@ -14,7 +14,7 @@ export const AddressResolver = () => {
   const [newEndpointsEntries, setNewEndpointsEntries] = useState(defaultnewEndpointsEntry);
 
   const addNewEndpoint = () => {
-    setNewEndpointsEntries([{ id: _uniqueId("api_") }, ...newEndpointsEntries]); // id to track as component key value
+    setNewEndpointsEntries([{ id: generateUniqueId() }, ...newEndpointsEntries]); // id to track as component key value
   };
 
   const removeNewEndpoint = (id: string) => {

@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { lighten } from "polished";
 import { vars } from "./../../styles";
 import { EndpointEntry } from "./EndpointEntry";
-import { useThirdPartyAPIEndpoints, ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
+import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { NewEndpointsEntryProps } from "./index";
 
 export const TableStyle = () => {
@@ -65,10 +66,6 @@ interface AddressesTableProps {
 export const AddressesTable = styled(({ className, newEndpointsEntries, removeNewEndpoint }: AddressesTableProps) => {
   const { thirdPartyAPIEndpoints, removeThirdPartyAPIEndpoint } = useThirdPartyAPIEndpoints();
 
-  const removeExistingEndpoint = (id: number) => {
-    removeThirdPartyAPIEndpoint(id);
-  };
-
   return (
     <div className={`${className} row py-4`}>
       <div className="col-12 col-lg">
@@ -92,14 +89,15 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                 </tr>
               )}
               {thirdPartyAPIEndpoints.length > 0 &&
-                thirdPartyAPIEndpoints.map((item: ThirdPartyAPIEntryProps, index) => {
+                thirdPartyAPIEndpoints.map((item, index) => {
                   const order = index + 1;
                   return (
                     <EndpointEntry
-                      key={index}
+                      key={item.id}
+                      id={item.id}
                       order={order}
                       removeEndpoint={() => {
-                        removeExistingEndpoint(index);
+                        removeThirdPartyAPIEndpoint(item.id);
                       }}
                       api={item.endpoint}
                       name={item.name}
@@ -112,6 +110,7 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                   return (
                     <EndpointEntry
                       key={item.id}
+                      id={item.id}
                       order={order}
                       removeEndpoint={() => {
                         removeNewEndpoint(item.id);
@@ -134,6 +133,20 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
   }
 
   td {
+    &.is-editable {
+      &:last-of-type {
+        svg {
+          &:hover {
+            polyline,
+            path,
+            line {
+              color: ${lighten(0.05, vars.teal)};
+            }
+          }
+        }
+      }
+    }
+
     &:nth-of-type(1) {
       width: 200px;
     }
@@ -149,11 +162,20 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
         polyline,
         path,
         line {
+          transition: color 0.3s ease-out;
           color: ${vars.grey};
         }
 
         &:first-of-type {
           margin-left: 0;
+        }
+
+        &:hover {
+          polyline,
+          path,
+          line {
+            color: ${lighten(0.1, vars.grey)};
+          }
         }
       }
     }
