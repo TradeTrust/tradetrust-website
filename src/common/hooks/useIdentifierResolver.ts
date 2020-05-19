@@ -4,34 +4,27 @@ import { useAddressBook } from "./useAddressBook";
 import { getIdentityName } from "./../../services/addressResolver";
 
 export const useIdentifierResolver = (address: string) => {
-  const addressLowercase = address.toLowerCase();
   const [resolvedIdentifier, setResolvedIdentifier] = useState("");
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
   const { getIdentifier } = useAddressBook();
 
   useEffect(() => {
-    if (address === "") {
-      return;
-    }
+    if (address === "") return;
 
-    const identifierFromAddressBook = getIdentifier(addressLowercase);
+    const identifierFromAddressBook = getIdentifier(address.toLowerCase());
     if (identifierFromAddressBook) {
       setResolvedIdentifier(identifierFromAddressBook);
       return;
     } // resolved from addressbook
 
-    const resolveIdentityName = async () => {
-      const identityName = await getIdentityName(thirdPartyAPIEndpoints, address); // resolved from thirdparty endpoint
+    const resolveIdentityByAPI = async () => {
+      const identityName = await getIdentityName(thirdPartyAPIEndpoints, address);
+      if (identityName) setResolvedIdentifier(identityName);
+    }; // resolved from thirdparty endpoint
 
-      if (identityName === undefined) {
-        setResolvedIdentifier("");
-      } else {
-        setResolvedIdentifier(identityName);
-      }
-    };
+    resolveIdentityByAPI();
 
-    resolveIdentityName();
-  }, [address, addressLowercase, getIdentifier, thirdPartyAPIEndpoints]);
+  }, [address, getIdentifier, thirdPartyAPIEndpoints]);
 
   return { resolvedIdentifier };
 };

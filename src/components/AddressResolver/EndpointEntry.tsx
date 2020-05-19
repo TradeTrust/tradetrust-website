@@ -13,13 +13,13 @@ interface EndpointEntryProps {
   id: string;
   order: number;
   removeEndpoint: () => void;
-  api?: string;
-  name?: string;
-  canEdit?: boolean;
+  api: string;
+  name: string;
+  canEdit: boolean;
 }
 
 export const EndpointEntry = styled(
-  ({ className, id, order, removeEndpoint, api = "", name = "", canEdit = false }: EndpointEntryProps) => {
+  ({ className, id, order, removeEndpoint, api, name, canEdit }: EndpointEntryProps) => {
     const [isEditable, setEditable] = useState(canEdit);
     const [inputErrorMessageName, setInputErrorMessageName] = useState("");
     const [inputMessageEndpoint, setInputErrorMessageEndpoint] = useState("");
@@ -35,11 +35,17 @@ export const EndpointEntry = styled(
       setEndpointNameValue(event.target.value);
     };
 
-    const editEndpoint = (foundIndex: number) => {
-      const copy = [...thirdPartyAPIEndpoints];
-      copy[foundIndex].name = endpointName.trim();
-      copy[foundIndex].endpoint = endpointAPI.trim();
-      setThirdPartyAPIEndpoints([...copy]);
+    const editEndpoint = (indexToReplace: number) => {
+      const newEndpoints = thirdPartyAPIEndpoints.map((item, index) => {
+        return index === indexToReplace
+          ? {
+              id: generateUniqueId(),
+              name: endpointName.trim(),
+              endpoint: endpointAPI.trim(),
+            }
+          : item;
+      });
+      setThirdPartyAPIEndpoints(newEndpoints);
     };
 
     const saveEndpoint = () => {
@@ -62,28 +68,27 @@ export const EndpointEntry = styled(
 
       if (isEmpty(name)) {
         setInputErrorMessageName("Name must not be blank.");
+        return;
       }
 
       if (isEmpty(endpoint)) {
         setInputErrorMessageEndpoint("Endpoint must not be blank.");
+        return;
       }
 
       if (!isURL(endpoint)) {
-        setInputErrorMessageEndpoint("Endpoint must not be a valid url.");
-      }
-
-      if (isEmpty(name) || isEmpty(endpoint) || !isURL(endpoint)) {
+        setInputErrorMessageEndpoint("Endpoint must be an valid url.");
         return;
-      } // basic validation
+      }
 
       setEditable(false);
       setInputErrorMessageName("");
       setInputErrorMessageEndpoint("");
 
-      const foundIndex = thirdPartyAPIEndpoints.findIndex((item) => item.id === id);
+      const indexToReplace = thirdPartyAPIEndpoints.findIndex((item) => item.id === id);
 
-      if (foundIndex !== -1) {
-        editEndpoint(foundIndex);
+      if (indexToReplace !== -1) {
+        editEndpoint(indexToReplace);
       } else {
         saveEndpoint();
       }
@@ -136,11 +141,7 @@ export const EndpointEntry = styled(
               <SvgIconEdit2 />
             </SvgIcon>
           )}
-          <SvgIcon
-            onClick={() => {
-              removeEndpoint();
-            }}
-          >
+          <SvgIcon onClick={removeEndpoint}>
             <SvgIconTrash2 />
           </SvgIcon>
         </td>

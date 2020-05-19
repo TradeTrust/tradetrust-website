@@ -14,12 +14,10 @@ interface InputProps {
 }
 
 export const Input = ({ className, errorMessage = "", ...props }: InputProps) => {
-  const isError = errorMessage !== "";
-
   return (
-    <div className={`${className} ${isError ? "is-error" : ""}`}>
+    <div className={`${className} ${errorMessage ? "is-error" : ""}`}>
       <input type="text" {...props} />
-      {isError && <p className="message">{errorMessage}</p>}
+      {errorMessage && <p className="message">{errorMessage}</p>}
     </div>
   );
 };

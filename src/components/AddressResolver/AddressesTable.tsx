@@ -101,6 +101,7 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                       }}
                       api={item.endpoint}
                       name={item.name}
+                      canEdit={false}
                     />
                   );
                 })}
@@ -115,6 +116,8 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                       removeEndpoint={() => {
                         removeNewEndpoint(item.id);
                       }}
+                      api=""
+                      name=""
                       canEdit={true}
                     />
                   );
