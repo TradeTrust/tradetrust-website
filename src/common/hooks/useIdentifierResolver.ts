@@ -23,7 +23,6 @@ export const useIdentifierResolver = (address: string) => {
     }; // resolved from thirdparty endpoint
 
     resolveIdentityByAPI();
-
   }, [address, getIdentifier, thirdPartyAPIEndpoints]);
 
   return { resolvedIdentifier };
