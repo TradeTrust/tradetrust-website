@@ -19,8 +19,8 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
     changeHolderState,
     endorseBeneficiary,
     endorseBeneficiaryState,
-    surrender,
-    surrenderState,
+    transferTo,
+    transferToState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account } = useProviderContext();
@@ -30,7 +30,7 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
   }, [initialize, tokenId, tokenRegistryAddress]);
 
   const onSurrender = () => {
-    surrender(tokenRegistryAddress);
+    transferTo(tokenRegistryAddress);
   };
 
   const onSetFormAction = (AssetManagementActions: AssetManagementActions) => {
@@ -51,7 +51,7 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           onSetFormAction={onSetFormAction}
-          surrenderingState={surrenderState}
+          surrenderingState={transferToState}
           onSurrender={onSurrender}
           onTransferHolder={changeHolder}
           holderTransferringState={changeHolderState}
