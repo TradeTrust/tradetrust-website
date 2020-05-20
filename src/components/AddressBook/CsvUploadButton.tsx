@@ -1,5 +1,5 @@
 import React from "react";
-import web3 from "web3";
+import { isAddress } from "web3-utils";
 import { parse } from "papaparse";
 import { useAddressBook, AddressBook } from "../../common/hooks/useAddressBook";
 import { SvgIcon, SvgIconFilePlus } from "../UI/SvgIcon";
@@ -24,8 +24,7 @@ const csvToAddressBook = (csv: string) => {
     const addressText: string = row.Address || row.address;
     if (!identifierText) throw new Error(`Row ${index} does not have an identifer`);
     if (!addressText) throw new Error(`Row ${index} does not have an address`);
-    if (!web3.utils.isAddress(addressText))
-      throw new Error(`${addressText} in row ${index} is not a valid Ethereum address`);
+    if (!isAddress(addressText)) throw new Error(`${addressText} in row ${index} is not a valid Ethereum address`);
     addressBook[addressText.toLowerCase()] = identifierText;
   });
   return addressBook;
