@@ -8,6 +8,7 @@ import initStore from "./store";
 import "styles/main.scss";
 import { OverlayContextProvider } from "./common/contexts/OverlayContext";
 import { ProviderContextProvider } from "./common/contexts/provider";
+import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";
 
 const history = createBrowserHistory();
 
@@ -17,9 +18,11 @@ const App = () => {
     <OverlayContextProvider>
       <ProviderContextProvider>
         <Provider store={store}>
-          <ConnectedRouter history={history}>
-            <AppContainer />
-          </ConnectedRouter>
+          <TokenInformationContextProvider>
+            <ConnectedRouter history={history}>
+              <AppContainer />
+            </ConnectedRouter>
+          </TokenInformationContextProvider>
         </Provider>
       </ProviderContextProvider>
     </OverlayContextProvider>
