@@ -26,8 +26,3 @@ export const getProvider = (): { provider: providers.JsonRpcProvider; signer: et
   trace(`provider is ${provider} and signer is ${signer}`);
   return { provider, signer };
 };
-
-export const connectToMetamask = async () => {
-  const { ethereum } = window;
-  await ethereum.enable();
-};
