@@ -3,15 +3,12 @@ import PropTypes from "prop-types";
 import Modal from "./Modal";
 import { ErrorBoundary } from "./ErrorBoundary";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
-import { TitleTransferPanel } from "./TitleTransferPanel";
-import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
+import { getTokenRegistryAddress } from "../common/utils/document";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
-import { ManageAssets } from "./ManageAssets";
 import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagementContainer";
-import { FeatureFlag } from "./FeatureFlag";
 
 export const CertificateViewer = (props) => {
   const { document } = props;
@@ -28,15 +25,7 @@ export const CertificateViewer = (props) => {
     <>
       <section className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={props.verificationStatus} />
-        {tokenRegistryAddress && (
-          <>
-            <TitleTransferPanel tokenRegistryAddress={tokenRegistryAddress} tokenId={getDocumentId(document)} />
-            <ManageAssets document={document} />
-          </>
-        )}
-        <FeatureFlag name="NEW_ASSET_MANAGEMENT">
-          {tokenRegistryAddress && <AssetManagementContainer document={document} />}
-        </FeatureFlag>
+        {tokenRegistryAddress && <AssetManagementContainer document={document} />}
         <MultiTabs
           templates={templates}
           selectedTemplate={selectedTemplate}
