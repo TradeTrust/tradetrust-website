@@ -57,7 +57,6 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     "transferToNewEscrow"
   );
 
-  // Can use memo to prevent function from rerunning with same params
   const initialize = (address: string, id: string) => {
     setTokenId(id);
     setTokenRegistryAddress(address);
