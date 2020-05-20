@@ -6,8 +6,8 @@ const Document = "./fixture/ebl.json";
 const AddressBook = "./fixture/local-addressbook.csv";
 
 const TitleTransferPanel = Selector("#title-transfer-panel");
-const BeneficiaryName = Selector("[data-testid='Beneficiary']").find("h5");
-const HolderName = Selector("[data-testid='Holder']").find("h5");
+const BeneficiaryName = Selector("h5").withText("Bank of China");
+const HolderName = Selector("h5").withText("DBS");
 const OverlayAddressBook = Selector("[data-testid='overlay-addressbook']");
 const OverlayAddressBookTableBodyRows = Selector("[data-testid='overlay-addressbook'] tbody tr");
 const OverlayAddressBookTableFirstRow = Selector("[data-testid='overlay-addressbook'] tbody tr:first-of-type");
