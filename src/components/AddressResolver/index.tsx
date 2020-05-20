@@ -1,27 +1,10 @@
 import React, { useState } from "react";
-import { generateUniqueId } from "./../../common/utils/generateUniqueId";
 import { ButtonSolidOrangeWhite } from "../UI/Button";
 import { SvgIcon, SvgIconPlus } from "../UI/SvgIcon";
 import { AddressesTable } from "./AddressesTable";
 
-export interface NewEndpointsEntryProps {
-  id: string;
-}
-
 export const AddressResolver = () => {
-  const defaultnewEndpointsEntry: NewEndpointsEntryProps[] = [];
-  const [newEndpointsEntries, setNewEndpointsEntries] = useState(defaultnewEndpointsEntry);
-
-  const addNewEndpoint = () => {
-    setNewEndpointsEntries([{ id: generateUniqueId() }, ...newEndpointsEntries]); // id to track as component key value
-  };
-
-  const removeNewEndpoint = (id: string) => {
-    const filtered = newEndpointsEntries.filter((item) => {
-      return item.id !== id;
-    });
-    setNewEndpointsEntries(filtered);
-  };
+  const [isNewEndpoint, setNewEndpoint] = useState(false);
 
   return (
     <div className="container-custom py-5">
@@ -31,7 +14,13 @@ export const AddressResolver = () => {
           <p className="mb-0 text-grey">Add third party’s endpoint to resolve addresses. </p>
         </div>
         <div className="col-12 col-lg-auto">
-          <ButtonSolidOrangeWhite className="my-3 my-lg-0" onClick={addNewEndpoint}>
+          <ButtonSolidOrangeWhite
+            className="my-3 my-lg-0"
+            onClick={() => {
+              setNewEndpoint(true);
+            }}
+            disabled={isNewEndpoint}
+          >
             <div className="row align-items-center no-gutters">
               <div className="col-auto mr-2">
                 <SvgIcon>
@@ -43,7 +32,7 @@ export const AddressResolver = () => {
           </ButtonSolidOrangeWhite>
         </div>
       </div>
-      <AddressesTable newEndpointsEntries={newEndpointsEntries} removeNewEndpoint={removeNewEndpoint} />
+      <AddressesTable isNewEndpoint={isNewEndpoint} setNewEndpoint={setNewEndpoint} />
     </div>
   );
 };

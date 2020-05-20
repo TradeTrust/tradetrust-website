@@ -4,13 +4,12 @@ import { InputDefault } from "../UI/Input";
 import { SvgIcon, SvgIconTrash2, SvgIconSave, SvgIconEdit2 } from "../UI/SvgIcon";
 import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { vars } from "../../styles";
-import { generateUniqueId } from "./../../common/utils/generateUniqueId";
 import isURL from "validator/lib/isURL";
 import isEmpty from "validator/lib/isEmpty";
 
 interface EndpointEntryProps {
   className?: string;
-  id: string;
+  id: number;
   order: number;
   removeEndpoint: () => void;
   api: string;
@@ -39,18 +38,17 @@ export const EndpointEntry = styled(
       const newEndpoints = thirdPartyAPIEndpoints.map((item, index) => {
         return index === indexToReplace
           ? {
-              id: generateUniqueId(),
               name: endpointName.trim(),
               endpoint: endpointAPI.trim(),
             }
           : item;
       });
+
       setThirdPartyAPIEndpoints(newEndpoints);
     };
 
     const saveEndpoint = () => {
       addThirdPartyAPIEndpoint({
-        id: generateUniqueId(),
         name: endpointName.trim(),
         endpoint: endpointAPI.trim(),
       });
@@ -62,7 +60,7 @@ export const EndpointEntry = styled(
       }, 0);
     };
 
-    const onSaveApiEndpoint = (id: string) => {
+    const onSaveApiEndpoint = (id: number) => {
       const name = endpointName.trim();
       const endpoint = endpointAPI.trim();
 
@@ -85,7 +83,7 @@ export const EndpointEntry = styled(
       setInputErrorMessageName("");
       setInputErrorMessageEndpoint("");
 
-      const indexToReplace = thirdPartyAPIEndpoints.findIndex((item) => item.id === id);
+      const indexToReplace = thirdPartyAPIEndpoints.findIndex((item, index) => index === id);
 
       if (indexToReplace !== -1) {
         editEndpoint(indexToReplace);

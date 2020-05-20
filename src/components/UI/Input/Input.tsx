@@ -13,7 +13,7 @@ interface InputProps {
   errorMessage?: string;
 }
 
-export const Input = ({ className, errorMessage = "", ...props }: InputProps) => {
+export const Input = ({ className, errorMessage, ...props }: InputProps) => {
   return (
     <div className={`${className} ${errorMessage ? "is-error" : ""}`}>
       <input type="text" {...props} />

@@ -4,7 +4,6 @@ import { lighten } from "polished";
 import { vars } from "./../../styles";
 import { EndpointEntry } from "./EndpointEntry";
 import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
-import { NewEndpointsEntryProps } from "./index";
 
 export const TableStyle = () => {
   return `
@@ -59,11 +58,11 @@ export const TableStyle = () => {
 
 interface AddressesTableProps {
   className?: string;
-  newEndpointsEntries: NewEndpointsEntryProps[];
-  removeNewEndpoint: (id: string) => void;
+  isNewEndpoint: boolean;
+  setNewEndpoint: (isNewEndpoint: boolean) => void;
 }
 
-export const AddressesTable = styled(({ className, newEndpointsEntries, removeNewEndpoint }: AddressesTableProps) => {
+export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint }: AddressesTableProps) => {
   const { thirdPartyAPIEndpoints, removeThirdPartyAPIEndpoint } = useThirdPartyAPIEndpoints();
 
   return (
@@ -80,7 +79,7 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
               </tr>
             </thead>
             <tbody className="table-tbody">
-              {thirdPartyAPIEndpoints.length === 0 && newEndpointsEntries.length === 0 && (
+              {thirdPartyAPIEndpoints.length === 0 && !isNewEndpoint && (
                 <tr>
                   <th>&mdash;</th>
                   <td>&mdash;</td>
@@ -93,11 +92,11 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                   const order = index + 1;
                   return (
                     <EndpointEntry
-                      key={item.id}
-                      id={item.id}
+                      key={index}
+                      id={index}
                       order={order}
                       removeEndpoint={() => {
-                        removeThirdPartyAPIEndpoint(item.id);
+                        removeThirdPartyAPIEndpoint(index);
                       }}
                       api={item.endpoint}
                       name={item.name}
@@ -105,23 +104,18 @@ export const AddressesTable = styled(({ className, newEndpointsEntries, removeNe
                     />
                   );
                 })}
-              {newEndpointsEntries.length > 0 &&
-                newEndpointsEntries.map((item, index) => {
-                  const order = index + 1 + thirdPartyAPIEndpoints.length;
-                  return (
-                    <EndpointEntry
-                      key={item.id}
-                      id={item.id}
-                      order={order}
-                      removeEndpoint={() => {
-                        removeNewEndpoint(item.id);
-                      }}
-                      api=""
-                      name=""
-                      canEdit={true}
-                    />
-                  );
-                })}
+              {isNewEndpoint && (
+                <EndpointEntry
+                  id={thirdPartyAPIEndpoints.length + 1}
+                  order={thirdPartyAPIEndpoints.length + 1}
+                  removeEndpoint={() => {
+                    setNewEndpoint(false);
+                  }}
+                  api=""
+                  name=""
+                  canEdit={true}
+                />
+              )}
             </tbody>
           </table>
         </div>
