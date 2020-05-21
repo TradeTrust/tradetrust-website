@@ -1,6 +1,6 @@
 import React from "react";
-import { useAddressBook } from "../../../common/hooks/useAddressBook";
 import { AddressInfo } from "../../AddressInfo";
+import { useIdentifierResolver } from "../../../common/hooks/useIdentifierResolver";
 
 interface AssetTitleProps {
   role: string;
@@ -9,12 +9,11 @@ interface AssetTitleProps {
 }
 
 export const AssetTitle = ({ role, address, children }: AssetTitleProps) => {
-  const { getIdentifier } = useAddressBook();
-  const name = address && getIdentifier(address);
+  const { resolvedIdentifier } = useIdentifierResolver(address);
 
   return (
     <div data-testid={`asset-title-${role.toLowerCase()}`} className="py-3">
-      <AddressInfo title={role} name={name}>
+      <AddressInfo title={role} name={resolvedIdentifier}>
         {children}
       </AddressInfo>
     </div>

@@ -1,5 +1,5 @@
 import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
-import { InputDefault } from "./Input";
+import { Input, InputDefault } from "./Input";
 
 <Meta title="UI/Input" component={InputDefault} />
 
@@ -11,7 +11,7 @@ Input look.
 
 ### Props
 
-<Props of={InputDefault} />
+<Props of={Input} />
 
 ---
 
@@ -20,5 +20,15 @@ Input look.
 <Preview>
   <Story name="Default">
     <InputDefault type="text" name="test" placeholder="Placeholder" />
+  </Story>
+</Preview>
+
+---
+
+### Error
+
+<Preview>
+  <Story name="Error">
+    <InputDefault type="text" name="test" placeholder="Placeholder" errorMessage="Some error occurred." />
   </Story>
 </Preview>

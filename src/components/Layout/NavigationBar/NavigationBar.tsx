@@ -40,6 +40,12 @@ export const navItems = [
     path: "/#contact",
     target: "_self",
   },
+  {
+    id: "settings",
+    label: "Settings",
+    path: "/settings",
+    target: "_self",
+  },
 ];
 
 export const NavigationBar = () => {
@@ -48,7 +54,7 @@ export const NavigationBar = () => {
   return (
     <div className="bg-brand-navy">
       <div className="container-custom">
-        <nav className={`navbar navbar-expand-lg navbar-dark ${css.topnavbar}`}>
+        <nav className={`navbar navbar-expand-xl navbar-dark ${css.topnavbar}`}>
           <NavHashLink className={`navbar-brand ${css.logo}`} to="/" smooth>
             <img className="img-fluid" src="/static/images/tradetrust_logo.svg" alt="TradeTrust" />
           </NavHashLink>
@@ -63,11 +69,11 @@ export const NavigationBar = () => {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div className="py-3 py-lg-0 collapse navbar-collapse" id="top-nav">
+          <div className="py-3 py-xl-0 collapse navbar-collapse" id="top-nav">
             <ul className="navbar-nav row ml-auto">
               {navItems.map((item, index) => {
                 return (
-                  <li className={`col-auto nav-item my-2 my-lg-0 ${css["topnavbar-item"]}`} key={index}>
+                  <li className={`col-auto nav-item my-2 my-xl-0 ${css["topnavbar-item"]}`} key={index}>
                     {item.target === "_self" ? (
                       <NavHashLink
                         to={item.path}
