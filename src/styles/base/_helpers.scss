@@ -38,6 +38,10 @@
   color: $brand-navy;
 }
 
+.text-grey {
+  color: $color-grey;
+}
+
 .container-custom {
   @include container-custom;
 }

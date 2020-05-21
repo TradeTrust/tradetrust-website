@@ -36,13 +36,18 @@ a {
 }
 
 // "sticky" footer, allow footer to flush to bottom when in viewer page, while document is loading
-#root {
+.wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
   > main {
-    background-color: $color-grey-lightest;
     flex: 1;
+  }
+
+  &[data-location="/settings"] {
+    > main {
+      background-color: $color-blue-lighter;
+    }
   }
 }
