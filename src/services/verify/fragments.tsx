@@ -1,14 +1,15 @@
-import { isValid as isValidFromUpstream } from "@govtechsg/oa-verify";
-const getFirstFragmentFor = (fragments, name) => fragments.filter((status) => status.name === name)[0];
+import { isValid as isValidFromUpstream, VerificationFragment, VerificationFragmentType } from "@govtechsg/oa-verify";
+const getFirstFragmentFor = (fragments: VerificationFragment[], name: string) =>
+  fragments.filter((status) => status.name === name)[0];
 
 const revokeFragmentName = "OpenAttestationEthereumDocumentStoreRevoked";
-export const getNotRevokeFragment = (fragments) =>
+export const getNotRevokeFragment = (fragments: VerificationFragment[]) =>
   fragments.filter((status) => status.name !== revokeFragmentName && status.status !== "SKIPPED");
-export const getRevokeFragment = (fragments) =>
+export const getRevokeFragment = (fragments: VerificationFragment[]) =>
   fragments.filter((status) => status.name === revokeFragmentName && status.status !== "SKIPPED");
 
 // this function check if the reason of the error is that the document store or token registry is invalid
-export const addressInvalid = (fragments) => {
+export const addressInvalid = (fragments: VerificationFragment[]) => {
   const documentStoreIssuedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumDocumentStoreIssued");
   const tokenRegistryMintedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumTokenRegistryMinted");
   // 2 is the error code used by oa-verify in case of invalid address
@@ -19,14 +20,14 @@ export const addressInvalid = (fragments) => {
 // with one skipped and one valid.
 // in the case of Tradetrust, we want to make sure all identities are valid
 export const isValid = (
-  verificationFragments,
-  types = ["DOCUMENT_STATUS", "DOCUMENT_INTEGRITY", "ISSUER_IDENTITY"]
+  verificationFragments: VerificationFragment[],
+  types: VerificationFragmentType[] = ["DOCUMENT_STATUS", "DOCUMENT_INTEGRITY", "ISSUER_IDENTITY"]
 ) => {
   if (types.includes("ISSUER_IDENTITY")) {
     const dnsFragment = getFirstFragmentFor(verificationFragments, "OpenAttestationDnsTxt");
     return (
       isValidFromUpstream(verificationFragments, types) &&
-      dnsFragment?.data?.every((issuer) => issuer.status === "VALID")
+      dnsFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID")
     );
   } else {
     return isValidFromUpstream(verificationFragments, types);
@@ -34,14 +35,14 @@ export const isValid = (
 };
 
 // this function check if the reason of the error is that the document store or token has not been issued
-export const certificateNotIssued = (fragments) => {
+export const certificateNotIssued = (fragments: VerificationFragment[]) => {
   const documentStoreIssuedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumDocumentStoreIssued");
   const tokenRegistryMintedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumTokenRegistryMinted");
   // 1 is the error code used by oa-verify in case of document / token not issued / minted
   return documentStoreIssuedFragment?.reason?.code === 1 || tokenRegistryMintedFragment?.reason?.code === 1;
 };
 
-export const interpretFragments = (fragments) => {
+export const interpretFragments = (fragments: VerificationFragment[]) => {
   const notRevokeFragments = getNotRevokeFragment(fragments);
   const revokeFragments = getRevokeFragment(fragments);
   const hashValid = isValid(fragments, ["DOCUMENT_INTEGRITY"]);
