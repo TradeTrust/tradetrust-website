@@ -87,23 +87,22 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                   <td>&nbsp;</td>
                 </tr>
               )}
-              {thirdPartyAPIEndpoints.length > 0 &&
-                thirdPartyAPIEndpoints.map((item, index) => {
-                  const order = index + 1;
-                  return (
-                    <EndpointEntry
-                      key={index}
-                      id={index}
-                      order={order}
-                      removeEndpoint={() => {
-                        removeThirdPartyAPIEndpoint(index);
-                      }}
-                      api={item.endpoint}
-                      name={item.name}
-                      canEdit={false}
-                    />
-                  );
-                })}
+              {thirdPartyAPIEndpoints.map((item, index) => {
+                const order = index + 1;
+                return (
+                  <EndpointEntry
+                    key={index}
+                    id={index}
+                    order={order}
+                    removeEndpoint={() => {
+                      removeThirdPartyAPIEndpoint(index);
+                    }}
+                    api={item.endpoint}
+                    name={item.name}
+                    canEdit={false}
+                  />
+                );
+              })}
               {isNewEndpoint && (
                 <EndpointEntry
                   id={thirdPartyAPIEndpoints.length + 1}

@@ -6,21 +6,23 @@ jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 it("should return the first name if it can be found with any resolver", async () => {
-  mockedAxios.get.mockResolvedValueOnce({
-    data: {
-      identity: {
-        identifier: "0xA",
-        name: "ABC Pte Ltd",
-        remarks: "Added by Raymond",
+  mockedAxios.get.mockResolvedValueOnce(
+    Promise.resolve({
+      data: {
+        identity: {
+          identifier: "0xA",
+          name: "ABC Pte Ltd",
+          remarks: "Added by Raymond",
+        },
       },
-    },
-  });
+    })
+  );
 
   const endpoints = [
     {
       id: "1",
       name: "demo",
-      endpoint: "https://demo.io/identifier/",
+      endpoint: "https://demo-resolver.tradetrust.io/identifier/",
     },
   ];
 
@@ -33,18 +35,19 @@ it("should return the first name if it can be found with any resolver", async ()
 });
 
 it("should return undefined if it cannot be resolved anywhere", async () => {
-  mockedAxios.get.mockResolvedValueOnce({
-    data: {
-      requestId: "512e154f-6065-4ba7-ace3-f4faa255cf91",
-      message: "No profile found for 0xB",
-    },
-  });
+  mockedAxios.get.mockResolvedValueOnce(
+    Promise.reject({
+      data: {
+        message: "No profile found for 0xB",
+      },
+    })
+  );
 
   const endpoints = [
     {
       id: "1",
       name: "demo",
-      endpoint: "https://demo.io/identifier/",
+      endpoint: "https://demo-resolver.tradetrust.io/identifier/",
     },
   ];
 
@@ -57,9 +60,13 @@ it("should return undefined if it cannot be resolved anywhere", async () => {
 });
 
 it("should return undefined with empty resolver list", async () => {
-  mockedAxios.get.mockResolvedValueOnce({
-    data: {},
-  });
+  mockedAxios.get.mockResolvedValueOnce(
+    Promise.reject({
+      data: {
+        message: "No profile found for 0xC",
+      },
+    })
+  );
 
   const endpoints: ThirdPartyAPIEntryProps[] = [];
 
