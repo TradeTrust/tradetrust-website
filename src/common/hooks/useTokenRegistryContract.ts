@@ -7,6 +7,7 @@ export const useTokenRegistryContract = (address: string, provider: providers.Pr
   const [tokenRegistry, setTokenRegistry] = useState<TradeTrustERC721>();
 
   useEffect(() => {
+    if (!address) return;
     const instance = TradeTrustERC721Factory.connect(address, provider);
     setTokenRegistry(instance);
   }, [address, provider]);

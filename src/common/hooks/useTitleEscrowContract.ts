@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTokenRegistryContract } from "./useTokenRegistryContract";
 import { providers, Signer } from "ethers";
 import { TitleEscrowFactory } from "@govtechsg/token-registry";
@@ -12,15 +12,16 @@ export const useTitleEscrowContract = (
   const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
 
-  useEffect(() => {
+  const updateTitleEscrow = useCallback(async () => {
     if (!tokenRegistry) return;
-    const updateTitleEscrow = async () => {
-      const titleEscrowAddress = await tokenRegistry.ownerOf(tokenId);
-      const instance = TitleEscrowFactory.connect(titleEscrowAddress, provider);
-      setTitleEscrow(instance);
-    };
-    updateTitleEscrow();
-  }, [tokenRegistry, tokenId, provider]);
+    const titleEscrowAddress = await tokenRegistry.ownerOf(tokenId);
+    const instance = TitleEscrowFactory.connect(titleEscrowAddress, provider);
+    setTitleEscrow(instance);
+  }, [provider, tokenId, tokenRegistry]);
 
-  return { titleEscrow };
+  useEffect(() => {
+    updateTitleEscrow();
+  }, [tokenRegistry, tokenId, provider, updateTitleEscrow]);
+
+  return { titleEscrow, updateTitleEscrow };
 };
