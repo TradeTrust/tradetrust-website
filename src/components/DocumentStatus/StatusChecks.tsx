@@ -1,23 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { VerificationFragment } from "@govtechsg/oa-verify";
 import { TYPES, MESSAGES } from "../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../services/verify/fragments";
 import { mixin, vars } from "../../styles";
 import { StatusCheck } from "./StatusCheck";
 
-interface StatusChecks {
-  verificationStatus: {
-    name: string;
-    type: string;
-    status: string;
-    data: {
-      status: string;
-      location: string;
-    }[];
-  }[];
-}
-
-export const StatusChecks = styled(({ verificationStatus }: StatusChecks) => {
+export const StatusChecks = styled(({ verificationStatus }: { verificationStatus: VerificationFragment[] }) => {
   const { hashValid, issuedValid, revokedValid, identityValid } = interpretFragments(verificationStatus);
 
   return (

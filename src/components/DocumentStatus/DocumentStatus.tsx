@@ -2,17 +2,10 @@ import React from "react";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../styles";
 import { StatusChecks } from "./StatusChecks";
+import { VerificationFragment } from "@govtechsg/oa-verify";
 
 interface DocumentStatusProps {
-  verificationStatus: {
-    name: string;
-    type: string;
-    status: string;
-    data: {
-      status: string;
-      location: string;
-    }[];
-  }[];
+  verificationStatus: VerificationFragment[];
   className?: string;
 }
 
