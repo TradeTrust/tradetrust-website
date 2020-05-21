@@ -3,6 +3,7 @@ import { Overlay } from "./Overlay";
 import { Textual } from "./OverlayContent/Textual";
 import { Youtube } from "./OverlayContent/Youtube";
 import { AddressBook } from "./OverlayContent/AddressBook";
+import { DeleteAddressResolver } from "./OverlayContent/DeleteAddressResolver";
 import {
   MessageTitle,
   DocumentTransferMessage,
@@ -281,6 +282,25 @@ Overlay look.
           <DocumentTransferMessage title={MessageTitle.TRANSFER_HOLDER_SUCCESS} isSuccess={true}>
             <MessageHolderSuccess address="Bank of China Pte Ltd" />
           </DocumentTransferMessage>
+        </OverlayStorybookWrapper>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DeleteAddressResolver)
+
+<Preview>
+  <Story name="DeleteAddressResolver">
+    {() => {
+      const deleteAddress = () => {
+        alert("delete address");
+      };
+      return (
+        <OverlayStorybookWrapper>
+          <DeleteAddressResolver title="Delete Address Resolver" name="Swift" deleteAddress={deleteAddress} />
         </OverlayStorybookWrapper>
       );
     }}

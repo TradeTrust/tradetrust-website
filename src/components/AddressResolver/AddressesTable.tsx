@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { lighten } from "polished";
 import { vars } from "./../../styles";
 import { EndpointEntry } from "./EndpointEntry";
 import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
+import { DeleteAddressResolver } from "./../../components/UI/Overlay/OverlayContent/DeleteAddressResolver";
 
 export const TableStyle = () => {
   return `
@@ -64,6 +66,24 @@ interface AddressesTableProps {
 
 export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint }: AddressesTableProps) => {
   const { thirdPartyAPIEndpoints, removeThirdPartyAPIEndpoint } = useThirdPartyAPIEndpoints();
+  const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
+
+  const deleteAddress = (index: number) => {
+    removeThirdPartyAPIEndpoint(index);
+    setOverlayVisible(false);
+  };
+
+  const onOverlayHandler = (name: string, index: number) => {
+    showOverlay(
+      <DeleteAddressResolver
+        title="Delete Address Resolver"
+        name={name}
+        deleteAddress={() => {
+          deleteAddress(index);
+        }}
+      />
+    );
+  };
 
   return (
     <div className={`${className} row py-4`}>
@@ -95,7 +115,7 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                     id={index}
                     order={order}
                     removeEndpoint={() => {
-                      removeThirdPartyAPIEndpoint(index);
+                      onOverlayHandler(item.name, index);
                     }}
                     api={item.endpoint}
                     name={item.name}
