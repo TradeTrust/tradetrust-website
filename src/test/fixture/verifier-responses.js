@@ -352,3 +352,45 @@ export const whenDocumentIssuerIdentityInvalid = [
     type: "ISSUER_IDENTITY",
   },
 ];
+
+export const whenTransferableDocumentVerified = [
+  { type: "DOCUMENT_INTEGRITY", name: "OpenAttestationHash", data: true, status: "VALID" },
+  {
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+    name: "OpenAttestationEthereumDocumentStoreIssued",
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "documentStore" or "certificateStore" property or DOCUMENT_STORE method',
+    },
+  },
+  {
+    name: "OpenAttestationEthereumTokenRegistryMinted",
+    type: "DOCUMENT_STATUS",
+    data: { mintedOnAll: true, details: [{ minted: true, address: "0xc3E9eBc6aDA9BA4B4Ce65D71901Cb2307e9670cE" }] },
+    status: "VALID",
+  },
+  {
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+    name: "OpenAttestationEthereumDocumentStoreRevoked",
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "documentStore" or "certificateStore" property or DOCUMENT_STORE method',
+    },
+  },
+  {
+    name: "OpenAttestationDnsTxt",
+    type: "ISSUER_IDENTITY",
+    data: [
+      {
+        status: "VALID",
+        location: "demo-tradetrust.openattestation.com",
+        value: "0xc3E9eBc6aDA9BA4B4Ce65D71901Cb2307e9670cE",
+      },
+    ],
+    status: "VALID",
+  },
+];

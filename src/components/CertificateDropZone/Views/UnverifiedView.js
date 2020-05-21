@@ -1,25 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import {
-  certificateNotIssued,
-  getAllButRevokeFragment,
-  getRevokeFragment,
-  isValid,
-} from "../../../services/verify/fragments";
+import { interpretFragments } from "../../../services/verify/fragments";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 import css from "./viewerStyles.module.scss";
 
 const DetailedErrors = ({ verificationStatus }) => {
   const errors = [];
-  const positiveFragments = getAllButRevokeFragment(verificationStatus);
-  const negativeFragments = [getRevokeFragment(verificationStatus)];
 
-  if (!isValid(positiveFragments, ["DOCUMENT_INTEGRITY"])) errors.push(TYPES.HASH);
-  if (!isValid(positiveFragments, ["DOCUMENT_STATUS"]) && certificateNotIssued(positiveFragments))
-    errors.push(TYPES.ISSUED);
-  if (!isValid(negativeFragments, ["DOCUMENT_STATUS"])) errors.push(TYPES.REVOKED);
-  if (!isValid(positiveFragments, ["ISSUER_IDENTITY"])) errors.push(TYPES.IDENTITY);
+  const { hashValid, issuedValid, revokedValid, identityValid } = interpretFragments(verificationStatus);
+
+  if (!hashValid) errors.push(TYPES.HASH);
+  if (!issuedValid) errors.push(TYPES.ISSUED);
+  if (!revokedValid) errors.push(TYPES.REVOKED);
+  if (!identityValid) errors.push(TYPES.IDENTITY);
 
   return (
     <div id="error-tab" className={css.verifications}>

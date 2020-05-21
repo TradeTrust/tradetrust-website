@@ -1,12 +1,11 @@
 import { isValid as isValidFromUpstream } from "@govtechsg/oa-verify";
 const getFirstFragmentFor = (fragments, name) => fragments.filter((status) => status.name === name)[0];
 
+const revokeFragmentName = "OpenAttestationEthereumDocumentStoreRevoked";
+export const getNotRevokeFragment = (fragments) =>
+  fragments.filter((status) => status.name !== revokeFragmentName && status.status !== "SKIPPED");
 export const getRevokeFragment = (fragments) =>
-  getFirstFragmentFor(fragments, "OpenAttestationEthereumDocumentStoreRevoked");
-export const getAllButRevokeFragment = (fragments) => {
-  const revokeFragmentName = "OpenAttestationEthereumDocumentStoreRevoked";
-  return fragments.filter((status) => status.name !== revokeFragmentName);
-};
+  fragments.filter((status) => status.name === revokeFragmentName && status.status !== "SKIPPED");
 
 // this function check if the reason of the error is that the document store or token registry is invalid
 export const addressInvalid = (fragments) => {
@@ -40,4 +39,14 @@ export const certificateNotIssued = (fragments) => {
   const tokenRegistryMintedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumTokenRegistryMinted");
   // 1 is the error code used by oa-verify in case of document / token not issued / minted
   return documentStoreIssuedFragment?.reason?.code === 1 || tokenRegistryMintedFragment?.reason?.code === 1;
+};
+
+export const interpretFragments = (fragments) => {
+  const notRevokeFragments = getNotRevokeFragment(fragments);
+  const revokeFragments = getRevokeFragment(fragments);
+  const hashValid = isValid(fragments, ["DOCUMENT_INTEGRITY"]);
+  const issuedValid = isValid(notRevokeFragments, ["DOCUMENT_STATUS"]);
+  const revokedValid = revokeFragments.length === 0 || isValid(revokeFragments, ["DOCUMENT_STATUS"]);
+  const identityValid = isValid(fragments, ["ISSUER_IDENTITY"]);
+  return { hashValid, issuedValid, identityValid, revokedValid };
 };
