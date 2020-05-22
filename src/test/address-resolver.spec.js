@@ -2,7 +2,6 @@ import { Selector } from "testcafe";
 
 fixture("Address Resolver").page`http://localhost:3000`;
 
-const ButtonAdd = Selector("button").withText("Add");
 const TableBodyRow = Selector("tbody > tr");
 const TableBodyRowLatest = Selector("tbody > tr:last-child");
 const InputName = TableBodyRow.find("input[placeholder='Name']");
@@ -19,6 +18,8 @@ const validateTextContent = async (t, component, texts) =>
 
 test("Address Resolver to be added, edited and removed correctly", async (t) => {
   await t.navigateTo("/settings");
+
+  const ButtonAdd = Selector("button").withText("Add");
 
   await t.click(ButtonAdd).expect(ButtonAdd.hasAttribute("disabled")).ok();
   await validateTextContent(t, TableBodyRow, ["1"]);
