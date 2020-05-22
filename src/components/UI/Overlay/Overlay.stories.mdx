@@ -3,7 +3,7 @@ import { Overlay } from "./Overlay";
 import { Textual } from "./OverlayContent/Textual";
 import { Youtube } from "./OverlayContent/Youtube";
 import { AddressBook } from "./OverlayContent/AddressBook";
-import { DeleteAddressResolver } from "./OverlayContent/DeleteAddressResolver";
+import { DeleteResolverConfirmation } from "./OverlayContent/DeleteResolverConfirmation";
 import {
   MessageTitle,
   DocumentTransferMessage,
@@ -290,17 +290,17 @@ Overlay look.
 
 ---
 
-### Overlay (DeleteAddressResolver)
+### Overlay (DeleteResolverConfirmation)
 
 <Preview>
-  <Story name="DeleteAddressResolver">
+  <Story name="DeleteResolverConfirmation">
     {() => {
       const deleteAddress = () => {
         alert("delete address");
       };
       return (
         <OverlayStorybookWrapper>
-          <DeleteAddressResolver title="Delete Address Resolver" name="Swift" deleteAddress={deleteAddress} />
+          <DeleteResolverConfirmation title="Delete Address Resolver" name="Swift" deleteAddress={deleteAddress} />
         </OverlayStorybookWrapper>
       );
     }}

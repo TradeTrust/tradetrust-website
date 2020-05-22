@@ -5,7 +5,7 @@ import { vars } from "./../../styles";
 import { EndpointEntry } from "./EndpointEntry";
 import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
-import { DeleteAddressResolver } from "./../../components/UI/Overlay/OverlayContent/DeleteAddressResolver";
+import { DeleteResolverConfirmation } from "../UI/Overlay/OverlayContent/DeleteResolverConfirmation";
 
 export const TableStyle = () => {
   return `
@@ -73,9 +73,9 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
     setOverlayVisible(false);
   };
 
-  const onOverlayHandler = (name: string, index: number) => {
+  const onRemoveEndpoint = (name: string, index: number) => {
     showOverlay(
-      <DeleteAddressResolver
+      <DeleteResolverConfirmation
         title="Delete Address Resolver"
         name={name}
         deleteAddress={() => {
@@ -115,7 +115,7 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                     id={index}
                     order={order}
                     removeEndpoint={() => {
-                      onOverlayHandler(item.name, index);
+                      onRemoveEndpoint(item.name, index);
                     }}
                     api={item.endpoint}
                     name={item.name}
