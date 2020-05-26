@@ -7,6 +7,7 @@ import {
   whenDocumentRevoked,
   whenDocumentIssuerIdentityInvalid,
   whenDocumentHashInvalidAndNotIssued,
+  whenTransferableDocumentVerified,
 } from "../../test/fixture/verifier-responses";
 
 <Meta title="DocumentStatus" component={DocumentStatus} />
@@ -31,6 +32,20 @@ Document is issued, has integrity, not revoked and has a verified issuer identit
   <Story name="Valid Document">
     {() => {
       return <DocumentStatus verificationStatus={whenDocumentValidAndIssued} />;
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Transferable Document is Valid
+
+Transferable Document is issued, has integrity, not revoked and has a verified issuer identity
+
+<Preview>
+  <Story name="Valid Transferable Document">
+    {() => {
+      return <DocumentStatus verificationStatus={whenTransferableDocumentVerified} />;
     }}
   </Story>
 </Preview>
