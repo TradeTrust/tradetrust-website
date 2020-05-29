@@ -1,13 +1,13 @@
 import React from "react";
-import { LabelBordered } from "../../UI/LabelBordered";
+import { TagSolid } from "../../UI/Tag";
 
 export const AssetManagementTags = () => {
   return (
     <div className="row">
       <div className="col-12">
         <div className="py-2">
-          <LabelBordered color="red">This is a transferable record</LabelBordered>
-          <LabelBordered color="red">Negotiable</LabelBordered>
+          <TagSolid>Transferable</TagSolid>
+          <TagSolid>Negotiable</TagSolid>
         </div>
       </div>
     </div>

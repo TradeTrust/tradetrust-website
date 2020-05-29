@@ -17,6 +17,7 @@ interface TokenInformationContext {
   endorseBeneficiary: TitleEscrow["endorseBeneficiary"];
   endorseBeneficiaryState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
+  isEBLSurrendered: boolean;
 }
 
 const contractFunctionStub = () => {
@@ -33,6 +34,7 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   transferToState: "UNINITIALIZED",
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
+  isEBLSurrendered: false,
 });
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -40,6 +42,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
   const { provider } = useProviderContext();
   const { titleEscrow, updateTitleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
+  const isEBLSurrendered = titleEscrow?.address === tokenRegistryAddress;
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -99,6 +102,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         changeHolderState,
         endorseBeneficiaryState,
         transferToState,
+        isEBLSurrendered,
       }}
     >
       {children}

@@ -21,6 +21,7 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
     endorseBeneficiaryState,
     transferTo,
     transferToState,
+    isEBLSurrendered,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account } = useProviderContext();
@@ -57,6 +58,7 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           holderTransferringState={changeHolderState}
           onEndorseBeneficiary={endorseBeneficiary}
           beneficiaryEndorseState={endorseBeneficiaryState}
+          isEBLSurrendered={isEBLSurrendered}
         />
       </div>
     </div>

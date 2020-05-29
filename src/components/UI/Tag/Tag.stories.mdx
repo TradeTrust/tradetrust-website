@@ -1,0 +1,30 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import { TagUnstyled, TagSolid, TagBordered, TagBorderedSurrendered } from "./Tag";
+
+<Meta title="UI/Tag" component={TagUnstyled} />
+
+# Tag
+
+Label, bordered look.
+
+---
+
+### Props
+
+<Props of={TagUnstyled} />
+
+---
+
+### Labels
+
+<Preview>
+  <Story name="TagSolid">
+    <TagSolid>TagSolid</TagSolid>
+  </Story>
+  <Story name="TagBordered">
+    <TagBordered>TagBordered</TagBordered>
+  </Story>
+  <Story name="TagBorderedSurrendered">
+    <TagBorderedSurrendered>Surrendered</TagBorderedSurrendered>
+  </Story>
+</Preview>
