@@ -6,6 +6,7 @@ import { EndpointEntry } from "./EndpointEntry";
 import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { DeleteResolverConfirmation } from "../UI/Overlay/OverlayContent/DeleteResolverConfirmation";
+import { fontSize } from "../../styles/abstracts/mixin";
 
 export const TableStyle = () => {
   return `
@@ -92,7 +93,8 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
           <table className="table">
             <thead className="table-thead">
               <tr>
-                <th>Order</th>
+                <th />
+                <td>Order</td>
                 <td>Name</td>
                 <td>Endpoint</td>
                 <td>&nbsp;</td>
@@ -101,7 +103,8 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
             <tbody className="table-tbody">
               {thirdPartyAPIEndpoints.length === 0 && !isNewEndpoint && (
                 <tr>
-                  <th>&mdash;</th>
+                  <th />
+                  <td>&mdash;</td>
                   <td>&mdash;</td>
                   <td>No third party&apos;s endpoint found.</td>
                   <td>&nbsp;</td>
@@ -111,7 +114,7 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                 const order = index + 1;
                 return (
                   <EndpointEntry
-                    key={index}
+                    key={item.endpoint}
                     id={index}
                     order={order}
                     removeEndpoint={() => {
@@ -145,7 +148,30 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
   ${TableStyle()}
 
   th {
-    width: 80px;
+    width: 30px;
+    text-align: center;
+
+    .fas {
+      transition: color 0.3s ${vars.easeOutCubic}, opacity 0.3s ${vars.easeOutCubic},
+        visibility 0.3s ${vars.easeOutCubic};
+      display: block;
+      cursor: pointer;
+      color: ${vars.grey};
+      line-height: 0.5;
+      ${fontSize(20)};
+
+      &:hover {
+        color: ${vars.greyDark};
+      }
+
+      &.fa-sort-up {
+        padding-top: 8px;
+      }
+
+      &.fa-sort-down {
+        padding-bottom: 8px;
+      }
+    }
   }
 
   td {
@@ -164,6 +190,10 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
     }
 
     &:nth-of-type(1) {
+      width: 80px;
+    }
+
+    &:nth-of-type(2) {
       width: 200px;
     }
 

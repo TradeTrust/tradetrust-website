@@ -63,6 +63,8 @@ export const EndpointEntry = styled(
     const onSaveApiEndpoint = (id: number) => {
       const name = endpointName.trim();
       const endpoint = endpointAPI.trim();
+      const indexToReplace = thirdPartyAPIEndpoints.findIndex((item, index) => index === id);
+      const checkEndpointExists = (item: { endpoint: string }) => item.endpoint === endpoint;
 
       if (isEmpty(name)) {
         setInputErrorMessageName("Name must not be blank.");
@@ -79,22 +81,81 @@ export const EndpointEntry = styled(
         return;
       }
 
-      setEditable(false);
-      setInputErrorMessageName("");
-      setInputErrorMessageEndpoint("");
-
-      const indexToReplace = thirdPartyAPIEndpoints.findIndex((item, index) => index === id);
+      if (thirdPartyAPIEndpoints.some(checkEndpointExists) && indexToReplace === -1) {
+        setInputErrorMessageEndpoint("Endpoint already exists.");
+        return;
+      }
 
       if (indexToReplace !== -1) {
         editEndpoint(indexToReplace);
       } else {
         saveEndpoint();
       }
+
+      setEditable(false);
+      setInputErrorMessageName("");
+      setInputErrorMessageEndpoint("");
+    };
+
+    const swapArrayAt = (fields: {}[], indexA: number, indexB: number) => {
+      if (!Array(fields)) {
+        return;
+      }
+      const to = fields[indexB];
+      const from = fields[indexA];
+      fields[indexA] = to;
+      fields[indexB] = from;
+    };
+    // TestCafe Invalid destructuring assignment target = [arr[from], arr[to]] = [arr[to], arr[from]]
+    // https://github.com/react-hook-form/react-hook-form/issues/1003#issuecomment-585657031
+
+    const moveEntryUp = (id: number) => {
+      const to = id - 1;
+      const from = id;
+      const toOrdered = [...thirdPartyAPIEndpoints];
+
+      if (to < 0) {
+        return;
+      }
+
+      swapArrayAt(toOrdered, to, from);
+      setThirdPartyAPIEndpoints(toOrdered);
+    };
+
+    const moveEntryDown = (id: number) => {
+      const to = id + 1;
+      const from = id;
+      const toOrdered = [...thirdPartyAPIEndpoints];
+
+      if (to >= thirdPartyAPIEndpoints.length) {
+        return;
+      }
+
+      swapArrayAt(toOrdered, to, from);
+      setThirdPartyAPIEndpoints(toOrdered);
     };
 
     return (
       <tr className={className}>
-        <th>{order}</th>
+        <th>
+          {!isEditable && (
+            <>
+              <i
+                className="fas fa-sort-up"
+                onClick={() => {
+                  moveEntryUp(id);
+                }}
+              />
+              <i
+                className="fas fa-sort-down"
+                onClick={() => {
+                  moveEntryDown(id);
+                }}
+              />
+            </>
+          )}
+        </th>
+        <td>{order}</td>
         <td>
           {isEditable ? (
             <InputDefault
@@ -147,6 +208,20 @@ export const EndpointEntry = styled(
     );
   }
 )`
+  .fa-sort-up,
+  .fa-sort-down {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &:hover {
+    .fa-sort-up,
+    .fa-sort-down {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
   td {
     &.is-editable {
       &:last-of-type {
