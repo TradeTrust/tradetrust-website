@@ -18,6 +18,7 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
+          isEBLSurrendered={false}
         />
       );
       const beneficiaryComponent = container.getByTestId("asset-title-beneficiary");
@@ -48,6 +49,7 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={mockOnConnectToWallet}
           canChangeHolder={false}
           canEndorseBeneficiary={false}
+          isEBLSurrendered={false}
         />
       );
 
@@ -70,6 +72,7 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
+          isEBLSurrendered={false}
         />
       );
 
@@ -92,6 +95,7 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
+          isEBLSurrendered={false}
         />
       );
 
@@ -117,10 +121,33 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
+          isEBLSurrendered={false}
         />
       );
 
       expect(container.queryByTestId("SurrenderDropdown")).toBeNull();
+    });
+  });
+
+  it("should display the Surrender tag if document is surrendered", async () => {
+    await act(async () => {
+      const container = render(
+        <ActionSelectionForm
+          onSetFormAction={() => {}}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          canSurrender={true}
+          onConnectToWallet={() => alert("Login to Metamask")}
+          canChangeHolder={true}
+          canEndorseBeneficiary={false}
+          isEBLSurrendered={true}
+        />
+      );
+
+      expect(container.queryByText("Surrendered")).not.toBeNull();
     });
   });
 
@@ -140,6 +167,7 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
+          isEBLSurrendered={false}
         />
       );
 
@@ -171,6 +199,7 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={true}
+          isEBLSurrendered={false}
         />
       );
 
