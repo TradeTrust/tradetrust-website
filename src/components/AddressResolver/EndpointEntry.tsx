@@ -11,14 +11,26 @@ interface EndpointEntryProps {
   className?: string;
   id: number;
   order: number;
-  removeEndpoint: () => void;
   api: string;
   name: string;
   canEdit: boolean;
+  removeEndpoint: () => void;
+  onMoveEntryUp?: () => void;
+  onMoveEntryDown?: () => void;
 }
 
 export const EndpointEntry = styled(
-  ({ className, id, order, removeEndpoint, api, name, canEdit }: EndpointEntryProps) => {
+  ({
+    className,
+    id,
+    order,
+    removeEndpoint,
+    api,
+    name,
+    canEdit,
+    onMoveEntryUp,
+    onMoveEntryDown,
+  }: EndpointEntryProps) => {
     const [isEditable, setEditable] = useState(canEdit);
     const [inputErrorMessageName, setInputErrorMessageName] = useState("");
     const [inputMessageEndpoint, setInputErrorMessageEndpoint] = useState("");
@@ -97,61 +109,13 @@ export const EndpointEntry = styled(
       setInputErrorMessageEndpoint("");
     };
 
-    const swapArrayAt = (fields: {}[], indexA: number, indexB: number) => {
-      if (!Array(fields)) {
-        return;
-      }
-      const to = fields[indexB];
-      const from = fields[indexA];
-      fields[indexA] = to;
-      fields[indexB] = from;
-    };
-    // TestCafe Invalid destructuring assignment target = [arr[from], arr[to]] = [arr[to], arr[from]]
-    // https://github.com/react-hook-form/react-hook-form/issues/1003#issuecomment-585657031
-
-    const moveEntryUp = (id: number) => {
-      const to = id - 1;
-      const from = id;
-      const toOrdered = [...thirdPartyAPIEndpoints];
-
-      if (to < 0) {
-        return;
-      }
-
-      swapArrayAt(toOrdered, to, from);
-      setThirdPartyAPIEndpoints(toOrdered);
-    };
-
-    const moveEntryDown = (id: number) => {
-      const to = id + 1;
-      const from = id;
-      const toOrdered = [...thirdPartyAPIEndpoints];
-
-      if (to >= thirdPartyAPIEndpoints.length) {
-        return;
-      }
-
-      swapArrayAt(toOrdered, to, from);
-      setThirdPartyAPIEndpoints(toOrdered);
-    };
-
     return (
       <tr className={className}>
         <th>
           {!isEditable && (
             <>
-              <i
-                className="fas fa-sort-up"
-                onClick={() => {
-                  moveEntryUp(id);
-                }}
-              />
-              <i
-                className="fas fa-sort-down"
-                onClick={() => {
-                  moveEntryDown(id);
-                }}
-              />
+              <i className="fas fa-sort-up" onClick={onMoveEntryUp} />
+              <i className="fas fa-sort-down" onClick={onMoveEntryDown} />
             </>
           )}
         </th>

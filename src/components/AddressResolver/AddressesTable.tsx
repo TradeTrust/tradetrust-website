@@ -66,7 +66,11 @@ interface AddressesTableProps {
 }
 
 export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint }: AddressesTableProps) => {
-  const { thirdPartyAPIEndpoints, removeThirdPartyAPIEndpoint } = useThirdPartyAPIEndpoints();
+  const {
+    thirdPartyAPIEndpoints,
+    removeThirdPartyAPIEndpoint,
+    setThirdPartyAPIEndpoints,
+  } = useThirdPartyAPIEndpoints();
   const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
 
   const deleteAddress = (index: number) => {
@@ -84,6 +88,27 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
         }}
       />
     );
+  };
+
+  const swapArray = (indexA: number, indexB: number) => {
+    const toOrdered = [...thirdPartyAPIEndpoints];
+
+    const to = toOrdered[indexB];
+    const from = toOrdered[indexA];
+    toOrdered[indexA] = to;
+    toOrdered[indexB] = from;
+
+    setThirdPartyAPIEndpoints(toOrdered);
+  };
+
+  const moveEntryUp = (id: number) => {
+    if (id === 0) return;
+    swapArray(id - 1, id);
+  };
+
+  const moveEntryDown = (id: number) => {
+    if (id >= thirdPartyAPIEndpoints.length) return;
+    swapArray(id, id - 1);
   };
 
   return (
@@ -120,6 +145,12 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                     removeEndpoint={() => {
                       onRemoveEndpoint(item.name, index);
                     }}
+                    onMoveEntryUp={() => {
+                      moveEntryUp(index);
+                    }}
+                    onMoveEntryDown={() => {
+                      moveEntryDown(index);
+                    }}
                     api={item.endpoint}
                     name={item.name}
                     canEdit={false}
@@ -132,6 +163,9 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                   order={thirdPartyAPIEndpoints.length + 1}
                   removeEndpoint={() => {
                     setNewEndpoint(false);
+                  }}
+                  onMoveEntryDown={() => {
+                    moveEntryDown(thirdPartyAPIEndpoints.length + 1);
                   }}
                   api=""
                   name=""
