@@ -164,9 +164,6 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                   removeEndpoint={() => {
                     setNewEndpoint(false);
                   }}
-                  onMoveEntryDown={() => {
-                    moveEntryDown(thirdPartyAPIEndpoints.length + 1);
-                  }}
                   api=""
                   name=""
                   canEdit={true}
