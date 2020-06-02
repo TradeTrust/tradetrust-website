@@ -68,6 +68,7 @@ interface AddressesTableProps {
 export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint }: AddressesTableProps) => {
   const {
     thirdPartyAPIEndpoints,
+    addThirdPartyAPIEndpoint,
     removeThirdPartyAPIEndpoint,
     setThirdPartyAPIEndpoints,
   } = useThirdPartyAPIEndpoints();
@@ -90,6 +91,30 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
     );
   };
 
+  const isEndpointUrlExists = (endpoint: string) => {
+    const isFound = !!thirdPartyAPIEndpoints.find((item) => {
+      return item.endpoint === endpoint;
+    });
+    return isFound;
+  };
+
+  const addNewEndpoint = (name: string, endpoint: string) => {
+    addThirdPartyAPIEndpoint({
+      name,
+      endpoint,
+    });
+    setNewEndpoint(false);
+  };
+
+  const onUpdateEndpoint = (index: number) => (name: string, endpoint: string) => {
+    const newEndpoint = [...thirdPartyAPIEndpoints];
+    newEndpoint.splice(index, 1, {
+      name,
+      endpoint,
+    });
+    setThirdPartyAPIEndpoints(newEndpoint);
+  };
+
   const swapArray = (indexA: number, indexB: number) => {
     const toOrdered = [...thirdPartyAPIEndpoints];
 
@@ -107,8 +132,8 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
   };
 
   const moveEntryDown = (id: number) => {
-    if (id >= thirdPartyAPIEndpoints.length) return;
-    swapArray(id, id - 1);
+    if (id + 1 >= thirdPartyAPIEndpoints.length) return;
+    swapArray(id + 1, id);
   };
 
   return (
@@ -136,12 +161,13 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                 </tr>
               )}
               {thirdPartyAPIEndpoints.map((item, index) => {
-                const order = index + 1;
+                const orderNumber = index + 1;
+
                 return (
                   <EndpointEntry
                     key={item.endpoint}
-                    id={index}
-                    order={order}
+                    orderNumber={orderNumber}
+                    isEndpointUrlExists={() => false}
                     removeEndpoint={() => {
                       onRemoveEndpoint(item.name, index);
                     }}
@@ -151,19 +177,21 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                     onMoveEntryDown={() => {
                       moveEntryDown(index);
                     }}
-                    api={item.endpoint}
-                    name={item.name}
+                    onUpdateEndpoint={onUpdateEndpoint(index)}
+                    api={thirdPartyAPIEndpoints[index].endpoint}
+                    name={thirdPartyAPIEndpoints[index].name}
                     canEdit={false}
                   />
                 );
               })}
               {isNewEndpoint && (
                 <EndpointEntry
-                  id={thirdPartyAPIEndpoints.length + 1}
-                  order={thirdPartyAPIEndpoints.length + 1}
+                  orderNumber={thirdPartyAPIEndpoints.length + 1}
+                  isEndpointUrlExists={isEndpointUrlExists}
                   removeEndpoint={() => {
                     setNewEndpoint(false);
                   }}
+                  onUpdateEndpoint={addNewEndpoint}
                   api=""
                   name=""
                   canEdit={true}

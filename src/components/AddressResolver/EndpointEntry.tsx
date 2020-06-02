@@ -2,41 +2,41 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { InputDefault } from "../UI/Input";
 import { SvgIcon, SvgIconTrash2, SvgIconSave, SvgIconEdit2 } from "../UI/SvgIcon";
-import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { vars } from "../../styles";
 import isURL from "validator/lib/isURL";
 import isEmpty from "validator/lib/isEmpty";
 
 interface EndpointEntryProps {
   className?: string;
-  id: number;
-  order: number;
+  orderNumber: number;
   api: string;
   name: string;
   canEdit: boolean;
   removeEndpoint: () => void;
   onMoveEntryUp?: () => void;
   onMoveEntryDown?: () => void;
+  onUpdateEndpoint: (name: string, endpoint: string) => void;
+  isEndpointUrlExists: (endpoint: string) => boolean;
 }
 
 export const EndpointEntry = styled(
   ({
     className,
-    id,
-    order,
+    orderNumber,
     removeEndpoint,
     api,
     name,
     canEdit,
     onMoveEntryUp,
     onMoveEntryDown,
+    onUpdateEndpoint,
+    isEndpointUrlExists,
   }: EndpointEntryProps) => {
     const [isEditable, setEditable] = useState(canEdit);
     const [inputErrorMessageName, setInputErrorMessageName] = useState("");
     const [inputMessageEndpoint, setInputErrorMessageEndpoint] = useState("");
     const [endpointAPI, setEndpointAPIValue] = useState(api);
     const [endpointName, setEndpointNameValue] = useState(name);
-    const { thirdPartyAPIEndpoints, addThirdPartyAPIEndpoint, setThirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
 
     const onEndpointAPIChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
       setEndpointAPIValue(event.target.value);
@@ -46,67 +46,43 @@ export const EndpointEntry = styled(
       setEndpointNameValue(event.target.value);
     };
 
-    const editEndpoint = (indexToReplace: number) => {
-      const newEndpoints = thirdPartyAPIEndpoints.map((item, index) => {
-        return index === indexToReplace
-          ? {
-              name: endpointName.trim(),
-              endpoint: endpointAPI.trim(),
-            }
-          : item;
-      });
+    const canUpdateValue = () => {
+      const nameTrimmed = endpointName.trim();
+      const apiTrimmed = endpointAPI.trim();
 
-      setThirdPartyAPIEndpoints(newEndpoints);
-    };
-
-    const saveEndpoint = () => {
-      addThirdPartyAPIEndpoint({
-        name: endpointName.trim(),
-        endpoint: endpointAPI.trim(),
-      });
-      setEndpointAPIValue("");
-      setEndpointNameValue("");
-
-      setTimeout(() => {
-        removeEndpoint();
-      }, 0);
-    };
-
-    const onSaveApiEndpoint = (id: number) => {
-      const name = endpointName.trim();
-      const endpoint = endpointAPI.trim();
-      const indexToReplace = thirdPartyAPIEndpoints.findIndex((item, index) => index === id);
-      const checkEndpointExists = (item: { endpoint: string }) => item.endpoint === endpoint;
-
-      if (isEmpty(name)) {
+      if (isEmpty(nameTrimmed)) {
         setInputErrorMessageName("Name must not be blank.");
-        return;
+        return false;
       }
 
-      if (isEmpty(endpoint)) {
+      if (isEmpty(apiTrimmed)) {
         setInputErrorMessageEndpoint("Endpoint must not be blank.");
-        return;
+        return false;
       }
 
-      if (!isURL(endpoint)) {
+      if (!isURL(apiTrimmed)) {
         setInputErrorMessageEndpoint("Endpoint must be an valid url.");
-        return;
+        return false;
       }
 
-      if (thirdPartyAPIEndpoints.some(checkEndpointExists) && indexToReplace === -1) {
+      if (isEndpointUrlExists(apiTrimmed)) {
         setInputErrorMessageEndpoint("Endpoint already exists.");
-        return;
+        return false;
       }
 
-      if (indexToReplace !== -1) {
-        editEndpoint(indexToReplace);
-      } else {
-        saveEndpoint();
-      }
+      return true;
+    };
+
+    const onSave = () => {
+      if (!canUpdateValue()) return;
 
       setEditable(false);
       setInputErrorMessageName("");
       setInputErrorMessageEndpoint("");
+      setEndpointAPIValue("");
+      setEndpointNameValue("");
+
+      onUpdateEndpoint(endpointName.trim(), endpointAPI.trim());
     };
 
     return (
@@ -119,7 +95,7 @@ export const EndpointEntry = styled(
             </>
           )}
         </th>
-        <td>{order}</td>
+        <td>{orderNumber}</td>
         <td>
           {isEditable ? (
             <InputDefault
@@ -148,11 +124,7 @@ export const EndpointEntry = styled(
         </td>
         <td className={isEditable ? "is-editable" : ""}>
           {isEditable ? (
-            <SvgIcon
-              onClick={() => {
-                onSaveApiEndpoint(id);
-              }}
-            >
+            <SvgIcon onClick={onSave}>
               <SvgIconSave />
             </SvgIcon>
           ) : (
