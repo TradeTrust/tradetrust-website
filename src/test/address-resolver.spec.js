@@ -11,6 +11,8 @@ const InputName1 = TableBodyRow1.find("input[placeholder='Name']");
 const InputEndpoint1 = TableBodyRow1.find("input[placeholder='Endpoint']");
 const InputName2 = TableBodyRow2.find("input[placeholder='Name']");
 const InputEndpoint2 = TableBodyRow2.find("input[placeholder='Endpoint']");
+const IconSave1 = TableBodyRow1.find("td:last-child").find("g.save").parent("svg");
+const IconEdit1 = TableBodyRow1.find("td:last-child").find("g.edit2").parent("svg");
 const IconSave2 = TableBodyRow2.find("td:last-child").find("g.save").parent("svg");
 const IconEdit2 = TableBodyRow2.find("td:last-child").find("g.edit2").parent("svg");
 const IconTrash1 = TableBodyRow1.find("td:last-child").find("g.trash2").parent("svg");
@@ -68,6 +70,17 @@ test("Address Resolver to be added, edited, moved and removed correctly", async 
   await t.selectText(InputEndpoint2).pressKey("delete");
   await t.typeText(InputEndpoint2, "http://demo-resolver2.tradetrust.io/identifier/");
   await t.click(IconSave2);
+
+  await t.click(IconEdit1);
+  await t.selectText(InputEndpoint1).pressKey("delete");
+  await t.typeText(InputEndpoint1, "http://demo-resolver2.tradetrust.io/identifier/");
+  await t.click(IconSave1);
+  await validateTextContent(t, TableBodyRow1, ["Endpoint already exists."]);
+
+  await t.selectText(InputEndpoint1).pressKey("delete");
+  await t.typeText(InputEndpoint1, "http://demo-resolver1.tradetrust.io/identifier/");
+  await t.click(IconSave1);
+  await t.expect(TableBodyRows.count).eql(2);
 
   await t.hover(TableBodyRow2);
   await t.click(IconMoveUp2);

@@ -79,8 +79,6 @@ export const EndpointEntry = styled(
       setEditable(false);
       setInputErrorMessageName("");
       setInputErrorMessageEndpoint("");
-      setEndpointAPIValue("");
-      setEndpointNameValue("");
 
       onUpdateEndpoint(endpointName.trim(), endpointAPI.trim());
     };
