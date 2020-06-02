@@ -6,6 +6,7 @@ import { EndpointEntry } from "./EndpointEntry";
 import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { DeleteResolverConfirmation } from "../UI/Overlay/OverlayContent/DeleteResolverConfirmation";
+import { fontSize } from "../../styles/abstracts/mixin";
 
 export const TableStyle = () => {
   return `
@@ -65,7 +66,12 @@ interface AddressesTableProps {
 }
 
 export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint }: AddressesTableProps) => {
-  const { thirdPartyAPIEndpoints, removeThirdPartyAPIEndpoint } = useThirdPartyAPIEndpoints();
+  const {
+    thirdPartyAPIEndpoints,
+    addThirdPartyAPIEndpoint,
+    removeThirdPartyAPIEndpoint,
+    setThirdPartyAPIEndpoints,
+  } = useThirdPartyAPIEndpoints();
   const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
 
   const deleteAddress = (index: number) => {
@@ -85,6 +91,51 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
     );
   };
 
+  const isEndpointUrlExists = (endpoint: string) => {
+    const isFound = !!thirdPartyAPIEndpoints.find((item) => {
+      return item.endpoint === endpoint;
+    });
+    return isFound;
+  };
+
+  const addNewEndpoint = (name: string, endpoint: string) => {
+    addThirdPartyAPIEndpoint({
+      name,
+      endpoint,
+    });
+    setNewEndpoint(false);
+  };
+
+  const onUpdateEndpoint = (index: number) => (name: string, endpoint: string) => {
+    const newEndpoint = [...thirdPartyAPIEndpoints];
+    newEndpoint.splice(index, 1, {
+      name,
+      endpoint,
+    });
+    setThirdPartyAPIEndpoints(newEndpoint);
+  };
+
+  const swapArray = (indexA: number, indexB: number) => {
+    const toOrdered = [...thirdPartyAPIEndpoints];
+
+    const to = toOrdered[indexB];
+    const from = toOrdered[indexA];
+    toOrdered[indexA] = to;
+    toOrdered[indexB] = from;
+
+    setThirdPartyAPIEndpoints(toOrdered);
+  };
+
+  const moveEntryUp = (id: number) => {
+    if (id === 0) return;
+    swapArray(id - 1, id);
+  };
+
+  const moveEntryDown = (id: number) => {
+    if (id + 1 >= thirdPartyAPIEndpoints.length) return;
+    swapArray(id + 1, id);
+  };
+
   return (
     <div className={`${className} row py-4`}>
       <div className="col-12 col-lg">
@@ -92,7 +143,8 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
           <table className="table">
             <thead className="table-thead">
               <tr>
-                <th>Order</th>
+                <th />
+                <td>Order</td>
                 <td>Name</td>
                 <td>Endpoint</td>
                 <td>&nbsp;</td>
@@ -101,35 +153,45 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
             <tbody className="table-tbody">
               {thirdPartyAPIEndpoints.length === 0 && !isNewEndpoint && (
                 <tr>
-                  <th>&mdash;</th>
+                  <th />
+                  <td>&mdash;</td>
                   <td>&mdash;</td>
                   <td>No third party&apos;s endpoint found.</td>
                   <td>&nbsp;</td>
                 </tr>
               )}
               {thirdPartyAPIEndpoints.map((item, index) => {
-                const order = index + 1;
+                const orderNumber = index + 1;
+
                 return (
                   <EndpointEntry
-                    key={index}
-                    id={index}
-                    order={order}
+                    key={item.endpoint}
+                    orderNumber={orderNumber}
+                    isEndpointUrlExists={() => false}
                     removeEndpoint={() => {
                       onRemoveEndpoint(item.name, index);
                     }}
-                    api={item.endpoint}
-                    name={item.name}
+                    onMoveEntryUp={() => {
+                      moveEntryUp(index);
+                    }}
+                    onMoveEntryDown={() => {
+                      moveEntryDown(index);
+                    }}
+                    onUpdateEndpoint={onUpdateEndpoint(index)}
+                    api={thirdPartyAPIEndpoints[index].endpoint}
+                    name={thirdPartyAPIEndpoints[index].name}
                     canEdit={false}
                   />
                 );
               })}
               {isNewEndpoint && (
                 <EndpointEntry
-                  id={thirdPartyAPIEndpoints.length + 1}
-                  order={thirdPartyAPIEndpoints.length + 1}
+                  orderNumber={thirdPartyAPIEndpoints.length + 1}
+                  isEndpointUrlExists={isEndpointUrlExists}
                   removeEndpoint={() => {
                     setNewEndpoint(false);
                   }}
+                  onUpdateEndpoint={addNewEndpoint}
                   api=""
                   name=""
                   canEdit={true}
@@ -145,7 +207,30 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
   ${TableStyle()}
 
   th {
-    width: 80px;
+    width: 30px;
+    text-align: center;
+
+    .fas {
+      transition: color 0.3s ${vars.easeOutCubic}, opacity 0.3s ${vars.easeOutCubic},
+        visibility 0.3s ${vars.easeOutCubic};
+      display: block;
+      cursor: pointer;
+      color: ${vars.grey};
+      line-height: 0.5;
+      ${fontSize(20)};
+
+      &:hover {
+        color: ${vars.greyDark};
+      }
+
+      &.fa-sort-up {
+        padding-top: 8px;
+      }
+
+      &.fa-sort-down {
+        padding-bottom: 8px;
+      }
+    }
   }
 
   td {
@@ -164,6 +249,10 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
     }
 
     &:nth-of-type(1) {
+      width: 80px;
+    }
+
+    &:nth-of-type(2) {
       width: 200px;
     }
 
