@@ -91,6 +91,17 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
     );
   };
 
+  const isCurrentEndpointUrlExists = (currentEndpoint: string) => (endpoint: string) => {
+    const omitCurrent = thirdPartyAPIEndpoints.filter((item) => {
+      return item.endpoint !== currentEndpoint;
+    });
+
+    const isFound = !!omitCurrent.find((item) => {
+      return item.endpoint === endpoint;
+    });
+    return isFound;
+  };
+
   const isEndpointUrlExists = (endpoint: string) => {
     const isFound = !!thirdPartyAPIEndpoints.find((item) => {
       return item.endpoint === endpoint;
@@ -167,7 +178,7 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                   <EndpointEntry
                     key={item.endpoint}
                     orderNumber={orderNumber}
-                    isEndpointUrlExists={() => false}
+                    isEndpointUrlExists={isCurrentEndpointUrlExists(item.endpoint)}
                     removeEndpoint={() => {
                       onRemoveEndpoint(item.name, index);
                     }}
