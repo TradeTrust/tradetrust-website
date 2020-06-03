@@ -13,6 +13,7 @@ export enum MessageTitle {
   TRANSACTION_ERROR = "Error - Failed transaction",
   SURRENDER_DOCUMENT_SUCCESS = "Surrender Document Success",
   CHANGE_BENEFICIARY_SUCCESS = "Change Beneficiary Success",
+  NOMINATE_BENEFICIARY_HOLDER_SUCCESS = "Nomination Success",
   TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
 }
 
@@ -138,6 +139,14 @@ export const MessageHolderSuccess = ({ address }: MessageProps) => {
   );
 };
 
+export const MessageNominateBeneficiaryHolderSuccess = () => {
+  return (
+    <>
+      <p>Document has been nominated successfully. Please await holder to execute transfer approval.</p>
+    </>
+  );
+};
+
 interface ShowDocumentTransferMessageOptionProps {
   isSuccess: boolean;
   error?: string;
@@ -161,6 +170,7 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       {title === MessageTitle.CHANGE_BENEFICIARY_SUCCESS && (
         <MessageBeneficiarySuccess address={option.beneficiaryAddress} />
       )}
+      {title === MessageTitle.NOMINATE_BENEFICIARY_HOLDER_SUCCESS && <MessageNominateBeneficiaryHolderSuccess />}
       {title === MessageTitle.TRANSFER_HOLDER_SUCCESS && <MessageHolderSuccess address={option.holderAddress} />}
     </DocumentTransferMessage>
   );

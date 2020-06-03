@@ -14,6 +14,7 @@ import {
   MessageSurrenderSuccess,
   MessageBeneficiarySuccess,
   MessageHolderSuccess,
+  MessageNominateBeneficiaryHolderSuccess,
 } from "./OverlayContent/DocumentTransferMessage";
 import { OverlayStorybookWrapper } from "./OverlayStorybookWrapper";
 
@@ -281,6 +282,24 @@ Overlay look.
         <OverlayStorybookWrapper>
           <DocumentTransferMessage title={MessageTitle.TRANSFER_HOLDER_SUCCESS} isSuccess={true}>
             <MessageHolderSuccess address="Bank of China Pte Ltd" />
+          </DocumentTransferMessage>
+        </OverlayStorybookWrapper>
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Overlay (DocumentTransferMessage NominateBeneficiaryHolder)
+
+<Preview>
+  <Story name="DocumentTransferMessageNominateBeneficiaryHolder">
+    {() => {
+      return (
+        <OverlayStorybookWrapper>
+          <DocumentTransferMessage title={MessageTitle.NOMINATE_BENEFICIARY_HOLDER_SUCCESS} isSuccess={true}>
+            <MessageNominateBeneficiaryHolderSuccess />
           </DocumentTransferMessage>
         </OverlayStorybookWrapper>
       );

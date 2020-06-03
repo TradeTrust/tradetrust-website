@@ -5,10 +5,13 @@ import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
 import { EndorseBeneficiaryForm } from "./FormVariants/EndorseBeneficiary";
 import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
+import { NominateBeneficiaryHolderForm } from "./FormVariants/NominateBeneficiaryHolder";
 
 interface AssetManagementFormProps {
   beneficiary?: string;
   holder?: string;
+  approvedBeneficiary?: string;
+  approvedHolder?: string;
   tokenId: string;
   tokenRegistryAddress: string;
   account?: string;
@@ -17,11 +20,13 @@ interface AssetManagementFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   onTransferHolder: (nextHolder: string) => void;
   onEndorseBeneficiary: (newBeneficiary: string, newHolder: string) => void;
-  surrenderingState: string;
+  onApproveNewTransferTargets: (newBeneficiary: string, newHolder: string) => void;
   onSurrender: () => void;
+  surrenderingState: string;
   holderTransferringState: string;
   beneficiaryEndorseState: string;
   isSurrendered: boolean;
+  approveNewTransferTargetsState: string;
 }
 
 export const AssetManagementForm = ({
@@ -32,6 +37,8 @@ export const AssetManagementForm = ({
   onConnectToWallet,
   beneficiary,
   holder,
+  approvedBeneficiary,
+  approvedHolder,
   onSetFormAction,
   surrenderingState,
   onSurrender,
@@ -40,17 +47,25 @@ export const AssetManagementForm = ({
   onEndorseBeneficiary,
   beneficiaryEndorseState,
   isSurrendered,
+  onApproveNewTransferTargets,
+  approveNewTransferTargetsState,
 }: AssetManagementFormProps) => {
   const isHolder = account === holder;
   const isBeneficiary = account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
   const canEndorseBeneficiary = isBeneficiary && isHolder;
+  const canNominateBeneficiaryHolder =
+    isBeneficiary &&
+    !isHolder &&
+    approvedBeneficiary === "0x0000000000000000000000000000000000000000" &&
+    approvedHolder === "0x0000000000000000000000000000000000000000";
 
   const setFormActionNone = () => {
     if (
       surrenderingState === FormState.PENDING_CONFIRMATION ||
       holderTransferringState === FormState.PENDING_CONFIRMATION ||
-      beneficiaryEndorseState === FormState.PENDING_CONFIRMATION
+      beneficiaryEndorseState === FormState.PENDING_CONFIRMATION ||
+      approveNewTransferTargetsState === FormState.PENDING_CONFIRMATION
     )
       return;
     onSetFormAction(AssetManagementActions.None);
@@ -68,6 +83,20 @@ export const AssetManagementForm = ({
           handleSurrender={onSurrender}
           surrenderingState={surrenderingState}
           setFormActionNone={setFormActionNone}
+        />
+      );
+
+    case AssetManagementActions.NominateBeneficiaryHolder:
+      return (
+        <NominateBeneficiaryHolderForm
+          formAction={formAction}
+          tokenId={tokenId}
+          tokenRegistryAddress={tokenRegistryAddress}
+          beneficiary={beneficiary}
+          holder={holder}
+          handleTransfer={onApproveNewTransferTargets}
+          nominationState={approveNewTransferTargetsState}
+          onBack={onBack}
         />
       );
 
@@ -113,6 +142,7 @@ export const AssetManagementForm = ({
           canChangeHolder={isHolder}
           canEndorseBeneficiary={canEndorseBeneficiary}
           isSurrendered={isSurrendered}
+          canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
         />
       );
   }
