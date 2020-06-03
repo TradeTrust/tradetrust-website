@@ -19,6 +19,7 @@ describe("ActionSelectionForm", () => {
           canChangeHolder={true}
           canEndorseBeneficiary={false}
           isSurrendered={false}
+          canNominateBeneficiaryHolder={false}
         />
       );
       const beneficiaryComponent = container.getByTestId("asset-title-beneficiary");
@@ -50,6 +51,7 @@ describe("ActionSelectionForm", () => {
           canChangeHolder={false}
           canEndorseBeneficiary={false}
           isSurrendered={false}
+          canNominateBeneficiaryHolder={false}
         />
       );
 
@@ -73,6 +75,7 @@ describe("ActionSelectionForm", () => {
           canChangeHolder={true}
           canEndorseBeneficiary={false}
           isSurrendered={false}
+          canNominateBeneficiaryHolder={false}
         />
       );
 
@@ -96,6 +99,7 @@ describe("ActionSelectionForm", () => {
           canChangeHolder={true}
           canEndorseBeneficiary={false}
           isSurrendered={false}
+          canNominateBeneficiaryHolder={false}
         />
       );
 
@@ -122,6 +126,7 @@ describe("ActionSelectionForm", () => {
           canChangeHolder={true}
           canEndorseBeneficiary={false}
           isSurrendered={false}
+          canNominateBeneficiaryHolder={false}
         />
       );
 
@@ -168,6 +173,7 @@ describe("ActionSelectionForm", () => {
           canChangeHolder={true}
           canEndorseBeneficiary={false}
           isSurrendered={false}
+          canNominateBeneficiaryHolder={false}
         />
       );
 
@@ -200,6 +206,7 @@ describe("ActionSelectionForm", () => {
           canChangeHolder={true}
           canEndorseBeneficiary={true}
           isSurrendered={false}
+          canNominateBeneficiaryHolder={false}
         />
       );
 
