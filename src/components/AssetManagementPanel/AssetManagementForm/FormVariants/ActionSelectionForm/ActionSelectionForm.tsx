@@ -9,7 +9,7 @@ import {
   showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
-import { TagBorderedSurrendered } from "../../../../UI/Tag";
+import { TagRedBorderedLarge } from "../../../../UI/Tag";
 
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
@@ -22,7 +22,7 @@ interface ActionSelectionFormProps {
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
-  isEBLSurrendered: boolean;
+  isSurrendered: boolean;
 }
 
 export const ActionSelectionForm = ({
@@ -36,7 +36,7 @@ export const ActionSelectionForm = ({
   onConnectToWallet,
   canChangeHolder,
   canEndorseBeneficiary,
-  isEBLSurrendered,
+  isSurrendered,
 }: ActionSelectionFormProps) => {
   const canManage = canSurrender || canChangeHolder || canEndorseBeneficiary;
 
@@ -71,10 +71,10 @@ export const ActionSelectionForm = ({
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
           </div>
-          {isEBLSurrendered ? (
+          {isSurrendered ? (
             <div className="col-12 col-lg-auto align-self-end">
               <div className="py-3">
-                <TagBorderedSurrendered>Surrendered</TagBorderedSurrendered>
+                <TagRedBorderedLarge>Surrendered</TagRedBorderedLarge>
               </div>
             </div>
           ) : (
@@ -88,7 +88,7 @@ export const ActionSelectionForm = ({
             </>
           )}
         </div>
-        {!isEBLSurrendered && (
+        {!isSurrendered && (
           <div className="row mb-3">
             <div className="col-auto ml-auto">
               {account ? (

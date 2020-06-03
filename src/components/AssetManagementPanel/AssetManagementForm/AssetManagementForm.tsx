@@ -22,7 +22,7 @@ interface AssetManagementFormProps {
   onSurrender: () => void;
   holderTransferringState: string;
   beneficiaryEndorseState: string;
-  isEBLSurrendered: boolean;
+  isSurrendered: boolean;
 }
 
 export const AssetManagementForm = ({
@@ -40,7 +40,7 @@ export const AssetManagementForm = ({
   holderTransferringState,
   onEndorseBeneficiary,
   beneficiaryEndorseState,
-  isEBLSurrendered,
+  isSurrendered,
 }: AssetManagementFormProps) => {
   const isHolder = account === holder;
   const isBeneficiary = account === beneficiary;
@@ -113,7 +113,7 @@ export const AssetManagementForm = ({
           onConnectToWallet={onConnectToWallet}
           canChangeHolder={isHolder}
           canEndorseBeneficiary={canEndorseBeneficiary}
-          isEBLSurrendered={isEBLSurrendered}
+          isSurrendered={isSurrendered}
         />
       );
   }

@@ -1,15 +1,5 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../../styles";
-
-interface TagProps {
-  className?: string;
-  children: string;
-}
-
-export const TagUnstyled = ({ className, children }: TagProps) => {
-  return <div className={className}>{children}</div>;
-};
 
 const TagBaseStyle = () => {
   return `
@@ -18,6 +8,10 @@ const TagBaseStyle = () => {
     border-radius: 4px;
     margin-right: 8px;
     margin-bottom: 8px;
+    padding: 2px 10px;
+
+    background-color: ${vars.grey};
+    color: ${vars.white};
 
     ${mixin.fontSourcesansproBold()};
     ${mixin.fontSize(18)};
@@ -33,37 +27,50 @@ const TagBaseStyle = () => {
   `;
 };
 
-export const TagSolid = styled(TagUnstyled)`
+export const TagSolid = styled.div`
+  ${TagBaseStyle()};
+`;
+
+export const TagSolidTeal = styled.div`
   ${TagBaseStyle()};
 
   background-color: ${vars.teal};
   color: ${vars.white};
-  padding: 2px 10px;
 `;
 
-export const TagBordered = styled(TagUnstyled)`
-  ${TagBaseStyle()};
+const TagBorderedBaseStyle = () => {
+  return `
+    ${TagBaseStyle()};
 
-  background-color: ${vars.white};
-  color: ${vars.grey};
-  padding: 0 6px;
+    padding: 0 6px;
+    background-color: ${vars.white};
+    color: ${vars.grey};
 
-  border-style: solid;
-  border-width: 2px;
-  border-color: ${vars.grey};
+    border-color: ${vars.grey};
+    border-style: solid;
+    border-width: 2px;
+  `;
+};
+
+export const TagBordered = styled.div`
+  ${TagBorderedBaseStyle()};
 `;
 
-export const TagBorderedSurrendered = styled(TagUnstyled)`
-  ${TagBaseStyle()};
+export const TagRedBordered = styled.div`
+  ${TagBorderedBaseStyle()};
 
-  background-color: ${vars.white};
   color: ${vars.red};
-  padding: 0 16px;
+  border-color: ${vars.red};
+`;
 
-  border-style: solid;
-  border-width: 3px;
+export const TagRedBorderedLarge = styled.div`
+  ${TagBorderedBaseStyle()};
+
+  color: ${vars.red};
   border-color: ${vars.red};
 
+  padding: 0 16px;
+  border-width: 3px;
   ${mixin.fontSize(40)};
   margin: 0;
 `;
