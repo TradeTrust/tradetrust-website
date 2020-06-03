@@ -6,7 +6,7 @@ import { AssetManagementActions } from "../../../AssetManagementActions";
 import { NominateBeneficiaryHolderForm } from "./NominateBeneficiaryHolder";
 import { act } from "react-dom/test-utils";
 
-describe("Endorse Beneficiary", () => {
+describe("Nominate Beneficiary", () => {
   it("should display the editable beneficiary & static holder when the app is in NominateBeneficiaryHolder state", async () => {
     await act(async () => {
       const container = render(
@@ -17,7 +17,7 @@ describe("Endorse Beneficiary", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={() => {}}
+          handleNomination={() => {}}
           nominationState={FormState.UNINITIALIZED}
         />
       );
@@ -30,7 +30,7 @@ describe("Endorse Beneficiary", () => {
     });
   });
 
-  it("should have the endorse button and cancel button", async () => {
+  it("should have the nominate button and cancel button", async () => {
     await act(async () => {
       const container = render(
         <NominateBeneficiaryHolderForm
@@ -40,13 +40,13 @@ describe("Endorse Beneficiary", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={() => {}}
+          handleNomination={() => {}}
           nominationState={FormState.UNINITIALIZED}
         />
       );
 
-      expect(container.queryByTestId("cancelEndorseBtn")).not.toBeNull();
-      expect(container.queryByTestId("endorseBtn")).not.toBeNull();
+      expect(container.queryByTestId("cancelNominationBtn")).not.toBeNull();
+      expect(container.queryByTestId("nominationBtn")).not.toBeNull();
     });
   });
 
@@ -62,17 +62,17 @@ describe("Endorse Beneficiary", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={() => {}}
+          handleNomination={() => {}}
           nominationState={FormState.UNINITIALIZED}
         />
       );
 
-      fireEvent.click(container.getByTestId("cancelEndorseBtn"));
+      fireEvent.click(container.getByTestId("cancelNominationBtn"));
       expect(mockOnSetFormAction).toHaveBeenCalled();
     });
   });
 
-  it("should disable endorse button when holder is empty", async () => {
+  it("should disable nominate button when holder is empty", async () => {
     await act(async () => {
       const mockHandleNominate = jest.fn();
 
@@ -84,12 +84,12 @@ describe("Endorse Beneficiary", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={mockHandleNominate}
+          handleNomination={mockHandleNominate}
           nominationState={FormState.UNINITIALIZED}
         />
       );
 
-      fireEvent.click(container.getByTestId("endorseBtn"));
+      fireEvent.click(container.getByTestId("nominationBtn"));
       expect(mockHandleNominate).not.toHaveBeenCalled();
     });
   });
@@ -104,7 +104,7 @@ describe("Endorse Beneficiary", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={() => {}}
+          handleNomination={() => {}}
           nominationState={FormState.ERROR}
         />
       );

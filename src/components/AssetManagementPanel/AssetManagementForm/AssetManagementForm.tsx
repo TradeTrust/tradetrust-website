@@ -37,8 +37,6 @@ export const AssetManagementForm = ({
   onConnectToWallet,
   beneficiary,
   holder,
-  approvedBeneficiary,
-  approvedHolder,
   onSetFormAction,
   surrenderingState,
   onSurrender,
@@ -54,11 +52,7 @@ export const AssetManagementForm = ({
   const isBeneficiary = account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
   const canEndorseBeneficiary = isBeneficiary && isHolder;
-  const canNominateBeneficiaryHolder =
-    isBeneficiary &&
-    !isHolder &&
-    approvedBeneficiary === "0x0000000000000000000000000000000000000000" &&
-    approvedHolder === "0x0000000000000000000000000000000000000000";
+  const canNominateBeneficiaryHolder = isBeneficiary && !isHolder;
 
   const setFormActionNone = () => {
     if (
@@ -94,7 +88,7 @@ export const AssetManagementForm = ({
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
-          handleTransfer={onApproveNewTransferTargets}
+          handleNomination={onApproveNewTransferTargets}
           nominationState={approveNewTransferTargetsState}
           onBack={onBack}
         />

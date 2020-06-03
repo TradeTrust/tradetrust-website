@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { isAddress } from "web3-utils";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
@@ -18,7 +19,7 @@ interface NominateBeneficiaryHolderFormProps {
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleTransfer: (newBeneficiary: string, newHolder: string) => void;
+  handleNomination: (newBeneficiary: string, newHolder: string) => void;
   nominationState: string;
   onBack: () => void;
 }
@@ -29,7 +30,7 @@ export const NominateBeneficiaryHolderForm = ({
   tokenRegistryAddress,
   beneficiary,
   holder,
-  handleTransfer,
+  handleNomination,
   nominationState,
   onBack,
 }: NominateBeneficiaryHolderFormProps) => {
@@ -50,9 +51,10 @@ export const NominateBeneficiaryHolderForm = ({
     }
   }, [isConfirmed, newBeneficiary, showOverlay]);
 
-  const isValidEndorse = () => {
+  const isValidNomination = () => {
     if (!newBeneficiary || !newHolder) return false;
     if (newBeneficiary === beneficiary && newHolder === holder) return false;
+    if (!isAddress(newBeneficiary) || !isAddress(newHolder)) return false;
 
     return true;
   };
@@ -95,16 +97,16 @@ export const NominateBeneficiaryHolderForm = ({
                   <ButtonSolidWhiteGrey
                     onClick={onBack}
                     disabled={isPendingConfirmation}
-                    data-testid={"cancelEndorseBtn"}
+                    data-testid={"cancelNominationBtn"}
                   >
                     Cancel
                   </ButtonSolidWhiteGrey>
                 </div>
                 <div className="col-auto ml-2">
                   <ButtonSolidOrangeWhite
-                    disabled={!isValidEndorse() || isPendingConfirmation}
-                    onClick={() => handleTransfer(newBeneficiary, newHolder)}
-                    data-testid={"endorseBtn"}
+                    disabled={!isValidNomination() || isPendingConfirmation}
+                    onClick={() => handleNomination(newBeneficiary, newHolder)}
+                    data-testid={"nominationBtn"}
                   >
                     {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Nominate</>}
                   </ButtonSolidOrangeWhite>
