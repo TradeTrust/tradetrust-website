@@ -56,14 +56,14 @@ export const TagBordered = styled.div`
   ${TagBorderedBaseStyle()};
 `;
 
-export const TagRedBordered = styled.div`
+export const TagBorderedRed = styled.div`
   ${TagBorderedBaseStyle()};
 
   color: ${vars.red};
   border-color: ${vars.red};
 `;
 
-export const TagRedBorderedLarge = styled.div`
+export const TagBorderedRedLarge = styled.div`
   ${TagBorderedBaseStyle()};
 
   color: ${vars.red};

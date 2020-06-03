@@ -9,7 +9,7 @@ import {
   showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
-import { TagRedBorderedLarge } from "../../../../UI/Tag";
+import { TagBorderedRedLarge } from "../../../../UI/Tag";
 
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
@@ -74,7 +74,7 @@ export const ActionSelectionForm = ({
           {isSurrendered ? (
             <div className="col-12 col-lg-auto align-self-end">
               <div className="py-3">
-                <TagRedBorderedLarge>Surrendered</TagRedBorderedLarge>
+                <TagBorderedRedLarge>Surrendered</TagBorderedRedLarge>
               </div>
             </div>
           ) : (
