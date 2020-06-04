@@ -18,8 +18,8 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
-          isSurrendered={false}
           canNominateBeneficiaryHolder={false}
+          isSurrendered={false}
         />
       );
       const beneficiaryComponent = container.getByTestId("asset-title-beneficiary");
@@ -50,8 +50,8 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={mockOnConnectToWallet}
           canChangeHolder={false}
           canEndorseBeneficiary={false}
-          isSurrendered={false}
           canNominateBeneficiaryHolder={false}
+          isSurrendered={false}
         />
       );
 
@@ -74,8 +74,8 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
-          isSurrendered={false}
           canNominateBeneficiaryHolder={false}
+          isSurrendered={false}
         />
       );
 
@@ -98,8 +98,8 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
-          isSurrendered={false}
           canNominateBeneficiaryHolder={false}
+          isSurrendered={false}
         />
       );
 
@@ -125,8 +125,8 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
-          isSurrendered={false}
           canNominateBeneficiaryHolder={false}
+          isSurrendered={false}
         />
       );
 
@@ -148,6 +148,7 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
+          canNominateBeneficiaryHolder={false}
           isSurrendered={true}
         />
       );
@@ -172,8 +173,8 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={false}
-          isSurrendered={false}
           canNominateBeneficiaryHolder={false}
+          isSurrendered={false}
         />
       );
 
@@ -205,8 +206,8 @@ describe("ActionSelectionForm", () => {
           onConnectToWallet={() => alert("Login to Metamask")}
           canChangeHolder={true}
           canEndorseBeneficiary={true}
-          isSurrendered={false}
           canNominateBeneficiaryHolder={false}
+          isSurrendered={false}
         />
       );
 
