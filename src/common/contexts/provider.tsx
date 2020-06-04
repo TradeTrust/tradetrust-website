@@ -1,8 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { ethers, providers, Signer } from "ethers";
 import { NETWORK_NAME } from "../../config";
 import { MessageTitle } from "./../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
-import { useLocation } from "react-router-dom";
 
 interface ProviderContextProps {
   isUpgraded: boolean;
@@ -22,7 +21,6 @@ export const ProviderContextProvider = ({ children }: { children: React.ReactNod
   const [isUpgraded, setIsUpgraded] = useState(false);
   const [provider, setProvider] = useState<providers.Provider | Signer>(ethers.getDefaultProvider(NETWORK_NAME));
   const [account, setAccount] = useState<string>();
-  const location = useLocation();
 
   const upgradeProvider = async () => {
     if (isUpgraded) return;
@@ -42,13 +40,6 @@ export const ProviderContextProvider = ({ children }: { children: React.ReactNod
     setIsUpgraded(true);
     setAccount(account);
   };
-
-  useEffect(() => {
-    if (location.pathname !== "/viewer") {
-      setIsUpgraded(false);
-      setAccount("");
-    } // reset account to force users to connect wallet again if navigated out from viewer page
-  }, [location]);
 
   return (
     <ProviderContext.Provider value={{ isUpgraded, provider, upgradeProvider, account }}>

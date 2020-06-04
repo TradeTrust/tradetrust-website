@@ -90,7 +90,7 @@ export const AssetManagementForm = ({
           holder={holder}
           handleNomination={onApproveNewTransferTargets}
           nominationState={approveNewTransferTargetsState}
-          onBack={onBack}
+          setFormActionNone={setFormActionNone}
         />
       );
 

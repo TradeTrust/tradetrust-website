@@ -15,17 +15,17 @@ const history = createBrowserHistory();
 const App = () => {
   const store = initStore(history);
   return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <OverlayContextProvider>
-          <ProviderContextProvider>
-            <TokenInformationContextProvider>
+    <OverlayContextProvider>
+      <ProviderContextProvider>
+        <Provider store={store}>
+          <TokenInformationContextProvider>
+            <ConnectedRouter history={history}>
               <AppContainer />
-            </TokenInformationContextProvider>
-          </ProviderContextProvider>
-        </OverlayContextProvider>
-      </ConnectedRouter>
-    </Provider>
+            </ConnectedRouter>
+          </TokenInformationContextProvider>
+        </Provider>
+      </ProviderContextProvider>
+    </OverlayContextProvider>
   );
 };
 ReactDOM.render(<App />, document.getElementById("root"));

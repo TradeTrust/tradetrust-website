@@ -21,7 +21,7 @@ interface NominateBeneficiaryHolderFormProps {
   holder?: string;
   handleNomination: (newBeneficiary: string, newHolder: string) => void;
   nominationState: string;
-  onBack: () => void;
+  setFormActionNone: () => void;
 }
 
 export const NominateBeneficiaryHolderForm = ({
@@ -32,7 +32,7 @@ export const NominateBeneficiaryHolderForm = ({
   holder,
   handleNomination,
   nominationState,
-  onBack,
+  setFormActionNone,
 }: NominateBeneficiaryHolderFormProps) => {
   const [newBeneficiary, setNewBeneficiary] = useState("");
   const [newHolder, setNewHolder] = useState("");
@@ -48,9 +48,9 @@ export const NominateBeneficiaryHolderForm = ({
           isSuccess: true,
         })
       );
-      onBack(); // onSetFormAction to none
+      setFormActionNone();
     }
-  }, [isConfirmed, newBeneficiary, showOverlay, onBack]);
+  }, [isConfirmed, newBeneficiary, showOverlay, setFormActionNone]);
 
   const isValidNomination = () => {
     if (!newBeneficiary || !newHolder) return false;
@@ -63,7 +63,11 @@ export const NominateBeneficiaryHolderForm = ({
   return (
     <div className="row py-3">
       <div className="col-12">
-        <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
+        <AssetManagementTitle
+          setFormActionNone={setFormActionNone}
+          formAction={formAction}
+          disabled={isPendingConfirmation}
+        />
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -93,7 +97,7 @@ export const NominateBeneficiaryHolderForm = ({
             <div className="row no-gutters">
               <div className="col-auto">
                 <ButtonSolidWhiteGrey
-                  onClick={onBack}
+                  onClick={setFormActionNone}
                   disabled={isPendingConfirmation}
                   data-testid={"cancelNominationBtn"}
                 >
