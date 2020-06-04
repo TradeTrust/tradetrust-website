@@ -101,6 +101,7 @@ export const ActionSelectionForm = ({
                       canSurrender={canSurrender}
                       canChangeHolder={canChangeHolder}
                       canEndorseBeneficiary={canEndorseBeneficiary}
+                      canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
                     />
                   ) : (
                     <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>

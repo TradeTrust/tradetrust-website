@@ -140,11 +140,7 @@ export const MessageHolderSuccess = ({ address }: MessageProps) => {
 };
 
 export const MessageNominateBeneficiaryHolderSuccess = () => {
-  return (
-    <>
-      <p>Document has been nominated successfully. Please notify holder to execute transfer.</p>
-    </>
-  );
+  return <p>Document has been nominated successfully. Please notify holder to execute transfer.</p>;
 };
 
 interface ShowDocumentTransferMessageOptionProps {
