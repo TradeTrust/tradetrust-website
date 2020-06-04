@@ -11,8 +11,8 @@ import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
 interface AssetManagementFormProps {
   beneficiary?: string;
   holder?: string;
-  approvedBeneficiary?: string;
-  approvedHolder?: string;
+  approvedBeneficiary: string;
+  approvedHolder: string;
   tokenId: string;
   tokenRegistryAddress: string;
   account?: string;
@@ -22,7 +22,7 @@ interface AssetManagementFormProps {
   onTransferHolder: (nextHolder: string) => void;
   onEndorseBeneficiary: (newBeneficiary: string, newHolder: string) => void;
   onApproveNewTransferTargets: (newBeneficiary: string, newHolder: string) => void;
-  onTransferToNewEscrow: (newBeneficiary: string, newHolder: string) => void;
+  onTransferToNewEscrow: (approvedBeneficiary: string, approvedHolder: string) => void;
   onSurrender: () => void;
   surrenderingState: string;
   holderTransferringState: string;
@@ -60,9 +60,12 @@ export const AssetManagementForm = ({
   const canSurrender = isBeneficiary && isHolder;
   const canEndorseBeneficiary = isBeneficiary && isHolder;
   const canNominateBeneficiaryHolder = isBeneficiary && !isHolder;
-
-  const canEndorseTransfer = true;
-  console.log("target", approvedBeneficiary, approvedHolder);
+  const canEndorseTransfer =
+    !!approvedBeneficiary &&
+    approvedBeneficiary !== "0x0000000000000000000000000000000000000000" &&
+    !!approvedHolder &&
+    approvedHolder !== "0x0000000000000000000000000000000000000000" &&
+    isHolder;
 
   const setFormActionNone = () => {
     if (
@@ -139,10 +142,8 @@ export const AssetManagementForm = ({
           formAction={formAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
-          beneficiary={beneficiary}
-          holder={holder}
-          approvedBeneficiary={approvedBeneficiary || ""}
-          approvedHolder={approvedHolder || ""}
+          approvedBeneficiary={approvedBeneficiary}
+          approvedHolder={approvedHolder}
           handleEndorseTransfer={onTransferToNewEscrow}
           transferToNewEscrowState={transferToNewEscrowState}
           setFormActionNone={setFormActionNone}

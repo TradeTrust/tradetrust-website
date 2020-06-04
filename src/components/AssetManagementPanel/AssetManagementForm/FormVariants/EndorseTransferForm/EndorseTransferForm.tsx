@@ -16,26 +16,22 @@ interface EndorseTransferFormProps {
   formAction: AssetManagementActions;
   tokenId: string;
   tokenRegistryAddress: string;
-  beneficiary?: string;
-  holder?: string;
   approvedBeneficiary: string;
   approvedHolder: string;
-  handleEndorseTransfer: (newBeneficiary: string, newHolder: string) => void;
+  handleEndorseTransfer: (approvedBeneficiary: string, approvedHolder: string) => void;
   transferToNewEscrowState: string;
-  onBack: () => void;
+  setFormActionNone: () => void;
 }
 
 export const EndorseTransferForm = ({
   formAction,
   tokenId,
   tokenRegistryAddress,
-  beneficiary,
-  holder,
   approvedBeneficiary,
   approvedHolder,
   handleEndorseTransfer,
   transferToNewEscrowState,
-  onBack,
+  setFormActionNone,
 }: EndorseTransferFormProps) => {
   const isPendingConfirmation = transferToNewEscrowState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = transferToNewEscrowState === FormState.CONFIRMED;
@@ -44,7 +40,6 @@ export const EndorseTransferForm = ({
 
   useEffect(() => {
     if (isConfirmed) {
-      // TODO: check the overlay
       showOverlay(
         showDocumentTransferMessage(MessageTitle.ENDORSE_TRANSFER_SUCCESS, {
           isSuccess: true,
@@ -52,14 +47,19 @@ export const EndorseTransferForm = ({
           holderAddress: approvedHolder,
         })
       );
+      setFormActionNone();
     }
-  }, [isConfirmed, approvedBeneficiary, approvedHolder, showOverlay]);
+  }, [isConfirmed, approvedHolder, approvedBeneficiary, showOverlay, setFormActionNone]);
 
   return (
     <div className="row py-3">
       <div className="col-12">
         {!isConfirmed && (
-          <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
+          <AssetManagementTitle
+            setFormActionNone={setFormActionNone}
+            formAction={formAction}
+            disabled={isPendingConfirmation}
+          />
         )}
         <div className="row mb-3">
           <div className="col-12 col-lg">
@@ -83,7 +83,7 @@ export const EndorseTransferForm = ({
               <div className="row no-gutters">
                 <div className="col-auto">
                   <ButtonSolidWhiteGrey
-                    onClick={onBack}
+                    onClick={setFormActionNone}
                     disabled={isPendingConfirmation}
                     data-testid={"cancelEndorseTraansferBtn"}
                   >
@@ -93,10 +93,10 @@ export const EndorseTransferForm = ({
                 <div className="col-auto ml-2">
                   <ButtonSolidOrangeWhite
                     onClick={() => handleEndorseTransfer(approvedBeneficiary, approvedHolder)}
-                    disabled={isPendingConfirmation || !approvedBeneficiary || !approvedHolder}
+                    disabled={isPendingConfirmation}
                     data-testid={"endorseTransferBtn"}
                   >
-                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}
+                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse Transfer</>}
                   </ButtonSolidOrangeWhite>
                 </div>
               </div>
