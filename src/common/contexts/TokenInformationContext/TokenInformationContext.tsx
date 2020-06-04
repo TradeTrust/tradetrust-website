@@ -9,12 +9,16 @@ interface TokenInformationContext {
   tokenId: string;
   beneficiary?: string;
   holder?: string;
+  approvedBeneficiary?: string;
+  approvedHolder?: string;
   changeHolder: TitleEscrow["changeHolder"];
   changeHolderState: ContractFunctionState;
   transferTo: TitleEscrow["transferTo"];
   transferToState: ContractFunctionState;
   endorseBeneficiary: TitleEscrow["endorseBeneficiary"];
   endorseBeneficiaryState: ContractFunctionState;
+  approveNewTransferTargets: TitleEscrow["approveNewTransferTargets"];
+  approveNewTransferTargetsState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
 }
@@ -34,6 +38,8 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
   isSurrendered: false,
+  approveNewTransferTargets: contractFunctionStub,
+  approveNewTransferTargetsState: "UNINITIALIZED",
 });
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -46,6 +52,11 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
+  const { call: getApprovedBeneficiary, value: approvedBeneficiary } = useContractFunctionHook(
+    titleEscrow,
+    "approvedBeneficiary"
+  );
+  const { call: getApprovedHolder, value: approvedHolder } = useContractFunctionHook(titleEscrow, "approvedHolder");
 
   // Contract Write Functions (available only after provider has been upgraded)
   const { send: transferTo, state: transferToState } = useContractFunctionHook(titleEscrow, "transferTo");
@@ -53,6 +64,10 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const { send: endorseBeneficiary, state: endorseBeneficiaryState } = useContractFunctionHook(
     titleEscrow,
     "transferToNewEscrow"
+  );
+  const { send: approveNewTransferTargets, state: approveNewTransferTargetsState } = useContractFunctionHook(
+    titleEscrow,
+    "approveNewTransferTargets"
   );
 
   const initialize = (address: string, id: string) => {
@@ -63,8 +78,10 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   // Fetch all new information when title escrow is initialized or updated (due to actions)
   useEffect(() => {
     getHolder();
+    getApprovedHolder();
     getBeneficiary();
-  }, [getBeneficiary, getHolder, titleEscrow]);
+    getApprovedBeneficiary();
+  }, [getBeneficiary, getApprovedBeneficiary, getHolder, getApprovedHolder, titleEscrow]);
 
   // Update holder whenever holder transfer is successful
   useEffect(() => {
@@ -89,6 +106,8 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         initialize,
         holder,
         beneficiary,
+        approvedBeneficiary,
+        approvedHolder,
         changeHolder,
         endorseBeneficiary,
         transferTo,
@@ -96,6 +115,8 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         endorseBeneficiaryState,
         transferToState,
         isSurrendered,
+        approveNewTransferTargets,
+        approveNewTransferTargetsState,
       }}
     >
       {children}

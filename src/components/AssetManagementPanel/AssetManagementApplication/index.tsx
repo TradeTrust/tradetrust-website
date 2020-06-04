@@ -12,7 +12,9 @@ interface AssetManagementApplicationProps {
 export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: AssetManagementApplicationProps) => {
   const {
     initialize,
+    approvedHolder,
     holder,
+    approvedBeneficiary,
     beneficiary,
     changeHolder,
     changeHolderState,
@@ -21,6 +23,8 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
     transferTo,
     transferToState,
     isSurrendered,
+    approveNewTransferTargets,
+    approveNewTransferTargetsState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account } = useProviderContext();
@@ -45,7 +49,9 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           account={account}
           onConnectToWallet={upgradeProvider}
           beneficiary={beneficiary}
+          approvedBeneficiary={approvedBeneficiary}
           holder={holder}
+          approvedHolder={approvedHolder}
           formAction={assetManagementAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
@@ -57,6 +63,8 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           onEndorseBeneficiary={endorseBeneficiary}
           beneficiaryEndorseState={endorseBeneficiaryState}
           isSurrendered={isSurrendered}
+          onApproveNewTransferTargets={approveNewTransferTargets}
+          approveNewTransferTargetsState={approveNewTransferTargetsState}
         />
       </div>
     </div>

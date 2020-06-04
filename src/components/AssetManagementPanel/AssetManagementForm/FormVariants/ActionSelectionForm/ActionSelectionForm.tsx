@@ -23,6 +23,7 @@ interface ActionSelectionFormProps {
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
+  canNominateBeneficiaryHolder: boolean;
 }
 
 export const ActionSelectionForm = ({
@@ -37,8 +38,9 @@ export const ActionSelectionForm = ({
   canChangeHolder,
   canEndorseBeneficiary,
   isSurrendered,
+  canNominateBeneficiaryHolder,
 }: ActionSelectionFormProps) => {
-  const canManage = canSurrender || canChangeHolder || canEndorseBeneficiary;
+  const canManage = canSurrender || canChangeHolder || canEndorseBeneficiary || canNominateBeneficiaryHolder;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -99,6 +101,7 @@ export const ActionSelectionForm = ({
                       canSurrender={canSurrender}
                       canChangeHolder={canChangeHolder}
                       canEndorseBeneficiary={canEndorseBeneficiary}
+                      canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
                     />
                   ) : (
                     <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { isAddress } from "web3-utils";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
@@ -6,54 +6,56 @@ import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
-import { EditableAssetTitle } from "./../EditableAssetTitle";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
 import {
   MessageTitle,
   showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
+import { EditableAssetTitle } from "./../EditableAssetTitle";
 
-interface TransferHolderProps {
+interface NominateBeneficiaryHolderFormProps {
   formAction: AssetManagementActions;
   tokenId: string;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleTransfer: (newHolder: string) => void;
-  holderTransferringState: string;
+  handleNomination: (newBeneficiary: string, newHolder: string) => void;
+  nominationState: string;
   setFormActionNone: () => void;
 }
 
-export const TransferHolderForm = ({
+export const NominateBeneficiaryHolderForm = ({
   formAction,
   tokenId,
   tokenRegistryAddress,
   beneficiary,
   holder,
-  handleTransfer,
-  holderTransferringState,
+  handleNomination,
+  nominationState,
   setFormActionNone,
-}: TransferHolderProps) => {
+}: NominateBeneficiaryHolderFormProps) => {
+  const [newBeneficiary, setNewBeneficiary] = useState("");
   const [newHolder, setNewHolder] = useState("");
-  const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
-  const isConfirmed = holderTransferringState === FormState.CONFIRMED;
-  const isEditable =
-    holderTransferringState !== FormState.PENDING_CONFIRMATION && holderTransferringState !== FormState.CONFIRMED;
+  const isPendingConfirmation = nominationState === FormState.PENDING_CONFIRMATION;
+  const isConfirmed = nominationState === FormState.CONFIRMED;
+  const isEditable = nominationState !== FormState.PENDING_CONFIRMATION && nominationState !== FormState.CONFIRMED;
   const { showOverlay } = useContext(OverlayContext);
 
   useEffect(() => {
     if (isConfirmed) {
       showOverlay(
-        showDocumentTransferMessage(MessageTitle.TRANSFER_HOLDER_SUCCESS, { isSuccess: true, holderAddress: newHolder })
+        showDocumentTransferMessage(MessageTitle.NOMINATE_BENEFICIARY_HOLDER_SUCCESS, {
+          isSuccess: true,
+        })
       );
       setFormActionNone();
     }
-  }, [isConfirmed, newHolder, showOverlay, setFormActionNone]);
+  }, [isConfirmed, newBeneficiary, showOverlay, setFormActionNone]);
 
-  const isValidTransfer = () => {
-    if (!newHolder) return false;
-    if (newHolder === holder) return false;
-    if (!isAddress(newHolder)) return false;
+  const isValidNomination = () => {
+    if (!newBeneficiary || !newHolder) return false;
+    if (newBeneficiary === beneficiary && newHolder === holder) return false;
+    if (!isAddress(newBeneficiary) || !isAddress(newHolder)) return false;
 
     return true;
   };
@@ -71,16 +73,22 @@ export const TransferHolderForm = ({
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
+            <EditableAssetTitle
+              role="Beneficiary"
+              value={beneficiary}
+              newValue={newBeneficiary}
+              isEditable={isEditable}
+              onSetNewValue={setNewBeneficiary}
+              error={nominationState === FormState.ERROR}
+            />
           </div>
           <div className="col-12 col-lg">
             <EditableAssetTitle
               role="Holder"
               value={holder}
-              newValue={newHolder}
               isEditable={isEditable}
               onSetNewValue={setNewHolder}
-              error={holderTransferringState === FormState.ERROR}
+              error={nominationState === FormState.ERROR}
             />
           </div>
         </div>
@@ -91,18 +99,18 @@ export const TransferHolderForm = ({
                 <ButtonSolidWhiteGrey
                   onClick={setFormActionNone}
                   disabled={isPendingConfirmation}
-                  data-testid={"cancelTransferBtn"}
+                  data-testid={"cancelNominationBtn"}
                 >
                   Cancel
                 </ButtonSolidWhiteGrey>
               </div>
               <div className="col-auto ml-2">
                 <ButtonSolidOrangeWhite
-                  disabled={!isValidTransfer() || isPendingConfirmation}
-                  onClick={() => handleTransfer(newHolder)}
-                  data-testid={"transferBtn"}
+                  disabled={!isValidNomination() || isPendingConfirmation}
+                  onClick={() => handleNomination(newBeneficiary, newHolder)}
+                  data-testid={"nominationBtn"}
                 >
-                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}
+                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Nominate</>}
                 </ButtonSolidOrangeWhite>
               </div>
             </div>
