@@ -41,7 +41,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
   const { provider } = useProviderContext();
   const { titleEscrow, updateTitleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
-  const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
+  const [isSurrendered, setSurrendered] = useState(false);
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -80,6 +80,11 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   useEffect(() => {
     if (transferToState === "CONFIRMED") updateTitleEscrow();
   }, [transferToState, updateTitleEscrow]);
+
+  // Update isSurrendered whenever document is loaded
+  useEffect(() => {
+    setSurrendered(titleEscrow?.address === tokenRegistryAddress);
+  }, [titleEscrow, tokenRegistryAddress, setSurrendered]);
 
   return (
     <TokenInformationContext.Provider

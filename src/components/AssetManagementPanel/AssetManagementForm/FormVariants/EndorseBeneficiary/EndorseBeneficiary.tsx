@@ -49,8 +49,9 @@ export const EndorseBeneficiaryForm = ({
           beneficiaryAddress: newBeneficiary,
         })
       );
+      onBack(); // onSetFormAction to none
     }
-  }, [isConfirmed, newBeneficiary, showOverlay]);
+  }, [isConfirmed, newBeneficiary, showOverlay, onBack]);
 
   const isValidEndorse = () => {
     if (!newBeneficiary || !newHolder) return false;
@@ -62,9 +63,7 @@ export const EndorseBeneficiaryForm = ({
   return (
     <div className="row py-3">
       <div className="col-12">
-        {!isConfirmed && (
-          <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
-        )}
+        <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -89,32 +88,30 @@ export const EndorseBeneficiaryForm = ({
             />
           </div>
         </div>
-        {!isConfirmed && (
-          <div className="row mb-3">
-            <div className="col-auto ml-auto">
-              <div className="row no-gutters">
-                <div className="col-auto">
-                  <ButtonSolidWhiteGrey
-                    onClick={onBack}
-                    disabled={isPendingConfirmation}
-                    data-testid={"cancelEndorseBtn"}
-                  >
-                    Cancel
-                  </ButtonSolidWhiteGrey>
-                </div>
-                <div className="col-auto ml-2">
-                  <ButtonSolidOrangeWhite
-                    disabled={!isValidEndorse() || isPendingConfirmation}
-                    onClick={() => handleTransfer(newBeneficiary, newHolder)}
-                    data-testid={"endorseBtn"}
-                  >
-                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}
-                  </ButtonSolidOrangeWhite>
-                </div>
+        <div className="row mb-3">
+          <div className="col-auto ml-auto">
+            <div className="row no-gutters">
+              <div className="col-auto">
+                <ButtonSolidWhiteGrey
+                  onClick={onBack}
+                  disabled={isPendingConfirmation}
+                  data-testid={"cancelEndorseBtn"}
+                >
+                  Cancel
+                </ButtonSolidWhiteGrey>
+              </div>
+              <div className="col-auto ml-2">
+                <ButtonSolidOrangeWhite
+                  disabled={!isValidEndorse() || isPendingConfirmation}
+                  onClick={() => handleTransfer(newBeneficiary, newHolder)}
+                  data-testid={"endorseBtn"}
+                >
+                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}
+                </ButtonSolidOrangeWhite>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
