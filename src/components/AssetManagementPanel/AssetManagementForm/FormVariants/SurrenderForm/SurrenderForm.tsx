@@ -20,7 +20,7 @@ interface SurrenderFormProps {
   holder?: string;
   handleSurrender: () => void;
   surrenderingState: string;
-  onBack: () => void;
+  setFormActionNone: () => void;
 }
 
 export const SurrenderForm = ({
@@ -31,7 +31,7 @@ export const SurrenderForm = ({
   holder,
   handleSurrender,
   surrenderingState,
-  onBack,
+  setFormActionNone,
 }: SurrenderFormProps) => {
   const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = surrenderingState === FormState.CONFIRMED;
@@ -41,14 +41,18 @@ export const SurrenderForm = ({
   useEffect(() => {
     if (isConfirmed) {
       showOverlay(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
-      onBack(); // onSetFormAction to none
+      setFormActionNone();
     }
-  }, [isConfirmed, showOverlay, onBack]);
+  }, [isConfirmed, showOverlay, setFormActionNone]);
 
   return (
     <div className="row py-3">
       <div className="col-12">
-        <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
+        <AssetManagementTitle
+          setFormActionNone={setFormActionNone}
+          formAction={formAction}
+          disabled={isPendingConfirmation}
+        />
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -65,7 +69,7 @@ export const SurrenderForm = ({
             <div className="row no-gutters">
               <div className="col-auto">
                 <ButtonSolidWhiteGrey
-                  onClick={onBack}
+                  onClick={setFormActionNone}
                   disabled={isPendingConfirmation}
                   data-testid={"cancelSurrenderBtn"}
                 >

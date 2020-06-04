@@ -46,7 +46,7 @@ export const AssetManagementForm = ({
   const canSurrender = isBeneficiary && isHolder;
   const canEndorseBeneficiary = isBeneficiary && isHolder;
 
-  const onBack = () => {
+  const setFormActionNone = () => {
     if (
       surrenderingState === FormState.PENDING_CONFIRMATION ||
       holderTransferringState === FormState.PENDING_CONFIRMATION ||
@@ -67,7 +67,7 @@ export const AssetManagementForm = ({
           holder={holder}
           handleSurrender={onSurrender}
           surrenderingState={surrenderingState}
-          onBack={onBack}
+          setFormActionNone={setFormActionNone}
         />
       );
 
@@ -81,7 +81,7 @@ export const AssetManagementForm = ({
           holder={holder}
           handleTransfer={onEndorseBeneficiary}
           beneficiaryEndorseState={beneficiaryEndorseState}
-          onBack={onBack}
+          setFormActionNone={setFormActionNone}
         />
       );
 
@@ -95,7 +95,7 @@ export const AssetManagementForm = ({
           holder={holder}
           handleTransfer={onTransferHolder}
           holderTransferringState={holderTransferringState}
-          onBack={onBack}
+          setFormActionNone={setFormActionNone}
         />
       );
 

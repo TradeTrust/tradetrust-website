@@ -20,7 +20,7 @@ interface EndorseBeneficiaryProps {
   holder?: string;
   handleTransfer: (newBeneficiary: string, newHolder: string) => void;
   beneficiaryEndorseState: string;
-  onBack: () => void;
+  setFormActionNone: () => void;
 }
 
 export const EndorseBeneficiaryForm = ({
@@ -31,7 +31,7 @@ export const EndorseBeneficiaryForm = ({
   holder,
   handleTransfer,
   beneficiaryEndorseState,
-  onBack,
+  setFormActionNone,
 }: EndorseBeneficiaryProps) => {
   const [newBeneficiary, setNewBeneficiary] = useState("");
   const [newHolder, setNewHolder] = useState("");
@@ -49,9 +49,9 @@ export const EndorseBeneficiaryForm = ({
           beneficiaryAddress: newBeneficiary,
         })
       );
-      onBack(); // onSetFormAction to none
+      setFormActionNone();
     }
-  }, [isConfirmed, newBeneficiary, showOverlay, onBack]);
+  }, [isConfirmed, newBeneficiary, showOverlay, setFormActionNone]);
 
   const isValidEndorse = () => {
     if (!newBeneficiary || !newHolder) return false;
@@ -63,7 +63,11 @@ export const EndorseBeneficiaryForm = ({
   return (
     <div className="row py-3">
       <div className="col-12">
-        <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
+        <AssetManagementTitle
+          setFormActionNone={setFormActionNone}
+          formAction={formAction}
+          disabled={isPendingConfirmation}
+        />
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -93,7 +97,7 @@ export const EndorseBeneficiaryForm = ({
             <div className="row no-gutters">
               <div className="col-auto">
                 <ButtonSolidWhiteGrey
-                  onClick={onBack}
+                  onClick={setFormActionNone}
                   disabled={isPendingConfirmation}
                   data-testid={"cancelEndorseBtn"}
                 >

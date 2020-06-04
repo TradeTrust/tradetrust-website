@@ -20,7 +20,7 @@ interface TransferHolderProps {
   holder?: string;
   handleTransfer: (newHolder: string) => void;
   holderTransferringState: string;
-  onBack: () => void;
+  setFormActionNone: () => void;
 }
 
 export const TransferHolderForm = ({
@@ -31,7 +31,7 @@ export const TransferHolderForm = ({
   holder,
   handleTransfer,
   holderTransferringState,
-  onBack,
+  setFormActionNone,
 }: TransferHolderProps) => {
   const [newHolder, setNewHolder] = useState("");
   const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
@@ -45,9 +45,9 @@ export const TransferHolderForm = ({
       showOverlay(
         showDocumentTransferMessage(MessageTitle.TRANSFER_HOLDER_SUCCESS, { isSuccess: true, holderAddress: newHolder })
       );
-      onBack(); // onSetFormAction to none
+      setFormActionNone();
     }
-  }, [isConfirmed, newHolder, showOverlay, onBack]);
+  }, [isConfirmed, newHolder, showOverlay, setFormActionNone]);
 
   const isValidTransfer = () => {
     if (!newHolder) return false;
@@ -59,7 +59,11 @@ export const TransferHolderForm = ({
   return (
     <div className="row py-3">
       <div className="col-12">
-        <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
+        <AssetManagementTitle
+          setFormActionNone={setFormActionNone}
+          formAction={formAction}
+          disabled={isPendingConfirmation}
+        />
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -83,7 +87,7 @@ export const TransferHolderForm = ({
             <div className="row no-gutters">
               <div className="col-auto">
                 <ButtonSolidWhiteGrey
-                  onClick={onBack}
+                  onClick={setFormActionNone}
                   disabled={isPendingConfirmation}
                   data-testid={"cancelTransferBtn"}
                 >
