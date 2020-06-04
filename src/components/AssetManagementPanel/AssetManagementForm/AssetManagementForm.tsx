@@ -9,7 +9,6 @@ import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
 interface AssetManagementFormProps {
   beneficiary?: string;
   holder?: string;
-  approvedTransferTarget?: string;
   tokenId: string;
   tokenRegistryAddress: string;
   account?: string;

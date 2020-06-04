@@ -14,7 +14,6 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
     initialize,
     holder,
     beneficiary,
-    approvedTransferTarget,
     changeHolder,
     changeHolderState,
     endorseBeneficiary,
@@ -47,7 +46,6 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           onConnectToWallet={upgradeProvider}
           beneficiary={beneficiary}
           holder={holder}
-          approvedTransferTarget={approvedTransferTarget}
           formAction={assetManagementAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
