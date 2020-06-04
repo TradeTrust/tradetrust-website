@@ -8,7 +8,6 @@ interface TokenInformationContext {
   tokenRegistryAddress: string;
   tokenId: string;
   beneficiary?: string;
-  approvedTransferTarget?: string;
   holder?: string;
   changeHolder: TitleEscrow["changeHolder"];
   changeHolderState: ContractFunctionState;
@@ -17,6 +16,7 @@ interface TokenInformationContext {
   endorseBeneficiary: TitleEscrow["endorseBeneficiary"];
   endorseBeneficiaryState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
+  isSurrendered: boolean;
 }
 
 const contractFunctionStub = () => {
@@ -33,6 +33,7 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   transferToState: "UNINITIALIZED",
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
+  isSurrendered: false,
 });
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -40,14 +41,11 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
   const { provider } = useProviderContext();
   const { titleEscrow, updateTitleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
+  const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
-  const { call: getApprovedTransferTarget, value: approvedTransferTarget } = useContractFunctionHook(
-    titleEscrow,
-    "approvedTransferTarget"
-  );
 
   // Contract Write Functions (available only after provider has been upgraded)
   const { send: transferTo, state: transferToState } = useContractFunctionHook(titleEscrow, "transferTo");
@@ -66,8 +64,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   useEffect(() => {
     getHolder();
     getBeneficiary();
-    getApprovedTransferTarget();
-  }, [getApprovedTransferTarget, getBeneficiary, getHolder, titleEscrow]);
+  }, [getBeneficiary, getHolder, titleEscrow]);
 
   // Update holder whenever holder transfer is successful
   useEffect(() => {
@@ -92,13 +89,13 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         initialize,
         holder,
         beneficiary,
-        approvedTransferTarget,
         changeHolder,
         endorseBeneficiary,
         transferTo,
         changeHolderState,
         endorseBeneficiaryState,
         transferToState,
+        isSurrendered,
       }}
     >
       {children}

@@ -20,7 +20,7 @@ interface SurrenderFormProps {
   holder?: string;
   handleSurrender: () => void;
   surrenderingState: string;
-  onBack: () => void;
+  setFormActionNone: () => void;
 }
 
 export const SurrenderForm = ({
@@ -31,7 +31,7 @@ export const SurrenderForm = ({
   holder,
   handleSurrender,
   surrenderingState,
-  onBack,
+  setFormActionNone,
 }: SurrenderFormProps) => {
   const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = surrenderingState === FormState.CONFIRMED;
@@ -41,15 +41,18 @@ export const SurrenderForm = ({
   useEffect(() => {
     if (isConfirmed) {
       showOverlay(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
+      setFormActionNone();
     }
-  }, [isConfirmed, showOverlay]);
+  }, [isConfirmed, showOverlay, setFormActionNone]);
 
   return (
     <div className="row py-3">
       <div className="col-12">
-        {!isConfirmed && (
-          <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
-        )}
+        <AssetManagementTitle
+          setFormActionNone={setFormActionNone}
+          formAction={formAction}
+          disabled={isPendingConfirmation}
+        />
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -61,32 +64,30 @@ export const SurrenderForm = ({
             <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
           </div>
         </div>
-        {!isConfirmed && (
-          <div className="row mb-3">
-            <div className="col-auto ml-auto">
-              <div className="row no-gutters">
-                <div className="col-auto">
-                  <ButtonSolidWhiteGrey
-                    onClick={onBack}
-                    disabled={isPendingConfirmation}
-                    data-testid={"cancelSurrenderBtn"}
-                  >
-                    Cancel
-                  </ButtonSolidWhiteGrey>
-                </div>
-                <div className="col-auto ml-2">
-                  <ButtonSolidRedWhite
-                    onClick={handleSurrender}
-                    disabled={isPendingConfirmation}
-                    data-testid={"surrenderBtn"}
-                  >
-                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Surrender Document</>}
-                  </ButtonSolidRedWhite>
-                </div>
+        <div className="row mb-3">
+          <div className="col-auto ml-auto">
+            <div className="row no-gutters">
+              <div className="col-auto">
+                <ButtonSolidWhiteGrey
+                  onClick={setFormActionNone}
+                  disabled={isPendingConfirmation}
+                  data-testid={"cancelSurrenderBtn"}
+                >
+                  Cancel
+                </ButtonSolidWhiteGrey>
+              </div>
+              <div className="col-auto ml-2">
+                <ButtonSolidRedWhite
+                  onClick={handleSurrender}
+                  disabled={isPendingConfirmation}
+                  data-testid={"surrenderBtn"}
+                >
+                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Surrender Document</>}
+                </ButtonSolidRedWhite>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

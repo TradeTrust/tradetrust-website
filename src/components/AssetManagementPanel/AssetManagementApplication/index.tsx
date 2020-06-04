@@ -14,13 +14,13 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
     initialize,
     holder,
     beneficiary,
-    approvedTransferTarget,
     changeHolder,
     changeHolderState,
     endorseBeneficiary,
     endorseBeneficiaryState,
     transferTo,
     transferToState,
+    isSurrendered,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account } = useProviderContext();
@@ -46,7 +46,6 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           onConnectToWallet={upgradeProvider}
           beneficiary={beneficiary}
           holder={holder}
-          approvedTransferTarget={approvedTransferTarget}
           formAction={assetManagementAction}
           tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
@@ -57,6 +56,7 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           holderTransferringState={changeHolderState}
           onEndorseBeneficiary={endorseBeneficiary}
           beneficiaryEndorseState={endorseBeneficiaryState}
+          isSurrendered={isSurrendered}
         />
       </div>
     </div>

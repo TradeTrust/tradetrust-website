@@ -20,7 +20,7 @@ interface EndorseBeneficiaryProps {
   holder?: string;
   handleTransfer: (newBeneficiary: string, newHolder: string) => void;
   beneficiaryEndorseState: string;
-  onBack: () => void;
+  setFormActionNone: () => void;
 }
 
 export const EndorseBeneficiaryForm = ({
@@ -31,7 +31,7 @@ export const EndorseBeneficiaryForm = ({
   holder,
   handleTransfer,
   beneficiaryEndorseState,
-  onBack,
+  setFormActionNone,
 }: EndorseBeneficiaryProps) => {
   const [newBeneficiary, setNewBeneficiary] = useState("");
   const [newHolder, setNewHolder] = useState("");
@@ -49,8 +49,9 @@ export const EndorseBeneficiaryForm = ({
           beneficiaryAddress: newBeneficiary,
         })
       );
+      setFormActionNone();
     }
-  }, [isConfirmed, newBeneficiary, showOverlay]);
+  }, [isConfirmed, newBeneficiary, showOverlay, setFormActionNone]);
 
   const isValidEndorse = () => {
     if (!newBeneficiary || !newHolder) return false;
@@ -62,9 +63,11 @@ export const EndorseBeneficiaryForm = ({
   return (
     <div className="row py-3">
       <div className="col-12">
-        {!isConfirmed && (
-          <AssetManagementTitle onBack={onBack} formAction={formAction} disabled={isPendingConfirmation} />
-        )}
+        <AssetManagementTitle
+          setFormActionNone={setFormActionNone}
+          formAction={formAction}
+          disabled={isPendingConfirmation}
+        />
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -89,32 +92,30 @@ export const EndorseBeneficiaryForm = ({
             />
           </div>
         </div>
-        {!isConfirmed && (
-          <div className="row mb-3">
-            <div className="col-auto ml-auto">
-              <div className="row no-gutters">
-                <div className="col-auto">
-                  <ButtonSolidWhiteGrey
-                    onClick={onBack}
-                    disabled={isPendingConfirmation}
-                    data-testid={"cancelEndorseBtn"}
-                  >
-                    Cancel
-                  </ButtonSolidWhiteGrey>
-                </div>
-                <div className="col-auto ml-2">
-                  <ButtonSolidOrangeWhite
-                    disabled={!isValidEndorse() || isPendingConfirmation}
-                    onClick={() => handleTransfer(newBeneficiary, newHolder)}
-                    data-testid={"endorseBtn"}
-                  >
-                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}
-                  </ButtonSolidOrangeWhite>
-                </div>
+        <div className="row mb-3">
+          <div className="col-auto ml-auto">
+            <div className="row no-gutters">
+              <div className="col-auto">
+                <ButtonSolidWhiteGrey
+                  onClick={setFormActionNone}
+                  disabled={isPendingConfirmation}
+                  data-testid={"cancelEndorseBtn"}
+                >
+                  Cancel
+                </ButtonSolidWhiteGrey>
+              </div>
+              <div className="col-auto ml-2">
+                <ButtonSolidOrangeWhite
+                  disabled={!isValidEndorse() || isPendingConfirmation}
+                  onClick={() => handleTransfer(newBeneficiary, newHolder)}
+                  data-testid={"endorseBtn"}
+                >
+                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}
+                </ButtonSolidOrangeWhite>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

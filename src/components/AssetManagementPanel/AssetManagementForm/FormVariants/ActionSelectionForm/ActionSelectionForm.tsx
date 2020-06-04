@@ -9,6 +9,7 @@ import {
   showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { TagBorderedRedLarge } from "../../../../UI/Tag";
 
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
@@ -21,6 +22,7 @@ interface ActionSelectionFormProps {
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
+  isSurrendered: boolean;
 }
 
 export const ActionSelectionForm = ({
@@ -34,6 +36,7 @@ export const ActionSelectionForm = ({
   onConnectToWallet,
   canChangeHolder,
   canEndorseBeneficiary,
+  isSurrendered,
 }: ActionSelectionFormProps) => {
   const canManage = canSurrender || canChangeHolder || canEndorseBeneficiary;
 
@@ -68,35 +71,47 @@ export const ActionSelectionForm = ({
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
           </div>
-          <div className="col-12 col-lg">
-            <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} />
-          </div>
-          <div className="col-12 col-lg">
-            <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
-          </div>
+          {isSurrendered ? (
+            <div className="col-12 col-lg-auto align-self-end">
+              <div className="py-3">
+                <TagBorderedRedLarge>Surrendered</TagBorderedRedLarge>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="col-12 col-lg">
+                <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} />
+              </div>
+              <div className="col-12 col-lg">
+                <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
+              </div>
+            </>
+          )}
         </div>
-        <div className="row mb-3">
-          <div className="col-auto ml-auto">
-            {account ? (
-              <>
-                {canManage ? (
-                  <ManageAssetsDropdown
-                    onSetFormAction={onSetFormAction}
-                    canSurrender={canSurrender}
-                    canChangeHolder={canChangeHolder}
-                    canEndorseBeneficiary={canEndorseBeneficiary}
-                  />
-                ) : (
-                  <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
-                )}
-              </>
-            ) : (
-              <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
-                Connect Wallet
-              </ButtonSolidOrangeWhite>
-            )}
+        {!isSurrendered && (
+          <div className="row mb-3">
+            <div className="col-auto ml-auto">
+              {account ? (
+                <>
+                  {canManage ? (
+                    <ManageAssetsDropdown
+                      onSetFormAction={onSetFormAction}
+                      canSurrender={canSurrender}
+                      canChangeHolder={canChangeHolder}
+                      canEndorseBeneficiary={canEndorseBeneficiary}
+                    />
+                  ) : (
+                    <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
+                  )}
+                </>
+              ) : (
+                <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
+                  Connect Wallet
+                </ButtonSolidOrangeWhite>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

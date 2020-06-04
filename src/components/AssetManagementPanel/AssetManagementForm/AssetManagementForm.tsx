@@ -9,7 +9,6 @@ import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
 interface AssetManagementFormProps {
   beneficiary?: string;
   holder?: string;
-  approvedTransferTarget?: string;
   tokenId: string;
   tokenRegistryAddress: string;
   account?: string;
@@ -22,6 +21,7 @@ interface AssetManagementFormProps {
   onSurrender: () => void;
   holderTransferringState: string;
   beneficiaryEndorseState: string;
+  isSurrendered: boolean;
 }
 
 export const AssetManagementForm = ({
@@ -39,13 +39,14 @@ export const AssetManagementForm = ({
   holderTransferringState,
   onEndorseBeneficiary,
   beneficiaryEndorseState,
+  isSurrendered,
 }: AssetManagementFormProps) => {
   const isHolder = account === holder;
   const isBeneficiary = account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
   const canEndorseBeneficiary = isBeneficiary && isHolder;
 
-  const onBack = () => {
+  const setFormActionNone = () => {
     if (
       surrenderingState === FormState.PENDING_CONFIRMATION ||
       holderTransferringState === FormState.PENDING_CONFIRMATION ||
@@ -66,7 +67,7 @@ export const AssetManagementForm = ({
           holder={holder}
           handleSurrender={onSurrender}
           surrenderingState={surrenderingState}
-          onBack={onBack}
+          setFormActionNone={setFormActionNone}
         />
       );
 
@@ -80,7 +81,7 @@ export const AssetManagementForm = ({
           holder={holder}
           handleTransfer={onEndorseBeneficiary}
           beneficiaryEndorseState={beneficiaryEndorseState}
-          onBack={onBack}
+          setFormActionNone={setFormActionNone}
         />
       );
 
@@ -94,7 +95,7 @@ export const AssetManagementForm = ({
           holder={holder}
           handleTransfer={onTransferHolder}
           holderTransferringState={holderTransferringState}
-          onBack={onBack}
+          setFormActionNone={setFormActionNone}
         />
       );
 
@@ -111,6 +112,7 @@ export const AssetManagementForm = ({
           onConnectToWallet={onConnectToWallet}
           canChangeHolder={isHolder}
           canEndorseBeneficiary={canEndorseBeneficiary}
+          isSurrendered={isSurrendered}
         />
       );
   }

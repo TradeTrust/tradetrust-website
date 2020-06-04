@@ -6,36 +6,38 @@ import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementTitleProps {
   className?: string;
-  onBack: (isPendingConfirmation: boolean) => void;
+  setFormActionNone: (isPendingConfirmation: boolean) => void;
   formAction: AssetManagementActions;
   disabled: boolean;
 }
 
-export const AssetManagementTitle = styled(({ className, onBack, formAction, disabled }: AssetManagementTitleProps) => {
-  return (
-    <div className={`row ${className}`}>
-      <div className="col-12">
-        <div className="action-back" onClick={() => onBack(disabled)} data-disabled={disabled}>
-          <div className="row align-items-center no-gutters">
-            <div className="col-auto mr-1">
-              <SvgIcon>
-                <SvgIconArrowLeft />
-              </SvgIcon>
-            </div>
-            <div className="col-auto">
-              <p className="mb-0">Back</p>
+export const AssetManagementTitle = styled(
+  ({ className, setFormActionNone, formAction, disabled }: AssetManagementTitleProps) => {
+    return (
+      <div className={`row ${className}`}>
+        <div className="col-12">
+          <div className="action-back" onClick={() => setFormActionNone(disabled)} data-disabled={disabled}>
+            <div className="row align-items-center no-gutters">
+              <div className="col-auto mr-1">
+                <SvgIcon>
+                  <SvgIconArrowLeft />
+                </SvgIcon>
+              </div>
+              <div className="col-auto">
+                <p className="mb-0">Back</p>
+              </div>
             </div>
           </div>
+          <h3 className="action-title">
+            {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
+            {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
+            {formAction === AssetManagementActions.EndorseBeneficiary && <>Endorse Change of Beneficiary</>}
+          </h3>
         </div>
-        <h3 className="action-title">
-          {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
-          {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
-          {formAction === AssetManagementActions.EndorseBeneficiary && <>Endorse Change of Beneficiary</>}
-        </h3>
       </div>
-    </div>
-  );
-})`
+    );
+  }
+)`
   .action-back {
     color: ${vars.grey};
     cursor: pointer;
