@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
+import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "./../AssetManagementForm";
 import { AssetManagementTags } from "./../AssetManagementTags";
-import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 interface AssetManagementApplicationProps {
   tokenId: string;
   tokenRegistryAddress: string;
@@ -25,6 +25,8 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
     isSurrendered,
     approveNewTransferTargets,
     approveNewTransferTargetsState,
+    transferToNewEscrow,
+    transferToNewEscrowState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account } = useProviderContext();
@@ -65,6 +67,8 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           isSurrendered={isSurrendered}
           onApproveNewTransferTargets={approveNewTransferTargets}
           approveNewTransferTargetsState={approveNewTransferTargetsState}
+          onTransferToNewEscrow={transferToNewEscrow}
+          transferToNewEscrowState={transferToNewEscrowState}
         />
       </div>
     </div>

@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { useProviderContext } from "../provider";
+import { ContractFunctionState, useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
-import { useContractFunctionHook, ContractFunctionState } from "@govtechsg/ethers-contract-hook";
+import { useProviderContext } from "../provider";
 
 interface TokenInformationContext {
   tokenRegistryAddress: string;
@@ -19,6 +19,8 @@ interface TokenInformationContext {
   endorseBeneficiaryState: ContractFunctionState;
   approveNewTransferTargets: TitleEscrow["approveNewTransferTargets"];
   approveNewTransferTargetsState: ContractFunctionState;
+  transferToNewEscrow: TitleEscrow["transferToNewEscrow"];
+  transferToNewEscrowState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
 }
@@ -40,6 +42,8 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   isSurrendered: false,
   approveNewTransferTargets: contractFunctionStub,
   approveNewTransferTargetsState: "UNINITIALIZED",
+  transferToNewEscrow: contractFunctionStub,
+  transferToNewEscrowState: "UNINITIALIZED",
 });
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -68,6 +72,10 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const { send: approveNewTransferTargets, state: approveNewTransferTargetsState } = useContractFunctionHook(
     titleEscrow,
     "approveNewTransferTargets"
+  );
+  const { send: transferToNewEscrow, state: transferToNewEscrowState } = useContractFunctionHook(
+    titleEscrow,
+    "transferToNewEscrow"
   );
 
   const initialize = (address: string, id: string) => {
@@ -98,6 +106,11 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     if (transferToState === "CONFIRMED") updateTitleEscrow();
   }, [transferToState, updateTitleEscrow]);
 
+  // Update entire title escrow whenever endorse transfer to beneficiary and holder is successful
+  useEffect(() => {
+    if (transferToNewEscrowState === "CONFIRMED") updateTitleEscrow();
+  }, [transferToNewEscrowState, updateTitleEscrow]);
+
   return (
     <TokenInformationContext.Provider
       value={{
@@ -117,6 +130,8 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         isSurrendered,
         approveNewTransferTargets,
         approveNewTransferTargetsState,
+        transferToNewEscrow,
+        transferToNewEscrowState,
       }}
     >
       {children}

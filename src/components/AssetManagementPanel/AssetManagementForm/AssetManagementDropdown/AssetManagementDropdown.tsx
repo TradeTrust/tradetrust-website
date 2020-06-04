@@ -11,6 +11,7 @@ interface ManageAssetsDropdownProps {
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   canNominateBeneficiaryHolder: boolean;
+  canEndorseTransfer: boolean;
 }
 
 export const ManageAssetsDropdown = styled(
@@ -21,6 +22,7 @@ export const ManageAssetsDropdown = styled(
     canChangeHolder,
     canEndorseBeneficiary,
     canNominateBeneficiaryHolder,
+    canEndorseTransfer,
   }: ManageAssetsDropdownProps) => {
     return (
       <Dropdown alignRight className={`${className}`}>
@@ -58,6 +60,14 @@ export const ManageAssetsDropdown = styled(
               onClick={() => onSetFormAction(AssetManagementActions.Surrender)}
             >
               Surrender document
+            </Dropdown.Item>
+          )}
+          {canEndorseTransfer && (
+            <Dropdown.Item
+              data-testid={"endorseTransferDropdown"}
+              onClick={() => onSetFormAction(AssetManagementActions.EndorseTransfer)}
+            >
+              Endorse Transfer of beneficiary/holder
             </Dropdown.Item>
           )}
         </Dropdown.Menu>
