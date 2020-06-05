@@ -1,10 +1,11 @@
+import styled from "@emotion/styled";
 import React, { useContext } from "react";
+import { OverlayContext } from "../../../../common/contexts/OverlayContext";
+import { mixin, vars } from "../../../../styles";
+import { AnchorLinkButtonSolidOrangeWhite, ButtonSolidOrangeWhite } from "../../Button";
 import { OverlayContentBaseStyle } from "../Overlay";
 import { OverlayContent, OverlayContentProps } from "./index";
-import styled from "@emotion/styled";
-import { vars, mixin } from "../../../../styles";
-import { ButtonSolidOrangeWhite, AnchorLinkButtonSolidOrangeWhite } from "../../Button";
-import { OverlayContext } from "../../../../common/contexts/OverlayContext";
+import { MessageAddressResolver } from "./MessageAddressResolver";
 
 export enum MessageTitle {
   NO_METAMASK = "Metamask not installed",
@@ -15,6 +16,7 @@ export enum MessageTitle {
   CHANGE_BENEFICIARY_SUCCESS = "Change Beneficiary Success",
   NOMINATE_BENEFICIARY_HOLDER_SUCCESS = "Nomination Success",
   TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
+  ENDORSE_TRANSFER_SUCCESS = "Endorse Beneficiary/Holder Success",
 }
 
 const ButtonClose = () => {
@@ -84,6 +86,8 @@ export const DocumentTransferMessage = styled(
 interface MessageProps {
   address?: string;
   error?: string;
+  beneficiaryAddress?: string;
+  holderAddress?: string;
 }
 
 export const MessageNoMetamask = () => {
@@ -125,7 +129,7 @@ export const MessageBeneficiarySuccess = ({ address }: MessageProps) => {
   return (
     <>
       <h6>Current Beneficiary</h6>
-      <p>{address}</p>
+      {address && <MessageAddressResolver address={address} />}
     </>
   );
 };
@@ -134,13 +138,25 @@ export const MessageHolderSuccess = ({ address }: MessageProps) => {
   return (
     <>
       <h6>Current Holder</h6>
-      <p>{address}</p>
+      {address && <MessageAddressResolver address={address} />}
     </>
   );
 };
 
 export const MessageNominateBeneficiaryHolderSuccess = () => {
   return <p>Document has been nominated successfully. Please notify holder to execute transfer.</p>;
+};
+
+export const MessageEndorseTransferSuccess = ({ beneficiaryAddress, holderAddress }: MessageProps) => {
+  return (
+    <>
+      <h6>Current Beneficiary</h6>
+      {beneficiaryAddress && <MessageAddressResolver address={beneficiaryAddress} />}
+      <div />
+      <h6>Current Holder</h6>
+      {holderAddress && <MessageAddressResolver address={holderAddress} />}
+    </>
+  );
 };
 
 interface ShowDocumentTransferMessageOptionProps {
@@ -168,6 +184,12 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       )}
       {title === MessageTitle.NOMINATE_BENEFICIARY_HOLDER_SUCCESS && <MessageNominateBeneficiaryHolderSuccess />}
       {title === MessageTitle.TRANSFER_HOLDER_SUCCESS && <MessageHolderSuccess address={option.holderAddress} />}
+      {title === MessageTitle.ENDORSE_TRANSFER_SUCCESS && (
+        <MessageEndorseTransferSuccess
+          beneficiaryAddress={option.beneficiaryAddress}
+          holderAddress={option.holderAddress}
+        />
+      )}
     </DocumentTransferMessage>
   );
 };

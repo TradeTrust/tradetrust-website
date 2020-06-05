@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { ButtonSolidOrangeWhite } from "../../../../UI/Button";
+import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { ManageAssetsDropdown } from "../../AssetManagementDropdown";
@@ -9,7 +10,6 @@ import {
   showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
-import { TagBorderedRedLarge } from "../../../../UI/Tag";
 
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
@@ -24,6 +24,7 @@ interface ActionSelectionFormProps {
   canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
   canNominateBeneficiaryHolder: boolean;
+  canEndorseTransfer: boolean;
 }
 
 export const ActionSelectionForm = ({
@@ -39,8 +40,10 @@ export const ActionSelectionForm = ({
   canEndorseBeneficiary,
   isSurrendered,
   canNominateBeneficiaryHolder,
+  canEndorseTransfer,
 }: ActionSelectionFormProps) => {
-  const canManage = canSurrender || canChangeHolder || canEndorseBeneficiary || canNominateBeneficiaryHolder;
+  const canManage =
+    canSurrender || canChangeHolder || canEndorseBeneficiary || canNominateBeneficiaryHolder || canEndorseTransfer;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -102,6 +105,7 @@ export const ActionSelectionForm = ({
                       canChangeHolder={canChangeHolder}
                       canEndorseBeneficiary={canEndorseBeneficiary}
                       canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
+                      canEndorseTransfer={canEndorseTransfer}
                     />
                   ) : (
                     <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>

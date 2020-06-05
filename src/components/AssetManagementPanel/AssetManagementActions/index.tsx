@@ -4,4 +4,5 @@ export enum AssetManagementActions {
   EndorseBeneficiary = "EndorseBeneficiary",
   Surrender = "Surrender",
   NominateBeneficiaryHolder = "NominateBeneficiaryHolder",
+  EndorseTransfer = "EndorseTransfer",
 }

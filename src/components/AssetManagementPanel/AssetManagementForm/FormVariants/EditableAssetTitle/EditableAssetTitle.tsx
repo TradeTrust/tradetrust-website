@@ -25,7 +25,11 @@ export const EditableAssetTitle = ({
   if (!isEditable)
     return (
       <AssetTitle role={role} address={value}>
-        <ExternalLinkEtherscanAddress name={value} address={value} />
+        <ExternalLinkEtherscanAddress
+          name={value}
+          address={value}
+          data-testid={`non-editable-input-${role.toLowerCase()}`}
+        />
       </AssetTitle>
     );
   return (
