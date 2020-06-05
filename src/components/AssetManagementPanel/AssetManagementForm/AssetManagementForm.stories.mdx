@@ -36,15 +36,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -77,15 +79,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -122,15 +126,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -165,15 +171,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -208,15 +216,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -252,15 +262,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -293,15 +305,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.PENDING_CONFIRMATION}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.PENDING_CONFIRMATION}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -334,15 +348,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={true}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -375,15 +391,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.ERROR}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.ERROR}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -416,15 +434,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.PENDING_CONFIRMATION}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.PENDING_CONFIRMATION}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -457,15 +477,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.PENDING_CONFIRMATION}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.ERROR}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.PENDING_CONFIRMATION}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.ERROR}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -498,15 +520,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.PENDING_CONFIRMATION}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.PENDING_CONFIRMATION}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.PENDING_CONFIRMATION}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.PENDING_CONFIRMATION}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -541,15 +565,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -584,15 +610,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.PENDING_CONFIRMATION}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -625,15 +653,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
@@ -666,15 +696,17 @@ AssetManagementForm with information.
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSetFormAction={setAssetManagementAction}
-          surrenderingState={FormState.UNINITIALIZED}
-          onSurrender={() => {}}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.UNINITIALIZED}
           isSurrendered={false}
-          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
-            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          onSurrender={() => {}}
+          surrenderingState={FormState.UNINITIALIZED}
+          onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+            alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          }
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+            alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
           }
           approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
