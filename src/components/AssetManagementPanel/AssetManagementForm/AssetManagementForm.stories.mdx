@@ -20,58 +20,37 @@ AssetManagementForm with information.
 
 ### Not Logged in
 
-(account === beneficiary && account === holder)
-
-(formAction === None, account not exists)
-
 <Preview>
   <Story name="Not Logged in">
     {() => {
       const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
       return (
         <AssetManagementForm
-          onConnectToWallet={() => alert("Login to Metamask")}
-          formAction={assetManagementAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
           account=""
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          onSetFormAction={() => {
-            setAssetManagementAction(AssetManagementActions.None);
-          }}
-        />
-      );
-    }}
-  </Story>
-</Preview>
-
----
-
-### Logged in
-
-(account === beneficiary && account === holder)
-
-(formAction === None, account exists)
-
-<Preview>
-  <Story name="Logged in">
-    {() => {
-      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-      return (
-        <AssetManagementForm
           onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          approvedBeneficiary=""
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedHolder=""
           formAction={assetManagementAction}
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
         />
       );
     }}
@@ -80,11 +59,7 @@ AssetManagementForm with information.
 
 ---
 
-### Logged in, No Match
-
-(account !== beneficiary && account !== holder)
-
-(formAction === None, account exists)
+### Logged in, account no match
 
 <Preview>
   <Story name="No Match">
@@ -92,18 +67,31 @@ AssetManagementForm with information.
       const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
       return (
         <AssetManagementForm
+          account="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          approvedBeneficiary=""
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedHolder=""
           formAction={assetManagementAction}
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
+          onSetFormAction={setAssetManagementAction}
           surrenderingState={FormState.UNINITIALIZED}
-          account="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          onSetFormAction={() => {
-            setAssetManagementAction(AssetManagementActions.None);
-          }}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
         />
       );
     }}
@@ -112,28 +100,43 @@ AssetManagementForm with information.
 
 ---
 
-### Surrender
+### Account is both Beneficiary and Holder
 
-(account === beneficiary && account === holder)
-
-(formAction === Surrender, account exists)
+- Transfer Holdership
+- Endorse change of beneficiary
+- Surrender document
 
 <Preview>
-  <Story name="Surrender">
+  <Story name="Beneficiary and Holder">
     {() => {
-      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
       return (
         <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedHolder=""
           formAction={assetManagementAction}
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
         />
       );
     }}
@@ -142,11 +145,137 @@ AssetManagementForm with information.
 
 ---
 
-### Surrender
+### Account is Beneficiary
 
-(account === beneficiary && account === holder)
+- Nominate change of beneficiary
 
-(formAction === Surrender, account exists, surrenderingState === PENDING_CONFIRMATION)
+<Preview>
+  <Story name="Beneficiary">
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+      return (
+        <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          approvedHolder=""
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Account is Holder
+
+- Transfer Holdership
+
+<Preview>
+  <Story name="Holder">
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+      return (
+        <AssetManagementForm
+          account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          approvedHolder=""
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Account is Holder (with approvedBeneficiary and approvedHolder)
+
+- Transfer Holdership
+- Endorse Transfer of beneficiary/holder
+
+<Preview>
+  <Story name="Holder (approvedBeneficiary and approvedHolder)">
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+      return (
+        <AssetManagementForm
+          account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          approvedHolder="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Surrender/Pending
 
 <Preview>
   <Story name="Surrender/Pending">
@@ -154,74 +283,31 @@ AssetManagementForm with information.
       const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
       return (
         <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedHolder=""
           formAction={assetManagementAction}
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
+          onSetFormAction={setAssetManagementAction}
           surrenderingState={FormState.PENDING_CONFIRMATION}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          onSetFormAction={setAssetManagementAction}
-        />
-      );
-    }}
-  </Story>
-</Preview>
-
----
-
-### Surrender
-
-(account === beneficiary && account === holder)
-
-(formAction === Surrender, account exists, surrenderingState === CONFIRMED)
-
-<Preview>
-  <Story name="Surrender/Confirmed">
-    {() => {
-      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
-      return (
-        <AssetManagementForm
-          onConnectToWallet={() => alert("Login to Metamask")}
-          formAction={assetManagementAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           onSurrender={() => {}}
-          surrenderingState={FormState.CONFIRMED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          onSetFormAction={setAssetManagementAction}
-        />
-      );
-    }}
-  </Story>
-</Preview>
-
----
-
-### Transfer Holder
-
-<Preview>
-  <Story name="Transfer Holder">
-    {() => {
-      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.TransferHolder);
-      return (
-        <AssetManagementForm
-          onConnectToWallet={() => alert("Login to Metamask")}
-          formAction={assetManagementAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          onSetFormAction={setAssetManagementAction}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
           holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
         />
       );
     }}
@@ -230,26 +316,80 @@ AssetManagementForm with information.
 
 ---
 
-### Transfer Holder with error
+### Surrendered
 
 <Preview>
-  <Story name="Transfer Holder with Error">
+  <Story name="Surrendered">
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+      return (
+        <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedHolder=""
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={true}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Transfer Holder/Error
+
+<Preview>
+  <Story name="Transfer Holder/Error">
     {() => {
       const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.TransferHolder);
       return (
         <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedHolder=""
           formAction={assetManagementAction}
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
           holderTransferringState={FormState.ERROR}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
         />
       );
     }}
@@ -258,7 +398,7 @@ AssetManagementForm with information.
 
 ---
 
-### Transfer Holder
+### Transfer Holder/Pending
 
 <Preview>
   <Story name="Transfer Holder/Pending">
@@ -266,18 +406,31 @@ AssetManagementForm with information.
       const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.TransferHolder);
       return (
         <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedHolder=""
           formAction={assetManagementAction}
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
           holderTransferringState={FormState.PENDING_CONFIRMATION}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
         />
       );
     }}
@@ -286,56 +439,123 @@ AssetManagementForm with information.
 
 ---
 
-### Transfer Holder
+### Endorse Change of Beneficiary/Error
 
 <Preview>
-  <Story name="Transfer Holder/Confirmed">
-    {() => {
-      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.TransferHolder);
-      return (
-        <AssetManagementForm
-          onConnectToWallet={() => alert("Login to Metamask")}
-          formAction={assetManagementAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          onSetFormAction={setAssetManagementAction}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.CONFIRMED}
-        />
-      );
-    }}
-  </Story>
-</Preview>
-
----
-
-### Transfer Beneficiary
-
-<Preview>
-  <Story name="Transfer Beneficiary">
+  <Story name="Endorse Change of Beneficiary/Error">
     {() => {
       const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseBeneficiary);
       return (
         <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedHolder=""
           formAction={assetManagementAction}
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.PENDING_CONFIRMATION}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.ERROR}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Endorse Change of Beneficiary/Pending
+
+<Preview>
+  <Story name="Endorse Change of Beneficiary/Pending">
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseBeneficiary);
+      return (
+        <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedHolder=""
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.PENDING_CONFIRMATION}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.PENDING_CONFIRMATION}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Nominate Beneficiary and Holder
+
+<Preview>
+  <Story name="Nominate Beneficiary and Holder">
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(
+        AssetManagementActions.NominateBeneficiaryHolder
+      );
+      return (
+        <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          approvedHolder=""
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
           holderTransferringState={FormState.UNINITIALIZED}
           onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
           beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
         />
       );
     }}
@@ -344,28 +564,41 @@ AssetManagementForm with information.
 
 ---
 
-### Transfer Beneficiary
+### Nominate Beneficiary and Holder/Pending
 
 <Preview>
-  <Story name="Transfer Beneficiary with Error">
+  <Story name="Nominate Beneficiary and Holder/Pending">
     {() => {
-      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseBeneficiary);
+      const [assetManagementAction, setAssetManagementAction] = useState(
+        AssetManagementActions.NominateBeneficiaryHolder
+      );
       return (
         <AssetManagementForm
+          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary=""
+          holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          approvedHolder=""
           formAction={assetManagementAction}
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
           holderTransferringState={FormState.UNINITIALIZED}
           onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.ERROR}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.PENDING_CONFIRMATION}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.UNINITIALIZED}
         />
       );
     }}
@@ -374,67 +607,7 @@ AssetManagementForm with information.
 
 ---
 
-### Transfer Beneficiary
-
-<Preview>
-  <Story name="Transfer Beneficiary/Pending">
-    {() => {
-      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseBeneficiary);
-      return (
-        <AssetManagementForm
-          onConnectToWallet={() => alert("Login to Metamask")}
-          formAction={assetManagementAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          onSetFormAction={setAssetManagementAction}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.PENDING_CONFIRMATION}
-        />
-      );
-    }}
-  </Story>
-</Preview>
-
----
-
-### Transfer Beneficiary
-
-<Preview>
-  <Story name="Transfer Beneficiary/Confirmed">
-    {() => {
-      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseBeneficiary);
-      return (
-        <AssetManagementForm
-          onConnectToWallet={() => alert("Login to Metamask")}
-          formAction={assetManagementAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          onSetFormAction={setAssetManagementAction}
-          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
-          holderTransferringState={FormState.UNINITIALIZED}
-          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
-          beneficiaryEndorseState={FormState.CONFIRMED}
-        />
-      );
-    }}
-  </Story>
-</Preview>
-
----
-
-### Endorse Transfer
+### Endorse Transfer of Holder/Beneficiary
 
 <Preview>
   <Story name="Endorse Transfer of Holder/Beneficiary">
@@ -442,26 +615,72 @@ AssetManagementForm with information.
       const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseTransfer);
       return (
         <AssetManagementForm
+          account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
           onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          approvedHolder="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           formAction={assetManagementAction}
           tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          onSurrender={() => {}}
-          surrenderingState={FormState.UNINITIALIZED}
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          beneficiary="0x1Dc271EaE22a83c9670571d1a206043E8a420fdE"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
           onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
           onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
           holderTransferringState={FormState.UNINITIALIZED}
           onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
           beneficiaryEndorseState={FormState.UNINITIALIZED}
-          approvedBeneficiary={"0xabc"}
-          approvedHolder={"0xbcd"}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
           onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
             alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
           }
           transferToNewEscrowState={FormState.UNINITIALIZED}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+---
+
+### Endorse Transfer of Holder/Beneficiary/Pending
+
+<Preview>
+  <Story name="Endorse Transfer of Holder/Beneficiary/Pending">
+    {() => {
+      const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseTransfer);
+      return (
+        <AssetManagementForm
+          account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          onConnectToWallet={() => alert("Login to Metamask")}
+          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+          approvedBeneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
+          approvedHolder="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          formAction={assetManagementAction}
+          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          onSetFormAction={setAssetManagementAction}
+          surrenderingState={FormState.UNINITIALIZED}
+          onSurrender={() => {}}
+          onTransferHolder={(newHolder) => alert(`Transfer to ${newHolder}`)}
+          holderTransferringState={FormState.UNINITIALIZED}
+          onEndorseBeneficiary={(newBeneficiary) => alert(`Change beneficiary to ${newBeneficiary}`)}
+          beneficiaryEndorseState={FormState.UNINITIALIZED}
+          isSurrendered={false}
+          onApproveNewTransferTargets={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          approveNewTransferTargetsState={FormState.UNINITIALIZED}
+          onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+            alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          }
+          transferToNewEscrowState={FormState.PENDING_CONFIRMATION}
         />
       );
     }}
