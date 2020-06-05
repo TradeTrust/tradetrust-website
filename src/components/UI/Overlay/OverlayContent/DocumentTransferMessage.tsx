@@ -4,6 +4,7 @@ import { OverlayContext } from "../../../../common/contexts/OverlayContext";
 import { mixin, vars } from "../../../../styles";
 import { AnchorLinkButtonSolidOrangeWhite, ButtonSolidOrangeWhite } from "../../Button";
 import { OverlayContentBaseStyle } from "../Overlay";
+import { MessageAddressResolved } from "./AddressResolver";
 import { OverlayContent, OverlayContentProps } from "./index";
 
 export enum MessageTitle {
@@ -128,7 +129,7 @@ export const MessageBeneficiarySuccess = ({ address }: MessageProps) => {
   return (
     <>
       <h6>Current Beneficiary</h6>
-      <p>{address}</p>
+      {address && <MessageAddressResolved address={address} />}
     </>
   );
 };
@@ -137,7 +138,7 @@ export const MessageHolderSuccess = ({ address }: MessageProps) => {
   return (
     <>
       <h6>Current Holder</h6>
-      <p>{address}</p>
+      {address && <MessageAddressResolved address={address} />}
     </>
   );
 };
@@ -150,10 +151,10 @@ export const MessageEndorseTransferSuccess = ({ beneficiaryAddress, holderAddres
   return (
     <>
       <h6>Current Beneficiary</h6>
-      <p>{beneficiaryAddress}</p>
+      {beneficiaryAddress && <MessageAddressResolved address={beneficiaryAddress} />}
       <div />
       <h6>Current Holder</h6>
-      <p>{holderAddress}</p>
+      {holderAddress && <MessageAddressResolved address={holderAddress} />}
     </>
   );
 };

@@ -16,8 +16,8 @@ interface EndorseTransferFormProps {
   formAction: AssetManagementActions;
   tokenId: string;
   tokenRegistryAddress: string;
-  approvedBeneficiary: string;
-  approvedHolder: string;
+  approvedBeneficiary?: string;
+  approvedHolder?: string;
   handleEndorseTransfer: (approvedBeneficiary: string, approvedHolder: string) => void;
   transferToNewEscrowState: string;
   setFormActionNone: () => void;
@@ -54,13 +54,11 @@ export const EndorseTransferForm = ({
   return (
     <div className="row py-3">
       <div className="col-12">
-        {!isConfirmed && (
-          <AssetManagementTitle
-            setFormActionNone={setFormActionNone}
-            formAction={formAction}
-            disabled={isPendingConfirmation}
-          />
-        )}
+        <AssetManagementTitle
+          setFormActionNone={setFormActionNone}
+          formAction={formAction}
+          disabled={isPendingConfirmation}
+        />
         <div className="row mb-3">
           <div className="col-12 col-lg">
             <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
@@ -77,32 +75,30 @@ export const EndorseTransferForm = ({
             <EditableAssetTitle role="Holder" value={approvedHolder} isEditable={false} onSetNewValue={() => {}} />
           </div>
         </div>
-        {!isConfirmed && (
-          <div className="row mb-3">
-            <div className="col-auto ml-auto">
-              <div className="row no-gutters">
-                <div className="col-auto">
-                  <ButtonSolidWhiteGrey
-                    onClick={setFormActionNone}
-                    disabled={isPendingConfirmation}
-                    data-testid={"cancelEndorseTraansferBtn"}
-                  >
-                    Cancel
-                  </ButtonSolidWhiteGrey>
-                </div>
-                <div className="col-auto ml-2">
-                  <ButtonSolidOrangeWhite
-                    onClick={() => handleEndorseTransfer(approvedBeneficiary, approvedHolder)}
-                    disabled={isPendingConfirmation}
-                    data-testid={"endorseTransferBtn"}
-                  >
-                    {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse Transfer</>}
-                  </ButtonSolidOrangeWhite>
-                </div>
+        <div className="row mb-3">
+          <div className="col-auto ml-auto">
+            <div className="row no-gutters">
+              <div className="col-auto">
+                <ButtonSolidWhiteGrey
+                  onClick={setFormActionNone}
+                  disabled={isPendingConfirmation}
+                  data-testid={"cancelEndorseTraansferBtn"}
+                >
+                  Cancel
+                </ButtonSolidWhiteGrey>
+              </div>
+              <div className="col-auto ml-2">
+                <ButtonSolidOrangeWhite
+                  onClick={() => handleEndorseTransfer(approvedBeneficiary || "", approvedHolder || "")}
+                  disabled={isPendingConfirmation}
+                  data-testid={"endorseTransferBtn"}
+                >
+                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse Transfer</>}
+                </ButtonSolidOrangeWhite>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
