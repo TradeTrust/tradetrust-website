@@ -4,8 +4,8 @@ import { OverlayContext } from "../../../../common/contexts/OverlayContext";
 import { mixin, vars } from "../../../../styles";
 import { AnchorLinkButtonSolidOrangeWhite, ButtonSolidOrangeWhite } from "../../Button";
 import { OverlayContentBaseStyle } from "../Overlay";
-import { MessageAddressResolved } from "./AddressResolver";
 import { OverlayContent, OverlayContentProps } from "./index";
+import { MessageAddressResolver } from "./MessageAddressResolver";
 
 export enum MessageTitle {
   NO_METAMASK = "Metamask not installed",
@@ -129,7 +129,7 @@ export const MessageBeneficiarySuccess = ({ address }: MessageProps) => {
   return (
     <>
       <h6>Current Beneficiary</h6>
-      {address && <MessageAddressResolved address={address} />}
+      {address && <MessageAddressResolver address={address} />}
     </>
   );
 };
@@ -138,7 +138,7 @@ export const MessageHolderSuccess = ({ address }: MessageProps) => {
   return (
     <>
       <h6>Current Holder</h6>
-      {address && <MessageAddressResolved address={address} />}
+      {address && <MessageAddressResolver address={address} />}
     </>
   );
 };
@@ -151,10 +151,10 @@ export const MessageEndorseTransferSuccess = ({ beneficiaryAddress, holderAddres
   return (
     <>
       <h6>Current Beneficiary</h6>
-      {beneficiaryAddress && <MessageAddressResolved address={beneficiaryAddress} />}
+      {beneficiaryAddress && <MessageAddressResolver address={beneficiaryAddress} />}
       <div />
       <h6>Current Holder</h6>
-      {holderAddress && <MessageAddressResolved address={holderAddress} />}
+      {holderAddress && <MessageAddressResolver address={holderAddress} />}
     </>
   );
 };
