@@ -1,5 +1,5 @@
 import React from "react";
-import { DocumentStatus } from "./DocumentStatus";
+import { DocumentStatus, DocumentStatusUnStyled } from "./DocumentStatus";
 import {
   whenDocumentValidAndIssued,
   whenDocumentHashInvalid,
@@ -11,8 +11,11 @@ import {
 } from "../../test/fixture/verifier-responses";
 
 export default {
-  title: "Document/Status",
-  component: DocumentStatus,
+  title: "Viewer/DocumentStatus",
+  component: DocumentStatusUnStyled,
+  parameters: {
+    componentSubtitle: "All various statuses after document verification.",
+  },
 };
 
 export const DocumentValid = () => {

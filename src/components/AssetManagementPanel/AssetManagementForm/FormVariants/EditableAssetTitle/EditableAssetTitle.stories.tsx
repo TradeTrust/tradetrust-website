@@ -4,6 +4,9 @@ import { EditableAssetTitle } from "./EditableAssetTitle";
 export default {
   title: "TitleTransfer/EditableAssetTitle",
   component: EditableAssetTitle,
+  parameters: {
+    componentSubtitle: "When respective address becomes editable, upon corresponding setFormAction.",
+  },
 };
 
 export const NotEditable = () => {

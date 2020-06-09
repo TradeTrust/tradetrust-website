@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { OverlayContextProvider } from "./../../../common/contexts/OverlayContext";
 import { OverlayContext } from "./../../../common/contexts/OverlayContext";
-import { Overlay } from "./Overlay";
+import { Overlay, OverlayUnStyled } from "./Overlay";
 import { Textual } from "./OverlayContent/Textual";
 import { Youtube } from "./OverlayContent/Youtube";
 import { AddressBook } from "./OverlayContent/AddressBook";
@@ -38,7 +38,11 @@ const OverlayDemo = ({ buttonText, children }: OverlayDemoProps) => {
 
 export default {
   title: "UI/Overlay",
-  component: Overlay,
+  component: OverlayUnStyled,
+  parameters: {
+    componentSubtitle:
+      "Types of overlays, Textual, Video, AddressBook, Metamask messages, Document transfer messages, Address resolver messages.",
+  },
 };
 
 export const Text = () => {

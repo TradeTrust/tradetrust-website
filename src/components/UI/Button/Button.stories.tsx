@@ -20,7 +20,7 @@ export default {
   title: "UI/Button",
   component: Button,
   parameters: {
-    componentSubtitle: "Handy status label",
+    componentSubtitle: "ButtonSolid, ButtonBordered, ButtonIcon, ButtonCircle.",
   },
 };
 

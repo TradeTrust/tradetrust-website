@@ -4,6 +4,9 @@ import { Input, InputDefault } from "./Input";
 export default {
   title: "UI/Input",
   component: Input,
+  parameters: {
+    componentSubtitle: "Inputs, error state.",
+  },
 };
 
 export const Default = () => {

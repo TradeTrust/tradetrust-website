@@ -92,7 +92,7 @@ interface OverlayProps {
   className?: string;
 }
 
-export const Overlay = styled(({ className }: OverlayProps) => {
+export const OverlayUnStyled = ({ className }: OverlayProps) => {
   const { overlayContent, showOverlay, isOverlayVisible, setOverlayVisible } = useContext(OverlayContext);
 
   const handleCloseOverlay = () => {
@@ -117,6 +117,8 @@ export const Overlay = styled(({ className }: OverlayProps) => {
       </div>
     </CSSTransition>
   );
-})`
+};
+
+export const Overlay = styled(OverlayUnStyled)`
   ${OverlayBaseStyle()}
 `;

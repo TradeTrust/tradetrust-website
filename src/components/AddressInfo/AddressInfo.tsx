@@ -9,7 +9,7 @@ interface AddressInfoProps {
   children: React.ReactNode;
 }
 
-export const AddressInfo = styled(({ className, title, name, children }: AddressInfoProps) => {
+export const AddressInfoUnStyled = ({ className, title, name, children }: AddressInfoProps) => {
   return (
     <div className={`${className}`}>
       <h6>{title}:</h6>
@@ -17,7 +17,9 @@ export const AddressInfo = styled(({ className, title, name, children }: Address
       <div className="etherum-address">{children}</div>
     </div>
   );
-})`
+};
+
+export const AddressInfo = styled(AddressInfoUnStyled)`
   h5,
   h6 {
     ${mixin.fontSourcesansproBold};

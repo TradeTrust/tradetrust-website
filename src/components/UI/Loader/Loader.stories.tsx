@@ -4,6 +4,9 @@ import { Loader, LoaderSkeleton, LoaderSpinner } from "./Loader";
 export default {
   title: "UI/Loader",
   component: Loader,
+  parameters: {
+    componentSubtitle: "Types of loaders, with custom parameters.",
+  },
 };
 
 export const Skeleton = () => {

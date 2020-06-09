@@ -12,6 +12,9 @@ import {
 export default {
   title: "Dropzone/CertificateDropZone",
   component: CertificateDropZone,
+  parameters: {
+    componentSubtitle: "All various scenarios with document verification.",
+  },
 };
 
 export const Ready = () => {

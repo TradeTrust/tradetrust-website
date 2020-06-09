@@ -4,6 +4,9 @@ import { TagSolid, TagSolidTeal, TagBordered, TagBorderedRed, TagBorderedRedLarg
 export default {
   title: "UI/Tag",
   component: TagSolid,
+  parameters: {
+    componentSubtitle: "Types of Tags, Solid, Bordered.",
+  },
 };
 
 export const Solid = () => {

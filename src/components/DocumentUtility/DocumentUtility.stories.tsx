@@ -1,10 +1,14 @@
 import React from "react";
-import { DocumentUtility } from "./DocumentUtility";
+// import { DocumentStatusUnStyled } from "./../DocumentStatus";
+import { DocumentUtility, DocumentUtilityUnStyled } from "./DocumentUtility";
 import document from "../../test/fixture/ebl.json";
 
 export default {
-  title: "Document/Utility",
-  component: DocumentUtility,
+  title: "Viewer/DocumentUtility",
+  component: DocumentUtilityUnStyled,
+  parameters: {
+    componentSubtitle: "Utility functions relating to document, Print, Download.",
+  },
 };
 
 export const PrintAndDownload = () => {

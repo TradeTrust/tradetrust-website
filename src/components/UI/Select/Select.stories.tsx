@@ -4,6 +4,9 @@ import { SelectDropdown, SelectDefault } from "./Select";
 export default {
   title: "UI/Select",
   component: SelectDropdown,
+  parameters: {
+    componentSubtitle: "Selects.",
+  },
 };
 
 export const Default = () => {

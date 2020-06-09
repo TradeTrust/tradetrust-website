@@ -8,6 +8,9 @@ import { OverlayContextProvider } from "./../../../common/contexts/OverlayContex
 export default {
   title: "TitleTransfer/AssetManagementForm",
   component: AssetManagementForm,
+  parameters: {
+    componentSubtitle: "All various scenarios with title transfer.",
+  },
 };
 
 export const NotLoggedIn = () => {

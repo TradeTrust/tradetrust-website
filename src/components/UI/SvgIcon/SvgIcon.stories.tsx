@@ -25,6 +25,9 @@ import {
 export default {
   title: "UI/SvgIcon",
   component: SvgIcon,
+  parameters: {
+    componentSubtitle: "Types of SvgIcons, Icon with Tooltip.",
+  },
 };
 
 export const Info = () => {
