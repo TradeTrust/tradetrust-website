@@ -1,4 +1,4 @@
-import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import React from "react";
 import {
   SvgIcon,
   SvgIconInfo,
@@ -22,123 +22,159 @@ import {
   SvgIconTrash2,
 } from "./SvgIcon";
 
-<Meta title="UI/Icon" component={SvgIcon} />
+export default {
+  title: "UI/SvgIcon",
+  component: SvgIcon,
+};
 
-# SvgIcon
-
-Icons used in application.
-
----
-
-### Props
-
-<Props of={SvgIcon} />
-
----
-
-### Svg Icons
-
-<Preview>
-  <Story name="Info">
+export const Info = () => {
+  return (
     <SvgIcon>
       <SvgIconInfo />
     </SvgIcon>
-  </Story>
-  <Story name="Checked">
+  );
+};
+
+export const Checked = () => {
+  return (
     <SvgIcon>
       <SvgIconChecked />
     </SvgIcon>
-  </Story>
-  <Story name="Chevron Left">
+  );
+};
+
+export const ChevronLeft = () => {
+  return (
     <SvgIcon>
       <SvgIconChervonLeft />
     </SvgIcon>
-  </Story>
-  <Story name="Edit">
+  );
+};
+
+export const Edit = () => {
+  return (
     <SvgIcon>
       <SvgIconEdit />
     </SvgIcon>
-  </Story>
-  <Story name="Book">
+  );
+};
+
+export const Book = () => {
+  return (
     <SvgIcon>
       <SvgIconBook />
     </SvgIcon>
-  </Story>
-  <Story name="X">
+  );
+};
+
+export const X = () => {
+  return (
     <SvgIcon>
       <SvgIconX />
     </SvgIcon>
-  </Story>
-  <Story name="File Plus">
+  );
+};
+
+export const FilePlus = () => {
+  return (
     <SvgIcon>
       <SvgIconFilePlus />
     </SvgIcon>
-  </Story>
-  <Story name="Search">
+  );
+};
+
+export const Search = () => {
+  return (
     <SvgIcon>
       <SvgIconSearch />
     </SvgIcon>
-  </Story>
-  <Story name="Check Circle">
+  );
+};
+
+export const CheckCircle = () => {
+  return (
     <SvgIcon>
       <SvgIconCheckCircle />
     </SvgIcon>
-  </Story>
-  <Story name="X Circle">
+  );
+};
+
+export const XCircle = () => {
+  return (
     <SvgIcon>
       <SvgIconXCircle />
     </SvgIcon>
-  </Story>
-  <Story name="Printer">
+  );
+};
+
+export const Printer = () => {
+  return (
     <SvgIcon>
       <SvgIconPrinter />
     </SvgIcon>
-  </Story>
-  <Story name="Email">
+  );
+};
+
+export const Email = () => {
+  return (
     <SvgIcon>
       <SvgIconEmail />
     </SvgIcon>
-  </Story>
-  <Story name="Download">
+  );
+};
+
+export const Download = () => {
+  return (
     <SvgIcon>
       <SvgIconDownload />
     </SvgIcon>
-  </Story>
-  <Story name="Arrow Left">
+  );
+};
+
+export const ArrowLeft = () => {
+  return (
     <SvgIcon>
       <SvgIconArrowLeft />
     </SvgIcon>
-  </Story>
-  <Story name="Plus">
+  );
+};
+
+export const Plus = () => {
+  return (
     <SvgIcon>
       <SvgIconPlus />
     </SvgIcon>
-  </Story>
-  <Story name="Edit2">
+  );
+};
+
+export const Edit2 = () => {
+  return (
     <SvgIcon>
       <SvgIconEdit2 />
     </SvgIcon>
-  </Story>
-  <Story name="Save">
+  );
+};
+
+export const Save = () => {
+  return (
     <SvgIcon>
       <SvgIconSave />
     </SvgIcon>
-  </Story>
-  <Story name="Trash2">
+  );
+};
+
+export const Trash2 = () => {
+  return (
     <SvgIcon>
       <SvgIconTrash2 />
     </SvgIcon>
-  </Story>
-</Preview>
+  );
+};
 
----
-
-### Svg Icons with informative tooltip
-
-<Preview>
-  <Story name="TooltipIcon">
+export const Tooltip = () => {
+  return (
     <TooltipIcon content={<>dummy info here</>}>
       <SvgIconInfo />
     </TooltipIcon>
-  </Story>
-</Preview>
+  );
+};

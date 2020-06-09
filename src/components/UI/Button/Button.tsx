@@ -242,6 +242,8 @@ export const ButtonCircleGreylight = styled(Button)`
   svg {
     display: flex;
     height: 18px;
+    margin-left: auto;
+    margin-right: auto;
 
     line {
       color: ${vars.greyDark};
