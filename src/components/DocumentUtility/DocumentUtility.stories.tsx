@@ -1,5 +1,4 @@
 import React from "react";
-// import { DocumentStatusUnStyled } from "./../DocumentStatus";
 import { DocumentUtility, DocumentUtilityUnStyled } from "./DocumentUtility";
 import document from "../../test/fixture/ebl.json";
 
