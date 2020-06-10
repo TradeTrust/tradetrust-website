@@ -6,13 +6,13 @@ import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconPrinter, SvgIconEmail, SvgIconDownload } from "../UI/SvgIcon";
 import { ButtonIconWhiteBlue } from "../UI/Button";
 
-interface DocumentUtility {
+interface DocumentUtilityProps {
   document: WrappedDocument;
   handleSharingToggle: any;
   className?: string;
 }
 
-export const DocumentUtility = styled(({ document, handleSharingToggle, className }: DocumentUtility) => {
+export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, className }: DocumentUtilityProps) => {
   const fileName = getData(document).name;
 
   return (
@@ -52,7 +52,9 @@ export const DocumentUtility = styled(({ document, handleSharingToggle, classNam
       </div>
     </div>
   );
-})`
+};
+
+export const DocumentUtility = styled(DocumentUtilityUnStyled)`
   background-color: ${vars.white};
   padding: 30px 0;
 

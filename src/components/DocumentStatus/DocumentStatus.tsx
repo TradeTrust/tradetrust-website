@@ -26,7 +26,7 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   );
 };
 
-export const DocumentStatus = styled(({ verificationStatus, className }: DocumentStatusProps) => {
+export const DocumentStatusUnStyled = ({ verificationStatus, className }: DocumentStatusProps) => {
   return (
     <div className={`py-3 ${className}`}>
       <div className="container-custom">
@@ -43,7 +43,9 @@ export const DocumentStatus = styled(({ verificationStatus, className }: Documen
       </div>
     </div>
   );
-})`
+};
+
+export const DocumentStatus = styled(DocumentStatusUnStyled)`
   .statusbar {
     background-color: ${vars.white};
     padding: 10px 0;
