@@ -28,7 +28,7 @@ export const AddressInfoHolder = () => {
 
 export const AddressInfoBLInfo = () => {
   return (
-    <AddressInfo title="BL information">
+    <AddressInfo title="BL information" name="">
       <>
         <ExternalLink name="View BL Registry" href="#" />
         <br />
