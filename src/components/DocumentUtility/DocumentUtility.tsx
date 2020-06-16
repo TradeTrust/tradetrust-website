@@ -56,7 +56,7 @@ export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, classNa
 
 export const DocumentUtility = styled(DocumentUtilityUnStyled)`
   background-color: ${vars.white};
-  padding: 30px 0;
+  padding-bottom: 30px;
 
   .statusbar {
     background-color: ${vars.white};

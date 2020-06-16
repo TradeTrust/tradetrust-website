@@ -1,62 +1,118 @@
-import React, { FunctionComponent, useContext } from "react";
-import styles from "./multiTabs.scss";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import styled from "@emotion/styled";
+import { mixin, vars } from "../../styles";
 import { ButtonBorderedBlue } from "../UI/Button";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { AddressBook } from "./../../components/UI/Overlay/OverlayContent/AddressBook";
+import { Nav } from "react-bootstrap";
 
 interface MultiTabsProps {
-  templates: { id: string; label: string }[];
-  selectedTemplate: string;
-  onSelectTemplate: (id: string) => void;
+  className: string;
   tokenRegistryAddress: string;
+  attachments?: [];
 }
 
-export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
-  selectedTemplate,
-  templates,
-  onSelectTemplate,
-  tokenRegistryAddress,
-}) => {
+export const MultiTabs = styled(({ className, tokenRegistryAddress, attachments }) => {
   const { showOverlay } = useContext(OverlayContext);
   const onOverlayHandler = () => {
     showOverlay(<AddressBook title="Address Book" data-testid="overlay-addressbook" />);
   };
 
   return (
-    <div className={`${styles.shadow}`}>
+    <div className={className}>
       <div className="container-custom">
         <ul id="template-tabs-list" className="nav nav-tabs row no-gutters align-items-center">
           <li className="nav-item col-auto col-md-auto ml-md-auto order-md-2">
-            <a href=" " className="my-auto ml-auto">
+            <NavLink className="my-auto ml-auto" to="/">
               <ButtonBorderedBlue>View another</ButtonBorderedBlue>
-            </a>
+            </NavLink>
           </li>
           {tokenRegistryAddress && (
             <li className="nav-item col-auto col-md-auto ml-2 order-md-2">
               <ButtonBorderedBlue onClick={onOverlayHandler}>Address Book</ButtonBorderedBlue>
             </li>
           )}
-          {templates && templates.length > 0
-            ? templates.map(({ id, label }) => (
-                <li key={id} className="nav-item col-12 col-md-auto">
-                  <a
-                    className={`${styles.tab}
-                    ${id === selectedTemplate ? styles.active : ""}`}
-                    id={id}
-                    onClick={() => {
-                      onSelectTemplate(id);
-                    }}
-                    role="tab"
-                    aria-controls="home"
-                    aria-selected="true"
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))
-            : null}
+          <li className="nav-item col-12 col-md-auto">
+            <Nav variant="tabs">
+              <Nav.Item>
+                <Nav.Link eventKey="tab-document">Document</Nav.Link>
+              </Nav.Item>
+              {attachments && (
+                <Nav.Item>
+                  <Nav.Link eventKey="tab-attachments">
+                    Attachments <span className="attachment-number">{attachments.length}</span>
+                  </Nav.Link>
+                </Nav.Item>
+              )}
+            </Nav>
+          </li>
         </ul>
       </div>
     </div>
   );
-};
+})`
+  margin-top: 10px;
+
+  .nav-tabs {
+    border-bottom: 0;
+    margin-top: 20px;
+
+    @media only screen and (min-width: ${vars.lg}) {
+      margin-top: 0;
+    }
+
+    .nav-link {
+      ${mixin.fontSourcesansproBold};
+      border: 0;
+      z-index: 1;
+      position: relative;
+      display: inline-block;
+      padding: 16px;
+      text-decoration: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      margin: 0 7px;
+      border-radius: 0;
+      background-color: #eee;
+      color: ${vars.greyDark};
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+
+      &:hover {
+        color: ${vars.brandNavy};
+      }
+
+      &.active {
+        color: ${vars.brandBlue};
+        background-color: ${vars.white};
+        pointer-events: none;
+
+        &::before {
+          display: block;
+        }
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: ${vars.brandBlue};
+        display: none;
+      }
+    }
+  }
+
+  .attachment-number {
+    background-color: #bbb;
+    color: ${vars.white};
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+`;

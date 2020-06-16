@@ -20,6 +20,7 @@ import {
   SvgIconEdit2,
   SvgIconSave,
   SvgIconTrash2,
+  SvgIconPaperClip,
 } from "./SvgIcon";
 
 export default {
@@ -170,6 +171,14 @@ export const Trash2 = () => {
   return (
     <SvgIcon>
       <SvgIconTrash2 />
+    </SvgIcon>
+  );
+};
+
+export const PaperClip = () => {
+  return (
+    <SvgIcon>
+      <SvgIconPaperClip />
     </SvgIcon>
   );
 };
