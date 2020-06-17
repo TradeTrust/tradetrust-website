@@ -36,7 +36,11 @@ export const CertificateViewer = (props) => {
       <section>
         <DocumentUtility className="no-print" document={document} handleSharingToggle={props.handleSharingToggle} />
         <div className="bg-white py-3">
-          <DecentralisedRendererContainer rawDocument={document} updateTemplates={updateTemplates} />
+          <DecentralisedRendererContainer
+            rawDocument={document}
+            updateTemplates={updateTemplates}
+            selectedTemplate={selectedTemplate}
+          />
         </div>
       </section>
       <Modal show={props.showSharing} toggle={props.handleSharingToggle}>
