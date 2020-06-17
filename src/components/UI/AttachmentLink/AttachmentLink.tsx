@@ -4,23 +4,23 @@ import { mixin, vars } from "../../../styles";
 import { SvgIcon, SvgIconPaperClip } from "./../../UI/SvgIcon";
 
 interface AttachmentLinkProps {
-  className: string;
+  className?: string;
   filename: string;
   data: string;
 }
 
-export const AttachmentLink = styled(({ className, filename, data }: AttachmentLinkProps) => {
+export const AttachmentLinkUnStyled = ({ className, filename, data }: AttachmentLinkProps) => {
   return (
-    <div className={className}>
-      <div className="row align-items-center">
-        <div className="col-auto">
+    <div className={className} data-testid="attachment-link">
+      <div className="row">
+        <div className="col-12 col-md-auto mb-3 mb-md-0">
           <div className="icon">
             <SvgIcon>
               <SvgIconPaperClip />
             </SvgIcon>
           </div>
         </div>
-        <div className="col">
+        <div className="col-12 col-md">
           <p className="filename">{filename}</p>
           <a href={`data:application/pdf;base64,${data}`} download={`${filename}`}>
             Download
@@ -29,7 +29,9 @@ export const AttachmentLink = styled(({ className, filename, data }: AttachmentL
       </div>
     </div>
   );
-})`
+};
+
+export const AttachmentLink = styled(AttachmentLinkUnStyled)`
   width: 100%;
   height: 100%;
   border: solid 1px ${vars.greyLighter};
@@ -51,6 +53,7 @@ export const AttachmentLink = styled(({ className, filename, data }: AttachmentL
 
   .filename {
     ${mixin.fontSourcesansproBold};
+    line-height: 1.2;
     color: ${vars.grey};
     margin-bottom: 8px;
   }

@@ -34,14 +34,19 @@ export const MultiTabs = styled(({ className, tokenRegistryAddress, attachments 
             </li>
           )}
           <li className="nav-item col-12 col-md-auto">
-            <Nav variant="tabs">
+            <Nav variant="tabs" data-testid="document-tabs">
               <Nav.Item>
-                <Nav.Link eventKey="tab-document">Document</Nav.Link>
+                <Nav.Link eventKey="tab-document" data-testid="tab-document">
+                  Document
+                </Nav.Link>
               </Nav.Item>
               {attachments && (
                 <Nav.Item>
-                  <Nav.Link eventKey="tab-attachments">
-                    Attachments <span className="attachment-number">{attachments.length}</span>
+                  <Nav.Link eventKey="tab-attachment" data-testid="tab-attachment">
+                    Attachments{" "}
+                    <span className="attachment-number" data-testid="attachment-number">
+                      {attachments.length}
+                    </span>
                   </Nav.Link>
                 </Nav.Item>
               )}
@@ -52,7 +57,7 @@ export const MultiTabs = styled(({ className, tokenRegistryAddress, attachments 
     </div>
   );
 })`
-  margin-top: 10px;
+  padding-top: 10px;
 
   .nav-tabs {
     border-bottom: 0;

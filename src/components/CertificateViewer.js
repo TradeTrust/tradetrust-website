@@ -44,11 +44,11 @@ export const CertificateViewer = (props) => {
             />
           </Tab.Pane>
           {attachments && (
-            <Tab.Pane eventKey="tab-attachments">
+            <Tab.Pane eventKey="tab-attachment">
               <div className="container-custom">
                 <div className="row">
                   {attachments.map(({ filename, data }) => (
-                    <div className="col-6 col-lg-3 mb-3" key={data}>
+                    <div className="col-6 col-lg-4 col-xl-3 mb-3" key={data}>
                       <AttachmentLink filename={filename} data={data} />
                     </div>
                   ))}
