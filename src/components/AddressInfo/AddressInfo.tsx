@@ -5,7 +5,7 @@ import { mixin, vars } from "../../styles";
 interface AddressInfoProps {
   className?: string;
   title: string;
-  name?: string;
+  name: string;
   children: React.ReactNode;
 }
 
@@ -13,7 +13,7 @@ export const AddressInfoUnStyled = ({ className, title, name, children }: Addres
   return (
     <div className={`${className}`}>
       <h6>{title}:</h6>
-      {name && <h5>{name}</h5>}
+      <h5>{name}</h5>
       <div className="etherum-address">{children}</div>
     </div>
   );

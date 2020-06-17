@@ -10,7 +10,7 @@ interface AssetInformationPanel {
 export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = ({ tokenId, tokenRegistryAddress }) => {
   return (
     <div className="py-3">
-      <AddressInfo title="BL information">
+      <AddressInfo title="BL information" name="">
         <>
           <div>
             <ExternalLinkEtherscanAddress name="View BL Registry" address={tokenRegistryAddress} />

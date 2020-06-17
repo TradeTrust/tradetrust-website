@@ -33,7 +33,7 @@ export const EditableAssetTitle = ({
       </AssetTitle>
     );
   return (
-    <AssetTitle role={role} address={value}>
+    <AssetTitle role={role} address="">
       <div className="row no-gutters align-items-center">
         <InputEditableWrapper className="col">
           <InputEditableAssetTitle
