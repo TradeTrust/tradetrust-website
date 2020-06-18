@@ -16,10 +16,11 @@ import { AttachmentLink } from "./UI/AttachmentLink";
 export const CertificateViewer = (props) => {
   const { document } = props;
   const tokenRegistryAddress = getTokenRegistryAddress(document);
-  const [, setTemplates] = useState([]);
+  const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const originalData = getData(document);
   const attachments = originalData?.attachments;
+  const hasAttachments = attachments && attachments.length > 0;
 
   const updateTemplates = useCallback((templates) => {
     setTemplates(templates);
@@ -31,7 +32,14 @@ export const CertificateViewer = (props) => {
       <div className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={props.verificationStatus} />
         {tokenRegistryAddress && <AssetManagementContainer document={document} />}
-        <MultiTabs tokenRegistryAddress={tokenRegistryAddress} attachments={attachments} />
+        <MultiTabs
+          tokenRegistryAddress={tokenRegistryAddress}
+          hasAttachments={hasAttachments}
+          attachments={attachments}
+          templates={templates}
+          setSelectedTemplate={setSelectedTemplate}
+          selectedTemplate={selectedTemplate}
+        />
       </div>
       <div className="bg-white">
         <Tab.Content className="py-4">
@@ -43,13 +51,13 @@ export const CertificateViewer = (props) => {
               selectedTemplate={selectedTemplate}
             />
           </Tab.Pane>
-          {attachments && (
+          {hasAttachments && (
             <Tab.Pane eventKey="tab-attachment">
               <div className="container-custom">
                 <div className="row">
-                  {attachments.map(({ filename, data }) => (
+                  {attachments.map(({ filename, data, type }) => (
                     <div className="col-6 col-lg-4 col-xl-3 mb-3" key={data}>
-                      <AttachmentLink filename={filename} data={data} />
+                      <AttachmentLink filename={filename} data={data} type={type} />
                     </div>
                   ))}
                 </div>

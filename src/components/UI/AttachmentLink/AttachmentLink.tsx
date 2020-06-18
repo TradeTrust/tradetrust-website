@@ -3,13 +3,14 @@ import styled from "@emotion/styled";
 import { mixin, vars } from "../../../styles";
 import { SvgIcon, SvgIconPaperClip } from "./../../UI/SvgIcon";
 
-interface AttachmentLinkProps {
+export interface AttachmentLinkProps {
   className?: string;
   filename: string;
   data: string;
+  type: string;
 }
 
-export const AttachmentLinkUnStyled = ({ className, filename, data }: AttachmentLinkProps) => {
+export const AttachmentLinkUnStyled = ({ className, filename, data, type }: AttachmentLinkProps) => {
   return (
     <div className={className} data-testid="attachment-link">
       <div className="row">
@@ -22,7 +23,7 @@ export const AttachmentLinkUnStyled = ({ className, filename, data }: Attachment
         </div>
         <div className="col-12 col-md">
           <p className="filename">{filename}</p>
-          <a href={`data:application/pdf;base64,${data}`} download={`${filename}`}>
+          <a href={`data:${type};base64,${data}`} download={`${filename}`}>
             Download
           </a>
         </div>
