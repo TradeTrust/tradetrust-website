@@ -16,10 +16,10 @@ test("Attachment Tab and Panel rendered correctly", async (t) => {
   await t.expect(Iframe.count).eql(1);
 
   await TabDefault.with({ visibilityCheck: true })();
-  await t.expect(TabsItems.count).eql(5);
+  await t.expect(TabsItems.count).eql(7);
   await t.expect(TabAttachment.textContent).contains("Attachments");
-  await t.expect(AttachmentNumber.textContent).contains("3");
+  await t.expect(AttachmentNumber.textContent).contains("5");
 
   await t.click(TabAttachment);
-  await t.expect(AttachmentLink.count).eql(3);
+  await t.expect(AttachmentLink.count).eql(5);
 });
