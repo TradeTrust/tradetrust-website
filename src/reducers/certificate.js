@@ -1,4 +1,5 @@
 import { get } from "lodash";
+import { obfuscateDocument } from "@govtechsg/open-attestation";
 
 export const states = {
   INITIAL: "INITIAL",
@@ -136,7 +137,7 @@ export default function reducer(state = initialState, action) {
     case types.CERTIFICATE_OBFUSCATE_UPDATE:
       return {
         ...state,
-        rawModified: action.payload,
+        rawModified: obfuscateDocument(state.rawModified, action.payload),
       };
     case types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING:
       return {
@@ -193,7 +194,7 @@ export function sendCertificateReset() {
   };
 }
 
-export function updateObfuscatedCertificate(payload) {
+export function applyPrivacyFilter(payload) {
   return {
     type: types.CERTIFICATE_OBFUSCATE_UPDATE,
     payload,

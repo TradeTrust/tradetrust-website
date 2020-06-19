@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useCallback, useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
-import { updateObfuscatedCertificate } from "../../reducers/certificate";
+import { applyPrivacyFilter } from "../../reducers/certificate";
 import { FrameActions, FrameConnector, HostActionsHandler } from "@govtechsg/decentralized-renderer-react-components";
 import { LEGACY_OPENCERTS_RENDERER } from "../../config";
 
@@ -9,11 +9,13 @@ interface DecentralisedRendererProps {
   rawDocument: WrappedDocument;
   updateTemplates: (templates: { id: string; label: string }[]) => void;
   selectedTemplate: string;
+  applyPrivacyFilter: (doc: any) => void;
 }
 export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps> = ({
   rawDocument,
   updateTemplates,
   selectedTemplate,
+  applyPrivacyFilter,
 }) => {
   const [toFrame, setToFrame] = useState<HostActionsHandler>();
   const [height, setHeight] = useState(0);
@@ -31,8 +33,11 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
       if (action.type === "UPDATE_TEMPLATES") {
         updateTemplates(action.payload);
       }
+      if (action.type === "OBFUSCATE") {
+        applyPrivacyFilter(action.payload);
+      }
     },
-    [updateTemplates]
+    [updateTemplates, applyPrivacyFilter]
   );
   useEffect(() => {
     if (toFrame) {
@@ -65,7 +70,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  updateObfuscatedCertificate: (updatedDoc: any) => dispatch(updateObfuscatedCertificate(updatedDoc)),
+  applyPrivacyFilter: (path: any) => dispatch(applyPrivacyFilter(path)),
 });
 
 export const DecentralisedRendererContainer = connect(null, mapDispatchToProps)(DecentralisedRenderer);
