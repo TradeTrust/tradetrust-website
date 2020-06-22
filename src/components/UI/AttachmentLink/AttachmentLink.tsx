@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import prettyBytes from "pretty-bytes";
 import { mixin, vars } from "../../../styles";
 import { SvgIcon, SvgIconPaperClip } from "./../../UI/SvgIcon";
 
@@ -11,6 +12,9 @@ export interface AttachmentLinkProps {
 }
 
 export const AttachmentLinkUnStyled = ({ className, filename, data, type }: AttachmentLinkProps) => {
+  const decodedData = atob(data);
+  const filesize = prettyBytes(decodedData.length);
+
   return (
     <div className={className} data-testid="attachment-link">
       <div className="row">
@@ -22,7 +26,10 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type }: Atta
           </div>
         </div>
         <div className="col-12 col-md">
-          <p className="filename">{filename}</p>
+          <p className="filetext">
+            <span className="filename">{filename}</span>
+            <span className="filesize">({filesize})</span>
+          </p>
           <a href={`data:${type};base64,${data}`} download={`${filename}`}>
             Download
           </a>
@@ -52,10 +59,20 @@ export const AttachmentLink = styled(AttachmentLinkUnStyled)`
     }
   }
 
+  .filetext {
+    margin-bottom: 8px;
+  }
+
   .filename {
     ${mixin.fontSourcesansproBold};
     line-height: 1.2;
     color: ${vars.grey};
-    margin-bottom: 8px;
+    margin-right: 4px;
+  }
+
+  .filesize {
+    ${mixin.fontSourcesansproRegular};
+    color: ${vars.grey};
+    ${mixin.fontSize(13)};
   }
 `;

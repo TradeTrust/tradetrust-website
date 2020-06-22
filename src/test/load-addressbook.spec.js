@@ -12,7 +12,7 @@ const OverlayAddressBook = Selector("[data-testid='overlay-addressbook']");
 const OverlayAddressBookTableBodyRows = Selector("[data-testid='overlay-addressbook'] tbody tr");
 const OverlayAddressBookTableFirstRow = Selector("[data-testid='overlay-addressbook'] tbody tr:first-of-type");
 const OverlayAddressBookSearchInput = Selector("[data-testid='overlay-addressbook'] input[type='text']");
-const ButtonUploadAddressBook = Selector("#template-tabs-list button").withText("Address Book");
+const ButtonUploadAddressBook = Selector("[data-testid='multi-button'] button").withText("Address Book");
 const CSVFileInput = Selector("#csv-file-input");
 
 const validateTextContent = async (t, component, texts) =>

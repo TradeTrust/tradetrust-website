@@ -5,6 +5,7 @@ import { ErrorBoundary } from "./ErrorBoundary";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { getTokenRegistryAddress } from "../common/utils/document";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
+import { MultiButtons } from "./MultiButtons";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
@@ -32,6 +33,7 @@ export const CertificateViewer = (props) => {
       <div className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={props.verificationStatus} />
         {tokenRegistryAddress && <AssetManagementContainer document={document} />}
+        <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />
         <MultiTabs
           tokenRegistryAddress={tokenRegistryAddress}
           hasAttachments={hasAttachments}
