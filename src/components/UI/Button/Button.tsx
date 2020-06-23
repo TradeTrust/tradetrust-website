@@ -48,7 +48,7 @@ interface BaseStyleButtonProps {
 const baseStyleButton = ({ bgColor, textColor }: BaseStyleButtonProps) => {
   return `
     ${mixin.fontSourcesansproBold()}
-    ${mixin.fontSize(18)};
+    ${mixin.fontSize(16)};
     transition: background-color 0.3s ${vars.easeOutCubic}, color 0.3s ${vars.easeOutCubic}, box-shadow 0.3s ${
     vars.easeOutCubic
   };
@@ -56,7 +56,7 @@ const baseStyleButton = ({ bgColor, textColor }: BaseStyleButtonProps) => {
     vertical-align: middle;
     outline: none;
     border: 0;
-    padding: 6px 12px;
+    padding: 5px 10px;
     letter-spacing: 0.01rem;
     min-height: 40px;
     cursor: pointer;

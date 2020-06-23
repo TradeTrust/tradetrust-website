@@ -70,7 +70,7 @@ export const ActionSelectionForm = ({
   };
 
   return (
-    <div className="row py-3">
+    <div className="row">
       <div className="col-12">
         <div className="row mb-3">
           <div className="col-12 col-lg">
@@ -95,7 +95,7 @@ export const ActionSelectionForm = ({
         </div>
         {!isSurrendered && (
           <div className="row mb-3">
-            <div className="col-auto ml-auto">
+            <div className="col-auto ml-lg-auto">
               {account ? (
                 <>
                   {canManage ? (

@@ -6,7 +6,7 @@ const IframeBlock = Selector("#iframe");
 const SampleTemplate = Selector("#root");
 const DocumentStatus = Selector("#document-status");
 const IssuedByDomainName = Selector("#issuedby .domain");
-const ButtonUploadAddressBook = Selector("#template-tabs-list button").withText("Address Book");
+const ButtonUploadAddressBook = Selector("[data-testid='multi-button'] button").withText("Address Book");
 
 const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
