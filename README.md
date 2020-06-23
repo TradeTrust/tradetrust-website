@@ -31,11 +31,17 @@ npm run dev
 
 ### Environmental Variables
 
-`NET` is used for setting the default network, setting it to `mainnet` uses the public Ethereum network. If it is not set it defaults to Ropsten testnet
+`NET` is used for setting the default network, setting it to `mainnet` uses the public Ethereum network. If it is not set it defaults to Ropsten testnet.
+It can also take any network names that Ethers.JS supports, such as `rinkeby`, `kovan`, etc.
+However do note that there are only drag & drop demo files provided for main net and ropsten.
 
 E.g:
 ```bash
 NET=mainnet npm run dev
+```
+or
+```bash
+NET=rinkeby npm run dev
 ```
 
 ### Troubleshooting
