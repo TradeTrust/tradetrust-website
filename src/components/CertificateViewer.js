@@ -12,7 +12,7 @@ import { DocumentUtility } from "./DocumentUtility";
 import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagementContainer";
 import { getData } from "@govtechsg/open-attestation";
 import { Tab } from "react-bootstrap";
-import { AttachmentLink } from "./UI/AttachmentLink";
+import { TabPaneAttachments } from "./TabPaneAttachments";
 
 export const CertificateViewer = (props) => {
   const { document } = props;
@@ -53,19 +53,7 @@ export const CertificateViewer = (props) => {
               selectedTemplate={selectedTemplate}
             />
           </Tab.Pane>
-          {hasAttachments && (
-            <Tab.Pane eventKey="tab-attachment">
-              <div className="container-custom">
-                <div className="row">
-                  {attachments.map(({ filename, data, type }) => (
-                    <div className="col-6 col-lg-4 col-xl-3 mb-3" key={data}>
-                      <AttachmentLink filename={filename} data={data} type={type} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Tab.Pane>
-          )}
+          {hasAttachments && <TabPaneAttachments attachments={attachments} />}
         </Tab.Content>
       </div>
       <Modal show={props.showSharing} toggle={props.handleSharingToggle}>

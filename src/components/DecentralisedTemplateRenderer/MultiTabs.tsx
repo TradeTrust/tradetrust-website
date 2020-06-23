@@ -18,35 +18,29 @@ interface MultiTabsProps {
 
 export const MultiTabs = styled(
   ({ className, hasAttachments, attachments, templates, setSelectedTemplate, selectedTemplate }: MultiTabsProps) => {
-    const hasTemplates = templates && templates.length > 0;
-
     return (
       <div className={`${className} container-custom`}>
         <Nav variant="tabs" data-testid="tabs">
-          {hasTemplates && (
-            <>
-              {templates.map(({ id, label }) => (
-                <Nav.Item key={id} data-testid={id}>
-                  <Nav.Link
-                    active={id === selectedTemplate}
-                    eventKey={`tab-document`}
-                    onClick={() => {
-                      setSelectedTemplate(id);
-                    }}
-                  >
-                    <span className="nav-text">{label}</span>
-                  </Nav.Link>
-                </Nav.Item>
-              ))}
-            </>
-          )}
+          {templates.map(({ id, label }) => (
+            <Nav.Item key={id} data-testid={id}>
+              <Nav.Link
+                active={id === selectedTemplate}
+                eventKey={`tab-document`} // Handled by react bootstrap's Tab
+                onClick={() => {
+                  setSelectedTemplate(id);
+                }}
+              >
+                <span className="nav-text">{label}</span>
+              </Nav.Link>
+            </Nav.Item>
+          ))}
           {hasAttachments && (
             <Nav.Item>
               <Nav.Link
-                eventKey="tab-attachment"
+                eventKey="tab-attachment" // Handled by react bootstrap's Tab
                 data-testid="tab-attachment"
                 onClick={() => {
-                  setSelectedTemplate("");
+                  setSelectedTemplate(""); // To unset the last active tab
                 }}
               >
                 Attachments
