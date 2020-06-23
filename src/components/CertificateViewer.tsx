@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import Modal from "./Modal";
+import { WrappedDocument } from "@govtechsg/open-attestation";
+import { VerificationFragment } from "@govtechsg/oa-verify";
 import { ErrorBoundary } from "./ErrorBoundary";
+import { ModalDialog } from "./ModalDialog";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { getTokenRegistryAddress } from "../common/utils/document";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
@@ -14,8 +15,24 @@ import { getData } from "@govtechsg/open-attestation";
 import { Tab } from "react-bootstrap";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 
-export const CertificateViewer = (props) => {
-  const { document } = props;
+interface CertificateViewerProps {
+  document: WrappedDocument;
+  verificationStatus: VerificationFragment[];
+  shareLink: { id?: string; key?: string };
+  showSharing: boolean;
+  emailSendingState: string;
+  handleSharingToggle: () => void;
+  handleSendCertificate: (event: { email: string; captcha: string }) => void;
+}
+
+export const CertificateViewer = ({
+  document,
+  verificationStatus,
+  handleSharingToggle,
+  showSharing,
+  emailSendingState,
+  handleSendCertificate,
+}: CertificateViewerProps) => {
   const tokenRegistryAddress = getTokenRegistryAddress(document);
   const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
@@ -31,11 +48,10 @@ export const CertificateViewer = (props) => {
   const validCertificateContent = (
     <Tab.Container defaultActiveKey="tab-document">
       <div className="bg-blue-lighter no-print">
-        <DocumentStatus verificationStatus={props.verificationStatus} />
+        <DocumentStatus verificationStatus={verificationStatus} />
         {tokenRegistryAddress && <AssetManagementContainer document={document} />}
         <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />
         <MultiTabs
-          tokenRegistryAddress={tokenRegistryAddress}
           hasAttachments={hasAttachments}
           attachments={attachments}
           templates={templates}
@@ -46,7 +62,7 @@ export const CertificateViewer = (props) => {
       <div className="bg-white">
         <Tab.Content className="py-4">
           <Tab.Pane eventKey="tab-document">
-            <DocumentUtility className="no-print" document={document} handleSharingToggle={props.handleSharingToggle} />
+            <DocumentUtility className="no-print" document={document} handleSharingToggle={handleSharingToggle} />
             <DecentralisedRendererContainer
               rawDocument={document}
               updateTemplates={updateTemplates}
@@ -56,32 +72,15 @@ export const CertificateViewer = (props) => {
           {hasAttachments && <TabPaneAttachments attachments={attachments} />}
         </Tab.Content>
       </div>
-      <Modal show={props.showSharing} toggle={props.handleSharingToggle}>
+      <ModalDialog show={showSharing} toggle={handleSharingToggle}>
         <CertificateSharingForm
-          emailSendingState={props.emailSendingState}
-          handleSendCertificate={props.handleSendCertificate}
-          handleSharingToggle={props.handleSharingToggle}
+          emailSendingState={emailSendingState}
+          handleSendCertificate={handleSendCertificate}
+          handleSharingToggle={handleSharingToggle}
         />
-      </Modal>
+      </ModalDialog>
     </Tab.Container>
   );
 
   return <ErrorBoundary>{validCertificateContent}</ErrorBoundary>;
-};
-
-CertificateViewer.propTypes = {
-  detailedVerifyVisible: PropTypes.bool,
-  document: PropTypes.object,
-  certificate: PropTypes.object,
-  verifying: PropTypes.bool,
-  verificationStatus: PropTypes.array,
-  showSharing: PropTypes.bool,
-  emailSendingState: PropTypes.string,
-  handleSharingToggle: PropTypes.func,
-  handleSendCertificate: PropTypes.func,
-  selectTemplateTab: PropTypes.func,
-};
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.node,
 };

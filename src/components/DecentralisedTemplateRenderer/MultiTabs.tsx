@@ -4,7 +4,7 @@ import { mixin, vars } from "../../styles";
 import { Nav } from "react-bootstrap";
 
 interface MultiTabsProps {
-  className: string;
+  className?: string;
   hasAttachments: boolean;
   attachments?: {
     filename: string;
