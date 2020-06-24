@@ -4,7 +4,6 @@ import { VerificationFragment } from "@govtechsg/oa-verify";
 import { DocumentStatus, IssuedBy } from "./DocumentStatus";
 import {
   whenDocumentHashInvalid,
-  whenDocumentRevoked,
   whenDocumentNotIssued,
   whenDocumentIssuerIdentityInvalid,
   whenDocumentHashInvalidAndNotIssued,
@@ -62,7 +61,6 @@ describe("DocumentStatus", () => {
     const container = render(<DocumentStatus verificationStatus={whenDocumentHashInvalid as VerificationFragment[]} />);
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["REVOKED"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
   });
 
@@ -70,15 +68,6 @@ describe("DocumentStatus", () => {
     const container = render(<DocumentStatus verificationStatus={whenDocumentNotIssued as VerificationFragment[]} />);
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
-    expect(container.queryByText(MESSAGES["REVOKED"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
-  });
-
-  it("displays revocation error if the document is revoked", () => {
-    const container = render(<DocumentStatus verificationStatus={whenDocumentRevoked as VerificationFragment[]} />);
-    expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["REVOKED"]["failureTitle"])).not.toBeNull();
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
   });
 
@@ -88,7 +77,6 @@ describe("DocumentStatus", () => {
     );
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["REVOKED"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
   });
 
@@ -98,7 +86,6 @@ describe("DocumentStatus", () => {
     );
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
-    expect(container.queryByText(MESSAGES["REVOKED"]["failureTitle"])).not.toBeNull();
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
   });
 });

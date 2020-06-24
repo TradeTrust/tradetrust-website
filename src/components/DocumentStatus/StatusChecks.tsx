@@ -7,20 +7,17 @@ import { mixin, vars } from "../../styles";
 import { StatusCheck } from "./StatusCheck";
 
 export const StatusChecks = styled(({ verificationStatus }: { verificationStatus: VerificationFragment[] }) => {
-  const { hashValid, issuedValid, revokedValid, identityValid } = interpretFragments(verificationStatus);
+  const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
 
   return (
     <>
-      <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
+      <div className="col-12 col-lg-4 col-xl-2 mb-2 mb-lg-0">
         <StatusCheck valid={hashValid} messageSet={MESSAGES[TYPES.HASH]} />
       </div>
-      <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
+      <div className="col-12 col-lg-4 col-xl-2 mb-2 mb-lg-0">
         <StatusCheck valid={issuedValid} messageSet={MESSAGES[TYPES.ISSUED]} />
       </div>
-      <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-        <StatusCheck valid={revokedValid} messageSet={MESSAGES[TYPES.REVOKED]} />
-      </div>
-      <div className="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
+      <div className="col-12 col-lg-4 col-xl-2 mb-2 mb-lg-0">
         <StatusCheck valid={identityValid} messageSet={MESSAGES[TYPES.IDENTITY]} />
       </div>
     </>
