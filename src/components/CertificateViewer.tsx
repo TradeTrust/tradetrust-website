@@ -40,10 +40,35 @@ export const CertificateViewer = ({
   const attachments = originalData?.attachments;
   const hasAttachments = attachments && attachments.length > 0;
 
-  const updateTemplates = useCallback((templates) => {
-    setTemplates(templates);
-    setSelectedTemplate(templates[0].id);
-  }, []);
+  const updateTemplates = useCallback(
+    (templates) => {
+      setTemplates(templates);
+      setSelectedTemplate(templates[0].id);
+
+      // reset templates if attachment(s) exists
+      if (hasAttachments) {
+        // extract all templates that are not attachments
+        const templatesModified = templates.filter((item: { id: string }) => {
+          return !item.id.includes("attachment");
+        });
+
+        // add new templates with tabs of PDF attachments
+        attachments.forEach((item: { filename: string; type: string }, index: number) => {
+          if (item.type === "application/pdf") {
+            templatesModified.push({
+              id: `attachment-${index}`,
+              label: item.filename,
+            });
+          }
+        });
+
+        // set modified templates
+        setTemplates(templatesModified);
+        setSelectedTemplate(templatesModified[0].id);
+      }
+    },
+    [attachments, hasAttachments]
+  );
 
   const validCertificateContent = (
     <Tab.Container defaultActiveKey="tab-document">
