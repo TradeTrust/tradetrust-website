@@ -11,7 +11,7 @@ interface MultiTabsProps {
     data: string;
     type: string;
   }[];
-  templates: { id: string; label: string }[];
+  templates: { id: string; label: string; type: string }[];
   setSelectedTemplate: (id: string) => void;
   selectedTemplate: string;
 }

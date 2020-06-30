@@ -7,7 +7,7 @@ import { LEGACY_OPENCERTS_RENDERER } from "../../config";
 
 interface DecentralisedRendererProps {
   rawDocument: WrappedDocument;
-  updateTemplates: (templates: { id: string; label: string }[]) => void;
+  updateTemplates: (templates: { id: string; label: string; type: string }[]) => void;
   selectedTemplate: string;
   applyPrivacyFilter: (doc: any) => void;
 }

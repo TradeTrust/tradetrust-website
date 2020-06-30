@@ -34,8 +34,8 @@ export const CertificateViewer = ({
   handleSendCertificate,
 }: CertificateViewerProps) => {
   const tokenRegistryAddress = getTokenRegistryAddress(document);
-  const [templates, setTemplates] = useState([]);
-  const [selectedTemplate, setSelectedTemplate] = useState("");
+  const [templates, setTemplates] = useState<{ id: string; label: string; type: string }[]>([]);
+  const [selectedTemplate, setSelectedTemplate] = useState<string>("");
   const originalData = getData(document);
   const attachments = originalData?.attachments;
   const hasAttachments = attachments && attachments.length > 0;
@@ -45,21 +45,11 @@ export const CertificateViewer = ({
       setTemplates(templates);
       setSelectedTemplate(templates[0].id);
 
-      // reset templates if attachment(s) exists
+      // modify tabs by reseting templates if attachment(s) exists
       if (hasAttachments) {
-        // extract all templates that are not attachments
-        const templatesModified = templates.filter((item: { id: string }) => {
-          return !item.id.includes("attachment");
-        });
-
-        // add new templates with tabs of PDF attachments
-        attachments.forEach((item: { filename: string; type: string }, index: number) => {
-          if (item.type === "application/pdf") {
-            templatesModified.push({
-              id: `attachment-${index}`,
-              label: item.filename,
-            });
-          }
+        // extract all templates that are renderable currently
+        const templatesModified = templates.filter((item: { type: string }) => {
+          return item.type === "custom-template" || item.type === "application/pdf";
         });
 
         // set modified templates
@@ -67,7 +57,7 @@ export const CertificateViewer = ({
         setSelectedTemplate(templatesModified[0].id);
       }
     },
-    [attachments, hasAttachments]
+    [hasAttachments]
   );
 
   const validCertificateContent = (
