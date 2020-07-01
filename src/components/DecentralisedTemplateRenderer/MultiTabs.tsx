@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../styles";
 import { Nav } from "react-bootstrap";
+import { TemplateProps } from "./../../types";
 
 interface MultiTabsProps {
   className?: string;
@@ -11,7 +12,7 @@ interface MultiTabsProps {
     data: string;
     type: string;
   }[];
-  templates: { id: string; label: string; type: string }[];
+  templates: TemplateProps[];
   setSelectedTemplate: (id: string) => void;
   selectedTemplate: string;
 }

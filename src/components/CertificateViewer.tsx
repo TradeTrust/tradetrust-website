@@ -14,6 +14,7 @@ import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagement
 import { getData } from "@govtechsg/open-attestation";
 import { Tab } from "react-bootstrap";
 import { TabPaneAttachments } from "./TabPaneAttachments";
+import { TemplateProps } from "./../types";
 
 interface CertificateViewerProps {
   document: WrappedDocument;
@@ -34,31 +35,22 @@ export const CertificateViewer = ({
   handleSendCertificate,
 }: CertificateViewerProps) => {
   const tokenRegistryAddress = getTokenRegistryAddress(document);
-  const [templates, setTemplates] = useState<{ id: string; label: string; type: string }[]>([]);
-  const [selectedTemplate, setSelectedTemplate] = useState<string>("");
+  const [templates, setTemplates] = useState<TemplateProps[]>([]);
+  const [selectedTemplate, setSelectedTemplate] = useState("");
   const originalData = getData(document);
   const attachments = originalData?.attachments;
   const hasAttachments = attachments && attachments.length > 0;
 
-  const updateTemplates = useCallback(
-    (templates) => {
-      setTemplates(templates);
-      setSelectedTemplate(templates[0].id);
+  const updateTemplates = useCallback((templates) => {
+    // filter all templates that are renderable currently
+    const templatesModified = templates.filter((item: { type: string }) => {
+      return item.type === "custom-template" || item.type === "application/pdf";
+    });
 
-      // modify tabs by reseting templates if attachment(s) exists
-      if (hasAttachments) {
-        // extract all templates that are renderable currently
-        const templatesModified = templates.filter((item: { type: string }) => {
-          return item.type === "custom-template" || item.type === "application/pdf";
-        });
-
-        // set modified templates
-        setTemplates(templatesModified);
-        setSelectedTemplate(templatesModified[0].id);
-      }
-    },
-    [hasAttachments]
-  );
+    // set modified templates
+    setTemplates(templatesModified);
+    setSelectedTemplate(templatesModified[0].id);
+  }, []);
 
   const validCertificateContent = (
     <Tab.Container defaultActiveKey="tab-document">
