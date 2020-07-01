@@ -1,7 +1,4 @@
-import { DEFAULT_NETWORK } from "../config";
-
 export const initialState = {
-  network: DEFAULT_NETWORK,
   networkId: null,
   networkIdVerbose: "",
 };
@@ -65,10 +62,6 @@ export function updateNetworkId() {
 }
 
 // Selectors
-export function getNetwork(store) {
-  return store.application.network;
-}
-
 export function getNetworkPending(store) {
   return store.application.networkUpdatePending;
 }
