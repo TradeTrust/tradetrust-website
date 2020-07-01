@@ -4,11 +4,23 @@ import CertificateDropzoneContainer from "../CertificateDropZone";
 import css from "./dropZoneSection.scss";
 import { updateCertificate } from "../../reducers/certificate";
 import { trace } from "../../utils/logger";
-import { IS_MAINNET } from "../../config";
+import { NETWORK_NAME } from "../../config";
 import MAIN from "./Main-Demo.json";
 import ROPSTEN from "./Ropsten-Demo.json";
+import RINKEBY from "./Rinkeby-Demo.json";
 
-const DEMO_CERT = IS_MAINNET ? MAIN : ROPSTEN;
+const getDemoCert = () => {
+  switch (NETWORK_NAME) {
+    case "homestead":
+      return MAIN;
+    case "ropsten":
+      return ROPSTEN;
+    case "rinkeby":
+      return RINKEBY;
+    default:
+      return MAIN;
+  }
+};
 const DEMO_CONTENT_KEY = "DEMO_CONTENT";
 
 const DraggableDemoCertificate = () => (
@@ -16,7 +28,7 @@ const DraggableDemoCertificate = () => (
     <div className="row">
       <div className="col">
         <div className={css.pulse} draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CONTENT_KEY, "true")}>
-          <a href={`data:text/plain;,${JSON.stringify(DEMO_CERT, null, 2)}`} download="demo.tt">
+          <a href={`data:text/plain;,${JSON.stringify(getDemoCert(), null, 2)}`} download="demo.tt">
             <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
         </div>
@@ -56,12 +68,12 @@ class DropZoneSection extends Component<DropZoneSectionProps> {
     document.getElementById("demoDrop")!.addEventListener("drop", (e) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (e.dataTransfer!.getData(DEMO_CONTENT_KEY)) {
-        this.props.updateCertificate(DEMO_CERT);
+        this.props.updateCertificate(getDemoCert());
       }
     });
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     document.getElementById("demoClick")!.addEventListener("click", () => {
-      this.props.updateCertificate(DEMO_CERT);
+      this.props.updateCertificate(getDemoCert());
     });
   }
 
