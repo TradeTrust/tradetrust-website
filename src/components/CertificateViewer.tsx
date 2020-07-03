@@ -14,6 +14,7 @@ import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagement
 import { getData } from "@govtechsg/open-attestation";
 import { Tab } from "react-bootstrap";
 import { TabPaneAttachments } from "./TabPaneAttachments";
+import { TemplateProps } from "./../types";
 
 interface CertificateViewerProps {
   document: WrappedDocument;
@@ -34,15 +35,21 @@ export const CertificateViewer = ({
   handleSendCertificate,
 }: CertificateViewerProps) => {
   const tokenRegistryAddress = getTokenRegistryAddress(document);
-  const [templates, setTemplates] = useState([]);
+  const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const originalData = getData(document);
   const attachments = originalData?.attachments;
   const hasAttachments = attachments && attachments.length > 0;
 
-  const updateTemplates = useCallback((templates) => {
-    setTemplates(templates);
-    setSelectedTemplate(templates[0].id);
+  const updateTemplates = useCallback((templates: TemplateProps[]) => {
+    // filter all templates that are renderable currently
+    const templatesModified = templates.filter((item) => {
+      return item.type === "custom-template" || item.type === "application/pdf" || !item.type; // !item.type caters to renderers that still has decentralized-renderer-react-components dependency at <2.3.0, where type does not exists
+    });
+
+    // set modified templates
+    setTemplates(templatesModified);
+    setSelectedTemplate(templatesModified[0].id);
   }, []);
 
   const validCertificateContent = (

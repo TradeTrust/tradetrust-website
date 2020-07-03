@@ -4,10 +4,11 @@ import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import { applyPrivacyFilter } from "../../reducers/certificate";
 import { FrameActions, FrameConnector, HostActionsHandler } from "@govtechsg/decentralized-renderer-react-components";
 import { LEGACY_OPENCERTS_RENDERER } from "../../config";
+import { TemplateProps } from "./../../types";
 
 interface DecentralisedRendererProps {
   rawDocument: WrappedDocument;
-  updateTemplates: (templates: { id: string; label: string }[]) => void;
+  updateTemplates: (templates: TemplateProps[]) => void;
   selectedTemplate: string;
   applyPrivacyFilter: (doc: any) => void;
 }
