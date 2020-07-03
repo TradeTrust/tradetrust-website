@@ -16,6 +16,8 @@ const AttachmentNumber = Selector("[data-testid='attachment-number']");
 const AttachmentLink = Selector("[data-testid='attachment-link']");
 const Iframe = Selector("#iframe[title='Decentralised Rendered Certificate']");
 const SampleTemplate = Selector("#root");
+const Pdf1Span = Selector("span").withText("UNCITRAL Model Law on");
+const Pdf2Span = Selector("span").withText("Dumm");
 
 const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
@@ -42,11 +44,13 @@ test("Attachment Tab and Panel rendered correctly", async (t) => {
   // pdf tabs content should render
   await t.click(TabPdf1);
   await t.switchToIframe(Iframe);
+  await Pdf1Span.with({ visibilityCheck: true })();
   await validateTextContent(t, SampleTemplate, ["UNCITRAL Model Law on  Electronic Transferable Records"]);
   await t.switchToMainWindow();
 
   await t.click(TabPdf2);
   await t.switchToIframe(Iframe);
+  await Pdf2Span.with({ visibilityCheck: true })();
   await validateTextContent(t, SampleTemplate, ["Dummy PDF file"]);
   await t.switchToMainWindow();
 
