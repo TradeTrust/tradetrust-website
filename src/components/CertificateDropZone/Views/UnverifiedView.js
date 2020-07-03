@@ -8,11 +8,10 @@ import css from "./viewerStyles.module.scss";
 const DetailedErrors = ({ verificationStatus }) => {
   const errors = [];
 
-  const { hashValid, issuedValid, revokedValid, identityValid } = interpretFragments(verificationStatus);
+  const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
 
   if (!hashValid) errors.push(TYPES.HASH);
   if (!issuedValid) errors.push(TYPES.ISSUED);
-  if (!revokedValid) errors.push(TYPES.REVOKED);
   if (!identityValid) errors.push(TYPES.IDENTITY);
 
   return (
