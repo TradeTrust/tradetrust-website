@@ -41,10 +41,10 @@ export const CertificateViewer = ({
   const attachments = originalData?.attachments;
   const hasAttachments = attachments && attachments.length > 0;
 
-  const updateTemplates = useCallback((templates) => {
+  const updateTemplates = useCallback((templates: TemplateProps[]) => {
     // filter all templates that are renderable currently
-    const templatesModified = templates.filter((item: { type: string }) => {
-      return item.type === "custom-template" || item.type === "application/pdf";
+    const templatesModified = templates.filter((item) => {
+      return item.type === "custom-template" || item.type === "application/pdf" || !item.type; // !item.type caters to renderers that still has decentralized-renderer-react-components dependency at <2.3.0, where type does not exists
     });
 
     // set modified templates
