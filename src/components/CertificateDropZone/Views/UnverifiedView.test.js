@@ -5,7 +5,6 @@ import { UnverifiedView } from "./UnverifiedView";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 import {
   whenDocumentHashInvalid,
-  whenDocumentRevoked,
   whenDocumentNotIssued,
   whenDocumentIssuerIdentityInvalid,
 } from "../../../test/fixture/verifier-responses";
@@ -39,21 +38,6 @@ describe("unverifiedView", () => {
     const errorContainerElm = wrapper.find("#error-tab");
     expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.ISSUED].failureTitle);
     expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.ISSUED].failureMessage);
-  });
-
-  it("display revocation error if the document is revoked", () => {
-    const wrapper = mount(
-      <MemoryRouter>
-        <UnverifiedView
-          handleRenderOverwrite={() => {}}
-          verificationStatus={whenDocumentRevoked}
-          resetData={() => {}}
-        />
-      </MemoryRouter>
-    );
-    const errorContainerElm = wrapper.find("#error-tab");
-    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.REVOKED].failureTitle);
-    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.REVOKED].failureMessage);
   });
 
   it("displays identity error if the identity is not verified", () => {
