@@ -22,6 +22,7 @@ import {
   SvgIconTrash2,
   SvgIconPaperClip,
   SvgIconFlag,
+  SvgIconQRCode,
 } from "./SvgIcon";
 
 export default {
@@ -180,6 +181,13 @@ export const PaperClip = () => {
   return (
     <SvgIcon>
       <SvgIconPaperClip />
+    </SvgIcon>
+  );
+};
+export const QrCode = () => {
+  return (
+    <SvgIcon strokeWidth="0.5" fill="currentColor">
+      <SvgIconQRCode />
     </SvgIcon>
   );
 };
