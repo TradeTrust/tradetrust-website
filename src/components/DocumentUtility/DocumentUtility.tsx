@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import { mixin, vars } from "../../styles";
 import { FeatureFlag } from "../FeatureFlag";
-import { SvgIcon, SvgIconPrinter, SvgIconEmail, SvgIconDownload } from "../UI/SvgIcon";
+import { SvgIcon, SvgIconPrinter, SvgIconEmail, SvgIconDownload, SvgIconQRCode } from "../UI/SvgIcon";
 import { ButtonIconWhiteBlue } from "../UI/Button";
 
 interface DocumentUtilityProps {
@@ -20,6 +20,13 @@ export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, classNa
       <div className="container-custom">
         <div className="row no-gutters">
           <div className="col-auto ml-auto">
+            <ButtonIconWhiteBlue onClick={() => window.print()}>
+              <SvgIcon strokeWidth="0.5" fill="currentColor">
+                <SvgIconQRCode />
+              </SvgIcon>
+            </ButtonIconWhiteBlue>
+          </div>
+          <div className="col-auto ml-3">
             <ButtonIconWhiteBlue onClick={() => window.print()}>
               <SvgIcon>
                 <SvgIconPrinter />
