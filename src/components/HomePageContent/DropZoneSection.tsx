@@ -1,13 +1,15 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
+import styled from "@emotion/styled";
+import { mixin, vars } from "./../../styles";
 import { connect } from "react-redux";
 import CertificateDropzoneContainer from "../CertificateDropZone";
-import css from "./dropZoneSection.scss";
 import { updateCertificate } from "../../reducers/certificate";
 import { trace } from "../../utils/logger";
 import { NETWORK_NAME } from "../../config";
 import MAIN from "./Main-Demo.json";
 import ROPSTEN from "./Ropsten-Demo.json";
 import RINKEBY from "./Rinkeby-Demo.json";
+import { AnnoucementBar } from "./../UI/AnnoucementBar";
 
 const getDemoCert = () => {
   switch (NETWORK_NAME) {
@@ -23,11 +25,15 @@ const getDemoCert = () => {
 };
 const DEMO_CONTENT_KEY = "DEMO_CONTENT";
 
-const DraggableDemoCertificate = () => (
-  <div className="d-none d-lg-block">
+interface DraggableDemoCertificateProps {
+  className?: string;
+}
+
+const DraggableDemoCertificate = styled(({ className }: DraggableDemoCertificateProps) => (
+  <div className={`${className} d-none d-lg-block`}>
     <div className="row">
       <div className="col">
-        <div className={css.pulse} draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CONTENT_KEY, "true")}>
+        <div className="pulse" draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CONTENT_KEY, "true")}>
           <a href={`data:text/plain;,${JSON.stringify(getDemoCert(), null, 2)}`} download="demo.tt">
             <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
@@ -38,7 +44,14 @@ const DraggableDemoCertificate = () => (
       </div>
     </div>
   </div>
-);
+))`
+  .pulse {
+    margin: 0 auto;
+    display: table;
+    margin-top: 50px;
+    animation: pulse 3s alternate infinite;
+  }
+`;
 
 const MobileDemoCertificate = () => (
   <div className="d-block d-lg-none d-xl-none">
@@ -59,56 +72,110 @@ const MobileDemoCertificate = () => (
 );
 
 interface DropZoneSectionProps {
+  className?: string;
   updateCertificate: (certificate: any) => void;
 }
 
-class DropZoneSection extends Component<DropZoneSectionProps> {
-  componentDidMount() {
+const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectionProps) => {
+  const removeListener = () => trace("drop listener removed");
+
+  useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     document.getElementById("demoDrop")!.addEventListener("drop", (e) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (e.dataTransfer!.getData(DEMO_CONTENT_KEY)) {
-        this.props.updateCertificate(getDemoCert());
+        updateCertificate(getDemoCert());
       }
     });
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     document.getElementById("demoClick")!.addEventListener("click", () => {
-      this.props.updateCertificate(getDemoCert());
+      updateCertificate(getDemoCert());
     });
-  }
 
-  componentWillUnmount() {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById("demoDrop")!.removeEventListener("drop", () => this.removeListener());
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById("demoClick")!.removeEventListener("click", () => this.removeListener());
-  }
+    return () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      document.getElementById("demoDrop")!.removeEventListener("drop", () => removeListener());
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      document.getElementById("demoClick")!.removeEventListener("click", () => removeListener());
+    };
+  }, [updateCertificate]);
 
-  removeListener = () => trace("drop listener removed");
-
-  // eslint-disable-next-line class-methods-use-this
-  render() {
-    return (
-      <section id="verify-documents" className={`${css.section} bg-brand-navy text-white`}>
-        <div className="container-custom">
-          <div className="row">
-            <div className="col-lg-5 col-md-12">
-              <div className={css.description}>
-                <h1>An easy way to check and verify your documents</h1>
-                <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
-                <DraggableDemoCertificate />
-                <MobileDemoCertificate />
+  return (
+    <section id="verify-documents" className={`${className} bg-brand-navy text-white`}>
+      <div className="container-custom">
+        <div className="row">
+          <div className="col-12">
+            <AnnoucementBar>
+              <div className="row no-gutters align-items-center">
+                <div className="col-12 col-lg-auto mr-3">
+                  <h6 className="mb-lg-0">Upcoming webinar:</h6>
+                </div>
+                <div className="col-12 col-lg">
+                  <p className="mb-0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
+                    <a
+                      className="mx-3"
+                      href="https://form.gov.sg/#!/5ef05be8e4f89f001195ef4c"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Register Now
+                    </a>
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="col-lg-7 col-md-12 col-sm-12" id="demoDrop">
-              <CertificateDropzoneContainer />
-            </div>
+            </AnnoucementBar>
           </div>
         </div>
-      </section>
-    );
+        <div className="row">
+          <div className="col-lg-5 col-md-12">
+            <div className="description">
+              <h1>An easy way to check and verify your documents</h1>
+              <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
+              <DraggableDemoCertificate />
+              <MobileDemoCertificate />
+            </div>
+          </div>
+          <div className="col-lg-7 col-md-12 col-sm-12" id="demoDrop">
+            <CertificateDropzoneContainer />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+})`
+  padding-top: 20px;
+  padding-bottom: 60px;
+
+  @media only screen and (min-width: ${vars.lg}) {
+    padding-bottom: 120px;
   }
-}
+
+  h3 {
+    color: ${vars.white};
+  }
+
+  .description {
+    padding: 32px 0;
+    text-align: center;
+
+    @media only screen and (min-width: ${vars.md}) {
+      padding: 48px 64px;
+    }
+
+    @media only screen and (min-width: ${vars.lg}) {
+      padding: 32px 64px 48px 0;
+      text-align: left;
+    }
+
+    p {
+      @include ${mixin.fontSize(18)};
+      padding: 24px 0;
+      color: rgba(${vars.white}, 0.7);
+    }
+  }
+`;
 
 const mapDispatchToProps = (dispatch: any) => ({
   updateCertificate: (payload: any) => dispatch(updateCertificate(payload)),
