@@ -18,109 +18,107 @@ export const SectionTopicsUnStyled = ({ className }: SectionTopicsProps) => {
         </div>
         <div className="row">
           <div className="col-12">
-            <div className="col-12">
-              <div className="table-responsive">
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">&nbsp;</th>
-                      <th scope="col">Webinar 2</th>
-                      <th scope="col">Webinar 3</th>
-                      <th scope="col">Webinar 4</th>
-                      <th scope="col">Webinar 5</th>
-                      <th scope="col">Webinar 6</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">Verifiable Documents</th>
-                      <td>
-                        <div className="checked">
-                          <SvgIcon>
-                            <SvgIconChecked />
-                          </SvgIcon>
-                        </div>
-                      </td>
-                      <td>&nbsp;</td>
-                      <td>
-                        <div className="checked">
-                          <SvgIcon>
-                            <SvgIconChecked />
-                          </SvgIcon>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="checked">
-                          <SvgIcon>
-                            <SvgIconChecked />
-                          </SvgIcon>
-                        </div>
-                      </td>
-                      <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Transferable Documents</th>
-                      <td>
-                        <div className="checked">
-                          <SvgIcon>
-                            <SvgIconChecked />
-                          </SvgIcon>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="checked">
-                          <SvgIcon>
-                            <SvgIconChecked />
-                          </SvgIcon>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="checked">
-                          <SvgIcon>
-                            <SvgIconChecked />
-                          </SvgIcon>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="checked">
-                          <SvgIcon>
-                            <SvgIconChecked />
-                          </SvgIcon>
-                        </div>
-                      </td>
-                      <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Configure and Change Document Templates</th>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>
-                        <div className="checked">
-                          <SvgIcon>
-                            <SvgIconChecked />
-                          </SvgIcon>
-                        </div>
-                      </td>
-                      <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Identity Resolution Services</th>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>
-                        <div className="checked">
-                          <SvgIcon>
-                            <SvgIconChecked />
-                          </SvgIcon>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">Webinar 2</th>
+                    <th scope="col">Webinar 3</th>
+                    <th scope="col">Webinar 4</th>
+                    <th scope="col">Webinar 5</th>
+                    <th scope="col">Webinar 6</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Verifiable Documents</th>
+                    <td>
+                      <div className="checked">
+                        <SvgIcon>
+                          <SvgIconChecked />
+                        </SvgIcon>
+                      </div>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>
+                      <div className="checked">
+                        <SvgIcon>
+                          <SvgIconChecked />
+                        </SvgIcon>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="checked">
+                        <SvgIcon>
+                          <SvgIconChecked />
+                        </SvgIcon>
+                      </div>
+                    </td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Transferable Documents</th>
+                    <td>
+                      <div className="checked">
+                        <SvgIcon>
+                          <SvgIconChecked />
+                        </SvgIcon>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="checked">
+                        <SvgIcon>
+                          <SvgIconChecked />
+                        </SvgIcon>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="checked">
+                        <SvgIcon>
+                          <SvgIconChecked />
+                        </SvgIcon>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="checked">
+                        <SvgIcon>
+                          <SvgIconChecked />
+                        </SvgIcon>
+                      </div>
+                    </td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Configure and Change Document Templates</th>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>
+                      <div className="checked">
+                        <SvgIcon>
+                          <SvgIconChecked />
+                        </SvgIcon>
+                      </div>
+                    </td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Identity Resolution Services</th>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>
+                      <div className="checked">
+                        <SvgIcon>
+                          <SvgIconChecked />
+                        </SvgIcon>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
