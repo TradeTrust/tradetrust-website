@@ -5,6 +5,8 @@ import { mixin, vars } from "../../styles";
 import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconPrinter, SvgIconEmail, SvgIconDownload, SvgIconQRCode } from "../UI/SvgIcon";
 import { ButtonIconWhiteBlue } from "../UI/Button";
+import { Popover, OverlayTrigger } from "react-bootstrap";
+import { QRCode } from "react-qr-svg";
 
 interface DocumentUtilityProps {
   document: WrappedDocument;
@@ -15,16 +17,32 @@ interface DocumentUtilityProps {
 export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, className }: DocumentUtilityProps) => {
   const fileName = getData(document).name;
 
+  const qrCodePopover = (
+    <Popover id="qr-code-popover" style={{ borderRadius: 0, border: "1px solid #DDDDDD" }}>
+      <Popover.Content style={{padding:0}}>
+        <QRCode
+          bgColor="#FFFFFF"
+          fgColor="#000000"
+          level="Q"
+          style={{ width: 150, padding: "10px" }}
+          value="some textsome textsome textsome textsome"
+        />
+      </Popover.Content>
+    </Popover>
+  );
+
   return (
     <div className={`${className}`}>
       <div className="container-custom">
         <div className="row no-gutters">
           <div className="col-auto ml-auto">
-            <ButtonIconWhiteBlue onClick={() => window.print()}>
-              <SvgIcon strokeWidth="0.5" fill="currentColor">
-                <SvgIconQRCode />
-              </SvgIcon>
-            </ButtonIconWhiteBlue>
+            <OverlayTrigger trigger="click" placement="bottom-end" overlay={qrCodePopover}>
+              <ButtonIconWhiteBlue>
+                <SvgIcon strokeWidth="0.5" fill="currentColor">
+                  <SvgIconQRCode />
+                </SvgIcon>
+              </ButtonIconWhiteBlue>
+            </OverlayTrigger>
           </div>
           <div className="col-auto ml-3">
             <ButtonIconWhiteBlue onClick={() => window.print()}>
