@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import _uniqueId from "lodash/uniqueId";
 import ReactTooltip from "react-tooltip";
 
-interface SvgIconProps {
+interface SvgIconProps extends React.SVGProps<SVGSVGElement> {
   tooltipId?: string;
   children: React.ReactNode;
   onClick?: () => void;
@@ -219,8 +219,6 @@ export const SvgIcon = ({ tooltipId, children, ...props }: SvgIconProps) => {
 
   return (
     <svg
-      {...tooltipProps}
-      {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -230,6 +228,8 @@ export const SvgIcon = ({ tooltipId, children, ...props }: SvgIconProps) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      {...tooltipProps}
+      {...props}
     >
       {children}
     </svg>
