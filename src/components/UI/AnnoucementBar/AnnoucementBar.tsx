@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { vars, mixin } from "../../../styles";
-import { AnchorLinkButtonSolidOrangeWhite } from "./../../UI/Button";
+import { ReactRouterLinkButtonSolidOrangeWhite } from "./../../UI/Button";
 
 export interface AnnoucementBarProps {
   className?: string;
@@ -23,9 +23,7 @@ export const AnnoucementBarUnStyled = ({ className }: AnnoucementBarProps) => {
           </p>
         </div>
         <div className="col-12 col-lg-auto ml-lg-auto mt-4 mt-lg-0">
-          <AnchorLinkButtonSolidOrangeWhite href="#" target="_self" rel="noreferrer noopener">
-            View more
-          </AnchorLinkButtonSolidOrangeWhite>
+          <ReactRouterLinkButtonSolidOrangeWhite to="/#">View more</ReactRouterLinkButtonSolidOrangeWhite>
         </div>
       </div>
     </div>
