@@ -24,6 +24,7 @@ export const grey = "#8f8f8f";
 export const greyDark = "#5a5a5a";
 export const white = "#ffffff";
 export const black = "#000000";
+export const offblack = "#212529";
 
 export const success = "#28a745";
 export const danger = "#c12323";
