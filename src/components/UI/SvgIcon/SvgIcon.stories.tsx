@@ -21,6 +21,7 @@ import {
   SvgIconSave,
   SvgIconTrash2,
   SvgIconPaperClip,
+  SvgIconFlag,
 } from "./SvgIcon";
 
 export default {
@@ -179,6 +180,14 @@ export const PaperClip = () => {
   return (
     <SvgIcon>
       <SvgIconPaperClip />
+    </SvgIcon>
+  );
+};
+
+export const Flag = () => {
+  return (
+    <SvgIcon>
+      <SvgIconFlag />
     </SvgIcon>
   );
 };

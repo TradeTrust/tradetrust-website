@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../styles";
+import { RegisterButton } from "./RegisterButton";
 
 interface SectionDetailsProps {
   className?: string;
@@ -83,13 +84,18 @@ export const SectionDetailsUnStyled = ({ className }: SectionDetailsProps) => {
             </div>
           </div>
         </div>
+        <div className="row">
+          <div className="col-auto mx-auto">
+            <RegisterButton />
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
 export const SectionDetails = styled(SectionDetailsUnStyled)`
-  padding: 45px 0;
+  padding: 60px 0;
 
   .webinar {
     background-color: ${vars.blue};

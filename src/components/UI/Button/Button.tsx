@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { rgba, lighten, darken } from "polished";
 import { mixin, vars } from "../../../styles";
+import { NavLink } from "react-router-dom";
 
 interface ButtonProps {
   children?: React.ReactNode;
@@ -38,6 +39,20 @@ interface AnchorLinkProps {
 
 export const AnchorLink = ({ children, ...props }: AnchorLinkProps) => {
   return <a {...props}>{children}</a>;
+};
+
+interface ReactRouterLinkProps {
+  className?: string;
+  children?: React.ReactNode;
+  to: string;
+}
+
+export const ReactRouterLink = ({ className, children, to }: ReactRouterLinkProps) => {
+  return (
+    <NavLink className={className} to={to}>
+      {children}
+    </NavLink>
+  );
 };
 
 interface BaseStyleButtonProps {
@@ -257,6 +272,16 @@ export const LabelWhiteSecondary = styled(Label)`
 `;
 
 export const AnchorLinkButtonSolidOrangeWhite = styled(AnchorLink)`
+  ${baseStyleButton({
+    bgColor: vars.brandOrange,
+    textColor: vars.white,
+  })} :hover {
+    text-decoration: none;
+    color: ${vars.white};
+  }
+`;
+
+export const ReactRouterLinkButtonSolidOrangeWhite = styled(ReactRouterLink)`
   ${baseStyleButton({
     bgColor: vars.brandOrange,
     textColor: vars.white,
