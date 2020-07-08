@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../styles";
-import { AnchorLinkButtonSolidOrangeWhite } from "./../UI/Button";
+import { RegisterButton } from "./RegisterButton";
 
 interface SectionRegisterProps {
   className?: string;
@@ -17,13 +17,7 @@ export const SectionRegisterUnStyled = ({ className }: SectionRegisterProps) => 
               <h1>TradeTrust Tech Webinar Series</h1>
               <h5>Advance your knowledge with our captivating talks, interactive content and more for free</h5>
             </div>
-            <AnchorLinkButtonSolidOrangeWhite
-              href="https://form.gov.sg/#!/5ef05be8e4f89f001195ef4c"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Register Now
-            </AnchorLinkButtonSolidOrangeWhite>
+            <RegisterButton />
           </div>
         </div>
       </div>
@@ -82,15 +76,5 @@ export const SectionRegister = styled(SectionRegisterUnStyled)`
     background-color: rgba(0, 0, 0, 0.4);
     padding-top: 20px;
     padding-bottom: 20px;
-  }
-
-  /* one-off styling for this button */
-  a {
-    &[href="https://form.gov.sg/#!/5ef05be8e4f89f001195ef4c"]
-    {
-      padding: 10px 30px 15px;
-      ${mixin.fontSourcesansproRegular};
-      ${mixin.fontSize(30)};
-    }
   }
 `;

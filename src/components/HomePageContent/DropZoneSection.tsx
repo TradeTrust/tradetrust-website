@@ -9,7 +9,6 @@ import { NETWORK_NAME } from "../../config";
 import MAIN from "./Main-Demo.json";
 import ROPSTEN from "./Ropsten-Demo.json";
 import RINKEBY from "./Rinkeby-Demo.json";
-import { AnnoucementBar } from "./../UI/AnnoucementBar";
 
 const getDemoCert = () => {
   switch (NETWORK_NAME) {
@@ -104,31 +103,6 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
     <section id="verify-documents" className={`${className} bg-brand-navy text-white`}>
       <div className="container-custom">
         <div className="row">
-          <div className="col-12">
-            <AnnoucementBar>
-              <div className="row no-gutters align-items-center">
-                <div className="col-12 col-lg-auto mr-3">
-                  <h6 className="mb-lg-0">Upcoming webinar:</h6>
-                </div>
-                <div className="col-12 col-lg">
-                  <p className="mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                    <a
-                      className="mx-3"
-                      href="https://form.gov.sg/#!/5ef05be8e4f89f001195ef4c"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Register Now
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </AnnoucementBar>
-          </div>
-        </div>
-        <div className="row">
           <div className="col-lg-5 col-md-12">
             <div className="description">
               <h1>An easy way to check and verify your documents</h1>
@@ -145,11 +119,12 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
     </section>
   );
 })`
-  padding-top: 20px;
-  padding-bottom: 60px;
+  padding-top: 30px;
+  padding-bottom: 45px;
 
   @media only screen and (min-width: ${vars.lg}) {
-    padding-bottom: 120px;
+    padding-top: 45px;
+    padding-bottom: 60px;
   }
 
   h3 {
