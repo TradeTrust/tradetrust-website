@@ -3,8 +3,10 @@ import styled from "@emotion/styled";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import { mixin, vars } from "../../styles";
 import { FeatureFlag } from "../FeatureFlag";
-import { SvgIcon, SvgIconPrinter, SvgIconEmail, SvgIconDownload } from "../UI/SvgIcon";
+import { SvgIcon, SvgIconPrinter, SvgIconEmail, SvgIconDownload, SvgIconQRCode } from "../UI/SvgIcon";
 import { ButtonIconWhiteBlue } from "../UI/Button";
+import { Popover, OverlayTrigger } from "react-bootstrap";
+import { QRCode } from "react-qr-svg";
 
 interface DocumentUtilityProps {
   document: WrappedDocument;
@@ -14,13 +16,33 @@ interface DocumentUtilityProps {
 
 export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, className }: DocumentUtilityProps) => {
   const fileName = getData(document).name;
+  const qrcodeUrl = getData(document)?.links?.self?.href ?? "";
+
+  const qrCodePopover = (url: string) => (
+    <Popover id="qr-code-popover" style={{ borderRadius: 0, border: "1px solid #DDDDDD" }}>
+      <Popover.Content style={{ padding: 0 }}>
+        <QRCode bgColor="#FFFFFF" fgColor="#000000" level="Q" style={{ width: 200, padding: "10px" }} value={url} />
+      </Popover.Content>
+    </Popover>
+  );
 
   return (
     <div className={`${className}`}>
       <div className="container-custom">
         <div className="row no-gutters">
           <div className="col-auto ml-auto">
-            <ButtonIconWhiteBlue onClick={() => window.print()}>
+            {qrcodeUrl && (
+              <OverlayTrigger trigger="click" placement="bottom-end" overlay={qrCodePopover(qrcodeUrl)}>
+                <ButtonIconWhiteBlue aria-label="document-utility-qr-button">
+                  <SvgIcon strokeWidth="0.5" fill="currentColor">
+                    <SvgIconQRCode />
+                  </SvgIcon>
+                </ButtonIconWhiteBlue>
+              </OverlayTrigger>
+            )}
+          </div>
+          <div className="col-auto ml-3">
+            <ButtonIconWhiteBlue aria-label="document-utility-print-button" onClick={() => window.print()}>
               <SvgIcon>
                 <SvgIconPrinter />
               </SvgIcon>
@@ -28,7 +50,10 @@ export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, classNa
           </div>
           <FeatureFlag name="SHARE_BY_EMAIL">
             <div className="col-auto ml-3">
-              <ButtonIconWhiteBlue onClick={() => handleSharingToggle()}>
+              <ButtonIconWhiteBlue
+                aria-label="document-utility-share-by-email-button"
+                onClick={() => handleSharingToggle()}
+              >
                 <SvgIcon>
                   <SvgIconEmail />
                 </SvgIcon>
@@ -41,7 +66,7 @@ export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, classNa
               target="_black"
               href={`data:text/plain;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
             >
-              <ButtonIconWhiteBlue>
+              <ButtonIconWhiteBlue aria-label="document-utility-download-document-button">
                 <SvgIcon>
                   <SvgIconDownload />
                 </SvgIcon>
