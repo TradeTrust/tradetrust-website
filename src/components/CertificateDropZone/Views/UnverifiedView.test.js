@@ -7,6 +7,7 @@ import {
   whenDocumentHashInvalid,
   whenDocumentNotIssued,
   whenDocumentIssuerIdentityInvalid,
+  whenDocumentRevoked,
 } from "../../../test/fixture/verifier-responses";
 
 describe("unverifiedView", () => {
@@ -31,6 +32,21 @@ describe("unverifiedView", () => {
         <UnverifiedView
           handleRenderOverwrite={() => {}}
           verificationStatus={whenDocumentNotIssued}
+          resetData={() => {}}
+        />
+      </MemoryRouter>
+    );
+    const errorContainerElm = wrapper.find("#error-tab");
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.ISSUED].failureTitle);
+    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.ISSUED].failureMessage);
+  });
+
+  it("displays issuing error if the document is revoked", () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <UnverifiedView
+          handleRenderOverwrite={() => {}}
+          verificationStatus={whenDocumentRevoked}
           resetData={() => {}}
         />
       </MemoryRouter>
