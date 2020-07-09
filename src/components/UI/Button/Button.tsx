@@ -8,7 +8,6 @@ interface ButtonProps {
   children?: React.ReactNode;
   className?: string;
   disabled?: boolean;
-  hidden?: boolean;
   onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
 }
 

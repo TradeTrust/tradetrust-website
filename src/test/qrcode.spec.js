@@ -1,6 +1,6 @@
 import { Selector } from "testcafe";
 
-fixture("Token Document Rendering").page`http://localhost:3000`;
+fixture("QRcode Rendering").page`http://localhost:3000`;
 
 const Document = "./fixture/ebl-with-qrcode.json";
 const IframeBlock = Selector("#iframe");
@@ -19,7 +19,7 @@ test("UI renders QR code correctly when present in the document", async (t) => {
   await DocumentStatus.with({ visibilityCheck: true })();
 
   const qrcodeButtonElement = await Selector("button").withAttribute("aria-label", "document-utility-qr-button");
-  await t.click(qrcodeButtonElement);
+  await t.click(qrcodeButtonElement); // asserts that button exists and can be clicked
   await validateTextContent(t, IssuedByDomainName, ["TRADETRUST.IO"]);
 
   await t.switchToIframe(IframeBlock);

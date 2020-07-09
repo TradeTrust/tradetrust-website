@@ -31,13 +31,15 @@ export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, classNa
       <div className="container-custom">
         <div className="row no-gutters">
           <div className="col-auto ml-auto">
-            <OverlayTrigger trigger="click" placement="bottom-end" overlay={qrCodePopover(qrcodeUrl)}>
-              <ButtonIconWhiteBlue aria-label="document-utility-qr-button" hidden={!qrcodeUrl}>
-                <SvgIcon strokeWidth="0.5" fill="currentColor">
-                  <SvgIconQRCode />
-                </SvgIcon>
-              </ButtonIconWhiteBlue>
-            </OverlayTrigger>
+            {qrcodeUrl && (
+              <OverlayTrigger trigger="click" placement="bottom-end" overlay={qrCodePopover(qrcodeUrl)}>
+                <ButtonIconWhiteBlue aria-label="document-utility-qr-button">
+                  <SvgIcon strokeWidth="0.5" fill="currentColor">
+                    <SvgIconQRCode />
+                  </SvgIcon>
+                </ButtonIconWhiteBlue>
+              </OverlayTrigger>
+            )}
           </div>
           <div className="col-auto ml-3">
             <ButtonIconWhiteBlue aria-label="document-utility-print-button" onClick={() => window.print()}>
