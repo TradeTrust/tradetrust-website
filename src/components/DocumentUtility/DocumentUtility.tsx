@@ -64,7 +64,7 @@ export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, classNa
             <a
               download={`${fileName}.tt`}
               target="_black"
-              href={`data:text/plain;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
+              href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
             >
               <ButtonIconWhiteBlue aria-label="document-utility-download-document-button">
                 <SvgIcon>
