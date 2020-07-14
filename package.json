@@ -17,10 +17,10 @@
     "storybook:build": "build-storybook -o docs  -s public",
     "stylelint": "stylelint 'src/**/*.scss'",
     "stylelint:fix": "stylelint 'src/**/*.scss' --syntax scss --fix",
-    "test": "jest",
-    "test:coverage": "jest --collectCoverage",
-    "test:watch": "jest --watchAll",
-    "test:update": "jest -u"
+    "test": "jest --env=jest-environment-jsdom-sixteen",
+    "test:coverage": "npm run test -- --collectCoverage",
+    "test:watch": "npm run test -- --watchAll",
+    "test:update": "npm run test -- -u"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
@@ -126,7 +126,8 @@
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.12.1",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^25.0.0",
+    "jest": "^26.1.0",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-sonar-reporter": "^2.0.0",
     "nodemon": "^1.18.10",
     "npm-run-all": "^4.1.5",
