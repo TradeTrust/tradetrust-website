@@ -4,6 +4,7 @@ import { useTokenInformationContext } from "../../../common/contexts/TokenInform
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "./../AssetManagementForm";
 import { AssetManagementTags } from "./../AssetManagementTags";
+import { EndorsementChainContainer } from "../../EndorsementChain/EndorsementChainContainer";
 interface AssetManagementApplicationProps {
   tokenId: string;
   tokenRegistryAddress: string;
@@ -28,6 +29,7 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
     transferToNewEscrow,
     transferToNewEscrowState,
   } = useTokenInformationContext();
+  const [showEndorsementChain, setShowEndorsementChain] = useState(false);
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account } = useProviderContext();
 
@@ -46,6 +48,7 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
   return (
     <div id="title-transfer-panel">
       <div className="container-custom">
+        <button onClick={() => setShowEndorsementChain(!showEndorsementChain)}>Show/Hide Endorsement Chain</button>
         <AssetManagementTags />
         <AssetManagementForm
           account={account}
@@ -70,6 +73,7 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           onTransferToNewEscrow={transferToNewEscrow}
           transferToNewEscrowState={transferToNewEscrowState}
         />
+        {showEndorsementChain && <EndorsementChainContainer tokenId={tokenId} tokenRegistry={tokenRegistryAddress} />}
       </div>
     </div>
   );
