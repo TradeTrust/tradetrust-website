@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { providers } from "ethers";
-import { TradeTrustERC721 } from "@govtechsg/token-registry/dist/ts/contracts/TradeTrustERC721";
 import { TitleEscrowEvent } from "../../../types";
 import { fetchEscrowTransfers } from "./fetchEscrowTransfer";
 
@@ -11,13 +10,14 @@ export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: strin
   const [endorsementChain, setEndorsementChain] = useState<TitleEscrowEvent[]>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
 
-  const fetchEndorsementChain = async (contract: TradeTrustERC721, token: string, provider: providers.Provider) => {
+  const fetchEndorsementChain = useCallback(async () => {
+    if (!tokenRegistry) return;
     setEndorsementChain(undefined);
     setPending(true);
     try {
       // Fetch transfer logs from token registry
-      const transferLogFilter = contract.filters.Transfer(null, null, token);
-      const logs = await contract.queryFilter(transferLogFilter);
+      const transferLogFilter = tokenRegistry.filters.Transfer(null, null, tokenId);
+      const logs = await tokenRegistry.queryFilter(transferLogFilter);
       const formattedLogs = logs.map((log) => {
         const { blockNumber, args, transactionHash } = log;
         if (!args) throw new Error(`Transfer log malformed: ${log}`);
@@ -40,12 +40,11 @@ export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: strin
       setError(e.message);
     }
     setPending(false);
-  };
+  }, [provider, tokenId, tokenRegistry, tokenRegistryAddress]);
 
   useEffect(() => {
-    if (!tokenRegistry) return;
-    fetchEndorsementChain(tokenRegistry, tokenId, provider);
-  }, [tokenRegistry, tokenId, provider]);
+    fetchEndorsementChain();
+  }, [fetchEndorsementChain]);
 
   return { endorsementChain, pending, error };
 };
