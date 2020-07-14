@@ -1,17 +1,22 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
-import { providers } from "ethers";
+import { providers, Signer } from "ethers";
 import { TitleEscrowEvent } from "../../../types";
 import { fetchEscrowTransfers } from "./fetchEscrowTransfer";
+import { useProviderContext } from "../../contexts/provider";
 
-export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: string, provider: providers.Provider) => {
+export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: string) => {
+  const { provider: providerOrSigner } = useProviderContext();
+  const provider = (providerOrSigner as Signer).provider
+    ? (providerOrSigner as Signer).provider
+    : (providerOrSigner as providers.Provider);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [endorsementChain, setEndorsementChain] = useState<TitleEscrowEvent[]>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
 
   const fetchEndorsementChain = useCallback(async () => {
-    if (!tokenRegistry) return;
+    if (!tokenRegistry || !provider) return;
     setEndorsementChain(undefined);
     setPending(true);
     try {

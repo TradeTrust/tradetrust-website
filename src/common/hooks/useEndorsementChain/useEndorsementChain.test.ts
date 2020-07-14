@@ -4,10 +4,13 @@ import { waitFor } from "@testing-library/react";
 import { useEndorsementChain } from "./useEndorsementChain";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { fetchEscrowTransfers } from "./fetchEscrowTransfer";
+import { useProviderContext } from "../../contexts/provider";
 
+jest.mock("../../contexts/provider");
 jest.mock("../useTokenRegistryContract");
 jest.mock("./fetchEscrowTransfer");
 
+const mockUseProviderContext = useProviderContext as jest.Mock;
 const mockUseTokenRegistryContract = useTokenRegistryContract as jest.Mock;
 const mockFetchEscrowTransfers = fetchEscrowTransfers as jest.Mock;
 
@@ -40,6 +43,7 @@ const resetMock = () => {
 };
 
 const setupMock = () => {
+  mockUseProviderContext.mockReturnValue({ provider: ropstenProvider });
   mockUseTokenRegistryContract.mockReturnValue({
     tokenRegistry: { filters: { Transfer: mockTransferFilter }, queryFilter: mockQueryFilter },
   });
@@ -61,8 +65,7 @@ describe("useEndorsementChain", () => {
     const { result } = renderHook(() =>
       useEndorsementChain(
         "0x10E936e6BA85dC92505760259881167141365821",
-        "0x38082975c9b82138f8c154d97206861bf0eaac46ab59855c1931ed218f82c54f",
-        ropstenProvider
+        "0x38082975c9b82138f8c154d97206861bf0eaac46ab59855c1931ed218f82c54f"
       )
     );
     await act(async () => {
@@ -90,8 +93,7 @@ describe("useEndorsementChain", () => {
     const { result } = renderHook(() =>
       useEndorsementChain(
         "0x10E936e6BA85dC92505760259881167141365821",
-        "0x38082975c9b82138f8c154d97206861bf0eaac46ab59855c1931ed218f82c54f",
-        ropstenProvider
+        "0x38082975c9b82138f8c154d97206861bf0eaac46ab59855c1931ed218f82c54f"
       )
     );
     await act(async () => {
