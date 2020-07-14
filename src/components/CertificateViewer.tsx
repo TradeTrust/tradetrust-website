@@ -53,32 +53,36 @@ export const CertificateViewer = ({
   }, []);
 
   const validCertificateContent = (
-    <Tab.Container defaultActiveKey="tab-document">
+    <>
       <div className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={verificationStatus} />
         {tokenRegistryAddress && <AssetManagementContainer document={document} />}
         <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />
-        <MultiTabs
-          hasAttachments={hasAttachments}
-          attachments={attachments}
-          templates={templates}
-          setSelectedTemplate={setSelectedTemplate}
-          selectedTemplate={selectedTemplate}
-        />
       </div>
-      <div className="bg-white">
-        <Tab.Content className="py-4">
-          <Tab.Pane eventKey="tab-document">
-            <DocumentUtility className="no-print" document={document} handleSharingToggle={handleSharingToggle} />
-            <DecentralisedRendererContainer
-              rawDocument={document}
-              updateTemplates={updateTemplates}
-              selectedTemplate={selectedTemplate}
-            />
-          </Tab.Pane>
-          {hasAttachments && <TabPaneAttachments attachments={attachments} />}
-        </Tab.Content>
-      </div>
+      <Tab.Container defaultActiveKey="tab-document">
+        <div className="bg-blue-lighter no-print">
+          <MultiTabs
+            hasAttachments={hasAttachments}
+            attachments={attachments}
+            templates={templates}
+            setSelectedTemplate={setSelectedTemplate}
+            selectedTemplate={selectedTemplate}
+          />
+        </div>
+        <div className="bg-white">
+          <Tab.Content className="py-4">
+            <Tab.Pane eventKey="tab-document">
+              <DocumentUtility className="no-print" document={document} handleSharingToggle={handleSharingToggle} />
+              <DecentralisedRendererContainer
+                rawDocument={document}
+                updateTemplates={updateTemplates}
+                selectedTemplate={selectedTemplate}
+              />
+            </Tab.Pane>
+            {hasAttachments && <TabPaneAttachments attachments={attachments} />}
+          </Tab.Content>
+        </div>
+      </Tab.Container>
       <ModalDialog show={showSharing} toggle={handleSharingToggle}>
         <CertificateSharingForm
           emailSendingState={emailSendingState}
@@ -86,7 +90,7 @@ export const CertificateViewer = ({
           handleSharingToggle={handleSharingToggle}
         />
       </ModalDialog>
-    </Tab.Container>
+    </>
   );
 
   return <ErrorBoundary>{validCertificateContent}</ErrorBoundary>;
