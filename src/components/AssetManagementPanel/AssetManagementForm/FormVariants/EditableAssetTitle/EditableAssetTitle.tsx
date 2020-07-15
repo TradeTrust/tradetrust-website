@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
 import { InputEditableAssetTitle, InputEditableWrapper, InputError } from "../../../../UI/Input";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
+import { ButtonIconOrangeWhite } from "./../../../../UI/Button";
+import { SvgIcon, SvgIconBook } from "./../../../../UI/SvgIcon";
+import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
+import { AddressBook } from "./../../../../../components/UI/Overlay/OverlayContent/AddressBook";
 
 interface EditableAssetTitleProps {
   role: string;
   value?: string;
   isEditable: boolean;
   newValue?: string;
-  onSetNewValue?: (newBeneficiary: string) => void;
+  onSetNewValue?: (newValue: string) => void;
   error?: boolean;
 }
 
@@ -21,6 +25,11 @@ export const EditableAssetTitle = ({
   onSetNewValue,
   error,
 }: EditableAssetTitleProps) => {
+  const { showOverlay } = useContext(OverlayContext);
+  const onOverlayHandler = () => {
+    showOverlay(<AddressBook title="Address Book" onSetNewValue={onSetNewValue} />);
+  };
+
   if (!value) return <SkeletonPlaceholder />;
   if (!isEditable)
     return (
@@ -33,9 +42,9 @@ export const EditableAssetTitle = ({
       </AssetTitle>
     );
   return (
-    <AssetTitle role={role} address="">
+    <AssetTitle role={role} address={newValue ? newValue : ""}>
       <div className="row no-gutters align-items-center">
-        <InputEditableWrapper className="col">
+        <InputEditableWrapper className="col mr-2">
           <InputEditableAssetTitle
             data-testid={`editable-input-${role.toLowerCase()}`}
             value={newValue}
@@ -50,6 +59,13 @@ export const EditableAssetTitle = ({
             <InputError data-testid={"error-msg"}>Unidentified address. Please check and input again.</InputError>
           )}
         </InputEditableWrapper>
+        <div className="col-auto">
+          <ButtonIconOrangeWhite onClick={onOverlayHandler}>
+            <SvgIcon>
+              <SvgIconBook />
+            </SvgIcon>
+          </ButtonIconOrangeWhite>
+        </div>
       </div>
     </AssetTitle>
   );

@@ -120,6 +120,19 @@ const bgWhiteModifier = ({ hoverColor }: BgWhiteModifierProps) => {
   `;
 };
 
+const iconButtonStyle = () => {
+  return `
+    width: 40px;
+    height: 40px;
+
+    svg {
+      max-width: 16px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  `;
+};
+
 const bgWhiteTextSecondary = `
   ${baseStyleButton({
     bgColor: vars.white,
@@ -206,9 +219,7 @@ export const ButtonIconWhiteOrange = styled(Button)`
     hoverColor: vars.brandOrange,
   })}
 
-  svg {
-    max-width: 16px;
-  }
+  ${iconButtonStyle()};
 `;
 
 export const ButtonIconWhiteBlue = styled(Button)`
@@ -221,9 +232,7 @@ export const ButtonIconWhiteBlue = styled(Button)`
     hoverColor: vars.brandBlue,
   })}
 
-  svg {
-    max-width: 16px;
-  }
+  ${iconButtonStyle()};
 `;
 
 export const ButtonIconOrangeWhite = styled(Button)`
@@ -236,9 +245,7 @@ export const ButtonIconOrangeWhite = styled(Button)`
     hoverColor: vars.brandOrange,
   })}
 
-  svg {
-    max-width: 16px;
-  }
+  ${iconButtonStyle()};
 `;
 
 export const ButtonCircleGreylight = styled(Button)`

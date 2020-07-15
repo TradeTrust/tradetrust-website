@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { OverlayContentBaseStyle } from "./../Overlay";
 import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
@@ -9,8 +9,14 @@ import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
 import { isEmpty } from "lodash";
 import { makeEtherscanAddressURL } from "../../../../utils";
 import { vars } from "../../../../styles";
+import { OverlayContext } from "./../../../../common/contexts/OverlayContext";
 
-export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
+interface AddressBookProps extends OverlayContentProps {
+  onSetNewValue?: (newValue: string) => void;
+}
+
+export const AddressBook = styled(({ onSetNewValue, ...props }: AddressBookProps) => {
+  const { setOverlayVisible } = useContext(OverlayContext);
   const { addressBook } = useAddressBook();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -20,7 +26,7 @@ export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
   };
 
   return (
-    <OverlayContent {...props}>
+    <OverlayContent data-testid="overlay-addressbook" {...props}>
       <div className="overlay-actionsbar">
         <div className="row align-items-center">
           <div className="col">
@@ -74,6 +80,12 @@ export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
                         ? ""
                         : "d-none"
                     }
+                    onClick={() => {
+                      if (onSetNewValue) {
+                        onSetNewValue(address);
+                        setOverlayVisible(false);
+                      }
+                    }}
                   >
                     <th>{name}</th>
                     <td>
@@ -124,6 +136,18 @@ export const AddressBook = styled(({ ...props }: OverlayContentProps) => {
 
   .table-tbody {
     height: 360px;
+
+    tr {
+      cursor: ${(props) => (props.onSetNewValue ? "pointer" : "default")};
+
+      &:hover {
+        background-color: ${(props) => (props.onSetNewValue ? vars.greyLighter : "inherit")};
+
+        &:nth-of-type(even) {
+          background-color: ${(props) => (props.onSetNewValue ? vars.greyLighter : "inherit")};
+        }
+      }
+    }
   }
 
   .table {
