@@ -1,5 +1,5 @@
-import { get } from "axios";
 import { decryptString } from "@govtechsg/oa-encryption";
+import { get } from "axios";
 
 export const decodeQrCode = (qrCode) => {
   const ttRegex = /tradetrust:\/\/(.*)/;
@@ -38,3 +38,6 @@ export const processQrCode = async (qrCode) => {
     throw new Error(e.message);
   }
 };
+
+export const encodeQrCodeFromStorage = (payload) =>
+  `https://action.openattestation.com/?q=${encodeURIComponent(JSON.stringify(payload))}`;

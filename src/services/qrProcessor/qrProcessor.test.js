@@ -1,6 +1,6 @@
-import axios from "axios";
 import { encryptString } from "@govtechsg/oa-encryption";
-import { encodeQrCode, decodeQrCode, processQrCode } from "./index";
+import axios from "axios";
+import { decodeQrCode, encodeQrCode, encodeQrCodeFromStorage, processQrCode } from "./index";
 
 jest.mock("axios");
 
@@ -42,5 +42,13 @@ describe("processQrCode", () => {
     const results = await processQrCode(encodeQrCode(actionUri));
     expect(axios.get).toHaveBeenCalledWith("https://sample.domain/document");
     expect(results).toStrictEqual(document);
+  });
+});
+
+describe("encodeQrCodeFromStorage", () => {
+  it("should encode the qrcode object correctly", () => {
+    const qrObj = { data: "test data" };
+    const encodedQR = encodeQrCodeFromStorage(qrObj);
+    expect(encodedQR).toStrictEqual("https://action.openattestation.com/?q=%7B%22data%22%3A%22test%20data%22%7D");
   });
 });

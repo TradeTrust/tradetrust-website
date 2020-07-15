@@ -1,20 +1,22 @@
-import React, { useCallback, useState } from "react";
-import { WrappedDocument } from "@govtechsg/open-attestation";
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { ErrorBoundary } from "./ErrorBoundary";
-import { ModalDialog } from "./ModalDialog";
-import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
+import { getData, WrappedDocument } from "@govtechsg/open-attestation";
+import { defaultsDeep } from "lodash";
+import React, { useCallback, useState } from "react";
+import { Tab } from "react-bootstrap";
 import { getTokenRegistryAddress } from "../common/utils/document";
+import { NETWORK_NAME } from "../config";
+import { encodeQrCodeFromStorage } from "../services/qrProcessor";
+import { TemplateProps } from "./../types";
+import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagementContainer";
+import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
-import { MultiButtons } from "./MultiButtons";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
-import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagementContainer";
-import { getData } from "@govtechsg/open-attestation";
-import { Tab } from "react-bootstrap";
+import { ErrorBoundary } from "./ErrorBoundary";
+import { ModalDialog } from "./ModalDialog";
+import { MultiButtons } from "./MultiButtons";
 import { TabPaneAttachments } from "./TabPaneAttachments";
-import { TemplateProps } from "./../types";
 
 interface CertificateViewerProps {
   document: WrappedDocument;
@@ -40,6 +42,37 @@ export const CertificateViewer = ({
   const originalData = getData(document);
   const attachments = originalData?.attachments;
   const hasAttachments = attachments && attachments.length > 0;
+
+  const qrURL = () => {
+    const fileQueueNumber = originalData?.queueNumber || "";
+    if (!fileQueueNumber) return "";
+
+    const qrURLObj = {
+      type: "DOCUMENT",
+      payload: {
+        uri: `https://api${NETWORK_NAME === "homestead" ? "" : `-${NETWORK_NAME}`}.tradetrust.io/storage/${
+          fileQueueNumber.id
+        }`,
+        key: fileQueueNumber.key,
+        permittedActions: ["STORE"],
+        redirect: `https://${NETWORK_NAME === "homestead" ? "" : "dev."}tradetrust.io/`,
+      },
+    };
+
+    return encodeQrCodeFromStorage(qrURLObj);
+  };
+
+  const qrCode = {
+    data: {
+      links: {
+        self: {
+          href: qrURL(),
+        },
+      },
+    },
+  };
+
+  defaultsDeep(document, qrCode);
 
   const updateTemplates = useCallback((templates: TemplateProps[]) => {
     // filter all templates that are renderable currently
