@@ -19,7 +19,11 @@ export const useIdentifierResolver = (address: string) => {
 
     const resolveIdentityByAPI = async () => {
       const identityName = await getIdentityName(thirdPartyAPIEndpoints, address);
-      if (identityName) setResolvedIdentifier(identityName);
+      if (identityName) {
+        setResolvedIdentifier(identityName);
+      } else {
+        setResolvedIdentifier(address); // set resolvedIdentifier to address, if address does not resolved to any name eventually
+      }
     }; // resolved from thirdparty endpoint
 
     resolveIdentityByAPI();

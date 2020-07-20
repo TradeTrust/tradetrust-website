@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../styles";
+import { isAddress } from "web3-utils";
 
 interface AddressInfoProps {
   className?: string;
@@ -13,7 +14,7 @@ export const AddressInfoUnStyled = ({ className, title, name, children }: Addres
   return (
     <div className={`${className}`}>
       <h6>{title}:</h6>
-      <h5>{name}</h5>
+      {!isAddress(name) && <h5>{name}</h5>}
       <div className="etherum-address">{children}</div>
     </div>
   );
