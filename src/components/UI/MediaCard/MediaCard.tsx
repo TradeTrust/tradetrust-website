@@ -5,21 +5,37 @@ import { mixin, vars } from "./../../../styles";
 interface MediaCardProps {
   className?: string;
   title: string;
+  placeholderText?: string;
   youtubeEmbedCode?: string;
   children?: React.ReactNode;
 }
 
-export const MediaCardUnStyled = ({ className, title, youtubeEmbedCode, children }: MediaCardProps) => {
+export const MediaCardUnStyled = ({
+  className,
+  title,
+  placeholderText,
+  youtubeEmbedCode,
+  children,
+}: MediaCardProps) => {
+  const hasMedia = placeholderText || youtubeEmbedCode;
+
   return (
     <div className={`${className}`}>
-      {youtubeEmbedCode && (
-        <div className="media">
-          <iframe
-            src={`https://www.youtube.com/embed/${youtubeEmbedCode}?rel=0`}
-            title={title}
-            frameBorder="0"
-            allowFullScreen
-          />
+      {hasMedia && (
+        <div className="media-holder">
+          {youtubeEmbedCode && (
+            <iframe
+              src={`https://www.youtube.com/embed/${youtubeEmbedCode}?rel=0`}
+              title={title}
+              frameBorder="0"
+              allowFullScreen
+            />
+          )}
+          <div className="placehold">
+            <div className="d-flex justify-content-center align-items-center h-100">
+              <h5 className="flex mb-0">{placeholderText}</h5>
+            </div>
+          </div>
         </div>
       )}
       <div className="content">
@@ -31,7 +47,10 @@ export const MediaCardUnStyled = ({ className, title, youtubeEmbedCode, children
 };
 
 export const MediaCard = styled(MediaCardUnStyled)`
-  .media {
+  height: 100%;
+  background-color: ${vars.white};
+
+  .media-holder {
     ${mixin.aspectRatio(16, 9)};
   }
 
@@ -43,13 +62,28 @@ export const MediaCard = styled(MediaCardUnStyled)`
     height: 100%;
   }
 
+  .placehold {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+
+    h5 {
+      ${mixin.fontSourcesansproRegular};
+      color: rgba(0, 0, 0, 0.3);
+    }
+  }
+
   .title {
     ${mixin.fontSourcesansproRegular};
     color: ${vars.blue};
   }
 
   .content {
-    background-color: ${vars.white};
     padding: 20px;
   }
 

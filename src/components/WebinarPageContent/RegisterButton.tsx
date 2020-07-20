@@ -5,9 +5,10 @@ import { AnchorLinkButtonSolidOrangeWhite } from "./../UI/Button";
 
 interface RegisterButtonProps {
   className?: string;
+  children: React.ReactNode;
 }
 
-export const RegisterButtonUnStyled = ({ className }: RegisterButtonProps) => {
+export const RegisterButtonUnStyled = ({ className, children }: RegisterButtonProps) => {
   return (
     <AnchorLinkButtonSolidOrangeWhite
       className={className}
@@ -15,7 +16,7 @@ export const RegisterButtonUnStyled = ({ className }: RegisterButtonProps) => {
       target="_blank"
       rel="noreferrer noopener"
     >
-      Register Now
+      {children}
     </AnchorLinkButtonSolidOrangeWhite>
   );
 };
