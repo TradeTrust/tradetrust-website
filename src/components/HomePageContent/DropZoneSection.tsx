@@ -144,8 +144,12 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
       text-align: left;
     }
 
+    h1 {
+      ${mixin.fontMontserratRegular};
+    }
+
     p {
-      @include ${mixin.fontSize(18)};
+      ${mixin.fontSize(18)}
       padding: 24px 0;
       color: rgba(${vars.white}, 0.7);
     }

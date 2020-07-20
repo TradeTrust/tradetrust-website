@@ -10,7 +10,7 @@ export const AddressResolver = () => {
     <div className="container-custom py-5">
       <div className="row align-items-end">
         <div className="col-12 col-lg">
-          <h2>Settings: Address Resolver</h2>
+          <h1>Settings: Address Resolver</h1>
           <p className="mb-0 text-grey">Add third party’s endpoint to resolve addresses. </p>
         </div>
         <div className="col-12 col-lg-auto">

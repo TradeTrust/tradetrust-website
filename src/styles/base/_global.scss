@@ -45,6 +45,12 @@ a {
     flex: 1;
   }
 
+  &[data-location="/training-videos"] {
+    > main {
+      background-color: $color-grey-lightest;
+    }
+  }
+
   &[data-location="/settings"] {
     > main {
       background-color: $color-blue-lighter;
