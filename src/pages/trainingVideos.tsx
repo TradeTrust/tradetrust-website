@@ -24,22 +24,6 @@ export const TrainingVideosPage = () => (
               This non-technical session helps provide a foundational and critical understanding of TradeTrust as a
               digital utility as well as the mental framing necessary as a pre-requisite for subsequent webinars.
             </p>
-            <p className="mb-0">
-              <b>In this session find out:</b>
-            </p>
-            <ul>
-              <li>
-                <p>What is TradeTrust?</p>
-              </li>
-            </ul>
-            <p className="mb-0">
-              <b>Suitable for:</b>
-            </p>
-            <ul>
-              <li>
-                <p>Anyone interested to find out more : )</p>
-              </li>
-            </ul>
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
@@ -48,28 +32,6 @@ export const TrainingVideosPage = () => (
               This Webinar focuses on the creation of verifiable documents. These are documents that do not have the
               functionality of transferring title.
             </p>
-            <p className="mb-0">
-              <b>In this session find out how to:</b>
-            </p>
-            <ul>
-              <li>
-                <p>Create a verifiable document</p>
-              </li>
-              <li>
-                <p>How to create renderer to read the verifiable document</p>
-              </li>
-            </ul>
-            <p className="mb-0">
-              <b>Suitable for:</b>
-            </p>
-            <ul>
-              <li>
-                <p>
-                  Technical/IT dept of shipping lines, shippers, logistics service providers, financial institutions
-                  providing Trade Financing services, tech companies and platform providers.
-                </p>
-              </li>
-            </ul>
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
@@ -84,7 +46,7 @@ export const TrainingVideosPage = () => (
           <MediaCard title="Critical Functions of TradeTrust" placeholderText="Coming soon after 5 Aug 2020">
             <p>
               In this session we will cover critical functions such as reading and verifying a TradeTrust file through
-              two types of approaches: a) front-end; and b) programmatically
+              two types of approaches: a) front-end; and b) programmatically.
             </p>
           </MediaCard>
         </div>
@@ -92,7 +54,7 @@ export const TrainingVideosPage = () => (
           <MediaCard title="Set Up and Change Templates" placeholderText="Coming soon after 12 Aug 2020">
             <p>
               Building on sessions 2 and 3, this session will walk you through the steps on how to: configure documents;
-              set up schema in a configuration file; and change document templates
+              set up schema in a configuration file; and change document templates.
             </p>
           </MediaCard>
         </div>

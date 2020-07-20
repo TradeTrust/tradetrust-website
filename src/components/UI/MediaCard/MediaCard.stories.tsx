@@ -16,28 +16,6 @@ export const MediaCardYoutube = () => {
         This Webinar focuses on the creation of verifiable documents. These are documents that do not have the
         functionality of transferring title.
       </p>
-      <p className="mb-0">
-        <b>In this session find out how to:</b>
-      </p>
-      <ul>
-        <li>
-          <p>Create a verifiable document</p>
-        </li>
-        <li>
-          <p>How to create renderer to read the verifiable document</p>
-        </li>
-      </ul>
-      <p className="mb-0">
-        <b>Suitable for:</b>
-      </p>
-      <ul>
-        <li>
-          <p>
-            Technical/IT dept of shipping lines, shippers, logistics service providers, financial institutions providing
-            Trade Financing services, tech companies and platform providers.
-          </p>
-        </li>
-      </ul>
     </MediaCard>
   );
 };
@@ -49,28 +27,6 @@ export const MediaCardPlaceholderText = () => {
         This Webinar focuses on the creation of verifiable documents. These are documents that do not have the
         functionality of transferring title.
       </p>
-      <p className="mb-0">
-        <b>In this session find out how to:</b>
-      </p>
-      <ul>
-        <li>
-          <p>Create a verifiable document</p>
-        </li>
-        <li>
-          <p>How to create renderer to read the verifiable document</p>
-        </li>
-      </ul>
-      <p className="mb-0">
-        <b>Suitable for:</b>
-      </p>
-      <ul>
-        <li>
-          <p>
-            Technical/IT dept of shipping lines, shippers, logistics service providers, financial institutions providing
-            Trade Financing services, tech companies and platform providers.
-          </p>
-        </li>
-      </ul>
     </MediaCard>
   );
 };
@@ -82,28 +38,6 @@ export const MediaCardDefault = () => {
         This Webinar focuses on the creation of verifiable documents. These are documents that do not have the
         functionality of transferring title.
       </p>
-      <p className="mb-0">
-        <b>In this session find out how to:</b>
-      </p>
-      <ul>
-        <li>
-          <p>Create a verifiable document</p>
-        </li>
-        <li>
-          <p>How to create renderer to read the verifiable document</p>
-        </li>
-      </ul>
-      <p className="mb-0">
-        <b>Suitable for:</b>
-      </p>
-      <ul>
-        <li>
-          <p>
-            Technical/IT dept of shipping lines, shippers, logistics service providers, financial institutions providing
-            Trade Financing services, tech companies and platform providers.
-          </p>
-        </li>
-      </ul>
     </MediaCard>
   );
 };
