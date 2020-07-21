@@ -27,7 +27,7 @@ export const EditableAssetTitle = ({
 }: EditableAssetTitleProps) => {
   const { showOverlay } = useContext(OverlayContext);
   const onOverlayHandler = () => {
-    showOverlay(<AddressBook title="Address Book" onSetNewValue={onSetNewValue} />);
+    showOverlay(<AddressBook title="Address Book" onAddressSelected={onSetNewValue} />);
   };
 
   if (!value) return <SkeletonPlaceholder />;
@@ -42,7 +42,7 @@ export const EditableAssetTitle = ({
       </AssetTitle>
     );
   return (
-    <AssetTitle role={role} address={newValue ? newValue : ""}>
+    <AssetTitle role={role} address={newValue || ""}>
       <div className="row no-gutters align-items-center">
         <InputEditableWrapper className="col mr-2">
           <InputEditableAssetTitle

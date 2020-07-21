@@ -4,7 +4,7 @@ import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
 import styled from "@emotion/styled";
 import { useAddressBook } from "../../../../common/hooks/useAddressBook";
-import { SvgIcon, SvgIconSearch } from "../../../UI/SvgIcon";
+import { SvgIcon, SvgIconSearch, SvgIconExternalLink } from "../../../UI/SvgIcon";
 import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
 import { isEmpty } from "lodash";
 import { makeEtherscanAddressURL } from "../../../../utils";
@@ -12,10 +12,10 @@ import { vars } from "../../../../styles";
 import { OverlayContext } from "./../../../../common/contexts/OverlayContext";
 
 interface AddressBookProps extends OverlayContentProps {
-  onSetNewValue?: (newValue: string) => void;
+  onAddressSelected?: (newValue: string) => void;
 }
 
-export const AddressBook = styled(({ onSetNewValue, ...props }: AddressBookProps) => {
+export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
   const { addressBook } = useAddressBook();
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,6 +54,7 @@ export const AddressBook = styled(({ onSetNewValue, ...props }: AddressBookProps
             <tr>
               <th>Name</th>
               <td>Address</td>
+              <td>&nbsp;</td>
             </tr>
           </thead>
           <tbody className="table-tbody">
@@ -61,6 +62,7 @@ export const AddressBook = styled(({ onSetNewValue, ...props }: AddressBookProps
               <tr>
                 <th>&mdash;</th>
                 <td>No Address found.</td>
+                <td>&nbsp;</td>
               </tr>
             ) : (
               Object.keys(addressBook).map((key) => {
@@ -81,16 +83,19 @@ export const AddressBook = styled(({ onSetNewValue, ...props }: AddressBookProps
                         : "d-none"
                     }
                     onClick={() => {
-                      if (onSetNewValue) {
-                        onSetNewValue(address);
+                      if (onAddressSelected) {
+                        onAddressSelected(address);
                         setOverlayVisible(false);
                       }
                     }}
                   >
                     <th>{name}</th>
+                    <td>{address}</td>
                     <td>
                       <a href={addressHref} target="_blank" rel="noreferrer noopener">
-                        {address}
+                        <SvgIcon>
+                          <SvgIconExternalLink />
+                        </SvgIcon>
                       </a>
                     </td>
                   </tr>
@@ -138,13 +143,20 @@ export const AddressBook = styled(({ onSetNewValue, ...props }: AddressBookProps
     height: 360px;
 
     tr {
-      cursor: ${(props) => (props.onSetNewValue ? "pointer" : "default")};
+      transition: background-color 0.3s ${vars.easeOutCubic};
+      cursor: ${(props) => (props.onAddressSelected ? "pointer" : "default")};
 
       &:hover {
-        background-color: ${(props) => (props.onSetNewValue ? vars.greyLighter : "inherit")};
+        background-color: ${(props) => (props.onAddressSelected ? vars.greyLighter : "inherit")};
 
         &:nth-of-type(even) {
-          background-color: ${(props) => (props.onSetNewValue ? vars.greyLighter : "inherit")};
+          background-color: ${(props) => (props.onAddressSelected ? vars.greyLighter : "inherit")};
+        }
+      }
+
+      a {
+        svg {
+          max-width: 16px;
         }
       }
     }
