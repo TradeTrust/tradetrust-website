@@ -45,15 +45,13 @@ export const ProviderContextProvider = ({ children }: { children: React.ReactNod
     return initializeSigner();
   };
 
-  const handleAccountsChanged = () => {
-    // Do not call enable if provider has not been upgraded by the app yet
-    if (!isUpgraded) return;
-    return initializeSigner();
-  };
-
   useEffect(() => {
-    window.ethereum.on("accountsChanged", handleAccountsChanged);
-  }, [handleAccountsChanged]);
+    // Do not listen before the provider is upgraded by the app
+    if (!isUpgraded) return;
+    window.ethereum.on("accountsChanged", () => {
+      return initializeSigner();
+    });
+  }, [isUpgraded]);
 
   return (
     <ProviderContext.Provider value={{ isUpgraded, provider, upgradeProvider, account }}>
