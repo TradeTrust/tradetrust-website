@@ -39,7 +39,15 @@ export const MediaCardUnStyled = ({
         </div>
       )}
       <div className="content">
-        <h3 className="title">{title}</h3>
+        <h3 className="title">
+          {youtubeEmbedCode ? (
+            <a href={`https://www.youtube.com/watch?v=${youtubeEmbedCode}`} target="_blank" rel="noopener noreferrer">
+              {title}
+            </a>
+          ) : (
+            <span>{title}</span>
+          )}
+        </h3>
         {children}
       </div>
     </div>

@@ -6,8 +6,15 @@ import { RegisterButton } from "./../components/WebinarPageContent/RegisterButto
 export const TrainingVideosPage = () => (
   <>
     <Helmet>
+      <meta
+        property="description"
+        content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
+      />
+      <meta
+        property="og:description"
+        content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
+      />
       <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-      <meta property="og:description" content="Add Tradetrust description" />
       <meta property="og:url" content={`${window.location.origin}/training-videos`} />
       <title>TradeTrust - Training Videos</title>
     </Helmet>

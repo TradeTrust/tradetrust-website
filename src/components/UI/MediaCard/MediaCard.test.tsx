@@ -19,8 +19,11 @@ describe("MediaCard", () => {
       </MediaCard>
     );
     const iframe: any = container.getByTitle("This is the title");
+    const link: any = container.getByText("This is the title");
     expect(iframe).not.toBeNull();
     expect(iframe.src).toMatch(/youtube.com\/embed/);
+    expect(link).not.toBeNull();
+    expect(link.href).toMatch(/youtube.com\/watch\?v=/);
   });
 
   it("should render placeholder text correctly", () => {
