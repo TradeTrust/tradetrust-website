@@ -15,24 +15,24 @@ import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface NominateBeneficiaryHolderFormProps {
   formAction: AssetManagementActions;
-  tokenId: string;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
   handleNomination: (newBeneficiary: string, newHolder: string) => void;
   nominationState: string;
   setFormActionNone: () => void;
+  setShowEndorsementChain: (payload: boolean) => void;
 }
 
 export const NominateBeneficiaryHolderForm = ({
   formAction,
-  tokenId,
   tokenRegistryAddress,
   beneficiary,
   holder,
   handleNomination,
   nominationState,
   setFormActionNone,
+  setShowEndorsementChain,
 }: NominateBeneficiaryHolderFormProps) => {
   const [newBeneficiary, setNewBeneficiary] = useState("");
   const [newHolder, setNewHolder] = useState("");
@@ -70,7 +70,10 @@ export const NominateBeneficiaryHolderForm = ({
         />
         <div className="row mb-3">
           <div className="col-12 col-lg">
-            <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
+            <AssetInformationPanel
+              setShowEndorsementChain={setShowEndorsementChain}
+              tokenRegistryAddress={tokenRegistryAddress}
+            />
           </div>
           <div className="col-12 col-lg">
             <EditableAssetTitle

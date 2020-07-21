@@ -15,24 +15,24 @@ import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface EndorseBeneficiaryProps {
   formAction: AssetManagementActions;
-  tokenId: string;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
   handleTransfer: (newBeneficiary: string, newHolder: string) => void;
   beneficiaryEndorseState: string;
   setFormActionNone: () => void;
+  setShowEndorsementChain: (payload: boolean) => void;
 }
 
 export const EndorseBeneficiaryForm = ({
   formAction,
-  tokenId,
   tokenRegistryAddress,
   beneficiary,
   holder,
   handleTransfer,
   beneficiaryEndorseState,
   setFormActionNone,
+  setShowEndorsementChain,
 }: EndorseBeneficiaryProps) => {
   const [newBeneficiary, setNewBeneficiary] = useState("");
   const [newHolder, setNewHolder] = useState("");
@@ -72,7 +72,10 @@ export const EndorseBeneficiaryForm = ({
         />
         <div className="row mb-3">
           <div className="col-12 col-lg">
-            <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
+            <AssetInformationPanel
+              setShowEndorsementChain={setShowEndorsementChain}
+              tokenRegistryAddress={tokenRegistryAddress}
+            />
           </div>
           <div className="col-12 col-lg">
             <EditableAssetTitle

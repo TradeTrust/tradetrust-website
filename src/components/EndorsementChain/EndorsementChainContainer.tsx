@@ -5,9 +5,14 @@ import { EndorsementChainLayout } from "./EndorsementChainLayout";
 interface EndorsementChainContainer {
   tokenRegistry: string;
   tokenId: string;
+  setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const EndorsementChainContainer: FunctionComponent<EndorsementChainContainer> = ({ tokenRegistry, tokenId }) => {
+export const EndorsementChainContainer: FunctionComponent<EndorsementChainContainer> = ({
+  tokenRegistry,
+  tokenId,
+  setShowEndorsementChain,
+}) => {
   const endorsementChainProps = useEndorsementChain(tokenRegistry, tokenId);
-  return <EndorsementChainLayout {...endorsementChainProps} />;
+  return <EndorsementChainLayout {...endorsementChainProps} setShowEndorsementChain={setShowEndorsementChain} />;
 };

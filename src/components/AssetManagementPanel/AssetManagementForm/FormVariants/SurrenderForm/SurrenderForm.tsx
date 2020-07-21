@@ -1,37 +1,37 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
-import { EditableAssetTitle } from "./../EditableAssetTitle";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
 import {
   MessageTitle,
   showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
+import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface SurrenderFormProps {
   formAction: AssetManagementActions;
-  tokenId: string;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
   handleSurrender: () => void;
   surrenderingState: string;
   setFormActionNone: () => void;
+  setShowEndorsementChain: (payload: boolean) => void;
 }
 
 export const SurrenderForm = ({
   formAction,
-  tokenId,
   tokenRegistryAddress,
   beneficiary,
   holder,
   handleSurrender,
   surrenderingState,
   setFormActionNone,
+  setShowEndorsementChain,
 }: SurrenderFormProps) => {
   const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = surrenderingState === FormState.CONFIRMED;
@@ -55,7 +55,10 @@ export const SurrenderForm = ({
         />
         <div className="row mb-3">
           <div className="col-12 col-lg">
-            <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
+            <AssetInformationPanel
+              setShowEndorsementChain={setShowEndorsementChain}
+              tokenRegistryAddress={tokenRegistryAddress}
+            />
           </div>
           <div className="col-12 col-lg">
             <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
