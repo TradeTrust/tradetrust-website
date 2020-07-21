@@ -71,6 +71,7 @@ export const MediaCard = styled(MediaCardUnStyled)`
     background-color: rgba(0, 0, 0, 0.1);
     padding: 15px;
     text-align: center;
+    pointer-events: none;
 
     h5 {
       ${mixin.fontSourcesansproRegular};
