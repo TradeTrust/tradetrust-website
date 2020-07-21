@@ -33,7 +33,7 @@ const EndorsementChainUnstyled: FunctionComponent<EndorsementChain> = ({
             <AddressCell
               address={beneficiaryChangeEvent.beneficiary}
               titleEscrowAddress={beneficiaryChangeEvent.titleEscrowAddress}
-              newAddress={previousBeneficiary === beneficiaryChangeEvent.beneficiary}
+              newAddress={!(previousBeneficiary === beneficiaryChangeEvent.beneficiary)}
             />
           </div>
           <div className="table-cell endorsement-ui-dash">
@@ -41,7 +41,7 @@ const EndorsementChainUnstyled: FunctionComponent<EndorsementChain> = ({
             <AddressCell
               address={holderChangeEvent.holder}
               titleEscrowAddress={beneficiaryChangeEvent.titleEscrowAddress}
-              newAddress={previousHolder === holderChangeEvent.holder}
+              newAddress={!(previousHolder === holderChangeEvent.holder)}
             />
           </div>
         </div>
