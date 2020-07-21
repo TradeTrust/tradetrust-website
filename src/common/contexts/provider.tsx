@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { ethers, providers, Signer } from "ethers";
 import { NETWORK_NAME } from "../../config";
 import { MessageTitle } from "./../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
@@ -22,8 +22,7 @@ export const ProviderContextProvider = ({ children }: { children: React.ReactNod
   const [provider, setProvider] = useState<providers.Provider | Signer>(ethers.getDefaultProvider(NETWORK_NAME));
   const [account, setAccount] = useState<string>();
 
-  const upgradeProvider = async () => {
-    if (isUpgraded) return;
+  const initializeSigner = async () => {
     const { ethereum, web3 } = window;
 
     const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
@@ -40,6 +39,19 @@ export const ProviderContextProvider = ({ children }: { children: React.ReactNod
     setIsUpgraded(true);
     setAccount(account);
   };
+
+  const upgradeProvider = async () => {
+    if (isUpgraded) return;
+    return initializeSigner();
+  };
+
+  useEffect(() => {
+    // Do not listen before the provider is upgraded by the app
+    if (!isUpgraded) return;
+    window.ethereum.on("accountsChanged", () => {
+      return initializeSigner();
+    });
+  }, [isUpgraded]);
 
   return (
     <ProviderContext.Provider value={{ isUpgraded, provider, upgradeProvider, account }}>
