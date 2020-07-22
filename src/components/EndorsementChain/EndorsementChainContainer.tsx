@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { useEndorsementChain } from "../../common/hooks/useEndorsementChain";
-import { EndorsementChainLayout } from "./EndorsementChainLayout";
+import { EndorsementChainLayout } from "./EndorsementChainLayout/EndorsementChainLayout";
 
 interface EndorsementChainContainer {
   tokenRegistry: string;

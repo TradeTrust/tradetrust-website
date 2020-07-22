@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
 import { isAddress } from "web3-utils";
-import { useIdentifierResolver } from "../../../common/hooks/useIdentifierResolver";
-import { mixin, vars } from "../../../styles";
-import { SvgIconInfo, TooltipIcon } from "../../UI/SvgIcon";
+import { useIdentifierResolver } from "../../../../../common/hooks/useIdentifierResolver";
+import { mixin, vars } from "../../../../../styles";
+import { SvgIconInfo, TooltipIcon } from "../../../../UI/SvgIcon";
 
 interface AddressCell {
   address: string;
@@ -26,7 +26,7 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
     return (
       <div className={className}>
         <div className="name-row">
-          {newAddress && <div className="dot" />}
+          {newAddress && <div className="dot" data-testid="dot" />}
           {!isAddress(resolvedIdentifier) && resolvedIdentifier && <div className="name">{resolvedIdentifier}</div>}
           <TooltipIcon className="icon" content={tooltipContent} placement="top">
             <SvgIconInfo />

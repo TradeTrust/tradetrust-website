@@ -1,6 +1,6 @@
 import React from "react";
+import { TitleEscrowEvent } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
-import { TitleEscrowEvent } from "../../types";
 
 export default {
   title: "Viewer|EndorsementChainLayout",
@@ -60,13 +60,21 @@ const sampleEndorsementChain: TitleEscrowEvent[] = [
 ];
 
 export const Loading = () => {
-  return <EndorsementChainLayout pending={true} />;
+  return <EndorsementChainLayout pending={true} setShowEndorsementChain={() => {}} />;
 };
 
 export const Success = () => {
-  return <EndorsementChainLayout endorsementChain={sampleEndorsementChain} pending={false} />;
+  return (
+    <EndorsementChainLayout
+      endorsementChain={sampleEndorsementChain}
+      pending={false}
+      setShowEndorsementChain={() => {}}
+    />
+  );
 };
 
 export const Error = () => {
-  return <EndorsementChainLayout error="An unknown error has occurred" pending={false} />;
+  return (
+    <EndorsementChainLayout error="An unknown error has occurred" pending={false} setShowEndorsementChain={() => {}} />
+  );
 };

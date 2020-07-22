@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { TitleEscrowEvent } from "../../types";
+import { TitleEscrowEvent } from "../../../types";
 import { EndorsementChain } from "./EndorsementChain";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
@@ -19,7 +19,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 }) => {
   return (
     <div>
-      {error && <EndorsementChainError error={error} />}
+      {error && <EndorsementChainError error={error} setShowEndorsementChain={setShowEndorsementChain} />}
       {pending && <EndorsementChainLoading />}
       {endorsementChain && (
         <EndorsementChain endorsementChain={endorsementChain} setShowEndorsementChain={setShowEndorsementChain} />
