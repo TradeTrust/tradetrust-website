@@ -23,6 +23,12 @@ export const navItems = [
     target: "_self",
   },
   {
+    id: "training-videos",
+    label: "Training Videos",
+    path: "/training-videos",
+    target: "_self",
+  },
+  {
     id: "about",
     label: "About",
     path: "/#about",

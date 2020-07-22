@@ -11,10 +11,17 @@ import {
 export const WebinarPage = () => (
   <>
     <Helmet>
+      <meta
+        property="description"
+        content="Advance your knowledge with our captivating talks, interactive content and more for free."
+      />
+      <meta
+        property="og:description"
+        content="Advance your knowledge with our captivating talks, interactive content and more for free."
+      />
       <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-      <meta property="og:description" content="Add Tradetrust description" />
       <meta property="og:url" content={`${window.location.origin}/webinar`} />
-      <title>TradeTrust - Webinar</title>
+      <title>TradeTrust - Webinar Registration</title>
     </Helmet>
     <SectionRegister />
     <SectionBy />
