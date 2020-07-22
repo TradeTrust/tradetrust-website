@@ -17,7 +17,7 @@ export const SectionRegisterUnStyled = ({ className }: SectionRegisterProps) => 
               <h1>TradeTrust Tech Webinar Series</h1>
               <h5>Advance your knowledge with our captivating talks, interactive content and more for free</h5>
             </div>
-            <RegisterButton />
+            <RegisterButton>Register Now</RegisterButton>
           </div>
         </div>
       </div>
