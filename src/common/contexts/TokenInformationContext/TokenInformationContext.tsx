@@ -1,6 +1,6 @@
 import { ContractFunctionState, useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
 
@@ -63,20 +63,43 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const { call: getApprovedHolder, value: approvedHolder } = useContractFunctionHook(titleEscrow, "approvedHolder");
 
   // Contract Write Functions (available only after provider has been upgraded)
-  const { send: transferTo, state: transferToState } = useContractFunctionHook(titleEscrow, "transferTo");
-  const { send: changeHolder, state: changeHolderState } = useContractFunctionHook(titleEscrow, "changeHolder");
-  const { send: endorseBeneficiary, state: endorseBeneficiaryState } = useContractFunctionHook(
+  const { send: transferTo, state: transferToState, reset: resetTransferTo } = useContractFunctionHook(
     titleEscrow,
-    "transferToNewEscrow"
+    "transferTo"
   );
-  const { send: approveNewTransferTargets, state: approveNewTransferTargetsState } = useContractFunctionHook(
+  const { send: changeHolder, state: changeHolderState, reset: resetChangeHolder } = useContractFunctionHook(
     titleEscrow,
-    "approveNewTransferTargets"
+    "changeHolder"
   );
-  const { send: transferToNewEscrow, state: transferToNewEscrowState } = useContractFunctionHook(
-    titleEscrow,
-    "transferToNewEscrow"
-  );
+  const {
+    send: endorseBeneficiary,
+    state: endorseBeneficiaryState,
+    reset: resetEndorseBeneficiary,
+  } = useContractFunctionHook(titleEscrow, "transferToNewEscrow");
+  const {
+    send: approveNewTransferTargets,
+    state: approveNewTransferTargetsState,
+    reset: resetApproveNewTransferTargets,
+  } = useContractFunctionHook(titleEscrow, "approveNewTransferTargets");
+  const {
+    send: transferToNewEscrow,
+    state: transferToNewEscrowState,
+    reset: resetTransferToNewEscrow,
+  } = useContractFunctionHook(titleEscrow, "transferToNewEscrow");
+
+  const resetStates = useCallback(() => {
+    resetTransferTo();
+    resetChangeHolder();
+    resetEndorseBeneficiary();
+    resetApproveNewTransferTargets();
+    resetTransferToNewEscrow();
+  }, [
+    resetApproveNewTransferTargets,
+    resetChangeHolder,
+    resetEndorseBeneficiary,
+    resetTransferTo,
+    resetTransferToNewEscrow,
+  ]);
 
   const initialize = (address: string, id: string) => {
     setTokenId(id);
@@ -110,6 +133,9 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   useEffect(() => {
     if (transferToNewEscrowState === "CONFIRMED") updateTitleEscrow();
   }, [transferToNewEscrowState, updateTitleEscrow]);
+
+  // Reset states for all write functions when provider changes to allow methods to be called again without refreshing
+  useEffect(resetStates, [resetStates, provider]);
 
   return (
     <TokenInformationContext.Provider
