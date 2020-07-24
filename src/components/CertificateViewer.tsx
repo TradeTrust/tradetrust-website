@@ -4,7 +4,7 @@ import React, { useCallback, useState } from "react";
 import { Tab } from "react-bootstrap";
 import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
 import { TemplateProps } from "./../types";
-import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagementContainer";
+import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
@@ -67,7 +67,7 @@ export const CertificateViewer = ({
         ) : (
           <>
             {tokenRegistryAddress && (
-              <AssetManagementContainer
+              <AssetManagementApplication
                 tokenId={tokenId}
                 tokenRegistryAddress={tokenRegistryAddress}
                 setShowEndorsementChain={setShowEndorsementChain}

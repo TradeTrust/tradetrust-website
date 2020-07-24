@@ -25,33 +25,27 @@ const sampleEndorsementChain: TitleEscrowEvent[] = [
 ];
 
 describe("EndorsementChain", () => {
-  it("should render correctly", async () => {
-    // Wrapping with act because of side effects from useIdentifierResolver
-    await act(async () => {
-      render(<EndorsementChain endorsementChain={sampleEndorsementChain} setShowEndorsementChain={() => {}} />);
+  it("should render correctly", () => {
+    render(<EndorsementChain endorsementChain={sampleEndorsementChain} setShowEndorsementChain={() => {}} />);
 
-      expect(screen.queryAllByText("0x6FFeD6E6591b808130a9b248fEA32101b5220eca")).toHaveLength(3);
-      expect(screen.queryAllByText("0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e")).toHaveLength(1);
-      expect(screen.queryAllByText("Date")).toHaveLength(1);
-      expect(screen.queryAllByText("Beneficiary")).toHaveLength(1);
-      expect(screen.queryAllByText("Holder")).toHaveLength(1);
-    });
+    expect(screen.queryAllByText("0x6FFeD6E6591b808130a9b248fEA32101b5220eca")).toHaveLength(3);
+    expect(screen.queryAllByText("0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e")).toHaveLength(1);
+    expect(screen.queryAllByText("Date")).toHaveLength(1);
+    expect(screen.queryAllByText("Beneficiary")).toHaveLength(1);
+    expect(screen.queryAllByText("Holder")).toHaveLength(1);
   });
 
   it("should fire setShowEndorsementChain when back button is clicked", async () => {
-    // Wrapping with act because of side effects from useIdentifierResolver
-    await act(async () => {
-      const mockSetShowEndorsementChain = jest.fn();
-      render(
-        <EndorsementChain
-          endorsementChain={sampleEndorsementChain}
-          setShowEndorsementChain={mockSetShowEndorsementChain}
-        />
-      );
-      act(() => {
-        fireEvent.click(screen.getByTestId("back-button"));
-      });
-      expect(mockSetShowEndorsementChain).toHaveBeenCalledTimes(1);
+    const mockSetShowEndorsementChain = jest.fn();
+    render(
+      <EndorsementChain
+        endorsementChain={sampleEndorsementChain}
+        setShowEndorsementChain={mockSetShowEndorsementChain}
+      />
+    );
+    act(() => {
+      fireEvent.click(screen.getByTestId("back-button"));
     });
+    expect(mockSetShowEndorsementChain).toHaveBeenCalledTimes(1);
   });
 });
