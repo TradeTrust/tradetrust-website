@@ -18,12 +18,6 @@ test("Token is verified and rendered correctly", async (t) => {
 
   await DocumentStatus.with({ visibilityCheck: true })();
 
-  const assetInfoLinkElement = await Selector("a").withText("View Endorsement Chain");
-  await t
-    .expect(assetInfoLinkElement.getAttribute("href"))
-    .eql(
-      "https://ropsten.etherscan.io/token/0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2?a=42076119213045156803506746051443966107776518614691501105642894103730326470758"
-    );
   await validateTextContent(t, IssuedByDomainName, ["TRADETRUST.IO"]);
 
   await t.switchToIframe(IframeBlock);
