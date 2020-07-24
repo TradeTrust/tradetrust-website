@@ -3,6 +3,8 @@ import React from "react";
 import { TitleEscrowEvent } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
 
+jest.mock("../../../common/hooks/useIdentifierResolver");
+
 const sampleEndorsementChain: TitleEscrowEvent[] = [
   {
     titleEscrowAddress: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",

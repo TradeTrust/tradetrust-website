@@ -22,7 +22,7 @@ describe("useEndorsementChain|integration", () => {
       )
     );
     await act(async () => {
-      await waitFor(() => expect(result.current.endorsementChain).toBeTruthy(), { timeout: 25000 });
+      await waitFor(() => expect(result.current.endorsementChain).toBeTruthy(), { timeout: 15000 });
     });
     expect(result.current.endorsementChain).toEqual([
       {

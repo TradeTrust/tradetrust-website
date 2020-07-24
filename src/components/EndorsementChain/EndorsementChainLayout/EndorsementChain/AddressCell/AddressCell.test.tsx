@@ -2,6 +2,9 @@ import { render, screen } from "@testing-library/react";
 import React from "react";
 import { AddressCell } from "./AddressCell";
 
+// TODO change the mock to show the different view with resolves identifier and ones without
+jest.mock("../../../../../common/hooks/useIdentifierResolver");
+
 describe("AddressCell", () => {
   it("should render correctly", () => {
     render(

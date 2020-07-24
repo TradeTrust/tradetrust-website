@@ -16,12 +16,19 @@ const readAsText = async (file: File): Promise<string> => {
   });
 };
 
+interface AddressBookCsvData {
+  Identifier?: string;
+  identifier?: string;
+  Address?: string;
+  address?: string;
+}
+
 const csvToAddressBook = (csv: string) => {
-  const { data } = parse(csv, { skipEmptyLines: true, header: true });
+  const { data } = parse<AddressBookCsvData>(csv, { skipEmptyLines: true, header: true });
   const addressBook: AddressBook = {};
   data.forEach((row, index) => {
-    const identifierText: string = row.Identifier || row.identifier;
-    const addressText: string = row.Address || row.address;
+    const identifierText = row.Identifier || row.identifier;
+    const addressText = row.Address || row.address;
     if (!identifierText) throw new Error(`Row ${index} does not have an identifer`);
     if (!addressText) throw new Error(`Row ${index} does not have an address`);
     if (!isAddress(addressText)) throw new Error(`${addressText} in row ${index} is not a valid Ethereum address`);

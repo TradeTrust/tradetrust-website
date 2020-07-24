@@ -12,7 +12,7 @@ interface TooltipIconProps {
   content: React.ReactNode;
   children: React.ReactNode;
   className?: string;
-  placement: "top" | "right" | "bottom" | "left" | undefined;
+  placement?: "top" | "right" | "bottom" | "left";
 }
 
 export const TooltipIcon = ({ content, children, className, placement = "right" }: TooltipIconProps) => {

@@ -18,6 +18,7 @@ export const NotLoggedIn = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account=""
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
@@ -25,7 +26,6 @@ export const NotLoggedIn = () => {
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -56,6 +56,7 @@ export const NoMatch = () => {
     <OverlayContextProvider>
       <Overlay />
       <AssetManagementForm
+        setShowEndorsementChain={console.log}
         account="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         onConnectToWallet={() => alert("Login to Metamask")}
         beneficiary="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
@@ -63,7 +64,6 @@ export const NoMatch = () => {
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         approvedHolder=""
         formAction={assetManagementAction}
-        tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         onSetFormAction={setAssetManagementAction}
         isSurrendered={false}
@@ -93,6 +93,7 @@ export const BeneficiaryAndHolder = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -100,7 +101,6 @@ export const BeneficiaryAndHolder = () => {
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -129,6 +129,7 @@ export const Beneficiary = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -136,7 +137,6 @@ export const Beneficiary = () => {
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -165,6 +165,7 @@ export const Holder = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -172,7 +173,6 @@ export const Holder = () => {
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -201,6 +201,7 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -208,7 +209,6 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       approvedHolder="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -237,6 +237,7 @@ export const SurrenderPending = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -244,7 +245,6 @@ export const SurrenderPending = () => {
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -273,6 +273,7 @@ export const Surrendered = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -280,7 +281,6 @@ export const Surrendered = () => {
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={true}
@@ -309,6 +309,7 @@ export const TransferHolderError = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -316,7 +317,6 @@ export const TransferHolderError = () => {
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -345,6 +345,7 @@ export const TransferHolderPending = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -352,7 +353,6 @@ export const TransferHolderPending = () => {
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -381,6 +381,7 @@ export const EndorseChangeBeneficiaryError = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -388,7 +389,6 @@ export const EndorseChangeBeneficiaryError = () => {
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -417,6 +417,7 @@ export const EndorseChangeBeneficiaryPending = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -424,7 +425,6 @@ export const EndorseChangeBeneficiaryPending = () => {
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -453,6 +453,7 @@ export const NominateBeneficiaryAndHolderError = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -460,7 +461,6 @@ export const NominateBeneficiaryAndHolderError = () => {
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -489,6 +489,7 @@ export const NominateBeneficiaryAndHolderPending = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -496,7 +497,6 @@ export const NominateBeneficiaryAndHolderPending = () => {
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       approvedHolder=""
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -525,6 +525,7 @@ export const EndorseTransferHolderBeneficiary = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -532,7 +533,6 @@ export const EndorseTransferHolderBeneficiary = () => {
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       approvedHolder="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}
@@ -561,6 +561,7 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
 
   return (
     <AssetManagementForm
+      setShowEndorsementChain={console.log}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -568,7 +569,6 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       approvedHolder="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       formAction={assetManagementAction}
-      tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
       isSurrendered={false}

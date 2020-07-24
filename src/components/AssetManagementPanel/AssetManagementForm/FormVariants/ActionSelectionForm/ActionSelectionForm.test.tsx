@@ -3,26 +3,26 @@ import { act, fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { ActionSelectionForm } from "./ActionSelectionForm";
 
+const defaultProps = {
+  setShowEndorsementChain: () => {},
+  onSetFormAction: () => {},
+  tokenRegistryAddress: "0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2",
+  beneficiary: "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C",
+  holder: "0xa61B056dA0084a5f391EC137583073096880C2e3",
+  account: "0xa61B056dA0084a5f391EC137583073096880C2e3",
+  canSurrender: false,
+  onConnectToWallet: () => alert("Login to Metamask"),
+  canChangeHolder: false,
+  canEndorseBeneficiary: false,
+  canNominateBeneficiaryHolder: false,
+  isSurrendered: false,
+  canEndorseTransfer: false,
+};
+
 describe("ActionSelectionForm", () => {
   it("should display the non-editable beneficiary & holder", async () => {
     await act(async () => {
-      const container = render(
-        <ActionSelectionForm
-          onSetFormAction={() => {}}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          canSurrender={false}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          canChangeHolder={true}
-          canEndorseBeneficiary={false}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={false}
-          canEndorseTransfer={false}
-        />
-      );
+      const container = render(<ActionSelectionForm {...defaultProps} />);
       const beneficiaryComponent = container.getByTestId("asset-title-beneficiary");
       const beneficiaryText = container.getByText("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C");
       const holderComponent = container.getByTestId("asset-title-holder");
@@ -40,21 +40,7 @@ describe("ActionSelectionForm", () => {
       const mockOnConnectToWallet = jest.fn();
 
       const container = render(
-        <ActionSelectionForm
-          onSetFormAction={() => {}}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account=""
-          canSurrender={false}
-          onConnectToWallet={mockOnConnectToWallet}
-          canChangeHolder={false}
-          canEndorseBeneficiary={false}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={false}
-          canEndorseTransfer={false}
-        />
+        <ActionSelectionForm {...defaultProps} account="" onConnectToWallet={mockOnConnectToWallet} />
       );
 
       fireEvent.click(container.getByTestId("connectToWallet"));
@@ -64,23 +50,7 @@ describe("ActionSelectionForm", () => {
 
   it("should display the Manage Assets dropdown if user is logged in", async () => {
     await act(async () => {
-      const container = render(
-        <ActionSelectionForm
-          onSetFormAction={() => {}}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          canSurrender={true}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          canChangeHolder={true}
-          canEndorseBeneficiary={false}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={false}
-          canEndorseTransfer={false}
-        />
-      );
+      const container = render(<ActionSelectionForm {...defaultProps} canChangeHolder={true} />);
 
       const manageAssetsDropdown = container.getByTestId("manageAssetDropdown");
       expect(manageAssetsDropdown).not.toBeNull();
@@ -89,23 +59,7 @@ describe("ActionSelectionForm", () => {
 
   it("should allow the selection of Surrender if user can surrender", async () => {
     await act(async () => {
-      const container = render(
-        <ActionSelectionForm
-          onSetFormAction={() => {}}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          canSurrender={true}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          canChangeHolder={true}
-          canEndorseBeneficiary={false}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={false}
-          canEndorseTransfer={false}
-        />
-      );
+      const container = render(<ActionSelectionForm {...defaultProps} canSurrender={true} />);
 
       await act(async () => {
         fireEvent.click(container.getByTestId("manageAssetDropdown"));
@@ -117,23 +71,7 @@ describe("ActionSelectionForm", () => {
 
   it("should not display the selection of Surrender if user cannot surrender", async () => {
     await act(async () => {
-      const container = render(
-        <ActionSelectionForm
-          onSetFormAction={() => {}}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          canSurrender={true}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          canChangeHolder={true}
-          canEndorseBeneficiary={false}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={false}
-          canEndorseTransfer={false}
-        />
-      );
+      const container = render(<ActionSelectionForm {...defaultProps} canSurrender={false} />);
 
       expect(container.queryByTestId("SurrenderDropdown")).toBeNull();
     });
@@ -141,23 +79,7 @@ describe("ActionSelectionForm", () => {
 
   it("should display the Surrender tag if document is surrendered", async () => {
     await act(async () => {
-      const container = render(
-        <ActionSelectionForm
-          onSetFormAction={() => {}}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          canSurrender={true}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          canChangeHolder={true}
-          canEndorseBeneficiary={false}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={true}
-          canEndorseTransfer={true}
-        />
-      );
+      const container = render(<ActionSelectionForm {...defaultProps} isSurrendered={true} />);
 
       expect(container.queryByText("Surrendered")).not.toBeNull();
     });
@@ -168,21 +90,7 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm
-          onSetFormAction={mockOnSetFormAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          canSurrender={true}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          canChangeHolder={true}
-          canEndorseBeneficiary={false}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={false}
-          canEndorseTransfer={false}
-        />
+        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canChangeHolder={true} />
       );
 
       await act(async () => {
@@ -202,21 +110,7 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm
-          onSetFormAction={mockOnSetFormAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          canSurrender={true}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          canChangeHolder={true}
-          canEndorseBeneficiary={true}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={false}
-          canEndorseTransfer={false}
-        />
+        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canEndorseBeneficiary={true} />
       );
 
       await act(async () => {
@@ -236,21 +130,7 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm
-          onSetFormAction={mockOnSetFormAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          canSurrender={true}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          canChangeHolder={true}
-          canEndorseBeneficiary={true}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={false}
-          canEndorseTransfer={true}
-        />
+        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canEndorseTransfer={true} />
       );
 
       await act(async () => {
@@ -267,21 +147,7 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm
-          onSetFormAction={mockOnSetFormAction}
-          tokenId="0x5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          canSurrender={true}
-          onConnectToWallet={() => alert("Login to Metamask")}
-          canChangeHolder={true}
-          canEndorseBeneficiary={true}
-          canNominateBeneficiaryHolder={false}
-          isSurrendered={false}
-          canEndorseTransfer={true}
-        />
+        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canEndorseTransfer={true} />
       );
 
       await act(async () => {
