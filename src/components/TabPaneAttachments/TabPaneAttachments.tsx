@@ -17,7 +17,7 @@ export const TabPaneAttachments = ({ attachments }: TabPaneAttachmentsProps) => 
         <div className="row">
           {attachments.map(({ filename, data, type }) => (
             <div className="col-6 col-lg-4 col-xl-3 mb-3" key={data}>
-              <AttachmentLink filename={filename} data={data} type={type} />
+              <AttachmentLink className="h-100" filename={filename} data={data} type={type} />
             </div>
           ))}
         </div>
