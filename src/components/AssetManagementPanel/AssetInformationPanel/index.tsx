@@ -18,7 +18,11 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = s
           <div>
             <ExternalLinkEtherscanAddress name="View BL Registry" address={tokenRegistryAddress} />
           </div>
-          <div onClick={() => setShowEndorsementChain(true)} className="endorsement-chain-button" id="endorsement-chain-button">
+          <div
+            onClick={() => setShowEndorsementChain(true)}
+            className="endorsement-chain-button"
+            id="endorsement-chain-button"
+          >
             View Endorsement Chain
           </div>
         </AddressInfo>
