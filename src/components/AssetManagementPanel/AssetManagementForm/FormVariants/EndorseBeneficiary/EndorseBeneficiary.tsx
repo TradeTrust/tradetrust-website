@@ -88,6 +88,7 @@ export const EndorseBeneficiaryForm = ({
             <EditableAssetTitle
               role="Holder"
               value={holder}
+              newValue={newHolder}
               isEditable={isEditable}
               onSetNewValue={setNewHolder}
               error={beneficiaryEndorseState === FormState.ERROR}

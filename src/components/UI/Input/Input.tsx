@@ -53,6 +53,7 @@ export const InputEditableAssetTitle = styled.input`
   ${mixin.baseStyleInput()};
   margin-bottom: 0;
   width: 100%;
+  min-height: 40px;
   ${({ hasError }: EditableAssetTitleProps) => hasError && `border: 1px solid ${vars.red}`};
 `;
 
