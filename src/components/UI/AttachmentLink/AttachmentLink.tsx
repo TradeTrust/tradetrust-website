@@ -7,13 +7,19 @@ import { SvgIcon, SvgIconPaperClip } from "./../../UI/SvgIcon";
 export interface AttachmentLinkProps {
   className?: string;
   filename: string;
-  data: string;
-  type: string;
+  data?: string;
+  type?: string;
+  path?: string;
 }
 
-export const AttachmentLinkUnStyled = ({ className, filename, data, type }: AttachmentLinkProps) => {
-  const decodedData = atob(data);
-  const filesize = prettyBytes(decodedData.length);
+export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }: AttachmentLinkProps) => {
+  let filesize = "0";
+  const hasBase64 = !!(data && type);
+
+  if (data) {
+    const decodedData = atob(data);
+    filesize = prettyBytes(decodedData.length);
+  }
 
   return (
     <div className={className} data-testid="attachment-link">
@@ -28,11 +34,18 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type }: Atta
         <div className="col-12 col-md">
           <p className="filetext">
             <span className="filename">{filename}</span>
-            <span className="filesize">({filesize})</span>
+            {hasBase64 && <span className="filesize">({filesize})</span>}
           </p>
-          <a href={`data:${type};base64,${data}`} download={`${filename}`}>
-            Download
-          </a>
+          {hasBase64 && (
+            <a href={`data:${type};base64,${data}`} download={`${filename}`}>
+              Download
+            </a>
+          )}
+          {path && (
+            <a href={path} download={`${filename}`}>
+              Download
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -41,7 +54,6 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type }: Atta
 
 export const AttachmentLink = styled(AttachmentLinkUnStyled)`
   width: 100%;
-  height: 100%;
   border: solid 1px ${vars.greyLighter};
   padding: 10px 15px;
 
@@ -71,6 +83,7 @@ export const AttachmentLink = styled(AttachmentLinkUnStyled)`
   }
 
   .filesize {
+    display: inline-block;
     ${mixin.fontSourcesansproRegular};
     color: ${vars.grey};
     ${mixin.fontSize(13)};

@@ -22,3 +22,12 @@ export const PDF = () => {
 export const Image = () => {
   return <AttachmentLink filename="mojave-day.jpg" data={dataImage} type="image/jpeg" />;
 };
+
+export const DirectAssetPath = () => {
+  return (
+    <AttachmentLink
+      filename="TradeTrust Tech Webinar 2.pdf"
+      path="/static/images/webinar/tradetrust-tech-webinar-2.pdf"
+    />
+  );
+};
