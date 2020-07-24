@@ -86,7 +86,7 @@ export const SectionDetailsUnStyled = ({ className }: SectionDetailsProps) => {
         </div>
         <div className="row">
           <div className="col-auto mx-auto">
-            <RegisterButton />
+            <RegisterButton>Register Now</RegisterButton>
           </div>
         </div>
       </div>
