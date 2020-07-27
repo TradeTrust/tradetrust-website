@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
-import { useIdentifierResolver } from "../../../../../common/hooks/useIdentifierResolver";
-import { mixin, vars } from "../../../../../styles";
-import { SvgIconInfo, TooltipIcon } from "../../../../UI/SvgIcon";
+import { useIdentifierResolver } from "../../../../common/hooks/useIdentifierResolver";
+import { mixin, vars } from "../../../../styles";
+import { SvgIconInfo, TooltipIcon } from "../../../UI/SvgIcon";
 
 interface AddressCell {
   address: string;

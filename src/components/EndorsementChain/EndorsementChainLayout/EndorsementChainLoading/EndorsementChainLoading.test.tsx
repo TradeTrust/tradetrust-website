@@ -6,6 +6,6 @@ describe("EndorsementChainLoading", () => {
   it("should render correctly", () => {
     render(<EndorsementChainLoading />);
 
-    expect(screen.getAllByText("Please wait, loading endorsement chain.")).toHaveLength(1);
+    expect(screen.getAllByRole("loaderSkeleton")).toHaveLength(9);
   });
 });

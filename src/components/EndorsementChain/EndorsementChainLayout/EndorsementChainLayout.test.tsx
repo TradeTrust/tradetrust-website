@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { TitleEscrowEvent } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
@@ -29,10 +29,12 @@ describe("EndorsementChainLayout", () => {
     render(<EndorsementChainLayout error={"Some Error"} pending={false} setShowEndorsementChain={() => {}} />);
     expect(screen.getAllByText("Some Error")).toHaveLength(1);
   });
+
   it("should render the loading component when pending is true", () => {
     render(<EndorsementChainLayout error={""} pending={true} setShowEndorsementChain={() => {}} />);
-    expect(screen.getAllByText("Please wait, loading endorsement chain.")).toHaveLength(1);
+    expect(screen.getAllByRole("loaderSkeleton")).toHaveLength(9);
   });
+
   it("should render the EndorsementChain component if everything is good", () => {
     render(
       <EndorsementChainLayout
@@ -45,5 +47,21 @@ describe("EndorsementChainLayout", () => {
     expect(screen.getAllByText("Date")).toHaveLength(1);
     expect(screen.getAllByText("Beneficiary")).toHaveLength(1);
     expect(screen.getAllByText("Holder")).toHaveLength(1);
+  });
+
+  it("should fire setShowEndorsementChain when back button is clicked", async () => {
+    const mockSetShowEndorsementChain = jest.fn();
+    render(
+      <EndorsementChainLayout
+        endorsementChain={sampleEndorsementChain}
+        setShowEndorsementChain={mockSetShowEndorsementChain}
+        error={""}
+        pending={false}
+      />
+    );
+    act(() => {
+      fireEvent.click(screen.getByTestId("back-button"));
+    });
+    expect(mockSetShowEndorsementChain).toHaveBeenCalledTimes(1);
   });
 });

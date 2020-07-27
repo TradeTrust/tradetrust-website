@@ -1,9 +1,9 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
+import React from "react";
+import { useIdentifierResolver } from "../../../../common/hooks/useIdentifierResolver";
 import { AddressCell } from "./AddressCell";
-import { useIdentifierResolver } from "../../../../../common/hooks/useIdentifierResolver";
 
-jest.mock("../../../../../common/hooks/useIdentifierResolver", () => ({
+jest.mock("../../../../common/hooks/useIdentifierResolver", () => ({
   useIdentifierResolver: jest.fn(),
 }));
 
