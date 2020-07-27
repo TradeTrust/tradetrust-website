@@ -46,7 +46,7 @@ export const TrainingVideosPage = () => (
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
-          <MediaCard title="Creation of Verifiable Documents" placeholderText="Coming soon after 22 Jul 2020">
+          <MediaCard title="Creation of Verifiable Documents" youtubeEmbedCode="Nta_n_G-YqI">
             <p>
               This Webinar focuses on the creation of verifiable documents. These are documents that do not have the
               functionality of transferring title.
