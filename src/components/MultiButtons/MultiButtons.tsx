@@ -13,7 +13,7 @@ interface MultiButtonsProps {
 export const MultiButtonsUnStyled = ({ className, tokenRegistryAddress }: MultiButtonsProps) => {
   const { showOverlay } = useContext(OverlayContext);
   const onOverlayHandler = () => {
-    showOverlay(<AddressBook title="Address Book" data-testid="overlay-addressbook" />);
+    showOverlay(<AddressBook title="Address Book" />);
   };
 
   return (

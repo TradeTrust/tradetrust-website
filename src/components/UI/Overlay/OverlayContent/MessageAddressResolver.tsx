@@ -3,5 +3,5 @@ import { useIdentifierResolver } from "../../../../common/hooks/useIdentifierRes
 
 export const MessageAddressResolver = ({ address }: { address: string }) => {
   const { resolvedIdentifier } = useIdentifierResolver(address);
-  return <p>{resolvedIdentifier}</p>;
+  return <p>{resolvedIdentifier || address}</p>;
 };

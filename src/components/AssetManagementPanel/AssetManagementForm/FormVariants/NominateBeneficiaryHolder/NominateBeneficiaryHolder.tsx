@@ -89,6 +89,7 @@ export const NominateBeneficiaryHolderForm = ({
             <EditableAssetTitle
               role="Holder"
               value={holder}
+              newValue={newHolder}
               isEditable={isEditable}
               onSetNewValue={setNewHolder}
               error={nominationState === FormState.ERROR}

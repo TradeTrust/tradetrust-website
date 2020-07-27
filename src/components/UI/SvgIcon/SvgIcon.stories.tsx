@@ -23,6 +23,7 @@ import {
   SvgIconPaperClip,
   SvgIconFlag,
   SvgIconQRCode,
+  SvgIconExternalLink,
 } from "./SvgIcon";
 
 export default {
@@ -196,6 +197,14 @@ export const Flag = () => {
   return (
     <SvgIcon>
       <SvgIconFlag />
+    </SvgIcon>
+  );
+};
+
+export const ExternalLink = () => {
+  return (
+    <SvgIcon>
+      <SvgIconExternalLink />
     </SvgIcon>
   );
 };
