@@ -54,66 +54,63 @@ export const CertificateViewer = ({
     setSelectedTemplate(templatesModified[0].id);
   }, []);
 
-  const validCertificateContent = (
+  const renderedEndorsementChain = (
+    <div className="bg-blue-lighter no-print">
+      <DocumentStatus verificationStatus={verificationStatus} />
+      <EndorsementChainContainer
+        tokenId={tokenId}
+        tokenRegistry={tokenRegistryAddress}
+        setShowEndorsementChain={setShowEndorsementChain}
+      />
+    </div>
+  );
+
+  const renderedCertificateViewer = (
     <>
       <div className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={verificationStatus} />
-        {showEndorsementChain ? (
-          <EndorsementChainContainer
+        {tokenRegistryAddress && (
+          <AssetManagementApplication
             tokenId={tokenId}
-            tokenRegistry={tokenRegistryAddress}
+            tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
           />
-        ) : (
-          <>
-            {tokenRegistryAddress && (
-              <AssetManagementApplication
-                tokenId={tokenId}
-                tokenRegistryAddress={tokenRegistryAddress}
-                setShowEndorsementChain={setShowEndorsementChain}
-              />
-            )}
-            <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />
-          </>
         )}
+        <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />
       </div>
-      {!showEndorsementChain && (
-        <>
-          <Tab.Container defaultActiveKey="tab-document">
-            <div className="bg-blue-lighter no-print">
-              <MultiTabs
-                hasAttachments={hasAttachments}
-                attachments={attachments}
-                templates={templates}
-                setSelectedTemplate={setSelectedTemplate}
+      <Tab.Container defaultActiveKey="tab-document">
+        <div className="bg-blue-lighter no-print">
+          <MultiTabs
+            hasAttachments={hasAttachments}
+            attachments={attachments}
+            templates={templates}
+            setSelectedTemplate={setSelectedTemplate}
+            selectedTemplate={selectedTemplate}
+          />
+        </div>
+        <div className="bg-white">
+          <Tab.Content className="py-4">
+            <Tab.Pane eventKey="tab-document">
+              <DocumentUtility className="no-print" document={document} handleSharingToggle={handleSharingToggle} />
+              <DecentralisedRendererContainer
+                rawDocument={document}
+                updateTemplates={updateTemplates}
                 selectedTemplate={selectedTemplate}
               />
-            </div>
-            <div className="bg-white">
-              <Tab.Content className="py-4">
-                <Tab.Pane eventKey="tab-document">
-                  <DocumentUtility className="no-print" document={document} handleSharingToggle={handleSharingToggle} />
-                  <DecentralisedRendererContainer
-                    rawDocument={document}
-                    updateTemplates={updateTemplates}
-                    selectedTemplate={selectedTemplate}
-                  />
-                </Tab.Pane>
-                {hasAttachments && <TabPaneAttachments attachments={attachments} />}
-              </Tab.Content>
-            </div>
-          </Tab.Container>
-          <ModalDialog show={showSharing} toggle={handleSharingToggle}>
-            <CertificateSharingForm
-              emailSendingState={emailSendingState}
-              handleSendCertificate={handleSendCertificate}
-              handleSharingToggle={handleSharingToggle}
-            />
-          </ModalDialog>
-        </>
-      )}
+            </Tab.Pane>
+            {hasAttachments && <TabPaneAttachments attachments={attachments} />}
+          </Tab.Content>
+        </div>
+      </Tab.Container>
+      <ModalDialog show={showSharing} toggle={handleSharingToggle}>
+        <CertificateSharingForm
+          emailSendingState={emailSendingState}
+          handleSendCertificate={handleSendCertificate}
+          handleSharingToggle={handleSharingToggle}
+        />
+      </ModalDialog>
     </>
   );
 
-  return <ErrorBoundary>{validCertificateContent}</ErrorBoundary>;
+  return <ErrorBoundary>{showEndorsementChain ? renderedEndorsementChain : renderedCertificateViewer}</ErrorBoundary>;
 };
