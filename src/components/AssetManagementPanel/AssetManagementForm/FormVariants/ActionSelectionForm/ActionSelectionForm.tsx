@@ -13,7 +13,6 @@ import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
-  tokenId: string;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
@@ -25,11 +24,11 @@ interface ActionSelectionFormProps {
   isSurrendered: boolean;
   canNominateBeneficiaryHolder: boolean;
   canEndorseTransfer: boolean;
+  setShowEndorsementChain: (payload: boolean) => void;
 }
 
 export const ActionSelectionForm = ({
   onSetFormAction,
-  tokenId,
   tokenRegistryAddress,
   beneficiary,
   holder,
@@ -41,6 +40,7 @@ export const ActionSelectionForm = ({
   isSurrendered,
   canNominateBeneficiaryHolder,
   canEndorseTransfer,
+  setShowEndorsementChain,
 }: ActionSelectionFormProps) => {
   const canManage =
     canSurrender || canChangeHolder || canEndorseBeneficiary || canNominateBeneficiaryHolder || canEndorseTransfer;
@@ -74,7 +74,10 @@ export const ActionSelectionForm = ({
       <div className="col-12">
         <div className="row mb-3">
           <div className="col-12 col-lg">
-            <AssetInformationPanel tokenId={tokenId} tokenRegistryAddress={tokenRegistryAddress} />
+            <AssetInformationPanel
+              tokenRegistryAddress={tokenRegistryAddress}
+              setShowEndorsementChain={setShowEndorsementChain}
+            />
           </div>
           {isSurrendered ? (
             <div className="col-12 col-lg-auto align-self-end">

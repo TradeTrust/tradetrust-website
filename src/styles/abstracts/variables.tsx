@@ -5,6 +5,7 @@ export const brandNavy = "#324353";
 export const blueLightest = "#f5f8fb";
 export const blueLighter = "#f3f8fc";
 export const blueLight = "#a6c1ee";
+export const blueDark = "#001F29";
 export const blue = "#099de3";
 export const greyblue = "#c1c9d1";
 export const greyblueDark = "#a7afb7";

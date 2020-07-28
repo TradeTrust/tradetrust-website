@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import _uniqueId from "lodash/uniqueId";
+import React, { useState } from "react";
 import ReactTooltip from "react-tooltip";
 
 interface SvgIconProps extends React.SVGProps<SVGSVGElement> {
@@ -11,17 +11,21 @@ interface SvgIconProps extends React.SVGProps<SVGSVGElement> {
 interface TooltipIconProps {
   content: React.ReactNode;
   children: React.ReactNode;
+  className?: string;
+  placement?: "top" | "right" | "bottom" | "left";
 }
 
-export const TooltipIcon = ({ content, children }: TooltipIconProps) => {
+export const TooltipIcon = ({ content, children, className, placement = "right" }: TooltipIconProps) => {
   const [id] = useState(_uniqueId("tt-"));
 
   return (
     <>
-      <SvgIcon tooltipId={id}>{children}</SvgIcon>
+      <SvgIcon tooltipId={id} className={className}>
+        {children}
+      </SvgIcon>
       <ReactTooltip
         id={`tooltip-${id}`}
-        place="right"
+        place={placement}
         type="dark"
         effect="solid"
         getContent={() => {
@@ -186,6 +190,16 @@ export const SvgIconSave = () => {
       <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
       <polyline points="17 21 17 13 7 13 7 21" />
       <polyline points="7 3 7 8 15 8" />
+    </g>
+  );
+};
+
+export const SvgIconAlert = () => {
+  return (
+    <g className="alert">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+      <polyline points="12 9 12 13" />
+      <polyline points="12 17 12.01 17" />
     </g>
   );
 };

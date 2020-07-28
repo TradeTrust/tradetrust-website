@@ -7,9 +7,14 @@ import { AssetManagementTags } from "./../AssetManagementTags";
 interface AssetManagementApplicationProps {
   tokenId: string;
   tokenRegistryAddress: string;
+  setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: AssetManagementApplicationProps) => {
+export const AssetManagementApplication = ({
+  tokenId,
+  tokenRegistryAddress,
+  setShowEndorsementChain,
+}: AssetManagementApplicationProps) => {
   const {
     initialize,
     approvedHolder,
@@ -55,7 +60,6 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           holder={holder}
           approvedHolder={approvedHolder}
           formAction={assetManagementAction}
-          tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           onSetFormAction={onSetFormAction}
           surrenderingState={transferToState}
@@ -69,6 +73,7 @@ export const AssetManagementApplication = ({ tokenId, tokenRegistryAddress }: As
           approveNewTransferTargetsState={approveNewTransferTargetsState}
           onTransferToNewEscrow={transferToNewEscrow}
           transferToNewEscrowState={transferToNewEscrowState}
+          setShowEndorsementChain={setShowEndorsementChain}
         />
       </div>
     </div>

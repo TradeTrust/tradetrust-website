@@ -1,20 +1,20 @@
-import React, { useCallback, useState } from "react";
-import { WrappedDocument } from "@govtechsg/open-attestation";
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { ErrorBoundary } from "./ErrorBoundary";
-import { ModalDialog } from "./ModalDialog";
+import { getData, WrappedDocument } from "@govtechsg/open-attestation";
+import React, { useCallback, useState } from "react";
+import { Tab } from "react-bootstrap";
+import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
+import { TemplateProps } from "./../types";
+import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
-import { getTokenRegistryAddress } from "../common/utils/document";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
-import { MultiButtons } from "./MultiButtons";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
-import { AssetManagementContainer } from "./AssetManagementPanel/AssetManagementContainer";
-import { getData } from "@govtechsg/open-attestation";
-import { Tab } from "react-bootstrap";
+import { EndorsementChainContainer } from "./EndorsementChain/EndorsementChainContainer";
+import { ErrorBoundary } from "./ErrorBoundary";
+import { ModalDialog } from "./ModalDialog";
+import { MultiButtons } from "./MultiButtons";
 import { TabPaneAttachments } from "./TabPaneAttachments";
-import { TemplateProps } from "./../types";
 
 interface CertificateViewerProps {
   document: WrappedDocument;
@@ -34,9 +34,11 @@ export const CertificateViewer = ({
   emailSendingState,
   handleSendCertificate,
 }: CertificateViewerProps) => {
+  const tokenId = getDocumentId(document);
   const tokenRegistryAddress = getTokenRegistryAddress(document);
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
+  const [showEndorsementChain, setShowEndorsementChain] = useState(false);
   const originalData = getData(document);
   const attachments = originalData?.attachments;
   const hasAttachments = attachments && attachments.length > 0;
@@ -52,11 +54,28 @@ export const CertificateViewer = ({
     setSelectedTemplate(templatesModified[0].id);
   }, []);
 
-  const validCertificateContent = (
+  const renderedEndorsementChain = (
+    <div className="bg-blue-lighter no-print">
+      <DocumentStatus verificationStatus={verificationStatus} />
+      <EndorsementChainContainer
+        tokenId={tokenId}
+        tokenRegistry={tokenRegistryAddress}
+        setShowEndorsementChain={setShowEndorsementChain}
+      />
+    </div>
+  );
+
+  const renderedCertificateViewer = (
     <>
       <div className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={verificationStatus} />
-        {tokenRegistryAddress && <AssetManagementContainer document={document} />}
+        {tokenRegistryAddress && (
+          <AssetManagementApplication
+            tokenId={tokenId}
+            tokenRegistryAddress={tokenRegistryAddress}
+            setShowEndorsementChain={setShowEndorsementChain}
+          />
+        )}
         <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />
       </div>
       <Tab.Container defaultActiveKey="tab-document">
@@ -93,5 +112,5 @@ export const CertificateViewer = ({
     </>
   );
 
-  return <ErrorBoundary>{validCertificateContent}</ErrorBoundary>;
+  return <ErrorBoundary>{showEndorsementChain ? renderedEndorsementChain : renderedCertificateViewer}</ErrorBoundary>;
 };

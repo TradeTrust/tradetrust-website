@@ -1,29 +1,30 @@
 import React from "react";
 import {
   SvgIcon,
-  SvgIconInfo,
+  SvgIconAlert,
+  SvgIconArrowLeft,
+  SvgIconBook,
+  SvgIconCheckCircle,
   SvgIconChecked,
   SvgIconChervonLeft,
-  SvgIconEdit,
-  SvgIconBook,
-  SvgIconX,
-  TooltipIcon,
-  SvgIconFilePlus,
-  SvgIconSearch,
-  SvgIconCheckCircle,
-  SvgIconXCircle,
-  SvgIconPrinter,
-  SvgIconEmail,
   SvgIconDownload,
-  SvgIconArrowLeft,
-  SvgIconPlus,
+  SvgIconEdit,
   SvgIconEdit2,
-  SvgIconSave,
-  SvgIconTrash2,
-  SvgIconPaperClip,
-  SvgIconFlag,
-  SvgIconQRCode,
+  SvgIconEmail,
   SvgIconExternalLink,
+  SvgIconFilePlus,
+  SvgIconFlag,
+  SvgIconInfo,
+  SvgIconPaperClip,
+  SvgIconPlus,
+  SvgIconPrinter,
+  SvgIconQRCode,
+  SvgIconSave,
+  SvgIconSearch,
+  SvgIconTrash2,
+  SvgIconX,
+  SvgIconXCircle,
+  TooltipIcon,
 } from "./SvgIcon";
 
 export default {
@@ -78,6 +79,14 @@ export const X = () => {
   return (
     <SvgIcon>
       <SvgIconX />
+    </SvgIcon>
+  );
+};
+
+export const Alert = () => {
+  return (
+    <SvgIcon>
+      <SvgIconAlert />
     </SvgIcon>
   );
 };

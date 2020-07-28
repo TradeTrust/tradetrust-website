@@ -13,7 +13,6 @@ interface AssetManagementFormProps {
   holder?: string;
   approvedBeneficiary?: string;
   approvedHolder?: string;
-  tokenId: string;
   tokenRegistryAddress: string;
   account?: string;
   formAction: AssetManagementActions;
@@ -30,12 +29,12 @@ interface AssetManagementFormProps {
   isSurrendered: boolean;
   approveNewTransferTargetsState: string;
   transferToNewEscrowState: string;
+  setShowEndorsementChain: (payload: boolean) => void;
 }
 
 export const AssetManagementForm = ({
   account,
   formAction,
-  tokenId,
   tokenRegistryAddress,
   onConnectToWallet,
   beneficiary,
@@ -54,6 +53,7 @@ export const AssetManagementForm = ({
   approveNewTransferTargetsState,
   onTransferToNewEscrow,
   transferToNewEscrowState,
+  setShowEndorsementChain,
 }: AssetManagementFormProps) => {
   const isHolder = account === holder;
   const isBeneficiary = account === beneficiary;
@@ -84,13 +84,13 @@ export const AssetManagementForm = ({
       return (
         <SurrenderForm
           formAction={formAction}
-          tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
           handleSurrender={onSurrender}
           surrenderingState={surrenderingState}
           setFormActionNone={setFormActionNone}
+          setShowEndorsementChain={setShowEndorsementChain}
         />
       );
 
@@ -98,13 +98,13 @@ export const AssetManagementForm = ({
       return (
         <NominateBeneficiaryHolderForm
           formAction={formAction}
-          tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
           handleNomination={onApproveNewTransferTargets}
           nominationState={approveNewTransferTargetsState}
           setFormActionNone={setFormActionNone}
+          setShowEndorsementChain={setShowEndorsementChain}
         />
       );
 
@@ -112,13 +112,13 @@ export const AssetManagementForm = ({
       return (
         <EndorseBeneficiaryForm
           formAction={formAction}
-          tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
           handleTransfer={onEndorseBeneficiary}
           beneficiaryEndorseState={beneficiaryEndorseState}
           setFormActionNone={setFormActionNone}
+          setShowEndorsementChain={setShowEndorsementChain}
         />
       );
 
@@ -126,13 +126,13 @@ export const AssetManagementForm = ({
       return (
         <TransferHolderForm
           formAction={formAction}
-          tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
           handleTransfer={onTransferHolder}
           holderTransferringState={holderTransferringState}
           setFormActionNone={setFormActionNone}
+          setShowEndorsementChain={setShowEndorsementChain}
         />
       );
 
@@ -140,13 +140,13 @@ export const AssetManagementForm = ({
       return (
         <EndorseTransferForm
           formAction={formAction}
-          tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           approvedBeneficiary={approvedBeneficiary}
           approvedHolder={approvedHolder}
           handleEndorseTransfer={onTransferToNewEscrow}
           transferToNewEscrowState={transferToNewEscrowState}
           setFormActionNone={setFormActionNone}
+          setShowEndorsementChain={setShowEndorsementChain}
         />
       );
 
@@ -154,7 +154,6 @@ export const AssetManagementForm = ({
       return (
         <ActionSelectionForm
           onSetFormAction={onSetFormAction}
-          tokenId={tokenId}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
@@ -166,6 +165,7 @@ export const AssetManagementForm = ({
           isSurrendered={isSurrendered}
           canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
           canEndorseTransfer={canEndorseTransfer}
+          setShowEndorsementChain={setShowEndorsementChain}
         />
       );
   }
