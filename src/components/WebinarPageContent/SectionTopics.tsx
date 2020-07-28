@@ -217,11 +217,11 @@ export const SectionTopics = styled(SectionTopicsUnStyled)`
 
     thead {
       th {
-        &:nth-child(1) {
+        &:nth-of-type(1) {
           text-transform: uppercase;
         }
 
-        &:not(:nth-child(1)) {
+        &:not(:nth-of-type(1)) {
           text-align: center;
         }
       }
