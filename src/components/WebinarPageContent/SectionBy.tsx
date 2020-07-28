@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { vars } from "../../styles";
+import { mixin, vars } from "../../styles";
 
 interface SectionByProps {
   className?: string;
@@ -12,14 +12,16 @@ export const SectionByUnStyled = ({ className }: SectionByProps) => {
       <div className="container">
         <div className="row mb-5">
           <div className="col-12 col-lg-9 mx-lg-auto">
-            <p>
-              Reserve your slot(s) by simply clicking on the &lsquo;Register Now&lsquo; button and select the session(s)
-              you wish to attend. The webinar links and details will be sent to registered participants closer to the
-              webinar date. You may reserve all six sessions in one registration or choose to register individually.
-            </p>
-            <p>
-              For enquiries, email us at <a href="mailto:tradetrust@imda.gov.sg">tradetrust@imda.gov.sg</a>
-            </p>
+            <h5 className="mb-4">
+              Advance your knowledge with our captivating talks, interactive content and more for free!
+            </h5>
+            <div className="box">
+              <p className="mb-0">
+                This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA)
+                and GovTech Singapore. It comprises of six webinars and aims to provide professionals with knowledge on
+                TradeTrust as a digital utility for cross border trade.
+              </p>
+            </div>
           </div>
         </div>
         <div className="row text-center">
@@ -41,6 +43,16 @@ export const SectionByUnStyled = ({ className }: SectionByProps) => {
 };
 
 export const SectionBy = styled(SectionByUnStyled)`
-  padding: 45px 0;
+  padding: 60px 0;
   background-color: ${vars.greyLightest};
+
+  h5 {
+    ${mixin.fontSourcesansproSemibold};
+    color: ${vars.blue};
+  }
+
+  .box {
+    padding: 15px 20px;
+    background-color: #d0ecf6;
+  }
 `;

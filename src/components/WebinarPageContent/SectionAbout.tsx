@@ -10,11 +10,8 @@ export const SectionAboutUnStyled = ({ className }: SectionAboutProps) => {
   return (
     <section className={`${className}`}>
       <div className="container">
-        <div className="row mb-5">
-          <div className="col-12 col-lg-7">
-            <img className="img-fluid w-100" src="/static/images/webinar/about.svg" alt="" />
-          </div>
-          <div className="col-12 col-lg-5">
+        <div className="row">
+          <div className="col-12 col-lg-5 order-lg-2">
             <h2>About TradeTrust</h2>
             <p>
               TradeTrust comprises a set of globally-accepted trade process standards and frameworks, that connects
@@ -23,10 +20,8 @@ export const SectionAboutUnStyled = ({ className }: SectionAboutProps) => {
               digital platforms.
             </p>
           </div>
-        </div>
-        <div className="row text-center">
-          <div className="col-12">
-            <p className="mb-0">All sessions will be recorded for publicity.</p>
+          <div className="col-12 col-lg-7 order-lg-1">
+            <img className="img-fluid w-100" src="/static/images/webinar/about.svg" alt="" />
           </div>
         </div>
       </div>

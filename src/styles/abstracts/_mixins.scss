@@ -51,6 +51,11 @@
   font-weight: 400;
 }
 
+@mixin font-sourcesanspro-semibold {
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+}
+
 @mixin font-sourcesanspro-bold {
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-weight: 700;

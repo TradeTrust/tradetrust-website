@@ -1,5 +1,5 @@
 import React from "react";
-import { TagSolid, TagSolidTeal, TagBordered, TagBorderedRed, TagBorderedRedLarge } from "./Tag";
+import { TagSolid, TagSolidTeal, TagSolidOrange, TagBordered, TagBorderedRed, TagBorderedRedLarge } from "./Tag";
 
 export default {
   title: "UI/Tag",
@@ -15,6 +15,10 @@ export const Solid = () => {
 
 export const SolidTeal = () => {
   return <TagSolidTeal>TagSolid</TagSolidTeal>;
+};
+
+export const SolidOrange = () => {
+  return <TagSolidOrange>TagSolid</TagSolidOrange>;
 };
 
 export const Bordered = () => {

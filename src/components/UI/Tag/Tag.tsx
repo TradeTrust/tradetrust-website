@@ -38,6 +38,13 @@ export const TagSolidTeal = styled.div`
   color: ${vars.white};
 `;
 
+export const TagSolidOrange = styled.div`
+  ${TagBaseStyle()};
+
+  background-color: ${vars.brandOrange};
+  color: ${vars.white};
+`;
+
 const TagBorderedBaseStyle = () => {
   return `
     ${TagBaseStyle()};
