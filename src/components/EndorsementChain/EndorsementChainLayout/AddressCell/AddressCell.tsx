@@ -92,5 +92,6 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
   .address {
     color: ${vars.brandBlue};
     margin-bottom: 2rem;
+    word-break: break-word;
   }
 `;
