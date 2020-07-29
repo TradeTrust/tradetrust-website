@@ -73,14 +73,16 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
           </div>
         </div>
         <div className="endorsement-chain-title">Endorsement Chain</div>
-        <div className="table">
-          <div className="table-header table-row">
-            <div className="table-cell">Date</div>
-            <div className="table-cell">Beneficiary</div>
-            <div className="table-cell">Holder</div>
+        <div className="table-responsive">
+          <div className="table">
+            <div className="table-header table-row">
+              <div className="table-cell">Date</div>
+              <div className="table-cell">Beneficiary</div>
+              <div className="table-cell">Holder</div>
+            </div>
+            {pending && <EndorsementChainLoading />}
+            {endorsementChain && tableRows}
           </div>
-          {pending && <EndorsementChainLoading />}
-          {endorsementChain && tableRows}
         </div>
         {error && <EndorsementChainError error={error} />}
       </div>
@@ -92,6 +94,7 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   .endorsement-ui-dash {
     border-left: dashed 1px ${vars.green};
     position: relative;
+    min-width: 200px;
   }
 
   .mask {
@@ -155,5 +158,6 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   .date {
     font-weight: bold;
     color: ${vars.greyDark};
+    min-width: 140px;
   }
 `;
