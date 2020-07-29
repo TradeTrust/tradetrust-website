@@ -1,6 +1,6 @@
 import { Selector } from "testcafe";
 
-fixture("Endorsement Chain Rendering").page`http://localhost:3000`;
+fixture("Selective Disclosure").page`http://localhost:3000`;
 
 const IframeBlock = Selector("#iframe");
 const Document = "./fixture/coo-selective-disclosure.json";
@@ -10,7 +10,7 @@ const PrivacyFilterButton = Selector("#privacySwitch");
 const CertificateSection = Selector("#rendered-certificate");
 const ExporterObfuscationButton = Selector(".fa-minus-circle").nth(0);
 
-test("Endorsement chain can be viewed correctly", async (t) => {
+test("Fields on a document can be hidden", async (t) => {
   const container = Selector("#certificate-dropzone");
   await container();
   await t.setFilesToUpload("input[type=file]", [Document]);
