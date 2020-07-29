@@ -16,7 +16,11 @@ export const AnnoucementBarUnStyled = ({ className }: AnnoucementBarProps) => {
             <div className="announcement-bar">
               <div className="row align-items-center">
                 <div className="col-12 col-lg-7">
-                  <img className="banner-title" src="/static/images/webinar/banner-title.png" alt="" />
+                  <img
+                    className="banner-title"
+                    src="/static/images/webinar/banner-title.png"
+                    alt="TradeTrust Tech Webinar Series banner title"
+                  />
                 </div>
                 <div className="col-12 col-lg-auto ml-lg-auto mt-4 mt-lg-0">
                   <ReactRouterLinkButtonSolidOrangeWhite to="/webinar">View More</ReactRouterLinkButtonSolidOrangeWhite>

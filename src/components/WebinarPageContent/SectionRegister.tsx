@@ -13,7 +13,11 @@ export const SectionRegisterUnStyled = ({ className }: SectionRegisterProps) => 
       <div className="container-custom">
         <div className="row">
           <div className="col-12">
-            <img className="banner-title" src="/static/images/webinar/banner-title@4x.png" alt="" />
+            <img
+              className="banner-title"
+              src="/static/images/webinar/banner-title@4x.png"
+              alt="TradeTrust Tech Webinar Series banner title"
+            />
           </div>
         </div>
         <div className="row">
