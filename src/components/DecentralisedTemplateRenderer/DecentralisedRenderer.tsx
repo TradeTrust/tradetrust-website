@@ -57,7 +57,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   // render document onload
   useEffect(() => {
     if (toFrame.current) {
-      toFrame.current(renderDocument(document));
+      toFrame.current(renderDocument({ document }));
     }
   }, [document, toFrame]);
 
