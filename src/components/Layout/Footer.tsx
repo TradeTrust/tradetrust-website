@@ -11,7 +11,7 @@ const Footer = ({ className }: FooterProps) => {
       <div className="container-custom">
         <div className="row justify-content-center">
           <div className="col-auto">
-            <p className="mb-0">Copyright &copy; 2019 TradeTrust</p>
+            <p className="mb-0">Copyright &copy; 2020 TradeTrust</p>
           </div>
         </div>
       </div>
