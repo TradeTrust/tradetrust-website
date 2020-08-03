@@ -4,7 +4,7 @@
   "scripts": {
     "build": "npm run check-types && NODE_ENV=production webpack --progress --mode production",
     "check-types": "tsc --sourceMap false --noEmit",
-    "dev": "NODE_ENV=development webpack-dev-server",
+    "dev": "NODE_ENV=development webpack-dev-server --host 0.0.0.0 --port 3000",
     "lint": "eslint ./src --ext .js,.ts,.tsx,.mdx --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
     "integration": "testcafe chrome src/**/*.spec.js",

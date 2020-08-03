@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  website:
+    image: tradetrust/website
+    container_name: tradetrust-website
+    build:
+      context: ${dockerstagedir:-.}/
+      dockerfile: docker/Dockerfile
+    volumes:
+      - /website/node_modules
+      - '${dockerstagedir:-.}/:/website/'
+    ports:
+      - '3000:3000'
+    environment:
+      CONTAINER_MODE: container

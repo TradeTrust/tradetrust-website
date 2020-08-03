@@ -9,12 +9,12 @@ import { AnnoucementBar } from "./UI/AnnoucementBar";
 const MainPageContainer = () => {
   return (
     <>
-      <AnnoucementBar />
+      {/* <AnnoucementBar /> */}
       <DropZoneSectionContainer />
-      <LandingSection />
-      <MainBenefitsSection />
-      <EmailSection />
-      <DocumentationSection />
+      {/* <LandingSection /> */}
+      {/* <MainBenefitsSection /> */}
+      {/* <EmailSection /> */}
+      {/* <DocumentationSection /> */}
     </>
   );
 };
