@@ -106,6 +106,13 @@ export const fontSourcesansproRegular = () => {
   `;
 };
 
+export const fontSourcesansproSemibold = () => {
+  return `
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+  `;
+};
+
 export const fontSourcesansproBold = () => {
   return `
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;

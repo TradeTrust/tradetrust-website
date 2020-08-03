@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { mixin, vars } from "../../styles";
+import { vars } from "../../styles";
 import { RegisterButton } from "./RegisterButton";
 
 interface SectionRegisterProps {
@@ -10,27 +10,19 @@ interface SectionRegisterProps {
 export const SectionRegisterUnStyled = ({ className }: SectionRegisterProps) => {
   return (
     <section className={`${className}`}>
-      <div className="container">
+      <div className="container-custom">
         <div className="row">
-          <div className="col-12 col-lg-9 mx-lg-auto">
-            <div className="heading">
-              <h1>TradeTrust Tech Webinar Series</h1>
-              <h5>Advance your knowledge with our captivating talks, interactive content and more for free</h5>
-            </div>
-            <RegisterButton>Register Now</RegisterButton>
+          <div className="col-12">
+            <img
+              className="banner-title"
+              src="/static/images/webinar/banner-title@4x.png"
+              alt="TradeTrust Tech Webinar Series banner title"
+            />
           </div>
         </div>
-      </div>
-      <div className="textbar">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <p className="mb-0">
-                This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA)
-                and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on
-                TradeTrust as a digital utility for cross border trade.
-              </p>
-            </div>
+        <div className="row">
+          <div className="col-auto">
+            <RegisterButton className="mt-5">Register Now</RegisterButton>
           </div>
         </div>
       </div>
@@ -40,41 +32,22 @@ export const SectionRegisterUnStyled = ({ className }: SectionRegisterProps) => 
 
 export const SectionRegister = styled(SectionRegisterUnStyled)`
   position: relative;
-  background-image: url("/static/images/webinar/IMDA_cube.png");
-  background-position: 100% center;
+  background-image: url("/static/images/webinar/banner.jpg");
+  background-position: 50% 100%;
   background-size: cover;
   color: ${vars.white};
-  padding: 100px 0 180px;
+  padding: 80px 0;
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+  @media only screen and (min-width: ${vars.lg}) {
+    padding: 80px 0 100px;
   }
 
-  .heading {
-    margin-bottom: 60px;
-
-    h1 {
-      ${mixin.fontSize(47)};
-    }
-
-    h5 {
-      ${mixin.fontSourcesansproRegular};
-    }
+  @media only screen and (min-width: ${vars.xl}) {
+    padding: 100px 0 200px;
   }
 
-  .textbar {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+  .banner-title {
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 20px;
-    padding-bottom: 20px;
+    max-width: 500px;
   }
 `;
