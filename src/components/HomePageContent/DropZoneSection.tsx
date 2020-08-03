@@ -6,22 +6,9 @@ import CertificateDropzoneContainer from "../CertificateDropZone";
 import { updateCertificate } from "../../reducers/certificate";
 import { trace } from "../../utils/logger";
 import { NETWORK_NAME } from "../../config";
-import MAIN from "./Main-Demo.json";
-import ROPSTEN from "./Ropsten-Demo.json";
-import RINKEBY from "./Rinkeby-Demo.json";
 
-const getDemoCert = () => {
-  switch (NETWORK_NAME) {
-    case "homestead":
-      return MAIN;
-    case "ropsten":
-      return ROPSTEN;
-    case "rinkeby":
-      return RINKEBY;
-    default:
-      return MAIN;
-  }
-};
+const DEMO_CERT = `/static/demo/${NETWORK_NAME}.tt`;
+
 const DEMO_CONTENT_KEY = "DEMO_CONTENT";
 
 interface DraggableDemoCertificateProps {
@@ -33,7 +20,7 @@ const DraggableDemoCertificate = styled(({ className }: DraggableDemoCertificate
     <div className="row">
       <div className="col">
         <div className="pulse" draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CONTENT_KEY, "true")}>
-          <a href={`data:text/plain;,${JSON.stringify(getDemoCert(), null, 2)}`} download="demo.tt">
+          <a href={DEMO_CERT} download="demo.tt" rel="noindex nofollow">
             <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
         </div>
@@ -83,12 +70,22 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
     document.getElementById("demoDrop")!.addEventListener("drop", (e) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (e.dataTransfer!.getData(DEMO_CONTENT_KEY)) {
-        updateCertificate(getDemoCert());
+        window
+          .fetch(DEMO_CERT)
+          .then((res) => res.json())
+          .then((res) => {
+            updateCertificate(res);
+          });
       }
     });
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     document.getElementById("demoClick")!.addEventListener("click", () => {
-      updateCertificate(getDemoCert());
+      window
+        .fetch(DEMO_CERT)
+        .then((res) => res.json())
+        .then((res) => {
+          updateCertificate(res);
+        });
     });
 
     return () => {
