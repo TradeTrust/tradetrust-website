@@ -9,8 +9,6 @@ import { NETWORK_NAME } from "../../config";
 
 const DEMO_CERT = `/static/demo/${NETWORK_NAME}.tt`;
 
-const DEMO_CONTENT_KEY = "DEMO_CONTENT";
-
 interface DraggableDemoCertificateProps {
   className?: string;
 }
@@ -19,7 +17,7 @@ const DraggableDemoCertificate = styled(({ className }: DraggableDemoCertificate
   <div className={`${className} d-none d-lg-block`}>
     <div className="row">
       <div className="col">
-        <div className="pulse" draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CONTENT_KEY, "true")}>
+        <div className="pulse" draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CERT, "true")}>
           <a href={DEMO_CERT} download="demo.tt" rel="noindex nofollow">
             <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
@@ -67,9 +65,9 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById("demoDrop")!.addEventListener("drop", (e) => {
+    document.getElementById("demoDrop")!.addEventListener("drop", (event) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      if (e.dataTransfer!.getData(DEMO_CONTENT_KEY)) {
+      if (event.dataTransfer && event.dataTransfer.getData(DEMO_CERT)) {
         window
           .fetch(DEMO_CERT)
           .then((res) => res.json())
