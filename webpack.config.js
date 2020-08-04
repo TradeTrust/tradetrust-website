@@ -88,6 +88,7 @@ module.exports = {
           new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
           new CopyWebpackPlugin([
             { from: "public/static/images", to: "static/images" },
+            { from: "public/static/demo", to: "static/demo" },
             // { from: "static/style.css", to: "static" }
           ]),
         ]
