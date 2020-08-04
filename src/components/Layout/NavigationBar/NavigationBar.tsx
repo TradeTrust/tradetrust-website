@@ -13,7 +13,7 @@ export const navItems = [
   {
     id: "create-documents",
     label: "Create Documents",
-    path: "https://forms.tradetrust.io/",
+    path: "https://creator.tradetrust.io/",
     target: "_target",
   },
   {
