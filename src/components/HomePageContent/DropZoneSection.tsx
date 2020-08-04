@@ -79,38 +79,13 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
   const removeListener = () => trace("drop listener removed");
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById("demoDrop")!.addEventListener("drop", (e) => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      if (e.dataTransfer!.getData(DEMO_CONTENT_KEY)) {
-        updateCertificate(getDemoCert());
-      }
-    });
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById("demoClick")!.addEventListener("click", () => {
-      updateCertificate(getDemoCert());
-    });
-
-    return () => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      document.getElementById("demoDrop")!.removeEventListener("drop", () => removeListener());
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      document.getElementById("demoClick")!.removeEventListener("click", () => removeListener());
-    };
+    return () => { };
   }, [updateCertificate]);
 
   return (
     <section id="verify-documents" className={`${className} bg-brand-navy text-white`}>
       <div className="container-custom">
         <div className="row">
-          <div className="col-lg-5 col-md-12">
-            <div className="description">
-              <h1>An easy way to check and verify your documents</h1>
-              <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
-              <DraggableDemoCertificate />
-              <MobileDemoCertificate />
-            </div>
-          </div>
           <div className="col-lg-7 col-md-12 col-sm-12" id="demoDrop">
             <CertificateDropzoneContainer />
           </div>
