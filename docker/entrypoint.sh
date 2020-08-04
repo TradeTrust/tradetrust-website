@@ -3,6 +3,7 @@
 case "${CONTAINER_MODE,,}" in
   server)
     npm run dev
+    ;;
   container)
     echo "Container started"
     tail -f /dev/null
