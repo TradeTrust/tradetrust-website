@@ -1,3 +1,11 @@
+This is a hack; a temporary fork of the TradeTrust web site with branding removed, for embedding in another site (using an iFrame). The purpose is to remove confusion about dependancy on tradetrust.io for verification.
+
+It has some docker stuff added to help in the demo. See the Makefile for details on how to use it. It means you only need docker to run it (not a working local node development environment).
+
+TL/DR;  `make build` in one window, then from another `make shell-website` and then `npm run dev`.
+
+existing README follows:
+
 # TradeTrust Web UI
 
 [![CircleCI](https://circleci.com/gh/TradeTrust/tradetrust-website.svg?style=svg)](https://circleci.com/gh/TradeTrust/tradetrust-website)
