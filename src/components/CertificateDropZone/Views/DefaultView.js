@@ -10,26 +10,8 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
       hover ? (accept ? css.accept : css.invalid) : css.default
     }`}
   >
-    <div className={css["image-container"]}>
-      <i>
-        <img alt=".tradetrust Dropzone" src="/static/images/dropzone/dropzone_illustration.svg" />
-      </i>
-    </div>
     {accept ? null : <div>File cannot be read. Please check that you have a valid .tt or .json file</div>}
-    <div className="text-brand-navy" style={{ fontSize: "1.375rem", fontWeight: 500 }}>
-      Drag and drop your tradetrust file
-    </div>
-    <div className="text-muted">to view its contents</div>
-    <div className="text-muted row">
-      <div className="col-2" />
-      <div className="col-3">
-        <hr />
-      </div>
-      <div className="col-2">or</div>
-      <div className="col-3">
-        <hr />
-      </div>
-    </div>
+
     <div className="text-muted row">
       <div className="mx-auto">
         <button type="button" className={`pointer ${css.btn}`}>
@@ -47,7 +29,10 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
         >
           Scan QR Code
         </button>
-      </div>
+	</div>
+    </div>
+	<div className="text-brand-navy" style={{ fontSize: "1.375rem", fontWeight: 500 }}>
+	(or drag and drop into this window)
     </div>
   </div>
 );
