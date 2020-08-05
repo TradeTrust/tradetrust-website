@@ -7,15 +7,7 @@ interface FooterProps {
 
 const Footer = ({ className }: FooterProps) => {
   return (
-    <footer className={`${className} bg-white py-4`}>
-      <div className="container-custom">
-        <div className="row justify-content-center">
-          <div className="col-auto">
-            <p className="mb-0">Copyright &copy; 2020 TradeTrust</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <footer className={`deleted-content bg-white py-4`} />
   );
 };
 
