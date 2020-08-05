@@ -7,16 +7,23 @@ import { SvgIcon, SvgIconPaperClip } from "./../../UI/SvgIcon";
 export interface AttachmentLinkProps {
   className?: string;
   filename: string;
-  data: string;
-  type: string;
+  data?: string;
+  type?: string;
+  path?: string;
 }
 
-export const AttachmentLinkUnStyled = ({ className, filename, data, type }: AttachmentLinkProps) => {
-  const decodedData = atob(data);
-  const filesize = prettyBytes(decodedData.length);
+export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }: AttachmentLinkProps) => {
+  let filesize = "0";
+  const hasBase64 = !!(data && type);
+  const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "javascript:void(0)";
+
+  if (data) {
+    const decodedData = atob(data);
+    filesize = prettyBytes(decodedData.length);
+  }
 
   return (
-    <div className={className} data-testid="attachment-link">
+    <a href={downloadHref} download={`${filename}`} className={className} data-testid="attachment-link">
       <div className="row">
         <div className="col-12 col-md-auto mb-3 mb-md-0">
           <div className="icon">
@@ -28,25 +35,34 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type }: Atta
         <div className="col-12 col-md">
           <p className="filetext">
             <span className="filename">{filename}</span>
-            <span className="filesize">({filesize})</span>
+            {hasBase64 && <span className="filesize">({filesize})</span>}
           </p>
-          <a href={`data:${type};base64,${data}`} download={`${filename}`}>
-            Download
-          </a>
+          <p className="downloadtext mb-0">Download</p>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 
 export const AttachmentLink = styled(AttachmentLinkUnStyled)`
+  transition: background-color 0.3s ${vars.easeOutCubic};
+  display: inline-block;
   width: 100%;
-  height: 100%;
   border: solid 1px ${vars.greyLighter};
   padding: 10px 15px;
 
+  &:hover {
+    text-decoration: none;
+    background-color: ${vars.blueLighter};
+
+    .filename {
+      color: ${vars.greyDark};
+    }
+  }
+
   .icon {
     background-color: ${vars.greyLighter};
+    color: ${vars.greyDark};
     padding: 10px;
     width: 50px;
     height: 50px;
@@ -64,6 +80,7 @@ export const AttachmentLink = styled(AttachmentLinkUnStyled)`
   }
 
   .filename {
+    transition: color 0.3s ${vars.easeOutCubic};
     ${mixin.fontSourcesansproBold};
     line-height: 1.2;
     color: ${vars.grey};
@@ -71,8 +88,13 @@ export const AttachmentLink = styled(AttachmentLinkUnStyled)`
   }
 
   .filesize {
+    display: inline-block;
     ${mixin.fontSourcesansproRegular};
     color: ${vars.grey};
     ${mixin.fontSize(13)};
+  }
+
+  .downloadtext {
+    color: ${vars.blue};
   }
 `;

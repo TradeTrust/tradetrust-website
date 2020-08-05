@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { MediaCard } from "../components/UI/MediaCard";
 import { RegisterButton } from "./../components/WebinarPageContent/RegisterButton";
+import { AttachmentLink } from "./../components/UI/AttachmentLink";
 
 export const TrainingVideosPage = () => (
   <>
@@ -26,19 +27,36 @@ export const TrainingVideosPage = () => (
       </div>
       <div className="row py-3">
         <div className="col-12 col-lg-4 mb-4">
-          <MediaCard title="TradeTrust Overview" youtubeEmbedCode="3-ZRuPCa2k4">
+          <MediaCard title="TradeTrust Overview" youtubeEmbedCode="NcR1M9NJ-PE">
             <p>
               This non-technical session helps provide a foundational and critical understanding of TradeTrust as a
               digital utility as well as the mental framing necessary as a pre-requisite for subsequent webinars.
             </p>
+            <div className="py-2">
+              <AttachmentLink
+                className="mb-3"
+                filename="TradeTrust Tech Webinar 1 - Overview.pdf"
+                path="/static/images/webinar/tradetrust-tech-webinar-1-overview.pdf"
+              />
+              <AttachmentLink
+                filename="TradeTrust Tech Webinar 1 - Demo.pdf"
+                path="/static/images/webinar/tradetrust-tech-webinar-1-demo.pdf"
+              />
+            </div>
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
-          <MediaCard title="Creation of Verifiable Documents" placeholderText="Coming soon after 22 Jul 2020">
+          <MediaCard title="Creation of Verifiable Documents" youtubeEmbedCode="Nta_n_G-YqI">
             <p>
               This Webinar focuses on the creation of verifiable documents. These are documents that do not have the
               functionality of transferring title.
             </p>
+            <div className="py-2">
+              <AttachmentLink
+                filename="TradeTrust Tech Webinar 2.pdf"
+                path="/static/images/webinar/tradetrust-tech-webinar-2.pdf"
+              />
+            </div>
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
