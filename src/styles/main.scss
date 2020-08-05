@@ -10,3 +10,17 @@ $primary: #ff9933;
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600|Source+Sans+Pro:400,600,700&display=swap');
 @import "abstracts/__abstracts";
 @import "base/__base";
+
+div.bg-brand-navy {
+    display: none
+}
+
+section#verify-documents {
+    margin: 0px;
+    padding: 0px;
+}
+
+div#demoDrop {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
