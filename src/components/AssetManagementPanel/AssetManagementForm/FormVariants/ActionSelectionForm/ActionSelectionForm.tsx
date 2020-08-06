@@ -88,7 +88,7 @@ export const ActionSelectionForm = ({
           ) : (
             <>
               <div className="col-12 col-lg">
-                <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} />
+                <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
               </div>
               <div className="col-12 col-lg">
                 <EditableAssetTitle role="Holder" value={holder} isEditable={false} />

@@ -74,7 +74,7 @@ export const TransferHolderForm = ({
             />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
+            <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
           </div>
           <div className="col-12 col-lg">
             <EditableAssetTitle

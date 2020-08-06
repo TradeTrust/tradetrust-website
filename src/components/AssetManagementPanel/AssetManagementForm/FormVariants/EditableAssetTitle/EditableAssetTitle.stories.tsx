@@ -12,7 +12,7 @@ export default {
 export const NotEditable = () => {
   return (
     <EditableAssetTitle
-      role="Beneficiary"
+      role="Owner"
       value="0xb1D285c49054c7B4D24228Ad3dd3d9a0796e2d16"
       isEditable={false}
       newValue=""
@@ -24,7 +24,7 @@ export const NotEditable = () => {
 export const Editable = () => {
   return (
     <EditableAssetTitle
-      role="Beneficiary"
+      role="Owner"
       value="0xb1D285c49054c7B4D24228Ad3dd3d9a0796e2d16"
       isEditable={true}
       newValue=""

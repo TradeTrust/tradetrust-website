@@ -6,7 +6,7 @@ import { AssetManagementActions } from "../../../AssetManagementActions";
 import { EndorseBeneficiaryForm } from "./EndorseBeneficiary";
 import { act } from "react-dom/test-utils";
 
-describe("Endorse Beneficiary", () => {
+describe("Endorse Owner", () => {
   it("should display the editable beneficiary & static holder when the app is in EndorseBeneficiary state", async () => {
     await act(async () => {
       const container = render(

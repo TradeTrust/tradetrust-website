@@ -223,7 +223,7 @@ export const SuccessSurrender = () => {
 export const SuccessChangeBeneficiary = () => {
   return (
     <OverlayContextProvider>
-      <OverlayDemo buttonText="Success Change Beneficiary">
+      <OverlayDemo buttonText="Success Change Owner">
         <DocumentTransferMessage title={MessageTitle.CHANGE_BENEFICIARY_SUCCESS} isSuccess={true}>
           <MessageBeneficiarySuccess address="Bank of China Pte Ltd" />
         </DocumentTransferMessage>
@@ -247,7 +247,7 @@ export const SuccessChangeHolder = () => {
 export const SuccessNominateBeneficiaryHolder = () => {
   return (
     <OverlayContextProvider>
-      <OverlayDemo buttonText="Success Nominate Beneficiary and Holder">
+      <OverlayDemo buttonText="Success Nominate Owner and Holder">
         <DocumentTransferMessage title={MessageTitle.NOMINATE_BENEFICIARY_HOLDER_SUCCESS} isSuccess={true}>
           <MessageNominateBeneficiaryHolderSuccess />
         </DocumentTransferMessage>

@@ -79,7 +79,7 @@ export const EndorseBeneficiaryForm = ({
           </div>
           <div className="col-12 col-lg">
             <EditableAssetTitle
-              role="Beneficiary"
+              role="Owner"
               value={beneficiary}
               newValue={newBeneficiary}
               isEditable={isEditable}

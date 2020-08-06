@@ -34,15 +34,15 @@ export const NotLoggedIn = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -72,15 +72,15 @@ export const NoMatch = () => {
         onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
         holderTransferringState={FormState.UNINITIALIZED}
         onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-          alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
         }
         beneficiaryEndorseState={FormState.UNINITIALIZED}
         onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-          alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+          alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
         }
         approveNewTransferTargetsState={FormState.UNINITIALIZED}
         onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-          alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
         }
         transferToNewEscrowState={FormState.UNINITIALIZED}
       />
@@ -109,15 +109,15 @@ export const BeneficiaryAndHolder = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -145,15 +145,15 @@ export const Beneficiary = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -181,15 +181,15 @@ export const Holder = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -217,15 +217,15 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -253,15 +253,15 @@ export const SurrenderPending = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -289,15 +289,15 @@ export const Surrendered = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -325,15 +325,15 @@ export const TransferHolderError = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.ERROR}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -361,15 +361,15 @@ export const TransferHolderPending = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.PENDING_CONFIRMATION}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -397,15 +397,15 @@ export const EndorseChangeBeneficiaryError = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.PENDING_CONFIRMATION}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.ERROR}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -433,15 +433,15 @@ export const EndorseChangeBeneficiaryPending = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.PENDING_CONFIRMATION}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.PENDING_CONFIRMATION}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -469,15 +469,15 @@ export const NominateBeneficiaryAndHolderError = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.ERROR}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -505,15 +505,15 @@ export const NominateBeneficiaryAndHolderPending = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.PENDING_CONFIRMATION}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -541,15 +541,15 @@ export const EndorseTransferHolderBeneficiary = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
     />
@@ -577,15 +577,15 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Beneficiary: ${newBeneficiary}, Holder: ${newHolder}`)
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
       }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Beneficiary: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.PENDING_CONFIRMATION}
     />

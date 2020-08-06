@@ -4,7 +4,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { DocumentUtility } from "./DocumentUtility";
 
-describe("Nominate Beneficiary", () => {
+describe("Nominate Owner", () => {
   it("should show QR code when document has one", async () => {
     const document = {
       data: {
