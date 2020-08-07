@@ -5,17 +5,20 @@ import { SvgIcon, SvgIconTrash2, SvgIconSave, SvgIconEdit2 } from "../UI/SvgIcon
 import { vars } from "../../styles";
 import isURL from "validator/lib/isURL";
 import isEmpty from "validator/lib/isEmpty";
+import { ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
 
 interface EndpointEntryProps {
   className?: string;
   orderNumber: number;
   api: string;
   name: string;
+  apiHeader: string;
+  apiKey: string;
   canEdit: boolean;
   removeEndpoint: () => void;
   onMoveEntryUp?: () => void;
   onMoveEntryDown?: () => void;
-  onUpdateEndpoint: (name: string, endpoint: string) => void;
+  onUpdateEndpoint: (newValues: ThirdPartyAPIEntryProps) => void;
   isEndpointUrlExists: (endpoint: string) => boolean;
 }
 
@@ -26,6 +29,8 @@ export const EndpointEntry = styled(
     removeEndpoint,
     api,
     name,
+    apiHeader,
+    apiKey,
     canEdit,
     onMoveEntryUp,
     onMoveEntryDown,
@@ -34,21 +39,40 @@ export const EndpointEntry = styled(
   }: EndpointEntryProps) => {
     const [isEditable, setEditable] = useState(canEdit);
     const [inputErrorMessageName, setInputErrorMessageName] = useState("");
-    const [inputMessageEndpoint, setInputErrorMessageEndpoint] = useState("");
-    const [endpointAPI, setEndpointAPIValue] = useState(api);
-    const [endpointName, setEndpointNameValue] = useState(name);
+    const [inputErrorMessageEndpoint, setInputErrorMessageEndpoint] = useState("");
+    const [inputErrorMessageApiHeader, setInputErrorMessageApiHeader] = useState("");
+    const [inputErrorMessageApiKey, setInputErrorMessageApiKey] = useState("");
+    const [endpointApi, setEndpointApi] = useState(api);
+    const [endpointName, setEndpointName] = useState(name);
+    const [endpointApiHeader, setEndpointApiHeader] = useState(apiHeader);
+    const [endpointApiKey, setEndpointApiKey] = useState(apiKey);
 
-    const onEndpointAPIChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEndpointAPIValue(event.target.value);
+    const onEndpointApiChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setEndpointApi(event.target.value);
     };
 
     const onEndpointNameChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEndpointNameValue(event.target.value);
+      setEndpointName(event.target.value);
+    };
+
+    const onEndpointApiHeaderChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setEndpointApiHeader(event.target.value);
+    };
+
+    const onEndpointApiKeyChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setEndpointApiKey(event.target.value);
     };
 
     const canUpdateValue = () => {
       const nameTrimmed = endpointName.trim();
-      const apiTrimmed = endpointAPI.trim();
+      const apiTrimmed = endpointApi.trim();
+      const apiHeaderTrimmed = endpointApiHeader.trim();
+      const apiKeyTrimmed = endpointApiKey.trim();
+
+      setInputErrorMessageName("");
+      setInputErrorMessageEndpoint("");
+      setInputErrorMessageApiHeader("");
+      setInputErrorMessageApiKey("");
 
       if (isEmpty(nameTrimmed)) {
         setInputErrorMessageName("Name must not be blank.");
@@ -70,6 +94,16 @@ export const EndpointEntry = styled(
         return false;
       }
 
+      if (isEmpty(apiHeaderTrimmed) && !isEmpty(apiKeyTrimmed)) {
+        setInputErrorMessageApiHeader("API Header must not be blank.");
+        return false;
+      }
+
+      if (!isEmpty(apiHeaderTrimmed) && isEmpty(apiKeyTrimmed)) {
+        setInputErrorMessageApiKey("API Key must not be blank.");
+        return false;
+      }
+
       return true;
     };
 
@@ -77,10 +111,13 @@ export const EndpointEntry = styled(
       if (!canUpdateValue()) return;
 
       setEditable(false);
-      setInputErrorMessageName("");
-      setInputErrorMessageEndpoint("");
 
-      onUpdateEndpoint(endpointName.trim(), endpointAPI.trim());
+      onUpdateEndpoint({
+        name: endpointName.trim(),
+        endpoint: endpointApi.trim(),
+        apiHeader: endpointApiHeader.trim(),
+        apiKey: endpointApiKey.trim(),
+      });
     };
 
     return (
@@ -112,12 +149,38 @@ export const EndpointEntry = styled(
             <InputDefault
               className="mb-0 w-100"
               placeholder="Endpoint"
-              value={endpointAPI}
-              onChange={onEndpointAPIChanged}
-              errorMessage={inputMessageEndpoint}
+              value={endpointApi}
+              onChange={onEndpointApiChanged}
+              errorMessage={inputErrorMessageEndpoint}
             />
           ) : (
             <>{api}</>
+          )}
+        </td>
+        <td>
+          {isEditable ? (
+            <InputDefault
+              className="mb-0 w-100"
+              placeholder="API Header"
+              value={endpointApiHeader}
+              onChange={onEndpointApiHeaderChanged}
+              errorMessage={inputErrorMessageApiHeader}
+            />
+          ) : (
+            <>{apiHeader}</>
+          )}
+        </td>
+        <td>
+          {isEditable ? (
+            <InputDefault
+              className="mb-0 w-100"
+              placeholder="API Key"
+              value={endpointApiKey}
+              onChange={onEndpointApiKeyChanged}
+              errorMessage={inputErrorMessageApiKey}
+            />
+          ) : (
+            <>{apiKey}</>
           )}
         </td>
         <td className={isEditable ? "is-editable" : ""}>

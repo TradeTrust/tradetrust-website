@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
+import { useThirdPartyAPIEndpoints } from "./useThirdPartyAPIEndpoints";
 import { useAddressBook } from "./useAddressBook";
 import { getIdentityName } from "./../../services/addressResolver";
 

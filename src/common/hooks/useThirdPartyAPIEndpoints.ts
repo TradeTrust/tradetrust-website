@@ -3,6 +3,8 @@ import createPersistedState from "use-persisted-state";
 export interface ThirdPartyAPIEntryProps {
   name: string;
   endpoint: string;
+  apiHeader: string;
+  apiKey: string;
 }
 
 export const useThirdPartyAPIEndpoints = () => {
@@ -11,8 +13,8 @@ export const useThirdPartyAPIEndpoints = () => {
     defaultThirdPartyAPIEndpoints
   );
 
-  const addThirdPartyAPIEndpoint = ({ name, endpoint }: ThirdPartyAPIEntryProps) => {
-    setThirdPartyAPIEndpoints([...thirdPartyAPIEndpoints, { name, endpoint }]);
+  const addThirdPartyAPIEndpoint = (newValues: ThirdPartyAPIEntryProps) => {
+    setThirdPartyAPIEndpoints([...thirdPartyAPIEndpoints, newValues]);
   };
 
   const removeThirdPartyAPIEndpoint = (id: number) => {

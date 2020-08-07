@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { lighten } from "polished";
 import { vars } from "./../../styles";
 import { EndpointEntry } from "./EndpointEntry";
-import { useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
+import { useThirdPartyAPIEndpoints, ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { DeleteResolverConfirmation } from "../UI/Overlay/OverlayContent/DeleteResolverConfirmation";
 import { fontSize } from "../../styles/abstracts/mixin";
@@ -109,20 +109,14 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
     return isFound;
   };
 
-  const addNewEndpoint = (name: string, endpoint: string) => {
-    addThirdPartyAPIEndpoint({
-      name,
-      endpoint,
-    });
+  const addNewEndpoint = (newValues: ThirdPartyAPIEntryProps) => {
+    addThirdPartyAPIEndpoint(newValues);
     setNewEndpoint(false);
   };
 
-  const onUpdateEndpoint = (index: number) => (name: string, endpoint: string) => {
+  const onUpdateEndpoint = (index: number) => (newValues: ThirdPartyAPIEntryProps) => {
     const newEndpoint = [...thirdPartyAPIEndpoints];
-    newEndpoint.splice(index, 1, {
-      name,
-      endpoint,
-    });
+    newEndpoint.splice(index, 1, newValues);
     setThirdPartyAPIEndpoints(newEndpoint);
   };
 
@@ -158,6 +152,8 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                 <td>Order</td>
                 <td>Name</td>
                 <td>Endpoint</td>
+                <td>API Header</td>
+                <td>API Key</td>
                 <td>&nbsp;</td>
               </tr>
             </thead>
@@ -168,6 +164,8 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                   <td>&mdash;</td>
                   <td>&mdash;</td>
                   <td>No third party&apos;s endpoint found.</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
                   <td>&nbsp;</td>
                 </tr>
               )}
@@ -191,6 +189,8 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                     onUpdateEndpoint={onUpdateEndpoint(index)}
                     api={thirdPartyAPIEndpoints[index].endpoint}
                     name={thirdPartyAPIEndpoints[index].name}
+                    apiHeader={thirdPartyAPIEndpoints[index].apiHeader}
+                    apiKey={thirdPartyAPIEndpoints[index].apiKey}
                     canEdit={false}
                   />
                 );
@@ -205,6 +205,8 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
                   onUpdateEndpoint={addNewEndpoint}
                   api=""
                   name=""
+                  apiHeader=""
+                  apiKey=""
                   canEdit={true}
                 />
               )}
@@ -264,6 +266,18 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
     }
 
     &:nth-of-type(2) {
+      width: 200px;
+    }
+
+    &:nth-of-type(3) {
+      width: 360px;
+    }
+
+    &:nth-of-type(4) {
+      width: 200px;
+    }
+
+    &:nth-of-type(5) {
       width: 200px;
     }
 
