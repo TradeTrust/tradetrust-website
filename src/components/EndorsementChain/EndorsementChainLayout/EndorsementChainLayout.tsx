@@ -92,7 +92,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
 
 export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   .endorsement-ui-dash {
-    border-left: dashed 1px ${vars.green};
+    border-left: dashed 1px ${vars.teal};
     position: relative;
     min-width: 200px;
   }

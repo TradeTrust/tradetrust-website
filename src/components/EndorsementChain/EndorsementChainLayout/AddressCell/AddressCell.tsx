@@ -40,7 +40,7 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
     height: 10px;
     width: 10px;
     border-radius: 50%;
-    background-color: ${vars.green};
+    background-color: ${vars.teal};
     margin: 0.25rem;
     position: absolute;
     left: -17px;
