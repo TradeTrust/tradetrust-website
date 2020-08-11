@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getIdentityName } from "./index";
-import { ThirdPartyAPIEntryProps } from "./../../common/hooks/useThirdPartyAPIEndpoints";
+import { ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -23,6 +23,8 @@ it("should return the first name if it can be found with any resolver", async ()
       id: "1",
       name: "demo",
       endpoint: "https://demo-resolver.tradetrust.io/identifier/",
+      apiHeader: "",
+      apiKey: "",
     },
   ];
 
@@ -48,6 +50,8 @@ it("should return undefined if it cannot be resolved anywhere", async () => {
       id: "1",
       name: "demo",
       endpoint: "https://demo-resolver.tradetrust.io/identifier/",
+      apiHeader: "",
+      apiKey: "",
     },
   ];
 
