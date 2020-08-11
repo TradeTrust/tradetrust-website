@@ -60,11 +60,15 @@ export const TrainingVideosPage = () => (
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
-          <MediaCard title="Creation of Transferable Documents" placeholderText="Coming soon after 29 Jul 2020">
+          <MediaCard title="Creation of Transferable Documents" youtubeEmbedCode="4xTyPTyUU_U">
             <p>
               This segment will focus on the creation of transferable documents. Join this session to learn how to
               create a transferable document and how to perform a title transfer.
             </p>
+            <AttachmentLink
+              filename="TradeTrust Tech Webinar 3.pdf"
+              path="/static/images/webinar/tradetrust-tech-webinar-3.pdf"
+            />
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
