@@ -18,6 +18,7 @@ interface ActionSelectionFormProps {
   holder?: string;
   account?: string;
   canSurrender: boolean;
+  canAcceptSurrender: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
@@ -35,6 +36,7 @@ export const ActionSelectionForm = ({
   holder,
   account,
   canSurrender,
+  canAcceptSurrender,
   onConnectToWallet,
   canChangeHolder,
   canEndorseBeneficiary,
@@ -45,7 +47,12 @@ export const ActionSelectionForm = ({
   isTitleEscrow,
 }: ActionSelectionFormProps) => {
   const canManage =
-    canSurrender || canChangeHolder || canEndorseBeneficiary || canNominateBeneficiaryHolder || canEndorseTransfer;
+    canAcceptSurrender ||
+    canSurrender ||
+    canChangeHolder ||
+    canEndorseBeneficiary ||
+    canNominateBeneficiaryHolder ||
+    canEndorseTransfer;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {

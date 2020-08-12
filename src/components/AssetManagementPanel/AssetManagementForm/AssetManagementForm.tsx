@@ -7,6 +7,7 @@ import { EndorseTransferForm } from "./FormVariants/EndorseTransferForm";
 import { NominateBeneficiaryHolderForm } from "./FormVariants/NominateBeneficiaryHolder";
 import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
+import { AcceptSurrenderForm } from "./FormVariants/AcceptSurrenderForm";
 
 interface AssetManagementFormProps {
   beneficiary?: string;
@@ -23,6 +24,8 @@ interface AssetManagementFormProps {
   onApproveNewTransferTargets: (newBeneficiary: string, newHolder: string) => void;
   onTransferToNewEscrow: (approvedBeneficiary: string, approvedHolder: string) => void;
   onSurrender: () => void;
+  onAcceptSurrender: () => void;
+  onRejectSurrender: () => void;
   surrenderingState: string;
   holderTransferringState: string;
   beneficiaryEndorseState: string;
@@ -45,6 +48,8 @@ export const AssetManagementForm = ({
   onSetFormAction,
   surrenderingState,
   onSurrender,
+  onAcceptSurrender,
+  onRejectSurrender,
   onTransferHolder,
   holderTransferringState,
   onEndorseBeneficiary,
@@ -60,6 +65,11 @@ export const AssetManagementForm = ({
   const isHolder = account === holder;
   const isBeneficiary = account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
+  /* Change here is tokenRegistryAdmin, 
+  3 field tokenRegistryAddress =! tokenRegistryAdminWallet =! currentUser
+  currentUser===tokenRegistryAdminWallet && tokenRegistryAddress==ownerOf(tokenId)
+  */
+  const canAcceptSurrender = false;
   const canEndorseBeneficiary = isBeneficiary && isHolder;
   const canNominateBeneficiaryHolder = isBeneficiary && !isHolder;
   const canEndorseTransfer =
@@ -90,6 +100,21 @@ export const AssetManagementForm = ({
           beneficiary={beneficiary}
           holder={holder}
           handleSurrender={onSurrender}
+          surrenderingState={surrenderingState}
+          setFormActionNone={setFormActionNone}
+          setShowEndorsementChain={setShowEndorsementChain}
+        />
+      );
+
+    case AssetManagementActions.AcceptSurrender:
+      return (
+        <AcceptSurrenderForm
+          formAction={formAction}
+          tokenRegistryAddress={tokenRegistryAddress}
+          beneficiary={beneficiary}
+          holder={holder}
+          handleAcceptSurrender={onAcceptSurrender}
+          handleRejectSurrender={onRejectSurrender}
           surrenderingState={surrenderingState}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}
@@ -161,6 +186,7 @@ export const AssetManagementForm = ({
           holder={holder}
           account={account}
           canSurrender={canSurrender}
+          canAcceptSurrender={canAcceptSurrender}
           onConnectToWallet={onConnectToWallet}
           canChangeHolder={isHolder}
           canEndorseBeneficiary={canEndorseBeneficiary}

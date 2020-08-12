@@ -11,6 +11,7 @@ const defaultProps = {
   holder: "0xa61B056dA0084a5f391EC137583073096880C2e3",
   account: "0xa61B056dA0084a5f391EC137583073096880C2e3",
   canSurrender: false,
+  canAcceptSurrender: false,
   onConnectToWallet: () => alert("Login to Metamask"),
   canChangeHolder: false,
   canEndorseBeneficiary: false,

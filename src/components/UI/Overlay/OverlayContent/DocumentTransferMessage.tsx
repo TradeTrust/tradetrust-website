@@ -13,7 +13,9 @@ export enum MessageTitle {
   NO_USER_AUTHORIZATION = "User denied account authorization", // this error message must match error message from metamask extension itself
   TRANSACTION_ERROR = "Error - Failed transaction",
   SURRENDER_DOCUMENT_SUCCESS = "Surrender Document Success",
-  CHANGE_BENEFICIARY_SUCCESS = "Change Ownership Success",
+  ACCEPT_SURRENDER_DOCUMENT = "Surrender Accepted",
+  REJECT_SURRENDER_DOCUMENT = "Surrender Rejected",
+  CHANGE_BENEFICIARY_SUCCESS = "Change Owner Success",
   NOMINATE_BENEFICIARY_HOLDER_SUCCESS = "Nomination Success",
   TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
   ENDORSE_TRANSFER_SUCCESS = "Endorse Ownership/Holdership Success",
@@ -121,7 +123,15 @@ export const MessageTransactionError = ({ error }: MessageProps) => {
 };
 
 export const MessageSurrenderSuccess = () => {
-  return <p>This transferable document has been surrendered.</p>;
+  return <p>This Bill of Lading has been surrendered, pending acceptance of issuer.</p>;
+};
+
+export const AcceptSurrender = () => {
+  return <p>Surrender for this Bill of Lading has been accepted.</p>;
+};
+
+export const RejectSurrender = () => {
+  return <p>Surrender for this Bill of Lading has been rejected.</p>;
 };
 
 export const MessageBeneficiarySuccess = ({ address }: MessageProps) => {
@@ -178,6 +188,8 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       {title === MessageTitle.NO_USER_AUTHORIZATION && <MessageNoUserAuthorization />}
       {title === MessageTitle.TRANSACTION_ERROR && <MessageTransactionError error={option.error} />}
       {title === MessageTitle.SURRENDER_DOCUMENT_SUCCESS && <MessageSurrenderSuccess />}
+      {title === MessageTitle.ACCEPT_SURRENDER_DOCUMENT && <AcceptSurrender />}
+      {title === MessageTitle.REJECT_SURRENDER_DOCUMENT && <RejectSurrender />}
       {title === MessageTitle.CHANGE_BENEFICIARY_SUCCESS && (
         <MessageBeneficiarySuccess address={option.beneficiaryAddress} />
       )}

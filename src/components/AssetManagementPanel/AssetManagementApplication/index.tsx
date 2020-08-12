@@ -35,6 +35,17 @@ export const AssetManagementApplication = ({
   const { upgradeProvider, account } = useProviderContext();
 
   const onSurrender = () => {
+    // Change to surrendered state
+    transferTo(tokenRegistryAddress);
+  };
+
+  const onAcceptSurrender = () => {
+    // Change to accepted state
+    transferTo(tokenRegistryAddress);
+  };
+
+  const onRejectSurrender = () => {
+    // Change to reject state
     transferTo(tokenRegistryAddress);
   };
 
@@ -70,6 +81,8 @@ export const AssetManagementApplication = ({
             transferToNewEscrowState={transferToNewEscrowState}
             setShowEndorsementChain={setShowEndorsementChain}
             isTitleEscrow={isTitleEscrow}
+            onAcceptSurrender={onAcceptSurrender}
+            onRejectSurrender={onRejectSurrender}
           />
         )}
       </div>
