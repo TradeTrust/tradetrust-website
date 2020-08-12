@@ -9,24 +9,20 @@ export const useIdentifierResolver = (address: string) => {
   const { getIdentifier } = useAddressBook();
 
   useEffect(() => {
-    if (address === "") return;
+    if (!address) return;
 
     setResolvedIdentifier(""); // unset resolvedIdentifier at beginning
 
-    const identifierFromAddressBook = getIdentifier(address.toLowerCase());
-    if (identifierFromAddressBook) {
-      setResolvedIdentifier(identifierFromAddressBook);
-      return;
-    } // resolved from addressbook
-
-    const resolveIdentityByAPI = async () => {
-      const identityName = await getIdentityName(thirdPartyAPIEndpoints, address);
+    const resolveIdentity = async () => {
+      // resolve by address book first, then by thirdparty endpoint
+      const identityName =
+        getIdentifier(address.toLowerCase()) || (await getIdentityName(thirdPartyAPIEndpoints, address));
       if (identityName) {
         setResolvedIdentifier(identityName);
       }
-    }; // resolved from thirdparty endpoint
+    };
 
-    resolveIdentityByAPI();
+    resolveIdentity();
   }, [address, getIdentifier, thirdPartyAPIEndpoints]);
 
   return { resolvedIdentifier };
