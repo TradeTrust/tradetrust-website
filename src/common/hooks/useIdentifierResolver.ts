@@ -11,7 +11,7 @@ export const useIdentifierResolver = (address: string) => {
   useEffect(() => {
     if (address === "") return;
 
-    setResolvedIdentifier("");
+    setResolvedIdentifier(""); // unset resolvedIdentifier at beginning
 
     const identifierFromAddressBook = getIdentifier(address.toLowerCase());
     if (identifierFromAddressBook) {
