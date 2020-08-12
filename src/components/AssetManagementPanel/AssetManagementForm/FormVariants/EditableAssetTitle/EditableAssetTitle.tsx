@@ -7,6 +7,7 @@ import { ButtonIconOrangeWhite } from "./../../../../UI/Button";
 import { SvgIcon, SvgIconBook } from "./../../../../UI/SvgIcon";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
 import { AddressBook } from "./../../../../../components/UI/Overlay/OverlayContent/AddressBook";
+import { useTokenInformationContext } from "../../../../../common/contexts/TokenInformationContext";
 
 interface EditableAssetTitleProps {
   role: string;
@@ -26,11 +27,13 @@ export const EditableAssetTitle = ({
   error,
 }: EditableAssetTitleProps) => {
   const { showOverlay } = useContext(OverlayContext);
+  const { isLoading } = useTokenInformationContext();
   const onOverlayHandler = () => {
     showOverlay(<AddressBook title="Address Book" onAddressSelected={onSetNewValue} />);
   };
 
-  if (!value) return <SkeletonPlaceholder />;
+  if (isLoading) return <SkeletonPlaceholder />;
+  if (!value) return <></>;
   if (!isEditable)
     return (
       <AssetTitle role={role} address={value}>

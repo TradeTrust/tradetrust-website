@@ -3,6 +3,7 @@ import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
+import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 
 interface TokenInformationContext {
   tokenRegistryAddress: string;
@@ -23,6 +24,8 @@ interface TokenInformationContext {
   transferToNewEscrowState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
+  isLoading: boolean;
+  isTitleEscrow?: boolean;
 }
 
 const contractFunctionStub = () => {
@@ -40,6 +43,8 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
   isSurrendered: false,
+  isTitleEscrow: false,
+  isLoading: true,
   approveNewTransferTargets: contractFunctionStub,
   approveNewTransferTargetsState: "UNINITIALIZED",
   transferToNewEscrow: contractFunctionStub,
@@ -48,10 +53,17 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [tokenId, setTokenId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
   const { provider } = useProviderContext();
   const { titleEscrow, updateTitleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
   const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
+
+  // First check if Contract is a SmartContract or wallet
+  const { isLoading: isSupportsInterfaceLoading, isInterfaceType: isTitleEscrow } = useSupportsInterface(
+    titleEscrow,
+    "0xdcce2211"
+  );
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -108,11 +120,22 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
 
   // Fetch all new information when title escrow is initialized or updated (due to actions)
   useEffect(() => {
-    getHolder();
-    getApprovedHolder();
-    getBeneficiary();
-    getApprovedBeneficiary();
-  }, [getBeneficiary, getApprovedBeneficiary, getHolder, getApprovedHolder, titleEscrow]);
+    if (!isSupportsInterfaceLoading && isTitleEscrow) {
+      getHolder();
+      getApprovedHolder();
+      getBeneficiary();
+      getApprovedBeneficiary();
+    }
+    setIsLoading(false);
+  }, [
+    getBeneficiary,
+    getApprovedBeneficiary,
+    getHolder,
+    getApprovedHolder,
+    titleEscrow,
+    isSupportsInterfaceLoading,
+    isTitleEscrow,
+  ]);
 
   // Update holder whenever holder transfer is successful
   useEffect(() => {
@@ -154,6 +177,8 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         endorseBeneficiaryState,
         transferToState,
         isSurrendered,
+        isLoading,
+        isTitleEscrow,
         approveNewTransferTargets,
         approveNewTransferTargetsState,
         transferToNewEscrow,
