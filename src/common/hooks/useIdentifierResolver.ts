@@ -8,8 +8,6 @@ export const useIdentifierResolver = (address: string) => {
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
   const { getIdentifier } = useAddressBook();
 
-  useEffect(() => setResolvedIdentifier(""), [address]); // unset resolvedIdentifier when address is different
-
   useEffect(() => {
     if (address === "") return;
 
@@ -23,6 +21,8 @@ export const useIdentifierResolver = (address: string) => {
       const identityName = await getIdentityName(thirdPartyAPIEndpoints, address);
       if (identityName) {
         setResolvedIdentifier(identityName);
+      } else {
+        setResolvedIdentifier(""); // unset resolvedIdentifier eventually, when cannot be resolved
       }
     }; // resolved from thirdparty endpoint
 
