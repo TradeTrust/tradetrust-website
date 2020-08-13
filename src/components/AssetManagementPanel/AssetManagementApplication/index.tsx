@@ -28,6 +28,7 @@ export const AssetManagementApplication = ({
     transferTo,
     transferToState,
     isSurrendered,
+    isLoading,
     approveNewTransferTargets,
     approveNewTransferTargetsState,
     transferToNewEscrow,
@@ -69,6 +70,7 @@ export const AssetManagementApplication = ({
           onEndorseBeneficiary={endorseBeneficiary}
           beneficiaryEndorseState={endorseBeneficiaryState}
           isSurrendered={isSurrendered}
+          isLoading={isLoading}
           onApproveNewTransferTargets={approveNewTransferTargets}
           approveNewTransferTargetsState={approveNewTransferTargetsState}
           onTransferToNewEscrow={transferToNewEscrow}

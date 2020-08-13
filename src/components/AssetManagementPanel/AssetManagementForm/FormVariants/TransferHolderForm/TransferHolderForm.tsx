@@ -14,6 +14,7 @@ import {
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface TransferHolderProps {
+  isLoading: boolean;
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
@@ -25,6 +26,7 @@ interface TransferHolderProps {
 }
 
 export const TransferHolderForm = ({
+  isLoading,
   formAction,
   tokenRegistryAddress,
   beneficiary,
@@ -74,7 +76,13 @@ export const TransferHolderForm = ({
             />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
+            <EditableAssetTitle
+              role="Owner"
+              value={beneficiary}
+              isEditable={false}
+              isLoading={isLoading}
+              onSetNewValue={() => {}}
+            />
           </div>
           <div className="col-12 col-lg">
             <EditableAssetTitle
@@ -82,6 +90,7 @@ export const TransferHolderForm = ({
               value={holder}
               newValue={newHolder}
               isEditable={isEditable}
+              isLoading={isLoading}
               onSetNewValue={setNewHolder}
               error={holderTransferringState === FormState.ERROR}
             />

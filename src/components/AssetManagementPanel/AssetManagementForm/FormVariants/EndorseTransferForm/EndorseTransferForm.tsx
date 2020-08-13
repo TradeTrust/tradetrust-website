@@ -13,6 +13,7 @@ import {
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface EndorseTransferFormProps {
+  isLoading: boolean;
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   approvedBeneficiary?: string;
@@ -24,6 +25,7 @@ interface EndorseTransferFormProps {
 }
 
 export const EndorseTransferForm = ({
+  isLoading,
   formAction,
   tokenRegistryAddress,
   approvedBeneficiary,
@@ -67,10 +69,22 @@ export const EndorseTransferForm = ({
             />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle role="Owner" value={approvedBeneficiary} isEditable={false} onSetNewValue={() => {}} />
+            <EditableAssetTitle
+              isLoading={isLoading}
+              role="Owner"
+              value={approvedBeneficiary}
+              isEditable={false}
+              onSetNewValue={() => {}}
+            />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle role="Holder" value={approvedHolder} isEditable={false} onSetNewValue={() => {}} />
+            <EditableAssetTitle
+              role="Holder"
+              value={approvedHolder}
+              isEditable={false}
+              isLoading={isLoading}
+              onSetNewValue={() => {}}
+            />
           </div>
         </div>
         <div className="row mb-3">

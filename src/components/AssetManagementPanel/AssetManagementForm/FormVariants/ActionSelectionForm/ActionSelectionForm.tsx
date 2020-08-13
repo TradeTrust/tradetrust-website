@@ -22,6 +22,7 @@ interface ActionSelectionFormProps {
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
+  isLoading: boolean;
   canNominateBeneficiaryHolder: boolean;
   canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -38,6 +39,7 @@ export const ActionSelectionForm = ({
   canChangeHolder,
   canEndorseBeneficiary,
   isSurrendered,
+  isLoading,
   canNominateBeneficiaryHolder,
   canEndorseTransfer,
   setShowEndorsementChain,
@@ -88,10 +90,10 @@ export const ActionSelectionForm = ({
           ) : (
             <>
               <div className="col-12 col-lg">
-                <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
+                <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} isLoading={isLoading} />
               </div>
               <div className="col-12 col-lg">
-                <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
+                <EditableAssetTitle role="Holder" value={holder} isEditable={false} isLoading={isLoading} />
               </div>
             </>
           )}

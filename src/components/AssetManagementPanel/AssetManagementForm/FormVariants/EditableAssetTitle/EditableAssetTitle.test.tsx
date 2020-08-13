@@ -6,7 +6,12 @@ import { EditableAssetTitle } from "./EditableAssetTitle";
 it("should display both the role and the value when not in editable format", async () => {
   await act(async () => {
     const container = render(
-      <EditableAssetTitle role="Owner" value="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C" isEditable={false} />
+      <EditableAssetTitle
+        role="Owner"
+        value="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+        isEditable={false}
+        isLoading={false}
+      />
     );
 
     const beneficiaryLabel = container.getByText("Owner:");
@@ -25,6 +30,7 @@ it("should display both the role and the editable field when in editable format"
       isEditable={true}
       newValue="0xE"
       onSetNewValue={() => {}}
+      isLoading={false}
     />
   );
 
@@ -35,4 +41,36 @@ it("should display both the role and the editable field when in editable format"
   expect(inputField).not.toBeNull();
   expect(newValue).not.toBeNull();
   expect(beneficiaryLabel).not.toBeNull();
+});
+
+it("should display placeholder when loading", async () => {
+  const container = render(
+    <EditableAssetTitle
+      role="Beneficiary"
+      value={undefined}
+      isEditable={false}
+      newValue="0xE"
+      onSetNewValue={() => {}}
+      isLoading={true}
+    />
+  );
+
+  const loadingContainer = container.getByTestId("loading-skeleton-placeholder");
+
+  expect(loadingContainer).not.toBeNull();
+});
+
+it("should not display anything when value is undefined", async () => {
+  const container = render(
+    <EditableAssetTitle
+      role="Beneficiary"
+      value={undefined}
+      isEditable={false}
+      newValue="0xE"
+      onSetNewValue={() => {}}
+      isLoading={false}
+    />
+  );
+
+  expect(container.container).toBeEmpty();
 });

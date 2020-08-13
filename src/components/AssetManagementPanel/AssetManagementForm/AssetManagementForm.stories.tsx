@@ -18,6 +18,7 @@ export const NotLoggedIn = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account=""
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -56,6 +57,7 @@ export const NoMatch = () => {
     <OverlayContextProvider>
       <Overlay />
       <AssetManagementForm
+        isLoading={false}
         setShowEndorsementChain={() => {}}
         account="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         onConnectToWallet={() => alert("Login to Metamask")}
@@ -93,6 +95,7 @@ export const BeneficiaryAndHolder = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -129,6 +132,7 @@ export const Beneficiary = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -165,6 +169,7 @@ export const Holder = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -201,6 +206,7 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -237,6 +243,7 @@ export const SurrenderPending = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -273,6 +280,7 @@ export const Surrendered = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -309,6 +317,7 @@ export const TransferHolderError = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -345,6 +354,7 @@ export const TransferHolderPending = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -381,6 +391,7 @@ export const EndorseChangeBeneficiaryError = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -417,6 +428,7 @@ export const EndorseChangeBeneficiaryPending = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -453,6 +465,7 @@ export const NominateBeneficiaryAndHolderError = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -489,6 +502,7 @@ export const NominateBeneficiaryAndHolderPending = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -525,6 +539,7 @@ export const EndorseTransferHolderBeneficiary = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
@@ -561,6 +576,7 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
 
   return (
     <AssetManagementForm
+      isLoading={false}
       setShowEndorsementChain={() => {}}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}

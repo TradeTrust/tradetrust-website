@@ -11,6 +11,7 @@ describe("Nominate Owner", () => {
     await act(async () => {
       const container = render(
         <NominateBeneficiaryHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.NominateBeneficiaryHolder}
           setFormActionNone={() => {}}
@@ -34,6 +35,7 @@ describe("Nominate Owner", () => {
     await act(async () => {
       const container = render(
         <NominateBeneficiaryHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.NominateBeneficiaryHolder}
           setFormActionNone={() => {}}
@@ -56,6 +58,7 @@ describe("Nominate Owner", () => {
 
       const container = render(
         <NominateBeneficiaryHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.NominateBeneficiaryHolder}
           setFormActionNone={mockOnSetFormAction}
@@ -78,6 +81,7 @@ describe("Nominate Owner", () => {
 
       const container = render(
         <NominateBeneficiaryHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.NominateBeneficiaryHolder}
           setFormActionNone={() => {}}
@@ -98,6 +102,7 @@ describe("Nominate Owner", () => {
     await act(async () => {
       const { getAllByText } = render(
         <NominateBeneficiaryHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.NominateBeneficiaryHolder}
           setFormActionNone={() => {}}

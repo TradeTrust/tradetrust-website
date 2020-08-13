@@ -11,6 +11,7 @@ describe("Endorse Owner", () => {
     await act(async () => {
       const container = render(
         <EndorseBeneficiaryForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={() => {}}
@@ -34,6 +35,7 @@ describe("Endorse Owner", () => {
     await act(async () => {
       const container = render(
         <EndorseBeneficiaryForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={() => {}}
@@ -56,6 +58,7 @@ describe("Endorse Owner", () => {
 
       const container = render(
         <EndorseBeneficiaryForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={mockOnSetFormAction}
@@ -78,6 +81,7 @@ describe("Endorse Owner", () => {
 
       const container = render(
         <EndorseBeneficiaryForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={() => {}}
@@ -98,6 +102,7 @@ describe("Endorse Owner", () => {
     await act(async () => {
       const { getAllByText } = render(
         <EndorseBeneficiaryForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={() => {}}

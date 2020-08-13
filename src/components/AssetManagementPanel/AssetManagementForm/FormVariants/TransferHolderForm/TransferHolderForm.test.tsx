@@ -11,6 +11,7 @@ describe("Transfer Holder", () => {
     await act(async () => {
       const container = render(
         <TransferHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.TransferHolder}
           setFormActionNone={() => {}}
@@ -36,6 +37,7 @@ describe("Transfer Holder", () => {
     await act(async () => {
       const container = render(
         <TransferHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.TransferHolder}
           setFormActionNone={() => {}}
@@ -58,6 +60,7 @@ describe("Transfer Holder", () => {
 
       const container = render(
         <TransferHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.TransferHolder}
           setFormActionNone={mockOnSetFormAction}
@@ -80,6 +83,7 @@ describe("Transfer Holder", () => {
 
       const container = render(
         <TransferHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.TransferHolder}
           setFormActionNone={() => {}}
@@ -100,6 +104,7 @@ describe("Transfer Holder", () => {
     await act(async () => {
       const container = render(
         <TransferHolderForm
+          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.TransferHolder}
           setFormActionNone={() => {}}

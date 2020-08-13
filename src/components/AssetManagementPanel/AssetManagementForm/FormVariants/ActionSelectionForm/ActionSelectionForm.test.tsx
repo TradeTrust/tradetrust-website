@@ -4,6 +4,7 @@ import React from "react";
 import { ActionSelectionForm } from "./ActionSelectionForm";
 
 const defaultProps = {
+  isLoading: false,
   setShowEndorsementChain: () => {},
   onSetFormAction: () => {},
   tokenRegistryAddress: "0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2",

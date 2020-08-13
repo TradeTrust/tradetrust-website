@@ -27,6 +27,7 @@ interface AssetManagementFormProps {
   holderTransferringState: string;
   beneficiaryEndorseState: string;
   isSurrendered: boolean;
+  isLoading: boolean;
   approveNewTransferTargetsState: string;
   transferToNewEscrowState: string;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -49,6 +50,7 @@ export const AssetManagementForm = ({
   onEndorseBeneficiary,
   beneficiaryEndorseState,
   isSurrendered,
+  isLoading,
   onApproveNewTransferTargets,
   approveNewTransferTargetsState,
   onTransferToNewEscrow,
@@ -83,6 +85,7 @@ export const AssetManagementForm = ({
     case AssetManagementActions.Surrender:
       return (
         <SurrenderForm
+          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
@@ -97,6 +100,7 @@ export const AssetManagementForm = ({
     case AssetManagementActions.NominateBeneficiaryHolder:
       return (
         <NominateBeneficiaryHolderForm
+          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
@@ -111,6 +115,7 @@ export const AssetManagementForm = ({
     case AssetManagementActions.EndorseBeneficiary:
       return (
         <EndorseBeneficiaryForm
+          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
@@ -125,6 +130,7 @@ export const AssetManagementForm = ({
     case AssetManagementActions.TransferHolder:
       return (
         <TransferHolderForm
+          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
@@ -139,6 +145,7 @@ export const AssetManagementForm = ({
     case AssetManagementActions.EndorseTransfer:
       return (
         <EndorseTransferForm
+          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           approvedBeneficiary={approvedBeneficiary}
@@ -163,6 +170,7 @@ export const AssetManagementForm = ({
           canChangeHolder={isHolder}
           canEndorseBeneficiary={canEndorseBeneficiary}
           isSurrendered={isSurrendered}
+          isLoading={isLoading}
           canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
           canEndorseTransfer={canEndorseTransfer}
           setShowEndorsementChain={setShowEndorsementChain}
