@@ -5,11 +5,14 @@ import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 
+export type ContractOwnerType = "TitleEscrow" | "Contract" | "Wallet";
+
 interface TokenInformationContext {
   tokenRegistryAddress: string;
   tokenId: string;
   beneficiary?: string;
   holder?: string;
+  titleEscrowOwner?: string;
   approvedBeneficiary?: string;
   approvedHolder?: string;
   changeHolder: TitleEscrow["changeHolder"];
@@ -25,7 +28,7 @@ interface TokenInformationContext {
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
   isLoading: boolean;
-  isTitleEscrow?: boolean;
+  contractOwnerType?: ContractOwnerType;
 }
 
 const contractFunctionStub = () => {
@@ -43,8 +46,8 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
   isSurrendered: false,
-  isTitleEscrow: false,
   isLoading: true,
+  titleEscrowOwner: "",
   approveNewTransferTargets: contractFunctionStub,
   approveNewTransferTargetsState: "UNINITIALIZED",
   transferToNewEscrow: contractFunctionStub,
@@ -53,17 +56,23 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [tokenId, setTokenId] = useState("");
+  const [contractOwnerType, setContractOwnerType] = useState<ContractOwnerType>();
   const [isLoading, setIsLoading] = useState(true);
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
   const { provider } = useProviderContext();
-  const { titleEscrow, updateTitleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
+  const { titleEscrow, updateTitleEscrow, titleEscrowOwner } = useTitleEscrowContract(
+    tokenRegistryAddress,
+    tokenId,
+    provider
+  );
   const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
 
   // First check if Contract is a SmartContract or wallet
-  const { isLoading: isSupportsInterfaceLoading, isInterfaceType: isTitleEscrow } = useSupportsInterface(
-    titleEscrow,
-    "0xdcce2211"
-  );
+  const {
+    isLoading: isSupportsInterfaceLoading,
+    isInterfaceType: isTitleEscrow,
+    errorMessage: supportInterfaceErrorMessage,
+  } = useSupportsInterface(titleEscrow, "0xdcce2211");
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -125,6 +134,9 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
       getApprovedHolder();
       getBeneficiary();
       getApprovedBeneficiary();
+      setContractOwnerType("TitleEscrow");
+    } else if (!isSupportsInterfaceLoading && supportInterfaceErrorMessage?.includes("contract not deployed")) {
+      setContractOwnerType("Wallet");
     }
     setIsLoading(false);
   }, [
@@ -135,6 +147,9 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     titleEscrow,
     isSupportsInterfaceLoading,
     isTitleEscrow,
+    supportInterfaceErrorMessage,
+    titleEscrowOwner,
+    contractOwnerType,
   ]);
 
   // Update holder whenever holder transfer is successful
@@ -178,7 +193,8 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         transferToState,
         isSurrendered,
         isLoading,
-        isTitleEscrow,
+        contractOwnerType,
+        titleEscrowOwner,
         approveNewTransferTargets,
         approveNewTransferTargetsState,
         transferToNewEscrow,

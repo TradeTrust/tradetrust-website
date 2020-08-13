@@ -29,6 +29,7 @@ export const AssetManagementApplication = ({
     transferToState,
     isSurrendered,
     isLoading,
+    contractOwnerType,
     approveNewTransferTargets,
     approveNewTransferTargetsState,
     transferToNewEscrow,
@@ -76,6 +77,7 @@ export const AssetManagementApplication = ({
           onTransferToNewEscrow={transferToNewEscrow}
           transferToNewEscrowState={transferToNewEscrowState}
           setShowEndorsementChain={setShowEndorsementChain}
+          contractOwnerType={contractOwnerType}
         />
       </div>
     </div>

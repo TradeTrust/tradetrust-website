@@ -9,11 +9,14 @@ interface Erc165Contract extends Contract {
 export const useSupportsInterface = (contractInstance: Erc165Contract | undefined, interfaceId: string) => {
   const [isInterfaceType, setIsInterfaceType] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string>();
 
-  const { call: supportsInterface, value: isSameInterfaceType, errorMessage, state } = useContractFunctionHook(
-    contractInstance,
-    "supportsInterface"
-  );
+  const {
+    call: supportsInterface,
+    value: isSameInterfaceType,
+    errorMessage: supportInterfaceErrorMessage,
+    state,
+  } = useContractFunctionHook(contractInstance, "supportsInterface");
 
   useEffect(() => {
     setIsLoading(true);
@@ -22,16 +25,13 @@ export const useSupportsInterface = (contractInstance: Erc165Contract | undefine
 
   useEffect(() => {
     if (state === "ERROR") {
+      setErrorMessage(supportInterfaceErrorMessage);
       setIsInterfaceType(false);
     } else if (state === "CONFIRMED") {
       setIsInterfaceType(isSameInterfaceType);
     }
     setIsLoading(false);
-  }, [errorMessage, isSameInterfaceType, state]);
+  }, [isSameInterfaceType, state, supportInterfaceErrorMessage]);
 
-  useEffect(() => {
-    console.log("suportinterface state: " + state);
-  });
-
-  return { isLoading, isInterfaceType };
+  return { isLoading, isInterfaceType, errorMessage };
 };

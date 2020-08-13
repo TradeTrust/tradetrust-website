@@ -46,6 +46,7 @@ export const NotLoggedIn = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -85,6 +86,7 @@ export const NoMatch = () => {
           alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
         }
         transferToNewEscrowState={FormState.UNINITIALIZED}
+        contractOwnerType="TitleEscrow"
       />
     </OverlayContextProvider>
   );
@@ -123,6 +125,7 @@ export const BeneficiaryAndHolder = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -160,6 +163,7 @@ export const Beneficiary = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -197,6 +201,7 @@ export const Holder = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -234,6 +239,7 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -271,6 +277,7 @@ export const SurrenderPending = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -308,6 +315,7 @@ export const Surrendered = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -345,6 +353,7 @@ export const TransferHolderError = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -382,6 +391,7 @@ export const TransferHolderPending = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -419,6 +429,7 @@ export const EndorseChangeBeneficiaryError = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -456,6 +467,7 @@ export const EndorseChangeBeneficiaryPending = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -493,6 +505,7 @@ export const NominateBeneficiaryAndHolderError = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -530,6 +543,7 @@ export const NominateBeneficiaryAndHolderPending = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -567,6 +581,7 @@ export const EndorseTransferHolderBeneficiary = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
+      contractOwnerType="TitleEscrow"
     />
   );
 };
@@ -604,6 +619,7 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
       transferToNewEscrowState={FormState.PENDING_CONFIRMATION}
+      contractOwnerType="TitleEscrow"
     />
   );
 };

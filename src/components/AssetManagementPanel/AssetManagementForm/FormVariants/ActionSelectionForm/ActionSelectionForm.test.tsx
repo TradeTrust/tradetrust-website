@@ -18,6 +18,7 @@ const defaultProps = {
   canNominateBeneficiaryHolder: false,
   isSurrendered: false,
   canEndorseTransfer: false,
+  contractOwnerType: "TitleEscrow",
 };
 
 describe("ActionSelectionForm", () => {
