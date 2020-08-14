@@ -6,6 +6,9 @@ interface Erc165Contract extends Contract {
   supportsInterface: (interfaceId: []) => Promise<boolean> | undefined;
 }
 
+/**
+ * This hook calls checks if token is an instance of given interfaceId
+ */
 export const useSupportsInterface = (contractInstance: Erc165Contract | undefined, interfaceId: string) => {
   const [isInterfaceType, setIsInterfaceType] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,24 +17,27 @@ export const useSupportsInterface = (contractInstance: Erc165Contract | undefine
   const {
     call: supportsInterface,
     value: isSameInterfaceType,
-    errorMessage: supportInterfaceErrorMessage,
+    errorMessage: supportsInterfaceErrorMessage,
     state,
   } = useContractFunctionHook(contractInstance, "supportsInterface");
 
+  // Check if token is type of interface on load
   useEffect(() => {
     setIsLoading(true);
     supportsInterface(interfaceId);
   }, [interfaceId, supportsInterface]);
 
+  // On result return, set the states
   useEffect(() => {
     if (state === "ERROR") {
-      setErrorMessage(supportInterfaceErrorMessage);
+      setErrorMessage(supportsInterfaceErrorMessage);
       setIsInterfaceType(false);
+      setIsLoading(false);
     } else if (state === "CONFIRMED") {
       setIsInterfaceType(isSameInterfaceType);
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  }, [isSameInterfaceType, state, supportInterfaceErrorMessage]);
+  }, [isSameInterfaceType, state, supportsInterfaceErrorMessage]);
 
   return { isLoading, isInterfaceType, errorMessage };
 };

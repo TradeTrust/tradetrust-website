@@ -29,7 +29,7 @@ export const AssetManagementApplication = ({
     transferToState,
     isSurrendered,
     isLoading,
-    contractOwnerType,
+    tokenOwnerType,
     approveNewTransferTargets,
     approveNewTransferTargetsState,
     transferToNewEscrow,
@@ -52,34 +52,40 @@ export const AssetManagementApplication = ({
 
   return (
     <div id="title-transfer-panel">
-      <div className="container-custom">
-        <AssetManagementTags />
-        <AssetManagementForm
-          account={account}
-          onConnectToWallet={upgradeProvider}
-          beneficiary={beneficiary}
-          approvedBeneficiary={approvedBeneficiary}
-          holder={holder}
-          approvedHolder={approvedHolder}
-          formAction={assetManagementAction}
-          tokenRegistryAddress={tokenRegistryAddress}
-          onSetFormAction={onSetFormAction}
-          surrenderingState={transferToState}
-          onSurrender={onSurrender}
-          onTransferHolder={changeHolder}
-          holderTransferringState={changeHolderState}
-          onEndorseBeneficiary={endorseBeneficiary}
-          beneficiaryEndorseState={endorseBeneficiaryState}
-          isSurrendered={isSurrendered}
-          isLoading={isLoading}
-          onApproveNewTransferTargets={approveNewTransferTargets}
-          approveNewTransferTargetsState={approveNewTransferTargetsState}
-          onTransferToNewEscrow={transferToNewEscrow}
-          transferToNewEscrowState={transferToNewEscrowState}
-          setShowEndorsementChain={setShowEndorsementChain}
-          contractOwnerType={contractOwnerType}
-        />
-      </div>
+      {!isLoading && (
+        <div className="container-custom">
+          <AssetManagementTags />
+          {tokenOwnerType === "TitleEscrow" && (
+            <AssetManagementForm
+              account={account}
+              onConnectToWallet={upgradeProvider}
+              beneficiary={beneficiary}
+              approvedBeneficiary={approvedBeneficiary}
+              holder={holder}
+              approvedHolder={approvedHolder}
+              formAction={assetManagementAction}
+              tokenRegistryAddress={tokenRegistryAddress}
+              onSetFormAction={onSetFormAction}
+              surrenderingState={transferToState}
+              onSurrender={onSurrender}
+              onTransferHolder={changeHolder}
+              holderTransferringState={changeHolderState}
+              onEndorseBeneficiary={endorseBeneficiary}
+              beneficiaryEndorseState={endorseBeneficiaryState}
+              isSurrendered={isSurrendered}
+              isLoading={isLoading}
+              onApproveNewTransferTargets={approveNewTransferTargets}
+              approveNewTransferTargetsState={approveNewTransferTargetsState}
+              onTransferToNewEscrow={transferToNewEscrow}
+              transferToNewEscrowState={transferToNewEscrowState}
+              setShowEndorsementChain={setShowEndorsementChain}
+            />
+          )}
+          {tokenOwnerType === "Wallet" && (
+            <h5>At this point in time, direct interaction with Erc721 is not supported on tradetrust.io</h5>
+          )}
+        </div>
+      )}
     </div>
   );
 };

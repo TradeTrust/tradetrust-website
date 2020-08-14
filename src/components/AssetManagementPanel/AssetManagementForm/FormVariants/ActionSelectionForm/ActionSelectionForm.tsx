@@ -26,7 +26,6 @@ interface ActionSelectionFormProps {
   canNominateBeneficiaryHolder: boolean;
   canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
-  contractOwnerType?: string;
 }
 
 export const ActionSelectionForm = ({
@@ -44,11 +43,9 @@ export const ActionSelectionForm = ({
   canNominateBeneficiaryHolder,
   canEndorseTransfer,
   setShowEndorsementChain,
-  contractOwnerType,
 }: ActionSelectionFormProps) => {
   const canManage =
-    (canSurrender || canChangeHolder || canEndorseBeneficiary || canNominateBeneficiaryHolder || canEndorseTransfer) &&
-    contractOwnerType !== "Wallet";
+    canSurrender || canChangeHolder || canEndorseBeneficiary || canNominateBeneficiaryHolder || canEndorseTransfer;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -84,15 +81,6 @@ export const ActionSelectionForm = ({
               setShowEndorsementChain={setShowEndorsementChain}
             />
           </div>
-          {contractOwnerType === "Wallet" && (
-            <div className="col-12 col-lg-auto align-self-end">
-              <div className="py-3">
-                <TagBorderedRedLarge>
-                  At this point in time, direct interaction with Erc721 is not supported on tradetrust.io
-                </TagBorderedRedLarge>
-              </div>
-            </div>
-          )}
           {isSurrendered ? (
             <div className="col-12 col-lg-auto align-self-end">
               <div className="py-3">

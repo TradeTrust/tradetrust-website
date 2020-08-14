@@ -7,7 +7,6 @@ import { EndorseTransferForm } from "./FormVariants/EndorseTransferForm";
 import { NominateBeneficiaryHolderForm } from "./FormVariants/NominateBeneficiaryHolder";
 import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
-import { ContractOwnerType } from "../../../common/contexts/TokenInformationContext";
 
 interface AssetManagementFormProps {
   beneficiary?: string;
@@ -32,7 +31,6 @@ interface AssetManagementFormProps {
   approveNewTransferTargetsState: string;
   transferToNewEscrowState: string;
   setShowEndorsementChain: (payload: boolean) => void;
-  contractOwnerType?: ContractOwnerType;
 }
 
 export const AssetManagementForm = ({
@@ -58,7 +56,6 @@ export const AssetManagementForm = ({
   onTransferToNewEscrow,
   transferToNewEscrowState,
   setShowEndorsementChain,
-  contractOwnerType,
 }: AssetManagementFormProps) => {
   const isHolder = account === holder;
   const isBeneficiary = account === beneficiary;
@@ -177,7 +174,6 @@ export const AssetManagementForm = ({
           canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
           canEndorseTransfer={canEndorseTransfer}
           setShowEndorsementChain={setShowEndorsementChain}
-          contractOwnerType={contractOwnerType}
         />
       );
   }
