@@ -163,3 +163,10 @@ export const baseStyleInput = () => {
     }
   `;
 };
+
+export const buttonLarge = () => {
+  return `
+    padding: 8px 24px 12px;
+    ${fontSize(26)};
+  `;
+};
