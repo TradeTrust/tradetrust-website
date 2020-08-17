@@ -27,7 +27,6 @@ interface AssetManagementFormProps {
   holderTransferringState: string;
   beneficiaryEndorseState: string;
   isSurrendered: boolean;
-  isLoading: boolean;
   approveNewTransferTargetsState: string;
   transferToNewEscrowState: string;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -50,7 +49,6 @@ export const AssetManagementForm = ({
   onEndorseBeneficiary,
   beneficiaryEndorseState,
   isSurrendered,
-  isLoading,
   onApproveNewTransferTargets,
   approveNewTransferTargetsState,
   onTransferToNewEscrow,
@@ -165,7 +163,6 @@ export const AssetManagementForm = ({
           canChangeHolder={isHolder}
           canEndorseBeneficiary={canEndorseBeneficiary}
           isSurrendered={isSurrendered}
-          isLoading={isLoading}
           canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
           canEndorseTransfer={canEndorseTransfer}
           setShowEndorsementChain={setShowEndorsementChain}

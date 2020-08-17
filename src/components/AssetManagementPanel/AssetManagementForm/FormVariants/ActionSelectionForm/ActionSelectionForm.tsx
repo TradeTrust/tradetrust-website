@@ -22,7 +22,6 @@ interface ActionSelectionFormProps {
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
-  isLoading: boolean;
   canNominateBeneficiaryHolder: boolean;
   canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -39,7 +38,6 @@ export const ActionSelectionForm = ({
   canChangeHolder,
   canEndorseBeneficiary,
   isSurrendered,
-  isLoading,
   canNominateBeneficiaryHolder,
   canEndorseTransfer,
   setShowEndorsementChain,
