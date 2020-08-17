@@ -85,7 +85,6 @@ export const AssetManagementForm = ({
     case AssetManagementActions.Surrender:
       return (
         <SurrenderForm
-          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
@@ -100,7 +99,6 @@ export const AssetManagementForm = ({
     case AssetManagementActions.NominateBeneficiaryHolder:
       return (
         <NominateBeneficiaryHolderForm
-          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
@@ -115,7 +113,6 @@ export const AssetManagementForm = ({
     case AssetManagementActions.EndorseBeneficiary:
       return (
         <EndorseBeneficiaryForm
-          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
@@ -130,7 +127,6 @@ export const AssetManagementForm = ({
     case AssetManagementActions.TransferHolder:
       return (
         <TransferHolderForm
-          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
@@ -145,7 +141,6 @@ export const AssetManagementForm = ({
     case AssetManagementActions.EndorseTransfer:
       return (
         <EndorseTransferForm
-          isLoading={isLoading}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           approvedBeneficiary={approvedBeneficiary}

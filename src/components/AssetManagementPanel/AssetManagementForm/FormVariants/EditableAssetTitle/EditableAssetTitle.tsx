@@ -12,7 +12,6 @@ interface EditableAssetTitleProps {
   role: string;
   value?: string;
   isEditable: boolean;
-  isLoading: boolean;
   newValue?: string;
   onSetNewValue?: (newValue: string) => void;
   error?: boolean;
@@ -23,7 +22,6 @@ export const EditableAssetTitle = ({
   value,
   newValue,
   isEditable,
-  isLoading,
   onSetNewValue,
   error,
 }: EditableAssetTitleProps) => {
@@ -32,8 +30,7 @@ export const EditableAssetTitle = ({
     showOverlay(<AddressBook title="Address Book" onAddressSelected={onSetNewValue} />);
   };
 
-  if (isLoading) return <SkeletonPlaceholder />;
-  if (!value) return <></>;
+  if (!value) return <SkeletonPlaceholder />;
   if (!isEditable)
     return (
       <AssetTitle role={role} address={value}>

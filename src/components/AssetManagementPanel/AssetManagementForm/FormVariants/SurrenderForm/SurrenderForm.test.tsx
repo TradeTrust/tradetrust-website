@@ -11,7 +11,6 @@ describe("Surrender", () => {
     await act(async () => {
       const container = render(
         <SurrenderForm
-          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
@@ -38,7 +37,6 @@ describe("Surrender", () => {
     await act(async () => {
       const container = render(
         <SurrenderForm
-          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
@@ -61,7 +59,6 @@ describe("Surrender", () => {
 
       const container = render(
         <SurrenderForm
-          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
@@ -84,7 +81,6 @@ describe("Surrender", () => {
 
       const container = render(
         <SurrenderForm
-          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={mockOnSetFormAction}
@@ -105,7 +101,6 @@ describe("Surrender", () => {
     await act(async () => {
       const container = render(
         <SurrenderForm
-          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
@@ -127,7 +122,6 @@ describe("Surrender", () => {
 
       const container = render(
         <SurrenderForm
-          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}

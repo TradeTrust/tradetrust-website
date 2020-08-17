@@ -13,7 +13,6 @@ import {
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface SurrenderFormProps {
-  isLoading: boolean;
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
@@ -25,7 +24,6 @@ interface SurrenderFormProps {
 }
 
 export const SurrenderForm = ({
-  isLoading,
   formAction,
   tokenRegistryAddress,
   beneficiary,
@@ -63,22 +61,10 @@ export const SurrenderForm = ({
             />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle
-              role="Owner"
-              value={beneficiary}
-              isEditable={false}
-              isLoading={isLoading}
-              onSetNewValue={() => {}}
-            />
+            <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle
-              role="Holder"
-              value={holder}
-              isEditable={false}
-              isLoading={isLoading}
-              onSetNewValue={() => {}}
-            />
+            <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
           </div>
         </div>
         <div className="row mb-3">

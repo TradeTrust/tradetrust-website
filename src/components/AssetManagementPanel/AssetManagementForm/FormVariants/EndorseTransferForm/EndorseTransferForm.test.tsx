@@ -13,7 +13,6 @@ describe("Endorse Transfer to nominated beneficiary and holder", () => {
 
       const container = render(
         <EndorseTransferForm
-          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.EndorseTransfer}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -37,7 +36,6 @@ describe("Endorse Transfer to nominated beneficiary and holder", () => {
 
       const container = render(
         <EndorseTransferForm
-          isLoading={false}
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.EndorseTransfer}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"

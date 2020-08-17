@@ -29,7 +29,7 @@ export const AssetManagementApplication = ({
     transferToState,
     isSurrendered,
     isLoading,
-    tokenOwnerType,
+    isTitleEscrow,
     approveNewTransferTargets,
     approveNewTransferTargetsState,
     transferToNewEscrow,
@@ -55,7 +55,7 @@ export const AssetManagementApplication = ({
       {!isLoading && (
         <div className="container-custom">
           <AssetManagementTags />
-          {tokenOwnerType === "TitleEscrow" && (
+          {isTitleEscrow && (
             <AssetManagementForm
               account={account}
               onConnectToWallet={upgradeProvider}
@@ -81,7 +81,7 @@ export const AssetManagementApplication = ({
               setShowEndorsementChain={setShowEndorsementChain}
             />
           )}
-          {tokenOwnerType === "Wallet" && (
+          {!isTitleEscrow && (
             <h5>At this point in time, direct interaction with Erc721 is not supported on tradetrust.io</h5>
           )}
         </div>

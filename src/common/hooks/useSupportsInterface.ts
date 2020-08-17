@@ -10,8 +10,7 @@ interface Erc165Contract extends Contract {
  * This hook calls checks if token is an instance of given interfaceId
  */
 export const useSupportsInterface = (contractInstance: Erc165Contract | undefined, interfaceId: string) => {
-  const [isInterfaceType, setIsInterfaceType] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isInterfaceType, setIsInterfaceType] = useState<boolean>();
   const [errorMessage, setErrorMessage] = useState<string>();
 
   const {
@@ -23,21 +22,23 @@ export const useSupportsInterface = (contractInstance: Erc165Contract | undefine
 
   // Check if token is type of interface on load
   useEffect(() => {
-    setIsLoading(true);
     supportsInterface(interfaceId);
   }, [interfaceId, supportsInterface]);
 
-  // On result return, set the states
+  // On result return, infer the types
   useEffect(() => {
     if (state === "ERROR") {
-      setErrorMessage(supportsInterfaceErrorMessage);
-      setIsInterfaceType(false);
-      setIsLoading(false);
+      if (supportsInterfaceErrorMessage?.includes("contract not deployed")) {
+        setIsInterfaceType(false);
+      } else if (supportsInterfaceErrorMessage?.includes("call exception")) {
+        setIsInterfaceType(false);
+      } else {
+        setErrorMessage(supportsInterfaceErrorMessage);
+      }
     } else if (state === "CONFIRMED") {
       setIsInterfaceType(isSameInterfaceType);
-      setIsLoading(false);
     }
-  }, [isSameInterfaceType, state, supportsInterfaceErrorMessage]);
+  }, [interfaceId, isSameInterfaceType, state, supportsInterfaceErrorMessage]);
 
-  return { isLoading, isInterfaceType, errorMessage };
+  return { isInterfaceType, errorMessage };
 };

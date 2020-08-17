@@ -90,10 +90,10 @@ export const ActionSelectionForm = ({
           ) : (
             <>
               <div className="col-12 col-lg">
-                <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} isLoading={isLoading} />
+                <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
               </div>
               <div className="col-12 col-lg">
-                <EditableAssetTitle role="Holder" value={holder} isEditable={false} isLoading={isLoading} />
+                <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
               </div>
             </>
           )}

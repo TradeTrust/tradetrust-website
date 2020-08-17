@@ -5,8 +5,6 @@ import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 
-export type TokenOwnerType = "TitleEscrow" | "Contract" | "Wallet";
-
 interface TokenInformationContext {
   tokenRegistryAddress: string;
   tokenId: string;
@@ -28,7 +26,7 @@ interface TokenInformationContext {
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
   isLoading: boolean;
-  tokenOwnerType?: TokenOwnerType;
+  isTitleEscrow?: boolean;
 }
 
 const contractFunctionStub = () => {
@@ -56,9 +54,8 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [tokenId, setTokenId] = useState("");
-  const [tokenOwnerType, setTokenOwnerType] = useState<TokenOwnerType>();
-  const [isLoading, setIsLoading] = useState(true);
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const { provider } = useProviderContext();
   const { titleEscrow, updateTitleEscrow, titleEscrowOwner } = useTitleEscrowContract(
     tokenRegistryAddress,
@@ -68,11 +65,10 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
 
   // First check if Contract is a SmartContract or wallet
-  const {
-    isLoading: isSupportsInterfaceLoading,
-    isInterfaceType: isTitleEscrow,
-    errorMessage: supportsInterfaceErrorMessage,
-  } = useSupportsInterface(titleEscrow, "0xdcce2211"); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
+  const { isInterfaceType: isTitleEscrow, errorMessage: supportsInterfaceErrorMessage } = useSupportsInterface(
+    titleEscrow,
+    "0xdcce2211"
+  ); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -129,23 +125,21 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
 
   // Fetch all new information when title escrow is initialized or updated (due to actions)
   useEffect(() => {
-    if (!isSupportsInterfaceLoading && isTitleEscrow) {
+    if (isTitleEscrow) {
       // only fetch TitleEscrow info after we determine owner is a Title Escrow contract
       getHolder();
       getApprovedHolder();
       getBeneficiary();
       getApprovedBeneficiary();
-      setTokenOwnerType("TitleEscrow");
-    } else if (!isSupportsInterfaceLoading && supportsInterfaceErrorMessage?.includes("contract not deployed")) {
-      setTokenOwnerType("Wallet");
     }
-    setIsLoading(isSupportsInterfaceLoading);
+    if (supportsInterfaceErrorMessage || isTitleEscrow !== undefined) {
+      setIsLoading(false);
+    }
   }, [
     getApprovedBeneficiary,
     getApprovedHolder,
     getBeneficiary,
     getHolder,
-    isSupportsInterfaceLoading,
     isTitleEscrow,
     supportsInterfaceErrorMessage,
   ]);
@@ -191,7 +185,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         transferToState,
         isSurrendered,
         isLoading,
-        tokenOwnerType,
+        isTitleEscrow,
         titleEscrowOwner,
         approveNewTransferTargets,
         approveNewTransferTargetsState,

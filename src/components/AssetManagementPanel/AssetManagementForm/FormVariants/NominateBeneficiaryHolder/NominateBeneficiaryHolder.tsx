@@ -14,7 +14,6 @@ import {
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface NominateBeneficiaryHolderFormProps {
-  isLoading: boolean;
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
@@ -26,7 +25,6 @@ interface NominateBeneficiaryHolderFormProps {
 }
 
 export const NominateBeneficiaryHolderForm = ({
-  isLoading,
   formAction,
   tokenRegistryAddress,
   beneficiary,
@@ -73,7 +71,6 @@ export const NominateBeneficiaryHolderForm = ({
           </div>
           <div className="col-12 col-lg">
             <EditableAssetTitle
-              isLoading={isLoading}
               role="Owner"
               value={beneficiary}
               newValue={newBeneficiary}
@@ -83,7 +80,7 @@ export const NominateBeneficiaryHolderForm = ({
             />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle isLoading={isLoading} role="Holder" value={holder} isEditable={false} />
+            <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
           </div>
         </div>
         <div className="row mb-3">
