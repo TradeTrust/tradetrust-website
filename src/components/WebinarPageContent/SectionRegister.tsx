@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { vars } from "../../styles";
 import { RegisterButton } from "./RegisterButton";
+import { ReactRouterLinkButtonSolidNavyWhite } from "./../UI/Button";
 
 interface SectionRegisterProps {
   className?: string;
@@ -20,9 +21,12 @@ export const SectionRegisterUnStyled = ({ className }: SectionRegisterProps) => 
             />
           </div>
         </div>
-        <div className="row">
+        <div className="row mt-5">
           <div className="col-auto">
-            <RegisterButton className="mt-5">Register Now</RegisterButton>
+            <RegisterButton>Register Now</RegisterButton>
+            <ReactRouterLinkButtonSolidNavyWhite to="/training-videos" className="ml-2" large>
+              Watch Now
+            </ReactRouterLinkButtonSolidNavyWhite>
           </div>
         </div>
       </div>

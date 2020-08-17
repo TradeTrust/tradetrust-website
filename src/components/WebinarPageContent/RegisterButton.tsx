@@ -6,6 +6,7 @@ import { AnchorLinkButtonSolidOrangeWhite } from "./../UI/Button";
 interface RegisterButtonProps {
   className?: string;
   children: React.ReactNode;
+  large?: boolean;
 }
 
 export const RegisterButtonUnStyled = ({ className, children }: RegisterButtonProps) => {

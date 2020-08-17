@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { SvgIcon, SvgIconChecked } from "./../UI/SvgIcon";
 import { mixin, vars } from "../../styles";
 import { RegisterButton } from "./RegisterButton";
+import { ReactRouterLinkButtonSolidNavyWhite } from "./../UI/Button";
 
 interface SectionTopicsProps {
   className?: string;
@@ -159,6 +160,9 @@ export const SectionTopicsUnStyled = ({ className }: SectionTopicsProps) => {
         <div className="row my-5">
           <div className="col-auto mx-auto">
             <RegisterButton>Register Now</RegisterButton>
+            <ReactRouterLinkButtonSolidNavyWhite to="/training-videos" className="ml-2" large>
+              Watch Now
+            </ReactRouterLinkButtonSolidNavyWhite>
           </div>
         </div>
         <div className="row">

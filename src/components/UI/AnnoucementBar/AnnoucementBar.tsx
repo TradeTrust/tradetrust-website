@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { vars, mixin } from "../../../styles";
+import { vars } from "../../../styles";
 import { ReactRouterLinkButtonSolidOrangeWhite } from "./../../UI/Button";
 
 export interface AnnoucementBarProps {
@@ -23,7 +23,9 @@ export const AnnoucementBarUnStyled = ({ className }: AnnoucementBarProps) => {
                   />
                 </div>
                 <div className="col-12 col-lg-auto ml-lg-auto mt-4 mt-lg-0">
-                  <ReactRouterLinkButtonSolidOrangeWhite to="/webinar">View More</ReactRouterLinkButtonSolidOrangeWhite>
+                  <ReactRouterLinkButtonSolidOrangeWhite to="/webinar" large>
+                    View More
+                  </ReactRouterLinkButtonSolidOrangeWhite>
                 </div>
               </div>
             </div>
@@ -74,9 +76,6 @@ export const AnnoucementBar = styled(AnnoucementBarUnStyled)`
   }
 
   a {
-    padding: 8px 24px 12px;
-    ${mixin.fontSize(26)};
-
     &:hover {
       color: ${vars.greyLightest};
     }
