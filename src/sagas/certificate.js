@@ -13,6 +13,7 @@ import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { isValid } from "../services/verify/fragments";
 import { decryptString } from "@govtechsg/oa-encryption";
+import { NETWORK_NAME } from "./../config";
 
 const { trace } = getLogger("saga:certificate");
 
@@ -28,7 +29,8 @@ export function* verifyCertificate() {
 
     // Instead of success/failure, report completeness
     yield put(verifyingCertificateCompleted(verificationStatus));
-    if (isValid(verificationStatus)) {
+
+    if (NETWORK_NAME === "local" ? true : isValid(verificationStatus)) {
       yield put(push("/viewer"));
     }
   } catch (e) {

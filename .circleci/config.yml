@@ -29,4 +29,4 @@ jobs:
           command: npm run build
       - run:
           name: integration
-          command: ./scripts/integration-headless.sh
+          command: npm run integration:concurrently:headless

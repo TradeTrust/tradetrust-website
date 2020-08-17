@@ -3,6 +3,9 @@ import { ethers, providers, Signer } from "ethers";
 import { NETWORK_NAME } from "../../config";
 import { MessageTitle } from "./../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
+const getProvider =
+  NETWORK_NAME === "local" ? new providers.JsonRpcProvider() : ethers.getDefaultProvider(NETWORK_NAME);
+
 interface ProviderContextProps {
   isUpgraded: boolean;
   provider: providers.Provider | Signer;
@@ -12,14 +15,14 @@ interface ProviderContextProps {
 
 export const ProviderContext = createContext<ProviderContextProps>({
   isUpgraded: false,
-  provider: ethers.getDefaultProvider(NETWORK_NAME),
+  provider: getProvider,
   upgradeProvider: async () => {},
   account: undefined,
 });
 
 export const ProviderContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isUpgraded, setIsUpgraded] = useState(false);
-  const [provider, setProvider] = useState<providers.Provider | Signer>(ethers.getDefaultProvider(NETWORK_NAME));
+  const [provider, setProvider] = useState<providers.Provider | Signer>(getProvider);
   const [account, setAccount] = useState<string>();
 
   const initializeSigner = async () => {
