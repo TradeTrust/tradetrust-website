@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { vars, mixin } from "../../../styles";
+import { vars } from "../../../styles";
 import { ReactRouterLinkButtonSolidOrangeWhite } from "./../../UI/Button";
 
 export interface AnnoucementBarProps {
