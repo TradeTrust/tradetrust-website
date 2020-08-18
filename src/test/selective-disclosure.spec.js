@@ -1,21 +1,17 @@
 import { Selector } from "testcafe";
+import { uploadDocument, validateIssuerTexts } from "./helper";
 
 fixture("Selective Disclosure").page`http://localhost:3000`;
 
 const IframeBlock = Selector("#iframe");
-const Document = "./fixture/coo-selective-disclosure.json";
-const DocumentStatus = Selector("#document-status");
 
 const PrivacyFilterButton = Selector("#privacySwitch");
 const CertificateSection = Selector("#rendered-certificate");
 const ExporterObfuscationButton = Selector(".fa-minus-circle").nth(0);
 
 test("Fields on a document can be hidden", async (t) => {
-  const container = Selector("#certificate-dropzone");
-  await container();
-  await t.setFilesToUpload("input[type=file]", [Document]);
-
-  await DocumentStatus.with({ visibilityCheck: true })();
+  await uploadDocument("./fixture/coo-selective-disclosure.json");
+  await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
 
   await t.switchToIframe(IframeBlock);
 

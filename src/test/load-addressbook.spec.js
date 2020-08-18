@@ -1,9 +1,7 @@
 import { Selector } from "testcafe";
+import { validateTextContent, uploadDocument } from "./helper";
 
 fixture("Load AddressBook").page`http://localhost:3000`;
-
-const Document = "./fixture/ebl.json";
-const AddressBook = "./fixture/local-addressbook.csv";
 
 const TitleTransferPanel = Selector("#title-transfer-panel");
 const BeneficiaryName = Selector("th").withText("Bank of China");
@@ -15,13 +13,8 @@ const OverlayAddressBookSearchInput = Selector("[data-testid='overlay-addressboo
 const ButtonUploadAddressBook = Selector("[data-testid='multi-button'] button").withText("Address Book");
 const CSVFileInput = Selector("#csv-file-input");
 
-const validateTextContent = async (t, component, texts) =>
-  texts.reduce(async (prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
-
 test("AddressBook local names to be resolved correctly, search filtered to 1", async (t) => {
-  const container = Selector("#certificate-dropzone");
-  await container();
-  await t.setFilesToUpload("input[type=file]", [Document]);
+  uploadDocument("./fixture/ebl.json");
   await TitleTransferPanel.with({ visibilityCheck: true })();
   await t.expect(ButtonUploadAddressBook.count).eql(1);
 
@@ -29,7 +22,7 @@ test("AddressBook local names to be resolved correctly, search filtered to 1", a
   await OverlayAddressBook.with({ visibilityCheck: true })();
   await validateTextContent(t, OverlayAddressBookTableFirstRow.find("td"), ["No Address found."]);
 
-  await t.setFilesToUpload(CSVFileInput, [AddressBook]);
+  await t.setFilesToUpload(CSVFileInput, ["./fixture/local-addressbook.csv"]);
   await t.expect(OverlayAddressBookTableBodyRows.count).notEql(0);
   await validateTextContent(t, BeneficiaryName, ["Bank of China"]);
   await validateTextContent(t, HolderName, ["DBS"]);
