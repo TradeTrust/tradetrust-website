@@ -14,7 +14,7 @@
     "integration:internal:headless": "testcafe -c 4 chrome:headless src/**/*.spec.js --ts-config-path ./tsconfig.testcafe.json --app \"npm run dev\" --app-init-delay 5000",
     "integration:internal:local": "testcafe --skip-js-errors chrome integration/local/**/*.spec.js --ts-config-path ./tsconfig.testcafe.json --app \"BROWSER=none NET=local npm run dev \"",
     "integration:internal:headless:local": "testcafe --skip-js-errors -c 4 chrome:headless integration/local/**/*.spec.js --ts-config-path ./tsconfig.testcafe.json --app \"NET=local npm run dev\" --app-init-delay 5000",
-    "integration:concurrently:headless": "concurrently -k -s first \"npm:blockchain\" \"npm:integration\"",
+    "integration:concurrently:headless": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:headless\"",
     "prep": "run-p lint:fix stylelint:fix test integration",
     "serve-static": "http-server dist -s -p 3000",
     "storybook": "start-storybook -p 6006 -s public",

@@ -5,8 +5,7 @@ fixture("Title Transfer Rendering").page`http://localhost:3000`;
 const Document = "./ebl-local.json";
 const DocumentStatus = Selector("#document-status");
 const IssuedByDomainName = Selector("#issuedby .domain");
-const IframeBlock = Selector("#iframe");
-const SampleTemplate = Selector("#root");
+const ConnectButton = Selector("[data-testid='connectToWallet']");
 
 const validateTextContent = async (t, component, texts) =>
   texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
@@ -19,6 +18,5 @@ test("Title Transfer should render correctly", async (t) => {
   await DocumentStatus.with({ visibilityCheck: true })();
   await validateTextContent(t, IssuedByDomainName, ["Unknown"]);
 
-  await t.switchToIframe(IframeBlock);
-  await validateTextContent(t, SampleTemplate, ["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
+  await t.click(ConnectButton);
 });
