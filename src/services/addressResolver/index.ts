@@ -5,16 +5,16 @@ import { cacheAdapterEnhancer } from "axios-extensions";
 
 const { trace } = getLogger("service:addressresolver");
 
+const client = axios.create({
+  headers: { "Cache-Control": "no-cache" },
+  adapter: cacheAdapterEnhancer(axios.defaults.adapter as AxiosAdapter), // Typecast suggested by author to force non-null typing: https://github.com/kuitos/axios-extensions/issues/8
+});
 export interface HeadersProps {
   [key: string]: string;
 }
 
 export const resolveAddressNameByEndpoint = async (url: string, apiHeader: string, apiKey: string) => {
   // Default TTL is 5 Mins to change timeout check https://github.com/kuitos/axios-extensions#cacheadapterenhancer
-  const client = axios.create({
-    headers: { "Cache-Control": "no-cache" },
-    adapter: cacheAdapterEnhancer(axios.defaults.adapter as AxiosAdapter), // Typecast suggested by author to force non-null typing: https://github.com/kuitos/axios-extensions/issues/8
-  });
 
   try {
     const hasCustomHeaders = apiHeader && apiKey;
