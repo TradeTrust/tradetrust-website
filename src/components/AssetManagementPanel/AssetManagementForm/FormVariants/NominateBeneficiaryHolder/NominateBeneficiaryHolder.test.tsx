@@ -22,7 +22,7 @@ describe("Nominate Owner", () => {
         />
       );
 
-      const beneficiaryComponent = container.getByTestId("editable-input-beneficiary");
+      const beneficiaryComponent = container.getByTestId("editable-input-owner");
       const holderComponent = container.getByTestId("editable-input-holder");
 
       expect(beneficiaryComponent).not.toBeNull();

@@ -30,7 +30,7 @@ it("should display both the role and the editable field when in editable format"
 
   const beneficiaryLabel = container.getByText("Owner:");
   const newValue = container.getByDisplayValue("0xE");
-  const inputField = container.getByTestId("editable-input-beneficiary");
+  const inputField = container.getByTestId("editable-input-owner");
 
   expect(inputField).not.toBeNull();
   expect(newValue).not.toBeNull();
