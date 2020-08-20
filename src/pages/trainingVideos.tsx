@@ -72,19 +72,27 @@ export const TrainingVideosPage = () => (
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
-          <MediaCard title="Critical Functions of TradeTrust" placeholderText="Coming soon after 5 Aug 2020">
+          <MediaCard title="Critical Functions of TradeTrust" youtubeEmbedCode="TunHfhOS6uY">
             <p>
               In this session we will cover critical functions such as reading and verifying a TradeTrust file through
               two types of approaches: a) front-end; and b) programmatically.
             </p>
+            <AttachmentLink
+              filename="TradeTrust Tech Webinar 4.pdf"
+              path="/static/images/webinar/tradetrust-tech-webinar-4.pdf"
+            />
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
-          <MediaCard title="Set Up and Change Templates" placeholderText="Coming soon after 12 Aug 2020">
+          <MediaCard title="Set Up and Change Templates" youtubeEmbedCode="z3l9OSVGHH8">
             <p>
               Building on sessions 2 and 3, this session will walk you through the steps on how to: configure documents;
               set up schema in a configuration file; and change document templates.
             </p>
+            <AttachmentLink
+              filename="TradeTrust Tech Webinar 5.pdf"
+              path="/static/images/webinar/tradetrust-tech-webinar-5.pdf"
+            />
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
