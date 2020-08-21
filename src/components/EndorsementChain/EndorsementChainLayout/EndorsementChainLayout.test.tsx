@@ -45,7 +45,7 @@ describe("EndorsementChainLayout", () => {
       />
     );
     expect(screen.getAllByText("Date")).toHaveLength(1);
-    expect(screen.getAllByText("Beneficiary")).toHaveLength(1);
+    expect(screen.getAllByText("Owner")).toHaveLength(1);
     expect(screen.getAllByText("Holder")).toHaveLength(1);
   });
 

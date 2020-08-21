@@ -22,7 +22,7 @@ describe("Transfer Holder", () => {
         />
       );
 
-      const beneficiaryComponent = container.getByTestId("asset-title-beneficiary");
+      const beneficiaryComponent = container.getByTestId("asset-title-owner");
       const beneficiaryText = container.getByText("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C");
       const holderComponent = container.getByTestId("editable-input-holder");
 

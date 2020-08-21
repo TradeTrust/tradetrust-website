@@ -12,7 +12,7 @@ export default {
 
 export const AddressInfoBeneficiary = () => {
   return (
-    <AddressInfo title="Beneficiary" name="Bank of China">
+    <AddressInfo title="Owner" name="Bank of China">
       <ExternalLink name="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e" href="#" />
     </AddressInfo>
   );

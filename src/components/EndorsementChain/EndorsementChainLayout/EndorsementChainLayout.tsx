@@ -77,7 +77,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
           <div className="table">
             <div className="table-header table-row">
               <div className="table-cell">Date</div>
-              <div className="table-cell">Beneficiary</div>
+              <div className="table-cell">Owner</div>
               <div className="table-cell">Holder</div>
             </div>
             {pending && <EndorsementChainLoading />}

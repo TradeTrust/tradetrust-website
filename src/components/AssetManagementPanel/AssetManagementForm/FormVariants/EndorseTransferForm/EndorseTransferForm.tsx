@@ -67,12 +67,7 @@ export const EndorseTransferForm = ({
             />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle
-              role="Beneficiary"
-              value={approvedBeneficiary}
-              isEditable={false}
-              onSetNewValue={() => {}}
-            />
+            <EditableAssetTitle role="Owner" value={approvedBeneficiary} isEditable={false} onSetNewValue={() => {}} />
           </div>
           <div className="col-12 col-lg">
             <EditableAssetTitle role="Holder" value={approvedHolder} isEditable={false} onSetNewValue={() => {}} />

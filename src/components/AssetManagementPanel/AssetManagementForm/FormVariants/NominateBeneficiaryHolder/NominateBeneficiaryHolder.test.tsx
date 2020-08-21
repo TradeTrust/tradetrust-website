@@ -6,7 +6,7 @@ import { AssetManagementActions } from "../../../AssetManagementActions";
 import { NominateBeneficiaryHolderForm } from "./NominateBeneficiaryHolder";
 import { act } from "react-dom/test-utils";
 
-describe("Nominate Beneficiary", () => {
+describe("Nominate Owner", () => {
   it("should display the editable beneficiary & static holder when the app is in NominateBeneficiaryHolder state", async () => {
     await act(async () => {
       const container = render(
@@ -22,7 +22,7 @@ describe("Nominate Beneficiary", () => {
         />
       );
 
-      const beneficiaryComponent = container.getByTestId("editable-input-beneficiary");
+      const beneficiaryComponent = container.getByTestId("editable-input-owner");
       const holderComponent = container.getByTestId("editable-input-holder");
 
       expect(beneficiaryComponent).not.toBeNull();
