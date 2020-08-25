@@ -1,11 +1,6 @@
 {
   "version": "https://schema.openattestation.com/2.0/schema.json",
   "data": {
-    "links": {
-      "self": {
-        "href": "0216cf31-f832-4f04-b0f8-14dea3028854:string:https://action.openattestation.com/?q=%7B%22type%22:%22DOCUMENT%22,%22payload%22:%20%7B%22uri%22:%20%22https://api-ropsten.tradetrust.io/storage/33737b71-96f6-4019-b6c1-5fcea04fcc2a%22,%22key%22:%20%22edcbadf17301fe5dfe174496c7edf29e0702e2775ee919bbccb74d0dfd5a1b4b%22,%22permittedActions:%20%5B%22STORE%22%5D,%22redirect%22:%20%22https://dev.tradetrust.io%22%7D%7D"
-      }
-    },
     "$template": {
       "type": "93999615-c2f0-4bdf-9dda-5cea9c8c990e:string:EMBEDDED_RENDERER",
       "name": "1a70d655-d888-4964-8956-6c08695796d2:string:BILL_OF_LADING",
