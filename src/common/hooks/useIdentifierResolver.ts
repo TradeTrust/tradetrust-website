@@ -3,6 +3,11 @@ import { useThirdPartyAPIEndpoints } from "./useThirdPartyAPIEndpoints";
 import { useAddressBook } from "./useAddressBook";
 import { getIdentityName } from "./../../services/addressResolver";
 
+export type IdentifierResults = {
+  result: string;
+  source: string;
+};
+
 export const useIdentifierResolver = (address: string) => {
   const [resolvedIdentifier, setResolvedIdentifier] = useState("");
   const [identifierSource, setIdentifierSource] = useState<string>();
