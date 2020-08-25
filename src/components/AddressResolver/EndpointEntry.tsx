@@ -6,7 +6,7 @@ import { vars } from "../../styles";
 import isURL from "validator/lib/isURL";
 import isEmpty from "validator/lib/isEmpty";
 import { ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
-
+import { getFeatures } from "../../services/addressResolver";
 interface EndpointEntryProps {
   className?: string;
   orderNumber: number;
@@ -107,17 +107,27 @@ export const EndpointEntry = styled(
       return true;
     };
 
-    const onSave = () => {
-      if (!canUpdateValue()) return;
+    const onSave = async () => {
+      try {
+        if (!canUpdateValue()) return;
 
-      setEditable(false);
+        const { features } = await getFeatures(endpointApi, endpointApiHeader, endpointApiKey);
 
-      onUpdateEndpoint({
-        name: endpointName.trim(),
-        endpoint: endpointApi.trim(),
-        apiHeader: endpointApiHeader.trim(),
-        apiKey: endpointApiKey.trim(),
-      });
+        setEditable(false);
+
+        onUpdateEndpoint({
+          name: endpointName.trim(),
+          endpoint: endpointApi.trim(),
+          apiHeader: endpointApiHeader.trim(),
+          apiKey: endpointApiKey.trim(),
+          path: {
+            addressResolution: features.addressResolution?.location,
+            entityLookup: features.entityLookup?.location,
+          },
+        });
+      } catch (e) {
+        alert("Kaboom!");
+      }
     };
 
     return (

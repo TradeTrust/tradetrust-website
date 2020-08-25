@@ -22,9 +22,12 @@ it("should return the first name if it can be found with any resolver", async ()
     {
       id: "1",
       name: "demo",
-      endpoint: "https://demo-resolver.tradetrust.io/identifier/",
+      endpoint: "https://demo-resolver.tradetrust.io/",
       apiHeader: "",
       apiKey: "",
+      path: {
+        addressResolution: "/identifier",
+      },
     },
   ];
 
@@ -52,6 +55,9 @@ it("should return undefined if it cannot be resolved anywhere", async () => {
       endpoint: "https://demo-resolver.tradetrust.io/identifier/",
       apiHeader: "",
       apiKey: "",
+      path: {
+        addressResolution: "/identifier",
+      },
     },
   ];
 
