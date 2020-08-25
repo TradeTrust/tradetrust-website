@@ -64,7 +64,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   );
   const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
 
-  // First check if Contract is a SmartContract or wallet
+  // First check whether Contract is TitleEscrow
   const { isInterfaceType: isTitleEscrow, errorMessage: supportsInterfaceErrorMessage } = useSupportsInterface(
     titleEscrow,
     "0xdcce2211"

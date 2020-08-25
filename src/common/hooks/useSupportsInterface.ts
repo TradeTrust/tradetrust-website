@@ -7,7 +7,11 @@ interface Erc165Contract extends Contract {
 }
 
 /**
- * This hook calls checks if token is an instance of given interfaceId
+ * This hook calls checks if a given smart contract instance supports the given Erc165 interface
+ * https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md
+ * @returns true if supportsInterface(id) returns true
+ * @returns false if supportsInterface(id) returns false, or throws error because method is not supported, or contract not deployed
+ * errorMessage is populated if any other error is returned
  */
 export const useSupportsInterface = (contractInstance: Erc165Contract | undefined, interfaceId: string) => {
   const [isInterfaceType, setIsInterfaceType] = useState<boolean>();
