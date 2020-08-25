@@ -81,7 +81,9 @@ export const AssetManagementApplication = ({
             />
           )}
           {!isTitleEscrow && (
-            <h5>At this point in time, direct interaction with Erc721 is not supported on tradetrust.io</h5>
+            <h5 id="interaction-unavailable-text">
+              At this point in time, direct interaction with Erc721 is not supported on tradetrust.io
+            </h5>
           )}
         </div>
       )}
