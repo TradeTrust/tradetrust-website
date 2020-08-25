@@ -6,14 +6,20 @@ interface AddressInfoProps {
   className?: string;
   title: string;
   name: string;
+  source?: string;
   children: React.ReactNode;
 }
 
-export const AddressInfoUnStyled = ({ className, title, name, children }: AddressInfoProps) => {
+export const AddressInfoUnStyled = ({ className, title, name, source, children }: AddressInfoProps) => {
   return (
     <div className={`${className}`}>
       <h6>{title}:</h6>
-      {name && <h5>{name}</h5>}
+      {name && (
+        <div className="d-flex">
+          <h5>{name}</h5>
+          {source && <span className="source-text">(Source: {source})</span>}
+        </div>
+      )}
       <div className="etherum-address">{children}</div>
     </div>
   );
@@ -33,6 +39,12 @@ export const AddressInfo = styled(AddressInfoUnStyled)`
   h6 {
     color: ${vars.grey};
     margin-bottom: 8px;
+  }
+
+  .source-text {
+    margin-left: 8px;
+    color: ${vars.grey};
+    ${mixin.fontSourcesansproBold};
   }
 
   .etherum-address {

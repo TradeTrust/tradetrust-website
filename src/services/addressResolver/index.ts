@@ -43,8 +43,8 @@ export const getIdentityName = async (addresses: ThirdPartyAPIEntryProps[], addr
       currentValue.apiHeader,
       currentValue.apiKey
     );
-    return result;
-  }, Promise.resolve(undefined));
+    return { result, source: currentValue.name };
+  }, Promise.resolve<{ result: string; source: string } | undefined>(undefined));
 
   return identityName;
 };

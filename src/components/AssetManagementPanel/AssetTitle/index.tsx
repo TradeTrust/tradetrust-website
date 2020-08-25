@@ -9,11 +9,11 @@ interface AssetTitleProps {
 }
 
 export const AssetTitle = ({ role, address, children }: AssetTitleProps) => {
-  const { resolvedIdentifier } = useIdentifierResolver(address);
+  const { resolvedIdentifier, identifierSource } = useIdentifierResolver(address);
 
   return (
     <div data-testid={`asset-title-${role.toLowerCase()}`} className="py-3">
-      <AddressInfo title={role} name={resolvedIdentifier}>
+      <AddressInfo title={role} name={resolvedIdentifier} source={identifierSource}>
         {children}
       </AddressInfo>
     </div>

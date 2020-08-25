@@ -30,7 +30,7 @@ it("should return the first name if it can be found with any resolver", async ()
 
   const resolveIdentityName = async () => {
     const identityName = await getIdentityName(endpoints, "0xA");
-    expect(identityName).toEqual("ABC Pte Ltd");
+    expect(identityName).toEqual({ result: "ABC Pte Ltd", source: "demo" });
   };
 
   resolveIdentityName();
