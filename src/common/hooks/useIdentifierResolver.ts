@@ -3,7 +3,7 @@ import { useThirdPartyAPIEndpoints } from "./useThirdPartyAPIEndpoints";
 import { useAddressBook } from "./useAddressBook";
 import { getIdentityName } from "./../../services/addressResolver";
 
-export type IdentifierResults = {
+export type ResolutionResult = {
   result: string;
   source: string;
 };
