@@ -3,7 +3,7 @@ import { ButtonSolidOrangeWhite } from "../../../../UI/Button";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
-import { ManageAssetsDropdown } from "../../AssetManagementDropdown";
+import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
 import {
   MessageTitle,
@@ -102,7 +102,7 @@ export const ActionSelectionForm = ({
               {account ? (
                 <>
                   {canManage ? (
-                    <ManageAssetsDropdown
+                    <AssetManagementDropdown
                       onSetFormAction={onSetFormAction}
                       canSurrender={canSurrender}
                       canChangeHolder={canChangeHolder}

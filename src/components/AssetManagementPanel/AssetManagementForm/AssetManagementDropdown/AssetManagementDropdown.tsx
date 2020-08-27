@@ -4,7 +4,7 @@ import { Dropdown } from "react-bootstrap";
 import { mixin, vars } from "../../../../styles";
 import { AssetManagementActions } from "./../../AssetManagementActions";
 
-interface ManageAssetsDropdownProps {
+interface AssetManagementDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   className?: string;
   canSurrender: boolean;
@@ -14,7 +14,7 @@ interface ManageAssetsDropdownProps {
   canEndorseTransfer: boolean;
 }
 
-export const ManageAssetsDropdown = styled(
+export const AssetManagementDropdown = styled(
   ({
     onSetFormAction,
     className,
@@ -23,7 +23,7 @@ export const ManageAssetsDropdown = styled(
     canEndorseBeneficiary,
     canNominateBeneficiaryHolder,
     canEndorseTransfer,
-  }: ManageAssetsDropdownProps) => {
+  }: AssetManagementDropdownProps) => {
     return (
       <Dropdown alignRight className={`${className}`}>
         <Dropdown.Toggle variant="primary" id="dropdown-basic" data-testid={"manageAssetDropdown"}>
@@ -43,7 +43,7 @@ export const ManageAssetsDropdown = styled(
               data-testid={"endorseBeneficiaryDropdown"}
               onClick={() => onSetFormAction(AssetManagementActions.EndorseBeneficiary)}
             >
-              Endorse change of beneficiary
+              Endorse change of ownership
             </Dropdown.Item>
           )}
           {canNominateBeneficiaryHolder && (
@@ -51,7 +51,7 @@ export const ManageAssetsDropdown = styled(
               data-testid={"nominateBeneficiaryHolderDropdown"}
               onClick={() => onSetFormAction(AssetManagementActions.NominateBeneficiaryHolder)}
             >
-              Nominate change of beneficiary
+              Nominate change of ownership
             </Dropdown.Item>
           )}
           {canSurrender && (
@@ -67,7 +67,7 @@ export const ManageAssetsDropdown = styled(
               data-testid={"endorseTransferDropdown"}
               onClick={() => onSetFormAction(AssetManagementActions.EndorseTransfer)}
             >
-              Endorse Transfer of beneficiary/holder
+              Endorse Transfer of ownership
             </Dropdown.Item>
           )}
         </Dropdown.Menu>
