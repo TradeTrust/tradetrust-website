@@ -13,10 +13,10 @@ export enum MessageTitle {
   NO_USER_AUTHORIZATION = "User denied account authorization", // this error message must match error message from metamask extension itself
   TRANSACTION_ERROR = "Error - Failed transaction",
   SURRENDER_DOCUMENT_SUCCESS = "Surrender Document Success",
-  CHANGE_BENEFICIARY_SUCCESS = "Change Owner Success",
+  CHANGE_BENEFICIARY_SUCCESS = "Change Ownership Success",
   NOMINATE_BENEFICIARY_HOLDER_SUCCESS = "Nomination Success",
   TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
-  ENDORSE_TRANSFER_SUCCESS = "Endorse Owner/Holder Success",
+  ENDORSE_TRANSFER_SUCCESS = "Endorse Ownership/Holdership Success",
 }
 
 const ButtonClose = () => {

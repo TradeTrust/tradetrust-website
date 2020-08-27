@@ -1,10 +1,10 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { NominateBeneficiaryHolderForm } from "./NominateBeneficiaryHolder";
-import { act } from "react-dom/test-utils";
 
 describe("Nominate Owner", () => {
   it("should display the editable beneficiary & static holder when the app is in NominateBeneficiaryHolder state", async () => {
@@ -23,7 +23,7 @@ describe("Nominate Owner", () => {
       );
 
       const beneficiaryComponent = container.getByTestId("editable-input-owner");
-      const holderComponent = container.getByTestId("editable-input-holder");
+      const holderComponent = container.getByTestId("non-editable-input-holder");
 
       expect(beneficiaryComponent).not.toBeNull();
       expect(holderComponent).not.toBeNull();

@@ -35,7 +35,6 @@ export const NominateBeneficiaryHolderForm = ({
   setShowEndorsementChain,
 }: NominateBeneficiaryHolderFormProps) => {
   const [newBeneficiary, setNewBeneficiary] = useState("");
-  const [newHolder, setNewHolder] = useState("");
   const isPendingConfirmation = nominationState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = nominationState === FormState.CONFIRMED;
   const isEditable = nominationState !== FormState.PENDING_CONFIRMATION && nominationState !== FormState.CONFIRMED;
@@ -52,13 +51,8 @@ export const NominateBeneficiaryHolderForm = ({
     }
   }, [isConfirmed, newBeneficiary, showOverlay, setFormActionNone]);
 
-  const isValidNomination = () => {
-    if (!newBeneficiary || !newHolder) return false;
-    if (newBeneficiary === beneficiary && newHolder === holder) return false;
-    if (!isAddress(newBeneficiary) || !isAddress(newHolder)) return false;
-
-    return true;
-  };
+  const isInvalidNomination =
+    !newBeneficiary || !holder || newBeneficiary === beneficiary || !isAddress(newBeneficiary);
 
   return (
     <div className="row py-3">
@@ -86,14 +80,7 @@ export const NominateBeneficiaryHolderForm = ({
             />
           </div>
           <div className="col-12 col-lg">
-            <EditableAssetTitle
-              role="Holder"
-              value={holder}
-              newValue={newHolder}
-              isEditable={isEditable}
-              onSetNewValue={setNewHolder}
-              error={nominationState === FormState.ERROR}
-            />
+            <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
           </div>
         </div>
         <div className="row mb-3">
@@ -110,8 +97,12 @@ export const NominateBeneficiaryHolderForm = ({
               </div>
               <div className="col-auto ml-2">
                 <ButtonSolidOrangeWhite
-                  disabled={!isValidNomination() || isPendingConfirmation}
-                  onClick={() => handleNomination(newBeneficiary, newHolder)}
+                  disabled={isInvalidNomination || isPendingConfirmation}
+                  onClick={() => {
+                    if (holder === undefined) return;
+                    // holder is used instead of 'NewHolder' because we do not want to change the value on the UI when nominating beneficiary.
+                    handleNomination(newBeneficiary, holder);
+                  }}
                   data-testid={"nominationBtn"}
                 >
                   {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Nominate</>}

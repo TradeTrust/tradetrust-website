@@ -31,9 +31,9 @@ export const AssetManagementTitle = styled(
           <h3 className="action-title">
             {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
             {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
-            {formAction === AssetManagementActions.EndorseBeneficiary && <>Endorse Change of Owner</>}
-            {formAction === AssetManagementActions.NominateBeneficiaryHolder && <>Nominate Change of Owner</>}
-            {formAction === AssetManagementActions.EndorseTransfer && <>Endorse Transfer of Owner/Holder</>}
+            {formAction === AssetManagementActions.EndorseBeneficiary && <>Endorse Change of Ownership</>}
+            {formAction === AssetManagementActions.NominateBeneficiaryHolder && <>Nominate Change of Ownership</>}
+            {formAction === AssetManagementActions.EndorseTransfer && <>Endorse Transfer of Ownership</>}
           </h3>
         </div>
       </div>
