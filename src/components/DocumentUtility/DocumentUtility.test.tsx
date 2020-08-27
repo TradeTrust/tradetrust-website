@@ -17,7 +17,9 @@ describe("Nominate Owner", () => {
       },
     };
     await act(async () => {
-      const container = render(<DocumentUtility document={document as any} handleSharingToggle={() => {}} />);
+      const container = render(
+        <DocumentUtility document={document as any} handleSharingToggle={() => {}} onPrint={() => {}} />
+      );
 
       const qrbuttonComponent = container.getByRole("button", { name: "document-utility-qr-button" });
 
@@ -32,7 +34,9 @@ describe("Nominate Owner", () => {
       },
     };
     await act(async () => {
-      const container = render(<DocumentUtility document={document as any} handleSharingToggle={() => {}} />);
+      const container = render(
+        <DocumentUtility document={document as any} handleSharingToggle={() => {}} onPrint={() => {}} />
+      );
 
       const qrbuttonComponent = container.queryByRole("button", { name: "document-utility-qr-button" });
 
