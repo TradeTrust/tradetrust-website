@@ -51,11 +51,8 @@ export const NominateBeneficiaryHolderForm = ({
     }
   }, [isConfirmed, newBeneficiary, showOverlay, setFormActionNone]);
 
-  const isValidNomination = () => {
-    if (!newBeneficiary || newBeneficiary === beneficiary || !isAddress(newBeneficiary)) return false;
-
-    return true;
-  };
+  const isInvalidNomination =
+    !newBeneficiary || !holder || newBeneficiary === beneficiary || !isAddress(newBeneficiary);
 
   return (
     <div className="row py-3">
@@ -100,8 +97,12 @@ export const NominateBeneficiaryHolderForm = ({
               </div>
               <div className="col-auto ml-2">
                 <ButtonSolidOrangeWhite
-                  disabled={!isValidNomination() || isPendingConfirmation}
-                  onClick={() => handleNomination(newBeneficiary, holder as string)}
+                  disabled={isInvalidNomination || isPendingConfirmation}
+                  onClick={() => {
+                    if (holder === undefined) return;
+                    // holder is used instead of 'NewHolder' because we do not want to change the value on the UI when nominating beneficiary.
+                    handleNomination(newBeneficiary, holder);
+                  }}
                   data-testid={"nominationBtn"}
                 >
                   {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Nominate</>}
