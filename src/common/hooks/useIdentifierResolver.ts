@@ -3,8 +3,14 @@ import { useThirdPartyAPIEndpoints } from "./useThirdPartyAPIEndpoints";
 import { useAddressBook } from "./useAddressBook";
 import { getIdentityName } from "./../../services/addressResolver";
 
+export type ResolutionResult = {
+  result: string;
+  source: string;
+};
+
 export const useIdentifierResolver = (address: string) => {
   const [resolvedIdentifier, setResolvedIdentifier] = useState("");
+  const [identifierSource, setIdentifierSource] = useState<string>();
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
   const { getIdentifier } = useAddressBook();
 
@@ -18,12 +24,13 @@ export const useIdentifierResolver = (address: string) => {
       const identityName =
         getIdentifier(address.toLowerCase()) || (await getIdentityName(thirdPartyAPIEndpoints, address));
       if (identityName) {
-        setResolvedIdentifier(identityName);
+        setResolvedIdentifier(identityName.result);
+        setIdentifierSource(identityName.source);
       }
     };
 
     resolveIdentity();
   }, [address, getIdentifier, thirdPartyAPIEndpoints]);
 
-  return { resolvedIdentifier };
+  return { resolvedIdentifier, identifierSource };
 };

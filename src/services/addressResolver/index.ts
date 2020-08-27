@@ -2,6 +2,7 @@ import axios, { AxiosAdapter } from "axios";
 import { ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { getLogger } from "./../../utils/logger";
 import { cacheAdapterEnhancer } from "axios-extensions";
+import { ResolutionResult } from "../../common/hooks/useIdentifierResolver";
 
 const { trace } = getLogger("service:addressresolver");
 
@@ -35,7 +36,10 @@ export const resolveAddressNameByEndpoint = async (url: string, apiHeader: strin
   }
 };
 
-export const getIdentityName = async (addresses: ThirdPartyAPIEntryProps[], address: string) => {
+export const getIdentityName = async (
+  addresses: ThirdPartyAPIEntryProps[],
+  address: string
+): Promise<ResolutionResult | undefined> => {
   const identityName = await addresses.reduce(async (accumulator, currentValue) => {
     if (await accumulator) return accumulator;
     const result = await resolveAddressNameByEndpoint(
@@ -43,8 +47,8 @@ export const getIdentityName = async (addresses: ThirdPartyAPIEntryProps[], addr
       currentValue.apiHeader,
       currentValue.apiKey
     );
-    return result;
-  }, Promise.resolve(undefined));
+    return { result, source: currentValue.name };
+  }, Promise.resolve<ResolutionResult | undefined>(undefined));
 
   return identityName;
 };
