@@ -2,54 +2,54 @@
   "version": "https://schema.openattestation.com/2.0/schema.json",
   "data": {
     "$template": {
-      "type": "93999615-c2f0-4bdf-9dda-5cea9c8c990e:string:EMBEDDED_RENDERER",
-      "name": "1a70d655-d888-4964-8956-6c08695796d2:string:BILL_OF_LADING",
-      "url": "602c0811-a2b4-4b4e-b274-9a3795d02c16:string:https://demo-cnm.openattestation.com"
+      "type": "195a26e6-5cfc-4e73-862a-fbbd2e08f20a:string:EMBEDDED_RENDERER",
+      "name": "debe0912-6c7d-453d-aadd-946c000254b8:string:BILL_OF_LADING",
+      "url": "6a0c498e-2abc-4bf9-87ba-b7554325455b:string:https://demo-cnm.openattestation.com"
     },
     "issuers": [
       {
         "identityProof": {
-          "type": "89293ba9-a229-48d0-a844-b1ef2e2a092f:string:DNS-TXT",
-          "location": "161f5943-de2b-4bbc-81bd-33926da9a9ed:string:tradetrust.io"
+          "type": "6991793c-b467-4645-8efd-a2f2abd8017a:string:DNS-TXT",
+          "location": "6f3fe9a6-076c-43ca-a5da-8702661eec83:string:tradetrust.io"
         },
-        "name": "516bba6b-f263-49f4-b522-a1f32f75d9ac:string:DEMO STORE",
-        "tokenRegistry": "1b0aba14-45eb-44c3-9649-8b98ad5c1dce:string:0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+        "name": "346549ec-e5d8-4330-9f2a-dc71b7ba12a4:string:DEMO STORE",
+        "tokenRegistry": "83474156-ed48-47ba-b817-afc1be1c46e8:string:0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       }
     ],
     "consignee": {
-      "name": "624a107f-1dd0-4f89-9cfd-c46a706d2de2:string:Demo Consignee",
-      "type": "28a4d348-c61d-4f6a-827c-826063ecfcf8:string:To the owner of"
+      "name": "843a0524-dcb9-47a2-972f-5411275082fc:string:Demo Consignee",
+      "type": "2c0d83ab-194e-4622-baa8-fcd1dac0f742:string:To the owner of"
     },
     "notifyParty": {
-      "name": "4e4e1230-6af2-40e3-8cf4-6dd845970b72:string:Demo Notify"
+      "name": "034d87a3-f56e-4205-8271-126e3df5fe89:string:Demo Notify"
     },
     "shipper": {
       "address": {
-        "street": "044ea21f-a040-45f2-a66b-1c3f1d7171e9:string:One North",
-        "country": "27f2730e-bd4e-45e8-91be-1cadb4deb30f:string:Singapore"
+        "street": "40ed1b83-14b5-4819-bd57-6f6e3434eb6a:string:One North",
+        "country": "25799619-89c0-46ba-8b88-6f1f7d8e448d:string:Singapore"
       },
-      "name": "f6c47787-ac47-44c4-9c4b-04b425b4dcfb:string:Demo Shipper"
+      "name": "4ab9b48a-e68b-426b-b02b-77facd0a7f83:string:Demo Shipper"
     },
     "packages": [
       {
-        "description": "ed6faece-a636-4b54-b557-bda155d22b33:string:Green Apples",
-        "weight": "36b10986-6453-46fa-8388-0030b956bcc0:number:20",
-        "measurement": "137cc709-5063-446e-91ab-a2c9b64ca172:string:100"
+        "description": "d592b37c-01a4-428e-b1ae-406a4f8c8797:string:Green Apples",
+        "weight": "2bd54b2b-a4c7-4981-a209-32f1090ecc70:string:20",
+        "measurement": "91c8c9f2-d53d-4801-bb10-ef71d2e1fb69:string:100"
       }
     ],
-    "blNumber": "1956ea0f-e95c-4769-8bbd-e5aab4a40c3c:string:123",
-    "name": "db27f6a6-e1ae-4800-9ee6-82115d4faf5d:string:Maersk Bill of Lading",
-    "vessel": "7455a7a6-e6e9-4b43-bba3-68494a720141:string:1",
-    "voyageNo": "60fdab46-a817-412e-a3e3-a7a4e2680251:number:100",
-    "portOfLoading": "f9d4d9db-d135-43c3-bf99-88857cc035ba:string:Singapore Port",
-    "portOfDischarge": "e0839b96-9676-495c-ac91-e9cd3d1b2371:string:China Port",
-    "placeOfReceipt": "03c2cf53-f6d4-4ca1-949f-4a504f22173d:string:Beijing",
-    "placeOfDelivery": "2f4dd06a-b622-43f3-b8ee-f3ce23800b80:string:Singapore"
+    "blNumber": "f609861c-cd9b-4638-b80a-ac9292c0cd99:string:123",
+    "name": "ebaaef4b-e05c-471f-a4c4-a754f7f3ad17:string:Maersk Bill of Lading",
+    "vessel": "f03b5be8-1571-4304-af4c-a722bd2f4330:string:1",
+    "voyageNo": "176e5b69-f45c-44b3-b56a-24e96b9e7715:string:100",
+    "portOfLoading": "20fdff38-3a55-4ecb-a3a7-418f0b0684e6:string:Singapore Port",
+    "portOfDischarge": "cf96815b-741c-498d-8bd6-1718ed404d3d:string:China Port",
+    "placeOfReceipt": "6683a801-3686-4b10-a51c-0a9287cc902f:string:Beijing",
+    "placeOfDelivery": "398f2b42-c759-4ee5-b72f-57053e64478c:string:Singapore"
   },
   "signature": {
     "type": "SHA3MerkleProof",
-    "targetHash": "28f5918f638cc8183b36adea9b1fe7a71400a4fccbe13fcbd7c6ce48da36cdf2",
+    "targetHash": "b7865275d3354e8e16fd1aa8ef34b7189857f38e2ecbaf5265f9d816af494e80",
     "proof": [],
-    "merkleRoot": "28f5918f638cc8183b36adea9b1fe7a71400a4fccbe13fcbd7c6ce48da36cdf2"
+    "merkleRoot": "b7865275d3354e8e16fd1aa8ef34b7189857f38e2ecbaf5265f9d816af494e80"
   }
 }
