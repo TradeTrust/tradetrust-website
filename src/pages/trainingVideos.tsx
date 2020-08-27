@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { MediaCard } from "../components/UI/MediaCard";
-import { RegisterButton } from "./../components/WebinarPageContent/RegisterButton";
 import { AttachmentLink } from "./../components/UI/AttachmentLink";
 
 export const TrainingVideosPage = () => (
@@ -96,17 +95,16 @@ export const TrainingVideosPage = () => (
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
-          <MediaCard title="Identity Resolution Services" placeholderText="Coming soon after 19 Aug 2020">
+          <MediaCard title="Identity Resolution Services" youtubeEmbedCode="_nt-l-09vMw">
             <p>
               Identity Resolution in TradeTrust involves the ability to map non-readable identification of issuers to a
               readable form. This segment will cover the methods and the steps on building APIs for identity resolution.
             </p>
+            <AttachmentLink
+              filename="TradeTrust Tech Webinar 6.pdf"
+              path="/static/images/webinar/tradetrust-tech-webinar-6.pdf"
+            />
           </MediaCard>
-        </div>
-      </div>
-      <div className="row mb-5">
-        <div className="col-auto mx-auto">
-          <RegisterButton>Register for Webinar Series</RegisterButton>
         </div>
       </div>
     </div>
