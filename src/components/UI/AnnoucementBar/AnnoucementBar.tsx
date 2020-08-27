@@ -1,34 +1,19 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { vars } from "../../../styles";
-import { ReactRouterLinkButtonSolidOrangeWhite } from "./../../UI/Button";
 
 export interface AnnoucementBarProps {
   className?: string;
+  backgroundImage?: string;
+  children?: React.ReactNode;
 }
 
-export const AnnoucementBarUnStyled = ({ className }: AnnoucementBarProps) => {
+export const AnnoucementBarUnStyled = ({ className, children }: AnnoucementBarProps) => {
   return (
-    <section className={`${className} bg-brand-navy text-white`}>
+    <section className={`${className}`}>
       <div className="container-custom">
         <div className="row">
           <div className="col-12">
-            <div className="announcement-bar">
-              <div className="row align-items-center">
-                <div className="col-12 col-lg-7">
-                  <img
-                    className="banner-title"
-                    src="/static/images/webinar/banner-title.png"
-                    alt="TradeTrust Tech Webinar Series banner title"
-                  />
-                </div>
-                <div className="col-12 col-lg-auto ml-lg-auto mt-4 mt-lg-0">
-                  <ReactRouterLinkButtonSolidOrangeWhite to="/webinar" large>
-                    View More
-                  </ReactRouterLinkButtonSolidOrangeWhite>
-                </div>
-              </div>
-            </div>
+            <div className="announcement-bar">{children}</div>
           </div>
         </div>
       </div>
@@ -42,22 +27,11 @@ export const AnnoucementBar = styled(AnnoucementBarUnStyled)`
 
   .announcement-bar {
     position: relative;
-    background-color: #5d6975;
     border-radius: 4px;
-    background-image: url("/static/images/webinar/banner.jpg");
+    background-image: ${(props) => `url("${props.backgroundImage}")`};
     background-repeat: no-repeat;
-    padding-top: 30px;
-    padding-bottom: 30px;
-
-    background-position: 55% 63%;
-    padding-left: 15px;
-    padding-right: 15px;
-
-    @media only screen and (min-width: ${vars.lg}) {
-      background-position: 50% 68%;
-      padding-left: 50px;
-      padding-right: 50px;
-    }
+    background-position: 50% 50%;
+    padding: 30px;
 
     &::before {
       content: "";
@@ -73,11 +47,5 @@ export const AnnoucementBar = styled(AnnoucementBarUnStyled)`
   .banner-title {
     width: 100%;
     max-width: 250px;
-  }
-
-  a {
-    &:hover {
-      color: ${vars.greyLightest};
-    }
   }
 `;
