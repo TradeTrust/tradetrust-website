@@ -4,7 +4,7 @@ import { uploadDocument, validateIframeTexts, validateIssuerTexts } from "./help
 fixture("QRcode Rendering").page`http://localhost:3000`;
 
 test("UI renders QR code correctly when present in the document", async (t) => {
-  uploadDocument("./fixture/ebl-with-qrcode.json");
+  await uploadDocument("./fixture/ebl-with-qrcode.json");
   await validateIssuerTexts(["TRADETRUST.IO"]);
   await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 

@@ -14,7 +14,7 @@ const ButtonUploadAddressBook = Selector("[data-testid='multi-button'] button").
 const CSVFileInput = Selector("#csv-file-input");
 
 test("AddressBook local names to be resolved correctly, search filtered to 1", async (t) => {
-  uploadDocument("./fixture/ebl.json");
+  await uploadDocument("./fixture/ebl.json");
   await TitleTransferPanel.with({ visibilityCheck: true })();
   await t.expect(ButtonUploadAddressBook.count).eql(1);
 

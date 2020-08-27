@@ -8,7 +8,7 @@ const EndorsementChainTitle = Selector(".endorsement-chain-title");
 const EndorsementChainAddress = Selector("div.address").withText("0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e");
 
 test("Endorsement chain can be viewed correctly", async (t) => {
-  uploadDocument("./fixture/ebl-endorsement-chain.json");
+  await uploadDocument("./fixture/ebl-endorsement-chain.json");
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
 
   await t.expect(ViewEndorsementChainButton.count).eql(1);
