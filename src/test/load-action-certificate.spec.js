@@ -1,15 +1,10 @@
 import { Selector } from "testcafe";
+import { validateTextContent, validateIframeTexts, validateIssuerTexts } from "./helper";
 
 fixture("Load action from plain certificate").page`http://localhost:3000`;
 
-const IframeBlock = Selector("#iframe");
-const SampleTemplate = Selector("#root");
 const DocumentStatus = Selector("#document-status");
-const IssuedByDomainName = Selector("#issuedby .domain");
 const ViewerContainer = Selector("#viewer-container");
-
-const validateTextContent = async (t, component, texts) =>
-  texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
 test("Load document from action should work when url is valid", async (t) => {
   const action = {
@@ -23,13 +18,8 @@ test("Load document from action should work when url is valid", async (t) => {
 
   await t.navigateTo(`http://localhost:3000/?q=${encodeURI(JSON.stringify(action))}`);
 
-  await DocumentStatus.with({ visibilityCheck: true })();
-
-  await validateTextContent(t, IssuedByDomainName, ["TRADETRUST.IO"]);
-
-  await t.switchToIframe(IframeBlock);
-
-  await validateTextContent(t, SampleTemplate, ["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
+  await validateIssuerTexts(["TRADETRUST.IO"]);
+  validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 });
 
 test("Load document from action should fail when url is invalid", async (t) => {
@@ -44,7 +34,6 @@ test("Load document from action should fail when url is invalid", async (t) => {
   await t.navigateTo(`http://localhost:3000/?q=${encodeURI(JSON.stringify(action))}`);
 
   await DocumentStatus.with({ visibilityCheck: false })();
-
   await validateTextContent(t, ViewerContainer, [
     "This document is not valid",
     "Unable to load certificate with the provided parameters",

@@ -1,4 +1,5 @@
 import { Selector } from "testcafe";
+import { validateTextContent } from "./helper";
 
 fixture("Address Resolver").page`http://localhost:3000`;
 
@@ -22,9 +23,6 @@ const IconMoveDown1 = TableBodyRow1.find("th .fa-sort-down");
 const IconMoveUp2 = TableBodyRow2.find("th .fa-sort-up");
 const OverlayContent = Selector(".overlay-content");
 const OverlayButtonDelete = OverlayContent.find("button").withText("Delete");
-
-const validateTextContent = async (t, component, texts) =>
-  texts.reduce(async (prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
 
 test("Address Resolver to be added, edited, moved and removed correctly", async (t) => {
   await t.click(LinkSettings);
