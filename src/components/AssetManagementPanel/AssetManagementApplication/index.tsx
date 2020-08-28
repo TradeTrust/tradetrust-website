@@ -28,12 +28,12 @@ export const AssetManagementApplication = ({
     transferTo,
     transferToState,
     isSurrendered,
-    isLoading,
     isTitleEscrow,
     approveNewTransferTargets,
     approveNewTransferTargetsState,
     transferToNewEscrow,
     transferToNewEscrowState,
+    resetStates,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account } = useProviderContext();
@@ -41,6 +41,9 @@ export const AssetManagementApplication = ({
   useEffect(() => {
     initialize(tokenRegistryAddress, tokenId);
   }, [initialize, tokenId, tokenRegistryAddress]);
+
+  // Reset state when the component unmounts
+  useEffect(() => resetStates(), [resetStates]);
 
   const onSurrender = () => {
     transferTo(tokenRegistryAddress);
@@ -52,41 +55,39 @@ export const AssetManagementApplication = ({
 
   return (
     <div id="title-transfer-panel">
-      {!isLoading && (
-        <div className="container-custom">
-          <AssetManagementTags />
-          {isTitleEscrow && (
-            <AssetManagementForm
-              account={account}
-              onConnectToWallet={upgradeProvider}
-              beneficiary={beneficiary}
-              approvedBeneficiary={approvedBeneficiary}
-              holder={holder}
-              approvedHolder={approvedHolder}
-              formAction={assetManagementAction}
-              tokenRegistryAddress={tokenRegistryAddress}
-              onSetFormAction={onSetFormAction}
-              surrenderingState={transferToState}
-              onSurrender={onSurrender}
-              onTransferHolder={changeHolder}
-              holderTransferringState={changeHolderState}
-              onEndorseBeneficiary={endorseBeneficiary}
-              beneficiaryEndorseState={endorseBeneficiaryState}
-              isSurrendered={isSurrendered}
-              onApproveNewTransferTargets={approveNewTransferTargets}
-              approveNewTransferTargetsState={approveNewTransferTargetsState}
-              onTransferToNewEscrow={transferToNewEscrow}
-              transferToNewEscrowState={transferToNewEscrowState}
-              setShowEndorsementChain={setShowEndorsementChain}
-            />
-          )}
-          {!isTitleEscrow && (
-            <h5 id="interaction-unavailable-text">
-              At this point in time, direct interaction with Erc721 is not supported on tradetrust.io
-            </h5>
-          )}
-        </div>
-      )}
+      <div className="container-custom">
+        <AssetManagementTags />
+        {isTitleEscrow && (
+          <AssetManagementForm
+            account={account}
+            onConnectToWallet={upgradeProvider}
+            beneficiary={beneficiary}
+            approvedBeneficiary={approvedBeneficiary}
+            holder={holder}
+            approvedHolder={approvedHolder}
+            formAction={assetManagementAction}
+            tokenRegistryAddress={tokenRegistryAddress}
+            onSetFormAction={onSetFormAction}
+            surrenderingState={transferToState}
+            onSurrender={onSurrender}
+            onTransferHolder={changeHolder}
+            holderTransferringState={changeHolderState}
+            onEndorseBeneficiary={endorseBeneficiary}
+            beneficiaryEndorseState={endorseBeneficiaryState}
+            isSurrendered={isSurrendered}
+            onApproveNewTransferTargets={approveNewTransferTargets}
+            approveNewTransferTargetsState={approveNewTransferTargetsState}
+            onTransferToNewEscrow={transferToNewEscrow}
+            transferToNewEscrowState={transferToNewEscrowState}
+            setShowEndorsementChain={setShowEndorsementChain}
+          />
+        )}
+        {isTitleEscrow === false && (
+          <h5 id="interaction-unavailable-text">
+            At this point in time, direct interaction with Erc721 is not supported on tradetrust.io
+          </h5>
+        )}
+      </div>
     </div>
   );
 };

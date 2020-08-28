@@ -25,8 +25,8 @@ interface TokenInformationContext {
   transferToNewEscrowState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
-  isLoading: boolean;
   isTitleEscrow?: boolean;
+  resetStates: () => void;
 }
 
 const contractFunctionStub = () => {
@@ -44,18 +44,17 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
   isSurrendered: false,
-  isLoading: true,
   titleEscrowOwner: "",
   approveNewTransferTargets: contractFunctionStub,
   approveNewTransferTargetsState: "UNINITIALIZED",
   transferToNewEscrow: contractFunctionStub,
   transferToNewEscrowState: "UNINITIALIZED",
+  resetStates: () => {},
 });
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [tokenId, setTokenId] = useState("");
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const { provider } = useProviderContext();
   const { titleEscrow, updateTitleEscrow, titleEscrowOwner } = useTitleEscrowContract(
     tokenRegistryAddress,
@@ -65,7 +64,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
 
   // First check whether Contract is TitleEscrow
-  const { isInterfaceType: isTitleEscrow, errorMessage: supportsInterfaceErrorMessage } = useSupportsInterface(
+  const { isInterfaceType: isTitleEscrow, reset: resetSupportsInterface } = useSupportsInterface(
     titleEscrow,
     "0xdcce2211"
   ); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
@@ -110,10 +109,12 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     resetEndorseBeneficiary();
     resetApproveNewTransferTargets();
     resetTransferToNewEscrow();
+    resetSupportsInterface();
   }, [
     resetApproveNewTransferTargets,
     resetChangeHolder,
     resetEndorseBeneficiary,
+    resetSupportsInterface,
     resetTransferTo,
     resetTransferToNewEscrow,
   ]);
@@ -132,17 +133,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
       getBeneficiary();
       getApprovedBeneficiary();
     }
-    if (supportsInterfaceErrorMessage || isTitleEscrow !== undefined) {
-      setIsLoading(false);
-    }
-  }, [
-    getApprovedBeneficiary,
-    getApprovedHolder,
-    getBeneficiary,
-    getHolder,
-    isTitleEscrow,
-    supportsInterfaceErrorMessage,
-  ]);
+  }, [getApprovedBeneficiary, getApprovedHolder, getBeneficiary, getHolder, isTitleEscrow]);
 
   // Update holder whenever holder transfer is successful
   useEffect(() => {
@@ -184,13 +175,13 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         endorseBeneficiaryState,
         transferToState,
         isSurrendered,
-        isLoading,
         isTitleEscrow,
         titleEscrowOwner,
         approveNewTransferTargets,
         approveNewTransferTargetsState,
         transferToNewEscrow,
         transferToNewEscrowState,
+        resetStates,
       }}
     >
       {children}
