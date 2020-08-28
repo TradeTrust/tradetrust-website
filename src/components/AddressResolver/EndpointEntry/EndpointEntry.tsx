@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { InputDefault } from "../UI/Input";
-import { SvgIcon, SvgIconTrash2, SvgIconSave, SvgIconEdit2 } from "../UI/SvgIcon";
-import { vars } from "../../styles";
+import { InputDefault } from "../../UI/Input";
+import { SvgIcon, SvgIconTrash2, SvgIconSave, SvgIconEdit2 } from "../../UI/SvgIcon";
+import { vars } from "../../../styles";
 import isURL from "validator/lib/isURL";
 import isEmpty from "validator/lib/isEmpty";
-import { ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
-import { getFeatures } from "../../services/addressResolver";
-import { LoaderSpinner } from "../UI/Loader";
+import { ThirdPartyAPIEntryProps } from "../../../common/hooks/useThirdPartyAPIEndpoints";
+import { getFeatures } from "../../../services/addressResolver";
+import { LoaderSpinner } from "../../UI/Loader";
 
 interface EndpointEntryProps {
   className?: string;
@@ -212,7 +212,7 @@ export const EndpointEntry = styled(
         ) : (
           <td className={isEditable ? "is-editable" : ""}>
             {isEditable ? (
-              <SvgIcon onClick={onSave}>
+              <SvgIcon onClick={onSave} data-testid="save-icon">
                 <SvgIconSave />
               </SvgIcon>
             ) : (
