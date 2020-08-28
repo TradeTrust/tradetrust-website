@@ -33,7 +33,6 @@ export const AssetManagementApplication = ({
     approveNewTransferTargetsState,
     transferToNewEscrow,
     transferToNewEscrowState,
-    resetStates,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account } = useProviderContext();
@@ -41,9 +40,6 @@ export const AssetManagementApplication = ({
   useEffect(() => {
     initialize(tokenRegistryAddress, tokenId);
   }, [initialize, tokenId, tokenRegistryAddress]);
-
-  // Reset state when the component unmounts
-  useEffect(() => resetStates(), [resetStates]);
 
   const onSurrender = () => {
     transferTo(tokenRegistryAddress);
