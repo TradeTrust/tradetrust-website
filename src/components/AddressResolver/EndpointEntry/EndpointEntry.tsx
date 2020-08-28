@@ -120,7 +120,10 @@ export const EndpointEntry = styled(
     const onSave = async () => {
       setIsLoading(true);
       try {
-        if (!canUpdateValue()) return;
+        if (!canUpdateValue()) {
+          setIsLoading(false);
+          return;
+        }
 
         const { features } = await getFeatures(endpointApi, endpointApiHeader, endpointApiKey);
 
