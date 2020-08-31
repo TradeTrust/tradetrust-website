@@ -1,6 +1,6 @@
 # TradeTrust Web UI
 
-[![CI](https://github.com/TradeTrust/tradetrust-website/workflows/.github/workflows/test_ci.yml/badge.svg)](https://github.com/TradeTrust/tradetrust-website/actions?query=workflow%3ACI)
+[![CI](https://github.com/TradeTrust/tradetrust-website/workflows/CI/badge.svg)](https://github.com/TradeTrust/tradetrust-website/actions?query=workflow%3ACI)
 
 See also:
 
