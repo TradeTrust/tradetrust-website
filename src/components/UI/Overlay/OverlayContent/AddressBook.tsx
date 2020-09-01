@@ -48,7 +48,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
             <div className="row no-gutters">
               <div className="col-12 col-md-auto mb-2 mb-md-0">
                 <AnchorLinkButtonSolidWhiteBlue
-                  href="data:text/csv;base64,QWRkcmVzcyxJZGVudGlmaWVy"
+                  href="data:text/csv;base64,QWRkcmVzcyxJZGVudGlmaWVyCjB4YTYxQjA1NmRBMDA4NGE1ZjM5MUVDMTM3NTgzMDczMDk2ODgwQzJlMyxEQlMKMHgyOEY3YUIzMkM1MjFEMTNGMkU2OTgwZDA3MkNhN0NBNDkzMDIwMTQ1LFN0YW5kYXJkIENoYXJ0ZXJlZA"
                   download="template.csv"
                 >
                   <div className="row align-items-center no-gutters">

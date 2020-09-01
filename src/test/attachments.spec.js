@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIframeTexts } from "./helper";
+import { Iframe, SampleTemplate, uploadDocument, validateTextContent, validateIframeTexts } from "./helper";
 
 fixture("Document with Attachment Rendering").page`http://localhost:3000`;
 
@@ -13,6 +13,8 @@ const TabPdf1 = Selector("[data-testid='attachment-3']");
 const TabPdf2 = Selector("[data-testid='attachment-4']");
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
 const AttachmentLink = Selector("[data-testid='attachment-link']");
+const Pdf1Span = Selector("span").withText("UNCITRAL Model Law on");
+const Pdf2Span = Selector("span").withText("Dumm");
 
 test("Attachment Tab and Panel rendered correctly", async (t) => {
   await uploadDocument("./fixture/attachments.json");
@@ -31,12 +33,18 @@ test("Attachment Tab and Panel rendered correctly", async (t) => {
   await t.expect(TabExcel.count).eql(0);
   await t.expect(TabJpeg.count).eql(0);
 
-  // pdf tabs content should render
+  // pdf tabs content should render (pdf rendering is slow on ci causing flaky test, await specifically for pdf spans to render before text validation checks)
   await t.click(TabPdf1);
-  await validateIframeTexts(["UNCITRAL Model Law on  Electronic Transferable Records"]);
+  await t.switchToIframe(Iframe);
+  await Pdf1Span.with({ visibilityCheck: true })();
+  await validateTextContent(t, SampleTemplate, ["UNCITRAL Model Law on  Electronic Transferable Records"]);
+  await t.switchToMainWindow();
 
   await t.click(TabPdf2);
-  await validateIframeTexts(["Dummy PDF file"]);
+  await t.switchToIframe(Iframe);
+  await Pdf2Span.with({ visibilityCheck: true })();
+  await validateTextContent(t, SampleTemplate, ["Dummy PDF file"]);
+  await t.switchToMainWindow();
 
   // attachment tab should render with correct attachment files count
   await t.click(TabAttachment);
