@@ -33,7 +33,6 @@ const ButtonMetamaskInstall = () => {
     <AnchorLinkButtonSolidOrangeWhite
       href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
       target="_blank"
-      rel="noopener noreferrer"
     >
       Install Metamask
     </AnchorLinkButtonSolidOrangeWhite>

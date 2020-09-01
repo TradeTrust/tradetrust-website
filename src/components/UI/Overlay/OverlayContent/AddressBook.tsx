@@ -4,8 +4,9 @@ import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
 import styled from "@emotion/styled";
 import { useAddressBook } from "../../../../common/hooks/useAddressBook";
-import { SvgIcon, SvgIconSearch, SvgIconExternalLink } from "../../../UI/SvgIcon";
+import { SvgIcon, SvgIconSearch, SvgIconExternalLink, SvgIconDownload } from "../../../UI/SvgIcon";
 import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
+import { AnchorLinkButtonSolidWhiteBlue } from "../../../UI/Button";
 import { isEmpty } from "lodash";
 import { makeEtherscanAddressURL } from "../../../../utils";
 import { vars } from "../../../../styles";
@@ -29,7 +30,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
     <OverlayContent data-testid="overlay-addressbook" {...props}>
       <div className="overlay-actionsbar">
         <div className="row align-items-center">
-          <div className="col">
+          <div className="col-12 col-md mb-2 mb-md-0">
             <div className="overlay-searchbar">
               <div className="row no-gutters align-items-center">
                 <div className="col">
@@ -43,8 +44,27 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
               </div>
             </div>
           </div>
-          <div className="col-auto ml-auto">
-            <CsvUploadButton />
+          <div className="col-12 col-md-auto ml-md-auto">
+            <div className="row no-gutters">
+              <div className="col-12 col-md-auto mb-2 mb-md-0">
+                <AnchorLinkButtonSolidWhiteBlue
+                  href="data:text/csv;base64,QWRkcmVzcyxJZGVudGlmaWVyCjB4YTYxQjA1NmRBMDA4NGE1ZjM5MUVDMTM3NTgzMDczMDk2ODgwQzJlMyxEQlMKMHgyOEY3YUIzMkM1MjFEMTNGMkU2OTgwZDA3MkNhN0NBNDkzMDIwMTQ1LFN0YW5kYXJkIENoYXJ0ZXJlZA"
+                  download="template.csv"
+                >
+                  <div className="row align-items-center no-gutters">
+                    <div className="col-auto mr-2">
+                      <SvgIcon>
+                        <SvgIconDownload />
+                      </SvgIcon>
+                    </div>
+                    <div className="col-auto">Download template</div>
+                  </div>
+                </AnchorLinkButtonSolidWhiteBlue>
+              </div>
+              <div className="col-12 col-md-auto">
+                <CsvUploadButton />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -117,7 +137,11 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
   .overlay-searchbar {
     border: solid 1px ${vars.greyLight};
     padding: 5px 10px;
-    max-width: 300px;
+    max-width: 100%;
+
+    @media only screen and (min-width: ${vars.md}) {
+      max-width: 300px;
+    }
 
     input {
       border: none;
