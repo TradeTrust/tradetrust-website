@@ -55,6 +55,7 @@ export const CertificateViewer = ({
     },
     [resetTokenInformationState, document]
   );
+  const childRef = React.useRef<{ print: () => void }>();
 
   const updateTemplates = useCallback((templates: TemplateProps[]) => {
     // filter all templates that are renderable currently
@@ -66,6 +67,12 @@ export const CertificateViewer = ({
     setTemplates(templatesModified);
     setSelectedTemplate(templatesModified[0].id);
   }, []);
+
+  const onPrint = () => {
+    if (childRef.current) {
+      childRef.current.print();
+    }
+  };
 
   const renderedEndorsementChain = (
     <div className="bg-blue-lighter no-print">
@@ -104,11 +111,17 @@ export const CertificateViewer = ({
         <div className="bg-white">
           <Tab.Content className="py-4">
             <Tab.Pane eventKey="tab-document">
-              <DocumentUtility className="no-print" document={document} handleSharingToggle={handleSharingToggle} />
+              <DocumentUtility
+                className="no-print"
+                document={document}
+                handleSharingToggle={handleSharingToggle}
+                onPrint={onPrint}
+              />
               <DecentralisedRendererContainer
                 rawDocument={document}
                 updateTemplates={updateTemplates}
                 selectedTemplate={selectedTemplate}
+                ref={childRef}
               />
             </Tab.Pane>
             {hasAttachments && <TabPaneAttachments attachments={attachments} />}

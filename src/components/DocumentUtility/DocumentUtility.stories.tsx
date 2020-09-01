@@ -27,8 +27,8 @@ const documentWithQr = {
 };
 
 export const PrintAndDownload = () => {
-  return <DocumentUtility document={documentWithoutQr as any} handleSharingToggle={() => {}} />;
+  return <DocumentUtility document={documentWithoutQr as any} handleSharingToggle={() => {}} onPrint={() => {}} />;
 };
 export const QRPrintAndDownload = () => {
-  return <DocumentUtility document={documentWithQr as any} handleSharingToggle={() => {}} />;
+  return <DocumentUtility document={documentWithQr as any} handleSharingToggle={() => {}} onPrint={() => {}} />;
 };
