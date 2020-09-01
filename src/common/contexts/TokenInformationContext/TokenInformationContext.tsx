@@ -3,12 +3,14 @@ import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
+import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 
 interface TokenInformationContext {
   tokenRegistryAddress: string;
   tokenId: string;
   beneficiary?: string;
   holder?: string;
+  titleEscrowOwner?: string;
   approvedBeneficiary?: string;
   approvedHolder?: string;
   changeHolder: TitleEscrow["changeHolder"];
@@ -23,6 +25,8 @@ interface TokenInformationContext {
   transferToNewEscrowState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
+  isTitleEscrow?: boolean;
+  resetStates: () => void;
 }
 
 const contractFunctionStub = () => {
@@ -40,18 +44,30 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
   isSurrendered: false,
+  titleEscrowOwner: "",
   approveNewTransferTargets: contractFunctionStub,
   approveNewTransferTargetsState: "UNINITIALIZED",
   transferToNewEscrow: contractFunctionStub,
   transferToNewEscrowState: "UNINITIALIZED",
+  resetStates: () => {},
 });
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [tokenId, setTokenId] = useState("");
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
   const { provider } = useProviderContext();
-  const { titleEscrow, updateTitleEscrow } = useTitleEscrowContract(tokenRegistryAddress, tokenId, provider);
+  const { titleEscrow, updateTitleEscrow, titleEscrowOwner } = useTitleEscrowContract(
+    tokenRegistryAddress,
+    tokenId,
+    provider
+  );
   const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
+
+  // First check whether Contract is TitleEscrow
+  const { isInterfaceType: isTitleEscrow, reset: resetSupportsInterface } = useSupportsInterface(
+    titleEscrow,
+    "0xdcce2211"
+  ); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -93,10 +109,12 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     resetEndorseBeneficiary();
     resetApproveNewTransferTargets();
     resetTransferToNewEscrow();
+    resetSupportsInterface();
   }, [
     resetApproveNewTransferTargets,
     resetChangeHolder,
     resetEndorseBeneficiary,
+    resetSupportsInterface,
     resetTransferTo,
     resetTransferToNewEscrow,
   ]);
@@ -108,11 +126,14 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
 
   // Fetch all new information when title escrow is initialized or updated (due to actions)
   useEffect(() => {
-    getHolder();
-    getApprovedHolder();
-    getBeneficiary();
-    getApprovedBeneficiary();
-  }, [getBeneficiary, getApprovedBeneficiary, getHolder, getApprovedHolder, titleEscrow]);
+    if (isTitleEscrow) {
+      // only fetch TitleEscrow info after we determine owner is a Title Escrow contract
+      getHolder();
+      getApprovedHolder();
+      getBeneficiary();
+      getApprovedBeneficiary();
+    }
+  }, [getApprovedBeneficiary, getApprovedHolder, getBeneficiary, getHolder, isTitleEscrow]);
 
   // Update holder whenever holder transfer is successful
   useEffect(() => {
@@ -154,10 +175,13 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         endorseBeneficiaryState,
         transferToState,
         isSurrendered,
+        isTitleEscrow,
+        titleEscrowOwner,
         approveNewTransferTargets,
         approveNewTransferTargetsState,
         transferToNewEscrow,
         transferToNewEscrowState,
+        resetStates,
       }}
     >
       {children}

@@ -36,3 +36,19 @@ it("should display both the role and the editable field when in editable format"
   expect(newValue).not.toBeNull();
   expect(beneficiaryLabel).not.toBeNull();
 });
+
+it("should display placeholder when no value given", async () => {
+  const container = render(
+    <EditableAssetTitle
+      role="Beneficiary"
+      value={undefined}
+      isEditable={false}
+      newValue="0xE"
+      onSetNewValue={() => {}}
+    />
+  );
+
+  const loadingContainer = container.getByTestId("loading-skeleton-placeholder");
+
+  expect(loadingContainer).not.toBeNull();
+});
