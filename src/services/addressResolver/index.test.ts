@@ -6,7 +6,6 @@ jest.mock("axios");
 jest.mock("./axiosClient");
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
-mockedAxios.create.mockReturnThis();
 
 beforeEach(() => {
   mockedAxios.get.mockReset();
