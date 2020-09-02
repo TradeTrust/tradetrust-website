@@ -1,7 +1,7 @@
-import axios, { AxiosAdapter, AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
+import { cachedAxios } from "./axiosClient";
 import { ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { getLogger } from "./../../utils/logger";
-import { cacheAdapterEnhancer } from "axios-extensions";
 import { join } from "path";
 import { ResolutionResult } from "../../common/hooks/useIdentifierResolver";
 
@@ -10,29 +10,40 @@ const { trace, error } = getLogger("service:addressresolver");
 // Returns an url with no trailing slash
 export const getPath = (path: string, base: string) => new URL(path, base).href;
 
-const client = () =>
-  axios.create({
-    headers: { "Cache-Control": "no-cache" },
-    adapter: cacheAdapterEnhancer(axios.defaults.adapter as AxiosAdapter), // Typecast suggested by author to force non-null typing: https://github.com/kuitos/axios-extensions/issues/8
-  });
-
 export interface HeadersProps {
   [key: string]: string;
 }
 
+const get = async ({
+  url,
+  apiHeader,
+  apiKey,
+  cache = false,
+}: {
+  url: string;
+  apiHeader?: string;
+  apiKey?: string;
+  cache?: boolean;
+}) => {
+  const client = cache ? cachedAxios : axios;
+  if (apiHeader && apiKey) {
+    const headers: HeadersProps = {};
+    headers[apiHeader] = apiKey;
+    return client.get(url, { headers });
+  } else {
+    return client.get(url);
+  }
+};
+
 export const resolveAddressNameByEndpoint = async (url: string, apiHeader: string, apiKey: string) => {
   // Default TTL is 5 Mins to change timeout check https://github.com/kuitos/axios-extensions#cacheadapterenhancer
   try {
-    const hasCustomHeaders = apiHeader && apiKey;
-    let response;
-
-    if (hasCustomHeaders) {
-      const customHeaders: HeadersProps = {};
-      customHeaders[apiHeader] = apiKey;
-      response = await client().get(url, { headers: customHeaders });
-    } else {
-      response = await client().get(url);
-    }
+    const response = await get({
+      url,
+      apiHeader,
+      apiKey,
+      cache: true,
+    });
     return response.data?.identity?.name;
   } catch (e) {
     trace(`Resolve Address Status: ${e}`);
@@ -70,13 +81,13 @@ interface FeatureResponse {
 
 export const getFeatures = async (url: string, apiHeader?: string, apiKey?: string): Promise<FeatureResponse> => {
   try {
-    if (apiHeader && apiKey) {
-      const customHeaders: HeadersProps = {};
-      customHeaders[apiHeader] = apiKey;
-      return (await axios.get<FeatureResponse>(url, { headers: customHeaders })).data;
-    } else {
-      return (await axios.get<FeatureResponse>(url)).data;
-    }
+    const response = await get({
+      url,
+      apiHeader,
+      apiKey,
+      cache: true,
+    });
+    return response.data;
   } catch (e) {
     const err: AxiosError = e;
     if (err.response?.data) {
