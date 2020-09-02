@@ -15,7 +15,6 @@ export const RegisterButtonUnStyled = ({ className, children }: RegisterButtonPr
       className={className}
       href="https://form.gov.sg/#!/5ef05be8e4f89f001195ef4c"
       target="_blank"
-      rel="noreferrer noopener"
     >
       {children}
     </AnchorLinkButtonSolidOrangeWhite>

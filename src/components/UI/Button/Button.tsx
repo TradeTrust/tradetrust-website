@@ -33,12 +33,16 @@ interface AnchorLinkProps {
   children?: React.ReactNode;
   className?: string;
   href: string;
-  target: string;
-  rel: string;
+  target?: string;
+  download?: string;
 }
 
 export const AnchorLink = ({ children, ...props }: AnchorLinkProps) => {
-  return <a {...props}>{children}</a>;
+  return (
+    <a {...props} rel="noopener noreferrer">
+      {children}
+    </a>
+  );
 };
 
 interface ReactRouterLinkProps {
@@ -106,16 +110,19 @@ const baseStyleButton = ({ bgColor, textColor }: BaseStyleButtonProps) => {
 };
 
 interface BgWhiteModifierProps {
+  hoverTextColor?: string;
   hoverColor: string;
 }
 
-const bgWhiteModifier = ({ hoverColor }: BgWhiteModifierProps) => {
+const bgWhiteModifier = ({ hoverTextColor, hoverColor }: BgWhiteModifierProps) => {
   return `
     &[disabled] {
       background-color: ${darken(0.05, vars.white)};
     }
 
     &:hover {
+      text-decoration: none;
+      color: ${hoverTextColor};
       background-color: ${rgba(hoverColor, 0.15)};
     }
   `;
@@ -141,6 +148,7 @@ const bgWhiteTextSecondary = `
   })}
 
   ${bgWhiteModifier({
+    hoverTextColor: vars.brandBlue,
     hoverColor: vars.brandBlue,
   })}
 `;
@@ -277,6 +285,7 @@ export const ButtonCircleGreylight = styled(Button)`
 
 export const LabelWhiteSecondary = styled(Label)`
   ${bgWhiteTextSecondary}
+  margin-bottom: 0;
 `;
 
 export const AnchorLinkButtonSolidOrangeWhite = styled(AnchorLink)`
@@ -287,6 +296,11 @@ export const AnchorLinkButtonSolidOrangeWhite = styled(AnchorLink)`
     text-decoration: none;
     color: ${vars.white};
   }
+`;
+
+export const AnchorLinkButtonSolidWhiteBlue = styled(AnchorLink)`
+  ${bgWhiteTextSecondary}
+  margin-bottom: 0;
 `;
 
 export const ReactRouterLinkButtonSolidOrangeWhite = styled(ReactRouterLink)`

@@ -1,6 +1,6 @@
 # TradeTrust Web UI
 
-[![CircleCI](https://circleci.com/gh/TradeTrust/tradetrust-website.svg?style=svg)](https://circleci.com/gh/TradeTrust/tradetrust-website)
+[![CI](https://github.com/TradeTrust/tradetrust-website/workflows/CI/badge.svg)](https://github.com/TradeTrust/tradetrust-website/actions?query=workflow%3ACI)
 
 See also:
 

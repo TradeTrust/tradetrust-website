@@ -95,7 +95,7 @@ export const TrainingVideosPage = () => (
           </MediaCard>
         </div>
         <div className="col-12 col-lg-4 mb-4">
-          <MediaCard title="Identity Resolution Services" youtubeEmbedCode="_nt-l-09vMw">
+          <MediaCard title="Identity Resolution Services" youtubeEmbedCode="3S1QjgPXn54">
             <p>
               Identity Resolution in TradeTrust involves the ability to map non-readable identification of issuers to a
               readable form. This segment will cover the methods and the steps on building APIs for identity resolution.

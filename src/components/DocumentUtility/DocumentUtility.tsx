@@ -11,10 +11,16 @@ import { QRCode } from "react-qr-svg";
 interface DocumentUtilityProps {
   document: WrappedDocument;
   handleSharingToggle: any;
+  onPrint: () => void;
   className?: string;
 }
 
-export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, className }: DocumentUtilityProps) => {
+export const DocumentUtilityUnStyled = ({
+  document,
+  handleSharingToggle,
+  onPrint,
+  className,
+}: DocumentUtilityProps) => {
   const fileName = getData(document).name;
   const qrcodeUrl = getData(document)?.links?.self?.href ?? "";
 
@@ -42,7 +48,7 @@ export const DocumentUtilityUnStyled = ({ document, handleSharingToggle, classNa
             )}
           </div>
           <div className="col-auto ml-3">
-            <ButtonIconWhiteBlue aria-label="document-utility-print-button" onClick={() => window.print()}>
+            <ButtonIconWhiteBlue aria-label="document-utility-print-button" onClick={() => onPrint()}>
               <SvgIcon>
                 <SvgIconPrinter />
               </SvgIcon>

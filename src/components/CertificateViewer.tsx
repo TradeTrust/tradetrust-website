@@ -1,6 +1,6 @@
 import { VerificationFragment } from "@govtechsg/oa-verify";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Tab } from "react-bootstrap";
 import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
 import { TemplateProps } from "./../types";
@@ -15,6 +15,10 @@ import { ErrorBoundary } from "./ErrorBoundary";
 import { ModalDialog } from "./ModalDialog";
 import { MultiButtons } from "./MultiButtons";
 import { TabPaneAttachments } from "./TabPaneAttachments";
+import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
+import { getLogger } from "../utils/logger";
+
+const { trace } = getLogger("component:certificateviewer");
 
 interface CertificateViewerProps {
   document: WrappedDocument;
@@ -42,6 +46,16 @@ export const CertificateViewer = ({
   const originalData = getData(document);
   const attachments = originalData?.attachments;
   const hasAttachments = attachments && attachments.length > 0;
+  const { resetStates: resetTokenInformationState } = useTokenInformationContext();
+
+  useEffect(
+    () => () => {
+      trace("reseting token information on unmount");
+      resetTokenInformationState();
+    },
+    [resetTokenInformationState, document]
+  );
+  const childRef = React.useRef<{ print: () => void }>();
 
   const updateTemplates = useCallback((templates: TemplateProps[]) => {
     // filter all templates that are renderable currently
@@ -53,6 +67,12 @@ export const CertificateViewer = ({
     setTemplates(templatesModified);
     setSelectedTemplate(templatesModified[0].id);
   }, []);
+
+  const onPrint = () => {
+    if (childRef.current) {
+      childRef.current.print();
+    }
+  };
 
   const renderedEndorsementChain = (
     <div className="bg-blue-lighter no-print">
@@ -91,11 +111,17 @@ export const CertificateViewer = ({
         <div className="bg-white">
           <Tab.Content className="py-4">
             <Tab.Pane eventKey="tab-document">
-              <DocumentUtility className="no-print" document={document} handleSharingToggle={handleSharingToggle} />
+              <DocumentUtility
+                className="no-print"
+                document={document}
+                handleSharingToggle={handleSharingToggle}
+                onPrint={onPrint}
+              />
               <DecentralisedRendererContainer
                 rawDocument={document}
                 updateTemplates={updateTemplates}
                 selectedTemplate={selectedTemplate}
+                ref={childRef}
               />
             </Tab.Pane>
             {hasAttachments && <TabPaneAttachments attachments={attachments} />}

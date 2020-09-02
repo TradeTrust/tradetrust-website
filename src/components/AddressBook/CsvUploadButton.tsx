@@ -51,7 +51,7 @@ export const CsvUploadButton = () => {
     }
   };
   return (
-    <div className="my-auto ml-2">
+    <div className="my-auto ml-md-2">
       <input
         id="csv-file-input"
         type="file"
