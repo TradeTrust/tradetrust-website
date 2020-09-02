@@ -1,9 +1,9 @@
 import React from "react";
-import { CertificateSharingFormUnStyled, CertificateSharingForm } from "./CertificateSharingForm";
+import { CertificateSharingForm } from "./CertificateSharingForm";
 
 export default {
   title: "UI/CertificateSharingForm",
-  component: CertificateSharingFormUnStyled,
+  component: CertificateSharingForm,
   parameters: {
     componentSubtitle: "Sharing by email.",
   },

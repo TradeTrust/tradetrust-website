@@ -1,9 +1,9 @@
 import React from "react";
-import { ErrorBoundaryUnStyled, ErrorBoundary } from "./ErrorBoundary";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 export default {
   title: "Error/ErrorBoundary",
-  component: ErrorBoundaryUnStyled,
+  component: ErrorBoundary,
   parameters: {
     componentSubtitle: "Shown when child has errors.",
   },
