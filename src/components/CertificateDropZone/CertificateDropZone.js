@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { DefaultView } from "./Views/DefaultView";
 import { VerifyingView } from "./Views/VerifyingView";
 import { UnverifiedView } from "./Views/UnverifiedView";
-import css from "./CertificateDropzone.module.scss";
 import { RetrievalErrorView } from "./Views/RetrievalErrorView";
 import { isValid } from "../../services/verify/fragments";
 
@@ -81,11 +80,11 @@ const CertificateDropzone = ({
   toggleQrReaderVisible,
   retrieveCertificateByActionError,
 }) => (
-  <div className={css["padding-dropzone-boxshadow"]}>
+  <div className="padding-dropzone-boxshadow">
     <Dropzone
       id="certificate-dropzone"
       onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
-      className={css.dropzone}
+      className="w-100 h-auto"
     >
       {renderDropzoneContentCurry({
         handleCertificateChange,

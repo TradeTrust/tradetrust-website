@@ -1,7 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
-import css from "./navBar.scss";
+import styled from "@emotion/styled";
+import { mixin, vars } from "../../../styles";
 
 export const navItems = [
   {
@@ -54,14 +55,49 @@ export const navItems = [
   },
 ];
 
+const NavHeader = styled.header`
+  .logo {
+    img {
+      height: 50px;
+    }
+  }
+
+  .topnavbar {
+    padding: 20px 0;
+
+    @media print {
+      display: none;
+    }
+  }
+
+  .topnavbar-item {
+    ${mixin.fontMontserratMedium}
+
+    a {
+      ${mixin.fontMontserratMedium}
+      ${mixin.fontSize(16)}
+      color: ${vars.greyblue};
+
+      &:hover {
+        color: ${vars.white};
+        text-decoration: none;
+      }
+
+      &.active {
+        color: ${vars.white};
+      }
+    }
+  }
+`;
+
 export const NavigationBar = () => {
   const location = useLocation();
 
   return (
-    <div className="bg-brand-navy">
+    <NavHeader className="bg-brand-navy">
       <div className="container-custom">
-        <nav className={`navbar navbar-expand-xl navbar-dark ${css.topnavbar}`}>
-          <NavHashLink className={`navbar-brand ${css.logo}`} to="/" smooth>
+        <nav className="navbar navbar-expand-xl navbar-dark topnavbar">
+          <NavHashLink className="navbar-brand logo" to="/" smooth>
             <img className="img-fluid" src="/static/images/tradetrust_logo.svg" alt="TradeTrust" />
           </NavHashLink>
           <button
@@ -79,13 +115,14 @@ export const NavigationBar = () => {
             <ul className="navbar-nav row ml-auto">
               {navItems.map((item, index) => {
                 return (
-                  <li className={`col-auto nav-item my-2 my-xl-0 ${css["topnavbar-item"]}`} key={index}>
+                  <li className="col-auto nav-item my-2 my-xl-0 topnavbar-item" key={index}>
                     {item.target === "_self" ? (
                       <NavHashLink
                         to={item.path}
                         target={item.target}
                         rel="noopener noreferrer"
-                        className={`${location.pathname}${location.hash}` === item.path ? css["active"] : ""}
+                        className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
+                        activeClassName=""
                         smooth
                       >
                         {item.label}
@@ -102,6 +139,6 @@ export const NavigationBar = () => {
           </div>
         </nav>
       </div>
-    </div>
+    </NavHeader>
   );
 };

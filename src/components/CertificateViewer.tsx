@@ -5,7 +5,7 @@ import { Tab } from "react-bootstrap";
 import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
 import { TemplateProps } from "./../types";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
-import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
+import { CertificateSharingForm } from "./CertificateSharing/CertificateSharingForm";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";

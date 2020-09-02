@@ -1,16 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import css from "./viewerStyles.module.scss";
+import styled from "@emotion/styled";
+import { ViewerBtnStyles, ViewerContainerStyles } from "./SharedViewerStyles";
+
+const Button = styled.button`
+  ${ViewerBtnStyles()}
+`;
+
+const ViewerContainer = styled.div`
+  ${ViewerContainerStyles()}
+`;
 
 export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
-  <div
-    data-id="viewer-container"
-    className={`${css["viewer-container"]} ${
-      // eslint-disable-next-line no-nested-ternary
-      hover ? (accept ? css.accept : css.invalid) : css.default
-    }`}
-  >
-    <div className={css["image-container"]}>
+  <ViewerContainer data-id="viewer-container" className={`${hover ? (accept ? "accept" : "invalid") : "default"}`}>
+    <div className="image-container">
       <i>
         <img alt=".tradetrust Dropzone" src="/static/images/dropzone/dropzone_illustration.svg" />
       </i>
@@ -32,24 +35,20 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
     </div>
     <div className="text-muted row">
       <div className="mx-auto">
-        <button type="button" className={`pointer ${css.btn}`}>
-          Select File
-        </button>
-        <button
+        <Button>Select File</Button>
+        <Button
           data-id="scan-qr-button"
-          type="button"
           onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();
             toggleQrReaderVisible();
           }}
-          className={`pointer ${css.btn}`}
         >
           Scan QR Code
-        </button>
+        </Button>
       </div>
     </div>
-  </div>
+  </ViewerContainer>
 );
 
 DefaultView.propTypes = {

@@ -39,6 +39,7 @@ export const roundButtonOutline = brandNavy;
 
 export const maxWidth = "1280px";
 export const inputPadding = "5px 10px";
+export const dropzoneBoxshadowPadding = "10px";
 
 export const easeInCubic = "cubic-bezier(0.55, 0.055, 0.675, 0.19)";
 export const easeOutCubic = "cubic-bezier(0.215, 0.61, 0.355, 1)";
