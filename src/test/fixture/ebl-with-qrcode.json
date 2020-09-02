@@ -1,60 +1,55 @@
 {
   "version": "https://schema.openattestation.com/2.0/schema.json",
   "data": {
-    "links": {
-      "self": {
-        "href": "4f27b234-ab28-40a9-be72-dccb59e438c5:string:https://action.openattestation.com/?q=%7B%22type%22:%22DOCUMENT%22,%22payload%22:%20%7B%22uri%22:%20%22https://api-ropsten.tradetrust.io/storage/33737b71-96f6-4019-b6c1-5fcea04fcc2a%22,%22key%22:%20%22edcbadf17301fe5dfe174496c7edf29e0702e2775ee919bbccb74d0dfd5a1b4b%22,%22permittedActions%22:%20%5B%22STORE%22%5D,%22redirect%22:%20%22https://dev.tradetrust.io%22%7D%7D"
-      }
+    "shipper": {
+      "address": {
+        "street": "1a973171-2695-48ba-bfdb-d5c7fcf69707:string:One North",
+        "country": "8fcd4d27-7751-49aa-8a03-439bb1a37a22:string:Singapore"
+      },
+      "name": "df2c4fdd-2ef9-4015-82e9-09ca37f01ccb:string:Demo Shipper"
     },
+    "consignee": { "name": "394171c4-5bd9-49b7-b332-f20dd9752245:string:Demo Consignee" },
+    "notifyParty": { "name": "3e2791bb-d2cb-4104-9706-a94d0a5d906c:string:Demo Notify" },
     "$template": {
-      "type": "33488830-0854-4205-a4c3-9ba7e28e7b61:string:EMBEDDED_RENDERER",
-      "name": "9d924d6f-1154-4499-9c1c-262dd3990db6:string:BILL_OF_LADING",
-      "url": "e3edeb43-439f-4c30-8ab4-3fb2d20bd938:string:https://demo-cnm.openattestation.com"
+      "type": "a444eeb3-e809-4da9-b2a7-37b50749380b:string:EMBEDDED_RENDERER",
+      "name": "8711f330-8c97-4365-98a2-8606bf17d384:string:BILL_OF_LADING",
+      "url": "fd61b914-d89c-4800-b05f-3f0cc5a421c0:string:https://demo-cnm.openattestation.com"
     },
     "issuers": [
       {
         "identityProof": {
-          "type": "517691ab-e726-4531-9208-c83b0348b488:string:DNS-TXT",
-          "location": "175f08b5-a6bc-4210-8106-353fd9c99392:string:tradetrust.io"
+          "type": "8647daef-1e89-4560-a986-6f1848eeb2f7:string:DNS-TXT",
+          "location": "c9e9e108-58cf-432b-90c8-a99410b38ed3:string:demo-tradetrust.openattestation.com"
         },
-        "name": "fde3d483-648e-4850-90c6-7e0bd22eb559:string:DEMO STORE",
-        "tokenRegistry": "e89c9055-63a1-4f74-afd0-89026976ee84:string:0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+        "name": "45452b89-c540-4751-96fd-c030bfd3920f:string:DEMO STORE",
+        "tokenRegistry": "9fc6cd82-ceed-4829-a998-c5caba580439:string:0x10E936e6BA85dC92505760259881167141365821"
       }
     ],
-    "consignee": {
-      "name": "c30108fb-3d77-4937-8f3b-5513568d87ee:string:Demo Consignee",
-      "type": "fa895af7-8f14-4f17-a18e-5be7d474f902:string:To the owner of"
-    },
-    "notifyParty": {
-      "name": "a0faceac-dd53-4094-ba24-b9c16602a068:string:Demo Notify"
-    },
-    "shipper": {
-      "address": {
-        "street": "42349544-3334-4e4a-a5cd-dbad04421dec:string:One North",
-        "country": "1269bd96-1161-4418-98b3-df7ab8643efa:string:Singapore"
-      },
-      "name": "a64508fe-c1d1-4357-87be-aa545834a989:string:Demo Shipper"
-    },
+    "name": "8fdb3967-c400-430c-bc21-5e4563fd42b7:string:Maersk Bill of Lading",
+    "blNumber": "7932c23c-a794-415e-9737-133f06588e2a:string:123",
+    "vessel": "804ebf42-8a0a-41ce-a61b-78aa52d2da68:string:1",
+    "voyageNo": "cbe2a333-f576-4557-9af7-588758cd087c:string:100",
+    "portOfLoading": "85b2d6b2-9571-43d9-b2f1-b000886c0858:string:Singapore Port",
+    "portOfDischarge": "27d5759f-5aa6-494a-ab11-85afe5a7f0e4:string:China Port",
+    "placeOfReceipt": "c073d406-4f24-4b1f-9479-d79fbf4749b5:string:Beijing",
+    "placeOfDelivery": "b2a19aa1-4fb1-4f24-ab1a-5daf7800bf61:string:Singapore",
     "packages": [
       {
-        "description": "f0e74d62-2329-4d99-9a23-3800d2961f9b:string:Green Apples",
-        "weight": "be90f2d5-3174-4c87-aee8-f7d00a75054c:number:20",
-        "measurement": "6a35d110-8ae6-4c9a-9390-ecbae03cf271:string:100"
+        "description": "80d248fa-829b-449f-b051-469269c43538:string:Green Apples",
+        "measurement": "a1f50759-d9c7-4bb0-91a1-8be93057a192:string:100",
+        "weight": "3f780e71-497f-4c52-8ed0-69655982becd:string:20"
       }
     ],
-    "blNumber": "a92811e7-fddc-4005-84cc-85dc362c417d:string:123",
-    "name": "01c1b436-f322-474a-ab5b-11f28d225899:string:Maersk Bill of Lading",
-    "vessel": "71031272-1f72-4e38-9dec-570dd042a38c:string:1",
-    "voyageNo": "daef332d-c31a-4490-8e39-9607aaa567ed:number:100",
-    "portOfLoading": "c9d3e669-6feb-4261-ba86-012aa316a089:string:Singapore Port",
-    "portOfDischarge": "4b5f0295-e6e4-45c5-8603-e8567e64f703:string:China Port",
-    "placeOfReceipt": "28823079-e50a-4114-81e6-a84a4c703ba6:string:Beijing",
-    "placeOfDelivery": "9bc210a1-8ba7-47d9-be49-198858032f75:string:Singapore"
+    "links": {
+      "self": {
+        "href": "d2a2155c-766c-47dc-b63e-a9501a0cc64c:string:https://action.openattestation.com/?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F46fe42d6-9d8a-49c7-830a-98e3e70ae24b%22%2C%22key%22%3A%226c617bb52e0319670024db691d9df1c9f77d5f8be6799539d2ac7f4c21d97919%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22https%3A%2F%2Fdev.tradetrust.io%2F%22%7D%7D"
+      }
+    }
   },
   "signature": {
     "type": "SHA3MerkleProof",
-    "targetHash": "bfacf3a62425e1514b55d2f9a585f06e84bc5453ad76eedc26f34d709ef4d2d7",
+    "targetHash": "c6c53bb7fcee32f240be3fe4a5037759425a49d4a1e344390241e1d2cd26982c",
     "proof": [],
-    "merkleRoot": "bfacf3a62425e1514b55d2f9a585f06e84bc5453ad76eedc26f34d709ef4d2d7"
+    "merkleRoot": "c6c53bb7fcee32f240be3fe4a5037759425a49d4a1e344390241e1d2cd26982c"
   }
 }
