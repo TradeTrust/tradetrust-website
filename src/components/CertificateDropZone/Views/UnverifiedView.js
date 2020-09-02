@@ -3,12 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { interpretFragments } from "../../../services/verify/fragments";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
-import styled from "@emotion/styled";
-import { ViewerContainerStyles } from "./SharedViewerStyles";
-
-const ViewerContainer = styled.div`
-  ${ViewerContainerStyles()}
-`;
+import { ViewerContainer } from "./SharedViewerStyledComponents";
 
 const DetailedErrors = ({ verificationStatus }) => {
   const errors = [];

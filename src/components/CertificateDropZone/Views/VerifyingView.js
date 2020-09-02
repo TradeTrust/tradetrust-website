@@ -1,10 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { ViewerContainerStyles } from "./SharedViewerStyles";
-
-const ViewerContainer = styled.div`
-  ${ViewerContainerStyles()}
-`;
+import { ViewerContainer } from "./SharedViewerStyledComponents";
 
 export const VerifyingView = () => (
   <ViewerContainer className="bg-light text-blue">

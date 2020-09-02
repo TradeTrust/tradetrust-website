@@ -13,10 +13,9 @@ import { updateNetworkId } from "../../reducers/application";
 import CertificateDropZone from "./CertificateDropZone";
 import QrReader from "../QrReader";
 import styled from "@emotion/styled";
-import { ViewerBtnStyles } from "./Views/SharedViewerStyles";
+import { ViewerButton } from "./Views/SharedViewerStyledComponents";
 
-const DisabledButton = styled.button`
-  ${ViewerBtnStyles()}
+const DisabledButton = styled(ViewerButton)`
   position: absolute;
   top: 80%;
   left: 45%;

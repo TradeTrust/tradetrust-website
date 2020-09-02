@@ -1,15 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
-import { ViewerBtnStyles, ViewerContainerStyles } from "./SharedViewerStyles";
-
-const Button = styled.button`
-  ${ViewerBtnStyles()}
-`;
-
-const ViewerContainer = styled.div`
-  ${ViewerContainerStyles()}
-`;
+import { ViewerButton, ViewerContainer } from "./SharedViewerStyledComponents";
 
 export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
   <ViewerContainer data-id="viewer-container" className={`${hover ? (accept ? "accept" : "invalid") : "default"}`}>
@@ -35,8 +26,8 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
     </div>
     <div className="text-muted row">
       <div className="mx-auto">
-        <Button>Select File</Button>
-        <Button
+        <ViewerButton>Select File</ViewerButton>
+        <ViewerButton
           data-id="scan-qr-button"
           onClick={(event) => {
             event.preventDefault();
@@ -45,7 +36,7 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
           }}
         >
           Scan QR Code
-        </Button>
+        </ViewerButton>
       </div>
     </div>
   </ViewerContainer>

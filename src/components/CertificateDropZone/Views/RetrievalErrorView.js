@@ -1,12 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import styled from "@emotion/styled";
-import { ViewerContainerStyles } from "./SharedViewerStyles";
-
-const ViewerContainer = styled.div`
-  ${ViewerContainerStyles()}
-`;
+import { ViewerContainer } from "./SharedViewerStyledComponents";
 
 export const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError }) => (
   <ViewerContainer id="viewer-container" className="invalid">
