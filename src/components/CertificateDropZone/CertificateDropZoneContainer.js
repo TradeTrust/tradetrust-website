@@ -17,9 +17,11 @@ import { ViewerButton } from "./Views/SharedViewerStyledComponents";
 
 const DisabledButton = styled(ViewerButton)`
   position: absolute;
-  top: 80%;
-  left: 45%;
+  bottom: 0;
+  left: 50%;
   z-index: 999;
+  margin: 0;
+  transform: translateX(-50%);
 `;
 
 export class CertificateDropZoneContainer extends Component {
@@ -64,10 +66,10 @@ export class CertificateDropZoneContainer extends Component {
 
   render() {
     return this.state.qrReaderVisible ? (
-      <>
+      <div className="position-relative">
         <QrReader handleQrScanned={this.handleQrScanned} />
         <DisabledButton onClick={this.toggleQrReaderVisible}>Disable</DisabledButton>
-      </>
+      </div>
     ) : (
       <CertificateDropZone
         fileError={this.state.fileError}
