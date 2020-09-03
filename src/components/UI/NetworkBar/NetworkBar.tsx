@@ -25,7 +25,7 @@ const NetworkWrap = styled.div`
 export const NetworkBar = () => {
   const [close, setClose] = useState(false);
 
-  if (close) return null;
+  if (close || NETWORK === "mainnet") return null;
 
   return (
     <NetworkWrap>
