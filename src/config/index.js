@@ -1,7 +1,7 @@
 import { getLogger } from "../utils/logger";
 
 const { trace } = getLogger("config");
-const NETWORK = process.env.NET || "ropsten";
+export const NETWORK = process.env.NET || "ropsten";
 
 export const IS_MAINNET = NETWORK === "mainnet";
 

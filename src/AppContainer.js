@@ -5,12 +5,14 @@ import { routes } from "./routes";
 import { NavigationBar } from "./components/Layout/NavigationBar";
 import { FooterDefault } from "./components/Layout/Footer";
 import { Overlay } from "./components/UI/Overlay";
+import { NetworkBar } from "./components/UI/NetworkBar";
 
 const AppContainer = () => {
   const location = useLocation();
 
   return (
     <div className="wrapper" data-location={location.pathname}>
+      <NetworkBar />
       <NavigationBar />
       <main>
         <Switch>
