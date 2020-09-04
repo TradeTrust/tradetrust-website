@@ -2,10 +2,6 @@
 // Mixins
 // =====================================================================
 
-@function px-rem($size, $base: 16) {
-  @return ($size / $base) * 1rem;
-}
-
 @mixin loader-skeleton($w: 260px, $h: 24px, $bg: $color-grey-lighter, $loader-bg: $color-grey-lightest, $loader-w: 50%) {
   &:empty {
     &::after {
@@ -26,45 +22,14 @@
   }
 }
 
-@mixin font-size($size: 16) {
-  font-size: $size + px;
-  font-size: px-rem($size);
-}
-
-@mixin font-montserrat-regular {
-  font-family: "Montserrat", Helvetica, Arial, sans-serif;
-  font-weight: 400;
-}
-
-@mixin font-montserrat-medium {
-  font-family: "Montserrat", Helvetica, Arial, sans-serif;
-  font-weight: 500;
-}
-
-@mixin font-montserrat-semibold {
-  font-family: "Montserrat", Helvetica, Arial, sans-serif;
-  font-weight: 600;
-}
-
 @mixin font-sourcesanspro-regular {
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
 
-@mixin font-sourcesanspro-semibold {
-  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-  font-weight: 600;
-}
-
 @mixin font-sourcesanspro-bold {
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-weight: 700;
-}
-
-@mixin reset-list {
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style-type: none;
 }
 
 @mixin container-custom($mw-custom: $max-width) {
@@ -90,98 +55,6 @@
   @media only screen and (min-width: $xl) {
     max-width: $mw-custom;
   }
-}
-
-@mixin btn(
-  $color,
-  $hover-bg: $color,
-  $text: $color,
-  $bg: $color,
-  $hover-outline: $hover-bg
-) {
-  @include font-sourcesanspro-regular;
-  transition: box-shadow 0.3s $easeOutCubic;
-  border: 1px solid $color;
-  color: $text;
-  background-color: $bg;
-  padding: 7px 23px;
-  border-radius: $btn-radius;
-  font-weight: 500;
-  text-align: center;
-  vertical-align: middle;
-  min-width: 135px;
-  cursor: pointer;
-
-  &:hover {
-    border: 1px solid $hover-bg;
-    background-color: $hover-bg;
-    box-shadow: 2px 2px 6px 0 $color-greyblue-dark;
-    text-decoration: none;
-    color: $color-white;
-  }
-}
-
-@mixin round-btn {
-  border: 1px solid $round-btn-outline;
-  background-color: $color-white;
-  border-radius: (50%);
-  display: block;
-  height: 50px;
-  width: 50px;
-  cursor: pointer;
-
-  svg {
-    path,
-    line {
-      stroke: $round-btn-outline;
-    }
-  }
-
-  &:hover {
-    background-color: $round-btn-outline;
-    box-shadow: 2px 2px 6px 0 $color-greyblue-dark;
-
-    svg path {
-      fill: $round-btn-outline;
-    }
-
-    path,
-    line {
-      stroke: $color-white;
-    }
-  }
-}
-
-@mixin block-color($color) {
-  background-color: $color;
-  border: 1px solid $color;
-
-  &:hover {
-    box-shadow: 2px 2px 6px 0 $color-greyblue-dark;
-  }
-
-  &.active {
-    color: $color;
-    background-color: $color-white;
-
-    #circle {
-      fill: $color;
-    }
-
-    #check {
-      fill: $color-white;
-    }
-
-    svg > polyline {
-      stroke: $color;
-    }
-  }
-}
-
-@mixin dropzone-status($bg-color, $border-color) {
-  background-color: $bg-color;
-  box-shadow: 0 0 0 $padding-dropzone-boxshadow $bg-color;
-  border: 2px dashed $border-color;
 }
 
 @mixin loading($w: 24px, $border-w: 4px, $spd: 0.9s, $primary: darken($color-white, 45%), $secondary: darken($color-white, 25%)) {
