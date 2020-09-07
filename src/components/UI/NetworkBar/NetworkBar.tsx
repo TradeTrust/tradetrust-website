@@ -5,7 +5,7 @@ import { vars } from "../../../styles";
 import { SvgIcon, SvgIconX } from "../SvgIcon";
 
 const NetworkWrap = styled.div`
-  background-color: #001f29;
+  background-color: ${vars.greenDarker};
   color: ${vars.white};
   padding: 8px 0;
 
