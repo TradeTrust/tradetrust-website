@@ -53,10 +53,10 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
 });
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [tokenId, setTokenId] = useState("");
-  const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
+  const [tokenId, setTokenId] = useState<string>();
+  const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
   const { provider } = useProviderContext();
-  const { titleEscrow, updateTitleEscrow, titleEscrowOwner } = useTitleEscrowContract(
+  const { titleEscrow, updateTitleEscrow, titleEscrowOwner, reset: resetTitleEscrow } = useTitleEscrowContract(
     tokenRegistryAddress,
     tokenId,
     provider
@@ -103,21 +103,27 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     reset: resetTransferToNewEscrow,
   } = useContractFunctionHook(titleEscrow, "transferToNewEscrow");
 
-  const resetStates = useCallback(() => {
+  const resetProviders = useCallback(() => {
     resetTransferTo();
     resetChangeHolder();
     resetEndorseBeneficiary();
     resetApproveNewTransferTargets();
     resetTransferToNewEscrow();
-    resetSupportsInterface();
   }, [
     resetApproveNewTransferTargets,
     resetChangeHolder,
     resetEndorseBeneficiary,
-    resetSupportsInterface,
     resetTransferTo,
     resetTransferToNewEscrow,
   ]);
+
+  const resetStates = useCallback(() => {
+    setTokenId(undefined);
+    setTokenRegistryAddress(undefined);
+    resetProviders();
+    resetSupportsInterface();
+    resetTitleEscrow();
+  }, [resetProviders, resetSupportsInterface, resetTitleEscrow]);
 
   const initialize = (address: string, id: string) => {
     setTokenId(id);
@@ -156,7 +162,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   }, [transferToNewEscrowState, updateTitleEscrow]);
 
   // Reset states for all write functions when provider changes to allow methods to be called again without refreshing
-  useEffect(resetStates, [resetStates, provider]);
+  useEffect(resetProviders, [resetProviders, provider]);
 
   return (
     <TokenInformationContext.Provider

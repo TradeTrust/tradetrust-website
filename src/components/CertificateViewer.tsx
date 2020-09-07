@@ -53,7 +53,8 @@ export const CertificateViewer = ({
       trace("reseting token information on unmount");
       resetTokenInformationState();
     },
-    [resetTokenInformationState, document]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
   const childRef = React.useRef<{ print: () => void }>();
 

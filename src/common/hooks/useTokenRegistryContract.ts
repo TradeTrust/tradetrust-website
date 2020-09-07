@@ -3,7 +3,7 @@ import { TradeTrustERC721Factory } from "@govtechsg/token-registry";
 import { TradeTrustERC721 } from "@govtechsg/token-registry/types/TradeTrustERC721";
 import { providers, Signer } from "ethers";
 
-export const useTokenRegistryContract = (address: string, provider?: providers.Provider | Signer) => {
+export const useTokenRegistryContract = (address: string | undefined, provider?: providers.Provider | Signer) => {
   const [tokenRegistry, setTokenRegistry] = useState<TradeTrustERC721>();
 
   useEffect(() => {
