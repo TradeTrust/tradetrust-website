@@ -6,8 +6,8 @@ import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 
 interface TokenInformationContext {
-  tokenRegistryAddress: string;
-  tokenId: string;
+  tokenRegistryAddress: string | undefined;
+  tokenId: string | undefined;
   beneficiary?: string;
   holder?: string;
   titleEscrowOwner?: string;
