@@ -17,12 +17,9 @@ const InputEndpoint2 = TableBodyRow2.find("input[placeholder='Endpoint']");
 const IconSave1 = TableBodyRow1.find("td:last-child").find("g.save").parent("svg");
 const IconEdit1 = TableBodyRow1.find("td:last-child").find("g.edit2").parent("svg");
 const IconSave2 = TableBodyRow2.find("td:last-child").find("g.save").parent("svg");
-const IconEdit2 = TableBodyRow2.find("td:last-child").find("g.edit2").parent("svg");
 const IconTrash1 = TableBodyRow1.find("td:last-child").find("g.trash2").parent("svg");
 const IconMoveDown1 = TableBodyRow1.find("th .fa-sort-down");
 const IconMoveUp2 = TableBodyRow2.find("th .fa-sort-up");
-const OverlayContent = Selector(".overlay-content");
-const OverlayButtonDelete = OverlayContent.find("button").withText("Delete");
 
 test("Address Resolver to be added, edited, moved and removed correctly", async (t) => {
   await t.click(LinkSettings);
@@ -47,8 +44,16 @@ test("Address Resolver to be added, edited, moved and removed correctly", async 
   await t.expect(InputName1.value).contains("Demo");
 
   await t.expect(InputEndpoint1.value).eql("");
-  await t.typeText(InputEndpoint1, "http://demo-resolver.tradetrust.io/identifier/");
-  await t.expect(InputEndpoint1.value).contains("http://demo-resolver.tradetrust.io/identifier/");
+  await t.typeText(InputEndpoint1, "https://demo-resolver.tradetrust.io/");
+  await t.expect(InputEndpoint1.value).contains("https://demo-resolver.tradetrust.io/");
+
+  await t.expect(InputApiHeader2.value).eql("");
+  await t.typeText(InputApiHeader2, "x-api-key");
+  await t.expect(InputApiHeader2.value).contains("x-api-key");
+
+  await t.expect(InputApiKey2.value).eql("");
+  await t.typeText(InputApiKey2, "DEMO");
+  await t.expect(InputApiKey2.value).contains("DEMO");
 
   await t.click(IconSave1);
   await t.expect(IconEdit1.count).eql(1);
@@ -69,15 +74,15 @@ test("Address Resolver to be added, edited, moved and removed correctly", async 
 
   await t.click(IconSave2);
   await validateTextContent(t, TableBodyRow2, ["Endpoint must not be blank."]);
-  await t.typeText(InputEndpoint2, "http://demo-resolver.tradetrust.io/identifier/");
+  await t.typeText(InputEndpoint2, "https://demo-resolver.tradetrust.io/");
 
   await t.click(IconSave2);
   await validateTextContent(t, TableBodyRow2, ["Endpoint already exists."]);
   await t.selectText(InputEndpoint2).pressKey("delete");
-  await t.typeText(InputEndpoint2, "http://demo-resolver2.tradetrust.io/identifier/");
-
+  await t.typeText(InputEndpoint2, "https://demo-resolver2.tradetrust.io/");
   await t.click(IconSave2);
-  await t.click(IconEdit2);
+  await validateTextContent(t, TableBodyRow2, ["Network Error"]);
+
   await t.expect(InputApiHeader2.value).eql("");
   await t.typeText(InputApiHeader2, "api_header");
   await t.expect(InputApiHeader2.value).contains("api_header");
@@ -92,33 +97,63 @@ test("Address Resolver to be added, edited, moved and removed correctly", async 
 
   await t.click(IconSave2);
   await validateTextContent(t, TableBodyRow2, ["API Header must not be blank."]);
-  await t.typeText(InputApiHeader2, "api_header");
+});
+
+test("should allow sorting of priority of providers", async (t) => {
+  await t.click(LinkSettings);
+
+  // should show only 1 row with no endpoint found text
+  await validateTextContent(t, TableBodyRow1, ["No third party's endpoint found."]);
+
+  // should save input values correctly
+  await t.click(ButtonAdd);
+
+  await t.expect(InputName1.value).eql("");
+  await t.typeText(InputName1, "Demo 1");
+  await t.expect(InputName1.value).contains("Demo 1");
+
+  await t.expect(InputEndpoint1.value).eql("");
+  await t.typeText(InputEndpoint1, "https://demo-resolver.tradetrust.io/");
+  await t.expect(InputEndpoint1.value).contains("https://demo-resolver.tradetrust.io/");
+
+  await t.expect(InputApiHeader2.value).eql("");
+  await t.typeText(InputApiHeader2, "x-api-key");
+  await t.expect(InputApiHeader2.value).contains("x-api-key");
+
+  await t.expect(InputApiKey2.value).eql("");
+  await t.typeText(InputApiKey2, "DEMO");
+  await t.expect(InputApiKey2.value).contains("DEMO");
+
+  await t.click(IconSave1);
+  await t.expect(IconEdit1.count).eql(1);
+
+  // Second endpoint
+  await t.click(ButtonAdd);
+
+  await t.expect(InputName2.value).eql("");
+  await t.typeText(InputName2, "Demo 2");
+  await t.expect(InputName2.value).contains("Demo 2");
+
+  await t.expect(InputEndpoint2.value).eql("");
+  await t.typeText(
+    InputEndpoint2,
+    "https://gist.githubusercontent.com/yehjxraymond/67990bb6a7d5b0f635461196aac1f9d9/raw/2051dd54d44627d717431aad856d4a0e117db434/features.json"
+  );
+  await t
+    .expect(InputEndpoint2.value)
+    .contains(
+      "https://gist.githubusercontent.com/yehjxraymond/67990bb6a7d5b0f635461196aac1f9d9/raw/2051dd54d44627d717431aad856d4a0e117db434/features.json"
+    );
+
   await t.click(IconSave2);
-
-  // should show the correct error message if edit with duplicated endpoint url
-  await t.click(IconEdit1);
-  await t.selectText(InputEndpoint1).pressKey("delete");
-  await t.typeText(InputEndpoint1, "http://demo-resolver2.tradetrust.io/identifier/");
-  await t.click(IconSave1);
-  await validateTextContent(t, TableBodyRow1, ["Endpoint already exists."]);
-
-  await t.selectText(InputEndpoint1).pressKey("delete");
-  await t.typeText(InputEndpoint1, "http://demo-resolver1.tradetrust.io/identifier/");
-  await t.click(IconSave1);
   await t.expect(TableBodyRows.count).eql(2);
 
   // should be able to sort order
   await t.hover(TableBodyRow2);
   await t.click(IconMoveUp2);
-  await validateTextContent(t, TableBodyRow2, ["Demo edited"]);
+  await validateTextContent(t, TableBodyRow2, ["Demo 1"]);
 
   await t.hover(TableBodyRow1);
   await t.click(IconMoveDown1);
   await validateTextContent(t, TableBodyRow2, ["Demo 2"]);
-
-  // should be able to delete entry
-  await t.click(IconTrash1);
-  await validateTextContent(t, OverlayContent, ["Are you sure you want to delete Demo edited?"]);
-  await t.click(OverlayButtonDelete);
-  await t.expect(TableBodyRow1.count).eql(1);
 });

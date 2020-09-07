@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { InputDefault } from "../UI/Input";
-import { SvgIcon, SvgIconTrash2, SvgIconSave, SvgIconEdit2 } from "../UI/SvgIcon";
-import { vars } from "../../styles";
+import { InputDefault } from "../../UI/Input";
+import { SvgIcon, SvgIconTrash2, SvgIconSave, SvgIconEdit2 } from "../../UI/SvgIcon";
+import { vars } from "../../../styles";
 import isURL from "validator/lib/isURL";
 import isEmpty from "validator/lib/isEmpty";
-import { ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
+import { ThirdPartyAPIEntryProps } from "../../../common/hooks/useThirdPartyAPIEndpoints";
+import { getFeatures } from "../../../services/addressResolver";
+import { LoaderSpinner } from "../../UI/Loader";
 
 interface EndpointEntryProps {
   className?: string;
@@ -37,6 +39,7 @@ export const EndpointEntry = styled(
     onUpdateEndpoint,
     isEndpointUrlExists,
   }: EndpointEntryProps) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [isEditable, setEditable] = useState(canEdit);
     const [inputErrorMessageName, setInputErrorMessageName] = useState("");
     const [inputErrorMessageEndpoint, setInputErrorMessageEndpoint] = useState("");
@@ -61,6 +64,13 @@ export const EndpointEntry = styled(
 
     const onEndpointApiKeyChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
       setEndpointApiKey(event.target.value);
+    };
+
+    const onSetAllError = (msg: string) => {
+      setInputErrorMessageName(msg);
+      setInputErrorMessageEndpoint(msg);
+      setInputErrorMessageApiHeader(msg);
+      setInputErrorMessageApiKey(msg);
     };
 
     const canUpdateValue = () => {
@@ -107,17 +117,32 @@ export const EndpointEntry = styled(
       return true;
     };
 
-    const onSave = () => {
-      if (!canUpdateValue()) return;
+    const onSave = async () => {
+      setIsLoading(true);
+      try {
+        if (!canUpdateValue()) {
+          setIsLoading(false);
+          return;
+        }
 
-      setEditable(false);
+        const { features } = await getFeatures(endpointApi, endpointApiHeader, endpointApiKey);
 
-      onUpdateEndpoint({
-        name: endpointName.trim(),
-        endpoint: endpointApi.trim(),
-        apiHeader: endpointApiHeader.trim(),
-        apiKey: endpointApiKey.trim(),
-      });
+        setEditable(false);
+
+        onUpdateEndpoint({
+          name: endpointName.trim(),
+          endpoint: endpointApi.trim(),
+          apiHeader: endpointApiHeader.trim(),
+          apiKey: endpointApiKey.trim(),
+          path: {
+            addressResolution: features.addressResolution?.location,
+            entityLookup: features.entityLookup?.location,
+          },
+        });
+      } catch (e) {
+        onSetAllError(e.message);
+      }
+      setIsLoading(false);
     };
 
     return (
@@ -183,24 +208,30 @@ export const EndpointEntry = styled(
             <>{apiKey}</>
           )}
         </td>
-        <td className={isEditable ? "is-editable" : ""}>
-          {isEditable ? (
-            <SvgIcon onClick={onSave}>
-              <SvgIconSave />
+        {isLoading ? (
+          <td className={isEditable ? "is-editable" : ""}>
+            <LoaderSpinner className="d-inline-block mx-2" />
+          </td>
+        ) : (
+          <td className={isEditable ? "is-editable" : ""}>
+            {isEditable ? (
+              <SvgIcon onClick={onSave} data-testid="save-icon">
+                <SvgIconSave />
+              </SvgIcon>
+            ) : (
+              <SvgIcon
+                onClick={() => {
+                  setEditable(true);
+                }}
+              >
+                <SvgIconEdit2 />
+              </SvgIcon>
+            )}
+            <SvgIcon onClick={removeEndpoint}>
+              <SvgIconTrash2 />
             </SvgIcon>
-          ) : (
-            <SvgIcon
-              onClick={() => {
-                setEditable(true);
-              }}
-            >
-              <SvgIconEdit2 />
-            </SvgIcon>
-          )}
-          <SvgIcon onClick={removeEndpoint}>
-            <SvgIconTrash2 />
-          </SvgIcon>
-        </td>
+          </td>
+        )}
       </tr>
     );
   }

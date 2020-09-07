@@ -5,6 +5,10 @@ export interface ThirdPartyAPIEntryProps {
   endpoint: string;
   apiHeader: string;
   apiKey: string;
+  path: {
+    addressResolution?: string;
+    entityLookup?: string;
+  };
 }
 
 export const useThirdPartyAPIEndpoints = () => {
