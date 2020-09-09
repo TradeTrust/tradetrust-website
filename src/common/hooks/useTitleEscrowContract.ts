@@ -5,9 +5,9 @@ import { TitleEscrowFactory } from "@govtechsg/token-registry";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 
 export const useTitleEscrowContract = (
-  tokenRegistryAddress: string | undefined,
-  tokenId: string | undefined,
-  provider: providers.Provider | Signer
+  provider: providers.Provider | Signer,
+  tokenRegistryAddress?: string,
+  tokenId?: string
 ) => {
   const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
   const [titleEscrowOwner, setTitleEscrowOwner] = useState<string>();

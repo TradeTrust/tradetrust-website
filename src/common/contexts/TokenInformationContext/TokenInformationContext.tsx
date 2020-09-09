@@ -6,8 +6,8 @@ import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 
 interface TokenInformationContext {
-  tokenRegistryAddress: string | undefined;
-  tokenId: string | undefined;
+  tokenRegistryAddress?: string;
+  tokenId?: string;
   beneficiary?: string;
   holder?: string;
   titleEscrowOwner?: string;
@@ -34,8 +34,6 @@ const contractFunctionStub = () => {
 };
 
 export const TokenInformationContext = createContext<TokenInformationContext>({
-  tokenRegistryAddress: "",
-  tokenId: "",
   initialize: () => {},
   changeHolder: contractFunctionStub,
   changeHolderState: "UNINITIALIZED",
