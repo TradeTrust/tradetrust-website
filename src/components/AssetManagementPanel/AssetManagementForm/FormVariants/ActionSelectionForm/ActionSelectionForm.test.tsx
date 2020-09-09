@@ -17,6 +17,7 @@ const defaultProps = {
   canNominateBeneficiaryHolder: false,
   isSurrendered: false,
   canEndorseTransfer: false,
+  isTitleEscrow: true,
 };
 
 describe("ActionSelectionForm", () => {
@@ -160,5 +161,12 @@ describe("ActionSelectionForm", () => {
 
       expect(mockOnSetFormAction).toHaveBeenCalled();
     });
+  });
+
+  it("should change the state of the action form to 'EndorseTransfer' when clicked on the dropdown", async () => {
+    const container = render(<ActionSelectionForm {...defaultProps} isTitleEscrow={false} />);
+    expect(
+      container.queryByText("At this point in time, direct interaction with Erc721 is not supported on tradetrust.io")
+    ).not.toBeNull();
   });
 });

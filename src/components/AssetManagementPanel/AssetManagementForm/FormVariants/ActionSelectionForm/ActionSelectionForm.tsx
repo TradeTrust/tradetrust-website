@@ -70,7 +70,6 @@ export const ActionSelectionForm = ({
       handleMetamaskError(error.message, error.code);
     }
   };
-  console.log(isTitleEscrow);
   return (
     <div className="row">
       <div className="col-12">
