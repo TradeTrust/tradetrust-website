@@ -22,10 +22,7 @@ export const useTitleEscrowContract = (
   }, [provider, tokenId, tokenRegistry]);
 
   useEffect(() => {
-    const update = async () => {
-      await updateTitleEscrow();
-    };
-    update();
+    updateTitleEscrow();
     return () => {
       setTitleEscrow(undefined);
       setTitleEscrowOwner(undefined);
