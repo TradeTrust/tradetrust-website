@@ -55,9 +55,9 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
   const { provider } = useProviderContext();
   const { titleEscrow, updateTitleEscrow, titleEscrowOwner } = useTitleEscrowContract(
+    provider,
     tokenRegistryAddress,
-    tokenId,
-    provider
+    tokenId
   );
   const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
 
