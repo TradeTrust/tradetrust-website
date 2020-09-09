@@ -15,10 +15,12 @@ import { ErrorBoundary } from "./ErrorBoundary";
 import { ModalDialog } from "./ModalDialog";
 import { MultiButtons } from "./MultiButtons";
 import { TabPaneAttachments } from "./TabPaneAttachments";
-import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { getLogger } from "../utils/logger";
+import { useDispatch } from "react-redux";
+import { resetCertificateState } from "../reducers/certificate";
+import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 
-const { trace } = getLogger("component:certificateviewer");
+const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
   document: WrappedDocument;
@@ -46,15 +48,25 @@ export const CertificateViewer = ({
   const originalData = getData(document);
   const attachments = originalData?.attachments;
   const hasAttachments = attachments && attachments.length > 0;
-  const { resetStates: resetTokenInformationState } = useTokenInformationContext();
+  const { initialize, resetStates: resetTokenInformationState } = useTokenInformationContext();
+  const dispatch = useDispatch();
 
-  useEffect(
-    () => () => {
+  const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
+
+  /* 
+  initialise the meta token information context when new tokenId 
+  and tokenRegistryAddress provided and clean up the context when certificate viewer unmounts
+  */
+  useEffect(() => {
+    trace("initialise token information context");
+    initialize(tokenRegistryAddress, tokenId);
+    return () => {
       trace("reseting token information on unmount");
       resetTokenInformationState();
-    },
-    [resetTokenInformationState, document]
-  );
+      resetCertificateData();
+    };
+  }, [tokenId, tokenRegistryAddress, resetCertificateData, resetTokenInformationState, initialize]);
+
   const childRef = React.useRef<{ print: () => void }>();
 
   const updateTemplates = useCallback((templates: TemplateProps[]) => {
@@ -91,7 +103,6 @@ export const CertificateViewer = ({
         <DocumentStatus verificationStatus={verificationStatus} />
         {tokenRegistryAddress && (
           <AssetManagementApplication
-            tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
           />

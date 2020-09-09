@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "./../AssetManagementForm";
 import { AssetManagementTags } from "./../AssetManagementTags";
 interface AssetManagementApplicationProps {
-  tokenId: string;
   tokenRegistryAddress: string;
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
 export const AssetManagementApplication = ({
-  tokenId,
   tokenRegistryAddress,
   setShowEndorsementChain,
 }: AssetManagementApplicationProps) => {
   const {
-    initialize,
     approvedHolder,
     holder,
     approvedBeneficiary,
@@ -36,10 +33,6 @@ export const AssetManagementApplication = ({
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account } = useProviderContext();
-
-  useEffect(() => {
-    initialize(tokenRegistryAddress, tokenId);
-  }, [initialize, tokenId, tokenRegistryAddress]);
 
   const onSurrender = () => {
     transferTo(tokenRegistryAddress);
