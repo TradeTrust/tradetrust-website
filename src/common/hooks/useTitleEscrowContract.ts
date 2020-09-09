@@ -13,11 +13,6 @@ export const useTitleEscrowContract = (
   const [titleEscrowOwner, setTitleEscrowOwner] = useState<string>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
 
-  const reset = useCallback(() => {
-    setTitleEscrow(undefined);
-    setTitleEscrowOwner(undefined);
-  }, []);
-
   const updateTitleEscrow = useCallback(async () => {
     if (!tokenRegistry || !tokenId) return;
     const titleEscrowAddress = await tokenRegistry.ownerOf(tokenId);
@@ -27,8 +22,15 @@ export const useTitleEscrowContract = (
   }, [provider, tokenId, tokenRegistry]);
 
   useEffect(() => {
-    updateTitleEscrow();
-  }, [tokenRegistry, tokenId, provider, updateTitleEscrow]);
+    const update = async () => {
+      await updateTitleEscrow();
+    };
+    update();
+    return () => {
+      setTitleEscrow(undefined);
+      setTitleEscrowOwner(undefined);
+    };
+  }, [updateTitleEscrow, tokenRegistryAddress, tokenId, provider]);
 
-  return { titleEscrow, updateTitleEscrow, titleEscrowOwner, reset };
+  return { titleEscrow, updateTitleEscrow, titleEscrowOwner };
 };

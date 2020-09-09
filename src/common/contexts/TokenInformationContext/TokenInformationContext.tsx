@@ -56,7 +56,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const [tokenId, setTokenId] = useState<string>();
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
   const { provider } = useProviderContext();
-  const { titleEscrow, updateTitleEscrow, titleEscrowOwner, reset: resetTitleEscrow } = useTitleEscrowContract(
+  const { titleEscrow, updateTitleEscrow, titleEscrowOwner } = useTitleEscrowContract(
     tokenRegistryAddress,
     tokenId,
     provider
@@ -64,10 +64,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
 
   // First check whether Contract is TitleEscrow
-  const { isInterfaceType: isTitleEscrow, reset: resetSupportsInterface } = useSupportsInterface(
-    titleEscrow,
-    "0xdcce2211"
-  ); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
+  const { isInterfaceType: isTitleEscrow } = useSupportsInterface(titleEscrow, "0xdcce2211"); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -120,15 +117,12 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const resetStates = useCallback(() => {
     setTokenId(undefined);
     setTokenRegistryAddress(undefined);
-    resetProviders();
-    resetSupportsInterface();
-    resetTitleEscrow();
-  }, [resetProviders, resetSupportsInterface, resetTitleEscrow]);
+  }, []);
 
-  const initialize = (address: string, id: string) => {
+  const initialize = useCallback((address: string, id: string) => {
     setTokenId(id);
     setTokenRegistryAddress(address);
-  };
+  }, []);
 
   // Fetch all new information when title escrow is initialized or updated (due to actions)
   useEffect(() => {

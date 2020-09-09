@@ -10,6 +10,9 @@ export const useTokenRegistryContract = (address: string | undefined, provider?:
     if (!address || !provider) return;
     const instance = TradeTrustERC721Factory.connect(address, provider);
     setTokenRegistry(instance);
+    return () => {
+      setTokenRegistry(undefined);
+    };
   }, [address, provider]);
 
   return { tokenRegistry };

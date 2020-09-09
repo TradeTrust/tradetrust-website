@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import { Contract } from "ethers";
 
@@ -25,16 +25,15 @@ export const useSupportsInterface = (contractInstance: Erc165Contract | undefine
     reset: resetSupportsInterface,
   } = useContractFunctionHook(contractInstance, "supportsInterface");
 
-  const reset = useCallback(() => {
-    setIsInterfaceType(undefined);
-    setErrorMessage(undefined);
-    resetSupportsInterface();
-  }, [resetSupportsInterface]);
-
   // Check if token is type of interface on load
   useEffect(() => {
     supportsInterface(interfaceId);
-  }, [interfaceId, supportsInterface, contractInstance]);
+    return () => {
+      setIsInterfaceType(undefined);
+      setErrorMessage(undefined);
+      resetSupportsInterface();
+    };
+  }, [interfaceId, supportsInterface, contractInstance, resetSupportsInterface]);
 
   // On result return, infer the types
   useEffect(() => {
@@ -51,5 +50,5 @@ export const useSupportsInterface = (contractInstance: Erc165Contract | undefine
     }
   }, [interfaceId, isSameInterfaceType, state, supportsInterfaceErrorMessage]);
 
-  return { isInterfaceType, errorMessage, reset };
+  return { isInterfaceType, errorMessage };
 };
