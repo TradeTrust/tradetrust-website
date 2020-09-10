@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ReCAPTCHA from "react-google-recaptcha";
 import { CAPTCHA_CLIENT_KEY } from "../../config";
-import css from "./sharing.scss";
 import { states } from "../../reducers/certificate";
+import styled from "@emotion/styled";
+import { mixin } from "../../styles";
 
-class CertificateSharingForm extends Component {
+const Button = styled.button`
+  ${mixin.button}
+  margin-top: 20px;
+`;
+
+export class CertificateSharingForm extends Component {
   constructor(props) {
     super(props);
 
@@ -74,10 +80,10 @@ class CertificateSharingForm extends Component {
               ""
             )}
             <div className="row d-flex justify-content-center m-3">
-              <button type="button" className={`pointer ${css.btn}`} onClick={this.handleSend}>
+              <Button onClick={this.handleSend}>
                 Send
                 {emailSendingState === states.PENDING ? <i className="ml-2 fas fa-spinner fa-pulse" /> : ""}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -91,5 +97,3 @@ CertificateSharingForm.propTypes = {
   handleSendCertificate: PropTypes.func,
   handleSharingToggle: PropTypes.func,
 };
-
-export default CertificateSharingForm;

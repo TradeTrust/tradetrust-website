@@ -1,6 +1,0 @@
-@import "../../styles/abstracts/__abstracts.scss";
-
-.btn {
-  @include btn($color: $brand-navy, $text: $color-white);
-  margin-top: 20px;
-}

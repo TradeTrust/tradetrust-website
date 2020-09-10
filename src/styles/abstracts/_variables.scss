@@ -14,44 +14,22 @@ $sm: map-get($grid-breakpoints, "sm"); // 576px
 $md: map-get($grid-breakpoints, "md"); // 768px
 $lg: map-get($grid-breakpoints, "lg"); // 992px
 $xl: map-get($grid-breakpoints, "xl"); // 1200px
-$bs-padding: $grid-gutter-width / 2; // bootstrap column padding
 
-$brand-orange: #ff9933;
 $brand-blue: #0099cc;
 $brand-navy: #324353;
 
-$color-blue-lightest: #f5f8fb;
 $color-blue-lighter: #f3f8fc;
 $color-blue: #099de3;
 $color-greyblue: #c1c9d1;
-$color-greyblue-dark: #a7afb7;
-$color-greyblue-darker: #343a40;
-$color-green-lightest: #f5fbf7;
 $color-green: #00c04a;
 $color-orange: #ffb152;
-$color-red-lighter: #fbeae9;
 $color-red: #ff5268;
-$color-red-dark: #8b0000;
 $color-grey-lightest: #f5f5f5;
 $color-grey-lighter: #e5e5e5;
-$color-grey-light: #dddddd;
 $color-grey: #8f8f8f;
-$color-grey-dark: #5a5a5a;
 $color-white: #ffffff;
-$color-black: #000000;
-
-$color-success: #28a745;
-$color-danger: #c12323;
-$color-warning: #ffbf00;
-$color-invalid: #e46767;
-
-$btn-radius: 4px;
-$btn-outline: $brand-navy;
-$round-btn-outline: $brand-navy;
 
 $max-width: 1280px;
 $padding-dropzone-boxshadow: 10px;
 
-$easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 $easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
-$easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
