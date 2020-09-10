@@ -9,6 +9,7 @@ import { CertificateSharingForm } from "./CertificateSharing/CertificateSharingF
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
+import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain/EndorsementChainContainer";
 import { ErrorBoundary } from "./ErrorBoundary";
@@ -89,6 +90,7 @@ export const CertificateViewer = ({
   const renderedEndorsementChain = (
     <div className="bg-blue-lighter no-print">
       <DocumentStatus verificationStatus={verificationStatus} />
+      <ObfuscatedMessage document={document} />
       <EndorsementChainContainer
         tokenId={tokenId}
         tokenRegistry={tokenRegistryAddress}
@@ -101,6 +103,7 @@ export const CertificateViewer = ({
     <>
       <div className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={verificationStatus} />
+        <ObfuscatedMessage document={document} />
         {tokenRegistryAddress && (
           <AssetManagementApplication
             tokenRegistryAddress={tokenRegistryAddress}
