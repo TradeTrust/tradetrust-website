@@ -25,6 +25,7 @@ interface ActionSelectionFormProps {
   canNominateBeneficiaryHolder: boolean;
   canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
+  isTitleEscrow: boolean;
 }
 
 export const ActionSelectionForm = ({
@@ -41,6 +42,7 @@ export const ActionSelectionForm = ({
   canNominateBeneficiaryHolder,
   canEndorseTransfer,
   setShowEndorsementChain,
+  isTitleEscrow,
 }: ActionSelectionFormProps) => {
   const canManage =
     canSurrender || canChangeHolder || canEndorseBeneficiary || canNominateBeneficiaryHolder || canEndorseTransfer;
@@ -68,7 +70,6 @@ export const ActionSelectionForm = ({
       handleMetamaskError(error.message, error.code);
     }
   };
-
   return (
     <div className="row">
       <div className="col-12">
@@ -79,46 +80,53 @@ export const ActionSelectionForm = ({
               setShowEndorsementChain={setShowEndorsementChain}
             />
           </div>
-          {isSurrendered ? (
+          {isSurrendered && (
             <div className="col-12 col-lg-auto align-self-end">
               <div className="py-3">
-                <TagBorderedRedLarge>Surrendered</TagBorderedRedLarge>
+                <TagBorderedRedLarge id="surrender-sign">Surrendered</TagBorderedRedLarge>
               </div>
             </div>
-          ) : (
-            <>
-              <div className="col-12 col-lg">
-                <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
-              </div>
-              <div className="col-12 col-lg">
-                <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
-              </div>
-            </>
           )}
         </div>
-        {!isSurrendered && (
+        {!isSurrendered && isTitleEscrow ? (
+          <>
+            <div className="col-12 col-lg">
+              <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
+            </div>
+            <div className="col-12 col-lg">
+              <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
+            </div>
+            <div className="row mb-3">
+              <div className="col-auto ml-lg-auto">
+                {account ? (
+                  <>
+                    {canManage ? (
+                      <AssetManagementDropdown
+                        onSetFormAction={onSetFormAction}
+                        canSurrender={canSurrender}
+                        canChangeHolder={canChangeHolder}
+                        canEndorseBeneficiary={canEndorseBeneficiary}
+                        canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
+                        canEndorseTransfer={canEndorseTransfer}
+                      />
+                    ) : (
+                      <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
+                    )}
+                  </>
+                ) : (
+                  <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
+                    Connect Wallet
+                  </ButtonSolidOrangeWhite>
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
           <div className="row mb-3">
             <div className="col-auto ml-lg-auto">
-              {account ? (
-                <>
-                  {canManage ? (
-                    <AssetManagementDropdown
-                      onSetFormAction={onSetFormAction}
-                      canSurrender={canSurrender}
-                      canChangeHolder={canChangeHolder}
-                      canEndorseBeneficiary={canEndorseBeneficiary}
-                      canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
-                      canEndorseTransfer={canEndorseTransfer}
-                    />
-                  ) : (
-                    <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
-                  )}
-                </>
-              ) : (
-                <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
-                  Connect Wallet
-                </ButtonSolidOrangeWhite>
-              )}
+              <h5 id="interaction-unavailable-text" className="ml-auto">
+                At this point in time, direct interaction with Erc721 is not supported on tradetrust.io
+              </h5>
             </div>
           </div>
         )}

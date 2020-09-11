@@ -46,7 +46,7 @@ export const AssetManagementApplication = ({
     <div id="title-transfer-panel">
       <div className="container-custom">
         <AssetManagementTags />
-        {isTitleEscrow && (
+        {isTitleEscrow !== undefined && (
           <AssetManagementForm
             account={account}
             onConnectToWallet={upgradeProvider}
@@ -69,12 +69,8 @@ export const AssetManagementApplication = ({
             onTransferToNewEscrow={transferToNewEscrow}
             transferToNewEscrowState={transferToNewEscrowState}
             setShowEndorsementChain={setShowEndorsementChain}
+            isTitleEscrow={isTitleEscrow}
           />
-        )}
-        {isTitleEscrow === false && (
-          <h5 id="interaction-unavailable-text">
-            At this point in time, direct interaction with Erc721 is not supported on tradetrust.io
-          </h5>
         )}
       </div>
     </div>
