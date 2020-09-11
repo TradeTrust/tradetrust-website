@@ -87,40 +87,42 @@ export const ActionSelectionForm = ({
               </div>
             </div>
           )}
+          {!isSurrendered && isTitleEscrow && (
+            <>
+              <div className="col-12 col-lg">
+                <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
+              </div>
+              <div className="col-12 col-lg">
+                <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
+              </div>
+            </>
+          )}
         </div>
         {!isSurrendered && isTitleEscrow ? (
-          <>
-            <div className="col-12 col-lg">
-              <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
+          <div className="row mb-3">
+            <div className="col-auto ml-lg-auto">
+              {account ? (
+                <>
+                  {canManage ? (
+                    <AssetManagementDropdown
+                      onSetFormAction={onSetFormAction}
+                      canSurrender={canSurrender}
+                      canChangeHolder={canChangeHolder}
+                      canEndorseBeneficiary={canEndorseBeneficiary}
+                      canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
+                      canEndorseTransfer={canEndorseTransfer}
+                    />
+                  ) : (
+                    <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
+                  )}
+                </>
+              ) : (
+                <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
+                  Connect Wallet
+                </ButtonSolidOrangeWhite>
+              )}
             </div>
-            <div className="col-12 col-lg">
-              <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
-            </div>
-            <div className="row mb-3">
-              <div className="col-auto ml-lg-auto">
-                {account ? (
-                  <>
-                    {canManage ? (
-                      <AssetManagementDropdown
-                        onSetFormAction={onSetFormAction}
-                        canSurrender={canSurrender}
-                        canChangeHolder={canChangeHolder}
-                        canEndorseBeneficiary={canEndorseBeneficiary}
-                        canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
-                        canEndorseTransfer={canEndorseTransfer}
-                      />
-                    ) : (
-                      <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
-                    )}
-                  </>
-                ) : (
-                  <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
-                    Connect Wallet
-                  </ButtonSolidOrangeWhite>
-                )}
-              </div>
-            </div>
-          </>
+          </div>
         ) : (
           <div className="row mb-3">
             <div className="col-auto ml-lg-auto">
