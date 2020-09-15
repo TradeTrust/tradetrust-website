@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Section } from "./Layout/Section";
 import { vars, mixin } from "../styles";
 import { rgba } from "polished";
-import { SvgIcon, SvgIconChecked } from "./UI/SvgIcon";
+import { Check } from "react-feather";
 
 export const SectionEmailSuccess = styled(Section)`
   color: ${vars.greyDark};
@@ -44,12 +44,6 @@ export const SectionEmailSuccess = styled(Section)`
     border-radius: 50%;
     padding: 8px;
   }
-
-  svg {
-    width: 100%;
-    height: 100%;
-    color: ${vars.white};
-  }
 `;
 
 export const EmailSuccessPageContainer = () => {
@@ -59,9 +53,7 @@ export const EmailSuccessPageContainer = () => {
         <div className="row no-gutters align-items-center px-3 py-5 bg-gradient">
           <div className="col-auto mx-auto">
             <div className="tick mb-3">
-              <SvgIcon>
-                <SvgIconChecked />
-              </SvgIcon>
+              <Check />
             </div>
           </div>
           <div className="col-12">

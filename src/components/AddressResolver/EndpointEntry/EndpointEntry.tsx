@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { InputDefault } from "../../UI/Input";
-import { SvgIcon, SvgIconTrash2, SvgIconSave, SvgIconEdit2 } from "../../UI/SvgIcon";
+import { Trash2, Save, Edit } from "react-feather";
 import { vars } from "../../../styles";
 import isURL from "validator/lib/isURL";
 import isEmpty from "validator/lib/isEmpty";
@@ -215,21 +215,16 @@ export const EndpointEntry = styled(
         ) : (
           <td className={isEditable ? "is-editable" : ""}>
             {isEditable ? (
-              <SvgIcon onClick={onSave} data-testid="save-icon">
-                <SvgIconSave />
-              </SvgIcon>
+              <Save onClick={onSave} data-testid="save-icon" />
             ) : (
-              <SvgIcon
+              <Edit
                 onClick={() => {
                   setEditable(true);
                 }}
-              >
-                <SvgIconEdit2 />
-              </SvgIcon>
+                data-testid="edit-icon"
+              />
             )}
-            <SvgIcon onClick={removeEndpoint}>
-              <SvgIconTrash2 />
-            </SvgIcon>
+            <Trash2 onClick={removeEndpoint} data-testid="trash2-icon" />
           </td>
         )}
       </tr>

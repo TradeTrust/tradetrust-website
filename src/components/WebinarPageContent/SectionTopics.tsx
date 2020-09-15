@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { SvgIcon, SvgIconChecked } from "./../UI/SvgIcon";
+import { Check } from "react-feather";
 import { mixin, vars } from "../../styles";
 import { RegisterButton } from "./RegisterButton";
 import { ReactRouterLinkButtonSolidNavyWhite } from "./../UI/Button";
@@ -51,24 +51,18 @@ export const SectionTopicsUnStyled = ({ className }: SectionTopicsProps) => {
                     </th>
                     <td className="checked">
                       <div className="cell-pad">
-                        <SvgIcon>
-                          <SvgIconChecked />
-                        </SvgIcon>
+                        <Check />
                       </div>
                     </td>
                     <td>&nbsp;</td>
                     <td className="checked">
                       <div className="cell-pad">
-                        <SvgIcon>
-                          <SvgIconChecked />
-                        </SvgIcon>
+                        <Check />
                       </div>
                     </td>
                     <td className="checked">
                       <div className="cell-pad">
-                        <SvgIcon>
-                          <SvgIconChecked />
-                        </SvgIcon>
+                        <Check />
                       </div>
                     </td>
                     <td>&nbsp;</td>
@@ -79,30 +73,22 @@ export const SectionTopicsUnStyled = ({ className }: SectionTopicsProps) => {
                     </th>
                     <td className="checked">
                       <div className="cell-pad">
-                        <SvgIcon>
-                          <SvgIconChecked />
-                        </SvgIcon>
+                        <Check />
                       </div>
                     </td>
                     <td className="checked">
                       <div className="cell-pad">
-                        <SvgIcon>
-                          <SvgIconChecked />
-                        </SvgIcon>
+                        <Check />
                       </div>
                     </td>
                     <td className="checked">
                       <div className="cell-pad">
-                        <SvgIcon>
-                          <SvgIconChecked />
-                        </SvgIcon>
+                        <Check />
                       </div>
                     </td>
                     <td className="checked">
                       <div className="cell-pad">
-                        <SvgIcon>
-                          <SvgIconChecked />
-                        </SvgIcon>
+                        <Check />
                       </div>
                     </td>
                     <td>&nbsp;</td>
@@ -116,9 +102,7 @@ export const SectionTopicsUnStyled = ({ className }: SectionTopicsProps) => {
                     <td>&nbsp;</td>
                     <td className="checked">
                       <div className="cell-pad">
-                        <SvgIcon>
-                          <SvgIconChecked />
-                        </SvgIcon>
+                        <Check />
                       </div>
                     </td>
                     <td>&nbsp;</td>
@@ -133,9 +117,7 @@ export const SectionTopicsUnStyled = ({ className }: SectionTopicsProps) => {
                     <td>&nbsp;</td>
                     <td className="checked">
                       <div className="cell-pad">
-                        <SvgIcon>
-                          <SvgIconChecked />
-                        </SvgIcon>
+                        <Check />
                       </div>
                     </td>
                   </tr>

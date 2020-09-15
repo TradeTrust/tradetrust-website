@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { mixin, vars } from "../../../styles";
 import { TitleEscrowEvent } from "../../../types";
-import { SvgIcon, SvgIconArrowLeft } from "../../UI/SvgIcon";
+import { ArrowLeft } from "react-feather";
 import { AddressCell } from "./AddressCell";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
@@ -63,9 +63,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
         <div className="back-button" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
           <div className="row align-items-center no-gutters">
             <div className="col-auto mr-1">
-              <SvgIcon>
-                <SvgIconArrowLeft />
-              </SvgIcon>
+              <ArrowLeft />
             </div>
             <div className="col-auto">
               <p className="mb-0">Back</p>

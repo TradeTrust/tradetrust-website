@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import { mixin, vars } from "../../styles";
 import { FeatureFlag } from "../FeatureFlag";
-import { SvgIcon, SvgIconPrinter, SvgIconEmail, SvgIconDownload, SvgIconQRCode } from "../UI/SvgIcon";
+import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
+import { Printer, Mail, Download } from "react-feather";
 import { ButtonIconWhiteBlue } from "../UI/Button";
 import { Popover, OverlayTrigger } from "react-bootstrap";
 import { QRCode } from "react-qr-svg";
@@ -49,9 +50,7 @@ export const DocumentUtilityUnStyled = ({
           </div>
           <div className="col-auto ml-3">
             <ButtonIconWhiteBlue aria-label="document-utility-print-button" onClick={() => onPrint()}>
-              <SvgIcon>
-                <SvgIconPrinter />
-              </SvgIcon>
+              <Printer />
             </ButtonIconWhiteBlue>
           </div>
           <FeatureFlag name="SHARE_BY_EMAIL">
@@ -60,9 +59,7 @@ export const DocumentUtilityUnStyled = ({
                 aria-label="document-utility-share-by-email-button"
                 onClick={() => handleSharingToggle()}
               >
-                <SvgIcon>
-                  <SvgIconEmail />
-                </SvgIcon>
+                <Mail />
               </ButtonIconWhiteBlue>
             </div>
           </FeatureFlag>
@@ -73,9 +70,7 @@ export const DocumentUtilityUnStyled = ({
               href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
             >
               <ButtonIconWhiteBlue aria-label="document-utility-download-document-button">
-                <SvgIcon>
-                  <SvgIconDownload />
-                </SvgIcon>
+                <Download />
               </ButtonIconWhiteBlue>
             </a>
           </div>

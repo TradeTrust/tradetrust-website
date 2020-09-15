@@ -4,7 +4,7 @@ import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
 import styled from "@emotion/styled";
 import { useAddressBook } from "../../../../common/hooks/useAddressBook";
-import { SvgIcon, SvgIconSearch, SvgIconExternalLink, SvgIconDownload } from "../../../UI/SvgIcon";
+import { Search, ExternalLink, Download } from "react-feather";
 import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
 import { AnchorLinkButtonSolidWhiteBlue } from "../../../UI/Button";
 import { isEmpty } from "lodash";
@@ -37,9 +37,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
                   <input type="text" placeholder="Search" value={searchTerm} onChange={onSearchTermChanged} />
                 </div>
                 <div className="col-auto">
-                  <SvgIcon>
-                    <SvgIconSearch />
-                  </SvgIcon>
+                  <Search />
                 </div>
               </div>
             </div>
@@ -53,9 +51,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
                 >
                   <div className="row align-items-center no-gutters">
                     <div className="col-auto mr-2">
-                      <SvgIcon>
-                        <SvgIconDownload />
-                      </SvgIcon>
+                      <Download />
                     </div>
                     <div className="col-auto">Download template</div>
                   </div>
@@ -113,9 +109,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
                     <td>{address}</td>
                     <td>
                       <a href={addressHref} target="_blank" rel="noreferrer noopener">
-                        <SvgIcon>
-                          <SvgIconExternalLink />
-                        </SvgIcon>
+                        <ExternalLink />
                       </a>
                     </td>
                   </tr>

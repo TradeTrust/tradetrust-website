@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
 import { mixin, vars } from "../../../../styles";
-import { SvgIcon, SvgIconAlert } from "../../../UI/SvgIcon";
+import { AlertTriangle } from "react-feather";
 
 interface EndorsementChainErrorProps {
   error?: string;
@@ -13,9 +13,7 @@ export const EndorsementChainErrorUnstyled: FunctionComponent<EndorsementChainEr
     <div className={`${className}`}>
       <div className="error-container">
         <div className="fixed-error-row">
-          <SvgIcon className="alert-icon">
-            <SvgIconAlert />
-          </SvgIcon>
+          <AlertTriangle className="alert-icon mr-2" color={`${vars.red}`} />
           <div className="error-msg">An error occured, please try again later.</div>
         </div>
         <div className="error-msg">{error}</div>
@@ -25,11 +23,6 @@ export const EndorsementChainErrorUnstyled: FunctionComponent<EndorsementChainEr
 };
 
 export const EndorsementChainError = styled(EndorsementChainErrorUnstyled)`
-  .alert-icon {
-    color: ${vars.red};
-    margin-right: 0.5rem;
-  }
-
   .error-container {
     display: flex;
     align-items: center;

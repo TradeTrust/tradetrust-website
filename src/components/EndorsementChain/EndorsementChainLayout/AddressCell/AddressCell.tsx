@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
 import { useIdentifierResolver } from "../../../../common/hooks/useIdentifierResolver";
 import { mixin, vars } from "../../../../styles";
-import { SvgIconInfo, TooltipIcon } from "../../../UI/SvgIcon";
+import { TooltipIcon } from "../../../UI/SvgIcon";
+import { Info } from "react-feather";
 
 interface AddressCell {
   address: string;
@@ -28,7 +29,7 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
           {newAddress && <div className="dot" data-testid="dot" />}
           {resolvedIdentifier && <div className="name">{resolvedIdentifier}</div>}
           <TooltipIcon className="icon" content={tooltipContent} placement="top">
-            <SvgIconInfo />
+            <Info />
           </TooltipIcon>
         </div>
         <div className="address">{address}</div>

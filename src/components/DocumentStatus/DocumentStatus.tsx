@@ -52,14 +52,6 @@ export const DocumentStatus = styled(DocumentStatusUnStyled)`
     border-radius: ${vars.buttonRadius};
   }
 
-  svg {
-    color: ${vars.teal};
-
-    .x-circle {
-      color: ${vars.red};
-    }
-  }
-
   .issuedby {
     color: ${vars.greyDark};
     ${mixin.fontSourcesansproBold};
