@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 import { AssetManagementActions } from "../AssetManagementActions";
@@ -61,9 +61,16 @@ export const AssetManagementApplication = ({
     destroyToken(tokenId);
   };
 
-  const onSetFormAction = (AssetManagementActions: AssetManagementActions) => {
-    setAssetManagementAction(AssetManagementActions);
-  };
+  const onSetFormAction = useCallback(
+    (AssetManagementActions: AssetManagementActions) => {
+      setAssetManagementAction(AssetManagementActions);
+    },
+    [setAssetManagementAction]
+  );
+
+  useEffect(() => {
+    onSetFormAction(AssetManagementActions.None);
+  }, [account, onSetFormAction]); // unset action panel to none, whenever user change metamask account
 
   return (
     <div id="title-transfer-panel">
