@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FormState } from "../../../constants/FormState";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
@@ -14,6 +14,8 @@ interface AssetManagementFormProps {
   holder?: string;
   approvedBeneficiary?: string;
   approvedHolder?: string;
+  titleEscrowOwner?: string;
+  isMinter?: boolean;
   tokenRegistryAddress: string;
   account?: string;
   formAction: AssetManagementActions;
@@ -25,8 +27,8 @@ interface AssetManagementFormProps {
   onTransferToNewEscrow: (approvedBeneficiary: string, approvedHolder: string) => void;
   onSurrender: () => void;
   onAcceptSurrender: () => void;
-  onRejectSurrender: () => void;
   surrenderingState: string;
+  acceptSurrenderingState: string;
   holderTransferringState: string;
   beneficiaryEndorseState: string;
   isSurrendered: boolean;
@@ -47,9 +49,11 @@ export const AssetManagementForm = ({
   approvedHolder,
   onSetFormAction,
   surrenderingState,
+  acceptSurrenderingState,
   onSurrender,
   onAcceptSurrender,
-  onRejectSurrender,
+  titleEscrowOwner,
+  isMinter,
   onTransferHolder,
   holderTransferringState,
   onEndorseBeneficiary,
@@ -62,26 +66,29 @@ export const AssetManagementForm = ({
   setShowEndorsementChain,
   isTitleEscrow,
 }: AssetManagementFormProps) => {
-  const isHolder = account === holder;
-  const isBeneficiary = account === beneficiary;
+  const isHolder = isTitleEscrow && account === holder;
+  const isBeneficiary = isTitleEscrow && account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
   /* Change here is tokenRegistryAdmin, 
   3 field tokenRegistryAddress =! tokenRegistryAdminWallet =! currentUser
   currentUser===tokenRegistryAdminWallet && tokenRegistryAddress==ownerOf(tokenId)
   */
-  const canAcceptSurrender = false;
-  const canEndorseBeneficiary = isBeneficiary && isHolder;
-  const canNominateBeneficiaryHolder = isBeneficiary && !isHolder;
+  const canAcceptSurrender =
+    isSurrendered && isTitleEscrow === false && titleEscrowOwner === tokenRegistryAddress && isMinter;
+  const canEndorseBeneficiary = isTitleEscrow && isBeneficiary && isHolder;
+  const canNominateBeneficiaryHolder = isTitleEscrow && isBeneficiary && !isHolder;
   const canEndorseTransfer =
     !!approvedBeneficiary &&
     approvedBeneficiary !== "0x0000000000000000000000000000000000000000" &&
     !!approvedHolder &&
     approvedHolder !== "0x0000000000000000000000000000000000000000" &&
-    isHolder;
+    isHolder &&
+    isTitleEscrow;
 
   const setFormActionNone = () => {
     if (
       surrenderingState === FormState.PENDING_CONFIRMATION ||
+      acceptSurrenderingState === FormState.PENDING_CONFIRMATION ||
       holderTransferringState === FormState.PENDING_CONFIRMATION ||
       beneficiaryEndorseState === FormState.PENDING_CONFIRMATION ||
       approveNewTransferTargetsState === FormState.PENDING_CONFIRMATION ||
@@ -114,8 +121,7 @@ export const AssetManagementForm = ({
           beneficiary={beneficiary}
           holder={holder}
           handleAcceptSurrender={onAcceptSurrender}
-          handleRejectSurrender={onRejectSurrender}
-          surrenderingState={surrenderingState}
+          acceptSurrenderingState={acceptSurrenderingState}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}
         />

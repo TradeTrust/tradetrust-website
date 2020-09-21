@@ -83,7 +83,7 @@ describe("ActionSelectionForm", () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} isSurrendered={true} />);
 
-      expect(container.queryByText("Surrendered")).not.toBeNull();
+      expect(container.queryByText("Surrendered To Issuer")).not.toBeNull();
     });
   });
 
@@ -164,10 +164,26 @@ describe("ActionSelectionForm", () => {
     });
   });
 
-  it("should change the state of the action form to 'EndorseTransfer' when clicked on the dropdown", async () => {
-    const container = render(<ActionSelectionForm {...defaultProps} isTitleEscrow={false} />);
-    expect(
-      container.queryByText("At this point in time, direct interaction with Erc721 is not supported on tradetrust.io")
-    ).not.toBeNull();
+  it("should change the state of the action form to 'Accept Surrender' when clicked on the dropdown", async () => {
+    const mockOnSetFormAction = jest.fn();
+
+    const container = render(
+      <ActionSelectionForm
+        {...defaultProps}
+        onSetFormAction={mockOnSetFormAction}
+        isTitleEscrow={false}
+        canAcceptSurrender={true}
+      />
+    );
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("manageAssetDropdown"));
+    });
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("acceptSurrenderDropdown"));
+    });
+
+    expect(mockOnSetFormAction).toHaveBeenCalled();
   });
 });

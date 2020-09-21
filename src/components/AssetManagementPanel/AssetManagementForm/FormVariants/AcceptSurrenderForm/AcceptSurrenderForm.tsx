@@ -10,16 +10,15 @@ import {
   MessageTitle,
   showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
-import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { TagBorderedRedLarge } from "../../../../UI/Tag";
 
-interface SurrenderFormProps {
+interface AcceptSurrenderFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleRejectSurrender: () => void;
   handleAcceptSurrender: () => void;
-  surrenderingState: string;
+  acceptSurrenderingState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
 }
@@ -27,27 +26,24 @@ interface SurrenderFormProps {
 export const AcceptSurrenderForm = ({
   formAction,
   tokenRegistryAddress,
-  beneficiary,
-  holder,
-  handleRejectSurrender,
   handleAcceptSurrender,
-  surrenderingState,
+  acceptSurrenderingState,
   setFormActionNone,
   setShowEndorsementChain,
-}: SurrenderFormProps) => {
-  const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
+}: AcceptSurrenderFormProps) => {
+  const isPendingConfirmation = acceptSurrenderingState === FormState.PENDING_CONFIRMATION;
+  const isConfirmed = acceptSurrenderingState === FormState.CONFIRMED;
 
   const { showOverlay } = useContext(OverlayContext);
 
   useEffect(() => {
-    if (surrenderingState === FormState.CONFIRMED) {
-      showOverlay(showDocumentTransferMessage(MessageTitle.ACCEPT_SURRENDER_DOCUMENT, { isSuccess: true }));
-      setFormActionNone();
-    } else if (surrenderingState === FormState.INITIALIZED) {
-      showOverlay(showDocumentTransferMessage(MessageTitle.REJECT_SURRENDER_DOCUMENT, { isSuccess: true }));
+    if (isConfirmed) {
+      showOverlay(
+        showDocumentTransferMessage(MessageTitle.ACCEPT_SURRENDER_DOCUMENT, { isSuccess: true, reload: true })
+      );
       setFormActionNone();
     }
-  }, [showOverlay, setFormActionNone, surrenderingState]);
+  }, [isConfirmed, showOverlay, setFormActionNone]);
 
   return (
     <div className="row py-3">
@@ -64,11 +60,10 @@ export const AcceptSurrenderForm = ({
               tokenRegistryAddress={tokenRegistryAddress}
             />
           </div>
-          <div className="col-12 col-lg">
-            <EditableAssetTitle role="Beneficiary" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
-          </div>
-          <div className="col-12 col-lg">
-            <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
+          <div className="col-12 col-lg-auto align-self-end">
+            <div className="py-3">
+              <TagBorderedRedLarge id="surrender-sign">Surrendered To Issuer</TagBorderedRedLarge>
+            </div>
           </div>
         </div>
         <div className="row mb-3">
@@ -76,11 +71,11 @@ export const AcceptSurrenderForm = ({
             <div className="row no-gutters">
               <div className="col-auto">
                 <ButtonSolidWhiteGrey
-                  onClick={handleRejectSurrender}
+                  onClick={setFormActionNone}
                   disabled={isPendingConfirmation}
-                  data-testid={"rejectSurrenderBtn"}
+                  data-testid={"cancelSurrenderBtn"}
                 >
-                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <> Reject Surrender</>}
+                  Cancel
                 </ButtonSolidWhiteGrey>
               </div>
               <div className="col-auto ml-2">
@@ -89,7 +84,7 @@ export const AcceptSurrenderForm = ({
                   disabled={isPendingConfirmation}
                   data-testid={"acceptSurrenderBtn"}
                 >
-                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <> Accept Surrender</>}
+                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Shred Document</>}
                 </ButtonSolidRedWhite>
               </div>
             </div>

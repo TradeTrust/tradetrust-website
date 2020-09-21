@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ButtonSolidOrangeWhite } from "../../../../UI/Button";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -18,7 +18,7 @@ interface ActionSelectionFormProps {
   holder?: string;
   account?: string;
   canSurrender: boolean;
-  canAcceptSurrender: boolean;
+  canAcceptSurrender?: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
@@ -90,7 +90,7 @@ export const ActionSelectionForm = ({
           {isSurrendered && (
             <div className="col-12 col-lg-auto align-self-end">
               <div className="py-3">
-                <TagBorderedRedLarge id="surrender-sign">Surrendered</TagBorderedRedLarge>
+                <TagBorderedRedLarge id="surrender-sign">Surrendered To Issuer</TagBorderedRedLarge>
               </div>
             </div>
           )}
@@ -105,40 +105,31 @@ export const ActionSelectionForm = ({
             </>
           )}
         </div>
-        {!isSurrendered && isTitleEscrow ? (
-          <div className="row mb-3">
-            <div className="col-auto ml-lg-auto">
-              {account ? (
-                <>
-                  {canManage ? (
-                    <AssetManagementDropdown
-                      onSetFormAction={onSetFormAction}
-                      canSurrender={canSurrender}
-                      canChangeHolder={canChangeHolder}
-                      canEndorseBeneficiary={canEndorseBeneficiary}
-                      canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
-                      canEndorseTransfer={canEndorseTransfer}
-                    />
-                  ) : (
-                    <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
-                  )}
-                </>
-              ) : (
-                <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
-                  Connect Wallet
-                </ButtonSolidOrangeWhite>
-              )}
-            </div>
+        <div className="row mb-3">
+          <div className="col-auto ml-lg-auto">
+            {account ? (
+              <>
+                {canManage ? (
+                  <AssetManagementDropdown
+                    onSetFormAction={onSetFormAction}
+                    canSurrender={canSurrender}
+                    canChangeHolder={canChangeHolder}
+                    canEndorseBeneficiary={canEndorseBeneficiary}
+                    canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
+                    canEndorseTransfer={canEndorseTransfer}
+                    canAcceptSurrender={canAcceptSurrender}
+                  />
+                ) : (
+                  <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
+                )}
+              </>
+            ) : (
+              <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
+                Connect Wallet
+              </ButtonSolidOrangeWhite>
+            )}
           </div>
-        ) : (
-          <div className="row mb-3">
-            <div className="col-auto ml-lg-auto">
-              <h5 id="interaction-unavailable-text" className="ml-auto">
-                At this point in time, direct interaction with Erc721 is not supported on tradetrust.io
-              </h5>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

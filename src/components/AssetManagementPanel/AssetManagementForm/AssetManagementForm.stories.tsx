@@ -46,6 +46,8 @@ export const NotLoggedIn = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -85,6 +87,8 @@ export const NoMatch = () => {
         }
         transferToNewEscrowState={FormState.UNINITIALIZED}
         isTitleEscrow={true}
+        onAcceptSurrender={() => alert("Accept document surrender")}
+        acceptSurrenderingState={FormState.UNINITIALIZED}
       />
     </OverlayContextProvider>
   );
@@ -123,6 +127,8 @@ export const BeneficiaryAndHolder = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -160,6 +166,8 @@ export const Beneficiary = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -197,6 +205,8 @@ export const Holder = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -234,6 +244,8 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -271,6 +283,8 @@ export const SurrenderPending = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -308,6 +322,8 @@ export const Surrendered = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -345,6 +361,8 @@ export const TransferHolderError = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -382,6 +400,8 @@ export const TransferHolderPending = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -419,6 +439,8 @@ export const EndorseChangeBeneficiaryError = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -456,6 +478,8 @@ export const EndorseChangeBeneficiaryPending = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -493,6 +517,8 @@ export const NominateBeneficiaryAndHolderError = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -530,6 +556,8 @@ export const NominateBeneficiaryAndHolderPending = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -567,6 +595,8 @@ export const EndorseTransferHolderBeneficiary = () => {
       }
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };
@@ -604,6 +634,8 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       }
       transferToNewEscrowState={FormState.PENDING_CONFIRMATION}
       isTitleEscrow={true}
+      onAcceptSurrender={() => alert("Accept document surrender")}
+      acceptSurrenderingState={FormState.UNINITIALIZED}
     />
   );
 };

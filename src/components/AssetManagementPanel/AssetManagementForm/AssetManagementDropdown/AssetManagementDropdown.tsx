@@ -8,7 +8,7 @@ interface AssetManagementDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   className?: string;
   canSurrender: boolean;
-  canAcceptSurrender: boolean;
+  canAcceptSurrender?: boolean;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   canNominateBeneficiaryHolder: boolean;
