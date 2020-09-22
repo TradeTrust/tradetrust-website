@@ -4,6 +4,9 @@ import prettyBytes from "pretty-bytes";
 import { mixin, vars } from "../../../styles";
 import { Paperclip } from "react-feather";
 import { getData, utils, WrappedDocument } from "@govtechsg/open-attestation";
+import { getLogger } from "../../../utils/logger";
+
+const { error } = getLogger("component:attachmentlink");
 
 export interface AttachmentLinkProps {
   className?: string;
@@ -22,11 +25,15 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
   if (data) {
     const decodedData = atob(data);
     filesize = prettyBytes(decodedData.length);
-    const decodedJson = JSON.parse(decodedData);
-    const isOpenAttestationSchema = utils.isWrappedV2Document(decodedJson);
-    if (isOpenAttestationSchema) {
-      const originalDocument = getData<WrappedDocument>(decodedJson);
-      redirectLink = originalDocument?.links?.self?.href ?? "";
+    try {
+      const decodedJson = JSON.parse(decodedData);
+      const isOpenAttestationSchema = utils.isWrappedV2Document(decodedJson);
+      if (isOpenAttestationSchema) {
+        const originalDocument = getData<WrappedDocument>(decodedJson);
+        redirectLink = originalDocument?.links?.self?.href ?? "";
+      }
+    } catch (e) {
+      error("decode data not json: " + e);
     }
   }
 
