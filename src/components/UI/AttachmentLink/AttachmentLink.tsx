@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import prettyBytes from "pretty-bytes";
 import { mixin, vars } from "../../../styles";
 import { Paperclip } from "react-feather";
+import { getData, utils, WrappedDocument } from "@govtechsg/open-attestation";
 
 export interface AttachmentLinkProps {
   className?: string;
@@ -14,12 +15,19 @@ export interface AttachmentLinkProps {
 
 export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }: AttachmentLinkProps) => {
   let filesize = "0";
+  let redirectLink = "";
   const hasBase64 = !!(data && type);
   const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "javascript:void(0)";
 
   if (data) {
     const decodedData = atob(data);
     filesize = prettyBytes(decodedData.length);
+    const decodedJson = JSON.parse(decodedData);
+    const isOpenAttestationSchema = utils.isWrappedV2Document(decodedJson);
+    if (isOpenAttestationSchema) {
+      const originalDocument = getData<WrappedDocument>(decodedJson);
+      redirectLink = originalDocument?.links?.self?.href ?? "";
+    }
   }
 
   return (
@@ -35,7 +43,14 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
             <span className="filename">{filename}</span>
             {hasBase64 && <span className="filesize">({filesize})</span>}
           </p>
-          <p className="downloadtext mb-0">Download</p>
+          <div className="row no-gutters">
+            <p className="downloadtext mb-0">Download</p>
+            {redirectLink && (
+              <a href={redirectLink} target="_blank" rel="noopener noreferrer" className="downloadtext mb-0 ml-2">
+                Open
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </a>
