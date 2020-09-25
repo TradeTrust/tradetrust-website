@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { mixin, vars } from "../../../../styles";
-import { SvgIcon, SvgIconArrowLeft } from "../../../UI/SvgIcon";
+import { ArrowLeft } from "react-feather";
 import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementTitleProps {
@@ -19,9 +19,7 @@ export const AssetManagementTitle = styled(
           <div className="action-back" onClick={() => setFormActionNone(disabled)} data-disabled={disabled}>
             <div className="row align-items-center no-gutters">
               <div className="col-auto mr-1">
-                <SvgIcon>
-                  <SvgIconArrowLeft />
-                </SvgIcon>
+                <ArrowLeft />
               </div>
               <div className="col-auto">
                 <p className="mb-0">Back</p>

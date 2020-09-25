@@ -14,10 +14,10 @@ const InputApiHeader2 = TableBodyRow2.find("input[placeholder='API Header']");
 const InputApiKey2 = TableBodyRow2.find("input[placeholder='API Key']");
 const InputName2 = TableBodyRow2.find("input[placeholder='Name']");
 const InputEndpoint2 = TableBodyRow2.find("input[placeholder='Endpoint']");
-const IconSave1 = TableBodyRow1.find("td:last-child").find("g.save").parent("svg");
-const IconEdit1 = TableBodyRow1.find("td:last-child").find("g.edit2").parent("svg");
-const IconSave2 = TableBodyRow2.find("td:last-child").find("g.save").parent("svg");
-const IconTrash1 = TableBodyRow1.find("td:last-child").find("g.trash2").parent("svg");
+const IconSave1 = TableBodyRow1.find("td:last-child").find("[data-testid='save-icon']");
+const IconEdit1 = TableBodyRow1.find("td:last-child").find("[data-testid='edit-icon']");
+const IconSave2 = TableBodyRow2.find("td:last-child").find("[data-testid='save-icon']");
+const IconTrash1 = TableBodyRow1.find("td:last-child").find("[data-testid='trash2-icon']");
 const IconMoveDown1 = TableBodyRow1.find("th .fa-sort-down");
 const IconMoveUp2 = TableBodyRow2.find("th .fa-sort-up");
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NETWORK } from "../../../config";
 import styled from "@emotion/styled";
 import { vars } from "../../../styles";
-import { SvgIcon, SvgIconX } from "../SvgIcon";
+import { X } from "react-feather";
 
 const NetworkWrap = styled.div`
   background-color: ${vars.greenDarker};
@@ -37,9 +37,7 @@ export const NetworkBar = () => {
             </p>
           </div>
           <div className="col-auto ml-auto">
-            <SvgIcon onClick={() => setClose(true)}>
-              <SvgIconX />
-            </SvgIcon>
+            <X onClick={() => setClose(true)} />
           </div>
         </div>
       </div>

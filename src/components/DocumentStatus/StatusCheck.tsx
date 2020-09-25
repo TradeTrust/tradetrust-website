@@ -1,5 +1,6 @@
 import React from "react";
-import { SvgIcon, SvgIconCheckCircle, SvgIconXCircle } from "./../UI/SvgIcon";
+import { CheckCircle, XCircle } from "react-feather";
+import { vars } from "../../styles";
 
 interface StatusProps {
   message: string;
@@ -9,9 +10,7 @@ interface StatusProps {
 const Status = ({ message, icon }: StatusProps) => (
   <div className="status">
     <div className="row no-gutters align-items-center">
-      <div className="col-auto">
-        <SvgIcon>{icon}</SvgIcon>
-      </div>
+      <div className="col-auto">{icon}</div>
       <div className="col">
         <p className="pl-2 mb-0 message">{message}</p>
       </div>
@@ -30,7 +29,7 @@ interface StatusCheck {
 
 export const StatusCheck = ({ valid, messageSet }: StatusCheck) => {
   const message = valid ? messageSet.successTitle : messageSet.failureTitle;
-  const icon = valid ? <SvgIconCheckCircle /> : <SvgIconXCircle />;
+  const icon = valid ? <CheckCircle color={`${vars.teal}`} /> : <XCircle color={`${vars.red}`} />;
 
   return <Status message={message} icon={icon} />;
 };

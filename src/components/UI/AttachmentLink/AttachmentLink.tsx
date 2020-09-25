@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import prettyBytes from "pretty-bytes";
 import { mixin, vars } from "../../../styles";
-import { SvgIcon, SvgIconPaperClip } from "./../../UI/SvgIcon";
+import { Paperclip } from "react-feather";
 
 export interface AttachmentLinkProps {
   className?: string;
@@ -27,9 +27,7 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
       <div className="row">
         <div className="col-12 col-md-auto mb-3 mb-md-0">
           <div className="icon">
-            <SvgIcon>
-              <SvgIconPaperClip />
-            </SvgIcon>
+            <Paperclip />
           </div>
         </div>
         <div className="col-12 col-md">

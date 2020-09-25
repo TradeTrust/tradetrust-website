@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ButtonSolidOrangeWhite } from "../UI/Button";
-import { SvgIcon, SvgIconPlus } from "../UI/SvgIcon";
+import { Plus } from "react-feather";
 import { AddressesTable } from "./AddressesTable";
 
 export const AddressResolver = () => {
@@ -23,9 +23,7 @@ export const AddressResolver = () => {
           >
             <div className="row align-items-center no-gutters">
               <div className="col-auto mr-2">
-                <SvgIcon>
-                  <SvgIconPlus />
-                </SvgIcon>
+                <Plus />
               </div>
               <div className="col-auto">Add</div>
             </div>
