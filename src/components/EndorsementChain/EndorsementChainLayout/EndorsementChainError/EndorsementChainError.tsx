@@ -13,7 +13,7 @@ export const EndorsementChainErrorUnstyled: FunctionComponent<EndorsementChainEr
     <div className={`${className}`}>
       <div className="error-container">
         <div className="fixed-error-row">
-          <AlertTriangle className="alert-icon mr-2" color={`${vars.red}`} />
+          <AlertTriangle className="mr-2" color={`${vars.red}`} />
           <div className="error-msg">An error occured, please try again later.</div>
         </div>
         <div className="error-msg">{error}</div>
