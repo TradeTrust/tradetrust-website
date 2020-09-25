@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import prettyBytes from "pretty-bytes";
 import { mixin, vars } from "../../../styles";
 import { Paperclip } from "react-feather";
-import { getData, utils, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import { getLogger } from "../../../utils/logger";
 
 const { error } = getLogger("component:attachmentlink");
@@ -14,6 +14,14 @@ export interface AttachmentLinkProps {
   data?: string;
   type?: string;
   path?: string;
+}
+
+interface OriginalDocumentProps extends v2.OpenAttestationDocument {
+  links?: {
+    self?: {
+      href: string;
+    };
+  };
 }
 
 export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }: AttachmentLinkProps) => {
@@ -27,18 +35,15 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
     filesize = prettyBytes(decodedData.length);
     try {
       const decodedJson = JSON.parse(decodedData);
-      const isOpenAttestationSchema = utils.isWrappedV2Document(decodedJson);
-      if (isOpenAttestationSchema) {
-        const originalDocument = getData<WrappedDocument>(decodedJson);
-        redirectLink = originalDocument?.links?.self?.href ?? "";
-      }
+      const originalDocument: OriginalDocumentProps = getData<WrappedDocument<OriginalDocumentProps>>(decodedJson);
+      redirectLink = originalDocument?.links?.self?.href ?? "";
     } catch (e) {
       error("decode data not json: " + e);
     }
   }
 
   return (
-    <a href={downloadHref} download={`${filename}`} className={className} data-testid="attachment-link">
+    <div className={className}>
       <div className="row">
         <div className="col-12 col-md-auto mb-3 mb-md-0">
           <div className="icon">
@@ -51,7 +56,9 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
             {hasBase64 && <span className="filesize">({filesize})</span>}
           </p>
           <div className="row no-gutters">
-            <p className="downloadtext mb-0">Download</p>
+            <a href={downloadHref} download={`${filename}`} className="downloadtext" data-testid="attachment-link">
+              Download
+            </a>
             {redirectLink && (
               <a href={redirectLink} target="_blank" rel="noopener noreferrer" className="downloadtext mb-0 ml-2">
                 Open
@@ -60,7 +67,7 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
           </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 
