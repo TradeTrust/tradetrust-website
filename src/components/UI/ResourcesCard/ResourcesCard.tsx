@@ -1,24 +1,25 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { FunctionComponent } from "react";
+import { Download } from "react-feather";
 import { mixin, vars } from "./../../../styles";
 
-interface MediaCardProps {
+interface ResourcesCardProps {
   className?: string;
-  title: string;
-  placeholderText?: string;
-  youtubeEmbedCode?: string;
-  children?: React.ReactNode;
-  tag?: string;
+  details: {
+    title: string;
+    youtubeEmbedCode?: string;
+    placeholderText?: string;
+    tag: string;
+    description: string;
+    downloads: {
+      fileName: string;
+      path: string;
+    }[];
+  };
 }
 
-const ResourcesCardUnStyled = ({
-  className,
-  title,
-  placeholderText,
-  youtubeEmbedCode,
-  children,
-  tag,
-}: MediaCardProps) => {
+const ResourcesCardUnStyled: FunctionComponent<ResourcesCardProps> = ({ className, details }) => {
+  const { placeholderText, youtubeEmbedCode, title, tag, description, downloads } = details;
   const hasMedia = placeholderText || youtubeEmbedCode;
 
   return (
@@ -56,7 +57,19 @@ const ResourcesCardUnStyled = ({
           )}
         </h3>
         {tag && <div className="tag">{tag}</div>}
-        {children}
+        <p>{description}</p>
+        <div className="py-2">
+          {downloads.map((download) => (
+            <a
+              className="font-weight-bold d-flex align-items-end mt-1"
+              href={download.path}
+              download={download.fileName}
+            >
+              <Download />
+              <span className="ml-2">{download.fileName}</span>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );
