@@ -9,7 +9,7 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { connect } from "react-redux";
-import { getData, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import { applyPrivacyFilter } from "../../reducers/certificate";
 import {
   FrameActions,
@@ -23,7 +23,7 @@ import { LEGACY_OPENCERTS_RENDERER } from "../../config";
 import { TemplateProps } from "./../../types";
 
 interface DecentralisedRendererProps {
-  rawDocument: WrappedDocument;
+  rawDocument: WrappedDocument<v2.OpenAttestationDocument>;
   updateTemplates: (templates: TemplateProps[]) => void;
   selectedTemplate: string;
   applyPrivacyFilter: (doc: any) => void;
@@ -91,7 +91,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   return (
     <FrameConnector
       style={{ height: `${height}px`, width: "100%", border: "0px" }}
-      source={`${typeof rawDocument.data.$template === "object" ? document.$template.url : LEGACY_OPENCERTS_RENDERER}`}
+      source={`${typeof document.$template === "object" ? document.$template.url : LEGACY_OPENCERTS_RENDERER}`}
       dispatch={dispatch}
       onConnected={onConnected}
     />
@@ -106,7 +106,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 const ForwardedRefDecentralisedRenderer = React.forwardRef<
   { print: () => void } | undefined,
   {
-    rawDocument: WrappedDocument;
+    rawDocument: WrappedDocument<v2.OpenAttestationDocument>;
     updateTemplates: (templates: TemplateProps[]) => void;
     applyPrivacyFilter: (doc: any) => void;
     selectedTemplate: string;
