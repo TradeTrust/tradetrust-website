@@ -56,13 +56,17 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
             {hasBase64 && <span className="filesize">({filesize})</span>}
           </p>
           <div className="row no-gutters">
-            <a href={downloadHref} download={`${filename}`} className="downloadtext" data-testid="attachment-link">
-              Download
-            </a>
-            {redirectLink && (
-              <a href={redirectLink} target="_blank" rel="noopener noreferrer" className="downloadtext mb-0 ml-2">
-                Open
+            <div className="col-12 col-md-auto">
+              <a href={downloadHref} download={`${filename}`} className="downloadtext" data-testid="attachment-link">
+                Download
               </a>
+            </div>
+            {redirectLink && (
+              <div className="col-12 col-md-auto ml-0 ml-md-2">
+                <a href={redirectLink} target="_blank" rel="noopener noreferrer" className="downloadtext">
+                  Open
+                </a>
+              </div>
             )}
           </div>
         </div>
