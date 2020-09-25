@@ -1,18 +1,17 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { getData } from "@govtechsg/open-attestation";
-
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import {
-  updateCertificate,
-  sendCertificate,
-  sendCertificateReset,
+  applyPrivacyFilter,
   getCertificate,
-  getVerifying,
   getEmailSendingState,
   getVerificationStatus,
-  updateObfuscatedCertificate,
+  getVerifying,
+  sendCertificate,
+  sendCertificateReset,
+  updateCertificate,
 } from "../reducers/certificate";
 import { CertificateViewer } from "./CertificateViewer";
 
@@ -82,7 +81,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateCertificate: (payload) => dispatch(updateCertificate(payload)),
   sendCertificate: (payload) => dispatch(sendCertificate(payload)),
   sendCertificateReset: () => dispatch(sendCertificateReset()),
-  updateObfuscatedCertificate: (updatedDoc) => dispatch(updateObfuscatedCertificate(updatedDoc)),
+  applyPrivacyFilter: (updatedDoc) => dispatch(applyPrivacyFilter(updatedDoc)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ViewerPageContainer));
@@ -96,6 +95,6 @@ ViewerPageContainer.propTypes = {
   emailSendingState: PropTypes.string,
   sendCertificate: PropTypes.func,
   sendCertificateReset: PropTypes.func,
-  updateObfuscatedCertificate: PropTypes.func,
+  applyPrivacyFilter: PropTypes.func,
   history: PropTypes.object,
 };
