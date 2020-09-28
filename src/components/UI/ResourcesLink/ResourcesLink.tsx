@@ -21,12 +21,12 @@ const ResourcesLinkUnstyled: FunctionComponent<ResourcesLinkProps> = ({ classNam
         <div className="title">{title}</div>
         <div className="link-container">
           {type === "link" ? (
-            <a className="link" href={details.url} target="_blank" rel="noopener noreferrer">
+            <a className="link" href={details.url} target="_blank" rel="noopener noreferrer" data-testid="link">
               {details.description}
             </a>
           ) : (
             <div className="download-wrapper">
-              <a href={details.url} download={`${details.description}.pdf`} className="link">
+              <a href={details.url} download={`${details.description}.pdf`} className="link" data-testid="download">
                 <Download className="mr-1" />
                 {details.description}
               </a>
@@ -34,7 +34,7 @@ const ResourcesLinkUnstyled: FunctionComponent<ResourcesLinkProps> = ({ classNam
           )}
         </div>
       </div>
-      {details.icon && <img src={details.icon} className="link-icon" />}
+      {details.icon && <img src={details.icon} className="link-icon" data-testid="link-icon" />}
     </div>
   );
 };

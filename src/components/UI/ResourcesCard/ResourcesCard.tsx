@@ -26,19 +26,21 @@ const ResourcesCardUnStyled: FunctionComponent<ResourcesCardProps> = ({ classNam
     <div className={`${className}`}>
       {hasMedia && (
         <div className="media-holder">
-          {youtubeEmbedCode && (
+          {youtubeEmbedCode ? (
             <iframe
               src={`https://www.youtube.com/embed/${youtubeEmbedCode}?rel=0`}
               title={title}
               frameBorder="0"
               allowFullScreen
+              data-testid="youtubeEmbed-iframe"
             />
-          )}
-          <div className="placehold">
-            <div className="d-flex justify-content-center align-items-center h-100">
-              <h5 className="flex mb-0">{placeholderText}</h5>
+          ) : (
+            <div className="placehold" data-testid="placeholder">
+              <div className="d-flex justify-content-center align-items-center h-100">
+                <h5 className="flex mb-0">{placeholderText}</h5>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
       <div className="content">
@@ -49,21 +51,24 @@ const ResourcesCardUnStyled: FunctionComponent<ResourcesCardProps> = ({ classNam
               href={`https://www.youtube.com/watch?v=${youtubeEmbedCode}`}
               target="_blank"
               rel="noopener noreferrer"
+              data-testid="youtubeEmbed-title-link"
             >
               {title}
             </a>
           ) : (
-            <span>{title}</span>
+            <span data-testid="placeholder-title">{title}</span>
           )}
         </h3>
         {tag && <div className="tag">{tag}</div>}
         <p>{description}</p>
         <div className="py-2">
-          {downloads.map((download) => (
+          {downloads.map((download, index) => (
             <a
               className="font-weight-bold d-flex align-items-end mt-1"
               href={download.path}
               download={download.fileName}
+              key={index}
+              data-testid="download-link"
             >
               <Download />
               <span className="ml-2">{download.fileName}</span>
