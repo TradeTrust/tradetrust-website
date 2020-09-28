@@ -12,14 +12,22 @@ interface ProviderContextProps {
 
 export const ProviderContext = createContext<ProviderContextProps>({
   isUpgraded: false,
-  provider: ethers.getDefaultProvider(NETWORK_NAME),
+  // provider: ethers.getDefaultProvider(NETWORK_NAME),
+  provider: new ethers.providers.InfuraProvider(NETWORK_NAME),
+  /* Etherscan has error when testing with chrome:headless refer to 
+  https://github.com/ethers-io/ethers.js/issues/904 and
+  https://github.com/ethers-io/ethers.js/issues/926
+  */
   upgradeProvider: async () => {},
   account: undefined,
 });
 
 export const ProviderContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isUpgraded, setIsUpgraded] = useState(false);
-  const [provider, setProvider] = useState<providers.Provider | Signer>(ethers.getDefaultProvider(NETWORK_NAME));
+  const [provider, setProvider] = useState<providers.Provider | Signer>(
+    // ethers.getDefaultProvider(NETWORK_NAME)
+    new ethers.providers.InfuraProvider(NETWORK_NAME)
+  );
   const [account, setAccount] = useState<string>();
 
   const initializeSigner = async () => {

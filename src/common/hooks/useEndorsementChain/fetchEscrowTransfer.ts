@@ -17,7 +17,6 @@ export const fetchEscrowTransfers = async (
   const holderChangeLogsParsed = holderChangeLogs.map((log) => {
     if (!log.blockNumber) throw new Error("Block number not present");
     return {
-      blockNumber: log.blockNumber,
       ...log,
       ...titleEscrowContract.interface.parseLog(log),
     };
@@ -35,7 +34,7 @@ export const fetchEscrowTransfers = async (
     beneficiary,
     holderChangeEvents: holderChangeLogsParsed.map((event, index) => ({
       blockNumber: event.blockNumber,
-      holder: event.values.newHolder as string,
+      holder: event.args.newHolder as string,
       timestamp: blockTimes[index],
     })),
   };
