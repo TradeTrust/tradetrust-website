@@ -22,10 +22,9 @@ export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: strin
     try {
       // Fetch transfer logs from token registry
       const transferLogFilter = tokenRegistry.filters.Transfer(null, null, tokenId);
-      const logs = await provider.getLogs({ ...transferLogFilter, fromBlock: 0 });
-      const parsedLogs = logs.map((log) => ({ ...log, ...tokenRegistry.interface.parseLog(log) }));
-      const formattedLogs = parsedLogs.map((log) => {
-        const { blockNumber, values, transactionHash } = log;
+      const logs = await tokenRegistry.queryFilter(transferLogFilter, 0);
+      const formattedLogs = logs.map((log) => {
+        const { blockNumber, args: values, transactionHash } = log;
         if (!values) throw new Error(`Transfer log malformed: ${log}`);
         return {
           blockNumber,
