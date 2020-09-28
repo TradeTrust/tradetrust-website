@@ -29,7 +29,7 @@ export const NetworkBar = () => {
 
   return (
     <NetworkWrap>
-      <div className="container">
+      <div className="container-custom">
         <div className="row">
           <div className="col-auto ml-auto">
             <p className="mb-0">

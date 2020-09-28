@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../../styles";
+import { Settings } from "react-feather";
 
 export const navItems = [
   {
@@ -18,21 +19,9 @@ export const navItems = [
     target: "_target",
   },
   {
-    id: "integrate",
-    label: "Integrate",
-    path: "/#integrate",
-    target: "_self",
-  },
-  {
-    id: "training-videos",
-    label: "Training Videos",
-    path: "/training-videos",
-    target: "_self",
-  },
-  {
-    id: "about",
-    label: "About",
-    path: "/#about",
+    id: "resources",
+    label: "Resources",
+    path: "/#", // to update once resources page is in
     target: "_self",
   },
   {
@@ -125,7 +114,7 @@ export const NavigationBar = () => {
                         activeClassName=""
                         smooth
                       >
-                        {item.label}
+                        {item.id === "settings" ? <Settings /> : item.label}
                       </NavHashLink>
                     ) : (
                       <a href={item.path} target={item.target} rel="noopener">
