@@ -1,7 +1,10 @@
+import styled from "@emotion/styled";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { ResourcesCard } from "../components/UI/ResourcesCard";
 import { ResourcesLink } from "../components/UI/ResourcesLink";
+import { vars } from "../styles";
+import { ResourcesLinkProps } from "../types";
 
 const sideLinks = [
   {
@@ -29,7 +32,7 @@ const sideLinks = [
       url: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
     },
   },
-];
+] as ResourcesLinkProps[];
 
 const resources = [
   {
@@ -117,7 +120,7 @@ const resources = [
 ];
 
 export const ResourcesPage = () => (
-  <>
+  <ResourcePageStyle>
     <Helmet>
       <meta
         property="description"
@@ -140,23 +143,34 @@ export const ResourcesPage = () => (
           </div>
         </div>
         <div className="row py-3">
-          <div className="col-12 col-md-12 col-lg-8">
+          <div className="col-12 col-md-12 col-lg-4 order-lg-2">
+            <div className="side-links">
+              {sideLinks.map((resourceLink, index) => (
+                <ResourcesLink
+                  key={index}
+                  title={resourceLink.title}
+                  type={resourceLink.type}
+                  details={resourceLink.details}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="col-12 col-md-12 col-lg-8 order-lg-1">
             {resources.map((resource, index) => (
               <ResourcesCard details={resource} key={index} />
-            ))}
-          </div>
-          <div className="col-12 col-md-12 col-lg-4">
-            {sideLinks.map((resourceLink, index) => (
-              <ResourcesLink
-                key={index}
-                title={resourceLink.title}
-                type={resourceLink.type}
-                details={resourceLink.details}
-              />
             ))}
           </div>
         </div>
       </div>
     </div>
-  </>
+  </ResourcePageStyle>
 );
+
+const ResourcePageStyle = styled.div`
+  .side-links {
+    @media (min-width: ${vars.lg}) {
+      position: sticky;
+      top: 10px;
+    }
+  }
+`;

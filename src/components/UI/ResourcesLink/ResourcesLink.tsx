@@ -2,29 +2,20 @@ import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
 import { Download } from "react-feather";
 import { mixin, vars } from "../../../styles";
+import { ResourcesLinkProps } from "../../../types";
 
-interface ResourcesLinkProps {
-  className?: string;
-  title: string;
-  details: {
-    description: string;
-    url: string;
-    icon?: string;
-  };
-  type: string;
-}
-
-const ResourcesLinkUnstyled: FunctionComponent<ResourcesLinkProps> = ({ className, title, details, type }) => {
+export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, details, type }) => {
   return (
-    <div className={`${className}`}>
+    <ResourcesLinkItem>
       <div className="link-wrapper">
         <div className="title">{title}</div>
         <div className="link-container">
-          {type === "link" ? (
+          {type === "link" && (
             <a className="link" href={details.url} target="_blank" rel="noopener noreferrer" data-testid="link">
               {details.description}
             </a>
-          ) : (
+          )}
+          {type === "download" && (
             <div className="download-wrapper">
               <a href={details.url} download={`${details.description}.pdf`} className="link" data-testid="download">
                 <Download className="mr-1" />
@@ -35,11 +26,11 @@ const ResourcesLinkUnstyled: FunctionComponent<ResourcesLinkProps> = ({ classNam
         </div>
       </div>
       {details.icon && <img src={details.icon} className="link-icon" data-testid="link-icon" />}
-    </div>
+    </ResourcesLinkItem>
   );
 };
 
-export const ResourcesLink = styled(ResourcesLinkUnstyled)`
+const ResourcesLinkItem = styled.div`
   background-color: ${vars.white};
   padding: 8px 12px 12px 12px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

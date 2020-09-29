@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
+import { ResourcesLinkProps } from "../../../types";
 import { ResourcesLink } from "./ResourcesLink";
 
 const mockInfo = {
@@ -10,7 +11,7 @@ const mockInfo = {
     url: "https://github.com/TradeTrust/tradetrust-website",
     icon: "/static/images/Github_Octocat.png",
   },
-};
+} as ResourcesLinkProps;
 
 describe("ResourcesLink", () => {
   it("should render title correctly", () => {

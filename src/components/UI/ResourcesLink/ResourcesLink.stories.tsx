@@ -1,7 +1,8 @@
 import React from "react";
+import { ResourcesLinkProps } from "../../../types";
 import { ResourcesLink } from "./ResourcesLink";
 
-const details = {
+const mockDetails = {
   title: "Source code",
   type: "link",
   details: {
@@ -9,7 +10,7 @@ const details = {
     url: "https://github.com/TradeTrust/tradetrust-website",
     icon: "/static/images/Github_Octocat.png",
   },
-};
+} as ResourcesLinkProps;
 
 export default {
   title: "UI/ResourcesLink",
@@ -20,5 +21,5 @@ export default {
 };
 
 export const ResourcesLinkComponent = () => {
-  return <ResourcesLink title={details.title} type={details.type} details={details.details} />;
+  return <ResourcesLink title={mockDetails.title} type={mockDetails.type} details={mockDetails.details} />;
 };

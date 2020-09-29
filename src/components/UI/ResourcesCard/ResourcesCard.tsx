@@ -4,7 +4,6 @@ import { Download } from "react-feather";
 import { mixin, vars } from "./../../../styles";
 
 interface ResourcesCardProps {
-  className?: string;
   details: {
     title: string;
     youtubeEmbedCode?: string;
@@ -18,12 +17,12 @@ interface ResourcesCardProps {
   };
 }
 
-const ResourcesCardUnStyled: FunctionComponent<ResourcesCardProps> = ({ className, details }) => {
+export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }) => {
   const { placeholderText, youtubeEmbedCode, title, tag, description, downloads } = details;
   const hasMedia = placeholderText || youtubeEmbedCode;
 
   return (
-    <div className={`${className}`}>
+    <ResourcesCardItem>
       {hasMedia && (
         <div className="media-holder">
           {youtubeEmbedCode ? (
@@ -76,17 +75,17 @@ const ResourcesCardUnStyled: FunctionComponent<ResourcesCardProps> = ({ classNam
           ))}
         </div>
       </div>
-    </div>
+    </ResourcesCardItem>
   );
 };
 
-export const ResourcesCard = styled(ResourcesCardUnStyled)`
+const ResourcesCardItem = styled.div`
   background-color: ${vars.white};
   display: flex;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${vars.md}) {
     flex-direction: column;
   }
 
