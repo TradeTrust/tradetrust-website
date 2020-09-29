@@ -13,3 +13,13 @@ export interface TitleEscrowEvent {
     timestamp: number;
   }[];
 }
+
+export interface ResourcesLinkProps {
+  title: string;
+  type: "link" | "download";
+  details: {
+    description: string;
+    url: string;
+    icon?: string;
+  };
+}
