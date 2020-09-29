@@ -120,7 +120,7 @@ const resources = [
 ];
 
 export const ResourcesPage = () => (
-  <ResourcePageStyle>
+  <>
     <Helmet>
       <meta
         property="description"
@@ -135,35 +135,37 @@ export const ResourcesPage = () => (
       <title>TradeTrust - Resources</title>
     </Helmet>
 
-    <div className="bg-blue-lighter">
-      <div className="container-custom py-5">
-        <div className="row">
-          <div className="col-12">
-            <h1>Resources</h1>
+    <ResourcePageStyle>
+      <div className="bg-blue-lighter">
+        <div className="container-custom py-5">
+          <div className="row">
+            <div className="col-12">
+              <h1>Resources</h1>
+            </div>
           </div>
-        </div>
-        <div className="row py-3">
-          <div className="col-12 col-md-12 col-lg-4 order-lg-2">
-            <div className="side-links">
-              {sideLinks.map((resourceLink, index) => (
-                <ResourcesLink
-                  key={index}
-                  title={resourceLink.title}
-                  type={resourceLink.type}
-                  details={resourceLink.details}
-                />
+          <div className="row py-3">
+            <div className="col-12 col-md-12 col-lg-4 order-lg-2">
+              <div className="side-links">
+                {sideLinks.map((resourceLink, index) => (
+                  <ResourcesLink
+                    key={index}
+                    title={resourceLink.title}
+                    type={resourceLink.type}
+                    details={resourceLink.details}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="col-12 col-md-12 col-lg-8 order-lg-1">
+              {resources.map((resource, index) => (
+                <ResourcesCard details={resource} key={index} />
               ))}
             </div>
           </div>
-          <div className="col-12 col-md-12 col-lg-8 order-lg-1">
-            {resources.map((resource, index) => (
-              <ResourcesCard details={resource} key={index} />
-            ))}
-          </div>
         </div>
       </div>
-    </div>
-  </ResourcePageStyle>
+    </ResourcePageStyle>
+  </>
 );
 
 const ResourcePageStyle = styled.div`
