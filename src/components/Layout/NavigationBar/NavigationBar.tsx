@@ -15,7 +15,7 @@ export const navItems = [
   {
     id: "create-documents",
     label: "Create Documents",
-    path: "//creator.tradetrust.io/",
+    path: "https://creator.tradetrust.io/",
   },
   {
     id: "resources",
