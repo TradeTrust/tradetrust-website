@@ -58,7 +58,7 @@ const ResourcesLinkItem = styled.div`
     ${mixin.fontSize(16)};
     ${mixin.fontSourcesansproSemibold};
     display: flex;
-    aligh-items: flex-end;
+    align-items: flex-end;
   }
 
   .download-wrapper {
