@@ -10,28 +10,23 @@ export const useTitleEscrowContract = (
   tokenId?: string
 ) => {
   const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
-  const [titleEscrowOwner, setTitleEscrowOwner] = useState<string>();
+  const [documentOwner, setDocumentOwner] = useState<string>();
 
   const updateTitleEscrow = useCallback(async () => {
     if (!tokenRegistry || !tokenId) return;
     const titleEscrowAddress = await tokenRegistry.ownerOf(tokenId);
-    setTitleEscrowOwner(titleEscrowAddress);
+    setDocumentOwner(titleEscrowAddress);
     const instance = TitleEscrowFactory.connect(titleEscrowAddress, provider);
     setTitleEscrow(instance);
   }, [provider, tokenId, tokenRegistry]);
-
-  const reset = useCallback(() => {
-    setTitleEscrow(undefined);
-    setTitleEscrowOwner(undefined);
-  }, [setTitleEscrow, setTitleEscrowOwner]);
 
   useEffect(() => {
     updateTitleEscrow();
     return () => {
       setTitleEscrow(undefined);
-      setTitleEscrowOwner(undefined);
+      setDocumentOwner(undefined);
     };
   }, [updateTitleEscrow, tokenId, provider]);
 
-  return { titleEscrow, updateTitleEscrow, titleEscrowOwner, reset };
+  return { titleEscrow, updateTitleEscrow, documentOwner };
 };

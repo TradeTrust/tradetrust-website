@@ -6,7 +6,6 @@ import { AnchorLinkButtonSolidOrangeWhite, ButtonSolidOrangeWhite } from "../../
 import { OverlayContentBaseStyle } from "../Overlay";
 import { OverlayContent, OverlayContentProps } from "./index";
 import { MessageAddressResolver } from "./MessageAddressResolver";
-import { useHistory } from "react-router-dom";
 
 export enum MessageTitle {
   NO_METAMASK = "Metamask not installed",
@@ -22,12 +21,10 @@ export enum MessageTitle {
   ENDORSE_TRANSFER_SUCCESS = "Endorse Ownership/Holdership Success",
 }
 
-const ButtonClose = ({ reload = false }) => {
+const ButtonClose = () => {
   const { setOverlayVisible } = useContext(OverlayContext);
-  const history = useHistory();
   const handleCloseOverlay = () => {
     setOverlayVisible(false);
-    if (reload) history.push("/");
   };
 
   return <ButtonSolidOrangeWhite onClick={handleCloseOverlay}>Close</ButtonSolidOrangeWhite>;
@@ -47,16 +44,15 @@ const ButtonMetamaskInstall = () => {
 interface DocumentTransferMessageProps extends OverlayContentProps {
   children: React.ReactNode;
   isButtonMetamaskInstall?: boolean;
-  reload?: boolean;
 }
 
 export const DocumentTransferMessage = styled(
-  ({ reload, isButtonMetamaskInstall, children, ...props }: DocumentTransferMessageProps) => {
+  ({ isButtonMetamaskInstall, children, ...props }: DocumentTransferMessageProps) => {
     const documentTransferButton = () => {
       if (isButtonMetamaskInstall) {
         return <ButtonMetamaskInstall />;
       }
-      return <ButtonClose reload={reload} />;
+      return <ButtonClose />;
     };
 
     return (
@@ -178,7 +174,6 @@ interface ShowDocumentTransferMessageOptionProps {
   beneficiaryAddress?: string;
   holderAddress?: string;
   isButtonMetamaskInstall?: boolean;
-  reload?: boolean;
 }
 
 export const showDocumentTransferMessage = (title: string, option: ShowDocumentTransferMessageOptionProps) => {
@@ -187,7 +182,6 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       title={title}
       isSuccess={option.isSuccess}
       isButtonMetamaskInstall={option.isButtonMetamaskInstall}
-      reload={option.reload}
     >
       {title === MessageTitle.NO_METAMASK && <MessageNoMetamask />}
       {title === MessageTitle.NO_MANAGE_ACCESS && <MessageNoManageAccess />}

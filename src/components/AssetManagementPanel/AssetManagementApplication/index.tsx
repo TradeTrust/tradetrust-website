@@ -32,17 +32,18 @@ export const AssetManagementApplication = ({
     acceptSurrenderingState,
     destroyToken,
     isSurrendered,
+    isTokenBurnt,
     isTitleEscrow,
     approveNewTransferTargets,
     approveNewTransferTargetsState,
     transferToNewEscrow,
     transferToNewEscrowState,
-    titleEscrowOwner,
+    documentOwner,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account, provider } = useProviderContext();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
-  // Check if direct owner is minter
+  // Check if direct owner is minter, useContractFunctionHook value returns {0: boolean}
   const { call: checkIsMinter, value: isMinter } = useContractFunctionHook(tokenRegistry, "isMinter");
 
   useEffect(() => {
@@ -76,7 +77,7 @@ export const AssetManagementApplication = ({
             approvedBeneficiary={approvedBeneficiary}
             holder={holder}
             approvedHolder={approvedHolder}
-            titleEscrowOwner={titleEscrowOwner}
+            documentOwner={documentOwner}
             formAction={assetManagementAction}
             tokenRegistryAddress={tokenRegistryAddress}
             onSetFormAction={onSetFormAction}
@@ -88,6 +89,7 @@ export const AssetManagementApplication = ({
             onEndorseBeneficiary={endorseBeneficiary}
             beneficiaryEndorseState={endorseBeneficiaryState}
             isSurrendered={isSurrendered}
+            isTokenBurnt={isTokenBurnt}
             onApproveNewTransferTargets={approveNewTransferTargets}
             approveNewTransferTargetsState={approveNewTransferTargetsState}
             onTransferToNewEscrow={transferToNewEscrow}

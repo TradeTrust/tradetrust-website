@@ -38,9 +38,7 @@ export const AcceptSurrenderForm = ({
 
   useEffect(() => {
     if (isConfirmed) {
-      showOverlay(
-        showDocumentTransferMessage(MessageTitle.ACCEPT_SURRENDER_DOCUMENT, { isSuccess: true, reload: true })
-      );
+      showOverlay(showDocumentTransferMessage(MessageTitle.ACCEPT_SURRENDER_DOCUMENT, { isSuccess: true }));
       setFormActionNone();
     }
   }, [isConfirmed, showOverlay, setFormActionNone]);

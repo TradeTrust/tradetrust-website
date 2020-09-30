@@ -12,7 +12,7 @@ interface TokenInformationContext {
   tokenId?: string;
   beneficiary?: string;
   holder?: string;
-  titleEscrowOwner?: string;
+  documentOwner?: string;
   approvedBeneficiary?: string;
   approvedHolder?: string;
   changeHolder: TitleEscrow["changeHolder"];
@@ -27,6 +27,7 @@ interface TokenInformationContext {
   transferToNewEscrowState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
+  isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
   resetStates: () => void;
   destroyToken: TradeTrustErc721["destroyToken"];
@@ -46,7 +47,8 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
   isSurrendered: false,
-  titleEscrowOwner: "",
+  isTokenBurnt: false,
+  documentOwner: "",
   approveNewTransferTargets: contractFunctionStub,
   approveNewTransferTargetsState: "UNINITIALIZED",
   transferToNewEscrow: contractFunctionStub,
@@ -61,8 +63,9 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
   const { provider } = useProviderContext();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
-  const { titleEscrow, updateTitleEscrow, titleEscrowOwner } = useTitleEscrowContract(provider, tokenRegistry, tokenId);
-  const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
+  const { titleEscrow, updateTitleEscrow, documentOwner } = useTitleEscrowContract(provider, tokenRegistry, tokenId);
+  const isSurrendered = documentOwner === tokenRegistryAddress;
+  const isTokenBurnt = documentOwner === "0x000000000000000000000000000000000000dEaD"; // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
   const { isInterfaceType: isTitleEscrow } = useSupportsInterface(titleEscrow, "0xdcce2211"); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
@@ -191,8 +194,9 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         acceptSurrenderingState,
         destroyToken,
         isSurrendered,
+        isTokenBurnt,
         isTitleEscrow,
-        titleEscrowOwner,
+        documentOwner,
         approveNewTransferTargets,
         approveNewTransferTargetsState,
         transferToNewEscrow,

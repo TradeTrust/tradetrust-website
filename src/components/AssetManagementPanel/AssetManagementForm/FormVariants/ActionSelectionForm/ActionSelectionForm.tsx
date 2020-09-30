@@ -23,6 +23,7 @@ interface ActionSelectionFormProps {
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
+  isTokenBurnt: boolean;
   canNominateBeneficiaryHolder: boolean;
   canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -41,6 +42,7 @@ export const ActionSelectionForm = ({
   canChangeHolder,
   canEndorseBeneficiary,
   isSurrendered,
+  isTokenBurnt,
   canNominateBeneficiaryHolder,
   canEndorseTransfer,
   setShowEndorsementChain,
@@ -94,7 +96,14 @@ export const ActionSelectionForm = ({
               </div>
             </div>
           )}
-          {!isSurrendered && isTitleEscrow && (
+          {isTokenBurnt && (
+            <div className="col-12 col-lg-auto align-self-end">
+              <div className="py-3">
+                <TagBorderedRedLarge id="surrender-sign">Surrendered</TagBorderedRedLarge>
+              </div>
+            </div>
+          )}
+          {!isSurrendered && !isTokenBurnt && isTitleEscrow && (
             <>
               <div className="col-12 col-lg">
                 <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
@@ -105,31 +114,33 @@ export const ActionSelectionForm = ({
             </>
           )}
         </div>
-        <div className="row mb-3">
-          <div className="col-auto ml-lg-auto">
-            {account ? (
-              <>
-                {canManage ? (
-                  <AssetManagementDropdown
-                    onSetFormAction={onSetFormAction}
-                    canSurrender={canSurrender}
-                    canChangeHolder={canChangeHolder}
-                    canEndorseBeneficiary={canEndorseBeneficiary}
-                    canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
-                    canEndorseTransfer={canEndorseTransfer}
-                    canAcceptSurrender={canAcceptSurrender}
-                  />
-                ) : (
-                  <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
-                )}
-              </>
-            ) : (
-              <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
-                Connect Wallet
-              </ButtonSolidOrangeWhite>
-            )}
+        {!isTokenBurnt && (
+          <div className="row mb-3">
+            <div className="col-auto ml-lg-auto">
+              {account ? (
+                <>
+                  {canManage ? (
+                    <AssetManagementDropdown
+                      onSetFormAction={onSetFormAction}
+                      canSurrender={canSurrender}
+                      canChangeHolder={canChangeHolder}
+                      canEndorseBeneficiary={canEndorseBeneficiary}
+                      canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
+                      canEndorseTransfer={canEndorseTransfer}
+                      canAcceptSurrender={canAcceptSurrender}
+                    />
+                  ) : (
+                    <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
+                  )}
+                </>
+              ) : (
+                <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
+                  Connect Wallet
+                </ButtonSolidOrangeWhite>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
