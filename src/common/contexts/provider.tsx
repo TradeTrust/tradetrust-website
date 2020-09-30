@@ -3,6 +3,9 @@ import { ethers, providers, Signer } from "ethers";
 import { NETWORK_NAME } from "../../config";
 import { MessageTitle } from "./../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
+const getProvider =
+  NETWORK_NAME === "local" ? new providers.JsonRpcProvider() : new ethers.providers.InfuraProvider(NETWORK_NAME);
+
 interface ProviderContextProps {
   isUpgraded: boolean;
   provider: providers.Provider | Signer;
@@ -12,22 +15,14 @@ interface ProviderContextProps {
 
 export const ProviderContext = createContext<ProviderContextProps>({
   isUpgraded: false,
-  // provider: ethers.getDefaultProvider(NETWORK_NAME),
-  provider: new ethers.providers.InfuraProvider(NETWORK_NAME),
-  /* Etherscan has error when testing with chrome:headless refer to 
-  https://github.com/ethers-io/ethers.js/issues/904 and
-  https://github.com/ethers-io/ethers.js/issues/926
-  */
+  provider: getProvider,
   upgradeProvider: async () => {},
   account: undefined,
 });
 
 export const ProviderContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isUpgraded, setIsUpgraded] = useState(false);
-  const [provider, setProvider] = useState<providers.Provider | Signer>(
-    // ethers.getDefaultProvider(NETWORK_NAME)
-    new ethers.providers.InfuraProvider(NETWORK_NAME)
-  );
+  const [provider, setProvider] = useState<providers.Provider | Signer>(getProvider);
   const [account, setAccount] = useState<string>();
 
   const initializeSigner = async () => {

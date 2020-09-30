@@ -20,18 +20,24 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-	
-            ${{ runner.os }}-build-	
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install Packages
         run: npm install
-      - name: Check Lint
-        run: npm run lint
-      - name: Check Stylelint
-        run: npm run stylelint
-      - name: Test
-        run: npm run test
-      - name: Build
-        run: npm run build
-      - name: Integration Test
-        run: ./scripts/integration-headless.sh
+      - name: Test Code
+        uses: mujo-code/puppeteer-headful@master
+        env:
+          CI: "true"
+        with:
+          args: npm run integration:dappeteer
+      # - name: Check Lint
+      #   run: npm run lint
+      # - name: Check Stylelint
+      #   run: npm run stylelint
+      # - name: Test
+      #   run: npm run test
+      # - name: Build
+      #   run: npm run build
+      # - name: Integration Test
+      #   run: ./scripts/integration-headless.sh
