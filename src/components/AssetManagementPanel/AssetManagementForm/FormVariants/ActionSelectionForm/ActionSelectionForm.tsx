@@ -99,7 +99,7 @@ export const ActionSelectionForm = ({
           {isTokenBurnt && (
             <div className="col-12 col-lg-auto align-self-end">
               <div className="py-3">
-                <TagBorderedRedLarge id="surrender-sign">Surrendered</TagBorderedRedLarge>
+                <TagBorderedRedLarge id="surrendered-sign">Surrendered</TagBorderedRedLarge>
               </div>
             </div>
           )}
