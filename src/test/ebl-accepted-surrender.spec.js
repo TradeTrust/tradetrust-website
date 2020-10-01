@@ -2,7 +2,7 @@ import { Selector } from "testcafe";
 
 fixture("Render red surrender sign if ebl is surrendered").page`http://localhost:3000`;
 
-const Document = "./fixture/ebl-accepted surrender.json";
+const Document = "./fixture/ebl-accepted-surrender.json";
 const DocumentStatus = Selector("#document-status");
 
 const SurrenderedSign = Selector("#surrendered-sign");
