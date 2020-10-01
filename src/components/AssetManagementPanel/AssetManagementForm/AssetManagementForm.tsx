@@ -83,9 +83,9 @@ export const AssetManagementForm = ({
   const canNominateBeneficiaryHolder = isTitleEscrow && isBeneficiary && !isHolder;
   const canEndorseTransfer =
     !!approvedBeneficiary &&
-    approvedBeneficiary !== "0x000000000000000000000000000000000000dEaD" &&
+    approvedBeneficiary !== "0x0000000000000000000000000000000000000000" &&
     !!approvedHolder &&
-    approvedHolder !== "0x000000000000000000000000000000000000dEaD" &&
+    approvedHolder !== "0x0000000000000000000000000000000000000000" &&
     isHolder &&
     isTitleEscrow;
 
