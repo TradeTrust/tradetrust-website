@@ -19,6 +19,7 @@ const defaultProps = {
   isSurrendered: false,
   canEndorseTransfer: false,
   isTitleEscrow: true,
+  isTokenBurnt: false,
 };
 
 describe("ActionSelectionForm", () => {
@@ -79,11 +80,19 @@ describe("ActionSelectionForm", () => {
     });
   });
 
-  it("should display the Surrender tag if document is surrendered", async () => {
+  it("should display the Surrender to issuer tag if document is owned by token registry", async () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} isSurrendered={true} />);
 
       expect(container.queryByText("Surrendered To Issuer")).not.toBeNull();
+    });
+  });
+
+  it("should display the Surrender tag if document is surrendered", async () => {
+    await act(async () => {
+      const container = render(<ActionSelectionForm {...defaultProps} isTokenBurnt={true} />);
+
+      expect(container.queryByText("Surrendered")).not.toBeNull();
     });
   });
 
