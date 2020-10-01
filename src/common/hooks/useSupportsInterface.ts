@@ -52,7 +52,7 @@ export const useSupportsInterface = (contractInstance: Erc165Contract | undefine
         setErrorMessage(supportsInterfaceErrorMessage);
       }
     } else if (state === "CONFIRMED") {
-      setIsInterfaceType(isSameInterfaceType);
+      setIsInterfaceType(isSameInterfaceType?.[0]);
     }
   }, [interfaceId, isSameInterfaceType, state, supportsInterfaceErrorMessage]);
 

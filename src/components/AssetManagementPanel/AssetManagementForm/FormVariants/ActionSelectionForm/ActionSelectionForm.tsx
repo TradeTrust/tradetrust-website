@@ -18,10 +18,12 @@ interface ActionSelectionFormProps {
   holder?: string;
   account?: string;
   canSurrender: boolean;
+  canAcceptSurrender?: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
+  isTokenBurnt: boolean;
   canNominateBeneficiaryHolder: boolean;
   canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -35,17 +37,24 @@ export const ActionSelectionForm = ({
   holder,
   account,
   canSurrender,
+  canAcceptSurrender,
   onConnectToWallet,
   canChangeHolder,
   canEndorseBeneficiary,
   isSurrendered,
+  isTokenBurnt,
   canNominateBeneficiaryHolder,
   canEndorseTransfer,
   setShowEndorsementChain,
   isTitleEscrow,
 }: ActionSelectionFormProps) => {
   const canManage =
-    canSurrender || canChangeHolder || canEndorseBeneficiary || canNominateBeneficiaryHolder || canEndorseTransfer;
+    canAcceptSurrender ||
+    canSurrender ||
+    canChangeHolder ||
+    canEndorseBeneficiary ||
+    canNominateBeneficiaryHolder ||
+    canEndorseTransfer;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -83,11 +92,18 @@ export const ActionSelectionForm = ({
           {isSurrendered && (
             <div className="col-12 col-lg-auto align-self-end">
               <div className="py-3">
-                <TagBorderedRedLarge id="surrender-sign">Surrendered</TagBorderedRedLarge>
+                <TagBorderedRedLarge id="surrender-sign">Surrendered To Issuer</TagBorderedRedLarge>
               </div>
             </div>
           )}
-          {!isSurrendered && isTitleEscrow && (
+          {isTokenBurnt && (
+            <div className="col-12 col-lg-auto align-self-end">
+              <div className="py-3">
+                <TagBorderedRedLarge id="surrendered-sign">Surrendered</TagBorderedRedLarge>
+              </div>
+            </div>
+          )}
+          {!isSurrendered && !isTokenBurnt && isTitleEscrow && (
             <>
               <div className="col-12 col-lg">
                 <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
@@ -98,7 +114,7 @@ export const ActionSelectionForm = ({
             </>
           )}
         </div>
-        {!isSurrendered && isTitleEscrow ? (
+        {!isTokenBurnt && (
           <div className="row mb-3">
             <div className="col-auto ml-lg-auto">
               {account ? (
@@ -111,6 +127,7 @@ export const ActionSelectionForm = ({
                       canEndorseBeneficiary={canEndorseBeneficiary}
                       canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
                       canEndorseTransfer={canEndorseTransfer}
+                      canAcceptSurrender={canAcceptSurrender}
                     />
                   ) : (
                     <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
@@ -121,14 +138,6 @@ export const ActionSelectionForm = ({
                   Connect Wallet
                 </ButtonSolidOrangeWhite>
               )}
-            </div>
-          </div>
-        ) : (
-          <div className="row mb-3">
-            <div className="col-auto ml-lg-auto">
-              <h5 id="interaction-unavailable-text" className="ml-auto">
-                At this point in time, direct interaction with Erc721 is not supported on tradetrust.io
-              </h5>
             </div>
           </div>
         )}

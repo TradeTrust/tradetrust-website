@@ -106,6 +106,7 @@ export const CertificateViewer = ({
         <ObfuscatedMessage document={document} />
         {tokenRegistryAddress && (
           <AssetManagementApplication
+            tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
           />

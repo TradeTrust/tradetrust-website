@@ -7,10 +7,7 @@ const NonSurrenderedDocument = "./fixture/ebl-wallet-owner.json";
 const DocumentStatus = Selector("#document-status");
 
 const SurrenderedSign = Selector("#surrender-sign");
-const InteractionUnavailableText = Selector("#interaction-unavailable-text");
-
-const validateTextContent = async (t, component, texts) =>
-  texts.reduce(async (_prev, curr) => t.expect(component.textContent).contains(curr), Promise.resolve());
+const InteractionAvaliable = Selector("[data-testid='connectToWallet']");
 
 test("should displays surrender sign when document is owned by token registry", async (t) => {
   const container = Selector("#certificate-dropzone");
@@ -20,6 +17,7 @@ test("should displays surrender sign when document is owned by token registry", 
   await DocumentStatus.with({ visibilityCheck: true })();
 
   await t.expect(SurrenderedSign.count).eql(1);
+  await t.expect(InteractionAvaliable.count).eql(1);
 });
 
 test("should not displays surrender sign when document is not owned by token registry", async (t) => {
@@ -30,7 +28,5 @@ test("should not displays surrender sign when document is not owned by token reg
   await DocumentStatus.with({ visibilityCheck: true })();
 
   await t.expect(SurrenderedSign.count).eql(0);
-  await validateTextContent(t, InteractionUnavailableText, [
-    "At this point in time, direct interaction with Erc721 is not supported on tradetrust.io",
-  ]);
+  await t.expect(InteractionAvaliable.count).eql(1);
 });
