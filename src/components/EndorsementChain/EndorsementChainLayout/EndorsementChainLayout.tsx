@@ -2,14 +2,15 @@ import styled from "@emotion/styled";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { mixin, vars } from "../../../styles";
-import { TitleEscrowEvent } from "../../../types";
+import { TradeTrustErc721Event, TitleEscrowEvent } from "../../../types";
 import { ArrowLeft } from "react-feather";
 import { AddressCell } from "./AddressCell";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
+import { TagBorderedRedLarge } from "../../UI/Tag";
 
 interface EndorsementChainLayout {
-  endorsementChain?: TitleEscrowEvent[];
+  endorsementChain?: TradeTrustErc721Event[];
   className?: string;
   error?: string;
   pending: boolean;
@@ -28,35 +29,67 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
   const tableRows: JSX.Element[] = [];
   let index = 0;
   endorsementChain &&
-    endorsementChain.forEach((beneficiaryChangeEvent, beneIndex) => {
-      beneficiaryChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
-        tableRows.push(
-          <div className="table-row" key={index++}>
-            <div className="table-cell date">
-              {format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}
+    endorsementChain.forEach((tradetrustErc721Event, eventIndex) => {
+      switch (tradetrustErc721Event.eventType) {
+        case "Transfer":
+          const beneficiaryChangeEvent = tradetrustErc721Event as TitleEscrowEvent;
+          if (!beneficiaryChangeEvent.holderChangeEvents || !beneficiaryChangeEvent.beneficiary)
+            return new Error("Invalid Event: Transfer Event does not have new beneficiary or new holder address");
+          beneficiaryChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
+            tableRows.push(
+              <div className="table-row" key={index++}>
+                <div className="table-cell date">
+                  {format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}
+                </div>
+                <div className="table-cell endorsement-ui-dash">
+                  {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
+                  <AddressCell
+                    address={beneficiaryChangeEvent.beneficiary}
+                    titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
+                    newAddress={!(previousBeneficiary === beneficiaryChangeEvent.beneficiary)}
+                  />
+                </div>
+                <div className="table-cell endorsement-ui-dash">
+                  {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
+                  <AddressCell
+                    address={holderChangeEvent.holder}
+                    titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
+                    newAddress={!(previousHolder === holderChangeEvent.holder)}
+                  />
+                </div>
+              </div>
+            );
+            previousBeneficiary = beneficiaryChangeEvent.beneficiary;
+            previousHolder = holderChangeEvent.holder;
+          });
+          return;
+        case "Surrender":
+          tableRows.push(
+            <div className="table-row" key={index++}>
+              <div className="table-cell date">
+                {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              </div>
+              <td colSpan={2} className="endorsement-ui-dash border-top-none">
+                <TagBorderedRedLarge>Surrendered To Issuer</TagBorderedRedLarge>
+              </td>
             </div>
-            <div className="table-cell endorsement-ui-dash">
-              {beneIndex === 0 && holderIndex === 0 && <div className="mask" />}
-              <AddressCell
-                address={beneficiaryChangeEvent.beneficiary}
-                titleEscrowAddress={beneficiaryChangeEvent.titleEscrowAddress}
-                newAddress={!(previousBeneficiary === beneficiaryChangeEvent.beneficiary)}
-              />
+          );
+          return;
+        case "Burnt":
+          tableRows.push(
+            <div className="table-row" key={index++}>
+              <div className="table-cell date">
+                {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              </div>
+              <td colSpan={2} className="endorsement-ui-dash border-top-none">
+                <TagBorderedRedLarge>Surrendered Accepted</TagBorderedRedLarge>
+              </td>
             </div>
-            <div className="table-cell endorsement-ui-dash">
-              {beneIndex === 0 && holderIndex === 0 && <div className="mask" />}
-              <AddressCell
-                address={holderChangeEvent.holder}
-                titleEscrowAddress={beneficiaryChangeEvent.titleEscrowAddress}
-                newAddress={!(previousHolder === holderChangeEvent.holder)}
-              />
-            </div>
-          </div>
-        );
-        previousBeneficiary = beneficiaryChangeEvent.beneficiary;
-        previousHolder = holderChangeEvent.holder;
-      });
+          );
+          return;
+      }
     });
+
   return (
     <div className={`container-custom ${className} `}>
       <div className="table-container">
@@ -151,6 +184,10 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
 
   .table-cell {
     padding: 0.5rem;
+  }
+
+  .border-top-none {
+    border-top: none;
   }
 
   .date {
