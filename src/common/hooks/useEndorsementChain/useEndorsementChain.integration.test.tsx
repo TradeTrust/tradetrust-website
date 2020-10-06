@@ -1,4 +1,4 @@
-import { getDefaultProvider } from "ethers";
+import { providers } from "ethers";
 import { renderHook, act } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react";
 import { useEndorsementChain } from "./useEndorsementChain";
@@ -6,7 +6,7 @@ import { useProviderContext } from "../../contexts/provider";
 
 jest.mock("../../contexts/provider");
 
-const ropstenProvider = getDefaultProvider("ropsten");
+const ropstenProvider = new providers.InfuraProvider("ropsten");
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
 

@@ -5,7 +5,7 @@ import { DefaultView } from "./Views/DefaultView";
 import { VerifyingView } from "./Views/VerifyingView";
 import { UnverifiedView } from "./Views/UnverifiedView";
 import { RetrievalErrorView } from "./Views/RetrievalErrorView";
-import { isValid } from "../../services/verify/fragments";
+import { isValid } from "@govtechsg/oa-verify";
 
 export const DropzoneContent = ({
   handleRenderOverwrite,

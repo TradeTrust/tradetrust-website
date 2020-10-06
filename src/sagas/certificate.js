@@ -11,8 +11,8 @@ import { types as applicationTypes } from "../reducers/application";
 import { sendEmail } from "../services/email/sendEmail";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
-import { isValid } from "../services/verify/fragments";
 import { decryptString } from "@govtechsg/oa-encryption";
+import { isValid } from "@govtechsg/oa-verify";
 
 const { trace } = getLogger("saga:certificate");
 

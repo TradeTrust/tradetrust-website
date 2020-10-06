@@ -10,9 +10,10 @@ interface DocumentStatusProps {
 }
 
 export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
-  const dnsFragmentName = "OpenAttestationDnsTxt";
-  const dnsFragment = verificationStatus.find((status) => status.name === dnsFragmentName);
-  const dnsIdentity = dnsFragment?.data?.every((issuer: { status: string }) => issuer.status === "VALID");
+  const validTopLevelFragments = ["OpenAttestationDnsTxt", "OpenAttestationDnsDid"];
+  const dnsFragment = verificationStatus.find(
+    (status) => validTopLevelFragments.includes(status.name) && status.status === "VALID"
+  );
   const domainNames = dnsFragment?.data
     ?.map((issuer: { location: string }) => issuer.location.toUpperCase())
     .join(", ");
@@ -21,7 +22,7 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   return (
     <h3 id="issuedby" className={`mb-0 issuedby`}>
       <span className="mr-1">Issued by</span>
-      <span className="domain">{dnsIdentity ? `${formattedDomainNames}` : "Unknown"}</span>
+      <span className="domain">{dnsFragment ? `${formattedDomainNames}` : "Unknown"}</span>
     </h3>
   );
 };
