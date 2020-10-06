@@ -13,12 +13,12 @@ import { Dropdown } from "react-bootstrap";
 import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPartyAPIEndpoints";
 import axios from "axios";
 import { AddressBookTable } from "./AddressBookTable";
+
 export interface AddressBookThirdPartyProps {
   identifier: string;
   name: string;
   remarks: string;
 }
-[];
 
 export interface AddressBookDropdownProps {
   name: string;
@@ -38,9 +38,11 @@ interface AddressBookProps extends OverlayContentProps {
 export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
-  const { addressBook } = useAddressBook();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [addressBookDropdown, setAddressBookDropdown] = useState<AddressBookDropdownProps>({ name: "Local" });
+
+  const { addressBook } = useAddressBook(); // this will be addressBookLocal
   const [addressBookThirdParty, setAddressBookThirdParty] = useState<AddressBookThirdPartyProps[]>([]);
 
   const onAddressSelect = (address: string) => {
