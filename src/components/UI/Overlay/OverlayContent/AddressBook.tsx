@@ -19,6 +19,7 @@ export interface AddressBookThirdPartyProps {
   remarks: string;
 }
 [];
+
 export interface AddressBookDropdownProps {
   name: string;
   endpoint?: string;
