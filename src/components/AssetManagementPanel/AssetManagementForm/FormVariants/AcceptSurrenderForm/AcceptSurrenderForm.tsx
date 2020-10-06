@@ -11,8 +11,11 @@ import {
   showDocumentTransferMessage,
 } from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
+import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
+import { TitleEscrowEvent } from "../../../../../types";
 
 interface AcceptSurrenderFormProps {
+  tokenId: string;
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
@@ -21,27 +24,56 @@ interface AcceptSurrenderFormProps {
   acceptSurrenderingState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
+  handleRejectSurrender: (lastBeneficary: string) => void;
+  rejectSurrenderingState: string;
 }
 
 export const AcceptSurrenderForm = ({
+  tokenId,
   formAction,
   tokenRegistryAddress,
   handleAcceptSurrender,
   acceptSurrenderingState,
   setFormActionNone,
   setShowEndorsementChain,
+  handleRejectSurrender,
+  rejectSurrenderingState,
 }: AcceptSurrenderFormProps) => {
-  const isPendingConfirmation = acceptSurrenderingState === FormState.PENDING_CONFIRMATION;
-  const isConfirmed = acceptSurrenderingState === FormState.CONFIRMED;
-
   const { showOverlay } = useContext(OverlayContext);
+  const { endorsementChain } = useEndorsementChain(tokenRegistryAddress, tokenId);
+
+  const isAcceptSurrenderingPendingConfirmation = acceptSurrenderingState === FormState.PENDING_CONFIRMATION;
+  const isRejectSurrenderingPendingConfirmation = rejectSurrenderingState === FormState.PENDING_CONFIRMATION;
+  const isPendingConfirmation = isAcceptSurrenderingPendingConfirmation || isRejectSurrenderingPendingConfirmation;
+  const isAcceptSurrenderConfirmed = acceptSurrenderingState === FormState.CONFIRMED;
+  const isRejectSurrenderConfirmed = rejectSurrenderingState === FormState.CONFIRMED;
+
+  const lastTransferEvent = endorsementChain
+    ?.filter(({ eventType }) => eventType === "Transfer")
+    .pop() as TitleEscrowEvent;
+  const lastBeneficary = lastTransferEvent?.beneficiary;
+
+  const onClickRejectSurrender = () => {
+    showOverlay(
+      showDocumentTransferMessage(MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT, {
+        isSuccess: true,
+        beneficiaryAddress: lastBeneficary,
+        isConfirmationMessage: true,
+        onConfirmaionAction: () => handleRejectSurrender(lastBeneficary),
+      })
+    );
+  };
 
   useEffect(() => {
-    if (isConfirmed) {
+    if (isAcceptSurrenderConfirmed) {
       showOverlay(showDocumentTransferMessage(MessageTitle.ACCEPT_SURRENDER_DOCUMENT, { isSuccess: true }));
       setFormActionNone();
     }
-  }, [isConfirmed, showOverlay, setFormActionNone]);
+    if (isRejectSurrenderConfirmed) {
+      showOverlay(showDocumentTransferMessage(MessageTitle.REJECT_SURRENDER_DOCUMENT, { isSuccess: false }));
+      setFormActionNone();
+    }
+  }, [isAcceptSurrenderConfirmed, showOverlay, setFormActionNone, isRejectSurrenderConfirmed]);
 
   return (
     <div className="row py-3">
@@ -69,11 +101,15 @@ export const AcceptSurrenderForm = ({
             <div className="row no-gutters">
               <div className="col-auto">
                 <ButtonSolidWhiteGrey
-                  onClick={setFormActionNone}
+                  onClick={onClickRejectSurrender}
                   disabled={isPendingConfirmation}
-                  data-testid={"cancelSurrenderBtn"}
+                  data-testid={"rejectSurrenderBtn"}
                 >
-                  Cancel
+                  {isRejectSurrenderingPendingConfirmation ? (
+                    <LoaderSpinner data-testid={"reject-loader"} />
+                  ) : (
+                    <>Reject Document</>
+                  )}
                 </ButtonSolidWhiteGrey>
               </div>
               <div className="col-auto ml-2">
@@ -82,7 +118,11 @@ export const AcceptSurrenderForm = ({
                   disabled={isPendingConfirmation}
                   data-testid={"acceptSurrenderBtn"}
                 >
-                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Shred Document</>}
+                  {isAcceptSurrenderingPendingConfirmation ? (
+                    <LoaderSpinner data-testid={"accept-loader"} />
+                  ) : (
+                    <>Shred Document</>
+                  )}
                 </ButtonSolidRedWhite>
               </div>
             </div>

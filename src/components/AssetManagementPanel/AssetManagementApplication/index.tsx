@@ -39,6 +39,8 @@ export const AssetManagementApplication = ({
     transferToNewEscrow,
     transferToNewEscrowState,
     documentOwner,
+    restoreToken,
+    restoreTokenState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account, provider } = useProviderContext();
@@ -59,6 +61,10 @@ export const AssetManagementApplication = ({
 
   const onAcceptSurrender = () => {
     destroyToken(tokenId);
+  };
+
+  const onRejectSurrender = (lastBeneficary: string) => {
+    restoreToken(lastBeneficary);
   };
 
   const onSetFormAction = useCallback(
@@ -105,6 +111,9 @@ export const AssetManagementApplication = ({
             isTitleEscrow={isTitleEscrow}
             isMinter={isMinter?.[0]}
             onAcceptSurrender={onAcceptSurrender}
+            onRejectSurrender={onRejectSurrender}
+            rejectSurrenderingState={restoreTokenState}
+            tokenId={tokenId}
           />
         )}
       </div>

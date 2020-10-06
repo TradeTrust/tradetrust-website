@@ -7,7 +7,8 @@ jest.mock("../../../common/hooks/useIdentifierResolver");
 
 const sampleEndorsementChain: TitleEscrowEvent[] = [
   {
-    titleEscrowAddress: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
       {

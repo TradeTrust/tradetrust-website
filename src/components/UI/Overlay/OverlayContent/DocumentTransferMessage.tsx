@@ -15,6 +15,7 @@ export enum MessageTitle {
   SURRENDER_DOCUMENT_SUCCESS = "Surrender Document Success",
   ACCEPT_SURRENDER_DOCUMENT = "Surrender Accepted",
   REJECT_SURRENDER_DOCUMENT = "Surrender Rejected",
+  CONFIRM_REJECT_SURRENDER_DOCUMENT = "Confirm Reject Surrender",
   CHANGE_BENEFICIARY_SUCCESS = "Change Owner Success",
   NOMINATE_BENEFICIARY_HOLDER_SUCCESS = "Nomination Success",
   TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
@@ -41,16 +42,43 @@ const ButtonMetamaskInstall = () => {
   );
 };
 
+const ButtonConfirmAction = (handleOnClick: () => void) => {
+  const { setOverlayVisible } = useContext(OverlayContext);
+  const onClick = () => {
+    handleOnClick();
+    setOverlayVisible(false);
+  };
+  return <ButtonSolidOrangeWhite onClick={onClick}>Confirm</ButtonSolidOrangeWhite>;
+};
+
 interface DocumentTransferMessageProps extends OverlayContentProps {
   children: React.ReactNode;
   isButtonMetamaskInstall?: boolean;
+  isConfirmationMessage?: boolean;
+  onConfirmaionAction?: () => void;
 }
 
 export const DocumentTransferMessage = styled(
-  ({ isButtonMetamaskInstall, children, ...props }: DocumentTransferMessageProps) => {
+  ({
+    isButtonMetamaskInstall,
+    isConfirmationMessage,
+    onConfirmaionAction,
+    children,
+    ...props
+  }: DocumentTransferMessageProps) => {
     const documentTransferButton = () => {
       if (isButtonMetamaskInstall) {
         return <ButtonMetamaskInstall />;
+      }
+      if (isConfirmationMessage && onConfirmaionAction) {
+        return (
+          <div className="row no-gutters">
+            <div className="col-auto ml-2">
+              <ButtonClose />
+            </div>
+            <div className="col-auto ml-2">{ButtonConfirmAction(onConfirmaionAction)}</div>
+          </div>
+        );
       }
       return <ButtonClose />;
     };
@@ -134,6 +162,15 @@ export const RejectSurrender = () => {
   return <p>Surrender for this Bill of Lading has been rejected.</p>;
 };
 
+export const MessageRejectSurrenderConfirmation = ({ address }: MessageProps) => {
+  return (
+    <>
+      <h6>Restore document to Owner/Holder</h6>
+      {address && <MessageAddressResolver address={address} />}
+    </>
+  );
+};
+
 export const MessageBeneficiarySuccess = ({ address }: MessageProps) => {
   return (
     <>
@@ -174,6 +211,8 @@ interface ShowDocumentTransferMessageOptionProps {
   beneficiaryAddress?: string;
   holderAddress?: string;
   isButtonMetamaskInstall?: boolean;
+  onConfirmaionAction?: () => void;
+  isConfirmationMessage?: boolean;
 }
 
 export const showDocumentTransferMessage = (title: string, option: ShowDocumentTransferMessageOptionProps) => {
@@ -182,6 +221,8 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       title={title}
       isSuccess={option.isSuccess}
       isButtonMetamaskInstall={option.isButtonMetamaskInstall}
+      onConfirmaionAction={option.onConfirmaionAction}
+      isConfirmationMessage={option.isConfirmationMessage}
     >
       {title === MessageTitle.NO_METAMASK && <MessageNoMetamask />}
       {title === MessageTitle.NO_MANAGE_ACCESS && <MessageNoManageAccess />}
@@ -190,6 +231,9 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       {title === MessageTitle.SURRENDER_DOCUMENT_SUCCESS && <MessageSurrenderSuccess />}
       {title === MessageTitle.ACCEPT_SURRENDER_DOCUMENT && <AcceptSurrender />}
       {title === MessageTitle.REJECT_SURRENDER_DOCUMENT && <RejectSurrender />}
+      {title === MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT && (
+        <MessageRejectSurrenderConfirmation address={option.beneficiaryAddress} />
+      )}
       {title === MessageTitle.CHANGE_BENEFICIARY_SUCCESS && (
         <MessageBeneficiarySuccess address={option.beneficiaryAddress} />
       )}

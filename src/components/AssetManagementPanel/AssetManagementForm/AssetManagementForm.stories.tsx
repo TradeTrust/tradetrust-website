@@ -49,6 +49,9 @@ export const NotLoggedIn = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -91,6 +94,9 @@ export const NoMatch = () => {
         onAcceptSurrender={() => alert("Accept document surrender")}
         acceptSurrenderingState={FormState.UNINITIALIZED}
         isTokenBurnt={false}
+        onRejectSurrender={() => alert("Reject document surrender")}
+        rejectSurrenderingState={FormState.UNINITIALIZED}
+        tokenId=""
       />
     </OverlayContextProvider>
   );
@@ -132,6 +138,9 @@ export const BeneficiaryAndHolder = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -172,6 +181,9 @@ export const Beneficiary = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -212,6 +224,9 @@ export const Holder = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -252,6 +267,9 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -292,6 +310,9 @@ export const SurrenderPending = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -332,6 +353,9 @@ export const Surrendered = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -372,6 +396,9 @@ export const TransferHolderError = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -412,6 +439,9 @@ export const TransferHolderPending = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -452,6 +482,9 @@ export const EndorseChangeBeneficiaryError = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -492,6 +525,9 @@ export const EndorseChangeBeneficiaryPending = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -532,6 +568,9 @@ export const NominateBeneficiaryAndHolderError = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -572,6 +611,9 @@ export const NominateBeneficiaryAndHolderPending = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -612,6 +654,9 @@ export const EndorseTransferHolderBeneficiary = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };
@@ -652,6 +697,9 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       onAcceptSurrender={() => alert("Accept document surrender")}
       acceptSurrenderingState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRejectSurrender={() => alert("Reject document surrender")}
+      rejectSurrenderingState={FormState.UNINITIALIZED}
+      tokenId=""
     />
   );
 };

@@ -6,6 +6,7 @@ import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
+import { useRestoreToken } from "../../hooks/useRestoreToken";
 
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
@@ -32,6 +33,8 @@ interface TokenInformationContext {
   resetStates: () => void;
   destroyToken: TradeTrustErc721["destroyToken"];
   acceptSurrenderingState: ContractFunctionState;
+  restoreToken: TradeTrustErc721["restoreToken"];
+  restoreTokenState: ContractFunctionState;
 }
 
 const contractFunctionStub = () => {
@@ -56,6 +59,8 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   resetStates: () => {},
   destroyToken: contractFunctionStub,
   acceptSurrenderingState: "UNINITIALIZED",
+  restoreToken: contractFunctionStub,
+  restoreTokenState: "UNINITIALIZED",
 });
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -84,6 +89,8 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     state: acceptSurrenderingState,
     reset: resetAcceptSurrenderingState,
   } = useContractFunctionHook(tokenRegistry, "destroyToken");
+
+  const { restoreToken, state: restoreTokenState } = useRestoreToken(tokenRegistry, provider, tokenId);
 
   // Contract Write Functions (available only after provider has been upgraded)
   const { send: transferTo, state: transferToState, reset: resetTransferTo } = useContractFunctionHook(
@@ -165,7 +172,11 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   // Update entire title escrow whenever token is burnt
   useEffect(() => {
     if (acceptSurrenderingState === "CONFIRMED") updateTitleEscrow();
-  }, [acceptSurrenderingState, transferToState, updateTitleEscrow]);
+  }, [acceptSurrenderingState, updateTitleEscrow]);
+
+  useEffect(() => {
+    if (restoreTokenState === "CONFIRMED") updateTitleEscrow();
+  }, [restoreTokenState, updateTitleEscrow]);
 
   // Update entire title escrow whenever endorse transfer to beneficiary and holder is successful
   useEffect(() => {
@@ -202,6 +213,8 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         transferToNewEscrow,
         transferToNewEscrowState,
         resetStates,
+        restoreToken,
+        restoreTokenState,
       }}
     >
       {children}

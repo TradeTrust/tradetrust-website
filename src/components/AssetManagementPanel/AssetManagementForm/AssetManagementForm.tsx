@@ -37,6 +37,9 @@ interface AssetManagementFormProps {
   transferToNewEscrowState: string;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
+  onRejectSurrender: (lastBeneficary: string) => void;
+  rejectSurrenderingState: string;
+  tokenId: string;
 }
 
 export const AssetManagementForm = ({
@@ -67,6 +70,9 @@ export const AssetManagementForm = ({
   transferToNewEscrowState,
   setShowEndorsementChain,
   isTitleEscrow,
+  onRejectSurrender,
+  rejectSurrenderingState,
+  tokenId,
 }: AssetManagementFormProps) => {
   const isHolder = isTitleEscrow && account === holder;
   const isBeneficiary = isTitleEscrow && account === beneficiary;
@@ -120,6 +126,7 @@ export const AssetManagementForm = ({
     case AssetManagementActions.AcceptSurrender:
       return (
         <AcceptSurrenderForm
+          tokenId={tokenId}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
@@ -128,6 +135,8 @@ export const AssetManagementForm = ({
           acceptSurrenderingState={acceptSurrenderingState}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}
+          handleRejectSurrender={onRejectSurrender}
+          rejectSurrenderingState={rejectSurrenderingState}
         />
       );
 
