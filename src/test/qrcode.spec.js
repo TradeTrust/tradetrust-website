@@ -3,7 +3,7 @@ import { uploadDocument, validateIframeTexts, validateIssuerTexts } from "./help
 
 fixture("QRcode Rendering").page`http://localhost:3000`;
 const qrcode = Selector("[data-testid='qr-code-svg']");
-const logo = qrcode.find("img");
+const logo = qrcode.child("img");
 
 test("UI renders QR code correctly when present in the document", async (t) => {
   await uploadDocument("./fixture/ebl-with-qrcode.json");
@@ -13,7 +13,7 @@ test("UI renders QR code correctly when present in the document", async (t) => {
   const qrcodeButtonElement = await Selector("button").withAttribute("aria-label", "document-utility-qr-button");
   await t.click(qrcodeButtonElement); // asserts that button exists and can be clicked
 });
-test.only("UI renders QR code with logo correctly when present in the document", async (t) => {
+test("UI renders QR code with logo correctly when present in the document", async (t) => {
   await uploadDocument("./fixture/qr-with-logo.json");
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
 
