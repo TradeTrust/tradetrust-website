@@ -47,11 +47,15 @@ export const DocumentUtilityUnStyled = ({
   const qrCodePopover = (url: string) => (
     <Popover id="qr-code-popover" style={{ borderRadius: 0, border: "1px solid #DDDDDD" }}>
       <Popover.Content style={{ padding: "10px" }}>
-        {logoUrl ? (
-          <QRCode value={url} level="Q" size={200} bgColor="#FFFFFF" fgColor="#000000" imageSettings={imageSettings} />
-        ) : (
-          <QRCode value={url} level="Q" size={200} bgColor="#FFFFFF" fgColor="#000000" />
-        )}
+        <QRCode
+          data-testid="qr-code-svg"
+          value={url}
+          level="Q"
+          size={200}
+          bgColor="#FFFFFF"
+          fgColor="#000000"
+          imageSettings={imageSettings}
+        />
       </Popover.Content>
     </Popover>
   );
