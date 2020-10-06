@@ -1,16 +1,34 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { OverlayContentBaseStyle } from "./../Overlay";
 import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
 import styled from "@emotion/styled";
 import { useAddressBook } from "../../../../common/hooks/useAddressBook";
-import { Search, ExternalLink, Download } from "react-feather";
+import { Search, Download } from "react-feather";
 import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
 import { AnchorLinkButtonSolidWhiteBlue } from "../../../UI/Button";
-import { isEmpty } from "lodash";
-import { makeEtherscanAddressURL } from "../../../../utils";
 import { vars } from "../../../../styles";
 import { OverlayContext } from "./../../../../common/contexts/OverlayContext";
+import { Dropdown } from "react-bootstrap";
+import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPartyAPIEndpoints";
+import axios from "axios";
+import { AddressBookTable } from "./AddressBookTable";
+export interface AddressBookThirdPartyProps {
+  identifier: string;
+  name: string;
+  remarks: string;
+}
+[];
+export interface AddressBookDropdownProps {
+  name: string;
+  endpoint?: string;
+  apiHeader?: string;
+  apiKey?: string;
+  path?: {
+    addressResolution?: string;
+    entityLookup?: string;
+  };
+}
 
 interface AddressBookProps extends OverlayContentProps {
   onAddressSelected?: (newValue: string) => void;
@@ -18,17 +36,79 @@ interface AddressBookProps extends OverlayContentProps {
 
 export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
+  const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
   const { addressBook } = useAddressBook();
   const [searchTerm, setSearchTerm] = useState("");
+  const [addressBookDropdown, setAddressBookDropdown] = useState<AddressBookDropdownProps>({ name: "Local" });
+  const [addressBookThirdParty, setAddressBookThirdParty] = useState<AddressBookThirdPartyProps[]>([]);
 
-  const onSearchTermChanged = (event: { target: { value: string } }) => {
+  const onAddressSelect = (address: string) => {
+    if (onAddressSelected) {
+      onAddressSelected(address);
+      setOverlayVisible(false);
+    }
+  };
+
+  const onSearchTermChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value;
     setSearchTerm(inputText);
   };
 
+  const onAddressBookNameDropdown = (item: AddressBookDropdownProps) => {
+    setAddressBookDropdown(item);
+    setSearchTerm("");
+    setAddressBookThirdParty([]);
+  };
+
+  useEffect(() => {
+    if (addressBookDropdown.name !== "Local" && searchTerm.length > 2) {
+      axios
+        .get(`${addressBookDropdown.endpoint}search?q=${searchTerm}`, {
+          headers: {
+            "x-api-key": addressBookDropdown.apiKey,
+          },
+        })
+        .then((response) => {
+          setAddressBookThirdParty(response.data.identities);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setAddressBookThirdParty([]);
+    }
+  }, [addressBookDropdown, searchTerm]);
+
   return (
     <OverlayContent data-testid="overlay-addressbook" {...props}>
       <div className="overlay-actionsbar">
+        <Dropdown>
+          <Dropdown.Toggle variant="light" id="dropdown-basic">
+            {addressBookDropdown.name}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item
+              onClick={() => {
+                onAddressBookNameDropdown({ name: "Local" });
+              }}
+            >
+              Local
+            </Dropdown.Item>
+            {thirdPartyAPIEndpoints.map((item, index) => {
+              return (
+                <Dropdown.Item
+                  key={index}
+                  onClick={() => {
+                    onAddressBookNameDropdown(item);
+                  }}
+                >
+                  {item.name}
+                </Dropdown.Item>
+              );
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
         <div className="row align-items-center">
           <div className="col-12 col-md mb-2 mb-md-0">
             <div className="overlay-searchbar">
@@ -64,61 +144,13 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
           </div>
         </div>
       </div>
-      <div className="table-responsive">
-        <table className="table">
-          <thead className="table-thead">
-            <tr>
-              <th>Name</th>
-              <td>Address</td>
-              <td>&nbsp;</td>
-            </tr>
-          </thead>
-          <tbody className="table-tbody">
-            {isEmpty(addressBook) ? (
-              <tr>
-                <th>&mdash;</th>
-                <td>No Address found.</td>
-                <td>&nbsp;</td>
-              </tr>
-            ) : (
-              Object.keys(addressBook).map((key) => {
-                const name = addressBook[key];
-                const address = key;
-                const addressHref = makeEtherscanAddressURL(key);
-
-                const searchTermLowerCase = searchTerm.toLowerCase();
-                const nameLowerCase = name.toLowerCase();
-                const addressLowerCase = address.toLowerCase();
-
-                return (
-                  <tr
-                    key={key}
-                    className={
-                      nameLowerCase.includes(searchTermLowerCase) || addressLowerCase.includes(searchTermLowerCase)
-                        ? ""
-                        : "d-none"
-                    }
-                    onClick={() => {
-                      if (onAddressSelected) {
-                        onAddressSelected(address);
-                        setOverlayVisible(false);
-                      }
-                    }}
-                  >
-                    <th>{name}</th>
-                    <td>{address}</td>
-                    <td>
-                      <a href={addressHref} target="_blank" rel="noreferrer noopener">
-                        <ExternalLink />
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
-      </div>
+      <AddressBookTable
+        addressBookDropdown={addressBookDropdown}
+        addressBookLocal={addressBook}
+        addressBookThirdParty={addressBookThirdParty}
+        searchTerm={searchTerm}
+        onAddressSelect={onAddressSelect}
+      />
     </OverlayContent>
   );
 })`

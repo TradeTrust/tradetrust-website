@@ -20,7 +20,7 @@ test("AddressBook local names to be resolved correctly, search filtered to 1", a
 
   await t.click(ButtonUploadAddressBook);
   await OverlayAddressBook.with({ visibilityCheck: true })();
-  await validateTextContent(t, OverlayAddressBookTableFirstRow.find("td"), ["No Address found."]);
+  await validateTextContent(t, OverlayAddressBookTableFirstRow.find("td"), ["No address found."]);
 
   await t.setFilesToUpload(CSVFileInput, ["./fixture/local-addressbook.csv"]);
   await t.expect(OverlayAddressBookTableBodyRows.count).notEql(0);
