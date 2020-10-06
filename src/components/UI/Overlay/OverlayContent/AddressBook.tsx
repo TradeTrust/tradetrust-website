@@ -13,6 +13,7 @@ import { Dropdown } from "react-bootstrap";
 import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPartyAPIEndpoints";
 import axios from "axios";
 import { AddressBookTable } from "./AddressBookTable";
+import { HeadersProps } from "./../../../../services/addressResolver";
 
 export interface AddressBookThirdPartyProps {
   identifier: string;
@@ -34,6 +35,36 @@ export interface AddressBookDropdownProps {
 interface AddressBookProps extends OverlayContentProps {
   onAddressSelected?: (newValue: string) => void;
 }
+
+const StyledDropdownButton = styled(Dropdown.Toggle)`
+  position: relative;
+  border-radius: 0;
+  max-width: 360px;
+  width: 100%;
+  text-align: left;
+  border: solid 1px ${vars.greyLight};
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  &:hover {
+    background-color: ${vars.greyLightest};
+  }
+
+  &::after {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+`;
+
+const StyledDropdownItem = styled(Dropdown.Item)`
+  &:active {
+    background-color: ${vars.blue};
+  }
+`;
 
 export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
@@ -64,12 +95,18 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
   };
 
   useEffect(() => {
-    if (addressBookDropdown.name !== "Local" && searchTerm.length > 2) {
+    if (
+      addressBookDropdown.name !== "Local" &&
+      searchTerm.length > 2 &&
+      addressBookDropdown.apiHeader &&
+      addressBookDropdown.apiKey
+    ) {
+      const headers: HeadersProps = {};
+      headers[addressBookDropdown.apiHeader] = addressBookDropdown.apiKey;
+
       axios
         .get(`${addressBookDropdown.endpoint}search?q=${searchTerm}`, {
-          headers: {
-            "x-api-key": addressBookDropdown.apiKey,
-          },
+          headers,
         })
         .then((response) => {
           setAddressBookThirdParty(response.data.identities);
@@ -86,28 +123,28 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
     <OverlayContent data-testid="overlay-addressbook" {...props}>
       <div className="overlay-actionsbar">
         <Dropdown>
-          <Dropdown.Toggle variant="light" id="dropdown-basic">
+          <StyledDropdownButton variant="transparent" className="mb-2">
             {addressBookDropdown.name}
-          </Dropdown.Toggle>
+          </StyledDropdownButton>
 
           <Dropdown.Menu>
-            <Dropdown.Item
+            <StyledDropdownItem
               onClick={() => {
                 onAddressBookNameDropdown({ name: "Local" });
               }}
             >
               Local
-            </Dropdown.Item>
+            </StyledDropdownItem>
             {thirdPartyAPIEndpoints.map((item, index) => {
               return (
-                <Dropdown.Item
+                <StyledDropdownItem
                   key={index}
                   onClick={() => {
                     onAddressBookNameDropdown(item);
                   }}
                 >
                   {item.name}
-                </Dropdown.Item>
+                </StyledDropdownItem>
               );
             })}
           </Dropdown.Menu>
