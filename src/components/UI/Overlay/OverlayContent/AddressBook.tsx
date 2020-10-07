@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { OverlayContentBaseStyle } from "./../Overlay";
 import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
@@ -14,6 +14,7 @@ import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPart
 import axios from "axios";
 import { AddressBookTable } from "./AddressBookTable";
 import { HeadersProps } from "./../../../../services/addressResolver";
+import { debounce } from "lodash";
 
 export interface AddressBookThirdPartyProps {
   identifier: string;
@@ -23,13 +24,9 @@ export interface AddressBookThirdPartyProps {
 
 export interface AddressBookDropdownProps {
   name: string;
-  endpoint?: string;
-  apiHeader?: string;
-  apiKey?: string;
-  path?: {
-    addressResolution?: string;
-    entityLookup?: string;
-  };
+  endpoint: string;
+  apiHeader: string;
+  apiKey: string;
 }
 
 interface AddressBookProps extends OverlayContentProps {
@@ -66,12 +63,19 @@ const StyledDropdownItem = styled(Dropdown.Item)`
   }
 `;
 
+const LocalDropdown: AddressBookDropdownProps = {
+  name: "Local",
+  endpoint: "",
+  apiHeader: "",
+  apiKey: "",
+};
+
 export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [addressBookDropdown, setAddressBookDropdown] = useState<AddressBookDropdownProps>({ name: "Local" });
+  const [addressBookDropdown, setAddressBookDropdown] = useState<AddressBookDropdownProps>(LocalDropdown);
 
   const { addressBook } = useAddressBook(); // this will be addressBookLocal
   const [addressBookThirdParty, setAddressBookThirdParty] = useState<AddressBookThirdPartyProps[]>([]);
@@ -83,29 +87,13 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
     }
   };
 
-  const onSearchTermChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputText = event.target.value;
-    setSearchTerm(inputText);
-  };
-
-  const onAddressBookNameDropdown = (item: AddressBookDropdownProps) => {
-    setAddressBookDropdown(item);
-    setSearchTerm("");
-    setAddressBookThirdParty([]);
-  };
-
-  useEffect(() => {
-    if (
-      addressBookDropdown.name !== "Local" &&
-      searchTerm.length > 2 &&
-      addressBookDropdown.apiHeader &&
-      addressBookDropdown.apiKey
-    ) {
+  const queryEndpoint = debounce((search) => {
+    if (addressBookDropdown.apiHeader && addressBookDropdown.apiKey) {
       const headers: HeadersProps = {};
       headers[addressBookDropdown.apiHeader] = addressBookDropdown.apiKey;
 
       axios
-        .get(`${addressBookDropdown.endpoint}search?q=${searchTerm}`, {
+        .get(`${addressBookDropdown.endpoint}search?q=${search}`, {
           headers,
         })
         .then((response) => {
@@ -114,10 +102,28 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
         .catch((error) => {
           console.log(error);
         });
+    }
+  }, 500);
+
+  const setSearchResultsForThirdParty = (search: string) => {
+    if (search.length > 2 && addressBookDropdown.name !== "Local") {
+      queryEndpoint(search);
     } else {
       setAddressBookThirdParty([]);
     }
-  }, [addressBookDropdown, searchTerm]);
+  };
+
+  const onSearchTermChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputText = event.target.value;
+    setSearchTerm(inputText);
+    setSearchResultsForThirdParty(inputText);
+  };
+
+  const onAddressBookNameDropdown = (item: AddressBookDropdownProps) => {
+    setAddressBookDropdown(item);
+    setSearchTerm("");
+    setAddressBookThirdParty([]);
+  };
 
   return (
     <OverlayContent data-testid="overlay-addressbook" {...props}>
@@ -130,7 +136,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
           <Dropdown.Menu>
             <StyledDropdownItem
               onClick={() => {
-                onAddressBookNameDropdown({ name: "Local" });
+                onAddressBookNameDropdown(LocalDropdown);
               }}
             >
               Local

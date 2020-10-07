@@ -23,11 +23,20 @@ export const AddressBookTable = ({
     <div className="table-responsive">
       <table className="table">
         <thead className="table-thead">
-          <tr>
-            <th>Name</th>
-            <td>Address</td>
-            <td>&nbsp;</td>
-          </tr>
+          {addressBookDropdown.name === "Local" ? (
+            <tr>
+              <th>Name</th>
+              <td>Address</td>
+              <td>&nbsp;</td>
+            </tr>
+          ) : (
+            <tr>
+              <th>Name</th>
+              <td>Address</td>
+              <td>Remarks</td>
+              <td>&nbsp;</td>
+            </tr>
+          )}
         </thead>
         <tbody className="table-tbody">
           {addressBookDropdown.name === "Local" ? (
@@ -71,6 +80,7 @@ export const AddressBookTable = ({
                   }}
                   address={item.identifier}
                   name={item.name}
+                  remarks={item.remarks}
                 />
               );
             })

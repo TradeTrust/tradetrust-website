@@ -6,16 +6,24 @@ interface AddressBookTableRowProps {
   onAddressSelect: () => void;
   address: string;
   name: string;
+  remarks?: string;
   className?: string;
 }
 
-export const AddressBookTableRow = ({ className, onAddressSelect, address, name }: AddressBookTableRowProps) => {
+export const AddressBookTableRow = ({
+  className,
+  onAddressSelect,
+  address,
+  name,
+  remarks,
+}: AddressBookTableRowProps) => {
   const addressHref = makeEtherscanAddressURL(address);
 
   return (
     <tr className={className} onClick={onAddressSelect}>
       <th>{name}</th>
       <td>{address}</td>
+      {remarks && <td>{remarks}</td>}
       <td>
         <a href={addressHref} target="_blank" rel="noreferrer noopener">
           <ExternalLink />
@@ -34,7 +42,6 @@ export const AddressBookTableRowEmpty = ({ message }: AddressBookTableRowEmptyPr
     <tr>
       <th>&mdash;</th>
       <td>{message}</td>
-      <td>&nbsp;</td>
     </tr>
   );
 };
