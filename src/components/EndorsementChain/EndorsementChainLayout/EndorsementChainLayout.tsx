@@ -7,7 +7,6 @@ import { ArrowLeft } from "react-feather";
 import { AddressCell } from "./AddressCell";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
-import { TagBorderedRedLarge } from "../../UI/Tag";
 
 interface EndorsementChainLayout {
   endorsementChain?: TradeTrustErc721Event[];
@@ -37,27 +36,27 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
             return new Error("Invalid Event: Transfer Event does not have new beneficiary or new holder address");
           beneficiaryChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
             tableRows.push(
-              <div className="table-row" key={index++}>
-                <div className="table-cell date">
+              <tr className="table-row" key={index++}>
+                <td className="table-cell date">
                   {format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}
-                </div>
-                <div className="table-cell endorsement-ui-dash">
+                </td>
+                <td className="table-cell endorsement-ui-dash">
                   {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
                   <AddressCell
                     address={beneficiaryChangeEvent.beneficiary}
                     titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
                     newAddress={!(previousBeneficiary === beneficiaryChangeEvent.beneficiary)}
                   />
-                </div>
-                <div className="table-cell endorsement-ui-dash">
+                </td>
+                <td className="table-cell endorsement-ui-dash">
                   {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
                   <AddressCell
                     address={holderChangeEvent.holder}
                     titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
                     newAddress={!(previousHolder === holderChangeEvent.holder)}
                   />
-                </div>
-              </div>
+                </td>
+              </tr>
             );
             previousBeneficiary = beneficiaryChangeEvent.beneficiary;
             previousHolder = holderChangeEvent.holder;
@@ -65,26 +64,32 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
           return;
         case "Surrender":
           tableRows.push(
-            <div className="table-row" key={index++}>
-              <div className="table-cell date">
+            <tr className="table-row" key={index++}>
+              <td className="table-cell date border-top-none">
                 {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
-              </div>
-              <td colSpan={2} className="endorsement-ui-dash border-top-none">
-                <TagBorderedRedLarge>Surrendered To Issuer</TagBorderedRedLarge>
               </td>
-            </div>
+              <td colSpan={2} className="endorsement-ui-dash border-top-none">
+                <div className="name-row">
+                  <div className="dot" data-testid="dot" />
+                  <div className="name">Document surrendered to Issuer</div>
+                </div>
+              </td>
+            </tr>
           );
           return;
         case "Burnt":
           tableRows.push(
-            <div className="table-row" key={index++}>
-              <div className="table-cell date">
+            <tr className="table-row" key={index++}>
+              <td className="table-cell date border-top-none">
                 {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
-              </div>
-              <td colSpan={2} className="endorsement-ui-dash border-top-none">
-                <TagBorderedRedLarge>Surrendered Accepted</TagBorderedRedLarge>
               </td>
-            </div>
+              <td colSpan={2} className="endorsement-ui-dash border-top-none">
+                <div className="name-row">
+                  <div className="dot" data-testid="dot" />
+                  <div className="name">Surrender of document accepted</div>
+                </div>
+              </td>
+            </tr>
           );
           return;
       }
@@ -105,15 +110,19 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
         </div>
         <div className="endorsement-chain-title">Endorsement Chain</div>
         <div className="table-responsive">
-          <div className="table">
-            <div className="table-header table-row">
-              <div className="table-cell">Date</div>
-              <div className="table-cell">Owner</div>
-              <div className="table-cell">Holder</div>
-            </div>
-            {pending && <EndorsementChainLoading />}
-            {endorsementChain && tableRows}
-          </div>
+          <table className="table">
+            <thead>
+              <tr className="table-header table-row">
+                <th className="table-cell">Date</th>
+                <th className="table-cell">Owner</th>
+                <th className="table-cell">Holder</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pending && <EndorsementChainLoading />}
+              {endorsementChain && tableRows}
+            </tbody>
+          </table>
         </div>
         {error && <EndorsementChainError error={error} />}
       </div>
@@ -160,13 +169,11 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .table {
-    display: table;
     width: 100%;
     margin-bottom: 0;
   }
 
   .table-row {
-    display: table-row;
     background-color: ${vars.white};
   }
 
@@ -194,5 +201,35 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
     font-weight: bold;
     color: ${vars.greyDark};
     min-width: 140px;
+  }
+
+  .name {
+    font-size: ${mixin.fontSize(18)};
+    color: ${vars.greyDark};
+    font-weight: bold;
+  }
+
+  .dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: ${vars.teal};
+    margin: 0.25rem;
+    position: absolute;
+    left: -21.5px;
+    top: 5px;
+    z-index: 4;
+  }
+
+  .name-row {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-height: 27px;
+  }
+
+  .loading-cell {
+    padding: 0;
+    border-top: none;
   }
 `;
