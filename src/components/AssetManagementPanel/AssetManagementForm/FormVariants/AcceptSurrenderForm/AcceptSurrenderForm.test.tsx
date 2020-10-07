@@ -5,6 +5,7 @@ import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AcceptSurrenderForm } from "./AcceptSurrenderForm";
 import { act } from "react-dom/test-utils";
+import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
 
 describe("Accept surrender", () => {
   it("should have the accept surrender button and accept surrender button", async () => {
@@ -54,24 +55,33 @@ describe("Accept surrender", () => {
     });
   });
 
-  it("should change the state of the application to Confirmed when we clicked on reject surrender", async () => {
+  it("should show overlay confirmation when we clicked on reject surrender and confirm overlay", async () => {
     await act(async () => {
       const mockHandleRejectSurrender = jest.fn();
 
       const container = render(
-        <AcceptSurrenderForm
-          setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
-          setFormActionNone={() => {}}
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          acceptSurrenderingState={FormState.UNINITIALIZED}
-          handleAcceptSurrender={() => {}}
-          rejectSurrenderingState={FormState.UNINITIALIZED}
-          handleRejectSurrender={mockHandleRejectSurrender}
-          tokenId=""
-        />
+        <OverlayContext.Provider
+          value={{
+            overlayContent: undefined,
+            showOverlay: mockHandleRejectSurrender,
+            isOverlayVisible: false,
+            setOverlayVisible: () => {},
+          }}
+        >
+          <AcceptSurrenderForm
+            setShowEndorsementChain={() => {}}
+            formAction={AssetManagementActions.Surrender}
+            setFormActionNone={() => {}}
+            tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+            beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+            holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+            acceptSurrenderingState={FormState.UNINITIALIZED}
+            handleAcceptSurrender={() => {}}
+            rejectSurrenderingState={FormState.UNINITIALIZED}
+            handleRejectSurrender={() => {}}
+            tokenId=""
+          />
+        </OverlayContext.Provider>
       );
 
       fireEvent.click(container.getByTestId("rejectSurrenderBtn"));

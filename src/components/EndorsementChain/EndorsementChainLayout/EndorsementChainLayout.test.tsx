@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
-import { TitleEscrowEvent } from "../../../types";
+import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
 
 jest.mock("../../../common/hooks/useIdentifierResolver");
@@ -22,6 +22,22 @@ const sampleEndorsementChain: TitleEscrowEvent[] = [
         timestamp: 1594608809000,
       },
     ],
+  },
+];
+
+const sampleSurrenderEndorsementChain: TradeTrustErc721Event[] = [
+  {
+    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    eventType: "Surrender",
+    eventTimestamp: 1594608110000,
+  },
+];
+
+const sampleBurntEndorsementChain: TradeTrustErc721Event[] = [
+  {
+    documentOwner: "0x000000000000000000000000000000000000dEaD",
+    eventType: "Burnt",
+    eventTimestamp: 1594608809000,
   },
 ];
 
@@ -48,6 +64,30 @@ describe("EndorsementChainLayout", () => {
     expect(screen.getAllByText("Date")).toHaveLength(1);
     expect(screen.getAllByText("Owner")).toHaveLength(1);
     expect(screen.getAllByText("Holder")).toHaveLength(1);
+  });
+
+  it("should render text Surrendered to Issuer if surrender event present", () => {
+    render(
+      <EndorsementChainLayout
+        error={""}
+        pending={false}
+        endorsementChain={sampleSurrenderEndorsementChain}
+        setShowEndorsementChain={() => {}}
+      />
+    );
+    expect(screen.getAllByText("Surrendered To Issuer")).toHaveLength(1);
+  });
+
+  it("should render text Surrendered if burnt event is present", () => {
+    render(
+      <EndorsementChainLayout
+        error={""}
+        pending={false}
+        endorsementChain={sampleBurntEndorsementChain}
+        setShowEndorsementChain={() => {}}
+      />
+    );
+    expect(screen.getAllByText("Surrendered Accepted")).toHaveLength(1);
   });
 
   it("should fire setShowEndorsementChain when back button is clicked", async () => {

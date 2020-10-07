@@ -48,7 +48,11 @@ const ButtonConfirmAction = (handleOnClick: () => void) => {
     handleOnClick();
     setOverlayVisible(false);
   };
-  return <ButtonSolidOrangeWhite onClick={onClick}>Confirm</ButtonSolidOrangeWhite>;
+  return (
+    <ButtonSolidOrangeWhite onClick={onClick} data-testid={"confirmActionBtn"}>
+      Confirm
+    </ButtonSolidOrangeWhite>
+  );
 };
 
 interface DocumentTransferMessageProps extends OverlayContentProps {
