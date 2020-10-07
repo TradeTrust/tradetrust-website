@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { getData, WrappedDocument } from "@govtechsg/open-attestation";
 import { mixin, vars } from "../../styles";
@@ -7,7 +7,8 @@ import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
 import { Printer, Mail, Download } from "react-feather";
 import { ButtonIconWhiteBlue } from "../UI/Button";
 import { Popover, OverlayTrigger } from "react-bootstrap";
-import { QRCode } from "react-qr-svg";
+import QRCode, { ImageSettings } from "qrcode.react";
+import { getDimensions } from "./../../common/utils/logo";
 
 interface DocumentUtilityProps {
   document: WrappedDocument;
@@ -24,11 +25,29 @@ export const DocumentUtilityUnStyled = ({
 }: DocumentUtilityProps) => {
   const fileName = getData(document).name;
   const qrcodeUrl = getData(document)?.links?.self?.href ?? "";
+  const logoUrl = getData(document)?.logo;
+  const [imageSettings, setImageSettings] = useState<ImageSettings>();
 
+  if (logoUrl) {
+    const img: HTMLImageElement = new Image();
+    img.src = logoUrl;
+    img.onload = () => {
+      const logoSize = getDimensions({ width: img.width, height: img.height, maxWidth: 100, maxHeight: 100 });
+
+      setImageSettings({
+        src: logoUrl,
+        x: undefined,
+        y: undefined,
+        height: Math.round(logoSize.height),
+        width: Math.round(logoSize.width),
+        excavate: true,
+      });
+    };
+  }
   const qrCodePopover = (url: string) => (
     <Popover id="qr-code-popover" style={{ borderRadius: 0, border: "1px solid #DDDDDD" }}>
-      <Popover.Content style={{ padding: 0 }}>
-        <QRCode bgColor="#FFFFFF" fgColor="#000000" level="Q" style={{ width: 200, padding: "10px" }} value={url} />
+      <Popover.Content data-testid="qr-code-svg" style={{ padding: "10px" }}>
+        <QRCode value={url} level="Q" size={200} bgColor="#FFFFFF" fgColor="#000000" imageSettings={imageSettings} />
       </Popover.Content>
     </Popover>
   );
