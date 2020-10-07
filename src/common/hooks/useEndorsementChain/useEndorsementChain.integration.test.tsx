@@ -26,7 +26,7 @@ describe("useEndorsementChain|integration", () => {
         () => {
           expect(result.current.endorsementChain).toBeTruthy();
         },
-        { timeout: 20000 }
+        { timeout: 40000 }
       );
     });
     expect(result.current.endorsementChain).toEqual([
@@ -91,5 +91,44 @@ describe("useEndorsementChain|integration", () => {
     ]);
     expect(result.current.error).toBe("");
     expect(result.current.pending).toBe(false);
-  }, 30000);
+  }, 50000);
+
+  it("should work correctly for a given document which has been burnt", async () => {
+    const { result } = renderHook(() =>
+      useEndorsementChain(
+        "0x13249BA1Ec6B957Eb35D34D7b9fE5D91dF225B5B",
+        "0x4e05991d64ceb7192f0836e66dcfcb2cb835c418e5b449b9ea4a8b5ff093a111"
+      )
+    );
+    await act(async () => {
+      await waitFor(
+        () => {
+          expect(result.current.endorsementChain).toBeTruthy();
+        },
+        { timeout: 40000 }
+      );
+    });
+    expect(result.current.endorsementChain).toEqual([
+      {
+        eventType: "Transfer",
+        documentOwner: "0x07117cCE985E750D1709191BC2a345AbA85b6993",
+        beneficiary: "0x1245e5B64D785b25057f7438F715f4aA5D965733",
+        holderChangeEvents: [
+          { blockNumber: 8829273, holder: "0x1245e5B64D785b25057f7438F715f4aA5D965733", timestamp: 1602050689000 },
+        ],
+      },
+      {
+        eventType: "Surrender",
+        documentOwner: "0x13249BA1Ec6B957Eb35D34D7b9fE5D91dF225B5B",
+        eventTimestamp: 1602050791000,
+      },
+      {
+        eventType: "Burnt",
+        documentOwner: "0x000000000000000000000000000000000000dEaD",
+        eventTimestamp: 1602050827000,
+      },
+    ]);
+    expect(result.current.error).toBe("");
+    expect(result.current.pending).toBe(false);
+  }, 50000);
 });
