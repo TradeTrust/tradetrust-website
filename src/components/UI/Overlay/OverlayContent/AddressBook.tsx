@@ -106,9 +106,9 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
           setIsSearchingThirdParty(false);
         });
     }
-  }, 500);
+  }, 300);
 
-  const setSearchResultsForThirdParty = (search: string) => {
+  const getSearchResultsForThirdParty = (search: string) => {
     if (search.length > 2 && addressBookDropdown.name !== "Local") {
       setIsSearchingThirdParty(true);
       queryEndpoint(search);
@@ -122,7 +122,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
   const onSearchTermChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value;
     setSearchTerm(inputText);
-    setSearchResultsForThirdParty(inputText);
+    getSearchResultsForThirdParty(inputText);
   };
 
   const onAddressBookNameDropdown = (item: AddressBookDropdownProps) => {
