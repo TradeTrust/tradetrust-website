@@ -3,7 +3,6 @@ import { OverlayContentBaseStyle } from "./../Overlay";
 import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
 import styled from "@emotion/styled";
-import { useAddressBook } from "../../../../common/hooks/useAddressBook";
 import { Search, Download } from "react-feather";
 import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
 import { AnchorLinkButtonSolidWhiteBlue } from "../../../UI/Button";
@@ -12,11 +11,12 @@ import { OverlayContext } from "./../../../../common/contexts/OverlayContext";
 import { Dropdown } from "react-bootstrap";
 import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPartyAPIEndpoints";
 import axios from "axios";
-import { AddressBookTable } from "./AddressBookTable";
 import { HeadersProps } from "./../../../../services/addressResolver";
 import { debounce } from "lodash";
+import { AddressBookLocal } from "./AddressBookLocal";
+import { AddressBookThirdParty } from "./AddressBookThirdParty";
 
-export interface AddressBookThirdPartyProps {
+export interface AddressBookThirdPartyResultsProps {
   identifier: string;
   name: string;
   remarks: string;
@@ -73,12 +73,12 @@ const LocalDropdown: AddressBookDropdownProps = {
 export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
-
   const [searchTerm, setSearchTerm] = useState("");
   const [addressBookDropdown, setAddressBookDropdown] = useState<AddressBookDropdownProps>(LocalDropdown);
-
-  const { addressBook } = useAddressBook(); // this will be addressBookLocal
-  const [addressBookThirdParty, setAddressBookThirdParty] = useState<AddressBookThirdPartyProps[]>([]);
+  const [addressBookThirdPartyResults, setAddressBookThirdPartyResults] = useState<AddressBookThirdPartyResultsProps[]>(
+    []
+  );
+  const [isSearchingThirdParty, setIsSearchingThirdParty] = useState(false);
 
   const onAddressSelect = (address: string) => {
     if (onAddressSelected) {
@@ -97,19 +97,25 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
           headers,
         })
         .then((response) => {
-          setAddressBookThirdParty(response.data.identities);
+          setAddressBookThirdPartyResults(response.data.identities);
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          setIsSearchingThirdParty(false);
         });
     }
   }, 500);
 
   const setSearchResultsForThirdParty = (search: string) => {
     if (search.length > 2 && addressBookDropdown.name !== "Local") {
+      setIsSearchingThirdParty(true);
       queryEndpoint(search);
     } else {
-      setAddressBookThirdParty([]);
+      setIsSearchingThirdParty(false);
+      queryEndpoint.cancel();
+      setAddressBookThirdPartyResults([]);
     }
   };
 
@@ -122,7 +128,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
   const onAddressBookNameDropdown = (item: AddressBookDropdownProps) => {
     setAddressBookDropdown(item);
     setSearchTerm("");
-    setAddressBookThirdParty([]);
+    setAddressBookThirdPartyResults([]);
   };
 
   return (
@@ -190,13 +196,19 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
           </div>
         </div>
       </div>
-      <AddressBookTable
-        addressBookDropdown={addressBookDropdown}
-        addressBookLocal={addressBook}
-        addressBookThirdParty={addressBookThirdParty}
-        searchTerm={searchTerm}
-        onAddressSelect={onAddressSelect}
-      />
+      <div className="table-responsive">
+        <table className="table">
+          {addressBookDropdown.name === "Local" ? (
+            <AddressBookLocal onAddressSelect={onAddressSelect} searchTerm={searchTerm} />
+          ) : (
+            <AddressBookThirdParty
+              onAddressSelect={onAddressSelect}
+              addressBookThirdPartyResults={addressBookThirdPartyResults}
+              isSearchingThirdParty={isSearchingThirdParty}
+            />
+          )}
+        </table>
+      </div>
     </OverlayContent>
   );
 })`
