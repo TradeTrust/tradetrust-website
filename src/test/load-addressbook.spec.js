@@ -28,6 +28,9 @@ test("AddressBook local names to be resolved correctly, search filtered to 1", a
   await validateTextContent(t, HolderName, ["DBS"]);
 
   await t.typeText(OverlayAddressBookSearchInput, "Bank of China");
-  await t.expect(OverlayAddressBookTableFirstRow.visible).ok();
+  await t.expect(OverlayAddressBookTableFirstRow.nextSibling().visible).notOk();
+
+  await t.selectText(OverlayAddressBookSearchInput).pressKey("delete");
+  await t.typeText(OverlayAddressBookSearchInput, "0x2");
   await t.expect(OverlayAddressBookTableFirstRow.nextSibling().visible).notOk();
 });

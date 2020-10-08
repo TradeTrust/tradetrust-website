@@ -197,17 +197,15 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
         </div>
       </div>
       <div className="table-responsive">
-        <table className="table">
-          {addressBookDropdown.name === "Local" ? (
-            <AddressBookLocal onAddressSelect={onAddressSelect} searchTerm={searchTerm} />
-          ) : (
-            <AddressBookThirdParty
-              onAddressSelect={onAddressSelect}
-              addressBookThirdPartyResults={addressBookThirdPartyResults}
-              isSearchingThirdParty={isSearchingThirdParty}
-            />
-          )}
-        </table>
+        {addressBookDropdown.name === "Local" ? (
+          <AddressBookLocal onAddressSelect={onAddressSelect} searchTerm={searchTerm} />
+        ) : (
+          <AddressBookThirdParty
+            onAddressSelect={onAddressSelect}
+            addressBookThirdPartyResults={addressBookThirdPartyResults}
+            isSearchingThirdParty={isSearchingThirdParty}
+          />
+        )}
       </div>
     </OverlayContent>
   );

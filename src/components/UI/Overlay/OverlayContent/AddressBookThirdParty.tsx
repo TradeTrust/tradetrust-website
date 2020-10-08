@@ -15,7 +15,7 @@ export const AddressBookThirdParty = ({
   isSearchingThirdParty,
 }: AddressBookThirdPartyProps) => {
   return (
-    <>
+    <table className="table">
       <thead className="table-thead">
         <tr>
           <th>Name</th>
@@ -45,6 +45,6 @@ export const AddressBookThirdParty = ({
           })
         )}
       </tbody>
-    </>
+    </table>
   );
 };

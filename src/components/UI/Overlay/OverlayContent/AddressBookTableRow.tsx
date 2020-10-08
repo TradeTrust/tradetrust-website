@@ -20,7 +20,7 @@ export const AddressBookTableRow = ({
   const addressHref = makeEtherscanAddressURL(address);
 
   return (
-    <tr className={className} onClick={onAddressSelect}>
+    <tr className={className} onClick={onAddressSelect} data-testid="table-row">
       <th>{name}</th>
       <td>{address}</td>
       {remarks && <td>{remarks}</td>}
@@ -39,7 +39,7 @@ interface AddressBookTableRowEmptyProps {
 
 export const AddressBookTableRowEmpty = ({ message }: AddressBookTableRowEmptyProps) => {
   return (
-    <tr>
+    <tr data-testid="table-row">
       <th>&mdash;</th>
       <td>{message}</td>
     </tr>

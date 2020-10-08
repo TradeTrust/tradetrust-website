@@ -19,7 +19,7 @@ export const AddressBookLocal = ({ onAddressSelect, searchTerm }: AddressBookLoc
   });
 
   return (
-    <>
+    <table className="table">
       <thead className="table-thead">
         <tr>
           <th>Name</th>
@@ -49,6 +49,6 @@ export const AddressBookLocal = ({ onAddressSelect, searchTerm }: AddressBookLoc
           })
         )}
       </tbody>
-    </>
+    </table>
   );
 };
