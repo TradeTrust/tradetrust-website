@@ -47,10 +47,10 @@ export const NotLoggedIn = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -92,10 +92,10 @@ export const NoMatch = () => {
         transferToNewEscrowState={FormState.UNINITIALIZED}
         isTitleEscrow={true}
         onAcceptSurrender={() => alert("Accept document surrender")}
-        acceptSurrenderingState={FormState.UNINITIALIZED}
+        destroyingTokenState={FormState.UNINITIALIZED}
         isTokenBurnt={false}
         onRejectSurrender={() => alert("Reject document surrender")}
-        rejectSurrenderingState={FormState.UNINITIALIZED}
+        restoreTokenState={FormState.UNINITIALIZED}
         tokenId=""
       />
     </OverlayContextProvider>
@@ -136,10 +136,10 @@ export const BeneficiaryAndHolder = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -179,10 +179,10 @@ export const Beneficiary = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -222,10 +222,10 @@ export const Holder = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -265,10 +265,10 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -308,10 +308,10 @@ export const SurrenderPending = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -351,10 +351,10 @@ export const Surrendered = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -394,10 +394,10 @@ export const TransferHolderError = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -437,10 +437,10 @@ export const TransferHolderPending = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -480,10 +480,10 @@ export const EndorseChangeBeneficiaryError = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -523,10 +523,10 @@ export const EndorseChangeBeneficiaryPending = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -566,10 +566,10 @@ export const NominateBeneficiaryAndHolderError = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -609,10 +609,10 @@ export const NominateBeneficiaryAndHolderPending = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -652,10 +652,10 @@ export const EndorseTransferHolderBeneficiary = () => {
       transferToNewEscrowState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );
@@ -695,10 +695,10 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       transferToNewEscrowState={FormState.PENDING_CONFIRMATION}
       isTitleEscrow={true}
       onAcceptSurrender={() => alert("Accept document surrender")}
-      acceptSurrenderingState={FormState.UNINITIALIZED}
+      destroyingTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
       onRejectSurrender={() => alert("Reject document surrender")}
-      rejectSurrenderingState={FormState.UNINITIALIZED}
+      restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
     />
   );

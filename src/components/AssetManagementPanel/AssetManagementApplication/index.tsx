@@ -29,7 +29,7 @@ export const AssetManagementApplication = ({
     endorseBeneficiaryState,
     transferTo,
     transferToState,
-    acceptSurrenderingState,
+    destroyingTokenState,
     destroyToken,
     isSurrendered,
     isTokenBurnt,
@@ -63,8 +63,8 @@ export const AssetManagementApplication = ({
     destroyToken(tokenId);
   };
 
-  const onRejectSurrender = (lastBeneficary: string) => {
-    restoreToken(lastBeneficary);
+  const onRejectSurrender = (lastBeneficiary: string) => {
+    restoreToken(lastBeneficiary, lastBeneficiary);
   };
 
   const onSetFormAction = useCallback(
@@ -95,7 +95,7 @@ export const AssetManagementApplication = ({
             tokenRegistryAddress={tokenRegistryAddress}
             onSetFormAction={onSetFormAction}
             surrenderingState={transferToState}
-            acceptSurrenderingState={acceptSurrenderingState}
+            destroyingTokenState={destroyingTokenState}
             onSurrender={onSurrender}
             onTransferHolder={changeHolder}
             holderTransferringState={changeHolderState}
@@ -112,7 +112,7 @@ export const AssetManagementApplication = ({
             isMinter={isMinter?.[0]}
             onAcceptSurrender={onAcceptSurrender}
             onRejectSurrender={onRejectSurrender}
-            rejectSurrenderingState={restoreTokenState}
+            restoreTokenState={restoreTokenState}
             tokenId={tokenId}
           />
         )}

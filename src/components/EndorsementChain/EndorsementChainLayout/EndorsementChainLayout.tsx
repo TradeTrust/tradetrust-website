@@ -7,6 +7,9 @@ import { ArrowLeft } from "react-feather";
 import { AddressCell } from "./AddressCell";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
+import { getLogger } from "../../../utils/logger";
+
+const { trace } = getLogger("component: endorsementchainlayout");
 
 interface EndorsementChainLayout {
   endorsementChain?: TradeTrustErc721Event[];
@@ -29,6 +32,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
   let index = 0;
   endorsementChain &&
     endorsementChain.forEach((tradetrustErc721Event, eventIndex) => {
+      // default not needed as eventType has only 3 possibilities which are all accounted for
       switch (tradetrustErc721Event.eventType) {
         case "Transfer":
           const beneficiaryChangeEvent = tradetrustErc721Event as TitleEscrowEvent;
@@ -61,7 +65,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
             previousBeneficiary = beneficiaryChangeEvent.beneficiary;
             previousHolder = holderChangeEvent.holder;
           });
-          return;
+          break;
         case "Surrender":
           tableRows.push(
             <tr className="table-row" key={index++}>
@@ -76,7 +80,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
               </td>
             </tr>
           );
-          return;
+          break;
         case "Burnt":
           tableRows.push(
             <tr className="table-row" key={index++}>
@@ -91,7 +95,10 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
               </td>
             </tr>
           );
-          return;
+          break;
+        default:
+          trace("Unknown event type please check event history");
+          break;
       }
     });
 

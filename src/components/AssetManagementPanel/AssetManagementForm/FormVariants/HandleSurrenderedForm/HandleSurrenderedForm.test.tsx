@@ -3,26 +3,47 @@ import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
-import { AcceptSurrenderForm } from "./AcceptSurrenderForm";
+import { HandleSurrenderedForm } from "./HandleSurrenderedForm";
 import { act } from "react-dom/test-utils";
 import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
+import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 
-describe("Accept surrender", () => {
+jest.mock("../../../../../common/hooks/useEndorsementChain");
+
+const mockUseFeatureFlagOverride = useEndorsementChain as jest.Mock;
+const sampleEndorsementChain = [
+  {
+    eventType: "Transfer",
+    documentOwner: "0x07117cCE985E750D1709191BC2a345AbA85b6993",
+    beneficiary: "0x1245e5B64D785b25057f7438F715f4aA5D965733",
+    holderChangeEvents: [
+      { blockNumber: 8829273, holder: "0x1245e5B64D785b25057f7438F715f4aA5D965733", timestamp: 1602050689000 },
+    ],
+  },
+];
+
+describe("Handle surrendered", () => {
+  beforeEach(() => {
+    jest.resetModules(); // this is important - it clears the cache
+    mockUseFeatureFlagOverride.mockReturnValue({
+      endorsementChain: sampleEndorsementChain,
+    });
+  });
   it("should have the accept surrender button and accept surrender button", async () => {
     await act(async () => {
       const container = render(
-        <AcceptSurrenderForm
+        <HandleSurrenderedForm
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          acceptSurrenderingState={FormState.UNINITIALIZED}
+          destroyingTokenState={FormState.UNINITIALIZED}
           handleAcceptSurrender={() => {}}
-          rejectSurrenderingState={FormState.UNINITIALIZED}
+          restoreTokenState={FormState.UNINITIALIZED}
           handleRejectSurrender={() => {}}
-          tokenId=""
+          tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
       expect(container.queryByTestId("rejectSurrenderBtn")).not.toBeNull();
@@ -35,18 +56,18 @@ describe("Accept surrender", () => {
       const mockHandleAcceptSurrender = jest.fn();
 
       const container = render(
-        <AcceptSurrenderForm
+        <HandleSurrenderedForm
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          acceptSurrenderingState={FormState.UNINITIALIZED}
+          destroyingTokenState={FormState.UNINITIALIZED}
           handleAcceptSurrender={mockHandleAcceptSurrender}
-          rejectSurrenderingState={FormState.UNINITIALIZED}
+          restoreTokenState={FormState.UNINITIALIZED}
           handleRejectSurrender={() => {}}
-          tokenId=""
+          tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
 
@@ -68,18 +89,18 @@ describe("Accept surrender", () => {
             setOverlayVisible: () => {},
           }}
         >
-          <AcceptSurrenderForm
+          <HandleSurrenderedForm
             setShowEndorsementChain={() => {}}
             formAction={AssetManagementActions.Surrender}
             setFormActionNone={() => {}}
             tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
             beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
             holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-            acceptSurrenderingState={FormState.UNINITIALIZED}
+            destroyingTokenState={FormState.UNINITIALIZED}
             handleAcceptSurrender={() => {}}
-            rejectSurrenderingState={FormState.UNINITIALIZED}
+            restoreTokenState={FormState.UNINITIALIZED}
             handleRejectSurrender={() => {}}
-            tokenId=""
+            tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
           />
         </OverlayContext.Provider>
       );
@@ -92,18 +113,18 @@ describe("Accept surrender", () => {
   it("should show a loader when the accept surrender state is in PENDING_CONFIRMATION", async () => {
     await act(async () => {
       const container = render(
-        <AcceptSurrenderForm
+        <HandleSurrenderedForm
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          acceptSurrenderingState={FormState.PENDING_CONFIRMATION}
+          destroyingTokenState={FormState.PENDING_CONFIRMATION}
           handleAcceptSurrender={() => {}}
-          rejectSurrenderingState={FormState.UNINITIALIZED}
+          restoreTokenState={FormState.UNINITIALIZED}
           handleRejectSurrender={() => {}}
-          tokenId=""
+          tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
 
@@ -114,18 +135,18 @@ describe("Accept surrender", () => {
   it("should show a loader when the reject surrender state is in PENDING_CONFIRMATION", async () => {
     await act(async () => {
       const container = render(
-        <AcceptSurrenderForm
+        <HandleSurrenderedForm
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          acceptSurrenderingState={FormState.UNINITIALIZED}
+          destroyingTokenState={FormState.UNINITIALIZED}
           handleAcceptSurrender={() => {}}
-          rejectSurrenderingState={FormState.PENDING_CONFIRMATION}
+          restoreTokenState={FormState.PENDING_CONFIRMATION}
           handleRejectSurrender={() => {}}
-          tokenId=""
+          tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
 
@@ -139,18 +160,18 @@ describe("Accept surrender", () => {
       const mockHandleRejectSurrender = jest.fn();
 
       const container = render(
-        <AcceptSurrenderForm
+        <HandleSurrenderedForm
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          acceptSurrenderingState={FormState.PENDING_CONFIRMATION}
+          destroyingTokenState={FormState.PENDING_CONFIRMATION}
           handleAcceptSurrender={mockHandleAcceptSurrender}
-          rejectSurrenderingState={FormState.UNINITIALIZED}
+          restoreTokenState={FormState.UNINITIALIZED}
           handleRejectSurrender={mockHandleRejectSurrender}
-          tokenId=""
+          tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
 
@@ -167,18 +188,18 @@ describe("Accept surrender", () => {
       const mockHandleRejectSurrender = jest.fn();
 
       const container = render(
-        <AcceptSurrenderForm
+        <HandleSurrenderedForm
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          acceptSurrenderingState={FormState.UNINITIALIZED}
+          destroyingTokenState={FormState.UNINITIALIZED}
           handleAcceptSurrender={mockHandleAcceptSurrender}
-          rejectSurrenderingState={FormState.PENDING_CONFIRMATION}
+          restoreTokenState={FormState.PENDING_CONFIRMATION}
           handleRejectSurrender={mockHandleRejectSurrender}
-          tokenId=""
+          tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
 

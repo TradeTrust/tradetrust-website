@@ -59,14 +59,14 @@ interface DocumentTransferMessageProps extends OverlayContentProps {
   children: React.ReactNode;
   isButtonMetamaskInstall?: boolean;
   isConfirmationMessage?: boolean;
-  onConfirmaionAction?: () => void;
+  onConfirmationAction?: () => void;
 }
 
 export const DocumentTransferMessage = styled(
   ({
     isButtonMetamaskInstall,
     isConfirmationMessage,
-    onConfirmaionAction,
+    onConfirmationAction,
     children,
     ...props
   }: DocumentTransferMessageProps) => {
@@ -74,13 +74,13 @@ export const DocumentTransferMessage = styled(
       if (isButtonMetamaskInstall) {
         return <ButtonMetamaskInstall />;
       }
-      if (isConfirmationMessage && onConfirmaionAction) {
+      if (isConfirmationMessage && onConfirmationAction) {
         return (
           <div className="row no-gutters">
             <div className="col-auto ml-2">
               <ButtonClose />
             </div>
-            <div className="col-auto ml-2">{ButtonConfirmAction(onConfirmaionAction)}</div>
+            <div className="col-auto ml-2">{ButtonConfirmAction(onConfirmationAction)}</div>
           </div>
         );
       }
@@ -215,7 +215,7 @@ interface ShowDocumentTransferMessageOptionProps {
   beneficiaryAddress?: string;
   holderAddress?: string;
   isButtonMetamaskInstall?: boolean;
-  onConfirmaionAction?: () => void;
+  onConfirmationAction?: () => void;
   isConfirmationMessage?: boolean;
 }
 
@@ -225,7 +225,7 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       title={title}
       isSuccess={option.isSuccess}
       isButtonMetamaskInstall={option.isButtonMetamaskInstall}
-      onConfirmaionAction={option.onConfirmaionAction}
+      onConfirmationAction={option.onConfirmationAction}
       isConfirmationMessage={option.isConfirmationMessage}
     >
       {title === MessageTitle.NO_METAMASK && <MessageNoMetamask />}

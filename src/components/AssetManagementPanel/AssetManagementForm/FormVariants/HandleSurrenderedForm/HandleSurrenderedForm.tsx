@@ -5,75 +5,78 @@ import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
-import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
+import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
 import {
   MessageTitle,
   showDocumentTransferMessage,
-} from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
+} from "../../../../UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { TitleEscrowEvent } from "../../../../../types";
 
-interface AcceptSurrenderFormProps {
+interface HandleSurrenderedFormProps {
   tokenId: string;
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
   handleAcceptSurrender: () => void;
-  acceptSurrenderingState: string;
+  destroyingTokenState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
-  handleRejectSurrender: (lastBeneficary: string) => void;
-  rejectSurrenderingState: string;
+  handleRejectSurrender: (lastBeneficiary: string) => void;
+  restoreTokenState: string;
 }
 
-export const AcceptSurrenderForm = ({
+export const HandleSurrenderedForm = ({
   tokenId,
   formAction,
   tokenRegistryAddress,
   handleAcceptSurrender,
-  acceptSurrenderingState,
+  destroyingTokenState,
   setFormActionNone,
   setShowEndorsementChain,
   handleRejectSurrender,
-  rejectSurrenderingState,
-}: AcceptSurrenderFormProps) => {
+  restoreTokenState,
+}: HandleSurrenderedFormProps) => {
   const { showOverlay } = useContext(OverlayContext);
   const { endorsementChain } = useEndorsementChain(tokenRegistryAddress, tokenId);
 
-  const isAcceptSurrenderingPendingConfirmation = acceptSurrenderingState === FormState.PENDING_CONFIRMATION;
-  const isRejectSurrenderingPendingConfirmation = rejectSurrenderingState === FormState.PENDING_CONFIRMATION;
-  const isPendingConfirmation = isAcceptSurrenderingPendingConfirmation || isRejectSurrenderingPendingConfirmation;
-  const isAcceptSurrenderConfirmed = acceptSurrenderingState === FormState.CONFIRMED;
-  const isRejectSurrenderConfirmed = rejectSurrenderingState === FormState.CONFIRMED;
+  const isDestroyTokenPendingConfirmation = destroyingTokenState === FormState.PENDING_CONFIRMATION;
+  const isRestoreTokenPendingConfirmation = restoreTokenState === FormState.PENDING_CONFIRMATION;
+  const isPendingConfirmation = isDestroyTokenPendingConfirmation || isRestoreTokenPendingConfirmation;
+  const isDestroyTokenConfirmed = destroyingTokenState === FormState.CONFIRMED;
+  const isRestoreTokenConfirmed = restoreTokenState === FormState.CONFIRMED;
 
   const lastTransferEvent = endorsementChain
     ?.filter(({ eventType }) => eventType === "Transfer")
     .pop() as TitleEscrowEvent;
-  const lastBeneficary = lastTransferEvent?.beneficiary;
+  const lastBeneficiary = lastTransferEvent?.beneficiary;
 
   const onClickRejectSurrender = () => {
     showOverlay(
       showDocumentTransferMessage(MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT, {
         isSuccess: true,
-        beneficiaryAddress: lastBeneficary,
+        beneficiaryAddress: lastBeneficiary || "Loading...",
         isConfirmationMessage: true,
-        onConfirmaionAction: () => handleRejectSurrender(lastBeneficary),
+        onConfirmationAction: () => handleRejectSurrender(lastBeneficiary),
       })
     );
   };
 
   useEffect(() => {
-    if (isAcceptSurrenderConfirmed) {
+    if (isDestroyTokenConfirmed) {
       showOverlay(showDocumentTransferMessage(MessageTitle.ACCEPT_SURRENDER_DOCUMENT, { isSuccess: true }));
       setFormActionNone();
     }
-    if (isRejectSurrenderConfirmed) {
-      showOverlay(showDocumentTransferMessage(MessageTitle.REJECT_SURRENDER_DOCUMENT, { isSuccess: false }));
+  }, [showOverlay, setFormActionNone, isDestroyTokenConfirmed]);
+
+  useEffect(() => {
+    if (isRestoreTokenConfirmed) {
+      showOverlay(showDocumentTransferMessage(MessageTitle.REJECT_SURRENDER_DOCUMENT, { isSuccess: true }));
       setFormActionNone();
     }
-  }, [isAcceptSurrenderConfirmed, showOverlay, setFormActionNone, isRejectSurrenderConfirmed]);
+  }, [showOverlay, setFormActionNone, isRestoreTokenConfirmed]);
 
   return (
     <div className="row py-3">
@@ -105,7 +108,7 @@ export const AcceptSurrenderForm = ({
                   disabled={isPendingConfirmation}
                   data-testid={"rejectSurrenderBtn"}
                 >
-                  {isRejectSurrenderingPendingConfirmation ? (
+                  {isRestoreTokenPendingConfirmation ? (
                     <LoaderSpinner data-testid={"reject-loader"} />
                   ) : (
                     <>Reject Document</>
@@ -118,7 +121,7 @@ export const AcceptSurrenderForm = ({
                   disabled={isPendingConfirmation}
                   data-testid={"acceptSurrenderBtn"}
                 >
-                  {isAcceptSurrenderingPendingConfirmation ? (
+                  {isDestroyTokenPendingConfirmation ? (
                     <LoaderSpinner data-testid={"accept-loader"} />
                   ) : (
                     <>Shred Document</>

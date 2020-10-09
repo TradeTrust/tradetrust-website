@@ -67,7 +67,7 @@ export const AssetManagementDropdown = styled(
           {canAcceptSurrender && (
             <Dropdown.Item
               data-testid={"acceptSurrenderDropdown"}
-              onClick={() => onSetFormAction(AssetManagementActions.AcceptSurrender)}
+              onClick={() => onSetFormAction(AssetManagementActions.HandleSurrendered)}
             >
               Accept surrender of document
             </Dropdown.Item>
