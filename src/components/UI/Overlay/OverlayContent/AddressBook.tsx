@@ -10,17 +10,10 @@ import { vars } from "../../../../styles";
 import { OverlayContext } from "./../../../../common/contexts/OverlayContext";
 import { Dropdown } from "react-bootstrap";
 import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPartyAPIEndpoints";
-import axios from "axios";
-import { HeadersProps } from "./../../../../services/addressResolver";
 import { debounce } from "lodash";
 import { AddressBookLocal } from "./AddressBookLocal";
 import { AddressBookThirdParty } from "./AddressBookThirdParty";
-
-export interface AddressBookThirdPartyResultsProps {
-  identifier: string;
-  name: string;
-  remarks: string;
-}
+import { entityLookup, AddressBookThirdPartyResultsProps } from "../../../../services/addressResolver";
 
 export interface AddressBookDropdownProps {
   name: string;
@@ -87,33 +80,28 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
     }
   };
 
-  const queryEndpoint = debounce((search) => {
-    if (addressBookDropdown.apiHeader && addressBookDropdown.apiKey) {
-      const headers: HeadersProps = {};
-      headers[addressBookDropdown.apiHeader] = addressBookDropdown.apiKey;
+  const queryEndpoint = debounce(async (search) => {
+    setIsSearchingThirdParty(true);
 
-      axios
-        .get(`${addressBookDropdown.endpoint}search?q=${search}`, {
-          headers,
-        })
-        .then((response) => {
-          setAddressBookThirdPartyResults(response.data.identities);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setIsSearchingThirdParty(false);
-        });
+    try {
+      const results = await entityLookup({
+        query: search,
+        endpoint: addressBookDropdown.endpoint,
+        apiHeader: addressBookDropdown.apiHeader,
+        apiKey: addressBookDropdown.apiKey,
+      });
+      setAddressBookThirdPartyResults(results);
+    } catch (e) {
+      console.log(e, "error");
     }
+
+    setIsSearchingThirdParty(false);
   }, 300);
 
   const getSearchResultsForThirdParty = (search: string) => {
     if (search.length > 2 && addressBookDropdown.name !== "Local") {
-      setIsSearchingThirdParty(true);
       queryEndpoint(search);
     } else {
-      setIsSearchingThirdParty(false);
       queryEndpoint.cancel();
       setAddressBookThirdPartyResults([]);
     }
