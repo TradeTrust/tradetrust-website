@@ -56,22 +56,18 @@ const StyledDropdownItem = styled(Dropdown.Item)`
   }
 `;
 
-const LocalDropdown: AddressBookDropdownProps = {
-  name: "Local",
-  endpoint: "",
-  apiHeader: "",
-  apiKey: "",
-};
-
 export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
   const [searchTerm, setSearchTerm] = useState("");
-  const [addressBookDropdown, setAddressBookDropdown] = useState<AddressBookDropdownProps>(LocalDropdown);
+
+  const [isLocal, setIsLocal] = useState(true);
+  const [remoteEndpointIndex, setRemoteEndpointIndex] = useState(0);
+  const [isPendingRemoteResults, setIsPendingRemoteResults] = useState(false);
   const [addressBookThirdPartyResults, setAddressBookThirdPartyResults] = useState<AddressBookThirdPartyResultsProps[]>(
     []
   );
-  const [isSearchingThirdParty, setIsSearchingThirdParty] = useState(false);
+  const { name, endpoint, apiHeader, apiKey } = thirdPartyAPIEndpoints[remoteEndpointIndex];
 
   const onAddressSelect = (address: string) => {
     if (onAddressSelected) {
@@ -81,42 +77,29 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
   };
 
   const queryEndpoint = debounce(async (search) => {
-    setIsSearchingThirdParty(true);
+    setIsPendingRemoteResults(true);
 
     try {
       const results = await entityLookup({
         query: search,
-        endpoint: addressBookDropdown.endpoint,
-        apiHeader: addressBookDropdown.apiHeader,
-        apiKey: addressBookDropdown.apiKey,
+        endpoint,
+        apiHeader,
+        apiKey,
       });
       setAddressBookThirdPartyResults(results);
     } catch (e) {
+      setAddressBookThirdPartyResults([]);
+      queryEndpoint.cancel();
       console.log(e, "error");
     }
 
-    setIsSearchingThirdParty(false);
-  }, 300);
-
-  const getSearchResultsForThirdParty = (search: string) => {
-    if (search.length > 2 && addressBookDropdown.name !== "Local") {
-      queryEndpoint(search);
-    } else {
-      queryEndpoint.cancel();
-      setAddressBookThirdPartyResults([]);
-    }
-  };
+    setIsPendingRemoteResults(false);
+  }, 1000);
 
   const onSearchTermChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value;
     setSearchTerm(inputText);
-    getSearchResultsForThirdParty(inputText);
-  };
-
-  const onAddressBookNameDropdown = (item: AddressBookDropdownProps) => {
-    setAddressBookDropdown(item);
-    setSearchTerm("");
-    setAddressBookThirdPartyResults([]);
+    if (!isLocal) queryEndpoint(inputText);
   };
 
   return (
@@ -124,13 +107,14 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
       <div className="overlay-actionsbar">
         <Dropdown>
           <StyledDropdownButton variant="transparent" className="mb-2">
-            {addressBookDropdown.name}
+            {isLocal ? "Local" : name}
           </StyledDropdownButton>
 
           <Dropdown.Menu>
             <StyledDropdownItem
               onClick={() => {
-                onAddressBookNameDropdown(LocalDropdown);
+                setIsLocal(true);
+                setSearchTerm("");
               }}
             >
               Local
@@ -140,7 +124,9 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
                 <StyledDropdownItem
                   key={index}
                   onClick={() => {
-                    onAddressBookNameDropdown(item);
+                    setIsLocal(false);
+                    setSearchTerm("");
+                    setRemoteEndpointIndex(index);
                   }}
                 >
                   {item.name}
@@ -185,13 +171,13 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
         </div>
       </div>
       <div className="table-responsive">
-        {addressBookDropdown.name === "Local" ? (
+        {isLocal ? (
           <AddressBookLocal onAddressSelect={onAddressSelect} searchTerm={searchTerm} />
         ) : (
           <AddressBookThirdParty
             onAddressSelect={onAddressSelect}
             addressBookThirdPartyResults={addressBookThirdPartyResults}
-            isSearchingThirdParty={isSearchingThirdParty}
+            isSearchingThirdParty={isPendingRemoteResults}
           />
         )}
       </div>
