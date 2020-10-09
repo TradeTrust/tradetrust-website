@@ -67,7 +67,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
   const [addressBookThirdPartyResults, setAddressBookThirdPartyResults] = useState<AddressBookThirdPartyResultsProps[]>(
     []
   );
-  const { name, endpoint, apiHeader, apiKey } = thirdPartyAPIEndpoints[remoteEndpointIndex] ?? [];
+  const { name, endpoint, apiHeader, apiKey } = thirdPartyAPIEndpoints[remoteEndpointIndex] ?? {};
 
   const onAddressSelect = (address: string) => {
     if (onAddressSelected) {
