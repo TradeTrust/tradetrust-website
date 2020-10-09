@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import { OverlayContentBaseStyle } from "./../Overlay";
 import { TableStyle } from "./../../../AddressResolver/AddressesTable";
 import { OverlayContent, OverlayContentProps } from "./index";
@@ -76,25 +76,28 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
     }
   };
 
-  const queryEndpoint = debounce(async (search) => {
-    setIsPendingRemoteResults(true);
+  const queryEndpoint = useCallback(
+    debounce(async (search) => {
+      setIsPendingRemoteResults(true);
 
-    try {
-      const results = await entityLookup({
-        query: search,
-        endpoint,
-        apiHeader,
-        apiKey,
-      });
-      setAddressBookThirdPartyResults(results);
-    } catch (e) {
-      setAddressBookThirdPartyResults([]);
-      queryEndpoint.cancel();
-      console.log(e, "error");
-    }
+      try {
+        const results = await entityLookup({
+          query: search,
+          endpoint,
+          apiHeader,
+          apiKey,
+        });
+        setAddressBookThirdPartyResults(results);
+      } catch (e) {
+        setAddressBookThirdPartyResults([]);
+        queryEndpoint.cancel();
+        console.log(e, "error");
+      }
 
-    setIsPendingRemoteResults(false);
-  }, 1000);
+      setIsPendingRemoteResults(false);
+    }, 1000),
+    []
+  );
 
   const onSearchTermChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value;
