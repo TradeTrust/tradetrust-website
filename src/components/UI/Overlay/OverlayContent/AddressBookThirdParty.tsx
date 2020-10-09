@@ -1,5 +1,5 @@
 import React from "react";
-import { AddressBookThirdPartyResultsProps } from "./AddressBook";
+import { AddressBookThirdPartyResultsProps } from "../../../../services/addressResolver";
 import { isEmpty } from "lodash";
 import { AddressBookTableRow, AddressBookTableRowEmpty } from "./AddressBookTableRow";
 
