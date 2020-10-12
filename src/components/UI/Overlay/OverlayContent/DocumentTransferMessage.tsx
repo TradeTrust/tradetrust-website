@@ -15,7 +15,7 @@ export enum MessageTitle {
   SURRENDER_DOCUMENT_SUCCESS = "Surrender Document Success",
   ACCEPT_SURRENDER_DOCUMENT = "Surrender Accepted",
   REJECT_SURRENDER_DOCUMENT = "Surrender Rejected",
-  CONFIRM_REJECT_SURRENDER_DOCUMENT = "Confirm Reject Surrender",
+  CONFIRM_REJECT_SURRENDER_DOCUMENT = "Confirm Document Return",
   CHANGE_BENEFICIARY_SUCCESS = "Change Owner Success",
   NOMINATE_BENEFICIARY_HOLDER_SUCCESS = "Nomination Success",
   TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
