@@ -41,10 +41,10 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
           beneficiaryChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
             tableRows.push(
               <tr className="table-row" key={index++}>
-                <td className="table-cell date">
+                <td className="table-cell date border-top-none">
                   {format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}
                 </td>
-                <td className="table-cell endorsement-ui-dash">
+                <td className="table-cell endorsement-ui-dash border-top-none">
                   {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
                   <AddressCell
                     address={beneficiaryChangeEvent.beneficiary}
@@ -52,7 +52,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
                     newAddress={!(previousBeneficiary === beneficiaryChangeEvent.beneficiary)}
                   />
                 </td>
-                <td className="table-cell endorsement-ui-dash">
+                <td className="table-cell endorsement-ui-dash border-top-none">
                   {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
                   <AddressCell
                     address={holderChangeEvent.holder}

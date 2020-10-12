@@ -26,9 +26,9 @@ interface AssetManagementFormProps {
   onApproveNewTransferTargets: (newBeneficiary: string, newHolder: string) => void;
   onTransferToNewEscrow: (approvedBeneficiary: string, approvedHolder: string) => void;
   onSurrender: () => void;
-  onAcceptSurrender: () => void;
+  onDestroyToken: () => void;
   surrenderingState: string;
-  destroyingTokenState: string;
+  destroyTokenState: string;
   holderTransferringState: string;
   beneficiaryEndorseState: string;
   isSurrendered: boolean;
@@ -37,7 +37,7 @@ interface AssetManagementFormProps {
   transferToNewEscrowState: string;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
-  onRejectSurrender: (lastBeneficiary: string) => void;
+  onRestoreToken: (lastBeneficiary?: string, lastHolder?: string) => void;
   restoreTokenState: string;
   tokenId: string;
 }
@@ -53,9 +53,9 @@ export const AssetManagementForm = ({
   approvedHolder,
   onSetFormAction,
   surrenderingState,
-  destroyingTokenState,
+  destroyTokenState,
   onSurrender,
-  onAcceptSurrender,
+  onDestroyToken,
   documentOwner,
   isMinter,
   onTransferHolder,
@@ -70,7 +70,7 @@ export const AssetManagementForm = ({
   transferToNewEscrowState,
   setShowEndorsementChain,
   isTitleEscrow,
-  onRejectSurrender,
+  onRestoreToken,
   restoreTokenState,
   tokenId,
 }: AssetManagementFormProps) => {
@@ -98,7 +98,7 @@ export const AssetManagementForm = ({
   const setFormActionNone = () => {
     if (
       surrenderingState === FormState.PENDING_CONFIRMATION ||
-      destroyingTokenState === FormState.PENDING_CONFIRMATION ||
+      destroyTokenState === FormState.PENDING_CONFIRMATION ||
       holderTransferringState === FormState.PENDING_CONFIRMATION ||
       beneficiaryEndorseState === FormState.PENDING_CONFIRMATION ||
       approveNewTransferTargetsState === FormState.PENDING_CONFIRMATION ||
@@ -131,11 +131,11 @@ export const AssetManagementForm = ({
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
-          handleAcceptSurrender={onAcceptSurrender}
-          destroyingTokenState={destroyingTokenState}
+          handleDestroyToken={onDestroyToken}
+          destroyTokenState={destroyTokenState}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}
-          handleRejectSurrender={onRejectSurrender}
+          handleRestoreToken={onRestoreToken}
           restoreTokenState={restoreTokenState}
         />
       );

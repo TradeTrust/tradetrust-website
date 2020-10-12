@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
@@ -20,11 +20,11 @@ interface HandleSurrenderedFormProps {
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleAcceptSurrender: () => void;
-  destroyingTokenState: string;
+  handleDestroyToken: () => void;
+  destroyTokenState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
-  handleRejectSurrender: (lastBeneficiary: string) => void;
+  handleRestoreToken: (lastBeneficiary?: string, lastHolder?: string) => void;
   restoreTokenState: string;
 }
 
@@ -32,37 +32,48 @@ export const HandleSurrenderedForm = ({
   tokenId,
   formAction,
   tokenRegistryAddress,
-  handleAcceptSurrender,
-  destroyingTokenState,
+  handleDestroyToken,
+  destroyTokenState,
   setFormActionNone,
   setShowEndorsementChain,
-  handleRejectSurrender,
+  handleRestoreToken,
   restoreTokenState,
 }: HandleSurrenderedFormProps) => {
   const { showOverlay } = useContext(OverlayContext);
-  const { endorsementChain } = useEndorsementChain(tokenRegistryAddress, tokenId);
+  const { endorsementChain, pending } = useEndorsementChain(tokenRegistryAddress, tokenId);
+  const [lastBeneficiary, setLastBeneficiary] = useState<string>();
+  const [lastHolder, setLastHolder] = useState<string>();
 
-  const isDestroyTokenPendingConfirmation = destroyingTokenState === FormState.PENDING_CONFIRMATION;
+  const isDestroyTokenPendingConfirmation = destroyTokenState === FormState.PENDING_CONFIRMATION;
   const isRestoreTokenPendingConfirmation = restoreTokenState === FormState.PENDING_CONFIRMATION;
   const isPendingConfirmation = isDestroyTokenPendingConfirmation || isRestoreTokenPendingConfirmation;
-  const isDestroyTokenConfirmed = destroyingTokenState === FormState.CONFIRMED;
+  const isDestroyTokenConfirmed = destroyTokenState === FormState.CONFIRMED;
   const isRestoreTokenConfirmed = restoreTokenState === FormState.CONFIRMED;
-
-  const lastTransferEvent = endorsementChain
-    ?.filter(({ eventType }) => eventType === "Transfer")
-    .pop() as TitleEscrowEvent;
-  const lastBeneficiary = lastTransferEvent?.beneficiary;
 
   const onClickRejectSurrender = () => {
     showOverlay(
       showDocumentTransferMessage(MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT, {
         isSuccess: true,
         beneficiaryAddress: lastBeneficiary || "Loading...",
+        holderAddress: lastHolder || "Loading...",
         isConfirmationMessage: true,
-        onConfirmationAction: () => handleRejectSurrender(lastBeneficiary),
+        onConfirmationAction: () => handleRestoreToken(lastBeneficiary, lastHolder),
       })
     );
   };
+
+  useEffect(() => {
+    if (!pending) {
+      const lastTransferEvent = endorsementChain
+        ?.filter(({ eventType }) => eventType === "Transfer")
+        .pop() as TitleEscrowEvent;
+      const lastBeneficiary = lastTransferEvent?.beneficiary;
+      setLastBeneficiary(lastBeneficiary);
+      const lastHolderEvent = lastTransferEvent?.holderChangeEvents.pop();
+      const lastHolder = lastHolderEvent?.holder;
+      setLastHolder(lastHolder);
+    }
+  }, [endorsementChain, pending]);
 
   useEffect(() => {
     if (isDestroyTokenConfirmed) {
@@ -99,38 +110,40 @@ export const HandleSurrenderedForm = ({
             </div>
           </div>
         </div>
-        <div className="row mb-3">
-          <div className="col-auto ml-auto">
-            <div className="row no-gutters">
-              <div className="col-auto">
-                <ButtonSolidWhiteGrey
-                  onClick={onClickRejectSurrender}
-                  disabled={isPendingConfirmation}
-                  data-testid={"rejectSurrenderBtn"}
-                >
-                  {isRestoreTokenPendingConfirmation ? (
-                    <LoaderSpinner data-testid={"reject-loader"} />
-                  ) : (
-                    <>Reject Document</>
-                  )}
-                </ButtonSolidWhiteGrey>
-              </div>
-              <div className="col-auto ml-2">
-                <ButtonSolidRedWhite
-                  onClick={handleAcceptSurrender}
-                  disabled={isPendingConfirmation}
-                  data-testid={"acceptSurrenderBtn"}
-                >
-                  {isDestroyTokenPendingConfirmation ? (
-                    <LoaderSpinner data-testid={"accept-loader"} />
-                  ) : (
-                    <>Shred Document</>
-                  )}
-                </ButtonSolidRedWhite>
+        {!pending && (
+          <div className="row mb-3">
+            <div className="col-auto ml-auto">
+              <div className="row no-gutters">
+                <div className="col-auto">
+                  <ButtonSolidWhiteGrey
+                    onClick={onClickRejectSurrender}
+                    disabled={isPendingConfirmation}
+                    data-testid={"rejectSurrenderBtn"}
+                  >
+                    {isRestoreTokenPendingConfirmation ? (
+                      <LoaderSpinner data-testid={"reject-loader"} />
+                    ) : (
+                      <>Reject Document</>
+                    )}
+                  </ButtonSolidWhiteGrey>
+                </div>
+                <div className="col-auto ml-2">
+                  <ButtonSolidRedWhite
+                    onClick={handleDestroyToken}
+                    disabled={isPendingConfirmation}
+                    data-testid={"acceptSurrenderBtn"}
+                  >
+                    {isDestroyTokenPendingConfirmation ? (
+                      <LoaderSpinner data-testid={"accept-loader"} />
+                    ) : (
+                      <>Shred Document</>
+                    )}
+                  </ButtonSolidRedWhite>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

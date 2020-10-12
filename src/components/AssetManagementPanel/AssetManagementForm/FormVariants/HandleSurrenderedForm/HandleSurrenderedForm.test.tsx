@@ -39,10 +39,10 @@ describe("Handle surrendered", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyingTokenState={FormState.UNINITIALIZED}
-          handleAcceptSurrender={() => {}}
+          destroyTokenState={FormState.UNINITIALIZED}
+          handleDestroyToken={() => {}}
           restoreTokenState={FormState.UNINITIALIZED}
-          handleRejectSurrender={() => {}}
+          handleRestoreToken={() => {}}
           tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
@@ -53,7 +53,7 @@ describe("Handle surrendered", () => {
 
   it("should change the state of the application to Confirmed when we clicked on accept surrender", async () => {
     await act(async () => {
-      const mockHandleAcceptSurrender = jest.fn();
+      const mockHandleDestroyToken = jest.fn();
 
       const container = render(
         <HandleSurrenderedForm
@@ -63,28 +63,28 @@ describe("Handle surrendered", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyingTokenState={FormState.UNINITIALIZED}
-          handleAcceptSurrender={mockHandleAcceptSurrender}
+          destroyTokenState={FormState.UNINITIALIZED}
+          handleDestroyToken={mockHandleDestroyToken}
           restoreTokenState={FormState.UNINITIALIZED}
-          handleRejectSurrender={() => {}}
+          handleRestoreToken={() => {}}
           tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
 
       fireEvent.click(container.getByTestId("acceptSurrenderBtn"));
-      expect(mockHandleAcceptSurrender).toHaveBeenCalled();
+      expect(mockHandleDestroyToken).toHaveBeenCalled();
     });
   });
 
   it("should show overlay confirmation when we clicked on reject surrender and confirm overlay", async () => {
     await act(async () => {
-      const mockHandleRejectSurrender = jest.fn();
+      const mockHandleRestoreToken = jest.fn();
 
       const container = render(
         <OverlayContext.Provider
           value={{
             overlayContent: undefined,
-            showOverlay: mockHandleRejectSurrender,
+            showOverlay: mockHandleRestoreToken,
             isOverlayVisible: false,
             setOverlayVisible: () => {},
           }}
@@ -96,17 +96,17 @@ describe("Handle surrendered", () => {
             tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
             beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
             holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-            destroyingTokenState={FormState.UNINITIALIZED}
-            handleAcceptSurrender={() => {}}
+            destroyTokenState={FormState.UNINITIALIZED}
+            handleDestroyToken={() => {}}
             restoreTokenState={FormState.UNINITIALIZED}
-            handleRejectSurrender={() => {}}
+            handleRestoreToken={() => {}}
             tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
           />
         </OverlayContext.Provider>
       );
 
       fireEvent.click(container.getByTestId("rejectSurrenderBtn"));
-      expect(mockHandleRejectSurrender).toHaveBeenCalled();
+      expect(mockHandleRestoreToken).toHaveBeenCalled();
     });
   });
 
@@ -120,10 +120,10 @@ describe("Handle surrendered", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyingTokenState={FormState.PENDING_CONFIRMATION}
-          handleAcceptSurrender={() => {}}
+          destroyTokenState={FormState.PENDING_CONFIRMATION}
+          handleDestroyToken={() => {}}
           restoreTokenState={FormState.UNINITIALIZED}
-          handleRejectSurrender={() => {}}
+          handleRestoreToken={() => {}}
           tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
@@ -142,10 +142,10 @@ describe("Handle surrendered", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyingTokenState={FormState.UNINITIALIZED}
-          handleAcceptSurrender={() => {}}
+          destroyTokenState={FormState.UNINITIALIZED}
+          handleDestroyToken={() => {}}
           restoreTokenState={FormState.PENDING_CONFIRMATION}
-          handleRejectSurrender={() => {}}
+          handleRestoreToken={() => {}}
           tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
@@ -156,8 +156,8 @@ describe("Handle surrendered", () => {
 
   it("should disable accept surrender and reject button when the accept surrender state is in PENDING_CONFIRMATION", async () => {
     await act(async () => {
-      const mockHandleAcceptSurrender = jest.fn();
-      const mockHandleRejectSurrender = jest.fn();
+      const mockHandleDestroyToken = jest.fn();
+      const mockHandleRestoreToken = jest.fn();
 
       const container = render(
         <HandleSurrenderedForm
@@ -167,25 +167,25 @@ describe("Handle surrendered", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyingTokenState={FormState.PENDING_CONFIRMATION}
-          handleAcceptSurrender={mockHandleAcceptSurrender}
+          destroyTokenState={FormState.PENDING_CONFIRMATION}
+          handleDestroyToken={mockHandleDestroyToken}
           restoreTokenState={FormState.UNINITIALIZED}
-          handleRejectSurrender={mockHandleRejectSurrender}
+          handleRestoreToken={mockHandleRestoreToken}
           tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
 
       fireEvent.click(container.getByTestId("acceptSurrenderBtn"));
-      expect(mockHandleAcceptSurrender).not.toHaveBeenCalled();
+      expect(mockHandleDestroyToken).not.toHaveBeenCalled();
       fireEvent.click(container.getByTestId("rejectSurrenderBtn"));
-      expect(mockHandleRejectSurrender).not.toHaveBeenCalled();
+      expect(mockHandleRestoreToken).not.toHaveBeenCalled();
     });
   });
 
   it("should disable accept surrender and reject button when the reject surrender state is in PENDING_CONFIRMATION", async () => {
     await act(async () => {
-      const mockHandleAcceptSurrender = jest.fn();
-      const mockHandleRejectSurrender = jest.fn();
+      const mockHandleDestroyToken = jest.fn();
+      const mockHandleRestoreToken = jest.fn();
 
       const container = render(
         <HandleSurrenderedForm
@@ -195,18 +195,18 @@ describe("Handle surrendered", () => {
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyingTokenState={FormState.UNINITIALIZED}
-          handleAcceptSurrender={mockHandleAcceptSurrender}
+          destroyTokenState={FormState.UNINITIALIZED}
+          handleDestroyToken={mockHandleDestroyToken}
           restoreTokenState={FormState.PENDING_CONFIRMATION}
-          handleRejectSurrender={mockHandleRejectSurrender}
+          handleRestoreToken={mockHandleRestoreToken}
           tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
 
       fireEvent.click(container.getByTestId("acceptSurrenderBtn"));
-      expect(mockHandleAcceptSurrender).not.toHaveBeenCalled();
+      expect(mockHandleDestroyToken).not.toHaveBeenCalled();
       fireEvent.click(container.getByTestId("rejectSurrenderBtn"));
-      expect(mockHandleRejectSurrender).not.toHaveBeenCalled();
+      expect(mockHandleRestoreToken).not.toHaveBeenCalled();
     });
   });
 });

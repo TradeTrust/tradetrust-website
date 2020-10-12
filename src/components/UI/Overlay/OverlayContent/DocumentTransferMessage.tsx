@@ -166,11 +166,12 @@ export const RejectSurrender = () => {
   return <p>Surrender for this Bill of Lading has been rejected.</p>;
 };
 
-export const MessageRejectSurrenderConfirmation = ({ address }: MessageProps) => {
+export const MessageRejectSurrenderConfirmation = ({ beneficiaryAddress, holderAddress }: MessageProps) => {
   return (
     <>
       <h6>Restore document to Owner/Holder</h6>
-      {address && <MessageAddressResolver address={address} />}
+      {beneficiaryAddress && <MessageAddressResolver address={beneficiaryAddress} />}
+      {holderAddress && <MessageAddressResolver address={holderAddress} />}
     </>
   );
 };
@@ -236,7 +237,10 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       {title === MessageTitle.ACCEPT_SURRENDER_DOCUMENT && <AcceptSurrender />}
       {title === MessageTitle.REJECT_SURRENDER_DOCUMENT && <RejectSurrender />}
       {title === MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT && (
-        <MessageRejectSurrenderConfirmation address={option.beneficiaryAddress} />
+        <MessageRejectSurrenderConfirmation
+          beneficiaryAddress={option.beneficiaryAddress}
+          holderAddress={option.holderAddress}
+        />
       )}
       {title === MessageTitle.CHANGE_BENEFICIARY_SUCCESS && (
         <MessageBeneficiarySuccess address={option.beneficiaryAddress} />

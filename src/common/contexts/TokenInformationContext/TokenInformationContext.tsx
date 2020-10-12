@@ -32,7 +32,7 @@ interface TokenInformationContext {
   isTitleEscrow?: boolean;
   resetStates: () => void;
   destroyToken: TradeTrustErc721["destroyToken"];
-  destroyingTokenState: ContractFunctionState;
+  destroyTokenState: ContractFunctionState;
   restoreToken: TradeTrustErc721["restoreToken"];
   restoreTokenState: ContractFunctionState;
 }
@@ -58,7 +58,7 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   transferToNewEscrowState: "UNINITIALIZED",
   resetStates: () => {},
   destroyToken: contractFunctionStub,
-  destroyingTokenState: "UNINITIALIZED",
+  destroyTokenState: "UNINITIALIZED",
   restoreToken: contractFunctionStub,
   restoreTokenState: "UNINITIALIZED",
 });
@@ -84,7 +84,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
   );
   const { call: getApprovedHolder, value: approvedHolder } = useContractFunctionHook(titleEscrow, "approvedHolder");
 
-  const { send: destroyToken, state: destroyingTokenState, reset: resetDestroyingTokenState } = useContractFunctionHook(
+  const { send: destroyToken, state: destroyTokenState, reset: resetDestroyingTokenState } = useContractFunctionHook(
     tokenRegistry,
     "destroyToken"
   );
@@ -170,8 +170,8 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
 
   // Update entire title escrow whenever token is burnt
   useEffect(() => {
-    if (destroyingTokenState === "CONFIRMED") updateTitleEscrow();
-  }, [destroyingTokenState, updateTitleEscrow]);
+    if (destroyTokenState === "CONFIRMED") updateTitleEscrow();
+  }, [destroyTokenState, updateTitleEscrow]);
 
   useEffect(() => {
     if (restoreTokenState === "CONFIRMED") updateTitleEscrow();
@@ -201,7 +201,7 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         changeHolderState,
         endorseBeneficiaryState,
         transferToState,
-        destroyingTokenState,
+        destroyTokenState,
         destroyToken,
         isSurrendered,
         isTokenBurnt,

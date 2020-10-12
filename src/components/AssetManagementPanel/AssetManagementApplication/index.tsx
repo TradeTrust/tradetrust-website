@@ -29,7 +29,7 @@ export const AssetManagementApplication = ({
     endorseBeneficiaryState,
     transferTo,
     transferToState,
-    destroyingTokenState,
+    destroyTokenState,
     destroyToken,
     isSurrendered,
     isTokenBurnt,
@@ -53,18 +53,18 @@ export const AssetManagementApplication = ({
       checkIsMinter(account);
     }
   }, [account, checkIsMinter, isTitleEscrow]);
-
   const onSurrender = () => {
     // Change to surrendered state
     transferTo(tokenRegistryAddress);
   };
 
-  const onAcceptSurrender = () => {
+  const onDestroyToken = () => {
     destroyToken(tokenId);
   };
 
-  const onRejectSurrender = (lastBeneficiary: string) => {
-    restoreToken(lastBeneficiary, lastBeneficiary);
+  const onRestoreToken = (lastBeneficiary?: string, lastHolder?: string) => {
+    if (!lastBeneficiary || !lastHolder) throw new Error("Ownership data is not found");
+    restoreToken(lastBeneficiary, lastHolder);
   };
 
   const onSetFormAction = useCallback(
@@ -95,7 +95,7 @@ export const AssetManagementApplication = ({
             tokenRegistryAddress={tokenRegistryAddress}
             onSetFormAction={onSetFormAction}
             surrenderingState={transferToState}
-            destroyingTokenState={destroyingTokenState}
+            destroyTokenState={destroyTokenState}
             onSurrender={onSurrender}
             onTransferHolder={changeHolder}
             holderTransferringState={changeHolderState}
@@ -110,8 +110,8 @@ export const AssetManagementApplication = ({
             setShowEndorsementChain={setShowEndorsementChain}
             isTitleEscrow={isTitleEscrow}
             isMinter={isMinter?.[0]}
-            onAcceptSurrender={onAcceptSurrender}
-            onRejectSurrender={onRejectSurrender}
+            onDestroyToken={onDestroyToken}
+            onRestoreToken={onRestoreToken}
             restoreTokenState={restoreTokenState}
             tokenId={tokenId}
           />
