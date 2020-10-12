@@ -15,6 +15,7 @@ export enum MessageTitle {
   SURRENDER_DOCUMENT_SUCCESS = "Surrender Document Success",
   ACCEPT_SURRENDER_DOCUMENT = "Surrender Accepted",
   REJECT_SURRENDER_DOCUMENT = "Surrender Rejected",
+  CONFIRM_REJECT_SURRENDER_DOCUMENT = "Confirm Document Return",
   CHANGE_BENEFICIARY_SUCCESS = "Change Owner Success",
   NOMINATE_BENEFICIARY_HOLDER_SUCCESS = "Nomination Success",
   TRANSFER_HOLDER_SUCCESS = "Transfer Holder Success",
@@ -41,16 +42,47 @@ const ButtonMetamaskInstall = () => {
   );
 };
 
+const ButtonConfirmAction = (handleOnClick: () => void) => {
+  const { setOverlayVisible } = useContext(OverlayContext);
+  const onClick = () => {
+    handleOnClick();
+    setOverlayVisible(false);
+  };
+  return (
+    <ButtonSolidOrangeWhite onClick={onClick} data-testid={"confirmActionBtn"}>
+      Confirm
+    </ButtonSolidOrangeWhite>
+  );
+};
+
 interface DocumentTransferMessageProps extends OverlayContentProps {
   children: React.ReactNode;
   isButtonMetamaskInstall?: boolean;
+  isConfirmationMessage?: boolean;
+  onConfirmationAction?: () => void;
 }
 
 export const DocumentTransferMessage = styled(
-  ({ isButtonMetamaskInstall, children, ...props }: DocumentTransferMessageProps) => {
+  ({
+    isButtonMetamaskInstall,
+    isConfirmationMessage,
+    onConfirmationAction,
+    children,
+    ...props
+  }: DocumentTransferMessageProps) => {
     const documentTransferButton = () => {
       if (isButtonMetamaskInstall) {
         return <ButtonMetamaskInstall />;
+      }
+      if (isConfirmationMessage && onConfirmationAction) {
+        return (
+          <div className="row no-gutters">
+            <div className="col-auto ml-2">
+              <ButtonClose />
+            </div>
+            <div className="col-auto ml-2">{ButtonConfirmAction(onConfirmationAction)}</div>
+          </div>
+        );
       }
       return <ButtonClose />;
     };
@@ -134,6 +166,17 @@ export const RejectSurrender = () => {
   return <p>Surrender for this Bill of Lading has been rejected.</p>;
 };
 
+export const MessageRejectSurrenderConfirmation = ({ beneficiaryAddress, holderAddress }: MessageProps) => {
+  return (
+    <>
+      <h6>Restore document to Owner:</h6>
+      {beneficiaryAddress && <MessageAddressResolver address={beneficiaryAddress} />}
+      <h6>and to Holder:</h6>
+      {holderAddress && <MessageAddressResolver address={holderAddress} />}
+    </>
+  );
+};
+
 export const MessageBeneficiarySuccess = ({ address }: MessageProps) => {
   return (
     <>
@@ -174,6 +217,8 @@ interface ShowDocumentTransferMessageOptionProps {
   beneficiaryAddress?: string;
   holderAddress?: string;
   isButtonMetamaskInstall?: boolean;
+  onConfirmationAction?: () => void;
+  isConfirmationMessage?: boolean;
 }
 
 export const showDocumentTransferMessage = (title: string, option: ShowDocumentTransferMessageOptionProps) => {
@@ -182,6 +227,8 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       title={title}
       isSuccess={option.isSuccess}
       isButtonMetamaskInstall={option.isButtonMetamaskInstall}
+      onConfirmationAction={option.onConfirmationAction}
+      isConfirmationMessage={option.isConfirmationMessage}
     >
       {title === MessageTitle.NO_METAMASK && <MessageNoMetamask />}
       {title === MessageTitle.NO_MANAGE_ACCESS && <MessageNoManageAccess />}
@@ -190,6 +237,12 @@ export const showDocumentTransferMessage = (title: string, option: ShowDocumentT
       {title === MessageTitle.SURRENDER_DOCUMENT_SUCCESS && <MessageSurrenderSuccess />}
       {title === MessageTitle.ACCEPT_SURRENDER_DOCUMENT && <AcceptSurrender />}
       {title === MessageTitle.REJECT_SURRENDER_DOCUMENT && <RejectSurrender />}
+      {title === MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT && (
+        <MessageRejectSurrenderConfirmation
+          beneficiaryAddress={option.beneficiaryAddress}
+          holderAddress={option.holderAddress}
+        />
+      )}
       {title === MessageTitle.CHANGE_BENEFICIARY_SUCCESS && (
         <MessageBeneficiarySuccess address={option.beneficiaryAddress} />
       )}
