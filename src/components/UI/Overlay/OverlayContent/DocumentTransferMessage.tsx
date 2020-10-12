@@ -169,8 +169,9 @@ export const RejectSurrender = () => {
 export const MessageRejectSurrenderConfirmation = ({ beneficiaryAddress, holderAddress }: MessageProps) => {
   return (
     <>
-      <h6>Restore document to Owner/Holder</h6>
+      <h6>Restore document to Owner:</h6>
       {beneficiaryAddress && <MessageAddressResolver address={beneficiaryAddress} />}
+      <h6>and to Holder:</h6>
       {holderAddress && <MessageAddressResolver address={holderAddress} />}
     </>
   );

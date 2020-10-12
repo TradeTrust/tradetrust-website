@@ -41,8 +41,13 @@ export const HandleSurrenderedForm = ({
 }: HandleSurrenderedFormProps) => {
   const { showOverlay } = useContext(OverlayContext);
   const { endorsementChain, pending } = useEndorsementChain(tokenRegistryAddress, tokenId);
-  const [lastBeneficiary, setLastBeneficiary] = useState<string>();
-  const [lastHolder, setLastHolder] = useState<string>();
+
+  const lastTransferEvent = endorsementChain
+    ?.filter(({ eventType }) => eventType === "Transfer")
+    .reverse()[0] as TitleEscrowEvent;
+  const lastBeneficiary = lastTransferEvent?.beneficiary;
+  const lastHolderEvent = lastTransferEvent?.holderChangeEvents.reverse()[0];
+  const lastHolder = lastHolderEvent?.holder;
 
   const isDestroyTokenPendingConfirmation = destroyTokenState === FormState.PENDING_CONFIRMATION;
   const isRestoreTokenPendingConfirmation = restoreTokenState === FormState.PENDING_CONFIRMATION;
@@ -61,19 +66,6 @@ export const HandleSurrenderedForm = ({
       })
     );
   };
-
-  useEffect(() => {
-    if (!pending) {
-      const lastTransferEvent = endorsementChain
-        ?.filter(({ eventType }) => eventType === "Transfer")
-        .pop() as TitleEscrowEvent;
-      const lastBeneficiary = lastTransferEvent?.beneficiary;
-      setLastBeneficiary(lastBeneficiary);
-      const lastHolderEvent = lastTransferEvent?.holderChangeEvents.pop();
-      const lastHolder = lastHolderEvent?.holder;
-      setLastHolder(lastHolder);
-    }
-  }, [endorsementChain, pending]);
 
   useEffect(() => {
     if (isDestroyTokenConfirmed) {
@@ -110,40 +102,38 @@ export const HandleSurrenderedForm = ({
             </div>
           </div>
         </div>
-        {!pending && (
-          <div className="row mb-3">
-            <div className="col-auto ml-auto">
-              <div className="row no-gutters">
-                <div className="col-auto">
-                  <ButtonSolidWhiteGrey
-                    onClick={onClickRejectSurrender}
-                    disabled={isPendingConfirmation}
-                    data-testid={"rejectSurrenderBtn"}
-                  >
-                    {isRestoreTokenPendingConfirmation ? (
-                      <LoaderSpinner data-testid={"reject-loader"} />
-                    ) : (
-                      <>Reject Document</>
-                    )}
-                  </ButtonSolidWhiteGrey>
-                </div>
-                <div className="col-auto ml-2">
-                  <ButtonSolidRedWhite
-                    onClick={handleDestroyToken}
-                    disabled={isPendingConfirmation}
-                    data-testid={"acceptSurrenderBtn"}
-                  >
-                    {isDestroyTokenPendingConfirmation ? (
-                      <LoaderSpinner data-testid={"accept-loader"} />
-                    ) : (
-                      <>Shred Document</>
-                    )}
-                  </ButtonSolidRedWhite>
-                </div>
+        <div className="row mb-3">
+          <div className="col-auto ml-auto">
+            <div className="row no-gutters">
+              <div className="col-auto">
+                <ButtonSolidWhiteGrey
+                  onClick={onClickRejectSurrender}
+                  disabled={isPendingConfirmation || pending}
+                  data-testid={"rejectSurrenderBtn"}
+                >
+                  {isRestoreTokenPendingConfirmation || pending ? (
+                    <LoaderSpinner data-testid={"reject-loader"} />
+                  ) : (
+                    <>Reject Document</>
+                  )}
+                </ButtonSolidWhiteGrey>
+              </div>
+              <div className="col-auto ml-2">
+                <ButtonSolidRedWhite
+                  onClick={handleDestroyToken}
+                  disabled={isPendingConfirmation || pending}
+                  data-testid={"acceptSurrenderBtn"}
+                >
+                  {isDestroyTokenPendingConfirmation || pending ? (
+                    <LoaderSpinner data-testid={"accept-loader"} />
+                  ) : (
+                    <>Shred Document</>
+                  )}
+                </ButtonSolidRedWhite>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
