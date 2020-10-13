@@ -1,5 +1,5 @@
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { getData, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import React, { useCallback, useState, useEffect } from "react";
 import { Tab } from "react-bootstrap";
 import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
@@ -24,7 +24,7 @@ import { useTokenInformationContext } from "../common/contexts/TokenInformationC
 const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
-  document: WrappedDocument;
+  document: WrappedDocument<v2.OpenAttestationDocument>;
   verificationStatus: VerificationFragment[];
   shareLink: { id?: string; key?: string };
   showSharing: boolean;
@@ -48,7 +48,7 @@ export const CertificateViewer = ({
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
   const originalData = getData(document);
   const attachments = originalData?.attachments;
-  const hasAttachments = attachments && attachments.length > 0;
+  const hasAttachments = attachments ? attachments.length > 0 : false;
   const { initialize, resetStates: resetTokenInformationState } = useTokenInformationContext();
   const dispatch = useDispatch();
 
@@ -59,13 +59,15 @@ export const CertificateViewer = ({
   and tokenRegistryAddress provided and clean up the context when certificate viewer unmounts
   */
   useEffect(() => {
-    trace("initialise token information context");
-    initialize(tokenRegistryAddress, tokenId);
-    return () => {
-      trace("reseting token information on unmount");
-      resetTokenInformationState();
-      resetCertificateData();
-    };
+    if (tokenRegistryAddress) {
+      trace("initialise token information context");
+      initialize(tokenRegistryAddress, tokenId);
+      return () => {
+        trace("reseting token information on unmount");
+        resetTokenInformationState();
+        resetCertificateData();
+      };
+    }
   }, [tokenId, tokenRegistryAddress, resetCertificateData, resetTokenInformationState, initialize]);
 
   const childRef = React.useRef<{ print: () => void }>();
@@ -91,11 +93,13 @@ export const CertificateViewer = ({
     <div className="bg-blue-lighter no-print">
       <DocumentStatus verificationStatus={verificationStatus} />
       <ObfuscatedMessage document={document} />
-      <EndorsementChainContainer
-        tokenId={tokenId}
-        tokenRegistry={tokenRegistryAddress}
-        setShowEndorsementChain={setShowEndorsementChain}
-      />
+      {tokenRegistryAddress && (
+        <EndorsementChainContainer
+          tokenId={tokenId}
+          tokenRegistry={tokenRegistryAddress}
+          setShowEndorsementChain={setShowEndorsementChain}
+        />
+      )}
     </div>
   );
 
@@ -111,7 +115,7 @@ export const CertificateViewer = ({
             setShowEndorsementChain={setShowEndorsementChain}
           />
         )}
-        <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />
+        {tokenRegistryAddress && <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />}
       </div>
       <Tab.Container defaultActiveKey="tab-document">
         <div className="bg-blue-lighter no-print">
@@ -139,7 +143,7 @@ export const CertificateViewer = ({
                 ref={childRef}
               />
             </Tab.Pane>
-            {hasAttachments && <TabPaneAttachments attachments={attachments} />}
+            {attachments && <TabPaneAttachments attachments={attachments} />}
           </Tab.Content>
         </div>
       </Tab.Container>
