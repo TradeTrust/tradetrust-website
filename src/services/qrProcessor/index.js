@@ -1,38 +1,49 @@
-import { get } from "axios";
+import axios from "axios";
 import { decryptString } from "@govtechsg/oa-encryption";
 
 export const decodeQrCode = (qrCode) => {
-  const ttRegex = /tradetrust:\/\/(.*)/;
+  const ttRegex = /https:\/\/action.openattestation.com\/\?q=(.*)/;
   if (!ttRegex.test(qrCode)) throw new Error("QR Code is not formatted to TradeTrust specifications");
   const [, encodedPayload] = ttRegex.exec(qrCode);
   const decodedPayload = JSON.parse(decodeURIComponent(encodedPayload));
   return decodedPayload;
 };
 
-export const encodeQrCode = (payload) => `tradetrust://${encodeURIComponent(JSON.stringify(payload))}`;
+export const encodeQrCode = (payload) =>
+  `https://action.openattestation.com/?q=${encodeURIComponent(JSON.stringify(payload))}`;
 
-const decryptDocument = async (uri) => {
-  try {
-    const uriPart = uri.split("#");
-    const { data } = await get(uriPart[0]);
-    return JSON.parse(
+const decryptQuery = async (action) => {
+  if (action.type !== "DOCUMENT") throw new Error(`The type ${action.type} provided from the action is not supported`);
+  const { uri, key } = action.payload;
+  const response = await axios.get(uri);
+  if (response.status >= 400 && response.status < 600) throw new Error(`Unable to load the certificate from ${uri}`);
+  let certificate = response.data;
+  certificate = certificate.document || certificate; // opencerts-function returns the document in a nested document object
+
+  if (!certificate) {
+    throw new Error(`Certificate at address ${uri} is empty`);
+  }
+  // if there is a key and the type is "OPEN-ATTESTATION-TYPE-1", let's use oa-encryption
+  if (key && certificate.type === "OPEN-ATTESTATION-TYPE-1") {
+    certificate = JSON.parse(
       decryptString({
-        tag: data.document.tag,
-        cipherText: data.document.cipherText,
-        iv: data.document.iv,
-        key: uriPart[1],
-        type: "OPEN-ATTESTATION-TYPE-1",
+        tag: certificate.tag,
+        cipherText: certificate.cipherText,
+        iv: certificate.iv,
+        key,
+        type: certificate.type,
       })
     );
-  } catch (e) {
-    throw new Error("Can not decrypt the document");
+    return certificate;
+  } else if (key || certificate.type) {
+    throw new Error(`Unable to decrypt certificate with key=${key} and type=${certificate.type}`);
   }
 };
 
 export const processQrCode = async (qrCode) => {
   try {
-    const { uri } = decodeQrCode(qrCode);
-    const data = await decryptDocument(uri);
+    const queryParam = decodeQrCode(qrCode);
+    const data = await decryptQuery(queryParam);
     return data;
   } catch (e) {
     throw new Error(e.message);
