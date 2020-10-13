@@ -6,6 +6,7 @@ import { surrender } from "./surrender.mjs";
 const main = async () => {
   const browser = await dappeteer.launch(puppeteer, {
     executablePath: process.env.PUPPETEER_EXEC_PATH, // set by docker container
+    headless: false,
     defaultViewport: null,
   });
   const metamask = await dappeteer.getMetamask(browser, {

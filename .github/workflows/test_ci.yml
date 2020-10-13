@@ -24,8 +24,8 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install Packages
-        run: npm install
-      - name: Test Code
+        run: npm ci
+      - name: Integration - dappeteer
         uses: mujo-code/puppeteer-headful@master
         env:
           CI: "true"
