@@ -8,6 +8,7 @@ const main = async () => {
     executablePath: process.env.PUPPETEER_EXEC_PATH, // set by docker container
     headless: false,
     defaultViewport: null,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const metamask = await dappeteer.getMetamask(browser, {
     seed: "indicate swing place chair flight used hammer soon photo region volume shuffle",
