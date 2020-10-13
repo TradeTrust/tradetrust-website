@@ -19,7 +19,8 @@ const main = async () => {
   await transferHolder(metamask, browser);
   await surrender(metamask, browser);
 
-  // await browser.close();
+  await browser.close();
+  process.exit();
 };
 
 main();
