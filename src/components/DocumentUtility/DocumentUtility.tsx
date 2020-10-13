@@ -23,7 +23,6 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
       href?: string;
     };
   };
-  logo?: string;
 }
 
 export const DocumentUtilityUnStyled = ({
