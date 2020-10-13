@@ -25,19 +25,19 @@ jobs:
             ${{ runner.os }}-
       - name: Install Packages
         run: npm ci
+      - name: Check Lint
+        run: npm run lint
+      - name: Check Stylelint
+        run: npm run stylelint
+      - name: Test
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Integration - testcafe
+        run: ./scripts/integration-headless.sh
       - name: Integration - dappeteer
         uses: mujo-code/puppeteer-headful@master
         env:
           CI: "true"
         with:
           args: npm run integration:dappeteer
-      # - name: Check Lint
-      #   run: npm run lint
-      # - name: Check Stylelint
-      #   run: npm run stylelint
-      # - name: Test
-      #   run: npm run test
-      # - name: Build
-      #   run: npm run build
-      # - name: Integration Test
-      #   run: ./scripts/integration-headless.sh
