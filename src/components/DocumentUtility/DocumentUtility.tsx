@@ -38,8 +38,6 @@ export const DocumentUtilityUnStyled = ({
   const qrcodeUrl = documentWithMetadata.links?.self?.href ?? "";
   const imageSettings: ImageSettings = {
     src: `/static/images/logo-qrcode.png`,
-    x: undefined,
-    y: undefined,
     height: 50,
     width: 55,
     excavate: true,
