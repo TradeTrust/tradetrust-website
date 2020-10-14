@@ -9,7 +9,7 @@ describe("encodeQrCode", () => {
     const action = { uri: "https://sample.domain/document/id?q=abc#123" };
     const encodedQrCode = encodeQrCode(action);
     expect(encodedQrCode).toBe(
-      "tradetrust://%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D"
+      "https://action.openattestation.com/?q=%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D"
     );
   });
 });
@@ -17,7 +17,7 @@ describe("encodeQrCode", () => {
 describe("decodeQrCode", () => {
   it("decodes an action correctly", () => {
     const encodedQrCode =
-      "tradetrust://%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
+      "https://action.openattestation.com/?q=%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
 
     const action = decodeQrCode(encodedQrCode);
     expect(action).toStrictEqual({
@@ -35,9 +35,9 @@ describe("processQrCode", () => {
   it("fetches calls get with the right parameter when a QR code is scanned", async () => {
     const document = { name: "foo" };
     const { cipherText, iv, tag, key } = await encryptString(JSON.stringify(document));
-    const actionUri = { uri: `https://sample.domain/document#${key}` };
+    const actionUri = { payload: { uri: `https://sample.domain/document`, key: key }, type: "DOCUMENT" };
     axios.get.mockResolvedValue({
-      data: { document: { cipherText, iv, tag } },
+      data: { document: { cipherText, iv, tag, type: "OPEN-ATTESTATION-TYPE-1" } },
     });
     const results = await processQrCode(encodeQrCode(actionUri));
     expect(axios.get).toHaveBeenCalledWith("https://sample.domain/document");
