@@ -35,7 +35,7 @@ const QrReaderZone = ({ handleQrScanned }) => {
 
   return (
     <div style={containerStyle}>
-      <video data-id="qr-code-reader" ref={scannerRef} style={videoPreviewStyle} />
+      <video data-testid="qr-code-reader" ref={scannerRef} style={videoPreviewStyle} />
     </div>
   );
 };
