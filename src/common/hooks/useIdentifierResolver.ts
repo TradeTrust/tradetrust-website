@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useThirdPartyAPIEndpoints } from "./useThirdPartyAPIEndpoints";
-import { useAddressBook } from "./useAddressBook";
-import { getIdentity } from "./../../services/addressResolver";
+import { getIdentityName } from "./../../services/addressResolver";
+import { useAddressBook } from "@govtechsg/address-identity-resolver";
 
 export type ResolutionResult = {
   name: string;

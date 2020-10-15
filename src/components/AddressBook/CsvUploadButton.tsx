@@ -1,41 +1,8 @@
-import React from "react";
-import { isAddress } from "web3-utils";
-import { parse } from "papaparse";
-import { useAddressBook, AddressBookLocalProps } from "../../common/hooks/useAddressBook";
+import React, { FunctionComponent } from "react";
+// import { parse } from "papaparse";
+import { useAddressBook, readAsText, csvToAddressBook } from "@govtechsg/address-identity-resolver";
 import { FilePlus } from "react-feather";
 import { LabelWhiteSecondary } from "../UI/Button";
-
-const readAsText = async (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    if (reader.error) {
-      reject(reader.error);
-    }
-    reader.onload = () => resolve(reader.result as string);
-    reader.readAsText(file);
-  });
-};
-
-interface AddressBookCsvData {
-  Identifier?: string;
-  identifier?: string;
-  Address?: string;
-  address?: string;
-}
-
-const csvToAddressBook = (csv: string) => {
-  const { data } = parse<AddressBookCsvData>(csv, { skipEmptyLines: true, header: true });
-  const addressBook: AddressBookLocalProps = {};
-  data.forEach((row, index) => {
-    const identifierText = row.Identifier || row.identifier;
-    const addressText = row.Address || row.address;
-    if (!identifierText) throw new Error(`Row ${index} does not have an identifer`);
-    if (!addressText) throw new Error(`Row ${index} does not have an address`);
-    if (!isAddress(addressText)) throw new Error(`${addressText} in row ${index} is not a valid Ethereum address`);
-    addressBook[addressText.toLowerCase()] = identifierText;
-  });
-  return addressBook;
-};
 
 export const CsvUploadButton = () => {
   const { setAddressBook } = useAddressBook();
@@ -72,6 +39,7 @@ export const CsvUploadButton = () => {
   );
 };
 
+//Todo: Unused....
 export const RawAddressBookData = () => {
   const { addressBook } = useAddressBook();
   return <pre>{JSON.stringify(addressBook, null, 2)}</pre>;
