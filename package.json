@@ -113,7 +113,7 @@
     "babel-loader": "8.0.6",
     "brotli-webpack-plugin": "^1.1.0",
     "compression-webpack-plugin": "^6.0.2",
-    "copy-webpack-plugin": "^6.2.0",
+    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
