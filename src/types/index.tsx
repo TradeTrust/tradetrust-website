@@ -17,9 +17,9 @@ export interface TitleEscrowEvent {
 export interface ResourcesLinkProps {
   title: string;
   type: "link" | "download";
+  icon?: string;
   details: {
     description: string;
     url: string;
-    icon?: string;
-  };
+  }[];
 }

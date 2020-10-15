@@ -10,27 +10,37 @@ const sideLinks = [
   {
     title: "Documentation",
     type: "link",
-    details: {
-      description: "Browse TradeTrust documentation",
-      url: "https://docs.tradetrust.io/",
-    },
+    details: [
+      {
+        description: "Browse TradeTrust documentation",
+        url: "https://docs.tradetrust.io/",
+      },
+    ],
   },
   {
     title: "Source code",
     type: "link",
-    details: {
-      description: "View TradeTrust source code",
-      url: "https://github.com/TradeTrust/tradetrust-website",
-      icon: "/static/images/Github_Octocat.png",
-    },
+    details: [
+      {
+        description: "View TradeTrust source code",
+        url: "https://github.com/TradeTrust/tradetrust-website",
+      },
+    ],
+    icon: "/static/images/Github_Octocat.png",
   },
   {
-    title: "Newsletter",
+    title: "Newsletters",
     type: "download",
-    details: {
-      description: "TradeTrust Newsletter Issue 01",
-      url: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
-    },
+    details: [
+      {
+        description: "TradeTrust Newsletter Issue 01",
+        url: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
+      },
+      {
+        description: "TradeTrust Newsletter Issue 02",
+        url: "/static/images/newsletter/TradeTrust_Newsletter_Issue02.pdf",
+      },
+    ],
   },
 ] as ResourcesLinkProps[];
 
@@ -152,6 +162,7 @@ export const ResourcesPage = () => (
                     title={resourceLink.title}
                     type={resourceLink.type}
                     details={resourceLink.details}
+                    icon={resourceLink.icon}
                   />
                 ))}
               </div>
