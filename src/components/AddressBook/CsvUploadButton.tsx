@@ -1,8 +1,8 @@
-import React from "react";
-import { isEthereumAddress } from "../../utils";
 import { parse } from "papaparse";
-import { useAddressBook, AddressBookLocalProps } from "../../common/hooks/useAddressBook";
+import React from "react";
 import { FilePlus } from "react-feather";
+import { AddressBookLocalProps, useAddressBook } from "../../common/hooks/useAddressBook";
+import { isEthereumAddress } from "../../utils";
 import { LabelWhiteSecondary } from "../UI/Button";
 
 const readAsText = async (file: File): Promise<string> => {
@@ -73,6 +73,7 @@ export const CsvUploadButton = () => {
   );
 };
 
+//Todo: Unused....
 export const RawAddressBookData = () => {
   const { addressBook } = useAddressBook();
   return <pre>{JSON.stringify(addressBook, null, 2)}</pre>;
