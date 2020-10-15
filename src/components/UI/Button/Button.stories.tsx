@@ -14,7 +14,7 @@ import {
   ButtonIconOrangeWhite,
   ButtonCircleGreylight,
 } from "./Button";
-import { SvgIcon, SvgIconEdit, SvgIconX, SvgIconPrinter, SvgIconBook } from "../SvgIcon";
+import { Edit3, X, Printer, Book } from "react-feather";
 
 export default {
   title: "UI/Button",
@@ -63,9 +63,7 @@ export const BorderedBlue = () => {
 export const IconWhiteOrange = () => {
   return (
     <ButtonIconWhiteOrange>
-      <SvgIcon>
-        <SvgIconEdit />
-      </SvgIcon>
+      <Edit3 />
     </ButtonIconWhiteOrange>
   );
 };
@@ -73,9 +71,7 @@ export const IconWhiteOrange = () => {
 export const IconWhiteOrangeDisabled = () => {
   return (
     <ButtonIconWhiteOrange disabled>
-      <SvgIcon>
-        <SvgIconEdit />
-      </SvgIcon>
+      <Edit3 />
     </ButtonIconWhiteOrange>
   );
 };
@@ -83,9 +79,7 @@ export const IconWhiteOrangeDisabled = () => {
 export const IconWhiteBlue = () => {
   return (
     <ButtonIconWhiteBlue>
-      <SvgIcon>
-        <SvgIconPrinter />
-      </SvgIcon>
+      <Printer />
     </ButtonIconWhiteBlue>
   );
 };
@@ -93,9 +87,7 @@ export const IconWhiteBlue = () => {
 export const IconOrangeWhite = () => {
   return (
     <ButtonIconOrangeWhite>
-      <SvgIcon>
-        <SvgIconBook />
-      </SvgIcon>
+      <Book />
     </ButtonIconOrangeWhite>
   );
 };
@@ -103,9 +95,7 @@ export const IconOrangeWhite = () => {
 export const CircleGreylight = () => {
   return (
     <ButtonCircleGreylight>
-      <SvgIcon>
-        <SvgIconX />
-      </SvgIcon>
+      <X />
     </ButtonCircleGreylight>
   );
 };

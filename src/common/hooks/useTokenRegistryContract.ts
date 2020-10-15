@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
-import { TradeTrustERC721Factory } from "@govtechsg/token-registry";
-import { TradeTrustERC721 } from "@govtechsg/token-registry/types/TradeTrustERC721";
+import { TradeTrustErc721Factory } from "@govtechsg/token-registry";
+import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
 import { providers, Signer } from "ethers";
 
-export const useTokenRegistryContract = (address: string, provider?: providers.Provider | Signer) => {
-  const [tokenRegistry, setTokenRegistry] = useState<TradeTrustERC721>();
+export const useTokenRegistryContract = (address?: string, provider?: providers.Provider | Signer) => {
+  const [tokenRegistry, setTokenRegistry] = useState<TradeTrustErc721>();
 
   useEffect(() => {
     if (!address || !provider) return;
-    const instance = TradeTrustERC721Factory.connect(address, provider);
+    const instance = TradeTrustErc721Factory.connect(address, provider);
     setTokenRegistry(instance);
+    return () => {
+      setTokenRegistry(undefined);
+    };
   }, [address, provider]);
 
   return { tokenRegistry };

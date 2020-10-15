@@ -8,6 +8,7 @@ interface AssetManagementDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   className?: string;
   canSurrender: boolean;
+  canAcceptSurrender?: boolean;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   canNominateBeneficiaryHolder: boolean;
@@ -19,6 +20,7 @@ export const AssetManagementDropdown = styled(
     onSetFormAction,
     className,
     canSurrender,
+    canAcceptSurrender,
     canChangeHolder,
     canEndorseBeneficiary,
     canNominateBeneficiaryHolder,
@@ -60,6 +62,14 @@ export const AssetManagementDropdown = styled(
               onClick={() => onSetFormAction(AssetManagementActions.Surrender)}
             >
               Surrender document
+            </Dropdown.Item>
+          )}
+          {canAcceptSurrender && (
+            <Dropdown.Item
+              data-testid={"acceptSurrenderDropdown"}
+              onClick={() => onSetFormAction(AssetManagementActions.HandleSurrendered)}
+            >
+              Accept surrender of document
             </Dropdown.Item>
           )}
           {canEndorseTransfer && (

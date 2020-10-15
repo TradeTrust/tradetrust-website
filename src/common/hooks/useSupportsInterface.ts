@@ -1,6 +1,9 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import { Contract } from "ethers";
+import { getLogger } from "../../utils/logger";
+
+const { error } = getLogger("services:usesupportsinterface");
 
 interface Erc165Contract extends Contract {
   supportsInterface: (interfaceId: []) => Promise<boolean> | undefined;
@@ -25,31 +28,33 @@ export const useSupportsInterface = (contractInstance: Erc165Contract | undefine
     reset: resetSupportsInterface,
   } = useContractFunctionHook(contractInstance, "supportsInterface");
 
-  const reset = useCallback(() => {
-    setIsInterfaceType(undefined);
-    setErrorMessage(undefined);
-    resetSupportsInterface();
-  }, [resetSupportsInterface]);
-
   // Check if token is type of interface on load
   useEffect(() => {
     supportsInterface(interfaceId);
-  }, [interfaceId, supportsInterface, contractInstance]);
+    return () => {
+      setIsInterfaceType(undefined);
+      setErrorMessage(undefined);
+      resetSupportsInterface();
+    };
+  }, [interfaceId, supportsInterface, contractInstance, resetSupportsInterface]);
 
   // On result return, infer the types
   useEffect(() => {
     if (state === "ERROR") {
+      error(supportsInterfaceErrorMessage);
       if (supportsInterfaceErrorMessage?.includes("contract not deployed")) {
         setIsInterfaceType(false);
-      } else if (supportsInterfaceErrorMessage?.includes("call exception")) {
+      } else if (supportsInterfaceErrorMessage?.includes("call revert exception")) {
+        // ethers@5.x updated error message type
+        // error for method doesnt exist (can infer that contract does not inherit from Erc165)
         setIsInterfaceType(false);
       } else {
         setErrorMessage(supportsInterfaceErrorMessage);
       }
     } else if (state === "CONFIRMED") {
-      setIsInterfaceType(isSameInterfaceType);
+      setIsInterfaceType(isSameInterfaceType?.[0]);
     }
   }, [interfaceId, isSameInterfaceType, state, supportsInterfaceErrorMessage]);
 
-  return { isInterfaceType, errorMessage, reset };
+  return { isInterfaceType, errorMessage };
 };

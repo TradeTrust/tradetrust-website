@@ -1,11 +1,71 @@
 import React, { Component } from "react";
-import css from "./drawer.scss";
+import styled from "@emotion/styled";
+import { mixin, vars } from "../../styles";
+
+const DrawerAside = styled.aside`
+  .sidenav {
+    height: 100%;
+    width: 70%;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    background-color: ${vars.brandNavy};
+    overflow-x: hidden;
+    transition: color 0.3s ${vars.easeOutCubic};
+
+    .tabs {
+      border-bottom: 0.1px solid ${vars.greyblueDark};
+
+      &.active {
+        color: ${vars.greyblue};
+      }
+    }
+
+    a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+
+      ${mixin.fontSize(25)}
+      color: ${vars.white};
+      display: block;
+      transition: color 0.3s ${vars.easeOutCubic};
+
+      &:hover {
+        color: ${vars.greyblue};
+      }
+    }
+
+    .closebtn {
+      ${mixin.fontSize(36)}
+    }
+  }
+
+  .mb-sidenav {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 2;
+    text-align: right;
+    height: 50px;
+    max-width: 50px;
+  }
+
+  .togglebtn {
+    ${mixin.fontSize(35)}
+    display: block;
+    text-align: right;
+    color: ${vars.white};
+    cursor: pointer;
+  }
+`;
 
 interface DrawerProps {
   templates: { id: string; label: string }[];
   selectedTemplate: string;
   onSelectTemplate: (id: string) => void;
 }
+
 interface DrawerState {
   visible: boolean;
   showAbsHeader: boolean;
@@ -29,7 +89,7 @@ export class Drawer extends Component<DrawerProps, DrawerState> {
     return templates.map(({ id, label }) => (
       <a
         href=""
-        className={`${css.tabs} ${selectedTemplate === id ? css.active : ""} `}
+        className={`tabs ${selectedTemplate === id ? "active" : ""} `}
         key={id}
         onClick={(e) => {
           e.preventDefault();
@@ -51,12 +111,12 @@ export class Drawer extends Component<DrawerProps, DrawerState> {
     const { visible, showAbsHeader } = this.state;
 
     return (
-      <>
+      <DrawerAside>
         {visible ? (
-          <div id="mySidenav" className={css.sidenav}>
+          <div id="mySidenav" className="sidenav">
             <a
               href=""
-              className={css.closebtn}
+              className="closebtn"
               onClick={(e) => {
                 e.preventDefault();
                 this.toggleDrawer();
@@ -67,14 +127,13 @@ export class Drawer extends Component<DrawerProps, DrawerState> {
             {this.createTabs(templates)}
           </div>
         ) : null}
-        <div className={`bg-brand-navy ${showAbsHeader ? "" : css["mb-sidenav"]}`}>
-          <div className={css.togglebtn} onClick={() => this.toggleDrawer()}>
+        <div className={`bg-brand-navy ${showAbsHeader ? "" : "mb-sidenav"}`}>
+          <div className="togglebtn" onClick={() => this.toggleDrawer()}>
             &#9776;
           </div>
         </div>
-
         <div id="main">{children}</div>
-      </>
+      </DrawerAside>
     );
   }
 }

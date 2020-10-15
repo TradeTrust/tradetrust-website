@@ -1,6 +1,6 @@
 import { providers } from "ethers";
 import { TitleEscrowFactory } from "@govtechsg/token-registry";
-import { TitleEscrowEvent } from "../../../types";
+import { TitleEscrowEvent, TradeTrustErc721Event, TradeTrustErc721EventType } from "../../../types";
 
 export const fetchEscrowTransfers = async (
   address: string,
@@ -17,7 +17,6 @@ export const fetchEscrowTransfers = async (
   const holderChangeLogsParsed = holderChangeLogs.map((log) => {
     if (!log.blockNumber) throw new Error("Block number not present");
     return {
-      blockNumber: log.blockNumber,
       ...log,
       ...titleEscrowContract.interface.parseLog(log),
     };
@@ -31,12 +30,27 @@ export const fetchEscrowTransfers = async (
     })
   );
   return {
-    titleEscrowAddress: address,
+    eventType: "Transfer",
+    documentOwner: address,
     beneficiary,
     holderChangeEvents: holderChangeLogsParsed.map((event, index) => ({
       blockNumber: event.blockNumber,
-      holder: event.values.newHolder as string,
+      holder: event.args.newHolder as string,
       timestamp: blockTimes[index],
     })),
+  };
+};
+
+export const fetchEventInfo = async (
+  address: string,
+  blockNumber: number,
+  eventType: TradeTrustErc721EventType,
+  provider: providers.Provider
+): Promise<TradeTrustErc721Event> => {
+  const eventTimestamp = (await (await provider.getBlock(blockNumber)).timestamp) * 1000;
+  return {
+    eventType,
+    documentOwner: address,
+    eventTimestamp,
   };
 };

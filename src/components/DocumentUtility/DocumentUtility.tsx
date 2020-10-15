@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { getData, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import { mixin, vars } from "../../styles";
 import { FeatureFlag } from "../FeatureFlag";
-import { SvgIcon, SvgIconPrinter, SvgIconEmail, SvgIconDownload, SvgIconQRCode } from "../UI/SvgIcon";
+import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
+import { Printer, Mail, Download } from "react-feather";
 import { ButtonIconWhiteBlue } from "../UI/Button";
 import { Popover, OverlayTrigger } from "react-bootstrap";
-import { QRCode } from "react-qr-svg";
+import QRCode, { ImageSettings } from "qrcode.react";
+import { getDimensions } from "./../../common/utils/logo";
 
 interface DocumentUtilityProps {
-  document: WrappedDocument;
+  document: WrappedDocument<v2.OpenAttestationDocument>;
   handleSharingToggle: any;
   onPrint: () => void;
   className?: string;
+}
+
+interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
+  name?: string;
+  links?: {
+    self?: {
+      href?: string;
+    };
+  };
+  logo?: string;
 }
 
 export const DocumentUtilityUnStyled = ({
@@ -21,13 +33,33 @@ export const DocumentUtilityUnStyled = ({
   onPrint,
   className,
 }: DocumentUtilityProps) => {
-  const fileName = getData(document).name;
-  const qrcodeUrl = getData(document)?.links?.self?.href ?? "";
+  // Extending document data to account for undefined metadata in OA schema
+  const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);
+  const fileName = documentWithMetadata.name;
+  const qrcodeUrl = documentWithMetadata.links?.self?.href ?? "";
+  const logoUrl = documentWithMetadata.logo;
+  const [imageSettings, setImageSettings] = useState<ImageSettings>();
 
+  if (logoUrl) {
+    const img: HTMLImageElement = new Image();
+    img.src = logoUrl;
+    img.onload = () => {
+      const logoSize = getDimensions({ width: img.width, height: img.height, maxWidth: 100, maxHeight: 100 });
+
+      setImageSettings({
+        src: logoUrl,
+        x: undefined,
+        y: undefined,
+        height: Math.round(logoSize.height),
+        width: Math.round(logoSize.width),
+        excavate: true,
+      });
+    };
+  }
   const qrCodePopover = (url: string) => (
     <Popover id="qr-code-popover" style={{ borderRadius: 0, border: "1px solid #DDDDDD" }}>
-      <Popover.Content style={{ padding: 0 }}>
-        <QRCode bgColor="#FFFFFF" fgColor="#000000" level="Q" style={{ width: 200, padding: "10px" }} value={url} />
+      <Popover.Content data-testid="qr-code-svg" style={{ padding: "10px" }}>
+        <QRCode value={url} level="Q" size={200} bgColor="#FFFFFF" fgColor="#000000" imageSettings={imageSettings} />
       </Popover.Content>
     </Popover>
   );
@@ -49,9 +81,7 @@ export const DocumentUtilityUnStyled = ({
           </div>
           <div className="col-auto ml-3">
             <ButtonIconWhiteBlue aria-label="document-utility-print-button" onClick={() => onPrint()}>
-              <SvgIcon>
-                <SvgIconPrinter />
-              </SvgIcon>
+              <Printer />
             </ButtonIconWhiteBlue>
           </div>
           <FeatureFlag name="SHARE_BY_EMAIL">
@@ -60,9 +90,7 @@ export const DocumentUtilityUnStyled = ({
                 aria-label="document-utility-share-by-email-button"
                 onClick={() => handleSharingToggle()}
               >
-                <SvgIcon>
-                  <SvgIconEmail />
-                </SvgIcon>
+                <Mail />
               </ButtonIconWhiteBlue>
             </div>
           </FeatureFlag>
@@ -73,9 +101,7 @@ export const DocumentUtilityUnStyled = ({
               href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
             >
               <ButtonIconWhiteBlue aria-label="document-utility-download-document-button">
-                <SvgIcon>
-                  <SvgIconDownload />
-                </SvgIcon>
+                <Download />
               </ButtonIconWhiteBlue>
             </a>
           </div>

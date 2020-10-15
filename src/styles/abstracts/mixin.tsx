@@ -1,6 +1,33 @@
 import { darken } from "polished";
 import * as vars from "./variables";
 
+export const containerCustom = ({ mwCustom = vars.maxWidth }) => {
+  return `
+    width: 100%;
+    max-width: 100%;
+    padding-left: $grid-gutter-width / 2;
+    padding-right: $grid-gutter-width / 2;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media only screen and (min-width: ${vars.sm}) {
+      max-width: $mw-sm;
+    }
+
+    @media only screen and (min-width: ${vars.md}) {
+      max-width: $mw-md;
+    }
+
+    @media only screen and (min-width: ${vars.lg}) {
+      max-width: $mw-lg;
+    }
+
+    @media only screen and (min-width: ${vars.xl}) {
+      max-width: ${mwCustom};
+    }
+  `;
+};
+
 export const loaderSkeleton = ({
   w = "260px",
   h = "24px",
@@ -164,9 +191,48 @@ export const baseStyleInput = () => {
   `;
 };
 
+export const button = ({
+  bg = vars.brandNavy,
+  bgHover = vars.brandNavy,
+  color = vars.white,
+  colorHover = vars.white,
+  borderColor = vars.brandNavy,
+}) => {
+  return `
+    ${fontSourcesansproRegular()}
+    transition: box-shadow 0.2s ${vars.easeOutCubic}, background-color 0.2s ${vars.easeOutCubic};
+    border: 1px solid ${borderColor};
+    color: ${color};
+    background-color: ${bg};
+    padding: 7px 23px;
+    border-radius: ${vars.buttonRadius};
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    min-width: 135px;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid ${bgHover};
+      background-color: ${bgHover};
+      color: ${colorHover};
+      box-shadow: 2px 2px 6px 0 ${vars.greyblueDark};
+      text-decoration: none;
+    }
+  `;
+};
+
 export const buttonLarge = () => {
   return `
     padding: 8px 24px 12px;
     ${fontSize(26)};
+  `;
+};
+
+export const dropzoneStatus = ({ bg = vars.blueLightest, borderColor = vars.brandBlue }) => {
+  return `
+    background-color: ${bg};
+    box-shadow: 0 0 0 ${vars.dropzoneBoxshadowPadding} ${bg};
+    border: 2px dashed ${borderColor};
   `;
 };

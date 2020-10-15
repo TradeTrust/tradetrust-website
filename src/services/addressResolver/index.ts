@@ -10,8 +10,21 @@ const { trace, error } = getLogger("service:addressresolver");
 // Returns an url with no trailing slash
 export const getPath = (path: string, base: string) => new URL(path, base).href;
 
+export interface AddressBookThirdPartyResultsProps {
+  identifier: string;
+  name: string;
+  remarks: string;
+}
+
 export interface HeadersProps {
   [key: string]: string;
+}
+
+interface EntityLookupProps {
+  query: string;
+  endpoint: string;
+  apiHeader?: string;
+  apiKey?: string;
 }
 
 const get = async ({
@@ -33,6 +46,17 @@ const get = async ({
   } else {
     return client.get(url);
   }
+};
+
+export const entityLookup = async ({
+  query,
+  endpoint,
+  apiHeader,
+  apiKey,
+}: EntityLookupProps): Promise<AddressBookThirdPartyResultsProps[]> => {
+  const url = `${endpoint}search?q=${query}`;
+  const response = await get({ url, apiHeader, apiKey });
+  return response.data.identities;
 };
 
 export const resolveAddressNameByEndpoint = async (url: string, apiHeader: string, apiKey: string) => {

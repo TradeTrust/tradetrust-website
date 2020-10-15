@@ -2,7 +2,11 @@ import React from "react";
 import styled from "@emotion/styled";
 import prettyBytes from "pretty-bytes";
 import { mixin, vars } from "../../../styles";
-import { SvgIcon, SvgIconPaperClip } from "./../../UI/SvgIcon";
+import { Paperclip } from "react-feather";
+import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
+import { getLogger } from "../../../utils/logger";
+
+const { error } = getLogger("component:attachmentlink");
 
 export interface AttachmentLinkProps {
   className?: string;
@@ -12,24 +16,38 @@ export interface AttachmentLinkProps {
   path?: string;
 }
 
+interface OriginalDocumentProps extends v2.OpenAttestationDocument {
+  links?: {
+    self?: {
+      href: string;
+    };
+  };
+}
+
 export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }: AttachmentLinkProps) => {
   let filesize = "0";
+  let redirectLink = "";
   const hasBase64 = !!(data && type);
   const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "javascript:void(0)";
 
   if (data) {
     const decodedData = atob(data);
     filesize = prettyBytes(decodedData.length);
+    try {
+      const decodedJson = JSON.parse(decodedData);
+      const originalDocument: OriginalDocumentProps = getData<WrappedDocument<OriginalDocumentProps>>(decodedJson);
+      redirectLink = originalDocument?.links?.self?.href ?? "";
+    } catch (e) {
+      error("decode data not json: " + e);
+    }
   }
 
   return (
-    <a href={downloadHref} download={`${filename}`} className={className} data-testid="attachment-link">
+    <div className={className}>
       <div className="row">
         <div className="col-12 col-md-auto mb-3 mb-md-0">
           <div className="icon">
-            <SvgIcon>
-              <SvgIconPaperClip />
-            </SvgIcon>
+            <Paperclip />
           </div>
         </div>
         <div className="col-12 col-md">
@@ -37,10 +55,23 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
             <span className="filename">{filename}</span>
             {hasBase64 && <span className="filesize">({filesize})</span>}
           </p>
-          <p className="downloadtext mb-0">Download</p>
+          <div className="row no-gutters">
+            <div className="col-12 col-md-auto">
+              <a href={downloadHref} download={`${filename}`} className="downloadtext" data-testid="attachment-link">
+                Download
+              </a>
+            </div>
+            {redirectLink && (
+              <div className="col-12 col-md-auto ml-0 ml-md-2">
+                <a href={redirectLink} target="_blank" rel="noopener noreferrer" className="downloadtext">
+                  Open
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 

@@ -1,27 +1,30 @@
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { getData, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import React, { useCallback, useState, useEffect } from "react";
 import { Tab } from "react-bootstrap";
 import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
 import { TemplateProps } from "./../types";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
-import CertificateSharingForm from "./CertificateSharing/CertificateSharingForm";
+import { CertificateSharingForm } from "./CertificateSharing/CertificateSharingForm";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
+import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain/EndorsementChainContainer";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ModalDialog } from "./ModalDialog";
 import { MultiButtons } from "./MultiButtons";
 import { TabPaneAttachments } from "./TabPaneAttachments";
-import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { getLogger } from "../utils/logger";
+import { useDispatch } from "react-redux";
+import { resetCertificateState } from "../reducers/certificate";
+import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 
-const { trace } = getLogger("component:certificateviewer");
+const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
-  document: WrappedDocument;
+  document: WrappedDocument<v2.OpenAttestationDocument>;
   verificationStatus: VerificationFragment[];
   shareLink: { id?: string; key?: string };
   showSharing: boolean;
@@ -45,16 +48,28 @@ export const CertificateViewer = ({
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
   const originalData = getData(document);
   const attachments = originalData?.attachments;
-  const hasAttachments = attachments && attachments.length > 0;
-  const { resetStates: resetTokenInformationState } = useTokenInformationContext();
+  const hasAttachments = attachments ? attachments.length > 0 : false;
+  const { initialize, resetStates: resetTokenInformationState } = useTokenInformationContext();
+  const dispatch = useDispatch();
 
-  useEffect(
-    () => () => {
-      trace("reseting token information on unmount");
-      resetTokenInformationState();
-    },
-    [resetTokenInformationState, document]
-  );
+  const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
+
+  /* 
+  initialise the meta token information context when new tokenId 
+  and tokenRegistryAddress provided and clean up the context when certificate viewer unmounts
+  */
+  useEffect(() => {
+    if (tokenRegistryAddress) {
+      trace("initialise token information context");
+      initialize(tokenRegistryAddress, tokenId);
+      return () => {
+        trace("reseting token information on unmount");
+        resetTokenInformationState();
+        resetCertificateData();
+      };
+    }
+  }, [tokenId, tokenRegistryAddress, resetCertificateData, resetTokenInformationState, initialize]);
+
   const childRef = React.useRef<{ print: () => void }>();
 
   const updateTemplates = useCallback((templates: TemplateProps[]) => {
@@ -77,11 +92,14 @@ export const CertificateViewer = ({
   const renderedEndorsementChain = (
     <div className="bg-blue-lighter no-print">
       <DocumentStatus verificationStatus={verificationStatus} />
-      <EndorsementChainContainer
-        tokenId={tokenId}
-        tokenRegistry={tokenRegistryAddress}
-        setShowEndorsementChain={setShowEndorsementChain}
-      />
+      <ObfuscatedMessage document={document} />
+      {tokenRegistryAddress && (
+        <EndorsementChainContainer
+          tokenId={tokenId}
+          tokenRegistry={tokenRegistryAddress}
+          setShowEndorsementChain={setShowEndorsementChain}
+        />
+      )}
     </div>
   );
 
@@ -89,6 +107,7 @@ export const CertificateViewer = ({
     <>
       <div className="bg-blue-lighter no-print">
         <DocumentStatus verificationStatus={verificationStatus} />
+        <ObfuscatedMessage document={document} />
         {tokenRegistryAddress && (
           <AssetManagementApplication
             tokenId={tokenId}
@@ -96,7 +115,7 @@ export const CertificateViewer = ({
             setShowEndorsementChain={setShowEndorsementChain}
           />
         )}
-        <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />
+        {tokenRegistryAddress && <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />}
       </div>
       <Tab.Container defaultActiveKey="tab-document">
         <div className="bg-blue-lighter no-print">
@@ -124,7 +143,7 @@ export const CertificateViewer = ({
                 ref={childRef}
               />
             </Tab.Pane>
-            {hasAttachments && <TabPaneAttachments attachments={attachments} />}
+            {attachments && <TabPaneAttachments attachments={attachments} />}
           </Tab.Content>
         </div>
       </Tab.Container>

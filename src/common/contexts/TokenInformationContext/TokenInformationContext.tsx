@@ -4,13 +4,16 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
+import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
+import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
+import { useRestoreToken } from "../../hooks/useRestoreToken";
 
 interface TokenInformationContext {
-  tokenRegistryAddress: string;
-  tokenId: string;
+  tokenRegistryAddress?: string;
+  tokenId?: string;
   beneficiary?: string;
   holder?: string;
-  titleEscrowOwner?: string;
+  documentOwner?: string;
   approvedBeneficiary?: string;
   approvedHolder?: string;
   changeHolder: TitleEscrow["changeHolder"];
@@ -25,8 +28,13 @@ interface TokenInformationContext {
   transferToNewEscrowState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
+  isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
   resetStates: () => void;
+  destroyToken: TradeTrustErc721["destroyToken"];
+  destroyTokenState: ContractFunctionState;
+  restoreToken: TradeTrustErc721["restoreToken"];
+  restoreTokenState: ContractFunctionState;
 }
 
 const contractFunctionStub = () => {
@@ -34,8 +42,6 @@ const contractFunctionStub = () => {
 };
 
 export const TokenInformationContext = createContext<TokenInformationContext>({
-  tokenRegistryAddress: "",
-  tokenId: "",
   initialize: () => {},
   changeHolder: contractFunctionStub,
   changeHolderState: "UNINITIALIZED",
@@ -44,30 +50,30 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
   isSurrendered: false,
-  titleEscrowOwner: "",
+  isTokenBurnt: false,
+  documentOwner: "",
   approveNewTransferTargets: contractFunctionStub,
   approveNewTransferTargetsState: "UNINITIALIZED",
   transferToNewEscrow: contractFunctionStub,
   transferToNewEscrowState: "UNINITIALIZED",
   resetStates: () => {},
+  destroyToken: contractFunctionStub,
+  destroyTokenState: "UNINITIALIZED",
+  restoreToken: contractFunctionStub,
+  restoreTokenState: "UNINITIALIZED",
 });
 
 export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [tokenId, setTokenId] = useState("");
-  const [tokenRegistryAddress, setTokenRegistryAddress] = useState("");
+  const [tokenId, setTokenId] = useState<string>();
+  const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
   const { provider } = useProviderContext();
-  const { titleEscrow, updateTitleEscrow, titleEscrowOwner } = useTitleEscrowContract(
-    tokenRegistryAddress,
-    tokenId,
-    provider
-  );
-  const isSurrendered = titleEscrow?.address === tokenRegistryAddress;
+  const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
+  const { titleEscrow, updateTitleEscrow, documentOwner } = useTitleEscrowContract(provider, tokenRegistry, tokenId);
+  const isSurrendered = documentOwner === tokenRegistryAddress;
+  const isTokenBurnt = documentOwner === "0x000000000000000000000000000000000000dEaD"; // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
-  const { isInterfaceType: isTitleEscrow, reset: resetSupportsInterface } = useSupportsInterface(
-    titleEscrow,
-    "0xdcce2211"
-  ); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
+  const { isInterfaceType: isTitleEscrow } = useSupportsInterface(titleEscrow, "0xdcce2211"); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -77,6 +83,13 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     "approvedBeneficiary"
   );
   const { call: getApprovedHolder, value: approvedHolder } = useContractFunctionHook(titleEscrow, "approvedHolder");
+
+  const { send: destroyToken, state: destroyTokenState, reset: resetDestroyingTokenState } = useContractFunctionHook(
+    tokenRegistry,
+    "destroyToken"
+  );
+
+  const { restoreToken, state: restoreTokenState } = useRestoreToken(provider, tokenRegistry, tokenId);
 
   // Contract Write Functions (available only after provider has been upgraded)
   const { send: transferTo, state: transferToState, reset: resetTransferTo } = useContractFunctionHook(
@@ -103,26 +116,31 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     reset: resetTransferToNewEscrow,
   } = useContractFunctionHook(titleEscrow, "transferToNewEscrow");
 
-  const resetStates = useCallback(() => {
+  const resetProviders = useCallback(() => {
     resetTransferTo();
+    resetDestroyingTokenState();
     resetChangeHolder();
     resetEndorseBeneficiary();
     resetApproveNewTransferTargets();
     resetTransferToNewEscrow();
-    resetSupportsInterface();
   }, [
+    resetDestroyingTokenState,
     resetApproveNewTransferTargets,
     resetChangeHolder,
     resetEndorseBeneficiary,
-    resetSupportsInterface,
     resetTransferTo,
     resetTransferToNewEscrow,
   ]);
 
-  const initialize = (address: string, id: string) => {
+  const resetStates = useCallback(() => {
+    setTokenId(undefined);
+    setTokenRegistryAddress(undefined);
+  }, []);
+
+  const initialize = useCallback((address: string, id: string) => {
     setTokenId(id);
     setTokenRegistryAddress(address);
-  };
+  }, []);
 
   // Fetch all new information when title escrow is initialized or updated (due to actions)
   useEffect(() => {
@@ -150,13 +168,22 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
     if (transferToState === "CONFIRMED") updateTitleEscrow();
   }, [transferToState, updateTitleEscrow]);
 
+  // Update entire title escrow whenever token is burnt
+  useEffect(() => {
+    if (destroyTokenState === "CONFIRMED") updateTitleEscrow();
+  }, [destroyTokenState, updateTitleEscrow]);
+
+  useEffect(() => {
+    if (restoreTokenState === "CONFIRMED") updateTitleEscrow();
+  }, [restoreTokenState, updateTitleEscrow]);
+
   // Update entire title escrow whenever endorse transfer to beneficiary and holder is successful
   useEffect(() => {
     if (transferToNewEscrowState === "CONFIRMED") updateTitleEscrow();
   }, [transferToNewEscrowState, updateTitleEscrow]);
 
   // Reset states for all write functions when provider changes to allow methods to be called again without refreshing
-  useEffect(resetStates, [resetStates, provider]);
+  useEffect(resetProviders, [resetProviders, provider]);
 
   return (
     <TokenInformationContext.Provider
@@ -164,24 +191,29 @@ export const TokenInformationContextProvider = ({ children }: { children: React.
         tokenId,
         tokenRegistryAddress,
         initialize,
-        holder,
-        beneficiary,
-        approvedBeneficiary,
-        approvedHolder,
+        holder: holder?.[0],
+        beneficiary: beneficiary?.[0],
+        approvedBeneficiary: approvedBeneficiary?.[0],
+        approvedHolder: approvedHolder?.[0],
         changeHolder,
         endorseBeneficiary,
         transferTo,
         changeHolderState,
         endorseBeneficiaryState,
         transferToState,
+        destroyTokenState,
+        destroyToken,
         isSurrendered,
+        isTokenBurnt,
         isTitleEscrow,
-        titleEscrowOwner,
+        documentOwner,
         approveNewTransferTargets,
         approveNewTransferTargetsState,
         transferToNewEscrow,
         transferToNewEscrowState,
         resetStates,
+        restoreToken,
+        restoreTokenState,
       }}
     >
       {children}

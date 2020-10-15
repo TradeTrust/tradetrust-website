@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 import { OverlayContext } from "../../../../common/contexts/OverlayContext";
-import { SvgIcon, SvgIconX, SvgIconXCircle, SvgIconCheckCircle } from "../../../UI/SvgIcon";
+import { vars } from "../../../../styles";
+import { X, XCircle, CheckCircle } from "react-feather";
 import { useLockBodyScroll } from "../../../../common/hooks/useLockBodyScroll";
 
 export interface OverlayContentProps {
@@ -27,7 +28,7 @@ export const OverlayContent = ({ className, title, isSuccess, children, ...props
             {isSuccess !== undefined && (
               <div className="col-auto mr-1">
                 <div className="title-icon">
-                  <SvgIcon>{isSuccess ? <SvgIconCheckCircle /> : <SvgIconXCircle />}</SvgIcon>
+                  {isSuccess ? <CheckCircle color={`${vars.teal}`} /> : <XCircle color={`${vars.red}`} />}
                 </div>
               </div>
             )}
@@ -36,9 +37,7 @@ export const OverlayContent = ({ className, title, isSuccess, children, ...props
             </div>
             <div className="col-auto ml-auto">
               <div className="overlay-cancel" onClick={handleCloseOverlay}>
-                <SvgIcon>
-                  <SvgIconX />
-                </SvgIcon>
+                <X />
               </div>
             </div>
           </div>

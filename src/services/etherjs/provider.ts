@@ -2,7 +2,7 @@ import { ethers, providers } from "ethers";
 import { getLogger } from "../../utils/logger";
 const { trace } = getLogger("service:etherjs:provider");
 
-interface Ethereum extends providers.Web3Provider {
+interface Ethereum extends providers.ExternalProvider, providers.BaseProvider {
   enable: () => void;
 }
 
@@ -10,7 +10,7 @@ declare global {
   interface Window {
     ethereum: Ethereum;
     web3: {
-      currentProvider: providers.Web3Provider;
+      currentProvider: providers.ExternalProvider;
     };
   }
 }

@@ -4,7 +4,7 @@ import { InputEditableAssetTitle, InputEditableWrapper, InputError } from "../..
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 import { ButtonIconOrangeWhite } from "./../../../../UI/Button";
-import { SvgIcon, SvgIconBook } from "./../../../../UI/SvgIcon";
+import { Book } from "react-feather";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
 import { AddressBook } from "./../../../../../components/UI/Overlay/OverlayContent/AddressBook";
 
@@ -61,9 +61,7 @@ export const EditableAssetTitle = ({
         </InputEditableWrapper>
         <div className="col-auto">
           <ButtonIconOrangeWhite onClick={onOverlayHandler}>
-            <SvgIcon>
-              <SvgIconBook />
-            </SvgIcon>
+            <Book />
           </ButtonIconOrangeWhite>
         </div>
       </div>

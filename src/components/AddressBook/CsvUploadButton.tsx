@@ -1,8 +1,8 @@
 import React from "react";
 import { isAddress } from "web3-utils";
 import { parse } from "papaparse";
-import { useAddressBook, AddressBook } from "../../common/hooks/useAddressBook";
-import { SvgIcon, SvgIconFilePlus } from "../UI/SvgIcon";
+import { useAddressBook, AddressBookLocalProps } from "../../common/hooks/useAddressBook";
+import { FilePlus } from "react-feather";
 import { LabelWhiteSecondary } from "../UI/Button";
 
 const readAsText = async (file: File): Promise<string> => {
@@ -25,7 +25,7 @@ interface AddressBookCsvData {
 
 const csvToAddressBook = (csv: string) => {
   const { data } = parse<AddressBookCsvData>(csv, { skipEmptyLines: true, header: true });
-  const addressBook: AddressBook = {};
+  const addressBook: AddressBookLocalProps = {};
   data.forEach((row, index) => {
     const identifierText = row.Identifier || row.identifier;
     const addressText = row.Address || row.address;
@@ -63,9 +63,7 @@ export const CsvUploadButton = () => {
       <LabelWhiteSecondary htmlFor="csv-file-input">
         <div className="row align-items-center no-gutters">
           <div className="col-auto mr-2">
-            <SvgIcon>
-              <SvgIconFilePlus />
-            </SvgIcon>
+            <FilePlus />
           </div>
           <div className="col-auto">Import .csv</div>
         </div>
