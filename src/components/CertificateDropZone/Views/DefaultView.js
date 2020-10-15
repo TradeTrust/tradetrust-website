@@ -79,27 +79,25 @@ const MY_JSON_FILE = [
     },
   },
 ];
+const openTab = (url) => {
+  const childWin = window.open(url, "_blank");
+  const msg = { pName: "Bob", pAge: "35" };
 
+  const file = JSON.stringify(MY_JSON_FILE);
+
+  childWin.postMessage(msg, "*");
+  childWin.focus();
+};
 export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => {
-  const [initChild, setInitChild] = useState(false);
-  const channel = new BroadcastChannel("my-channel");
-  channel.addEventListener("message", (e) => {
-    console.log(e.data);
-  });
-  channel.postMessage("Hey, how's it going mate? I'm from a different tab!");
-  // array
-  channel.postMessage([5, 10, 15, 20]);
-
-  // object
-  channel.postMessage({ name: "Dom", age: 30 });
-
-  // blob
-  channel.postMessage(MY_JSON_FILE);
-  const openTab = (url) => {
-    const childWin = window.open(url, "_blank");
-    childWin.focus();
-  };
-
+  useEffect(() => {
+    window.addEventListener(
+      "message",
+      (event) => {
+        console.log("message received:", event.data);
+      },
+      false
+    );
+  }, []);
   return (
     <ViewerContainer data-id="viewer-container" className={`${hover ? (accept ? "accept" : "invalid") : "default"}`}>
       <div className="image-container">
