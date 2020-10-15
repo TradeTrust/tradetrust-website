@@ -83,6 +83,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
       const { features } = await getFeatures(endpoint, apiHeader, apiKey);
       setEntityLookupPath(features.entityLookup?.location);
     } catch (e) {
+      setEntityLookupPath(undefined);
       console.log(e, "error");
     }
   };
@@ -130,7 +131,6 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
               onClick={() => {
                 setIsLocal(true);
                 setSearchTerm("");
-                setEntityLookupPath(undefined);
               }}
             >
               Local
@@ -140,9 +140,9 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
                 <StyledDropdownItem
                   key={index}
                   onClick={() => {
-                    queryFeatures();
                     setIsLocal(false);
                     setSearchTerm("");
+                    queryFeatures();
                     setRemoteEndpointIndex(index);
                   }}
                 >
