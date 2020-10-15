@@ -14,6 +14,7 @@ import { debounce } from "lodash";
 import { AddressBookLocal } from "./AddressBookLocal";
 import { AddressBookThirdParty } from "./AddressBookThirdParty";
 import { entityLookup, AddressBookThirdPartyResultsProps } from "../../../../services/addressResolver";
+import { getFeatures } from "../../../../services/addressResolver";
 
 export interface AddressBookDropdownProps {
   name: string;
@@ -68,11 +69,21 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
     []
   );
   const { name, endpoint, apiHeader, apiKey } = thirdPartyAPIEndpoints[remoteEndpointIndex] ?? {};
+  const [entityLookupPath, setEntityLookupPath] = useState<string>();
 
   const onAddressSelect = (address: string) => {
     if (onAddressSelected) {
       onAddressSelected(address);
       setOverlayVisible(false);
+    }
+  };
+
+  const queryFeatures = async () => {
+    try {
+      const { features } = await getFeatures(endpoint, apiHeader, apiKey);
+      setEntityLookupPath(features.entityLookup?.location);
+    } catch (e) {
+      console.log(e, "error");
     }
   };
 
@@ -86,6 +97,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
           endpoint,
           apiHeader,
           apiKey,
+          path: entityLookupPath,
         });
         setAddressBookThirdPartyResults(results);
       } catch (e) {
@@ -96,7 +108,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
 
       setIsPendingRemoteResults(false);
     }, 1000),
-    []
+    [entityLookupPath]
   );
 
   const onSearchTermChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,6 +130,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
               onClick={() => {
                 setIsLocal(true);
                 setSearchTerm("");
+                setEntityLookupPath(undefined);
               }}
             >
               Local
@@ -127,6 +140,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
                 <StyledDropdownItem
                   key={index}
                   onClick={() => {
+                    queryFeatures();
                     setIsLocal(false);
                     setSearchTerm("");
                     setRemoteEndpointIndex(index);
