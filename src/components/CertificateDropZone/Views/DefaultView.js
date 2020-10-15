@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { ViewerButton, ViewerContainer } from "./SharedViewerStyledComponents";
-import AcrossTabs from "across-tabs";
 
 const MY_JSON_FILE = [
   {
@@ -80,75 +79,26 @@ const MY_JSON_FILE = [
     },
   },
 ];
-const postMessageEvents = [];
 
 export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => {
   const [initChild, setInitChild] = useState(false);
-  function onChildCommunication(data) {
-    data.type = "custom";
-    postMessageEvents.push(data);
-  }
-  function onHandshakeCallback(data) {
-    data.type = "open";
-    postMessageEvents.push(data);
-    setInitChild(true);
-    console.log("in parent on handshake");
-  }
-
-  const parent = new AcrossTabs.Parent({
-    onHandshakeCallback: onHandshakeCallback,
-    onChildCommunication: onChildCommunication,
-    shouldInitImmediately: true,
+  const channel = new BroadcastChannel("my-channel");
+  channel.addEventListener("message", (e) => {
+    console.log(e.data);
   });
+  channel.postMessage("Hey, how's it going mate? I'm from a different tab!");
+  // array
+  channel.postMessage([5, 10, 15, 20]);
 
-  function onParentCommunication(data) {
-    console.log(data);
-    postMessageEvents.push(data);
-    console.log("in child: parent spoke");
-  }
-  function onReady() {
-    console.log("child ready");
-  }
-  function onInitialise() {
-    console.log("child init");
-  }
+  // object
+  channel.postMessage({ name: "Dom", age: 30 });
 
-  const child = new AcrossTabs.Child({
-    onParentCommunication: onParentCommunication,
-    onReady: onReady,
-    onInitialise: onInitialise,
-    // shouldInitImmediately: false,
-  });
+  // blob
+  channel.postMessage(MY_JSON_FILE);
   const openTab = (url) => {
-    // const childWin = window.open(url, "_blank");
-    // const msg = "SECRET MSG";
-
-    // const file = JSON.stringify(MY_JSON_FILE);
-    // localStorage.setItem("pageData", file);
-
-    // childWin.postMessage(msg, "*");
-    // childWin.focus();
-    parent.openNewTab({ url: url, windowName: "TEST" });
-    console.log("parent info: ", parent.getAllTabs());
+    const childWin = window.open(url, "_blank");
+    childWin.focus();
   };
-
-  useEffect(() => {
-    // console.log(child.getTabInfo());
-    // window.addEventListener(
-    //   "message",
-    //   (event) => {
-    //     console.log("message received:", JSON.stringify(event.data));
-    //     // console.log(localStorage.pageData);
-    //   },
-    //   false
-    // );
-    if (initChild) {
-      console.log("can send msg");
-      console.log("child info: ", child.getTabInfo());
-      parent.broadCastAll("Hello my dear Child! A greeting from Parent.");
-      console.log(postMessageEvents);
-    }
-  }, [child, initChild, parent]);
 
   return (
     <ViewerContainer data-id="viewer-container" className={`${hover ? (accept ? "accept" : "invalid") : "default"}`}>
