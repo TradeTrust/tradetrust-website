@@ -109,7 +109,7 @@ export const getFeatures = async (url: string, apiHeader?: string, apiKey?: stri
       url,
       apiHeader,
       apiKey,
-      cache: true,
+      cache: false,
     });
     return response.data;
   } catch (e) {
