@@ -75,11 +75,6 @@ export function* handleQrScanned({ payload: qrCode }) {
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION,
       payload: actionPayload,
     });
-
-    yield put({
-      type: types.UPDATE_CERTIFICATE,
-      payload: document,
-    });
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));
   }

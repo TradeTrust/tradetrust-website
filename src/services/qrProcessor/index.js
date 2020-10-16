@@ -11,9 +11,6 @@ export const decodeQrCode = (qrCode) => {
   return decodedPayload;
 };
 
-export const encodeQrCode = (payload) =>
-  `https://action.openattestation.com/?q=${encodeURIComponent(JSON.stringify(payload))}`;
-
 export const processQrCode = async (qrCode) => {
   try {
     const action = decodeQrCode(qrCode);

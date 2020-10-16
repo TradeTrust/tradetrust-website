@@ -1,14 +1,7 @@
-import { encodeQrCode, decodeQrCode, processQrCode } from "./index";
+import { decodeQrCode, processQrCode } from "./index";
 
-describe("encodeQrCode", () => {
-  it("encodes an action correctly", () => {
-    const action = { uri: "https://sample.domain/document/id?q=abc#123" };
-    const encodedQrCode = encodeQrCode(action);
-    expect(encodedQrCode).toBe(
-      "https://action.openattestation.com/?q=%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D"
-    );
-  });
-});
+const encodeQrCode = (payload) =>
+  `https://action.openattestation.com/?q=${encodeURIComponent(JSON.stringify(payload))}`;
 
 describe("decodeQrCode", () => {
   it("decodes an action correctly", () => {
