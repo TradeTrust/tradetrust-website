@@ -4,28 +4,30 @@ import { Download } from "react-feather";
 import { mixin, vars } from "../../../styles";
 import { ResourcesLinkProps } from "../../../types";
 
-export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, details, type }) => {
+export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, details, type, icon }) => {
   return (
     <ResourcesLinkItem>
       <div className="link-wrapper">
         <div className="title">{title}</div>
-        <div className="link-container">
-          {type === "link" && (
-            <a className="link" href={details.url} target="_blank" rel="noopener noreferrer" data-testid="link">
-              {details.description}
-            </a>
-          )}
-          {type === "download" && (
-            <div className="download-wrapper">
-              <a href={details.url} download={`${details.description}.pdf`} className="link" data-testid="download">
-                <Download className="mr-1" />
+        {details.map((details, index) => (
+          <div className="link-container" key={index}>
+            {type === "link" && (
+              <a className="link" href={details.url} target="_blank" rel="noopener noreferrer" data-testid="link">
                 {details.description}
               </a>
-            </div>
-          )}
-        </div>
+            )}
+            {type === "download" && (
+              <div className="download-wrapper">
+                <a href={details.url} download={`${details.description}.pdf`} className="link" data-testid="download">
+                  <Download className="mr-1" />
+                  {details.description}
+                </a>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-      {details.icon && <img src={details.icon} className="link-icon" data-testid="link-icon" />}
+      {icon && <img src={icon} className="link-icon" data-testid="link-icon" />}
     </ResourcesLinkItem>
   );
 };
