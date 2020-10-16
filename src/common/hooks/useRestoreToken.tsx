@@ -69,8 +69,8 @@ export const useRestoreToken = (
       // use minter restore token method to send token back to last known bene and holder
       const sendTokenReceipt = await contractInstance.sendToken(deployedTitleEscrowAddress, tokenId);
       const sendTokenTx = await sendTokenReceipt.wait();
-      const sendTokenArgs = sendTokenTx.events?.reverse().find((event) => event.event === "Transfer")?.args;
-      if (!sendTokenArgs || sendTokenArgs[0] !== deployedTitleEscrowAddress)
+      const sendTokenArgs = sendTokenTx.events?.find((event) => event.event === "Transfer")?.args;
+      if (!sendTokenArgs || sendTokenArgs[1] !== deployedTitleEscrowAddress)
         throw new Error(`Token was not restored to owner and beneficiary. Tx: ${JSON.stringify(sendTokenTx)}`);
       setState("CONFIRMED");
     } catch (error) {
