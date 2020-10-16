@@ -45,4 +45,16 @@ describe("ResourcesLink", () => {
 
     expect(screen.queryAllByTestId("link-icon")).toHaveLength(1);
   });
+
+  it("should render all links specified in details array", () => {
+    mockInfo.details.push({
+      description: "View TradeTrust source code again",
+      url: "https://github.com/TradeTrust/tradetrust-website",
+    });
+    render(
+      <ResourcesLink title={mockInfo.title} type={mockInfo.type} details={mockInfo.details} icon={mockInfo.icon} />
+    );
+
+    expect(screen.queryAllByTestId("link")).toHaveLength(2);
+  });
 });
