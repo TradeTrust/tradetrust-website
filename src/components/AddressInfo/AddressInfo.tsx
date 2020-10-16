@@ -5,22 +5,30 @@ import { mixin, vars } from "../../styles";
 interface AddressInfoProps {
   className?: string;
   title: string;
-  name: string;
-  source?: string;
   children: React.ReactNode;
+  name?: string;
+  resolvedBy?: string;
+  source?: string;
 }
 
-export const AddressInfoUnStyled = ({ className, title, name, source, children }: AddressInfoProps) => {
+export const AddressInfoUnStyled = ({ className, title, name, resolvedBy, source, children }: AddressInfoProps) => {
   return (
     <div className={`${className}`}>
       <h6>{title}:</h6>
       {name && (
         <div className="d-flex">
           <h5>{name}</h5>
-          {source && <span className="source-text">(Source: {source})</span>}
         </div>
       )}
       <div className="etherum-address">{children}</div>
+      {resolvedBy && (
+        <div className="d-flex">
+          <span className="info">
+            (Resolved by: {resolvedBy}
+            {source && `; Source: ${source}`})
+          </span>
+        </div>
+      )}
     </div>
   );
 };
@@ -41,10 +49,10 @@ export const AddressInfo = styled(AddressInfoUnStyled)`
     margin-bottom: 8px;
   }
 
-  .source-text {
-    margin-left: 8px;
+  .info {
+    font-size: ${mixin.fontSize(14)};
     color: ${vars.grey};
-    ${mixin.fontSourcesansproBold};
+    ${mixin.fontSourcesansproSemibold};
   }
 
   .etherum-address {

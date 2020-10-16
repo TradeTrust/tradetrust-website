@@ -15,7 +15,7 @@ describe("AddressCell", () => {
   });
 
   it("should render all information correctly", () => {
-    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
+    mockUseIdentifierResolver.mockReturnValue({ identityName: "FooBar" });
     render(
       <AddressCell
         address="0x6FFeD6E6591b808130a9b248fEA32101b5220eca"
@@ -30,7 +30,7 @@ describe("AddressCell", () => {
   });
 
   it("should not render the dot in the UI if newAddress is false", () => {
-    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "" });
+    mockUseIdentifierResolver.mockReturnValue({ identityName: "" });
 
     render(
       <AddressCell

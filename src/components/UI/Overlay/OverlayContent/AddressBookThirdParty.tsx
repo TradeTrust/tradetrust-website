@@ -20,6 +20,7 @@ export const AddressBookThirdParty = ({
         <tr>
           <th>Name</th>
           <td>Address</td>
+          <td>Source</td>
           <td>Remarks</td>
           <td>&nbsp;</td>
         </tr>
@@ -34,11 +35,13 @@ export const AddressBookThirdParty = ({
             return (
               <AddressBookTableRow
                 key={index}
+                isLocal={false}
                 onAddressSelect={() => {
                   onAddressSelect(item.identifier);
                 }}
                 address={item.identifier}
                 name={item.name}
+                source={item.source}
                 remarks={item.remarks}
               />
             );

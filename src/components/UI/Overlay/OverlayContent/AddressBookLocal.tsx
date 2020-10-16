@@ -39,6 +39,7 @@ export const AddressBookLocal = ({ onAddressSelect, searchTerm }: AddressBookLoc
             return (
               <AddressBookTableRow
                 key={key}
+                isLocal={true}
                 onAddressSelect={() => {
                   onAddressSelect(key);
                 }}

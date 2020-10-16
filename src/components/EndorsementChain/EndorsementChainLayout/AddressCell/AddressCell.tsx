@@ -14,7 +14,7 @@ interface AddressCell {
 
 export const AddressCell: FunctionComponent<AddressCell> = styled(
   ({ address, className, titleEscrowAddress, newAddress }) => {
-    const { resolvedIdentifier } = useIdentifierResolver(address);
+    const { identityName } = useIdentifierResolver(address);
 
     const tooltipContent = (
       <div className="tooltip-container">
@@ -27,7 +27,7 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
       <div className={className}>
         <div className="name-row">
           {newAddress && <div className="dot" data-testid="dot" />}
-          {resolvedIdentifier && <div className="name">{resolvedIdentifier}</div>}
+          {identityName && <div className="name">{identityName}</div>}
           <TooltipIcon className="icon" content={tooltipContent} placement="top">
             <Info />
           </TooltipIcon>
