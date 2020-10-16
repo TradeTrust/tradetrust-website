@@ -1,8 +1,4 @@
-import axios from "axios";
-import { encryptString } from "@govtechsg/oa-encryption";
 import { encodeQrCode, decodeQrCode, processQrCode } from "./index";
-
-jest.mock("axios");
 
 describe("encodeQrCode", () => {
   it("encodes an action correctly", () => {
@@ -32,15 +28,20 @@ describe("decodeQrCode", () => {
 });
 
 describe("processQrCode", () => {
+  it("throws error when uri is not document", async () => {
+    const document = { name: "foo" };
+    const type = "MANY_DOCUMENT";
+    // const { key } = await encryptString(JSON.stringify(document));
+    const actionUri = { payload: document, type };
+    await expect(() => processQrCode(encodeQrCode(actionUri))).rejects.toThrow(
+      `The type ${type} provided from the action is not supported`
+    );
+  });
+
   it("fetches calls get with the right parameter when a QR code is scanned", async () => {
     const document = { name: "foo" };
-    const { cipherText, iv, tag, key } = await encryptString(JSON.stringify(document));
-    const actionUri = { payload: { uri: `https://sample.domain/document`, key: key }, type: "DOCUMENT" };
-    axios.get.mockResolvedValue({
-      data: { document: { cipherText, iv, tag, type: "OPEN-ATTESTATION-TYPE-1" } },
-    });
+    const actionUri = { payload: document, type: "DOCUMENT" };
     const results = await processQrCode(encodeQrCode(actionUri));
-    expect(axios.get).toHaveBeenCalledWith("https://sample.domain/document");
     expect(results).toStrictEqual(document);
   });
 });
