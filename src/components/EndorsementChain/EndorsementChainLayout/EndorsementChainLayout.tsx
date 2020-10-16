@@ -2,14 +2,17 @@ import styled from "@emotion/styled";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { mixin, vars } from "../../../styles";
-import { TitleEscrowEvent } from "../../../types";
+import { TradeTrustErc721Event, TitleEscrowEvent } from "../../../types";
 import { ArrowLeft } from "react-feather";
 import { AddressCell } from "./AddressCell";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
+import { getLogger } from "../../../utils/logger";
+
+const { trace } = getLogger("component: endorsementchainlayout");
 
 interface EndorsementChainLayout {
-  endorsementChain?: TitleEscrowEvent[];
+  endorsementChain?: TradeTrustErc721Event[];
   className?: string;
   error?: string;
   pending: boolean;
@@ -28,35 +31,77 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
   const tableRows: JSX.Element[] = [];
   let index = 0;
   endorsementChain &&
-    endorsementChain.forEach((beneficiaryChangeEvent, beneIndex) => {
-      beneficiaryChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
-        tableRows.push(
-          <div className="table-row" key={index++}>
-            <div className="table-cell date">
-              {format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}
-            </div>
-            <div className="table-cell endorsement-ui-dash">
-              {beneIndex === 0 && holderIndex === 0 && <div className="mask" />}
-              <AddressCell
-                address={beneficiaryChangeEvent.beneficiary}
-                titleEscrowAddress={beneficiaryChangeEvent.titleEscrowAddress}
-                newAddress={!(previousBeneficiary === beneficiaryChangeEvent.beneficiary)}
-              />
-            </div>
-            <div className="table-cell endorsement-ui-dash">
-              {beneIndex === 0 && holderIndex === 0 && <div className="mask" />}
-              <AddressCell
-                address={holderChangeEvent.holder}
-                titleEscrowAddress={beneficiaryChangeEvent.titleEscrowAddress}
-                newAddress={!(previousHolder === holderChangeEvent.holder)}
-              />
-            </div>
-          </div>
-        );
-        previousBeneficiary = beneficiaryChangeEvent.beneficiary;
-        previousHolder = holderChangeEvent.holder;
-      });
+    endorsementChain.forEach((tradetrustErc721Event, eventIndex) => {
+      // default not needed as eventType has only 3 possibilities which are all accounted for
+      switch (tradetrustErc721Event.eventType) {
+        case "Transfer":
+          const beneficiaryChangeEvent = tradetrustErc721Event as TitleEscrowEvent;
+          if (!beneficiaryChangeEvent.holderChangeEvents || !beneficiaryChangeEvent.beneficiary)
+            return new Error("Invalid Event: Transfer Event does not have new beneficiary or new holder address");
+          beneficiaryChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
+            tableRows.push(
+              <tr className="table-row" key={index++}>
+                <td className="table-cell date border-top-none">
+                  {format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}
+                </td>
+                <td className="table-cell endorsement-ui-dash border-top-none">
+                  {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
+                  <AddressCell
+                    address={beneficiaryChangeEvent.beneficiary}
+                    titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
+                    newAddress={!(previousBeneficiary === beneficiaryChangeEvent.beneficiary)}
+                  />
+                </td>
+                <td className="table-cell endorsement-ui-dash border-top-none">
+                  {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
+                  <AddressCell
+                    address={holderChangeEvent.holder}
+                    titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
+                    newAddress={!(previousHolder === holderChangeEvent.holder)}
+                  />
+                </td>
+              </tr>
+            );
+            previousBeneficiary = beneficiaryChangeEvent.beneficiary;
+            previousHolder = holderChangeEvent.holder;
+          });
+          break;
+        case "Surrender":
+          tableRows.push(
+            <tr className="table-row" key={index++}>
+              <td className="table-cell date border-top-none">
+                {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              </td>
+              <td colSpan={2} className="endorsement-ui-dash border-top-none">
+                <div className="name-row">
+                  <div className="dot" data-testid="dot" />
+                  <div className="name">Document surrendered to Issuer</div>
+                </div>
+              </td>
+            </tr>
+          );
+          break;
+        case "Burnt":
+          tableRows.push(
+            <tr className="table-row" key={index++}>
+              <td className="table-cell date border-top-none">
+                {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              </td>
+              <td colSpan={2} className="endorsement-ui-dash border-top-none">
+                <div className="name-row">
+                  <div className="dot" data-testid="dot" />
+                  <div className="name">Surrender of document accepted</div>
+                </div>
+              </td>
+            </tr>
+          );
+          break;
+        default:
+          trace("Unknown event type please check event history");
+          break;
+      }
     });
+
   return (
     <div className={`container-custom ${className} `}>
       <div className="table-container">
@@ -72,15 +117,19 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
         </div>
         <div className="endorsement-chain-title">Endorsement Chain</div>
         <div className="table-responsive">
-          <div className="table">
-            <div className="table-header table-row">
-              <div className="table-cell">Date</div>
-              <div className="table-cell">Owner</div>
-              <div className="table-cell">Holder</div>
-            </div>
-            {pending && <EndorsementChainLoading />}
-            {endorsementChain && tableRows}
-          </div>
+          <table className="table">
+            <thead>
+              <tr className="table-header table-row">
+                <th className="table-cell">Date</th>
+                <th className="table-cell">Owner</th>
+                <th className="table-cell">Holder</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pending && <EndorsementChainLoading />}
+              {endorsementChain && tableRows}
+            </tbody>
+          </table>
         </div>
         {error && <EndorsementChainError error={error} />}
       </div>
@@ -127,13 +176,11 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .table {
-    display: table;
     width: 100%;
     margin-bottom: 0;
   }
 
   .table-row {
-    display: table-row;
     background-color: ${vars.white};
   }
 
@@ -153,9 +200,43 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
     padding: 0.5rem;
   }
 
+  .border-top-none {
+    border-top: none;
+  }
+
   .date {
     font-weight: bold;
     color: ${vars.greyDark};
     min-width: 140px;
+  }
+
+  .name {
+    font-size: ${mixin.fontSize(18)};
+    color: ${vars.greyDark};
+    font-weight: bold;
+  }
+
+  .dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: ${vars.teal};
+    margin: 0.25rem;
+    position: absolute;
+    left: -21.5px;
+    top: 5px;
+    z-index: 4;
+  }
+
+  .name-row {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-height: 27px;
+  }
+
+  .loading-cell {
+    padding: 0;
+    border-top: none;
   }
 `;

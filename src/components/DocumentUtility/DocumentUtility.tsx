@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { getData, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import { mixin, vars } from "../../styles";
 import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
@@ -11,10 +11,20 @@ import QRCode, { ImageSettings } from "qrcode.react";
 import { getDimensions } from "./../../common/utils/logo";
 
 interface DocumentUtilityProps {
-  document: WrappedDocument;
+  document: WrappedDocument<v2.OpenAttestationDocument>;
   handleSharingToggle: any;
   onPrint: () => void;
   className?: string;
+}
+
+interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
+  name?: string;
+  links?: {
+    self?: {
+      href?: string;
+    };
+  };
+  logo?: string;
 }
 
 export const DocumentUtilityUnStyled = ({
@@ -23,9 +33,11 @@ export const DocumentUtilityUnStyled = ({
   onPrint,
   className,
 }: DocumentUtilityProps) => {
-  const fileName = getData(document).name;
-  const qrcodeUrl = getData(document)?.links?.self?.href ?? "";
-  const logoUrl = getData(document)?.logo;
+  // Extending document data to account for undefined metadata in OA schema
+  const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);
+  const fileName = documentWithMetadata.name;
+  const qrcodeUrl = documentWithMetadata.links?.self?.href ?? "";
+  const logoUrl = documentWithMetadata.logo;
   const [imageSettings, setImageSettings] = useState<ImageSettings>();
 
   if (logoUrl) {

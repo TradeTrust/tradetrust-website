@@ -2,12 +2,12 @@ import { useCallback } from "react";
 import createPersistedState from "use-persisted-state";
 import { ResolutionResult } from "./useIdentifierResolver";
 
-export interface AddressBook {
+export interface AddressBookLocalProps {
   [key: string]: string;
 }
 
 export const useAddressBook = () => {
-  const defaultAddressBook: AddressBook = {};
+  const defaultAddressBook: AddressBookLocalProps = {};
   const [addressBook, setAddressBook] = createPersistedState("ADDRESS_BOOK")(defaultAddressBook);
   const getIdentifier = useCallback(
     (address: string): ResolutionResult | undefined => {

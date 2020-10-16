@@ -1,7 +1,7 @@
 import React from "react";
 import { isAddress } from "web3-utils";
 import { parse } from "papaparse";
-import { useAddressBook, AddressBook } from "../../common/hooks/useAddressBook";
+import { useAddressBook, AddressBookLocalProps } from "../../common/hooks/useAddressBook";
 import { FilePlus } from "react-feather";
 import { LabelWhiteSecondary } from "../UI/Button";
 
@@ -25,7 +25,7 @@ interface AddressBookCsvData {
 
 const csvToAddressBook = (csv: string) => {
   const { data } = parse<AddressBookCsvData>(csv, { skipEmptyLines: true, header: true });
-  const addressBook: AddressBook = {};
+  const addressBook: AddressBookLocalProps = {};
   data.forEach((row, index) => {
     const identifierText = row.Identifier || row.identifier;
     const addressText = row.Address || row.address;

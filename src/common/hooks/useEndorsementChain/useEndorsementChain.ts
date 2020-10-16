@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { providers, Signer } from "ethers";
-import { TitleEscrowEvent } from "../../../types";
-import { fetchEscrowTransfers } from "./fetchEscrowTransfer";
+import { TradeTrustErc721Event } from "../../../types";
+import { fetchEscrowTransfers, fetchEventInfo } from "./fetchEscrowTransfer";
 import { useProviderContext } from "../../contexts/provider";
 
 export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: string) => {
@@ -12,7 +12,7 @@ export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: strin
     : (providerOrSigner as providers.Provider);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
-  const [endorsementChain, setEndorsementChain] = useState<TitleEscrowEvent[]>();
+  const [endorsementChain, setEndorsementChain] = useState<TradeTrustErc721Event[]>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
 
   const fetchEndorsementChain = useCallback(async () => {
@@ -34,10 +34,17 @@ export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: strin
         };
       });
 
-      // Removing transactions with surrender
-      const intermediateOwners = formattedLogs.filter(({ to }) => to !== tokenRegistryAddress);
-      const titleEscrowLogs = await Promise.all(
-        intermediateOwners.map((log) => fetchEscrowTransfers(log.to, provider))
+      const titleEscrowLogs: TradeTrustErc721Event[] = await Promise.all(
+        formattedLogs.map((log) => {
+          switch (log.to) {
+            case tokenRegistryAddress:
+              return fetchEventInfo(log.to, log.blockNumber, "Surrender", provider);
+            case "0x000000000000000000000000000000000000dEaD":
+              return fetchEventInfo(log.to, log.blockNumber, "Burnt", provider);
+            default:
+              return fetchEscrowTransfers(log.to, provider);
+          }
+        })
       );
       setEndorsementChain(titleEscrowLogs);
     } catch (e) {

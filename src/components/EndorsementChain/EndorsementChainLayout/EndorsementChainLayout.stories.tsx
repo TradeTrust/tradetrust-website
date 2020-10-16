@@ -1,5 +1,5 @@
 import React from "react";
-import { TitleEscrowEvent } from "../../../types";
+import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
 
 export default {
@@ -7,9 +7,10 @@ export default {
   component: EndorsementChainLayout,
 };
 
-const sampleEndorsementChain: TitleEscrowEvent[] = [
+const sampleEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
   {
-    titleEscrowAddress: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
       {
@@ -25,7 +26,8 @@ const sampleEndorsementChain: TitleEscrowEvent[] = [
     ],
   },
   {
-    titleEscrowAddress: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
+    documentOwner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
+    eventType: "Transfer",
     beneficiary: "0x32507B8838562c0fc881dA6Ce00162B184a34955",
     holderChangeEvents: [
       {
@@ -36,7 +38,8 @@ const sampleEndorsementChain: TitleEscrowEvent[] = [
     ],
   },
   {
-    titleEscrowAddress: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
+    documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
+    eventType: "Transfer",
     beneficiary: "0x5B1c22C60E66E58B07Fc00191e5603d0C41d3538",
     holderChangeEvents: [
       {
@@ -47,7 +50,8 @@ const sampleEndorsementChain: TitleEscrowEvent[] = [
     ],
   },
   {
-    titleEscrowAddress: "0xBee0875Ba8069ed5c48E6A670118EF1C6B1E7fC0",
+    documentOwner: "0xBee0875Ba8069ed5c48E6A670118EF1C6B1E7fC0",
+    eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
       {
@@ -56,6 +60,16 @@ const sampleEndorsementChain: TitleEscrowEvent[] = [
         timestamp: 1594609105000,
       },
     ],
+  },
+  {
+    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    eventType: "Surrender",
+    eventTimestamp: 1594609205000,
+  },
+  {
+    documentOwner: "0x000000000000000000000000000000000000dEaD",
+    eventType: "Burnt",
+    eventTimestamp: 1594609305000,
   },
 ];
 

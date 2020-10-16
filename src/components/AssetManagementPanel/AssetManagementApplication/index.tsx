@@ -29,7 +29,7 @@ export const AssetManagementApplication = ({
     endorseBeneficiaryState,
     transferTo,
     transferToState,
-    acceptSurrenderingState,
+    destroyTokenState,
     destroyToken,
     isSurrendered,
     isTokenBurnt,
@@ -39,6 +39,8 @@ export const AssetManagementApplication = ({
     transferToNewEscrow,
     transferToNewEscrowState,
     documentOwner,
+    restoreToken,
+    restoreTokenState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeProvider, account, provider } = useProviderContext();
@@ -51,14 +53,18 @@ export const AssetManagementApplication = ({
       checkIsMinter(account);
     }
   }, [account, checkIsMinter, isTitleEscrow]);
-
   const onSurrender = () => {
     // Change to surrendered state
     transferTo(tokenRegistryAddress);
   };
 
-  const onAcceptSurrender = () => {
+  const onDestroyToken = () => {
     destroyToken(tokenId);
+  };
+
+  const onRestoreToken = (lastBeneficiary?: string, lastHolder?: string) => {
+    if (!lastBeneficiary || !lastHolder) throw new Error("Ownership data is not found");
+    restoreToken(lastBeneficiary, lastHolder);
   };
 
   const onSetFormAction = useCallback(
@@ -89,7 +95,7 @@ export const AssetManagementApplication = ({
             tokenRegistryAddress={tokenRegistryAddress}
             onSetFormAction={onSetFormAction}
             surrenderingState={transferToState}
-            acceptSurrenderingState={acceptSurrenderingState}
+            destroyTokenState={destroyTokenState}
             onSurrender={onSurrender}
             onTransferHolder={changeHolder}
             holderTransferringState={changeHolderState}
@@ -104,7 +110,10 @@ export const AssetManagementApplication = ({
             setShowEndorsementChain={setShowEndorsementChain}
             isTitleEscrow={isTitleEscrow}
             isMinter={isMinter?.[0]}
-            onAcceptSurrender={onAcceptSurrender}
+            onDestroyToken={onDestroyToken}
+            onRestoreToken={onRestoreToken}
+            restoreTokenState={restoreTokenState}
+            tokenId={tokenId}
           />
         )}
       </div>
