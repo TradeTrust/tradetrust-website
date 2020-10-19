@@ -37,9 +37,3 @@ jobs:
         run: ./scripts/integration-headless.sh
       - name: Integration - dappeteer
         run: npm run integration:dappeteer
-      # - name: Integration - dappeteer
-      #   uses: mujo-code/puppeteer-headful@master
-      #   env:
-      #     CI: "true"
-      #   with:
-      #     args: npm run integration:dappeteer
