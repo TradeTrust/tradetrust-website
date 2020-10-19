@@ -34,7 +34,7 @@ export const isValid = (
         ? dnsTxtFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID")
         : true) &&
       (isUsingDnsDis ? dnsDidFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID") : true);
-      return isValidFromUpstream(verificationFragments, types) && isAllIdentityValid;
+    return isValidFromUpstream(verificationFragments, types) && isAllIdentityValid;
   } else {
     return isValidFromUpstream(verificationFragments, types);
   }
