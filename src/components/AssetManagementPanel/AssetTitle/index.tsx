@@ -1,6 +1,6 @@
+import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import React from "react";
 import { AddressInfo } from "../../AddressInfo";
-import { useIdentifierResolver } from "../../../common/hooks/useIdentifierResolver";
 
 interface AssetTitleProps {
   role: string;

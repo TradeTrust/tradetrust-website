@@ -1,18 +1,15 @@
-import React, { FunctionComponent } from "react";
-// import { parse } from "papaparse";
-import { useAddressBook, readAsText, csvToAddressBook } from "@govtechsg/address-identity-resolver";
+import { useAddressBook } from "@govtechsg/address-identity-resolver";
+import React from "react";
 import { FilePlus } from "react-feather";
 import { LabelWhiteSecondary } from "../UI/Button";
 
 export const CsvUploadButton = () => {
-  const { setAddressBook } = useAddressBook();
+  const { handleLocalAddressBookCsv } = useAddressBook();
   const handleUploadedFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const csvFile = event.target.files && event.target.files[0];
       if (!csvFile) throw new Error("No file selected");
-      const csv = await readAsText(csvFile);
-      const addressBook = csvToAddressBook(csv);
-      setAddressBook(addressBook);
+      handleLocalAddressBookCsv(csvFile);
     } catch (e) {
       alert(e.message || e);
     }

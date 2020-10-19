@@ -1,19 +1,22 @@
-import React, { useState, useContext, useCallback } from "react";
-import { OverlayContentBaseStyle } from "./../Overlay";
-import { TableStyle } from "./../../../AddressResolver/AddressesTable";
-import { OverlayContent, OverlayContentProps } from "./index";
 import styled from "@emotion/styled";
-import { Search, Download } from "react-feather";
+import {
+  AddressBookThirdPartyResultsProps,
+  entityLookup,
+  useThirdPartyAPIEndpoints,
+} from "@govtechsg/address-identity-resolver";
+import { debounce } from "lodash";
+import React, { useCallback, useContext, useState } from "react";
+import { Dropdown } from "react-bootstrap";
+import { Download, Search } from "react-feather";
+import { vars } from "../../../../styles";
 import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
 import { AnchorLinkButtonSolidWhiteBlue } from "../../../UI/Button";
-import { vars } from "../../../../styles";
 import { OverlayContext } from "./../../../../common/contexts/OverlayContext";
-import { Dropdown } from "react-bootstrap";
-import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPartyAPIEndpoints";
-import { debounce } from "lodash";
+import { TableStyle } from "./../../../AddressResolver/AddressesTable";
+import { OverlayContentBaseStyle } from "./../Overlay";
 import { AddressBookLocal } from "./AddressBookLocal";
 import { AddressBookThirdParty } from "./AddressBookThirdParty";
-import { entityLookup, AddressBookThirdPartyResultsProps } from "../../../../services/addressResolver";
+import { OverlayContent, OverlayContentProps } from "./index";
 
 export interface AddressBookDropdownProps {
   name: string;

@@ -1,7 +1,7 @@
-import React from "react";
-import { isEmpty } from "lodash";
-import { AddressBookTableRow, AddressBookTableRowEmpty } from "./AddressBookTableRow";
 import { useAddressBook } from "@govtechsg/address-identity-resolver";
+import { isEmpty } from "lodash";
+import React from "react";
+import { AddressBookTableRow, AddressBookTableRowEmpty } from "./AddressBookTableRow";
 
 interface AddressBookLocalProps {
   onAddressSelect: (address: string) => void;
