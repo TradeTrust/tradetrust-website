@@ -33,6 +33,6 @@ export const surrender = async (metamask, browser) => {
     await page.close();
   } catch (e) {
     console.log(e);
-    process.exit();
+    process.exit(1);
   }
 };

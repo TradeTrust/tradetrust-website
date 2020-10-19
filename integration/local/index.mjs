@@ -5,8 +5,7 @@ import { surrender } from "./surrender.mjs";
 
 const main = async () => {
   const browser = await dappeteer.launch(puppeteer, {
-    executablePath: process.env.PUPPETEER_EXEC_PATH, // set by docker container
-    headless: false,
+    headless: false, // https://github.com/puppeteer/puppeteer#default-runtime-settings
     defaultViewport: null,
     args: ["--no-sandbox", "--disable-setuid-sandbox"], // https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#setting-up-chrome-linux-sandbox
   });
@@ -20,7 +19,7 @@ const main = async () => {
   await surrender(metamask, browser);
 
   await browser.close();
-  process.exit();
+  process.exit(0);
 };
 
 main();
