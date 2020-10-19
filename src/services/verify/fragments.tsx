@@ -23,7 +23,6 @@ export const isValid = (
   verificationFragments: VerificationFragment[],
   types: VerificationFragmentType[] = ["DOCUMENT_STATUS", "DOCUMENT_INTEGRITY", "ISSUER_IDENTITY"]
 ) => {
-  console.log("HERE");
   if (types.includes("ISSUER_IDENTITY")) {
     const dnsTxtFragment = getFirstFragmentFor(verificationFragments, "OpenAttestationDnsTxt");
     const dnsDidFragment = getFirstFragmentFor(verificationFragments, "OpenAttestationDnsDid");
@@ -35,8 +34,6 @@ export const isValid = (
         ? dnsTxtFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID")
         : true) &&
       (isUsingDnsDis ? dnsDidFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID") : true);
-      console.log("HERE", isValidFromUpstream(verificationFragments, types) && isAllIdentityValid);
-
       return isValidFromUpstream(verificationFragments, types) && isAllIdentityValid;
   } else {
     return isValidFromUpstream(verificationFragments, types);
