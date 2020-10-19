@@ -18,7 +18,6 @@ export const AddressBookTableRow = ({
   isLocal,
   address,
   name,
-  remarks,
   source,
 }: AddressBookTableRowProps) => {
   const addressHref = makeEtherscanAddressURL(address);

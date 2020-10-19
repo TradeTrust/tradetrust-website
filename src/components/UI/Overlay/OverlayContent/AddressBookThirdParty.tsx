@@ -41,7 +41,6 @@ export const AddressBookThirdParty = ({
                 address={item.identifier}
                 name={item.name}
                 source={item.source}
-                remarks={item.remarks}
               />
             );
           })
