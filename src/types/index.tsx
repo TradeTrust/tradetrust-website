@@ -24,9 +24,9 @@ export interface TitleEscrowEvent extends TradeTrustErc721Event {
 export interface ResourcesLinkProps {
   title: string;
   type: "link" | "download";
+  icon?: string;
   details: {
     description: string;
     url: string;
-    icon?: string;
-  };
+  }[];
 }
