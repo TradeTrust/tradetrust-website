@@ -27,12 +27,7 @@ export const AddressBookTableRow = ({
     <tr className={className} onClick={onAddressSelect} data-testid="table-row">
       <th>{name}</th>
       <td>{address}</td>
-      {!isLocal && (
-        <>
-          <td>{source ? source : "-"}</td>
-          <td>{remarks ? remarks : "-"}</td>
-        </>
-      )}
+      {!isLocal && <td>{source ? source : "-"}</td>}
       <td>
         <a href={addressHref} target="_blank" rel="noreferrer noopener">
           <ExternalLink />

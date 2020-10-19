@@ -21,7 +21,6 @@ export const AddressBookThirdParty = ({
           <th>Name</th>
           <td>Address</td>
           <td>Source</td>
-          <td>Remarks</td>
           <td>&nbsp;</td>
         </tr>
       </thead>
