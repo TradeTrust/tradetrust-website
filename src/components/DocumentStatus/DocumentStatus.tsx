@@ -15,7 +15,8 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
     (status) => validTopLevelFragments.includes(status.name) && status.status === "VALID"
   );
   const domainNames = dnsFragment?.data
-    ?.map((issuer: { location: string }) => issuer.location.toUpperCase())
+    ?.filter((issuer: { location: string }) => issuer.location)
+    .map((issuer: { location: string }) => issuer.location.toUpperCase())
     .join(", ");
   const formattedDomainNames = domainNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
 

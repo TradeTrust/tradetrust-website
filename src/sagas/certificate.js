@@ -12,7 +12,7 @@ import { sendEmail } from "../services/email/sendEmail";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { decryptString } from "@govtechsg/oa-encryption";
-import { isValid } from "@govtechsg/oa-verify";
+import { isValid } from "../services/verify/fragments";
 
 const { trace } = getLogger("saga:certificate");
 
