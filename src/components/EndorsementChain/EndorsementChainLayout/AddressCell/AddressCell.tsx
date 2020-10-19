@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
+import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import React, { FunctionComponent } from "react";
-import { useIdentifierResolver } from "../../../../common/hooks/useIdentifierResolver";
+import { Info } from "react-feather";
 import { mixin, vars } from "../../../../styles";
 import { TooltipIcon } from "../../../UI/SvgIcon";
-import { Info } from "react-feather";
 
 interface AddressCell {
   address: string;

@@ -1,9 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { EndpointEntry } from "./EndpointEntry";
-import { getFeatures } from "../../../services/addressResolver";
+import { getFeatures } from "@govtechsg/address-identity-resolver";
 
-jest.mock("../../../services/addressResolver");
+jest.mock("@govtechsg/address-identity-resolver", () => ({
+  getFeatures: jest.fn(),
+}));
 
 const mockOnUpdateEndpoint = jest.fn();
 const mockGetFeatures = getFeatures as jest.Mock;

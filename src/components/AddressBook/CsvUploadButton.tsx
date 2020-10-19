@@ -1,7 +1,8 @@
+import { useAddressBook } from "@govtechsg/address-identity-resolver";
 import { parse } from "papaparse";
 import React from "react";
 import { FilePlus } from "react-feather";
-import { AddressBookLocalProps, useAddressBook } from "../../common/hooks/useAddressBook";
+import { AddressBookLocalProps } from "../../common/hooks/useAddressBook";
 import { isEthereumAddress } from "../../utils";
 import { LabelWhiteSecondary } from "../UI/Button";
 
@@ -39,14 +40,12 @@ const csvToAddressBook = (csv: string) => {
 };
 
 export const CsvUploadButton = () => {
-  const { setAddressBook } = useAddressBook();
+  const { handleLocalAddressBookCsv } = useAddressBook();
   const handleUploadedFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const csvFile = event.target.files && event.target.files[0];
       if (!csvFile) throw new Error("No file selected");
-      const csv = await readAsText(csvFile);
-      const addressBook = csvToAddressBook(csv);
-      setAddressBook(addressBook);
+      handleLocalAddressBookCsv(csvFile);
     } catch (e) {
       alert(e.message || e);
     }
