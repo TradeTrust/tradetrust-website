@@ -112,7 +112,7 @@
     "babel-jest": "^25.2.3",
     "babel-loader": "8.0.6",
     "brotli-webpack-plugin": "^1.1.0",
-    "compression-webpack-plugin": "^6.0.2",
+    "compression-webpack-plugin": "^6.0.3",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "enzyme": "^3.7.0",

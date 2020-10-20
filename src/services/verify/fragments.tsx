@@ -19,6 +19,7 @@ export const addressInvalid = (fragments: VerificationFragment[]) => {
 // using a custom isValid because @govtechsg/oa-verify will NOT throw an error when there are 2 identities
 // with one skipped and one valid.
 // in the case of Tradetrust, we want to make sure all identities are valid
+// This function is a workaround to a design failure in oa-verify
 export const isValid = (
   verificationFragments: VerificationFragment[],
   types: VerificationFragmentType[] = ["DOCUMENT_STATUS", "DOCUMENT_INTEGRITY", "ISSUER_IDENTITY"]
