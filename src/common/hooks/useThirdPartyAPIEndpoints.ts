@@ -29,8 +29,8 @@ export const useThirdPartyAPIEndpoints = () => {
   };
 
   const getFeature = (feature: "ADDRESS_RESOLUTION" | "ENTITY_LOOKUP", index: number) => {
-    if (feature === "ADDRESS_RESOLUTION") return thirdPartyAPIEndpoints[index].path.addressResolution;
-    if (feature === "ENTITY_LOOKUP") return thirdPartyAPIEndpoints[index].path.entityLookup;
+    if (feature === "ADDRESS_RESOLUTION") return thirdPartyAPIEndpoints[index]?.path.addressResolution;
+    if (feature === "ENTITY_LOOKUP") return thirdPartyAPIEndpoints[index]?.path.entityLookup;
   };
 
   return {
