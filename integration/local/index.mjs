@@ -5,7 +5,7 @@ import { surrender } from "./surrender.mjs";
 
 const main = async () => {
   const browser = await dappeteer.launch(puppeteer, {
-    headless: false, // https://github.com/puppeteer/puppeteer#default-runtime-settings
+    headless: true, // https://github.com/puppeteer/puppeteer#default-runtime-settings
     defaultViewport: null,
     args: ["--no-sandbox", "--disable-setuid-sandbox"], // https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#setting-up-chrome-linux-sandbox
   });
