@@ -14,7 +14,6 @@ import { debounce } from "lodash";
 import { AddressBookLocal } from "./AddressBookLocal";
 import { AddressBookThirdParty } from "./AddressBookThirdParty";
 import { entityLookup, AddressBookThirdPartyResultsProps } from "../../../../services/addressResolver";
-import { getFeatures } from "../../../../services/addressResolver";
 
 export interface AddressBookDropdownProps {
   name: string;
