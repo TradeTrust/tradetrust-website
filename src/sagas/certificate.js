@@ -69,10 +69,11 @@ export function* networkReset() {
 
 export function* handleQrScanned({ payload: qrCode }) {
   try {
-    const document = yield processQrCode(qrCode);
+    const actionPayload = yield processQrCode(qrCode);
+
     yield put({
-      type: types.UPDATE_CERTIFICATE,
-      payload: document,
+      type: types.RETRIEVE_CERTIFICATE_BY_ACTION,
+      payload: actionPayload,
     });
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));

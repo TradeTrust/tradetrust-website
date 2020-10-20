@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import { mixin, vars } from "../../styles";
@@ -8,7 +8,6 @@ import { Printer, Mail, Download } from "react-feather";
 import { ButtonIconWhiteBlue } from "../UI/Button";
 import { Popover, OverlayTrigger } from "react-bootstrap";
 import QRCode, { ImageSettings } from "qrcode.react";
-import { getDimensions } from "./../../common/utils/logo";
 
 interface DocumentUtilityProps {
   document: WrappedDocument<v2.OpenAttestationDocument>;
@@ -24,7 +23,6 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
       href?: string;
     };
   };
-  logo?: string;
 }
 
 export const DocumentUtilityUnStyled = ({
@@ -35,27 +33,15 @@ export const DocumentUtilityUnStyled = ({
 }: DocumentUtilityProps) => {
   // Extending document data to account for undefined metadata in OA schema
   const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);
-  const fileName = documentWithMetadata.name;
+  const fileName = documentWithMetadata.name ?? "Untitled";
   const qrcodeUrl = documentWithMetadata.links?.self?.href ?? "";
-  const logoUrl = documentWithMetadata.logo;
-  const [imageSettings, setImageSettings] = useState<ImageSettings>();
+  const imageSettings: ImageSettings = {
+    src: `/static/images/logo-qrcode.png`,
+    height: 50,
+    width: 55,
+    excavate: true,
+  };
 
-  if (logoUrl) {
-    const img: HTMLImageElement = new Image();
-    img.src = logoUrl;
-    img.onload = () => {
-      const logoSize = getDimensions({ width: img.width, height: img.height, maxWidth: 100, maxHeight: 100 });
-
-      setImageSettings({
-        src: logoUrl,
-        x: undefined,
-        y: undefined,
-        height: Math.round(logoSize.height),
-        width: Math.round(logoSize.width),
-        excavate: true,
-      });
-    };
-  }
   const qrCodePopover = (url: string) => (
     <Popover id="qr-code-popover" style={{ borderRadius: 0, border: "1px solid #DDDDDD" }}>
       <Popover.Content data-testid="qr-code-svg" style={{ padding: "10px" }}>
