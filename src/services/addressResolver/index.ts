@@ -26,7 +26,7 @@ interface EntityLookupProps {
   endpoint: string;
   apiHeader?: string;
   apiKey?: string;
-  path: string | undefined;
+  path: string;
 }
 
 const get = async ({
@@ -57,7 +57,6 @@ export const entityLookup = async ({
   apiKey,
   path,
 }: EntityLookupProps): Promise<AddressBookThirdPartyResultsProps[]> => {
-  if (path === undefined) return Promise.reject("entityLookup feature is not available");
   const url = join(endpoint, path, `?q=${query}`);
   const response = await get({ url, apiHeader, apiKey });
   return response.data.identities;

@@ -59,7 +59,7 @@ const StyledDropdownItem = styled(Dropdown.Item)`
 
 export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
-  const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
+  const { thirdPartyAPIEndpoints, getFeature } = useThirdPartyAPIEndpoints();
   const [searchTerm, setSearchTerm] = useState("");
 
   const [isLocal, setIsLocal] = useState(true);
@@ -69,7 +69,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
     []
   );
   const { name, endpoint, apiHeader, apiKey } = thirdPartyAPIEndpoints[remoteEndpointIndex] ?? {};
-  const [entityLookupPath, setEntityLookupPath] = useState<string>();
+  const entityLookupPath = getFeature("ENTITY_LOOKUP", remoteEndpointIndex);
 
   const onAddressSelect = (address: string) => {
     if (onAddressSelected) {
@@ -78,18 +78,9 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
     }
   };
 
-  const queryFeatures = async () => {
-    try {
-      const { features } = await getFeatures(endpoint, apiHeader, apiKey);
-      setEntityLookupPath(features.entityLookup?.location);
-    } catch (e) {
-      setEntityLookupPath(undefined);
-      console.log(e, "error");
-    }
-  };
-
   const queryEndpoint = useCallback(
     debounce(async (search) => {
+      if (!entityLookupPath) throw new Error(`entityLookup feature is not available`);
       setIsPendingRemoteResults(true);
 
       try {
@@ -109,7 +100,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
 
       setIsPendingRemoteResults(false);
     }, 1000),
-    [entityLookupPath]
+    []
   );
 
   const onSearchTermChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -142,7 +133,6 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
                   onClick={() => {
                     setIsLocal(false);
                     setSearchTerm("");
-                    queryFeatures();
                     setRemoteEndpointIndex(index);
                   }}
                 >
