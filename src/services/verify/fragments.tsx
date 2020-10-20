@@ -25,17 +25,13 @@ export const isValid = (
   types: VerificationFragmentType[] = ["DOCUMENT_STATUS", "DOCUMENT_INTEGRITY", "ISSUER_IDENTITY"]
 ) => {
   if (types.includes("ISSUER_IDENTITY")) {
-    const dnsTxtFragment = getFirstFragmentFor(verificationFragments, "OpenAttestationDnsTxt");
-    const dnsDidFragment = getFirstFragmentFor(verificationFragments, "OpenAttestationDnsDid");
-    const isUsingDnsTxt = dnsTxtFragment && dnsTxtFragment.status === "VALID";
-    const isUsingDnsDis = dnsDidFragment && dnsDidFragment.status === "VALID";
-    const isAllIdentityValid =
-      (isUsingDnsTxt || isUsingDnsDis) &&
-      (isUsingDnsTxt
-        ? dnsTxtFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID")
-        : true) &&
-      (isUsingDnsDis ? dnsDidFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID") : true);
-    return isValidFromUpstream(verificationFragments, types) && isAllIdentityValid;
+    const identityFragments = verificationFragments.filter(
+      (fragment) => fragment.type === "ISSUER_IDENTITY" && fragment.status === "VALID"
+    );
+    const allIdentityValid = identityFragments.some((fragment) =>
+      fragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID")
+    );
+    return isValidFromUpstream(verificationFragments, types) && allIdentityValid;
   } else {
     return isValidFromUpstream(verificationFragments, types);
   }
