@@ -149,6 +149,7 @@ export const AttachmentLink = styled(AttachmentLinkUnStyled)`
     line-height: 1.2;
     color: ${vars.grey};
     margin-right: 4px;
+    overflow-wrap: break-word;
   }
 
   .filesize {
