@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import styled from "@emotion/styled";
 import prettyBytes from "pretty-bytes";
 import { mixin, vars } from "../../../styles";
@@ -24,6 +24,43 @@ interface OriginalDocumentProps extends v2.OpenAttestationDocument {
   };
 }
 
+interface ExtensionIconProps {
+  src: string;
+}
+
+const ExtensionIcon: FunctionComponent<ExtensionIconProps> = ({ src }: ExtensionIconProps) => {
+  return (
+    <img
+      src={`/static/images/fileicons/${src}.svg`}
+      className="flex items-center justify-center mr-2"
+      data-testid={`attachment-icon-${src}`}
+    />
+  );
+};
+
+export const getExtension = (mimeType: string | undefined): React.ReactNode => {
+  switch (true) {
+    case mimeType === "text/csv":
+      return <ExtensionIcon src={"csv"} />;
+    case mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      return <ExtensionIcon src={"doc"} />;
+    case mimeType === "image/jpeg":
+      return <ExtensionIcon src={"jpg"} />;
+    case mimeType === "image/png":
+      return <ExtensionIcon src={"png"} />;
+    case mimeType === "application/pdf":
+      return <ExtensionIcon src={"pdf"} />;
+    case mimeType === "text/plain":
+      return <ExtensionIcon src={"txt"} />;
+    default:
+      return (
+        <div className="icon" data-testid={`attachment-icon-paperclip`}>
+          <Paperclip />
+        </div>
+      );
+  }
+};
+
 export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }: AttachmentLinkProps) => {
   let filesize = "0";
   let redirectLink = "";
@@ -45,11 +82,7 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
   return (
     <div className={className}>
       <div className="row">
-        <div className="col-12 col-md-auto mb-3 mb-md-0">
-          <div className="icon">
-            <Paperclip />
-          </div>
-        </div>
+        <div className="col-12 col-md-auto mb-3 mb-md-0">{getExtension(type)}</div>
         <div className="col-12 col-md">
           <p className="filetext">
             <span className="filename">{filename}</span>
