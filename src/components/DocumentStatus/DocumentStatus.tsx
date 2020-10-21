@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { mixin, vars } from "../../styles";
 import { StatusChecks } from "./StatusChecks";
 import { VerificationFragment } from "@govtechsg/oa-verify";
+import { NETWORK_NAME } from "../../config";
 
 interface DocumentStatusProps {
   verificationStatus: VerificationFragment[];
@@ -34,7 +35,7 @@ export const DocumentStatusUnStyled = ({ verificationStatus, className }: Docume
           <div className="container-fluid">
             <div className="row align-items-center">
               <div className="col-12 col-xl-4 mb-3 mb-xl-0">
-                <IssuedBy verificationStatus={verificationStatus} />
+                {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
               </div>
               <StatusChecks verificationStatus={verificationStatus} />
             </div>

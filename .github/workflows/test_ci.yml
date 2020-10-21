@@ -20,11 +20,11 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-	
-            ${{ runner.os }}-build-	
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install Packages
-        run: npm install
+        run: npm ci
       - name: Check Lint
         run: npm run lint
       - name: Check Stylelint
@@ -33,5 +33,7 @@ jobs:
         run: npm run test
       - name: Build
         run: npm run build
-      - name: Integration Test
+      - name: Integration - testcafe
         run: ./scripts/integration-headless.sh
+      - name: Integration - dappeteer
+        run: npm run integration:dappeteer
