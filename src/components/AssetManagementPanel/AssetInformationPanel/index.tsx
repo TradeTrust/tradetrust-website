@@ -14,7 +14,7 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = s
   ({ tokenRegistryAddress, setShowEndorsementChain, className }) => {
     return (
       <div className={`py-3 ${className}`}>
-        <AddressInfo title="BL information" name="">
+        <AddressInfo title="BL information" name="" resolvedBy="" source="">
           <div>
             <ExternalLinkEtherscanAddress name="View BL Registry" address={tokenRegistryAddress} />
           </div>
