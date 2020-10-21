@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../styles";
+import { ResolutionResult } from "./../../common/hooks/useIdentifierResolver";
 
-interface AddressInfoProps {
+interface AddressInfoProps extends ResolutionResult {
   className?: string;
   title: string;
   children: React.ReactNode;
-  name?: string;
-  resolvedBy?: string;
-  source?: string;
 }
 
 export const AddressInfoUnStyled = ({ className, title, name, resolvedBy, source, children }: AddressInfoProps) => {

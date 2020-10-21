@@ -6,13 +6,13 @@ import { getIdentity } from "./../../services/addressResolver";
 export type ResolutionResult = {
   name: string;
   resolvedBy: string;
-  source?: string;
+  source: string;
 };
 
 export const useIdentifierResolver = (address: string) => {
-  const [identityName, setIdentityName] = useState<string>();
-  const [identityResolvedBy, setIdentityResolvedBy] = useState<string>();
-  const [identitySource, setIdentitySource] = useState<string>();
+  const [identityName, setIdentityName] = useState<string>("");
+  const [identityResolvedBy, setIdentityResolvedBy] = useState<string>("");
+  const [identitySource, setIdentitySource] = useState<string>("");
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
   const { getIdentifier } = useAddressBook();
 
