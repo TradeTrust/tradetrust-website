@@ -42,7 +42,8 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
   switch (true) {
     case mimeType === "text/csv":
       return <ExtensionIcon src={"csv"} />;
-    case mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+    case mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+      mimeType === "application/msword":
       return <ExtensionIcon src={"doc"} />;
     case mimeType === "image/jpeg":
       return <ExtensionIcon src={"jpg"} />;
@@ -66,7 +67,6 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
   let redirectLink = "";
   const hasBase64 = !!(data && type);
   const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "javascript:void(0)";
-
   if (data) {
     const decodedData = atob(data);
     filesize = prettyBytes(decodedData.length);

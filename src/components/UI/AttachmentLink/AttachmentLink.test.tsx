@@ -34,4 +34,89 @@ describe("AttachmentLink", () => {
     );
     expect(container.getByText("Download")).not.toBeNull();
   });
+
+  it("should render a uploaded pdf file correctly", () => {
+    const container = render(
+      <AttachmentLink className="h-100" filename="asdfdfs.pdf" data="asdfasdf" type="application/pdf" />
+    );
+    expect(container.queryByTestId("attachment-icon-pdf")).not.toBeNull();
+    expect(container.queryByText("asdfdfs.pdf")).not.toBeNull();
+    expect(container.queryByText("(6 B)")).not.toBeNull();
+    expect(container.getByText("Download")).not.toBeNull();
+  });
+
+  it("should render a uploaded csv file correctly", () => {
+    const container = render(
+      <AttachmentLink className="h-100" filename="asdfdfs.csv" data="asdfasdf" type="text/csv" />
+    );
+    expect(container.queryByTestId("attachment-icon-csv")).not.toBeNull();
+    expect(container.queryByText("asdfdfs.csv")).not.toBeNull();
+    expect(container.queryByText("(6 B)")).not.toBeNull();
+    expect(container.getByText("Download")).not.toBeNull();
+  });
+
+  it("should render a uploaded txt file correctly", () => {
+    const container = render(
+      <AttachmentLink className="h-100" filename="asdfdfs.txt" data="asdfasdf" type="text/plain" />
+    );
+    expect(container.queryByTestId("attachment-icon-txt")).not.toBeNull();
+    expect(container.queryByText("asdfdfs.txt")).not.toBeNull();
+    expect(container.queryByText("(6 B)")).not.toBeNull();
+    expect(container.getByText("Download")).not.toBeNull();
+  });
+
+  it("should render a uploaded docx file correctly", () => {
+    const container = render(
+      <AttachmentLink
+        className="h-100"
+        filename="asdfdfs.docx"
+        data="asdfasdf"
+        type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      />
+    );
+    expect(container.queryByTestId("attachment-icon-doc")).not.toBeNull();
+    expect(container.queryByText("asdfdfs.docx")).not.toBeNull();
+    expect(container.queryByText("(6 B)")).not.toBeNull();
+    expect(container.getByText("Download")).not.toBeNull();
+  });
+
+  it("should render a uploaded doc file correctly", () => {
+    const container = render(
+      <AttachmentLink className="h-100" filename="asdfdfs.doc" data="asdfasdf" type="application/msword" />
+    );
+    expect(container.queryByTestId("attachment-icon-doc")).not.toBeNull();
+    expect(container.queryByText("asdfdfs.doc")).not.toBeNull();
+    expect(container.queryByText("(6 B)")).not.toBeNull();
+    expect(container.getByText("Download")).not.toBeNull();
+  });
+
+  it("should render a uploaded jpg file correctly", () => {
+    const container = render(
+      <AttachmentLink className="h-100" filename="asdfdfs.jpg" data="asdfasdf" type="image/jpeg" />
+    );
+    expect(container.queryByTestId("attachment-icon-jpg")).not.toBeNull();
+    expect(container.queryByText("asdfdfs.jpg")).not.toBeNull();
+    expect(container.queryByText("(6 B)")).not.toBeNull();
+    expect(container.getByText("Download")).not.toBeNull();
+  });
+
+  it("should render a uploaded png file correctly", () => {
+    const container = render(
+      <AttachmentLink className="h-100" filename="asdfdfs.png" data="asdfasdf" type="image/png" />
+    );
+    expect(container.queryByTestId("attachment-icon-png")).not.toBeNull();
+    expect(container.queryByText("asdfdfs.png")).not.toBeNull();
+    expect(container.queryByText("(6 B)")).not.toBeNull();
+    expect(container.getByText("Download")).not.toBeNull();
+  });
+
+  it("should render a unknown file correctly", () => {
+    const container = render(
+      <AttachmentLink className="h-100" filename="asdfdfs.json" data="asdfasdf" type="application/json" />
+    );
+    expect(container.queryByTestId("attachment-icon-paperclip")).not.toBeNull();
+    expect(container.queryByText("asdfdfs.json")).not.toBeNull();
+    expect(container.queryByText("(6 B)")).not.toBeNull();
+    expect(container.getByText("Download")).not.toBeNull();
+  });
 });
