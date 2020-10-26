@@ -58,7 +58,7 @@ const StyledDropdownItem = styled(Dropdown.Item)`
 
 export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
-  const { thirdPartyAPIEndpoints, getFeature } = useThirdPartyAPIEndpoints();
+  const { thirdPartyAPIEndpoints, getFeatureEndpoint } = useThirdPartyAPIEndpoints();
   const [searchTerm, setSearchTerm] = useState("");
 
   const [isLocal, setIsLocal] = useState(true);
@@ -68,7 +68,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
     []
   );
   const { name, endpoint, apiHeader, apiKey } = thirdPartyAPIEndpoints[remoteEndpointIndex] ?? {};
-  const entityLookupPath = getFeature("ENTITY_LOOKUP", remoteEndpointIndex);
+  const entityLookupPath = getFeatureEndpoint("ENTITY_LOOKUP", remoteEndpointIndex);
 
   const onAddressSelect = (address: string) => {
     if (onAddressSelected) {

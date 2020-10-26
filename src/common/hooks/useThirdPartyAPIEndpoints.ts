@@ -28,7 +28,7 @@ export const useThirdPartyAPIEndpoints = () => {
     setThirdPartyAPIEndpoints(filtered);
   };
 
-  const getFeature = (feature: "ADDRESS_RESOLUTION" | "ENTITY_LOOKUP", index: number) => {
+  const getFeatureEndpoint = (feature: "ADDRESS_RESOLUTION" | "ENTITY_LOOKUP", index: number) => {
     if (feature === "ADDRESS_RESOLUTION") return thirdPartyAPIEndpoints[index]?.path.addressResolution;
     if (feature === "ENTITY_LOOKUP") return thirdPartyAPIEndpoints[index]?.path.entityLookup;
   };
@@ -38,6 +38,6 @@ export const useThirdPartyAPIEndpoints = () => {
     setThirdPartyAPIEndpoints,
     addThirdPartyAPIEndpoint,
     removeThirdPartyAPIEndpoint,
-    getFeature,
+    getFeatureEndpoint,
   };
 };
