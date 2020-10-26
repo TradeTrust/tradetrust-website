@@ -10,9 +10,9 @@ export type ResolutionResult = {
 };
 
 export const useIdentifierResolver = (address: string) => {
-  const [identityName, setIdentityName] = useState<string>("");
-  const [identityResolvedBy, setIdentityResolvedBy] = useState<string>("");
-  const [identitySource, setIdentitySource] = useState<string>("");
+  const [identityName, setIdentityName] = useState("");
+  const [identityResolvedBy, setIdentityResolvedBy] = useState("");
+  const [identitySource, setIdentitySource] = useState("");
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
   const { getIdentifier } = useAddressBook();
 
