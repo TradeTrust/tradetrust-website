@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getIdentityName, getPath, getFeatures } from "./index";
+import { getIdentity, getPath, getFeatures } from "./index";
 import { ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
 
 jest.mock("axios");
@@ -11,7 +11,7 @@ beforeEach(() => {
   mockedAxios.get.mockReset();
 });
 
-describe("getIdentityName", () => {
+describe("getIdentity", () => {
   it("should return the first name if it can be found with any resolver", async () => {
     mockedAxios.get.mockResolvedValueOnce({
       data: {
@@ -19,6 +19,7 @@ describe("getIdentityName", () => {
           identifier: "0xA",
           name: "ABC Pte Ltd",
           remarks: "Added by Raymond",
+          source: "GovTech, Singapore",
         },
       },
     });
@@ -36,8 +37,8 @@ describe("getIdentityName", () => {
       },
     ];
 
-    const identityName = await getIdentityName(endpoints, "0xA");
-    expect(identityName).toEqual({ result: "ABC Pte Ltd", source: "demo" });
+    const identity = await getIdentity(endpoints, "0xA");
+    expect(identity).toEqual({ name: "ABC Pte Ltd", resolvedBy: "demo", source: "GovTech, Singapore" });
   });
 
   it("should return undefined if it cannot be resolved anywhere", async () => {
@@ -60,8 +61,8 @@ describe("getIdentityName", () => {
       },
     ];
 
-    const identityName = await getIdentityName(endpoints, "0xB");
-    expect(identityName).toBe(undefined);
+    const identity = await getIdentity(endpoints, "0xB");
+    expect(identity).toBe(undefined);
   });
 
   it("should return undefined with empty resolver list", async () => {
@@ -73,8 +74,8 @@ describe("getIdentityName", () => {
 
     const endpoints: ThirdPartyAPIEntryProps[] = [];
 
-    const identityName = await getIdentityName(endpoints, "0xC");
-    expect(identityName).toBe(undefined);
+    const identity = await getIdentity(endpoints, "0xC");
+    expect(identity).toBe(undefined);
   });
 
   it("should work for url with trailing slashes", async () => {
@@ -84,6 +85,7 @@ describe("getIdentityName", () => {
           identifier: "0xA",
           name: "ABC Pte Ltd",
           remarks: "Added by Raymond",
+          source: "GovTech, Singapore",
         },
       },
     });
@@ -101,9 +103,9 @@ describe("getIdentityName", () => {
       },
     ];
 
-    const identityName = await getIdentityName(endpoints, "0xA");
+    const identity = await getIdentity(endpoints, "0xA");
     expect(mockedAxios.get.mock.calls[0][0]).toBe("https://demo-resolver.tradetrust.io/identifier/0xA");
-    expect(identityName).toEqual({ result: "ABC Pte Ltd", source: "demo" });
+    expect(identity).toEqual({ name: "ABC Pte Ltd", resolvedBy: "demo", source: "GovTech, Singapore" });
   });
 });
 

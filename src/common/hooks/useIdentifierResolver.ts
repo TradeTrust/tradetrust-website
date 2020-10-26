@@ -1,36 +1,38 @@
 import { useState, useEffect } from "react";
 import { useThirdPartyAPIEndpoints } from "./useThirdPartyAPIEndpoints";
 import { useAddressBook } from "./useAddressBook";
-import { getIdentityName } from "./../../services/addressResolver";
+import { getIdentity } from "./../../services/addressResolver";
 
 export type ResolutionResult = {
-  result: string;
+  name: string;
+  resolvedBy: string;
   source: string;
 };
 
 export const useIdentifierResolver = (address: string) => {
-  const [resolvedIdentifier, setResolvedIdentifier] = useState("");
-  const [identifierSource, setIdentifierSource] = useState<string>();
+  const [identityName, setIdentityName] = useState("");
+  const [identityResolvedBy, setIdentityResolvedBy] = useState("");
+  const [identitySource, setIdentitySource] = useState("");
   const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
   const { getIdentifier } = useAddressBook();
 
   useEffect(() => {
     if (!address) return;
 
-    setResolvedIdentifier(""); // unset resolvedIdentifier at beginning
+    setIdentityName(""); // unset identityName at beginning
 
     const resolveIdentity = async () => {
       // resolve by address book first, then by thirdparty endpoint
-      const identityName =
-        getIdentifier(address.toLowerCase()) || (await getIdentityName(thirdPartyAPIEndpoints, address));
-      if (identityName) {
-        setResolvedIdentifier(identityName.result);
-        setIdentifierSource(identityName.source);
+      const identity = getIdentifier(address.toLowerCase()) || (await getIdentity(thirdPartyAPIEndpoints, address));
+      if (identity) {
+        setIdentityName(identity.name);
+        setIdentityResolvedBy(identity.resolvedBy);
+        setIdentitySource(identity.source);
       }
     };
 
     resolveIdentity();
   }, [address, getIdentifier, thirdPartyAPIEndpoints]);
 
-  return { resolvedIdentifier, identifierSource };
+  return { identityName, identityResolvedBy, identitySource };
 };

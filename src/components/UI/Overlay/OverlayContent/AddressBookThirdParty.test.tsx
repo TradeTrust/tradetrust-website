@@ -7,11 +7,13 @@ const mockResults = [
     identifier: "0x59308f96c98332ddd96a1308e1d29a7d4be00c6e",
     name: "Test Bank",
     remarks: "Added by Boon",
+    source: "GovTech, Singapore",
   },
   {
     identifier: "0x57d897f67a816594aac7b7ba0dc80d4b94ada00c",
     name: "Atlantic Carrier",
     remarks: "Added by Marcus Ong",
+    source: "IMDA, Singapore",
   },
 ];
 

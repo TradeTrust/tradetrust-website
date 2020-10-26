@@ -190,7 +190,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
   ${OverlayContentBaseStyle()}
   ${TableStyle()}
 
-  max-width: 760px;
+  max-width: 960px;
   max-height: 600px;
 
   .overlay-searchbar {
