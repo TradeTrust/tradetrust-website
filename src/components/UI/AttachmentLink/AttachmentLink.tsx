@@ -28,31 +28,25 @@ interface ExtensionIconProps {
   src: string;
 }
 
-const ExtensionIcon: FunctionComponent<ExtensionIconProps> = ({ src }: ExtensionIconProps) => {
-  return (
-    <img
-      src={`/static/images/fileicons/${src}.svg`}
-      className="flex items-center justify-center mr-2"
-      data-testid={`attachment-icon-${src}`}
-    />
-  );
+const ExtensionIcon: FunctionComponent<ExtensionIconProps> = ({ ...props }) => {
+  return <img {...props} className="flex items-center justify-center mr-2" />;
 };
 
 export const getExtension = (mimeType: string | undefined): React.ReactNode => {
   switch (true) {
     case mimeType === "text/csv":
-      return <ExtensionIcon src={"csv"} />;
+      return <ExtensionIcon src="/static/images/fileicons/csv.svg" data-testid="attachment-icon-csv" />;
     case mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
       mimeType === "application/msword":
-      return <ExtensionIcon src={"doc"} />;
+      return <ExtensionIcon src="/static/images/fileicons/doc.svg" data-testid="attachment-icon-doc" />;
     case mimeType === "image/jpeg":
-      return <ExtensionIcon src={"jpg"} />;
+      return <ExtensionIcon src="/static/images/fileicons/jpg.svg" data-testid="attachment-icon-jpg" />;
     case mimeType === "image/png":
-      return <ExtensionIcon src={"png"} />;
+      return <ExtensionIcon src="/static/images/fileicons/png.svg" data-testid="attachment-icon-png" />;
     case mimeType === "application/pdf":
-      return <ExtensionIcon src={"pdf"} />;
+      return <ExtensionIcon src="/static/images/fileicons/pdf.svg" data-testid="attachment-icon-pdf" />;
     case mimeType === "text/plain":
-      return <ExtensionIcon src={"txt"} />;
+      return <ExtensionIcon src="/static/images/fileicons/txt.svg" data-testid="attachment-icon-txt" />;
     default:
       return (
         <div className="icon" data-testid={`attachment-icon-paperclip`}>
