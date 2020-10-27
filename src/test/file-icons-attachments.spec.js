@@ -6,13 +6,13 @@ fixture("Document with 8 Attachments Rendering File Icons").page`http://localhos
 const TabsItems = Selector("[data-testid='tabs'] .nav-item");
 const TabDefault = Selector("[data-testid='default']");
 const TabAttachment = Selector("[data-testid='tab-attachment']");
-const TabWordDoc = Selector("[data-testid='attachment-icon-doc']");
-const TabCsv = Selector("[data-testid='attachment-icon-csv']");
-const TabJpeg = Selector("[data-testid='attachment-icon-jpg']");
-const TabPdf = Selector("[data-testid='attachment-icon-pdf']");
-const TabPng = Selector("[data-testid='attachment-icon-png']");
-const TabTxt = Selector("[data-testid='attachment-icon-txt']");
-const TabPaperclip = Selector("[data-testid='attachment-icon-paperclip']");
+const IconWordDoc = Selector("[data-testid='attachment-icon-doc']");
+const IconCsv = Selector("[data-testid='attachment-icon-csv']");
+const IconJpeg = Selector("[data-testid='attachment-icon-jpg']");
+const IconPdf = Selector("[data-testid='attachment-icon-pdf']");
+const IconPng = Selector("[data-testid='attachment-icon-png']");
+const IconTxt = Selector("[data-testid='attachment-icon-txt']");
+const IconPaperclip = Selector("[data-testid='attachment-icon-paperclip']");
 
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
 const AttachmentLink = Selector("[data-testid='attachment-link']");
@@ -35,11 +35,11 @@ test("Attachment Tab and Panel rendered correctly", async (t) => {
 
   // check file-icons display
   await t.expect(AttachmentLink.count).eql(8);
-  await t.expect(TabWordDoc.count).eql(2);
-  await t.expect(TabCsv.count).eql(1);
-  await t.expect(TabJpeg.count).eql(1);
-  await t.expect(TabPdf.count).eql(1);
-  await t.expect(TabPng.count).eql(1);
-  await t.expect(TabTxt.count).eql(1);
-  await t.expect(TabPaperclip.count).eql(1);
+  await t.expect(IconWordDoc.count).eql(2);
+  await t.expect(IconCsv.count).eql(1);
+  await t.expect(IconJpeg.count).eql(1);
+  await t.expect(IconPdf.count).eql(1);
+  await t.expect(IconPng.count).eql(1);
+  await t.expect(IconTxt.count).eql(1);
+  await t.expect(IconPaperclip.count).eql(1);
 });
