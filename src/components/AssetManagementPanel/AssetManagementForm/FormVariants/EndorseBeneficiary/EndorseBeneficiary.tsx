@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { isAddress } from "web3-utils";
+import { isEthereumAddress } from "../../../../../utils";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
@@ -57,7 +57,7 @@ export const EndorseBeneficiaryForm = ({
   const isValidEndorse = () => {
     if (!newBeneficiary || !newHolder) return false;
     if (newBeneficiary === beneficiary && newHolder === holder) return false;
-    if (!isAddress(newBeneficiary) || !isAddress(newHolder)) return false;
+    if (!isEthereumAddress(newBeneficiary) || !isEthereumAddress(newHolder)) return false;
 
     return true;
   };

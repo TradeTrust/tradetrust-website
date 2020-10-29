@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { isAddress } from "web3-utils";
+import { isEthereumAddress } from "../../../../../utils";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
@@ -52,7 +52,7 @@ export const NominateBeneficiaryHolderForm = ({
   }, [isConfirmed, newBeneficiary, showOverlay, setFormActionNone]);
 
   const isInvalidNomination =
-    !newBeneficiary || !holder || newBeneficiary === beneficiary || !isAddress(newBeneficiary);
+    !newBeneficiary || !holder || newBeneficiary === beneficiary || !isEthereumAddress(newBeneficiary);
 
   return (
     <div className="row py-3">

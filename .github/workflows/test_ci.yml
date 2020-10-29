@@ -24,7 +24,12 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install Packages
-        run: npm ci
+        # there's a problem with ganache-core using a very old version of ethereumjs-abi which fails on git checkout with ssh reasons
+        run: |
+          git config --global url."https://".insteadOf git://
+          git config --global url."https://".insteadOf git+https://
+          git config --global url."https://".insteadOf ssh://git
+          npm ci
       - name: Check Lint
         run: npm run lint
       - name: Check Stylelint

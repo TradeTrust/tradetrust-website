@@ -1,5 +1,5 @@
 import React from "react";
-import { isAddress } from "web3-utils";
+import { isEthereumAddress } from "../../utils";
 import { parse } from "papaparse";
 import { useAddressBook, AddressBookLocalProps } from "../../common/hooks/useAddressBook";
 import { FilePlus } from "react-feather";
@@ -31,7 +31,8 @@ const csvToAddressBook = (csv: string) => {
     const addressText = row.Address || row.address;
     if (!identifierText) throw new Error(`Row ${index} does not have an identifer`);
     if (!addressText) throw new Error(`Row ${index} does not have an address`);
-    if (!isAddress(addressText)) throw new Error(`${addressText} in row ${index} is not a valid Ethereum address`);
+    if (!isEthereumAddress(addressText))
+      throw new Error(`${addressText} in row ${index} is not a valid Ethereum address`);
     addressBook[addressText.toLowerCase()] = identifierText;
   });
   return addressBook;
