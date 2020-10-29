@@ -9,7 +9,6 @@ import {
   processQrCode,
   getCertificateByActionError,
 } from "../../reducers/certificate";
-import { updateNetworkId } from "../../reducers/application";
 import CertificateDropZone from "./CertificateDropZone";
 import QrReader from "../QrReader";
 import styled from "@emotion/styled";
@@ -36,10 +35,6 @@ export class CertificateDropZoneContainer extends Component {
     this.handleFileError = this.handleFileError.bind(this);
     this.toggleQrReaderVisible = this.toggleQrReaderVisible.bind(this);
     this.handleQrScanned = this.handleQrScanned.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.updateNetworkId();
   }
 
   handleQrScanned(data) {
