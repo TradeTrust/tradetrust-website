@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { isAddress } from "web3-utils";
+import { isEthereumAddress } from "../../../../../utils";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
@@ -53,7 +53,7 @@ export const TransferHolderForm = ({
   const isValidTransfer = () => {
     if (!newHolder) return false;
     if (newHolder === holder) return false;
-    if (!isAddress(newHolder)) return false;
+    if (!isEthereumAddress(newHolder)) return false;
 
     return true;
   };

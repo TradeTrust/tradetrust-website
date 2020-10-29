@@ -1,5 +1,5 @@
 import React from "react";
-import { makeEtherscanAddressURL, makeEtherscanTokenURL } from "../../../utils";
+import { makeEtherscanAddressURL } from "../../../utils";
 
 interface ExternalLinkProps {
   name: string;
@@ -9,12 +9,6 @@ interface ExternalLinkProps {
 interface ExternalLinkEtherscanAddressProps {
   name: string;
   address: string;
-}
-
-interface ExternalLinkEtherscanTokenProps {
-  name: string;
-  tokenRegistryAddress: string;
-  tokenId: string;
 }
 
 export const ExternalLink = ({ name, href, ...props }: ExternalLinkProps) => {
@@ -27,17 +21,6 @@ export const ExternalLink = ({ name, href, ...props }: ExternalLinkProps) => {
 
 export const ExternalLinkEtherscanAddress = ({ name, address, ...props }: ExternalLinkEtherscanAddressProps) => {
   const href = makeEtherscanAddressURL(address);
-
-  return <ExternalLink name={name} href={href} {...props} />;
-};
-
-export const ExternalLinkEtherscanToken = ({
-  name,
-  tokenRegistryAddress,
-  tokenId,
-  ...props
-}: ExternalLinkEtherscanTokenProps) => {
-  const href = makeEtherscanTokenURL({ registryAddress: tokenRegistryAddress, tokenId });
 
   return <ExternalLink name={name} href={href} {...props} />;
 };
