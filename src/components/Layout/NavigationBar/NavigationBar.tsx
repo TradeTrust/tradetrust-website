@@ -89,7 +89,7 @@ const NavHeader = styled.header`
       &.active {
         color: ${vars.orange};
       }
-    } 
+    }
   }
 
   .dropdown > a {
