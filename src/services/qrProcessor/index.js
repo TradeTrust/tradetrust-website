@@ -3,7 +3,7 @@ import { getLogger } from "../../utils/logger";
 const { error } = getLogger("services:qrProcessor");
 
 export const decodeQrCode = (qrCode) => {
-  const openAttestationActionRegex = /https:\/\/action.openattestation.com\/\?q=(.*)/;
+  const openAttestationActionRegex = /https:\/\/action.openattestation.com\/?\?q=(.*)/;
   if (!openAttestationActionRegex.test(qrCode))
     throw new Error("QR Code is not formatted to TradeTrust specifications");
   const [, encodedPayload] = openAttestationActionRegex.exec(qrCode);

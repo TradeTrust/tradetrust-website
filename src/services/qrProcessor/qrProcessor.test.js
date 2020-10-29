@@ -1,12 +1,11 @@
 import { decodeQrCode, processQrCode } from "./index";
 
-const encodeQrCode = (payload) =>
-  `https://action.openattestation.com/?q=${encodeURIComponent(JSON.stringify(payload))}`;
+const encodeQrCode = (payload) => `https://action.openattestation.com?q=${encodeURIComponent(JSON.stringify(payload))}`;
 
 describe("decodeQrCode", () => {
   it("decodes an action correctly", () => {
     const encodedQrCode =
-      "https://action.openattestation.com/?q=%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
+      "https://action.openattestation.com?q=%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
 
     const action = decodeQrCode(encodedQrCode);
     expect(action).toStrictEqual({
