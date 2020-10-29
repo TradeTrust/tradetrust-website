@@ -47,23 +47,28 @@ describe("AttachmentLink", () => {
   it("should render a uploaded file icons correctly", () => {
     const container = render(
       <>
-        <AttachmentLink className="h-100" filename="asdfdfs.pdf" data="asdfasdf" type="application/pdf" />
-        <AttachmentLink className="h-100" filename="asdfdfs.csv" data="asdfasdf" type="text/csv" />
+        <AttachmentLink filename="asdfdfs.pdf" data="asdfasdf" type="application/pdf" />
+        <AttachmentLink filename="asdfdfs.csv" data="asdfasdf" type="text/csv" />
+        <AttachmentLink filename="asdfdfs.xls" data="asdfasdf" type="application/vnd.ms-excel" />
+        <AttachmentLink
+          filename="asdfdfs.xlsx"
+          data="asdfasdf"
+          type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        />
         <AttachmentLink className="h-100" filename="asdfdfs.txt" data="asdfasdf" type="text/plain" />
         <AttachmentLink
-          className="h-100"
           filename="asdfdfs.docx"
           data="asdfasdf"
           type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         />
-        <AttachmentLink className="h-100" filename="asdfdfs.doc" data="asdfasdf" type="application/msword" />
-        <AttachmentLink className="h-100" filename="asdfdfs.jpg" data="asdfasdf" type="image/jpeg" />
-        <AttachmentLink className="h-100" filename="asdfdfs.png" data="asdfasdf" type="image/png" />
-        <AttachmentLink className="h-100" filename="asdfdfs.json" data="asdfasdf" type="application/json" />
+        <AttachmentLink filename="asdfdfs.doc" data="asdfasdf" type="application/msword" />
+        <AttachmentLink filename="asdfdfs.jpg" data="asdfasdf" type="image/jpeg" />
+        <AttachmentLink filename="asdfdfs.png" data="asdfasdf" type="image/png" />
+        <AttachmentLink filename="asdfdfs.json" data="asdfasdf" type="application/json" />
       </>
     );
     expect(container.queryByTestId("attachment-icon-pdf")).not.toBeNull();
-    expect(container.queryByTestId("attachment-icon-csv")).not.toBeNull();
+    expect(container.getAllByTestId("attachment-icon-csv")).toHaveLength(3);
     expect(container.queryByTestId("attachment-icon-txt")).not.toBeNull();
     expect(container.getAllByTestId("attachment-icon-doc")).toHaveLength(2);
     expect(container.queryByTestId("attachment-icon-jpg")).not.toBeNull();
