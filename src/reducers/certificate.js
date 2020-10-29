@@ -11,9 +11,6 @@ export const states = {
 export const initialState = {
   raw: null,
   rawModified: null,
-  store: null,
-  storeError: null,
-  storeLoading: false,
 
   verificationPending: false,
   verificationStatus: null,
@@ -29,12 +26,8 @@ export const initialState = {
 // Actions
 export const types = {
   RESET_CERTIFICATE: "RESET_CERTIFICATE",
-  NETWORK_RESET: "NETWORK_RESET", // For network change
 
   UPDATE_CERTIFICATE: "UPDATE_CERTIFICATE",
-
-  LOADING_STORE_SUCCESS: "LOADING_STORE_SUCCESS",
-  LOADING_STORE_FAILURE: "LOADING_STORE_FAILURE",
 
   VERIFYING_CERTIFICATE: "VERIFYING_CERTIFICATE",
 
@@ -61,7 +54,6 @@ export const types = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case types.RESET_CERTIFICATE:
-    case types.NETWORK_RESET:
       return {
         ...initialState,
       };
@@ -70,22 +62,6 @@ export default function reducer(state = initialState, action) {
         ...initialState,
         raw: action.payload,
         rawModified: action.payload,
-        store: null,
-        storeError: null,
-        storeLoading: true,
-      };
-    case types.LOADING_STORE_SUCCESS:
-      return {
-        ...state,
-        store: action.payload,
-        storeError: null,
-        storeLoading: false,
-      };
-    case types.LOADING_STORE_FAILURE:
-      return {
-        ...state,
-        storeError: action.payload,
-        storeLoading: false,
       };
     case types.VERIFYING_CERTIFICATE:
       return {
@@ -170,13 +146,6 @@ export function resetCertificateState() {
 export function updateCertificate(payload) {
   return {
     type: types.UPDATE_CERTIFICATE,
-    payload,
-  };
-}
-
-export function verifyCertificate(payload) {
-  return {
-    type: types.VERIFYING_CERTIFICATE,
     payload,
   };
 }

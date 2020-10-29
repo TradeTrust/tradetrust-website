@@ -7,7 +7,6 @@ import {
   verifyingCertificateFailure,
   getCertificate,
 } from "../reducers/certificate";
-import { types as applicationTypes } from "../reducers/application";
 import { sendEmail } from "../services/email/sendEmail";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
@@ -17,6 +16,8 @@ import { NETWORK_NAME } from "./../config";
 
 const { trace } = getLogger("saga:certificate");
 
+// still used in sagas: handleQrScanned and retrieveCertificateByAction
+// please delete this when those two have been moved out of sagas
 export function* verifyCertificate() {
   try {
     yield put({
@@ -60,12 +61,6 @@ export function* sendCertificate({ payload }) {
       payload: e.message,
     });
   }
-}
-
-export function* networkReset() {
-  yield put({
-    type: types.NETWORK_RESET,
-  });
 }
 
 export function* handleQrScanned({ payload: qrCode }) {
@@ -133,6 +128,5 @@ export default [
   takeEvery(types.CERTIFICATE_PROCESS_QR_CODE, handleQrScanned),
   takeEvery(types.UPDATE_CERTIFICATE, verifyCertificate),
   takeEvery(types.SENDING_CERTIFICATE, sendCertificate),
-  takeEvery(applicationTypes.UPDATE_WEB3, networkReset),
   takeEvery(types.RETRIEVE_CERTIFICATE_BY_ACTION, retrieveCertificateByAction),
 ];
