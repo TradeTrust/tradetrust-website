@@ -4,7 +4,7 @@ import { NavHashLink } from "react-router-hash-link";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../../styles";
 import { Settings } from "react-feather";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 export const navItems = [
   {
@@ -18,9 +18,21 @@ export const navItems = [
     path: "https://creator.tradetrust.io/",
   },
   {
-    id: "resources",
-    label: "Resources",
-    path: "/resources",
+    id: "info",
+    label: "Info",
+    path: "/info",
+    dropdownItems: [
+      {
+        id: "resources",
+        label: "Resources",
+        path: "/resources",
+      },
+      {
+        id: "events",
+        label: "Events and Media Centre",
+        path: "/events",
+      },
+    ],
   },
   {
     id: "faq",
@@ -65,6 +77,24 @@ const NavHeader = styled.header`
     &.active {
       color: ${vars.white};
     }
+
+    &.dropdown-link {
+      color: ${vars.greyDark};
+
+      &:hover {
+        color: ${vars.greyLight};
+        text-decoration: none;
+      }
+
+      &.active {
+        color: ${vars.orange};
+      }
+    } 
+  }
+
+  .dropdown > a {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 `;
 
@@ -87,6 +117,21 @@ export const NavigationBar = () => {
                     <div className="col-12 col-lg-auto my-2 my-xl-0" key={index}>
                       {item.id === "create-documents" ? (
                         <a href={item.path}>{item.label}</a>
+                      ) : item.dropdownItems ? (
+                        <NavDropdown title={item.label} id="basic-nav-dropdown" className="p-0">
+                          {item.dropdownItems?.map((dropdownItem, index) => {
+                            return (
+                              <NavHashLink
+                                key={index}
+                                to={dropdownItem.path}
+                                className="dropdown-link px-2 py-1 d-block item-center text-nowrap"
+                                smooth
+                              >
+                                {dropdownItem.label}
+                              </NavHashLink>
+                            );
+                          })}
+                        </NavDropdown>
                       ) : (
                         <NavHashLink
                           to={item.path}
