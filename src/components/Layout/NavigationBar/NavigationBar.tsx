@@ -28,9 +28,9 @@ export const navItems = [
         path: "/resources",
       },
       {
-        id: "events",
+        id: "media",
         label: "Events and Media Centre",
-        path: "/events",
+        path: "/media",
       },
     ],
   },

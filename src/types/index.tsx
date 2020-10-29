@@ -26,7 +26,8 @@ export interface ResourcesLinkProps {
   type: "link" | "download";
   icon?: string;
   details: {
-    description: string;
+    title: string;
+    description?: string;
     url: string;
   }[];
 }
