@@ -71,6 +71,10 @@ const NavHeader = styled.header`
     }
   }
 
+  .navbar-dark .navbar-nav .nav-link {
+    color: ${vars.greyblue};
+  }
+
   a {
     ${mixin.fontMontserratMedium}
     ${mixin.fontSize(16)}
