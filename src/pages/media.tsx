@@ -13,47 +13,47 @@ const sideLinks = [
     details: [
       {
         title:
-          "Launch of TradeTrust announced Mr S Iswaran, Minister for Communications and Information, at the Committee of Supply Debate on 4 March 2019",
-        description: "4 Mar 2019",
+          "Launch of TradeTrust announced by Mr S Iswaran, Minister for Communications and Information at the Committee of Supply Debate on 4 March 2019",
+        date: "4 Mar 2019",
         url:
           "https://www.mci.gov.sg/pressroom/news-and-stories/pressroom/2019/3/securing-our-future-in-a-digital-age#.X5gFH3jrCCc.gmail",
       },
       {
         title:
           "World's Largest Business Organisation Joins Singapore Government and Major Industry Partners to Drive Global Digitalisation",
-        description: "22 Jan 2020",
+        date: "22 Jan 2020",
         url:
           "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/Worlds-Largest-Business-Organisation-Joins-Singapore-Government-and-Major-Industry-Partners-to-Drive-Global-Digitalisation",
       },
       {
         title:
           "Remarks by Mr S Iswaran, Minister for Communications and Information, at the International Chamber of Commerce 'Taking Trade Digital' Forum in Davos on 22 Jan 2020",
-        description: "22 Jan 2020",
+        date: "22 Jan 2020",
         url:
           "https://www.mci.gov.sg/pressroom/news-and-stories/pressroom/2020/1/Remarks%20by%20Minister%20S%20Iswaran%20at%20the%20International%20Chamber%20of%20Commerce#.X5gGtAayHwc.gmail",
       },
       {
         title: "Singapore, Chile and New Zealand Sign Digital Economy Partnership Agreement Electronically",
-        description: "12 Jun 2020",
+        date: "12 Jun 2020",
         url:
           "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/Singapore-Chile-and-New-Zealand-Sign-Digital-Economy-Partnership-Agreement-Electronically",
       },
       {
         title:
           "Singapore Strengthens Digital Collaboration and Linkages with Shenzhen to Create New Market Opportunities",
-        description: "18 Jun 2020",
+        date: "18 Jun 2020",
         url:
           "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/Singapore-Strengthens-Digital-Collaboration-and-Linkages-with-Shenzhen-to-Create-New-Market-Opportunities",
       },
       {
         title: "Singapore and Australia Sign Digital Economy Agreement",
-        description: "6 Aug 2020",
+        date: "6 Aug 2020",
         url:
           "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/Signing-of-Singapore-Australia-Digital-Economy-Agreement",
       },
       {
         title: "SWIFT and Singapore's IMDA Join Forces to Drive Global Trade Digitalisation",
-        description: "5 Oct 2020",
+        date: "5 Oct 2020",
         url:
           "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/SWIFT-and-Singapores-IMDA-Join-Forces-to-Drive-Global-Trade-Digitalisation",
       },
@@ -95,6 +95,7 @@ const resources = [
       "Organised by the Maritime Port Authority of Singapore (MPA), the panel discussed about what the future of global trade with common data standards will look like and what we need to do to get there.",
     eventLink:
       "https://www.mpa.gov.sg/web/portal/home/maritime-singapore/what-maritime-singapore-offers/maritime-perspectives-webinar-series/digital-connectivity-%26-data-standards",
+    watchLink: "https://www.youtube.com/watch?v=-rbi_k-URjw&feature=youtu.be",
   },
   {
     title: "Joining forces for trade digitisation: SWIFT, the United Nations, and the Singapore Government",
@@ -153,7 +154,6 @@ export const MediaPage = () => (
 const ResourcePageStyle = styled.div`
   .side-links {
     @media (min-width: ${vars.lg}) {
-      position: sticky;
       top: 10px;
     }
   }

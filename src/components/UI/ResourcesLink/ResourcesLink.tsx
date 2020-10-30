@@ -16,9 +16,9 @@ export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, de
                 {details.title}
               </a>
             )}
-            {details.description && (
+            {details.date && (
               <>
-                <div className="description">{details.description}</div>
+                <div className="date">{details.date}</div>
                 <hr />
               </>
             )}
@@ -58,7 +58,7 @@ const ResourcesLinkItem = styled.div`
     ${mixin.fontSourcesansproSemibold};
   }
 
-  .description {
+  .date {
     color: ${vars.grey};
     ${mixin.fontSize(16)};
     ${mixin.fontSourcesansproSemibold};

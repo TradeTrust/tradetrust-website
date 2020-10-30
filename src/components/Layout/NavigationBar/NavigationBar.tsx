@@ -6,7 +6,14 @@ import { mixin, vars } from "../../../styles";
 import { Settings } from "react-feather";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
-export const navItems = [
+interface NavItemsProps {
+  id: string;
+  label: string;
+  path: string;
+  dropdownItems?: { id: string; label: string; path: string }[];
+}
+
+export const navItems: NavItemsProps[] = [
   {
     id: "verify-documents",
     label: "Verify Documents",
@@ -98,9 +105,54 @@ const NavHeader = styled.header`
   }
 `;
 
-export const NavigationBar = () => {
+export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
   const location = useLocation();
+  switch (true) {
+    case item.id === "create-documents":
+      return <a href={item.path}>{item.label}</a>;
+    case item.id === "info":
+      return (
+        <NavDropdown title={item.label} id="basic-nav-dropdown" className="p-0">
+          {item.dropdownItems?.map((dropdownItem: any, index: number) => {
+            return (
+              <NavHashLink
+                key={index}
+                to={dropdownItem.path}
+                className="dropdown-link px-2 py-1 d-block item-center text-nowrap"
+                smooth
+              >
+                {dropdownItem.label}
+              </NavHashLink>
+            );
+          })}
+        </NavDropdown>
+      );
+    case item.id === "settings":
+      return (
+        <NavHashLink
+          to={item.path}
+          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
+          activeClassName=""
+          smooth
+        >
+          <Settings />
+        </NavHashLink>
+      );
+    default:
+      return (
+        <NavHashLink
+          to={item.path}
+          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
+          activeClassName=""
+          smooth
+        >
+          {item.label}
+        </NavHashLink>
+      );
+  }
+};
 
+export const NavigationBar = () => {
   return (
     <NavHeader className="bg-brand-navy">
       <div className="container-custom">
@@ -115,33 +167,7 @@ export const NavigationBar = () => {
                 {navItems.map((item, index) => {
                   return (
                     <div className="col-12 col-lg-auto my-2 my-xl-0" key={index}>
-                      {item.id === "create-documents" ? (
-                        <a href={item.path}>{item.label}</a>
-                      ) : item.dropdownItems ? (
-                        <NavDropdown title={item.label} id="basic-nav-dropdown" className="p-0">
-                          {item.dropdownItems?.map((dropdownItem, index) => {
-                            return (
-                              <NavHashLink
-                                key={index}
-                                to={dropdownItem.path}
-                                className="dropdown-link px-2 py-1 d-block item-center text-nowrap"
-                                smooth
-                              >
-                                {dropdownItem.label}
-                              </NavHashLink>
-                            );
-                          })}
-                        </NavDropdown>
-                      ) : (
-                        <NavHashLink
-                          to={item.path}
-                          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
-                          activeClassName=""
-                          smooth
-                        >
-                          {item.id === "settings" ? <Settings /> : item.label}
-                        </NavHashLink>
-                      )}
+                      {NavBarItem(item)}
                     </div>
                   );
                 })}

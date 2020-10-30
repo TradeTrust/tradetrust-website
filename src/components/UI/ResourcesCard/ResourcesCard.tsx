@@ -90,24 +90,32 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
             </a>
           ))}
         </div>
-        {watchLink && (
-          <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
-            <PlayCircle />
-            <span className="px-2">Watch Event</span>
-          </a>
-        )}
-        {eventLink && (
-          <a className="link" href={eventLink} target="_blank" rel="noopener noreferrer">
-            <ExternalLink />
-            <span className="px-2">Event Link</span>
-          </a>
-        )}
-        {eventSlides && (
-          <a className="link" href={eventSlides} target="_blank" rel="noopener noreferrer">
-            <ExternalLink />
-            <span className="px-2">Event Slides</span>
-          </a>
-        )}
+        <div className="row no-gutters">
+          {watchLink && (
+            <div className="col-12 col-sm-auto">
+              <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
+                <PlayCircle />
+                <span className="px-2">Watch Event</span>
+              </a>
+            </div>
+          )}
+          {eventLink && (
+            <div className="col-12 col-sm-auto">
+              <a className="link" href={eventLink} target="_blank" rel="noopener noreferrer">
+                <ExternalLink />
+                <span className="px-2">Event Link</span>
+              </a>
+            </div>
+          )}
+          {eventSlides && (
+            <div className="col-12 col-sm-auto">
+              <a className="link" href={eventSlides} target="_blank" rel="noopener noreferrer">
+                <ExternalLink />
+                <span className="px-2">Event Slides</span>
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </ResourcesCardItem>
   );

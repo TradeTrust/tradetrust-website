@@ -27,7 +27,7 @@ export interface ResourcesLinkProps {
   icon?: string;
   details: {
     title: string;
-    description?: string;
+    date?: string;
     url: string;
   }[];
 }
