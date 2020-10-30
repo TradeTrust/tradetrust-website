@@ -4,9 +4,16 @@ import { NavHashLink } from "react-router-hash-link";
 import styled from "@emotion/styled";
 import { mixin, vars } from "../../../styles";
 import { Settings } from "react-feather";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
-export const navItems = [
+interface NavItemsProps {
+  id: string;
+  label: string;
+  path: string;
+  dropdownItems?: { id: string; label: string; path: string }[];
+}
+
+export const navItems: NavItemsProps[] = [
   {
     id: "verify-documents",
     label: "Verify Documents",
@@ -18,9 +25,21 @@ export const navItems = [
     path: "https://creator.tradetrust.io/",
   },
   {
-    id: "resources",
-    label: "Resources",
-    path: "/resources",
+    id: "info",
+    label: "Info",
+    path: "/info",
+    dropdownItems: [
+      {
+        id: "resources",
+        label: "Resources",
+        path: "/resources",
+      },
+      {
+        id: "media",
+        label: "Events and Media Centre",
+        path: "/media",
+      },
+    ],
   },
   {
     id: "faq",
@@ -52,6 +71,10 @@ const NavHeader = styled.header`
     }
   }
 
+  .navbar-dark .navbar-nav .nav-link {
+    color: ${vars.greyblue};
+  }
+
   a {
     ${mixin.fontMontserratMedium}
     ${mixin.fontSize(16)}
@@ -65,12 +88,75 @@ const NavHeader = styled.header`
     &.active {
       color: ${vars.white};
     }
+
+    &.dropdown-link {
+      color: ${vars.greyDark};
+
+      &:hover {
+        color: ${vars.greyLight};
+        text-decoration: none;
+      }
+
+      &.active {
+        color: ${vars.orange};
+      }
+    }
+  }
+
+  .dropdown > a {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 `;
 
-export const NavigationBar = () => {
+export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
   const location = useLocation();
+  switch (true) {
+    case item.id === "create-documents":
+      return <a href={item.path}>{item.label}</a>;
+    case item.id === "info":
+      return (
+        <NavDropdown title={item.label} id="basic-nav-dropdown" className="p-0">
+          {item.dropdownItems?.map((dropdownItem: any, index: number) => {
+            return (
+              <NavHashLink
+                key={index}
+                to={dropdownItem.path}
+                className="dropdown-link px-2 py-1 d-block item-center text-nowrap"
+                smooth
+              >
+                {dropdownItem.label}
+              </NavHashLink>
+            );
+          })}
+        </NavDropdown>
+      );
+    case item.id === "settings":
+      return (
+        <NavHashLink
+          to={item.path}
+          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
+          activeClassName=""
+          smooth
+        >
+          <Settings />
+        </NavHashLink>
+      );
+    default:
+      return (
+        <NavHashLink
+          to={item.path}
+          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
+          activeClassName=""
+          smooth
+        >
+          {item.label}
+        </NavHashLink>
+      );
+  }
+};
 
+export const NavigationBar = () => {
   return (
     <NavHeader className="bg-brand-navy">
       <div className="container-custom">
@@ -85,18 +171,7 @@ export const NavigationBar = () => {
                 {navItems.map((item, index) => {
                   return (
                     <div className="col-12 col-lg-auto my-2 my-xl-0" key={index}>
-                      {item.id === "create-documents" ? (
-                        <a href={item.path}>{item.label}</a>
-                      ) : (
-                        <NavHashLink
-                          to={item.path}
-                          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
-                          activeClassName=""
-                          smooth
-                        >
-                          {item.id === "settings" ? <Settings /> : item.label}
-                        </NavHashLink>
-                      )}
+                      {NavBarItem(item)}
                     </div>
                   );
                 })}

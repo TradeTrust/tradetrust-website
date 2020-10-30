@@ -12,7 +12,7 @@ const sideLinks = [
     type: "link",
     details: [
       {
-        description: "Browse TradeTrust documentation",
+        title: "Browse TradeTrust documentation",
         url: "https://docs.tradetrust.io/",
       },
     ],
@@ -22,7 +22,7 @@ const sideLinks = [
     type: "link",
     details: [
       {
-        description: "View TradeTrust source code",
+        title: "View TradeTrust source code",
         url: "https://github.com/TradeTrust/tradetrust-website",
       },
     ],
@@ -33,11 +33,11 @@ const sideLinks = [
     type: "download",
     details: [
       {
-        description: "TradeTrust Newsletter Issue 01",
+        title: "TradeTrust Newsletter Issue 01",
         url: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
       },
       {
-        description: "TradeTrust Newsletter Issue 02",
+        title: "TradeTrust Newsletter Issue 02",
         url: "/static/images/newsletter/TradeTrust_Newsletter_Issue02.pdf",
       },
     ],

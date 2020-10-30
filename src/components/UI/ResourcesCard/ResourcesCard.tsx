@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
-import { Download } from "react-feather";
+import { Download, ExternalLink, PlayCircle } from "react-feather";
 import { mixin, vars } from "./../../../styles";
 
 interface ResourcesCardProps {
@@ -8,9 +8,13 @@ interface ResourcesCardProps {
     title: string;
     youtubeEmbedCode?: string;
     placeholderText?: string;
-    tag: string;
+    tag?: string;
     description: string;
-    downloads: {
+    dateTime?: string;
+    eventSlides?: string;
+    eventLink?: string;
+    watchLink?: string;
+    downloads?: {
       fileName: string;
       path: string;
     }[];
@@ -18,7 +22,18 @@ interface ResourcesCardProps {
 }
 
 export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }) => {
-  const { placeholderText, youtubeEmbedCode, title, tag, description, downloads } = details;
+  const {
+    placeholderText,
+    youtubeEmbedCode,
+    title,
+    tag,
+    description,
+    downloads,
+    dateTime,
+    watchLink,
+    eventLink,
+    eventSlides,
+  } = details;
   const hasMedia = placeholderText || youtubeEmbedCode;
 
   return (
@@ -59,9 +74,10 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
           )}
         </h3>
         {tag && <div className="tag">{tag}</div>}
+        {dateTime && <div className="datetime">{dateTime}</div>}
         <p>{description}</p>
         <div className="py-2">
-          {downloads.map((download, index) => (
+          {downloads?.map((download, index) => (
             <a
               className="font-weight-bold d-flex align-items-end mt-1"
               href={download.path}
@@ -73,6 +89,32 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
               <span className="ml-2">{download.fileName}</span>
             </a>
           ))}
+        </div>
+        <div className="row no-gutters">
+          {watchLink && (
+            <div className="col-12 col-sm-auto">
+              <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
+                <PlayCircle />
+                <span className="px-2">Watch Event</span>
+              </a>
+            </div>
+          )}
+          {eventLink && (
+            <div className="col-12 col-sm-auto">
+              <a className="link" href={eventLink} target="_blank" rel="noopener noreferrer">
+                <ExternalLink />
+                <span className="px-2">Event Link</span>
+              </a>
+            </div>
+          )}
+          {eventSlides && (
+            <div className="col-12 col-sm-auto">
+              <a className="link" href={eventSlides} target="_blank" rel="noopener noreferrer">
+                <ExternalLink />
+                <span className="px-2">Event Slides</span>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </ResourcesCardItem>
@@ -148,5 +190,19 @@ const ResourcesCardItem = styled.div`
     padding: 4px;
     margin-bottom: 1rem;
     display: inline-block;
+  }
+
+  .link {
+    ${mixin.fontSize(18)};
+    ${mixin.fontSourcesansproSemibold};
+    display: inline;
+    padding-right: 16;
+  }
+
+  .datetime {
+    color: ${vars.grey};
+    ${mixin.fontSize(16)};
+    ${mixin.fontSourcesansproSemibold};
+    padding-bottom: 12;
   }
 `;

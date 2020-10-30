@@ -13,14 +13,20 @@ export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, de
           <div className="link-container" key={index}>
             {type === "link" && (
               <a className="link" href={details.url} target="_blank" rel="noopener noreferrer" data-testid="link">
-                {details.description}
+                {details.title}
               </a>
+            )}
+            {details.date && (
+              <>
+                <div className="date">{details.date}</div>
+                <hr />
+              </>
             )}
             {type === "download" && (
               <div className="download-wrapper">
-                <a href={details.url} download={`${details.description}.pdf`} className="link" data-testid="download">
+                <a href={details.url} download={`${details.title}.pdf`} className="link" data-testid="download">
                   <Download className="mr-1" />
-                  {details.description}
+                  {details.title}
                 </a>
               </div>
             )}
@@ -49,6 +55,12 @@ const ResourcesLinkItem = styled.div`
   .title {
     color: ${vars.greyDark};
     ${mixin.fontSize(20)};
+    ${mixin.fontSourcesansproSemibold};
+  }
+
+  .date {
+    color: ${vars.grey};
+    ${mixin.fontSize(16)};
     ${mixin.fontSourcesansproSemibold};
   }
 

@@ -8,7 +8,7 @@ const mockInfo = {
   type: "link",
   details: [
     {
-      description: "View TradeTrust source code",
+      title: "View TradeTrust source code",
       url: "https://github.com/TradeTrust/tradetrust-website",
     },
   ],
@@ -48,7 +48,7 @@ describe("ResourcesLink", () => {
 
   it("should render all links specified in details array", () => {
     mockInfo.details.push({
-      description: "View TradeTrust source code again",
+      title: "View TradeTrust source code again",
       url: "https://github.com/TradeTrust/tradetrust-website",
     });
     render(
