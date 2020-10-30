@@ -8,7 +8,7 @@ const mockInfo = {
   type: "link",
   details: [
     {
-      description: "View TradeTrust source code",
+      title: "View TradeTrust source code",
       url: "https://github.com/TradeTrust/tradetrust-website",
     },
   ],
