@@ -22,6 +22,19 @@ export const ProviderContext = createContext<ProviderContextProps>({
   account: undefined,
 });
 
+interface Ethereum extends providers.ExternalProvider, providers.BaseProvider {
+  enable: () => void;
+}
+
+declare global {
+  interface Window {
+    ethereum: Ethereum;
+    web3: {
+      currentProvider: providers.ExternalProvider;
+    };
+  }
+}
+
 export const ProviderContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isUpgraded, setIsUpgraded] = useState(false);
   const [provider, setProvider] = useState<providers.Provider | Signer>(getProvider);
