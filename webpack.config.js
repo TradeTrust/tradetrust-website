@@ -77,7 +77,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.EnvironmentPlugin(["NODE_ENV", "NET"]),
+    new webpack.EnvironmentPlugin(["NODE_ENV", "NET", "INFURA_API_KEY"]),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: `${__dirname}/public/static/index.html`,
