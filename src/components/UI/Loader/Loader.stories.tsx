@@ -1,5 +1,5 @@
 import React from "react";
-import { Loader, LoaderSkeleton, LoaderSpinner } from "./Loader";
+import { Loader, LoaderSkeleton } from "./Loader";
 
 export default {
   title: "UI/Loader",
@@ -19,12 +19,4 @@ export const SkeletonCustomWidth = () => {
 
 export const SkeletonLoaded = () => {
   return <LoaderSkeleton>Some text loaded.</LoaderSkeleton>;
-};
-
-export const Spinner = () => {
-  return <LoaderSpinner />;
-};
-
-export const SpinnerCustomWidth = () => {
-  return <LoaderSpinner width="90px" />;
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { mixin } from "../../styles";
-import { AnchorLinkButtonSolidOrangeWhite } from "./../UI/Button";
+import { AnchorLinkButtonSolidOrangeWhite } from "@govtechsg/tradetrust-ui-components";
 
 interface RegisterButtonProps {
   className?: string;

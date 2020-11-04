@@ -1,12 +1,12 @@
+import { useAddressBook, useThirdPartyAPIEndpoints } from "@govtechsg/address-identity-resolver";
+import { AddressBook, ButtonIconOrangeWhite, OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext } from "react";
+import { Book } from "react-feather";
+import { NETWORK } from "../../../../../config";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
 import { InputEditableAssetTitle, InputEditableWrapper, InputError } from "../../../../UI/Input";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
-import { ButtonIconOrangeWhite } from "./../../../../UI/Button";
-import { Book } from "react-feather";
-import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
-import { AddressBook } from "./../../../../../components/UI/Overlay/OverlayContent/AddressBook";
 
 interface EditableAssetTitleProps {
   role: string;
@@ -26,8 +26,20 @@ export const EditableAssetTitle = ({
   error,
 }: EditableAssetTitleProps) => {
   const { showOverlay } = useContext(OverlayContext);
+  const { handleLocalAddressBookCsv, addressBook } = useAddressBook();
+  const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
+
   const onOverlayHandler = () => {
-    showOverlay(<AddressBook title="Address Book" onAddressSelected={onSetNewValue} />);
+    showOverlay(
+      <AddressBook
+        title="Address Book"
+        onAddressSelected={onSetNewValue}
+        handleLocalAddressBookCsv={handleLocalAddressBookCsv}
+        addressBook={addressBook}
+        network={NETWORK}
+        thirdPartyAPIEndpoints={thirdPartyAPIEndpoints}
+      />
+    );
   };
 
   if (!value) return <SkeletonPlaceholder />;

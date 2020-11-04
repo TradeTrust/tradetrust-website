@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
 import styled from "@emotion/styled";
+import { useThirdPartyAPIEndpoints } from "@govtechsg/address-identity-resolver";
+import { AddressBook, ButtonBorderedBlue, OverlayContext } from "@govtechsg/tradetrust-ui-components";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { ButtonBorderedBlue } from "../UI/Button";
-import { OverlayContext } from "../../common/contexts/OverlayContext";
-import { AddressBook } from "./../../components/UI/Overlay/OverlayContent/AddressBook";
+import { NETWORK } from "../../config";
 
 interface MultiButtonsProps {
   className?: string;
@@ -12,8 +12,10 @@ interface MultiButtonsProps {
 
 export const MultiButtonsUnStyled = ({ className, tokenRegistryAddress }: MultiButtonsProps) => {
   const { showOverlay } = useContext(OverlayContext);
+  const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
+
   const onOverlayHandler = () => {
-    showOverlay(<AddressBook title="Address Book" />);
+    showOverlay(<AddressBook title="Address Book" network={NETWORK} thirdPartyAPIEndpoints={thirdPartyAPIEndpoints} />);
   };
 
   return (

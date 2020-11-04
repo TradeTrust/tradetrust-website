@@ -5,7 +5,7 @@ import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { HandleSurrenderedForm } from "./HandleSurrenderedForm";
 import { act } from "react-dom/test-utils";
-import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
+import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 
 jest.mock("../../../../../common/hooks/useEndorsementChain");

@@ -33,7 +33,7 @@ export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, de
           </div>
         ))}
       </div>
-      {icon && <img src={icon} className="link-icon" data-testid="link-icon" />}
+      {icon && <img src={icon} alt="link-icon" className="link-icon" data-testid="link-icon" />}
     </ResourcesLinkItem>
   );
 };

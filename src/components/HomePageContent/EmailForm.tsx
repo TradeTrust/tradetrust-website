@@ -1,10 +1,10 @@
+import { ButtonSolidOrangeWhite } from "@govtechsg/tradetrust-ui-components";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ButtonSolidOrangeWhite } from "./../UI/Button";
-import { InputDefault } from "./../UI/Input";
-import { TextareaDefault } from "./../UI/Textarea";
 import { CheckboxDefault } from "./../UI/Checkbox";
+import { InputDefault } from "./../UI/Input";
 import { SelectDefault } from "./../UI/Select";
+import { TextareaDefault } from "./../UI/Textarea";
 
 export const optionsBusiness = [
   { value: "Shipper", label: "Shipper" },

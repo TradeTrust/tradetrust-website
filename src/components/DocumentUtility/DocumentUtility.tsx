@@ -1,13 +1,13 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
+import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
+import { ButtonIconWhiteBlue } from "@govtechsg/tradetrust-ui-components";
+import QRCode, { ImageSettings } from "qrcode.react";
+import React from "react";
+import { OverlayTrigger, Popover } from "react-bootstrap";
+import { Download, Mail, Printer } from "react-feather";
 import { mixin, vars } from "../../styles";
 import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
-import { Printer, Mail, Download } from "react-feather";
-import { ButtonIconWhiteBlue } from "../UI/Button";
-import { Popover, OverlayTrigger } from "react-bootstrap";
-import QRCode, { ImageSettings } from "qrcode.react";
 
 interface DocumentUtilityProps {
   document: WrappedDocument<v2.OpenAttestationDocument>;

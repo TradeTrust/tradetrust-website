@@ -1,8 +1,8 @@
-import React from "react";
 import styled from "@emotion/styled";
+import React from "react";
 import { vars } from "../../styles";
-import { RegisterButton } from "./RegisterButton";
 import { ReactRouterLinkButtonSolidNavyWhite } from "./../UI/Button";
+import { RegisterButton } from "./RegisterButton";
 
 interface SectionRegisterProps {
   className?: string;

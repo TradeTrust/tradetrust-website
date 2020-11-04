@@ -1,4 +1,3 @@
-import { darken } from "polished";
 import * as vars from "./variables";
 
 export const containerCustom = ({ mwCustom = vars.maxWidth }) => {
@@ -50,28 +49,6 @@ export const loaderSkeleton = ({
         animation: skeleton-loading 1.4s infinite;
       }
     }
-  `;
-};
-
-export const loaderSpinner = ({
-  w = "24px",
-  borderW = "4px",
-  spd = "0.9s",
-  primary = darken(0.45, vars.white),
-  secondary = darken(0.25, vars.white),
-}) => {
-  return `
-    width: ${w};
-    height: ${w};
-    padding: 0;
-    border-radius: 50%;
-    border-style: solid;
-    border-width: ${borderW};
-    border-top-color: ${primary};
-    border-left-color: ${secondary};
-    border-bottom-color: ${secondary};
-    border-right-color: ${secondary};
-    animation: spinning ${spd} linear infinite;
   `;
 };
 

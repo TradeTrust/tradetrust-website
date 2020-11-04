@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { MessageTitle } from "@govtechsg/tradetrust-ui-components";
 import { ethers, providers, Signer } from "ethers";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { NETWORK_NAME } from "../../config";
-import { MessageTitle } from "./../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
 const getProvider =
   NETWORK_NAME === "local" ? new providers.JsonRpcProvider() : new ethers.providers.InfuraProvider(NETWORK_NAME);

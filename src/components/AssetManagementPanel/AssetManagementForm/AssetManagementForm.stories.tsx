@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { AssetManagementForm } from "./AssetManagementForm";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { FormState } from "../../../constants/FormState";
-import { Overlay } from "./../../UI/Overlay";
-import { OverlayContextProvider } from "./../../../common/contexts/OverlayContext";
+import { OverlayContextProvider, Overlay } from "@govtechsg/tradetrust-ui-components";
 
 export default {
   title: "TitleTransfer/AssetManagementForm",

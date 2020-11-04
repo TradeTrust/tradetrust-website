@@ -15,7 +15,3 @@ export const Loader = ({ children, ...props }: LoaderProps) => {
 export const LoaderSkeleton = styled(Loader)`
   ${(props) => mixin.loaderSkeleton({ w: props.width })};
 `;
-
-export const LoaderSpinner = styled(Loader)`
-  ${(props) => mixin.loaderSpinner({ w: props.width })};
-`;

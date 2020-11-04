@@ -1,14 +1,14 @@
+import {
+  ButtonSolidOrangeWhite,
+  MessageTitle,
+  OverlayContext,
+  showDocumentTransferMessage,
+} from "@govtechsg/tradetrust-ui-components";
 import React, { useContext } from "react";
-import { ButtonSolidOrangeWhite } from "../../../../UI/Button";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
-import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
-import {
-  MessageTitle,
-  showDocumentTransferMessage,
-} from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface ActionSelectionFormProps {

@@ -1,18 +1,19 @@
+import {
+  ButtonSolidRedWhite,
+  ButtonSolidWhiteGrey,
+  LoaderSpinner,
+  MessageTitle,
+  OverlayContext,
+  showDocumentTransferMessage,
+} from "@govtechsg/tradetrust-ui-components";
 import React, { useContext, useEffect } from "react";
+import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { FormState } from "../../../../../constants/FormState";
-import { ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
-import { LoaderSpinner } from "../../../../UI/Loader";
+import { TitleEscrowEvent } from "../../../../../types";
+import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
-import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
-import {
-  MessageTitle,
-  showDocumentTransferMessage,
-} from "../../../../UI/Overlay/OverlayContent/DocumentTransferMessage";
-import { TagBorderedRedLarge } from "../../../../UI/Tag";
-import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
-import { TitleEscrowEvent } from "../../../../../types";
 
 interface HandleSurrenderedFormProps {
   tokenId: string;

@@ -1,11 +1,11 @@
-import React from "react";
-import { AnnoucementBar } from "./AnnoucementBar";
-import { ReactRouterLinkButtonSolidOrangeWhite } from "./../../UI/Button";
-import { Provider } from "react-redux";
-import initStore from "./../../../store";
 import { ConnectedRouter } from "connected-react-router";
-import { Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import React from "react";
+import { Provider } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import initStore from "./../../../store";
+import { ReactRouterLinkButtonSolidOrangeWhite } from "./../../UI/Button";
+import { AnnoucementBar } from "./AnnoucementBar";
 
 const history = createBrowserHistory();
 const store = initStore(history);
