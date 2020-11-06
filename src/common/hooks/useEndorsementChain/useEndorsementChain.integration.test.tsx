@@ -1,12 +1,13 @@
-import { getDefaultProvider } from "ethers";
+import { ethers } from "ethers";
 import { renderHook, act } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react";
 import { useEndorsementChain } from "./useEndorsementChain";
 import { useProviderContext } from "../../contexts/provider";
+import { INFURA_API_KEY } from "../../../config";
 
 jest.mock("../../contexts/provider");
 
-const ropstenProvider = getDefaultProvider("ropsten");
+const ropstenProvider = new ethers.providers.InfuraProvider("ropsten", INFURA_API_KEY);
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
 
