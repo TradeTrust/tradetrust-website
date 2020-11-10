@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { ethers, providers, Signer } from "ethers";
-import { NETWORK_NAME } from "../../config";
+import { NETWORK_NAME, INFURA_API_KEY } from "../../config";
 import { MessageTitle } from "./../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 
 const getProvider =
-  NETWORK_NAME === "local" ? new providers.JsonRpcProvider() : new ethers.providers.InfuraProvider(NETWORK_NAME);
+  NETWORK_NAME === "local"
+    ? new providers.JsonRpcProvider()
+    : new ethers.providers.InfuraProvider(NETWORK_NAME, INFURA_API_KEY);
 
 interface ProviderContextProps {
   isUpgraded: boolean;
