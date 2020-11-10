@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import AppContainer from "./AppContainer";
 import initStore from "./store";
-import "styles/main.scss";
 import { OverlayContextProvider } from "./common/contexts/OverlayContext";
 import { ProviderContextProvider } from "./common/contexts/provider";
 import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";

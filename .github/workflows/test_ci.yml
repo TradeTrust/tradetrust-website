@@ -32,8 +32,6 @@ jobs:
           npm ci
       - name: Check Lint
         run: npm run lint
-      - name: Check Stylelint
-        run: npm run stylelint
       - name: Test
         run: npm run test
       - name: Build

@@ -1,0 +1,389 @@
+:root {
+  -webkit-font-smoothing: antialiased;
+  --brand-navy: #324353;
+  --brand-blue: #0099cc;
+  --brand-orange: #ff9933;
+  --grey-lightest: #f5f5f5;
+  --grey-lighter: #e5e5e5;
+  --grey: #8f8f8f;
+  --red: #ff5268;
+  --blue: #099de3;
+  --blue-lighter: #f3f8fc;
+  --green: #00c04a;
+  --orange: #ffb152;
+  --padding-dropzone-boxshadow: 10px;
+  --grid-gutter-width: 30px;
+  --mw-sm: 540px;
+  --mw-md: 720px;
+  --mw-lg: 960px;
+  --mw-xl: 1140px;
+  --sm: 576px;
+  --md: 768px;
+  --lg: 992px;
+  --xl: 1200px;
+  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* START - global */
+html {
+  font-size: 100%;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+svg {
+  transition: color 0.3s var(--ease-out-cubic);
+}
+
+a {
+  transition: color 0.3s var(--ease-out-cubic);
+  color: var(--brand-blue);
+}
+
+a:hover {
+  color: #006080;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrapper > main {
+  flex: 1;
+}
+
+.wrapper [data-location="/training-videos"] > main {
+  background-color: var(--grey-lightest);
+}
+
+.wrapper [data-location="/settings"] > main {
+  background-color: var(--blue-lighter);
+}
+/* END - global */
+
+/* START - typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+body {
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+/* END - typography */
+
+/* START - helpers */
+.padding-dropzone-boxshadow {
+  padding: var(--padding-dropzone-boxshadow);
+}
+
+.bg-grey-lightest {
+  background-color: var(--grey-lightest);
+}
+
+.bg-brand-navy {
+  background-color: var(--brand-navy);
+}
+
+.bg-red {
+  background-color: var(--red);
+}
+
+.bg-blue-lighter {
+  background-color: var(--blue-lighter);
+}
+
+.text-red {
+  color: var(--red);
+}
+
+.text-blue {
+  color: var(--blue);
+}
+
+.text-orange {
+  color: var(--orange);
+}
+
+.text-green {
+  color: var(--green);
+}
+
+.text-brand-navy {
+  color: var(--brand-navy);
+}
+
+.text-grey {
+  color: var(--grey);
+}
+
+.container-custom {
+  width: 100%;
+  max-width: 100%;
+  padding-left: calc(var(--grid-gutter-width) / 2);
+  padding-right: calc(var(--grid-gutter-width) / 2);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  margin-top: calc(- (40px / 2));
+  margin-left: calc(- (40px / 2));
+  position: relative;
+  top: 50%;
+  left: 50%;
+  padding: 0;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 4px;
+  border-top-color: #8c8c8c;
+  border-left-color: #bfbfbf;
+  border-bottom-color: #bfbfbf;
+  border-right-color: #bfbfbf;
+  animation: spinning 0.9s linear infinite;
+}
+
+.loader-skeleton:empty::after {
+  content: "";
+  display: block;
+  background-repeat: no-repeat;
+  background-color: var(--grey-lighter);
+  background-image: linear-gradient(
+    to left,
+    var(--grey-lighter) 0%,
+    var(--grey-lightest) 50%,
+    var(--grey-lighter) 100%
+  );
+  background-size: 50% 100%;
+  width: 260px;
+  height: 24px;
+  border-radius: 2px;
+  animation: skeleton-loading 1.4s infinite;
+}
+
+.fill {
+  min-height: 100%;
+  min-height: 100vh;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.exact-print {
+  -webkit-print-color-adjust: exact;
+}
+/* END - helpers */
+
+/* START - animation */
+@keyframes spinning {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes skeleton-loading {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.fade-appear {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fade-appear-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fade-appear-done {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fade-enter {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fade-enter-done {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fade-exit {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fade-exit-done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fadescale-appear {
+  transform: scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fadescale-appear-active {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.fadescale-appear-done {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.fadescale-enter {
+  transform: scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fadescale-enter-active {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.fadescale-enter-done {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.fadescale-exit {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.fadescale-exit-active {
+  transform: scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fadescale-exit-done {
+  transform: scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+}
+/* END - animation */
+
+/* START - media queries */
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
+@media (min-width: 576px) {
+  .container-custom {
+    max-width: var(--mw-sm);
+  }
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    max-width: var(--mw-md);
+  }
+}
+
+@media (min-width: 992px) {
+  .container-custom {
+    max-width: var(--mw-lg);
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-custom {
+    max-width: 1280px;
+  }
+}
+/* END - media queries */
+
+/* START - bootstrap overwrites */
+.btn-primary {
+  background-color: var(--brand-orange);
+  border-color: var(--brand-orange);
+}
+
+.btn-primary:hover {
+  background-color: #e67300;
+  border-color: #e67300;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #e67300;
+  border-color: #e67300;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--brand-orange);
+}
+/* END - bootstrap overwrites */
