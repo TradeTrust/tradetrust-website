@@ -8,6 +8,7 @@ import initStore from "./store";
 import { OverlayContextProvider } from "./common/contexts/OverlayContext";
 import { ProviderContextProvider } from "./common/contexts/provider";
 import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";
+import "./styles.css";
 
 const history = createBrowserHistory();
 
