@@ -62,7 +62,7 @@ export const DocumentationSection = () => {
     <SectionDocumentation id="integrate" className="bg-grey-lightest">
       <div className="row mb-5">
         <div className="col-12">
-          <h1 className="mb-3">Integrate Tradetust into your platform?</h1>
+          <h1 className="mb-3">Integrate TradeTrust into your platform?</h1>
           <p>Get started today! Browse the Documentation or download the source code.</p>
         </div>
       </div>
