@@ -134,11 +134,14 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     case item.id === "settings":
       return (
         <NavHashLink
+          data-testid="settings"
           to={item.path}
           className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
           activeClassName=""
           smooth
         >
+          <span>Settings</span>
+          {/* a textNode has to exist somehow for testcafe to be able to select link dom in e2e ci, temp solution */}
           <Settings />
         </NavHashLink>
       );
