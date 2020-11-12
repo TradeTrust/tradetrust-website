@@ -1,5 +1,39 @@
 @tailwind base;
 
+@layer base {
+  h1 {
+    font-size: 40px;
+  }
+  h2 {
+    font-size: 32px;
+  }
+  h3 {
+    font-size: 28px;
+  }
+}
+
 @tailwind components;
 
 @tailwind utilities;
+
+@layer components {
+  .multi-tab {
+    @apply bg-white;
+    @apply border-t-2;
+    @apply border-transparent;
+    @apply border-solid;
+    @apply font-bold;
+    @apply text-grey-700;
+    @apply bg-grey-100;
+    @apply transition-colors;
+    @apply duration-200;
+    @apply uppercase;
+    @apply cursor-pointer;
+    max-width: 180px;
+  }
+
+  .multi-tab:hover {
+    @apply text-grey-800;
+    @apply bg-grey-200;
+  }
+}

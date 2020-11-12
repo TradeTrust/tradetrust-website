@@ -13,7 +13,6 @@ interface DocumentUtilityProps {
   document: WrappedDocument<v2.OpenAttestationDocument>;
   handleSharingToggle: any;
   onPrint: () => void;
-  className?: string;
 }
 
 interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
@@ -25,12 +24,7 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
   };
 }
 
-export const DocumentUtilityUnStyled = ({
-  document,
-  handleSharingToggle,
-  onPrint,
-  className,
-}: DocumentUtilityProps) => {
+export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: DocumentUtilityProps) => {
   // Extending document data to account for undefined metadata in OA schema
   const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);
   const fileName = documentWithMetadata.name ?? "Untitled";
@@ -51,10 +45,10 @@ export const DocumentUtilityUnStyled = ({
   );
 
   return (
-    <div className={`${className}`}>
-      <div className="container-custom">
-        <div className="row no-gutters">
-          <div className="col-auto ml-auto">
+    <DocumentUtilities>
+      <div className="container no-print">
+        <div className="flex flex-wrap">
+          <div className="w-auto ml-auto">
             {qrcodeUrl && (
               <OverlayTrigger trigger="click" placement="bottom-end" overlay={qrCodePopover(qrcodeUrl)}>
                 <ButtonIconWhiteBlue aria-label="document-utility-qr-button">
@@ -65,13 +59,13 @@ export const DocumentUtilityUnStyled = ({
               </OverlayTrigger>
             )}
           </div>
-          <div className="col-auto ml-3">
+          <div className="w-auto ml-3">
             <ButtonIconWhiteBlue aria-label="document-utility-print-button" onClick={() => onPrint()}>
               <Printer />
             </ButtonIconWhiteBlue>
           </div>
           <FeatureFlag name="SHARE_BY_EMAIL">
-            <div className="col-auto ml-3">
+            <div className="w-auto ml-3">
               <ButtonIconWhiteBlue
                 aria-label="document-utility-share-by-email-button"
                 onClick={() => handleSharingToggle()}
@@ -80,7 +74,7 @@ export const DocumentUtilityUnStyled = ({
               </ButtonIconWhiteBlue>
             </div>
           </FeatureFlag>
-          <div className="col-auto ml-3">
+          <div className="w-auto ml-3">
             <a
               download={`${fileName}.tt`}
               target="_black"
@@ -93,11 +87,11 @@ export const DocumentUtilityUnStyled = ({
           </div>
         </div>
       </div>
-    </div>
+    </DocumentUtilities>
   );
 };
 
-export const DocumentUtility = styled(DocumentUtilityUnStyled)`
+export const DocumentUtilities = styled.div`
   background-color: ${vars.white};
   padding-bottom: 30px;
 

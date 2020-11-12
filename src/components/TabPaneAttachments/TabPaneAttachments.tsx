@@ -1,5 +1,4 @@
 import React from "react";
-import { Tab } from "react-bootstrap";
 import { AttachmentLink } from "../UI/AttachmentLink";
 
 interface TabPaneAttachmentsProps {
@@ -12,16 +11,14 @@ interface TabPaneAttachmentsProps {
 
 export const TabPaneAttachments = ({ attachments }: TabPaneAttachmentsProps) => {
   return (
-    <Tab.Pane eventKey="tab-attachment">
-      <div className="container-custom">
-        <div className="row">
-          {attachments.map(({ filename, data, type }) => (
-            <div className="col-6 col-lg-4 col-xl-3 mb-3" key={data}>
-              <AttachmentLink className="h-100" filename={filename} data={data} type={type} />
-            </div>
-          ))}
-        </div>
+    <div className="container">
+      <div className="flex flex-wrap -mx-4">
+        {attachments.map(({ filename, data, type }) => (
+          <div className="w-1/2 lg:w-1/3 xl:w-1/4 mb-3 px-4" key={data}>
+            <AttachmentLink filename={filename} data={data} type={type} />
+          </div>
+        ))}
       </div>
-    </Tab.Pane>
+    </div>
   );
 };

@@ -1,7 +1,6 @@
 import { VerificationFragment } from "@govtechsg/oa-verify";
 import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import React, { useCallback, useState, useEffect } from "react";
-import { Tab } from "react-bootstrap";
 import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
 import { TemplateProps } from "./../types";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
@@ -54,8 +53,8 @@ export const CertificateViewer = ({
 
   const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
 
-  /* 
-  initialise the meta token information context when new tokenId 
+  /*
+  initialise the meta token information context when new tokenId
   and tokenRegistryAddress provided and clean up the context when certificate viewer unmounts
   */
   useEffect(() => {
@@ -117,36 +116,31 @@ export const CertificateViewer = ({
         )}
         {tokenRegistryAddress && <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />}
       </div>
-      <Tab.Container defaultActiveKey="tab-document">
-        <div className="bg-blue-lighter no-print">
-          <MultiTabs
-            hasAttachments={hasAttachments}
-            attachments={attachments}
-            templates={templates}
-            setSelectedTemplate={setSelectedTemplate}
+      <div className="bg-blue-lighter no-print">
+        <MultiTabs
+          hasAttachments={hasAttachments}
+          attachments={attachments}
+          templates={templates}
+          setSelectedTemplate={setSelectedTemplate}
+          selectedTemplate={selectedTemplate}
+        />
+      </div>
+      <div className="bg-white py-4">
+        {attachments && (
+          <div className={`${selectedTemplate !== "attachmentTab" && "hidden"}`}>
+            <TabPaneAttachments attachments={attachments} />
+          </div>
+        )}
+        <div className={`${selectedTemplate === "attachmentTab" && "hidden"}`}>
+          <DocumentUtility document={document} handleSharingToggle={handleSharingToggle} onPrint={onPrint} />
+          <DecentralisedRendererContainer
+            rawDocument={document}
+            updateTemplates={updateTemplates}
             selectedTemplate={selectedTemplate}
+            ref={childRef}
           />
         </div>
-        <div className="bg-white">
-          <Tab.Content className="py-4">
-            <Tab.Pane eventKey="tab-document">
-              <DocumentUtility
-                className="no-print"
-                document={document}
-                handleSharingToggle={handleSharingToggle}
-                onPrint={onPrint}
-              />
-              <DecentralisedRendererContainer
-                rawDocument={document}
-                updateTemplates={updateTemplates}
-                selectedTemplate={selectedTemplate}
-                ref={childRef}
-              />
-            </Tab.Pane>
-            {attachments && <TabPaneAttachments attachments={attachments} />}
-          </Tab.Content>
-        </div>
-      </Tab.Container>
+      </div>
       <ModalDialog show={showSharing} toggle={handleSharingToggle}>
         <CertificateSharingForm
           emailSendingState={emailSendingState}

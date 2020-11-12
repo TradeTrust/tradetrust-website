@@ -9,7 +9,6 @@ import { getLogger } from "../../../utils/logger";
 const { error } = getLogger("component:attachmentlink");
 
 export interface AttachmentLinkProps {
-  className?: string;
   filename: string;
   data?: string;
   type?: string;
@@ -58,7 +57,7 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
   }
 };
 
-export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }: AttachmentLinkProps) => {
+export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkProps) => {
   let filesize = "0";
   let redirectLink = "";
   const hasBase64 = !!(data && type);
@@ -76,22 +75,22 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
   }
 
   return (
-    <div className={className}>
-      <div className="row">
-        <div className="col-12 col-md-auto mb-3 mb-md-0">{getExtension(type)}</div>
-        <div className="col-12 col-md">
+    <Attachment>
+      <div className="flex">
+        <div className="w-auto mr-4 md:w-auto mb-3 mb-md-0">{getExtension(type)}</div>
+        <div className="w-full md:flex-grow">
           <p className="filetext">
             <span className="filename">{filename}</span>
             {hasBase64 && <span className="filesize">({filesize})</span>}
           </p>
-          <div className="row no-gutters">
-            <div className="col-12 col-md-auto">
+          <div className="flex">
+            <div className="w-full md:w-auto">
               <a href={downloadHref} download={`${filename}`} className="downloadtext" data-testid="attachment-link">
                 Download
               </a>
             </div>
             {redirectLink && (
-              <div className="col-12 col-md-auto ml-0 ml-md-2">
+              <div className="w-full md:w-auto ml-0 ml-md-2">
                 <a href={redirectLink} target="_blank" rel="noopener noreferrer" className="downloadtext">
                   Open
                 </a>
@@ -100,16 +99,17 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
           </div>
         </div>
       </div>
-    </div>
+    </Attachment>
   );
 };
 
-export const AttachmentLink = styled(AttachmentLinkUnStyled)`
+export const Attachment = styled.div`
   transition: background-color 0.3s ${vars.easeOutCubic};
   display: inline-block;
   width: 100%;
   border: solid 1px ${vars.greyLighter};
   padding: 10px 15px;
+  height: 100%;
 
   &:hover {
     text-decoration: none;
