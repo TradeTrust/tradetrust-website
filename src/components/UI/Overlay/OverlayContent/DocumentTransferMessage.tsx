@@ -76,11 +76,11 @@ export const DocumentTransferMessage = styled(
       }
       if (isConfirmationMessage && onConfirmationAction) {
         return (
-          <div className="row no-gutters">
-            <div className="col-auto ml-2">
+          <div className="flex">
+            <div className="w-auto ml-2">
               <ButtonClose />
             </div>
-            <div className="col-auto ml-2">{ButtonConfirmAction(onConfirmationAction)}</div>
+            <div className="w-auto ml-2">{ButtonConfirmAction(onConfirmationAction)}</div>
           </div>
         );
       }
@@ -89,11 +89,11 @@ export const DocumentTransferMessage = styled(
 
     return (
       <OverlayContent {...props}>
-        <div className="flex-fill">
+        <div className="flex">
           <div className="message">{children}</div>
         </div>
-        <div className="row no-gutters">
-          <div className="col-auto ml-auto">{documentTransferButton()}</div>
+        <div className="flex">
+          <div className="w-auto ml-auto mt-4">{documentTransferButton()}</div>
         </div>
       </OverlayContent>
     );

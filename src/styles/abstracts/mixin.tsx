@@ -1,33 +1,6 @@
 import { darken } from "polished";
 import * as vars from "./variables";
 
-export const containerCustom = ({ mwCustom = vars.maxWidth }) => {
-  return `
-    width: 100%;
-    max-width: 100%;
-    padding-left: $grid-gutter-width / 2;
-    padding-right: $grid-gutter-width / 2;
-    margin-left: auto;
-    margin-right: auto;
-
-    @media only screen and (min-width: ${vars.sm}) {
-      max-width: $mw-sm;
-    }
-
-    @media only screen and (min-width: ${vars.md}) {
-      max-width: $mw-md;
-    }
-
-    @media only screen and (min-width: ${vars.lg}) {
-      max-width: $mw-lg;
-    }
-
-    @media only screen and (min-width: ${vars.xl}) {
-      max-width: ${mwCustom};
-    }
-  `;
-};
-
 export const loaderSkeleton = ({
   w = "260px",
   h = "24px",

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { NETWORK } from "../../../config";
 import styled from "@emotion/styled";
-import { vars } from "../../../styles";
+import React, { useState } from "react";
 import { X } from "react-feather";
+import { NETWORK } from "../../../config";
+import { vars } from "../../../styles";
 
 const NetworkWrap = styled.div`
   background-color: ${vars.greenDarker};
@@ -29,14 +29,14 @@ export const NetworkBar = () => {
 
   return (
     <NetworkWrap>
-      <div className="container-custom">
-        <div className="row">
-          <div className="col-auto ml-auto">
+      <div className="container">
+        <div className="flex">
+          <div className="w-auto ml-auto">
             <p className="mb-0">
               You are currently on <span className="network">{NETWORK}</span> network.
             </p>
           </div>
-          <div className="col-auto ml-auto">
+          <div className="w-auto ml-auto">
             <X onClick={() => setClose(true)} />
           </div>
         </div>

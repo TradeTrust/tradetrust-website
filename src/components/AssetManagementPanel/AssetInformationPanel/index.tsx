@@ -13,7 +13,7 @@ interface AssetInformationPanel {
 export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = styled(
   ({ tokenRegistryAddress, setShowEndorsementChain, className }) => {
     return (
-      <div className={`py-3 ${className}`}>
+      <div className={`py-4 ${className}`}>
         <AddressInfo title="BL information" name="" resolvedBy="" source="">
           <div>
             <ExternalLinkEtherscanAddress name="View BL Registry" address={tokenRegistryAddress} />

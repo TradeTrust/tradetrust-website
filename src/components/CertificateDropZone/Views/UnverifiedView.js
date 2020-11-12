@@ -1,8 +1,8 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 import { Link } from "react-router-dom";
+import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../../services/verify/fragments";
-import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 import { ViewerContainer } from "./SharedViewerStyledComponents";
 
 const DetailedErrors = ({ verificationStatus }) => {
@@ -19,7 +19,7 @@ const DetailedErrors = ({ verificationStatus }) => {
       {errors.map((errorType, index) => (
         <div key={index}>
           <p className="messages">{MESSAGES[errorType].failureTitle}</p>
-          <p>{MESSAGES[errorType].failureMessage}</p>
+          <p className="break-words">{MESSAGES[errorType].failureMessage}</p>
         </div>
       ))}
     </div>
@@ -32,12 +32,16 @@ DetailedErrors.propTypes = {
 
 export const UnverifiedView = ({ resetData, verificationStatus }) => (
   <ViewerContainer id="viewer-container" className="invalid">
-    <span className="message-container">
-      <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
-      <span className="invalid m-3" style={{ fontSize: "1.5rem" }}>
-        This document is not valid
-      </span>
-    </span>
+    <div className="flex justify-center my-4">
+      <div className="w-auto mr-2">
+        <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
+      </div>
+      <div className="w-auto">
+        <p className="invalid text-black" style={{ fontSize: "1.5rem" }}>
+          This document is not valid
+        </p>
+      </div>
+    </div>
     <DetailedErrors verificationStatus={verificationStatus} />
 
     <div className="unverified-btn-container">

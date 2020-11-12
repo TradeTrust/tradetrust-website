@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
-import { mixin, vars } from "../../../styles";
-import { TradeTrustErc721Event, TitleEscrowEvent } from "../../../types";
 import { ArrowLeft } from "react-feather";
+import { mixin, vars } from "../../../styles";
+import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
+import { getLogger } from "../../../utils/logger";
 import { AddressCell } from "./AddressCell";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
-import { getLogger } from "../../../utils/logger";
 
 const { trace } = getLogger("component: endorsementchainlayout");
 
@@ -72,8 +72,8 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
               <td className="table-cell date border-top-none">
                 {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
               </td>
-              <td colSpan={2} className="endorsement-ui-dash border-top-none">
-                <div className="name-row">
+              <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
+                <div className="relative flex">
                   <div className="dot" data-testid="dot" />
                   <div className="name">Document surrendered to Issuer</div>
                 </div>
@@ -87,8 +87,8 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
               <td className="table-cell date border-top-none">
                 {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
               </td>
-              <td colSpan={2} className="endorsement-ui-dash border-top-none">
-                <div className="name-row">
+              <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
+                <div className="relative flex">
                   <div className="dot" data-testid="dot" />
                   <div className="name">Surrender of document accepted</div>
                 </div>
@@ -103,14 +103,14 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
     });
 
   return (
-    <div className={`container-custom ${className} `}>
+    <div className={`container ${className} `}>
       <div className="table-container">
         <div className="back-button" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
-          <div className="row align-items-center no-gutters">
-            <div className="col-auto mr-1">
+          <div className="flex items-center">
+            <div className="w-auto mr-1">
               <ArrowLeft />
             </div>
-            <div className="col-auto">
+            <div className="w-auto">
               <p className="mb-0">Back</p>
             </div>
           </div>
@@ -118,7 +118,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
         <div className="endorsement-chain-title">Endorsement Chain</div>
         <div className="table-responsive">
           <table className="table">
-            <thead>
+            <thead className="text-left">
               <tr className="table-header table-row">
                 <th className="table-cell">Date</th>
                 <th className="table-cell">Owner</th>
@@ -223,16 +223,9 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
     background-color: ${vars.teal};
     margin: 0.25rem;
     position: absolute;
-    left: -21.5px;
+    left: -17px;
     top: 5px;
     z-index: 4;
-  }
-
-  .name-row {
-    display: flex;
-    align-items: center;
-    position: relative;
-    min-height: 27px;
   }
 
   .loading-cell {

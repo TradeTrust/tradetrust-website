@@ -1,5 +1,5 @@
-import React from "react";
 import styled from "@emotion/styled";
+import React from "react";
 
 interface ModalDialogProps {
   className?: string;
@@ -13,9 +13,9 @@ export const ModalDialogUnStyled = ({ className, show, toggle, children }: Modal
     <>
       {show && (
         <div className={className}>
-          <div className={`modal-content p-3`}>
-            <div className={`modal-cross pointer`} onClick={() => toggle()}>
-              <i className="fa fa-times text-muted" />
+          <div className={`modal-content p-4`}>
+            <div className={`modal-cross cursor-pointer`} onClick={() => toggle()}>
+              <i className="fa fa-times text-grey-700" />
             </div>
             {children}
           </div>

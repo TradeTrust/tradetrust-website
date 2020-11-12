@@ -1,7 +1,7 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { mixin, vars } from "./../../styles";
 import { WrappedDocument } from "@govtechsg/open-attestation";
+import React from "react";
+import { mixin, vars } from "./../../styles";
 
 const ObfuscationInfo = styled.div`
   ${mixin.fontSourcesansproBold};
@@ -18,12 +18,8 @@ export const ObfuscatedMessage = ({ document }: ObfuscatedMessageProps) => {
 
   return (
     <ObfuscationInfo data-testid="obfuscation-info">
-      <div className="container-custom">
-        <div className="row">
-          <div className="col-12">
-            <p>Note: There are fields/data obfuscated in this document.</p>
-          </div>
-        </div>
+      <div className="container">
+        <p className="py-6">Note: There are fields/data obfuscated in this document.</p>
       </div>
     </ObfuscationInfo>
   );

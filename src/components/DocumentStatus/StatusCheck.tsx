@@ -9,9 +9,9 @@ interface StatusProps {
 
 const Status = ({ message, icon }: StatusProps) => (
   <div className="status">
-    <div className="row no-gutters align-items-center">
-      <div className="col-auto">{icon}</div>
-      <div className="col">
+    <div className="flex items-center">
+      <div className="w-auto">{icon}</div>
+      <div className="flex-grow">
         <p className="pl-2 mb-0 message">{message}</p>
       </div>
     </div>

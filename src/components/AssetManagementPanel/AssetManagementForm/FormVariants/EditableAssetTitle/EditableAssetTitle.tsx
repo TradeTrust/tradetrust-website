@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
+import { Book } from "react-feather";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
-import { InputEditableAssetTitle, InputEditableWrapper, InputError } from "../../../../UI/Input";
+import { InputEditableAssetTitle, InputError } from "../../../../UI/Input";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
-import { ButtonIconOrangeWhite } from "./../../../../UI/Button";
-import { Book } from "react-feather";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
 import { AddressBook } from "./../../../../../components/UI/Overlay/OverlayContent/AddressBook";
+import { ButtonIconOrangeWhite } from "./../../../../UI/Button";
 
 interface EditableAssetTitleProps {
   role: string;
@@ -43,8 +43,8 @@ export const EditableAssetTitle = ({
     );
   return (
     <AssetTitle role={role} address={newValue || ""}>
-      <div className="row no-gutters align-items-center">
-        <InputEditableWrapper className="col mr-2">
+      <div className="flex items-start">
+        <div className="flex-grow mr-2">
           <InputEditableAssetTitle
             data-testid={`editable-input-${role.toLowerCase()}`}
             value={newValue}
@@ -58,8 +58,8 @@ export const EditableAssetTitle = ({
           {error && (
             <InputError data-testid={"error-msg"}>Unidentified address. Please check and input again.</InputError>
           )}
-        </InputEditableWrapper>
-        <div className="col-auto">
+        </div>
+        <div className="w-auto">
           <ButtonIconOrangeWhite onClick={onOverlayHandler}>
             <Book />
           </ButtonIconOrangeWhite>

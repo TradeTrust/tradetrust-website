@@ -1,16 +1,11 @@
 import React from "react";
-import styled from "@emotion/styled";
 
-interface FooterProps {
-  className?: string;
-}
-
-const Footer = ({ className }: FooterProps) => {
+export const Footer = () => {
   return (
-    <footer className={`${className} bg-white py-4`}>
-      <div className="container-custom">
-        <div className="row justify-content-center">
-          <div className="col-auto">
+    <footer className="bg-white py-6 no-print">
+      <div className="container">
+        <div className="flex justify-center">
+          <div className="w-auto">
             <p className="mb-0">Copyright &copy; 2020 TradeTrust</p>
           </div>
         </div>
@@ -18,9 +13,3 @@ const Footer = ({ className }: FooterProps) => {
     </footer>
   );
 };
-
-export const FooterDefault = styled(Footer)`
-  @media print {
-    display: none;
-  }
-`;

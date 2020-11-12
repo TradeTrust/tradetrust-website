@@ -1,5 +1,5 @@
-import React, { InputHTMLAttributes } from "react";
 import styled from "@emotion/styled";
+import React, { InputHTMLAttributes } from "react";
 import { InputDefault } from "../Input";
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -10,12 +10,12 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 export const Checkbox = ({ className, text, ...props }: CheckboxProps) => {
   return (
     <label className={className}>
-      <div className="row no-gutters align-items-center">
-        <div className="col-auto">
+      <div className="flex items-center">
+        <div className="w-auto">
           <InputDefault type="hidden" value="No" {...props} />
           <InputDefault type="checkbox" value="Yes" {...props} />
         </div>
-        <div className="col">
+        <div className="flex-grow">
           <p>{text}</p>
         </div>
       </div>

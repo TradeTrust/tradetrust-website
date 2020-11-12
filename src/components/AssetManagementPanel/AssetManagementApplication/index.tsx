@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
+import React, { useCallback, useEffect, useState } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
+import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistryContract";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "./../AssetManagementForm";
 import { AssetManagementTags } from "./../AssetManagementTags";
-import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistryContract";
-import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 
 interface AssetManagementApplicationProps {
   tokenId: string;
@@ -80,7 +80,7 @@ export const AssetManagementApplication = ({
 
   return (
     <div id="title-transfer-panel">
-      <div className="container-custom">
+      <div className="container">
         <AssetManagementTags />
         {isTitleEscrow !== undefined && (
           <AssetManagementForm

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import { mixin, vars } from "../../styles";
@@ -6,14 +6,12 @@ import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
 import { Printer, Mail, Download } from "react-feather";
 import { ButtonIconWhiteBlue } from "../UI/Button";
-import { Popover, OverlayTrigger } from "react-bootstrap";
 import QRCode, { ImageSettings } from "qrcode.react";
 
 interface DocumentUtilityProps {
   document: WrappedDocument<v2.OpenAttestationDocument>;
   handleSharingToggle: any;
   onPrint: () => void;
-  className?: string;
 }
 
 interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
@@ -25,12 +23,8 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
   };
 }
 
-export const DocumentUtilityUnStyled = ({
-  document,
-  handleSharingToggle,
-  onPrint,
-  className,
-}: DocumentUtilityProps) => {
+export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: DocumentUtilityProps) => {
+  const [qrCodePopover, setQrCodePopover] = useState(false);
   // Extending document data to account for undefined metadata in OA schema
   const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);
   const fileName = documentWithMetadata.name ?? "Untitled";
@@ -42,36 +36,48 @@ export const DocumentUtilityUnStyled = ({
     excavate: true,
   };
 
-  const qrCodePopover = (url: string) => (
-    <Popover id="qr-code-popover" style={{ borderRadius: 0, border: "1px solid #DDDDDD" }}>
-      <Popover.Content data-testid="qr-code-svg" style={{ padding: "10px" }}>
-        <QRCode value={url} level="Q" size={200} bgColor="#FFFFFF" fgColor="#000000" imageSettings={imageSettings} />
-      </Popover.Content>
-    </Popover>
-  );
-
   return (
-    <div className={`${className}`}>
-      <div className="container-custom">
-        <div className="row no-gutters">
-          <div className="col-auto ml-auto">
+    <DocumentUtilities>
+      <div className="container no-print">
+        <div className="flex flex-wrap">
+          <div className="w-auto ml-auto">
             {qrcodeUrl && (
-              <OverlayTrigger trigger="click" placement="bottom-end" overlay={qrCodePopover(qrcodeUrl)}>
+              <div
+                className="relative"
+                onClick={() => {
+                  setQrCodePopover(!qrCodePopover);
+                }}
+              >
                 <ButtonIconWhiteBlue aria-label="document-utility-qr-button">
                   <SvgIcon strokeWidth="0.5" fill="currentColor">
                     <SvgIconQRCode />
                   </SvgIcon>
                 </ButtonIconWhiteBlue>
-              </OverlayTrigger>
+                <div
+                  data-testid="qr-code-svg"
+                  className={`absolute border p-2 mt-2 top-100 right-0 shadow-md rounded bg-white ${
+                    qrCodePopover ? "block" : "hidden"
+                  }`}
+                >
+                  <QRCode
+                    value={qrcodeUrl}
+                    level="Q"
+                    size={200}
+                    bgColor="#FFFFFF"
+                    fgColor="#000000"
+                    imageSettings={imageSettings}
+                  />
+                </div>
+              </div>
             )}
           </div>
-          <div className="col-auto ml-3">
+          <div className="w-auto ml-3">
             <ButtonIconWhiteBlue aria-label="document-utility-print-button" onClick={() => onPrint()}>
               <Printer />
             </ButtonIconWhiteBlue>
           </div>
           <FeatureFlag name="SHARE_BY_EMAIL">
-            <div className="col-auto ml-3">
+            <div className="w-auto ml-3">
               <ButtonIconWhiteBlue
                 aria-label="document-utility-share-by-email-button"
                 onClick={() => handleSharingToggle()}
@@ -80,7 +86,7 @@ export const DocumentUtilityUnStyled = ({
               </ButtonIconWhiteBlue>
             </div>
           </FeatureFlag>
-          <div className="col-auto ml-3">
+          <div className="w-auto ml-3">
             <a
               download={`${fileName}.tt`}
               target="_black"
@@ -93,11 +99,11 @@ export const DocumentUtilityUnStyled = ({
           </div>
         </div>
       </div>
-    </div>
+    </DocumentUtilities>
   );
 };
 
-export const DocumentUtility = styled(DocumentUtilityUnStyled)`
+export const DocumentUtilities = styled.div`
   background-color: ${vars.white};
   padding-bottom: 30px;
 

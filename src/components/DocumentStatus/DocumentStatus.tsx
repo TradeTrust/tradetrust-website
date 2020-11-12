@@ -1,13 +1,12 @@
-import React from "react";
 import styled from "@emotion/styled";
+import { VerificationFragment } from "@govtechsg/oa-verify";
+import React from "react";
+import { NETWORK_NAME } from "../../config";
 import { mixin, vars } from "../../styles";
 import { StatusChecks } from "./StatusChecks";
-import { VerificationFragment } from "@govtechsg/oa-verify";
-import { NETWORK_NAME } from "../../config";
 
 interface DocumentStatusProps {
   verificationStatus: VerificationFragment[];
-  className?: string;
 }
 
 interface VerificationFragmentData {
@@ -43,36 +42,36 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   const formattedDomainNames = fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 
   return (
-    <h3 id="issuedby" className={`mb-0 issuedby`}>
+    <h3 id="issuedby" className="mb-0 issuedby">
       <span className="mr-1">Issued by</span>
       <span className="domain">{formattedDomainNames}</span>
     </h3>
   );
 };
 
-export const DocumentStatusUnStyled = ({ verificationStatus, className }: DocumentStatusProps) => {
+export const DocumentStatus = ({ verificationStatus }: DocumentStatusProps) => {
   return (
-    <div className={`py-3 ${className}`}>
-      <div className="container-custom">
+    <DocumentStatusStyles>
+      <div className="container">
         <div id="document-status" className="statusbar">
-          <div className="container-fluid">
-            <div className="row align-items-center">
-              <div className="col-12 col-xl-4 mb-3 mb-xl-0">
-                {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
-              </div>
-              <StatusChecks verificationStatus={verificationStatus} />
+          <div className="flex flex-col xl:flex-row">
+            <div className="flex-grow">
+              {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
             </div>
+            <StatusChecks verificationStatus={verificationStatus} />
           </div>
         </div>
       </div>
-    </div>
+    </DocumentStatusStyles>
   );
 };
 
-export const DocumentStatus = styled(DocumentStatusUnStyled)`
+const DocumentStatusStyles = styled.div`
+  padding: 1rem 0;
+
   .statusbar {
     background-color: ${vars.white};
-    padding: 10px 0;
+    padding: 1rem;
     border-radius: ${vars.buttonRadius};
   }
 
