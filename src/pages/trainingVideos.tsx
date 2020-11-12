@@ -32,11 +32,12 @@ export const TrainingVideosPage = () => (
               digital utility as well as the mental framing necessary as a pre-requisite for subsequent webinars.
             </p>
             <div className="py-2">
-              <AttachmentLink
-                className="mb-3"
-                filename="TradeTrust Tech Webinar 1 - Overview.pdf"
-                path="/static/images/webinar/tradetrust-tech-webinar-1-overview.pdf"
-              />
+              <div className="mb-3">
+                <AttachmentLink
+                  filename="TradeTrust Tech Webinar 1 - Overview.pdf"
+                  path="/static/images/webinar/tradetrust-tech-webinar-1-overview.pdf"
+                />
+              </div>
               <AttachmentLink
                 filename="TradeTrust Tech Webinar 1 - Demo.pdf"
                 path="/static/images/webinar/tradetrust-tech-webinar-1-demo.pdf"

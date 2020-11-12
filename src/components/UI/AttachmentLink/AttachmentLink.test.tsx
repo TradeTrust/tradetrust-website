@@ -36,9 +36,7 @@ describe("AttachmentLink", () => {
   });
 
   it("should render a uploaded pdf file correctly", () => {
-    const container = render(
-      <AttachmentLink className="h-100" filename="asdfdfs.pdf" data="asdfasdf" type="application/pdf" />
-    );
+    const container = render(<AttachmentLink filename="asdfdfs.pdf" data="asdfasdf" type="application/pdf" />);
     expect(container.queryByText("asdfdfs.pdf")).not.toBeNull();
     expect(container.queryByText("(6 B)")).not.toBeNull();
     expect(container.getByText("Download")).not.toBeNull();
@@ -55,7 +53,7 @@ describe("AttachmentLink", () => {
           data="asdfasdf"
           type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         />
-        <AttachmentLink className="h-100" filename="asdfdfs.txt" data="asdfasdf" type="text/plain" />
+        <AttachmentLink filename="asdfdfs.txt" data="asdfasdf" type="text/plain" />
         <AttachmentLink
           filename="asdfdfs.docx"
           data="asdfasdf"

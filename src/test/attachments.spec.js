@@ -3,7 +3,7 @@ import { Iframe, SampleTemplate, uploadDocument, validateTextContent, validateIf
 
 fixture("Document with Attachment Rendering").page`http://localhost:3000`;
 
-const TabsItems = Selector("[data-testid='tabs'] .nav-item");
+const TabsItems = Selector(".multi-tab");
 const TabDefault = Selector("[data-testid='default']");
 const TabAttachment = Selector("[data-testid='tab-attachment']");
 const TabWordDoc = Selector("[data-testid='attachment-0']");

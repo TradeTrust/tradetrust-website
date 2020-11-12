@@ -1,9 +1,9 @@
 import React from "react";
-import { AttachmentLinkUnStyled, AttachmentLink } from "./AttachmentLink";
+import { AttachmentLink } from "./AttachmentLink";
 
 export default {
   title: "UI/AttachmentLink",
-  component: AttachmentLinkUnStyled,
+  component: AttachmentLink,
   parameters: {
     componentSubtitle: "Attachment links, pdf.",
   },

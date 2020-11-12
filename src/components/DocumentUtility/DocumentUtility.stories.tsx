@@ -1,9 +1,9 @@
 import React from "react";
-import { DocumentUtility, DocumentUtilityUnStyled } from "./DocumentUtility";
+import { DocumentUtility } from "./DocumentUtility";
 
 export default {
   title: "Viewer/DocumentUtility",
-  component: DocumentUtilityUnStyled,
+  component: DocumentUtility,
   parameters: {
     componentSubtitle: "Utility functions relating to document, Display QR Code, Print, Download.",
   },
