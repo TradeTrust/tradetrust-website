@@ -21,7 +21,7 @@
     "integration:contracts": "./scripts/integration-contracts.sh",
     "integration:metamask": "run-s integration:wait integration:contracts integration:transfers",
     "integration:dappeteer": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:local\" \"npm:integration:metamask\"",
-    "precommit": "run-p lint:fix test integration",
+    "precommit": "npm run lint:fix && npm run test",
     "serve-static": "http-server dist -s -p 3000",
     "storybook": "start-storybook -p 6006 -s public",
     "storybook:build": "build-storybook -o docs  -s public",

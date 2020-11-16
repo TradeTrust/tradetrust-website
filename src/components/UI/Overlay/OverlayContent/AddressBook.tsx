@@ -1,19 +1,19 @@
-import React, { useState, useContext, useCallback } from "react";
-import { OverlayContentBaseStyle } from "./../Overlay";
-import { TableStyle } from "./../../../AddressResolver/AddressesTable";
-import { OverlayContent, OverlayContentProps } from "./index";
 import styled from "@emotion/styled";
-import { Search, Download } from "react-feather";
+import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
+import { debounce } from "lodash";
+import React, { useCallback, useContext, useState } from "react";
+import { Download, Search } from "react-feather";
+import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPartyAPIEndpoints";
+import { AddressBookThirdPartyResultsProps, entityLookup } from "../../../../services/addressResolver";
+import { vars } from "../../../../styles";
 import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
 import { AnchorLinkButtonSolidWhiteBlue } from "../../../UI/Button";
-import { vars } from "../../../../styles";
 import { OverlayContext } from "./../../../../common/contexts/OverlayContext";
-import { Dropdown } from "react-bootstrap";
-import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPartyAPIEndpoints";
-import { debounce } from "lodash";
+import { TableStyle } from "./../../../AddressResolver/AddressesTable";
+import { OverlayContentBaseStyle } from "./../Overlay";
 import { AddressBookLocal } from "./AddressBookLocal";
 import { AddressBookThirdParty } from "./AddressBookThirdParty";
-import { entityLookup, AddressBookThirdPartyResultsProps } from "../../../../services/addressResolver";
+import { OverlayContent, OverlayContentProps } from "./index";
 
 export interface AddressBookDropdownProps {
   name: string;
@@ -25,36 +25,6 @@ export interface AddressBookDropdownProps {
 interface AddressBookProps extends OverlayContentProps {
   onAddressSelected?: (newValue: string) => void;
 }
-
-const StyledDropdownButton = styled(Dropdown.Toggle)`
-  position: relative;
-  border-radius: 0;
-  max-width: 360px;
-  width: 100%;
-  text-align: left;
-  border: solid 1px ${vars.greyLight};
-
-  &:focus {
-    box-shadow: none;
-  }
-
-  &:hover {
-    background-color: ${vars.greyLightest};
-  }
-
-  &::after {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-`;
-
-const StyledDropdownItem = styled(Dropdown.Item)`
-  &:active {
-    background-color: ${vars.blue};
-  }
-`;
 
 export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookProps) => {
   const { setOverlayVisible } = useContext(OverlayContext);
@@ -108,35 +78,33 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
   return (
     <OverlayContent data-testid="overlay-addressbook" {...props}>
       <div className="overlay-actionsbar">
-        <Dropdown>
-          <StyledDropdownButton variant="transparent" className="mb-2">
-            {isLocal ? "Local" : name}
-          </StyledDropdownButton>
-
-          <Dropdown.Menu>
-            <StyledDropdownItem
-              onClick={() => {
-                setIsLocal(true);
-                setSearchTerm("");
-              }}
-            >
-              Local
-            </StyledDropdownItem>
-            {thirdPartyAPIEndpoints.map((item, index) => {
-              return (
-                <StyledDropdownItem
-                  key={index}
-                  onClick={() => {
-                    setIsLocal(false);
-                    setSearchTerm("");
-                    setRemoteEndpointIndex(index);
-                  }}
-                >
-                  {item.name}
-                </StyledDropdownItem>
-              );
-            })}
-          </Dropdown.Menu>
+        <Dropdown
+          fullWidth
+          dropdownButtonText={`${isLocal ? "Local" : name}`}
+          className="border-grey-light border-solid border rounded-none p-3 hover:bg-grey-lightest"
+        >
+          <DropdownItem
+            onClick={() => {
+              setIsLocal(true);
+              setSearchTerm("");
+            }}
+          >
+            Local
+          </DropdownItem>
+          {thirdPartyAPIEndpoints.map((item, index) => {
+            return (
+              <DropdownItem
+                key={index}
+                onClick={() => {
+                  setIsLocal(false);
+                  setSearchTerm("");
+                  setRemoteEndpointIndex(index);
+                }}
+              >
+                {item.name}
+              </DropdownItem>
+            );
+          })}
         </Dropdown>
         <div className="row align-items-center">
           <div className="col-12 col-md mb-2 mb-md-0">
