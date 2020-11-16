@@ -9,6 +9,10 @@ module.exports = {
       center: true,
       padding: theme("spacing.4"),
     }),
+    fontFamily: {
+      "source-sans-pro": ["Source Sans Pro", "sans-serif"],
+      montserrat: ["Montserrat", "sans-serif"],
+    },
     extend: {
       colors: {
         brand: {
