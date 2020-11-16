@@ -54,6 +54,7 @@ export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: Docu
                   </SvgIcon>
                 </ButtonIconWhiteBlue>
                 <div
+                  data-testid="qr-code-svg"
                   className={`absolute border p-2 mt-2 top-100 right-0 shadow-md rounded bg-white ${
                     qrCodePopover ? "block" : "hidden"
                   }`}
