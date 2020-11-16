@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import { mixin, vars } from "../../styles";
@@ -6,7 +6,6 @@ import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
 import { Printer, Mail, Download } from "react-feather";
 import { ButtonIconWhiteBlue } from "../UI/Button";
-import { Popover, OverlayTrigger } from "react-bootstrap";
 import QRCode, { ImageSettings } from "qrcode.react";
 
 interface DocumentUtilityProps {
@@ -25,6 +24,7 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
 }
 
 export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: DocumentUtilityProps) => {
+  const [qrCodePopover, setQrCodePopover] = useState(false);
   // Extending document data to account for undefined metadata in OA schema
   const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);
   const fileName = documentWithMetadata.name ?? "Untitled";
@@ -36,27 +36,38 @@ export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: Docu
     excavate: true,
   };
 
-  const qrCodePopover = (url: string) => (
-    <Popover id="qr-code-popover" style={{ borderRadius: 0, border: "1px solid #DDDDDD" }}>
-      <Popover.Content data-testid="qr-code-svg" style={{ padding: "10px" }}>
-        <QRCode value={url} level="Q" size={200} bgColor="#FFFFFF" fgColor="#000000" imageSettings={imageSettings} />
-      </Popover.Content>
-    </Popover>
-  );
-
   return (
     <DocumentUtilities>
       <div className="container no-print">
         <div className="flex flex-wrap">
           <div className="w-auto ml-auto">
             {qrcodeUrl && (
-              <OverlayTrigger trigger="click" placement="bottom-end" overlay={qrCodePopover(qrcodeUrl)}>
+              <div
+                className="relative"
+                onClick={() => {
+                  setQrCodePopover(!qrCodePopover);
+                }}
+              >
                 <ButtonIconWhiteBlue aria-label="document-utility-qr-button">
                   <SvgIcon strokeWidth="0.5" fill="currentColor">
                     <SvgIconQRCode />
                   </SvgIcon>
                 </ButtonIconWhiteBlue>
-              </OverlayTrigger>
+                <div
+                  className={`absolute border p-2 mt-2 top-100 right-0 shadow-md rounded bg-white ${
+                    qrCodePopover ? "block" : "hidden"
+                  }`}
+                >
+                  <QRCode
+                    value={qrcodeUrl}
+                    level="Q"
+                    size={200}
+                    bgColor="#FFFFFF"
+                    fgColor="#000000"
+                    imageSettings={imageSettings}
+                  />
+                </div>
+              </div>
             )}
           </div>
           <div className="w-auto ml-3">
