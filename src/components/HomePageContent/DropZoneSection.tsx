@@ -9,46 +9,26 @@ import { mixin, vars } from "./../../styles";
 
 const DEMO_CERT = `/static/demo/${NETWORK_NAME}.tt`;
 
-interface DraggableDemoCertificateProps {
-  className?: string;
-}
-
-const DraggableDemoCertificate = styled(({ className }: DraggableDemoCertificateProps) => (
-  <div className={`${className} hidden lg:block`}>
-    <div className="flex">
-      <div className="flex-grow">
+const DraggableDemoCertificate = () => (
+  <div className="hidden lg:block">
+    <div className="flex items-end -mx-4">
+      <div className="w-1/2 px-4">
         <div className="pulse" draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CERT, "true")}>
           <a href={DEMO_CERT} download="demo.tt" rel="noindex nofollow">
             <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
         </div>
       </div>
-      <div className="flex-grow">
-        <img src="/static/images/dropzone/arrow3.png" width="100%" draggable={false} />
+      <div className="w-1/2 px-4">
+        <img src="/static/images/dropzone/arrow3.png" draggable={false} />
       </div>
     </div>
   </div>
-))`
-  .pulse {
-    margin: 0 auto;
-    display: table;
-    margin-top: 50px;
-    animation: pulse 3s alternate infinite;
-  }
-`;
+);
 
 const MobileDemoCertificate = () => (
   <div className="block lg:hidden">
-    <button
-      className="btn btn-primary btn-lg"
-      draggable={false}
-      id="demoClick"
-      style={{
-        background: "#28a745",
-        border: "none",
-        cursor: "pointer",
-      }}
-    >
+    <button className="btn bg-green hover:bg-green-600" draggable={false} id="demoClick">
       Click me for a demo document!
     </button>
   </div>
@@ -96,7 +76,7 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
   return (
     <section id="verify-documents" className={`${className} bg-brand-navy text-white`}>
       <div className="container">
-        <div className="flex">
+        <div className="flex flex-wrap">
           <div className="w-full lg:w-5/12">
             <div className="description">
               <h1>An easy way to check and verify your documents</h1>

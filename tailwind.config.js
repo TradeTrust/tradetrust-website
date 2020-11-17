@@ -24,6 +24,7 @@ module.exports = {
           100: "#f5f5f5",
           200: "#e5e5e5",
           300: "#dddddd",
+          400: "#bbbbbb",
           500: "#8f8f8f",
           700: "#5a5a5a",
           800: "#4f4f4f",
@@ -52,7 +53,7 @@ module.exports = {
           lightest: "#f5fbf7",
           lighter: "#68d391",
           default: "#00c04a",
-          dark: "#38a169",
+          600: "#029039",
           darker: "#001f29",
         },
         teal: {
@@ -82,4 +83,4 @@ module.exports = {
   },
   variants: {},
   plugins: [],
-}
+};

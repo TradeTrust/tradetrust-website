@@ -1,8 +1,20 @@
 @tailwind base;
 
 @layer base {
+  body {
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  }
   h1 {
     font-size: 40px;
+    line-height: 1.2;
   }
   h2 {
     font-size: 32px;
@@ -10,11 +22,16 @@
   h3 {
     font-size: 28px;
   }
+  h4 {
+  }
+  h5 {
+    font-size: 20px;
+  }
+  h6 {
+  }
 }
 
 @tailwind components;
-
-@tailwind utilities;
 
 @layer components {
   .multi-tab {
@@ -35,5 +52,65 @@
   .multi-tab:hover {
     @apply text-grey-800;
     @apply bg-grey-200;
+  }
+
+  .btn {
+    @apply transition-colors;
+    @apply duration-200;
+    @apply ease-out;
+    @apply rounded;
+    @apply cursor-pointer;
+    @apply py-2;
+    @apply px-4;
+  }
+}
+
+@tailwind utilities;
+
+@layer utilities {
+  .pulse {
+    animation: pulse 3s alternate infinite;
+  }
+
+  .exact-print {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @media print {
+    .no-print {
+      display: none;
+    }
+  }
+}
+
+@keyframes spinning {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes skeleton-loading {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 200% 0;
   }
 }

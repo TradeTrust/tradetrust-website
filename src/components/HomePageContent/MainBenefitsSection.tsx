@@ -44,7 +44,7 @@ export const MainBenefitsSection = () => {
       <div className="flex">
         <div className="w-full lg:w-8/12 lg:mx-auto">
           <div className="flex mb-6">
-            <div className="w-full sm:flex-grow">
+            <div className="w-auto mr-8">
               <img className="img-icon mb-3 mb-sm-0" src="/static/images/benefitsection/icon-secure-doc.png" />
             </div>
             <div className="w-full sm:flex-grow">
@@ -57,7 +57,7 @@ export const MainBenefitsSection = () => {
             </div>
           </div>
           <div className="flex mb-6">
-            <div className="w-full sm:flex-grow">
+            <div className="w-auto mr-8">
               <img className="img-icon mb-3 mb-sm-0" src="/static/images/benefitsection/icon-reduce-cost.png" />
             </div>
             <div className="w-full sm:flex-grow">
@@ -70,7 +70,7 @@ export const MainBenefitsSection = () => {
             </div>
           </div>
           <div className="flex mb-6">
-            <div className="w-full sm:flex-grow">
+            <div className="w-auto mr-8">
               <img className="img-icon mb-4 sm:mb-0" src="/static/images/benefitsection/icon-trade.png" />
             </div>
             <div className="w-full sm:flex-grow">

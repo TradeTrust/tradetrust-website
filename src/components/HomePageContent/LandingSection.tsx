@@ -25,6 +25,7 @@ export const SectionLanding = styled(Section)`
     background-repeat: no-repeat;
     background-position: center bottom;
     opacity: 0.4;
+    pointer-events: none;
   }
 
   h1 {
@@ -71,10 +72,6 @@ export const LandingSection = () => {
       <div className="flex">
         <div className="w-full lg:w-7/12 xl:w-6/12 lg:mx-auto">
           <h1 className="mb-4">A Trust Network for Trading Partners</h1>
-        </div>
-      </div>
-      <div className="flex">
-        <div className="w-full lg:w-5/12 lg:mx-auto">
           <p>
             A digital utility that comprises a set of globally-accepted standards and frameworks that connects
             governments and businesses to a public blockchain to enable trusted interoperability and exchanges of

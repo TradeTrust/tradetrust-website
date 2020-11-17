@@ -195,7 +195,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
 
     tr {
       transition: background-color 0.3s ${vars.easeOutCubic};
-      cursor: ${(props) => (props.onAddressSelected ? "pointer" : "default")};
+      cursor: ${(props) => (props.onAddressSelected ? "cursor-pointer" : "default")};
 
       &:hover {
         background-color: ${(props) => (props.onAddressSelected ? vars.greyLighter : "inherit")};

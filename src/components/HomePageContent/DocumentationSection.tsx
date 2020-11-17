@@ -59,26 +59,22 @@ export const SectionDocumentation = styled(Section)`
 export const DocumentationSection = () => {
   return (
     <SectionDocumentation id="integrate" className="bg-grey-100">
-      <div className="flex mb-12 w-full">
+      <div className="mb-12">
         <h1 className="mb-3">Integrate TradeTrust into your platform?</h1>
         <p>Get started today! Browse the Documentation or download the source code.</p>
       </div>
-      <div className="flex">
-        <div className="w-full md-w-6/12 md:mx-auto lg:w-4/12">
-          <div className="flex items-end">
-            <div className="flex-grow">
-              <a href="https://docs.tradetrust.io/" target="_blank" rel="noopener noreferrer">
-                <i className="far fa-file-alt" />
-                <p>Documentation</p>
-              </a>
-            </div>
-            <div className="flex-grow">
-              <a href="https://github.com/tradeTrust/" target="_blank" rel="noopener noreferrer">
-                <i className="fas fa-code" />
-                <p>Source code</p>
-              </a>
-            </div>
-          </div>
+      <div className="flex justify-center items-end">
+        <div className="w-auto px-8">
+          <a href="https://docs.tradetrust.io/" target="_blank" rel="noopener noreferrer">
+            <i className="far fa-file-alt" />
+            <p>Documentation</p>
+          </a>
+        </div>
+        <div className="w-auto px-8">
+          <a href="https://github.com/tradeTrust/" target="_blank" rel="noopener noreferrer">
+            <i className="fas fa-code" />
+            <p>Source code</p>
+          </a>
         </div>
       </div>
     </SectionDocumentation>

@@ -5,12 +5,16 @@ import { ViewerContainer } from "./SharedViewerStyledComponents";
 
 export const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError }) => (
   <ViewerContainer id="viewer-container" className="invalid">
-    <span className="message-container">
-      <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
-      <span className="invalid m-4" style={{ fontSize: "1.5rem" }}>
-        This document is not valid
-      </span>
-    </span>
+    <div className="flex justify-center my-4">
+      <div className="w-auto mr-2">
+        <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
+      </div>
+      <div className="w-auto">
+        <p className="invalid text-black" style={{ fontSize: "1.5rem" }}>
+          This document is not valid
+        </p>
+      </div>
+    </div>
     <div id="error-tab" className="verifications">
       <div>
         <p className="messages">Unable to load certificate with the provided parameters</p>
