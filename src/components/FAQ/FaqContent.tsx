@@ -1,26 +1,24 @@
-import React from "react";
 import styled from "@emotion/styled";
-import content from "./FaqContent.json";
+import React from "react";
 import { mixin, vars } from "./../../styles";
+import content from "./FaqContent.json";
 
 interface FaqContentProps {
   className?: string;
 }
 
 export const FaqContentUnStyled = ({ className }: FaqContentProps) => (
-  <div className={`${className} py-5`}>
-    <div className="container-custom">
-      <div className="row">
-        <div className="col-12">
-          <h1 className="text-center mb-5">Frequently Asked Questions</h1>
-        </div>
+  <div className={`${className} py-12`}>
+    <div className="container">
+      <div className="flex w-full">
+        <h1 className="text-center mb-12">Frequently Asked Questions</h1>
       </div>
       {content.map(({ category, faq = [] }, indexContent) => (
-        <div className="row" key={indexContent}>
-          <div className="col-12 col-lg-8 mx-auto">
+        <div className="flex" key={indexContent}>
+          <div className="w-full lg:w-8/12 mx-auto">
             <h4>{category}</h4>
             {faq.map(({ question, answer }, indexFaq) => (
-              <div className="py-3" key={indexFaq}>
+              <div className="py-4" key={indexFaq}>
                 <h5>{question}</h5>
                 <div className="answer" dangerouslySetInnerHTML={{ __html: answer }} />
               </div>

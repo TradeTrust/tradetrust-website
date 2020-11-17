@@ -119,14 +119,14 @@ export const MediaPage = () => (
 
     <ResourcePageStyle>
       <div className="bg-blue-lighter">
-        <div className="container-custom py-5">
-          <div className="row">
-            <div className="col-12">
+        <div className="container py-12">
+          <div className="flex">
+            <div className="w-full">
               <h1>Events and Media Centre</h1>
             </div>
           </div>
-          <div className="row py-3">
-            <div className="col-12 col-md-12 col-lg-4 order-lg-2">
+          <div className="flex flex-wrap py-4">
+            <div className="w-full lg:w-4/12 lg:order-2">
               <div className="side-links">
                 {sideLinks.map((resourceLink, index) => (
                   <ResourcesLink
@@ -139,7 +139,7 @@ export const MediaPage = () => (
                 ))}
               </div>
             </div>
-            <div className="col-12 col-md-12 col-lg-8 order-lg-1">
+            <div className="w-full lg:w-8/12 lg:order-1">
               {resources.map((resource, index) => (
                 <ResourcesCard details={resource} key={index} />
               ))}

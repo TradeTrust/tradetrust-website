@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
-import { mixin, vars } from "../../../styles";
-import { TradeTrustErc721Event, TitleEscrowEvent } from "../../../types";
 import { ArrowLeft } from "react-feather";
+import { mixin, vars } from "../../../styles";
+import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
+import { getLogger } from "../../../utils/logger";
 import { AddressCell } from "./AddressCell";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
-import { getLogger } from "../../../utils/logger";
 
 const { trace } = getLogger("component: endorsementchainlayout");
 
@@ -103,14 +103,14 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
     });
 
   return (
-    <div className={`container-custom ${className} `}>
+    <div className={`container ${className} `}>
       <div className="table-container">
         <div className="back-button" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
-          <div className="row align-items-center no-gutters">
-            <div className="col-auto mr-1">
+          <div className="flex items-center">
+            <div className="w-auto mr-1">
               <ArrowLeft />
             </div>
-            <div className="col-auto">
+            <div className="w-auto">
               <p className="mb-0">Back</p>
             </div>
           </div>

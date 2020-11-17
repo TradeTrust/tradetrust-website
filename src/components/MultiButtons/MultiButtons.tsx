@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
 import styled from "@emotion/styled";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { ButtonBorderedBlue } from "../UI/Button";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
+import { ButtonBorderedBlue } from "../UI/Button";
 import { AddressBook } from "./../../components/UI/Overlay/OverlayContent/AddressBook";
 
 interface MultiButtonsProps {
@@ -17,7 +17,7 @@ export const MultiButtonsUnStyled = ({ className, tokenRegistryAddress }: MultiB
   };
 
   return (
-    <div className={`${className} container-custom py-2`} data-testid="multi-button">
+    <div className={`${className} container py-2`} data-testid="multi-button">
       <ul className="nav nav-tabs row no-gutters align-items-center">
         <li className="nav-item col-auto col-lg-auto ml-lg-auto order-lg-2">
           <NavLink className="my-auto ml-auto" to="/">

@@ -1,5 +1,5 @@
-import React from "react";
 import styled from "@emotion/styled";
+import React from "react";
 
 export interface AnnoucementBarProps {
   className?: string;
@@ -10,11 +10,9 @@ export interface AnnoucementBarProps {
 export const AnnoucementBarUnStyled = ({ className, children }: AnnoucementBarProps) => {
   return (
     <section className={`${className}`}>
-      <div className="container-custom">
-        <div className="row">
-          <div className="col-12">
-            <div className="announcement-bar">{children}</div>
-          </div>
+      <div className="container">
+        <div className="flex w-full">
+          <div className="announcement-bar">{children}</div>
         </div>
       </div>
     </section>

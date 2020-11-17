@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
+import { Info } from "react-feather";
 import { useIdentifierResolver } from "../../../../common/hooks/useIdentifierResolver";
 import { mixin, vars } from "../../../../styles";
 import { TooltipIcon } from "../../../UI/SvgIcon";
-import { Info } from "react-feather";
 
 interface AddressCell {
   address: string;
@@ -19,7 +19,7 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
     const tooltipContent = (
       <div className="tooltip-container">
         <div className="tooltip-tittle">Title Escrow:</div>
-        <div className="tooltop-content">{titleEscrowAddress}</div>
+        <div className="tooltip-content">{titleEscrowAddress}</div>
       </div>
     );
 
@@ -61,7 +61,7 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
     font-size: ${mixin.fontSize(16)};
   }
 
-  .tooltop-content {
+  .tooltip-content {
     color: ${vars.white};
     font-size: ${mixin.fontSize(16)};
   }

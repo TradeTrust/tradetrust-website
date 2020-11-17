@@ -52,40 +52,36 @@ export const EndorseTransferForm = ({
   }, [isConfirmed, approvedHolder, approvedBeneficiary, showOverlay, setFormActionNone]);
 
   return (
-    <div className="row py-3">
-      <div className="col-12">
+    <div className="flex flex-wrap py-4">
+      <div className="w-full">
         <AssetManagementTitle
           setFormActionNone={setFormActionNone}
           formAction={formAction}
           disabled={isPendingConfirmation}
         />
-        <div className="row mb-3">
-          <div className="col-12 col-lg">
+        <div className="flex flex-wrap py-4">
+          <div className="w-full lg:flex-grow">
             <AssetInformationPanel
               setShowEndorsementChain={setShowEndorsementChain}
               tokenRegistryAddress={tokenRegistryAddress}
             />
           </div>
-          <div className="col-12 col-lg">
+          <div className="w-full lg:flex-grow">
             <EditableAssetTitle role="Owner" value={approvedBeneficiary} isEditable={false} onSetNewValue={() => {}} />
           </div>
-          <div className="col-12 col-lg">
+          <div className="w-full lg:flex-grow">
             <EditableAssetTitle role="Holder" value={approvedHolder} isEditable={false} onSetNewValue={() => {}} />
           </div>
         </div>
-        <div className="row mb-3">
-          <div className="col-auto ml-auto">
-            <div className="row no-gutters">
-              <div className="col-auto">
-                <ButtonSolidWhiteGrey
-                  onClick={setFormActionNone}
-                  disabled={isPendingConfirmation}
-                  data-testid={"cancelEndorseTraansferBtn"}
-                >
+        <div className="flex flex-wrap mb-4">
+          <div className="w-auto ml-auto">
+            <div className="flex flex-wrap">
+              <div className="w-auto">
+                <ButtonSolidWhiteGrey onClick={setFormActionNone} disabled={isPendingConfirmation}>
                   Cancel
                 </ButtonSolidWhiteGrey>
               </div>
-              <div className="col-auto ml-2">
+              <div className="w-auto ml-2">
                 <ButtonSolidOrangeWhite
                   onClick={() => handleEndorseTransfer(approvedBeneficiary || "", approvedHolder || "")}
                   disabled={isPendingConfirmation}

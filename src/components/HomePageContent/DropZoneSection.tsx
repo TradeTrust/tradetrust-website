@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { mixin, vars } from "./../../styles";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import CertificateDropzoneContainer from "../CertificateDropZone";
+import { NETWORK_NAME } from "../../config";
 import { updateCertificate } from "../../reducers/certificate";
 import { trace } from "../../utils/logger";
-import { NETWORK_NAME } from "../../config";
+import CertificateDropzoneContainer from "../CertificateDropZone";
+import { mixin, vars } from "./../../styles";
 
 const DEMO_CERT = `/static/demo/${NETWORK_NAME}.tt`;
 
@@ -14,16 +14,16 @@ interface DraggableDemoCertificateProps {
 }
 
 const DraggableDemoCertificate = styled(({ className }: DraggableDemoCertificateProps) => (
-  <div className={`${className} d-none d-lg-block`}>
-    <div className="row">
-      <div className="col">
+  <div className={`${className} hidden lg:block`}>
+    <div className="flex">
+      <div className="flex-grow">
         <div className="pulse" draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CERT, "true")}>
           <a href={DEMO_CERT} download="demo.tt" rel="noindex nofollow">
             <img style={{ cursor: "grabbing" }} src="/static/images/dropzone/cert.png" width="100%" />
           </a>
         </div>
       </div>
-      <div className="col">
+      <div className="flex-grow">
         <img src="/static/images/dropzone/arrow3.png" width="100%" draggable={false} />
       </div>
     </div>
@@ -38,10 +38,9 @@ const DraggableDemoCertificate = styled(({ className }: DraggableDemoCertificate
 `;
 
 const MobileDemoCertificate = () => (
-  <div className="d-block d-lg-none d-xl-none">
-    <a
+  <div className="block lg:hidden">
+    <button
       className="btn btn-primary btn-lg"
-      role="button"
       draggable={false}
       id="demoClick"
       style={{
@@ -51,7 +50,7 @@ const MobileDemoCertificate = () => (
       }}
     >
       Click me for a demo document!
-    </a>
+    </button>
   </div>
 );
 
@@ -96,9 +95,9 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
 
   return (
     <section id="verify-documents" className={`${className} bg-brand-navy text-white`}>
-      <div className="container-custom">
-        <div className="row">
-          <div className="col-lg-5 col-md-12">
+      <div className="container">
+        <div className="flex">
+          <div className="w-full lg:w-5/12">
             <div className="description">
               <h1>An easy way to check and verify your documents</h1>
               <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
@@ -106,7 +105,7 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
               <MobileDemoCertificate />
             </div>
           </div>
-          <div className="col-lg-7 col-md-12 col-sm-12" id="demoDrop">
+          <div className="w-full lg:w-7/12" id="demoDrop">
             <CertificateDropzoneContainer />
           </div>
         </div>

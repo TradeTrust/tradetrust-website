@@ -1,8 +1,8 @@
+import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
 import React, { useState } from "react";
+import { Settings } from "react-feather";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
-import { Settings } from "react-feather";
-import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
 interface NavItemsProps {
   id: string;
   label: string;
@@ -69,7 +69,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
                 <NavHashLink
                   key={index}
                   to={dropdownItem.path}
-                  className="dropdown-link px-2 py-1 d-block item-center text-nowrap"
+                  className="dropdown-link px-2 py-1 block item-center text-nowrap"
                   smooth
                 >
                   {dropdownItem.label}

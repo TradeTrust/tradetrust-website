@@ -1,7 +1,7 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { TYPES, MESSAGES } from "../../constants/VerificationErrorMessages";
+import React from "react";
+import { MESSAGES, TYPES } from "../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../services/verify/fragments";
 import { mixin, vars } from "../../styles";
 import { StatusCheck } from "./StatusCheck";
@@ -11,13 +11,13 @@ export const StatusChecks = styled(({ verificationStatus }: { verificationStatus
 
   return (
     <>
-      <div className="col-12 col-lg-4 col-xl-2 mb-2 mb-lg-0">
+      <div className="w-full lg:w-4/12 xl:w-2/12 mb-2 lg:mb-0">
         <StatusCheck valid={hashValid} messageSet={MESSAGES[TYPES.HASH]} />
       </div>
-      <div className="col-12 col-lg-4 col-xl-2 mb-2 mb-lg-0">
+      <div className="w-full lg:w-4/12 xl:w-2/12 mb-2 lg:mb-0">
         <StatusCheck valid={issuedValid} messageSet={MESSAGES[TYPES.ISSUED]} />
       </div>
-      <div className="col-12 col-lg-4 col-xl-2 mb-2 mb-lg-0">
+      <div className="w-full lg:w-4/12 xl:w-2/12 mb-2 lg:mb-0">
         <StatusCheck valid={identityValid} messageSet={MESSAGES[TYPES.IDENTITY]} />
       </div>
     </>

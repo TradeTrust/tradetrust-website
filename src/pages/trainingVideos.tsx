@@ -18,21 +18,21 @@ export const TrainingVideosPage = () => (
       <meta property="og:url" content={`${window.location.origin}/training-videos`} />
       <title>TradeTrust - Training Videos</title>
     </Helmet>
-    <div className="container-custom py-5">
-      <div className="row">
-        <div className="col-12">
+    <div className="container py-12">
+      <div className="flex">
+        <div className="w-full">
           <h1>Training Videos</h1>
         </div>
       </div>
-      <div className="row py-3">
-        <div className="col-12 col-lg-4 mb-4">
+      <div className="flex py-4">
+        <div className="w-full lg:w-4/12 mb-6">
           <MediaCard title="TradeTrust Overview" youtubeEmbedCode="NcR1M9NJ-PE">
             <p>
               This non-technical session helps provide a foundational and critical understanding of TradeTrust as a
               digital utility as well as the mental framing necessary as a pre-requisite for subsequent webinars.
             </p>
             <div className="py-2">
-              <div className="mb-3">
+              <div className="mb-4">
                 <AttachmentLink
                   filename="TradeTrust Tech Webinar 1 - Overview.pdf"
                   path="/static/images/webinar/tradetrust-tech-webinar-1-overview.pdf"
@@ -45,7 +45,7 @@ export const TrainingVideosPage = () => (
             </div>
           </MediaCard>
         </div>
-        <div className="col-12 col-lg-4 mb-4">
+        <div className="w-full lg:w-4/12 mb-6">
           <MediaCard title="Creation of Verifiable Documents" youtubeEmbedCode="Nta_n_G-YqI">
             <p>
               This Webinar focuses on the creation of verifiable documents. These are documents that do not have the
@@ -59,7 +59,7 @@ export const TrainingVideosPage = () => (
             </div>
           </MediaCard>
         </div>
-        <div className="col-12 col-lg-4 mb-4">
+        <div className="w-full lg:w-4/12 mb-6">
           <MediaCard title="Creation of Transferable Documents" youtubeEmbedCode="4xTyPTyUU_U">
             <p>
               This segment will focus on the creation of transferable documents. Join this session to learn how to
@@ -71,7 +71,7 @@ export const TrainingVideosPage = () => (
             />
           </MediaCard>
         </div>
-        <div className="col-12 col-lg-4 mb-4">
+        <div className="w-full lg:w-4/12 mb-6">
           <MediaCard title="Critical Functions of TradeTrust" youtubeEmbedCode="TunHfhOS6uY">
             <p>
               In this session we will cover critical functions such as reading and verifying a TradeTrust file through
@@ -83,7 +83,7 @@ export const TrainingVideosPage = () => (
             />
           </MediaCard>
         </div>
-        <div className="col-12 col-lg-4 mb-4">
+        <div className="w-full lg:w-4/12 mb-6">
           <MediaCard title="Set Up and Change Templates" youtubeEmbedCode="z3l9OSVGHH8">
             <p>
               Building on sessions 2 and 3, this session will walk you through the steps on how to: configure documents;
@@ -95,7 +95,7 @@ export const TrainingVideosPage = () => (
             />
           </MediaCard>
         </div>
-        <div className="col-12 col-lg-4 mb-4">
+        <div className="w-full lg:w-4/12 mb-6">
           <MediaCard title="Identity Resolution Services" youtubeEmbedCode="3S1QjgPXn54">
             <p>
               Identity Resolution in TradeTrust involves the ability to map non-readable identification of issuers to a

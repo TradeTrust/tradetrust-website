@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { isEthereumAddress } from "../../../../../utils";
 import { FormState } from "../../../../../constants/FormState";
+import { isEthereumAddress } from "../../../../../utils";
 import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -55,21 +55,21 @@ export const NominateBeneficiaryHolderForm = ({
     !newBeneficiary || !holder || newBeneficiary === beneficiary || !isEthereumAddress(newBeneficiary);
 
   return (
-    <div className="row py-3">
-      <div className="col-12">
+    <div className="flex flex-wrap py-4">
+      <div className="w-full">
         <AssetManagementTitle
           setFormActionNone={setFormActionNone}
           formAction={formAction}
           disabled={isPendingConfirmation}
         />
-        <div className="row mb-3">
-          <div className="col-12 col-lg">
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full lg:flex-grow">
             <AssetInformationPanel
               setShowEndorsementChain={setShowEndorsementChain}
               tokenRegistryAddress={tokenRegistryAddress}
             />
           </div>
-          <div className="col-12 col-lg">
+          <div className="w-full lg:flex-grow">
             <EditableAssetTitle
               role="Owner"
               value={beneficiary}
@@ -79,14 +79,14 @@ export const NominateBeneficiaryHolderForm = ({
               error={nominationState === FormState.ERROR}
             />
           </div>
-          <div className="col-12 col-lg">
+          <div className="w-full lg:flex-grow">
             <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
           </div>
         </div>
-        <div className="row mb-3">
-          <div className="col-auto ml-auto">
-            <div className="row no-gutters">
-              <div className="col-auto">
+        <div className="flex flex-wrap mb-4">
+          <div className="w-auto ml-auto">
+            <div className="flex flex-wrap">
+              <div className="w-auto">
                 <ButtonSolidWhiteGrey
                   onClick={setFormActionNone}
                   disabled={isPendingConfirmation}
@@ -95,7 +95,7 @@ export const NominateBeneficiaryHolderForm = ({
                   Cancel
                 </ButtonSolidWhiteGrey>
               </div>
-              <div className="col-auto ml-2">
+              <div className="w-auto ml-2">
                 <ButtonSolidOrangeWhite
                   disabled={isInvalidNomination || isPendingConfirmation}
                   onClick={() => {

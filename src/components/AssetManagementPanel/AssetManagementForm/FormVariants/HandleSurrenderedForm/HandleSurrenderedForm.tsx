@@ -1,18 +1,18 @@
 import React, { useContext, useEffect } from "react";
+import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
+import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { FormState } from "../../../../../constants/FormState";
+import { TitleEscrowEvent } from "../../../../../types";
 import { ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
-import { AssetInformationPanel } from "../../../AssetInformationPanel";
-import { AssetManagementActions } from "../../../AssetManagementActions";
-import { AssetManagementTitle } from "../../AssetManagementTitle";
-import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
 import {
   MessageTitle,
   showDocumentTransferMessage,
 } from "../../../../UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
-import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
-import { TitleEscrowEvent } from "../../../../../types";
+import { AssetInformationPanel } from "../../../AssetInformationPanel";
+import { AssetManagementActions } from "../../../AssetManagementActions";
+import { AssetManagementTitle } from "../../AssetManagementTitle";
 
 interface HandleSurrenderedFormProps {
   tokenId: string;
@@ -82,30 +82,30 @@ export const HandleSurrenderedForm = ({
   }, [showOverlay, setFormActionNone, isRestoreTokenConfirmed]);
 
   return (
-    <div className="row py-3">
-      <div className="col-12">
+    <div className="flex flex-wrap py-4">
+      <div className="w-full">
         <AssetManagementTitle
           setFormActionNone={setFormActionNone}
           formAction={formAction}
           disabled={isPendingConfirmation}
         />
-        <div className="row mb-3">
-          <div className="col-12 col-lg">
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full lg:flex-grow">
             <AssetInformationPanel
               setShowEndorsementChain={setShowEndorsementChain}
               tokenRegistryAddress={tokenRegistryAddress}
             />
           </div>
-          <div className="col-12 col-lg-auto align-self-end">
-            <div className="py-3">
+          <div className="w-full lg:w-auto self-end">
+            <div className="py-4">
               <TagBorderedRedLarge id="surrender-sign">Surrendered To Issuer</TagBorderedRedLarge>
             </div>
           </div>
         </div>
-        <div className="row mb-3">
-          <div className="col-auto ml-auto">
-            <div className="row no-gutters">
-              <div className="col-auto">
+        <div className="flex flex-wrap mb-4">
+          <div className="w-auto ml-auto">
+            <div className="flex flex-wrap">
+              <div className="w-auto">
                 <ButtonSolidWhiteGrey
                   onClick={onClickRejectSurrender}
                   disabled={isPendingConfirmation || pending}
@@ -118,7 +118,7 @@ export const HandleSurrenderedForm = ({
                   )}
                 </ButtonSolidWhiteGrey>
               </div>
-              <div className="col-auto ml-2">
+              <div className="w-auto ml-2">
                 <ButtonSolidRedWhite
                   onClick={handleDestroyToken}
                   disabled={isPendingConfirmation || pending}

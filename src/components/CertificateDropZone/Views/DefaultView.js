@@ -1,5 +1,5 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 import { ViewerButton, ViewerContainer } from "./SharedViewerStyledComponents";
 
 export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
@@ -13,18 +13,18 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
     <div className="text-brand-navy" style={{ fontSize: "1.375rem", fontWeight: 500 }}>
       Drag and drop your tradetrust file
     </div>
-    <div className="text-muted">to view its contents</div>
-    <div className="text-muted row">
-      <div className="col-2" />
-      <div className="col-3">
+    <div className="text-grey-700">to view its contents</div>
+    <div className="text-grey-700 flex flex-wrap">
+      <div className="w-2/12" />
+      <div className="w-3/12">
         <hr />
       </div>
-      <div className="col-2">or</div>
-      <div className="col-3">
+      <div className="w-2/12">or</div>
+      <div className="w-3/12">
         <hr />
       </div>
     </div>
-    <div className="text-muted row">
+    <div className="text-grey-700 flex flex-wrap">
       <div className="mx-auto">
         <ViewerButton>Select File</ViewerButton>
         <ViewerButton

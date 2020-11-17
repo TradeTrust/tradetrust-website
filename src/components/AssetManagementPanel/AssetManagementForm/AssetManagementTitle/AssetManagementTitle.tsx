@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { mixin, vars } from "../../../../styles";
 import { ArrowLeft } from "react-feather";
+import { mixin, vars } from "../../../../styles";
 import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementTitleProps {
@@ -14,16 +14,14 @@ interface AssetManagementTitleProps {
 export const AssetManagementTitle = styled(
   ({ className, setFormActionNone, formAction, disabled }: AssetManagementTitleProps) => {
     return (
-      <div className={`row ${className}`}>
-        <div className="col-12">
-          <div className="action-back" onClick={() => setFormActionNone(disabled)} data-disabled={disabled}>
-            <div className="row align-items-center no-gutters">
-              <div className="col-auto mr-1">
-                <ArrowLeft />
-              </div>
-              <div className="col-auto">
-                <p className="mb-0">Back</p>
-              </div>
+      <div className={`flex flex-wrap ${className}`}>
+        <div className="action-back" onClick={() => setFormActionNone(disabled)} data-disabled={disabled}>
+          <div className="flex flex-wrap items-center">
+            <div className="w-auto mr-1">
+              <ArrowLeft />
+            </div>
+            <div className="w-auto">
+              <p className="mb-0">Back</p>
             </div>
           </div>
           <h3 className="action-title">

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import styled from "@emotion/styled";
 import PropTypes from "prop-types";
+import React, { Component } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { CAPTCHA_CLIENT_KEY } from "../../config";
 import { states } from "../../reducers/certificate";
-import styled from "@emotion/styled";
 import { mixin } from "../../styles";
 
 const Button = styled.button`
@@ -47,44 +47,40 @@ export class CertificateSharingForm extends Component {
     const { emailSendingState } = this.props;
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-2" />
-          <div className="col-8">
-            <div className="row d-flex justify-content-center">
-              <h4>Send your document</h4>
-            </div>
-            <div className="row text-center">
-              This sends an email with your .tt attached, and instructions on how to view it.
-            </div>
-            <div className="row my-4 d-flex justify-content-center">
-              <input
-                className="w-100"
-                value={this.state.emailAddress}
-                onChange={this.handleEmailChange}
-                placeholder="Enter recipient's email"
-              />
-            </div>
-            <div className="row d-flex justify-content-center m-3">
-              <ReCAPTCHA sitekey={CAPTCHA_CLIENT_KEY} onChange={this.handleCaptchaChange} />
-            </div>
-            {emailSendingState === states.SUCCESS ? (
-              <div className="row my-4 d-flex justify-content-center">Email successfully sent!</div>
-            ) : (
-              ""
-            )}
-            {emailSendingState === states.FAILURE ? (
-              <div className="row my-4 d-flex justify-content-center">
-                An error occured, please check your email and captcha
-              </div>
-            ) : (
-              ""
-            )}
-            <div className="row d-flex justify-content-center m-3">
-              <Button onClick={this.handleSend}>
-                Send
-                {emailSendingState === states.PENDING ? <i className="ml-2 fas fa-spinner fa-pulse" /> : ""}
-              </Button>
-            </div>
+        <div className="flex w-2/12" />
+        <div className="w-8/12">
+          <div className="flex justify-center">
+            <h4>Send your document</h4>
+          </div>
+          <div className="flex text-center">
+            This sends an email with your .tt attached, and instructions on how to view it.
+          </div>
+          <div className="flex my-6 justify-center">
+            <input
+              className="w-full"
+              value={this.state.emailAddress}
+              onChange={this.handleEmailChange}
+              placeholder="Enter recipient's email"
+            />
+          </div>
+          <div className="flex justify-center m-4">
+            <ReCAPTCHA sitekey={CAPTCHA_CLIENT_KEY} onChange={this.handleCaptchaChange} />
+          </div>
+          {emailSendingState === states.SUCCESS ? (
+            <div className="flex justify-center my-6">Email successfully sent!</div>
+          ) : (
+            ""
+          )}
+          {emailSendingState === states.FAILURE ? (
+            <div className="flex justify-center my-6">An error occured, please check your email and captcha</div>
+          ) : (
+            ""
+          )}
+          <div className="flex justify-center m-4">
+            <Button onClick={this.handleSend}>
+              Send
+              {emailSendingState === states.PENDING ? <i className="ml-2 fas fa-spinner fa-pulse" /> : ""}
+            </Button>
           </div>
         </div>
       </div>

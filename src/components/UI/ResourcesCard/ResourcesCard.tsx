@@ -50,8 +50,8 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
             />
           ) : (
             <div className="placehold" data-testid="placeholder">
-              <div className="d-flex justify-content-center align-items-center h-100">
-                <h5 className="flex mb-0">{placeholderText}</h5>
+              <div className="flex justify-center items-center h-full">
+                <h5 className="mb-0">{placeholderText}</h5>
               </div>
             </div>
           )}
@@ -79,7 +79,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
         <div className="py-2">
           {downloads?.map((download, index) => (
             <a
-              className="font-weight-bold d-flex align-items-end mt-1"
+              className="font-weight-bold flex items-end mt-1"
               href={download.path}
               download={download.fileName}
               key={index}
@@ -90,9 +90,9 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
             </a>
           ))}
         </div>
-        <div className="row no-gutters">
+        <div className="flex flex-wrap">
           {watchLink && (
-            <div className="col-12 col-sm-auto">
+            <div className="w-full sm:w-auto">
               <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
                 <PlayCircle />
                 <span className="px-2">Watch Event</span>
@@ -100,7 +100,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
             </div>
           )}
           {eventLink && (
-            <div className="col-12 col-sm-auto">
+            <div className="w-full sm:w-auto">
               <a className="link" href={eventLink} target="_blank" rel="noopener noreferrer">
                 <ExternalLink />
                 <span className="px-2">Event Link</span>
@@ -108,7 +108,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
             </div>
           )}
           {eventSlides && (
-            <div className="col-12 col-sm-auto">
+            <div className="w-full sm:w-auto">
               <a className="link" href={eventSlides} target="_blank" rel="noopener noreferrer">
                 <ExternalLink />
                 <span className="px-2">Event Slides</span>

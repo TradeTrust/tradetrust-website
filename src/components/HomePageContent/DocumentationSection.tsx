@@ -1,8 +1,7 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { mixin } from "../../styles";
+import React from "react";
+import { mixin, vars } from "../../styles";
 import { Section } from "../Layout/Section";
-import { vars } from "../../styles";
 
 export const SectionDocumentation = styled(Section)`
   padding-top: 80px;
@@ -59,23 +58,21 @@ export const SectionDocumentation = styled(Section)`
 
 export const DocumentationSection = () => {
   return (
-    <SectionDocumentation id="integrate" className="bg-grey-lightest">
-      <div className="row mb-5">
-        <div className="col-12">
-          <h1 className="mb-3">Integrate TradeTrust into your platform?</h1>
-          <p>Get started today! Browse the Documentation or download the source code.</p>
-        </div>
+    <SectionDocumentation id="integrate" className="bg-grey-100">
+      <div className="flex mb-12 w-full">
+        <h1 className="mb-3">Integrate TradeTrust into your platform?</h1>
+        <p>Get started today! Browse the Documentation or download the source code.</p>
       </div>
-      <div className="row">
-        <div className="col-12 col-md-6 mx-md-auto col-lg-4">
-          <div className="row align-items-end">
-            <div className="col">
+      <div className="flex">
+        <div className="w-full md-w-6/12 md:mx-auto lg:w-4/12">
+          <div className="flex items-end">
+            <div className="flex-grow">
               <a href="https://docs.tradetrust.io/" target="_blank" rel="noopener noreferrer">
                 <i className="far fa-file-alt" />
                 <p>Documentation</p>
               </a>
             </div>
-            <div className="col">
+            <div className="flex-grow">
               <a href="https://github.com/tradeTrust/" target="_blank" rel="noopener noreferrer">
                 <i className="fas fa-code" />
                 <p>Source code</p>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ButtonSolidOrangeWhite } from "./../UI/Button";
-import { InputDefault } from "./../UI/Input";
-import { TextareaDefault } from "./../UI/Textarea";
 import { CheckboxDefault } from "./../UI/Checkbox";
+import { InputDefault } from "./../UI/Input";
 import { SelectDefault } from "./../UI/Select";
+import { TextareaDefault } from "./../UI/Textarea";
 
 export const optionsBusiness = [
   { value: "Shipper", label: "Shipper" },
@@ -78,10 +78,10 @@ export const EmailForm = () => {
   };
 
   return (
-    <form name="contact" className="my-4" onSubmit={handleFormSubmit}>
+    <form name="contact" className="my-6" onSubmit={handleFormSubmit}>
       <input type="hidden" name="form-name" value="contact" />
-      <div className="row">
-        <div className="col-12 col-md-7 col-xl-5 mx-auto">
+      <div className="flex flex-wrap">
+        <div className="w-full md:w-7/12 xl:w-5/12 mx-auto">
           <InputDefault
             type="text"
             name="Full Name"
@@ -120,8 +120,8 @@ export const EmailForm = () => {
             required
           />
           <TextareaDefault name="Message" placeholder="Message" required onChange={handleInputOrTextareaChange} />
-          <div className="my-4">
-            <div className="mb-4">
+          <div className="my-6">
+            <div className="mb-6">
               <h6>Consent to communicate</h6>
               <p>
                 TradeTrust is committed to protecting and respecting your privacy. From time to time, we would like to
@@ -129,7 +129,7 @@ export const EmailForm = () => {
                 you consent to us contacting you for this purpose, please tick below.
               </p>
             </div>
-            <div className="mb-4">
+            <div className="mb-6">
               <h6>Consent to process data *</h6>
               <p>
                 In order to contact you or provide the content requested, we need to store and process the personal data
@@ -137,7 +137,7 @@ export const EmailForm = () => {
                 checkbox below.
               </p>
             </div>
-            <div className="mb-4">
+            <div className="mb-6">
               <p>You can unsubscribe from these communications at any time.</p>
             </div>
             <CheckboxDefault
@@ -151,7 +151,7 @@ export const EmailForm = () => {
               required
             />
           </div>
-          <ButtonSolidOrangeWhite className="w-100">Send Enquiry</ButtonSolidOrangeWhite>
+          <ButtonSolidOrangeWhite className="w-full">Send Enquiry</ButtonSolidOrangeWhite>
         </div>
       </div>
     </form>

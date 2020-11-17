@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import styled from "@emotion/styled";
 import PropTypes from "prop-types";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  updateCertificate,
-  getVerifying,
-  getVerificationStatus,
-  resetCertificateState,
-  processQrCode,
   getCertificateByActionError,
+  getVerificationStatus,
+  getVerifying,
+  processQrCode,
+  resetCertificateState,
+  updateCertificate,
 } from "../../reducers/certificate";
-import CertificateDropZone from "./CertificateDropZone";
 import QrReader from "../QrReader";
-import styled from "@emotion/styled";
+import CertificateDropZone from "./CertificateDropZone";
 import { ViewerButton } from "./Views/SharedViewerStyledComponents";
 
 const DisabledButton = styled(ViewerButton)`
@@ -61,7 +61,7 @@ export class CertificateDropZoneContainer extends Component {
 
   render() {
     return this.state.qrReaderVisible ? (
-      <div className="position-relative">
+      <div className="relative">
         <QrReader handleQrScanned={this.handleQrScanned} />
         <DisabledButton onClick={this.toggleQrReaderVisible}>Disable</DisabledButton>
       </div>

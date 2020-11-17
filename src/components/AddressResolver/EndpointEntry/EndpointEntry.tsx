@@ -1,12 +1,12 @@
-import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { InputDefault } from "../../UI/Input";
-import { Trash2, Save, Edit } from "react-feather";
-import { vars } from "../../../styles";
-import isURL from "validator/lib/isURL";
+import React, { useState } from "react";
+import { Edit, Save, Trash2 } from "react-feather";
 import isEmpty from "validator/lib/isEmpty";
+import isURL from "validator/lib/isURL";
 import { ThirdPartyAPIEntryProps } from "../../../common/hooks/useThirdPartyAPIEndpoints";
 import { getFeatures } from "../../../services/addressResolver";
+import { vars } from "../../../styles";
+import { InputDefault } from "../../UI/Input";
 import { LoaderSpinner } from "../../UI/Loader";
 
 interface EndpointEntryProps {
@@ -159,7 +159,7 @@ export const EndpointEntry = styled(
         <td>
           {isEditable ? (
             <InputDefault
-              className="mb-0 w-100"
+              className="mb-0 w-full"
               placeholder="Name"
               value={endpointName}
               onChange={onEndpointNameChanged}
@@ -172,7 +172,7 @@ export const EndpointEntry = styled(
         <td>
           {isEditable ? (
             <InputDefault
-              className="mb-0 w-100"
+              className="mb-0 w-full"
               placeholder="Endpoint"
               value={endpointApi}
               onChange={onEndpointApiChanged}
@@ -185,7 +185,7 @@ export const EndpointEntry = styled(
         <td>
           {isEditable ? (
             <InputDefault
-              className="mb-0 w-100"
+              className="mb-0 w-full"
               placeholder="API Header"
               value={endpointApiHeader}
               onChange={onEndpointApiHeaderChanged}
@@ -198,7 +198,7 @@ export const EndpointEntry = styled(
         <td>
           {isEditable ? (
             <InputDefault
-              className="mb-0 w-100"
+              className="mb-0 w-full"
               placeholder="API Key"
               value={endpointApiKey}
               onChange={onEndpointApiKeyChanged}
@@ -210,21 +210,23 @@ export const EndpointEntry = styled(
         </td>
         {isLoading ? (
           <td className={isEditable ? "is-editable" : ""}>
-            <LoaderSpinner className="d-inline-block mx-2" />
+            <LoaderSpinner className="inline-block mx-2" />
           </td>
         ) : (
           <td className={isEditable ? "is-editable" : ""}>
-            {isEditable ? (
-              <Save onClick={onSave} data-testid="save-icon" />
-            ) : (
-              <Edit
-                onClick={() => {
-                  setEditable(true);
-                }}
-                data-testid="edit-icon"
-              />
-            )}
-            <Trash2 onClick={removeEndpoint} data-testid="trash2-icon" />
+            <div className="flex justify-around">
+              {isEditable ? (
+                <Save onClick={onSave} data-testid="save-icon" />
+              ) : (
+                <Edit
+                  onClick={() => {
+                    setEditable(true);
+                  }}
+                  data-testid="edit-icon"
+                />
+              )}
+              <Trash2 onClick={removeEndpoint} data-testid="trash2-icon" />
+            </div>
           </td>
         )}
       </tr>

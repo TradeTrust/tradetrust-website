@@ -1,8 +1,8 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 import { Link } from "react-router-dom";
+import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../../services/verify/fragments";
-import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 import { ViewerContainer } from "./SharedViewerStyledComponents";
 
 const DetailedErrors = ({ verificationStatus }) => {
@@ -34,7 +34,7 @@ export const UnverifiedView = ({ resetData, verificationStatus }) => (
   <ViewerContainer id="viewer-container" className="invalid">
     <span className="message-container">
       <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
-      <span className="invalid m-3" style={{ fontSize: "1.5rem" }}>
+      <span className="invalid m-4" style={{ fontSize: "1.5rem" }}>
         This document is not valid
       </span>
     </span>
