@@ -8,16 +8,6 @@ export const SectionMainBenefits = styled(Section)`
   padding-top: 80px;
   padding-bottom: 80px;
 
-  h1 {
-    ${mixin.fontMontserratSemibold}
-    ${mixin.fontSize(36)}
-  }
-
-  p {
-    ${mixin.fontSize(18)}
-    color: ${vars.greyDark};
-  }
-
   h5 {
     ${mixin.fontSourcesansproBold}
     color: ${vars.greyDark};
@@ -30,10 +20,10 @@ export const SectionMainBenefits = styled(Section)`
 
 export const MainBenefitsSection = () => {
   return (
-    <SectionMainBenefits className="bg-grey-100">
+    <SectionMainBenefits className="bg-grey-100 text-grey-800">
       <div className="flex">
         <div className="w-full lg:w-auto lg:mx-auto">
-          <h1 className="mb-6">Main Benefits</h1>
+          <h1 className="mb-6 font-medium text-black">Main Benefits</h1>
         </div>
       </div>
       <div className="flex mb-12">

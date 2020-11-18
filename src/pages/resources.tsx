@@ -150,11 +150,11 @@ export const ResourcesPage = () => (
         <div className="container py-12">
           <div className="flex">
             <div className="w-full">
-              <h1>Resources</h1>
+              <h1 className="font-source-sans-pro">Resources</h1>
             </div>
           </div>
-          <div className="flex flex-wrap py-4">
-            <div className="w-full lg:w-4/12 lg:order-2">
+          <div className="flex flex-wrap py-4 -mx-4">
+            <div className="w-full lg:w-4/12 lg:order-2 px-4">
               <div className="side-links">
                 {sideLinks.map((resourceLink, index) => (
                   <ResourcesLink
@@ -167,7 +167,7 @@ export const ResourcesPage = () => (
                 ))}
               </div>
             </div>
-            <div className="w-full lg:w-8/12 lg:order-1">
+            <div className="w-full lg:w-8/12 lg:order-1 px-4">
               {resources.map((resource, index) => (
                 <ResourcesCard details={resource} key={index} />
               ))}

@@ -8,13 +8,7 @@ export const SectionDocumentation = styled(Section)`
   padding-bottom: 80px;
   text-align: center;
 
-  h1 {
-    ${mixin.fontMontserratSemibold}
-    ${mixin.fontSize(36)}
-  }
-
   p {
-    ${mixin.fontSize(18)}
     color: ${vars.greyDark};
   }
 

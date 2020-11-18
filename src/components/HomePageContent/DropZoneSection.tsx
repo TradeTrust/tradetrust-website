@@ -79,7 +79,7 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
         <div className="flex flex-wrap">
           <div className="w-full lg:w-5/12">
             <div className="description">
-              <h1>An easy way to check and verify your documents</h1>
+              <h1 className="font-normal">An easy way to check and verify your documents</h1>
               <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
               <DraggableDemoCertificate />
               <MobileDemoCertificate />
@@ -116,10 +116,6 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
     @media only screen and (min-width: ${vars.lg}) {
       padding: 32px 64px 48px 0;
       text-align: left;
-    }
-
-    h1 {
-      ${mixin.fontMontserratRegular};
     }
 
     p {

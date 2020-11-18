@@ -125,8 +125,8 @@ export const MediaPage = () => (
               <h1>Events and Media Centre</h1>
             </div>
           </div>
-          <div className="flex flex-wrap py-4">
-            <div className="w-full lg:w-4/12 lg:order-2">
+          <div className="flex flex-wrap py-4 -mx-4">
+            <div className="w-full lg:w-4/12 lg:order-2 px-4">
               <div className="side-links">
                 {sideLinks.map((resourceLink, index) => (
                   <ResourcesLink
@@ -139,7 +139,7 @@ export const MediaPage = () => (
                 ))}
               </div>
             </div>
-            <div className="w-full lg:w-8/12 lg:order-1">
+            <div className="w-full lg:w-8/12 lg:order-1 px-4">
               {resources.map((resource, index) => (
                 <ResourcesCard details={resource} key={index} />
               ))}

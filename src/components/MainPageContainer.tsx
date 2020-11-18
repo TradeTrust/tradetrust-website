@@ -7,13 +7,13 @@ import { DropZoneSectionContainer } from "./HomePageContent/DropZoneSection";
 
 const MainPageContainer = () => {
   return (
-    <>
+    <div className="text-lg">
       <DropZoneSectionContainer />
       <LandingSection />
       <MainBenefitsSection />
       <EmailSection />
       <DocumentationSection />
-    </>
+    </div>
   );
 };
 

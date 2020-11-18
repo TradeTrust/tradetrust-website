@@ -10,21 +10,16 @@ export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, de
       <div className="link-wrapper">
         <div className="title">{title}</div>
         {details.map((details, index) => (
-          <div className="link-container" key={index}>
+          <div className="py-4 border-b" key={index}>
             {type === "link" && (
-              <a className="link" href={details.url} target="_blank" rel="noopener noreferrer" data-testid="link">
+              <a className="link mb-2" href={details.url} target="_blank" rel="noopener noreferrer" data-testid="link">
                 {details.title}
               </a>
             )}
-            {details.date && (
-              <>
-                <div className="date">{details.date}</div>
-                <hr />
-              </>
-            )}
+            {details.date && <div className="date">{details.date}</div>}
             {type === "download" && (
               <div className="download-wrapper">
-                <a href={details.url} download={`${details.title}.pdf`} className="link" data-testid="download">
+                <a href={details.url} download={`${details.title}.pdf`} className="link mb-2" data-testid="download">
                   <Download className="mr-1" />
                   {details.title}
                 </a>
@@ -62,10 +57,6 @@ const ResourcesLinkItem = styled.div`
     color: ${vars.grey};
     ${mixin.fontSize(16)};
     ${mixin.fontSourcesansproSemibold};
-  }
-
-  .link-container {
-    padding-top: 0.5rem;
   }
 
   .link {

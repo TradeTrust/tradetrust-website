@@ -1,8 +1,14 @@
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../tailwind.js";
+const fullConfig = resolveConfig(tailwindConfig);
+const theme = fullConfig.theme;
+const { colors } = theme;
+
 export const brandOrange = "#ff9933";
 export const brandBlue = "#0099cc";
 export const brandNavy = "#324353";
 
-export const blueLightest = "#f5f8fb";
+export const blueLightest = colors.blue[`100`];
 export const blueLighter = "#f3f8fc";
 export const blueLight = "#a6c1ee";
 export const blueDark = "#001F29";

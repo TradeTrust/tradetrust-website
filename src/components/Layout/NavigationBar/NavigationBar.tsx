@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { Settings } from "react-feather";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
+import styled from "@emotion/styled";
+import { vars } from "../../../styles";
+
 interface NavItemsProps {
   id: string;
   label: string;
@@ -62,7 +65,10 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
       return <a href={item.path}>{item.label}</a>;
     case item.id === "info":
       return (
-        <Dropdown dropdownButtonText="Info" className="font-medium text-greyblue hover:none">
+        <Dropdown
+          dropdownButtonText="Info"
+          className="transition-colors duration-200 ease-out font-semibold text-greyblue hover:text-white"
+        >
           {item.dropdownItems?.map((dropdownItem: any, index: number) => {
             return (
               <DropdownItem key={index}>
@@ -107,10 +113,32 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
   }
 };
 
+export const NavBar = styled.nav`
+  a {
+    color: ${vars.greyblue};
+
+    &:hover {
+      color: ${vars.white};
+    }
+
+    &.active {
+      color: ${vars.brandOrange};
+    }
+  }
+
+  .dropdown-link {
+    &:not(.active) {
+      &:hover {
+        color: ${vars.greyblueDark};
+      }
+    }
+  }
+`;
+
 export const NavigationBar = () => {
   const [isOn, setIsOn] = useState(false);
   return (
-    <nav className="bg-brand-navy">
+    <NavBar className="bg-brand-navy">
       <div className="container py-4">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
@@ -145,7 +173,7 @@ export const NavigationBar = () => {
               <div className="flex items-center">
                 {navItems.map((item, index) => {
                   return (
-                    <div key={index} className="text-greyblue text-base font-medium font-montserrat w-auto lg:ml-10">
+                    <div key={index} className="text-base font-medium font-montserrat w-auto lg:ml-10">
                       {NavBarItem(item)}
                     </div>
                   );
@@ -159,13 +187,13 @@ export const NavigationBar = () => {
         <div className="container py-4">
           {navItems.map((item, index) => {
             return (
-              <div key={index} className="text-greyblue text-base font-medium font-montserrat w-full mb-4">
+              <div key={index} className="text-base font-medium font-montserrat w-full mb-4">
                 {NavBarItem(item)}
               </div>
             );
           })}
         </div>
       </div>
-    </nav>
+    </NavBar>
   );
 };

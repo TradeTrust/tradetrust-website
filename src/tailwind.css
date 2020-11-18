@@ -3,6 +3,7 @@
 @layer base {
   body {
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    font-size: 16px;
   }
   h1,
   h2,
@@ -10,6 +11,7 @@
   h4,
   h5,
   h6 {
+    @apply font-semibold;
     font-family: "Montserrat", Helvetica, Arial, sans-serif;
   }
   h1 {
@@ -17,17 +19,26 @@
     line-height: 1.2;
   }
   h2 {
-    font-size: 32px;
+    font-size: 36px;
   }
   h3 {
-    font-size: 28px;
+    font-size: 32px;
   }
   h4 {
+    font-size: 28px;
+    line-height: 1.2;
   }
   h5 {
     font-size: 20px;
   }
   h6 {
+  }
+  a {
+    @apply transition-colors;
+    @apply duration-200;
+    @apply ease-out;
+    @apply font-semibold;
+    @apply text-brand-blue;
   }
 }
 

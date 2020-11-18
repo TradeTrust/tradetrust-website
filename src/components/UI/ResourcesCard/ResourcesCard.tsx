@@ -58,7 +58,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
         </div>
       )}
       <div className="content">
-        <h3 className="title">
+        <h4 className="title mb-2">
           {youtubeEmbedCode ? (
             <a
               className="title"
@@ -72,46 +72,60 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
           ) : (
             <span data-testid="placeholder-title">{title}</span>
           )}
-        </h3>
+        </h4>
         {tag && <div className="tag">{tag}</div>}
         {dateTime && <div className="datetime">{dateTime}</div>}
         <p>{description}</p>
-        <div className="py-2">
-          {downloads?.map((download, index) => (
-            <a
-              className="font-weight-bold flex items-end mt-1"
-              href={download.path}
-              download={download.fileName}
-              key={index}
-              data-testid="download-link"
-            >
-              <Download />
-              <span className="ml-2">{download.fileName}</span>
-            </a>
-          ))}
-        </div>
-        <div className="flex flex-wrap">
+        {downloads && (
+          <div className="py-2">
+            {downloads?.map((download, index) => (
+              <a
+                className="font-weight-bold flex items-end mt-1"
+                href={download.path}
+                download={download.fileName}
+                key={index}
+                data-testid="download-link"
+              >
+                <Download />
+                <span className="ml-2">{download.fileName}</span>
+              </a>
+            ))}
+          </div>
+        )}
+        <div className="flex flex-wrap py-4">
           {watchLink && (
-            <div className="w-full sm:w-auto">
+            <div className="w-full sm:w-auto mb-2 sm:mb-0">
               <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
-                <PlayCircle />
-                <span className="px-2">Watch Event</span>
+                <div className="flex">
+                  <div className="w-auto">
+                    <PlayCircle />
+                  </div>
+                  <div className="flex-grow px-2">Watch Event</div>
+                </div>
               </a>
             </div>
           )}
           {eventLink && (
-            <div className="w-full sm:w-auto">
+            <div className="w-full sm:w-auto mb-2 sm:mb-0">
               <a className="link" href={eventLink} target="_blank" rel="noopener noreferrer">
-                <ExternalLink />
-                <span className="px-2">Event Link</span>
+                <div className="flex">
+                  <div className="w-auto">
+                    <ExternalLink />
+                  </div>
+                  <div className="flex-grow px-2">Event Link</div>
+                </div>
               </a>
             </div>
           )}
           {eventSlides && (
-            <div className="w-full sm:w-auto">
+            <div className="w-full sm:w-auto mb-2 sm:mb-0">
               <a className="link" href={eventSlides} target="_blank" rel="noopener noreferrer">
-                <ExternalLink />
-                <span className="px-2">Event Slides</span>
+                <div className="flex">
+                  <div className="w-auto">
+                    <ExternalLink />
+                  </div>
+                  <div className="flex-grow px-2">Event Slides</div>
+                </div>
               </a>
             </div>
           )}
@@ -195,7 +209,7 @@ const ResourcesCardItem = styled.div`
   .link {
     ${mixin.fontSize(18)};
     ${mixin.fontSourcesansproSemibold};
-    display: inline;
+    display: inline-block;
     padding-right: 16;
   }
 

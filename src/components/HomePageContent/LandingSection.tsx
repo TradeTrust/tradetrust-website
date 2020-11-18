@@ -28,15 +28,6 @@ export const SectionLanding = styled(Section)`
     pointer-events: none;
   }
 
-  h1 {
-    ${mixin.fontMontserratSemibold}
-    ${mixin.fontSize(48)}
-  }
-
-  p {
-    ${mixin.fontSize(18)}
-  }
-
   .play {
     transition: background-color 0.3s ${vars.easeOutCubic};
     ${mixin.centerVertical()}
@@ -70,8 +61,10 @@ export const LandingSection = () => {
   return (
     <SectionLanding id="about">
       <div className="flex">
-        <div className="w-full lg:w-7/12 xl:w-6/12 lg:mx-auto">
-          <h1 className="mb-4">A Trust Network for Trading Partners</h1>
+        <div className="w-full lg:w-7/12 xl:w-5/12 lg:mx-auto">
+          <h1 className="mb-4" style={{ fontSize: "48px" }}>
+            A Trust Network for Trading Partners
+          </h1>
           <p>
             A digital utility that comprises a set of globally-accepted standards and frameworks that connects
             governments and businesses to a public blockchain to enable trusted interoperability and exchanges of
