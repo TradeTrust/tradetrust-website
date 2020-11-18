@@ -101,6 +101,10 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
     padding-bottom: 60px;
   }
 
+  h1 {
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  }
+
   h3 {
     color: ${vars.white};
   }

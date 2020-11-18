@@ -33,6 +33,7 @@ export const TableStyle = () => {
       vertical-align: middle;
       white-space: nowrap;
       border-top: none;
+      padding: 0.75rem;
     }
 
     .table-thead {

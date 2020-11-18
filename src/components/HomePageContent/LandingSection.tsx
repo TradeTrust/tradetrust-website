@@ -28,6 +28,10 @@ export const SectionLanding = styled(Section)`
     pointer-events: none;
   }
 
+  h1 {
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  }
+
   .play {
     transition: background-color 0.3s ${vars.easeOutCubic};
     ${mixin.centerVertical()}

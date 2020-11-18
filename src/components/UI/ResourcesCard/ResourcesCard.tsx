@@ -80,7 +80,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
           <div className="py-2">
             {downloads?.map((download, index) => (
               <a
-                className="font-weight-bold flex items-end mt-1"
+                className="font-bold flex items-start mt-1"
                 href={download.path}
                 download={download.fileName}
                 key={index}

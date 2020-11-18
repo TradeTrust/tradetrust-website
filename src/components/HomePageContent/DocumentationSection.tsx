@@ -8,6 +8,11 @@ export const SectionDocumentation = styled(Section)`
   padding-bottom: 80px;
   text-align: center;
 
+  h1 {
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+  }
+
   p {
     color: ${vars.greyDark};
   }

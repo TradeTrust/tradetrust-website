@@ -11,8 +11,8 @@
   h4,
   h5,
   h6 {
-    @apply font-semibold;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    @apply font-bold;
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   }
   h1 {
     font-size: 40px;
@@ -37,8 +37,15 @@
     @apply transition-colors;
     @apply duration-200;
     @apply ease-out;
-    @apply font-semibold;
+    @apply font-medium;
     @apply text-brand-blue;
+  }
+
+  ol,
+  ul {
+    list-style: decimal;
+    margin: 16 0;
+    padding: 0 0 0 40;
   }
 }
 

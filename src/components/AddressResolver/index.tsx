@@ -8,12 +8,12 @@ export const AddressResolver = () => {
 
   return (
     <div className="container py-12">
-      <div className="flex flex-wrap items-end">
+      <div className="flex items-end">
         <div className="w-full lg:flex-grow">
           <h1>Settings: Address Resolver</h1>
           <p className="mb-0 text-grey">Add third party’s endpoint to resolve addresses. </p>
         </div>
-        <div className="w-full lg:flex-grow">
+        <div className="w-auto lg:flex-grow">
           <ButtonSolidOrangeWhite
             className="my-3 lg:my-0"
             onClick={() => {
@@ -21,7 +21,7 @@ export const AddressResolver = () => {
             }}
             disabled={isNewEndpoint}
           >
-            <div className="flex flex-wrap items-center">
+            <div className="flex items-center">
               <div className="w-auto mr-2">
                 <Plus />
               </div>

@@ -1,9 +1,9 @@
+import styled from "@emotion/styled";
 import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
 import React, { useState } from "react";
 import { Settings } from "react-feather";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
-import styled from "@emotion/styled";
 import { vars } from "../../../styles";
 
 interface NavItemsProps {
@@ -67,7 +67,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
       return (
         <Dropdown
           dropdownButtonText="Info"
-          className="transition-colors duration-200 ease-out font-semibold text-greyblue hover:text-white"
+          className="transition-colors duration-200 ease-out font-medium text-greyblue hover:text-white"
         >
           {item.dropdownItems?.map((dropdownItem: any, index: number) => {
             return (
@@ -122,15 +122,22 @@ export const NavBar = styled.nav`
     }
 
     &.active {
-      color: ${vars.brandOrange};
+      color: ${vars.white};
     }
   }
 
   .dropdown-link {
+    color: ${vars.grey};
+    font-weight: 500;
+
     &:not(.active) {
       &:hover {
         color: ${vars.greyblueDark};
       }
+    }
+
+    &.active {
+      color: ${vars.brandOrange};
     }
   }
 `;
