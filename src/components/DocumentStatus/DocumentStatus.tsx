@@ -7,7 +7,6 @@ import { StatusChecks } from "./StatusChecks";
 
 interface DocumentStatusProps {
   verificationStatus: VerificationFragment[];
-  className?: string;
 }
 
 export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
@@ -20,34 +19,36 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   const formattedDomainNames = domainNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
 
   return (
-    <h3 id="issuedby" className={`mb-0 issuedby`}>
+    <h3 id="issuedby" className="mb-0 issuedby">
       <span className="mr-1">Issued by</span>
       <span className="domain">{dnsIdentity ? `${formattedDomainNames}` : "Unknown"}</span>
     </h3>
   );
 };
 
-export const DocumentStatusUnStyled = ({ verificationStatus, className }: DocumentStatusProps) => {
+export const DocumentStatus = ({ verificationStatus }: DocumentStatusProps) => {
   return (
-    <div className={`py-4 ${className}`}>
+    <DocumentStatusStyles>
       <div className="container">
         <div id="document-status" className="statusbar">
-          <div className="flex items-center">
-            <div className="w-full xl:w-4/12 mb-4 xl:mb-0">
+          <div className="flex flex-col xl:flex-row">
+            <div className="flex-grow">
               {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
             </div>
             <StatusChecks verificationStatus={verificationStatus} />
           </div>
         </div>
       </div>
-    </div>
+    </DocumentStatusStyles>
   );
 };
 
-export const DocumentStatus = styled(DocumentStatusUnStyled)`
+const DocumentStatusStyles = styled.div`
+  padding: 1rem 0;
+
   .statusbar {
     background-color: ${vars.white};
-    padding: 10px 0;
+    padding: 1rem;
     border-radius: ${vars.buttonRadius};
   }
 
