@@ -1,5 +1,5 @@
-import React, { Component } from "react";
 import styled from "@emotion/styled";
+import React, { Component } from "react";
 import { mixin, vars } from "../styles";
 
 const ErrorBoundaryStyled = styled.div`
@@ -8,7 +8,6 @@ const ErrorBoundaryStyled = styled.div`
   padding: 50px 15px;
 
   .error {
-    ${mixin.containerCustom}
     text-align: center;
 
     h2 {
@@ -90,7 +89,7 @@ export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
       return (
         <ErrorBoundaryStyled>
           <div id="error">
-            <div className="error">
+            <div className="error container">
               <br />
               <img src="/static/images/errorpage/error.png" style={{ height: "15vh" }} />
               <h2>Something went wrong!</h2>

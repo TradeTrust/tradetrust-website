@@ -11,13 +11,13 @@ export const StatusChecks = styled(({ verificationStatus }: { verificationStatus
 
   return (
     <div className="flex items-start flex-col mt-2 lg:flex-row lg:justify-between xl:mt-0">
-      <div className="w-auto mx-0 lg:mx-2">
+      <div className="w-auto mx-0 lg:mx-2 mb-2 lg:mb-0">
         <StatusCheck valid={hashValid} messageSet={MESSAGES[TYPES.HASH]} />
       </div>
-      <div className="w-auto mx-0 lg:mx-2">
+      <div className="w-auto mx-0 lg:mx-2 mb-2 lg:mb-0">
         <StatusCheck valid={issuedValid} messageSet={MESSAGES[TYPES.ISSUED]} />
       </div>
-      <div className="w-auto mx-0 lg:mx-2">
+      <div className="w-auto mx-0 lg:mx-2 mb-2 lg:mb-0">
         <StatusCheck valid={identityValid} messageSet={MESSAGES[TYPES.IDENTITY]} />
       </div>
     </div>

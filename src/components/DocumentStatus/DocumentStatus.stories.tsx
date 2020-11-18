@@ -1,18 +1,18 @@
 import React from "react";
-import { DocumentStatus, DocumentStatusUnStyled } from "./DocumentStatus";
 import {
-  whenDocumentValidAndIssued,
   whenDocumentHashInvalid,
+  whenDocumentHashInvalidAndNotIssued,
+  whenDocumentIssuerIdentityInvalid,
   whenDocumentNotIssued,
   whenDocumentRevoked,
-  whenDocumentIssuerIdentityInvalid,
-  whenDocumentHashInvalidAndNotIssued,
+  whenDocumentValidAndIssued,
   whenTransferableDocumentVerified,
 } from "../../test/fixture/verifier-responses";
+import { DocumentStatus } from "./DocumentStatus";
 
 export default {
   title: "Viewer/DocumentStatus",
-  component: DocumentStatusUnStyled,
+  component: DocumentStatus,
   parameters: {
     componentSubtitle: "All various statuses after document verification.",
   },

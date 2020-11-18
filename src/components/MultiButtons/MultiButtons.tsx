@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
@@ -6,36 +5,29 @@ import { ButtonBorderedBlue } from "../UI/Button";
 import { AddressBook } from "./../../components/UI/Overlay/OverlayContent/AddressBook";
 
 interface MultiButtonsProps {
-  className?: string;
   tokenRegistryAddress: string;
 }
 
-export const MultiButtonsUnStyled = ({ className, tokenRegistryAddress }: MultiButtonsProps) => {
+export const MultiButtons = ({ tokenRegistryAddress }: MultiButtonsProps) => {
   const { showOverlay } = useContext(OverlayContext);
   const onOverlayHandler = () => {
     showOverlay(<AddressBook title="Address Book" />);
   };
 
   return (
-    <div className={`${className} container py-2`} data-testid="multi-button">
-      <ul className="nav nav-tabs row no-gutters align-items-center">
-        <li className="nav-item col-auto col-lg-auto ml-lg-auto order-lg-2">
+    <div className="container pt-2 pb-8" data-testid="multi-button">
+      <div className="flex items-center">
+        <div className="w-auto lg:ml-auto">
           <NavLink className="my-auto ml-auto" to="/">
             <ButtonBorderedBlue>View another</ButtonBorderedBlue>
           </NavLink>
-        </li>
+        </div>
         {tokenRegistryAddress && (
-          <li className="nav-item col-auto col-lg-auto ml-2 order-lg-2">
+          <div className="w-auto ml-2">
             <ButtonBorderedBlue onClick={onOverlayHandler}>Address Book</ButtonBorderedBlue>
-          </li>
+          </div>
         )}
-      </ul>
+      </div>
     </div>
   );
 };
-
-export const MultiButtons = styled(MultiButtonsUnStyled)`
-  .nav-tabs {
-    border-bottom: 0;
-  }
-`;

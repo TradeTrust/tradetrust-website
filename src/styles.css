@@ -12,15 +12,6 @@
   --green: #00c04a;
   --orange: #ffb152;
   --padding-dropzone-boxshadow: 10px;
-  --grid-gutter-width: 30px;
-  --mw-sm: 540px;
-  --mw-md: 720px;
-  --mw-lg: 960px;
-  --mw-xl: 1140px;
-  --sm: 576px;
-  --md: 768px;
-  --lg: 992px;
-  --xl: 1200px;
   --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
