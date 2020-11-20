@@ -19,11 +19,7 @@ export const ObfuscatedMessage = ({ document }: ObfuscatedMessageProps) => {
   return (
     <ObfuscationInfo data-testid="obfuscation-info">
       <div className="container">
-        <div className="flex">
-          <div className="w-full">
-            <p>Note: There are fields/data obfuscated in this document.</p>
-          </div>
-        </div>
+        <p className="py-6">Note: There are fields/data obfuscated in this document.</p>
       </div>
     </ObfuscationInfo>
   );

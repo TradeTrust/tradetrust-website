@@ -19,7 +19,7 @@ const DetailedErrors = ({ verificationStatus }) => {
       {errors.map((errorType, index) => (
         <div key={index}>
           <p className="messages">{MESSAGES[errorType].failureTitle}</p>
-          <p>{MESSAGES[errorType].failureMessage}</p>
+          <p className="break-words">{MESSAGES[errorType].failureMessage}</p>
         </div>
       ))}
     </div>

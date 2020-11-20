@@ -18,7 +18,7 @@ export const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError
     <div id="error-tab" className="verifications">
       <div>
         <p className="messages">Unable to load certificate with the provided parameters</p>
-        <p>{retrieveCertificateByActionError}</p>
+        <p className="break-words">{retrieveCertificateByActionError}</p>
       </div>
     </div>
 

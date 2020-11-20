@@ -80,7 +80,7 @@ export const ActionSelectionForm = ({
     }
   };
   return (
-    <div className="w-full">
+    <>
       <div className="flex flex-wrap justify-between mb-4 -mx-4">
         <div className="w-full px-4 lg:w-auto">
           <AssetInformationPanel
@@ -89,14 +89,14 @@ export const ActionSelectionForm = ({
           />
         </div>
         {isSurrendered && (
-          <div className="w-full lg:w-auto self-end">
+          <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedRedLarge id="surrender-sign">Surrendered To Issuer</TagBorderedRedLarge>
             </div>
           </div>
         )}
         {isTokenBurnt && (
-          <div className="w-full lg:w-auto self-end">
+          <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedRedLarge id="surrendered-sign">Surrendered</TagBorderedRedLarge>
             </div>
@@ -140,6 +140,6 @@ export const ActionSelectionForm = ({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
