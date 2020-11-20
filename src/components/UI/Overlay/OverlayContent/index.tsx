@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
+import { CheckCircle, X, XCircle } from "react-feather";
 import { CSSTransition } from "react-transition-group";
 import { OverlayContext } from "../../../../common/contexts/OverlayContext";
-import { vars } from "../../../../styles";
-import { X, XCircle, CheckCircle } from "react-feather";
 import { useLockBodyScroll } from "../../../../common/hooks/useLockBodyScroll";
+import { vars } from "../../../../styles";
 
 export interface OverlayContentProps {
   className?: string;
@@ -24,7 +24,7 @@ export const OverlayContent = ({ className, title, isSuccess, children, ...props
     <CSSTransition in={isOverlayVisible} timeout={300} classNames="fadescale" appear>
       <div className={`overlay-content ${className}`} {...props}>
         <div className="overlay-header">
-          <div className="flex flex-wrap items-center">
+          <div className="flex items-center">
             {isSuccess !== undefined && (
               <div className="w-auto mr-1">
                 <div className="title-icon">

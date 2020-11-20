@@ -106,35 +106,31 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
             );
           })}
         </Dropdown>
-        <div className="row align-items-center">
-          <div className="col-12 col-md mb-2 mb-md-0">
+        <div className="flex flex-wrap items-center">
+          <div className="w-full md:w-1/3 my-2 md:mb-0">
             <div className="overlay-searchbar">
-              <div className="row no-gutters align-items-center">
-                <div className="col">
-                  <input type="text" placeholder="Search" value={searchTerm} onChange={onSearchTermChanged} />
-                </div>
-                <div className="col-auto">
-                  <Search />
-                </div>
+              <div className="flex items-center">
+                <input type="text" placeholder="Search" value={searchTerm} onChange={onSearchTermChanged} />
+                <Search />
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-auto ml-md-auto">
-            <div className="row no-gutters">
-              <div className="col-12 col-md-auto mb-2 mb-md-0">
+          <div className="w-full md:w-auto md:ml-auto">
+            <div className="flex flex-wrap">
+              <div className="w-full md:w-auto mb-2 md:mb-0 md:mr-2">
                 <AnchorLinkButtonSolidWhiteBlue
                   href="data:text/csv;base64,QWRkcmVzcyxJZGVudGlmaWVyCjB4YTYxQjA1NmRBMDA4NGE1ZjM5MUVDMTM3NTgzMDczMDk2ODgwQzJlMyxEQlMKMHgyOEY3YUIzMkM1MjFEMTNGMkU2OTgwZDA3MkNhN0NBNDkzMDIwMTQ1LFN0YW5kYXJkIENoYXJ0ZXJlZA"
                   download="template.csv"
                 >
-                  <div className="row align-items-center no-gutters">
-                    <div className="col-auto mr-2">
+                  <div className="flex items-center">
+                    <div className="w-auto mr-2">
                       <Download />
                     </div>
-                    <div className="col-auto">Download template</div>
+                    <div className="w-auto">Download template</div>
                   </div>
                 </AnchorLinkButtonSolidWhiteBlue>
               </div>
-              <div className="col-12 col-md-auto">
+              <div className="w-full md:w-auto">
                 <CsvUploadButton />
               </div>
             </div>
@@ -206,6 +202,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
       }
 
       a {
+        color: ${vars.brandBlue};
         svg {
           max-width: 16px;
         }
@@ -216,6 +213,8 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
   .table {
     th {
       width: 120px;
+      text-align: left;
+      padding: 0.75rem;
     }
   }
 `;
