@@ -63,66 +63,64 @@ export const EndorseBeneficiaryForm = ({
   };
 
   return (
-    <div className="flex flex-wrap py-4">
-      <div className="w-full">
-        <AssetManagementTitle
-          setFormActionNone={setFormActionNone}
-          formAction={formAction}
-          disabled={isPendingConfirmation}
-        />
-        <div className="flex flex-wrap mb-4">
-          <div className="w-full lg:flex-grow">
-            <AssetInformationPanel
-              setShowEndorsementChain={setShowEndorsementChain}
-              tokenRegistryAddress={tokenRegistryAddress}
-            />
-          </div>
-          <div className="w-full lg:flex-grow">
-            <EditableAssetTitle
-              role="Owner"
-              value={beneficiary}
-              newValue={newBeneficiary}
-              isEditable={isEditable}
-              onSetNewValue={setNewBeneficiary}
-              error={beneficiaryEndorseState === FormState.ERROR}
-            />
-          </div>
-          <div className="w-full lg:flex-grow">
-            <EditableAssetTitle
-              role="Holder"
-              value={holder}
-              newValue={newHolder}
-              isEditable={isEditable}
-              onSetNewValue={setNewHolder}
-              error={beneficiaryEndorseState === FormState.ERROR}
-            />
-          </div>
+    <>
+      <AssetManagementTitle
+        setFormActionNone={setFormActionNone}
+        formAction={formAction}
+        disabled={isPendingConfirmation}
+      />
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
+        <div className="w-full px-4 lg:w-auto">
+          <AssetInformationPanel
+            setShowEndorsementChain={setShowEndorsementChain}
+            tokenRegistryAddress={tokenRegistryAddress}
+          />
         </div>
-        <div className="flex flex-wrap mb-3">
-          <div className="w-auto ml-auto">
-            <div className="flex flex-wrap">
-              <div className="w-auto">
-                <ButtonSolidWhiteGrey
-                  onClick={setFormActionNone}
-                  disabled={isPendingConfirmation}
-                  data-testid={"cancelEndorseBtn"}
-                >
-                  Cancel
-                </ButtonSolidWhiteGrey>
-              </div>
-              <div className="w-auto ml-2">
-                <ButtonSolidOrangeWhite
-                  disabled={!isValidEndorse() || isPendingConfirmation}
-                  onClick={() => handleTransfer(newBeneficiary, newHolder)}
-                  data-testid={"endorseBtn"}
-                >
-                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}
-                </ButtonSolidOrangeWhite>
-              </div>
+        <div className="w-full px-4 lg:w-auto">
+          <EditableAssetTitle
+            role="Owner"
+            value={beneficiary}
+            newValue={newBeneficiary}
+            isEditable={isEditable}
+            onSetNewValue={setNewBeneficiary}
+            error={beneficiaryEndorseState === FormState.ERROR}
+          />
+        </div>
+        <div className="w-full px-4 lg:w-auto">
+          <EditableAssetTitle
+            role="Holder"
+            value={holder}
+            newValue={newHolder}
+            isEditable={isEditable}
+            onSetNewValue={setNewHolder}
+            error={beneficiaryEndorseState === FormState.ERROR}
+          />
+        </div>
+      </div>
+      <div className="flex flex-wrap mb-4">
+        <div className="w-auto ml-auto">
+          <div className="flex flex-wrap">
+            <div className="w-auto">
+              <ButtonSolidWhiteGrey
+                onClick={setFormActionNone}
+                disabled={isPendingConfirmation}
+                data-testid={"cancelEndorseBtn"}
+              >
+                Cancel
+              </ButtonSolidWhiteGrey>
+            </div>
+            <div className="w-auto ml-2">
+              <ButtonSolidOrangeWhite
+                disabled={!isValidEndorse() || isPendingConfirmation}
+                onClick={() => handleTransfer(newBeneficiary, newHolder)}
+                data-testid={"endorseBtn"}
+              >
+                {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}
+              </ButtonSolidOrangeWhite>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
