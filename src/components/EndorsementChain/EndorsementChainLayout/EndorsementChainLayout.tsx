@@ -72,8 +72,8 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
               <td className="table-cell date border-top-none">
                 {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
               </td>
-              <td colSpan={2} className="endorsement-ui-dash border-top-none">
-                <div className="name-row">
+              <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
+                <div className="relative flex">
                   <div className="dot" data-testid="dot" />
                   <div className="name">Document surrendered to Issuer</div>
                 </div>
@@ -87,8 +87,8 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
               <td className="table-cell date border-top-none">
                 {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
               </td>
-              <td colSpan={2} className="endorsement-ui-dash border-top-none">
-                <div className="name-row">
+              <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
+                <div className="relative flex">
                   <div className="dot" data-testid="dot" />
                   <div className="name">Surrender of document accepted</div>
                 </div>
@@ -118,7 +118,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
         <div className="endorsement-chain-title">Endorsement Chain</div>
         <div className="table-responsive">
           <table className="table">
-            <thead>
+            <thead className="text-left">
               <tr className="table-header table-row">
                 <th className="table-cell">Date</th>
                 <th className="table-cell">Owner</th>
@@ -223,16 +223,9 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
     background-color: ${vars.teal};
     margin: 0.25rem;
     position: absolute;
-    left: -21.5px;
+    left: -17px;
     top: 5px;
     z-index: 4;
-  }
-
-  .name-row {
-    display: flex;
-    align-items: center;
-    position: relative;
-    min-height: 27px;
   }
 
   .loading-cell {

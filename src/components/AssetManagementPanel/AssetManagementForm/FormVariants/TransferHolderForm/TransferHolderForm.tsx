@@ -59,59 +59,57 @@ export const TransferHolderForm = ({
   };
 
   return (
-    <div className="flex flex-wrap py-4">
-      <div className="w-full">
-        <AssetManagementTitle
-          setFormActionNone={setFormActionNone}
-          formAction={formAction}
-          disabled={isPendingConfirmation}
-        />
-        <div className="flex flex-wrap mb-4">
-          <div className="w-full lg:flex-grow">
-            <AssetInformationPanel
-              setShowEndorsementChain={setShowEndorsementChain}
-              tokenRegistryAddress={tokenRegistryAddress}
-            />
-          </div>
-          <div className="w-full lg:flex-grow">
-            <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
-          </div>
-          <div className="w-full lg:flex-grow">
-            <EditableAssetTitle
-              role="Holder"
-              value={holder}
-              newValue={newHolder}
-              isEditable={isEditable}
-              onSetNewValue={setNewHolder}
-              error={holderTransferringState === FormState.ERROR}
-            />
-          </div>
+    <>
+      <AssetManagementTitle
+        setFormActionNone={setFormActionNone}
+        formAction={formAction}
+        disabled={isPendingConfirmation}
+      />
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
+        <div className="w-full px-4 lg:w-auto">
+          <AssetInformationPanel
+            setShowEndorsementChain={setShowEndorsementChain}
+            tokenRegistryAddress={tokenRegistryAddress}
+          />
         </div>
-        <div className="flex flex-wrap mb-4">
-          <div className="w-auto ml-auto">
-            <div className="flex flex-wrap">
-              <div className="w-auto">
-                <ButtonSolidWhiteGrey
-                  onClick={setFormActionNone}
-                  disabled={isPendingConfirmation}
-                  data-testid={"cancelTransferBtn"}
-                >
-                  Cancel
-                </ButtonSolidWhiteGrey>
-              </div>
-              <div className="w-auto ml-2">
-                <ButtonSolidOrangeWhite
-                  disabled={!isValidTransfer() || isPendingConfirmation}
-                  onClick={() => handleTransfer(newHolder)}
-                  data-testid={"transferBtn"}
-                >
-                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}
-                </ButtonSolidOrangeWhite>
-              </div>
+        <div className="w-full px-4 lg:w-auto">
+          <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
+        </div>
+        <div className="w-full px-4 lg:w-auto">
+          <EditableAssetTitle
+            role="Holder"
+            value={holder}
+            newValue={newHolder}
+            isEditable={isEditable}
+            onSetNewValue={setNewHolder}
+            error={holderTransferringState === FormState.ERROR}
+          />
+        </div>
+      </div>
+      <div className="flex flex-wrap mb-4">
+        <div className="w-auto ml-auto">
+          <div className="flex flex-wrap">
+            <div className="w-auto">
+              <ButtonSolidWhiteGrey
+                onClick={setFormActionNone}
+                disabled={isPendingConfirmation}
+                data-testid={"cancelTransferBtn"}
+              >
+                Cancel
+              </ButtonSolidWhiteGrey>
+            </div>
+            <div className="w-auto ml-2">
+              <ButtonSolidOrangeWhite
+                disabled={!isValidTransfer() || isPendingConfirmation}
+                onClick={() => handleTransfer(newHolder)}
+                data-testid={"transferBtn"}
+              >
+                {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}
+              </ButtonSolidOrangeWhite>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

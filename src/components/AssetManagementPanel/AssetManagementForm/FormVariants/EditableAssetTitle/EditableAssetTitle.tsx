@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Book } from "react-feather";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
-import { InputEditableAssetTitle, InputEditableWrapper, InputError } from "../../../../UI/Input";
+import { InputEditableAssetTitle, InputError } from "../../../../UI/Input";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
@@ -43,8 +43,8 @@ export const EditableAssetTitle = ({
     );
   return (
     <AssetTitle role={role} address={newValue || ""}>
-      <div className="flex flex-wrap items-center">
-        <InputEditableWrapper className="flex mr-2">
+      <div className="flex items-start">
+        <div className="flex-grow mr-2">
           <InputEditableAssetTitle
             data-testid={`editable-input-${role.toLowerCase()}`}
             value={newValue}
@@ -58,7 +58,7 @@ export const EditableAssetTitle = ({
           {error && (
             <InputError data-testid={"error-msg"}>Unidentified address. Please check and input again.</InputError>
           )}
-        </InputEditableWrapper>
+        </div>
         <div className="w-auto">
           <ButtonIconOrangeWhite onClick={onOverlayHandler}>
             <Book />

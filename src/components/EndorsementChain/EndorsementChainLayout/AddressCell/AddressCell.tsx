@@ -25,7 +25,7 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
 
     return (
       <div className={className}>
-        <div className="name-row">
+        <div className="relative flex">
           {newAddress && <div className="dot" data-testid="dot" />}
           {identityName && <div className="name">{identityName}</div>}
           <TooltipIcon className="icon" content={tooltipContent} placement="top">
