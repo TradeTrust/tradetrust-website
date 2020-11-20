@@ -86,6 +86,18 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
         });
     });
 
+    //detecting message from parent window
+    window.addEventListener(
+      "message",
+      (event) => {
+        if (event.data.document) {
+          console.log("message received:", JSON.stringify(event.data.document));
+          updateCertificate(event.data.document);
+        }
+      },
+      false
+    );
+
     return () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       document.getElementById("demoDrop")!.removeEventListener("drop", () => removeListener());
