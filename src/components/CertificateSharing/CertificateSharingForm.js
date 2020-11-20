@@ -47,22 +47,15 @@ export class CertificateSharingForm extends Component {
     const { emailSendingState } = this.props;
     return (
       <div className="container">
-        <div className="flex w-2/12" />
-        <div className="w-8/12">
-          <div className="flex justify-center">
-            <h4>Send your document</h4>
-          </div>
-          <div className="flex text-center">
-            This sends an email with your .tt attached, and instructions on how to view it.
-          </div>
-          <div className="flex my-6 justify-center">
-            <input
-              className="w-full"
-              value={this.state.emailAddress}
-              onChange={this.handleEmailChange}
-              placeholder="Enter recipient's email"
-            />
-          </div>
+        <div className="max-w-3xl mx-auto flex items-center flex-col">
+          <h3>Send your document</h3>
+          <p className="w-full mt-2">This sends an email with your .tt attached, and instructions on how to view it.</p>
+          <input
+            className="w-full border border-solid border-grey my-4 p-1 placeholder-grey-dark"
+            value={this.state.emailAddress}
+            onChange={this.handleEmailChange}
+            placeholder="Enter recipient's email"
+          />
           <div className="flex justify-center m-4">
             <ReCAPTCHA sitekey={CAPTCHA_CLIENT_KEY} onChange={this.handleCaptchaChange} />
           </div>
@@ -76,7 +69,7 @@ export class CertificateSharingForm extends Component {
           ) : (
             ""
           )}
-          <div className="flex justify-center m-4">
+          <div className="flex justify-center mx-4 mb-4">
             <Button onClick={this.handleSend}>
               Send
               {emailSendingState === states.PENDING ? <i className="ml-2 fas fa-spinner fa-pulse" /> : ""}
