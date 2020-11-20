@@ -14,6 +14,21 @@ const mockDetails = {
   icon: "/static/images/Github_Octocat.png",
 } as ResourcesLinkProps;
 
+const mockDownloadDetails = {
+  title: "Newsletters",
+  type: "download",
+  details: [
+    {
+      title: "TradeTrust Newsletter Issue 01",
+      url: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
+    },
+    {
+      title: "TradeTrust Newsletter Issue 02",
+      url: "/static/images/newsletter/TradeTrust_Newsletter_Issue02.pdf",
+    },
+  ],
+} as ResourcesLinkProps;
+
 export default {
   title: "UI/ResourcesLink",
   component: ResourcesLink,
@@ -22,13 +37,23 @@ export default {
   },
 };
 
-export const ResourcesLinkComponent = () => {
+export const ResourcesLinkTypeLink = () => {
   return (
     <ResourcesLink
       title={mockDetails.title}
       type={mockDetails.type}
       details={mockDetails.details}
       icon={mockDetails.icon}
+    />
+  );
+};
+
+export const ResourcesLinkTypeDownload = () => {
+  return (
+    <ResourcesLink
+      title={mockDownloadDetails.title}
+      type={mockDownloadDetails.type}
+      details={mockDownloadDetails.details}
     />
   );
 };

@@ -75,9 +75,9 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
         </h4>
         {tag && <div className="tag">{tag}</div>}
         {dateTime && <div className="datetime">{dateTime}</div>}
-        <p>{description}</p>
+        <p className="mb-4">{description}</p>
         {downloads && (
-          <div className="py-2">
+          <div className="py-2 text-brand-blue">
             {downloads?.map((download, index) => (
               <a
                 className="font-bold flex items-start mt-1"
@@ -92,44 +92,46 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
             ))}
           </div>
         )}
-        <div className="flex flex-wrap py-4">
-          {watchLink && (
-            <div className="w-full sm:w-auto mb-2 sm:mb-0">
-              <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
-                <div className="flex">
-                  <div className="w-auto">
-                    <PlayCircle />
+        {(watchLink || eventLink || eventSlides) && (
+          <div className="flex flex-wrap pt-4 text-brand-blue">
+            {watchLink && (
+              <div className="w-full sm:w-auto mb-2 sm:mb-0">
+                <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
+                  <div className="flex">
+                    <div className="w-auto">
+                      <PlayCircle />
+                    </div>
+                    <div className="flex-grow px-2">Watch Event</div>
                   </div>
-                  <div className="flex-grow px-2">Watch Event</div>
-                </div>
-              </a>
-            </div>
-          )}
-          {eventLink && (
-            <div className="w-full sm:w-auto mb-2 sm:mb-0">
-              <a className="link" href={eventLink} target="_blank" rel="noopener noreferrer">
-                <div className="flex">
-                  <div className="w-auto">
-                    <ExternalLink />
+                </a>
+              </div>
+            )}
+            {eventLink && (
+              <div className="w-full sm:w-auto mb-2 sm:mb-0">
+                <a className="link" href={eventLink} target="_blank" rel="noopener noreferrer">
+                  <div className="flex">
+                    <div className="w-auto">
+                      <ExternalLink />
+                    </div>
+                    <div className="flex-grow px-2">Event Link</div>
                   </div>
-                  <div className="flex-grow px-2">Event Link</div>
-                </div>
-              </a>
-            </div>
-          )}
-          {eventSlides && (
-            <div className="w-full sm:w-auto mb-2 sm:mb-0">
-              <a className="link" href={eventSlides} target="_blank" rel="noopener noreferrer">
-                <div className="flex">
-                  <div className="w-auto">
-                    <ExternalLink />
+                </a>
+              </div>
+            )}
+            {eventSlides && (
+              <div className="w-full sm:w-auto mb-2 sm:mb-0">
+                <a className="link" href={eventSlides} target="_blank" rel="noopener noreferrer">
+                  <div className="flex">
+                    <div className="w-auto">
+                      <ExternalLink />
+                    </div>
+                    <div className="flex-grow px-2">Event Slides</div>
                   </div>
-                  <div className="flex-grow px-2">Event Slides</div>
-                </div>
-              </a>
-            </div>
-          )}
-        </div>
+                </a>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </ResourcesCardItem>
   );
@@ -141,7 +143,7 @@ const ResourcesCardItem = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
 
-  @media (max-width: ${vars.md}) {
+  @media (max-width: ${vars.lg}) {
     flex-direction: column;
   }
 
