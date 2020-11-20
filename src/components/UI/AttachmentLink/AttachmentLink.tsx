@@ -28,7 +28,7 @@ interface ExtensionIconProps {
 }
 
 const ExtensionIcon: FunctionComponent<ExtensionIconProps> = ({ ...props }) => {
-  return <img {...props} className="flex items-center justify-center mr-2" />;
+  return <img {...props} className="max-w-full" />;
 };
 
 export const getExtension = (mimeType: string | undefined): React.ReactNode => {
@@ -76,22 +76,32 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
 
   return (
     <Attachment>
-      <div className="flex">
-        <div className="w-auto mr-4 md:w-auto mb-3 mb-md-0">{getExtension(type)}</div>
-        <div className="w-full md:flex-grow">
-          <p className="filetext">
+      <div className="flex flex-row">
+        <div className="w-auto mr-4">{getExtension(type)}</div>
+        <div className="w-5/6">
+          <p className="filetext break-all">
             <span className="filename">{filename}</span>
-            {hasBase64 && <span className="filesize">({filesize})</span>}
+            {hasBase64 && <span className="filesize">&nbsp;({filesize})</span>}
           </p>
           <div className="flex">
-            <div className="w-full md:w-auto">
-              <a href={downloadHref} download={`${filename}`} className="downloadtext" data-testid="attachment-link">
+            <div className="w-auto mr-2">
+              <a
+                href={downloadHref}
+                download={`${filename}`}
+                data-testid="attachment-link"
+                className="downloadtext hover:underline"
+              >
                 Download
               </a>
             </div>
             {redirectLink && (
-              <div className="w-full md:w-auto ml-0 ml-md-2">
-                <a href={redirectLink} target="_blank" rel="noopener noreferrer" className="downloadtext">
+              <div className="w-auto">
+                <a
+                  href={redirectLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="downloadtext hover:underline"
+                >
                   Open
                 </a>
               </div>
@@ -144,7 +154,6 @@ export const Attachment = styled.div`
     ${mixin.fontSourcesansproBold};
     line-height: 1.2;
     color: ${vars.grey};
-    margin-right: 4px;
     overflow-wrap: break-word;
   }
 

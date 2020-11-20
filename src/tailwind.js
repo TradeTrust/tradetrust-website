@@ -1,11 +1,9 @@
-// const plugin = require("tailwindcss/plugin");
-
 module.exports = {
   future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
   },
-  purge: [],
+  purge: ["./src/**/*.ts", "./src/**/*.tsx"],
   theme: {
     container: (theme) => ({
       center: true,
