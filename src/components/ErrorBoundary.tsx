@@ -31,6 +31,11 @@ const ErrorBoundaryStyled = styled.div`
       }
     }
 
+    img {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     p {
       color: ${vars.black};
       padding-bottom: 10px;
