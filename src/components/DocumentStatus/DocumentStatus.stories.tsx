@@ -1,11 +1,11 @@
 import React from "react";
 import { DocumentStatus, DocumentStatusUnStyled } from "./DocumentStatus";
 import {
-  whenDocumentValidAndIssued,
+  whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalid,
   whenDocumentNotIssued,
   whenDocumentRevoked,
-  whenDocumentIssuerIdentityInvalid,
+  whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentHashInvalidAndNotIssued,
   whenTransferableDocumentVerified,
 } from "../../test/fixture/verifier-responses";
@@ -19,7 +19,7 @@ export default {
 };
 
 export const DocumentValid = () => {
-  return <DocumentStatus verificationStatus={whenDocumentValidAndIssued as []} />;
+  return <DocumentStatus verificationStatus={whenDocumentValidAndIssuedByDns as []} />;
 };
 
 export const DocumentValidTransferable = () => {
@@ -39,7 +39,7 @@ export const DocumentRevoked = () => {
 };
 
 export const DocumentIssuerIdentityInvalid = () => {
-  return <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalid as []} />;
+  return <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as []} />;
 };
 
 export const DocumentAllVerificationFail = () => {

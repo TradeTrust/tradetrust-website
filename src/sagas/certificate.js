@@ -26,6 +26,7 @@ export function* verifyCertificate() {
 
     const certificate = yield select(getCertificate);
     const verificationStatus = yield verifyDocument(certificate);
+    console.log(verificationStatus);
     trace(`Verification Status: ${JSON.stringify(verificationStatus)}`);
 
     // Instead of success/failure, report completeness

@@ -3,10 +3,12 @@ import { interpretFragments } from "./fragments";
 import {
   whenDocumentHashInvalidAndNotIssued,
   whenDocumentNotIssued,
-  whenDocumentValidAndIssued,
+  whenDocumentValidAndIssuedByDns,
+  whenDocumentValidAndIssuedByDid,
   whenDocumentHashInvalid,
   whenDocumentRevoked,
-  whenDocumentIssuerIdentityInvalid,
+  whenDocumentIssuerIdentityInvalidDnsTxt,
+  whenDocumentIssuerIdentityInvalidDid,
   whenTransferableDocumentVerified,
 } from "../../test/fixture/verifier-responses";
 
@@ -27,8 +29,16 @@ describe("interpretFragments", () => {
       revokedValid: true,
     });
   });
-  it("should interpret whenDocumentValidAndIssued correctly", () => {
-    expect(interpretFragments(whenDocumentValidAndIssued as VerificationFragment[])).toEqual({
+  it("should interpret whenDocumentValidAndIssuedByDns correctly", () => {
+    expect(interpretFragments(whenDocumentValidAndIssuedByDns as VerificationFragment[])).toEqual({
+      hashValid: true,
+      issuedValid: true,
+      identityValid: true,
+      revokedValid: true,
+    });
+  });
+  it("should interpret whenDocumentValidAndIssuedByDid correctly", () => {
+    expect(interpretFragments(whenDocumentValidAndIssuedByDid as VerificationFragment[])).toEqual({
       hashValid: true,
       issuedValid: true,
       identityValid: true,
@@ -51,8 +61,16 @@ describe("interpretFragments", () => {
       revokedValid: false,
     });
   });
-  it("should interpret whenDocumentIssuerIdentityInvalid correctly", () => {
-    expect(interpretFragments(whenDocumentIssuerIdentityInvalid as VerificationFragment[])).toEqual({
+  it("should interpret whenDocumentIssuerIdentityInvalidDnsTxt correctly", () => {
+    expect(interpretFragments(whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[])).toEqual({
+      hashValid: true,
+      issuedValid: true,
+      identityValid: false,
+      revokedValid: true,
+    });
+  });
+  it("should interpret whenDocumentIssuerIdentityInvalidDid correctly", () => {
+    expect(interpretFragments(whenDocumentIssuerIdentityInvalidDid as VerificationFragment[])).toEqual({
       hashValid: true,
       issuedValid: true,
       identityValid: false,

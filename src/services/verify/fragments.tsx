@@ -24,10 +24,14 @@ export const isValid = (
   types: VerificationFragmentType[] = ["DOCUMENT_STATUS", "DOCUMENT_INTEGRITY", "ISSUER_IDENTITY"]
 ) => {
   if (types.includes("ISSUER_IDENTITY")) {
-    const dnsFragment = getFirstFragmentFor(verificationFragments, "OpenAttestationDnsTxt");
+    const dnsFragment = getFirstFragmentFor(verificationFragments, "OpenAttestationDnsTxtIdentityProof");
+    const dnsDidFragment = getFirstFragmentFor(verificationFragments, "OpenAttestationDnsDidIdentityProof");
+    const didFragment = getFirstFragmentFor(verificationFragments, "OpenAttestationDidIdentityProof");
     return (
       isValidFromUpstream(verificationFragments, types) &&
-      dnsFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID")
+      (dnsFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID") ||
+        didFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID") ||
+        dnsDidFragment?.data?.every((issuer: VerificationFragment) => issuer.status === "VALID"))
     );
   } else {
     return isValidFromUpstream(verificationFragments, types);

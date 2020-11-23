@@ -77,7 +77,27 @@ export const whenDocumentHashInvalidAndNotIssued = [
       message: `Document issuers doesn't have "documentStore" / "tokenRegistry" property or doesn't use DNS-TXT type`,
     },
     status: "SKIPPED",
-    name: "OpenAttestationDnsTxt",
+    name: "OpenAttestationDnsTxtIdentityProof",
+    type: "ISSUER_IDENTITY",
+  },
+  {
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: `Document was not issued using DNS-DID`,
+    },
+    status: "SKIPPED",
+    name: "OpenAttestationDnsDidIdentityProof",
+    type: "ISSUER_IDENTITY",
+  },
+  {
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: `Document is not using DID as top level identifier`,
+    },
+    status: "SKIPPED",
+    name: "OpenAttestationDidIdentityProof",
     type: "ISSUER_IDENTITY",
   },
 ];
@@ -140,7 +160,7 @@ export const whenDocumentNotIssued = [
     type: "DOCUMENT_STATUS",
   },
   {
-    name: "OpenAttestationDnsTxt",
+    name: "OpenAttestationDnsTxtIdentityProof",
     type: "ISSUER_IDENTITY",
     data: [
       {
@@ -152,8 +172,7 @@ export const whenDocumentNotIssued = [
     status: "VALID",
   },
 ];
-
-export const whenDocumentValidAndIssued = [
+export const whenDocumentValidAndIssuedByDns = [
   {
     data: true,
     status: "VALID",
@@ -199,7 +218,7 @@ export const whenDocumentValidAndIssued = [
     type: "DOCUMENT_STATUS",
   },
   {
-    name: "OpenAttestationDnsTxt",
+    name: "OpenAttestationDnsTxtIdentityProof",
     type: "ISSUER_IDENTITY",
     data: [
       {
@@ -211,8 +230,65 @@ export const whenDocumentValidAndIssued = [
     status: "VALID",
   },
 ];
+export const whenDocumentValidAndIssuedByDid = [
+  {
+    data: true,
+    status: "VALID",
+    name: "OpenAttestationHash",
+    type: "DOCUMENT_INTEGRITY",
+  },
+  {
+    data: {
+      details: [
+        {
+          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+          issued: true,
+        },
+      ],
+      issuedOnAll: true,
+    },
+    status: "VALID",
+    name: "OpenAttestationEthereumDocumentStoreIssued",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+    },
+    name: "OpenAttestationEthereumTokenRegistryMinted",
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    data: {
+      details: [
+        {
+          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+          revoked: false,
+        },
+      ],
+      revokedOnAny: false,
+    },
+    status: "VALID",
+    name: "OpenAttestationEthereumDocumentStoreRevoked",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    name: "OpenAttestationDidIdentityProof",
+    type: "ISSUER_IDENTITY",
+    data: [
+      {
+        status: "VALID",
+        did: "did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89",
+      },
+    ],
+    status: "VALID",
+  },
+];
 export const whenDocumentHashInvalid = [
-  ...whenDocumentValidAndIssued.filter((fragment) => fragment.type !== "DOCUMENT_INTEGRITY"),
+  ...whenDocumentValidAndIssuedByDns.filter((fragment) => fragment.type !== "DOCUMENT_INTEGRITY"),
   {
     data: false,
     reason: {
@@ -283,7 +359,7 @@ export const whenDocumentRevoked = [
     status: "INVALID",
   },
   {
-    name: "OpenAttestationDnsTxt",
+    name: "OpenAttestationDnsTxtIdentityProof",
     type: "ISSUER_IDENTITY",
     data: [
       {
@@ -296,7 +372,7 @@ export const whenDocumentRevoked = [
   },
 ];
 
-export const whenDocumentIssuerIdentityInvalid = [
+export const whenDocumentIssuerIdentityInvalidDnsTxt = [
   {
     data: true,
     status: "VALID",
@@ -348,7 +424,64 @@ export const whenDocumentIssuerIdentityInvalid = [
       message: `Document issuers doesn't have "documentStore" / "tokenRegistry" property or doesn't use DNS-TXT type`,
     },
     status: "SKIPPED",
-    name: "OpenAttestationDnsTxt",
+    name: "OpenAttestationDnsTxtIdentityProof",
+    type: "ISSUER_IDENTITY",
+  },
+];
+
+export const whenDocumentIssuerIdentityInvalidDid = [
+  {
+    data: true,
+    status: "VALID",
+    name: "OpenAttestationHash",
+    type: "DOCUMENT_INTEGRITY",
+  },
+  {
+    data: {
+      details: [
+        {
+          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+          issued: true,
+        },
+      ],
+      issuedOnAll: true,
+    },
+    status: "VALID",
+    name: "OpenAttestationEthereumDocumentStoreIssued",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+    },
+    name: "OpenAttestationEthereumTokenRegistryMinted",
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    data: {
+      details: [
+        {
+          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+          revoked: false,
+        },
+      ],
+      revokedOnAny: false,
+    },
+    status: "VALID",
+    name: "OpenAttestationEthereumDocumentStoreRevoked",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    reason: {
+      code: 2,
+      codeString: "SKIPPED",
+      message: `Document is not using DID as top level identifier`,
+    },
+    status: "SKIPPED",
+    name: "OpenAttestationDidIdentityProof",
     type: "ISSUER_IDENTITY",
   },
 ];
@@ -382,7 +515,7 @@ export const whenTransferableDocumentVerified = [
     },
   },
   {
-    name: "OpenAttestationDnsTxt",
+    name: "OpenAttestationDnsTxtIdentityProof",
     type: "ISSUER_IDENTITY",
     data: [
       {
