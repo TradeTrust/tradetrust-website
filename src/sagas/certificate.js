@@ -10,7 +10,7 @@ import {
 import { sendEmail } from "../services/email/sendEmail";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
-import { isValid } from "../services/verify/fragments";
+import { isValid } from "@govtechsg/oa-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
 import { NETWORK_NAME } from "./../config";
 
@@ -26,7 +26,6 @@ export function* verifyCertificate() {
 
     const certificate = yield select(getCertificate);
     const verificationStatus = yield verifyDocument(certificate);
-    console.log(verificationStatus);
     trace(`Verification Status: ${JSON.stringify(verificationStatus)}`);
 
     // Instead of success/failure, report completeness

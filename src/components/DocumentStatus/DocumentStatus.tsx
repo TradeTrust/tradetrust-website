@@ -17,7 +17,7 @@ interface VerificationFragmentData {
 }
 
 export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
-  const formatDomainNames = (fragment: VerificationFragment<VerificationFragmentData[]>): string | undefined => {
+  const formatIdentifier = (fragment: VerificationFragment<VerificationFragmentData[]>): string | undefined => {
     switch (fragment.name) {
       case "OpenAttestationDnsTxtIdentityProof":
       // using fall through to get both cases
@@ -37,7 +37,7 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   ) as VerificationFragment;
   const dataFragment = identityProofFragment?.data;
   const fragmentValidity = dataFragment?.every((issuer: { status: string }) => issuer.status === "VALID");
-  const formattedDomainNames = fragmentValidity ? formatDomainNames(identityProofFragment) : "Unknown";
+  const formattedDomainNames = fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 
   return (
     <h3 id="issuedby" className={`mb-0 issuedby`}>

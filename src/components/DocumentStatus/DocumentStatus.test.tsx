@@ -56,7 +56,7 @@ describe("IssuedBy", () => {
     expect(container.queryByText("ABC.COM, XYZ.COM and DEMO.COM")).not.toBeNull();
   });
 
-  it("should return did identity if is verified with did", () => {
+  it("should return domain if is verified with DNS-DID", () => {
     const fragments = [
       {
         name: "OpenAttestationDnsDidIdentityProof",
@@ -74,7 +74,7 @@ describe("IssuedBy", () => {
     expect(container.queryByText("ABC.COM")).not.toBeNull();
   });
 
-  it("should return did identity if is verified with did", () => {
+  it("should return did if is verified with DID", () => {
     const sampleDidIdentity = "did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89";
     const fragments = [
       {
