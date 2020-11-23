@@ -3,6 +3,7 @@
   to = "/index.html"
   status = 200
 
+# Unset the infura key for branch previews so that the default key is used instead
 [context.deploy-preview]
   [context.deploy-preview.environment]
     INFURA_API_KEY = ""
