@@ -4,7 +4,7 @@
   status = 200
 
 [context.production.environment]
-  ACCESS_TOKEN = ${PRODUCTION_INFURA_KEY}
+  INFURA_KEY = ${PRODUCTION_INFURA_KEY}
 
 [context.deploy-preview.environment]
-  ACCESS_TOKEN = ${PREVIEW_INFURA_KEY}
+  INFURA_KEY = ${PREVIEW_INFURA_KEY}
