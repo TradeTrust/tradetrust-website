@@ -17,16 +17,19 @@ interface VerificationFragmentData {
 }
 
 export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
+  const joinIssuers = (issuers: string[] | undefined): string => {
+    if (!issuers) return "Unknown";
+    const issuerNames = issuers.join(", ");
+    return issuerNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
+  };
   const formatIdentifier = (fragment: VerificationFragment<VerificationFragmentData[]>): string | undefined => {
     switch (fragment.name) {
       case "OpenAttestationDnsTxtIdentityProof":
       // using fall through to get both cases
       case "OpenAttestationDnsDidIdentityProof":
-        const domainNames = fragment.data?.map((issuer) => issuer.location.toUpperCase()).join(", ");
-        return domainNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
+        return joinIssuers(fragment.data?.map((issuer) => issuer.location.toUpperCase()));
       case "OpenAttestationDidIdentityProof":
-        const didNames = fragment.data?.map((issuer) => issuer.did.toUpperCase()).join(", ");
-        return didNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
+        return joinIssuers(fragment.data?.map((issuer) => issuer.did.toUpperCase()));
       default:
         return "Unknown";
     }
