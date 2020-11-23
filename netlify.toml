@@ -3,8 +3,6 @@
   to = "/index.html"
   status = 200
 
-[context.production.environment]
-  INFURA_KEY = {PRODUCTION_INFURA_KEY}
-
-[context.deploy-preview.environment]
-  INFURA_KEY = {PREVIEW_INFURA_KEY}
+[context.deploy-preview]
+  [context.deploy-preview.environment]
+    INFURA_API_KEY = ""
