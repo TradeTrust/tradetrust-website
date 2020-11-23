@@ -86,13 +86,21 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
         });
     });
 
+    //if there is a parent window, send a SYN to parent
+    if (window.opener) {
+      window.opener.postMessage({ messageType: "SYN" });
+    }
+
     //detecting message from parent window
     window.addEventListener(
       "message",
       (event) => {
-        if (event.data.document) {
-          console.log("message received:", JSON.stringify(event.data.document));
-          updateCertificate(event.data.document);
+        if (event.data.messageType == "SYNACK") {
+          window.opener.postMessage({ messageType: "ACK" });
+        }
+        if (event.data.messageType == "DOC") {
+          const doc = event.data.document;
+          updateCertificate(doc);
         }
       },
       false
