@@ -6,7 +6,7 @@ import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
 import {
   whenDocumentHashInvalid,
   whenDocumentNotIssued,
-  whenDocumentIssuerIdentityInvalid,
+  whenDocumentIssuerIdentityInvalidDnsTxt,
 } from "../../../test/fixture/verifier-responses";
 
 describe("unverifiedView", () => {
@@ -45,7 +45,7 @@ describe("unverifiedView", () => {
       <MemoryRouter>
         <UnverifiedView
           handleRenderOverwrite={() => {}}
-          verificationStatus={whenDocumentIssuerIdentityInvalid}
+          verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt}
           resetData={() => {}}
         />
       </MemoryRouter>

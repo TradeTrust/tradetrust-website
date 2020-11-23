@@ -10,19 +10,42 @@ interface DocumentStatusProps {
   className?: string;
 }
 
+interface VerificationFragmentData {
+  did: string;
+  location: string;
+  status: string;
+}
+
 export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
-  const dnsFragmentName = "OpenAttestationDnsTxt";
-  const dnsFragment = verificationStatus.find((status) => status.name === dnsFragmentName);
-  const dnsIdentity = dnsFragment?.data?.every((issuer: { status: string }) => issuer.status === "VALID");
-  const domainNames = dnsFragment?.data
-    ?.map((issuer: { location: string }) => issuer.location.toUpperCase())
-    .join(", ");
-  const formattedDomainNames = domainNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
+  const joinIssuers = (issuers: string[] | undefined): string => {
+    if (!issuers) return "Unknown";
+    const issuerNames = issuers.join(", ");
+    return issuerNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
+  };
+  const formatIdentifier = (fragment: VerificationFragment<VerificationFragmentData[]>): string | undefined => {
+    switch (fragment.name) {
+      case "OpenAttestationDnsTxtIdentityProof":
+      // using fall through to get both cases
+      case "OpenAttestationDnsDidIdentityProof":
+        return joinIssuers(fragment.data?.map((issuer) => issuer.location.toUpperCase()));
+      case "OpenAttestationDidIdentityProof":
+        return joinIssuers(fragment.data?.map((issuer) => issuer.did.toUpperCase()));
+      default:
+        return "Unknown";
+    }
+  };
+
+  const identityProofFragment = verificationStatus.find(
+    (status) => status.type === "ISSUER_IDENTITY" && status.status === "VALID"
+  ) as VerificationFragment;
+  const dataFragment = identityProofFragment?.data;
+  const fragmentValidity = dataFragment?.every((issuer: { status: string }) => issuer.status === "VALID");
+  const formattedDomainNames = fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 
   return (
     <h3 id="issuedby" className={`mb-0 issuedby`}>
       <span className="mr-1">Issued by</span>
-      <span className="domain">{dnsIdentity ? `${formattedDomainNames}` : "Unknown"}</span>
+      <span className="domain">{formattedDomainNames}</span>
     </h3>
   );
 };

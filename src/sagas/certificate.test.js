@@ -4,7 +4,10 @@ import { types, getCertificate } from "../reducers/certificate";
 import { sendCertificate, verifyCertificate } from "./certificate";
 import { MakeCertUtil } from "./testutils";
 import * as emailService from "../services/email/sendEmail";
-import { whenDocumentValidAndIssued, whenDocumentHashInvalidAndNotIssued } from "../test/fixture/verifier-responses";
+import {
+  whenDocumentValidAndIssuedByDns,
+  whenDocumentHashInvalidAndNotIssued,
+} from "../test/fixture/verifier-responses";
 
 jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
 
@@ -113,11 +116,11 @@ describe("verifyCertificate", () => {
     generator.next("CERTIFICATE_OBJECT");
 
     // Should mark verification as completed and report the payload
-    const verificationCompletionAction = generator.next(whenDocumentValidAndIssued).value;
+    const verificationCompletionAction = generator.next(whenDocumentValidAndIssuedByDns).value;
     expect(verificationCompletionAction).toStrictEqual(
       put({
         type: types.VERIFYING_CERTIFICATE_COMPLETED,
-        payload: whenDocumentValidAndIssued,
+        payload: whenDocumentValidAndIssuedByDns,
       })
     );
 

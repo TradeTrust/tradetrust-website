@@ -5,8 +5,9 @@ import { DocumentStatus, IssuedBy } from "./DocumentStatus";
 import {
   whenDocumentHashInvalid,
   whenDocumentNotIssued,
-  whenDocumentIssuerIdentityInvalid,
+  whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentHashInvalidAndNotIssued,
+  whenDocumentIssuerIdentityInvalidDid,
 } from "../../test/fixture/verifier-responses";
 import { MESSAGES } from "../../constants/VerificationErrorMessages";
 
@@ -14,7 +15,7 @@ describe("IssuedBy", () => {
   it("should return appropriate display text when single dns is verified", () => {
     const fragments = [
       {
-        name: "OpenAttestationDnsTxt",
+        name: "OpenAttestationDnsTxtIdentityProof",
         type: "ISSUER_IDENTITY",
         status: "VALID",
         data: [
@@ -32,7 +33,7 @@ describe("IssuedBy", () => {
   it("should return appropriate display text when multiple dns is verified", () => {
     const fragments = [
       {
-        name: "OpenAttestationDnsTxt",
+        name: "OpenAttestationDnsTxtIdentityProof",
         type: "ISSUER_IDENTITY",
         status: "VALID",
         data: [
@@ -54,6 +55,43 @@ describe("IssuedBy", () => {
     const container = render(<IssuedBy verificationStatus={fragments} />);
     expect(container.queryByText("ABC.COM, XYZ.COM and DEMO.COM")).not.toBeNull();
   });
+
+  it("should return domain if is verified with DNS-DID", () => {
+    const fragments = [
+      {
+        name: "OpenAttestationDnsDidIdentityProof",
+        type: "ISSUER_IDENTITY",
+        status: "VALID",
+        data: [
+          {
+            status: "VALID",
+            location: "abc.com",
+          },
+        ],
+      },
+    ] as VerificationFragment[];
+    const container = render(<IssuedBy verificationStatus={fragments} />);
+    expect(container.queryByText("ABC.COM")).not.toBeNull();
+  });
+
+  it("should return did if is verified with DID", () => {
+    const sampleDidIdentity = "did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89";
+    const fragments = [
+      {
+        name: "OpenAttestationDidIdentityProof",
+        type: "ISSUER_IDENTITY",
+        status: "VALID",
+        data: [
+          {
+            status: "VALID",
+            did: sampleDidIdentity,
+          },
+        ],
+      },
+    ] as VerificationFragment[];
+    const container = render(<IssuedBy verificationStatus={fragments} />);
+    expect(container.queryByText(sampleDidIdentity.toUpperCase())).not.toBeNull();
+  });
 });
 
 describe("DocumentStatus", () => {
@@ -71,9 +109,18 @@ describe("DocumentStatus", () => {
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
   });
 
-  it("displays identity error if the identity is not verified", () => {
+  it("displays identity error if the dns txt identity is not verified", () => {
     const container = render(
-      <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalid as VerificationFragment[]} />
+      <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]} />
+    );
+    expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
+    expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
+    expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
+  });
+
+  it("displays identity error if the did identity is not verified", () => {
+    const container = render(
+      <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDid as VerificationFragment[]} />
     );
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();

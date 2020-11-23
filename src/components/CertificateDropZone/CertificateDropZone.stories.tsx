@@ -5,7 +5,7 @@ import {
   whenDocumentHashInvalid,
   whenDocumentRevoked,
   whenDocumentNotIssued,
-  whenDocumentIssuerIdentityInvalid,
+  whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentHashInvalidAndNotIssued,
 } from "../../test/fixture/verifier-responses";
 
@@ -60,7 +60,7 @@ export const Revoked = () => {
 export const IssuerIdentityInvalid = () => {
   return (
     <Router>
-      <CertificateDropZone verifying={false} verificationStatus={whenDocumentIssuerIdentityInvalid} />
+      <CertificateDropZone verifying={false} verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt} />
     </Router>
   );
 };
