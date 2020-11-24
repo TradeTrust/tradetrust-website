@@ -18,12 +18,12 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
     </div>
     <div className="text-grey-700">to view its contents</div>
     <div className="text-grey-700 flex flex-wrap items-center my-2">
-      <div className="w-2/12" />
-      <div className="w-3/12">
+      <div className="w-1/6" />
+      <div className="w-1/4">
         <hr className="border-grey-400" />
       </div>
-      <div className="w-2/12">or</div>
-      <div className="w-3/12">
+      <div className="w-1/6">or</div>
+      <div className="w-1/4">
         <hr className="border-grey-400" />
       </div>
     </div>
