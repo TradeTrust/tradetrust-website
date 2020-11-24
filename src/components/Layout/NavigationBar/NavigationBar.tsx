@@ -94,8 +94,6 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
           activeClassName=""
           smooth
         >
-          <span>Settings</span>
-          {/* a textNode has to exist somehow for testcafe to be able to select link dom in e2e ci, temp solution */}
           <Settings />
         </NavHashLink>
       );

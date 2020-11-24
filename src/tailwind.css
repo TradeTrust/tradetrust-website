@@ -41,6 +41,10 @@
     @apply text-brand-blue;
   }
 
+  svg {
+    display: inline; /* must leave default as `inline` else testcafe cannot select somehow */
+  }
+
   ol,
   ul {
     list-style: decimal;
