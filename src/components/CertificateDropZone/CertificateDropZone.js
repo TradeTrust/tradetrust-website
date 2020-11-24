@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Dropzone from "react-dropzone";
-import { isValid } from "../../services/verify/fragments";
 import { DefaultView } from "./Views/DefaultView";
 import { RetrievalErrorView } from "./Views/RetrievalErrorView";
 import { isValid } from "@govtechsg/oa-verify";
