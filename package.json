@@ -2,8 +2,9 @@
   "name": "tradetrust-website",
   "version": "2.0.0",
   "scripts": {
-    "build": "npm run check-types && npm run build:css && NODE_ENV=production webpack --progress --mode production",
-    "build:css": "NODE_ENV=production postcss src/tailwind.css -o src/index.css",
+    "build": "run-s check-types build:css build:app",
+    "build:css": "postcss src/tailwind.css -o src/index.css",
+    "build:app": "NODE_ENV=production webpack --progress --mode production",
     "check-types": "tsc --sourceMap false --noEmit",
     "dev:css": "postcss src/tailwind.css -o src/index.css --watch",
     "dev:serve": "sleep 2 && NODE_ENV=development webpack-dev-server",
