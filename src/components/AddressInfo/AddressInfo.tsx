@@ -18,7 +18,7 @@ export const AddressInfoUnStyled = ({ className, title, name, resolvedBy, source
           <h5>{name}</h5>
         </div>
       )}
-      <div className="etherum-address">{children}</div>
+      <div className="etherum-address w-full">{children}</div>
       {resolvedBy && (
         <div className="flex">
           <span className="info">

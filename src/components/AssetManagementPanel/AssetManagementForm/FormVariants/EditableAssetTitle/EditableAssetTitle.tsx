@@ -44,7 +44,7 @@ export const EditableAssetTitle = ({
   return (
     <AssetTitle role={role} address={newValue || ""}>
       <div className="flex items-start">
-        <div className="flex-grow mr-2">
+        <div className="w-64 mr-2">
           <InputEditableAssetTitle
             data-testid={`editable-input-${role.toLowerCase()}`}
             value={newValue}

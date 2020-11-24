@@ -82,7 +82,7 @@ export const ActionSelectionForm = ({
   return (
     <>
       <div className="flex flex-wrap justify-between mb-4 -mx-4">
-        <div className="w-full px-4 lg:w-auto">
+        <div className="w-full px-4 lg:w-1/3">
           <AssetInformationPanel
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
@@ -104,10 +104,10 @@ export const ActionSelectionForm = ({
         )}
         {!isSurrendered && !isTokenBurnt && isTitleEscrow && (
           <>
-            <div className="w-full px-4 lg:w-auto">
+            <div className="w-full px-4 lg:w-1/3">
               <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
             </div>
-            <div className="w-full px-4 lg:w-auto">
+            <div className="w-full px-4 lg:w-1/3">
               <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
             </div>
           </>

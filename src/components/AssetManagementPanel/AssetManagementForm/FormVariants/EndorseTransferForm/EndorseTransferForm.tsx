@@ -59,16 +59,16 @@ export const EndorseTransferForm = ({
         disabled={isPendingConfirmation}
       />
       <div className="flex flex-wrap justify-between mb-4 -mx-4">
-        <div className="w-full px-4 lg:w-auto">
+        <div className="w-full px-4 lg:w-1/3">
           <AssetInformationPanel
             setShowEndorsementChain={setShowEndorsementChain}
             tokenRegistryAddress={tokenRegistryAddress}
           />
         </div>
-        <div className="w-full px-4 lg:w-auto">
+        <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Owner" value={approvedBeneficiary} isEditable={false} onSetNewValue={() => {}} />
         </div>
-        <div className="w-full px-4 lg:w-auto">
+        <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Holder" value={approvedHolder} isEditable={false} onSetNewValue={() => {}} />
         </div>
       </div>
