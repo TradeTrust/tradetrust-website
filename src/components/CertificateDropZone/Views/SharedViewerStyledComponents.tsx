@@ -62,24 +62,6 @@ export const ViewerContainer = styled.div`
     }
   }
 
-  .image-container {
-    margin-bottom: 16px;
-
-    img {
-      height: 110px;
-    }
-  }
-
-  .message-container {
-    margin-top: 24px;
-    margin-bottom: 8px;
-    color: ${vars.black};
-
-    span {
-      vertical-align: middle;
-    }
-  }
-
   .verifications {
     margin-bottom: 32px;
 

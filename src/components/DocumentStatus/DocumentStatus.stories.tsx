@@ -1,5 +1,4 @@
 import React from "react";
-import { DocumentStatus, DocumentStatusUnStyled } from "./DocumentStatus";
 import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalid,
@@ -9,10 +8,11 @@ import {
   whenDocumentHashInvalidAndNotIssued,
   whenTransferableDocumentVerified,
 } from "../../test/fixture/verifier-responses";
+import { DocumentStatus } from "./DocumentStatus";
 
 export default {
   title: "Viewer/DocumentStatus",
-  component: DocumentStatusUnStyled,
+  component: DocumentStatus,
   parameters: {
     componentSubtitle: "All various statuses after document verification.",
   },

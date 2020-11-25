@@ -3,7 +3,7 @@ import { uploadDocument, validateIframeTexts } from "./helper";
 
 fixture("Document with 8 Attachments Rendering File Icons").page`http://localhost:3000`;
 
-const TabsItems = Selector("[data-testid='tabs'] .nav-item");
+const TabsItems = Selector(".multi-tab");
 const TabDefault = Selector("[data-testid='default']");
 const TabAttachment = Selector("[data-testid='tab-attachment']");
 const IconWordDoc = Selector("[data-testid='attachment-icon-doc']");

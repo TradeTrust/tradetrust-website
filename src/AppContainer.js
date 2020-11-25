@@ -1,11 +1,11 @@
 import React from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
-import { routes } from "./routes";
+import { Route, Switch, useLocation } from "react-router-dom";
+import { Footer } from "./components/Layout/Footer";
 import { NavigationBar } from "./components/Layout/NavigationBar";
-import { FooterDefault } from "./components/Layout/Footer";
-import { Overlay } from "./components/UI/Overlay";
 import { NetworkBar } from "./components/UI/NetworkBar";
+import { Overlay } from "./components/UI/Overlay";
+import { routes } from "./routes";
 
 const AppContainer = () => {
   const location = useLocation();
@@ -21,7 +21,7 @@ const AppContainer = () => {
           ))}
         </Switch>
       </main>
-      <FooterDefault />
+      <Footer />
       <Overlay />
     </div>
   );

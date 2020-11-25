@@ -9,9 +9,9 @@ interface SectionProps {
 export const Section = ({ children, ...props }: SectionProps) => {
   return (
     <section {...props}>
-      <div className="container-custom">
-        <div className="row">
-          <div className={`col-12`}>{children}</div>
+      <div className="container">
+        <div className="flex">
+          <div className="w-full">{children}</div>
         </div>
       </div>
     </section>

@@ -1,31 +1,31 @@
 import React, { useState } from "react";
-import { ButtonSolidOrangeWhite } from "../UI/Button";
 import { Plus } from "react-feather";
+import { ButtonSolidOrangeWhite } from "../UI/Button";
 import { AddressesTable } from "./AddressesTable";
 
 export const AddressResolver = () => {
   const [isNewEndpoint, setNewEndpoint] = useState(false);
 
   return (
-    <div className="container-custom py-5">
-      <div className="row align-items-end">
-        <div className="col-12 col-lg">
+    <div className="container py-12">
+      <div className="flex items-end">
+        <div className="w-full lg:flex-grow">
           <h1>Settings: Address Resolver</h1>
           <p className="mb-0 text-grey">Add third party’s endpoint to resolve addresses. </p>
         </div>
-        <div className="col-12 col-lg-auto">
+        <div className="w-auto lg:flex-grow">
           <ButtonSolidOrangeWhite
-            className="my-3 my-lg-0"
+            className="my-3 lg:my-0"
             onClick={() => {
               setNewEndpoint(true);
             }}
             disabled={isNewEndpoint}
           >
-            <div className="row align-items-center no-gutters">
-              <div className="col-auto mr-2">
+            <div className="flex items-center">
+              <div className="w-auto mr-2">
                 <Plus />
               </div>
-              <div className="col-auto">Add</div>
+              <div className="w-auto">Add</div>
             </div>
           </ButtonSolidOrangeWhite>
         </div>

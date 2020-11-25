@@ -1,0 +1,138 @@
+@tailwind base;
+
+@layer base {
+  body {
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold;
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  }
+  h1 {
+    font-size: 40px;
+    line-height: 1.2;
+  }
+  h2 {
+    font-size: 36px;
+  }
+  h3 {
+    font-size: 32px;
+  }
+  h4 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  h5 {
+    font-size: 20px;
+  }
+  h6 {
+  }
+  a {
+    @apply transition-colors;
+    @apply duration-200;
+    @apply ease-out;
+    @apply font-medium;
+    @apply text-brand-blue;
+  }
+
+  svg {
+    display: inline; /* must leave default as `inline` else testcafe cannot select somehow */
+  }
+
+  ol,
+  ul {
+    list-style: decimal;
+    margin: 16 0;
+    padding: 0 0 0 40;
+  }
+}
+
+@tailwind components;
+
+@layer components {
+  .multi-tab {
+    @apply bg-white;
+    @apply border-t-2;
+    @apply border-transparent;
+    @apply border-solid;
+    @apply font-bold;
+    @apply text-grey-700;
+    @apply bg-grey-100;
+    @apply transition-colors;
+    @apply duration-200;
+    @apply uppercase;
+    @apply cursor-pointer;
+    max-width: 180px;
+  }
+
+  .multi-tab:hover {
+    @apply text-grey-800;
+    @apply bg-grey-200;
+  }
+
+  .btn {
+    @apply transition-colors;
+    @apply duration-200;
+    @apply ease-out;
+    @apply rounded;
+    @apply cursor-pointer;
+    @apply py-2;
+    @apply px-4;
+  }
+}
+
+@tailwind utilities;
+
+@layer utilities {
+  .pulse {
+    animation: pulse 3s alternate infinite;
+  }
+
+  .exact-print {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @media print {
+    .no-print {
+      display: none;
+    }
+  }
+}
+
+@keyframes spinning {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes skeleton-loading {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}

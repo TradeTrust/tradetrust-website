@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
-import { Section } from "./Layout/Section";
-import { vars, mixin } from "../styles";
 import { rgba } from "polished";
+import React from "react";
 import { Check } from "react-feather";
+import { Link } from "react-router-dom";
+import { mixin, vars } from "../styles";
+import { Section } from "./Layout/Section";
 
 export const SectionEmailSuccess = styled(Section)`
   color: ${vars.greyDark};
@@ -50,18 +50,18 @@ export const EmailSuccessPageContainer = () => {
   return (
     <SectionEmailSuccess>
       <div className="success-card">
-        <div className="row no-gutters align-items-center px-3 py-5 bg-gradient">
-          <div className="col-auto mx-auto">
-            <div className="tick mb-3">
+        <div className="flex items-center px-6 py-12 bg-gradient">
+          <div className="w-auto mx-auto">
+            <div className="tick mb-4">
               <Check />
             </div>
           </div>
-          <div className="col-12">
+          <div className="w-full">
             <h1 className="mb-0">Success</h1>
           </div>
         </div>
-        <div className="row no-gutters px-3 py-5">
-          <div className="col-12">
+        <div className="flex flex-wrap px-6 py-12">
+          <div className="w-full">
             <h5>Thank you for your email enquiry.</h5>
             <p>We will get back to you shortly!</p>
             <p>

@@ -50,15 +50,15 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
             />
           ) : (
             <div className="placehold" data-testid="placeholder">
-              <div className="d-flex justify-content-center align-items-center h-100">
-                <h5 className="flex mb-0">{placeholderText}</h5>
+              <div className="flex justify-center items-center h-full">
+                <h5 className="mb-0">{placeholderText}</h5>
               </div>
             </div>
           )}
         </div>
       )}
       <div className="content">
-        <h3 className="title">
+        <h4 className="title mb-2">
           {youtubeEmbedCode ? (
             <a
               className="title"
@@ -72,50 +72,66 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
           ) : (
             <span data-testid="placeholder-title">{title}</span>
           )}
-        </h3>
+        </h4>
         {tag && <div className="tag">{tag}</div>}
         {dateTime && <div className="datetime">{dateTime}</div>}
-        <p>{description}</p>
-        <div className="py-2">
-          {downloads?.map((download, index) => (
-            <a
-              className="font-weight-bold d-flex align-items-end mt-1"
-              href={download.path}
-              download={download.fileName}
-              key={index}
-              data-testid="download-link"
-            >
-              <Download />
-              <span className="ml-2">{download.fileName}</span>
-            </a>
-          ))}
-        </div>
-        <div className="row no-gutters">
-          {watchLink && (
-            <div className="col-12 col-sm-auto">
-              <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
-                <PlayCircle />
-                <span className="px-2">Watch Event</span>
+        <p className="mb-4">{description}</p>
+        {downloads && (
+          <div className="py-2 text-brand-blue">
+            {downloads?.map((download, index) => (
+              <a
+                className="font-bold flex items-start mt-1"
+                href={download.path}
+                download={download.fileName}
+                key={index}
+                data-testid="download-link"
+              >
+                <Download />
+                <span className="ml-2">{download.fileName}</span>
               </a>
-            </div>
-          )}
-          {eventLink && (
-            <div className="col-12 col-sm-auto">
-              <a className="link" href={eventLink} target="_blank" rel="noopener noreferrer">
-                <ExternalLink />
-                <span className="px-2">Event Link</span>
-              </a>
-            </div>
-          )}
-          {eventSlides && (
-            <div className="col-12 col-sm-auto">
-              <a className="link" href={eventSlides} target="_blank" rel="noopener noreferrer">
-                <ExternalLink />
-                <span className="px-2">Event Slides</span>
-              </a>
-            </div>
-          )}
-        </div>
+            ))}
+          </div>
+        )}
+        {(watchLink || eventLink || eventSlides) && (
+          <div className="flex flex-wrap pt-4 text-brand-blue">
+            {watchLink && (
+              <div className="w-full sm:w-auto mb-2 sm:mb-0">
+                <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
+                  <div className="flex">
+                    <div className="w-auto">
+                      <PlayCircle />
+                    </div>
+                    <div className="flex-grow px-2">Watch Event</div>
+                  </div>
+                </a>
+              </div>
+            )}
+            {eventLink && (
+              <div className="w-full sm:w-auto mb-2 sm:mb-0">
+                <a className="link" href={eventLink} target="_blank" rel="noopener noreferrer">
+                  <div className="flex">
+                    <div className="w-auto">
+                      <ExternalLink />
+                    </div>
+                    <div className="flex-grow px-2">Event Link</div>
+                  </div>
+                </a>
+              </div>
+            )}
+            {eventSlides && (
+              <div className="w-full sm:w-auto mb-2 sm:mb-0">
+                <a className="link" href={eventSlides} target="_blank" rel="noopener noreferrer">
+                  <div className="flex">
+                    <div className="w-auto">
+                      <ExternalLink />
+                    </div>
+                    <div className="flex-grow px-2">Event Slides</div>
+                  </div>
+                </a>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </ResourcesCardItem>
   );
@@ -127,7 +143,7 @@ const ResourcesCardItem = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
 
-  @media (max-width: ${vars.md}) {
+  @media (max-width: ${vars.lg}) {
     flex-direction: column;
   }
 
@@ -195,7 +211,7 @@ const ResourcesCardItem = styled.div`
   .link {
     ${mixin.fontSize(18)};
     ${mixin.fontSourcesansproSemibold};
-    display: inline;
+    display: inline-block;
     padding-right: 16;
   }
 

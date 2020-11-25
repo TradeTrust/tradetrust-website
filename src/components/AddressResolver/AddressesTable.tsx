@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { lighten } from "polished";
+import React, { useContext } from "react";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
+import { ThirdPartyAPIEntryProps, useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
+import { fontSize } from "../../styles/abstracts/mixin";
+import { DeleteResolverConfirmation } from "../UI/Overlay/OverlayContent/DeleteResolverConfirmation";
 import { vars } from "./../../styles";
 import { EndpointEntry } from "./EndpointEntry";
-import { useThirdPartyAPIEndpoints, ThirdPartyAPIEntryProps } from "../../common/hooks/useThirdPartyAPIEndpoints";
-import { OverlayContext } from "../../common/contexts/OverlayContext";
-import { DeleteResolverConfirmation } from "../UI/Overlay/OverlayContent/DeleteResolverConfirmation";
-import { fontSize } from "../../styles/abstracts/mixin";
 
 export const TableStyle = () => {
   return `
@@ -33,6 +33,7 @@ export const TableStyle = () => {
       vertical-align: middle;
       white-space: nowrap;
       border-top: none;
+      padding: 0.75rem;
     }
 
     .table-thead {
@@ -142,8 +143,8 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
   };
 
   return (
-    <div className={`${className} row py-4`}>
-      <div className="col-12 col-lg">
+    <div className={`${className} flex flex-wrap py-6`}>
+      <div className="w-full lg:flex-grow">
         <div className="table-responsive">
           <table className="table">
             <thead className="table-thead">
@@ -287,17 +288,12 @@ export const AddressesTable = styled(({ className, isNewEndpoint, setNewEndpoint
 
       svg {
         cursor: pointer;
-        margin-left: 15px;
 
         polyline,
         path,
         line {
           transition: color 0.3s ease-out;
           color: ${vars.grey};
-        }
-
-        &:first-of-type {
-          margin-left: 0;
         }
 
         &:hover {

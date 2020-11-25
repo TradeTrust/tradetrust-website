@@ -57,10 +57,6 @@ export const InputEditableAssetTitle = styled.input`
   ${({ hasError }: EditableAssetTitleProps) => hasError && `border: 1px solid ${vars.red}`};
 `;
 
-export const InputEditableWrapper = styled.div`
-  width: 288px;
-`;
-
 export const InputError = styled.div`
   width: 100%;
   font-size: 14px;

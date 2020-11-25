@@ -1,11 +1,11 @@
+import PropTypes from "prop-types";
 import React from "react";
 import Dropzone from "react-dropzone";
-import PropTypes from "prop-types";
 import { DefaultView } from "./Views/DefaultView";
-import { VerifyingView } from "./Views/VerifyingView";
-import { UnverifiedView } from "./Views/UnverifiedView";
 import { RetrievalErrorView } from "./Views/RetrievalErrorView";
 import { isValid } from "@govtechsg/oa-verify";
+import { UnverifiedView } from "./Views/UnverifiedView";
+import { VerifyingView } from "./Views/VerifyingView";
 
 export const DropzoneContent = ({
   handleRenderOverwrite,
@@ -84,7 +84,7 @@ const CertificateDropzone = ({
     <Dropzone
       id="certificate-dropzone"
       onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}
-      className="w-100 h-auto"
+      className="w-full h-auto"
     >
       {renderDropzoneContentCurry({
         handleCertificateChange,

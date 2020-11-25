@@ -46,52 +46,50 @@ export const SurrenderForm = ({
   }, [isConfirmed, showOverlay, setFormActionNone]);
 
   return (
-    <div className="row py-3">
-      <div className="col-12">
-        <AssetManagementTitle
-          setFormActionNone={setFormActionNone}
-          formAction={formAction}
-          disabled={isPendingConfirmation}
-        />
-        <div className="row mb-3">
-          <div className="col-12 col-lg">
-            <AssetInformationPanel
-              setShowEndorsementChain={setShowEndorsementChain}
-              tokenRegistryAddress={tokenRegistryAddress}
-            />
-          </div>
-          <div className="col-12 col-lg">
-            <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
-          </div>
-          <div className="col-12 col-lg">
-            <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
-          </div>
+    <>
+      <AssetManagementTitle
+        setFormActionNone={setFormActionNone}
+        formAction={formAction}
+        disabled={isPendingConfirmation}
+      />
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
+        <div className="w-full px-4 lg:w-1/3">
+          <AssetInformationPanel
+            setShowEndorsementChain={setShowEndorsementChain}
+            tokenRegistryAddress={tokenRegistryAddress}
+          />
         </div>
-        <div className="row mb-3">
-          <div className="col-auto ml-auto">
-            <div className="row no-gutters">
-              <div className="col-auto">
-                <ButtonSolidWhiteGrey
-                  onClick={setFormActionNone}
-                  disabled={isPendingConfirmation}
-                  data-testid={"cancelSurrenderBtn"}
-                >
-                  Cancel
-                </ButtonSolidWhiteGrey>
-              </div>
-              <div className="col-auto ml-2">
-                <ButtonSolidRedWhite
-                  onClick={handleSurrender}
-                  disabled={isPendingConfirmation}
-                  data-testid={"surrenderBtn"}
-                >
-                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Surrender Document</>}
-                </ButtonSolidRedWhite>
-              </div>
+        <div className="w-full px-4 lg:w-1/3">
+          <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
+        </div>
+        <div className="w-full px-4 lg:w-1/3">
+          <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
+        </div>
+      </div>
+      <div className="flex flex-wrap mb-4">
+        <div className="w-auto ml-auto">
+          <div className="flex flex-wrap">
+            <div className="w-auto">
+              <ButtonSolidWhiteGrey
+                onClick={setFormActionNone}
+                disabled={isPendingConfirmation}
+                data-testid={"cancelSurrenderBtn"}
+              >
+                Cancel
+              </ButtonSolidWhiteGrey>
+            </div>
+            <div className="w-auto ml-2">
+              <ButtonSolidRedWhite
+                onClick={handleSurrender}
+                disabled={isPendingConfirmation}
+                data-testid={"surrenderBtn"}
+              >
+                {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Surrender Document</>}
+              </ButtonSolidRedWhite>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

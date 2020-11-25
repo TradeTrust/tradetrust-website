@@ -1,5 +1,5 @@
-import React from "react";
 import styled from "@emotion/styled";
+import React from "react";
 import { mixin, vars } from "./../../../styles";
 
 interface MediaCardProps {
@@ -32,8 +32,8 @@ export const MediaCardUnStyled = ({
             />
           )}
           <div className="placehold">
-            <div className="d-flex justify-content-center align-items-center h-100">
-              <h5 className="flex mb-0">{placeholderText}</h5>
+            <div className="flex justify-center items-center h-full">
+              <h5 className="mb-0">{placeholderText}</h5>
             </div>
           </div>
         </div>

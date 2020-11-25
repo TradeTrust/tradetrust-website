@@ -9,6 +9,7 @@ import { OverlayContextProvider } from "./common/contexts/OverlayContext";
 import { ProviderContextProvider } from "./common/contexts/provider";
 import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";
 import "./styles.css";
+import "./index.css";
 
 const history = createBrowserHistory();
 

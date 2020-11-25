@@ -1,8 +1,14 @@
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../tailwind.js";
+const fullConfig = resolveConfig(tailwindConfig);
+const theme = fullConfig.theme;
+const { colors } = theme;
+
 export const brandOrange = "#ff9933";
 export const brandBlue = "#0099cc";
 export const brandNavy = "#324353";
 
-export const blueLightest = "#f5f8fb";
+export const blueLightest = colors.blue[`100`];
 export const blueLighter = "#f3f8fc";
 export const blueLight = "#a6c1ee";
 export const blueDark = "#001F29";
@@ -45,7 +51,7 @@ export const easeInCubic = "cubic-bezier(0.55, 0.055, 0.675, 0.19)";
 export const easeOutCubic = "cubic-bezier(0.215, 0.61, 0.355, 1)";
 export const easeInOutCubic = "cubic-bezier(0.645, 0.045, 0.355, 1)";
 
-export const sm = "576px";
+export const sm = "640px";
 export const md = "768px";
-export const lg = "992px";
-export const xl = "1200px";
+export const lg = "1024px";
+export const xl = "1280px";

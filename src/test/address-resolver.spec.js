@@ -3,7 +3,7 @@ import { validateTextContent } from "./helper";
 
 fixture("Address Resolver").page`http://localhost:3000`;
 
-const LinkSettings = Selector("a[href='/settings']");
+const LinkSettings = Selector("[data-testid='settings']");
 const ButtonAdd = Selector("button").withText("Add");
 const TableBodyRows = Selector("tbody > tr");
 const TableBodyRow1 = Selector("tbody > tr:first-child");

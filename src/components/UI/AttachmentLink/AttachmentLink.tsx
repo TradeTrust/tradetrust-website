@@ -9,7 +9,6 @@ import { getLogger } from "../../../utils/logger";
 const { error } = getLogger("component:attachmentlink");
 
 export interface AttachmentLinkProps {
-  className?: string;
   filename: string;
   data?: string;
   type?: string;
@@ -29,7 +28,7 @@ interface ExtensionIconProps {
 }
 
 const ExtensionIcon: FunctionComponent<ExtensionIconProps> = ({ ...props }) => {
-  return <img {...props} className="flex items-center justify-center mr-2" />;
+  return <img {...props} className="max-w-full" />;
 };
 
 export const getExtension = (mimeType: string | undefined): React.ReactNode => {
@@ -58,7 +57,7 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
   }
 };
 
-export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }: AttachmentLinkProps) => {
+export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkProps) => {
   let filesize = "0";
   let redirectLink = "";
   const hasBase64 = !!(data && type);
@@ -76,23 +75,33 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
   }
 
   return (
-    <div className={className}>
-      <div className="row">
-        <div className="col-12 col-md-auto mb-3 mb-md-0">{getExtension(type)}</div>
-        <div className="col-12 col-md">
-          <p className="filetext">
+    <Attachment>
+      <div className="flex flex-row">
+        <div className="w-auto mr-4">{getExtension(type)}</div>
+        <div className="w-5/6">
+          <p className="filetext break-all">
             <span className="filename">{filename}</span>
-            {hasBase64 && <span className="filesize">({filesize})</span>}
+            {hasBase64 && <span className="filesize">&nbsp;({filesize})</span>}
           </p>
-          <div className="row no-gutters">
-            <div className="col-12 col-md-auto">
-              <a href={downloadHref} download={`${filename}`} className="downloadtext" data-testid="attachment-link">
+          <div className="flex">
+            <div className="w-auto mr-2">
+              <a
+                href={downloadHref}
+                download={`${filename}`}
+                data-testid="attachment-link"
+                className="downloadtext hover:underline"
+              >
                 Download
               </a>
             </div>
             {redirectLink && (
-              <div className="col-12 col-md-auto ml-0 ml-md-2">
-                <a href={redirectLink} target="_blank" rel="noopener noreferrer" className="downloadtext">
+              <div className="w-auto">
+                <a
+                  href={redirectLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="downloadtext hover:underline"
+                >
                   Open
                 </a>
               </div>
@@ -100,16 +109,17 @@ export const AttachmentLinkUnStyled = ({ className, filename, data, type, path }
           </div>
         </div>
       </div>
-    </div>
+    </Attachment>
   );
 };
 
-export const AttachmentLink = styled(AttachmentLinkUnStyled)`
+export const Attachment = styled.div`
   transition: background-color 0.3s ${vars.easeOutCubic};
   display: inline-block;
   width: 100%;
   border: solid 1px ${vars.greyLighter};
   padding: 10px 15px;
+  height: 100%;
 
   &:hover {
     text-decoration: none;
@@ -144,7 +154,6 @@ export const AttachmentLink = styled(AttachmentLinkUnStyled)`
     ${mixin.fontSourcesansproBold};
     line-height: 1.2;
     color: ${vars.grey};
-    margin-right: 4px;
     overflow-wrap: break-word;
   }
 

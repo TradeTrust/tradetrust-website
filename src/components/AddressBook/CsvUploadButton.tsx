@@ -1,8 +1,8 @@
-import React from "react";
-import { isEthereumAddress } from "../../utils";
 import { parse } from "papaparse";
-import { useAddressBook, AddressBookLocalProps } from "../../common/hooks/useAddressBook";
+import React from "react";
 import { FilePlus } from "react-feather";
+import { AddressBookLocalProps, useAddressBook } from "../../common/hooks/useAddressBook";
+import { isEthereumAddress } from "../../utils";
 import { LabelWhiteSecondary } from "../UI/Button";
 
 const readAsText = async (file: File): Promise<string> => {
@@ -62,11 +62,11 @@ export const CsvUploadButton = () => {
         accept=".csv"
       />
       <LabelWhiteSecondary htmlFor="csv-file-input">
-        <div className="row align-items-center no-gutters">
-          <div className="col-auto mr-2">
+        <div className="flex flex-wrap items-center">
+          <div className="w-auto mr-2">
             <FilePlus />
           </div>
-          <div className="col-auto">Import .csv</div>
+          <div className="w-auto">Import .csv</div>
         </div>
       </LabelWhiteSecondary>
     </div>

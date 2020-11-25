@@ -1,5 +1,5 @@
-import React from "react";
 import styled from "@emotion/styled";
+import React from "react";
 import { mixin, vars } from "../../styles";
 import { ResolutionResult } from "./../../common/hooks/useIdentifierResolver";
 
@@ -14,13 +14,13 @@ export const AddressInfoUnStyled = ({ className, title, name, resolvedBy, source
     <div className={`${className}`}>
       <h6>{title}:</h6>
       {name && (
-        <div className="d-flex">
+        <div className="flex">
           <h5>{name}</h5>
         </div>
       )}
-      <div className="etherum-address">{children}</div>
+      <div className="etherum-address w-full">{children}</div>
       {resolvedBy && (
-        <div className="d-flex">
+        <div className="flex">
           <span className="info">
             (Resolved by: {resolvedBy}
             {source && `; Source: ${source}`})
