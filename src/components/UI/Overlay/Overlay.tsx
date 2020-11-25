@@ -9,7 +9,7 @@ const OverlayBaseStyle = () => {
   return `
     transition: visibility 0.4s 0.1s ${vars.easeOutCubic}, opacity 0.4s 0.1s ${vars.easeOutCubic};
     position: fixed;
-    z-index: 9;
+    z-index: 100;
     top: 0;
     left: 0;
     width: 100%;
@@ -37,7 +37,6 @@ export const OverlayContentBaseStyle = () => {
   };
     box-shadow: 0 8px 20px ${rgba(vars.black, 0.2)};
     position: relative;
-    z-index: 1;
     display: flex;
     flex-direction: column;
     background-color: ${vars.white};
