@@ -175,7 +175,7 @@ export const NavigationBar = () => {
               </NavHashLink>
             </div>
             <div className="hidden lg:block lg:ml-auto">
-              <div className="flex items-center">
+              <div className="flex h-full items-center">
                 {navItems.map((item, index) => {
                   return (
                     <div key={index} className="text-base font-medium font-montserrat w-auto lg:ml-10">

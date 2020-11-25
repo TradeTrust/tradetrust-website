@@ -127,11 +127,11 @@ export const CertificateViewer = ({
       </div>
       <div className="bg-white py-6">
         {attachments && (
-          <div className={`${selectedTemplate !== "attachmentTab" && "hidden"}`}>
+          <div className={`${selectedTemplate !== "attachmentTab" ? "hidden" : "block"}`}>
             <TabPaneAttachments attachments={attachments} />
           </div>
         )}
-        <div className={`${selectedTemplate === "attachmentTab" && "hidden"}`}>
+        <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
           <DocumentUtility document={document} handleSharingToggle={handleSharingToggle} onPrint={onPrint} />
           <DecentralisedRendererContainer
             rawDocument={document}
