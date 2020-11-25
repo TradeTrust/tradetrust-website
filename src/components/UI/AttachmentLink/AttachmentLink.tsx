@@ -61,7 +61,7 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
   let filesize = "0";
   let redirectLink = "";
   const hasBase64 = !!(data && type);
-  const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "javascript:void(0)";
+  const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "#";
   if (data) {
     const decodedData = atob(data);
     filesize = prettyBytes(decodedData.length);

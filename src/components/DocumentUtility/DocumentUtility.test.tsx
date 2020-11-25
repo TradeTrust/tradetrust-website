@@ -3,6 +3,7 @@ import { render } from "@testing-library/react";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { DocumentUtility } from "./DocumentUtility";
+HTMLCanvasElement.prototype.getContext = jest.fn();
 
 describe("Nominate Owner", () => {
   it("should show QR code when document has one", async () => {
