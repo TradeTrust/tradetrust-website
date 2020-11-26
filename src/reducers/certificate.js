@@ -208,6 +208,10 @@ export function getVerifying(store) {
   return get(store, "certificate.verificationPending");
 }
 
+export function getVerifyingCertificateFailure(store) {
+  return store.certificate.verificationError;
+}
+
 export function getVerificationStatus(store) {
   return store.certificate.verificationStatus;
 }
