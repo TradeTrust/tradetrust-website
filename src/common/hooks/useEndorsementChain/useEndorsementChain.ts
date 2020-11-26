@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { providers, Signer } from "ethers";
 import { TradeTrustErc721Event } from "../../../types";
-import { fetchEscrowTransfers, fetchEventInfo } from "./fetchEscrowTransfer";
+import { fetchEvents, fetchEventInfo } from "./fetchEscrowTransfer";
 import { useProviderContext } from "../../contexts/provider";
 
 export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: string) => {
@@ -42,7 +42,7 @@ export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: strin
             case "0x000000000000000000000000000000000000dEaD":
               return fetchEventInfo(log.to, log.blockNumber, "Burnt", provider);
             default:
-              return fetchEscrowTransfers(log.to, provider);
+              return fetchEvents(log.to, log.blockNumber, provider);
           }
         })
       );

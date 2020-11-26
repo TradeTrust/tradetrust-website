@@ -54,3 +54,19 @@ export const fetchEventInfo = async (
     eventTimestamp,
   };
 };
+
+export const fetchEvents = async (
+  address: string,
+  blockNumber: number,
+  provider: providers.Provider
+): Promise<TradeTrustErc721Event> => {
+  try {
+    return await fetchEscrowTransfers(address, provider);
+  } catch (e) {
+    //SupportsInterface throws a call revert exception when the owner is a wallet
+    if (e.message.includes("call revert exception")) {
+      return await fetchEventInfo(address, blockNumber, "Transfer to Wallet", provider);
+    }
+    throw e;
+  }
+};
