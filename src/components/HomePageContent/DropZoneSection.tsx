@@ -65,6 +65,23 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
         });
     });
 
+    //if there is a parent window, send a READY to parent
+    if (window.opener) {
+      window.opener.postMessage({ type: "READY" });
+    }
+
+    //detecting message from parent window
+    window.addEventListener(
+      "message",
+      (event) => {
+        if (event.data.type == "LOAD_DOCUMENT") {
+          const doc = window.atob(event.data.payload);
+          updateCertificate(JSON.parse(doc));
+        }
+      },
+      false
+    );
+
     return () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       document.getElementById("demoDrop")!.removeEventListener("drop", () => removeListener());

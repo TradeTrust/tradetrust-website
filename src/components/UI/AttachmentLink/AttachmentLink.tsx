@@ -57,18 +57,38 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
   }
 };
 
+//sending message to child window
+const openTab = (data: string) => {
+  const childWin = window.open(`${window.location}/#verify-documents`, "_blank");
+  window.addEventListener(
+    "message",
+    (event) => {
+      if (event.data.type == "READY" && childWin) {
+        childWin.postMessage(
+          {
+            type: "LOAD_DOCUMENT",
+            payload: data,
+          },
+          `${window.location.href}`
+        );
+      }
+    },
+    false
+  );
+};
+
 export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkProps) => {
   let filesize = "0";
-  let redirectLink = "";
+  let isTT = filename.endsWith(".tt");
   const hasBase64 = !!(data && type);
-  const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "#";
-  if (data) {
+  const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "javascript:void(0)";
+  if (data && !isTT) {
     const decodedData = atob(data);
     filesize = prettyBytes(decodedData.length);
     try {
       const decodedJson = JSON.parse(decodedData);
       const originalDocument: OriginalDocumentProps = getData<WrappedDocument<OriginalDocumentProps>>(decodedJson);
-      redirectLink = originalDocument?.links?.self?.href ?? "";
+      isTT = originalDocument != null;
     } catch (e) {
       error("decode data not json: " + e);
     }
@@ -94,11 +114,12 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
                 Download
               </a>
             </div>
-            {redirectLink && (
-              <div className="w-auto">
+            {isTT && data && (
+              <div className="col-12 col-md-auto ml-0 ml-md-2">
                 <a
-                  href={redirectLink}
-                  target="_blank"
+                  onClick={() => {
+                    openTab(data);
+                  }}
                   rel="noopener noreferrer"
                   className="downloadtext hover:underline"
                 >
