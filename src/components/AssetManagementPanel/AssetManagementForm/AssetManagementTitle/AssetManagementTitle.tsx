@@ -26,7 +26,8 @@ export const AssetManagementTitle = styled(
           </div>
           <h3 className="action-title">
             {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
-            {formAction === AssetManagementActions.HandleSurrendered && <>Accept Surrender of Document</>}
+            {formAction === AssetManagementActions.AcceptSurrendered && <>Accept Surrender of Document</>}
+            {formAction === AssetManagementActions.RejectSurrendered && <>Reject Surrender of Document</>}
             {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
             {formAction === AssetManagementActions.EndorseBeneficiary && <>Endorse Change of Ownership</>}
             {formAction === AssetManagementActions.NominateBeneficiaryHolder && <>Nominate Change of Ownership</>}

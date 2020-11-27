@@ -11,7 +11,7 @@ const defaultProps = {
   holder: "0xa61B056dA0084a5f391EC137583073096880C2e3",
   account: "0xa61B056dA0084a5f391EC137583073096880C2e3",
   canSurrender: false,
-  canAcceptSurrender: false,
+  canHandleSurrender: false,
   onConnectToWallet: () => alert("Login to Metamask"),
   canChangeHolder: false,
   canEndorseBeneficiary: false,
@@ -181,7 +181,7 @@ describe("ActionSelectionForm", () => {
         {...defaultProps}
         onSetFormAction={mockOnSetFormAction}
         isTitleEscrow={false}
-        canAcceptSurrender={true}
+        canHandleSurrender={true}
       />
     );
 
@@ -191,6 +191,29 @@ describe("ActionSelectionForm", () => {
 
     await act(async () => {
       fireEvent.click(container.getByTestId("acceptSurrenderDropdown"));
+    });
+
+    expect(mockOnSetFormAction).toHaveBeenCalled();
+  });
+
+  it("should change the state of the action form to 'Reject Surrender' when clicked on the dropdown", async () => {
+    const mockOnSetFormAction = jest.fn();
+
+    const container = render(
+      <ActionSelectionForm
+        {...defaultProps}
+        onSetFormAction={mockOnSetFormAction}
+        isTitleEscrow={false}
+        canHandleSurrender={true}
+      />
+    );
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("manageAssetDropdown"));
+    });
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("rejectSurrenderDropdown"));
     });
 
     expect(mockOnSetFormAction).toHaveBeenCalled();
