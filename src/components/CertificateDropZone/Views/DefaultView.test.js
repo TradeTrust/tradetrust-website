@@ -25,4 +25,13 @@ describe("defaultView", () => {
     });
     expect(toggleQrReaderVisible).toHaveBeenCalledTimes(1);
   });
+
+  it("displays error if given verification error", () => {
+    const sampleErrorMessage = "QR Code is not formatted to TradeTrust specifications";
+    const wrapper = shallow(
+      <DefaultView hover={true} accept={true} toggleQrReaderVisible={() => {}} verificationError={sampleErrorMessage} />
+    );
+    const viewerContainerElm = wrapper.find("[data-id='viewer-container']");
+    expect(viewerContainerElm.text()).toContain(sampleErrorMessage);
+  });
 });

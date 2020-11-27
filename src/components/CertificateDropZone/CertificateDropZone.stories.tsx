@@ -72,3 +72,15 @@ export const FileError = () => {
     </Router>
   );
 };
+
+export const QrCodeError = () => {
+  return (
+    <Router>
+      <CertificateDropZone
+        verifying={false}
+        fileError={false}
+        verificationError={"QR Code is not formatted to TradeTrust specifications"}
+      />
+    </Router>
+  );
+};

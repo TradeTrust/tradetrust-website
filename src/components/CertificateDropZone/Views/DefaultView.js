@@ -2,8 +2,11 @@ import PropTypes from "prop-types";
 import React from "react";
 import { ViewerButton, ViewerContainer } from "./SharedViewerStyledComponents";
 
-export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
-  <ViewerContainer data-id="viewer-container" className={`${hover ? (accept ? "accept" : "invalid") : "default"}`}>
+export const DefaultView = ({ hover, accept, toggleQrReaderVisible, verificationError }) => (
+  <ViewerContainer
+    data-id="viewer-container"
+    className={`${hover ? (accept || !verificationError ? "invalid" : "accept") : "default"}`}
+  >
     <div className="mb-4">
       <img
         className="mx-auto"
@@ -13,6 +16,7 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible }) => (
       />
     </div>
     {accept ? null : <div>File cannot be read. Please check that you have a valid .tt or .json file</div>}
+    {verificationError ? <div>{verificationError}</div> : null}
     <div className="text-brand-navy" style={{ fontSize: "1.375rem", fontWeight: 500 }}>
       Drag and drop your tradetrust file
     </div>
@@ -49,4 +53,5 @@ DefaultView.propTypes = {
   hover: PropTypes.bool,
   accept: PropTypes.bool,
   toggleQrReaderVisible: PropTypes.func,
+  verificationError: PropTypes.string,
 };

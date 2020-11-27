@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   getCertificateByActionError,
+  getVerifyingCertificateFailure,
   getVerificationStatus,
   getVerifying,
   processQrCode,
@@ -75,6 +76,7 @@ export class CertificateDropZoneContainer extends Component {
         resetData={this.resetData.bind(this)}
         toggleQrReaderVisible={this.toggleQrReaderVisible}
         retrieveCertificateByActionError={this.props.retrieveCertificateByActionError}
+        verificationError={this.props.verificationError}
       />
     );
   }
@@ -84,6 +86,7 @@ const mapStateToProps = (store) => ({
   verifying: getVerifying(store),
   verificationStatus: getVerificationStatus(store),
   retrieveCertificateByActionError: getCertificateByActionError(store),
+  verificationError: getVerifyingCertificateFailure(store),
 });
 
 const mapDispatchToProps = (dispatch) => ({
