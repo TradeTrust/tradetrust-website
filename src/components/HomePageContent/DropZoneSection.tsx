@@ -3,9 +3,11 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { NETWORK_NAME } from "../../config";
 import { updateCertificate } from "../../reducers/certificate";
-import { trace } from "../../utils/logger";
+import { trace, getLogger } from "../../utils/logger";
 import CertificateDropzoneContainer from "../CertificateDropZone";
 import { mixin, vars } from "./../../styles";
+
+const { error } = getLogger("component:dropzone");
 
 const DEMO_CERT = `/static/demo/${NETWORK_NAME}.tt`;
 
@@ -74,9 +76,13 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
     window.addEventListener(
       "message",
       (event) => {
-        if (event.data.type == "LOAD_DOCUMENT") {
-          const doc = window.atob(event.data.payload);
-          updateCertificate(JSON.parse(doc));
+        if (event.data?.type === "LOAD_DOCUMENT" && event.data.payload) {
+          try {
+            const doc = atob(event.data.payload);
+            updateCertificate(JSON.parse(doc));
+          } catch (e) {
+            error("decode data not json: " + e);
+          }
         }
       },
       false

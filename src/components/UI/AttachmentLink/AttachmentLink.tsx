@@ -77,21 +77,27 @@ const openTab = (data: string) => {
   );
 };
 
+const isOpenAttestationFile = (decodedData: string) => {
+  try {
+    const decodedJson = JSON.parse(decodedData);
+    const unwrappedDocument = getData<WrappedDocument<OriginalDocumentProps>>(decodedJson);
+    if (!unwrappedDocument) throw new Error("File is not OA document"); //non-OA document returns undefined
+    return true;
+  } catch (e) {
+    error("decode data not json: " + e);
+    return false;
+  }
+};
+
 export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkProps) => {
   let filesize = "0";
-  let isTT = filename.endsWith(".tt");
+  let canOpenFile = false;
   const hasBase64 = !!(data && type);
-  const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "javascript:void(0)";
-  if (data && !isTT) {
+  const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "#";
+  if (data) {
     const decodedData = atob(data);
+    canOpenFile = isOpenAttestationFile(decodedData);
     filesize = prettyBytes(decodedData.length);
-    try {
-      const decodedJson = JSON.parse(decodedData);
-      const originalDocument: OriginalDocumentProps = getData<WrappedDocument<OriginalDocumentProps>>(decodedJson);
-      isTT = originalDocument != null;
-    } catch (e) {
-      error("decode data not json: " + e);
-    }
   }
 
   return (
@@ -114,8 +120,8 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
                 Download
               </a>
             </div>
-            {isTT && data && (
-              <div className="col-12 col-md-auto ml-0 ml-md-2">
+            {canOpenFile && data && (
+              <div className="w-auto">
                 <a
                   onClick={() => {
                     openTab(data);
