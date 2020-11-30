@@ -15,7 +15,7 @@ const IconTxt = Selector("[data-testid='attachment-icon-txt']");
 const IconPaperclip = Selector("[data-testid='attachment-icon-paperclip']");
 
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
-const AttachmentLink = Selector("[data-testid='attachment-link']");
+const AttachmentLink = Selector("[data-testid='attachment-download-link']");
 
 test("Attachment Tab and Panel rendered correctly", async (t) => {
   await uploadDocument("./fixture/file-with-attachments.json");

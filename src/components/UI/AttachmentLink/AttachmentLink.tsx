@@ -114,7 +114,7 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
               <a
                 href={downloadHref}
                 download={`${filename}`}
-                data-testid="attachment-link"
+                data-testid="attachment-download-link"
                 className="downloadtext hover:underline"
               >
                 Download
@@ -128,6 +128,7 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
                   }}
                   rel="noopener noreferrer"
                   className="downloadtext hover:underline"
+                  data-testid="attachment-open-link"
                 >
                   Open
                 </a>
