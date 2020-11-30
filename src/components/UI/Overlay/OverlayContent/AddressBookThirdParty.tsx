@@ -1,6 +1,6 @@
-import React from "react";
-import { AddressBookThirdPartyResultsProps } from "../../../../services/addressResolver";
+import { AddressBookThirdPartyResultsProps } from "@govtechsg/address-identity-resolver";
 import { isEmpty } from "lodash";
+import React from "react";
 import { AddressBookTableRow, AddressBookTableRowEmpty } from "./AddressBookTableRow";
 
 interface AddressBookThirdPartyProps {

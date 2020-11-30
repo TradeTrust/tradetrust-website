@@ -1,9 +1,12 @@
+import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
 
-jest.mock("../../../common/hooks/useIdentifierResolver");
+jest.mock("@govtechsg/address-identity-resolver", () => ({ useIdentifierResolver: jest.fn() }));
+
+const mockUseIdentifierResolver = useIdentifierResolver as jest.Mock;
 
 const sampleEndorsementChain: TitleEscrowEvent[] = [
   {
@@ -43,11 +46,13 @@ const sampleBurntEndorsementChain: TradeTrustErc721Event[] = [
 
 describe("EndorsementChainLayout", () => {
   it("should render the error component if there is an error", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(<EndorsementChainLayout error={"Some Error"} pending={false} setShowEndorsementChain={() => {}} />);
     expect(screen.getAllByText("Some Error")).toHaveLength(1);
   });
 
   it("should render the loading component when pending is true", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(<EndorsementChainLayout error={""} pending={true} setShowEndorsementChain={() => {}} />);
     expect(screen.getAllByRole("loaderSkeleton")).toHaveLength(9);
   });
@@ -67,6 +72,7 @@ describe("EndorsementChainLayout", () => {
   });
 
   it("should render text Surrendered to Issuer if surrender event present", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
         error={""}
@@ -79,6 +85,7 @@ describe("EndorsementChainLayout", () => {
   });
 
   it("should render text Surrendered if burnt event is present", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
         error={""}
@@ -92,6 +99,7 @@ describe("EndorsementChainLayout", () => {
 
   it("should fire setShowEndorsementChain when back button is clicked", async () => {
     const mockSetShowEndorsementChain = jest.fn();
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
         endorsementChain={sampleEndorsementChain}

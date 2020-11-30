@@ -1,52 +1,15 @@
-import { parse } from "papaparse";
+import { useAddressBook } from "@govtechsg/address-identity-resolver";
 import React from "react";
 import { FilePlus } from "react-feather";
-import { AddressBookLocalProps, useAddressBook } from "../../common/hooks/useAddressBook";
-import { isEthereumAddress } from "../../utils";
 import { LabelWhiteSecondary } from "../UI/Button";
 
-const readAsText = async (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    if (reader.error) {
-      reject(reader.error);
-    }
-    reader.onload = () => resolve(reader.result as string);
-    reader.readAsText(file);
-  });
-};
-
-interface AddressBookCsvData {
-  Identifier?: string;
-  identifier?: string;
-  Address?: string;
-  address?: string;
-}
-
-const csvToAddressBook = (csv: string) => {
-  const { data } = parse<AddressBookCsvData>(csv, { skipEmptyLines: true, header: true });
-  const addressBook: AddressBookLocalProps = {};
-  data.forEach((row, index) => {
-    const identifierText = row.Identifier || row.identifier;
-    const addressText = row.Address || row.address;
-    if (!identifierText) throw new Error(`Row ${index} does not have an identifer`);
-    if (!addressText) throw new Error(`Row ${index} does not have an address`);
-    if (!isEthereumAddress(addressText))
-      throw new Error(`${addressText} in row ${index} is not a valid Ethereum address`);
-    addressBook[addressText.toLowerCase()] = identifierText;
-  });
-  return addressBook;
-};
-
 export const CsvUploadButton = () => {
-  const { setAddressBook } = useAddressBook();
+  const { handleLocalAddressBookCsv } = useAddressBook();
   const handleUploadedFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const csvFile = event.target.files && event.target.files[0];
       if (!csvFile) throw new Error("No file selected");
-      const csv = await readAsText(csvFile);
-      const addressBook = csvToAddressBook(csv);
-      setAddressBook(addressBook);
+      handleLocalAddressBookCsv(csvFile);
     } catch (e) {
       alert(e.message || e);
     }
@@ -71,9 +34,4 @@ export const CsvUploadButton = () => {
       </LabelWhiteSecondary>
     </div>
   );
-};
-
-export const RawAddressBookData = () => {
-  const { addressBook } = useAddressBook();
-  return <pre>{JSON.stringify(addressBook, null, 2)}</pre>;
 };

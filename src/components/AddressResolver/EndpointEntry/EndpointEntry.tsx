@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
+import { getFeatures, ThirdPartyAPIEntryProps } from "@govtechsg/address-identity-resolver";
 import React, { useState } from "react";
 import { Edit, Save, Trash2 } from "react-feather";
 import isEmpty from "validator/lib/isEmpty";
 import isURL from "validator/lib/isURL";
-import { ThirdPartyAPIEntryProps } from "../../../common/hooks/useThirdPartyAPIEndpoints";
-import { getFeatures } from "../../../services/addressResolver";
 import { vars } from "../../../styles";
 import { InputDefault } from "../../UI/Input";
 import { LoaderSpinner } from "../../UI/Loader";
