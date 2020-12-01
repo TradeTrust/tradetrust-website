@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { uploadDocument } from "./helper";
+import { uploadDocument, validateIframeTexts } from "./helper";
 
 fixture("Document with 2 Attachments that are OA documents").page`http://localhost:3000`;
 
@@ -13,11 +13,8 @@ test("New tabs ", async (t) => {
   const AttachmentDownloadLink = Selector("[data-testid='attachment-download-link']");
   const OpenLink = Selector("[data-testid='attachment-open-link']");
 
-  const AttachmentLink0 = Selector("[data-testid='attachment-0']");
-  const AttachmentLink0OpenLink = AttachmentLink0.find("[data-testid='attachment-open-link']");
-  const AttachmentLink1 = Selector("[data-testid='attachment-1']");
-  const AttachmentLink1OpenLink = AttachmentLink1.find("[data-testid='attachment-open-link']");
-  const iframeInvoice = Selector("#rendered-certificate").find("[data-testid='invoice-template']");
+  const AttachmentLink0OpenLink = Selector("[data-testid='attachment-open-link']").nth(0);
+  const AttachmentLink1OpenLink = Selector("[data-testid='attachment-open-link']").nth(1);
 
   // tabs number should tally
   await TabDefault.with({ visibilityCheck: true })();
@@ -35,10 +32,11 @@ test("New tabs ", async (t) => {
   await t.expect(OpenLink.count).eql(2);
   await t.click(AttachmentLink0OpenLink);
   const currWindow = await t.getCurrentWindow();
+  await validateIframeTexts(["INVOICE"]);
 
-  await expect(iframeInvoice.exists).ok();
+  //close new tab and go back to parent window
   await t.closeWindow(currWindow);
 
   await t.click(AttachmentLink1OpenLink);
-  await expect(iframeInvoice.exists).ok();
+  await validateIframeTexts(["INVOICE"]);
 });
