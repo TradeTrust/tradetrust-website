@@ -5,7 +5,7 @@ import { AssetManagementActions } from "./../../AssetManagementActions";
 interface AssetManagementDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   canSurrender: boolean;
-  canAcceptSurrender?: boolean;
+  canHandleSurrender?: boolean;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   canNominateBeneficiaryHolder: boolean;
@@ -15,7 +15,7 @@ interface AssetManagementDropdownProps {
 export const AssetManagementDropdown = ({
   onSetFormAction,
   canSurrender,
-  canAcceptSurrender,
+  canHandleSurrender,
   canChangeHolder,
   canEndorseBeneficiary,
   canNominateBeneficiaryHolder,
@@ -64,15 +64,25 @@ export const AssetManagementDropdown = ({
           Surrender document
         </DropdownItem>
       )}
-      {canAcceptSurrender && (
-        <DropdownItem
-          className="active:bg-orange-dark active:text-white"
-          data-testid={"acceptSurrenderDropdown"}
-          onClick={() => onSetFormAction(AssetManagementActions.HandleSurrendered)}
-        >
-          Accept surrender of document
-        </DropdownItem>
+      {canHandleSurrender && (
+        <>
+          <DropdownItem
+            className="active:bg-orange-dark active:text-white"
+            data-testid={"acceptSurrenderDropdown"}
+            onClick={() => onSetFormAction(AssetManagementActions.AcceptSurrendered)}
+          >
+            Accept surrender of document
+          </DropdownItem>
+          <DropdownItem
+            className="active:bg-orange-dark active:text-white"
+            data-testid={"rejectSurrenderDropdown"}
+            onClick={() => onSetFormAction(AssetManagementActions.RejectSurrendered)}
+          >
+            Reject surrender of document
+          </DropdownItem>
+        </>
       )}
+
       {canEndorseTransfer && (
         <DropdownItem
           className="active:bg-orange-dark active:text-white"

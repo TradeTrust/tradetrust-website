@@ -3,7 +3,7 @@ import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
-import { HandleSurrenderedForm } from "./HandleSurrenderedForm";
+import { RejectSurrenderedForm } from "./RejectSurrenderedForm";
 import { act } from "react-dom/test-utils";
 import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
 import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
@@ -22,57 +22,30 @@ const sampleEndorsementChain = [
   },
 ];
 
-describe("Handle surrendered", () => {
+describe("RejectSurrenderedForm", () => {
   beforeEach(() => {
     jest.resetModules(); // this is important - it clears the cache
     mockUseFeatureFlagOverride.mockReturnValue({
       endorsementChain: sampleEndorsementChain,
     });
   });
-  it("should have the accept surrender button and accept surrender button", async () => {
+  it("should have the cancel button and reject surrender button", async () => {
     await act(async () => {
       const container = render(
-        <HandleSurrenderedForm
+        <RejectSurrenderedForm
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyTokenState={FormState.UNINITIALIZED}
-          handleDestroyToken={() => {}}
           restoreTokenState={FormState.UNINITIALIZED}
           handleRestoreToken={() => {}}
           tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
       expect(container.queryByTestId("rejectSurrenderBtn")).not.toBeNull();
-      expect(container.queryByTestId("acceptSurrenderBtn")).not.toBeNull();
-    });
-  });
-
-  it("should change the state of the application to Confirmed when we clicked on accept surrender", async () => {
-    await act(async () => {
-      const mockHandleDestroyToken = jest.fn();
-
-      const container = render(
-        <HandleSurrenderedForm
-          setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
-          setFormActionNone={() => {}}
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyTokenState={FormState.UNINITIALIZED}
-          handleDestroyToken={mockHandleDestroyToken}
-          restoreTokenState={FormState.UNINITIALIZED}
-          handleRestoreToken={() => {}}
-          tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
-        />
-      );
-
-      fireEvent.click(container.getByTestId("acceptSurrenderBtn"));
-      expect(mockHandleDestroyToken).toHaveBeenCalled();
+      expect(container.queryByTestId("cancelSurrenderBtn")).not.toBeNull();
     });
   });
 
@@ -89,15 +62,13 @@ describe("Handle surrendered", () => {
             setOverlayVisible: () => {},
           }}
         >
-          <HandleSurrenderedForm
+          <RejectSurrenderedForm
             setShowEndorsementChain={() => {}}
             formAction={AssetManagementActions.Surrender}
             setFormActionNone={() => {}}
             tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
             beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
             holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-            destroyTokenState={FormState.UNINITIALIZED}
-            handleDestroyToken={() => {}}
             restoreTokenState={FormState.UNINITIALIZED}
             handleRestoreToken={() => {}}
             tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
@@ -110,40 +81,16 @@ describe("Handle surrendered", () => {
     });
   });
 
-  it("should show a loader when the accept surrender state is in PENDING_CONFIRMATION", async () => {
-    await act(async () => {
-      const container = render(
-        <HandleSurrenderedForm
-          setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
-          setFormActionNone={() => {}}
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyTokenState={FormState.PENDING_CONFIRMATION}
-          handleDestroyToken={() => {}}
-          restoreTokenState={FormState.UNINITIALIZED}
-          handleRestoreToken={() => {}}
-          tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
-        />
-      );
-
-      expect(container.queryByTestId("accept-loader")).not.toBeNull();
-    });
-  });
-
   it("should show a loader when the reject surrender state is in PENDING_CONFIRMATION", async () => {
     await act(async () => {
       const container = render(
-        <HandleSurrenderedForm
+        <RejectSurrenderedForm
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyTokenState={FormState.UNINITIALIZED}
-          handleDestroyToken={() => {}}
           restoreTokenState={FormState.PENDING_CONFIRMATION}
           handleRestoreToken={() => {}}
           tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
@@ -154,57 +101,27 @@ describe("Handle surrendered", () => {
     });
   });
 
-  it("should disable accept surrender and reject button when the accept surrender state is in PENDING_CONFIRMATION", async () => {
+  it("should disable cancel and reject surrender button when the reject surrender state is in PENDING_CONFIRMATION", async () => {
     await act(async () => {
-      const mockHandleDestroyToken = jest.fn();
+      const mockFormActionNone = jest.fn();
       const mockHandleRestoreToken = jest.fn();
 
       const container = render(
-        <HandleSurrenderedForm
+        <RejectSurrenderedForm
           setShowEndorsementChain={() => {}}
           formAction={AssetManagementActions.Surrender}
-          setFormActionNone={() => {}}
+          setFormActionNone={mockFormActionNone}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyTokenState={FormState.PENDING_CONFIRMATION}
-          handleDestroyToken={mockHandleDestroyToken}
-          restoreTokenState={FormState.UNINITIALIZED}
-          handleRestoreToken={mockHandleRestoreToken}
-          tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
-        />
-      );
-
-      fireEvent.click(container.getByTestId("acceptSurrenderBtn"));
-      expect(mockHandleDestroyToken).not.toHaveBeenCalled();
-      fireEvent.click(container.getByTestId("rejectSurrenderBtn"));
-      expect(mockHandleRestoreToken).not.toHaveBeenCalled();
-    });
-  });
-
-  it("should disable accept surrender and reject button when the reject surrender state is in PENDING_CONFIRMATION", async () => {
-    await act(async () => {
-      const mockHandleDestroyToken = jest.fn();
-      const mockHandleRestoreToken = jest.fn();
-
-      const container = render(
-        <HandleSurrenderedForm
-          setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
-          setFormActionNone={() => {}}
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          destroyTokenState={FormState.UNINITIALIZED}
-          handleDestroyToken={mockHandleDestroyToken}
           restoreTokenState={FormState.PENDING_CONFIRMATION}
           handleRestoreToken={mockHandleRestoreToken}
           tokenId="0x33430b8a069f6f9115fe9403889162d6c779cccde4db8df04faaf09d6dc739ba"
         />
       );
 
-      fireEvent.click(container.getByTestId("acceptSurrenderBtn"));
-      expect(mockHandleDestroyToken).not.toHaveBeenCalled();
+      fireEvent.click(container.getByTestId("cancelSurrenderBtn"));
+      expect(mockFormActionNone).not.toHaveBeenCalled();
       fireEvent.click(container.getByTestId("rejectSurrenderBtn"));
       expect(mockHandleRestoreToken).not.toHaveBeenCalled();
     });
