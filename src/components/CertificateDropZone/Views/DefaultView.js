@@ -5,7 +5,7 @@ import { ViewerButton, ViewerContainer } from "./SharedViewerStyledComponents";
 export const DefaultView = ({ hover, accept, toggleQrReaderVisible, verificationError }) => (
   <ViewerContainer
     data-id="viewer-container"
-    className={`${hover ? (accept || !verificationError ? "invalid" : "accept") : "default"}`}
+    className={`${hover ? (accept && !verificationError ? "accept" : "invalid") : "default"}`}
   >
     <div className="mb-4">
       <img
