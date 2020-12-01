@@ -13,7 +13,7 @@ export const AssetTitle = ({ role, address, children }: AssetTitleProps) => {
 
   return (
     <div data-testid={`asset-title-${role.toLowerCase()}`} className="py-4">
-      <AddressInfo title={role} name={identityName} resolvedBy={identityResolvedBy} source={identitySource}>
+      <AddressInfo title={role} name={identityName} resolvedBy={identityResolvedBy} source={identitySource || ""}>
         {children}
       </AddressInfo>
     </div>
