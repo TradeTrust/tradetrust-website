@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
+import {
+  AddressBookThirdPartyResultsProps,
+  entityLookup,
+  useThirdPartyAPIEndpoints,
+} from "@govtechsg/address-identity-resolver";
 import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
 import { debounce } from "lodash";
 import React, { useCallback, useContext, useState } from "react";
 import { Download, Search } from "react-feather";
-import { useThirdPartyAPIEndpoints } from "../../../../common/hooks/useThirdPartyAPIEndpoints";
-import { AddressBookThirdPartyResultsProps, entityLookup } from "../../../../services/addressResolver";
 import { vars } from "../../../../styles";
 import { CsvUploadButton } from "../../../AddressBook/CsvUploadButton";
 import { AnchorLinkButtonSolidWhiteBlue } from "../../../UI/Button";
@@ -57,7 +60,7 @@ export const AddressBook = styled(({ onAddressSelected, ...props }: AddressBookP
           apiHeader,
           apiKey,
         });
-        setAddressBookThirdPartyResults(results);
+        setAddressBookThirdPartyResults(results.identities);
       } catch (e) {
         setAddressBookThirdPartyResults([]);
         queryEndpoint.cancel();

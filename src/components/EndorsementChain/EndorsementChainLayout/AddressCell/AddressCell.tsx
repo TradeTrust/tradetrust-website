@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import React, { FunctionComponent } from "react";
 import { Info } from "react-feather";
-import { useIdentifierResolver } from "../../../../common/hooks/useIdentifierResolver";
 import { mixin, vars } from "../../../../styles";
 import { TooltipIcon } from "../../../UI/SvgIcon";
 

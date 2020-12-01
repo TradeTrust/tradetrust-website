@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { ResolutionResult } from "@govtechsg/address-identity-resolver";
 import React from "react";
 import { mixin, vars } from "../../styles";
-import { ResolutionResult } from "./../../common/hooks/useIdentifierResolver";
 
 interface AddressInfoProps extends ResolutionResult {
   className?: string;

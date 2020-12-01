@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
+import { ThirdPartyAPIEntryProps, useThirdPartyAPIEndpoints } from "@govtechsg/address-identity-resolver";
 import { lighten } from "polished";
 import React, { useContext } from "react";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
-import { ThirdPartyAPIEntryProps, useThirdPartyAPIEndpoints } from "../../common/hooks/useThirdPartyAPIEndpoints";
 import { fontSize } from "../../styles/abstracts/mixin";
 import { DeleteResolverConfirmation } from "../UI/Overlay/OverlayContent/DeleteResolverConfirmation";
 import { vars } from "./../../styles";
