@@ -10,7 +10,7 @@ const { error } = getLogger("component:attachmentlink");
 
 export interface AttachmentLinkProps {
   filename: string;
-  data?: string;
+  data: string;
   type?: string;
   path?: string;
 }
@@ -94,11 +94,9 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
   let canOpenFile = false;
   const hasBase64 = !!(data && type);
   const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "#";
-  if (data) {
-    const decodedData = atob(data);
-    canOpenFile = isOpenAttestationFile(decodedData);
-    filesize = prettyBytes(decodedData.length);
-  }
+  const decodedData = atob(data);
+  canOpenFile = isOpenAttestationFile(decodedData);
+  filesize = prettyBytes(decodedData.length);
 
   return (
     <Attachment>

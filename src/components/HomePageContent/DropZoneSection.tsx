@@ -3,11 +3,9 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { NETWORK_NAME } from "../../config";
 import { updateCertificate } from "../../reducers/certificate";
-import { trace, getLogger } from "../../utils/logger";
+import { trace } from "../../utils/logger";
 import CertificateDropzoneContainer from "../CertificateDropZone";
 import { mixin, vars } from "./../../styles";
-
-const { error } = getLogger("component:dropzone");
 
 const DEMO_CERT = `/static/demo/${NETWORK_NAME}.tt`;
 
@@ -66,27 +64,6 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
           updateCertificate(res);
         });
     });
-
-    //if there is a parent window, send a READY to parent
-    if (window.opener) {
-      window.opener.postMessage({ type: "READY" });
-    }
-
-    //detecting message from parent window
-    window.addEventListener(
-      "message",
-      (event) => {
-        if (event.data?.type === "LOAD_DOCUMENT" && event.data.payload) {
-          try {
-            const doc = atob(event.data.payload);
-            updateCertificate(JSON.parse(doc));
-          } catch (e) {
-            error("decode data not json: " + e);
-          }
-        }
-      },
-      false
-    );
 
     return () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import queryString from "query-string";
-import MainPageContainer from "../components/MainPageContainer";
+import { MainPageContainer } from "../components/MainPageContainer";
 import { connect } from "react-redux";
 import {
   resetCertificateState,
