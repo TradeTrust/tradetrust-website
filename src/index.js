@@ -1,15 +1,15 @@
+import { OverlayContextProvider } from "@govtechsg/tradetrust-ui-components";
+import { ConnectedRouter } from "connected-react-router";
+import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
-import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
 import AppContainer from "./AppContainer";
-import initStore from "./store";
-import { OverlayContextProvider } from "./common/contexts/OverlayContext";
 import { ProviderContextProvider } from "./common/contexts/provider";
 import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";
-import "./styles.css";
 import "./index.css";
+import initStore from "./store";
+import "./styles.css";
 
 const history = createBrowserHistory();
 

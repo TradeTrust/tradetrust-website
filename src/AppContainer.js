@@ -1,10 +1,10 @@
+import { Overlay } from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { hot } from "react-hot-loader/root";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar } from "./components/Layout/NavigationBar";
 import { NetworkBar } from "./components/UI/NetworkBar";
-import { Overlay } from "./components/UI/Overlay";
 import { routes } from "./routes";
 
 const AppContainer = () => {

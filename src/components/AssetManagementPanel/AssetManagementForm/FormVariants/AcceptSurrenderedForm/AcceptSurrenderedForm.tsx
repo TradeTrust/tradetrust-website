@@ -1,12 +1,8 @@
+import { MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext, useEffect } from "react";
-import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
-import {
-  MessageTitle,
-  showDocumentTransferMessage,
-} from "../../../../UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
