@@ -1,12 +1,12 @@
+import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
+import { act } from "react-dom/test-utils";
+import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { RejectSurrenderedForm } from "./RejectSurrenderedForm";
-import { act } from "react-dom/test-utils";
-import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
-import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 
 jest.mock("../../../../../common/hooks/useEndorsementChain");
 

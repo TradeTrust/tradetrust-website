@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { MessageTitle } from "@govtechsg/tradetrust-ui-components";
 import { ethers, providers, Signer } from "ethers";
-import { NETWORK_NAME, INFURA_API_KEY } from "../../config";
-import { MessageTitle } from "./../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
 
 const getProvider =
   NETWORK_NAME === "local"

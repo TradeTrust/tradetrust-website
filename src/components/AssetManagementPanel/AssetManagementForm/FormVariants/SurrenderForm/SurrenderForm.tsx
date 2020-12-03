@@ -1,3 +1,4 @@
+import { MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
@@ -5,11 +6,6 @@ import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
-import { OverlayContext } from "./../../../../../common/contexts/OverlayContext";
-import {
-  MessageTitle,
-  showDocumentTransferMessage,
-} from "./../../../../../components/UI/Overlay/OverlayContent/DocumentTransferMessage";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 interface SurrenderFormProps {

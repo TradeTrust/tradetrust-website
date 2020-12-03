@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
+import { OverlayContext, Youtube } from "@govtechsg/tradetrust-ui-components";
 import { darken } from "polished";
 import React, { useContext } from "react";
-import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { mixin, vars } from "../../styles";
 import { Section } from "../Layout/Section";
-import { Youtube } from "./../../components/UI/Overlay/OverlayContent/Youtube";
 
 export const SectionLanding = styled(Section)`
   position: relative;

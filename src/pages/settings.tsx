@@ -1,6 +1,6 @@
+import { AddressResolver } from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { Helmet } from "react-helmet";
-import { AddressResolver } from "../components/AddressResolver";
 
 export const SettingsPage = () => (
   <>
