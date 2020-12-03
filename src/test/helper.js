@@ -6,9 +6,9 @@ const CertificateDropzone = Selector("#certificate-dropzone");
 const DocumentStatus = Selector("#document-status");
 const IssuedByDomainName = Selector("#issuedby .domain");
 
-export const validateTextContent = async (t, component, texts) =>
+export const validateTextContent = async (testcafe, component, texts) =>
   texts.reduce(
-    async (previousValue, currentValue) => t.expect(component.textContent).contains(currentValue),
+    async (previousValue, currentValue) => testcafe.expect(component.textContent).contains(currentValue),
     Promise.resolve()
   );
 

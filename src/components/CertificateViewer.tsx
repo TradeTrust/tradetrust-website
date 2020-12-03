@@ -71,9 +71,9 @@ export const CertificateViewer = ({
 
   const childRef = React.useRef<{ print: () => void }>();
 
-  const updateTemplates = useCallback((templates: TemplateProps[]) => {
+  const updateTemplates = useCallback((templateList: TemplateProps[]) => {
     // filter all templates that are renderable currently
-    const templatesModified = templates.filter((item) => {
+    const templatesModified = templateList.filter((item) => {
       return item.type === "custom-template" || item.type === "application/pdf" || !item.type; // !item.type caters to renderers that still has decentralized-renderer-react-components dependency at <2.3.0, where type does not exists
     });
 

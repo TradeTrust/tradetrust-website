@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 
 const { error } = getLogger("component:mainpage");
 
-const MainPage = () => {
+const MainPage = ({ loadCertificate }: { loadCertificate: (certificate: any) => void }) => {
   useEffect(() => {
     //if there is a parent window, send a READY to parent
     if (window.opener) {
@@ -25,7 +25,7 @@ const MainPage = () => {
           try {
             const doc = atob(event.data.payload);
             console.log(doc);
-            updateCertificate(JSON.parse(doc));
+            loadCertificate(JSON.parse(doc));
           } catch (e) {
             error("decode data not json: " + e);
           }
@@ -33,7 +33,7 @@ const MainPage = () => {
       },
       false
     );
-  }, []);
+  }, [loadCertificate]);
 
   return (
     <div className="text-lg">
@@ -47,7 +47,7 @@ const MainPage = () => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  updateCertificate: (payload: any) => dispatch(updateCertificate(payload)),
+  loadCertificate: (payload: any) => dispatch(updateCertificate(payload)),
 });
 
 export const MainPageContainer = connect(null, mapDispatchToProps)(MainPage);
