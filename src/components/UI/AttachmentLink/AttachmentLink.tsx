@@ -10,7 +10,7 @@ const { error } = getLogger("component:attachmentlink");
 
 export interface AttachmentLinkProps {
   filename: string;
-  data?: string;
+  data: string;
   type?: string;
   path?: string;
 }
@@ -57,22 +57,46 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
   }
 };
 
+//sending message to child window
+const openTab = (data: string) => {
+  const childWin = window.open(`${window.location}/#verify-documents`, "_blank");
+  window.addEventListener(
+    "message",
+    (event) => {
+      if (event.data.type == "READY" && childWin) {
+        childWin.postMessage(
+          {
+            type: "LOAD_DOCUMENT",
+            payload: data,
+          },
+          `${window.location.href}`
+        );
+      }
+    },
+    false
+  );
+};
+
+const isOpenAttestationFile = (decodedData: string) => {
+  try {
+    const decodedJson = JSON.parse(decodedData);
+    const unwrappedDocument = getData<WrappedDocument<OriginalDocumentProps>>(decodedJson);
+    if (!unwrappedDocument) throw new Error("File is not OA document"); //non-OA document returns undefined
+    return true;
+  } catch (e) {
+    error("decode data not json: " + e);
+    return false;
+  }
+};
+
 export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkProps) => {
   let filesize = "0";
-  let redirectLink = "";
+  let canOpenFile = false;
   const hasBase64 = !!(data && type);
   const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "#";
-  if (data) {
-    const decodedData = atob(data);
-    filesize = prettyBytes(decodedData.length);
-    try {
-      const decodedJson = JSON.parse(decodedData);
-      const originalDocument: OriginalDocumentProps = getData<WrappedDocument<OriginalDocumentProps>>(decodedJson);
-      redirectLink = originalDocument?.links?.self?.href ?? "";
-    } catch (e) {
-      error("decode data not json: " + e);
-    }
-  }
+  const decodedData = atob(data);
+  canOpenFile = isOpenAttestationFile(decodedData);
+  filesize = prettyBytes(decodedData.length);
 
   return (
     <Attachment>
@@ -88,19 +112,21 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
               <a
                 href={downloadHref}
                 download={`${filename}`}
-                data-testid="attachment-link"
+                data-testid="attachment-download-link"
                 className="downloadtext hover:underline"
               >
                 Download
               </a>
             </div>
-            {redirectLink && (
+            {canOpenFile && data && (
               <div className="w-auto">
                 <a
-                  href={redirectLink}
-                  target="_blank"
+                  onClick={() => {
+                    openTab(data);
+                  }}
                   rel="noopener noreferrer"
                   className="downloadtext hover:underline"
+                  data-testid="attachment-open-link"
                 >
                   Open
                 </a>

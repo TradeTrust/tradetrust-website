@@ -36,10 +36,10 @@ const MobileDemoCertificate = () => (
 
 interface DropZoneSectionProps {
   className?: string;
-  updateCertificate: (certificate: any) => void;
+  loadCertificate: (certificate: any) => void;
 }
 
-const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectionProps) => {
+const DropZoneSection = styled(({ className, loadCertificate }: DropZoneSectionProps) => {
   const removeListener = () => trace("drop listener removed");
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
         .fetch(DEMO_CERT)
         .then((res) => res.json())
         .then((res) => {
-          updateCertificate(res);
+          loadCertificate(res);
         });
     });
 
@@ -71,7 +71,7 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       document.getElementById("demoClick")!.removeEventListener("click", () => removeListener());
     };
-  }, [updateCertificate]);
+  }, [loadCertificate]);
 
   return (
     <section id="verify-documents" className={`${className} bg-brand-navy text-white`}>
@@ -131,7 +131,7 @@ const DropZoneSection = styled(({ className, updateCertificate }: DropZoneSectio
 `;
 
 const mapDispatchToProps = (dispatch: any) => ({
-  updateCertificate: (payload: any) => dispatch(updateCertificate(payload)),
+  loadCertificate: (payload: any) => dispatch(updateCertificate(payload)),
 });
 
 export const DropZoneSectionContainer = connect(null, mapDispatchToProps)(DropZoneSection);

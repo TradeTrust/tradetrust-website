@@ -12,7 +12,7 @@ const TabJpeg = Selector("[data-testid='attachment-2']");
 const TabPdf1 = Selector("[data-testid='attachment-3']");
 const TabPdf2 = Selector("[data-testid='attachment-4']");
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
-const AttachmentLink = Selector("[data-testid='attachment-link']");
+const AttachmentLink = Selector("[data-testid='attachment-download-link']");
 const Pdf1Span = Selector("span").withText("UNCITRAL Model Law on");
 const Pdf2Span = Selector("span").withText("Dumm");
 

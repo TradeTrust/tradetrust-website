@@ -9,19 +9,19 @@ export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, de
     <ResourcesLinkItem>
       <div className="link-wrapper">
         <div className="title">{title}</div>
-        {details.map((details, index) => (
+        {details.map((detail, index) => (
           <div className="pt-2 text-brand-blue" key={index}>
             {type === "link" && (
-              <a className="link mb-2" href={details.url} target="_blank" rel="noopener noreferrer" data-testid="link">
-                {details.title}
+              <a className="link mb-2" href={detail.url} target="_blank" rel="noopener noreferrer" data-testid="link">
+                {detail.title}
               </a>
             )}
-            {details.date && <div className="date">{details.date}</div>}
+            {detail.date && <div className="date">{detail.date}</div>}
             {type === "download" && (
               <div className="download-wrapper">
-                <a href={details.url} download={`${details.title}.pdf`} className="link mb-2" data-testid="download">
+                <a href={detail.url} download={`${detail.title}.pdf`} className="link mb-2" data-testid="download">
                   <Download className="mr-1" />
-                  {details.title}
+                  {detail.title}
                 </a>
               </div>
             )}

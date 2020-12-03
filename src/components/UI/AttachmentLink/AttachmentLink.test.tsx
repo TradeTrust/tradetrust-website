@@ -6,7 +6,7 @@ const sampleData = `eyJ2ZXJzaW9uIjoiaHR0cHM6Ly9zY2hlbWEub3BlbmF0dGVzdGF0aW9uLmNv
 
 describe("AttachmentLink", () => {
   it("should render filename correctly", () => {
-    const container = render(<AttachmentLink filename="TradeTrust Tech Webinar 2.pdf" />);
+    const container = render(<AttachmentLink filename="TradeTrust Tech Webinar 2.pdf" data={sampleData} />);
     expect(container.getByText("TradeTrust Tech Webinar 2.pdf")).not.toBeNull();
   });
 
@@ -23,16 +23,6 @@ describe("AttachmentLink", () => {
     );
     expect(container.getByText("Download")).not.toBeNull();
     expect(container.getByText("Open")).not.toBeNull();
-  });
-
-  it("should render download link with direct asset correctly", () => {
-    const container = render(
-      <AttachmentLink
-        filename="TradeTrust Tech Webinar 2.pdf"
-        path="/static/images/webinar/tradetrust-tech-webinar-2.pdf"
-      />
-    );
-    expect(container.getByText("Download")).not.toBeNull();
   });
 
   it("should render a uploaded pdf file correctly", () => {

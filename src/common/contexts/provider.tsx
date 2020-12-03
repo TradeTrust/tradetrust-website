@@ -36,13 +36,13 @@ export const ProviderContextProvider = ({ children }: { children: React.ReactNod
     await ethereum.enable();
     const injectedWeb3 = ethereum || web3.currentProvider;
     if (!injectedWeb3) throw new Error("No injected web3 provider found");
-    const provider = new ethers.providers.Web3Provider(injectedWeb3);
-    const signer = provider.getSigner();
-    const account = (await provider.listAccounts())[0];
+    const web3provider = new ethers.providers.Web3Provider(injectedWeb3);
+    const signer = web3provider.getSigner();
+    const web3account = (await web3provider.listAccounts())[0];
 
     setProvider(signer);
     setIsUpgraded(true);
-    setAccount(account);
+    setAccount(web3account);
   };
 
   const upgradeProvider = async () => {

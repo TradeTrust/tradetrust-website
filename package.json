@@ -219,7 +219,15 @@
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "error",
       "no-unused-expressions": "off",
-      "jest/no-disabled-tests": "error"
+      "jest/no-disabled-tests": "error",
+      "no-shadow": [
+        "error",
+        {
+          "builtinGlobals": false,
+          "hoist": "functions",
+          "allow": []
+        }
+      ]
     },
     "overrides": [
       {

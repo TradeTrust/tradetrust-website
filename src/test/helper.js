@@ -1,14 +1,14 @@
 import { t, Selector } from "testcafe";
 
-export const Iframe = Selector("#iframe[title='Decentralised Rendered Certificate']");
+export const Iframe = Selector("#iframe[title='Decentralised Rendered Certificate']", { timeout: 10000 });
 export const SampleTemplate = Selector("#root");
 const CertificateDropzone = Selector("#certificate-dropzone");
 const DocumentStatus = Selector("#document-status");
 const IssuedByDomainName = Selector("#issuedby .domain");
 
-export const validateTextContent = async (t, component, texts) =>
+export const validateTextContent = async (testcafe, component, texts) =>
   texts.reduce(
-    async (previousValue, currentValue) => t.expect(component.textContent).contains(currentValue),
+    async (previousValue, currentValue) => testcafe.expect(component.textContent).contains(currentValue),
     Promise.resolve()
   );
 

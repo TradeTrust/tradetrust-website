@@ -26,7 +26,7 @@ interface DecentralisedRendererProps {
   rawDocument: WrappedDocument<v2.OpenAttestationDocument>;
   updateTemplates: (templates: TemplateProps[]) => void;
   selectedTemplate: string;
-  applyPrivacyFilter: (doc: any) => void;
+  setPrivacyFilter: (doc: any) => void;
   forwardedRef: Ref<{ print: () => void } | undefined>;
 }
 
@@ -37,7 +37,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   rawDocument,
   updateTemplates,
   selectedTemplate,
-  applyPrivacyFilter,
+  setPrivacyFilter,
   forwardedRef,
 }) => {
   const toFrame = useRef<Dispatch>();
@@ -70,7 +70,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
       updateTemplates(action.payload);
     }
     if (action.type === "OBFUSCATE") {
-      applyPrivacyFilter(action.payload);
+      setPrivacyFilter(action.payload);
     }
   };
 
@@ -99,7 +99,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  applyPrivacyFilter: (path: any) => dispatch(applyPrivacyFilter(path)),
+  setPrivacyFilter: (path: any) => dispatch(applyPrivacyFilter(path)),
 });
 
 // eslint-disable-next-line react/display-name
@@ -108,7 +108,7 @@ const ForwardedRefDecentralisedRenderer = React.forwardRef<
   {
     rawDocument: WrappedDocument<v2.OpenAttestationDocument>;
     updateTemplates: (templates: TemplateProps[]) => void;
-    applyPrivacyFilter: (doc: any) => void;
+    setPrivacyFilter: (doc: any) => void;
     selectedTemplate: string;
   }
 >((props, ref) => <DecentralisedRenderer {...props} forwardedRef={ref} />);

@@ -68,8 +68,8 @@ export const AssetManagementApplication = ({
   };
 
   const onSetFormAction = useCallback(
-    (AssetManagementActions: AssetManagementActions) => {
-      setAssetManagementAction(AssetManagementActions);
+    (assetManagementActions: AssetManagementActions) => {
+      setAssetManagementAction(assetManagementActions);
     },
     [setAssetManagementAction]
   );
