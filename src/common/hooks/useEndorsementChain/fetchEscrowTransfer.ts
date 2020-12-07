@@ -60,13 +60,11 @@ export const fetchEvents = async (
   blockNumber: number,
   provider: providers.Provider
 ): Promise<TradeTrustErc721Event> => {
-  try {
+  const code = await provider.getCode(address);
+  //Returns the contract code, if there is no contract currently deployed, the result is 0x
+  if (code === "0x") {
+    return await fetchEventInfo(address, blockNumber, "Transfer to Wallet", provider);
+  } else {
     return await fetchEscrowTransfers(address, provider);
-  } catch (e) {
-    //SupportsInterface throws a call revert exception when the owner is a wallet
-    if (e.message.includes("call revert exception")) {
-      return await fetchEventInfo(address, blockNumber, "Transfer to Wallet", provider);
-    }
-    throw e;
   }
 };
