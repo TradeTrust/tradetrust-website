@@ -105,7 +105,9 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
               <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
                 <div className="relative flex flex-col">
                   <div className="dot" data-testid="dot" />
-                  <div className="name">Transferred to wallet</div>
+                  <div className="name" data-testid="transferred-to-wallet">
+                    Transferred to wallet
+                  </div>
                   <div className="address">{tradetrustErc721Event.documentOwner}</div>
                 </div>
               </td>
