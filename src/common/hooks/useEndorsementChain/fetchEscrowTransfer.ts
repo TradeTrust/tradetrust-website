@@ -54,3 +54,17 @@ export const fetchEventInfo = async (
     eventTimestamp,
   };
 };
+
+export const fetchEvents = async (
+  address: string,
+  blockNumber: number,
+  provider: providers.Provider
+): Promise<TradeTrustErc721Event> => {
+  const code = await provider.getCode(address);
+  const isContractDeployed = code === "0x";
+  if (isContractDeployed) {
+    return await fetchEventInfo(address, blockNumber, "Transfer to Wallet", provider);
+  } else {
+    return await fetchEscrowTransfers(address, provider);
+  }
+};

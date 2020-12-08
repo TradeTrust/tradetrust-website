@@ -4,7 +4,7 @@ export interface TemplateProps {
   type: string;
 }
 
-export type TradeTrustErc721EventType = "Transfer" | "Surrender" | "Burnt";
+export type TradeTrustErc721EventType = "Transfer" | "Transfer to Wallet" | "Surrender" | "Burnt";
 
 export interface TradeTrustErc721Event {
   eventType: TradeTrustErc721EventType;

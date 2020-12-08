@@ -96,6 +96,24 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
             </tr>
           );
           break;
+        case "Transfer to Wallet":
+          tableRows.push(
+            <tr className="table-row" key={index++}>
+              <td className="table-cell date border-top-none">
+                {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              </td>
+              <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
+                <div className="relative flex flex-col">
+                  <div className="dot" data-testid="dot" />
+                  <div className="name" data-testid="transferred-to-wallet">
+                    Transferred to wallet
+                  </div>
+                  <div className="address">{tradetrustErc721Event.documentOwner}</div>
+                </div>
+              </td>
+            </tr>
+          );
+          break;
         default:
           trace("Unknown event type please check event history");
           break;
@@ -214,6 +232,12 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
     font-size: ${mixin.fontSize(18)};
     color: ${vars.greyDark};
     font-weight: bold;
+  }
+
+  .address {
+    color: ${vars.brandBlue};
+    margin-bottom: 2rem;
+    word-break: break-word;
   }
 
   .dot {
