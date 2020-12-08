@@ -1,6 +1,6 @@
+import { Button } from "@govtechsg/tradetrust-ui-components";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ButtonSolidOrangeWhite } from "./../UI/Button";
 import { CheckboxDefault } from "./../UI/Checkbox";
 import { InputDefault } from "./../UI/Input";
 import { SelectDefault } from "./../UI/Select";
@@ -151,7 +151,7 @@ export const EmailForm = () => {
               required
             />
           </div>
-          <ButtonSolidOrangeWhite className="w-full">Send Enquiry</ButtonSolidOrangeWhite>
+          <Button className="bg-orange text-white hover:bg-orange-600 w-full">Send Enquiry</Button>
         </div>
       </div>
     </form>

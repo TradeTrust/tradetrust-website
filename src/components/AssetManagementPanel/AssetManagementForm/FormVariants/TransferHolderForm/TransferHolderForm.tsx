@@ -1,8 +1,7 @@
-import { MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
+import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { isEthereumAddress } from "../../../../../utils";
-import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -86,22 +85,24 @@ export const TransferHolderForm = ({
         <div className="w-auto ml-auto">
           <div className="flex flex-wrap">
             <div className="w-auto">
-              <ButtonSolidWhiteGrey
+              <Button
+                className="bg-white text-grey hover:bg-grey-100"
                 onClick={setFormActionNone}
                 disabled={isPendingConfirmation}
                 data-testid={"cancelTransferBtn"}
               >
                 Cancel
-              </ButtonSolidWhiteGrey>
+              </Button>
             </div>
             <div className="w-auto ml-2">
-              <ButtonSolidOrangeWhite
+              <Button
+                className="bg-orange text-white hover:bg-orange-600"
                 disabled={!isValidTransfer() || isPendingConfirmation}
                 onClick={() => handleTransfer(newHolder)}
                 data-testid={"transferBtn"}
               >
                 {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}
-              </ButtonSolidOrangeWhite>
+              </Button>
             </div>
           </div>
         </div>

@@ -1,6 +1,5 @@
-import { MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
+import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext } from "react";
-import { ButtonSolidOrangeWhite } from "../../../../UI/Button";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -125,13 +124,19 @@ export const ActionSelectionForm = ({
                     canHandleSurrender={canHandleSurrender}
                   />
                 ) : (
-                  <ButtonSolidOrangeWhite onClick={handleNoAccess}>No Access</ButtonSolidOrangeWhite>
+                  <Button className="bg-orange text-white hover:bg-orange-600" onClick={handleNoAccess}>
+                    No Access
+                  </Button>
                 )}
               </>
             ) : (
-              <ButtonSolidOrangeWhite data-testid={"connectToWallet"} onClick={handleConnectWallet}>
+              <Button
+                className="bg-orange text-white hover:bg-orange-600"
+                data-testid={"connectToWallet"}
+                onClick={handleConnectWallet}
+              >
                 Connect Wallet
-              </ButtonSolidOrangeWhite>
+              </Button>
             )}
           </div>
         </div>

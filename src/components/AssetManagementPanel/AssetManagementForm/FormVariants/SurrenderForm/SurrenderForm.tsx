@@ -1,7 +1,6 @@
-import { MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
+import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
-import { ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -66,22 +65,24 @@ export const SurrenderForm = ({
         <div className="w-auto ml-auto">
           <div className="flex flex-wrap">
             <div className="w-auto">
-              <ButtonSolidWhiteGrey
+              <Button
+                className="bg-white text-grey hover:bg-grey-100"
                 onClick={setFormActionNone}
                 disabled={isPendingConfirmation}
                 data-testid={"cancelSurrenderBtn"}
               >
                 Cancel
-              </ButtonSolidWhiteGrey>
+              </Button>
             </div>
             <div className="w-auto ml-2">
-              <ButtonSolidRedWhite
+              <Button
+                className="bg-red text-white hover:bg-red-600"
                 onClick={handleSurrender}
                 disabled={isPendingConfirmation}
                 data-testid={"surrenderBtn"}
               >
                 {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Surrender Document</>}
-              </ButtonSolidRedWhite>
+              </Button>
             </div>
           </div>
         </div>

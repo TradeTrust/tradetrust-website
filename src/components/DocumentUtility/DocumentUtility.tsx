@@ -1,12 +1,12 @@
-import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
+import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
+import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
+import QRCode, { ImageSettings } from "qrcode.react";
+import React, { useState } from "react";
+import { Download, Mail, Printer } from "react-feather";
 import { mixin, vars } from "../../styles";
 import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
-import { Printer, Mail, Download } from "react-feather";
-import { ButtonIconWhiteBlue } from "../UI/Button";
-import QRCode, { ImageSettings } from "qrcode.react";
 
 interface DocumentUtilityProps {
   document: WrappedDocument<v2.OpenAttestationDocument>;
@@ -48,11 +48,11 @@ export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: Docu
                   setQrCodePopover(!qrCodePopover);
                 }}
               >
-                <ButtonIconWhiteBlue aria-label="document-utility-qr-button">
+                <ButtonIcon className="bg-white hover:bg-grey-100" aria-label="document-utility-qr-button">
                   <SvgIcon strokeWidth="0.5" fill="currentColor">
                     <SvgIconQRCode />
                   </SvgIcon>
-                </ButtonIconWhiteBlue>
+                </ButtonIcon>
                 <div
                   data-testid="qr-code-svg"
                   className={`absolute border p-2 mt-2 top-100 right-0 shadow-md rounded bg-white ${
@@ -72,18 +72,23 @@ export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: Docu
             )}
           </div>
           <div className="w-auto ml-3">
-            <ButtonIconWhiteBlue aria-label="document-utility-print-button" onClick={() => onPrint()}>
+            <ButtonIcon
+              className="bg-white hover:bg-grey-100"
+              aria-label="document-utility-print-button"
+              onClick={() => onPrint()}
+            >
               <Printer />
-            </ButtonIconWhiteBlue>
+            </ButtonIcon>
           </div>
           <FeatureFlag name="SHARE_BY_EMAIL">
             <div className="w-auto ml-3">
-              <ButtonIconWhiteBlue
+              <ButtonIcon
+                className="bg-white hover:bg-grey-100"
                 aria-label="document-utility-share-by-email-button"
                 onClick={() => handleSharingToggle()}
               >
                 <Mail />
-              </ButtonIconWhiteBlue>
+              </ButtonIcon>
             </div>
           </FeatureFlag>
           <div className="w-auto ml-3">
@@ -92,9 +97,9 @@ export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: Docu
               target="_black"
               href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
             >
-              <ButtonIconWhiteBlue aria-label="document-utility-download-document-button">
+              <ButtonIcon className="bg-white hover:bg-grey-100" aria-label="document-utility-download-document-button">
                 <Download />
-              </ButtonIconWhiteBlue>
+              </ButtonIcon>
             </a>
           </div>
         </div>

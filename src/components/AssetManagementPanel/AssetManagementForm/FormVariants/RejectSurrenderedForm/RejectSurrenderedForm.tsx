@@ -1,9 +1,8 @@
-import { MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
+import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext, useEffect } from "react";
 import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { FormState } from "../../../../../constants/FormState";
 import { TitleEscrowEvent } from "../../../../../types";
-import { ButtonSolidRedWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -88,16 +87,18 @@ export const RejectSurrenderedForm = ({
           <div className="w-auto ml-auto">
             <div className="flex flex-wrap">
               <div className="w-auto">
-                <ButtonSolidWhiteGrey
+                <Button
+                  className="bg-white text-grey hover:bg-grey-100"
                   onClick={setFormActionNone}
                   disabled={isRestoreTokenPendingConfirmation}
                   data-testid={"cancelSurrenderBtn"}
                 >
                   Cancel
-                </ButtonSolidWhiteGrey>
+                </Button>
               </div>
               <div className="w-auto ml-2">
-                <ButtonSolidRedWhite
+                <Button
+                  className="bg-red text-white hover:bg-red-600"
                   onClick={onClickRejectSurrender}
                   disabled={isRestoreTokenPendingConfirmation || pending}
                   data-testid={"rejectSurrenderBtn"}
@@ -107,7 +108,7 @@ export const RejectSurrenderedForm = ({
                   ) : (
                     <>Reject Document</>
                   )}
-                </ButtonSolidRedWhite>
+                </Button>
               </div>
             </div>
           </div>

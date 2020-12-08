@@ -1,9 +1,8 @@
 import { useThirdPartyAPIEndpoints } from "@govtechsg/address-identity-resolver";
-import { AddressBook, useOverlayContext } from "@govtechsg/tradetrust-ui-components";
+import { AddressBook, Button, useOverlayContext } from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { NETWORK_NAME } from "../../config";
-import { ButtonBorderedBlue } from "../UI/Button";
 
 interface MultiButtonsProps {
   tokenRegistryAddress: string;
@@ -24,12 +23,14 @@ export const MultiButtons = ({ tokenRegistryAddress }: MultiButtonsProps) => {
       <div className="flex items-center">
         <div className="w-auto lg:ml-auto">
           <NavLink className="my-auto ml-auto" to="/">
-            <ButtonBorderedBlue>View another</ButtonBorderedBlue>
+            <Button className="bg-white text-blue hover:bg-grey-100 border-blue">View another</Button>
           </NavLink>
         </div>
         {tokenRegistryAddress && (
           <div className="w-auto ml-2">
-            <ButtonBorderedBlue onClick={onOverlayHandler}>Address Book</ButtonBorderedBlue>
+            <Button className="bg-white text-blue hover:bg-grey-100 border-blue" onClick={onOverlayHandler}>
+              Address Book
+            </Button>
           </div>
         )}
       </div>
