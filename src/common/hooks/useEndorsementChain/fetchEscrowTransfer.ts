@@ -61,8 +61,8 @@ export const fetchEvents = async (
   provider: providers.Provider
 ): Promise<TradeTrustErc721Event> => {
   const code = await provider.getCode(address);
-  //Returns the contract code, if there is no contract currently deployed, the result is 0x
-  if (code === "0x") {
+  const isContractDeployed = code === "0x";
+  if (isContractDeployed) {
     return await fetchEventInfo(address, blockNumber, "Transfer to Wallet", provider);
   } else {
     return await fetchEscrowTransfers(address, provider);
