@@ -1,5 +1,5 @@
 import { useThirdPartyAPIEndpoints } from "@govtechsg/address-identity-resolver";
-import { AddressBook, useOverlayContext } from "@govtechsg/tradetrust-ui-components";
+import { AddressBook, ButtonIcon, useOverlayContext } from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { Book } from "react-feather";
 import { NETWORK_NAME } from "../../../../../config";
@@ -7,7 +7,7 @@ import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
 import { InputEditableAssetTitle, InputError } from "../../../../UI/Input";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
-import { ButtonIconOrangeWhite } from "./../../../../UI/Button";
+
 interface EditableAssetTitleProps {
   role: string;
   value?: string;
@@ -69,9 +69,9 @@ export const EditableAssetTitle = ({
           )}
         </div>
         <div className="w-auto">
-          <ButtonIconOrangeWhite onClick={onOverlayHandler}>
-            <Book />
-          </ButtonIconOrangeWhite>
+          <ButtonIcon className="bg-orange hover:bg-orange-600" onClick={onOverlayHandler}>
+            <Book className="text-white" />
+          </ButtonIcon>
         </div>
       </div>
     </AssetTitle>

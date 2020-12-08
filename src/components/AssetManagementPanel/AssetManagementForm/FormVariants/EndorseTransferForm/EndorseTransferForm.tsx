@@ -1,7 +1,6 @@
-import { MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
+import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
-import { ButtonSolidOrangeWhite, ButtonSolidWhiteGrey } from "../../../../UI/Button";
 import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -72,18 +71,23 @@ export const EndorseTransferForm = ({
         <div className="w-auto ml-auto">
           <div className="flex flex-wrap">
             <div className="w-auto">
-              <ButtonSolidWhiteGrey onClick={setFormActionNone} disabled={isPendingConfirmation}>
+              <Button
+                className="bg-white text-grey hover:bg-grey-100"
+                onClick={setFormActionNone}
+                disabled={isPendingConfirmation}
+              >
                 Cancel
-              </ButtonSolidWhiteGrey>
+              </Button>
             </div>
             <div className="w-auto ml-2">
-              <ButtonSolidOrangeWhite
+              <Button
+                className="bg-orange text-white hover:bg-orange-600"
                 onClick={() => handleEndorseTransfer(approvedBeneficiary || "", approvedHolder || "")}
                 disabled={isPendingConfirmation}
                 data-testid={"endorseTransferBtn"}
               >
                 {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse Transfer</>}
-              </ButtonSolidOrangeWhite>
+              </Button>
             </div>
           </div>
         </div>
