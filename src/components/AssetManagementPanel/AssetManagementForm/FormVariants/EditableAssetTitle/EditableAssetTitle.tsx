@@ -70,7 +70,7 @@ export const EditableAssetTitle = ({
         </div>
         <div className="w-auto">
           <ButtonIcon className="bg-orange hover:bg-orange-600" onClick={onOverlayHandler}>
-            <Book />
+            <Book className="text-white" />
           </ButtonIcon>
         </div>
       </div>
