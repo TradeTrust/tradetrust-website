@@ -4,11 +4,10 @@ const fullConfig = resolveConfig(tailwindConfig);
 const theme = fullConfig.theme;
 const { colors } = theme;
 
-export const brandOrange = "#ff9933";
 export const brandBlue = "#0099cc";
 export const brandNavy = "#324353";
 
-export const blueLightest = colors.blue[`100`];
+export const blueLightest = colors.blue[`300`];
 export const blueLighter = "#f3f8fc";
 export const blueLight = "#a6c1ee";
 export const blueDark = "#001F29";
@@ -34,8 +33,6 @@ export const white = "#ffffff";
 export const black = "#000000";
 export const offblack = "#212529";
 
-export const success = "#28a745";
-export const danger = "#c12323";
 export const warning = "#ffbf00";
 export const invalid = "#e46767";
 

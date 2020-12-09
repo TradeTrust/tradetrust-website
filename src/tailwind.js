@@ -1,86 +1,63 @@
-module.exports = {
+const _ = require("lodash");
+const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwind");
+
+// https://tailwindcss.com/docs/theme
+const localConfig = {
   // future: {
   //   removeDeprecatedGapUtilities: true,
   //   purgeLayersByDefault: true,
   // },
   // purge: ["./src/**/*.ts", "./src/**/*.tsx"], // not to purge, cos common ui might need certain styles (should purge specific layers instead if really need)
   theme: {
-    container: (theme) => ({
-      center: true,
-      padding: theme("spacing.4"),
-    }),
     fontFamily: {
-      "source-sans-pro": ["Source Sans Pro", "sans-serif"],
-      montserrat: ["Montserrat", "sans-serif"],
+      sans: ["Roboto", "sans-serif"],
+      display: ["Roboto", "sans-serif"],
+      body: ["Roboto", "sans-serif"],
     },
     extend: {
+      minWidth: {
+        135: "135px",
+      },
+      minHeight: {
+        400: "400px",
+        600: "600px",
+      },
       colors: {
-        brand: {
-          blue: "#0099cc",
-          orange: "#ff9933",
-          navy: "#324353",
-        },
-        grey: {
-          100: "#f5f5f5",
-          200: "#e5e5e5",
-          300: "#dddddd",
-          400: "#bbbbbb",
-          500: "#8f8f8f",
-          700: "#5a5a5a",
-          800: "#4f4f4f",
-        },
-        greyblue: {
-          default: "#c1c9d1",
-          dark: "#a7afb7",
-          darker: "#343a40",
-        },
         blue: {
-          100: "#f5f8fb",
-          lighter: "#f3f8fc",
-          light: "#a6c1ee",
-          default: "#099de3",
+          300: "#f3f8fc",
+          400: "#a6c1ee",
           800: "#001F29",
         },
-        navy: {
-          default: "#324353",
-        },
         orange: {
-          lighter: "#fbd38d",
-          default: "#ffb152",
-          dark: "#ed8936",
+          300: "#fbd38d",
         },
         green: {
-          lightest: "#f5fbf7",
-          lighter: "#68d391",
-          default: "#00c04a",
-          600: "#029039",
-          darker: "#001f29",
+          100: "#f5fbf7",
+          400: "#68d391",
         },
-        teal: {
-          lighter: "#e5f9f8",
-          default: "#00cbbc",
+        red: {
+          100: "#fbeae9",
+          200: "#f7d7d7",
+          300: "#fc8686",
+          400: "#e46767",
+          900: "#8b0000",
+        },
+        yellow: {
+          default: "#ffe600",
+          600: "#ffbf00",
         },
         pink: {
           default: "#fbc2eb",
         },
-        red: {
-          lighter: "#fbeae9",
-          default: "#ff5268",
-          dark: "#8b0000",
-        },
-        white: {
-          default: "#ffffff",
-        },
-        black: {
-          light: "#212529",
-          default: "#000000",
-        },
-        offblack: {
-          default: "#212529",
+        greyblue: {
+          default: "#c1c9d1",
+          700: "#a7afb7",
+          900: "#343a40",
         },
       },
     },
   },
-  variants: {},
-  plugins: [],
 };
+const finalConfig = _.merge(commonUiConfig, localConfig); // deep merge
+
+module.exports = finalConfig;

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
 import styled from "@emotion/styled";
+import React, { Component } from "react";
 import { mixin, vars } from "../../styles";
 
 const DrawerAside = styled.aside`
@@ -127,7 +127,7 @@ export class Drawer extends Component<DrawerProps, DrawerState> {
             {this.createTabs(templates)}
           </div>
         ) : null}
-        <div className={`bg-brand-navy ${showAbsHeader ? "" : "mb-sidenav"}`}>
+        <div className={`bg-navy ${showAbsHeader ? "" : "mb-sidenav"}`}>
           <div className="togglebtn" onClick={() => this.toggleDrawer()}>
             &#9776;
           </div>

@@ -77,7 +77,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
         {dateTime && <div className="datetime">{dateTime}</div>}
         <p className="mb-4">{description}</p>
         {downloads && (
-          <div className="py-2 text-brand-blue">
+          <div className="py-2 text-blue">
             {downloads?.map((download, index) => (
               <a
                 className="font-bold flex items-start mt-1"
@@ -93,7 +93,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
           </div>
         )}
         {(watchLink || eventLink || eventSlides) && (
-          <div className="flex flex-wrap pt-4 text-brand-blue">
+          <div className="flex flex-wrap pt-4 text-blue">
             {watchLink && (
               <div className="w-full sm:w-auto mb-2 sm:mb-0">
                 <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">

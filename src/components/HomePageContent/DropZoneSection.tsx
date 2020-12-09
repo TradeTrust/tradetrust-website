@@ -74,7 +74,7 @@ const DropZoneSection = styled(({ className, loadCertificate }: DropZoneSectionP
   }, [loadCertificate]);
 
   return (
-    <section id="verify-documents" className={`${className} bg-brand-navy text-white`}>
+    <section id="verify-documents" className={`${className} bg-navy text-white`}>
       <div className="container">
         <div className="flex flex-wrap">
           <div className="w-full lg:w-5/12">

@@ -118,7 +118,7 @@ export const MediaPage = () => (
     </Helmet>
 
     <ResourcePageStyle>
-      <div className="bg-blue-lighter">
+      <div className="bg-blue-300">
         <div className="container py-12">
           <div className="flex">
             <div className="w-full">

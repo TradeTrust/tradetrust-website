@@ -1,5 +1,5 @@
-import React from "react";
 import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
+import React from "react";
 import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementDropdownProps {
@@ -26,11 +26,11 @@ export const AssetManagementDropdown = ({
       data-testid="manageAssetDropdown"
       dropdownButtonText="Manage Assets"
       alignRight
-      className="rounded px-3 py-2 font-bold text-white bg-orange hover:bg-orange-dark w-40"
+      className="rounded px-3 py-2 font-bold text-white bg-orange hover:bg-orange-600 w-40"
     >
       {canChangeHolder && (
         <DropdownItem
-          className="active:bg-orange-dark active:text-white"
+          className="active:bg-orange-600 active:text-white"
           data-testid={"transferHolderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.TransferHolder)}
         >
@@ -39,7 +39,7 @@ export const AssetManagementDropdown = ({
       )}
       {canEndorseBeneficiary && (
         <DropdownItem
-          className="active:bg-orange-dark active:text-white"
+          className="active:bg-orange-600 active:text-white"
           data-testid={"endorseBeneficiaryDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.EndorseBeneficiary)}
         >
@@ -48,7 +48,7 @@ export const AssetManagementDropdown = ({
       )}
       {canNominateBeneficiaryHolder && (
         <DropdownItem
-          className="active:bg-orange-dark active:text-white"
+          className="active:bg-orange-600 active:text-white"
           data-testid={"nominateBeneficiaryHolderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.NominateBeneficiaryHolder)}
         >
@@ -57,7 +57,7 @@ export const AssetManagementDropdown = ({
       )}
       {canSurrender && (
         <DropdownItem
-          className="active:bg-orange-dark active:text-white"
+          className="active:bg-orange-600 active:text-white"
           data-testid={"surrenderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.Surrender)}
         >
@@ -67,14 +67,14 @@ export const AssetManagementDropdown = ({
       {canHandleSurrender && (
         <>
           <DropdownItem
-            className="active:bg-orange-dark active:text-white"
+            className="active:bg-orange-600 active:text-white"
             data-testid={"acceptSurrenderDropdown"}
             onClick={() => onSetFormAction(AssetManagementActions.AcceptSurrendered)}
           >
             Accept surrender of document
           </DropdownItem>
           <DropdownItem
-            className="active:bg-orange-dark active:text-white"
+            className="active:bg-orange-600 active:text-white"
             data-testid={"rejectSurrenderDropdown"}
             onClick={() => onSetFormAction(AssetManagementActions.RejectSurrendered)}
           >
@@ -85,7 +85,7 @@ export const AssetManagementDropdown = ({
 
       {canEndorseTransfer && (
         <DropdownItem
-          className="active:bg-orange-dark active:text-white"
+          className="active:bg-orange-600 active:text-white"
           data-testid={"endorseTransferDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.EndorseTransfer)}
         >

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Settings } from "react-feather";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
-import { vars } from "../../../styles";
+import tw from "twin.macro";
 
 interface NavItemsProps {
   id: string;
@@ -114,29 +114,28 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
 
 export const NavBar = styled.nav`
   a {
-    color: ${vars.greyblue};
+    ${tw`text-greyblue`}
 
     &:hover {
-      color: ${vars.white};
+      ${tw`text-white`}
     }
 
     &.active {
-      color: ${vars.white};
+      ${tw`text-white`}
     }
   }
 
   .dropdown-link {
-    color: ${vars.grey};
-    font-weight: 500;
+    ${tw`text-grey font-medium`}
 
     &:not(.active) {
       &:hover {
-        color: ${vars.greyblueDark};
+        ${tw`text-greyblue-700`}
       }
     }
 
     &.active {
-      color: ${vars.brandOrange};
+      ${tw`text-orange`}
     }
   }
 `;
@@ -144,7 +143,7 @@ export const NavBar = styled.nav`
 export const NavigationBar = () => {
   const [isOn, setIsOn] = useState(false);
   return (
-    <NavBar className="bg-brand-navy">
+    <NavBar className="bg-navy">
       <div className="container py-4">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">

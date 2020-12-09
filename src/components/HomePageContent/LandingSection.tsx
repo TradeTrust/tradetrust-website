@@ -2,15 +2,13 @@ import styled from "@emotion/styled";
 import { OverlayContext, Youtube } from "@govtechsg/tradetrust-ui-components";
 import { darken } from "polished";
 import React, { useContext } from "react";
+import tw from "twin.macro";
 import { mixin, vars } from "../../styles";
 import { Section } from "../Layout/Section";
 
 export const SectionLanding = styled(Section)`
-  position: relative;
-  ${mixin.centerVertical()}
+  ${tw`relative flex flex-col justify-center text-center bg-gradient-to-r from-blue-300 to-pink`}
   min-height: 580px;
-  text-align: center;
-  background-image: linear-gradient(to right, ${vars.blueLight} 0%, ${vars.pink} 100%);
 
   &::before {
     content: "";

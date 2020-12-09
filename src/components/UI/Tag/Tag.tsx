@@ -1,28 +1,19 @@
 import styled from "@emotion/styled";
-import { mixin, vars } from "../../../styles";
+import tw from "twin.macro";
+import { mixin } from "../../../styles";
 
 const TagBaseStyle = () => {
   return `
-    display: inline-block;
-    letter-spacing: 0.01rem;
-    border-radius: 4px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    padding: 2px 10px;
-
-    background-color: ${vars.grey};
-    color: ${vars.white};
+    ${tw`inline-block rounded mr-2 mb-2 py-1 px-2 bg-grey text-white text-lg`}
 
     ${mixin.fontSourcesansproBold()};
-    ${mixin.fontSize(18)};
 
     &:last-of-type {
-      margin-right: 0;
+      ${tw`mr-0`}
     }
 
     p {
-      margin-top: 0;
-      margin-bottom: 0;
+      ${tw`my-0`}
     }
   `;
 };
@@ -34,28 +25,20 @@ export const TagSolid = styled.div`
 export const TagSolidTeal = styled.div`
   ${TagBaseStyle()};
 
-  background-color: ${vars.teal};
-  color: ${vars.white};
+  ${tw`bg-teal text-white`}
 `;
 
 export const TagSolidOrange = styled.div`
   ${TagBaseStyle()};
 
-  background-color: ${vars.brandOrange};
-  color: ${vars.white};
+  ${tw`bg-orange text-white`}
 `;
 
 const TagBorderedBaseStyle = () => {
   return `
     ${TagBaseStyle()};
 
-    padding: 0 6px;
-    background-color: ${vars.white};
-    color: ${vars.grey};
-
-    border-color: ${vars.grey};
-    border-style: solid;
-    border-width: 2px;
+    ${tw`py-0 px-2 bg-white text-grey border-grey border-solid border-2`}
   `;
 };
 
@@ -66,18 +49,11 @@ export const TagBordered = styled.div`
 export const TagBorderedRed = styled.div`
   ${TagBorderedBaseStyle()};
 
-  color: ${vars.red};
-  border-color: ${vars.red};
+  ${tw`text-red border-red`}
 `;
 
 export const TagBorderedRedLarge = styled.div`
   ${TagBorderedBaseStyle()};
 
-  color: ${vars.red};
-  border-color: ${vars.red};
-
-  padding: 0 16px;
-  border-width: 3px;
-  ${mixin.fontSize(40)};
-  margin: 0;
+  ${tw`text-red border-red py-0 px-4 border-4 text-4xl m-0`}
 `;

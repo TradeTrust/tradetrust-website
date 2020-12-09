@@ -38,7 +38,7 @@
     @apply duration-200;
     @apply ease-out;
     @apply font-medium;
-    @apply text-brand-blue;
+    @apply text-blue;
   }
 
   svg {

@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { VerificationFragment } from "@govtechsg/oa-verify";
 import React from "react";
+import tw from "twin.macro";
 import { NETWORK_NAME } from "../../config";
-import { mixin, vars } from "../../styles";
+import { mixin } from "../../styles";
 import { StatusChecks } from "./StatusChecks";
 
 interface DocumentStatusProps {
@@ -67,31 +68,27 @@ export const DocumentStatus = ({ verificationStatus }: DocumentStatusProps) => {
 };
 
 const DocumentStatusStyles = styled.div`
-  padding: 1rem 0;
+  ${tw`py-4`}
 
   .statusbar {
-    background-color: ${vars.white};
-    padding: 1rem;
-    border-radius: ${vars.buttonRadius};
+    ${tw`bg-white p-4 rounded`}
   }
 
   .issuedby {
-    color: ${vars.greyDark};
+    ${tw`text-grey-300 text-lg`}
     ${mixin.fontSourcesansproBold};
-    ${mixin.fontSize(18)};
 
     span {
-      display: inline-block;
+      ${tw`inline-block`}
       word-break: break-all;
     }
 
     .domain {
-      color: ${vars.brandBlue};
+      ${tw`text-blue`}
     }
   }
 
   .message {
-    line-height: 1.2;
-    ${mixin.fontSize(14)};
+    ${tw`text-sm leading-5`}
   }
 `;

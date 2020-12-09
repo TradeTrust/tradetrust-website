@@ -1,73 +1,33 @@
 import styled from "@emotion/styled";
 import React, { Component } from "react";
-import { mixin, vars } from "../styles";
+import tw from "twin.macro";
+import { mixin } from "../styles";
 
 const ErrorBoundaryStyled = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  padding: 50px 15px;
+  ${tw`w-full min-h-screen py-12 px-4`}
 
   .error {
     text-align: center;
 
     h2 {
       ${mixin.fontSourcesansproBold}
-      color: ${vars.brandOrange};
-      text-transform: uppercase;
-      padding-top: 20px;
-      padding-bottom: 10px;
-
-      ${mixin.fontSize(32)}
-      letter-spacing: 2px;
-
-      @media only screen and (min-width: ${vars.md}) {
-        ${mixin.fontSize(36)}
-        letter-spacing: 4px;
-      }
-
-      @media only screen and (min-width: ${vars.lg}) {
-        ${mixin.fontSize(40)}
-        letter-spacing: 6px;
-      }
+      ${tw`text-orange uppercase pt-5 pb-2 text-3xl md:text-4xl lg:text-5xl`}
     }
 
     img {
-      margin-left: auto;
-      margin-right: auto;
+      ${tw`mx-auto`}
     }
 
     p {
-      color: ${vars.black};
-      padding-bottom: 10px;
-
-      ${mixin.fontSize(16)}
-
-      @media only screen and (min-width: ${vars.md}) {
-        ${mixin.fontSize(20)}
-      }
-
-      @media only screen and (min-width: ${vars.lg}) {
-        ${mixin.fontSize(24)}
-      }
+      ${tw`text-black pb-2 text-base md:text-lg lg:text-2xl`}
     }
 
     a {
       ${mixin.fontSourcesansproBold}
-      display: inline-block;
-      padding: 15px 35px;
-      background-color: ${vars.brandNavy};
-      border: none;
-      border-radius: 40px;
-      color: ${vars.white};
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: 0.3s background-color ${vars.easeOutCubic}, 0.3s color ${vars.easeOutCubic};
-
-      ${mixin.fontSize(14)}
+      ${tw`inline-block px-8 py-4 bg-navy border-none rounded-full text-white uppercase no-underline transition duration-300 ease-out text-sm`}
 
       &:hover {
-        background-color: ${vars.brandOrange};
-        color: ${vars.white};
+        ${tw`bg-orange text-white`}
       }
     }
   }

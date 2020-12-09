@@ -88,7 +88,7 @@ export const CertificateViewer = ({
   };
 
   const renderedEndorsementChain = (
-    <div className="bg-blue-lighter no-print">
+    <div className="bg-blue-300 no-print">
       <DocumentStatus verificationStatus={verificationStatus} />
       <ObfuscatedMessage document={document} />
       {tokenRegistryAddress && (
@@ -103,7 +103,7 @@ export const CertificateViewer = ({
 
   const renderedCertificateViewer = (
     <>
-      <div className="bg-blue-lighter no-print">
+      <div className="bg-blue-300 no-print">
         <DocumentStatus verificationStatus={verificationStatus} />
         <ObfuscatedMessage document={document} />
         {tokenRegistryAddress && (
@@ -114,7 +114,7 @@ export const CertificateViewer = ({
           />
         )}
       </div>
-      <div className="bg-blue-lighter no-print">
+      <div className="bg-blue-300 no-print">
         <MultiTabs
           hasAttachments={hasAttachments}
           attachments={attachments}

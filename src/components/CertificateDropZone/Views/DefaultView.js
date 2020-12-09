@@ -17,7 +17,7 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible, verification
     </div>
     {accept ? null : <div>File cannot be read. Please check that you have a valid .tt or .json file</div>}
     {verificationError ? <div>{verificationError}</div> : null}
-    <div className="text-brand-navy" style={{ fontSize: "1.375rem", fontWeight: 500 }}>
+    <div className="text-navy" style={{ fontSize: "1.375rem", fontWeight: 500 }}>
       Drag and drop your tradetrust file
     </div>
     <div className="text-grey-700">to view its contents</div>
