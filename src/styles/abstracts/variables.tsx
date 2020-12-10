@@ -1,6 +1,3 @@
-export const greyLight = "#dddddd";
-export const grey = "#8f8f8f";
-export const greyDark = "#5a5a5a";
 export const white = "#ffffff";
 export const black = "#000000";
 export const offblack = "#212529";

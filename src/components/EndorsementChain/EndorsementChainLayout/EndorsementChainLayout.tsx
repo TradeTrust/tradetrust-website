@@ -214,8 +214,7 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .address {
-    color: ${vars.brandBlue};
-    margin-bottom: 2rem;
+    ${tw`text-blue mb-8`}
     word-break: break-word;
   }
 

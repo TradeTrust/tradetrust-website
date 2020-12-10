@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import tw from "twin.macro";
+import { mixin } from "../../../styles";
 
 interface InputProps {
   className?: string;
@@ -36,16 +37,8 @@ export const InputDefault = styled(Input)`
   }
 
   input {
-    ${tw`border border-solid border-grey-300 py-1 px-2 mb-0`}
-
-    &[type="text"],
-    &[type="email"] {
-      ${tw`w-full`}
-    }
-
-    &::placeholder {
-      ${tw`italic text-grey text-base`}
-    }
+    ${mixin.baseStyleInput()}
+    ${tw`mb-0`}
   }
 
   .message {
@@ -58,18 +51,10 @@ interface EditableAssetTitleProps {
 }
 
 export const InputEditableAssetTitle = styled.input`
-  ${tw`w-full border border-solid border-grey-300 py-1 px-2 mb-0`}
+  ${mixin.baseStyleInput()}
+  ${tw`mb-0`}
   min-height: 40px;
   ${({ hasError }: EditableAssetTitleProps) => hasError && tw`border-red`};
-
-  &[type="text"],
-  &[type="email"] {
-    ${tw`w-full`}
-  }
-
-  &::placeholder {
-    ${tw`italic text-grey text-base`}
-  }
 `;
 
 export const ErrorText = styled.div`

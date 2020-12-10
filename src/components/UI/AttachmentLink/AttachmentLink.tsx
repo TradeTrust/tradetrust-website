@@ -29,7 +29,7 @@ interface ExtensionIconProps {
 }
 
 const ExtensionIcon: FunctionComponent<ExtensionIconProps> = ({ ...props }) => {
-  return <img {...props} className="max-w-full" />;
+  return <img {...props} className="max-w-full" alt="Extension Icon" />;
 };
 
 export const getExtension = (mimeType: string | undefined): React.ReactNode => {
@@ -60,11 +60,11 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
 
 //sending message to child window
 const openTab = (data: string) => {
-  const childWin = window.open(`${window.location}/#verify-documents`, "_blank");
+  const childWin = window.open(`${window.location}/#verify-documents`, "_blank", "noopener,noreferrer");
   window.addEventListener(
     "message",
     (event) => {
-      if (event.data.type == "READY" && childWin) {
+      if (event.data.type === "READY" && childWin) {
         childWin.postMessage(
           {
             type: "LOAD_DOCUMENT",
@@ -114,23 +114,22 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
                 href={downloadHref}
                 download={`${filename}`}
                 data-testid="attachment-download-link"
-                className="downloadtext hover:underline"
+                className="text-blue hover:underline"
               >
                 Download
               </a>
             </div>
             {canOpenFile && data && (
               <div className="w-auto">
-                <a
+                <button
                   onClick={() => {
                     openTab(data);
                   }}
-                  rel="noopener noreferrer"
-                  className="downloadtext hover:underline"
+                  className="text-blue hover:underline"
                   data-testid="attachment-open-link"
                 >
                   Open
-                </a>
+                </button>
               </div>
             )}
           </div>
@@ -162,9 +161,5 @@ export const Attachment = styled.div`
   .filename {
     ${tw`transition duration-300 ease-out leading-5 text-grey break-words`}
     ${mixin.fontSourcesansproBold};
-  }
-
-  .downloadtext {
-    ${tw`text-blue`}
   }
 `;

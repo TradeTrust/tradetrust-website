@@ -1,4 +1,6 @@
+import css, { SerializedStyles } from "@emotion/css";
 import { darken } from "polished";
+import tw from "twin.macro";
 import * as vars from "./variables";
 
 export const loaderSkeleton = ({ w = "260px", h = "24px", bg = "#e5e5e5", loaderBg = "#f5f5f5", loaderW = "50%" }) => {
@@ -118,20 +120,6 @@ const pxToRem = (size: number, base = 16) => {
   return (size / base) * 1 + "rem";
 };
 
-/*
-The mixin fontSize(size) is to have a fallback to px value, if rem is somehow not supported in IE. it will look like these:
-
-supported:
-font-size: 16px; (Strikethrough, succeeding font-size overwrites)
-font-size: 1rem;
-
-not supported:
-font-size: 16px;
-font-size: 1rem; (Strikethrough, preceding font-size used)
-
-The default value will be 16px, if size is not defined.
-*/
-
 export const fontSize = (size = 16) => {
   return `
     font-size: ${size}px;
@@ -139,21 +127,17 @@ export const fontSize = (size = 16) => {
   `;
 };
 
-export const baseStyleInput = () => {
-  return `
-    border: 1px solid ${vars.greyLight};
-    padding: ${vars.inputPadding};
-    margin-bottom: 10px;
+export const baseStyleInput = (): SerializedStyles => {
+  return css`
+    ${tw`border border-solid border-grey-300 py-1 px-2 mb-2`}
 
     &[type="text"],
     &[type="email"] {
-      width: 100%;
+      ${tw`w-full`}
     }
 
     &::placeholder {
-      font-style: italic;
-      color: ${vars.grey};
-      ${fontSize(16)}
+      ${tw`italic text-grey text-base`}
     }
   `;
 };

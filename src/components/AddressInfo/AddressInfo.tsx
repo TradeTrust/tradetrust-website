@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { ResolutionResult } from "@govtechsg/address-identity-resolver";
 import React from "react";
-import { mixin, vars } from "../../styles";
+import tw from "twin.macro";
 
 interface AddressInfoProps extends ResolutionResult {
   className?: string;
@@ -32,25 +32,16 @@ export const AddressInfoUnStyled = ({ className, title, name, resolvedBy, source
 };
 
 export const AddressInfo = styled(AddressInfoUnStyled)`
-  h5,
-  h6 {
-    ${mixin.fontSourcesansproBold};
-    margin-bottom: 0;
-  }
-
   h5 {
-    margin-bottom: 2px;
+    ${tw`mb-1 font-bold`}
   }
 
   h6 {
-    color: ${vars.grey};
-    margin-bottom: 8px;
+    ${tw`text-grey mb-2 font-bold`}
   }
 
   .info {
-    font-size: ${mixin.fontSize(14)};
-    color: ${vars.grey};
-    ${mixin.fontSourcesansproSemibold};
+    ${tw`text-sm text-grey font-semibold`}
   }
 
   .etherum-address {

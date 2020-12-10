@@ -1,20 +1,15 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { mixin, vars } from "../../styles";
+import tw from "twin.macro";
+import { mixin } from "../../styles";
 import { Section } from "../Layout/Section";
 
 export const SectionMainBenefits = styled(Section)`
   ${mixin.centerVertical()}
-  padding-top: 80px;
-  padding-bottom: 80px;
-
-  h1 {
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
-  }
+  ${tw`py-20`}
 
   h5 {
-    ${mixin.fontSourcesansproBold}
-    color: ${vars.greyDark};
+    ${tw`font-bold text-grey-700`}
   }
 
   .img-icon {
