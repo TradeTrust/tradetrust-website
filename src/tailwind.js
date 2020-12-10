@@ -17,6 +17,7 @@ const localConfig = {
     extend: {
       minWidth: {
         135: "135px",
+        200: "200px",
       },
       minHeight: {
         400: "400px",

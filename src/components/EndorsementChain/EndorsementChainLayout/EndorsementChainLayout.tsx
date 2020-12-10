@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { ArrowLeft } from "react-feather";
-import { mixin, vars } from "../../../styles";
+import tw from "twin.macro";
 import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
 import { getLogger } from "../../../utils/logger";
 import { AddressCell } from "./AddressCell";
@@ -157,36 +157,24 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
 
 export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   .endorsement-ui-dash {
-    border-left: dashed 1px ${vars.teal};
-    position: relative;
-    min-width: 200px;
+    ${tw`relative border-l border-dashed border-teal min-w-200`}
   }
 
   .mask {
-    width: 3px;
-    height: 22px;
-    background-color: ${vars.white};
-    position: absolute;
+    ${tw`absolute w-1 h-6 bg-white top-0`}
     left: -2px;
-    top: 0px;
   }
 
   .back-button {
-    color: ${vars.grey};
-    cursor: pointer;
-    margin-bottom: 10px;
+    ${tw`text-grey cursor-pointer mb-2`}
 
     &[data-disabled="true"] {
-      color: ${vars.greyLight};
-      cursor: default;
+      ${tw`text-grey-300 cursor-default`}
     }
   }
 
   .endorsement-chain-title {
-    color: ${vars.greyDark};
-    font-size: ${mixin.fontSize(28)};
-    font-weight: bold;
-    margin-bottom: 1rem;
+    ${tw`text-grey-700 text-3xl font-bold mb-4`}
   }
 
   .table-container {
@@ -194,12 +182,11 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .table {
-    width: 100%;
-    margin-bottom: 0;
+    ${tw`w-full mb-0`}
   }
 
   .table-row {
-    background-color: ${vars.white};
+    ${tw`bg-white`}
   }
 
   .table-row > div {
@@ -207,11 +194,7 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .table-header {
-    background-color: ${vars.blueDark};
-    color: ${vars.white};
-    font-size: ${mixin.fontSize(18)};
-    font-weight: bold;
-    width: 100%;
+    ${tw`w-full bg-blue-800 text-white text-lg font-bold`}
   }
 
   .table-cell {
@@ -223,15 +206,11 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .date {
-    font-weight: bold;
-    color: ${vars.greyDark};
-    min-width: 140px;
+    ${tw`font-bold text-grey-700 min-w-135`}
   }
 
   .name {
-    font-size: ${mixin.fontSize(18)};
-    color: ${vars.greyDark};
-    font-weight: bold;
+    ${tw`text-lg text-grey-700 font-bold`}
   }
 
   .address {
@@ -241,15 +220,9 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .dot {
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    background-color: ${vars.teal};
-    margin: 0.25rem;
-    position: absolute;
-    left: -17px;
-    top: 5px;
-    z-index: 4;
+    ${tw`absolute h-3 w-3 rounded-full bg-teal m-1 z-10`}
+    left: -18px;
+    top: 4px;
   }
 
   .loading-cell {

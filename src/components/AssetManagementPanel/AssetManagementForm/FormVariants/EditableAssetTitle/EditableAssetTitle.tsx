@@ -4,7 +4,7 @@ import React from "react";
 import { Book } from "react-feather";
 import { NETWORK_NAME } from "../../../../../config";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
-import { InputEditableAssetTitle, InputError } from "../../../../UI/Input";
+import { ErrorText, InputEditableAssetTitle } from "../../../../UI/Input";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 
@@ -65,7 +65,7 @@ export const EditableAssetTitle = ({
             }}
           />
           {error && (
-            <InputError data-testid={"error-msg"}>Unidentified address. Please check and input again.</InputError>
+            <ErrorText data-testid={"error-msg"}>Unidentified address. Please check and input again.</ErrorText>
           )}
         </div>
         <div className="w-auto">

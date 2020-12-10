@@ -1,26 +1,6 @@
-import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { X } from "react-feather";
 import { NETWORK } from "../../../config";
-import { vars } from "../../../styles";
-
-const NetworkWrap = styled.div`
-  background-color: ${vars.greenDarker};
-  color: ${vars.white};
-  padding: 8px 0;
-
-  .network {
-    text-transform: capitalize;
-  }
-
-  svg {
-    cursor: pointer;
-
-    &:hover {
-      color: ${vars.grey};
-    }
-  }
-`;
 
 export const NetworkBar = () => {
   const [close, setClose] = useState(false);
@@ -28,19 +8,19 @@ export const NetworkBar = () => {
   if (close || NETWORK === "mainnet") return null;
 
   return (
-    <NetworkWrap>
+    <div className="bg-green-900 text-white py-2 px-0">
       <div className="container">
         <div className="flex">
           <div className="w-auto ml-auto">
             <p className="mb-0">
-              You are currently on <span className="network">{NETWORK}</span> network.
+              You are currently on <span className="capitalize">{NETWORK}</span> network.
             </p>
           </div>
           <div className="w-auto ml-auto">
-            <X onClick={() => setClose(true)} />
+            <X className="cursor-pointer hover:text-grey" onClick={() => setClose(true)} />
           </div>
         </div>
       </div>
-    </NetworkWrap>
+    </div>
   );
 };

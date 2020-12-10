@@ -1,62 +1,41 @@
 import styled from "@emotion/styled";
 import React, { Component } from "react";
-import { mixin, vars } from "../../styles";
+import tw from "twin.macro";
 
 const DrawerAside = styled.aside`
   .sidenav {
-    height: 100%;
+    ${tw`fixed h-full top-0 right-0 bg-navy overflow-x-hidden transition duration-300 ease-out`}
     width: 70%;
-    position: fixed;
     z-index: 999;
-    top: 0;
-    right: 0;
-    background-color: ${vars.brandNavy};
-    overflow-x: hidden;
-    transition: color 0.3s ${vars.easeOutCubic};
 
     .tabs {
-      border-bottom: 0.1px solid ${vars.greyblueDark};
+      ${tw`border border-solid border-greyblue-700`}
 
       &.active {
-        color: ${vars.greyblue};
+        ${tw`text-greyblue`}
       }
     }
 
     a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-
-      ${mixin.fontSize(25)}
-      color: ${vars.white};
-      display: block;
-      transition: color 0.3s ${vars.easeOutCubic};
-
-      &:hover {
-        color: ${vars.greyblue};
-      }
+      ${tw`py-2 pr-2 pl-8 no-underline text-2xl text-white block transition duration-300 ease-out hover:text-greyblue`}
     }
 
     .closebtn {
-      ${mixin.fontSize(36)}
+      ${tw`text-4xl`}
     }
   }
 
   .mb-sidenav {
-    position: absolute;
+    ${tw`absolute text-right`}
     top: 15px;
     right: 15px;
     z-index: 2;
-    text-align: right;
     height: 50px;
     max-width: 50px;
   }
 
   .togglebtn {
-    ${mixin.fontSize(35)}
-    display: block;
-    text-align: right;
-    color: ${vars.white};
-    cursor: pointer;
+    ${tw`block text-4xl text-right text-white cursor-pointer`}
   }
 `;
 
