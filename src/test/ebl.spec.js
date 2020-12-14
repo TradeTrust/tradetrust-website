@@ -3,7 +3,7 @@ import { Selector } from "testcafe";
 
 fixture("Token Document Rendering").page`http://localhost:3000`;
 
-const VerifyDocuments = Selector("[data-testid='verify-documents-tab']");
+const VerifyDocuments = Selector("[data-testid='navbar-verify-documents']");
 
 test("Token is verified and rendered correctly", async () => {
   await uploadDocument("./fixture/ebl.json");
@@ -11,7 +11,7 @@ test("Token is verified and rendered correctly", async () => {
   await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 });
 
-test.only("Should be able to render certificate twice consecutively", async (t) => {
+test("Should be able to render certificate twice consecutively", async (t) => {
   await uploadDocument("./fixture/ebl.json");
   await validateIssuerTexts(["TRADETRUST.IO"]);
   await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);

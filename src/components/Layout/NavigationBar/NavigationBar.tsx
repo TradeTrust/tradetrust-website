@@ -104,7 +104,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
           className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
           activeClassName=""
           smooth
-          data-testid={`${item.id}-tab`}
+          data-testid={`navbar-${item.id}`}
         >
           {item.label}
         </NavHashLink>
