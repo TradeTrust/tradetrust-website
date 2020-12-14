@@ -16,7 +16,6 @@ import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain/EndorsementChainContainer";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ModalDialog } from "./ModalDialog";
-import { MultiButtons } from "./MultiButtons";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 
@@ -114,7 +113,6 @@ export const CertificateViewer = ({
             setShowEndorsementChain={setShowEndorsementChain}
           />
         )}
-        {tokenRegistryAddress && <MultiButtons tokenRegistryAddress={tokenRegistryAddress} />}
       </div>
       <div className="bg-blue-lighter no-print">
         <MultiTabs

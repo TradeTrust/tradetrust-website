@@ -109,7 +109,7 @@ export const ActionSelectionForm = ({
         )}
       </div>
       {!isTokenBurnt && (
-        <div className="flex flex-wrap mb-4">
+        <div className="flex flex-wrap pb-4">
           <div className="w-auto lg:ml-auto">
             {account ? (
               <>
