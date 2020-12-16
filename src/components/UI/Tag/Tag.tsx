@@ -1,9 +1,10 @@
+import css, { SerializedStyles } from "@emotion/css";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 import { mixin } from "../../../styles";
 
-const TagBaseStyle = () => {
-  return `
+const TagBaseStyle = (): SerializedStyles => {
+  return css`
     ${tw`inline-block rounded mr-2 mb-2 py-1 px-2 bg-grey text-white text-lg`}
 
     ${mixin.fontSourcesansproBold()};
@@ -34,8 +35,8 @@ export const TagSolidOrange = styled.div`
   ${tw`bg-orange text-white`}
 `;
 
-const TagBorderedBaseStyle = () => {
-  return `
+const TagBorderedBaseStyle = (): SerializedStyles => {
+  return css`
     ${TagBaseStyle()};
 
     ${tw`py-0 px-2 bg-white text-grey border-grey border-solid border-2`}

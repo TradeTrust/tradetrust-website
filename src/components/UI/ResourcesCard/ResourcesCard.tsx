@@ -51,11 +51,11 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
             />
           ) : (
             <div
-              className="absolute top-0 left-0 w-full h-full bg-grey-100 p-4 text-center pointer-events-none"
+              className="absolute top-0 left-0 w-full h-full bg-grey-200 p-4 text-center pointer-events-none"
               data-testid="placeholder"
             >
               <div className="flex justify-center items-center h-full">
-                <h5 className="mb-0 text-grey-300 font-normal">{placeholderText}</h5>
+                <h5 className="mb-0 text-grey font-normal">{placeholderText}</h5>
               </div>
             </div>
           )}
@@ -65,7 +65,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
         <h4 className="title mb-2">
           {youtubeEmbedCode ? (
             <a
-              className="text-grey-700 font-semibold"
+              className="text-grey-700 font-medium text-2xl"
               href={`https://www.youtube.com/watch?v=${youtubeEmbedCode}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -74,21 +74,23 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
               {title}
             </a>
           ) : (
-            <span data-testid="placeholder-title">{title}</span>
+            <span className="text-grey-700 font-medium text-2xl" data-testid="placeholder-title">
+              {title}
+            </span>
           )}
         </h4>
         {tag && (
-          <div className="inline-block border border-solid border-grey-700 w-auto text-sm rounded font-semibold p-1 mb-4">
+          <div className="inline-block border border-solid border-grey text-grey w-auto text-sm rounded font-medium p-1 mb-4">
             {tag}
           </div>
         )}
-        {dateTime && <div className="text-grey text-base font-semibold pb-3">{dateTime}</div>}
+        {dateTime && <div className="text-grey text-base font-medium pb-3">{dateTime}</div>}
         <p className="mb-4">{description}</p>
         {downloads && (
           <div className="py-2 text-blue">
             {downloads?.map((download, index) => (
               <a
-                className="font-bold flex items-start mt-1"
+                className="font-semibold flex items-start mt-1"
                 href={download.path}
                 download={download.fileName}
                 key={index}
@@ -157,6 +159,6 @@ const ResourcesCardItem = styled.div`
   }
 
   .link {
-    ${tw`text-lg font-semibold inline-block pr-4`}
+    ${tw`text-lg font-medium inline-block pr-4`}
   }
 `;

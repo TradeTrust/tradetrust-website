@@ -50,9 +50,7 @@ export const LandingSection = () => {
     >
       <div className="flex">
         <div className="w-full lg:w-7/12 xl:w-5/12 lg:mx-auto">
-          <h1 className="mb-4" style={{ fontSize: "48px" }}>
-            A Trust Network for Trading Partners
-          </h1>
+          <h1 className="mb-4 font-medium text-5xl">A Trust Network for Trading Partners</h1>
           <p>
             A digital utility that comprises a set of globally-accepted standards and frameworks that connects
             governments and businesses to a public blockchain to enable trusted interoperability and exchanges of

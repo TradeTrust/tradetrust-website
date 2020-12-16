@@ -210,7 +210,7 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .name {
-    ${tw`text-lg text-grey-700 font-bold`}
+    ${tw`text-lg text-grey-700 font-semibold`}
   }
 
   .address {
@@ -219,9 +219,9 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .dot {
-    ${tw`absolute h-3 w-3 rounded-full bg-teal m-1 z-10`}
-    left: -18px;
-    top: 4px;
+    ${tw`absolute h-2 w-2 rounded-full bg-teal m-1 z-10`}
+    left: -16px;
+    top: 3px;
   }
 
   .loading-cell {

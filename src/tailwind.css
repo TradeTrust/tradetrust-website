@@ -1,43 +1,19 @@
 @tailwind base;
 
 @layer base {
-  body {
-    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-bold;
-    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-  }
   h1 {
     font-size: 40px;
-    line-height: 1.2;
   }
   h2 {
-    font-size: 36px;
-  }
-  h3 {
     font-size: 32px;
   }
-  h4 {
+  h3 {
     font-size: 28px;
-    line-height: 1.2;
-  }
-  h5 {
-    font-size: 20px;
-  }
-  h6 {
   }
   a {
     @apply transition-colors;
     @apply duration-200;
     @apply ease-out;
-    @apply font-medium;
     @apply text-blue;
   }
 

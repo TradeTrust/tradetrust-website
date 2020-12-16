@@ -8,7 +8,7 @@ export const SectionDocumentation = styled(Section)`
   ${tw`py-20 text-center`}
 
   h1 {
-    ${tw`font-semibold`}
+    ${tw`font-medium`}
   }
 
   p {

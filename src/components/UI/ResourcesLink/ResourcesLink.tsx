@@ -6,12 +6,12 @@ export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, de
   return (
     <div className="bg-white pt-2 px-3 pb-3 shadow-md mb-4 flex">
       <div className="flex-grow">
-        <div className="text-grey-700 text-xl font-bold">{title}</div>
+        <div className="text-grey-700 text-xl font-medium">{title}</div>
         {details.map((detail, index) => (
           <div className="pt-2 text-blue" key={index}>
             {type === "link" && (
               <a
-                className="text-base font-semibold flex items-end mb-2"
+                className="text-base font-medium flex items-end mb-2"
                 href={detail.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -21,7 +21,7 @@ export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, de
               </a>
             )}
             {detail.date && (
-              <div className="text-grey text-base font-bold border border-solid border-grey-300 pb-4 mb-1">
+              <div className="text-grey text-base font-medium border-b border-solid border-grey-300 pb-4 mb-1">
                 {detail.date}
               </div>
             )}
@@ -30,7 +30,7 @@ export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, de
                 <a
                   href={detail.url}
                   download={`${detail.title}.pdf`}
-                  className="text-base font-semibold flex items-end mb-2"
+                  className="text-base font-medium flex items-end mb-2"
                   data-testid="download"
                 >
                   <Download className="mr-1" />

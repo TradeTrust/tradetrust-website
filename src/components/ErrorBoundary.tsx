@@ -59,7 +59,9 @@ export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
               <img src="/static/images/errorpage/error.png" alt="" style={{ height: "15vh" }} />
               <h2>Something went wrong!</h2>
               <p>There is an error with this document, please contact your issuing institution.</p>
-              <a href="/">Go Back</a>
+              <a className="mt-4" href="/">
+                Go Back
+              </a>
             </div>
           </div>
         </ErrorBoundaryStyled>

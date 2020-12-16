@@ -67,7 +67,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
       return (
         <Dropdown
           dropdownButtonText="Info"
-          className="transition-colors duration-200 ease-out font-medium text-greyblue hover:text-white"
+          className="transition-colors duration-200 ease-out font-normal text-greyblue hover:text-white"
         >
           {item.dropdownItems?.map((dropdownItem: any, index: number) => {
             return (
@@ -126,7 +126,7 @@ export const NavBar = styled.nav`
   }
 
   .dropdown-link {
-    ${tw`text-grey font-medium`}
+    ${tw`text-grey font-normal`}
 
     &:not(.active) {
       &:hover {
@@ -178,7 +178,7 @@ export const NavigationBar = () => {
               <div className="flex h-full items-center">
                 {navItems.map((item, index) => {
                   return (
-                    <div key={index} className="text-base font-medium font-montserrat w-auto lg:ml-10">
+                    <div key={index} className="text-lg font-normal font-montserrat w-auto lg:ml-10">
                       {NavBarItem(item)}
                     </div>
                   );
@@ -192,7 +192,7 @@ export const NavigationBar = () => {
         <div className="container py-4">
           {navItems.map((item, index) => {
             return (
-              <div key={index} className="text-base font-medium font-montserrat w-full mb-4">
+              <div key={index} className="text-lg font-normal font-montserrat w-full mb-4">
                 {NavBarItem(item)}
               </div>
             );

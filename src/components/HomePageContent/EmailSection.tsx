@@ -6,7 +6,7 @@ import { EmailForm } from "./EmailForm";
 
 export const SectionEmail = styled(Section)`
   h1 {
-    ${tw`text-4xl font-semibold`}
+    ${tw`text-4xl font-medium`}
   }
 
   h6 {

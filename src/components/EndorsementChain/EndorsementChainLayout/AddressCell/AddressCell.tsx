@@ -65,7 +65,7 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
   }
 
   .name {
-    ${tw`text-lg text-grey-700 font-bold`}
+    ${tw`text-lg text-grey-700 font-semibold`}
   }
 
   .address {

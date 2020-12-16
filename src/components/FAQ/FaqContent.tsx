@@ -10,10 +10,10 @@ export const FaqContent = () => (
       {content.map(({ category, faq = [] }, indexContent) => (
         <div className="flex" key={indexContent}>
           <div className="w-full lg:w-8/12 mx-auto">
-            <h4 className="text-orange font-semibold text-2xl">{category}</h4>
+            <h4 className="text-orange font-medium text-2xl">{category}</h4>
             {faq.map(({ question, answer }, indexFaq) => (
               <div className="py-4" key={indexFaq}>
-                <h5 className="text-lg font-semibold text-grey-700 pb-0">{question}</h5>
+                <h5 className="text-lg font-medium text-grey-700 pb-0">{question}</h5>
                 <div className="text-navy" dangerouslySetInnerHTML={{ __html: answer }} />
               </div>
             ))}

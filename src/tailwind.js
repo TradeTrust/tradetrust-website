@@ -15,6 +15,15 @@ const localConfig = {
       body: ["Roboto", "sans-serif"],
     },
     extend: {
+      inset: {
+        1: "0.25rem",
+        2: "0.5rem",
+        3: "0.75rem",
+        4: "1rem",
+        5: "1.25rem",
+        6: "1.5rem",
+        8: "2rem",
+      },
       minWidth: {
         135: "135px",
         200: "200px",
@@ -44,6 +53,7 @@ const localConfig = {
           900: "#8b0000",
         },
         yellow: {
+          300: "#fff48f",
           default: "#ffe600",
           600: "#ffbf00",
         },
@@ -51,7 +61,7 @@ const localConfig = {
           default: "#fbc2eb",
         },
         greyblue: {
-          default: "#c1c9d1",
+          200: "#e2e8f0",
           700: "#a7afb7",
           900: "#343a40",
         },

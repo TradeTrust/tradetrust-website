@@ -1,7 +1,5 @@
 import css, { SerializedStyles } from "@emotion/css";
-import { darken } from "polished";
 import tw from "twin.macro";
-import * as vars from "./variables";
 
 export const loaderSkeleton = ({ w = "260px", h = "24px", bg = "#e5e5e5", loaderBg = "#f5f5f5", loaderW = "50%" }) => {
   return `
@@ -26,8 +24,8 @@ export const loaderSpinner = ({
   w = "24px",
   borderW = "4px",
   spd = "0.9s",
-  primary = darken(0.45, vars.white),
-  secondary = darken(0.25, vars.white),
+  primary = "#8f8f8f",
+  secondary = "#cfcfcf",
 }) => {
   return `
     width: ${w};
@@ -146,5 +144,13 @@ export const buttonLarge = () => {
   return `
     padding: 8px 24px 12px;
     ${fontSize(26)};
+  `;
+};
+
+export const dropzoneStatus = ({ bg = "#f3f8fc", borderColor = "#0099cc" }) => {
+  return `
+    background-color: ${bg};
+    box-shadow: 0 0 0 10px ${bg};
+    border: 2px dashed ${borderColor};
   `;
 };

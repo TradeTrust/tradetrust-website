@@ -75,7 +75,7 @@ const DocumentStatusStyles = styled.div`
   }
 
   .issuedby {
-    ${tw`text-grey-300 text-lg`}
+    ${tw`text-grey-700 text-lg`}
     ${mixin.fontSourcesansproBold};
 
     span {

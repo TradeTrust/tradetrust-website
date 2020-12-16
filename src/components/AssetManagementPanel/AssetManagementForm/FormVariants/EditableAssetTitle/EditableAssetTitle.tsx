@@ -56,6 +56,7 @@ export const EditableAssetTitle = ({
         <div className="w-64 mr-2">
           <InputEditableAssetTitle
             data-testid={`editable-input-${role.toLowerCase()}`}
+            type="text"
             value={newValue}
             hasError={error}
             placeholder={`Input ${role}'s address`}
