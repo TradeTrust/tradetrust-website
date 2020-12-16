@@ -70,7 +70,7 @@ export const RejectSurrenderedForm = ({
           formAction={formAction}
           disabled={isRestoreTokenPendingConfirmation}
         />
-        <div className="flex flex-wrap mb-4">
+        <div className="flex flex-wrap pb-4">
           <div className="w-full lg:flex-grow lg:w-auto">
             <AssetInformationPanel
               setShowEndorsementChain={setShowEndorsementChain}
