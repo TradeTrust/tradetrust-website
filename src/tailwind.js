@@ -3,10 +3,6 @@ const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwi
 
 // https://tailwindcss.com/docs/theme
 const localConfig = {
-  // future: {
-  //   removeDeprecatedGapUtilities: true,
-  //   purgeLayersByDefault: true,
-  // },
   purge: {
     content: ["./src/**/*.ts", "./src/**/*.tsx", "./node_modules/@govtechsg/tradetrust-ui-components/src/**/*.tsx"],
   },
