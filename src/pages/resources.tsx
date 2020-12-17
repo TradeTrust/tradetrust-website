@@ -147,7 +147,7 @@ export const ResourcesPage = () => (
       <div className="container py-12">
         <div className="flex">
           <div className="w-full">
-            <h1 className="font-source-sans-pro">Resources</h1>
+            <h1>Resources</h1>
           </div>
         </div>
         <div className="flex flex-wrap py-4 -mx-4">

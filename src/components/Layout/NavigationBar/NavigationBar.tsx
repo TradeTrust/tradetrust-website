@@ -178,7 +178,7 @@ export const NavigationBar = () => {
               <div className="flex h-full items-center">
                 {navItems.map((item, index) => {
                   return (
-                    <div key={index} className="text-lg font-normal font-montserrat w-auto lg:ml-10">
+                    <div key={index} className="text-lg font-normal w-auto lg:ml-10">
                       {NavBarItem(item)}
                     </div>
                   );
@@ -192,7 +192,7 @@ export const NavigationBar = () => {
         <div className="container py-4">
           {navItems.map((item, index) => {
             return (
-              <div key={index} className="text-lg font-normal font-montserrat w-full mb-4">
+              <div key={index} className="text-lg font-normal w-full mb-4">
                 {NavBarItem(item)}
               </div>
             );
