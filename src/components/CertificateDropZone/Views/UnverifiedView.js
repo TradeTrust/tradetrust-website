@@ -37,9 +37,7 @@ export const UnverifiedView = ({ resetData, verificationStatus }) => (
         <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
       </div>
       <div className="w-auto">
-        <p className="invalid text-black" style={{ fontSize: "1.5rem" }}>
-          This document is not valid
-        </p>
+        <p className="invalid text-black text-2xl">This document is not valid</p>
       </div>
     </div>
     <DetailedErrors verificationStatus={verificationStatus} />

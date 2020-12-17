@@ -1,13 +1,10 @@
 import css, { SerializedStyles } from "@emotion/css";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
-import { mixin } from "../../../styles";
 
 const TagBaseStyle = (): SerializedStyles => {
   return css`
-    ${tw`inline-block rounded mr-2 mb-2 py-1 px-2 bg-grey text-white text-lg`}
-
-    ${mixin.fontSourcesansproBold()};
+    ${tw`inline-block rounded mr-2 mb-2 py-1 px-2 bg-grey text-white text-lg font-semibold`}
 
     &:last-of-type {
       ${tw`mr-0`}

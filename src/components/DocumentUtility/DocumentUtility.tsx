@@ -5,7 +5,6 @@ import QRCode, { ImageSettings } from "qrcode.react";
 import React, { useState } from "react";
 import { Download, Mail, Printer } from "react-feather";
 import tw from "twin.macro";
-import { mixin } from "../../styles";
 import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
 
@@ -125,8 +124,7 @@ export const DocumentUtilities = styled.div`
   }
 
   .issuedby {
-    ${tw`text-grey-700 text-lg`}
-    ${mixin.fontSourcesansproBold};
+    ${tw`text-grey-700 text-lg font-semibold`}
 
     span {
       ${tw`inline-block`}

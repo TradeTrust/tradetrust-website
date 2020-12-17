@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
 import tw from "twin.macro";
-import { mixin } from "../../styles";
 import { Section } from "../Layout/Section";
 
 export const SectionDocumentation = styled(Section)`
@@ -19,8 +18,7 @@ export const SectionDocumentation = styled(Section)`
     ${tw`block text-grey-700 no-underline`}
 
     p {
-      ${tw`transition duration-300 ease-out text-blue`}
-      ${mixin.fontSourcesansproBold};
+      ${tw`transition duration-300 ease-out text-blue font-semibold`}
     }
 
     &:hover {

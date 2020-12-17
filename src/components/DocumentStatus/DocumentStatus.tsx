@@ -3,7 +3,6 @@ import { VerificationFragment } from "@govtechsg/oa-verify";
 import React from "react";
 import tw from "twin.macro";
 import { NETWORK_NAME } from "../../config";
-import { mixin } from "../../styles";
 import { StatusChecks } from "./StatusChecks";
 
 interface DocumentStatusProps {
@@ -75,8 +74,7 @@ const DocumentStatusStyles = styled.div`
   }
 
   .issuedby {
-    ${tw`text-grey-700 text-lg`}
-    ${mixin.fontSourcesansproBold};
+    ${tw`text-grey-700 text-lg font-semibold`}
 
     span {
       ${tw`inline-block`}

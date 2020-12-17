@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import React, { Component } from "react";
 import tw from "twin.macro";
-import { mixin } from "../styles";
 
 const ErrorBoundaryStyled = styled.div`
   ${tw`w-full min-h-screen py-12 px-4`}
@@ -10,8 +9,7 @@ const ErrorBoundaryStyled = styled.div`
     text-align: center;
 
     h2 {
-      ${mixin.fontSourcesansproBold}
-      ${tw`text-orange uppercase pt-5 pb-2 text-3xl md:text-4xl lg:text-5xl`}
+      ${tw`text-orange uppercase pt-5 pb-2 text-3xl md:text-4xl lg:text-5xl font-semibold`}
     }
 
     img {
@@ -23,8 +21,7 @@ const ErrorBoundaryStyled = styled.div`
     }
 
     a {
-      ${mixin.fontSourcesansproBold}
-      ${tw`inline-block px-8 py-4 bg-navy border-none rounded-full text-white uppercase no-underline transition duration-300 ease-out text-sm`}
+      ${tw`inline-block px-8 py-4 bg-navy border-none rounded-full font-semibold text-white uppercase no-underline transition duration-300 ease-out text-sm`}
 
       &:hover {
         ${tw`bg-orange text-white`}

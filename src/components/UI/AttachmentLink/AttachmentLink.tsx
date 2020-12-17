@@ -4,7 +4,6 @@ import prettyBytes from "pretty-bytes";
 import React, { FunctionComponent } from "react";
 import { Paperclip } from "react-feather";
 import tw from "twin.macro";
-import { mixin } from "../../../styles";
 import { getLogger } from "../../../utils/logger";
 
 const { error } = getLogger("component:attachmentlink");
@@ -159,7 +158,6 @@ export const Attachment = styled.div`
   }
 
   .filename {
-    ${tw`transition duration-300 ease-out leading-5 text-grey break-words`}
-    ${mixin.fontSourcesansproBold};
+    ${tw`transition duration-300 ease-out leading-5 text-grey break-words font-semibold`}
   }
 `;

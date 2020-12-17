@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { OverlayContext, Youtube } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext } from "react";
 import tw from "twin.macro";
-import { mixin } from "../../styles";
 import { Section } from "../Layout/Section";
 
 export const SectionLanding = styled(Section)`
@@ -18,8 +17,7 @@ export const SectionLanding = styled(Section)`
   }
 
   .play {
-    ${tw`transition duration-300 ease-out rounded-full cursor-pointer bg-blue`}
-    ${mixin.centerVertical()}
+    ${tw`transition duration-300 ease-out rounded-full cursor-pointer bg-blue flex flex-col justify-center`}
     width: 60px;
     height: 60px;
 

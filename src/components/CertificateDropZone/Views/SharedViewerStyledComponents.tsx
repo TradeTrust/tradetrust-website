@@ -44,8 +44,7 @@ export const ViewerContainer = styled.div`
     ${tw`mb-8`}
 
     .messages {
-      ${mixin.fontSourcesansproBold}
-      ${tw`text-lg mb-0`}
+      ${tw`text-lg mb-0 font-semibold`}
     }
   }
 

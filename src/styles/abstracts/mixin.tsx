@@ -42,14 +42,6 @@ export const loaderSpinner = ({
   `;
 };
 
-export const centerVertical = () => {
-  return `
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  `;
-};
-
 export const aspectRatio = (width = 16, height = 9) => {
   return `
     position: relative;
@@ -72,59 +64,6 @@ export const aspectRatio = (width = 16, height = 9) => {
   `;
 };
 
-export const fontMontserratRegular = () => {
-  return `
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
-    font-weight: 400;
-  `;
-};
-
-export const fontMontserratMedium = () => {
-  return `
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
-    font-weight: 500;
-  `;
-};
-
-export const fontMontserratSemibold = () => {
-  return `
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
-    font-weight: 600;
-  `;
-};
-
-export const fontSourcesansproRegular = () => {
-  return `
-    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-    font-weight: 400;
-  `;
-};
-
-export const fontSourcesansproSemibold = () => {
-  return `
-    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-    font-weight: 600;
-  `;
-};
-
-export const fontSourcesansproBold = () => {
-  return `
-    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-    font-weight: 700;
-  `;
-};
-
-const pxToRem = (size: number, base = 16) => {
-  return (size / base) * 1 + "rem";
-};
-
-export const fontSize = (size = 16) => {
-  return `
-    font-size: ${size}px;
-    font-size: ${pxToRem(size)};
-  `;
-};
-
 export const baseStyleInput = (): SerializedStyles => {
   return css`
     ${tw`border border-solid border-grey-300 py-1 px-2 mb-2`}
@@ -137,13 +76,6 @@ export const baseStyleInput = (): SerializedStyles => {
     &::placeholder {
       ${tw`italic text-grey text-base`}
     }
-  `;
-};
-
-export const buttonLarge = () => {
-  return `
-    padding: 8px 24px 12px;
-    ${fontSize(26)};
   `;
 };
 

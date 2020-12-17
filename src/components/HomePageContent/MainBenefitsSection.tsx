@@ -1,12 +1,10 @@
 import styled from "@emotion/styled";
 import React from "react";
 import tw from "twin.macro";
-import { mixin } from "../../styles";
 import { Section } from "../Layout/Section";
 
 export const SectionMainBenefits = styled(Section)`
-  ${mixin.centerVertical()}
-  ${tw`py-20`}
+  ${tw`py-20 flex flex-col justify-center`}
 
   h5 {
     ${tw`font-bold text-grey-700`}
