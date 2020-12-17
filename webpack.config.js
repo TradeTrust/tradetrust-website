@@ -92,7 +92,4 @@ module.exports = {
     },
   },
   bail: true,
-  node: {
-    fs: "empty",
-  },
 };

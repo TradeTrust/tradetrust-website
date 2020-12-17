@@ -7,7 +7,9 @@ const localConfig = {
   //   removeDeprecatedGapUtilities: true,
   //   purgeLayersByDefault: true,
   // },
-  // purge: ["./src/**/*.ts", "./src/**/*.tsx"], // not to purge, cos common ui might need certain styles (should purge specific layers instead if really need)
+  purge: {
+    content: ["./src/**/*.ts", "./src/**/*.tsx", "./node_modules/@govtechsg/tradetrust-ui-components/src/**/*.tsx"],
+  },
   theme: {
     fontFamily: {
       sans: ["Roboto", "sans-serif"],

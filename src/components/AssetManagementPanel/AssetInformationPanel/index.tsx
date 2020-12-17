@@ -30,7 +30,7 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = s
   }
 )`
   .endorsement-chain-button {
-    ${tw`text-blue cursor-pointer transition duration-300 ease-out`}
+    ${tw`text-blue cursor-pointer transition-colors duration-300 ease-out`}
 
     &:hover {
       ${tw`text-blue-800 underline`}
