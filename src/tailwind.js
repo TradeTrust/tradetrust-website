@@ -1,5 +1,5 @@
-const _ = require("lodash");
-const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwind");
+const _ = require("lodash"); //eslint-disable-line @typescript-eslint/no-var-requires
+const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwind"); //eslint-disable-line @typescript-eslint/no-var-requires
 
 // https://tailwindcss.com/docs/theme
 const localConfig = {
