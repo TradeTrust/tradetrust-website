@@ -6,35 +6,35 @@ export const EndorsementChainLoading: FunctionComponent = () => {
     <>
       <tr className="table-row">
         <td className="mb-6 loading-cell" role="cell">
-          <LoaderSkeleton className="m-2" />
+          <LoaderSkeleton className="m-2" role="loaderSkeleton" />
         </td>
         <td className="mb-6 loading-cell" role="cell">
-          <LoaderSkeleton className="m-2" />
+          <LoaderSkeleton className="m-2" role="loaderSkeleton" />
         </td>
         <td className="mb-6 loading-cell" role="cell">
-          <LoaderSkeleton className="m-2" />
-        </td>
-      </tr>
-      <tr className="table-row">
-        <td className="mb-6 loading-cell" role="cell">
-          <LoaderSkeleton className="m-2" />
-        </td>
-        <td className="mb-6 loading-cell" role="cell">
-          <LoaderSkeleton className="m-2" />
-        </td>
-        <td className="mb-6 loading-cell" role="cell">
-          <LoaderSkeleton className="m-2" />
+          <LoaderSkeleton className="m-2" role="loaderSkeleton" />
         </td>
       </tr>
       <tr className="table-row">
         <td className="mb-6 loading-cell" role="cell">
-          <LoaderSkeleton className="m-2" />
+          <LoaderSkeleton className="m-2" role="loaderSkeleton" />
         </td>
         <td className="mb-6 loading-cell" role="cell">
-          <LoaderSkeleton className="m-2" />
+          <LoaderSkeleton className="m-2" role="loaderSkeleton" />
         </td>
         <td className="mb-6 loading-cell" role="cell">
-          <LoaderSkeleton className="m-2" />
+          <LoaderSkeleton className="m-2" role="loaderSkeleton" />
+        </td>
+      </tr>
+      <tr className="table-row">
+        <td className="mb-6 loading-cell" role="cell">
+          <LoaderSkeleton className="m-2" role="loaderSkeleton" />
+        </td>
+        <td className="mb-6 loading-cell" role="cell">
+          <LoaderSkeleton className="m-2" role="loaderSkeleton" />
+        </td>
+        <td className="mb-6 loading-cell" role="cell">
+          <LoaderSkeleton className="m-2" role="loaderSkeleton" />
         </td>
       </tr>
     </>
