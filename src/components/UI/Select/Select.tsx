@@ -1,7 +1,8 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { vars, mixin } from "../../../styles";
+import React from "react";
 import Select from "react-dropdown-select";
+import tw from "twin.macro";
+import { mixin } from "../../../styles";
 
 interface SelectOptionProps {
   value: string;
@@ -23,20 +24,18 @@ export const SelectDropdown = ({ values, onChange, options, ...props }: SelectDr
 
 export const SelectDefault = styled(SelectDropdown)`
   ${mixin.baseStyleInput()}
-  background-color: ${vars.white};
-  border: 1px solid ${vars.greyLight};
+  ${tw`bg-white`}
 
   input {
+    ${tw`m-0 italic`}
     font-size: inherit;
-    font-style: italic;
-    margin: 0;
 
     &::placeholder {
-      color: ${vars.grey};
+      ${tw`text-grey`}
     }
   }
 
   .react-dropdown-select-dropdown-handle {
-    margin: 0;
+    ${tw`m-0`}
   }
 `;

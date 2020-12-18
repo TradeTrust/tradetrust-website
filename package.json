@@ -3,10 +3,10 @@
   "version": "2.0.0",
   "scripts": {
     "build": "run-s check-types build:css build:app",
-    "build:css": "postcss src/tailwind.css -o src/index.css",
+    "build:css": "NODE_ENV=production postcss src/tailwind.css -o src/index.css",
     "build:app": "NODE_ENV=production webpack --progress --mode production",
     "check-types": "tsc --sourceMap false --noEmit",
-    "dev:css": "postcss src/tailwind.css -o src/index.css --watch",
+    "dev:css": "NODE_ENV=production postcss src/tailwind.css -o src/index.css --watch",
     "dev:serve": "sleep 2 && NODE_ENV=development webpack-dev-server",
     "dev": "run-p dev:*",
     "lint": "eslint ./src --ext .js,.ts,.tsx,.mdx --max-warnings 0",
@@ -24,8 +24,8 @@
     "integration:dappeteer": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:local\" \"npm:integration:metamask\"",
     "prep": "npm run lint:fix && npm run test && ./scripts/integration-headless.sh",
     "serve-static": "http-server dist -s -p 3000",
-    "storybook": "start-storybook -p 6006 -s public",
-    "storybook:build": "npm run build:css && build-storybook -o docs -s public",
+    "storybook": "npm run build:css && sleep 2 && start-storybook -p 6006 -s public",
+    "storybook:build": "npm run build:css && sleep 2 && build-storybook -o docs -s public",
     "test": "jest --env=jest-environment-jsdom-sixteen",
     "test:coverage": "npm run test -- --collectCoverage",
     "test:watch": "npm run test -- --watchAll",
@@ -41,7 +41,7 @@
     "@govtechsg/oa-verify": "^6.0.0",
     "@govtechsg/open-attestation": "^4.0.0",
     "@govtechsg/token-registry": "^2.4.0",
-    "@govtechsg/tradetrust-ui-components": "^1.6.0",
+    "@govtechsg/tradetrust-ui-components": "^1.6.1",
     "@hot-loader/react-dom": "^16.9.0",
     "axios": "^0.19.0",
     "connected-react-router": "^6.5.2",
@@ -74,6 +74,7 @@
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.7",
     "redux-saga": "^0.16.0",
+    "twin.macro": "1.12.1",
     "use-persisted-state": "^0.3.0",
     "validator": "^13.0.0"
   },
@@ -116,6 +117,7 @@
     "@typescript-eslint/parser": "2.3.2",
     "babel-jest": "^25.2.3",
     "babel-loader": "8.0.6",
+    "babel-plugin-macros": "^2.8.0",
     "brotli-webpack-plugin": "^1.1.0",
     "compression-webpack-plugin": "^6.0.3",
     "concurrently": "^5.3.0",
@@ -146,7 +148,6 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.1.7",
     "postcss-cli": "^8.2.0",
-    "postcss-import": "^13.0.0",
     "prettier": "^2.0.2",
     "puppeteer": "^5.3.1",
     "react-scripts": "^3.4.3",
@@ -178,7 +179,8 @@
       "@babel/plugin-proposal-class-properties",
       "@babel/plugin-proposal-nullish-coalescing-operator",
       "@babel/plugin-proposal-optional-chaining",
-      "react-hot-loader/babel"
+      "react-hot-loader/babel",
+      "macros"
     ]
   },
   "eslintConfig": {

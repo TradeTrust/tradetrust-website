@@ -1,25 +1,38 @@
-import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
 import { Download } from "react-feather";
-import { mixin, vars } from "../../../styles";
 import { ResourcesLinkProps } from "../../../types";
 
 export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, details, type, icon }) => {
   return (
-    <ResourcesLinkItem>
-      <div className="link-wrapper">
-        <div className="title">{title}</div>
+    <div className="bg-white pt-2 px-3 pb-3 shadow-md mb-4 flex">
+      <div className="flex-grow">
+        <div className="text-grey-700 text-xl font-medium">{title}</div>
         {details.map((detail, index) => (
-          <div className="pt-2 text-brand-blue" key={index}>
+          <div className="pt-2 text-blue" key={index}>
             {type === "link" && (
-              <a className="link mb-2" href={detail.url} target="_blank" rel="noopener noreferrer" data-testid="link">
+              <a
+                className="text-base font-medium flex items-end mb-2"
+                href={detail.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="link"
+              >
                 {detail.title}
               </a>
             )}
-            {detail.date && <div className="date">{detail.date}</div>}
+            {detail.date && (
+              <div className="text-grey text-base font-medium border-b border-solid border-grey-300 pb-4 mb-1">
+                {detail.date}
+              </div>
+            )}
             {type === "download" && (
-              <div className="download-wrapper">
-                <a href={detail.url} download={`${detail.title}.pdf`} className="link mb-2" data-testid="download">
+              <div className="flex">
+                <a
+                  href={detail.url}
+                  download={`${detail.title}.pdf`}
+                  className="text-base font-medium flex items-end mb-2"
+                  data-testid="download"
+                >
                   <Download className="mr-1" />
                   {detail.title}
                 </a>
@@ -28,48 +41,7 @@ export const ResourcesLink: FunctionComponent<ResourcesLinkProps> = ({ title, de
           </div>
         ))}
       </div>
-      {icon && <img src={icon} className="link-icon" data-testid="link-icon" />}
-    </ResourcesLinkItem>
+      {icon && <img src={icon} alt="link icon" className="object-contain" data-testid="link-icon" />}
+    </div>
   );
 };
-
-const ResourcesLinkItem = styled.div`
-  background-color: ${vars.white};
-  padding: 8px 12px 12px 12px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin-bottom: 1rem;
-  display: flex;
-
-  .link-wrapper {
-    flex-grow: 1;
-  }
-  .link-icon {
-    object-fit: contain;
-  }
-
-  .title {
-    color: ${vars.greyDark};
-    ${mixin.fontSize(20)};
-    ${mixin.fontSourcesansproSemibold};
-  }
-
-  .date {
-    color: ${vars.grey};
-    ${mixin.fontSize(16)};
-    ${mixin.fontSourcesansproSemibold};
-    border-bottom: 1px solid ${vars.greyLight};
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .link {
-    ${mixin.fontSize(16)};
-    ${mixin.fontSourcesansproSemibold};
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .download-wrapper {
-    display: flex;
-  }
-`;

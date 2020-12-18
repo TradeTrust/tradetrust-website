@@ -1,6 +1,7 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { mixin, vars } from "../../../styles";
+import React from "react";
+import tw from "twin.macro";
+import { mixin } from "../../../styles";
 
 interface InputProps {
   className?: string;
@@ -23,25 +24,25 @@ export const Input = ({ className, errorMessage, ...props }: InputProps) => {
 };
 
 export const InputDefault = styled(Input)`
-  margin-bottom: 10px;
+  ${tw`mb-2`}
 
   &.is-error {
     input {
-      border: 1px solid ${vars.red};
+      ${tw`border border-solid border-red`}
     }
 
     .message {
-      color: ${vars.red};
+      ${tw`text-red`}
     }
   }
 
   input {
-    ${mixin.baseStyleInput()};
-    margin-bottom: 0;
+    ${mixin.baseStyleInput()}
+    ${tw`mb-0`}
   }
 
   .message {
-    margin: 8px 0;
+    ${tw`my-2 mx-0`}
   }
 `;
 
@@ -50,17 +51,13 @@ interface EditableAssetTitleProps {
 }
 
 export const InputEditableAssetTitle = styled.input`
-  ${mixin.baseStyleInput()};
-  margin-bottom: 0;
-  width: 100%;
+  ${mixin.baseStyleInput()}
+  ${tw`mb-0`}
   min-height: 40px;
-  ${({ hasError }: EditableAssetTitleProps) => hasError && `border: 1px solid ${vars.red}`};
+  ${({ hasError }: EditableAssetTitleProps) => hasError && tw`border-red`};
 `;
 
-export const InputError = styled.div`
-  width: 100%;
-  font-size: 14px;
-  margin-top: 8px;
-  color: ${vars.red};
+export const ErrorText = styled.div`
+  ${tw`w-full text-sm mt-2 text-red`}
   word-break: keep-all;
 `;

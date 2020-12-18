@@ -1,55 +1,35 @@
 import styled from "@emotion/styled";
 import { OverlayContext, Youtube } from "@govtechsg/tradetrust-ui-components";
-import { darken } from "polished";
 import React, { useContext } from "react";
-import { mixin, vars } from "../../styles";
+import tw from "twin.macro";
 import { Section } from "../Layout/Section";
 
 export const SectionLanding = styled(Section)`
-  position: relative;
-  ${mixin.centerVertical()}
   min-height: 580px;
-  text-align: center;
-  background-image: linear-gradient(to right, ${vars.blueLight} 0%, ${vars.pink} 100%);
 
   &::before {
+    ${tw`absolute top-0 left-0 w-full h-full bg-no-repeat pointer-events-none`}
     content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background-image: url("/static/images/landingsection/graphic-landing.png");
     background-size: 940px auto;
-    background-repeat: no-repeat;
     background-position: center bottom;
     opacity: 0.4;
-    pointer-events: none;
-  }
-
-  h1 {
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
   }
 
   .play {
-    transition: background-color 0.3s ${vars.easeOutCubic};
-    ${mixin.centerVertical()}
+    ${tw`transition duration-300 ease-out rounded-full cursor-pointer bg-blue flex flex-col justify-center`}
     width: 60px;
     height: 60px;
-    border-radius: 50%;
-    cursor: pointer;
-    background-color: ${vars.brandBlue};
 
     &:hover {
-      background-color: ${darken(0.1, vars.brandBlue)};
+      ${tw`bg-blue-800`}
     }
 
     .fa-play {
-      ${mixin.fontSize(24)}
-      color: ${vars.pink};
+      ${tw`text-2xl text-pink`}
 
       &::before {
-        margin-left: 4px;
+        ${tw`ml-1`}
       }
     }
   }
@@ -62,12 +42,13 @@ export const LandingSection = () => {
   };
 
   return (
-    <SectionLanding id="about">
+    <SectionLanding
+      className="relative flex flex-col justify-center text-center bg-gradient-to-r from-blue-400 to-pink"
+      id="about"
+    >
       <div className="flex">
         <div className="w-full lg:w-7/12 xl:w-5/12 lg:mx-auto">
-          <h1 className="mb-4" style={{ fontSize: "48px" }}>
-            A Trust Network for Trading Partners
-          </h1>
+          <h1 className="mb-4 font-medium text-5xl">A Trust Network for Trading Partners</h1>
           <p>
             A digital utility that comprises a set of globally-accepted standards and frameworks that connects
             governments and businesses to a public blockchain to enable trusted interoperability and exchanges of

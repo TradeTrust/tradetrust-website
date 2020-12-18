@@ -1,57 +1,49 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { mixin, vars } from "../../styles";
+import tw from "twin.macro";
 import { Section } from "../Layout/Section";
 
 export const SectionDocumentation = styled(Section)`
-  padding-top: 80px;
-  padding-bottom: 80px;
-  text-align: center;
+  ${tw`py-20 text-center`}
 
   h1 {
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
-    font-weight: 600;
+    ${tw`font-medium`}
   }
 
   p {
-    color: ${vars.greyDark};
+    ${tw`text-grey-700`}
   }
 
   a {
-    display: block;
-    color: ${vars.greyDark};
-    text-decoration: none;
+    ${tw`block text-grey-700 no-underline`}
 
     p {
-      transition: color 0.3s ${vars.easeOutCubic};
-      color: ${vars.blue};
-      ${mixin.fontSourcesansproBold};
+      ${tw`transition duration-300 ease-out text-blue font-semibold`}
     }
 
     &:hover {
       .fa-file-alt,
       .fa-code {
-        color: ${vars.brandNavy};
+        ${tw`text-navy`}
       }
 
       p {
-        color: ${vars.brandOrange};
+        ${tw`text-orange`}
       }
     }
   }
 
   .fa-file-alt,
   .fa-code {
-    transition: color 0.3s ${vars.easeOutCubic};
-    margin-bottom: 20px;
+    ${tw`transition duration-300 ease-out mb-5`}
   }
 
   .fa-file-alt {
-    ${mixin.fontSize(50)}
+    ${tw`text-5xl`}
   }
 
   .fa-code {
-    ${mixin.fontSize(40)}
+    ${tw`text-4xl`}
   }
 `;
 

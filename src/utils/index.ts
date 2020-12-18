@@ -1,5 +1,5 @@
-import { ETHERSCAN_BASE_URL } from "../config";
 import { utils } from "ethers";
+import { ETHERSCAN_BASE_URL } from "../config";
 
 export const makeEtherscanAddressURL = (address: string) => {
   return `${ETHERSCAN_BASE_URL}address/${address}`;
@@ -11,7 +11,7 @@ export const isEthereumAddress = (address: string) => {
       return true;
     }
   } catch (e) {
-    if (e.reason == "invalid address") {
+    if (e.reason === "invalid address") {
       return false;
     } else throw e;
   }

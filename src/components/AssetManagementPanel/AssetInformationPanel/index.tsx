@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import { darken } from "polished";
 import React, { FunctionComponent } from "react";
-import { vars } from "../../../styles";
+import tw from "twin.macro";
 import { AddressInfo } from "../../AddressInfo";
 import { ExternalLinkEtherscanAddress } from "../../UI/ExternalLink";
 
@@ -31,13 +30,10 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = s
   }
 )`
   .endorsement-chain-button {
-    color: ${vars.brandBlue};
-    cursor: pointer;
-    transition: color 0.3s ${vars.easeOutCubic};
+    ${tw`text-blue cursor-pointer transition-colors duration-300 ease-out`}
 
     &:hover {
-      color: ${darken(0.2, vars.brandBlue)};
-      text-decoration: underline;
+      ${tw`text-blue-800 underline`}
     }
   }
 `;

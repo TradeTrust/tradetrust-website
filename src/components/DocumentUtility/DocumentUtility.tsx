@@ -4,7 +4,7 @@ import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { useState } from "react";
 import { Download, Mail, Printer } from "react-feather";
-import { mixin, vars } from "../../styles";
+import tw from "twin.macro";
 import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
 
@@ -109,40 +109,34 @@ export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: Docu
 };
 
 export const DocumentUtilities = styled.div`
-  background-color: ${vars.white};
-  padding-bottom: 30px;
+  ${tw`bg-white pb-8`}
 
   .statusbar {
-    background-color: ${vars.white};
-    padding: 10px 0;
-    border-radius: ${vars.buttonRadius};
+    ${tw`bg-white py-2 rounded`}
   }
 
   svg {
-    color: ${vars.teal};
+    ${tw`text-teal`}
 
     .x-circle {
-      color: ${vars.red};
+      ${tw`text-red`}
     }
   }
 
   .issuedby {
-    color: ${vars.greyDark};
-    ${mixin.fontSourcesansproBold};
-    ${mixin.fontSize(18)};
+    ${tw`text-grey-700 text-lg font-semibold`}
 
     span {
-      display: inline-block;
+      ${tw`inline-block`}
       word-break: break-all;
     }
 
     .domain {
-      color: ${vars.brandBlue};
+      ${tw`text-blue`}
     }
   }
 
   .message {
-    line-height: 1.2;
-    ${mixin.fontSize(14)};
+    ${tw`text-sm leading-5`}
   }
 `;

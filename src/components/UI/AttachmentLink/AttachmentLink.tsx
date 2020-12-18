@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from "react";
 import styled from "@emotion/styled";
+import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import prettyBytes from "pretty-bytes";
-import { mixin, vars } from "../../../styles";
+import React, { FunctionComponent } from "react";
 import { Paperclip } from "react-feather";
-import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
+import tw from "twin.macro";
 import { getLogger } from "../../../utils/logger";
 
 const { error } = getLogger("component:attachmentlink");
@@ -28,7 +28,7 @@ interface ExtensionIconProps {
 }
 
 const ExtensionIcon: FunctionComponent<ExtensionIconProps> = ({ ...props }) => {
-  return <img {...props} className="max-w-full" />;
+  return <img {...props} className="max-w-full" alt="Extension Icon" />;
 };
 
 export const getExtension = (mimeType: string | undefined): React.ReactNode => {
@@ -59,11 +59,11 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
 
 //sending message to child window
 const openTab = (data: string) => {
-  const childWin = window.open(`${window.location}/#verify-documents`, "_blank");
+  const childWin = window.open(`${window.location}/#verify-documents`, "_blank", "noopener,noreferrer");
   window.addEventListener(
     "message",
     (event) => {
-      if (event.data.type == "READY" && childWin) {
+      if (event.data.type === "READY" && childWin) {
         childWin.postMessage(
           {
             type: "LOAD_DOCUMENT",
@@ -103,9 +103,9 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
       <div className="flex flex-row">
         <div className="w-auto mr-4">{getExtension(type)}</div>
         <div className="w-5/6">
-          <p className="filetext break-all">
+          <p className="mb-2 break-all">
             <span className="filename">{filename}</span>
-            {hasBase64 && <span className="filesize">&nbsp;({filesize})</span>}
+            {hasBase64 && <span className="font-normal inline-block text-grey text-sm">&nbsp;({filesize})</span>}
           </p>
           <div className="flex">
             <div className="w-auto mr-2">
@@ -113,23 +113,22 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
                 href={downloadHref}
                 download={`${filename}`}
                 data-testid="attachment-download-link"
-                className="downloadtext hover:underline"
+                className="text-blue hover:underline"
               >
                 Download
               </a>
             </div>
             {canOpenFile && data && (
               <div className="w-auto">
-                <a
+                <button
                   onClick={() => {
                     openTab(data);
                   }}
-                  rel="noopener noreferrer"
-                  className="downloadtext hover:underline"
+                  className="text-blue hover:underline"
                   data-testid="attachment-open-link"
                 >
                   Open
-                </a>
+                </button>
               </div>
             )}
           </div>
@@ -140,57 +139,25 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
 };
 
 export const Attachment = styled.div`
-  transition: background-color 0.3s ${vars.easeOutCubic};
-  display: inline-block;
-  width: 100%;
-  border: solid 1px ${vars.greyLighter};
-  padding: 10px 15px;
-  height: 100%;
+  ${tw`transition duration-300 ease-out inline-block w-full h-full border border-solid border-grey-200 py-2 px-4 hover:no-underline hover:bg-blue-300`}
 
   &:hover {
-    text-decoration: none;
-    background-color: ${vars.blueLighter};
-
     .filename {
-      color: ${vars.greyDark};
+      ${tw`text-grey-700`}
     }
   }
 
   .icon {
-    background-color: ${vars.greyLighter};
-    color: ${vars.greyDark};
-    padding: 10px;
+    ${tw`bg-grey-200 text-grey-700 p-2 rounded-full flex items-center`}
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
 
     svg {
-      margin: auto;
+      ${tw`m-auto`}
     }
   }
 
-  .filetext {
-    margin-bottom: 8px;
-  }
-
   .filename {
-    transition: color 0.3s ${vars.easeOutCubic};
-    ${mixin.fontSourcesansproBold};
-    line-height: 1.2;
-    color: ${vars.grey};
-    overflow-wrap: break-word;
-  }
-
-  .filesize {
-    display: inline-block;
-    ${mixin.fontSourcesansproRegular};
-    color: ${vars.grey};
-    ${mixin.fontSize(13)};
-  }
-
-  .downloadtext {
-    color: ${vars.blue};
+    ${tw`transition duration-300 ease-out leading-5 text-grey break-words font-semibold`}
   }
 `;

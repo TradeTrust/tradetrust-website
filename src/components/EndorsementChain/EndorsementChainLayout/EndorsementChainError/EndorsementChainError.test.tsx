@@ -5,7 +5,7 @@ import { EndorsementChainError } from "./EndorsementChainError";
 describe("EndorsementChainError", () => {
   it("should render correctly", () => {
     render(<EndorsementChainError error={""} />);
-    expect(screen.getAllByText("An error occured, please try again later.")).toHaveLength(1);
+    expect(screen.getAllByText("An error occurred, please try again later.")).toHaveLength(1);
   });
 
   it("should display error when there is an error", () => {

@@ -57,7 +57,7 @@ export const AcceptSurrenderedForm = ({
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap mb-4">
+        <div className="flex flex-wrap pb-4">
           <div className="w-auto ml-auto">
             <div className="flex flex-wrap">
               <div className="w-auto">

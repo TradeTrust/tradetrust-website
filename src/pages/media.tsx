@@ -1,9 +1,7 @@
-import styled from "@emotion/styled";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { ResourcesCard } from "../components/UI/ResourcesCard";
 import { ResourcesLink } from "../components/UI/ResourcesLink";
-import { vars } from "../styles";
 import { ResourcesLinkProps } from "../types";
 
 const sideLinks = [
@@ -117,44 +115,32 @@ export const MediaPage = () => (
       <title>TradeTrust - Events and Media Centre</title>
     </Helmet>
 
-    <ResourcePageStyle>
-      <div className="bg-blue-lighter">
-        <div className="container py-12">
-          <div className="flex">
-            <div className="w-full">
-              <h1>Events and Media Centre</h1>
-            </div>
+    <div className="bg-blue-300">
+      <div className="container py-12">
+        <div className="flex">
+          <div className="w-full">
+            <h1>Events and Media Centre</h1>
           </div>
-          <div className="flex flex-wrap py-4 -mx-4">
-            <div className="w-full lg:w-4/12 lg:order-2 px-4">
-              <div className="side-links">
-                {sideLinks.map((resourceLink, index) => (
-                  <ResourcesLink
-                    key={index}
-                    title={resourceLink.title}
-                    type={resourceLink.type}
-                    details={resourceLink.details}
-                    icon={resourceLink.icon}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="w-full lg:w-8/12 lg:order-1 px-4">
-              {resources.map((resource, index) => (
-                <ResourcesCard details={resource} key={index} />
-              ))}
-            </div>
+        </div>
+        <div className="flex flex-wrap py-4 -mx-4">
+          <div className="w-full lg:w-4/12 lg:order-2 px-4">
+            {sideLinks.map((resourceLink, index) => (
+              <ResourcesLink
+                key={index}
+                title={resourceLink.title}
+                type={resourceLink.type}
+                details={resourceLink.details}
+                icon={resourceLink.icon}
+              />
+            ))}
+          </div>
+          <div className="w-full lg:w-8/12 lg:order-1 px-4">
+            {resources.map((resource, index) => (
+              <ResourcesCard details={resource} key={index} />
+            ))}
           </div>
         </div>
       </div>
-    </ResourcePageStyle>
+    </div>
   </>
 );
-
-const ResourcePageStyle = styled.div`
-  .side-links {
-    @media (min-width: ${vars.lg}) {
-      top: 10px;
-    }
-  }
-`;

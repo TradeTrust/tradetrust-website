@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { VerificationFragment } from "@govtechsg/oa-verify";
 import React from "react";
+import tw from "twin.macro";
 import { MESSAGES, TYPES } from "../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../services/verify/fragments";
-import { mixin, vars } from "../../styles";
 import { StatusCheck } from "./StatusCheck";
 
 export const StatusChecks = styled(({ verificationStatus }: { verificationStatus: VerificationFragment[] }) => {
@@ -24,21 +24,18 @@ export const StatusChecks = styled(({ verificationStatus }: { verificationStatus
   );
 })`
   .statusbar {
-    background-color: ${vars.white};
-    padding: 10px 0;
-    border-radius: ${vars.buttonRadius};
+    ${tw`bg-white py-2 px-0 rounded`}
   }
 
   svg {
-    color: ${vars.teal};
+    ${tw`text-teal`}
 
     .x-circle {
-      color: ${vars.red};
+      ${tw`text-red`}
     }
   }
 
   .message {
-    line-height: 1.2;
-    ${mixin.fontSize(14)};
+    ${tw`leading-5 text-sm`}
   }
 `;

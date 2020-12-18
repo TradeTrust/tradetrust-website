@@ -1,68 +1,27 @@
 import styled from "@emotion/styled";
-import { rgba } from "polished";
 import React from "react";
 import { Check } from "react-feather";
 import { Link } from "react-router-dom";
-import { mixin, vars } from "../styles";
+import tw from "twin.macro";
 import { Section } from "./Layout/Section";
 
 export const SectionEmailSuccess = styled(Section)`
-  color: ${vars.greyDark};
-  padding-top: 60px;
-  padding-bottom: 60px;
-
-  h1 {
-    ${mixin.fontMontserratSemibold}
-    ${mixin.fontSize(36)}
-    text-transform: uppercase;
-  }
-
-  h5 {
-    ${mixin.fontMontserratSemibold}
-  }
-
-  .bg-gradient {
-    background-image: linear-gradient(to right, ${vars.blueLight} 0%, ${vars.pink} 100%);
-    color: ${vars.white};
-  }
-
-  .success-card {
-    background-color: ${vars.white};
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px ${rgba(vars.black, 0.1)};
-    text-align: center;
-    overflow: hidden;
-  }
-
-  .tick {
-    border: 4px solid ${vars.white};
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    padding: 8px;
-  }
+  ${tw`text-grey-700 py-16`}
 `;
 
 export const EmailSuccessPageContainer = () => {
   return (
     <SectionEmailSuccess>
-      <div className="success-card">
-        <div className="flex items-center px-6 py-12 bg-gradient">
-          <div className="w-auto mx-auto">
-            <div className="tick mb-4">
-              <Check />
-            </div>
+      <div className="max-w-md bg-white mx-auto rounded-lg shadow text-center overflow-hidden">
+        <div className="flex items-center justify-center p-12 text-white bg-gradient-to-r from-blue-400 to-pink">
+          <div className="border-4 border-solid border-white rounded-full w-20 h-20 flex items-center justify-center">
+            <Check className="h-10 w-10" />
           </div>
-          <div className="w-full">
-            <h1 className="mb-0">Success</h1>
-          </div>
+          <h1 className="mb-0 ml-8 font-semibold text-4xl uppercase">Success</h1>
         </div>
         <div className="flex flex-wrap px-6 py-12">
           <div className="w-full">
-            <h5>Thank you for your email enquiry.</h5>
+            <h5 className="font-semibold">Thank you for your email enquiry.</h5>
             <p>We will get back to you shortly!</p>
             <p>
               Back to <Link to="/">home page</Link>.

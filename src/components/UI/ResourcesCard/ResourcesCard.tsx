@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
 import { Download, ExternalLink, PlayCircle } from "react-feather";
-import { mixin, vars } from "./../../../styles";
+import tw from "twin.macro";
+import { mixin } from "./../../../styles";
 
 interface ResourcesCardProps {
   details: {
@@ -49,19 +50,22 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
               data-testid="youtubeEmbed-iframe"
             />
           ) : (
-            <div className="placehold" data-testid="placeholder">
+            <div
+              className="absolute top-0 left-0 w-full h-full bg-grey-200 p-4 text-center pointer-events-none"
+              data-testid="placeholder"
+            >
               <div className="flex justify-center items-center h-full">
-                <h5 className="mb-0">{placeholderText}</h5>
+                <h5 className="mb-0 text-grey font-normal">{placeholderText}</h5>
               </div>
             </div>
           )}
         </div>
       )}
-      <div className="content">
+      <div className="w-full px-5 pt-3 pb-5">
         <h4 className="title mb-2">
           {youtubeEmbedCode ? (
             <a
-              className="title"
+              className="text-grey-700 font-medium text-2xl"
               href={`https://www.youtube.com/watch?v=${youtubeEmbedCode}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -70,17 +74,23 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
               {title}
             </a>
           ) : (
-            <span data-testid="placeholder-title">{title}</span>
+            <span className="text-grey-700 font-medium text-2xl" data-testid="placeholder-title">
+              {title}
+            </span>
           )}
         </h4>
-        {tag && <div className="tag">{tag}</div>}
-        {dateTime && <div className="datetime">{dateTime}</div>}
+        {tag && (
+          <div className="inline-block border border-solid border-grey text-grey w-auto text-sm rounded font-medium p-1 mb-4">
+            {tag}
+          </div>
+        )}
+        {dateTime && <div className="text-grey text-base font-medium pb-3">{dateTime}</div>}
         <p className="mb-4">{description}</p>
         {downloads && (
-          <div className="py-2 text-brand-blue">
+          <div className="py-2 text-blue">
             {downloads?.map((download, index) => (
               <a
-                className="font-bold flex items-start mt-1"
+                className="font-semibold flex items-start mt-1"
                 href={download.path}
                 download={download.fileName}
                 key={index}
@@ -93,7 +103,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
           </div>
         )}
         {(watchLink || eventLink || eventSlides) && (
-          <div className="flex flex-wrap pt-4 text-brand-blue">
+          <div className="flex flex-wrap pt-4 text-blue">
             {watchLink && (
               <div className="w-full sm:w-auto mb-2 sm:mb-0">
                 <a className="link" href={watchLink} target="_blank" rel="noopener noreferrer">
@@ -138,87 +148,17 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
 };
 
 const ResourcesCardItem = styled.div`
-  background-color: ${vars.white};
-  display: flex;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin-bottom: 1rem;
-
-  @media (max-width: ${vars.lg}) {
-    flex-direction: column;
-  }
+  ${tw`bg-white flex flex-col lg:flex-row shadow-md mb-4`}
 
   .media-holder {
     ${mixin.aspectRatio(16, 9)};
   }
 
   iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .placehold {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    pointer-events: none;
-
-    h5 {
-      ${mixin.fontSourcesansproRegular};
-      color: rgba(0, 0, 0, 0.3);
-    }
-  }
-
-  .title {
-    ${mixin.fontSourcesansproSemibold};
-    color: ${vars.greyDark};
-  }
-
-  .content {
-    padding: 20px;
-    padding-top: 12px;
-    width: 100%;
-  }
-
-  ul {
-    padding-left: 18px;
-  }
-
-  li {
-    p {
-      margin-bottom: 0;
-    }
-  }
-
-  .tag {
-    border: 1px solid ${vars.greyDark};
-    width: auto;
-    ${mixin.fontSize(13)};
-    border-radius: 3px;
-    ${mixin.fontSourcesansproSemibold};
-    padding: 4px;
-    margin-bottom: 1rem;
-    display: inline-block;
+    ${tw`absolute top-0 left-0 w-full h-full`}
   }
 
   .link {
-    ${mixin.fontSize(18)};
-    ${mixin.fontSourcesansproSemibold};
-    display: inline-block;
-    padding-right: 16;
-  }
-
-  .datetime {
-    color: ${vars.grey};
-    ${mixin.fontSize(16)};
-    ${mixin.fontSourcesansproSemibold};
-    padding-bottom: 12;
+    ${tw`text-lg font-medium inline-block pr-4`}
   }
 `;

@@ -26,7 +26,7 @@ export const MultiTabs = ({
       <div className="flex flex-wrap">
         {templates.map(({ id, label }) => (
           <div
-            className={`p-4 mr-2 multi-tab ${id === selectedTemplate && "bg-white border-t-4 border-brand-blue"}`}
+            className={`p-4 mr-2 multi-tab ${id === selectedTemplate && "bg-white border-t-4 border-blue"}`}
             key={id}
             data-testid={id}
           >
@@ -43,7 +43,7 @@ export const MultiTabs = ({
         {hasAttachments && (
           <div
             className={`p-4 mr-2 multi-tab ${
-              selectedTemplate === "attachmentTab" && "bg-white border-t-4 border-brand-blue"
+              selectedTemplate === "attachmentTab" && "bg-white border-t-4 border-blue"
             }`}
           >
             <div

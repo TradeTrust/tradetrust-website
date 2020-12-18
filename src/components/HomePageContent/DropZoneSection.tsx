@@ -1,11 +1,9 @@
-import styled from "@emotion/styled";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { NETWORK_NAME } from "../../config";
 import { updateCertificate } from "../../reducers/certificate";
 import { trace } from "../../utils/logger";
 import CertificateDropzoneContainer from "../CertificateDropZone";
-import { mixin, vars } from "./../../styles";
 
 const DEMO_CERT = `/static/demo/${NETWORK_NAME}.tt`;
 
@@ -35,11 +33,10 @@ const MobileDemoCertificate = () => (
 );
 
 interface DropZoneSectionProps {
-  className?: string;
   loadCertificate: (certificate: any) => void;
 }
 
-const DropZoneSection = styled(({ className, loadCertificate }: DropZoneSectionProps) => {
+const DropZoneSection = ({ loadCertificate }: DropZoneSectionProps) => {
   const removeListener = () => trace("drop listener removed");
 
   useEffect(() => {
@@ -74,13 +71,15 @@ const DropZoneSection = styled(({ className, loadCertificate }: DropZoneSectionP
   }, [loadCertificate]);
 
   return (
-    <section id="verify-documents" className={`${className} bg-brand-navy text-white`}>
+    <section id="verify-documents" className="bg-navy text-white pt-8 pb-12 lg:pt-12 lg:pb-16">
       <div className="container">
         <div className="flex flex-wrap">
           <div className="w-full lg:w-5/12">
-            <div className="description">
-              <h1 className="font-normal">An easy way to check and verify your documents</h1>
-              <p>TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.</p>
+            <div className="py-8 px-0 text-center lg:text-left md:py-12 md:px-16 lg:pt-8 lg:pr-16 lg:pb-12 lg:pl-0">
+              <h1 className="font-normal text-5xl leading-none">An easy way to check and verify your documents</h1>
+              <p className="text-lg py-6 text-grey-200">
+                TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.
+              </p>
               <DraggableDemoCertificate />
               <MobileDemoCertificate />
             </div>
@@ -92,43 +91,7 @@ const DropZoneSection = styled(({ className, loadCertificate }: DropZoneSectionP
       </div>
     </section>
   );
-})`
-  padding-top: 30px;
-  padding-bottom: 45px;
-
-  @media only screen and (min-width: ${vars.lg}) {
-    padding-top: 45px;
-    padding-bottom: 60px;
-  }
-
-  h1 {
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
-  }
-
-  h3 {
-    color: ${vars.white};
-  }
-
-  .description {
-    padding: 32px 0;
-    text-align: center;
-
-    @media only screen and (min-width: ${vars.md}) {
-      padding: 48px 64px;
-    }
-
-    @media only screen and (min-width: ${vars.lg}) {
-      padding: 32px 64px 48px 0;
-      text-align: left;
-    }
-
-    p {
-      ${mixin.fontSize(18)}
-      padding: 24px 0;
-      color: rgba(${vars.white}, 0.7);
-    }
-  }
-`;
+};
 
 const mapDispatchToProps = (dispatch: any) => ({
   loadCertificate: (payload: any) => dispatch(updateCertificate(payload)),

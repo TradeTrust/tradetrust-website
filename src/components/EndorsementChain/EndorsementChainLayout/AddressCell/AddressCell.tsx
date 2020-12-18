@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import React, { FunctionComponent } from "react";
 import { Info } from "react-feather";
-import { mixin, vars } from "../../../../styles";
+import tw from "twin.macro";
 import { TooltipIcon } from "../../../UI/SvgIcon";
 
 interface AddressCell {
@@ -38,61 +38,38 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
   }
 )`
   .dot {
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    background-color: ${vars.teal};
-    margin: 0.25rem;
-    position: absolute;
-    left: -17px;
-    top: 5px;
-    z-index: 4;
+    ${tw`absolute h-2 w-2 rounded-full bg-teal m-1 z-10`}
+    left: -16px;
+    top: 3px;
   }
 
   .tooltip-container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    ${tw`relative flex flex-col`}
   }
 
   .tooltip-tittle {
-    font-weight: bold;
-    color: ${vars.white};
-    font-size: ${mixin.fontSize(16)};
+    ${tw`text-white font-bold text-base`}
   }
 
   .tooltip-content {
-    color: ${vars.white};
-    font-size: ${mixin.fontSize(16)};
-  }
-
-  .popup {
-    border: solid 1px red;
+    ${tw`text-white text-base`}
   }
 
   .name-row {
-    display: flex;
-    align-items: center;
-    position: relative;
+    ${tw`relative flex items-center`}
     min-height: 27px;
   }
 
   .icon {
-    width: 18px;
-    height: 18px;
-    color: ${vars.grey};
-    margin-left: 0.25rem;
+    ${tw`h-5 w-5 text-grey ml-1`}
   }
 
   .name {
-    font-size: ${mixin.fontSize(18)};
-    color: ${vars.greyDark};
-    font-weight: bold;
+    ${tw`text-lg text-grey-700 font-semibold`}
   }
 
   .address {
-    color: ${vars.brandBlue};
-    margin-bottom: 2rem;
+    ${tw`text-blue mb-8`}
     word-break: break-word;
   }
 `;

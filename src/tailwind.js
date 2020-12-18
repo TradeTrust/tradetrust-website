@@ -1,86 +1,78 @@
-module.exports = {
-  // future: {
-  //   removeDeprecatedGapUtilities: true,
-  //   purgeLayersByDefault: true,
-  // },
-  // purge: ["./src/**/*.ts", "./src/**/*.tsx"], // not to purge, cos common ui might need certain styles (should purge specific layers instead if really need)
+const _ = require("lodash"); //eslint-disable-line @typescript-eslint/no-var-requires
+const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwind"); //eslint-disable-line @typescript-eslint/no-var-requires
+
+// https://tailwindcss.com/docs/theme
+const localConfig = {
+  purge: {
+    content: [
+      "./src/**/*.ts",
+      "./src/**/*.tsx",
+      "./src/**/*.js",
+      "./src/**/*.jsx",
+      "./node_modules/@govtechsg/tradetrust-ui-components/src/**/*.tsx",
+    ],
+  },
   theme: {
-    container: (theme) => ({
-      center: true,
-      padding: theme("spacing.4"),
-    }),
     fontFamily: {
-      "source-sans-pro": ["Source Sans Pro", "sans-serif"],
-      montserrat: ["Montserrat", "sans-serif"],
+      sans: ["Roboto", "sans-serif"],
+      display: ["Roboto", "sans-serif"],
+      body: ["Roboto", "sans-serif"],
     },
     extend: {
+      inset: {
+        1: "0.25rem",
+        2: "0.5rem",
+        3: "0.75rem",
+        4: "1rem",
+        5: "1.25rem",
+        6: "1.5rem",
+        8: "2rem",
+      },
+      minWidth: {
+        135: "135px",
+        200: "200px",
+      },
+      minHeight: {
+        400: "400px",
+        600: "600px",
+      },
       colors: {
-        brand: {
-          blue: "#0099cc",
-          orange: "#ff9933",
-          navy: "#324353",
-        },
-        grey: {
-          100: "#f5f5f5",
-          200: "#e5e5e5",
-          300: "#dddddd",
-          400: "#bbbbbb",
-          500: "#8f8f8f",
-          700: "#5a5a5a",
-          800: "#4f4f4f",
-        },
-        greyblue: {
-          default: "#c1c9d1",
-          dark: "#a7afb7",
-          darker: "#343a40",
-        },
         blue: {
-          100: "#f5f8fb",
-          lighter: "#f3f8fc",
-          light: "#a6c1ee",
-          default: "#099de3",
+          300: "#f3f8fc",
+          400: "#a6c1ee",
           800: "#001F29",
         },
-        navy: {
-          default: "#324353",
-        },
         orange: {
-          lighter: "#fbd38d",
-          default: "#ffb152",
-          dark: "#ed8936",
+          300: "#fbd38d",
         },
         green: {
-          lightest: "#f5fbf7",
-          lighter: "#68d391",
-          default: "#00c04a",
-          600: "#029039",
-          darker: "#001f29",
+          100: "#f5fbf7",
+          400: "#68d391",
         },
-        teal: {
-          lighter: "#e5f9f8",
-          default: "#00cbbc",
+        red: {
+          100: "#fbeae9",
+          200: "#f7d7d7",
+          300: "#fc8686",
+          400: "#e46767",
+          900: "#8b0000",
+        },
+        yellow: {
+          300: "#fff48f",
+          default: "#ffe600",
+          600: "#ffbf00",
         },
         pink: {
           default: "#fbc2eb",
         },
-        red: {
-          lighter: "#fbeae9",
-          default: "#ff5268",
-          dark: "#8b0000",
-        },
-        white: {
-          default: "#ffffff",
-        },
-        black: {
-          light: "#212529",
-          default: "#000000",
-        },
-        offblack: {
-          default: "#212529",
+        greyblue: {
+          200: "#e2e8f0",
+          700: "#a7afb7",
+          900: "#343a40",
         },
       },
     },
   },
-  variants: {},
-  plugins: [],
 };
+const finalConfig = _.merge(commonUiConfig, localConfig); // deep merge
+
+module.exports = finalConfig;

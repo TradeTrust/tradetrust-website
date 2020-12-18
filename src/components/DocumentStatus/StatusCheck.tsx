@@ -1,6 +1,5 @@
 import React from "react";
 import { CheckCircle, XCircle } from "react-feather";
-import { vars } from "../../styles";
 
 interface StatusProps {
   message: string;
@@ -29,7 +28,7 @@ interface StatusCheck {
 
 export const StatusCheck = ({ valid, messageSet }: StatusCheck) => {
   const message = valid ? messageSet.successTitle : messageSet.failureTitle;
-  const icon = valid ? <CheckCircle color={`${vars.teal}`} /> : <XCircle color={`${vars.red}`} />;
+  const icon = valid ? <CheckCircle className="text-teal" /> : <XCircle className="text-red" />;
 
   return <Status message={message} icon={icon} />;
 };
