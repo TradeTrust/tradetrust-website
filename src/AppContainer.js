@@ -1,10 +1,10 @@
-import { Overlay } from "@govtechsg/tradetrust-ui-components";
+import { NetworkBar, Overlay } from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { hot } from "react-hot-loader/root";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar } from "./components/Layout/NavigationBar";
-import { NetworkBar } from "./components/UI/NetworkBar";
+import { NETWORK } from "./config";
 import { routes } from "./routes";
 
 const AppContainer = () => {
@@ -12,7 +12,9 @@ const AppContainer = () => {
 
   return (
     <div className="wrapper" data-location={location.pathname}>
-      <NetworkBar />
+      <NetworkBar network={NETWORK}>
+        You are currently on <span className="capitalize">{NETWORK}</span> network.
+      </NetworkBar>
       <NavigationBar />
       <main>
         <Switch>
