@@ -6,7 +6,7 @@
     "build:css": "NODE_ENV=production postcss src/tailwind.css -o src/index.css",
     "build:app": "NODE_ENV=production webpack --progress --mode production",
     "check-types": "tsc --sourceMap false --noEmit",
-    "dev:css": "NODE_ENV=production postcss src/tailwind.css -o src/index.css --watch",
+    "dev:css": "postcss src/tailwind.css -o src/index.css --watch",
     "dev:serve": "sleep 2 && NODE_ENV=development webpack-dev-server",
     "dev": "run-p dev:*",
     "lint": "eslint ./src --ext .js,.ts,.tsx,.mdx --max-warnings 0",

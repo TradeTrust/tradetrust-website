@@ -23,7 +23,7 @@ export const MultiTabs = ({
 }: MultiTabsProps) => {
   return (
     <div className="container">
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap items-end">
         {templates.map(({ id, label }) => (
           <div
             className={`p-4 mr-2 multi-tab ${id === selectedTemplate && "bg-white border-t-4 border-blue"}`}
@@ -47,16 +47,16 @@ export const MultiTabs = ({
             }`}
           >
             <div
-              className="truncate"
+              className="flex flex-nowrap items-center"
               data-testid="tab-attachment"
               onClick={() => {
                 setSelectedTemplate("attachmentTab"); // To unset the last active tab
               }}
             >
-              <span className="mr-2">Attachments</span>
-              <span className="rounded bg-grey-300 p-2" data-testid="attachment-number">
+              <div className="mr-2 w-auto">Attachments</div>
+              <div className="rounded-full w-6 h-6 bg-grey-300 text-center" data-testid="attachment-number">
                 {attachments && attachments.length}
-              </span>
+              </div>
             </div>
           </div>
         )}
