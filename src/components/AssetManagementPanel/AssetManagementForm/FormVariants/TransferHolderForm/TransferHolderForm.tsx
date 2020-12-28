@@ -1,8 +1,13 @@
-import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
+import {
+  Button,
+  MessageTitle,
+  OverlayContext,
+  showDocumentTransferMessage,
+  LoaderSpinner,
+} from "@govtechsg/tradetrust-ui-components";
 import React, { useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { isEthereumAddress } from "../../../../../utils";
-import { LoaderSpinner } from "../../../../UI/Loader";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";

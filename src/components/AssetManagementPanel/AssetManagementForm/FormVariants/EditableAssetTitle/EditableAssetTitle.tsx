@@ -1,10 +1,15 @@
 import { useThirdPartyAPIEndpoints } from "@govtechsg/address-identity-resolver";
-import { AddressBook, ButtonIcon, useOverlayContext } from "@govtechsg/tradetrust-ui-components";
+import {
+  AddressBook,
+  ButtonIcon,
+  useOverlayContext,
+  InputEditableAssetTitle,
+  InputError,
+} from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { Book } from "react-feather";
 import { NETWORK_NAME } from "../../../../../config";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
-import { ErrorText, InputEditableAssetTitle } from "../../../../UI/Input";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 
@@ -66,7 +71,7 @@ export const EditableAssetTitle = ({
             }}
           />
           {error && (
-            <ErrorText data-testid={"error-msg"}>Unidentified address. Please check and input again.</ErrorText>
+            <InputError data-testid="error-msg">Unidentified address. Please check and input again.</InputError>
           )}
         </div>
         <div className="w-auto">

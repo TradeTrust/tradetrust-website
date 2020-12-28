@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React, { InputHTMLAttributes } from "react";
-import { InputDefault } from "../Input";
+import { InputDefault } from "@govtechsg/tradetrust-ui-components";
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
