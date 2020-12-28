@@ -87,6 +87,7 @@ export const EmailForm = () => {
             placeholder="Full Name"
             required
             onChange={handleInputOrTextareaChange}
+            className="mb-2"
           />
           <InputDefault
             type="email"
@@ -94,6 +95,7 @@ export const EmailForm = () => {
             placeholder="Email Address"
             required
             onChange={handleInputOrTextareaChange}
+            className="mb-2"
           />
           <InputDefault
             type="text"
@@ -101,6 +103,7 @@ export const EmailForm = () => {
             placeholder="Name of your organisation"
             required
             onChange={handleInputOrTextareaChange}
+            className="mb-2"
           />
           <SelectDefault
             name="Business Category"

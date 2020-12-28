@@ -27,11 +27,12 @@ export const SelectDefault = styled(SelectDropdown)`
   ${tw`bg-white`}
 
   input {
-    ${tw`m-0 italic`}
+    ${tw`m-0`}
     font-size: inherit;
 
     &::placeholder {
-      ${tw`text-grey`}
+      ${tw`italic text-grey`}
+      font-size: 16px;
     }
   }
 
