@@ -1,8 +1,7 @@
-import { Button } from "@govtechsg/tradetrust-ui-components";
+import { Button, InputDefault } from "@govtechsg/tradetrust-ui-components";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { CheckboxDefault } from "./../UI/Checkbox";
-import { InputDefault } from "./../UI/Input";
 import { SelectDefault } from "./../UI/Select";
 import { TextareaDefault } from "./../UI/Textarea";
 

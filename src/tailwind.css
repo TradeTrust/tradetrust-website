@@ -4,12 +4,19 @@
   h1 {
     font-size: 40px;
   }
+
   h2 {
     font-size: 32px;
   }
+
   h3 {
     font-size: 28px;
   }
+
+  input[disabled] {
+    @apply cursor-not-allowed;
+  }
+
   a {
     @apply transition-colors;
     @apply duration-200;
