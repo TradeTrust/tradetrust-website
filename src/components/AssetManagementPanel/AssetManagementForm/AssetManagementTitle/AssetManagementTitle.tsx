@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowLeft } from "react-feather";
+import { BackArrow } from "@govtechsg/tradetrust-ui-components";
 import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementTitleProps {
@@ -16,14 +16,7 @@ export const AssetManagementTitle = ({ setFormActionNone, formAction, disabled }
         onClick={() => setFormActionNone(disabled)}
         data-disabled={disabled}
       >
-        <div className="flex flex-wrap items-center">
-          <div className="w-auto mr-1">
-            <ArrowLeft />
-          </div>
-          <div className="w-auto">
-            <p className="mb-0">Back</p>
-          </div>
-        </div>
+        <BackArrow />
         <h3 className="font-bold text-grey-700 mb-2">
           {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
           {formAction === AssetManagementActions.AcceptSurrendered && <>Accept Surrender of Document</>}
