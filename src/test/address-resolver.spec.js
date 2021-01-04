@@ -3,6 +3,8 @@ import { validateTextContent } from "./helper";
 
 fixture("Address Resolver").page`http://localhost:3000`;
 
+const LinkSettings = Selector("a[href='/settings']");
+const LinkSettingsAddressResolver = Selector("a[href='/settings/address-resolver']");
 const ButtonAdd = Selector("button").withText("Add");
 const TableBodyRows = Selector("tbody > tr");
 const TableBodyRow1 = Selector("tbody > tr:first-child");
@@ -21,7 +23,8 @@ const IconMoveDown1 = TableBodyRow1.find("th .fa-sort-down");
 const IconMoveUp2 = TableBodyRow2.find("th .fa-sort-up");
 
 test("Address Resolver to be added, edited, moved and removed correctly", async (t) => {
-  await t.navigateTo("/settings/address-resolver");
+  await t.click(LinkSettings);
+  await t.click(LinkSettingsAddressResolver);
 
   // should show only 1 row with no endpoint found text
   await validateTextContent(t, TableBodyRow1, ["No third party's endpoint found."]);
@@ -99,7 +102,8 @@ test("Address Resolver to be added, edited, moved and removed correctly", async 
 });
 
 test("should allow sorting of priority of providers", async (t) => {
-  await t.navigateTo("/settings/address-resolver");
+  await t.click(LinkSettings);
+  await t.click(LinkSettingsAddressResolver);
 
   // should show only 1 row with no endpoint found text
   await validateTextContent(t, TableBodyRow1, ["No third party's endpoint found."]);
