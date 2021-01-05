@@ -28,36 +28,60 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
 }) => {
   let previousBeneficiary = "";
   let previousHolder = "";
-  const tableRows: JSX.Element[] = [];
   let index = 0;
+  const tableRows: JSX.Element[] = [
+    // By default there will always be this 'Document has been issued'
+    <tr className="table-row" key={index++}>
+      <td className="table-cell border-top-none">
+        <div className="name">Document has been issued</div>
+      </td>
+      <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
+        <div className="mask" />
+        <div className="relative flex h-5">
+          <div className="dot" data-testid="dot" />
+        </div>
+      </td>
+    </tr>,
+  ];
+
   endorsementChain &&
     endorsementChain.forEach((tradetrustErc721Event, eventIndex) => {
-      // default not needed as eventType has only 3 possibilities which are all accounted for
       switch (tradetrustErc721Event.eventType) {
         case "Transfer":
           const beneficiaryChangeEvent = tradetrustErc721Event as TitleEscrowEvent;
-          if (!beneficiaryChangeEvent.holderChangeEvents || !beneficiaryChangeEvent.beneficiary)
+
+          if (!beneficiaryChangeEvent.holderChangeEvents || !beneficiaryChangeEvent.beneficiary) {
             return new Error("Invalid Event: Transfer Event does not have new beneficiary or new holder address");
+          }
+
           beneficiaryChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
+            const isNewBeneficiaryAddress = previousBeneficiary !== beneficiaryChangeEvent.beneficiary;
+            const isNewHolderAddress = previousHolder !== holderChangeEvent.holder;
+
             tableRows.push(
               <tr className="table-row" key={index++}>
-                <td className="table-cell date border-top-none">
-                  {format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}
+                <td className="table-cell border-top-none">
+                  {isNewBeneficiaryAddress && <div className="name">Endorse change of ownership</div>}
+                  {isNewHolderAddress && !isNewBeneficiaryAddress && <div className="name">Transfer holdership</div>}
+                  <div className="date mb-8">
+                    {format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}
+                  </div>
                 </td>
                 <td className="table-cell endorsement-ui-dash border-top-none">
-                  {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
+                  {/* {eventIndex === 0 && holderIndex === 0 && <div className="mask" />} */}
                   <AddressCell
                     address={beneficiaryChangeEvent.beneficiary}
                     titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
-                    newAddress={!(previousBeneficiary === beneficiaryChangeEvent.beneficiary)}
+                    newAddress={isNewBeneficiaryAddress}
                   />
                 </td>
                 <td className="table-cell endorsement-ui-dash border-top-none">
                   {eventIndex === 0 && holderIndex === 0 && <div className="mask" />}
+                  {endorsementChain.length === eventIndex + 1 && <div className="end-mask" />}
                   <AddressCell
                     address={holderChangeEvent.holder}
                     titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
-                    newAddress={!(previousHolder === holderChangeEvent.holder)}
+                    newAddress={isNewHolderAddress}
                   />
                 </td>
               </tr>
@@ -66,54 +90,70 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
             previousHolder = holderChangeEvent.holder;
           });
           break;
+
         case "Surrender":
           tableRows.push(
             <tr className="table-row" key={index++}>
-              <td className="table-cell date border-top-none">
-                {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              <td className="table-cell border-top-none">
+                <div className="name">Document surrendered to Issuer</div>
+                <div className="date">
+                  {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+                </div>
               </td>
               <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
                 <div className="relative flex">
+                  {endorsementChain.length === eventIndex + 1 && <div className="end-mask" />}
                   <div className="dot" data-testid="dot" />
-                  <div className="name">Document surrendered to Issuer</div>
+                  <div className="h-10" />
                 </div>
               </td>
             </tr>
           );
           break;
+
         case "Burnt":
           tableRows.push(
             <tr className="table-row" key={index++}>
-              <td className="table-cell date border-top-none">
-                {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              <td className="table-cell border-top-none">
+                <div className="name">Surrender of document accepted</div>
+                <div className="date">
+                  {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+                </div>
               </td>
               <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
                 <div className="relative flex">
+                  {endorsementChain.length === eventIndex + 1 && <div className="end-mask" />}
                   <div className="dot" data-testid="dot" />
-                  <div className="name">Surrender of document accepted</div>
+                  <div className="h-10" />
                 </div>
               </td>
             </tr>
           );
           break;
+
         case "Transfer to Wallet":
           tableRows.push(
             <tr className="table-row" key={index++}>
-              <td className="table-cell date border-top-none">
-                {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              <td className="table-cell border-top-none">
+                <div className="name" data-testid="transferred-to-wallet">
+                  Transferred to wallet
+                </div>
+                <div className="date">
+                  {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+                </div>
               </td>
               <td className="table-cell endorsement-ui-dash border-top-none" colSpan={2}>
                 <div className="relative flex flex-col">
+                  {endorsementChain.length === eventIndex + 1 && <div className="end-mask" />}
                   <div className="dot" data-testid="dot" />
-                  <div className="name" data-testid="transferred-to-wallet">
-                    Transferred to wallet
-                  </div>
                   <div className="address">{tradetrustErc721Event.documentOwner}</div>
                 </div>
               </td>
             </tr>
           );
           break;
+
+        // default not needed as eventType has only 3 possibilities which are all accounted for
         default:
           trace("Unknown event type please check event history");
           break;
@@ -131,7 +171,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
           <table className="table">
             <thead className="text-left">
               <tr className="table-header table-row">
-                <th className="table-cell">Date</th>
+                <th className="table-cell">Action/Date</th>
                 <th className="table-cell">Owner</th>
                 <th className="table-cell">Holder</th>
               </tr>
@@ -156,6 +196,13 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   .mask {
     ${tw`absolute w-1 h-6 bg-white top-0`}
     left: -2px;
+  }
+
+  .end-mask {
+    ${tw`absolute w-2 bg-white`}
+    height: 3.5rem;
+    left: -12px;
+    top: 10px;
   }
 
   .back-button {
@@ -199,15 +246,15 @@ export const EndorsementChainLayout = styled(EndorsementChainLayoutUnstyled)`
   }
 
   .date {
-    ${tw`font-bold text-grey-700 min-w-135`}
+    ${tw`text-sm font-semibold text-grey min-w-135 flex justify-end pr-2`}
   }
 
   .name {
-    ${tw`text-lg text-grey-700 font-semibold`}
+    ${tw`text-lg text-grey-700 font-semibold flex justify-end pr-2`}
   }
 
   .address {
-    ${tw`text-blue mb-8`}
+    ${tw`text-blue`}
     word-break: break-word;
   }
 

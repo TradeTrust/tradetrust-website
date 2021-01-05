@@ -32,7 +32,7 @@ const sampleEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
     holderChangeEvents: [
       {
         blockNumber: 8283040,
-        holder: "0x32507B8838562c0fc881dA6Ce00162B184a34955",
+        holder: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
         timestamp: 1594608903000,
       },
     ],
@@ -51,15 +51,9 @@ const sampleEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
   },
   {
     documentOwner: "0xBee0875Ba8069ed5c48E6A670118EF1C6B1E7fC0",
-    eventType: "Transfer",
+    eventType: "Transfer to Wallet",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    holderChangeEvents: [
-      {
-        blockNumber: 8283050,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594609105000,
-      },
-    ],
+    eventTimestamp: 1594609205000,
   },
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
