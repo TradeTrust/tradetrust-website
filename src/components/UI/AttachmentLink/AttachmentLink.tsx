@@ -59,7 +59,8 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
 
 //sending message to child window
 const openTab = (data: string) => {
-  const childWin = window.open(`${window.location}/#verify-documents`, "_blank", "noopener,noreferrer");
+  const childWin = window.open(`${window.location}/#verify-documents`, "_blank"); // to omit noopener noreferrer for this case, otherwise event.data.type will return undefined -> unable to postMessage
+
   window.addEventListener(
     "message",
     (event) => {
