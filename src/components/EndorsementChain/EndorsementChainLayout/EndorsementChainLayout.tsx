@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { BackArrow } from "@govtechsg/tradetrust-ui-components";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
-import { ArrowLeft } from "react-feather";
 import tw from "twin.macro";
 import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
 import { getLogger } from "../../../utils/logger";
@@ -124,14 +124,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
     <div className={`container ${className} `}>
       <div className="table-container">
         <div className="back-button" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
-          <div className="flex items-center">
-            <div className="w-auto mr-1">
-              <ArrowLeft />
-            </div>
-            <div className="w-auto">
-              <p className="mb-0">Back</p>
-            </div>
-          </div>
+          <BackArrow />
         </div>
         <div className="endorsement-chain-title">Endorsement Chain</div>
         <div className="table-responsive">

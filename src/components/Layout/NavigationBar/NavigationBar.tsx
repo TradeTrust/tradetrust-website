@@ -88,7 +88,6 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     case item.id === "settings":
       return (
         <NavHashLink
-          data-testid="settings"
           to={item.path}
           className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
           activeClassName=""

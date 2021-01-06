@@ -1,6 +1,5 @@
-import { useThirdPartyAPIEndpoints } from "@govtechsg/address-identity-resolver";
 import {
-  AddressBook,
+  OverlayAddressBook,
   ButtonIcon,
   useOverlayContext,
   InputEditableAssetTitle,
@@ -31,17 +30,9 @@ export const EditableAssetTitle = ({
   error,
 }: EditableAssetTitleProps) => {
   const { showOverlay } = useOverlayContext();
-  const { thirdPartyAPIEndpoints } = useThirdPartyAPIEndpoints();
 
   const onOverlayHandler = () => {
-    showOverlay(
-      <AddressBook
-        title="Address Book"
-        onAddressSelected={onSetNewValue}
-        thirdPartyAPIEndpoints={thirdPartyAPIEndpoints}
-        network={NETWORK_NAME}
-      />
-    );
+    showOverlay(<OverlayAddressBook onAddressSelected={onSetNewValue} network={NETWORK_NAME} title="Address Book" />);
   };
 
   if (!value) return <SkeletonPlaceholder />;
