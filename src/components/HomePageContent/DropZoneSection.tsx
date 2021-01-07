@@ -48,7 +48,7 @@ const DropZoneSection = ({ loadCertificate }: DropZoneSectionProps) => {
           .fetch(DEMO_CERT)
           .then((res) => res.json())
           .then((res) => {
-            updateCertificate(res);
+            loadCertificate(res);
           });
       }
     });

@@ -24,7 +24,6 @@ const MainPage = ({ loadCertificate }: { loadCertificate: (certificate: any) => 
         if (event.data?.type === "LOAD_DOCUMENT" && event.data.payload) {
           try {
             const doc = atob(event.data.payload);
-            console.log(doc);
             loadCertificate(JSON.parse(doc));
           } catch (e) {
             error("decode data not json: " + e);
