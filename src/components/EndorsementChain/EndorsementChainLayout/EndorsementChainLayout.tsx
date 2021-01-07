@@ -95,7 +95,7 @@ const EndorsementChainLayoutUnstyled: FunctionComponent<EndorsementChainLayout> 
           tableRows.push(
             <tr className="table-row" key={index++}>
               <td className="table-cell border-top-none">
-                <div className="name">Document surrendered to Issuer</div>
+                <div className="name">Document surrendered to issuer</div>
                 <div className="date">
                   {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
                 </div>
