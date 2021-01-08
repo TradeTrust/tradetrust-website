@@ -76,7 +76,7 @@ export const ActionSelectionForm = ({
   };
   return (
     <>
-      <div className="flex flex-wrap justify-between mb-4 -mx-4">
+      <div className="flex flex-wrap justify-between pb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <AssetInformationPanel
             tokenRegistryAddress={tokenRegistryAddress}

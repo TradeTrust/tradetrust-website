@@ -13,7 +13,7 @@ import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
-import { EndorsementChainContainer } from "./EndorsementChain/EndorsementChainContainer";
+import { EndorsementChainContainer } from "./EndorsementChain";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ModalDialog } from "./ModalDialog";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";

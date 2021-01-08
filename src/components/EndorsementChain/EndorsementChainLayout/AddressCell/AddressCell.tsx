@@ -32,17 +32,11 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
             <Info />
           </TooltipIcon>
         </div>
-        <div className="address">{address}</div>
+        <div className="address mb-8">{address}</div>
       </div>
     );
   }
 )`
-  .dot {
-    ${tw`absolute h-2 w-2 rounded-full bg-teal m-1 z-10`}
-    left: -16px;
-    top: 3px;
-  }
-
   .tooltip-container {
     ${tw`relative flex flex-col`}
   }
@@ -55,21 +49,11 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
     ${tw`text-white text-base`}
   }
 
-  .name-row {
-    ${tw`relative flex items-center`}
-    min-height: 27px;
-  }
-
   .icon {
     ${tw`h-5 w-5 text-grey ml-1`}
   }
 
   .name {
     ${tw`text-lg text-grey-700 font-semibold`}
-  }
-
-  .address {
-    ${tw`text-blue mb-8`}
-    word-break: break-word;
   }
 `;
