@@ -38,6 +38,10 @@ const sideLinks = [
         title: "TradeTrust Newsletter Issue 02",
         url: "/static/images/newsletter/TradeTrust_Newsletter_Issue02.pdf",
       },
+      {
+        title: "TradeTrust Newsletter Issue 03",
+        url: "/static/images/newsletter/Tradetrust_Newsletter_Issue03.pdf",
+      },
     ],
   },
 ] as ResourcesLinkProps[];
