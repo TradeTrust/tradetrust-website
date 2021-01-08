@@ -15,3 +15,13 @@ export const Example = () => {
     />
   );
 };
+
+export const Error = () => {
+  return (
+    <EndorsementChainContainer
+      tokenRegistry="0x10E936e6BA85dC9250576025988116714136582"
+      tokenId="0x38082975c9b82138f8c154d97206861bf0eaac46ab59855c1931ed218f82c54f"
+      setShowEndorsementChain={() => {}}
+    />
+  );
+};

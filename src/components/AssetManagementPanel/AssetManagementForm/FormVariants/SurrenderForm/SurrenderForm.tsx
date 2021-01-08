@@ -1,9 +1,9 @@
 import {
   Button,
+  LoaderSpinner,
   MessageTitle,
   OverlayContext,
   showDocumentTransferMessage,
-  LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
 import React, { useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
@@ -52,7 +52,7 @@ export const SurrenderForm = ({
         formAction={formAction}
         disabled={isPendingConfirmation}
       />
-      <div className="flex flex-wrap justify-between mb-4 -mx-4">
+      <div className="flex flex-wrap justify-between pb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <AssetInformationPanel
             setShowEndorsementChain={setShowEndorsementChain}
