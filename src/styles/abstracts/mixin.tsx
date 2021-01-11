@@ -66,12 +66,7 @@ export const aspectRatio = (width = 16, height = 9) => {
 
 export const baseStyleInput = (): SerializedStyles => {
   return css`
-    ${tw`border border-solid border-grey-300 py-1 px-2 mb-2`}
-
-    &[type="text"],
-    &[type="email"] {
-      ${tw`w-full`}
-    }
+    ${tw`border border-solid border-grey-300 bg-white py-1 px-2 mb-2`}
 
     &::placeholder {
       ${tw`italic text-grey text-base`}

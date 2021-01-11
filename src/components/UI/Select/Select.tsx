@@ -24,15 +24,15 @@ export const SelectDropdown = ({ values, onChange, options, ...props }: SelectDr
 
 export const SelectDefault = styled(SelectDropdown)`
   ${mixin.baseStyleInput()}
-  ${tw`bg-white`}
+  font-size: 16px;
 
-  input {
-    ${tw`m-0`}
+  .react-dropdown-select-input {
     font-size: inherit;
+    ${tw`ml-0`}
 
     &::placeholder {
       ${tw`italic text-grey`}
-      font-size: 16px;
+      font-size: inherit;
     }
   }
 
