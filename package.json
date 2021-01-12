@@ -24,7 +24,7 @@
     "integration:dappeteer": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:local\" \"npm:integration:metamask\"",
     "prep": "npm run lint:fix && npm run test && ./scripts/integration-headless.sh",
     "serve-static": "http-server dist -s -p 3000",
-    "storybook": "npm run build:css && sleep 2 && start-storybook -p 6006 -s public",
+    "storybook": "npm run dev:css && sleep 2 && start-storybook -p 6006 -s public",
     "storybook:build": "npm run build:css && sleep 2 && build-storybook -o docs -s public",
     "test": "jest --env=jest-environment-jsdom-sixteen",
     "test:coverage": "npm run test -- --collectCoverage",

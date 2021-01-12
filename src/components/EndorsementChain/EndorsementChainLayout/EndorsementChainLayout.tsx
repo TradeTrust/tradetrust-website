@@ -27,32 +27,22 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   let previousBeneficiary = "";
   let previousHolder = "";
   let index = 0;
-  let transferIndex = 0;
 
   const tableRows: JSX.Element[] = [
     // By default there will always be this 'Document has been issued'
     <tr className="table-row" key={index++}>
       <td className="table-cell">
-        <div className="action-title my-8">Document has been issued</div>
+        <div className="action-title">Document has been issued</div>
       </td>
       <td className="table-cell" colSpan={2}>
-        <div className="first-dash" />
-        <div className="relative flex h-5 mt-8">
+        <div className="journey">
+          <div className="dash-head invisible" />
           <div className="dot" data-testid="dot" />
+          <div className="dash-tail" />
         </div>
       </td>
     </tr>,
   ];
-
-  // scan endorsement chain for total number of holder change events before building the ui.
-  let totalNumberOfHolderEvents = 0;
-  endorsementChain &&
-    endorsementChain.forEach((event) => {
-      if (event.eventType !== "Transfer") return;
-
-      const beneficiaryChangeEvent = event as TitleEscrowEvent;
-      totalNumberOfHolderEvents += beneficiaryChangeEvent.holderChangeEvents.length;
-    });
 
   // for each erc721 event, generate the ui according to the event type.
   endorsementChain &&
@@ -70,7 +60,8 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
             const isNewBeneficiaryAddress = previousBeneficiary !== beneficiaryChangeEvent.beneficiary;
             const isNewHolderAddress = previousHolder !== holderChangeEvent.holder;
             const isFirstRowHolder = eventIndex === 0 && holderIndex === 0;
-            transferIndex++;
+            const isLastRowHolder = eventIndex + 1 === endorsementChain.length;
+            console.log(eventIndex, endorsementChain.length);
 
             // ui for each row of holderChangeEvent
             tableRows.push(
@@ -83,23 +74,21 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
                   <div className="date">{format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}</div>
                 </td>
                 <td className="table-cell">
-                  <div className={eventIndex + 1 === endorsementChain.length ? "last-transfer-dash" : "dash"} />
                   <AddressCell
                     address={beneficiaryChangeEvent.beneficiary}
                     titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
                     newAddress={isNewBeneficiaryAddress}
+                    isFirstRowHolder={isFirstRowHolder}
+                    isLastRowHolder={isLastRowHolder}
                   />
                 </td>
                 <td className="table-cell">
-                  {isFirstRowHolder ? (
-                    <div className="first-transfer-dash" />
-                  ) : (
-                    <div className={transferIndex === totalNumberOfHolderEvents ? "last-transfer-dash" : "dash"} />
-                  )}
                   <AddressCell
                     address={holderChangeEvent.holder}
                     titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
                     newAddress={isNewHolderAddress}
+                    isFirstRowHolder={isFirstRowHolder}
+                    isLastRowHolder={isLastRowHolder}
                   />
                 </td>
               </tr>
@@ -120,10 +109,10 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
                 </div>
               </td>
               <td className="table-cell" colSpan={2}>
-                <div className={eventIndex + 1 === endorsementChain.length ? "last-dash" : "dash"} />
-                <div className="relative flex">
+                <div className="journey">
+                  <div className="dash-head" />
                   <div className="dot" data-testid="dot" />
-                  <div className="h-5 mb-12" />
+                  <div className="dash-tail" />
                 </div>
               </td>
             </tr>
@@ -141,10 +130,10 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
                 </div>
               </td>
               <td className="table-cell" colSpan={2}>
-                <div className={eventIndex + 1 === endorsementChain.length ? "last-dash" : "dash"} />
-                <div className="relative flex">
+                <div className="journey">
+                  <div className="dash-head" />
                   <div className="dot" data-testid="dot" />
-                  <div className="h-5 mb-12" />
+                  <div className="dash-tail invisible" />
                 </div>
               </td>
             </tr>
@@ -164,11 +153,12 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
                 </div>
               </td>
               <td className="table-cell" colSpan={2}>
-                <div className={eventIndex + 1 === endorsementChain.length ? "last-dash" : "dash"} />
-                <div className="relative flex flex-col mb-12">
+                <div className="journey">
+                  <div className="dash-head" />
                   <div className="dot" data-testid="dot" />
-                  <div className="address">{tradetrustErc721Event.documentOwner}</div>
+                  <div className="dash-tail" />
                 </div>
+                <div className="address">{tradetrustErc721Event.documentOwner}</div>
               </td>
             </tr>
           );
@@ -210,57 +200,6 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 };
 
 const EndorsementChainLayoutStyle = styled.div`
-  .first-dash {
-    ${tw`absolute border-l border-dashed border-teal`}
-    top: 50%;
-    bottom: 0;
-    left: 0;
-
-    @media only screen and (max-width: 1023px) {
-      top: 45%;
-    }
-  }
-
-  .first-transfer-dash {
-    ${tw`absolute border-l border-dashed border-teal`}
-    top: 20%;
-    bottom: 0;
-    left: 0;
-
-    @media only screen and (max-width: 767px) {
-      top: 15%;
-    }
-  }
-
-  .dash {
-    ${tw`absolute border-l border-dashed border-teal`}
-    top: 0;
-    bottom: 0;
-    left: 0;
-  }
-
-  .last-dash {
-    ${tw`absolute border-l border-dashed border-teal`}
-    top: 0;
-    bottom: 80%;
-    left: 0;
-
-    @media only screen and (max-width: 767px) {
-      bottom: 83%;
-    }
-  }
-
-  .last-transfer-dash {
-    ${tw`absolute border-l border-dashed border-teal`}
-    top: 0;
-    bottom: 80%;
-    left: 0;
-
-    @media only screen and (max-width: 767px) {
-      bottom: 88%;
-    }
-  }
-
   .back-button {
     ${tw`text-grey cursor-pointer mb-2`}
 
@@ -282,18 +221,29 @@ const EndorsementChainLayoutStyle = styled.div`
   }
 
   .table-cell {
-    padding: 0.5rem;
     position: relative;
     vertical-align: top;
     border-top: none;
   }
 
+  thead {
+    th {
+      ${tw`px-4 py-2`}
+    }
+  }
+
+  tbody {
+    td {
+      ${tw`px-4 py-4`}
+    }
+  }
+
   .date {
-    ${tw`text-sm font-semibold text-grey min-w-135 flex justify-end pr-2 mb-8`}
+    ${tw`text-sm font-semibold text-grey min-w-135 flex justify-end pr-2`}
   }
 
   .action-title {
-    ${tw`text-lg text-grey-700 font-semibold flex justify-end pr-2 text-right`}
+    ${tw`text-lg text-grey-700 font-semibold flex justify-end text-right`}
   }
 
   .address {
@@ -301,11 +251,28 @@ const EndorsementChainLayoutStyle = styled.div`
     word-break: break-word;
   }
 
+  .journey {
+    ${tw`absolute z-10 flex-col h-full`}
+    top: 0;
+    left: 0;
+    width: 0;
+  }
+
+  .dash-head {
+    ${tw`border-l border-dashed border-teal flex flex-grow h-6`}
+    width: 0;
+  }
+
   .dot {
-    ${tw`absolute rounded-full bg-teal m-1 z-10`}
-    height: 9px;
-    width: 9px;
-    left: -1rem;
-    top: 5px;
+    ${tw`rounded-full bg-teal flex flex-shrink`}
+    height: 10px;
+    width: 10px;
+    margin-left: -5px;
+  }
+
+  .dash-tail {
+    ${tw`border-l border-dashed border-teal flex flex-grow`}
+    width: 0;
+    height: 100%;
   }
 `;

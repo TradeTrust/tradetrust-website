@@ -10,10 +10,12 @@ interface AddressCell {
   className?: string;
   titleEscrowAddress: string;
   newAddress: boolean;
+  isFirstRowHolder?: boolean;
+  isLastRowHolder?: boolean;
 }
 
 export const AddressCell: FunctionComponent<AddressCell> = styled(
-  ({ address, className, titleEscrowAddress, newAddress }) => {
+  ({ address, className, titleEscrowAddress, newAddress, isFirstRowHolder, isLastRowHolder }) => {
     const { identityName } = useIdentifierResolver(address);
 
     const tooltipContent = (
@@ -25,14 +27,18 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
 
     return (
       <div className={className}>
-        <div className="relative flex">
+        <div className="journey">
+          <div className={`dash-head ${isFirstRowHolder ? "invisible" : ""}`} />
           {newAddress && <div className="dot" data-testid="dot" />}
+          <div className={`dash-tail ${isLastRowHolder ? "invisible" : ""}`} />
+        </div>
+        <div className="flex">
           {identityName && <div className="name">{identityName}</div>}
           <TooltipIcon className="icon" content={tooltipContent} placement="top">
             <Info />
           </TooltipIcon>
         </div>
-        <div className="address mb-8">{address}</div>
+        <div className="address">{address}</div>
       </div>
     );
   }
