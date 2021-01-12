@@ -20,13 +20,14 @@ describe("AddressCell", () => {
       <AddressCell
         address="0x6FFeD6E6591b808130a9b248fEA32101b5220eca"
         titleEscrowAddress="0x748938d2DEc5511A50F836ede82e2831cC4A7f80"
-        newAddress={true}
+        isNewAddress={true}
+        isFirstRowHolder={false}
       />
     );
     expect(screen.getAllByText("0x6FFeD6E6591b808130a9b248fEA32101b5220eca")).toHaveLength(1);
     expect(screen.getAllByText("0x748938d2DEc5511A50F836ede82e2831cC4A7f80")).toHaveLength(1);
     expect(screen.getAllByText("FooBar")).toHaveLength(1);
-    expect(screen.getByTestId("dot")).not.toBeNull();
+    expect(screen.getByTestId("dot").classList.contains("invisible")).not.toBe(true);
   });
 
   it("should not render the dot in the UI if newAddress is false", () => {
@@ -36,9 +37,10 @@ describe("AddressCell", () => {
       <AddressCell
         address="0x6FFeD6E6591b808130a9b248fEA32101b5220eca"
         titleEscrowAddress="0x748938d2DEc5511A50F836ede82e2831cC4A7f80"
-        newAddress={false}
+        isNewAddress={false}
+        isFirstRowHolder={false}
       />
     );
-    expect(screen.queryByTestId("dot")).toBeNull();
+    expect(screen.getByTestId("dot").classList.contains("invisible")).toBe(true);
   });
 });
