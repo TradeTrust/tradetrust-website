@@ -77,7 +77,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
                   <AddressCell
                     address={beneficiaryChangeEvent.beneficiary}
                     titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
-                    newAddress={isNewBeneficiaryAddress}
+                    isNewAddress={isNewBeneficiaryAddress}
                     isFirstRowHolder={isFirstRowHolder}
                     isLastRowHolder={isLastRowHolder}
                   />
@@ -86,7 +86,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
                   <AddressCell
                     address={holderChangeEvent.holder}
                     titleEscrowAddress={beneficiaryChangeEvent.documentOwner}
-                    newAddress={isNewHolderAddress}
+                    isNewAddress={isNewHolderAddress}
                     isFirstRowHolder={isFirstRowHolder}
                     isLastRowHolder={isLastRowHolder}
                   />
