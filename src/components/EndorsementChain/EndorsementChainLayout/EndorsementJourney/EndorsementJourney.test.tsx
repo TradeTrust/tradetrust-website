@@ -11,10 +11,10 @@ describe("EndorsementJourney", () => {
       </div>
     );
 
-    expect(screen.getByRole("dash-head")).toHaveClass("dash-head");
-    expect(screen.getByRole("dash-head")).not.toHaveClass("invisible");
-    expect(screen.getByRole("dash-tail")).toHaveClass("dash-tail");
-    expect(screen.getByRole("dash-tail")).not.toHaveClass("invisible");
+    expect(screen.getByTestId("dash-head")).toHaveClass("dash-head");
+    expect(screen.getByTestId("dash-head")).not.toHaveClass("invisible");
+    expect(screen.getByTestId("dash-tail")).toHaveClass("dash-tail");
+    expect(screen.getByTestId("dash-tail")).not.toHaveClass("invisible");
     expect(screen.getByTestId("dot")).toHaveClass("dot");
     expect(screen.getByTestId("dot")).not.toHaveClass("invisible");
   });
@@ -26,10 +26,10 @@ describe("EndorsementJourney", () => {
       </div>
     );
 
-    expect(screen.getByRole("dash-head")).toHaveClass("dash-head");
-    expect(screen.getByRole("dash-head")).toHaveClass("invisible");
-    expect(screen.getByRole("dash-tail")).toHaveClass("dash-tail");
-    expect(screen.getByRole("dash-tail")).not.toHaveClass("invisible");
+    expect(screen.getByTestId("dash-head")).toHaveClass("dash-head");
+    expect(screen.getByTestId("dash-head")).toHaveClass("invisible");
+    expect(screen.getByTestId("dash-tail")).toHaveClass("dash-tail");
+    expect(screen.getByTestId("dash-tail")).not.toHaveClass("invisible");
     expect(screen.getByTestId("dot")).toHaveClass("dot");
     expect(screen.getByTestId("dot")).not.toHaveClass("invisible");
   });
@@ -41,10 +41,10 @@ describe("EndorsementJourney", () => {
       </div>
     );
 
-    expect(screen.getByRole("dash-head")).toHaveClass("dash-head");
-    expect(screen.getByRole("dash-head")).not.toHaveClass("invisible");
-    expect(screen.getByRole("dash-tail")).toHaveClass("dash-tail");
-    expect(screen.getByRole("dash-tail")).not.toHaveClass("invisible");
+    expect(screen.getByTestId("dash-head")).toHaveClass("dash-head");
+    expect(screen.getByTestId("dash-head")).not.toHaveClass("invisible");
+    expect(screen.getByTestId("dash-tail")).toHaveClass("dash-tail");
+    expect(screen.getByTestId("dash-tail")).not.toHaveClass("invisible");
     expect(screen.getByTestId("dot")).not.toHaveClass("dot");
     expect(screen.getByTestId("dot")).toHaveClass("invisible");
   });
@@ -56,10 +56,10 @@ describe("EndorsementJourney", () => {
       </div>
     );
 
-    expect(screen.getByRole("dash-head")).toHaveClass("dash-head");
-    expect(screen.getByRole("dash-head")).not.toHaveClass("invisible");
-    expect(screen.getByRole("dash-tail")).toHaveClass("dash-tail");
-    expect(screen.getByRole("dash-tail")).toHaveClass("invisible");
+    expect(screen.getByTestId("dash-head")).toHaveClass("dash-head");
+    expect(screen.getByTestId("dash-head")).not.toHaveClass("invisible");
+    expect(screen.getByTestId("dash-tail")).toHaveClass("dash-tail");
+    expect(screen.getByTestId("dash-tail")).toHaveClass("invisible");
     expect(screen.getByTestId("dot")).toHaveClass("dot");
     expect(screen.getByTestId("dot")).not.toHaveClass("invisible");
   });

@@ -9,6 +9,7 @@ import { AddressCell } from "./AddressCell";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
 import { EndorsementJourney } from "./EndorsementJourney";
+import { SimpleTableRow } from "./SimpleTableRow";
 
 const { trace } = getLogger("component: endorsementchainlayout");
 
@@ -33,14 +34,14 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 
   const tableRows: JSX.Element[] = [
     // By default there will always be this 'Document has been issued'
-    <tr className="table-row" key={tableRowIndex++}>
-      <td className="table-cell">
-        <div className="action-title">Document has been issued</div>
-      </td>
-      <td className="table-cell" colSpan={2}>
-        <EndorsementJourney displayDashHead={false} displayDot={true} displayDashTail={true} />
-      </td>
-    </tr>,
+    <SimpleTableRow
+      key={tableRowIndex++}
+      index={tableRowIndex++}
+      actionTitle="Document has been issued"
+      displayDashHead={false}
+      displayDot={true}
+      displayDashTail={true}
+    />,
   ];
 
   // scan endorsement chain for total number of holder change events and total number of NEW holders before building the ui.
@@ -63,6 +64,8 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   // for each erc721 event, build the ui according to the event type.
   endorsementChain &&
     endorsementChain.forEach((tradetrustErc721Event, eventIndex) => {
+      const isLastEvent = eventIndex + 1 === endorsementChain.length;
+
       switch (tradetrustErc721Event.eventType) {
         // for transfer event we need to loop through the holderChangeEvents to get each holder change.
         case "Transfer":
@@ -77,7 +80,6 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
             const isNewHolderAddress = previousHolder !== holderChangeEvent.holder;
             if (isNewHolderAddress) noOfNewHolder++;
             const isFirstRowHolder = eventIndex === 0 && holderIndex === 0;
-            const isLastRowOwner = eventIndex + 1 === endorsementChain.length;
             noOfTransferActions++;
 
             // ui for each row of holderChangeEvent
@@ -93,8 +95,8 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
                     address={ownerChangeEvent.beneficiary}
                     titleEscrowAddress={ownerChangeEvent.documentOwner}
                     isNewAddress={isNewOwnerAddress}
-                    displayDashHead={!(isLastRowOwner && !isNewOwnerAddress)}
-                    displayDashTail={!isLastRowOwner}
+                    displayDashHead={!(isLastEvent && !isNewOwnerAddress)}
+                    displayDashTail={!isLastEvent}
                   />
                 </td>
                 <td className="table-cell">
@@ -123,42 +125,30 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
         // ui for each surrender row
         case "Surrender":
           tableRows.push(
-            <tr className="table-row" key={tableRowIndex++}>
-              <td className="table-cell">
-                <div className="action-title">Document surrendered to issuer</div>
-                <div className="date">
-                  {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
-                </div>
-              </td>
-              <td className="table-cell" colSpan={2}>
-                <EndorsementJourney
-                  displayDashHead={true}
-                  displayDot={true}
-                  displayDashTail={eventIndex + 1 !== endorsementChain.length}
-                />
-              </td>
-            </tr>
+            <SimpleTableRow
+              key={tableRowIndex++}
+              index={tableRowIndex++}
+              date={format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              actionTitle="Document surrendered to issuer"
+              displayDashHead={true}
+              displayDot={true}
+              displayDashTail={!isLastEvent}
+            />
           );
           break;
 
         // ui for each accepted surrender row
         case "Burnt":
           tableRows.push(
-            <tr className="table-row" key={tableRowIndex++}>
-              <td className="table-cell">
-                <div className="action-title">Surrender of document accepted</div>
-                <div className="date">
-                  {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
-                </div>
-              </td>
-              <td className="table-cell" colSpan={2}>
-                <EndorsementJourney
-                  displayDashHead={true}
-                  displayDot={true}
-                  displayDashTail={eventIndex + 1 !== endorsementChain.length}
-                />
-              </td>
-            </tr>
+            <SimpleTableRow
+              key={tableRowIndex++}
+              index={tableRowIndex++}
+              date={format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+              actionTitle="Surrender of document accepted"
+              displayDashHead={true}
+              displayDot={true}
+              displayDashTail={!isLastEvent}
+            />
           );
           break;
 
@@ -175,22 +165,14 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
                 </div>
               </td>
               <td className="table-cell">
-                <EndorsementJourney
-                  displayDashHead={true}
-                  displayDot={true}
-                  displayDashTail={eventIndex + 1 !== endorsementChain.length}
-                />
+                <EndorsementJourney displayDashHead={true} displayDot={true} displayDashTail={!isLastEvent} />
                 <div className="address">{tradetrustErc721Event.documentOwner}</div>
               </td>
               <td className="table-cell">
                 <EndorsementJourney
-                  displayDashHead={
-                    eventIndex + 1 !== endorsementChain.length && noOfTransferActions !== totalNumberOfTransferActions
-                  }
+                  displayDashHead={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
                   displayDot={false}
-                  displayDashTail={
-                    eventIndex + 1 !== endorsementChain.length && noOfTransferActions !== totalNumberOfTransferActions
-                  }
+                  displayDashTail={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
                 />
               </td>
             </tr>

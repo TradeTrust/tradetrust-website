@@ -3,9 +3,9 @@ import React, { FunctionComponent } from "react";
 import tw from "twin.macro";
 
 interface EndorsementJourneyProps {
-  displayDashHead?: boolean;
-  displayDot?: boolean;
-  displayDashTail?: boolean;
+  displayDashHead: boolean;
+  displayDot: boolean;
+  displayDashTail: boolean;
 }
 
 export const EndorsementJourney: FunctionComponent<EndorsementJourneyProps> = ({
@@ -15,9 +15,9 @@ export const EndorsementJourney: FunctionComponent<EndorsementJourneyProps> = ({
 }) => {
   return (
     <Journey>
-      <div className={`dash-head ${displayDashHead ? "" : "invisible"}`} role="dash-head" />
+      <div className={`dash-head ${displayDashHead ? "" : "invisible"}`} data-testid="dash-head" />
       <div className={displayDot ? "dot" : "invisible"} data-testid="dot" />
-      <div className={`dash-tail ${displayDashTail ? "" : "invisible"}`} role="dash-tail" />
+      <div className={`dash-tail ${displayDashTail ? "" : "invisible"}`} data-testid="dash-tail" />
     </Journey>
   );
 };
