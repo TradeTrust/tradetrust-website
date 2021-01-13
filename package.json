@@ -59,7 +59,7 @@
     "query-string": "^6.11.0",
     "react": "^16.11.0",
     "react-dom": "^16.9.0",
-    "react-dropdown-select": "^4.7.0",
+    "react-dropdown-select": "^4.7.3",
     "react-dropzone": "^7.0.1",
     "react-feather": "^2.0.8",
     "react-google-recaptcha": "^1.0.5",

@@ -76,7 +76,7 @@ const DropZoneSection = ({ loadCertificate }: DropZoneSectionProps) => {
         <div className="flex flex-wrap">
           <div className="w-full lg:w-5/12">
             <div className="py-8 px-0 text-center lg:text-left md:py-12 md:px-16 lg:pt-8 lg:pr-16 lg:pb-12 lg:pl-0">
-              <h1 className="font-normal text-5xl leading-none">An easy way to check and verify your documents</h1>
+              <h1 className="font-normal text-5xl leading-tight">An easy way to check and verify your documents</h1>
               <p className="text-lg py-6 text-grey-200">
                 TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.
               </p>

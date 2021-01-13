@@ -110,7 +110,7 @@ export const EmailForm = () => {
             values={selectedBusiness}
             onChange={handleSelectedBusiness}
             options={optionsBusiness}
-            placeholder="Please select your business category"
+            placeholder="Business category"
             required
           />
           <SelectDefault
@@ -118,7 +118,7 @@ export const EmailForm = () => {
             values={selectedRegion}
             onChange={handleSelectedRegion}
             options={optionsRegion}
-            placeholder="Please select your region of operations"
+            placeholder="Region of operations"
             required
           />
           <TextareaDefault name="Message" placeholder="Message" required onChange={handleInputOrTextareaChange} />
