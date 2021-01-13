@@ -184,9 +184,13 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
               </td>
               <td className="table-cell">
                 <EndorsementJourney
-                  displayDashHead={eventIndex + 1 !== endorsementChain.length}
+                  displayDashHead={
+                    eventIndex + 1 !== endorsementChain.length && noOfTransferActions !== totalNumberOfTransferActions
+                  }
                   displayDot={false}
-                  displayDashTail={eventIndex + 1 !== endorsementChain.length}
+                  displayDashTail={
+                    eventIndex + 1 !== endorsementChain.length && noOfTransferActions !== totalNumberOfTransferActions
+                  }
                 />
               </td>
             </tr>
