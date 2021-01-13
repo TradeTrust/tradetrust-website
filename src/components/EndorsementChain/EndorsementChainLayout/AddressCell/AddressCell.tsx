@@ -4,16 +4,19 @@ import React, { FunctionComponent } from "react";
 import { Info } from "react-feather";
 import tw from "twin.macro";
 import { TooltipIcon } from "../../../UI/SvgIcon";
+import { EndorsementJourney } from "../EndorsementJourney";
 
 interface AddressCell {
   address: string;
   className?: string;
   titleEscrowAddress: string;
-  newAddress: boolean;
+  isNewAddress: boolean;
+  displayDashHead?: boolean;
+  displayDashTail?: boolean;
 }
 
 export const AddressCell: FunctionComponent<AddressCell> = styled(
-  ({ address, className, titleEscrowAddress, newAddress }) => {
+  ({ address, className, titleEscrowAddress, isNewAddress, displayDashHead, displayDashTail }) => {
     const { identityName } = useIdentifierResolver(address);
 
     const tooltipContent = (
@@ -25,14 +28,18 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
 
     return (
       <div className={className}>
-        <div className="relative flex">
-          {newAddress && <div className="dot" data-testid="dot" />}
+        <EndorsementJourney
+          displayDashHead={displayDashHead}
+          displayDot={isNewAddress}
+          displayDashTail={displayDashTail}
+        />
+        <div className="flex">
           {identityName && <div className="name">{identityName}</div>}
           <TooltipIcon className="icon" content={tooltipContent} placement="top">
             <Info />
           </TooltipIcon>
         </div>
-        <div className="address mb-8">{address}</div>
+        <div className="address">{address}</div>
       </div>
     );
   }

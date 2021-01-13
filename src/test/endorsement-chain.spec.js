@@ -17,7 +17,7 @@ test("Endorsement chain title and actions are rendered correctly", async (t) => 
   await uploadDocument("./fixture/ebl-endorsement-chain.json");
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
 
-  await t.wait(2000);
+  await t.wait(3000);
   await t.expect(ViewEndorsementChainButton.count).eql(1);
   await t.click(ViewEndorsementChainButton);
 
