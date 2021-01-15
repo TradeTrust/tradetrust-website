@@ -66,7 +66,7 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getAllByText("Date")).toHaveLength(1);
+    expect(screen.getAllByText("Action/Date")).toHaveLength(1);
     expect(screen.getAllByText("Owner")).toHaveLength(1);
     expect(screen.getAllByText("Holder")).toHaveLength(1);
   });
@@ -81,7 +81,7 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getAllByText("Document surrendered to Issuer")).toHaveLength(1);
+    expect(screen.getAllByText("Document surrendered to issuer")).toHaveLength(1);
   });
 
   it("should render text Surrendered if burnt event is present", () => {
