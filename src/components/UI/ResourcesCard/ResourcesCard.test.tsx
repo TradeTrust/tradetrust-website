@@ -18,7 +18,7 @@ const youtubeResource = {
       path: "/static/images/webinar/tradetrust-tech-webinar-1-demo.pdf",
     },
   ],
-  videoTimeStamps: [
+  videoChapters: [
     {
       title: "What is TradeTrust?",
       timeStamp: 80,
@@ -58,7 +58,7 @@ describe("ResourceCard", () => {
 
     expect(screen.getAllByTestId("quickVideoLinksDropdown")).toHaveLength(1);
     fireEvent.click(screen.getByTestId("quickVideoLinksDropdown"));
-    expect(screen.getAllByTestId("videoTimeStampsDropdown")).toHaveLength(2);
+    expect(screen.getAllByTestId("videoChaptersDropdown")).toHaveLength(2);
   });
 
   it("should render placeholder version correctly", () => {

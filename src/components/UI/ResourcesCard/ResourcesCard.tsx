@@ -20,7 +20,7 @@ interface ResourcesCardProps {
       fileName: string;
       path: string;
     }[];
-    videoTimeStamps?: {
+    videoChapters?: {
       title: string;
       timeStamp: number;
     }[];
@@ -39,7 +39,7 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
     watchLink,
     eventLink,
     eventSlides,
-    videoTimeStamps,
+    videoChapters,
   } = details;
   const hasMedia = placeholderText || youtubeEmbedCode;
   const [currentTimeStamp, setCurrentTimeStamp] = useState(0);
@@ -99,20 +99,20 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
         )}
         {dateTime && <div className="text-grey text-base font-medium pb-3">{dateTime}</div>}
         <p className="mb-4">{description}</p>
-        {youtubeEmbedCode && videoTimeStamps && (
+        {youtubeEmbedCode && videoChapters && (
           <Dropdown
             data-testid="quickVideoLinksDropdown"
             dropdownButtonText="Quick Video Links"
             className="rounded border border-grey-300 text-grey-700 p-2 mb-2"
           >
-            {videoTimeStamps.map((eachTimeStamp, i) => {
+            {videoChapters.map((videoChapter, i) => {
               return (
                 <DropdownItem
                   key={i}
-                  data-testid="videoTimeStampsDropdown"
-                  onClick={() => setCurrentTimeStamp(eachTimeStamp.timeStamp)}
+                  data-testid="videoChaptersDropdown"
+                  onClick={() => setCurrentTimeStamp(videoChapter.timeStamp)}
                 >
-                  {eachTimeStamp.title} [{convertSecondsToMinAndSec(eachTimeStamp.timeStamp)}]
+                  {videoChapter.title} [{convertSecondsToMinAndSec(videoChapter.timeStamp)}]
                 </DropdownItem>
               );
             })}

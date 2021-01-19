@@ -17,7 +17,7 @@ const youtubeResource = {
       path: "/static/images/webinar/tradetrust-tech-webinar-1-demo.pdf",
     },
   ],
-  videoTimeStamps: [
+  videoChapters: [
     {
       title: "What is TradeTrust?",
       timeStamp: 80,

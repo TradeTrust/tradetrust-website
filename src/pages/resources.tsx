@@ -63,7 +63,7 @@ const resources = [
         path: "/static/images/webinar/tradetrust-tech-webinar-1-demo.pdf",
       },
     ],
-    videoTimeStamps: [
+    videoChapters: [
       {
         title: "What are Verifiable Documents?",
         timeStamp: 1161,
@@ -102,7 +102,7 @@ const resources = [
         path: "/static/images/webinar/tradetrust-tech-webinar-2.pdf",
       },
     ],
-    videoTimeStamps: [
+    videoChapters: [
       {
         title: "Creating Wallet",
         timeStamp: 658,
@@ -145,7 +145,7 @@ const resources = [
         path: "/static/images/webinar/tradetrust-tech-webinar-3.pdf",
       },
     ],
-    videoTimeStamps: [
+    videoChapters: [
       {
         title: "Verifiable Document Recap",
         timeStamp: 452,
@@ -188,7 +188,7 @@ const resources = [
         path: "/static/images/webinar/tradetrust-tech-webinar-4.pdf",
       },
     ],
-    videoTimeStamps: [
+    videoChapters: [
       {
         title: "OpenAttestation Document Format",
         timeStamp: 70,
@@ -231,7 +231,7 @@ const resources = [
         path: "/static/images/webinar/tradetrust-tech-webinar-5.pdf",
       },
     ],
-    videoTimeStamps: [
+    videoChapters: [
       {
         title: "Introduction to Document Creator",
         timeStamp: 233,
@@ -270,7 +270,7 @@ const resources = [
         path: "/static/images/webinar/tradetrust-tech-webinar-6.pdf",
       },
     ],
-    videoTimeStamps: [
+    videoChapters: [
       {
         title: "Identity Resolution - Demo",
         timeStamp: 130,
