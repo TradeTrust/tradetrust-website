@@ -16,3 +16,8 @@ export const isEthereumAddress = (address: string) => {
     } else throw e;
   }
 };
+
+export const convertSecondsToMinAndSec = (seconds: number): string => {
+  const sec = seconds % 60;
+  return `${~~(seconds / 60)}:${sec < 10 ? `0${sec}` : sec}m`;
+};

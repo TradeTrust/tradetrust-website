@@ -3,6 +3,7 @@ import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
 import { Download, ExternalLink, PlayCircle } from "react-feather";
 import tw from "twin.macro";
+import { convertSecondsToMinAndSec } from "../../../utils";
 import { mixin } from "./../../../styles";
 
 interface ResourcesCardProps {
@@ -43,10 +44,6 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
   } = details;
   const hasMedia = placeholderText || youtubeEmbedCode;
   const [currentTimeStamp, setCurrentTimeStamp] = useState(0);
-
-  const convertSecondsToMinAndSec = (seconds: number): string => {
-    return `${~~(seconds / 60)}:${seconds % 60}m`;
-  };
 
   return (
     <ResourcesCardItem>
