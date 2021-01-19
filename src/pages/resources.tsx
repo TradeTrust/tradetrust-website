@@ -63,6 +63,32 @@ const resources = [
         path: "/static/images/webinar/tradetrust-tech-webinar-1-demo.pdf",
       },
     ],
+    videoChapters: [
+      {
+        title: "What are Verifiable Documents?",
+        timeStamp: 1161,
+      },
+      {
+        title: "What are Transferable Documents?",
+        timeStamp: 1184,
+      },
+      {
+        title: "Demo - Verifiable Documents",
+        timeStamp: 1217,
+      },
+      {
+        title: "Demo - Selective Disclosure",
+        timeStamp: 1314,
+      },
+      {
+        title: "Demo - Title Transfer",
+        timeStamp: 1463,
+      },
+      {
+        title: "Demo - QR Code",
+        timeStamp: 2652,
+      },
+    ],
   },
   {
     title: "Creation of Verifiable Documents",
@@ -74,6 +100,36 @@ const resources = [
       {
         fileName: "TradeTrust Tech Webinar 2.pdf",
         path: "/static/images/webinar/tradetrust-tech-webinar-2.pdf",
+      },
+    ],
+    videoChapters: [
+      {
+        title: "Creating Wallet",
+        timeStamp: 658,
+      },
+      {
+        title: "Deploying Document Store",
+        timeStamp: 979,
+      },
+      {
+        title: "Configure DNS",
+        timeStamp: 1585,
+      },
+      {
+        title: "Creating Raw Documents",
+        timeStamp: 1872,
+      },
+      {
+        title: "Wrapping Document",
+        timeStamp: 2037,
+      },
+      {
+        title: "Issuing Document",
+        timeStamp: 2334,
+      },
+      {
+        title: "Reading Document",
+        timeStamp: 2496,
       },
     ],
   },
@@ -89,6 +145,36 @@ const resources = [
         path: "/static/images/webinar/tradetrust-tech-webinar-3.pdf",
       },
     ],
+    videoChapters: [
+      {
+        title: "Verifiable Document Recap",
+        timeStamp: 452,
+      },
+      {
+        title: "Overview Of Transferable Records",
+        timeStamp: 582,
+      },
+      {
+        title: "Working Directory Setup",
+        timeStamp: 693,
+      },
+      {
+        title: "Deploying Token Registry Contract",
+        timeStamp: 794,
+      },
+      {
+        title: "Binding Token Registry's Identity",
+        timeStamp: 989,
+      },
+      {
+        title: "Deploying Joint Ownership Contract",
+        timeStamp: 1347,
+      },
+      {
+        title: "Issuing Transferable Record",
+        timeStamp: 1453,
+      },
+    ],
   },
   {
     title: "Critical Functions of TradeTrust",
@@ -100,6 +186,36 @@ const resources = [
       {
         fileName: "TradeTrust Tech Webinar 4.pdf",
         path: "/static/images/webinar/tradetrust-tech-webinar-4.pdf",
+      },
+    ],
+    videoChapters: [
+      {
+        title: "OpenAttestation Document Format",
+        timeStamp: 70,
+      },
+      {
+        title: "Document Integrity",
+        timeStamp: 215,
+      },
+      {
+        title: "Issuer Identity",
+        timeStamp: 634,
+      },
+      {
+        title: "SDK Overview, Code Walk-through",
+        timeStamp: 1300,
+      },
+      {
+        title: "OA-Verify",
+        timeStamp: 1380,
+      },
+      {
+        title: "Document Store Library",
+        timeStamp: 1730,
+      },
+      {
+        title: "Token Registry Library",
+        timeStamp: 1790,
       },
     ],
   },
@@ -115,6 +231,32 @@ const resources = [
         path: "/static/images/webinar/tradetrust-tech-webinar-5.pdf",
       },
     ],
+    videoChapters: [
+      {
+        title: "Introduction to Document Creator",
+        timeStamp: 233,
+      },
+      {
+        title: "Introduction to the Configuration File",
+        timeStamp: 363,
+      },
+      {
+        title: "Setup - transferable document",
+        timeStamp: 641,
+      },
+      {
+        title: "Setup - verifiable document",
+        timeStamp: 1319,
+      },
+      {
+        title: "Issuing document",
+        timeStamp: 1545,
+      },
+      {
+        title: "Verify the newly created document",
+        timeStamp: 1702,
+      },
+    ],
   },
   {
     title: "Identity Resolution Services",
@@ -126,6 +268,24 @@ const resources = [
       {
         fileName: "TradeTrust Tech Webinar 6.pdf",
         path: "/static/images/webinar/tradetrust-tech-webinar-6.pdf",
+      },
+    ],
+    videoChapters: [
+      {
+        title: "Identity Resolution - Demo",
+        timeStamp: 130,
+      },
+      {
+        title: "Identity Resolution - Responsibilities",
+        timeStamp: 420,
+      },
+      {
+        title: "Identity Resolution - Motivations",
+        timeStamp: 681,
+      },
+      {
+        title: "Panel Discussion",
+        timeStamp: 926,
       },
     ],
   },
@@ -168,7 +328,7 @@ export const ResourcesPage = () => (
               ))}
             </div>
           </div>
-          <div className="w-full lg:w-8/12 lg:order-1 px-4">
+          <div className="w-full lg:w-8/12 lg:order-1 px-4 mb-16">
             {resources.map((resource, index) => (
               <ResourcesCard details={resource} key={index} />
             ))}

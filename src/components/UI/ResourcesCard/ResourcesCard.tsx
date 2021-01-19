@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
-import React, { FunctionComponent } from "react";
+import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
+import React, { FunctionComponent, useState } from "react";
 import { Download, ExternalLink, PlayCircle } from "react-feather";
 import tw from "twin.macro";
+import { convertSecondsToMinAndSec } from "../../../utils";
 import { mixin } from "./../../../styles";
 
 interface ResourcesCardProps {
@@ -19,6 +21,10 @@ interface ResourcesCardProps {
       fileName: string;
       path: string;
     }[];
+    videoChapters?: {
+      title: string;
+      timeStamp: number;
+    }[];
   };
 }
 
@@ -34,8 +40,10 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
     watchLink,
     eventLink,
     eventSlides,
+    videoChapters,
   } = details;
   const hasMedia = placeholderText || youtubeEmbedCode;
+  const [currentTimeStamp, setCurrentTimeStamp] = useState(0);
 
   return (
     <ResourcesCardItem>
@@ -43,10 +51,12 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
         <div className="media-holder">
           {youtubeEmbedCode ? (
             <iframe
-              src={`https://www.youtube.com/embed/${youtubeEmbedCode}?rel=0`}
+              src={`https://www.youtube.com/embed/${youtubeEmbedCode}${
+                currentTimeStamp ? `?autoplay=1&rel=0&start=${currentTimeStamp}` : "?rel=0"
+              }`}
               title={title}
               frameBorder="0"
-              allowFullScreen
+              allow="autoplay; fullscreen"
               data-testid="youtubeEmbed-iframe"
             />
           ) : (
@@ -86,6 +96,25 @@ export const ResourcesCard: FunctionComponent<ResourcesCardProps> = ({ details }
         )}
         {dateTime && <div className="text-grey text-base font-medium pb-3">{dateTime}</div>}
         <p className="mb-4">{description}</p>
+        {youtubeEmbedCode && videoChapters && (
+          <Dropdown
+            data-testid="quickVideoLinksDropdown"
+            dropdownButtonText="Quick Video Links"
+            className="rounded border border-grey-300 text-grey-700 p-2 mb-2"
+          >
+            {videoChapters.map((videoChapter, i) => {
+              return (
+                <DropdownItem
+                  key={i}
+                  data-testid="videoChaptersDropdown"
+                  onClick={() => setCurrentTimeStamp(videoChapter.timeStamp)}
+                >
+                  {videoChapter.title} [{convertSecondsToMinAndSec(videoChapter.timeStamp)}]
+                </DropdownItem>
+              );
+            })}
+          </Dropdown>
+        )}
         {downloads && (
           <div className="py-2 text-blue">
             {downloads?.map((download, index) => (

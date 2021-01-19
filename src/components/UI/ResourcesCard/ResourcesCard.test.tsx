@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { ResourcesCard } from "./ResourcesCard";
 
@@ -16,6 +16,16 @@ const youtubeResource = {
     {
       fileName: "TradeTrust Tech Webinar 1 - Demo.pdf",
       path: "/static/images/webinar/tradetrust-tech-webinar-1-demo.pdf",
+    },
+  ],
+  videoChapters: [
+    {
+      title: "What is TradeTrust?",
+      timeStamp: 80,
+    },
+    {
+      title: "Who can use TradeTrust?",
+      timeStamp: 100,
     },
   ],
 };
@@ -41,6 +51,14 @@ describe("ResourceCard", () => {
 
     expect(screen.getAllByTestId("youtubeEmbed-iframe")).toHaveLength(1);
     expect(screen.getAllByTestId("youtubeEmbed-title-link")).toHaveLength(1);
+  });
+
+  it("should render quick video link dropdown", () => {
+    render(<ResourcesCard details={youtubeResource} />);
+
+    expect(screen.getAllByTestId("quickVideoLinksDropdown")).toHaveLength(1);
+    fireEvent.click(screen.getByTestId("quickVideoLinksDropdown"));
+    expect(screen.getAllByTestId("videoChaptersDropdown")).toHaveLength(2);
   });
 
   it("should render placeholder version correctly", () => {
