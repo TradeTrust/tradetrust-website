@@ -13,9 +13,10 @@ describe("utils/isEthereumAddress", () => {
 describe("convertSecondsToMinAndSec", () => {
   it("should return the correct min and sec based on the payload", () => {
     expect(convertSecondsToMinAndSec(5)).toEqual("0:05m");
+    expect(convertSecondsToMinAndSec(59)).toEqual("0:59m");
     expect(convertSecondsToMinAndSec(60)).toEqual("1:00m");
+    expect(convertSecondsToMinAndSec(61)).toEqual("1:01m");
     expect(convertSecondsToMinAndSec(730)).toEqual("12:10m");
     expect(convertSecondsToMinAndSec(1065)).toEqual("17:45m");
-    expect(convertSecondsToMinAndSec(2368)).toEqual("39:28m");
   });
 });
