@@ -11,12 +11,12 @@ const AppContainer = () => {
   const location = useLocation();
 
   return (
-    <div className="wrapper" data-location={location.pathname}>
+    <div className="flex flex-col min-h-full" data-location={location.pathname}>
       <NetworkBar network={NETWORK}>
         You are currently on <span className="capitalize">{NETWORK}</span> network.
       </NetworkBar>
       <NavigationBar />
-      <main>
+      <main className="flex-1">
         <Switch>
           {routes.map((route, id) => (
             <Route key={id} {...route} />
