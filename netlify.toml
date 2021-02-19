@@ -1,8 +1,3 @@
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 # Unset the infura key with domain restriction for branch previews
 # so that the default key (without domain restriction) is used instead
 [context.deploy-preview]
