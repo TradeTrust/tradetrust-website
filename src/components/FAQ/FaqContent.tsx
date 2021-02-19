@@ -1,5 +1,6 @@
 import React from "react";
 import content from "./FaqContent.json";
+import cmsContent from "./../../cms/faq/faq.json";
 
 export const FaqContent = () => (
   <div className="py-12">
@@ -20,6 +21,8 @@ export const FaqContent = () => (
           </div>
         </div>
       ))}
+      <h3>{cmsContent.title}</h3>
+      <div>{cmsContent.body}</div>
     </div>
   </div>
 );

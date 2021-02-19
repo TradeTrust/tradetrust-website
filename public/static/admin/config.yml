@@ -1,0 +1,22 @@
+backend:
+  name: git-gateway
+  branch: master
+
+publish_mode: editorial_workflow
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - label: "FAQ"
+    name: "faq"
+    files:
+      - label: "FAQ"
+        name: "faq"
+        file: "src/data/faq/faq.json"
+        format: "json"
+        editor:
+          preview: true
+        fields:
+          - { label: Title, name: title, widget: string, hint: "This is used for the page title" }
+          - { label: "Body", name: "body", widget: "markdown", hint: "This is the body text." }
