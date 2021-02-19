@@ -1,6 +1,6 @@
 import React from "react";
 import content from "./FaqContent.json";
-import cmsContent from "./../../cms/faq/faq.json";
+import cmsContent from "./../../../cms/faq/faq.json";
 
 export const FaqContent = () => (
   <div className="py-12">

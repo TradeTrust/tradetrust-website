@@ -4,16 +4,16 @@ backend:
 
 publish_mode: editorial_workflow
 
-media_folder: "static/images/uploads"
-public_folder: "/static/images/uploads"
+media_folder: "static/uploads"
+public_folder: "/static/uploads"
 
 collections:
-  - label: "FAQ"
-    name: "faq"
+  - label: "FAQ Page"
+    name: "faq-page"
     files:
       - label: "FAQ"
         name: "faq"
-        file: "src/data/faq/faq.json"
+        file: "cms/faq/faq.json"
         format: "json"
         editor:
           preview: true
