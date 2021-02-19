@@ -1,6 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import cmsContent from "./../../../cms/faq/faq.json";
+import cmsContent from "./../../../cms/faq-page/faq.json";
 import styled from "@emotion/styled";
 import config from "./../../../src/tailwind.js";
 
