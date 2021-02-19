@@ -48,7 +48,7 @@ module.exports = {
           new CopyWebpackPlugin([
             { from: "public/static/images", to: "static/images" },
             { from: "public/static/demo", to: "static/demo" },
-            // { from: "static/style.css", to: "static" }
+            { from: "public/admin", to: "admin" },
           ]),
         ]
       : []),
