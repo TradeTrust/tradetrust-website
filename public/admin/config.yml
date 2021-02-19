@@ -15,7 +15,7 @@ collections:
     files:
       - label: "FAQ"
         name: "faq"
-        file: "cms/faq/faq.json"
+        file: "cms/faq-page/faq.json"
         format: "json"
         editor:
           preview: true
