@@ -4,17 +4,17 @@
 
 See also:
 
-* [tradetrust-documentation](https://docs.tradetrust.io)
-* [open-certificate](https://github.com/OpenCerts/open-certificate)
-* [certificate-contract](https://github.com/OpenCerts/certificate-store-contract)
-* [certificate-cli](https://github.com/OpenCerts/certificate-cli)
-
+- [tradetrust-documentation](https://docs.tradetrust.io)
+- [open-certificate](https://github.com/OpenCerts/open-certificate)
+- [certificate-contract](https://github.com/OpenCerts/certificate-store-contract)
+- [certificate-cli](https://github.com/OpenCerts/certificate-cli)
 
 ## Development
 
 We develop primarily on a OS X / Linux environment so please lodge an issue if you are using Windows and find that you cannot successfully set up a local instance of this software.
 
 ### OS X / Linux
+
 ```bash
 npm install
 npm run dev
@@ -36,10 +36,13 @@ It can also take any network names that Ethers.JS supports, such as `rinkeby`, `
 However do note that there are only drag & drop demo files provided for main net and ropsten.
 
 E.g:
+
 ```bash
 NET=mainnet npm run dev
 ```
+
 or
+
 ```bash
 NET=rinkeby npm run dev
 ```
@@ -85,6 +88,7 @@ Run `npx @opengovsg/credits-generator`
 ###### Module build failed
 
 If you see module build failure message like:
+
 ```
 Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):
 ModuleBuildError: Module build failed (from ./node_modules/sass-loader/lib/loader.js):
@@ -94,3 +98,10 @@ at Object.readdirSync (fs.js:783:3)
 
 Try running `npm rebuild`
 
+### Debug netlify-cms locally
+
+https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-repository
+
+1. run `npx netlify-cms-proxy-server`
+2. run `npm run dev`
+3. access admin page by `http://localhost:3000/admin/`

@@ -2,6 +2,8 @@ backend:
   name: git-gateway
   branch: master
 
+local_backend: true
+
 publish_mode: editorial_workflow
 
 media_folder: "static/uploads"
@@ -18,5 +20,5 @@ collections:
         editor:
           preview: true
         fields:
-          - { label: Title, name: title, widget: string, hint: "This is used for the page title" }
+          - { label: "Title", name: "title", widget: "string", hint: "This is used for the page title" }
           - { label: "Body", name: "body", widget: "markdown", hint: "This is the body text." }
