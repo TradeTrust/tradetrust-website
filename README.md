@@ -98,7 +98,18 @@ at Object.readdirSync (fs.js:783:3)
 
 Try running `npm rebuild`
 
-### Debug netlify-cms locally
+### Managing Netlify CMS
+
+- Enable Identity + Git Gateway
+- https://www.netlifycms.org/docs/add-to-your-site/#enable-identity-and-git-gateway
+
+### Inviting users to Netlify CMS
+
+- Go to https://www.netlify.com and login netlify
+- Choose `DLT` > `Sites` > `tradetrust.io` site
+- Click `Identity`, invite user via email address
+
+### Debugging Netlify CMS locally
 
 https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-repository
 

@@ -1,7 +1,6 @@
 backend:
   name: git-gateway
-  branch: feat/cms-faq
-  # need to change to master later
+  branch: master
 
 local_backend: true
 
@@ -15,7 +14,7 @@ collections:
     label: "FAQ Page"
     folder: "cms/faq-page"
     editor:
-      preview: true
+      preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "This is used for the page title" }
       - { label: "Body", name: "body", widget: "markdown", hint: "This is the body text." }
