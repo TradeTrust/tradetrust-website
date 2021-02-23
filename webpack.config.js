@@ -4,6 +4,7 @@ const BrotliPlugin = require("brotli-webpack-plugin");
 const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const Mode = require("frontmatter-markdown-loader/mode");
 
 const IS_DEV = process.env.NODE_ENV === "development";
 const IS_PROD = !IS_DEV;
@@ -32,6 +33,13 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.md$/,
+        loader: "frontmatter-markdown-loader",
+        options: {
+          mode: [Mode.BODY],
+        },
       },
     ],
   },

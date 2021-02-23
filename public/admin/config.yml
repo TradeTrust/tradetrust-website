@@ -11,15 +11,11 @@ media_folder: "static/uploads"
 public_folder: "/static/uploads"
 
 collections:
-  - label: "FAQ Page"
-    name: "faq-page"
-    files:
-      - label: "FAQ"
-        name: "faq"
-        file: "cms/faq-page/faq.json"
-        format: "json"
-        editor:
-          preview: true
-        fields:
-          - { label: "Title", name: "title", widget: "string", hint: "This is used for the page title" }
-          - { label: "Body", name: "body", widget: "markdown", hint: "This is the body text." }
+  - name: "faq-page"
+    label: "FAQ Page"
+    folder: "cms/faq-page"
+    editor:
+      preview: true
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "This is used for the page title" }
+      - { label: "Body", name: "body", widget: "markdown", hint: "This is the body text." }
