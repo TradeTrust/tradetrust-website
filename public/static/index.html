@@ -25,6 +25,8 @@
       crossorigin="anonymous"
     />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <form name="contact" netlify netlify-honeypot="bot-field" action="/email/success" hidden>
@@ -37,5 +39,16 @@
       <input type="checkbox" name="Receive communications" />
     </form>
     <div id="root"></div>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>

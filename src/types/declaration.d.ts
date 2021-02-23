@@ -10,6 +10,8 @@ declare module "*.css" {
   export default content;
 }
 
+declare module "*.md";
+
 declare global {
   interface Window {
     ethereum: Ethereum;
