@@ -1,6 +1,12 @@
-[build]
-  command = "npm run build"
-  publish = "dist/"
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 # Unset the infura key with domain restriction for branch previews
 # so that the default key (without domain restriction) is used instead
