@@ -21,13 +21,8 @@ export interface TitleEscrowEvent extends TradeTrustErc721Event {
   }[];
 }
 
-export interface ResourcesLinkProps {
+export type Resource = {
   title: string;
-  type: "link" | "download";
-  icon?: string;
-  details: {
-    title: string;
-    date?: string;
-    url: string;
-  }[];
-}
+  url: string;
+  date?: string;
+};
