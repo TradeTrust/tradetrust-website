@@ -5,7 +5,7 @@ export default {
   title: "UI/ResourceDownload",
   component: ResourceDownload,
   parameters: {
-    componentSubtitle: "ResourceDownload with resources",
+    componentSubtitle: "ResourceDownload with pdf",
   },
 };
 

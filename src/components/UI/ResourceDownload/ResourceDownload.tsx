@@ -15,12 +15,7 @@ export const ResourceDownload: FunctionComponent<ResourceDownloadProps> = ({ tit
         {resources.map((resource, index) => (
           <div className="pt-2 text-blue" key={index}>
             <div className="flex">
-              <a
-                href={resource.url}
-                download={`${resource.title}.pdf`}
-                className="text-base font-medium flex items-end mb-2"
-                data-testid="download"
-              >
+              <a href={resource.url} download={resource.title} className="text-base font-medium flex items-end mb-2">
                 <Download className="mr-1" />
                 {resource.title}
               </a>
