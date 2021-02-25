@@ -16,20 +16,19 @@ describe("ResourceLink", () => {
   it("should render title correctly", () => {
     render(<ResourceLink title={mockTitle} resources={mockResources} />);
 
-    expect(screen.getAllByText(/Source code/)).toHaveLength(1);
+    expect(screen.getByText("Source code")).not.toBeNull();
   });
 
   it("should render redirect link correctly", () => {
     render(<ResourceLink title={mockTitle} resources={mockResources} />);
 
-    expect(screen.queryAllByTestId("link")).toHaveLength(1);
-    expect(screen.queryAllByTestId("download")).toHaveLength(0);
+    expect(screen.getAllByTestId("link")).toHaveLength(1);
   });
 
   it("should render icon if there are any icon", () => {
     render(<ResourceLink title={mockTitle} resources={mockResources} icon={mockIcon} />);
 
-    expect(screen.queryAllByTestId("link-icon")).toHaveLength(1);
+    expect(screen.getByTestId("link-icon")).not.toBeNull();
   });
 
   it("should render all links specified in details array", () => {
@@ -39,6 +38,6 @@ describe("ResourceLink", () => {
     });
     render(<ResourceLink title={mockTitle} resources={mockResources} />);
 
-    expect(screen.queryAllByTestId("link")).toHaveLength(2);
+    expect(screen.getAllByTestId("link")).toHaveLength(2);
   });
 });

@@ -13,7 +13,7 @@ export default {
   title: "UI/ResourceEvent",
   component: ResourceEvent,
   parameters: {
-    componentSubtitle: "ResourceEvent with youtube embed.",
+    componentSubtitle: "ResourceEvent with details.",
   },
 };
 

@@ -31,6 +31,7 @@ export const ResourceEvent: FunctionComponent<ResourceEventProps> = ({ title, de
             href={eventLink}
             target="_blank"
             rel="noopener noreferrer"
+            data-testid="event-link"
           >
             <div className="flex">
               <div className="w-auto">
@@ -47,6 +48,7 @@ export const ResourceEvent: FunctionComponent<ResourceEventProps> = ({ title, de
               href={watchLink}
               target="_blank"
               rel="noopener noreferrer"
+              data-testid="watch-link"
             >
               <div className="flex">
                 <div className="w-auto">
@@ -64,6 +66,7 @@ export const ResourceEvent: FunctionComponent<ResourceEventProps> = ({ title, de
               href={eventSlides}
               target="_blank"
               rel="noopener noreferrer"
+              data-testid="event-slides"
             >
               <div className="flex">
                 <div className="w-auto">

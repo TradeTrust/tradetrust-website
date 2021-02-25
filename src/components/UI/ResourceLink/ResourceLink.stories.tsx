@@ -5,7 +5,7 @@ export default {
   title: "UI/ResourceLink",
   component: ResourceLink,
   parameters: {
-    componentSubtitle: "ResourceLink with icon",
+    componentSubtitle: "ResourceLink examples",
   },
 };
 

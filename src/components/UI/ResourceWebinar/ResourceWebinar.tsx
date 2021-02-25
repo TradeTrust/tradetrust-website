@@ -60,7 +60,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
           </div>
           <p className="mb-4">{description}</p>
           <Dropdown
-            data-testid="quickVideoLinksDropdown"
+            data-testid="quick-video-links-dropdown"
             dropdownButtonText="Quick Video Links"
             className="rounded border border-grey-300 text-grey-700 p-2 mb-2"
           >
@@ -68,7 +68,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
               return (
                 <DropdownItem
                   key={i}
-                  data-testid="videoChaptersDropdown"
+                  data-testid="video-chapters-dropdown"
                   onClick={() => setCurrentTimeStamp(videoChapter.timeStamp)}
                 >
                   {videoChapter.title} [{convertSecondsToMinAndSec(videoChapter.timeStamp)}]
