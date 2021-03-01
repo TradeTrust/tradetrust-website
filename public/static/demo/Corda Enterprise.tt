@@ -1,0 +1,109 @@
+{
+    "version": "https://schema.openattestation.com/2.0/schema.json",
+    "data": {
+        "version": "bcea64d3-b98c-4b40-9a4c-140675c41005:string:https://schema.openattestation.com/2.0/schema.json",
+        "name": "a0805cf7-394e-4e56-a295-823aaa105ffd:string:booking-confirmation_3242eb4b-ca07-491e-a93e-a8230be31a1f.png",
+        "issuers": [
+            {
+                "name": "9e9b887f-a227-4c2f-b85b-3ba85871ea59:string:test123",
+                "identityProof": {
+                    "type": "484a8f8c-101d-4215-aeee-40c171b24a90:string:DNS-TXT",
+                    "location": "0bbb2010-1c0f-4769-95d5-75d4d284343b:string:tt-verify.blockchain.trames-engineering.com"
+                }
+            }
+        ],
+        "owner": [
+            {
+                "name": "2a4e8016-76ef-4384-b2f9-d93244c56b5e:string:test123",
+                "identityProof": {
+                    "type": "809397af-91fa-4bc1-89af-b12ff824c9f0:string:DNS-TXT",
+                    "location": "b62bf3b3-df4d-4742-a080-968f278728c0:string:tt.trames.io"
+                }
+            }
+        ],
+        "dltID": "cf1c04af-0c45-4a64-b514-a76cdff11d91:string:601ba67ba957650008149a70",
+        "metaData": {
+            "documentType": "5a21bcaf-c578-4fb6-b1af-7bf2fa700bda:string:booking-confirmation",
+            "binaryChecksum": "19135927-426f-4c53-b6d2-733e91be028c:string:b7c590aaa632dc696c16712a8871b010",
+            "createdAt": {},
+            "shipmentId": "051f9106-a494-45e8-9f0e-ea6c45d3ba76:string:5f8998e01784f70065191e12"
+        },
+        "additionalData": {
+            "CarrierName": "5c7f3d42-828a-4e89-af41-9a0e965de78e:string:DemoCarrier",
+            "BookingNumber": "151aaa97-428d-4d37-8479-23d6d1cb0b9d:string:DMCQSIN0175055",
+            "BookingDate": "d714609c-a075-4215-94da-650c4c8ca994:string:01 MAR., 2021",
+            "Shipper": "9a59886f-fa8b-465d-b97a-0176314e3fa7:string:Demo ASIA PTE LTD",
+            "ShipperAddress": "4b23edf8-8bb7-4b02-a2f4-cfb65e1f33f9:string:70 PENJURU LANE LEVEL 4, C&P HUB 7,SINGAPORE (609406)",
+            "Consignee": "7f630343-4e60-4fd1-910a-294db508415b:string:Demo INDONESIA",
+            "ConsigneeAddress": "c11bc050-bc89-4350-a31e-b0ef7f129c52:string:VENTURA BUILDING LT.7, JL.R.A. KARTINI KAV. 40,CILANDAK, KEL.CILANDAK BARAT,KEC.CILANDAK,KOTA ADM.JAKARTA SELATAN, PROP. DKI JAKARTA",
+            "NotifyParty": "f9a2ecb9-90eb-4224-a66d-6f1dbc8c3fac:string:PT DemoConsignee INDONESIA",
+            "NotifyPartyAddress": "991926d9-cc53-4b27-8342-fc4afcc4617f:string:VENTURA BUILDING LT.7, JL.R.A. KARTINI KAV. 40,CILANDAK, KEL.CILANDAK BARAT,KEC.CILANDAK,KOTA ADM.JAKARTA SELATAN, PROP. DKI JAKARTA",
+            "ServiceContractNumber": "5e2350bb-c5f4-4c51-b478-532afaa0e1c7:string:8BE909",
+            "ContactInformation": {
+                "ShipperContact": "8ad12135-5726-4e7e-ae7a-d2d2106aeb4d:string:62652622",
+                "ShipperFax": "8dfc558d-5738-4362-957a-1c8d7d11ab4a:string:62251151",
+                "ConsigneeContact": "74264a41-3c46-412c-9824-1ade9060b08a:string:634528780",
+                "ConsigneeFax": "db7b2f18-ece2-4c03-a0e8-cb42ea62828f:string:62251252",
+                "NotifyContact": "b3fd7d6e-2806-4e64-8153-53baf6f46bc3:string:634528782",
+                "NotifyFax": "e820958b-b0f6-459b-af61-4ffd921b8eb6:string:62251300"
+            },
+            "Measurement": "4fb58cd3-94eb-4640-8460-ca36ddb05a52:string:8.643",
+            "ContainerYard": "48e3702b-a4eb-41e0-840f-cea5c304f97e:string:JAKARTA",
+            "Vessel": "a5e13daf-fb27-4158-92f0-02526359a5be:string:OOCL NEW ZEALAND",
+            "IMO": "70bb8dce-cc51-4042-aa0b-adc9ce544549:string:9445114",
+            "VoyageNumber": "ba913aae-ad7f-446b-8a81-141304224b1d:string:081S",
+            "CommodityDescription": "db31018d-015d-43fd-b264-1218f803607f:string:ELECTRICAL EQUIPMENT SPARE PARTS",
+            "GrossWeight": {
+                "Unit": "ea5928da-312a-4e71-b75d-575fab635b7e:string:KGS",
+                "Value": "e036957d-b0de-4aab-91fa-6b2609cdf728:string:1825.500"
+            },
+            "ShippingInformation": {
+                "OriginPort": "9c7d35d3-178a-4c42-98d8-ac9e173327d5:string:SINGAPORE",
+                "DestinationPort": "b613ffba-187b-481d-9dac-7b127a369209:string:JAKARTA",
+                "ETD": "8dad585a-b075-4547-abab-fe8b618e036f:string:05 MAR., 2021",
+                "ETA": "3a04c507-65c4-4ad1-aa98-2dd591873d61:string:06 MAR 2021"
+            },
+            "TranshipmentInformation": [
+                {
+                    "TSPort": "197b3813-9005-49f9-8b13-b4a9585caf46:string:NA",
+                    "TSNextPort": "07657742-e266-4669-bdda-beb83a54b84b:string:NA",
+                    "TSVessel": "2226da15-e11f-447b-b83d-0af016cebdcc:string:NA",
+                    "TSVesselIMO": "3e958afb-b72f-4990-b62c-e6ee03b5a4b8:string:NA",
+                    "TSETD": "f7d044ea-2724-4120-a781-62b89f3bdae7:string:NA",
+                    "TSETA": "d0670096-f3ae-4b37-9aac-2ba720e072c7:string:NA"
+                }
+            ],
+            "ServiceType": "cb5fcfb1-a3b0-4cde-b291-deeb10766f12:string:CFS/CFS",
+            "HSCode": "e169c1d6-b0cd-48db-9b96-e72a30176431:string:851390",
+            "NumberOfContainers": "bdcb0763-e8a1-4ea0-bcd0-46e862b13ff5:string:1",
+            "Containers": [
+                {
+                    "ContainerNumber": "49b0cfb6-57ae-4399-957f-1600ae3a4bd8:string:OOCU6582096",
+                    "CarrierSealNumber": "e1fa4587-d770-408c-a1dd-dcdd40ced53e:string:OOLFUD0687",
+                    "ContainerType": "c89b7492-2214-4df5-becf-b0b270e2ad62:string:20GP",
+                    "Weight": {
+                        "Unit": "dbd0d9e1-520c-4775-9a4b-c0eee0575ba9:string:KGS",
+                        "Value": "11270af3-ea7a-4594-b1ac-c4c995ef5a17:string:1825.500"
+                    },
+                    "Volume": {
+                        "Unit": "62e0453a-1e3d-4ebf-a7f6-e2c3fefda74b:string:CBM",
+                        "Value": "6dd170bd-f471-4d48-817e-db0bca6c67e0:string:8.643"
+                    }
+                }
+            ],
+            "CutOff": {
+                "VGMSubmissionTimeline": "56b2a5fd-d3fe-47ac-94e0-47e83b631ef9:string:07 MAR 2021",
+                "SISubmission": "118296fb-e046-4b5f-8af9-ebdcef82c08b:string:07 MAR 2021",
+                "Date": "a8530e51-7e9a-4358-9375-90a8d391cbcc:string:07 MAR 2021",
+                "Time": "df3a0797-5503-4121-834d-fd116d8d8eb7:string:12:15"
+            }
+        }
+    },
+    "signature": {
+        "type": "SHA3MerkleProof",
+        "targetHash": "d3fb827f3adbe6bcf864ad4f14ea30253b95f72615e3b47d689759fc2702ba02",
+        "proof": [],
+        "merkleRoot": "d3fb827f3adbe6bcf864ad4f14ea30253b95f72615e3b47d689759fc2702ba02"
+    },
+    "ttHash": "feb9427cd666f123cd43046892be77d7947ec25e"
+}

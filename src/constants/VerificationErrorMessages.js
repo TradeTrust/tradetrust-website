@@ -14,6 +14,8 @@ export const MESSAGES = {
   [TYPES.ISSUED]: {
     failureTitle: "Document not issued",
     successTitle: "Document has been issued",
+    revokedTitle: "Document has been revoked",
+    consumedTitle: "Document has been consumed",
     failureMessage:
       "This document cannot be found. Please contact your issuing authority for help or issue the document before trying again.",
   },

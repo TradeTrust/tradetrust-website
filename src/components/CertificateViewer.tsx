@@ -9,6 +9,7 @@ import { getLogger } from "../utils/logger";
 import { TemplateProps } from "./../types";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { CertificateSharingForm } from "./CertificateSharing/CertificateSharingForm";
+import { CustomRendererContainer } from "./DecentralisedTemplateRenderer/CustomRenderer";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
@@ -18,7 +19,7 @@ import { ErrorBoundary } from "./ErrorBoundary";
 import { ModalDialog } from "./ModalDialog";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
-
+import { NETWORK } from "../config";
 const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
@@ -131,12 +132,15 @@ export const CertificateViewer = ({
         )}
         <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
           <DocumentUtility document={document} handleSharingToggle={handleSharingToggle} onPrint={onPrint} />
-          <DecentralisedRendererContainer
-            rawDocument={document}
-            updateTemplates={updateTemplates}
-            selectedTemplate={selectedTemplate}
-            ref={childRef}
-          />
+          {NETWORK === "Corda Enterprise" && <CustomRendererContainer rawDocument={document} ref={childRef} />}
+          {NETWORK !== "Corda Enterprise" && (
+            <DecentralisedRendererContainer
+              rawDocument={document}
+              updateTemplates={updateTemplates}
+              selectedTemplate={selectedTemplate}
+              ref={childRef}
+            />
+          )}
         </div>
       </div>
       <ModalDialog show={showSharing} toggle={handleSharingToggle}>

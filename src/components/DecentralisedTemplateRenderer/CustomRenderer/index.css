@@ -1,0 +1,40 @@
+.custom-template-renderer .flex.flex-wrap {
+  padding: 0px 60px;
+  justify-content: center;
+}
+table.custom-template-renderer-table {
+  border: 2px solid;
+  width: 100%;
+}
+table.custom-template-renderer-table tr td {
+  border: 2px solid;
+  padding: 10px;
+  vertical-align: top;
+  max-width: 300px;
+  word-break: break-all;
+}
+table.custom-template-renderer-table tr td .doc-type {
+  margin: 10px auto;
+  text-transform: uppercase;
+  text-align: center;
+}
+table.custom-template-renderer-table tr td label {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+}
+table.custom-template-renderer-table tr td .label {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+table.custom-template-renderer-table tr td pre {
+  font-size: 87.5%;
+}
+table.custom-template-renderer-table tr td p {
+  font-family: monospace;
+  line-height: 1.5;
+}
