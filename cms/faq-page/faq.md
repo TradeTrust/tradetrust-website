@@ -1,10 +1,9 @@
 ---
 title: Frequently Asked Questions
 ---
-
 #### General
 
-##### What is TradeTrust?
+##### What is TradeTrust??
 
 TradeTrust is a digital utility that comprises a set of globally-accepted standards and frameworks that connects governments and businesses to a public blockchain to enable trusted interoperability and exchanges of electronic trade documents across digital platforms. The four key components of TradeTrust are:
 
