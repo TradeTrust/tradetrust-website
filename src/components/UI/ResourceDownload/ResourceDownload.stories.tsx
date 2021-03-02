@@ -15,16 +15,22 @@ export const Default = () => {
       title="Newsletters"
       resources={[
         {
-          title: "TradeTrust Newsletter Issue 01",
-          url: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
+          attributes: {
+            title: "TradeTrust Newsletter Issue 01",
+            file: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
+          },
         },
         {
-          title: "TradeTrust Newsletter Issue 02",
-          url: "/static/images/newsletter/TradeTrust_Newsletter_Issue02.pdf",
+          attributes: {
+            title: "TradeTrust Newsletter Issue 02",
+            file: "/static/images/newsletter/TradeTrust_Newsletter_Issue02.pdf",
+          },
         },
         {
-          title: "TradeTrust Newsletter Issue 03",
-          url: "/static/images/newsletter/Tradetrust_Newsletter_Issue03.pdf",
+          attributes: {
+            title: "TradeTrust Newsletter Issue 03",
+            file: "/static/images/newsletter/Tradetrust_Newsletter_Issue03.pdf",
+          },
         },
       ]}
     />

@@ -1,13 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { Resource } from "../../../types";
-import { ResourceDownload } from "./ResourceDownload";
+import { ResourceDownload, Newsletter } from "./ResourceDownload";
 
 const mockTitle = "Source code";
-const mockResources: Resource[] = [
+const mockResources: Newsletter[] = [
   {
-    title: "TradeTrust Newsletter Issue 01",
-    url: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
+    attributes: {
+      title: "TradeTrust Newsletter Issue 01",
+      file: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
+    },
   },
 ];
 

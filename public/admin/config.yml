@@ -1,12 +1,19 @@
 backend:
   name: git-gateway
   branch: master
+  squash_merges: true
+  commit_messages:
+    create: "feat: Create {{collection}} “{{slug}}” {{author-name}}"
+    update: "chore: Update {{collection}} “{{slug}}” {{author-name}}"
+    delete: "chore: Delete {{collection}} “{{slug}}” {{author-name}}"
+    uploadMedia: "chore: Upload “{{path}}” {{author-name}}"
+    deleteMedia: "chore: Delete “{{path}}” {{author-name}}"
 
 local_backend: true
 
 publish_mode: editorial_workflow
 
-media_folder: "static/uploads"
+media_folder: "public/static/uploads"
 public_folder: "/static/uploads"
 
 collections:
@@ -18,3 +25,12 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "This is used for the page title" }
       - { label: "Body", name: "body", widget: "markdown", hint: "This is the body text." }
+  - name: "newsletter"
+    label: "Newsletter"
+    folder: "cms/newsletter"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "This is used for the newsletter title" }
+      - { label: "File", name: "file", widget: "file" }

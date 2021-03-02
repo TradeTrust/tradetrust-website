@@ -1,10 +1,16 @@
 import React, { FunctionComponent } from "react";
 import { Download } from "react-feather";
-import { Resource } from "../../../types";
+
+export type Newsletter = {
+  attributes: {
+    title: string;
+    file: string;
+  };
+};
 
 export interface ResourceDownloadProps {
   title: string;
-  resources: Resource[];
+  resources: Newsletter[];
 }
 
 export const ResourceDownload: FunctionComponent<ResourceDownloadProps> = ({ title, resources }) => {
@@ -15,9 +21,13 @@ export const ResourceDownload: FunctionComponent<ResourceDownloadProps> = ({ tit
         {resources.map((resource, index) => (
           <div className="pt-2 text-blue" key={index}>
             <div className="flex">
-              <a href={resource.url} download={resource.title} className="text-base font-medium flex items-end mb-2">
+              <a
+                href={resource.attributes.file}
+                download={resource.attributes.title}
+                className="text-base font-medium flex items-end mb-2"
+              >
                 <Download className="mr-1" />
-                {resource.title}
+                {resource.attributes.title}
               </a>
             </div>
           </div>

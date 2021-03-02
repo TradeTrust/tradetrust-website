@@ -2,7 +2,11 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { ResourceWebinar } from "../components/UI/ResourceWebinar";
 import { ResourceLink } from "../components/UI/ResourceLink";
-import { ResourceDownload } from "../components/UI/ResourceDownload";
+import { ResourceDownload, Newsletter } from "../components/UI/ResourceDownload";
+
+//https://webpack.js.org/guides/dependency-management/#context-module-api
+const importAll = (r: __WebpackModuleApi.RequireContext) => r.keys().map(r) as Newsletter[];
+const newsletters: Newsletter[] = importAll(require.context("../../cms/newsletter/", false, /\.md$/));
 
 const documentations = [
   {
@@ -15,21 +19,6 @@ const sourceCodes = [
   {
     title: "View TradeTrust source code",
     url: "https://github.com/TradeTrust/tradetrust-website",
-  },
-];
-
-const newsletters = [
-  {
-    title: "TradeTrust Newsletter Issue 01",
-    url: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
-  },
-  {
-    title: "TradeTrust Newsletter Issue 02",
-    url: "/static/images/newsletter/TradeTrust_Newsletter_Issue02.pdf",
-  },
-  {
-    title: "TradeTrust Newsletter Issue 03",
-    url: "/static/images/newsletter/Tradetrust_Newsletter_Issue03.pdf",
   },
 ];
 
