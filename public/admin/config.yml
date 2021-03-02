@@ -4,11 +4,11 @@ backend:
   # change back to master later
   squash_merges: true
   commit_messages:
-    create: Create {{collection}} “{{slug}}” {{author-name}}
-    update: Update {{collection}} “{{slug}}” {{author-name}}
-    delete: Delete {{collection}} “{{slug}}” {{author-name}}
-    uploadMedia: Upload “{{path}}” {{author-name}}
-    deleteMedia: Delete “{{path}}” {{author-name}}
+    create: "feat: Create {{collection}} “{{slug}}” {{author-name}}"
+    update: "chore: Update {{collection}} “{{slug}}” {{author-name}}"
+    delete: "chore: Delete {{collection}} “{{slug}}” {{author-name}}"
+    uploadMedia: "chore: Upload “{{path}}” {{author-name}}"
+    deleteMedia: "chore: Delete “{{path}}” {{author-name}}"
 
 local_backend: true
 
