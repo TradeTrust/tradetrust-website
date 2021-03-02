@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "sourceMap": true,
-    "types": ["jest", "node"],
+    "types": ["jest", "node", "webpack-env"],
     "allowJs": true,
     "noEmit": true
   },
