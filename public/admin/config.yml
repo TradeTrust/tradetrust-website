@@ -1,7 +1,6 @@
 backend:
   name: git-gateway
-  branch: feat/cms-newsletters
-  # change back to master later
+  branch: master
   squash_merges: true
   commit_messages:
     create: "feat: Create {{collection}} “{{slug}}” {{author-name}}"
