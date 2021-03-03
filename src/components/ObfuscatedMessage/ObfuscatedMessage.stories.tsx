@@ -3,7 +3,7 @@ import React from "react";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 
 export default {
-  title: "UI|ObfuscatedMessage",
+  title: "UI/ObfuscatedMessage",
   component: ObfuscatedMessage,
 };
 
@@ -16,6 +16,6 @@ const document = {
   },
 } as WrappedDocument<v2.OpenAttestationDocument>;
 
-export const Example = () => {
+export const Default = () => {
   return <ObfuscatedMessage document={document} />;
 };

@@ -1,15 +1,9 @@
-import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { CAPTCHA_CLIENT_KEY } from "../../config";
 import { states } from "../../reducers/certificate";
-import { mixin } from "../../styles";
-
-const Button = styled.button`
-  ${mixin.button}
-  margin-top: 20px;
-`;
+import { Button } from "@govtechsg/tradetrust-ui-components";
 
 export class CertificateSharingForm extends Component {
   constructor(props) {

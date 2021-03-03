@@ -54,7 +54,7 @@ describe("EndorsementChainLayout", () => {
   it("should render the loading component when pending is true", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(<EndorsementChainLayout error={""} pending={true} setShowEndorsementChain={() => {}} />);
-    expect(screen.getAllByRole("loaderSkeleton")).toHaveLength(9);
+    expect(screen.getAllByTestId("loader-skeleton")).toHaveLength(9);
   });
 
   it("should render the EndorsementChain component if everything is good", () => {

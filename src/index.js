@@ -9,7 +9,6 @@ import { ProviderContextProvider } from "./common/contexts/provider";
 import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";
 import "./index.css";
 import initStore from "./store";
-import "./styles.css";
 
 const history = createBrowserHistory();
 

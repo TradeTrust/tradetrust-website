@@ -2,7 +2,7 @@ import React from "react";
 import { EndorsementJourney } from "./EndorsementJourney";
 
 export default {
-  title: "Viewer|EndorsementJourney",
+  title: "Viewer/EndorsementJourney",
   component: EndorsementJourney,
 };
 

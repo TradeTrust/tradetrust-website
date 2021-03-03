@@ -12,6 +12,6 @@ describe("EndorsementChainLoading", () => {
       </table>
     );
 
-    expect(screen.getAllByRole("loaderSkeleton")).toHaveLength(9);
+    expect(screen.getAllByTestId("loader-skeleton")).toHaveLength(9);
   });
 });
