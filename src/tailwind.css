@@ -41,8 +41,7 @@
   }
 
   a:hover {
-    /* use text-blue-700 once its available from common-ui */
-    color: #006080;
+    @apply text-blue-700;
   }
 
   svg {
