@@ -1,9 +1,9 @@
 import React from "react";
-import { Loader, LoaderSkeleton } from "./Loader";
+import { LoaderSkeleton } from "./LoaderSkeleton";
 
 export default {
-  title: "UI/Loader",
-  component: Loader,
+  title: "UI/LoaderSkeleton",
+  component: LoaderSkeleton,
   parameters: {
     componentSubtitle: "Types of loaders, with custom parameters.",
   },

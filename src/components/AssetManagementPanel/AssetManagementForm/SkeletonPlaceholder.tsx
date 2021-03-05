@@ -1,5 +1,5 @@
 import React from "react";
-import { LoaderSkeleton } from "../../UI/Loader";
+import { LoaderSkeleton } from "../../UI/LoaderSkeleton";
 
 export const SkeletonPlaceholder = () => {
   return (

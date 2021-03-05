@@ -1,6 +1,10 @@
 @tailwind base;
 
 @layer base {
+  :root {
+    -webkit-font-smoothing: antialiased;
+  }
+
   h1 {
     font-size: 40px;
   }
@@ -34,6 +38,10 @@
     @apply duration-200;
     @apply ease-out;
     @apply text-blue;
+  }
+
+  a:hover {
+    @apply text-blue-700;
   }
 
   svg {
@@ -89,23 +97,38 @@
     animation: pulse 3s alternate infinite;
   }
 
+  .skeleton-loading:empty::after {
+    animation: skeleton-loading 1.4s infinite;
+  }
+
   .exact-print {
     -webkit-print-color-adjust: exact;
+  }
+
+  .aspect-16-9 {
+    position: relative;
+    width: 100%;
+  }
+
+  .aspect-16-9::before {
+    content: "";
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: calc(9 / 16 * 100%);
+  }
+
+  .aspect-16-9::after {
+    content: "";
+    display: table;
+    clear: both;
   }
 
   @media print {
     .no-print {
       display: none;
     }
-  }
-}
-
-@keyframes spinning {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
 

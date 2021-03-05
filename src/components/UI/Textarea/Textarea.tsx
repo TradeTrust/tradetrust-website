@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
-import { mixin } from "../../../styles";
+import { StyledInput } from "../../../common/styles/Input";
 
 export const TextareaDefault = styled.textarea`
-  ${mixin.baseStyleInput()}
-
+  ${StyledInput()}
   min-height: 140px;
   width: 100%;
   resize: none;

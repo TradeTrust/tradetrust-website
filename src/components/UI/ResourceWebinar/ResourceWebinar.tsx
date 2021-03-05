@@ -1,9 +1,7 @@
-import styled from "@emotion/styled";
 import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
 import { Download } from "react-feather";
 import { convertSecondsToMinAndSec } from "../../../utils";
-import { mixin } from "../../../styles";
 
 export type Webinar = {
   youtubeEmbedCode: string;
@@ -31,7 +29,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
   return (
     <div className="bg-white shadow-md mb-4">
       <div className="flex flex-col lg:flex-row">
-        <MediaHolder>
+        <div className="aspect-16-9">
           <iframe
             className="absolute top-0 left-0 w-full h-full"
             src={`https://www.youtube.com/embed/${youtubeEmbedCode}${
@@ -42,7 +40,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
             allow="autoplay; fullscreen"
             data-testid="youtubeEmbed-iframe"
           />
-        </MediaHolder>
+        </div>
         <div className="w-full px-5 pt-3 pb-5">
           <h4 className="title mb-2">
             <a
@@ -95,7 +93,3 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
     </div>
   );
 };
-
-const MediaHolder = styled.div`
-  ${mixin.aspectRatio(16, 9)};
-`;

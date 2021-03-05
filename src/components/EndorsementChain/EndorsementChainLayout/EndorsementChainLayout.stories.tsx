@@ -3,7 +3,7 @@ import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
 
 export default {
-  title: "Viewer|EndorsementChainLayout",
+  title: "Viewer/EndorsementChainLayout",
   component: EndorsementChainLayout,
 };
 

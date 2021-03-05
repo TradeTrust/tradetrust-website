@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import Select from "react-dropdown-select";
 import tw from "twin.macro";
-import { mixin } from "../../../styles";
+import { StyledInput } from "../../../common/styles/Input";
 
 interface SelectOptionProps {
   value: string;
@@ -23,7 +23,7 @@ export const SelectDropdown = ({ values, onChange, options, ...props }: SelectDr
 };
 
 export const SelectDefault = styled(SelectDropdown)`
-  ${mixin.baseStyleInput()}
+  ${StyledInput()}
   font-size: 16px;
 
   .react-dropdown-select-input {
