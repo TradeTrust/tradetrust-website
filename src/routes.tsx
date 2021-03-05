@@ -2,8 +2,9 @@ import { EmailSuccessPage } from "./pages/emailSuccess";
 import { FaqPage } from "./pages/faq";
 import { HomePageContainer } from "./pages/home";
 import { MediaPage } from "./pages/media";
+import { Page404 } from "./pages/page404";
 import { ResourcesPage } from "./pages/resources";
-import { SettingsPage, SettingsAddressBookPage, SettingsAddressResolverPage } from "./pages/settings";
+import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
 import { ViewerPage } from "./pages/viewer";
 
 export const routes = [
@@ -16,4 +17,5 @@ export const routes = [
   { path: "/email/success", exact: true, component: EmailSuccessPage },
   { path: "/resources", exact: true, component: ResourcesPage },
   { path: "/media", exact: true, component: MediaPage },
+  { path: "*", component: Page404 },
 ];
