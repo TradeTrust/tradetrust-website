@@ -37,9 +37,9 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   const identityProofFragment = verificationStatus.find(
     (status) => status.type === "ISSUER_IDENTITY" && status.status === "VALID"
   ) as VerificationFragment;
-  const dataFragment = identityProofFragment.data;
+  const dataFragment = identityProofFragment?.data;
   const fragmentValidity =
-    dataFragment.length > 0 && dataFragment.every((issuer: { status: string }) => issuer.status === "VALID"); // every will return true even though dataFragment is empty, hence the additional check for length
+    dataFragment?.length > 0 && dataFragment?.every((issuer: { status: string }) => issuer.status === "VALID"); // every will return true even though dataFragment is empty, hence the additional check for length
   const formattedDomainNames = fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 
   return (
