@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
 
 const getProvider =
-  NETWORK_NAME === "local"
+  NETWORK_NAME === "local" || NETWORK_NAME === "Corda Enterprise"
     ? new providers.JsonRpcProvider()
     : new ethers.providers.InfuraProvider(NETWORK_NAME, INFURA_API_KEY);
 

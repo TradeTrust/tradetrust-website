@@ -10,6 +10,7 @@ import { TokenInformationContextProvider } from "./common/contexts/TokenInformat
 import "./index.css";
 import initStore from "./store";
 import "./styles.css";
+import { NETWORK } from "./config";
 
 const history = createBrowserHistory();
 
@@ -17,15 +18,24 @@ const App = () => {
   const store = initStore(history);
   return (
     <OverlayContextProvider>
-      <ProviderContextProvider>
+      {NETWORK === "Corda Enterprise" && (
         <Provider store={store}>
-          <TokenInformationContextProvider>
-            <ConnectedRouter history={history}>
-              <AppContainer />
-            </ConnectedRouter>
-          </TokenInformationContextProvider>
+          <ConnectedRouter history={history}>
+            <AppContainer />
+          </ConnectedRouter>
         </Provider>
-      </ProviderContextProvider>
+      )}
+      {NETWORK !== "Corda Enterprise" && (
+        <ProviderContextProvider>
+          <Provider store={store}>
+            <TokenInformationContextProvider>
+              <ConnectedRouter history={history}>
+                <AppContainer />
+              </ConnectedRouter>
+            </TokenInformationContextProvider>
+          </Provider>
+        </ProviderContextProvider>
+      )}
     </OverlayContextProvider>
   );
 };
