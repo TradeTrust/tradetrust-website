@@ -9,7 +9,15 @@ import {
   whenDocumentHashInvalidAndNotIssued,
   whenDocumentIssuerIdentityInvalidDid,
 } from "../../test/fixture/verifier-responses";
+import {
+  whenDocumentHashInvalidCorda,
+  whenDocumentNotIssuedCorda,
+  whenDocumentIssuerIdentityInvalidDnsTxtCorda,
+  whenDocumentHashInvalidAndNotIssuedCorda,
+  whenDocumentIssuerIdentityInvalidDidCorda,
+} from "../../test/fixture/corda-verifier-responses";
 import { MESSAGES } from "../../constants/VerificationErrorMessages";
+import { NETWORK_NAME } from "../../config";
 
 describe("IssuedBy", () => {
   it("should return appropriate display text when single dns is verified", () => {
@@ -95,44 +103,93 @@ describe("IssuedBy", () => {
 });
 
 describe("DocumentStatus", () => {
-  it("should display hash error if the hash is invalid", () => {
-    const container = render(<DocumentStatus verificationStatus={whenDocumentHashInvalid as VerificationFragment[]} />);
-    expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
-    expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
-  });
+  if (NETWORK_NAME === "Corda Enterprise") {
+    it("should display hash error if the hash is invalid", () => {
+      const container = render(
+        <DocumentStatus verificationStatus={whenDocumentHashInvalidCorda as VerificationFragment[]} />
+      );
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
+    });
 
-  it("displays issuing error if the document is not issued", () => {
-    const container = render(<DocumentStatus verificationStatus={whenDocumentNotIssued as VerificationFragment[]} />);
-    expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
-    expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
-  });
+    it("displays issuing error if the document is not issued", () => {
+      const container = render(
+        <DocumentStatus verificationStatus={whenDocumentNotIssuedCorda as VerificationFragment[]} />
+      );
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
+    });
 
-  it("displays identity error if the dns txt identity is not verified", () => {
-    const container = render(
-      <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]} />
-    );
-    expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
-  });
+    it("displays identity error if the dns txt identity is not verified", () => {
+      const container = render(
+        <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxtCorda as VerificationFragment[]} />
+      );
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
+    });
 
-  it("displays identity error if the did identity is not verified", () => {
-    const container = render(
-      <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDid as VerificationFragment[]} />
-    );
-    expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
-    expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
-  });
+    it("displays identity error if the did identity is not verified", () => {
+      const container = render(
+        <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDidCorda as VerificationFragment[]} />
+      );
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
+    });
 
-  it("displays error in all fields when all verification fail", () => {
-    const container = render(
-      <DocumentStatus verificationStatus={whenDocumentHashInvalidAndNotIssued as VerificationFragment[]} />
-    );
-    expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
-    expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
-    expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
-  });
+    it("displays error in all fields when all verification fail", () => {
+      const container = render(
+        <DocumentStatus verificationStatus={whenDocumentHashInvalidAndNotIssuedCorda as VerificationFragment[]} />
+      );
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
+    });
+  } else {
+    it("should display hash error if the hash is invalid", () => {
+      const container = render(
+        <DocumentStatus verificationStatus={whenDocumentHashInvalid as VerificationFragment[]} />
+      );
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
+    });
+
+    it("displays issuing error if the document is not issued", () => {
+      const container = render(<DocumentStatus verificationStatus={whenDocumentNotIssued as VerificationFragment[]} />);
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
+    });
+
+    it("displays identity error if the dns txt identity is not verified", () => {
+      const container = render(
+        <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]} />
+      );
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
+    });
+
+    it("displays identity error if the did identity is not verified", () => {
+      const container = render(
+        <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDid as VerificationFragment[]} />
+      );
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
+    });
+
+    it("displays error in all fields when all verification fail", () => {
+      const container = render(
+        <DocumentStatus verificationStatus={whenDocumentHashInvalidAndNotIssued as VerificationFragment[]} />
+      );
+      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
+      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
+      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
+    });
+  }
 });
