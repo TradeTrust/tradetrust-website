@@ -1,9 +1,7 @@
-import styled from "@emotion/styled";
 import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import prettyBytes from "pretty-bytes";
 import React, { FunctionComponent } from "react";
 import { Paperclip } from "react-feather";
-import tw from "twin.macro";
 import { getLogger } from "../../../utils/logger";
 
 export enum NestedDocumentState {
@@ -54,8 +52,11 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
       return <ExtensionIcon src="/static/images/fileicons/txt.svg" data-testid="attachment-icon-txt" />;
     default:
       return (
-        <div className="icon" data-testid={`attachment-icon-paperclip`}>
-          <Paperclip />
+        <div
+          className="w-12 h-12 bg-grey-200 text-grey-700 p-2 rounded-full flex items-center"
+          data-testid={`attachment-icon-paperclip`}
+        >
+          <Paperclip className="m-auto" />
         </div>
       );
   }
@@ -98,13 +99,15 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
   filesize = prettyBytes(decodedData.length);
 
   return (
-    <Attachment>
+    <div className="transition duration-300 ease-out flex-1 border border-solid border-grey-200 py-2 px-4 hover:no-underline hover:bg-blue-300">
       <div className="flex flex-row">
         <div className="w-auto mr-4">{getExtension(type)}</div>
         <div className="w-5/6">
           <p className="mb-2 break-all">
-            <span className="filename">{filename}</span>
-            {hasBase64 && <span className="font-normal inline-block text-grey text-sm">&nbsp;({filesize})</span>}
+            <span className="transition duration-300 ease-out leading-5 text-grey-700 break-words font-semibold">
+              {filename}
+            </span>
+            {hasBase64 && <span className="font-normal text-grey text-sm">&nbsp;({filesize})</span>}
           </p>
           <div className="flex">
             <div className="w-auto mr-2">
@@ -133,30 +136,6 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
           </div>
         </div>
       </div>
-    </Attachment>
+    </div>
   );
 };
-
-export const Attachment = styled.div`
-  ${tw`transition duration-300 ease-out inline-block w-full h-full border border-solid border-grey-200 py-2 px-4 hover:no-underline hover:bg-blue-300`}
-
-  &:hover {
-    .filename {
-      ${tw`text-grey-700`}
-    }
-  }
-
-  .icon {
-    ${tw`bg-grey-200 text-grey-700 p-2 rounded-full flex items-center`}
-    width: 50px;
-    height: 50px;
-
-    svg {
-      ${tw`m-auto`}
-    }
-  }
-
-  .filename {
-    ${tw`transition duration-300 ease-out leading-5 text-grey break-words font-semibold`}
-  }
-`;

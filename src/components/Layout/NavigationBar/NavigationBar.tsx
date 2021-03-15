@@ -170,7 +170,12 @@ export const NavigationBar = () => {
           <div className="flex-1 flex items-center justify-center lg:items-stretch lg:justify-start">
             <div className="flex-shrink-0">
               <NavHashLink to="/" smooth>
-                <img className="img-fluid h-12" src="/static/images/tradetrust_logo.svg" alt="TradeTrust" />
+                <img
+                  data-testid="nav-logo-home"
+                  className="img-fluid h-12"
+                  src="/static/images/tradetrust_logo.svg"
+                  alt="TradeTrust"
+                />
               </NavHashLink>
             </div>
             <div className="hidden lg:block lg:ml-auto">
