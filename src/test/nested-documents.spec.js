@@ -6,8 +6,8 @@ fixture("Nested documents").page`http://localhost:3000`;
 const CertificateDropzone = Selector("[id='certificate-dropzone']");
 const NavLogoHome = Selector("[data-testid='nav-logo-home']");
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
-const AttachmentOpen0 = Selector("[data-testid='attachment-0']").find("[data-testid='attachment-open-link']");
-const AttachmentOpen1 = Selector("[data-testid='attachment-1']").find("[data-testid='attachment-open-link']");
+const AttachmentOpen0 = Selector("[data-testid='attachment-tile-0']").find("[data-testid='attachment-open-link']");
+const AttachmentOpen1 = Selector("[data-testid='attachment-tile-1']").find("[data-testid='attachment-open-link']");
 
 test("Document with nested documents in attachments should open in new tab correctly", async (t) => {
   await uploadDocument("./fixture/nested-documents.json");
