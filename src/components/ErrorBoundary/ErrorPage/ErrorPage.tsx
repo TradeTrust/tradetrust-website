@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
 
 interface ErrorPageProps {
   title: string;
@@ -13,12 +14,12 @@ export const ErrorPage: FunctionComponent<ErrorPageProps> = ({ title, descriptio
       </div>
       <h2 className="text-orange uppercase pt-5 pb-2 text-3xl md:text-4xl lg:text-5xl font-semibold">{title}</h2>
       <p className="text-black pb-2 text-base md:text-lg lg:text-2xl">{description}</p>
-      <a
+      <Link
         className="mt-4 inline-block px-8 py-4 bg-navy hover:bg-orange text-white hover:text-white border-none rounded-full font-semibold uppercase no-underline transition duration-300 ease-out text-sm"
-        href="/"
+        to="/"
       >
         Go back to home
-      </a>
+      </Link>
     </div>
   );
 };
