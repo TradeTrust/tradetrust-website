@@ -1,4 +1,6 @@
+import { createBrowserHistory } from "history";
 import React from "react";
+import { Router } from "react-router-dom";
 import { ErrorPage } from "./ErrorPage";
 
 export default {
@@ -9,6 +11,12 @@ export default {
   },
 };
 
+const history = createBrowserHistory();
+
 export const Default = () => {
-  return <ErrorPage title="ERROR!!" description="Something went wrong!" />;
+  return (
+    <Router history={history}>
+      <ErrorPage title="ERROR" description="Something went wrong" />
+    </Router>
+  );
 };

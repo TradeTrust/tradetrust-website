@@ -21,7 +21,7 @@ export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
     if (this.state.hasError) {
       return (
         <ErrorPage
-          title="Something went wrong!"
+          title="Something went wrong"
           description="There is an error with this document, please contact your issuing institution."
         />
       );
