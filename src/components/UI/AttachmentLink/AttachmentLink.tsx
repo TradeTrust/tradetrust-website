@@ -6,6 +6,10 @@ import { Paperclip } from "react-feather";
 import tw from "twin.macro";
 import { getLogger } from "../../../utils/logger";
 
+export enum NestedDocumentState {
+  LOAD = "NESTED_DOCUMENT_LOAD",
+}
+
 const { error } = getLogger("component:attachmentlink");
 
 export interface AttachmentLinkProps {
@@ -57,25 +61,19 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
   }
 };
 
-//sending message to child window
 const openTab = (data: string) => {
-  const childWin = window.open(`${window.location}/#verify-documents`, "_blank"); // to omit noopener noreferrer for this case, otherwise event.data.type will return undefined -> unable to postMessage
+  const url = `${window.location.protocol}//${window.location.host}`;
+  const childWin = window.open(url, "_blank") as Window; // to omit noopener noreferrer for this case, otherwise unable to postMessage
 
-  window.addEventListener(
-    "message",
-    (event) => {
-      if (event.data.type === "READY" && childWin) {
-        childWin.postMessage(
-          {
-            type: "LOAD_DOCUMENT",
-            payload: data,
-          },
-          `${window.location.href}`
-        );
-      }
-    },
-    false
-  );
+  childWin.onload = (): void => {
+    childWin.postMessage(
+      {
+        type: NestedDocumentState.LOAD,
+        payload: data,
+      },
+      url
+    );
+  };
 };
 
 const isOpenAttestationFile = (decodedData: string) => {
