@@ -3,10 +3,7 @@ import prettyBytes from "pretty-bytes";
 import React, { FunctionComponent } from "react";
 import { Paperclip } from "react-feather";
 import { getLogger } from "../../../utils/logger";
-
-export enum NestedDocumentState {
-  LOAD = "NESTED_DOCUMENT_LOAD",
-}
+import { NestedDocumentState } from "./../../../constants/NestedDocumentState";
 
 const { error } = getLogger("component:attachmentlink");
 
@@ -104,10 +101,10 @@ export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkPro
         <div className="w-auto mr-4">{getExtension(type)}</div>
         <div className="w-5/6">
           <p className="mb-2 break-all">
-            <span className="transition duration-300 ease-out leading-5 text-grey-700 break-words font-semibold">
+            <span className="transition duration-300 ease-out leading-5 text-grey-700 break-words font-semibold mr-1">
               {filename}
             </span>
-            {hasBase64 && <span className="font-normal text-grey text-sm">&nbsp;({filesize})</span>}
+            {hasBase64 && <span className="font-normal text-grey text-sm">({filesize})</span>}
           </p>
           <div className="flex">
             <div className="w-auto mr-2">
