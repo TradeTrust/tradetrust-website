@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { LandingSection } from "./HomePageContent/LandingSection";
 import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
 import { DocumentationSection } from "./HomePageContent/DocumentationSection";
@@ -7,32 +7,22 @@ import { DropZoneSectionContainer } from "./HomePageContent/DropZoneSection";
 import { updateCertificate } from "../reducers/certificate";
 import { getLogger } from "../utils/logger";
 import { connect } from "react-redux";
+import { NestedDocumentState } from "./../constants/NestedDocumentState";
 
 const { error } = getLogger("component:mainpage");
 
 const MainPage = ({ loadCertificate }: { loadCertificate: (certificate: any) => void }) => {
-  useEffect(() => {
-    //if there is a parent window, send a READY to parent
-    if (window.opener) {
-      window.opener.postMessage({ type: "READY" });
+  // event listener for any custom postMessage
+  window.addEventListener("message", (event) => {
+    if (event.data.type === NestedDocumentState.LOAD) {
+      try {
+        const doc = atob(event.data.payload);
+        loadCertificate(JSON.parse(doc));
+      } catch (e) {
+        error("decode data not json: " + e);
+      }
     }
-
-    //detecting message from parent window
-    window.addEventListener(
-      "message",
-      (event) => {
-        if (event.data?.type === "LOAD_DOCUMENT" && event.data.payload) {
-          try {
-            const doc = atob(event.data.payload);
-            loadCertificate(JSON.parse(doc));
-          } catch (e) {
-            error("decode data not json: " + e);
-          }
-        }
-      },
-      false
-    );
-  }, [loadCertificate]);
+  });
 
   return (
     <div className="text-lg">
