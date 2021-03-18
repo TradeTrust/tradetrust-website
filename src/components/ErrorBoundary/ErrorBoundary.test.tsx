@@ -1,5 +1,7 @@
-import React from "react";
 import { mount } from "enzyme";
+import { createMemoryHistory } from "history";
+import React from "react";
+import { Router } from "react-router-dom";
 import { ErrorBoundary } from "./ErrorBoundary";
 
 const ProblemChild = () => {
@@ -18,12 +20,16 @@ const pauseErrorLogging = (codeToRun: () => void) => {
 
 describe("<ErrorBoundary />", () => {
   it("should catch errors with componentDidCatch", () => {
+    const history = createMemoryHistory();
+
     pauseErrorLogging(() => {
       jest.spyOn(ErrorBoundary.prototype, "componentDidCatch");
       mount(
-        <ErrorBoundary>
-          <ProblemChild />
-        </ErrorBoundary>
+        <Router history={history}>
+          <ErrorBoundary>
+            <ProblemChild />
+          </ErrorBoundary>
+        </Router>
       );
       expect(ErrorBoundary.prototype.componentDidCatch).toHaveBeenCalledTimes(1);
     });

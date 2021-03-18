@@ -1,5 +1,9 @@
+import { createBrowserHistory } from "history";
 import React from "react";
+import { Router } from "react-router-dom";
 import { ErrorBoundary } from "./ErrorBoundary";
+
+const history = createBrowserHistory();
 
 export default {
   title: "Error/ErrorBoundary",
@@ -19,16 +23,20 @@ const ChildErrored = () => {
 
 export const Default = () => {
   return (
-    <ErrorBoundary>
-      <ChildSuccess />
-    </ErrorBoundary>
+    <Router history={history}>
+      <ErrorBoundary>
+        <ChildSuccess />
+      </ErrorBoundary>
+    </Router>
   );
 };
 
 export const Error = () => {
   return (
-    <ErrorBoundary>
-      <ChildErrored />
-    </ErrorBoundary>
+    <Router history={history}>
+      <ErrorBoundary>
+        <ChildErrored />
+      </ErrorBoundary>
+    </Router>
   );
 };
