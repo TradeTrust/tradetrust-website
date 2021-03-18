@@ -8,7 +8,7 @@ export type EventMedia = {
   watchLink?: string;
 };
 
-interface ResourceEventProps {
+export interface ResourceEventProps {
   title: string;
   description: string;
   resource: EventMedia;
