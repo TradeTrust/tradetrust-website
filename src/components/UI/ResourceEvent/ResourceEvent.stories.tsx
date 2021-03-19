@@ -3,7 +3,7 @@ import { ResourceEvent, EventMedia } from "./ResourceEvent";
 
 const mockEventMedia: EventMedia = {
   date: "2 July 2020",
-  time: "9-10pm (SGT)",
+  time: "9 - 10pm (SGT)",
   watchLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
   eventLink: "https://www.baft.org/baft-education/e-learning/past-webinars",
   eventSlides:

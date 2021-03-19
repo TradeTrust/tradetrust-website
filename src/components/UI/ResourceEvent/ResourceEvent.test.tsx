@@ -4,7 +4,7 @@ import { ResourceEvent, EventMedia } from "./ResourceEvent";
 
 const mockEventMedia: EventMedia = {
   date: "2 July 2020",
-  time: "9-10pm (SGT)",
+  time: "9 - 10pm (SGT)",
   watchLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
   eventLink: "https://www.baft.org/baft-education/e-learning/past-webinars",
   eventSlides:
@@ -29,7 +29,13 @@ describe("ResourceEvent", () => {
   it("should render date correctly", () => {
     render(<ResourceEvent title="" description="" resource={mockEventMedia} />);
 
-    expect(screen.getByText("2 July | 9-10pm SGT")).not.toBeNull();
+    expect(screen.getByText("2 July 2020")).not.toBeNull();
+  });
+
+  it("should render time correctly", () => {
+    render(<ResourceEvent title="" description="" resource={mockEventMedia} />);
+
+    expect(screen.getByText("9 - 10pm (SGT)")).not.toBeNull();
   });
 
   it("should render event link correctly", () => {

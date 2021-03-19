@@ -25,7 +25,12 @@ export const ResourceEvent: FunctionComponent<ResourceEventProps> = ({ title, de
       </h4>
       <div className="text-grey text-base font-medium pb-3">
         <span className="mr-1">{date}</span>
-        {time && <span>| {time}</span>}
+        {time && (
+          <>
+            <span className="mx-1">|</span>
+            <span>{time}</span>
+          </>
+        )}
       </div>
       <p className="mb-4">{description}</p>
       <div className="flex flex-wrap pt-4 text-blue">
