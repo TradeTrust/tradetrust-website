@@ -76,7 +76,8 @@ const eventsMedia: ResourceEventProps[] = [
     description:
       "Designed for businesses of all sizes, learn how you can digitise your supply chains to save cost, improve efficiency and overall profitability by using the Trames platform.",
     resource: {
-      dateTime: "8 Apr 2021, 3-4pm (GMT+8)",
+      date: "8 Apr 2021",
+      time: "3 - 4pm (GMT+8)",
       eventLink: "https://trames.sg/registration",
     },
   },
@@ -85,7 +86,7 @@ const eventsMedia: ResourceEventProps[] = [
     description:
       "The Covid-19 pandemic has magnified the need for trade digitisation.  With widespread working from home; supply chain; travel, and delivery disruptions; and couriers struggling to get through to lockdown locations in a timely way, there’s never been a greater catalyst to go digital. Watch this session to find out how SWIFT is taking the global trade digitisation effort one step further, in collaboration across the ecosystem.",
     resource: {
-      dateTime: "2 Feb 2021",
+      date: "2 Feb 2021",
       eventLink: "https://www.swift.com/news-events/events/watch-on-demand/digitising-trade",
     },
   },
@@ -94,7 +95,7 @@ const eventsMedia: ResourceEventProps[] = [
     description:
       "A presentation on Trade - Adapting to present challenge was delivered at the World CIO 200 Summit 2020. The World CIO 200 Summit 2020 is part of the World CIO 200 Roadshow touring 26 countries celebrating the “Digital Leaders” of today.",
     resource: {
-      dateTime: "14 Dec",
+      date: "14 Dec 2020",
       eventLink: "https://globalcioforum.com/cio-200",
       watchLink: "https://vimeo.com/486806411",
     },
@@ -104,7 +105,7 @@ const eventsMedia: ResourceEventProps[] = [
     description:
       "A TradeTrust update was presented at the recent TC307 Plenary in Nov 2020. The scope of TC307 outlines the standardisation of blockchain technologies and DLT.",
     resource: {
-      dateTime: "12 Nov",
+      date: "12 Nov 2020",
       eventLink: "https://www.iso.org/committee/6266604.html",
     },
   },
@@ -113,7 +114,8 @@ const eventsMedia: ResourceEventProps[] = [
     description:
       "The Covid-19 pandemic has magnified the need for trade digitisation. With widespread working from home; supply chain, travel, and delivery disruptions; and couriers struggling to get through to lockdown locations in a timely way, there’s never been a greater catalyst to go digital. Watch this session to find out how SWIFT is taking the global trade digitisation effort one step further, in collaborating across the ecosystem.",
     resource: {
-      dateTime: "5 Oct | 4pm - 4.30pm SGT",
+      date: "5 Oct 2020",
+      time: "4pm - 4.30pm (SGT)",
       eventLink: "https://www.swift.com/swift-at-sibos/joining-forces-trade-digitisation",
     },
   },
@@ -122,7 +124,8 @@ const eventsMedia: ResourceEventProps[] = [
     description:
       "Organised by the Maritime Port Authority of Singapore (MPA), the panel discussed about what the future of global trade with common data standards will look like and what we need to do to get there.",
     resource: {
-      dateTime: "28 July | 4pm-5pm SGT",
+      date: "28 July 2020",
+      time: "4pm - 5pm (SGT)",
       eventLink:
         "https://www.mpa.gov.sg/web/portal/home/maritime-singapore/what-maritime-singapore-offers/maritime-perspectives-webinar-series/digital-connectivity-%26-data-standards",
       watchLink: "https://www.youtube.com/watch?v=-rbi_k-URjw",
@@ -134,7 +137,8 @@ const eventsMedia: ResourceEventProps[] = [
     description:
       "This programme by SBF called on experts from IMDA and existing TradeTrust users to explain how businesses can benefit from TradeTrust.",
     resource: {
-      dateTime: "3 July | 3-4pm SGT",
+      date: "3 July 2020",
+      time: "3 - 4pm (SGT)",
       eventLink: "https://www.sbf.org.sg/media-centre/publications-resources/webinars",
       watchLink: "https://www.youtube.com/watch?v=NUTLtLso3-Y",
     },
@@ -144,7 +148,8 @@ const eventsMedia: ResourceEventProps[] = [
     description:
       "RosettaNet Singapore and Global CIO Forum, GCF, hosted a webinar that offered insights across industries and countries, for CIOs to think of post-lockdown strategies in different markets.",
     resource: {
-      dateTime: "2 July | 3.30-5pm SGT",
+      date: "2 July 2020",
+      time: "3.30 - 5pm (SGT)",
       eventLink: "https://globalcioforum.com/global-cio-forum-rosettanet-host-websummit-on-post-lockdown-strategies/",
     },
   },
@@ -153,7 +158,8 @@ const eventsMedia: ResourceEventProps[] = [
     description:
       "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
     resource: {
-      dateTime: "2 July | 9-10pm SGT",
+      date: "2 July 2020",
+      time: "9 - 10pm (SGT)",
       eventLink: "https://www.baft.org/baft-education/e-learning/past-webinars",
       watchLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
       eventSlides:

@@ -2,7 +2,8 @@ import React, { FunctionComponent } from "react";
 import { ExternalLink, PlayCircle } from "react-feather";
 
 export type EventMedia = {
-  dateTime: string;
+  date: string;
+  time?: string;
   eventLink: string;
   eventSlides?: string;
   watchLink?: string;
@@ -15,14 +16,17 @@ export interface ResourceEventProps {
 }
 
 export const ResourceEvent: FunctionComponent<ResourceEventProps> = ({ title, description, resource }) => {
-  const { dateTime, eventLink, eventSlides, watchLink } = resource;
+  const { date, time, eventLink, eventSlides, watchLink } = resource;
 
   return (
     <div className="bg-white shadow-md mb-4 w-full px-5 pt-3 pb-5">
       <h4 className="title mb-2">
         <span className="text-grey-700 font-medium text-2xl">{title}</span>
       </h4>
-      <div className="text-grey text-base font-medium pb-3">{dateTime}</div>
+      <div className="text-grey text-base font-medium pb-3">
+        <span className="mr-1">{date}</span>
+        {time && <span>| {time}</span>}
+      </div>
       <p className="mb-4">{description}</p>
       <div className="flex flex-wrap pt-4 text-blue">
         <div className="w-full sm:w-auto mb-2 sm:mb-0">
