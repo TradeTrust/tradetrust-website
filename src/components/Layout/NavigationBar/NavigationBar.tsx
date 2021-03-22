@@ -72,12 +72,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
           {item.dropdownItems?.map((dropdownItem: any, index: number) => {
             return (
               <DropdownItem key={index}>
-                <NavHashLink
-                  key={index}
-                  to={dropdownItem.path}
-                  className="dropdown-link px-2 py-1 block item-center text-nowrap"
-                  smooth
-                >
+                <NavHashLink key={index} to={dropdownItem.path} className="dropdown-link" smooth>
                   {dropdownItem.label}
                 </NavHashLink>
               </DropdownItem>
@@ -125,11 +120,11 @@ export const NavBar = styled.nav`
   }
 
   .dropdown-link {
-    ${tw`text-grey font-normal`}
+    ${tw`text-grey-800 font-normal px-2 py-1 block items-center`}
 
     &:not(.active) {
       &:hover {
-        ${tw`text-greyblue-700`}
+        ${tw`text-grey-800`}
       }
     }
 
