@@ -23,8 +23,8 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Title", name: "title", widget: "string", hint: "This is used for the page title" }
-      - { label: "Body", name: "body", widget: "markdown", hint: "This is the body text." }
+      - { label: "Title", name: "title", widget: "string", hint: "Title of FAQ page." }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of FAQ page." }
   - name: "newsletter"
     label: "Newsletter"
     folder: "cms/newsletter"
@@ -32,5 +32,46 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Title", name: "title", widget: "string", hint: "This is used for the newsletter title" }
-      - { label: "File", name: "file", widget: "file" }
+      - { label: "Title", name: "title", widget: "string", hint: "Title of newsletter." }
+      - { label: "File", name: "file", widget: "file", hint: "File download of newsletter." }
+  - name: "media"
+    label: "Media"
+    folder: "cms/media"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "Title the media article." }
+      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of media article." }
+      - { label: "Link", name: "link", widget: "string", hint: "Url of media article." }
+  - name: "event"
+    label: "Event"
+    folder: "cms/event"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "Title of event." }
+      - { label: "Description", name: "description", widget: "text", hint: "Short description of event." }
+      - { label: "Link", name: "link", widget: "string", hint: "Link of event." }
+      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Date of event." }
+      - {
+          label: "Time Start",
+          name: "timeStart",
+          widget: "datetime",
+          date_format: false,
+          time_format: "HH:mm",
+          required: false,
+          hint: "Start time of event.",
+        }
+      - {
+          label: "Time End",
+          name: "timeEnd",
+          widget: "datetime",
+          date_format: false,
+          time_format: "HH:mm",
+          required: false,
+          hint: "End time of event.",
+        }
+      - { label: "Video Link", name: "videoLink", widget: "string", required: false, hint: "Video link of event." }
+      - { label: "Slides", name: "slides", widget: "file", required: false, hint: "Presentation slides of event." }
