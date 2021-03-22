@@ -54,7 +54,7 @@ module.exports = {
           new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
           new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
           new CopyWebpackPlugin([
-            { from: "public/static/**/*", to: "static", ignore: ["public/static/index.html"] },
+            { from: "public/static/**/*", to: "static/", ignore: ["public/static/index.html"] },
             { from: "public/admin", to: "admin" },
           ]),
         ]
