@@ -112,3 +112,7 @@ For content changes, make sure that you:
 We may ask for changes to be made before a PR can be merged, either using [suggested changes](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/incorporating-feedback-in-your-pull-request) or pull request comments. You can apply suggested changes directly through the UI. You can make any other changes in your fork, then commit them to your branch.
 
 As you update your PR and apply changes, mark each conversation as [resolved](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/commenting-on-a-pull-request#resolving-conversations).
+
+## Attribution
+
+This CONTRIBUTING.md was written with much reference to materials from https://gist.github.com/PurpleBooth/b24679402957c63ec426 and https://github.com/github/docs/blob/main/CONTRIBUTING.md
