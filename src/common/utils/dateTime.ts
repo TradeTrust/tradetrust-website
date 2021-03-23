@@ -1,5 +1,13 @@
-import { format, parseISO } from "date-fns";
+import { format, utcToZonedTime } from "date-fns-tz";
+
+const timeZoneSg = "Asia/Singapore";
 
 export const formatTime = (time: string) => {
-  return format(parseISO(time), "HH:mm");
+  const dateTimeSg = utcToZonedTime(time, timeZoneSg);
+  return format(dateTimeSg, "HH:mm", { timeZone: timeZoneSg });
+};
+
+export const getGmt = (time: string) => {
+  const dateTimeSg = utcToZonedTime(time, timeZoneSg);
+  return format(dateTimeSg, "zzz", { timeZone: timeZoneSg });
 };

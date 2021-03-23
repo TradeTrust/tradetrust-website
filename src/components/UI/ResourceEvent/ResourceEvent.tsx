@@ -1,7 +1,7 @@
 import { isFuture } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { ExternalLink, PlayCircle } from "react-feather";
-import { formatTime } from "../../../common/utils/dateTime";
+import { formatTime, getGmt } from "../../../common/utils/dateTime";
 
 export interface EventProps {
   attributes: {
@@ -35,7 +35,7 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
           <>
             <span className="mx-1">|</span>
             <span>
-              {formatTime(timeStart)} to {formatTime(timeEnd)} (GMT+8)
+              {formatTime(timeStart)} to {formatTime(timeEnd)} ({getGmt(timeStart)})
             </span>
           </>
         )}
