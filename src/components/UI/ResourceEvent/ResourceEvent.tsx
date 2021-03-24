@@ -12,9 +12,9 @@ export interface EventProps {
     date: string;
     timeStart: string;
     timeEnd: string;
-    videoLink: string;
-    slides: string;
-    registerLink: string;
+    videoLink?: string;
+    slides?: string;
+    registerLink?: string;
   };
 }
 
