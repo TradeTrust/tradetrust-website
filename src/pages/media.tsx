@@ -4,16 +4,18 @@ import { ResourceEvent, EventProps } from "../components/UI/ResourceEvent";
 import { ResourceMedia, Media } from "../components/UI/ResourceMedia";
 import { importAll } from "../common/utils/importAll";
 
-const medias = importAll(require.context("../../cms/media/", false, /\.md$/)) as Media[];
-const events = importAll(require.context("../../cms/event/", false, /\.md$/)) as EventProps[];
+let medias = importAll(require.context("../../cms/media/", false, /\.md$/)) as Media[];
+let events = importAll(require.context("../../cms/event/", false, /\.md$/)) as EventProps[];
 
-// can think on how to reuse sort function
-medias.sort((a, b): number => {
-  return new Date(b.attributes.date).getTime() - new Date(a.attributes.date).getTime();
-});
-events.sort((a, b): number => {
-  return new Date(b.attributes.date).getTime() - new Date(a.attributes.date).getTime();
-});
+const getSortedByDateDesc = (items: any[]) => {
+  items.sort((a, b): number => {
+    return new Date(b.attributes.date).getTime() - new Date(a.attributes.date).getTime();
+  });
+  return items;
+};
+
+medias = getSortedByDateDesc(medias);
+events = getSortedByDateDesc(events);
 
 export const MediaPage = () => (
   <>

@@ -1,7 +1,8 @@
+import { LinkButton } from "@govtechsg/tradetrust-ui-components";
 import { isFuture } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { ExternalLink, PlayCircle } from "react-feather";
-import { formatTime, getGmt } from "../../../common/utils/dateTime";
+import { formatTime } from "../../../common/utils/dateTime";
 
 export interface EventProps {
   attributes: {
@@ -13,11 +14,12 @@ export interface EventProps {
     timeEnd: string;
     videoLink: string;
     slides: string;
+    registerLink: string;
   };
 }
 
 export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => {
-  const { title, description, link, date, timeStart, timeEnd, videoLink, slides } = attributes;
+  const { title, description, link, date, timeStart, timeEnd, videoLink, slides, registerLink } = attributes;
 
   return (
     <div className="bg-white shadow-md mb-4 w-full px-5 pt-3 pb-5">
@@ -35,12 +37,21 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
           <>
             <span className="mx-1">|</span>
             <span>
-              {formatTime(timeStart)} to {formatTime(timeEnd)} ({getGmt(timeStart)})
+              {formatTime(timeStart, "HH:mm")} to {formatTime(timeEnd, "HH:mm")} ({formatTime(timeStart, "zzz")})
             </span>
           </>
         )}
       </div>
       <p className="mb-4">{description}</p>
+      {registerLink && (
+        <LinkButton
+          href={registerLink}
+          target="_blank"
+          className="bg-orange text-white hover:bg-orange-600 hover:text-white inline-block mb-2"
+        >
+          Register
+        </LinkButton>
+      )}
       <div className="flex flex-wrap pt-4 text-blue">
         <div className="w-full sm:w-auto mb-2 sm:mb-0">
           <a

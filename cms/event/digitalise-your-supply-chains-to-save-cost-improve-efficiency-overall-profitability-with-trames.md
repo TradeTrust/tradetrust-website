@@ -8,4 +8,5 @@ link: https://trames.sg/registration
 date: 8 Apr 2021
 timeStart: 2021-03-19T07:00:00.000Z
 timeEnd: 2021-03-19T08:00:00.000Z
+registerLink: https://zoom.us/webinar/register/WN_9Z2Jg3INT0aYUC7SpY5q3g
 ---

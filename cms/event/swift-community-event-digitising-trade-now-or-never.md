@@ -8,4 +8,6 @@ description: The Covid-19 pandemic has magnified the need for trade
   digitisation effort one step further, in collaboration across the ecosystem.
 link: https://www.swift.com/news-events/events/watch-on-demand/digitising-trade
 date: 2 Feb 2021
+timeStart: ""
+timeEnd: ""
 ---

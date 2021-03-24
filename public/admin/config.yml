@@ -1,6 +1,7 @@
 backend:
   name: git-gateway
-  branch: master
+  branch: feat/cms-events-media
+  # to change back to master once pr approved
   squash_merges: true
   commit_messages:
     create: "feat: Create {{collection}} “{{slug}}” {{author-name}}"
@@ -63,6 +64,7 @@ collections:
           time_format: "HH:mm",
           required: false,
           hint: "Start time of event.",
+          default: "",
         }
       - {
           label: "Time End",
@@ -72,6 +74,14 @@ collections:
           time_format: "HH:mm",
           required: false,
           hint: "End time of event.",
+          default: "",
         }
       - { label: "Video Link", name: "videoLink", widget: "string", required: false, hint: "Video link of event." }
       - { label: "Slides", name: "slides", widget: "file", required: false, hint: "Presentation slides of event." }
+      - {
+          label: "Register Link",
+          name: "registerLink",
+          widget: "string",
+          required: false,
+          hint: "Video link of event.",
+        }
