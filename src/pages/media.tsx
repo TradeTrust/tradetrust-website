@@ -1,4 +1,5 @@
 import React from "react";
+import { compareDesc } from "date-fns";
 import { Helmet } from "react-helmet";
 import { ResourceEvent, EventProps } from "../components/UI/ResourceEvent";
 import { ResourceMedia, Media } from "../components/UI/ResourceMedia";
@@ -9,7 +10,7 @@ let events = importAll(require.context("../../cms/event/", false, /\.md$/)) as E
 
 const getSortedByDateDesc = (items: any[]) => {
   items.sort((a, b): number => {
-    return new Date(b.attributes.date).getTime() - new Date(a.attributes.date).getTime();
+    return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
   });
   return items;
 };
