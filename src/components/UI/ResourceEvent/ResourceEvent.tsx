@@ -1,43 +1,62 @@
+import { LinkButton } from "@govtechsg/tradetrust-ui-components";
+import { isFuture } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { ExternalLink, PlayCircle } from "react-feather";
+import { formatTime } from "../../../common/utils/dateTime";
 
-export type EventMedia = {
-  date: string;
-  time?: string;
-  eventLink: string;
-  eventSlides?: string;
-  watchLink?: string;
-};
-
-export interface ResourceEventProps {
-  title: string;
-  description: string;
-  resource: EventMedia;
+export interface EventProps {
+  attributes: {
+    title: string;
+    description: string;
+    link: string;
+    date: string;
+    timeStart: string;
+    timeEnd: string;
+    videoLink?: string;
+    slides?: string;
+    registerLink?: string;
+  };
 }
 
-export const ResourceEvent: FunctionComponent<ResourceEventProps> = ({ title, description, resource }) => {
-  const { date, time, eventLink, eventSlides, watchLink } = resource;
+export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => {
+  const { title, description, link, date, timeStart, timeEnd, videoLink, slides, registerLink } = attributes;
 
   return (
     <div className="bg-white shadow-md mb-4 w-full px-5 pt-3 pb-5">
+      {isFuture(new Date(date)) && (
+        <div className="border-2 border-orange rounded inline-block py-1 px-2 uppercase font-bold text-xs text-orange my-2">
+          Upcoming
+        </div>
+      )}
       <h4 className="title mb-2">
         <span className="text-grey-700 font-medium text-2xl">{title}</span>
       </h4>
       <div className="text-grey text-base font-medium pb-3">
-        <span className="mr-1">{date}</span>
-        {time && (
+        <span>{date}</span>
+        {timeStart && timeEnd && (
           <>
             <span className="mx-1">|</span>
-            <span>{time}</span>
+            <span>
+              {formatTime(timeStart, "HH:mm")} to {formatTime(timeEnd, "HH:mm")} ({formatTime(timeStart, "zzz")})
+            </span>
           </>
         )}
       </div>
       <p className="mb-4">{description}</p>
+      {registerLink && (
+        <LinkButton
+          href={registerLink}
+          target="_blank"
+          className="bg-orange text-white hover:bg-orange-600 hover:text-white inline-block mb-2"
+        >
+          Register
+        </LinkButton>
+      )}
       <div className="flex flex-wrap pt-4 text-blue">
         <div className="w-full sm:w-auto mb-2 sm:mb-0">
           <a
             className="text-lg font-medium inline-block pr-4"
-            href={eventLink}
+            href={link}
             target="_blank"
             rel="noopener noreferrer"
             data-testid="event-link"
@@ -50,11 +69,11 @@ export const ResourceEvent: FunctionComponent<ResourceEventProps> = ({ title, de
             </div>
           </a>
         </div>
-        {watchLink && (
+        {videoLink && (
           <div className="w-full sm:w-auto mb-2 sm:mb-0">
             <a
               className="text-lg font-medium inline-block pr-4"
-              href={watchLink}
+              href={videoLink}
               target="_blank"
               rel="noopener noreferrer"
               data-testid="watch-link"
@@ -68,11 +87,11 @@ export const ResourceEvent: FunctionComponent<ResourceEventProps> = ({ title, de
             </a>
           </div>
         )}
-        {eventSlides && (
+        {slides && (
           <div className="w-full sm:w-auto mb-2 sm:mb-0">
             <a
               className="text-lg font-medium inline-block pr-4"
-              href={eventSlides}
+              href={slides}
               target="_blank"
               rel="noopener noreferrer"
               data-testid="event-slides"

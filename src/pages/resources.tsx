@@ -3,10 +3,9 @@ import { Helmet } from "react-helmet";
 import { ResourceWebinar } from "../components/UI/ResourceWebinar";
 import { ResourceLink } from "../components/UI/ResourceLink";
 import { ResourceDownload, Newsletter } from "../components/UI/ResourceDownload";
+import { importAll } from "../common/utils/importAll";
 
-//https://webpack.js.org/guides/dependency-management/#context-module-api
-const importAll = (r: __WebpackModuleApi.RequireContext) => r.keys().map(r) as Newsletter[];
-const newsletters: Newsletter[] = importAll(require.context("../../cms/newsletter/", false, /\.md$/));
+const newsletters = importAll(require.context("../../cms/newsletter/", false, /\.md$/)) as Newsletter[];
 
 const documentations = [
   {
