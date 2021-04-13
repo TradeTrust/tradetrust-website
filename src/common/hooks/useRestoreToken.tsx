@@ -30,10 +30,16 @@ export const useRestoreToken = (
       if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
       setState("PENDING_CONFIRMATION");
 
-      const sendToNewEscrowReceipt = await contractInstance?.sendToNewTitleEscrow(previousBeneficiary, previousHolder, tokenId);
+      const sendToNewEscrowReceipt = await contractInstance?.sendToNewTitleEscrow(
+        previousBeneficiary,
+        previousHolder,
+        tokenId
+      );
+
       const sendToNewEscrowTx = await sendToNewEscrowReceipt.wait();
 
-      const deployedTitleEscrowArgs = sendToNewEscrowTx.events?.find((event) => event.event === "TitleEscrowDeployed")?.args;
+      const deployedTitleEscrowArgs = sendToNewEscrowTx.events?.find((event) => event.event === "TitleEscrowDeployed")
+        ?.args;
 
       if (!deployedTitleEscrowArgs || !deployedTitleEscrowArgs[0])
         throw new Error(`Address for deployed title escrow cannot be found. Tx: ${JSON.stringify(sendToNewEscrowTx)}`);
