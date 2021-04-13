@@ -2,30 +2,9 @@ import { useState, useCallback, useEffect } from "react";
 import { ContractFunctionState } from "@govtechsg/ethers-contract-hook";
 import { getLogger } from "../../utils/logger";
 import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
-import { TitleEscrowCreator } from "@govtechsg/token-registry/dist/ts/contracts/TitleEscrowCreator";
-import { TitleEscrowCreatorFactory, getTitleEscrowCreatorAddress } from "@govtechsg/token-registry";
 import { providers, Signer } from "ethers";
-import { NETWORK } from "../../config";
 
 const { error: errorLogger } = getLogger("services:userestoretoken");
-
-//Wrapper Method to connect to instance of TitleEscrowFactory
-export const getTitleEscrowCreator = async (provider: providers.Provider): Promise<TitleEscrowCreator> => {
-  let creatorContractAddress;
-  switch (NETWORK) {
-    case "ropsten":
-      creatorContractAddress = getTitleEscrowCreatorAddress(3);
-      break;
-    case "rinkeby":
-      creatorContractAddress = getTitleEscrowCreatorAddress(4);
-      break;
-    default:
-      creatorContractAddress = getTitleEscrowCreatorAddress(1);
-      break;
-  }
-  if (!creatorContractAddress) throw new Error(`Title escrow contract creator is not declared for ${NETWORK} network`);
-  return TitleEscrowCreatorFactory.connect(creatorContractAddress, provider);
-};
 
 /**
  * This hook restores tokens that has been surrendered to Token Registry
