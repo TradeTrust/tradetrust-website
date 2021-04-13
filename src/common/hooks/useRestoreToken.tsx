@@ -48,30 +48,20 @@ export const useRestoreToken = (
     setState("INITIALIZED");
     try {
       if (!tokenId) throw new Error("Ownership data is not provided");
-      const titleEscrowCreatorContract = await getTitleEscrowCreator(provider as providers.Provider);
-
-      // Deploy new title escrow smart contract to own document
       if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
       setState("PENDING_CONFIRMATION");
-      const escrowDeploymentReceipt = await titleEscrowCreatorContract.deployNewTitleEscrow(
-        contractInstance.address,
-        previousBeneficiary,
-        previousHolder
-      );
 
-      const escrowDeploymentTx = await escrowDeploymentReceipt.wait();
-      const deployedTitleEscrowArgs = escrowDeploymentTx.events?.find((event) => event.event === "TitleEscrowDeployed")
-        ?.args;
+      const sendToNewEscrowReceipt = await contractInstance?.sendToNewTitleEscrow(previousBeneficiary, previousHolder, tokenId);
+      const sendToNewEscrowTx = await sendToNewEscrowReceipt.wait();
+
+      const deployedTitleEscrowArgs = sendToNewEscrowTx.events?.find((event) => event.event === "TitleEscrowDeployed")?.args;
+
       if (!deployedTitleEscrowArgs || !deployedTitleEscrowArgs[0])
-        throw new Error(`Address for deployed title escrow cannot be found. Tx: ${JSON.stringify(escrowDeploymentTx)}`);
-      const deployedTitleEscrowAddress = deployedTitleEscrowArgs[0];
+        throw new Error(`Address for deployed title escrow cannot be found. Tx: ${JSON.stringify(sendToNewEscrowTx)}`);
 
-      // use minter restore token method to send token back to last known bene and holder
-      const sendTokenReceipt = await contractInstance.sendToken(deployedTitleEscrowAddress, tokenId);
-      const sendTokenTx = await sendTokenReceipt.wait();
-      const sendTokenArgs = sendTokenTx.events?.find((event) => event.event === "Transfer")?.args;
-      if (!sendTokenArgs || sendTokenArgs[1] !== deployedTitleEscrowAddress)
-        throw new Error(`Token was not restored to owner and beneficiary. Tx: ${JSON.stringify(sendTokenTx)}`);
+      const sendTokenArgs = sendToNewEscrowTx.events?.find((event) => event.event === "Transfer")?.args;
+      if (!sendTokenArgs)
+        throw new Error(`Token was not restored to owner and beneficiary. Tx: ${JSON.stringify(sendToNewEscrowTx)}`);
       setState("CONFIRMED");
     } catch (error) {
       setErrorMessage(error);
