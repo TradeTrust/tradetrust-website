@@ -1,4 +1,4 @@
-import { Button, InputDefault } from "@govtechsg/tradetrust-ui-components";
+import { Button, Input } from "@govtechsg/tradetrust-ui-components";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { CheckboxDefault } from "./../UI/Checkbox";
@@ -81,7 +81,7 @@ export const EmailForm = () => {
       <input type="hidden" name="form-name" value="contact" />
       <div className="flex flex-wrap">
         <div className="w-full md:w-7/12 xl:w-5/12 mx-auto">
-          <InputDefault
+          <Input
             type="text"
             name="Full Name"
             placeholder="Full Name"
@@ -89,7 +89,7 @@ export const EmailForm = () => {
             onChange={handleInputOrTextareaChange}
             className="mb-2"
           />
-          <InputDefault
+          <Input
             type="email"
             name="Email"
             placeholder="Email Address"
@@ -97,7 +97,7 @@ export const EmailForm = () => {
             onChange={handleInputOrTextareaChange}
             className="mb-2"
           />
-          <InputDefault
+          <Input
             type="text"
             name="Organisation"
             placeholder="Name of your organisation"
