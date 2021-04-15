@@ -1,10 +1,4 @@
-import {
-  OverlayAddressBook,
-  ButtonIcon,
-  useOverlayContext,
-  InputEditableAssetTitle,
-  InputError,
-} from "@govtechsg/tradetrust-ui-components";
+import { OverlayAddressBook, ButtonIcon, useOverlayContext, Input } from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { Book } from "react-feather";
 import { NETWORK_NAME } from "../../../../../config";
@@ -50,19 +44,21 @@ export const EditableAssetTitle = ({
     <AssetTitle role={role} address={newValue || ""}>
       <div className="flex items-start">
         <div className="w-64 mr-2">
-          <InputEditableAssetTitle
+          <Input
             data-testid={`editable-input-${role.toLowerCase()}`}
             type="text"
             value={newValue}
-            hasError={error}
             placeholder={`Input ${role}'s address`}
             onChange={(event) => {
               if (!onSetNewValue) return;
               onSetNewValue(event.target.value);
             }}
+            hasError={error}
           />
           {error && (
-            <InputError data-testid="error-msg">Unidentified address. Please check and input again.</InputError>
+            <div className="text-red my-2" data-testid="error-msg">
+              Unidentified address. Please check and input again.
+            </div>
           )}
         </div>
         <div className="w-auto">
