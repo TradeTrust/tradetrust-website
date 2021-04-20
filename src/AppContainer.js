@@ -6,6 +6,12 @@ import { Footer } from "./components/Layout/Footer";
 import { NavigationBar } from "./components/Layout/NavigationBar";
 import { NETWORK } from "./config";
 import { routes } from "./routes";
+import styled from "@emotion/styled";
+
+const Main = styled.main`
+  background-image: url("/static/images/common/wave-lines.png");
+  background-size: cover;
+`;
 
 const AppContainer = () => {
   const location = useLocation();
@@ -16,13 +22,14 @@ const AppContainer = () => {
         You are currently on <span className="capitalize">{NETWORK}</span> network.
       </NetworkBar>
       <NavigationBar />
-      <main className="flex-1">
+      {/* TODO - check main bg color + pattern for all pages */}
+      <Main className="bg-brand-100 flex-1">
         <Switch>
           {routes.map((route, id) => (
             <Route key={id} {...route} />
           ))}
         </Switch>
-      </main>
+      </Main>
       <Footer />
       <Overlay />
     </div>
