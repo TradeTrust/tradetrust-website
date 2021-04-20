@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
-import React, { FunctionComponent, useState } from "react";
+import React, { useState } from "react";
 import { Settings } from "react-feather";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
-import tw from "twin.macro";
 
 type NavItemsProps = {
   id: string;
