@@ -141,7 +141,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     case "verify":
       return (
         <a href={item.path} className="w-full">
-          <button data-testid="navbar-verify-documents" className="verify-btn text-lg font-semibold py-2 px-4">
+          <button className="verify-btn text-lg font-semibold py-2 px-4" data-testid="navbar-verify-documents">
             {item.label}
           </button>
         </a>
