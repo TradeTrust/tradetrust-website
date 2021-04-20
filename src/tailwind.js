@@ -37,11 +37,18 @@ const localConfig = {
         400: "400px",
         600: "600px",
       },
+      maxHeight: {
+        0: "0",
+        full: "1000px",
+      },
       boxShadow: {
         default: `0 0 0 8px ${commonUiConfig.theme.extend.colors.blue["300"]}`,
         accept: `0 0 0 8px ${commonUiConfig.theme.extend.colors.green["100"]}`,
         warning: `0 0 0 8px ${commonUiConfig.theme.extend.colors.yellow}`,
         invalid: `0 0 0 8px ${commonUiConfig.theme.extend.colors.red["200"]}`,
+      },
+      transitionProperty: {
+        height: "max-height",
       },
     },
   },
