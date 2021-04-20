@@ -148,8 +148,8 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     case "settings":
       return (
         <NavHashLink
-          to={item.path}
-          className={`w-full ${location.pathname}${location.hash}` === item.path ? "active" : ""}
+          to={item.path ?? ""}
+          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
           activeClassName=""
           smooth
         >
@@ -160,7 +160,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     default:
       return (
         <NavHashLink
-          to={item.path}
+          to={item.path ?? ""}
           className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
           activeClassName=""
           smooth
