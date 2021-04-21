@@ -1,10 +1,10 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, Dispatch, SetStateAction } from "react";
 import { ContractFunctionState } from "@govtechsg/ethers-contract-hook";
 import { getLogger } from "../../utils/logger";
 import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
 import { TitleEscrowCreator } from "@govtechsg/token-registry/dist/ts/contracts/TitleEscrowCreator";
-import { TitleEscrowCreatorFactory, getTitleEscrowCreatorAddress } from "@govtechsg/token-registry";
-import { providers, Signer } from "ethers";
+import { TitleEscrowCreatorFactory, getTitleEscrowCreatorAddress, TitleEscrowFactory } from "@govtechsg/token-registry";
+import { ContractReceipt, providers, Signer } from "ethers";
 import { NETWORK } from "../../config";
 
 const { error: errorLogger } = getLogger("services:userestoretoken");
@@ -27,6 +27,86 @@ export const getTitleEscrowCreator = async (provider: providers.Provider): Promi
   return TitleEscrowCreatorFactory.connect(creatorContractAddress, provider);
 };
 
+const validateRestoredEntities = async (
+  provider: providers.Provider | Signer,
+  address: string,
+  previousBeneficiary: string,
+  previousHolder: string,
+  transactionDetails: ContractReceipt
+): Promise<void> => {
+  const newTitleEscrow = await TitleEscrowFactory.connect(address, provider);
+  const beneficiaryDeferred = newTitleEscrow.beneficiary();
+  const holderDeferred = newTitleEscrow.holder();
+  const [beneficiary, holder] = await Promise.all([beneficiaryDeferred, holderDeferred]);
+
+  if (beneficiary !== previousBeneficiary || holder !== previousHolder)
+    throw new Error(`Token was not restored to owner and beneficiary. Tx: ${JSON.stringify(transactionDetails)}`);
+};
+
+const sendToTitleEscrow = async (
+  previousBeneficiary: string,
+  previousHolder: string,
+  provider: providers.Provider | Signer,
+  contractInstance: TradeTrustErc721,
+  tokenId: string,
+  setState: Dispatch<SetStateAction<ContractFunctionState>>
+): Promise<void> => {
+  setState("PENDING_CONFIRMATION");
+  const sendToNewEscrowReceipt = await contractInstance?.sendToNewTitleEscrow(
+    previousBeneficiary,
+    previousHolder,
+    tokenId
+  );
+  const sendToNewEscrowTx = await sendToNewEscrowReceipt.wait();
+
+  const sendTokenArgs = sendToNewEscrowTx.events?.find((event) => event.event === "Transfer")?.args;
+  if (sendTokenArgs) {
+    const newTitleEscrowAddress = sendTokenArgs.to;
+    await validateRestoredEntities(
+      provider,
+      newTitleEscrowAddress,
+      previousBeneficiary,
+      previousHolder,
+      sendToNewEscrowTx
+    );
+  } else throw new Error(`Token was not successfully restored. Tx: ${JSON.stringify(sendToNewEscrowTx)}`);
+};
+
+const deployAndSendToTitleEscrow = async (
+  previousBeneficiary: string,
+  previousHolder: string,
+  provider: providers.Provider | Signer,
+  contractInstance: TradeTrustErc721,
+  tokenId: string,
+  setState: React.Dispatch<SetStateAction<ContractFunctionState>>
+): Promise<void> => {
+  const titleEscrowCreatorContract = await getTitleEscrowCreator(provider as providers.Provider);
+
+  // Deploy new title escrow smart contract to own document
+  setState("PENDING_CONFIRMATION");
+  const escrowDeploymentReceipt = await titleEscrowCreatorContract.deployNewTitleEscrow(
+    contractInstance.address,
+    previousBeneficiary,
+    previousHolder
+  );
+
+  const escrowDeploymentTx = await escrowDeploymentReceipt.wait();
+  const deployedTitleEscrowArgs = escrowDeploymentTx.events?.find((event) => event.event === "TitleEscrowDeployed")
+    ?.args;
+  if (!deployedTitleEscrowArgs || !deployedTitleEscrowArgs[0])
+    throw new Error(`Address for deployed title escrow cannot be found. Tx: ${JSON.stringify(escrowDeploymentTx)}`);
+  const deployedTitleEscrowAddress = deployedTitleEscrowArgs[0];
+
+  // use minter restore token method to send token back to last known bene and holder
+  const sendTokenReceipt = await contractInstance.sendToken(deployedTitleEscrowAddress, tokenId);
+  const sendTokenTx = await sendTokenReceipt.wait();
+  const sendTokenArgs = sendTokenTx.events?.find((event) => event.event === "Transfer")?.args;
+  if (sendTokenArgs && sendTokenArgs[1] === deployedTitleEscrowAddress) {
+    const newTitleEscrowAddress = sendTokenArgs.to;
+    await validateRestoredEntities(provider, newTitleEscrowAddress, previousBeneficiary, previousHolder, sendTokenTx);
+  } else throw new Error(`Token was not successfully restored. Tx: ${JSON.stringify(sendTokenTx)}`);
+};
+
 /**
  * This hook restores tokens that has been surrendered to Token Registry
  * Restoring a document which has been surrendered to issuer takes 2 steps:
@@ -44,65 +124,24 @@ export const useRestoreToken = (
   const [errorMessage, setErrorMessage] = useState<string>();
   const [state, setState] = useState<ContractFunctionState>("UNINITIALIZED");
 
-  const sendToTitleEscrow = async (previousBeneficiary: string, previousHolder: string): Promise<void> => {
-    if (!tokenId) throw new Error("Ownership data is not provided");
-    if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
-    setState("PENDING_CONFIRMATION");
-
-    const sendToNewEscrowReceipt = await contractInstance?.sendToNewTitleEscrow(
-      previousBeneficiary,
-      previousHolder,
-      tokenId
-    );
-
-    const sendToNewEscrowTx = await sendToNewEscrowReceipt.wait();
-
-    const deployedTitleEscrowArgs = sendToNewEscrowTx.events?.find((event) => event.event === "TitleEscrowDeployed")
-      ?.args;
-
-    if (!deployedTitleEscrowArgs || !deployedTitleEscrowArgs[0])
-      throw new Error(`Address for deployed title escrow cannot be found. Tx: ${JSON.stringify(sendToNewEscrowTx)}`);
-
-    const sendTokenArgs = sendToNewEscrowTx.events?.find((event) => event.event === "Transfer")?.args;
-    if (!sendTokenArgs)
-      throw new Error(`Token was not restored to owner and beneficiary. Tx: ${JSON.stringify(sendToNewEscrowTx)}`);
-  };
-
-  const deployAndSendToTitleEscrow = async (previousBeneficiary: string, previousHolder: string): Promise<void> => {
-    if (!tokenId) throw new Error("Ownership data is not provided");
-    const titleEscrowCreatorContract = await getTitleEscrowCreator(provider as providers.Provider);
-
-    // Deploy new title escrow smart contract to own document
-    if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
-    setState("PENDING_CONFIRMATION");
-    const escrowDeploymentReceipt = await titleEscrowCreatorContract.deployNewTitleEscrow(
-      contractInstance.address,
-      previousBeneficiary,
-      previousHolder
-    );
-
-    const escrowDeploymentTx = await escrowDeploymentReceipt.wait();
-    const deployedTitleEscrowArgs = escrowDeploymentTx.events?.find((event) => event.event === "TitleEscrowDeployed")
-      ?.args;
-    if (!deployedTitleEscrowArgs || !deployedTitleEscrowArgs[0])
-      throw new Error(`Address for deployed title escrow cannot be found. Tx: ${JSON.stringify(escrowDeploymentTx)}`);
-    const deployedTitleEscrowAddress = deployedTitleEscrowArgs[0];
-
-    // use minter restore token method to send token back to last known bene and holder
-    const sendTokenReceipt = await contractInstance.sendToken(deployedTitleEscrowAddress, tokenId);
-    const sendTokenTx = await sendTokenReceipt.wait();
-    const sendTokenArgs = sendTokenTx.events?.find((event) => event.event === "Transfer")?.args;
-    if (!sendTokenArgs || sendTokenArgs[1] !== deployedTitleEscrowAddress)
-      throw new Error(`Token was not restored to owner and beneficiary. Tx: ${JSON.stringify(sendTokenTx)}`);
-  };
-
   const restoreToken = async (previousBeneficiary: string, previousHolder: string): Promise<void> => {
     setState("INITIALIZED");
     try {
-      const isLatestTradeTrustErc721 = await contractInstance?.supportsInterface("0x9f9e69f3");
+      if (!tokenId) throw new Error("Ownership data is not provided");
+      if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
+      const supportsSendToTitleEscrow = await contractInstance?.supportsInterface("0x9f9e69f3");
 
-      if (isLatestTradeTrustErc721) await sendToTitleEscrow(previousBeneficiary, previousHolder);
-      else await deployAndSendToTitleEscrow(previousBeneficiary, previousHolder);
+      if (supportsSendToTitleEscrow)
+        await sendToTitleEscrow(previousBeneficiary, previousHolder, provider, contractInstance, tokenId, setState);
+      else
+        await deployAndSendToTitleEscrow(
+          previousBeneficiary,
+          previousHolder,
+          provider,
+          contractInstance,
+          tokenId,
+          setState
+        );
 
       setState("CONFIRMED");
     } catch (error) {
