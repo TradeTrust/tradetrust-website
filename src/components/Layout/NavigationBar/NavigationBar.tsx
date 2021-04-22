@@ -86,7 +86,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     case "resources":
     case "news_events":
       return (
-        <div className="relative inline-block text-left">
+        <div className="relative inline-block text-left w-full">
           <button
             type="button"
             className="inline-flex w-full text-lg font-normal focus:outline-none items-center dropdown-link"
@@ -114,7 +114,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
           </button>
           {isOpen && (
             <div
-              className="mt-2 w-full bg-white focus:outline-none md:origin-top-right md:absolute md:right-0 md:mt-2 rounded-md md:shadow-lg md:ring-1 md:ring-black md:ring-opacity-5 z-30"
+              className="mt-2 w-full bg-white focus:outline-none rounded-md z-30 lg:origin-top-right lg:absolute lg:right-0 lg:mt-2 lg:shadow-lg lg:ring-1 lg:ring-black lg:ring-opacity-5 "
               role="menu"
               aria-orientation="vertical"
               aria-labelledby={item.id + "-button"}
@@ -135,13 +135,13 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     case "create-documents":
       return (
         <a href={item.path} className="w-full">
-          <button className="create-btn text-lg font-semibold py-2 px-4">{item.label}</button>
+          <button className="create-btn text-lg font-semibold py-2 px-3">{item.label}</button>
         </a>
       );
     case "verify":
       return (
         <a href={item.path} className="w-full">
-          <button className="verify-btn text-lg font-semibold py-2 px-4" data-testid="navbar-verify-documents">
+          <button className="verify-btn text-lg font-semibold py-2 px-3" data-testid="navbar-verify-documents">
             {item.label}
           </button>
         </a>
@@ -291,12 +291,12 @@ export const NavigationBar = () => {
                 })}
               </div>
             </div>
-            <div className="hidden lg:block lg:ml-auto">
+            <div className="hidden md:block md:absolute md:right-0 lg:relative">
               <div className="flex h-full items-center">
                 {navItems.map((item, index) => {
                   if (item.position == "right") {
                     return (
-                      <div key={index} className="text-lg font-normal w-auto lg:ml-6">
+                      <div key={index} className="text-lg font-normal w-auto md:ml-3 lg:ml-6">
                         {NavBarItem(item)}
                       </div>
                     );
@@ -315,6 +315,13 @@ export const NavigationBar = () => {
           }`}
         >
           {navItems.map((item, index) => {
+            if (item.id == "create-documents" || item.id == "verify" || item.id == "settings") {
+              return (
+                <div key={index} className="text-lg font-normal w-full py-4 md:hidden">
+                  {NavBarItem(item)}
+                </div>
+              );
+            }
             return (
               <div key={index} className="text-lg font-normal w-full py-4">
                 {NavBarItem(item)}
