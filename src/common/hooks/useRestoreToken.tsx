@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ContractFunctionState } from "@govtechsg/ethers-contract-hook";
 import { getLogger } from "../../utils/logger";
 import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
@@ -48,10 +48,8 @@ const sendToTitleEscrow = async (
   previousHolder: string,
   provider: providers.Provider | Signer,
   contractInstance: TradeTrustErc721,
-  tokenId: string,
-  setState: Dispatch<SetStateAction<ContractFunctionState>>
+  tokenId: string
 ): Promise<void> => {
-  setState("PENDING_CONFIRMATION");
   const sendToNewEscrowReceipt = await contractInstance?.sendToNewTitleEscrow(
     previousBeneficiary,
     previousHolder,
@@ -77,13 +75,11 @@ const deployAndSendToTitleEscrow = async (
   previousHolder: string,
   provider: providers.Provider | Signer,
   contractInstance: TradeTrustErc721,
-  tokenId: string,
-  setState: React.Dispatch<SetStateAction<ContractFunctionState>>
+  tokenId: string
 ): Promise<void> => {
   const titleEscrowCreatorContract = await getTitleEscrowCreator(provider as providers.Provider);
 
   // Deploy new title escrow smart contract to own document
-  setState("PENDING_CONFIRMATION");
   const escrowDeploymentReceipt = await titleEscrowCreatorContract.deployNewTitleEscrow(
     contractInstance.address,
     previousBeneficiary,
@@ -131,17 +127,10 @@ export const useRestoreToken = (
       if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
       const supportsSendToTitleEscrow = await contractInstance?.supportsInterface("0x9f9e69f3");
 
+      setState("PENDING_CONFIRMATION");
       if (supportsSendToTitleEscrow)
-        await sendToTitleEscrow(previousBeneficiary, previousHolder, provider, contractInstance, tokenId, setState);
-      else
-        await deployAndSendToTitleEscrow(
-          previousBeneficiary,
-          previousHolder,
-          provider,
-          contractInstance,
-          tokenId,
-          setState
-        );
+        await sendToTitleEscrow(previousBeneficiary, previousHolder, provider, contractInstance, tokenId);
+      else await deployAndSendToTitleEscrow(previousBeneficiary, previousHolder, provider, contractInstance, tokenId);
 
       setState("CONFIRMED");
     } catch (error) {
