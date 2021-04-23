@@ -43,7 +43,7 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
         )}
       </div>
       <p className="mb-4">{description}</p>
-      {registerLink && (
+      {isFuture(new Date(date)) && registerLink && (
         <LinkButton
           href={registerLink}
           target="_blank"
