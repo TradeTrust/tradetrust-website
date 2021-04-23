@@ -26,6 +26,14 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "Title of FAQ question." }
       - { label: "Body", name: "body", widget: "markdown", hint: "Body text of FAQ answer." }
+      - {
+          label: "Published Date",
+          name: "publishedDate",
+          widget: "datetime",
+          time_format: "HH:mm",
+          hint: "Published date, doubling up as sequence order.",
+        }
+    sortable_fields: ["title", "publishedDate"]
   - name: "newsletter"
     label: "Newsletter"
     folder: "cms/newsletter"

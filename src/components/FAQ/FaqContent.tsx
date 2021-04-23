@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { compareDesc } from "date-fns";
 import ReactMarkdown from "react-markdown";
 import { importAll } from "../../common/utils/importAll";
 
@@ -9,7 +10,16 @@ export type FAQS = {
   };
 };
 
-const faqs = importAll(require.context("../../../cms/faq/", false, /\.md$/)) as FAQS[];
+let faqs = importAll(require.context("../../../cms/faq/", false, /\.md$/)) as FAQS[];
+
+const getSortedByPublishedDateDesc = (items: any[]) => {
+  items.sort((a, b): number => {
+    return compareDesc(new Date(a.attributes.publishedDate), new Date(b.attributes.publishedDate));
+  });
+  return items;
+};
+
+faqs = getSortedByPublishedDateDesc(faqs);
 
 const FaqElement: React.FunctionComponent<{ question: string; answer: string }> = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
@@ -61,7 +71,6 @@ export const FaqContent = () => (
           <h1 className="mb-8">Frequently Asked Questions</h1>
           <div className="flex flex-wrap">
             <div className="w-full lg:w-2/3">
-              {/* TODO - see how to order */}
               {faqs.map((faq, index) => (
                 <FaqElement key={index} question={faq.attributes.title} answer={faq.body} />
               ))}

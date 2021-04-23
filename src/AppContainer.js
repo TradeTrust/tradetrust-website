@@ -22,7 +22,6 @@ const AppContainer = () => {
         You are currently on <span className="capitalize">{NETWORK}</span> network.
       </NetworkBar>
       <NavigationBar />
-      {/* TODO - check main bg color + pattern for all pages */}
       <Main className="bg-brand-100 flex-1">
         <Switch>
           {routes.map((route, id) => (
