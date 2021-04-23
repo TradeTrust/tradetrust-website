@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { Settings } from "react-feather";
+import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 
@@ -86,13 +87,16 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     case "resources":
     case "news_events":
       return (
-        <div className="relative inline-block text-left w-full">
+        // <>
+        <div className="relative">
           <button
             type="button"
             className="inline-flex w-full text-lg font-normal focus:outline-none items-center dropdown-link"
             aria-expanded={isOpen}
             aria-haspopup="true"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
             id={item.id + "-button"}
           >
             {item.label}
@@ -113,24 +117,59 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
             </svg>
           </button>
           {isOpen && (
-            <div
-              className="mt-2 w-full bg-white focus:outline-none rounded-md z-30 lg:origin-top-right lg:absolute lg:right-0 lg:mt-2 lg:shadow-lg lg:ring-1 lg:ring-black lg:ring-opacity-5 "
-              role="menu"
-              aria-orientation="vertical"
-              aria-labelledby={item.id + "-button"}
-            >
-              <div className="py-1" role="none">
-                {item.dropdownItems?.map((dropdownItem: any, index: number) => {
-                  return (
-                    <a href={dropdownItem.path} key={index} className="block px-4 py-2 text-lg" role="menuitem">
-                      {dropdownItem.label}
-                    </a>
-                  );
-                })}
+            <>
+              <button
+                tabIndex={-1}
+                onClick={() => setIsOpen(false)}
+                className="fixed z-20 inset-0 w-full h-full cursor-default focus:outline-none"
+              />
+              <div
+                onClick={() => setIsOpen(false)}
+                className={`mt-2 w-full bg-white focus:outline-none rounded-md z-30 lg:origin-top-right lg:absolute lg:right-0 lg:mt-2 lg:shadow-dropdown lg:ring-1 lg:ring-black lg:ring-opacity-5`}
+              >
+                <div className="py-1" role="none">
+                  {item.dropdownItems?.map((dropdownItem: any, index: number) => {
+                    return (
+                      <NavHashLink
+                        to={dropdownItem.path}
+                        key={index}
+                        className="block px-4 py-2 text-lg font-semibold"
+                        role="menuitem"
+                        onClick={() => {
+                          setIsOpen(false);
+                        }}
+                      >
+                        {dropdownItem.label}
+                      </NavHashLink>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            </>
+            // <div
+            //   className="mt-2 w-full bg-white focus:outline-none rounded-md z-30 lg:origin-top-right lg:absolute lg:right-0 lg:mt-2 lg:shadow-dropdown lg:ring-1 lg:ring-black lg:ring-opacity-5 "
+            //   role="menu"
+            //   aria-orientation="vertical"
+            //   aria-labelledby={item.id + "-button"}
+            // >
+            // </div>
           )}
         </div>
+        // </>
+        // <Dropdown
+        //   dropdownButtonText="Info"
+        //   className="transition-colors duration-200 ease-out font-normal text-greyblue hover:text-white"
+        // >
+        //   {item.dropdownItems?.map((dropdownItem: any, index: number) => {
+        //     return (
+        //       <DropdownItem key={index}>
+        //         <NavHashLink key={index} to={dropdownItem.path} className="dropdown-link" smooth>
+        //           {dropdownItem.label}
+        //         </NavHashLink>
+        //       </DropdownItem>
+        //     );
+        //   })}
+        // </Dropdown>
       );
     case "create-documents":
       return (
@@ -175,19 +214,21 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
 };
 
 export const NavBar = styled.nav`
+  button {
+    color: #6e787f;
+    font-size: 16px;
+    font-family: "Roboto";
+  }
+
   a {
     color: #6e787f;
     display: block;
-  }
-
-  button {
-    color: #6e787f;
+    font-size: 16px;
+    font-family: "Roboto";
   }
 
   .navbar-toggler {
     padding: 0.25rem 0.75rem;
-    font-size: 1.25rem;
-    line-height: 1;
     background-color: transparent;
     border: 1px solid transparent;
     border-radius: 0.25rem;
@@ -231,6 +272,7 @@ export const NavBar = styled.nav`
   }
 
   .create-btn {
+    font-size: 16px;
     color: #3b8cc5;
     background: #ffffff;
     border: 1px solid #e7eaec;
@@ -240,6 +282,7 @@ export const NavBar = styled.nav`
   }
 
   .verify-btn {
+    font-size: 16px;
     color: #ffffff;
     background: #3b8cc5;
     border: 2px solid #3b8cc5;
@@ -277,7 +320,7 @@ export const NavigationBar = () => {
                 />
               </NavHashLink>
             </div>
-            <div className="hidden lg:block lg:mx-auto">
+            <div className="hidden lg:block md:ml-12">
               <div className="flex h-full items-center">
                 {navItems.map((item, index) => {
                   if (item.position == "center") {
@@ -291,7 +334,7 @@ export const NavigationBar = () => {
                 })}
               </div>
             </div>
-            <div className="hidden md:block md:absolute md:right-0 lg:relative">
+            <div className="hidden md:block md:absolute md:right-0 lg:relative lg:ml-auto">
               <div className="flex h-full items-center">
                 {navItems.map((item, index) => {
                   if (item.position == "right") {

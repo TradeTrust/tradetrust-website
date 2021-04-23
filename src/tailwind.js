@@ -46,6 +46,7 @@ const localConfig = {
         accept: `0 0 0 8px ${commonUiConfig.theme.extend.colors.green["100"]}`,
         warning: `0 0 0 8px ${commonUiConfig.theme.extend.colors.yellow}`,
         invalid: `0 0 0 8px ${commonUiConfig.theme.extend.colors.red["200"]}`,
+        dropdown: `0px 4px 20px rgba(0, 0, 0, 0.15)`,
       },
       transitionProperty: {
         height: "max-height",
