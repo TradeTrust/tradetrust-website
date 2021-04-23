@@ -9,6 +9,7 @@ type NavItemsProps = {
   path?: string;
   position?: "center" | "right";
   dropdownItems?: { id: string; label: string; path: string }[];
+  offNavBar: (isOn: boolean) => void;
 };
 
 export const navItems: NavItemsProps[] = [
@@ -17,11 +18,13 @@ export const navItems: NavItemsProps[] = [
     label: "Demo",
     path: "/demo",
     position: "center",
+    offNavBar: () => {},
   },
   {
     id: "resources",
     label: "Resources",
     position: "center",
+    offNavBar: () => {},
     dropdownItems: [
       {
         id: "learn",
@@ -39,6 +42,7 @@ export const navItems: NavItemsProps[] = [
     id: "news_events",
     label: "News & Events",
     position: "center",
+    offNavBar: () => {},
     dropdownItems: [
       {
         id: "media",
@@ -57,24 +61,28 @@ export const navItems: NavItemsProps[] = [
     label: "Contact",
     path: "/contact",
     position: "center",
+    offNavBar: () => {},
   },
   {
     id: "settings",
     label: "Settings",
     path: "/settings",
     position: "right",
+    offNavBar: () => {},
   },
   {
     id: "create-documents",
     label: "Create Doc",
     path: "https://creator.tradetrust.io/",
     position: "right",
+    offNavBar: () => {},
   },
   {
     id: "verify",
     label: "Verify Doc",
     path: "/verify",
     position: "right",
+    offNavBar: () => {},
   },
 ];
 
@@ -87,7 +95,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
         <div className="relative">
           <button
             type="button"
-            className="inline-flex w-full text-lg font-medium focus:outline-none items-center dropdown-link"
+            className="inline-flex w-full font-normal focus:outline-none items-center dropdown-link"
             aria-expanded={isOpen}
             aria-haspopup="true"
             onClick={() => {
@@ -116,11 +124,13 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
             <>
               <button
                 tabIndex={-1}
-                onClick={() => setIsOpen(false)}
-                className="fixed z-20 inset-0 w-full h-full cursor-default focus:outline-none"
+                onClick={() => {
+                  item.offNavBar(false);
+                  setIsOpen(false);
+                }}
+                className="md:fixed z-20 inset-0 w-full h-full cursor-default focus:outline-none sm:hidden"
               />
               <div
-                onClick={() => setIsOpen(false)}
                 className={`mt-2 w-full bg-white focus:outline-none rounded-md z-30 lg:origin-top-right lg:absolute lg:right-0 lg:mt-2 lg:shadow-dropdown lg:ring-1 lg:ring-black lg:ring-opacity-5`}
               >
                 <div className="py-1" role="none">
@@ -129,9 +139,10 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
                       <NavHashLink
                         to={dropdownItem.path}
                         key={index}
-                        className="block px-4 py-2 text-lg font-bold dropdown-item"
+                        className="block px-4 py-2 font-medium dropdown-item"
                         role="menuitem"
                         onClick={() => {
+                          item.offNavBar(false);
                           setIsOpen(false);
                         }}
                       >
@@ -148,13 +159,26 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     case "create-documents":
       return (
         <a href={item.path} className="w-full">
-          <button className="create-btn text-lg font-semibold py-2 px-3">{item.label}</button>
+          <button
+            className="create-btn font-bold py-2 px-3"
+            onClick={() => {
+              item.offNavBar(false);
+            }}
+          >
+            {item.label}
+          </button>
         </a>
       );
     case "verify":
       return (
         <a href={item.path} className="w-full">
-          <button className="verify-btn text-lg font-semibold py-2 px-3" data-testid="navbar-verify-documents">
+          <button
+            className="verify-btn font-bold py-2 px-3"
+            data-testid="navbar-verify-documents"
+            onClick={() => {
+              item.offNavBar(false);
+            }}
+          >
             {item.label}
           </button>
         </a>
@@ -162,7 +186,15 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
 
     case "settings":
       return (
-        <NavHashLink to={item.path ?? ""} className={`font-semibold`} activeClassName="" smooth>
+        <NavHashLink
+          to={item.path ?? ""}
+          className={`font-normal`}
+          activeClassName=""
+          onClick={() => {
+            item.offNavBar(false);
+          }}
+          smooth
+        >
           <Settings />
         </NavHashLink>
       );
@@ -171,7 +203,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
       return (
         <NavHashLink
           to={item.path ?? ""}
-          className={`font-semibold`}
+          className={`font-normal`}
           activeClassName=""
           smooth
           data-testid={`navbar-${item.id}`}
@@ -185,14 +217,14 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
 export const NavBar = styled.nav`
   button {
     color: #6e787f;
-    font-size: 18pt;
+    font-size: 16px;
     font-family: "Roboto";
   }
 
   a {
     color: #6e787f;
     display: block;
-    font-size: 18pt;
+    font-size: 16px;
     font-family: "Roboto";
   }
 
@@ -261,7 +293,7 @@ export const NavBar = styled.nav`
   }
 
   .dropdown-item {
-    font-size: 16pt;
+    font-size: 14px;
   }
 `;
 
@@ -297,8 +329,9 @@ export const NavigationBar = () => {
               <div className="flex h-full items-center">
                 {navItems.map((item, index) => {
                   if (item.position == "center") {
+                    item.offNavBar = setIsOn;
                     return (
-                      <div key={index} className="text-lg font-normal w-auto lg:ml-6">
+                      <div key={index} className="text-lg w-auto lg:ml-6">
                         {NavBarItem(item)}
                       </div>
                     );
@@ -311,6 +344,7 @@ export const NavigationBar = () => {
               <div className="flex h-full items-center">
                 {navItems.map((item, index) => {
                   if (item.position == "right") {
+                    item.offNavBar = setIsOn;
                     return (
                       <div key={index} className="text-lg font-normal w-auto md:ml-3 lg:ml-6">
                         {NavBarItem(item)}
@@ -331,6 +365,7 @@ export const NavigationBar = () => {
           }`}
         >
           {navItems.map((item, index) => {
+            item.offNavBar = setIsOn;
             if (item.id == "create-documents" || item.id == "verify" || item.id == "settings") {
               return (
                 <div key={index} className="text-lg font-normal w-full py-4 md:hidden">
