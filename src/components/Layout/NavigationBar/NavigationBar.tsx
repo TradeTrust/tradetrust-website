@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { Settings } from "react-feather";
-import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
-import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 
 type NavItemsProps = {
@@ -81,7 +79,6 @@ export const navItems: NavItemsProps[] = [
 ];
 
 export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
-  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   switch (item.id) {
     case "resources":
