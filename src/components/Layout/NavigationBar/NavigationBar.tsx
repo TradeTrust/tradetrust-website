@@ -84,11 +84,10 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
     case "resources":
     case "news_events":
       return (
-        // <>
         <div className="relative">
           <button
             type="button"
-            className="inline-flex w-full text-lg font-normal focus:outline-none items-center dropdown-link"
+            className="inline-flex w-full text-lg font-medium focus:outline-none items-center dropdown-link"
             aria-expanded={isOpen}
             aria-haspopup="true"
             onClick={() => {
@@ -130,7 +129,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
                       <NavHashLink
                         to={dropdownItem.path}
                         key={index}
-                        className="block px-4 py-2 text-lg font-medium"
+                        className="block px-4 py-2 text-lg font-bold dropdown-item"
                         role="menuitem"
                         onClick={() => {
                           setIsOpen(false);
@@ -143,30 +142,8 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
                 </div>
               </div>
             </>
-            // <div
-            //   className="mt-2 w-full bg-white focus:outline-none rounded-md z-30 lg:origin-top-right lg:absolute lg:right-0 lg:mt-2 lg:shadow-dropdown lg:ring-1 lg:ring-black lg:ring-opacity-5 "
-            //   role="menu"
-            //   aria-orientation="vertical"
-            //   aria-labelledby={item.id + "-button"}
-            // >
-            // </div>
           )}
         </div>
-        // </>
-        // <Dropdown
-        //   dropdownButtonText="Info"
-        //   className="transition-colors duration-200 ease-out font-normal text-greyblue hover:text-white"
-        // >
-        //   {item.dropdownItems?.map((dropdownItem: any, index: number) => {
-        //     return (
-        //       <DropdownItem key={index}>
-        //         <NavHashLink key={index} to={dropdownItem.path} className="dropdown-link" smooth>
-        //           {dropdownItem.label}
-        //         </NavHashLink>
-        //       </DropdownItem>
-        //     );
-        //   })}
-        // </Dropdown>
       );
     case "create-documents":
       return (
@@ -185,12 +162,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
 
     case "settings":
       return (
-        <NavHashLink
-          to={item.path ?? ""}
-          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
-          activeClassName=""
-          smooth
-        >
+        <NavHashLink to={item.path ?? ""} className={`font-semibold`} activeClassName="" smooth>
           <Settings />
         </NavHashLink>
       );
@@ -199,7 +171,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
       return (
         <NavHashLink
           to={item.path ?? ""}
-          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
+          className={`font-semibold`}
           activeClassName=""
           smooth
           data-testid={`navbar-${item.id}`}
@@ -213,14 +185,14 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
 export const NavBar = styled.nav`
   button {
     color: #6e787f;
-    font-size: 16px;
+    font-size: 18pt;
     font-family: "Roboto";
   }
 
   a {
     color: #6e787f;
     display: block;
-    font-size: 16px;
+    font-size: 18pt;
     font-family: "Roboto";
   }
 
@@ -286,6 +258,10 @@ export const NavBar = styled.nav`
     box-sizing: border-box;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
+  }
+
+  .dropdown-item {
+    font-size: 16pt;
   }
 `;
 
