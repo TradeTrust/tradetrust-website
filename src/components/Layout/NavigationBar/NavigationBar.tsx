@@ -130,7 +130,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
                       <NavHashLink
                         to={dropdownItem.path}
                         key={index}
-                        className="block px-4 py-2 text-lg font-semibold"
+                        className="block px-4 py-2 text-lg font-medium"
                         role="menuitem"
                         onClick={() => {
                           setIsOpen(false);
