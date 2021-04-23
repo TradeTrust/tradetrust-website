@@ -116,3 +116,5 @@ https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-reposito
 1. run `npx netlify-cms-proxy-server`
 2. run `npm run dev`
 3. access admin page by `http://localhost:3000/admin/`
+
+### random commit to reopen pr, remove later on
