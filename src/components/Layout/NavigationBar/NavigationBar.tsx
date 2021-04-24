@@ -241,7 +241,7 @@ export const NavBar = styled.nav`
     }
 
     .icon-bar {
-      background-color: #563d7c;
+      background-color: #454b50;
       display: block;
       width: 22px;
       height: 2px;
