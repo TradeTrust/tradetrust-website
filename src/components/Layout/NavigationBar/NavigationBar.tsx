@@ -206,6 +206,9 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
           activeClassName=""
           smooth
           data-testid={`navbar-${item.id}`}
+          onClick={() => {
+            item.offNavBar(false);
+          }}
         >
           {item.label}
         </NavHashLink>
