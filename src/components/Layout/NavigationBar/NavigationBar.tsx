@@ -95,7 +95,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
         <div className="relative">
           <button
             type="button"
-            className="inline-flex w-full font-normal focus:outline-none items-center dropdown-link"
+            className="inline-flex w-full font-medium focus:outline-none items-center dropdown-link"
             aria-expanded={isOpen}
             aria-haspopup="true"
             onClick={() => {
@@ -105,7 +105,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
           >
             {item.label}
             <svg
-              className={`-mr-1 ml-2 h-5 w-5 transition-transform duration-200 ease-linear transform lg:rotate-0 ${
+              className={`-mr-1 ml-2 h-5 w-5 transition-transform duration-200 ease-linear transform ${
                 isOpen ? "rotate-0" : "-rotate-90"
               }`}
               xmlns="http://www.w3.org/2000/svg"
@@ -125,10 +125,9 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
               <button
                 tabIndex={-1}
                 onClick={() => {
-                  item.offNavBar(false);
                   setIsOpen(false);
                 }}
-                className="md:fixed z-20 inset-0 w-full h-full cursor-default focus:outline-none sm:hidden"
+                className="md:fixed z-20 inset-0 w-full h-full cursor-default focus:outline-none sm:hidden lg:block"
               />
               <div
                 className={`mt-2 w-full bg-white focus:outline-none rounded-md z-30 lg:origin-top-right lg:absolute lg:right-0 lg:mt-2 lg:shadow-dropdown lg:ring-1 lg:ring-black lg:ring-opacity-5`}
@@ -188,7 +187,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
       return (
         <NavHashLink
           to={item.path ?? ""}
-          className={`font-normal`}
+          className={`font-medium`}
           activeClassName=""
           onClick={() => {
             item.offNavBar(false);
@@ -203,7 +202,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
       return (
         <NavHashLink
           to={item.path ?? ""}
-          className={`font-normal`}
+          className={`font-medium`}
           activeClassName=""
           smooth
           data-testid={`navbar-${item.id}`}
