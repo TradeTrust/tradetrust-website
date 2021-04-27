@@ -19,6 +19,13 @@ const localConfig = {
       body: ["Roboto", "sans-serif"],
     },
     extend: {
+      // START - to shift/consolidate this later in common-ui
+      colors: {
+        brand: {
+          100: "#F7F8FC",
+        },
+      },
+      // END - to shift/consolidate this later in common-ui
       inset: {
         1: "0.25rem",
         2: "0.5rem",
