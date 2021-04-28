@@ -1,4 +1,4 @@
-import { Selector } from "testcafe";
+import { Selector, ClientFunction } from "testcafe";
 import { validateTextContent } from "./helper";
 
 fixture("Address Resolver").page`http://localhost:3000`;
@@ -24,7 +24,7 @@ const IconMoveUp2 = TableBodyRow2.find("th .fa-sort-up");
 
 test("Address Resolver to be added, edited, moved and removed correctly", async (t) => {
   await t.click(LinkSettings);
-  console.log(await getURL());
+  console.log(await ClientFunction(() => document.location.href));
   console.log(await LinkSettingsAddressResolver.count);
   t.click(LinkSettingsAddressResolver);
 
@@ -105,7 +105,7 @@ test("Address Resolver to be added, edited, moved and removed correctly", async 
 
 test("should allow sorting of priority of providers", async (t) => {
   await t.click(LinkSettings);
-  console.log(await getURL());
+  console.log(await ClientFunction(() => document.location.href));
   console.log(await LinkSettingsAddressResolver.count);
   t.click(LinkSettingsAddressResolver);
 
