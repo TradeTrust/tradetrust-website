@@ -24,6 +24,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
+      {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
@@ -44,7 +50,12 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.EnvironmentPlugin(["NODE_ENV", "NET", "INFURA_API_KEY"]),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: "development",
+      NET: "ropsten",
+      INFURA_API_KEY: "bb46da3f80e040e8ab73c0a9ff365d18",
+      ETHEREUM_PROVIDER: "notcloudflare" // temporary fix that wont be needed after oa-verify > 6
+    }),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: `${__dirname}/public/static/index.html`,
@@ -76,7 +87,7 @@ module.exports = {
 
   // Using cheap-eval-source-map for build times
   // switch to inline-source-map if detailed debugging needed
-  devtool: IS_PROD ? false : "cheap-eval-source-map",
+  devtool: IS_PROD ? false : "eval-cheap-source-map",
 
   devServer: {
     compress: true,
@@ -98,6 +109,9 @@ module.exports = {
     alias: {
       "react-dom": "@hot-loader/react-dom",
       react: path.resolve("./node_modules/react"),
+    },
+    fallback: {
+      path: require.resolve("path-browserify"),
     },
   },
   bail: true,
