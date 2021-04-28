@@ -23,10 +23,9 @@ const IconMoveDown1 = TableBodyRow1.find("th .fa-sort-down");
 const IconMoveUp2 = TableBodyRow2.find("th .fa-sort-up");
 
 test("Address Resolver to be added, edited, moved and removed correctly", async (t) => {
-  await t.wait(20000).expect(LinkSettings.exists).ok();
   await t.click(LinkSettings);
-  await t.wait(20000).expect(LinkSettingsAddressResolver.exists).ok();
-  await t.click(LinkSettingsAddressResolver);
+  console.log(await LinkSettingsAddressResolver.count);
+  t.click(LinkSettingsAddressResolver);
 
   // should show only 1 row with no endpoint found text
   await validateTextContent(t, TableBodyRow1, ["No third party's endpoint found."]);
@@ -104,10 +103,9 @@ test("Address Resolver to be added, edited, moved and removed correctly", async 
 });
 
 test("should allow sorting of priority of providers", async (t) => {
-  await t.wait(20000).expect(LinkSettings.exists).ok();
   await t.click(LinkSettings);
-  await t.wait(20000).expect(LinkSettingsAddressResolver.exists).ok();
-  await t.click(LinkSettingsAddressResolver);
+  console.log(await LinkSettingsAddressResolver.count);
+  t.click(LinkSettingsAddressResolver);
 
   // should show only 1 row with no endpoint found text
   await validateTextContent(t, TableBodyRow1, ["No third party's endpoint found."]);
