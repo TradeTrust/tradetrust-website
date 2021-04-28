@@ -24,6 +24,7 @@ const IconMoveUp2 = TableBodyRow2.find("th .fa-sort-up");
 
 test("Address Resolver to be added, edited, moved and removed correctly", async (t) => {
   await t.click(LinkSettings);
+  console.log(await getURL());
   console.log(await LinkSettingsAddressResolver.count);
   t.click(LinkSettingsAddressResolver);
 
@@ -104,6 +105,7 @@ test("Address Resolver to be added, edited, moved and removed correctly", async 
 
 test("should allow sorting of priority of providers", async (t) => {
   await t.click(LinkSettings);
+  console.log(await getURL());
   console.log(await LinkSettingsAddressResolver.count);
   t.click(LinkSettingsAddressResolver);
 
