@@ -4,7 +4,7 @@ import { validateTextContent } from "./helper";
 fixture("Address Resolver").page`http://localhost:3000`;
 
 const LinkSettings = Selector("a[href='/settings']");
-const LinkSettingsAddressResolver = Selector("a[href='/settings/address-resolver']", { timeout: 20000 });
+const LinkSettingsAddressResolver = Selector("a[href='/settings/address-resolver']");
 const ButtonAdd = Selector("button").withText("Add");
 const TableBodyRows = Selector("tbody > tr");
 const TableBodyRow1 = Selector("tbody > tr:first-child");

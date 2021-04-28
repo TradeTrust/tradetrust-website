@@ -10,7 +10,7 @@ test("Token is verified and rendered correctly", async () => {
 });
 
 // Skipped test due to changing verify to different page
-// const VerifyDocuments = Selector("button").withText("Verify Doc");
+const VerifyDocuments = Selector("button").withText("Verify Doc");
 // eslint-disable-next-line jest/no-disabled-tests
 test.skip("Should be able to render certificate twice consecutively", async (t) => {
   await uploadDocument("./fixture/ebl.json");
