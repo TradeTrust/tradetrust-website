@@ -1,4 +1,4 @@
-import { Selector, ClientFunction } from "testcafe";
+import { Selector } from "testcafe";
 import { validateTextContent } from "./helper";
 
 fixture("Address Resolver").page`http://localhost:3000`;
