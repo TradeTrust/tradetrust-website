@@ -3,7 +3,7 @@ import { Selector } from "testcafe";
 
 fixture("Token Document Rendering").page`http://localhost:3000`;
 
-const VerifyDocuments = Selector("[data-testid='navbar-verify-documents']");
+const VerifyDocuments = Selector("button").withText("Verify Doc");
 
 test("Token is verified and rendered correctly", async () => {
   await uploadDocument("./fixture/ebl.json");
