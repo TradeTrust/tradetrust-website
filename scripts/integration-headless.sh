@@ -1,2 +1,2 @@
 npm run build && \
-npm run integration:headless -- --app "npm run serve-static"
+npm run integration:headless
