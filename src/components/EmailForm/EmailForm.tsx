@@ -65,7 +65,7 @@ export const EmailForm = () => {
 
   const onOverlayHandler = () => {
     showOverlay(
-      <Textual title="Consent to process data *" className="bg-red">
+      <Textual title="Consent to process data *" className="max-w-md">
         <p>
           In order to contact you or provide the content requested, we need to store and process the personal data you
           provide us. If you consent to us storing your personal data for this purpose, please tick the checkbox.
