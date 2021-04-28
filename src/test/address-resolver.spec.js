@@ -24,8 +24,8 @@ const IconMoveUp2 = TableBodyRow2.find("th .fa-sort-up");
 
 test("Address Resolver to be added, edited, moved and removed correctly", async (t) => {
   await t.click(LinkSettings);
-  console.log(await ClientFunction(() => document.location.href));
-  console.log(await LinkSettingsAddressResolver.count);
+  const getLocation = ClientFunction(() => document.location.href);
+  console.log(getLocation());
   t.click(LinkSettingsAddressResolver);
 
   // should show only 1 row with no endpoint found text
@@ -105,7 +105,8 @@ test("Address Resolver to be added, edited, moved and removed correctly", async 
 
 test("should allow sorting of priority of providers", async (t) => {
   await t.click(LinkSettings);
-  console.log(await ClientFunction(() => document.location.href));
+  const getLocation = ClientFunction(() => document.location.href);
+  console.log(getLocation());
   console.log(await LinkSettingsAddressResolver.count);
   t.click(LinkSettingsAddressResolver);
 
