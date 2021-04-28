@@ -4,14 +4,7 @@ import { Settings } from "react-feather";
 
 import { NavigationItemType, NavigationItem, NavigationBar as NavBar } from "@govtechsg/tradetrust-ui-components";
 
-export const navItems: NavigationItem[] = [
-  {
-    schema: NavigationItemType.NavigationLink,
-    id: "demo",
-    label: "Demo",
-    path: "/demo",
-    position: "left",
-  },
+const navItems: NavigationItem[] = [
   {
     schema: NavigationItemType.DropDownList,
     id: "resources",
