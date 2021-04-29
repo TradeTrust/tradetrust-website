@@ -9,8 +9,17 @@ interface AssetInformationPanel {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
+// @ts-ignore
 export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = styled(
-  ({ tokenRegistryAddress, setShowEndorsementChain, className }) => {
+  ({
+    tokenRegistryAddress,
+    setShowEndorsementChain,
+    className,
+  }: {
+    tokenRegistryAddress: string;
+    setShowEndorsementChain: (payload: boolean) => void;
+    className: string;
+  }) => {
     return (
       <div className={`py-4 ${className}`}>
         <AddressInfo title="BL information" name="" resolvedBy="" source="">
