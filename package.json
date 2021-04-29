@@ -61,7 +61,7 @@
     "react": "^16.11.0",
     "react-dom": "^16.9.0",
     "react-dropdown-select": "^4.7.3",
-    "react-dropzone": "^7.0.1",
+    "react-dropzone": "^11.3.2",
     "react-feather": "^2.0.8",
     "react-google-recaptcha": "^1.0.5",
     "react-helmet": "^5.2.1",

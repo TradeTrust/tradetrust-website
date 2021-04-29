@@ -33,7 +33,7 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible, verification
       <div className="mx-auto">
         <ViewerButton>Select File</ViewerButton>
         <ViewerButton
-          data-id="scan-qr-button"
+          data-testid="scan-qr-button"
           onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();

@@ -12,7 +12,7 @@ import {
   updateCertificate,
 } from "../../reducers/certificate";
 import QrReader from "../QrReader";
-import CertificateDropZone from "./CertificateDropZone";
+import { CertificateDropZone } from "./CertificateDropZone";
 import { ViewerButton } from "./Views/SharedViewerStyledComponents";
 
 const DisabledButton = styled(ViewerButton)`
