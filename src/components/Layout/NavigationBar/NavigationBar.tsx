@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Settings } from "react-feather";
-
 import { NavigationItemType, NavigationItem, NavigationBar as NavBar } from "@govtechsg/tradetrust-ui-components";
 
 const navItems: NavigationItem[] = [
@@ -31,7 +30,7 @@ const navItems: NavigationItem[] = [
     dropdownItems: [
       {
         id: "media",
-        label: "Media",
+        label: "News",
         path: "/media",
       },
       {
@@ -96,7 +95,7 @@ const NavigationBarStyle = styled.nav`
   }
 `;
 
-export const NavigationBar = () => {
+export const NavigationBar: FunctionComponent<{}> = () => {
   return (
     <NavigationBarStyle>
       <NavBar navigationItems={navItems} />
