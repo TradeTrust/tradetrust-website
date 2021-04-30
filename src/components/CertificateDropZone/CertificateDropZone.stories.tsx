@@ -1,6 +1,6 @@
 import React from "react";
 import { MemoryRouter as Router } from "react-router-dom";
-import CertificateDropZone from "./CertificateDropZone";
+import { CertificateDropZone } from "./CertificateDropZone";
 import {
   whenDocumentHashInvalid,
   whenDocumentRevoked,
@@ -8,6 +8,7 @@ import {
   whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentHashInvalidAndNotIssued,
 } from "../../test/fixture/verifier-responses";
+import { VerificationFragment } from "@govtechsg/oa-verify";
 
 export default {
   title: "Dropzone/CertificateDropZone",
@@ -18,17 +19,22 @@ export default {
 };
 
 export const Ready = () => {
-  return <CertificateDropZone />;
+  return <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} />;
 };
 
 export const Verifying = () => {
-  return <CertificateDropZone verifying={true} />;
+  return <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} verifying={true} />;
 };
 
 export const AllVerificationErrors = () => {
   return (
     <Router>
-      <CertificateDropZone verifying={false} verificationStatus={whenDocumentHashInvalidAndNotIssued} />
+      <CertificateDropZone
+        handleCertificateChange={() => {}}
+        handleFileError={() => {}}
+        verifying={false}
+        verificationStatus={whenDocumentHashInvalidAndNotIssued as VerificationFragment[]}
+      />
     </Router>
   );
 };
@@ -36,7 +42,12 @@ export const AllVerificationErrors = () => {
 export const InvalidHash = () => {
   return (
     <Router>
-      <CertificateDropZone verifying={false} verificationStatus={whenDocumentHashInvalid} />
+      <CertificateDropZone
+        handleCertificateChange={() => {}}
+        handleFileError={() => {}}
+        verifying={false}
+        verificationStatus={whenDocumentHashInvalid as VerificationFragment[]}
+      />
     </Router>
   );
 };
@@ -44,7 +55,12 @@ export const InvalidHash = () => {
 export const NotIssued = () => {
   return (
     <Router>
-      <CertificateDropZone verifying={false} verificationStatus={whenDocumentNotIssued} />
+      <CertificateDropZone
+        handleCertificateChange={() => {}}
+        handleFileError={() => {}}
+        verifying={false}
+        verificationStatus={whenDocumentNotIssued as VerificationFragment[]}
+      />
     </Router>
   );
 };
@@ -52,7 +68,12 @@ export const NotIssued = () => {
 export const Revoked = () => {
   return (
     <Router>
-      <CertificateDropZone verifying={false} verificationStatus={whenDocumentRevoked} />
+      <CertificateDropZone
+        handleCertificateChange={() => {}}
+        handleFileError={() => {}}
+        verifying={false}
+        verificationStatus={whenDocumentRevoked as VerificationFragment[]}
+      />
     </Router>
   );
 };
@@ -60,7 +81,12 @@ export const Revoked = () => {
 export const IssuerIdentityInvalid = () => {
   return (
     <Router>
-      <CertificateDropZone verifying={false} verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt} />
+      <CertificateDropZone
+        handleCertificateChange={() => {}}
+        handleFileError={() => {}}
+        verifying={false}
+        verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]}
+      />
     </Router>
   );
 };
@@ -68,7 +94,12 @@ export const IssuerIdentityInvalid = () => {
 export const FileError = () => {
   return (
     <Router>
-      <CertificateDropZone verifying={false} fileError={true} />
+      <CertificateDropZone
+        handleCertificateChange={() => {}}
+        handleFileError={() => {}}
+        verifying={false}
+        fileError={true}
+      />
     </Router>
   );
 };
@@ -77,6 +108,8 @@ export const QrCodeError = () => {
   return (
     <Router>
       <CertificateDropZone
+        handleCertificateChange={() => {}}
+        handleFileError={() => {}}
         verifying={false}
         fileError={false}
         verificationError={"QR Code is not formatted to TradeTrust specifications"}

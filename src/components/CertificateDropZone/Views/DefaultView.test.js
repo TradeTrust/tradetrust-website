@@ -18,7 +18,7 @@ describe("defaultView", () => {
   it("runs toggleQrReaderVisible when `Scan QR Code` is pressed", () => {
     const toggleQrReaderVisible = jest.fn();
     const wrapper = shallow(<DefaultView hover={false} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />);
-    const buttonElm = wrapper.find("[data-id='scan-qr-button']");
+    const buttonElm = wrapper.find("[data-testid='scan-qr-button']");
     buttonElm.simulate("click", {
       preventDefault: () => {},
       stopPropagation: () => {},

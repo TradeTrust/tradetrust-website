@@ -1,8 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
-import QrReader from "../QrReader";
-import CertificateDropZone from "./CertificateDropZone";
 
 describe("certificateDropZoneContainer", () => {
   it("toggles qrReaderVisible when toggleQrReaderVisible is called", () => {
@@ -12,21 +10,6 @@ describe("certificateDropZoneContainer", () => {
     expect(wrapper.state().qrReaderVisible).toBe(true);
     wrapper.instance().toggleQrReaderVisible();
     expect(wrapper.state().qrReaderVisible).toBe(false);
-  });
-
-  it("shows QrReader when qrReaderVisible is true", () => {
-    const wrapper = shallow(<CertificateDropZoneContainer updateNetworkId={() => {}} />);
-    wrapper.instance().toggleQrReaderVisible();
-    expect(wrapper.state().qrReaderVisible).toBe(true);
-    expect(wrapper.find(QrReader)).toHaveLength(1);
-    expect(wrapper.find(CertificateDropZone)).toHaveLength(0);
-  });
-
-  it("shows CertificateDropZone when qrReaderVisible is false", () => {
-    const wrapper = shallow(<CertificateDropZoneContainer updateNetworkId={() => {}} />);
-    expect(wrapper.state().qrReaderVisible).toBe(false);
-    expect(wrapper.find(QrReader)).toHaveLength(0);
-    expect(wrapper.find(CertificateDropZone)).toHaveLength(1);
   });
 
   it("dispatches processQr and set turn off QrReader when a code is scanned", () => {
