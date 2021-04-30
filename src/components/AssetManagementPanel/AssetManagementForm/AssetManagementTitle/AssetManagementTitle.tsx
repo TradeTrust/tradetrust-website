@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { BackArrow } from "@govtechsg/tradetrust-ui-components";
 import { AssetManagementActions } from "./../../AssetManagementActions";
 
@@ -8,7 +8,11 @@ interface AssetManagementTitleProps {
   disabled: boolean;
 }
 
-export const AssetManagementTitle = ({ setFormActionNone, formAction, disabled }: AssetManagementTitleProps) => {
+export const AssetManagementTitle: FunctionComponent<AssetManagementTitleProps> = ({
+  setFormActionNone,
+  formAction,
+  disabled,
+}) => {
   return (
     <div className="flex flex-wrap">
       <div

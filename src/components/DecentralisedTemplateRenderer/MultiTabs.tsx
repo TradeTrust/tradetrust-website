@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { TemplateProps } from "./../../types";
 
 interface MultiTabsProps {
@@ -14,13 +14,13 @@ interface MultiTabsProps {
   selectedTemplate: string;
 }
 
-export const MultiTabs = ({
+export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
   hasAttachments,
   attachments,
   templates,
   setSelectedTemplate,
   selectedTemplate,
-}: MultiTabsProps) => {
+}) => {
   return (
     <div className="container">
       <div className="flex flex-wrap items-end">

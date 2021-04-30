@@ -1,5 +1,5 @@
 import createPersistedState from "use-persisted-state";
-import { useEffect } from "react";
+import { useEffect, Dispatch, SetStateAction } from "react";
 
 export interface FeatureFlagOverride {
   [key: string]: boolean | undefined;
@@ -18,7 +18,11 @@ localStorage.setItem = function (...args) {
   document.dispatchEvent(event);
 };
 
-export const useFeatureFlagOverride = () => {
+export const useFeatureFlagOverride = (): {
+  featureFlagOverride: FeatureFlagOverride;
+  setFeatureFlagOverride: Dispatch<SetStateAction<FeatureFlagOverride>>;
+  getFeatureFlagOverride: (flag: string) => boolean | undefined;
+} => {
   const defaultOverride: FeatureFlagOverride = {};
   const [featureFlagOverride, setFeatureFlagOverride] = createPersistedState("FEATURE_FLAG")(defaultOverride);
   const getFeatureFlagOverride = (flag: string) =>

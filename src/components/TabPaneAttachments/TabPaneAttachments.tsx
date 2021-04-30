@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { AttachmentLink } from "../UI/AttachmentLink";
 
 interface TabPaneAttachmentsProps {
@@ -9,7 +9,7 @@ interface TabPaneAttachmentsProps {
   }[];
 }
 
-export const TabPaneAttachments = ({ attachments }: TabPaneAttachmentsProps) => {
+export const TabPaneAttachments: FunctionComponent<TabPaneAttachmentsProps> = ({ attachments }) => {
   return (
     <div className="container">
       <div className="flex flex-wrap -mx-4">

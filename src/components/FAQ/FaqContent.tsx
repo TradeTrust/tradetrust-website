@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import ReactMarkdown from "react-markdown";
 import faq from "./../../../cms/faq-page/faq.md";
 import styled from "@emotion/styled";
@@ -16,7 +16,7 @@ const Wysiwyg = styled.div`
   }
 `;
 
-export const FaqContent = () => (
+export const FaqContent: FunctionComponent = () => (
   <div className="py-12">
     <div className="container">
       <div className="flex">

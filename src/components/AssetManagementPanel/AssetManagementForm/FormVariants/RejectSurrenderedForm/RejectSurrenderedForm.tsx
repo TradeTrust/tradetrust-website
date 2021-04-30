@@ -5,7 +5,7 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
-import React, { useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { FormState } from "../../../../../constants/FormState";
 import { TitleEscrowEvent } from "../../../../../types";
@@ -26,7 +26,7 @@ interface RejectSurrenderedFormProps {
   restoreTokenState: string;
 }
 
-export const RejectSurrenderedForm = ({
+export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps> = ({
   tokenId,
   formAction,
   tokenRegistryAddress,
@@ -34,7 +34,7 @@ export const RejectSurrenderedForm = ({
   setShowEndorsementChain,
   handleRestoreToken,
   restoreTokenState,
-}: RejectSurrenderedFormProps) => {
+}) => {
   const { showOverlay } = useContext(OverlayContext);
   const { endorsementChain, pending } = useEndorsementChain(tokenRegistryAddress, tokenId);
 

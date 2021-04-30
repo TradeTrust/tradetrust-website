@@ -29,9 +29,9 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
     return (
       <div className={className}>
         <EndorsementJourney
-          displayDashHead={displayDashHead!}
+          displayDashHead={!!displayDashHead}
           displayDot={isNewAddress}
-          displayDashTail={displayDashTail!}
+          displayDashTail={!!displayDashTail}
         />
         <div className="flex">
           {identityName && <div className="name">{identityName}</div>}

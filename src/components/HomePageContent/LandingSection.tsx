@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { OverlayContext, Youtube } from "@govtechsg/tradetrust-ui-components";
-import React, { useContext } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import tw from "twin.macro";
 import { Section } from "../Layout/Section";
 
@@ -35,7 +35,7 @@ export const SectionLanding = styled(Section)`
   }
 `;
 
-export const LandingSection = () => {
+export const LandingSection: FunctionComponent = () => {
   const { showOverlay } = useContext(OverlayContext);
   const onOverlayHandler = () => {
     showOverlay(<Youtube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />);

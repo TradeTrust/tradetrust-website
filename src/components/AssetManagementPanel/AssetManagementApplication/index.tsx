@@ -1,5 +1,5 @@
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistryContract";
@@ -13,11 +13,11 @@ interface AssetManagementApplicationProps {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const AssetManagementApplication = ({
+export const AssetManagementApplication: FunctionComponent<AssetManagementApplicationProps> = ({
   tokenId,
   tokenRegistryAddress,
   setShowEndorsementChain,
-}: AssetManagementApplicationProps) => {
+}) => {
   const {
     approvedHolder,
     holder,

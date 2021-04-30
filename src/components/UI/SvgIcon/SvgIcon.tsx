@@ -1,5 +1,5 @@
 import _uniqueId from "lodash/uniqueId";
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import ReactTooltip from "react-tooltip";
 
 interface SvgIconProps extends React.SVGProps<SVGSVGElement> {
@@ -15,7 +15,12 @@ interface TooltipIconProps {
   placement?: "top" | "right" | "bottom" | "left";
 }
 
-export const TooltipIcon = ({ content, children, className, placement = "right" }: TooltipIconProps) => {
+export const TooltipIcon: FunctionComponent<TooltipIconProps> = ({
+  content,
+  children,
+  className,
+  placement = "right",
+}) => {
   const [id] = useState(_uniqueId("tt-"));
 
   return (
@@ -36,7 +41,7 @@ export const TooltipIcon = ({ content, children, className, placement = "right" 
   );
 };
 
-export const SvgIconQRCode = () => {
+export const SvgIconQRCode: FunctionComponent = () => {
   return (
     <g className="qrcode">
       <path d="M9 0H0V9H9V0ZM7.5 7.5H1.5V1.5H7.5V7.5Z" />
@@ -69,7 +74,7 @@ export const SvgIconQRCode = () => {
   );
 };
 
-export const SvgIcon = ({ tooltipId, children, ...props }: SvgIconProps) => {
+export const SvgIcon: FunctionComponent<SvgIconProps> = ({ tooltipId, children, ...props }) => {
   const tooltipProps = tooltipId
     ? {
         "data-tip": "",

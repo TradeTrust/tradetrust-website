@@ -1,9 +1,9 @@
 import { TileInfo } from "@govtechsg/tradetrust-ui-components";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-export const SettingsPage = () => (
+export const SettingsPage: FunctionComponent = () => (
   <>
     <Helmet>
       <meta property="description" content="TradeTrust settings page." />

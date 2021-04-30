@@ -1,6 +1,6 @@
 import { VerificationFragment } from "@govtechsg/oa-verify";
 import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
@@ -31,14 +31,14 @@ interface CertificateViewerProps {
   handleSendCertificate: (event: { email: string; captcha: string }) => void;
 }
 
-export const CertificateViewer = ({
+export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
   document,
   verificationStatus,
   handleSharingToggle,
   showSharing,
   emailSendingState,
   handleSendCertificate,
-}: CertificateViewerProps) => {
+}) => {
   const tokenId = getDocumentId(document);
   const tokenRegistryAddress = getTokenRegistryAddress(document);
   const [templates, setTemplates] = useState<TemplateProps[]>([]);

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Download, Mail, Printer } from "react-feather";
 import tw from "twin.macro";
 import { FeatureFlag } from "../FeatureFlag";
@@ -23,7 +23,11 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
   };
 }
 
-export const DocumentUtility = ({ document, handleSharingToggle, onPrint }: DocumentUtilityProps) => {
+export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
+  document,
+  handleSharingToggle,
+  onPrint,
+}) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
   // Extending document data to account for undefined metadata in OA schema
   const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);

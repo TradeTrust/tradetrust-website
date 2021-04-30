@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 interface ModalDialogProps {
   className?: string;
@@ -8,7 +8,7 @@ interface ModalDialogProps {
   children?: React.ReactNode;
 }
 
-export const ModalDialogUnStyled = ({ className, show, toggle, children }: ModalDialogProps) => {
+export const ModalDialogUnStyled: FunctionComponent<ModalDialogProps> = ({ className, show, toggle, children }) => {
   return (
     <>
       {show && (

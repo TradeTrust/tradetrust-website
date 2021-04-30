@@ -1,6 +1,6 @@
 import { ContractFunctionState, useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback, FunctionComponent } from "react";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
@@ -42,6 +42,7 @@ const contractFunctionStub = () => {
 };
 
 export const TokenInformationContext = createContext<TokenInformationContext>({
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   initialize: () => {},
   changeHolder: contractFunctionStub,
   changeHolderState: "UNINITIALIZED",
@@ -56,6 +57,7 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   approveNewTransferTargetsState: "UNINITIALIZED",
   transferToNewEscrow: contractFunctionStub,
   transferToNewEscrowState: "UNINITIALIZED",
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   resetStates: () => {},
   destroyToken: contractFunctionStub,
   destroyTokenState: "UNINITIALIZED",
@@ -63,7 +65,13 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   restoreTokenState: "UNINITIALIZED",
 });
 
-export const TokenInformationContextProvider = ({ children }: { children: React.ReactNode }) => {
+interface TokenInformationContextProviderProps {
+  children: React.ReactNode;
+}
+
+export const TokenInformationContextProvider: FunctionComponent<TokenInformationContextProviderProps> = ({
+  children,
+}) => {
   const [tokenId, setTokenId] = useState<string>();
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
   const { provider } = useProviderContext();

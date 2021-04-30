@@ -1,5 +1,5 @@
 import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementDropdownProps {
@@ -12,7 +12,7 @@ interface AssetManagementDropdownProps {
   canEndorseTransfer: boolean;
 }
 
-export const AssetManagementDropdown = ({
+export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownProps> = ({
   onSetFormAction,
   canSurrender,
   canHandleSurrender,
@@ -20,7 +20,7 @@ export const AssetManagementDropdown = ({
   canEndorseBeneficiary,
   canNominateBeneficiaryHolder,
   canEndorseTransfer,
-}: AssetManagementDropdownProps) => {
+}) => {
   return (
     <Dropdown
       data-testid="manageAssetDropdown"

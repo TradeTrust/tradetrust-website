@@ -40,7 +40,11 @@ export const useRestoreToken = (
   provider: providers.Provider | Signer,
   contractInstance?: TradeTrustErc721,
   tokenId?: string
-) => {
+): {
+  restoreToken: (previousBeneficiary: string, previousHolder: string) => Promise<void>;
+  state: ContractFunctionState;
+  errorMessage?: string;
+} => {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [state, setState] = useState<ContractFunctionState>("UNINITIALIZED");
 

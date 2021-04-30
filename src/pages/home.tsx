@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import queryString from "query-string";
@@ -10,7 +10,7 @@ import {
   retrieveCertificateByActionFailure,
 } from "../reducers/certificate";
 
-export const HomePage = (props: any) => {
+export const HomePage: FunctionComponent = (props: any) => {
   useEffect(() => {
     if (props.location.search !== "") {
       const queryParams = queryString.parse(props.location.search);

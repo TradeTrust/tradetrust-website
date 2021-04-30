@@ -16,7 +16,13 @@ interface Erc165Contract extends Contract {
  * @returns false if supportsInterface(id) returns false, or throws error because method is not supported, or contract not deployed
  * errorMessage is populated if any other error is returned
  */
-export const useSupportsInterface = (contractInstance: Erc165Contract | undefined, interfaceId: string) => {
+export const useSupportsInterface = (
+  contractInstance: Erc165Contract | undefined,
+  interfaceId: string
+): {
+  isInterfaceType?: boolean;
+  errorMessage?: string;
+} => {
   const [isInterfaceType, setIsInterfaceType] = useState<boolean>();
   const [errorMessage, setErrorMessage] = useState<string>();
 

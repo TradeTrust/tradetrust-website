@@ -1,9 +1,9 @@
 import { AddressResolver, BackArrow } from "@govtechsg/tradetrust-ui-components";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-export const SettingsAddressResolverPage = () => (
+export const SettingsAddressResolverPage: FunctionComponent = () => (
   <>
     <Helmet>
       <meta property="description" content="Add third party’s endpoint to resolve addresses." />

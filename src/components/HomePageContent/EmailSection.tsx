@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import tw from "twin.macro";
 import { Section } from "../Layout/Section";
 import { EmailForm } from "./EmailForm";
@@ -14,7 +14,7 @@ export const SectionEmail = styled(Section)`
   }
 `;
 
-export const EmailSection = () => {
+export const EmailSection: FunctionComponent = () => {
   return (
     <SectionEmail className="bg-gradient-to-r from-blue-400 to-pink py-16" id="contact">
       <div className="flex text-center mb-6">
