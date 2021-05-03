@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Settings } from "react-feather";
 import { NavigationBar as NavBar } from "@govtechsg/tradetrust-ui-components";
 import { NavigationItem, NavigationItemType } from "./type";
