@@ -58,6 +58,7 @@ export const EmailForm = () => {
       })
       .catch((error) => {
         console.log(error);
+        history.push("/email/error");
       });
 
     event.preventDefault();
@@ -75,7 +76,7 @@ export const EmailForm = () => {
   };
 
   return (
-    <form name="contact" className="my-6" onSubmit={handleFormSubmit}>
+    <form name="contact" onSubmit={handleFormSubmit}>
       <input type="hidden" name="form-name" value="contact" />
       <div className="flex flex-wrap">
         <div className="w-full">

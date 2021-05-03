@@ -1,4 +1,5 @@
 import { EmailSuccessPage } from "./pages/emailSuccess";
+import { EmailErrorPage } from "./pages/emailError";
 import { FaqPage } from "./pages/faq";
 import { HomePageContainer } from "./pages/home";
 import { MediaPage } from "./pages/media";
@@ -16,6 +17,7 @@ export const routes = [
   { path: "/settings/address-resolver", exact: true, component: SettingsAddressResolverPage },
   { path: "/settings/address-book", exact: true, component: SettingsAddressBookPage },
   { path: "/email/success", exact: true, component: EmailSuccessPage },
+  { path: "/email/error", exact: true, component: EmailErrorPage },
   { path: "/resources", exact: true, component: ResourcesPage },
   { path: "/media", exact: true, component: MediaPage },
   { path: "/contact", exact: true, component: ContactPage },

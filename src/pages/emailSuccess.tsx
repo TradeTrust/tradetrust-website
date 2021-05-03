@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { EmailSuccessPageContainer } from "../components/EmailSuccessPageContainer";
+import { ContactUs } from "./contact";
+import { EmailContactUsSuccess } from "../components/EmailContactUs";
 
 export const EmailSuccessPage = () => (
   <>
@@ -11,6 +12,8 @@ export const EmailSuccessPage = () => (
       <meta property="og:url" content={`${window.location.origin}/email/success`} />
       <title>TradeTrust - An easy way to check and verify your documents</title>
     </Helmet>
-    <EmailSuccessPageContainer />
+    <ContactUs>
+      <EmailContactUsSuccess />
+    </ContactUs>
   </>
 );
