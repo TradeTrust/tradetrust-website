@@ -5,70 +5,40 @@ import * as NavType from "./type";
 
 export const NavigationBarItem: FunctionComponent<{
   item: NavType.NavigationItem;
-  onClick: (isOn: boolean) => void;
-}> = ({ item, onClick }) => {
+}> = ({ item }) => {
   switch (item.schema) {
     case NavType.NavigationItemType.IconButton:
-      return <IconButton item={item} onClick={onClick} />;
+      return <IconButton item={item} />;
     case NavType.NavigationItemType.LabelButton:
-      return <LabelButton item={item} onClick={onClick} />;
+      return <LabelButton item={item} />;
     case NavType.NavigationItemType.DropDownList:
-      return <DropDownList item={item} onClick={onClick} />;
+      return <DropDownList item={item} />;
     default:
-      return <NavigationLink item={item} onClick={onClick} />;
+      return <NavigationLink item={item} />;
   }
 };
 
-const NavigationLink: FunctionComponent<{ item: NavType.NavigationLink; onClick: (isOn: boolean) => void }> = ({
-  item,
-  onClick,
-}) => {
+const NavigationLink: FunctionComponent<{ item: NavType.NavigationLink }> = ({ item }) => {
   if (item.path.indexOf("http://") === 0 || item.path.indexOf("https://") === 0) {
     return (
-      <a
-        className={`font-medium ${item.className}`}
-        href={item.path}
-        onClick={() => {
-          onClick(false);
-        }}
-      >
+      <a className={`font-medium ${item.className}`} href={item.path}>
         {item.label}
       </a>
     );
   } else {
     return (
-      <NavLink
-        className={`font-medium ${item.className}`}
-        to={item.path}
-        onClick={() => {
-          onClick(false);
-        }}
-      >
+      <NavLink className={`font-medium ${item.className}`} to={item.path}>
         {item.label}
       </NavLink>
     );
   }
 };
 
-const LabelButton: FunctionComponent<{ item: NavType.LabelButton; onClick: (isOn: boolean) => void }> = ({
-  item,
-  onClick,
-}) => {
+const LabelButton: FunctionComponent<{ item: NavType.LabelButton }> = ({ item }) => {
   if (item.path.indexOf("http://") === 0 || item.path.indexOf("https://") === 0) {
     return (
       <a href={item.path} className="w-full">
-        <button
-          className={`font-bold py-2 px-3 ${item.className}`}
-          data-testid={item.id}
-          onClick={() => {
-            onClick(false);
-            {
-              if (typeof item.onClick === "function") {
-                item.onClick();
-              }
-            }
-          }}
-        >
+        <button className={`font-bold py-2 px-3 ${item.className}`} data-testid={item.id}>
           {item.label}
         </button>
       </a>
@@ -76,18 +46,7 @@ const LabelButton: FunctionComponent<{ item: NavType.LabelButton; onClick: (isOn
   } else {
     return (
       <NavLink to={item.path} className="w-full">
-        <button
-          className={`font-bold py-2 px-3 ${item.className}`}
-          data-testid={item.id}
-          onClick={() => {
-            onClick(false);
-            {
-              if (typeof item.onClick === "function") {
-                item.onClick();
-              }
-            }
-          }}
-        >
+        <button className={`font-bold py-2 px-3 ${item.className}`} data-testid={item.id}>
           {item.label}
         </button>
       </NavLink>
@@ -95,44 +54,24 @@ const LabelButton: FunctionComponent<{ item: NavType.LabelButton; onClick: (isOn
   }
 };
 
-const IconButton: FunctionComponent<{ item: NavType.IconButton; onClick: (isOn: boolean) => void }> = ({
-  item,
-  onClick,
-}) => {
+const IconButton: FunctionComponent<{ item: NavType.IconButton }> = ({ item }) => {
   const ButtonIcon = item.icon;
   if (item.path.indexOf("http://") === 0 || item.path.indexOf("https://") === 0) {
     return (
-      <a
-        className={`font-medium ${item.className}`}
-        href={item.path}
-        data-testid={item.id}
-        onClick={() => {
-          onClick(false);
-        }}
-      >
+      <a className={`font-medium ${item.className}`} href={item.path} data-testid={item.id}>
         <ButtonIcon />
       </a>
     );
   } else {
     return (
-      <NavLink
-        className={`font-medium ${item.className}`}
-        to={item.path}
-        data-testid={item.id}
-        onClick={() => {
-          onClick(false);
-        }}
-      >
+      <NavLink className={`font-medium ${item.className}`} to={item.path} data-testid={item.id}>
         <ButtonIcon />
       </NavLink>
     );
   }
 };
 
-const DropDownList: FunctionComponent<{ item: NavType.DropDownList; onClick: (isOn: boolean) => void }> = ({
-  item,
-  onClick,
-}) => {
+const DropDownList: FunctionComponent<{ item: NavType.DropDownList }> = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="relative">
@@ -185,7 +124,6 @@ const DropDownList: FunctionComponent<{ item: NavType.DropDownList; onClick: (is
                       className="block px-4 py-2 font-medium dropdown-item"
                       href={dropdownItem.path}
                       onClick={() => {
-                        onClick(false);
                         setIsOpen(false);
                       }}
                     >
@@ -200,7 +138,6 @@ const DropDownList: FunctionComponent<{ item: NavType.DropDownList; onClick: (is
                       className="block px-4 py-2 font-medium dropdown-item"
                       to={dropdownItem.path}
                       onClick={() => {
-                        onClick(false);
                         setIsOpen(false);
                       }}
                     >

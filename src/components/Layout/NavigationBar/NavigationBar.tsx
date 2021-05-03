@@ -72,14 +72,14 @@ const leftNavItems: NavigationItem[] = [
   },
 ];
 
-const leftMenu = (navigationItems: NavigationItem[], onClick: (isOn: boolean) => void) => {
+const leftMenu = (navigationItems: NavigationItem[]) => {
   return (
     <div className="hidden lg:block md:ml-12">
       <div className="flex h-full items-center">
         {navigationItems.map((item, index) => {
           return (
             <div key={index} className="text-lg w-auto lg:ml-6">
-              <NavigationBarItem item={item} onClick={onClick} />
+              <NavigationBarItem item={item} />
             </div>
           );
           return "";
@@ -113,14 +113,14 @@ const rightNavItems: NavigationItem[] = [
   },
 ];
 
-const rightMenu = (navigationItems: NavigationItem[], onClick: (isOn: boolean) => void) => {
+const rightMenu = (navigationItems: NavigationItem[]) => {
   return (
     <div className="hidden md:block md:absolute md:right-0 lg:relative lg:ml-auto">
       <div className="flex h-full items-center">
         {navigationItems.map((item, index) => {
           return (
             <div key={index} className="text-lg font-normal w-auto md:ml-3 lg:ml-6">
-              <NavigationBarItem item={item} onClick={onClick} />
+              <NavigationBarItem item={item} />
             </div>
           );
         })}
@@ -129,33 +129,35 @@ const rightMenu = (navigationItems: NavigationItem[], onClick: (isOn: boolean) =
   );
 };
 
-const mobileMenu = (navigationItems: NavigationItem[], onClick: (isOn: boolean) => void) => {
+const mobileMenu = (navigationItems: NavigationItem[]) => {
   return navigationItems.map((item, index) => {
     if (item.id == "create-documents" || item.id == "verify" || item.id == "settings") {
       return (
         <div key={index} className="text-lg font-normal w-full py-4 md:hidden">
-          <NavigationBarItem item={item} onClick={onClick} />
+          <NavigationBarItem item={item} />
         </div>
       );
     }
     return (
       <div key={index} className="text-lg font-normal w-full py-4">
-        <NavigationBarItem item={item} onClick={onClick} />
+        <NavigationBarItem item={item} />
       </div>
     );
   });
 };
 
-export const NavigationBar: FunctionComponent<{}> = () => {
-  const [isOn, setIsOn] = useState(false);
+export const NavigationBar: FunctionComponent<{
+  toggleNavBar: boolean;
+  setToggleNavBar: (toggleNavbar: boolean) => void;
+}> = (props) => {
   return (
     <NavigationBarStyle>
       <NavBar
-        leftMenuChildren={leftMenu(leftNavItems, setIsOn)}
-        rightMenuChildren={rightMenu(rightNavItems, setIsOn)}
-        mobileMenuChildren={mobileMenu(leftNavItems.concat(rightNavItems), setIsOn)}
-        onClick={setIsOn}
-        toggleNavBar={isOn}
+        leftMenuChildren={leftMenu(leftNavItems)}
+        rightMenuChildren={rightMenu(rightNavItems)}
+        mobileMenuChildren={mobileMenu(leftNavItems.concat(rightNavItems))}
+        setToggleNavBar={props.setToggleNavBar}
+        toggleNavBar={props.toggleNavBar}
       />
     </NavigationBarStyle>
   );
