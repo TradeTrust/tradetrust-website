@@ -1,3 +1,4 @@
+import { LinkButton } from "@govtechsg/tradetrust-ui-components";
 import React, { useState } from "react";
 import { FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
@@ -37,11 +38,9 @@ const NavigationLink: FunctionComponent<{ item: NavType.NavigationLink }> = ({ i
 const LabelButton: FunctionComponent<{ item: NavType.LabelButton }> = ({ item }) => {
   if (item.path.indexOf("http://") === 0 || item.path.indexOf("https://") === 0) {
     return (
-      <a href={item.path} className="w-full">
-        <button className={`font-bold py-2 px-3 ${item.className}`} data-testid={item.id}>
-          {item.label}
-        </button>
-      </a>
+      <LinkButton href={item.path} className={`font-bold py-2 px-3 ${item.className}`} data-testid={item.id}>
+        {item.label}
+      </LinkButton>
     );
   } else {
     return (
