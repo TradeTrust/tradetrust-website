@@ -13,7 +13,7 @@ export const transferHolder = async (metamask, browser) => {
     await page.click("[data-testid='connectToWallet']");
 
     // START - approve application once, subsequent tests no longer need
-    await metamask.approve();
+    await metamask.approve({allAccounts: true});
     await page.bringToFront();
     // END - approve application once, subsequent tests no longer need
 
