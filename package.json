@@ -40,6 +40,7 @@
     "@govtechsg/oa-encryption": "^1.3.2",
     "@govtechsg/oa-verify": "^6.0.0",
     "@govtechsg/open-attestation": "^4.0.0",
+    "@govtechsg/open-attestation-cli": "1.27.0",
     "@govtechsg/token-registry": "^2.4.0",
     "@govtechsg/tradetrust-ui-components": "1.11.0",
     "@hot-loader/react-dom": "^16.9.0",
