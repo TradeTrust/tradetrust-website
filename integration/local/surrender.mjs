@@ -9,16 +9,16 @@ export const surrender = async (metamask, browser) => {
     const inputUploadHandle = await page.$("input[type=file]");
     inputUploadHandle.uploadFile("./integration/local/ebl-surrender.json");
 
-    await page.waitForSelector("[data-testid='connectToWallet']");
+    await page.waitForSelector("[data-testid='connectToWallet']", { visible: true });
     await page.click("[data-testid='connectToWallet']");
 
-    await page.waitForSelector("[data-testid='manageAssetDropdown']");
+    await page.waitForSelector("[data-testid='manageAssetDropdown']", { visible: true });
     await page.click("[data-testid='manageAssetDropdown']");
 
-    await page.waitForSelector("[data-testid='surrenderDropdown']");
+    await page.waitForSelector("[data-testid='surrenderDropdown']", { visible: true });
     await page.click("[data-testid='surrenderDropdown']");
 
-    await page.waitForSelector("[data-testid='surrenderBtn']");
+    await page.waitForSelector("[data-testid='surrenderBtn']", { visible: true });
     await page.click("[data-testid='surrenderBtn']");
 
     await metamask.confirmTransaction();
