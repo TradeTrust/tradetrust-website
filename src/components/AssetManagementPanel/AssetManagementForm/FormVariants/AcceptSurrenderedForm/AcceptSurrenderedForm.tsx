@@ -5,7 +5,7 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
-import React, { useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -21,14 +21,14 @@ interface AcceptSurrenderedFormProps {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const AcceptSurrenderedForm = ({
+export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps> = ({
   formAction,
   tokenRegistryAddress,
   handleDestroyToken,
   destroyTokenState,
   setFormActionNone,
   setShowEndorsementChain,
-}: AcceptSurrenderedFormProps) => {
+}) => {
   const { showOverlay } = useContext(OverlayContext);
 
   const isDestroyTokenPendingConfirmation = destroyTokenState === FormState.PENDING_CONFIRMATION;

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { EmailSuccessPageContainer } from "../components/EmailSuccessPageContainer";
 
-export const EmailSuccessPage = () => (
+export const EmailSuccessPage: FunctionComponent = () => (
   <>
     <Helmet>
       <meta property="description" content="Thank you for your email enquiry. We will get back to you shortly!" />

@@ -1,6 +1,6 @@
 import { MessageTitle } from "@govtechsg/tradetrust-ui-components";
 import { ethers, providers, Signer } from "ethers";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, FunctionComponent, useContext, useEffect, useState } from "react";
 import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
 
 const getProvider =
@@ -18,6 +18,7 @@ interface ProviderContextProps {
 export const ProviderContext = createContext<ProviderContextProps>({
   isUpgraded: false,
   provider: getProvider,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   upgradeProvider: async () => {},
   account: undefined,
 });
@@ -35,7 +36,11 @@ declare global {
   }
 }
 
-export const ProviderContextProvider = ({ children }: { children: React.ReactNode }) => {
+interface ProviderContextProviderProps {
+  children: React.ReactNode;
+}
+
+export const ProviderContextProvider: FunctionComponent<ProviderContextProviderProps> = ({ children }) => {
   const [isUpgraded, setIsUpgraded] = useState(false);
   const [provider, setProvider] = useState<providers.Provider | Signer>(getProvider);
   const [account, setAccount] = useState<string>();

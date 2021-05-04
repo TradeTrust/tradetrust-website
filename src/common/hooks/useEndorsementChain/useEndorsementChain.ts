@@ -5,7 +5,14 @@ import { TradeTrustErc721Event } from "../../../types";
 import { fetchEvents, fetchEventInfo } from "./fetchEscrowTransfer";
 import { useProviderContext } from "../../contexts/provider";
 
-export const useEndorsementChain = (tokenRegistryAddress: string, tokenId: string) => {
+export const useEndorsementChain = (
+  tokenRegistryAddress: string,
+  tokenId: string
+): {
+  endorsementChain?: TradeTrustErc721Event[];
+  pending: boolean;
+  error: string;
+} => {
   const { provider: providerOrSigner } = useProviderContext();
   const provider = (providerOrSigner as Signer).provider
     ? (providerOrSigner as Signer).provider

@@ -5,7 +5,7 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
-import React, { useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -23,7 +23,7 @@ interface EndorseTransferFormProps {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const EndorseTransferForm = ({
+export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = ({
   formAction,
   tokenRegistryAddress,
   approvedBeneficiary,
@@ -32,7 +32,7 @@ export const EndorseTransferForm = ({
   transferToNewEscrowState,
   setFormActionNone,
   setShowEndorsementChain,
-}: EndorseTransferFormProps) => {
+}) => {
   const isPendingConfirmation = transferToNewEscrowState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = transferToNewEscrowState === FormState.CONFIRMED;
 
@@ -66,10 +66,10 @@ export const EndorseTransferForm = ({
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Owner" value={approvedBeneficiary} isEditable={false} onSetNewValue={() => {}} />
+          <EditableAssetTitle role="Owner" value={approvedBeneficiary} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Holder" value={approvedHolder} isEditable={false} onSetNewValue={() => {}} />
+          <EditableAssetTitle role="Holder" value={approvedHolder} isEditable={false} />
         </div>
       </div>
       <div className="flex flex-wrap pb-4">

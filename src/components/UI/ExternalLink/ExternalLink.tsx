@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { makeEtherscanAddressURL } from "../../../utils";
 
 interface ExternalLinkProps {
@@ -11,7 +11,7 @@ interface ExternalLinkEtherscanAddressProps {
   address: string;
 }
 
-export const ExternalLink = ({ name, href, ...props }: ExternalLinkProps) => {
+export const ExternalLink: FunctionComponent<ExternalLinkProps> = ({ name, href, ...props }) => {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
       {name}
@@ -19,7 +19,11 @@ export const ExternalLink = ({ name, href, ...props }: ExternalLinkProps) => {
   );
 };
 
-export const ExternalLinkEtherscanAddress = ({ name, address, ...props }: ExternalLinkEtherscanAddressProps) => {
+export const ExternalLinkEtherscanAddress: FunctionComponent<ExternalLinkEtherscanAddressProps> = ({
+  name,
+  address,
+  ...props
+}) => {
   const href = makeEtherscanAddressURL(address);
 
   return <ExternalLink name={name} href={href} {...props} />;

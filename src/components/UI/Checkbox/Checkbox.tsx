@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import React, { InputHTMLAttributes } from "react";
+import React, { FunctionComponent, InputHTMLAttributes } from "react";
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   text: string;
 }
 
-export const Checkbox = ({ className, text, ...props }: CheckboxProps) => {
+export const Checkbox: FunctionComponent<CheckboxProps> = ({ className, text, ...props }) => {
   return (
     <label className={className}>
       <div className="flex items-center">

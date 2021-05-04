@@ -1,5 +1,5 @@
 import { OverlayAddressBook, ButtonIcon, useOverlayContext, Input } from "@govtechsg/tradetrust-ui-components";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Book } from "react-feather";
 import { NETWORK_NAME } from "../../../../../config";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
@@ -15,14 +15,14 @@ interface EditableAssetTitleProps {
   error?: boolean;
 }
 
-export const EditableAssetTitle = ({
+export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   role,
   value,
   newValue,
   isEditable,
   onSetNewValue,
   error,
-}: EditableAssetTitleProps) => {
+}) => {
   const { showOverlay } = useOverlayContext();
 
   const onOverlayHandler = () => {

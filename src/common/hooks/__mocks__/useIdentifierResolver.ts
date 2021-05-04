@@ -1,3 +1,5 @@
-export const useIdentifierResolver = () => {
+export const useIdentifierResolver = (): {
+  resolvedIdentifier: string;
+} => {
   return { resolvedIdentifier: "" };
 };

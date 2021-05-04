@@ -5,7 +5,7 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
-import React, { useContext, useEffect, useState } from "react";
+import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { isEthereumAddress } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -24,7 +24,7 @@ interface EndorseBeneficiaryProps {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const EndorseBeneficiaryForm = ({
+export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> = ({
   formAction,
   tokenRegistryAddress,
   beneficiary,
@@ -33,7 +33,7 @@ export const EndorseBeneficiaryForm = ({
   beneficiaryEndorseState,
   setFormActionNone,
   setShowEndorsementChain,
-}: EndorseBeneficiaryProps) => {
+}) => {
   const [newBeneficiary, setNewBeneficiary] = useState("");
   const [newHolder, setNewHolder] = useState("");
   const isPendingConfirmation = beneficiaryEndorseState === FormState.PENDING_CONFIRMATION;

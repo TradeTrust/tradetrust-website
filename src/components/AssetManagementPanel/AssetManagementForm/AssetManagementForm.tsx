@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { FormState } from "../../../constants/FormState";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
@@ -43,7 +43,7 @@ interface AssetManagementFormProps {
   tokenId: string;
 }
 
-export const AssetManagementForm = ({
+export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = ({
   account,
   formAction,
   tokenRegistryAddress,
@@ -74,7 +74,7 @@ export const AssetManagementForm = ({
   onRestoreToken,
   restoreTokenState,
   tokenId,
-}: AssetManagementFormProps) => {
+}) => {
   const isHolder = isTitleEscrow && account === holder;
   const isBeneficiary = isTitleEscrow && account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
