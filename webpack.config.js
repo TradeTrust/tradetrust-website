@@ -24,12 +24,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.m?js/,
-        resolve: {
-          fullySpecified: false,
-        },
-      },
-      {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
@@ -54,7 +48,7 @@ module.exports = {
       NODE_ENV: "development",
       NET: "ropsten",
       INFURA_API_KEY: "bb46da3f80e040e8ab73c0a9ff365d18",
-      ETHEREUM_PROVIDER: "notcloudflare" // temporary fix that wont be needed after oa-verify > 6
+      ETHEREUM_PROVIDER: "notcloudflare", // temporary fix that wont be needed after oa-verify > 6
     }),
     new HtmlWebpackPlugin({
       filename: "index.html",
@@ -64,12 +58,14 @@ module.exports = {
       ? [
           new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
           new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
-          new CopyWebpackPlugin([
-            { from: "public/static/images", to: "static/images" },
-            { from: "public/static/demo", to: "static/demo" },
-            { from: "public/static/uploads", to: "static/uploads" },
-            { from: "public/admin", to: "admin" },
-          ]),
+          new CopyWebpackPlugin({
+            patterns: [
+              { from: "public/static/images", to: "static/images" },
+              { from: "public/static/demo", to: "static/demo" },
+              { from: "public/static/uploads", to: "static/uploads" },
+              { from: "public/admin", to: "admin" },
+            ],
+          }),
         ]
       : []),
   ],
@@ -109,9 +105,6 @@ module.exports = {
     alias: {
       "react-dom": "@hot-loader/react-dom",
       react: path.resolve("./node_modules/react"),
-    },
-    fallback: {
-      path: require.resolve("path-browserify"),
     },
   },
   bail: true,

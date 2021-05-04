@@ -1,4 +1,4 @@
-import { mount } from "enzyme";
+import { render } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import React from "react";
 import { Router } from "react-router-dom";
@@ -24,7 +24,7 @@ describe("<ErrorBoundary />", () => {
 
     pauseErrorLogging(() => {
       jest.spyOn(ErrorBoundary.prototype, "componentDidCatch");
-      mount(
+      render(
         <Router history={history}>
           <ErrorBoundary>
             <ProblemChild />

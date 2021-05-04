@@ -2,7 +2,6 @@ import { Button, Input } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { CheckboxDefault } from "./../UI/Checkbox";
-import { SelectDefault } from "./../UI/Select";
 import { TextareaDefault } from "./../UI/Textarea";
 
 export const optionsBusiness = [
@@ -33,24 +32,10 @@ export const encode = (data: { [x: string]: string | number | boolean }): string
 };
 
 export const EmailForm: FunctionComponent = () => {
-  const [selectedBusiness, setSelectedBusiness] = useState([]);
-  const [selectedRegion, setSelectedRegion] = useState([]);
   const [form, setForm] = useState({
     "Receive communications": "No",
   } as any);
   const history = useHistory();
-
-  const handleSelectedBusiness = (option: any) => {
-    setSelectedBusiness(option);
-
-    setForm({ ...form, ["Business Category"]: option[0].value });
-  };
-
-  const handleSelectedRegion = (option: any) => {
-    setSelectedRegion(option);
-
-    setForm({ ...form, ["Region of Operations"]: option[0].value });
-  };
 
   const handleInputOrTextareaChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -104,22 +89,6 @@ export const EmailForm: FunctionComponent = () => {
             required
             onChange={handleInputOrTextareaChange}
             className="mb-2"
-          />
-          <SelectDefault
-            name="Business Category"
-            values={selectedBusiness}
-            onChange={handleSelectedBusiness}
-            options={optionsBusiness}
-            placeholder="Business category"
-            required
-          />
-          <SelectDefault
-            name="Region of Operations"
-            values={selectedRegion}
-            onChange={handleSelectedRegion}
-            options={optionsRegion}
-            placeholder="Region of operations"
-            required
           />
           <TextareaDefault name="Message" placeholder="Message" required onChange={handleInputOrTextareaChange} />
           <div className="my-6">

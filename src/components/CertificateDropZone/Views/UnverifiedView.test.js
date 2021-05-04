@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { UnverifiedView } from "./UnverifiedView";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
@@ -11,7 +11,7 @@ import {
 
 describe("unverifiedView", () => {
   it("displays hash error if the hash is invalid", () => {
-    const wrapper = mount(
+    render(
       <MemoryRouter>
         <UnverifiedView
           handleRenderOverwrite={() => {}}
@@ -20,13 +20,13 @@ describe("unverifiedView", () => {
         />
       </MemoryRouter>
     );
-    const errorContainerElm = wrapper.find("#error-tab");
-    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.HASH].failureTitle);
-    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.HASH].failureMessage);
+    const errorContainerElm = screen.getByTestId("error-tab");
+    expect(errorContainerElm.textContent).toContain(MESSAGES[TYPES.HASH].failureTitle);
+    expect(errorContainerElm.textContent).toContain(MESSAGES[TYPES.HASH].failureMessage);
   });
 
   it("displays issuing error if the document is not issued", () => {
-    const wrapper = mount(
+    render(
       <MemoryRouter>
         <UnverifiedView
           handleRenderOverwrite={() => {}}
@@ -35,13 +35,13 @@ describe("unverifiedView", () => {
         />
       </MemoryRouter>
     );
-    const errorContainerElm = wrapper.find("#error-tab");
-    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.ISSUED].failureTitle);
-    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.ISSUED].failureMessage);
+    const errorContainerElm = screen.getByTestId("error-tab");
+    expect(errorContainerElm.textContent).toContain(MESSAGES[TYPES.ISSUED].failureTitle);
+    expect(errorContainerElm.textContent).toContain(MESSAGES[TYPES.ISSUED].failureMessage);
   });
 
   it("displays identity error if the identity is not verified", () => {
-    const wrapper = mount(
+    render(
       <MemoryRouter>
         <UnverifiedView
           handleRenderOverwrite={() => {}}
@@ -50,8 +50,8 @@ describe("unverifiedView", () => {
         />
       </MemoryRouter>
     );
-    const errorContainerElm = wrapper.find("#error-tab");
-    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.IDENTITY].failureTitle);
-    expect(errorContainerElm.text()).toContain(MESSAGES[TYPES.IDENTITY].failureMessage);
+    const errorContainerElm = screen.getByTestId("error-tab");
+    expect(errorContainerElm.textContent).toContain(MESSAGES[TYPES.IDENTITY].failureTitle);
+    expect(errorContainerElm.textContent).toContain(MESSAGES[TYPES.IDENTITY].failureMessage);
   });
 });

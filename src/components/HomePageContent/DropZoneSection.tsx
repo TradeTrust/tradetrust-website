@@ -1,11 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { NETWORK_NAME } from "../../config";
 import { updateCertificate } from "../../reducers/certificate";
-import { trace } from "../../utils/logger";
 import CertificateDropzoneContainer from "../CertificateDropZone";
 
+type LoadCertificate = (certificate: any) => void;
+
 const DEMO_CERT = `/static/demo/${NETWORK_NAME}.tt`;
+
+const loadDemoCertificate = (loadCertificate: LoadCertificate) => {
+  window
+    .fetch(DEMO_CERT)
+    .then((res) => res.json())
+    .then((res) => {
+      loadCertificate(res);
+    });
+};
 
 const DraggableDemoCertificate = () => (
   <div className="hidden lg:block">
@@ -23,53 +33,11 @@ const DraggableDemoCertificate = () => (
     </div>
   </div>
 );
-
-const MobileDemoCertificate = () => (
-  <div className="block lg:hidden">
-    <button className="btn bg-green hover:bg-green-600" draggable={false} id="demoClick">
-      Click me for a demo document!
-    </button>
-  </div>
-);
-
 interface DropZoneSectionProps {
-  loadCertificate: (certificate: any) => void;
+  loadCertificate: LoadCertificate;
 }
 
 const DropZoneSection = ({ loadCertificate }: DropZoneSectionProps) => {
-  const removeListener = () => trace("drop listener removed");
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById("demoDrop")!.addEventListener("drop", (event) => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      if (event.dataTransfer && event.dataTransfer.getData(DEMO_CERT)) {
-        window
-          .fetch(DEMO_CERT)
-          .then((res) => res.json())
-          .then((res) => {
-            loadCertificate(res);
-          });
-      }
-    });
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById("demoClick")!.addEventListener("click", () => {
-      window
-        .fetch(DEMO_CERT)
-        .then((res) => res.json())
-        .then((res) => {
-          loadCertificate(res);
-        });
-    });
-
-    return () => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      document.getElementById("demoDrop")!.removeEventListener("drop", () => removeListener());
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      document.getElementById("demoClick")!.removeEventListener("click", () => removeListener());
-    };
-  }, [loadCertificate]);
-
   return (
     <section id="verify-documents" className="bg-navy text-white pt-8 pb-12 lg:pt-12 lg:pb-16">
       <div className="container">
@@ -81,11 +49,31 @@ const DropZoneSection = ({ loadCertificate }: DropZoneSectionProps) => {
                 TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place.
               </p>
               <DraggableDemoCertificate />
-              <MobileDemoCertificate />
+              <div className="block lg:hidden">
+                <button
+                  className="btn bg-green hover:bg-green-600"
+                  draggable={false}
+                  id="demoClick"
+                  onClick={() => {
+                    loadDemoCertificate(loadCertificate);
+                  }}
+                >
+                  Click me for a demo document!
+                </button>
+              </div>
             </div>
           </div>
-          <div className="w-full lg:w-7/12" id="demoDrop">
-            <CertificateDropzoneContainer />
+          <div className="w-full lg:w-7/12">
+            <div
+              id="demoDrop"
+              onDrop={(event) => {
+                if (event.dataTransfer && event.dataTransfer.getData(DEMO_CERT)) {
+                  loadDemoCertificate(loadCertificate);
+                }
+              }}
+            >
+              <CertificateDropzoneContainer />
+            </div>
           </div>
         </div>
       </div>
