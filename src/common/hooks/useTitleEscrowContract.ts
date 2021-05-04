@@ -5,8 +5,8 @@ import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
 
 interface useTitleEscrowContractProps {
-  titleEscrow: TitleEscrow | undefined;
-  documentOwner: string | undefined;
+  titleEscrow?: TitleEscrow;
+  documentOwner?: string;
   updateTitleEscrow: () => Promise<void>;
 }
 

@@ -7,7 +7,7 @@ export const useTokenRegistryContract = (
   address?: string,
   provider?: providers.Provider | Signer
 ): {
-  tokenRegistry: TradeTrustErc721 | undefined;
+  tokenRegistry?: TradeTrustErc721;
 } => {
   const [tokenRegistry, setTokenRegistry] = useState<TradeTrustErc721>();
 

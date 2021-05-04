@@ -11,6 +11,7 @@ const customVerify = verificationBuilder([...openAttestationVerifiers, openAttes
 
 export const verifyDocument = async (
   document: WrappedDocument<v3.OpenAttestationDocument> | WrappedDocument<v2.OpenAttestationDocument>
+  // TODO: fix types when upgrading oa-verify
 ): Promise<VerificationFragment<any>[]> => {
   return customVerify(document, {
     network: NETWORK_NAME,
