@@ -9,6 +9,10 @@ import { getLogger } from "../utils/logger";
 import { connect } from "react-redux";
 import { NestedDocumentState } from "./../constants/NestedDocumentState";
 
+import { WelcomeSection } from "./HomePageContent/WelcomeSection";
+import { MainBenefitsSection2 } from "./HomePageContent/MainBenefitsSection2";
+import { HowItWorksSection } from "./HomePageContent/HowItWorksSection";
+
 const { error } = getLogger("component:mainpage");
 
 const MainPage = ({ loadCertificate }: { loadCertificate: (certificate: any) => void }) => {
@@ -26,11 +30,14 @@ const MainPage = ({ loadCertificate }: { loadCertificate: (certificate: any) => 
 
   return (
     <div className="text-lg">
-      <DropZoneSectionContainer />
-      <LandingSection />
-      <MainBenefitsSection />
-      <EmailSection />
-      <DocumentationSection />
+      <WelcomeSection />
+      <MainBenefitsSection2 />
+      <HowItWorksSection />
+      {/* <DropZoneSectionContainer /> */}
+      {/* <LandingSection /> */}
+      {/* <MainBenefitsSection /> */}
+      {/* <EmailSection /> */}
+      {/* <DocumentationSection /> */}
     </div>
   );
 };
