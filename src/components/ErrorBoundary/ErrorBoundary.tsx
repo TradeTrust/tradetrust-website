@@ -6,18 +6,20 @@ interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
-  constructor(props: {}) {
+export class ErrorBoundary extends Component<Record<string, unknown>, ErrorBoundaryState> {
+  constructor(props: Record<string, unknown>) {
     super(props);
     this.state = { hasError: false };
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   componentDidCatch() {
     this.setState({
       hasError: true,
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   render() {
     if (this.state.hasError) {
       return (

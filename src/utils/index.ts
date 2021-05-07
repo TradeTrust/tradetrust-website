@@ -1,11 +1,11 @@
 import { utils } from "ethers";
 import { ETHERSCAN_BASE_URL } from "../config";
 
-export const makeEtherscanAddressURL = (address: string) => {
+export const makeEtherscanAddressURL = (address: string): string => {
   return `${ETHERSCAN_BASE_URL}address/${address}`;
 };
 
-export const isEthereumAddress = (address: string) => {
+export const isEthereumAddress = (address: string): boolean | undefined => {
   try {
     if (utils.getAddress(address)) {
       return true;

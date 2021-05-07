@@ -1,5 +1,5 @@
 import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
-import React, { useContext } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -25,7 +25,7 @@ interface ActionSelectionFormProps {
   isTitleEscrow: boolean;
 }
 
-export const ActionSelectionForm = ({
+export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = ({
   onSetFormAction,
   tokenRegistryAddress,
   beneficiary,
@@ -42,7 +42,7 @@ export const ActionSelectionForm = ({
   canEndorseTransfer,
   setShowEndorsementChain,
   isTitleEscrow,
-}: ActionSelectionFormProps) => {
+}) => {
   const canManage =
     canHandleSurrender ||
     canSurrender ||

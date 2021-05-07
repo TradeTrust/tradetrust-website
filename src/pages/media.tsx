@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { compareDesc } from "date-fns";
 import { Helmet } from "react-helmet";
 import { ResourceEvent, EventProps } from "../components/UI/ResourceEvent";
@@ -18,7 +18,7 @@ const getSortedByDateDesc = (items: any[]) => {
 medias = getSortedByDateDesc(medias);
 events = getSortedByDateDesc(events);
 
-export const MediaPage = () => (
+export const MediaPage: FunctionComponent = () => (
   <>
     <Helmet>
       <meta property="description" content="These are media events which TradeTrust has been involved in." />

@@ -16,7 +16,7 @@ interface AddressCell {
 }
 
 export const AddressCell: FunctionComponent<AddressCell> = styled(
-  ({ address, className, titleEscrowAddress, isNewAddress, displayDashHead, displayDashTail }) => {
+  ({ address, className, titleEscrowAddress, isNewAddress, displayDashHead, displayDashTail }: AddressCell) => {
     const { identityName } = useIdentifierResolver(address);
 
     const tooltipContent = (
@@ -29,9 +29,9 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
     return (
       <div className={className}>
         <EndorsementJourney
-          displayDashHead={displayDashHead}
+          displayDashHead={!!displayDashHead}
           displayDot={isNewAddress}
-          displayDashTail={displayDashTail}
+          displayDashTail={!!displayDashTail}
         />
         <div className="flex">
           {identityName && <div className="name">{identityName}</div>}

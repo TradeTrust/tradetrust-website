@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Check } from "react-feather";
 import { Link } from "react-router-dom";
 import tw from "twin.macro";
@@ -9,7 +9,7 @@ export const SectionEmailSuccess = styled(Section)`
   ${tw`text-grey-700 py-16`}
 `;
 
-export const EmailSuccessPageContainer = () => {
+export const EmailSuccessPageContainer: FunctionComponent = () => {
   return (
     <SectionEmailSuccess>
       <div className="max-w-md bg-white mx-auto rounded-lg shadow text-center overflow-hidden">

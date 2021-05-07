@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { ResourceWebinar } from "../components/UI/ResourceWebinar";
 import { ResourceLink } from "../components/UI/ResourceLink";
@@ -278,7 +278,7 @@ const webinars = [
   },
 ];
 
-export const ResourcesPage = () => (
+export const ResourcesPage: FunctionComponent = () => (
   <>
     <Helmet>
       <meta

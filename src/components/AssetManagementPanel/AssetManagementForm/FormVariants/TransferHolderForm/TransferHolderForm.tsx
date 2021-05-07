@@ -5,7 +5,7 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
-import React, { useContext, useEffect, useState } from "react";
+import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { isEthereumAddress } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -24,7 +24,7 @@ interface TransferHolderProps {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const TransferHolderForm = ({
+export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
   formAction,
   tokenRegistryAddress,
   beneficiary,
@@ -33,7 +33,7 @@ export const TransferHolderForm = ({
   holderTransferringState,
   setFormActionNone,
   setShowEndorsementChain,
-}: TransferHolderProps) => {
+}) => {
   const [newHolder, setNewHolder] = useState("");
   const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = holderTransferringState === FormState.CONFIRMED;
@@ -73,7 +73,7 @@ export const TransferHolderForm = ({
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
+          <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle

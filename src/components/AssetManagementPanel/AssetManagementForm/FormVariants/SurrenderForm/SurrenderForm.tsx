@@ -5,7 +5,7 @@ import {
   OverlayContext,
   showDocumentTransferMessage,
 } from "@govtechsg/tradetrust-ui-components";
-import React, { useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -23,7 +23,7 @@ interface SurrenderFormProps {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const SurrenderForm = ({
+export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
   formAction,
   tokenRegistryAddress,
   beneficiary,
@@ -32,7 +32,7 @@ export const SurrenderForm = ({
   surrenderingState,
   setFormActionNone,
   setShowEndorsementChain,
-}: SurrenderFormProps) => {
+}) => {
   const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = surrenderingState === FormState.CONFIRMED;
 
@@ -60,10 +60,10 @@ export const SurrenderForm = ({
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} onSetNewValue={() => {}} />
+          <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Holder" value={holder} isEditable={false} onSetNewValue={() => {}} />
+          <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
         </div>
       </div>
       <div className="flex flex-wrap pb-4">

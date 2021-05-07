@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 interface SectionProps {
   children?: React.ReactNode;
@@ -6,7 +6,7 @@ interface SectionProps {
   className?: string;
 }
 
-export const Section = ({ children, ...props }: SectionProps) => {
+export const Section: FunctionComponent<SectionProps> = ({ children, ...props }) => {
   return (
     <section {...props}>
       <div className="container">

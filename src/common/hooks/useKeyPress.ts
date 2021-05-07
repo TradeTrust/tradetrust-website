@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-
-export const useKeyPress = (targetKey: any) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const useKeyPress = (targetKey: any): boolean => {
   const [keyPressed, setKeyPressed] = useState(false);
 
   useEffect(() => {

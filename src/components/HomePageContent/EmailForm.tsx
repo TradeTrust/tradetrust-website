@@ -1,5 +1,5 @@
 import { Button, Input } from "@govtechsg/tradetrust-ui-components";
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { CheckboxDefault } from "./../UI/Checkbox";
 import { SelectDefault } from "./../UI/Select";
@@ -26,13 +26,13 @@ export const optionsRegion = [
   { value: "Africa", label: "Africa" },
 ];
 
-export const encode = (data: { [x: string]: string | number | boolean }) => {
+export const encode = (data: { [x: string]: string | number | boolean }): string => {
   return Object.keys(data)
     .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
     .join("&");
 };
 
-export const EmailForm = () => {
+export const EmailForm: FunctionComponent = () => {
   const [selectedBusiness, setSelectedBusiness] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState([]);
   const [form, setForm] = useState({

@@ -86,7 +86,7 @@ const isOpenAttestationFile = (decodedData: string) => {
   }
 };
 
-export const AttachmentLink = ({ filename, data, type, path }: AttachmentLinkProps) => {
+export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filename, data, type, path }) => {
   let filesize = "0";
   let canOpenFile = false;
   const hasBase64 = !!(data && type);

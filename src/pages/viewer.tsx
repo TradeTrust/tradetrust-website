@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import ViewerPageContainer from "../components/ViewerPageContainer";
 import { PrintWatermark } from "../components/PrintWatermark";
 import { FeatureFlag } from "../components/FeatureFlag";
 
-export const ViewerPage = () => (
+export const ViewerPage: FunctionComponent = () => (
   <>
     <Helmet>
       <meta

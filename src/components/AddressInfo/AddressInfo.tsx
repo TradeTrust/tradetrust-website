@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ResolutionResult } from "@govtechsg/address-identity-resolver";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import tw from "twin.macro";
 
 interface AddressInfoProps extends ResolutionResult {
@@ -9,7 +9,14 @@ interface AddressInfoProps extends ResolutionResult {
   children: React.ReactNode;
 }
 
-export const AddressInfoUnStyled = ({ className, title, name, resolvedBy, source, children }: AddressInfoProps) => {
+export const AddressInfoUnStyled: FunctionComponent<AddressInfoProps> = ({
+  className,
+  title,
+  name,
+  resolvedBy,
+  source,
+  children,
+}) => {
   return (
     <div className={`${className}`}>
       <h6>{title}:</h6>

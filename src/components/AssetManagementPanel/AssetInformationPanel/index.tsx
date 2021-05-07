@@ -4,12 +4,13 @@ import tw from "twin.macro";
 import { AddressInfo } from "../../AddressInfo";
 import { ExternalLinkEtherscanAddress } from "../../UI/ExternalLink";
 
-interface AssetInformationPanel {
+interface AssetInformationPanelProps {
   tokenRegistryAddress: string;
   setShowEndorsementChain: (payload: boolean) => void;
+  className?: string;
 }
 
-export const AssetInformationPanel: FunctionComponent<AssetInformationPanel> = styled(
+export const AssetInformationPanel: FunctionComponent<AssetInformationPanelProps> = styled(
   ({ tokenRegistryAddress, setShowEndorsementChain, className }) => {
     return (
       <div className={`py-4 ${className}`}>

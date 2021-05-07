@@ -1,9 +1,9 @@
 import { AddressBook, BackArrow } from "@govtechsg/tradetrust-ui-components";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-export const SettingsAddressBookPage = () => (
+export const SettingsAddressBookPage: FunctionComponent = () => (
   <>
     <Helmet>
       <meta property="description" content="Add a local address book to resolve addresses." />

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { FaqContent } from "../components/FAQ/FaqContent";
 
-export const FaqPage = () => (
+export const FaqPage: FunctionComponent = () => (
   <>
     <Helmet>
       <meta

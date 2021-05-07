@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import Select from "react-dropdown-select";
 import tw from "twin.macro";
 import { StyledInput } from "../../../common/styles/Input";
@@ -18,7 +18,7 @@ interface SelectDropdownProps {
   required: boolean;
 }
 
-export const SelectDropdown = ({ values, onChange, options, ...props }: SelectDropdownProps) => {
+export const SelectDropdown: FunctionComponent<SelectDropdownProps> = ({ values, onChange, options, ...props }) => {
   return <Select values={values} onChange={onChange} options={options} {...props} />;
 };
 

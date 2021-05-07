@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import tw from "twin.macro";
 import { Section } from "../Layout/Section";
 
@@ -47,7 +47,7 @@ export const SectionDocumentation = styled(Section)`
   }
 `;
 
-export const DocumentationSection = () => {
+export const DocumentationSection: FunctionComponent = () => {
   return (
     <SectionDocumentation id="integrate" className="bg-grey-100">
       <div className="mb-12">

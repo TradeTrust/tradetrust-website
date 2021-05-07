@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { CheckCircle, XCircle } from "react-feather";
 
 interface StatusProps {
@@ -26,7 +26,7 @@ interface StatusCheck {
   };
 }
 
-export const StatusCheck = ({ valid, messageSet }: StatusCheck) => {
+export const StatusCheck: FunctionComponent<StatusCheck> = ({ valid, messageSet }) => {
   const message = valid ? messageSet.successTitle : messageSet.failureTitle;
   const icon = valid ? <CheckCircle className="text-teal" /> : <XCircle className="text-red" />;
 

@@ -8,6 +8,7 @@ const main = async () => {
     headless: false, // https://github.com/puppeteer/puppeteer#default-runtime-settings
     defaultViewport: null,
     args: ["--no-sandbox", "--disable-setuid-sandbox"], // https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#setting-up-chrome-linux-sandbox
+    slowMo: 20, // to see what's gg on
   });
   const metamask = await dappeteer.getMetamask(browser, {
     seed: "indicate swing place chair flight used hammer soon photo region volume shuffle",

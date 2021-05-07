@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import tw from "twin.macro";
 import { NETWORK_NAME } from "../../config";
 import { StatusChecks } from "./StatusChecks";
@@ -15,7 +15,7 @@ interface VerificationFragmentData {
   status: string;
 }
 
-export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
+export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationStatus }) => {
   const joinIssuers = (issuers: string[] | undefined): string => {
     if (!issuers) return "Unknown";
     const issuerNames = issuers.join(", ");
@@ -50,7 +50,7 @@ export const IssuedBy = ({ verificationStatus }: DocumentStatusProps) => {
   );
 };
 
-export const DocumentStatus = ({ verificationStatus }: DocumentStatusProps) => {
+export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ verificationStatus }) => {
   return (
     <DocumentStatusStyles>
       <div className="container">

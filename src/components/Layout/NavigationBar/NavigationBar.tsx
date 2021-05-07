@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Settings } from "react-feather";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
@@ -134,7 +134,7 @@ export const NavBar = styled.nav`
   }
 `;
 
-export const NavigationBar = () => {
+export const NavigationBar: FunctionComponent = () => {
   const [isOn, setIsOn] = useState(false);
   return (
     <NavBar className="bg-navy">

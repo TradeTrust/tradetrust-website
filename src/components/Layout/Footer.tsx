@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
-export const Footer = () => {
+export const Footer: FunctionComponent = () => {
   return (
     <footer className="bg-white py-6 no-print">
       <div className="container">
