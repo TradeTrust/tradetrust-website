@@ -12,6 +12,7 @@ export const surrender = async (metamask, browser) => {
     await page.waitForSelector("[data-testid='connectToWallet']", { visible: true });
     await page.click("[data-testid='connectToWallet']");
 
+    await page.waitFor(1000);
     await page.waitForSelector("[data-testid='manageAssetDropdown']", { visible: true });
     await page.click("[data-testid='manageAssetDropdown']");
 
@@ -22,7 +23,6 @@ export const surrender = async (metamask, browser) => {
     await page.click("[data-testid='surrenderBtn']");
 
     await metamask.confirmTransaction();
-
     await page.bringToFront();
     await page.waitFor(1000);
 
@@ -30,6 +30,12 @@ export const surrender = async (metamask, browser) => {
       text: "Surrendered To Issuer",
       visible: true,
     });
+
+    await expect(page).toMatchElement(".overlay .overlay-title", {
+      text: "Surrender Document Success",
+      visible: true,
+    });
+
     await page.close();
   } catch (e) {
     console.log(e);
