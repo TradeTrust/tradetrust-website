@@ -17,7 +17,7 @@ export const transferHolder = async (metamask, browser) => {
     await page.bringToFront();
     // END - approve application once, subsequent tests no longer need
 
-    await page.waitFor(1000);
+    await page.waitFor(1500); // after connect, need to wait awhile
     await page.waitForSelector("[data-testid='manageAssetDropdown']", { visible: true });
     await page.click("[data-testid='manageAssetDropdown']");
 
@@ -31,9 +31,10 @@ export const transferHolder = async (metamask, browser) => {
     await page.waitForSelector("[data-testid='transferBtn']", { visible: true });
     await page.click("[data-testid='transferBtn']");
 
+    await page.waitFor(1500); // switch between metamask / page tab, need to wait awhile
     await metamask.confirmTransaction();
     await page.bringToFront();
-    await page.waitFor(1000);
+    await page.waitFor(1500); // switch between metamask / page tab, need to wait awhile
 
     await expect(page).toMatchElement("[data-testid='non-editable-input-holder']", {
       text: "0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60",

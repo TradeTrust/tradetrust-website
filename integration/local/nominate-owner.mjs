@@ -12,7 +12,7 @@ export const nominateOwner = async (metamask, browser) => {
     await page.waitForSelector("[data-testid='connectToWallet']", { visible: true });
     await page.click("[data-testid='connectToWallet']");
 
-    await page.waitFor(1000);
+    await page.waitFor(1500);
     await page.waitForSelector("[data-testid='manageAssetDropdown']", { visible: true });
     await page.click("[data-testid='manageAssetDropdown']");
 
@@ -26,9 +26,10 @@ export const nominateOwner = async (metamask, browser) => {
     await page.waitForSelector("[data-testid='nominationBtn']", { visible: true });
     await page.click("[data-testid='nominationBtn']");
 
+    await page.waitFor(1500);
     await metamask.confirmTransaction();
     await page.bringToFront();
-    await page.waitFor(1000);
+    await page.waitFor(1500);
 
     await expect(page).toMatchElement("[data-testid='non-editable-input-owner']", {
       text: "0xe0A71284EF59483795053266CB796B65E48B5124",
