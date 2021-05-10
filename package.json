@@ -22,7 +22,7 @@
     "integration:contracts": "./scripts/integration-contracts.sh",
     "integration:metamask": "run-s integration:wait integration:contracts integration:transfers",
     "integration:dappeteer": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:local\" \"npm:integration:metamask\"",
-    "prep": "npm run lint:fix && npm run test && ./scripts/integration-headless.sh",
+    "prep": "npm run lint:fix && npm run test && ./scripts/integration-headless.sh && npm run integration:dappeteer",
     "serve-static": "http-server dist -s -p 3000",
     "storybook": "npm run build:css && sleep 2 && start-storybook -p 6006 -s public",
     "storybook:build": "npm run build:css && sleep 2 && build-storybook -o docs -s public",
