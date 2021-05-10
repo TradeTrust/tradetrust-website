@@ -56,6 +56,3 @@ ADDRESS_EXAMPLE_2=0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60
 ./node_modules/@govtechsg/open-attestation-cli/dist/cjs/index.js token-registry issue -a $TOKEN_REGISTRY_ADDRESS --tokenId 0x877a638bdd8d09f415efc2ce1fc1adc41e979e50739145939f0be2a478a340b9 --to 0x82524C1C34F52a2c42eA41daF08B27cB7711c9EE -n local -k $ACCOUNT_KEY
 
 # -------------------
-
-# For accept surrender case
-# TODO
