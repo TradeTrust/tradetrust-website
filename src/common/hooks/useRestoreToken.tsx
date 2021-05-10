@@ -87,8 +87,9 @@ const deployAndSendToTitleEscrow = async (
   );
 
   const escrowDeploymentTx = await escrowDeploymentReceipt.wait();
-  const deployedTitleEscrowArgs = escrowDeploymentTx.events?.find((event) => event.event === "TitleEscrowDeployed")
-    ?.args;
+  const deployedTitleEscrowArgs = escrowDeploymentTx.events?.find(
+    (event) => event.event === "TitleEscrowDeployed"
+  )?.args;
   if (!deployedTitleEscrowArgs || !deployedTitleEscrowArgs[0])
     throw new Error(`Address for deployed title escrow cannot be found. Tx: ${JSON.stringify(escrowDeploymentTx)}`);
   const deployedTitleEscrowAddress = deployedTitleEscrowArgs[0];

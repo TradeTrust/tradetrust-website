@@ -1,4 +1,4 @@
-import css, { SerializedStyles } from "@emotion/css";
+import { css, SerializedStyles } from "@emotion/react";
 import tw from "twin.macro";
 
 export const StyledInput = (): SerializedStyles => {

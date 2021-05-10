@@ -31,7 +31,7 @@ export const surrenderReject = async (metamask, browser) => {
     await page.bringToFront();
     await page.waitFor(1500);
 
-    await expect(page).toMatchElement(".overlay .overlay-title", {
+    await expect(page).toMatchElement(".overlay h3", {
       text: "Surrender Rejected",
       visible: true,
     });

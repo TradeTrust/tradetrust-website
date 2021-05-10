@@ -1,10 +1,10 @@
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { VerifyingView } from "./VerifyingView";
 
 describe("defaultView", () => {
   it("should display correct text while verifying document", () => {
-    const wrapper = mount(<VerifyingView />);
-    expect(wrapper.find("[data-testid='verifying-document']").text()).toStrictEqual("Verifying Document...");
+    render(<VerifyingView />);
+    expect(screen.getByTestId("verifying-document").textContent).toStrictEqual("Verifying Document...");
   });
 });

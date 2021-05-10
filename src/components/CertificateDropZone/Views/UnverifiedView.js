@@ -15,7 +15,7 @@ const DetailedErrors = ({ verificationStatus }) => {
   if (!identityValid) errors.push(TYPES.IDENTITY);
 
   return (
-    <div id="error-tab" className="verifications">
+    <div data-testid="error-tab" className="verifications">
       {errors.map((errorType, index) => (
         <div key={index}>
           <p className="messages">{MESSAGES[errorType].failureTitle}</p>

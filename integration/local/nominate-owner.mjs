@@ -36,7 +36,7 @@ export const nominateOwner = async (metamask, browser) => {
       visible: true,
     }); // not changed yet, so should be still previous address
 
-    await expect(page).toMatchElement(".overlay .overlay-title", {
+    await expect(page).toMatchElement(".overlay h3", {
       text: "Nomination Success",
       visible: true,
     });

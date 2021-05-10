@@ -92,22 +92,25 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   );
   const { call: getApprovedHolder, value: approvedHolder } = useContractFunctionHook(titleEscrow, "approvedHolder");
 
-  const { send: destroyToken, state: destroyTokenState, reset: resetDestroyingTokenState } = useContractFunctionHook(
-    tokenRegistry,
-    "destroyToken"
-  );
+  const {
+    send: destroyToken,
+    state: destroyTokenState,
+    reset: resetDestroyingTokenState,
+  } = useContractFunctionHook(tokenRegistry, "destroyToken");
 
   const { restoreToken, state: restoreTokenState } = useRestoreToken(provider, tokenRegistry, tokenId);
 
   // Contract Write Functions (available only after provider has been upgraded)
-  const { send: transferTo, state: transferToState, reset: resetTransferTo } = useContractFunctionHook(
-    titleEscrow,
-    "transferTo"
-  );
-  const { send: changeHolder, state: changeHolderState, reset: resetChangeHolder } = useContractFunctionHook(
-    titleEscrow,
-    "changeHolder"
-  );
+  const {
+    send: transferTo,
+    state: transferToState,
+    reset: resetTransferTo,
+  } = useContractFunctionHook(titleEscrow, "transferTo");
+  const {
+    send: changeHolder,
+    state: changeHolderState,
+    reset: resetChangeHolder,
+  } = useContractFunctionHook(titleEscrow, "changeHolder");
   const {
     send: endorseBeneficiary,
     state: endorseBeneficiaryState,

@@ -40,7 +40,7 @@ export const endorseOwner = async (metamask, browser) => {
       visible: true,
     });
 
-    await expect(page).toMatchElement(".overlay .overlay-title", {
+    await expect(page).toMatchElement(".overlay h3", {
       text: "Change Owner Success",
       visible: true,
     });

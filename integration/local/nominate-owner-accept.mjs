@@ -39,7 +39,7 @@ export const nominateOwnerAccept = async (metamask, browser) => {
       visible: true,
     });
 
-    await expect(page).toMatchElement(".overlay .overlay-title", {
+    await expect(page).toMatchElement(".overlay h3", {
       text: "Endorse Ownership/Holdership Success",
       visible: true,
     });

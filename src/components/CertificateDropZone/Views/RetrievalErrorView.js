@@ -13,7 +13,7 @@ export const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError
         <p className="invalid text-black text-2xl">This document is not valid</p>
       </div>
     </div>
-    <div id="error-tab" className="verifications">
+    <div data-testid="error-tab" className="verifications">
       <div>
         <p className="messages">Unable to load certificate with the provided parameters</p>
         <p className="break-words">{retrieveCertificateByActionError}</p>
