@@ -1,6 +1,6 @@
 import { Selector } from "testcafe";
 
-fixture("Render red surrender sign if ebl is surrendered").page`http://localhost:3000`;
+fixture("Render red surrender sign if ebl is accepted surrendered").page`http://localhost:3000`;
 
 const Document = "./fixture/ebl-accepted-surrender.json";
 const DocumentStatus = Selector("#document-status");
@@ -15,6 +15,7 @@ test("should displays surrendered sign when document is owned by 0xdead address"
 
   await DocumentStatus.with({ visibilityCheck: true })();
 
+  await SurrenderedSign.with({ visibilityCheck: true })();
   await t.expect(SurrenderedSign.count).eql(1);
   await t.expect(InteractionAvaliable.count).eql(0);
 });

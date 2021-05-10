@@ -16,6 +16,7 @@ test("should displays surrender sign when document is owned by token registry", 
 
   await DocumentStatus.with({ visibilityCheck: true })();
 
+  await SurrenderedSign.with({ visibilityCheck: true })();
   await t.expect(SurrenderedSign.count).eql(1);
   await t.expect(InteractionAvaliable.count).eql(1);
 });
@@ -27,6 +28,7 @@ test("should not displays surrender sign when document is not owned by token reg
 
   await DocumentStatus.with({ visibilityCheck: true })();
 
+  await SurrenderedSign.with({ visibilityCheck: true })();
   await t.expect(SurrenderedSign.count).eql(0);
   await t.expect(InteractionAvaliable.count).eql(1);
 });
