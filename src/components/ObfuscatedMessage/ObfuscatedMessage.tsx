@@ -1,8 +1,8 @@
-import { WrappedDocument } from "@govtechsg/open-attestation";
+import { WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import React, { FunctionComponent } from "react";
 
 interface ObfuscatedMessageProps {
-  document: WrappedDocument;
+  document: WrappedDocument<v2.OpenAttestationDocument>;
 }
 
 export const ObfuscatedMessage: FunctionComponent<ObfuscatedMessageProps> = ({ document }) => {
