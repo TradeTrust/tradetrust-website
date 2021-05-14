@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { VerificationFragment } from "@govtechsg/oa-verify";
+import { VerificationFragment, VerificationFragmentWithData } from "@govtechsg/oa-verify";
 import React, { FunctionComponent } from "react";
 import tw from "twin.macro";
 import { NETWORK_NAME } from "../../config";
@@ -21,7 +21,7 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
     const issuerNames = issuers.join(", ");
     return issuerNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
   };
-  const formatIdentifier = (fragment: VerificationFragment<VerificationFragmentData[]>): string | undefined => {
+  const formatIdentifier = (fragment: VerificationFragmentWithData<VerificationFragmentData[]>): string | undefined => {
     switch (fragment.name) {
       case "OpenAttestationDnsTxtIdentityProof":
       // using fall through to get both cases
@@ -36,10 +36,13 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
 
   const identityProofFragment = verificationStatus.find(
     (status) => status.type === "ISSUER_IDENTITY" && status.status === "VALID"
-  ) as VerificationFragment;
+  ) as VerificationFragmentWithData;
   const dataFragment = identityProofFragment?.data;
   const fragmentValidity =
-    dataFragment?.length > 0 && dataFragment?.every((issuer: { status: string }) => issuer.status === "VALID"); // every will return true even though dataFragment is empty, hence the additional check for length
+    dataFragment?.length > 0 &&
+    dataFragment?.every(
+      (issuer: { status: string; verified: boolean }) => issuer.status === "VALID" || issuer.verified === true
+    ); // every will return true even though dataFragment is empty, hence the additional check for length
   const formattedDomainNames = fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 
   return (

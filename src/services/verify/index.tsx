@@ -5,15 +5,19 @@ import {
   VerificationFragment,
   DocumentsToVerify,
 } from "@govtechsg/oa-verify";
+import { providers } from "ethers";
 import { NETWORK_NAME } from "../../config";
 
-const customVerify = verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof]);
+const verificationOption =
+  NETWORK_NAME === "local"
+    ? { provider: new providers.JsonRpcProvider(), network: NETWORK_NAME }
+    : { network: NETWORK_NAME };
 
-export const verifyDocument = async (
-  document: DocumentsToVerify
-  // TODO: fix types when upgrading oa-verify
-): Promise<VerificationFragment<any>[]> => {
-  return customVerify(document, {
-    network: NETWORK_NAME,
-  });
+const customVerify = verificationBuilder(
+  [...openAttestationVerifiers, openAttestationDidIdentityProof],
+  verificationOption
+);
+
+export const verifyDocument = async (document: DocumentsToVerify): Promise<VerificationFragment[]> => {
+  return customVerify(document);
 };

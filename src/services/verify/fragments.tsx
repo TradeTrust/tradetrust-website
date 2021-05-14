@@ -1,15 +1,16 @@
-import { isValid, VerificationFragment } from "@govtechsg/oa-verify";
-const getFirstFragmentFor = (fragments: VerificationFragment[], name: string) =>
+import { isValid, VerificationFragment, AllVerificationFragment } from "@govtechsg/oa-verify";
+
+const getFirstFragmentFor = (fragments: AllVerificationFragment[], name: string) =>
   fragments.filter((status) => status.name === name)[0];
 
 const revokeFragmentName = "OpenAttestationEthereumDocumentStoreRevoked";
-export const getNotRevokeFragment = (fragments: VerificationFragment[]): VerificationFragment<any>[] =>
+export const getNotRevokeFragment = (fragments: VerificationFragment[]): VerificationFragment[] =>
   fragments.filter((status) => status.name !== revokeFragmentName && status.status !== "SKIPPED");
-export const getRevokeFragment = (fragments: VerificationFragment[]): VerificationFragment<any>[] =>
+export const getRevokeFragment = (fragments: VerificationFragment[]): VerificationFragment[] =>
   fragments.filter((status) => status.name === revokeFragmentName && status.status !== "SKIPPED");
 
 // this function check if the reason of the error is that the document store or token registry is invalid
-export const addressInvalid = (fragments: VerificationFragment[]): boolean => {
+export const addressInvalid = (fragments: AllVerificationFragment[]): boolean => {
   const documentStoreIssuedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumDocumentStoreIssued");
   const tokenRegistryMintedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumTokenRegistryMinted");
   // 2 is the error code used by oa-verify in case of invalid address
@@ -17,7 +18,7 @@ export const addressInvalid = (fragments: VerificationFragment[]): boolean => {
 };
 
 // this function check if the reason of the error is that the document store or token has not been issued
-export const certificateNotIssued = (fragments: VerificationFragment[]): boolean => {
+export const certificateNotIssued = (fragments: AllVerificationFragment[]): boolean => {
   const documentStoreIssuedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumDocumentStoreIssued");
   const tokenRegistryMintedFragment = getFirstFragmentFor(fragments, "OpenAttestationEthereumTokenRegistryMinted");
   // 1 is the error code used by oa-verify in case of document / token not issued / minted
