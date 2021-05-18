@@ -1,15 +1,13 @@
-import styled from "@emotion/styled";
-import React, { useState } from "react";
-import tw from "twin.macro";
-import { Section } from "../Layout/Section";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
-export const HowItWorksStyle = styled.div`
-  .contact-us-background-image {
-    background-image: url("/static/images/common/wave-lines.png");
-  }
-`;
+interface HowItWorksProps {
+  details: HowItWorks;
+  index: number;
+  open: Number;
+  setOpen: Dispatch<SetStateAction<number>>;
+}
 
-export type HowItWorks = {
+type HowItWorks = {
   image: string;
   description: string;
   steps: {
@@ -28,7 +26,7 @@ export type HowItWorks = {
   };
 };
 
-export const howItWorksUsers: HowItWorks[] = [
+const howItWorksUsers: HowItWorks[] = [
   {
     image: "/static/images/home/kevin.png",
     description: "This is Kevin, he is an exporter with customers in many different countries",
@@ -104,69 +102,86 @@ export const howItWorksUsers: HowItWorks[] = [
   },
 ];
 
-export const HowItWorksElement: React.FunctionComponent<HowItWorks> = (howItWorksUser) => {
-  const [open, setOpen] = useState(false);
+const HowItWorksElement: React.FunctionComponent<HowItWorksProps> = ({ details, index, open, setOpen }) => {
+  // const [open, setOpen] = useState(false);
   return (
-    <div className="w-full">
-      <div>
-        <img className="mx-auto" src={howItWorksUser.image} />
-        <p>{howItWorksUser.description}</p>
-        <a className="font-bold" onClick={() => setOpen(!open)}>
-          Click to find out more
-        </a>
+    <div className="flex flex-col m-4 md:w-6/12 md:m-0">
+      <div className="min-h-220 md:flex md:items-center">
+        <img className="mx-auto min-w-220" src={details.image} />
+        <div className="flex flex-col items-center md:items-start md:justify-start">
+          <p className="text-xl text-center mx-5 md:mx-0 md:text-left md:min-h-90">{details.description}</p>
+          <a className="block pt-3 text-base font-bold" onClick={() => setOpen(open !== index ? index : -1)}>
+            Click to find out more
+          </a>
+        </div>
       </div>
-      <div className={`overflow-hidden mb-2 ${open ? "" : "h-0"}`}>
-        {/* <ReactMarkdown className="px-4 pb-4">{answer}</ReactMarkdown> */}
-        <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M10.768 0.999999C11.5378 -0.333335 13.4622 -0.333333 14.232 1L24.1913 18.25C24.9611 19.5833 23.9989 21.25 22.4593 21.25H2.54071C1.0011 21.25 0.0388563 19.5833 0.808657 18.25L10.768 0.999999Z"
-            fill="#3B8CC5"
-          />
-        </svg>
-        <p>HELLO WORLD!</p>
-      </div>
+      {open === index && (
+        // <div className="relative mb-2">
+        //   <div className="flex min-w-220 max-w-220 justify-center mx-auto md:mx-0">
+        //     <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        //       <path
+        //         d="M10.768 0.999999C11.5378 -0.333335 13.4622 -0.333333 14.232 1L24.1913 18.25C24.9611 19.5833 23.9989 21.25 22.4593 21.25H2.54071C1.0011 21.25 0.0388563 19.5833 0.808657 18.25L10.768 0.999999Z"
+        //         fill="#3B8CC5"
+        //       />
+        //     </svg>
+        //   </div>
+        //   <div
+        //     className={`relative w-auto -mx-8 -mt-1 h-12 md:w-screen md:mx-0 ${
+        //       index % 2 === 0 ? "md:-left-24" : "md:-left-100"
+        //     }`}
+        //     style={{ backgroundColor: "#3B8CC5" }}
+        //   />
+        // </div>
+        <div className="relative mb-2">
+          <div className="flex min-w-220 max-w-220 justify-center mx-auto">
+            <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10.768 0.999999C11.5378 -0.333335 13.4622 -0.333333 14.232 1L24.1913 18.25C24.9611 19.5833 23.9989 21.25 22.4593 21.25H2.54071C1.0011 21.25 0.0388563 19.5833 0.808657 18.25L10.768 0.999999Z"
+                fill="#3B8CC5"
+              />
+            </svg>
+          </div>
+          <div className={`relative w-auto -mx-8 -mt-1 h-12`} style={{ backgroundColor: "#3B8CC5" }} />
+        </div>
+      )}
     </div>
   );
 };
 
 export const HowItWorksSection = () => {
+  const [open, setOpen] = useState(-1);
+
   return (
     <section id="how-it-works" className="text-gray-700 py-16">
-      {/* <HowItWorksStyle> */}
       <div className="container">
         <div className="w-5/5 text-center">
-          <h3 className="font-ubuntu text-4xl leading-none lg:text-6xl">How It Works</h3>
-          <h6 className="font-ubuntu text-base leading-none lg:text-6xl">
+          <h3 className="font-ubuntu text-4xl leading-none lg:text-5xl">How It Works</h3>
+          <h6 className="font-ubuntu mt-10 text-base leading-none md:text-xl md:mt-3">
             See how each persona benefit from the use of TradeTrust
           </h6>
-          <h5 className="font-roboto text-xl leading-6">Choose a persona</h5>
+          <h5 className="font-roboto mt-4 text-xl leading-6 md:mt-8 md:text-3xl">Choose a persona</h5>
         </div>
-        <div className="flex flex-wrap text-base text-center justify-center">
+        <div className="flex flex-wrap my-8 text-base md:items-start md:justify-start">
           {howItWorksUsers.map((details, index) => (
-            <HowItWorksElement {...details} />
+            <HowItWorksElement details={details} index={index} open={open} setOpen={setOpen} />
           ))}
-          {/* <div
-            className="absolute h-12 w-56 left-20 rounded-xl text-white text-center justify-center items-center"
-            style={{ backgroundColor: "#F57A29" }}
-          ></div> */}
         </div>
-        <div className="relative h-96">
+
+        <div className="flex-col h-96 justify-center">
           <div
-            // className="flex w-full h-64 m-auto rounded-xl text-white text-center justify-center items-center"
-            className="absolute w-full inset-0 m-auto h-64 rounded-xl text-white text-center"
+            className="flex w-full h-64 m-auto rounded-xl text-white text-center justify-center items-center"
             style={{ backgroundColor: "#3B8CC5" }}
           >
-            <h3 className="inset-0 m-auto">Ready to learn how TradeTrust can benefit your business?</h3>
+            <h3 className="text-4xl">Ready to learn how TradeTrust can benefit your business?</h3>
           </div>
           <div
-            className="absolute h-12 w-56 inset-0 m-auto rounded-xl text-white text-center"
+            className="flex h-12 w-56 m-auto -mt-5 justify-center items-center rounded-xl text-white"
             style={{ backgroundColor: "#F57A29", top: "70%" }}
           >
             <h4>Get in Touch Now</h4>
           </div>
         </div>
       </div>
-      {/* </HowItWorksStyle> */}
     </section>
   );
 };
