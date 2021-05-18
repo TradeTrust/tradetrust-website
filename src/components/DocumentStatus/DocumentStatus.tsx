@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { VerificationFragment, VerificationFragmentWithData } from "@govtechsg/oa-verify";
+import { VerificationFragment, VerificationFragmentWithData, utils } from "@govtechsg/oa-verify";
 import React, { FunctionComponent } from "react";
 import tw from "twin.macro";
 import { NETWORK_NAME } from "../../config";
@@ -34,9 +34,10 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
     }
   };
 
-  const identityProofFragment = verificationStatus.find(
-    (status) => status.type === "ISSUER_IDENTITY" && status.status === "VALID"
-  ) as VerificationFragmentWithData;
+  const identityProofFragment = utils
+    .getIssuerIdentityFragments(verificationStatus)
+    .find((fragment) => utils.isValidFragment(fragment)) as VerificationFragmentWithData;
+
   const dataFragment = identityProofFragment?.data;
   const fragmentValidity =
     dataFragment?.length > 0 &&
