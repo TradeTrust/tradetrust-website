@@ -38,7 +38,12 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
   emailSendingState,
   handleSendCertificate,
 }) => {
-  const tokenId = `0x${utils.getAssetId(document)}`;
+  let tokenId = "";
+  try {
+    tokenId = `0x${utils.getAssetId(document)}`;
+  } catch (e) {
+    trace(e);
+  }
   const tokenRegistryAddress = utils.getIssuerAddress(document)[0];
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
