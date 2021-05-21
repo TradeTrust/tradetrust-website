@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface HowItWorksProps {
   details: HowItWorks;
@@ -105,7 +106,7 @@ const howItWorksUsers: HowItWorks[] = [
 const HowItWorksElement: React.FunctionComponent<HowItWorksProps> = ({ details, index, open, setOpen }) => {
   // const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col m-4 md:w-6/12 md:m-0">
+    <div className="flex flex-col m-4 md:w-6/12 md:m-0 md:mb-8">
       <div className="min-h-220 md:flex md:items-center">
         <img className="mx-auto min-w-220" src={details.image} />
         <div className="flex flex-col items-center md:items-start md:justify-start">
@@ -174,12 +175,12 @@ export const HowItWorksSection = () => {
           >
             <h3 className="text-4xl">Ready to learn how TradeTrust can benefit your business?</h3>
           </div>
-          <div
-            className="flex h-12 w-56 m-auto -mt-5 justify-center items-center rounded-xl text-white"
-            style={{ backgroundColor: "#F57A29", top: "70%" }}
+          <Link
+            to="/contact"
+            className="flex h-12 w-56 m-auto -mt-5 justify-center items-center rounded-xl text-white bg-orange hover:bg-orange-600 hover:text-grey-200"
           >
             <h4>Get in Touch Now</h4>
-          </div>
+          </Link>
         </div>
       </div>
     </section>
