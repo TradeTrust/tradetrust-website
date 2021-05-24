@@ -44,7 +44,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
   } catch (e) {
     trace(e);
   }
-  const tokenRegistryAddress = utils.getIssuerAddress(document)[0];
+  const tokenRegistryAddress = utils.isTransferableAsset(document) ? utils.getIssuerAddress(document)[0] : "";
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
