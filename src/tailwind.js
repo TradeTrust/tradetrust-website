@@ -62,7 +62,7 @@ const localConfig = {
         warning: `0 0 0 8px ${commonUiConfig.theme.extend.colors.yellow}`,
         invalid: `0 0 0 8px ${commonUiConfig.theme.extend.colors.red["200"]}`,
       },
-      backgroundImage: (theme) => ({
+      backgroundImage: () => ({
         "homepage-map": "url('/static/images/home/map.png')",
       }),
       backgroundPosition: {

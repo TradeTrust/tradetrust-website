@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 interface HowItWorksProps {
   details: HowItWorks;
   index: number;
-  open: Number;
+  open: number;
   setOpen: Dispatch<SetStateAction<number>>;
 }
 
@@ -164,7 +164,7 @@ export const HowItWorksSection = () => {
         </div>
         <div className="flex flex-wrap my-8 text-base md:items-start md:justify-start">
           {howItWorksUsers.map((details, index) => (
-            <HowItWorksElement details={details} index={index} open={open} setOpen={setOpen} />
+            <HowItWorksElement key={index} details={details} index={index} open={open} setOpen={setOpen} />
           ))}
         </div>
 

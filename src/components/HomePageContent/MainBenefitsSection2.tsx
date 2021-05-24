@@ -337,7 +337,7 @@ export const MainBenefitsSection2 = () => {
           <MainBenefitsSubSectionThree /> */}
             {/* </div> */}
             {mainBenefits.map((details, index) => (
-              <MainBenefitsElement details={details} />
+              <MainBenefitsElement details={details} key={index} />
             ))}
           </div>
         </div>
