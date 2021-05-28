@@ -16,9 +16,15 @@ export const SectionMainBenefits = styled(Section)`
 `;
 
 const Background = styled.div`
-  background-image: url("/static/images/home/main-benefits/single-wave.png");
   background-repeat: no-repeat;
   background-size: 100%;
+  background-position: 0 35%;
+  // background-position: center top;
+  // background-attachment: fixed;
+
+  @media screen and (min-width: 801px) {
+    background-image: url("/static/images/home/main-benefits/single-wave.png");
+  }
 `;
 
 interface MainBenefitsProps {
