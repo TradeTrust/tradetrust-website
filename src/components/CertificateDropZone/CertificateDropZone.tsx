@@ -2,10 +2,9 @@ import React, { FunctionComponent, useState, useEffect } from "react";
 import Dropzone from "react-dropzone";
 import { DefaultView } from "./Views/DefaultView";
 import { RetrievalErrorView } from "./Views/RetrievalErrorView";
-import { isValid } from "@govtechsg/oa-verify";
+import { isValid, VerificationFragment } from "@govtechsg/oa-verify";
 import { UnverifiedView } from "./Views/UnverifiedView";
 import { VerifyingView } from "./Views/VerifyingView";
-import { VerificationFragment } from "@govtechsg/oa-verify";
 
 interface DropzoneStateProps {
   fileError?: boolean;

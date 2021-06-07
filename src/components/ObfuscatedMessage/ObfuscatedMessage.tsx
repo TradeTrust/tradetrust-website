@@ -1,12 +1,12 @@
-import { WrappedDocument } from "@govtechsg/open-attestation";
+import { WrappedDocument, v2, utils } from "@govtechsg/open-attestation";
 import React, { FunctionComponent } from "react";
 
 interface ObfuscatedMessageProps {
-  document: WrappedDocument;
+  document: WrappedDocument<v2.OpenAttestationDocument>;
 }
 
 export const ObfuscatedMessage: FunctionComponent<ObfuscatedMessageProps> = ({ document }) => {
-  if (!document?.privacy?.obfuscatedData?.length) return null;
+  if (!utils.isObfuscated(document)) return null;
 
   return (
     <div className="text-lg font-bold text-red" data-testid="obfuscation-info">

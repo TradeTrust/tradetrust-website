@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { VerificationFragment } from "@govtechsg/oa-verify";
+import { VerificationFragment, VerificationFragmentWithData } from "@govtechsg/oa-verify";
 import { DocumentStatus, IssuedBy } from "./DocumentStatus";
 import {
   whenDocumentHashInvalid,
@@ -25,7 +25,7 @@ describe("IssuedBy", () => {
           },
         ],
       },
-    ] as VerificationFragment[];
+    ] as VerificationFragmentWithData[];
     const container = render(<IssuedBy verificationStatus={fragments} />);
     expect(container.queryByText("ABC.COM")).not.toBeNull();
   });
@@ -51,7 +51,7 @@ describe("IssuedBy", () => {
           },
         ],
       },
-    ] as VerificationFragment[];
+    ] as VerificationFragmentWithData[];
     const container = render(<IssuedBy verificationStatus={fragments} />);
     expect(container.queryByText("ABC.COM, XYZ.COM and DEMO.COM")).not.toBeNull();
   });
@@ -69,7 +69,7 @@ describe("IssuedBy", () => {
           },
         ],
       },
-    ] as VerificationFragment[];
+    ] as VerificationFragmentWithData[];
     const container = render(<IssuedBy verificationStatus={fragments} />);
     expect(container.queryByText("ABC.COM")).not.toBeNull();
   });
@@ -88,7 +88,7 @@ describe("IssuedBy", () => {
           },
         ],
       },
-    ] as VerificationFragment[];
+    ] as VerificationFragmentWithData[];
     const container = render(<IssuedBy verificationStatus={fragments} />);
     expect(container.queryByText(sampleDidIdentity.toUpperCase())).not.toBeNull();
   });

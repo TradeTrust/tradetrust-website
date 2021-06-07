@@ -1,9 +1,8 @@
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, utils, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
-import { getDocumentId, getTokenRegistryAddress } from "../common/utils/document";
 import { resetCertificateState } from "../reducers/certificate";
 import { getLogger } from "../utils/logger";
 import { TemplateProps } from "./../types";
@@ -39,8 +38,16 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
   emailSendingState,
   handleSendCertificate,
 }) => {
-  const tokenId = getDocumentId(document);
-  const tokenRegistryAddress = getTokenRegistryAddress(document);
+  const isTransferableAsset = utils.isTransferableAsset(document);
+  let tokenId = "";
+  if (isTransferableAsset) {
+    try {
+      tokenId = `0x${utils.getAssetId(document)}`;
+    } catch (e) {
+      trace(e);
+    }
+  }
+  const tokenRegistryAddress = isTransferableAsset ? utils.getIssuerAddress(document)[0] : "";
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
