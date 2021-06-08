@@ -9,7 +9,7 @@
     "dev:css": "postcss src/tailwind.css -o src/index.css --watch",
     "dev:serve": "sleep 2 && NODE_ENV=development webpack-dev-server",
     "dev": "run-p dev:*",
-    "lint": "eslint ./src --ext .js,.ts,.tsx,.mdx --max-warnings 0",
+    "lint": "eslint ./src --ext .js,.ts,.tsx --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
     "integration": "testcafe chrome src/**/*.spec.js",
     "integration:single": "testcafe chrome -L",
@@ -26,7 +26,7 @@
     "serve-static": "http-server dist -s -p 3000",
     "storybook": "npm run build:css && sleep 2 && start-storybook -p 6006 -s public",
     "storybook:build": "npm run build:css && sleep 2 && build-storybook -o docs -s public",
-    "test": "jest --env=jest-environment-jsdom-sixteen",
+    "test": "jest",
     "test:coverage": "npm run test -- --collectCoverage",
     "test:watch": "npm run test -- --watchAll",
     "test:update": "npm run test -- -u"
@@ -79,9 +79,6 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.14.3",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.2",
-    "@babel/plugin-proposal-optional-chaining": "^7.14.2",
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
@@ -120,7 +117,6 @@
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^24.3.6",
-    "eslint-plugin-mdx": "^1.13.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
@@ -253,15 +249,6 @@
       },
       {
         "files": [
-          "*.mdx"
-        ],
-        "extends": [
-          "plugin:mdx/overrides",
-          "plugin:mdx/recommended"
-        ]
-      },
-      {
-        "files": [
           "**/*.test.js"
         ],
         "env": {
@@ -276,9 +263,6 @@
         }
       }
     ]
-  },
-  "jest": {
-    "testResultsProcessor": "jest-sonar-reporter"
   },
   "jestSonar": {
     "sonar56x": true,
