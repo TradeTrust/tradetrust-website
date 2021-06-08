@@ -1,203 +1,138 @@
-import styled from "@emotion/styled";
-import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Settings } from "react-feather";
-import { useLocation } from "react-router-dom";
-import { NavHashLink } from "react-router-hash-link";
-import tw from "twin.macro";
+import { NavigationBarStyled, NavigationBar as NavBar } from "@govtechsg/tradetrust-ui-components";
+import { NavigationItem, NavigationItemType } from "./type"; // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
+import { NavigationBarItem } from "./NavigationBarItem"; // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
 
-interface NavItemsProps {
-  id: string;
-  label: string;
-  path: string;
-  dropdownItems?: { id: string; label: string; path: string }[];
-}
-
-export const navItems: NavItemsProps[] = [
+const leftNavItems: NavigationItem[] = [
   {
-    id: "verify-documents",
-    label: "Verify Documents",
-    path: "/#verify-documents",
-  },
-  {
-    id: "create-documents",
-    label: "Create Documents",
-    path: "https://creator.tradetrust.io/",
-  },
-  {
-    id: "info",
-    label: "Info",
-    path: "/info",
+    schema: NavigationItemType.DropDownList,
+    id: "resources",
+    label: "Resources",
+    path: "",
     dropdownItems: [
       {
-        id: "resources",
-        label: "Resources",
-        path: "/resources",
+        id: "learn",
+        label: "Learn",
+        path: "/learn",
       },
       {
-        id: "media",
-        label: "Events and Media Centre",
-        path: "/media",
+        id: "faq",
+        label: "FAQ",
+        path: "/faq",
       },
     ],
   },
   {
-    id: "faq",
-    label: "FAQ",
-    path: "/faq",
+    schema: NavigationItemType.DropDownList,
+    id: "media_events",
+    label: "Media & Events",
+    path: "",
+    dropdownItems: [
+      {
+        id: "media",
+        label: "Media",
+        path: "/media",
+      },
+      {
+        id: "event",
+        label: "Event",
+        path: "/event",
+      },
+    ],
   },
   {
+    schema: NavigationItemType.NavigationLink,
     id: "contact",
     label: "Contact",
-    path: "/#contact",
-  },
-  {
-    id: "settings",
-    label: "Settings",
-    path: "/settings",
+    path: "/contact",
   },
 ];
 
-export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
-  const location = useLocation();
-  switch (true) {
-    case item.id === "create-documents":
-      return <a href={item.path}>{item.label}</a>;
-    case item.id === "info":
-      return (
-        <Dropdown
-          dropdownButtonText="Info"
-          className="transition-colors duration-200 ease-out font-normal text-greyblue hover:text-white"
-        >
-          {item.dropdownItems?.map((dropdownItem: any, index: number) => {
-            return (
-              <DropdownItem key={index}>
-                <NavHashLink key={index} to={dropdownItem.path} className="dropdown-link" smooth>
-                  {dropdownItem.label}
-                </NavHashLink>
-              </DropdownItem>
-            );
-          })}
-        </Dropdown>
-      );
-    case item.id === "settings":
-      return (
-        <NavHashLink
-          to={item.path}
-          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
-          activeClassName=""
-          smooth
-        >
-          <Settings />
-        </NavHashLink>
-      );
-    default:
-      return (
-        <NavHashLink
-          to={item.path}
-          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
-          activeClassName=""
-          smooth
-          data-testid={`navbar-${item.id}`}
-        >
-          {item.label}
-        </NavHashLink>
-      );
-  }
+// for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
+const leftMenu = (navigationItems: NavigationItem[]) => {
+  return (
+    <div className="flex items-center">
+      {navigationItems.map((item, index) => {
+        return (
+          <div key={index} className="lg:ml-6">
+            <NavigationBarItem item={item} />
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
-export const NavBar = styled.nav`
-  a {
-    ${tw`text-greyblue`}
+const rightNavItems: NavigationItem[] = [
+  {
+    schema: NavigationItemType.IconButton,
+    id: "settings",
+    label: "Settings",
+    path: "/settings",
+    icon: Settings,
+  },
+  {
+    schema: NavigationItemType.LabelButton,
+    id: "create-documents",
+    label: "Create Doc",
+    path: "https://creator.tradetrust.io/",
+    className: "create-btn",
+  },
+  {
+    schema: NavigationItemType.LabelButton,
+    id: "verify",
+    label: "Verify Doc",
+    path: "/verify",
+    className: "verify-btn",
+  },
+];
 
-    &:hover {
-      ${tw`text-white`}
-    }
-
-    &.active {
-      ${tw`text-white`}
-    }
-  }
-
-  .dropdown-link {
-    ${tw`text-grey-800 font-normal px-2 py-1 block items-center`}
-
-    &:not(.active) {
-      &:hover {
-        ${tw`text-grey-800`}
-      }
-    }
-
-    &.active {
-      ${tw`text-orange`}
-    }
-  }
-`;
-
-export const NavigationBar: FunctionComponent = () => {
-  const [isOn, setIsOn] = useState(false);
+// for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
+const rightMenu = (navigationItems: NavigationItem[]) => {
   return (
-    <NavBar className="bg-navy">
-      <div className="container py-4">
-        <div className="relative flex items-center justify-between h-16">
-          <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
-            <button
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
-              onClick={() => {
-                setIsOn(!isOn);
-              }}
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isOn ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
+    <div className="flex items-center">
+      {navigationItems.map((item, index) => {
+        return (
+          <div key={index} className="md:ml-2 lg:ml-4">
+            <NavigationBarItem item={item} />
           </div>
-          <div className="flex-1 flex items-center justify-center lg:items-stretch lg:justify-start">
-            <div className="flex-shrink-0">
-              <NavHashLink to="/" smooth>
-                <img
-                  data-testid="nav-logo-home"
-                  className="img-fluid h-12"
-                  src="/static/images/tradetrust_logo.svg"
-                  alt="TradeTrust"
-                />
-              </NavHashLink>
-            </div>
-            <div className="hidden lg:block lg:ml-auto">
-              <div className="flex h-full items-center">
-                {navItems.map((item, index) => {
-                  return (
-                    <div key={index} className="text-lg font-normal w-auto lg:ml-10">
-                      {NavBarItem(item)}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const mobileMenu = (navigationItems: NavigationItem[]) => {
+  return navigationItems.map((item, index) => {
+    if (item.id === "create-documents" || item.id === "verify" || item.id === "settings") {
+      return (
+        <div key={index} className="py-4 md:hidden">
+          <NavigationBarItem item={item} />
         </div>
+      );
+    }
+    return (
+      <div key={index} className="py-4">
+        <NavigationBarItem item={item} />
       </div>
-      <div className={`lg:hidden ${isOn ? "block" : "hidden"}`}>
-        <div className="container py-4">
-          {navItems.map((item, index) => {
-            return (
-              <div key={index} className="text-lg font-normal w-full mb-4">
-                {NavBarItem(item)}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </NavBar>
+    );
+  });
+};
+
+export const NavigationBar: FunctionComponent<{
+  toggleNavBar: boolean;
+  setToggleNavBar: (toggleNavbar: boolean) => void;
+}> = (props) => {
+  return (
+    <NavigationBarStyled>
+      <NavBar
+        leftMenuChildren={leftMenu(leftNavItems)}
+        rightMenuChildren={rightMenu(rightNavItems)}
+        mobileMenuChildren={mobileMenu(leftNavItems.concat(rightNavItems))}
+        setToggleNavBar={props.setToggleNavBar}
+        toggleNavBar={props.toggleNavBar}
+      />
+    </NavigationBarStyled>
   );
 };
