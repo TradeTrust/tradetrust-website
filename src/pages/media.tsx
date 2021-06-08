@@ -27,22 +27,20 @@ export const MediaPage: FunctionComponent = () => (
       <meta property="og:url" content={`${window.location.origin}/media`} />
       <title>TradeTrust - Events and Media Centre</title>
     </Helmet>
-    <div className="bg-blue-300">
-      <div className="container py-12">
-        <div className="flex">
-          <div className="w-full">
-            <h1>Events and Media Centre</h1>
-          </div>
+    <div className="container py-12">
+      <div className="flex">
+        <div className="w-full">
+          <h1>Events and Media Centre</h1>
         </div>
-        <div className="flex flex-wrap py-4 -mx-4">
-          <div className="w-full lg:w-4/12 lg:order-2 px-4">
-            <ResourceMedia title="Media Centre" medias={medias} />
-          </div>
-          <div className="w-full lg:w-8/12 lg:order-1 px-4">
-            {events.map((event, index) => (
-              <ResourceEvent key={index} attributes={event.attributes} />
-            ))}
-          </div>
+      </div>
+      <div className="flex flex-wrap py-4 -mx-4">
+        <div className="w-full lg:w-4/12 lg:order-2 px-4">
+          <ResourceMedia title="Media Centre" medias={medias} />
+        </div>
+        <div className="w-full lg:w-8/12 lg:order-1 px-4">
+          {events.map((event, index) => (
+            <ResourceEvent key={index} attributes={event.attributes} />
+          ))}
         </div>
       </div>
     </div>

@@ -19,6 +19,13 @@ const localConfig = {
       body: ["Roboto", "sans-serif"],
     },
     extend: {
+      // START - to shift/consolidate this later in common-ui
+      colors: {
+        brand: {
+          100: "#F7F8FC",
+        },
+      },
+      // END - to shift/consolidate this later in common-ui
       inset: {
         1: "0.25rem",
         2: "0.5rem",
@@ -37,11 +44,19 @@ const localConfig = {
         400: "400px",
         600: "600px",
       },
+      maxHeight: {
+        0: "0",
+        full: "1000px",
+      },
+      transitionProperty: {
+        height: "max-height",
+      },
       boxShadow: {
         default: `0 0 0 8px ${commonUiConfig.theme.extend.colors.blue["300"]}`,
         accept: `0 0 0 8px ${commonUiConfig.theme.extend.colors.green["100"]}`,
         warning: `0 0 0 8px ${commonUiConfig.theme.extend.colors.yellow}`,
         invalid: `0 0 0 8px ${commonUiConfig.theme.extend.colors.red["200"]}`,
+        dropdown: `0px 4px 20px rgba(0, 0, 0, 0.15)`,
       },
     },
   },
