@@ -294,31 +294,29 @@ export const ResourcesPage: FunctionComponent = () => (
       <title>TradeTrust - Resources</title>
     </Helmet>
 
-    <div className="bg-blue-300">
-      <div className="container py-12">
-        <div className="flex">
-          <div className="w-full">
-            <h1>Resources</h1>
+    <div className="container py-12">
+      <div className="flex">
+        <div className="w-full">
+          <h1>Resources</h1>
+        </div>
+      </div>
+      <div className="flex flex-wrap py-4 -mx-4">
+        <div className="w-full lg:w-4/12 lg:order-2 px-4">
+          <div className="lg:sticky lg:top-3">
+            <ResourceLink title="Documentation" resources={documentations} />
+            <ResourceLink title="Source code" resources={sourceCodes} icon="/static/images/Github_Octocat.png" />
+            <ResourceDownload title="Newsletters" resources={newsletters} />
           </div>
         </div>
-        <div className="flex flex-wrap py-4 -mx-4">
-          <div className="w-full lg:w-4/12 lg:order-2 px-4">
-            <div className="lg:sticky lg:top-3">
-              <ResourceLink title="Documentation" resources={documentations} />
-              <ResourceLink title="Source code" resources={sourceCodes} icon="/static/images/Github_Octocat.png" />
-              <ResourceDownload title="Newsletters" resources={newsletters} />
-            </div>
-          </div>
-          <div className="w-full lg:w-8/12 lg:order-1 px-4 mb-16">
-            {webinars.map((webinar, index) => (
-              <ResourceWebinar
-                title={webinar.title}
-                description={webinar.description}
-                resource={webinar.resource}
-                key={index}
-              />
-            ))}
-          </div>
+        <div className="w-full lg:w-8/12 lg:order-1 px-4 mb-16">
+          {webinars.map((webinar, index) => (
+            <ResourceWebinar
+              title={webinar.title}
+              description={webinar.description}
+              resource={webinar.resource}
+              key={index}
+            />
+          ))}
         </div>
       </div>
     </div>
