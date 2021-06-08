@@ -36,6 +36,38 @@ const sampleSurrenderEndorsementChain: TradeTrustErc721Event[] = [
   },
 ];
 
+const sampleRejectEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+  {
+    documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
+    eventType: "Transfer",
+    beneficiary: "0x5B1c22C60E66E58B07Fc00191e5603d0C41d3538",
+    holderChangeEvents: [
+      {
+        blockNumber: 8283046,
+        holder: "0x5B1c22C60E66E58B07Fc00191e5603d0C41d3538",
+        timestamp: 1594609044000,
+      },
+    ],
+  },
+  {
+    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    eventType: "Surrender",
+    eventTimestamp: 1594609205000,
+  },
+  {
+    documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
+    eventType: "Transfer",
+    beneficiary: "0x5B1c22C60E66E58B07Fc00191e5603d0C41d3538",
+    holderChangeEvents: [
+      {
+        blockNumber: 8283052,
+        holder: "0x5B1c22C60E66E58B07Fc00191e5603d0C41d3538",
+        timestamp: 1594609306000,
+      },
+    ],
+  },
+];
+
 const sampleBurntEndorsementChain: TradeTrustErc721Event[] = [
   {
     documentOwner: "0x000000000000000000000000000000000000dEaD",
@@ -82,6 +114,19 @@ describe("EndorsementChainLayout", () => {
       />
     );
     expect(screen.getAllByText("Document surrendered to issuer")).toHaveLength(1);
+  });
+
+  it("should render text 'Surrender of document rejected' if document is rejected", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
+    render(
+      <EndorsementChainLayout
+        error={""}
+        pending={false}
+        endorsementChain={sampleRejectEndorsementChain}
+        setShowEndorsementChain={() => {}}
+      />
+    );
+    expect(screen.getAllByText("Surrender of document rejected")).toHaveLength(1);
   });
 
   it("should render text Surrendered if burnt event is present", () => {

@@ -8,8 +8,8 @@ import { getLogger } from "../../../utils/logger";
 import { AddressCell } from "./AddressCell";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
-import { EndorsementJourney } from "./EndorsementJourney";
-import { SimpleTableRow } from "./SimpleTableRow";
+// import { EndorsementJourney } from "./EndorsementJourney";
+// import { SimpleTableRow } from "./SimpleTableRow";
 
 const { trace } = getLogger("component: endorsementchainlayout");
 
@@ -20,164 +20,434 @@ interface EndorsementChainLayout {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
+enum EventType {
+  TRANSFER = "Transfer",
+  SURRENDER = "Surrender",
+  BURNT = "Burnt",
+  TRANSFER_TO_WALLET = "Transfer to Wallet",
+}
+
 export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> = ({
   endorsementChain,
   setShowEndorsementChain,
   error,
   pending,
 }) => {
-  let previousOwner = "";
-  let previousHolder = "";
-  let noOfNewHolder = 0;
+  // let previousOwner = "";
+  // let previousHolder = "";
+  // let noOfNewHolder = 0;
+  // let noOfNewOwner = 0;
   let tableRowIndex = 0;
-  let noOfTransferActions = 0;
+  // let noOfTransferActions = 0;
 
   const tableRows: JSX.Element[] = [
     // By default there will always be this 'Document has been issued'
-    <SimpleTableRow
-      key={tableRowIndex++}
-      index={tableRowIndex++}
-      actionTitle="Document has been issued"
-      displayDashHead={false}
-      displayDot={true}
-      displayDashTail={true}
-    />,
+    // <SimpleTableRow
+    //   key={tableRowIndex++}
+    //   index={tableRowIndex++}
+    //   actionTitle="Document has been issued"
+    //   displayDashHead={false}
+    //   displayDot={true}
+    //   displayDashTail={true}
+    // />,
+    <tr className="table-row" key={tableRowIndex++}>
+      <td className="table-cell">
+        <div className="action-title">Document has been issued</div>
+      </td>
+
+      <td className="table-cell">
+        <AddressCell
+          address=""
+          isNewAddress={true}
+          // displayDashHead={dotVisibility[eventsIndex].beneficiary || dotVisibility.length - eventsIndex > 1}
+          displayDashTail={false}
+        />
+      </td>
+      <td className="table-cell">
+        <AddressCell address="" isNewAddress={false} displayDashHead={false} displayDashTail={false} />
+      </td>
+    </tr>,
   ];
 
   // scan endorsement chain for total number of holder change events and total number of NEW holders before building the ui.
-  let totalNumberOfTransferActions = 0;
-  let totalNumberOfNewHolderEvents = 0;
-  let scanPreviousHolder = "";
+  // let totalNumberOfTransferActions = 0;
+  // let totalNumberOfNewBeneficiaryEvents = 0;
+  // let totalNumberOfNewHolderEvents = 0;
+  // let scanPreviousBeneficiary = "";
+  // let scanPreviousHolder = "";
+  // let eventTypes: any = [];
+
+  const dotVisibility: any = [];
+  let eventsIndex = 0;
+  let previousBeneficiary2 = "";
+  let previousHolder2 = "";
+
+  // loop to check all events for the document
   endorsementChain &&
     endorsementChain.forEach((event) => {
-      if (event.eventType !== "Transfer") return;
+      const titleEscrowEvent = event as TitleEscrowEvent;
+      const beneficiary = titleEscrowEvent.beneficiary;
 
-      const ownerChangeEvent = event as TitleEscrowEvent;
-      totalNumberOfTransferActions += ownerChangeEvent.holderChangeEvents.length;
+      switch (titleEscrowEvent.eventType) {
+        case EventType.TRANSFER:
+          titleEscrowEvent.holderChangeEvents.forEach((holderChangeEvent) => {
+            // when surrendered document is rejected
+            if (previousBeneficiary2 === beneficiary && previousHolder2 === holderChangeEvent.holder) {
+              dotVisibility[eventsIndex] = { id: eventsIndex, beneficiary: true, holder: true };
+              eventsIndex++;
+              return;
+            }
 
-      ownerChangeEvent.holderChangeEvents.forEach((holderChangeEvent) => {
-        if (scanPreviousHolder !== holderChangeEvent.holder) totalNumberOfNewHolderEvents++;
-        scanPreviousHolder = holderChangeEvent.holder;
-      });
+            if (previousBeneficiary2 === beneficiary)
+              dotVisibility[eventsIndex] = { id: eventsIndex, beneficiary: false, holder: false };
+            else dotVisibility[eventsIndex] = { id: eventsIndex, beneficiary: true, holder: false };
+
+            if (previousHolder2 === holderChangeEvent.holder) {
+              dotVisibility[eventsIndex] = { ...dotVisibility[eventsIndex], holder: false };
+            } else dotVisibility[eventsIndex] = { ...dotVisibility[eventsIndex], holder: true };
+
+            previousBeneficiary2 = beneficiary;
+            previousHolder2 = holderChangeEvent.holder;
+            eventsIndex++;
+          });
+          break;
+
+        default:
+          dotVisibility[eventsIndex] = { id: eventsIndex, beneficiary: true, holder: false };
+          eventsIndex++;
+      }
+      // if (event.eventType !== EventType.TRANSFER) {
+      //   dotVisibility[eventsIndex] = { beneficiary: true, holder: false };
+      //   eventsIndex++;
+      //   return;
+      // }
+
+      // titleEscrowEvent.holderChangeEvents.forEach((holderChangeEvent) => {
+      //   if (previousBeneficiary2 !== beneficiary) dotVisibility[eventsIndex] = { beneficiary: true, holder: false };
+      //   else dotVisibility[eventsIndex] = { beneficiary: false, holder: false };
+
+      //   if (previousHolder2 === holderChangeEvent.holder) {
+      //     dotVisibility[eventsIndex] = { ...dotVisibility[eventsIndex], holder: false };
+      //   } else dotVisibility[eventsIndex] = { ...dotVisibility[eventsIndex], holder: true };
+
+      //   previousBeneficiary2 = beneficiary;
+      //   previousHolder2 = holderChangeEvent.holder;
+      //   eventsIndex++;
+      // });
+
+      // eventTypes[index] = event.eventType;
+      // if (event.eventType !== "Transfer") return;
+      // const ownerChangeEvent = event as TitleEscrowEvent;
+      // totalNumberOfTransferActions += ownerChangeEvent.holderChangeEvents.length;
+      // // check for total number of new beneficiary when looping every title escrow object
+      // if (scanPreviousBeneficiary !== ownerChangeEvent.beneficiary) totalNumberOfNewBeneficiaryEvents++;
+      // scanPreviousBeneficiary = ownerChangeEvent.beneficiary;
+      // // loop and check for total number of new holders in change holder event array in title escrow
+      // ownerChangeEvent.holderChangeEvents.forEach((holderChangeEvent) => {
+      //   if (scanPreviousHolder !== holderChangeEvent.holder) totalNumberOfNewHolderEvents++;
+      //   scanPreviousHolder = holderChangeEvent.holder;
+      // });
     });
+
+  console.log(dotVisibility);
+
+  eventsIndex = 0;
 
   // for each erc721 event, build the ui according to the event type.
   endorsementChain &&
-    endorsementChain.forEach((tradetrustErc721Event, eventIndex) => {
-      const isLastEvent = eventIndex + 1 === endorsementChain.length;
+    // endorsementChain.forEach((tradetrustErc721Event, eventIndex) => {
+    endorsementChain.forEach((tradetrustErc721Event) => {
+      // const isLastEvent = eventIndex + 1 === endorsementChain.length;
+      let isLastEvent = eventsIndex + 1 === dotVisibility.length;
 
-      switch (tradetrustErc721Event.eventType) {
-        // for transfer event we need to loop through the holderChangeEvents to get each holder change.
+      const titleEscrowEvent = tradetrustErc721Event as TitleEscrowEvent;
+
+      switch (titleEscrowEvent.eventType) {
         case "Transfer":
-          const ownerChangeEvent = tradetrustErc721Event as TitleEscrowEvent;
+          titleEscrowEvent.holderChangeEvents.forEach((holderChangeEvent) => {
+            const isFirstRow = eventsIndex === 0;
+            isLastEvent = eventsIndex + 1 === dotVisibility.length;
 
-          if (!ownerChangeEvent.holderChangeEvents || !ownerChangeEvent.beneficiary) {
-            return new Error("Invalid Event: Transfer Event does not have new owner or new holder address");
-          }
+            let dashHeadCountHolder = 0;
 
-          ownerChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
-            const isNewOwnerAddress = previousOwner !== ownerChangeEvent.beneficiary;
-            const isNewHolderAddress = previousHolder !== holderChangeEvent.holder;
-            if (isNewHolderAddress) noOfNewHolder++;
-            const isFirstRowHolder = eventIndex === 0 && holderIndex === 0;
-            noOfTransferActions++;
+            // loop to determine if dash head of event->holder should be drawn
+            if (dotVisibility[eventsIndex].holder === true) {
+              for (let i = eventsIndex; i >= 1; i--) {
+                dashHeadCountHolder++;
+                if (dotVisibility[i - 1].holder === true) {
+                  break;
+                }
+              }
+            }
 
-            // ui for each row of holderChangeEvent
             tableRows.push(
               <tr className="table-row" key={tableRowIndex++}>
                 <td className="table-cell">
-                  {isNewOwnerAddress && <div className="action-title">Endorse change of ownership</div>}
-                  {isNewHolderAddress && !isNewOwnerAddress && <div className="action-title">Transfer holdership</div>}
+                  {dotVisibility[eventsIndex].beneficiary && (
+                    <div className="action-title">Endorse change of ownership</div>
+                  )}
+                  {!dotVisibility[eventsIndex].beneficiary && dotVisibility[eventsIndex].holder && (
+                    <div className="action-title">Transfer holdership</div>
+                  )}
+                  {!dotVisibility[eventsIndex].beneficiary && !dotVisibility[eventsIndex].holder && (
+                    <div className="action-title">Surrender of document rejected</div>
+                  )}
                   <div className="date">{format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}</div>
                 </td>
+
                 <td className="table-cell">
                   <AddressCell
-                    address={ownerChangeEvent.beneficiary}
-                    titleEscrowAddress={ownerChangeEvent.documentOwner}
-                    isNewAddress={isNewOwnerAddress}
-                    displayDashHead={!(isLastEvent && !isNewOwnerAddress)}
+                    address={titleEscrowEvent.beneficiary}
+                    titleEscrowAddress={titleEscrowEvent.documentOwner}
+                    isNewAddress={dotVisibility[eventsIndex].beneficiary}
+                    // displayDashHead={dotVisibility[eventsIndex].beneficiary || dotVisibility.length - eventsIndex > 1}
+                    displayDashHead={dotVisibility[eventsIndex].beneficiary}
                     displayDashTail={!isLastEvent}
                   />
                 </td>
                 <td className="table-cell">
                   <AddressCell
                     address={holderChangeEvent.holder}
-                    titleEscrowAddress={ownerChangeEvent.documentOwner}
-                    isNewAddress={isNewHolderAddress}
-                    displayDashHead={
-                      !(isFirstRowHolder || (noOfNewHolder === totalNumberOfNewHolderEvents && !isNewHolderAddress))
-                    }
-                    displayDashTail={
-                      !(
-                        (isFirstRowHolder && noOfTransferActions === totalNumberOfTransferActions) ||
-                        noOfNewHolder === totalNumberOfNewHolderEvents
-                      )
-                    }
+                    titleEscrowAddress={titleEscrowEvent.documentOwner}
+                    isNewAddress={dotVisibility[eventsIndex].holder}
+                    // displayDashHead={!isFirstRow && true}
+                    displayDashHead={!isFirstRow && dotVisibility[eventsIndex].holder}
+                    displayDashTail={!isLastEvent}
+                    pathDistance={dashHeadCountHolder}
                   />
                 </td>
               </tr>
             );
-            previousOwner = ownerChangeEvent.beneficiary;
-            previousHolder = holderChangeEvent.holder;
+
+            eventsIndex++;
           });
           break;
 
-        // ui for each surrender row
         case "Surrender":
-          tableRows.push(
-            <SimpleTableRow
-              key={tableRowIndex++}
-              index={tableRowIndex++}
-              date={format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
-              actionTitle="Document surrendered to issuer"
-              displayDashHead={true}
-              displayDot={true}
-              displayDashTail={!isLastEvent}
-            />
-          );
-          break;
-
-        // ui for each accepted surrender row
-        case "Burnt":
-          tableRows.push(
-            <SimpleTableRow
-              key={tableRowIndex++}
-              index={tableRowIndex++}
-              date={format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
-              actionTitle="Surrender of document accepted"
-              displayDashHead={true}
-              displayDot={true}
-              displayDashTail={!isLastEvent}
-            />
-          );
-          break;
-
-        // ui for each transfer to wallet row
-        case "Transfer to Wallet":
           tableRows.push(
             <tr className="table-row" key={tableRowIndex++}>
               <td className="table-cell">
-                <div className="action-title" data-testid="transferred-to-wallet">
-                  Transferred to wallet
-                </div>
+                <div className="action-title">Document surrendered to issuer</div>
                 <div className="date">
-                  {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+                  {format(new Date(titleEscrowEvent?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
                 </div>
               </td>
               <td className="table-cell">
-                <EndorsementJourney displayDashHead={true} displayDot={true} displayDashTail={!isLastEvent} />
-                <div className="address">{tradetrustErc721Event.documentOwner}</div>
+                <AddressCell
+                  address=""
+                  isNewAddress={dotVisibility[eventsIndex].beneficiary}
+                  displayDashHead={true}
+                  displayDashTail={!isLastEvent}
+                />
               </td>
               <td className="table-cell">
-                <EndorsementJourney
-                  displayDashHead={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
-                  displayDot={false}
-                  displayDashTail={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
+                <AddressCell
+                  address=""
+                  isNewAddress={dotVisibility[eventsIndex].holder}
+                  // displayDashHead={true}
+                  displayDashHead={false}
+                  displayDashTail={!isLastEvent}
                 />
               </td>
             </tr>
           );
+
+          eventsIndex++;
           break;
+
+        case "Burnt":
+          tableRows.push(
+            <tr className="table-row" key={tableRowIndex++}>
+              <td className="table-cell">
+                <div className="action-title">Surrender of document accepted</div>
+                <div className="date">
+                  {format(new Date(titleEscrowEvent?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+                </div>
+              </td>
+              <td className="table-cell">
+                <AddressCell
+                  address=""
+                  isNewAddress={dotVisibility[eventsIndex].beneficiary}
+                  displayDashHead={true}
+                  displayDashTail={!isLastEvent && true}
+                />
+              </td>
+              <td className="table-cell">
+                <AddressCell
+                  address=""
+                  isNewAddress={dotVisibility[eventsIndex].holder}
+                  displayDashHead={false}
+                  displayDashTail={!isLastEvent && true}
+                />
+              </td>
+            </tr>
+          );
+
+          eventsIndex++;
+          break;
+
+        case "Transfer to Wallet":
+          tableRows.push(
+            <tr className="table-row" key={tableRowIndex++}>
+              <td className="table-cell">
+                <div className="action-title">Transfer to Wallet</div>
+                <div className="date">
+                  {format(new Date(titleEscrowEvent?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+                </div>
+              </td>
+              <td className="table-cell">
+                <AddressCell
+                  address={titleEscrowEvent.documentOwner}
+                  isNewAddress={dotVisibility[eventsIndex].beneficiary}
+                  displayDashHead={true}
+                  displayDashTail={!isLastEvent && true}
+                />
+              </td>
+              <td className="table-cell">
+                <AddressCell
+                  address=""
+                  isNewAddress={dotVisibility[eventsIndex].holder}
+                  // displayDashHead={true}
+                  displayDashHead={false}
+                  displayDashTail={!isLastEvent && true}
+                />
+              </td>
+            </tr>
+          );
+
+          eventsIndex++;
+          break;
+
+        // case "Transfer":
+        //   const ownerChangeEvent = tradetrustErc721Event as TitleEscrowEvent;
+
+        //   if (!ownerChangeEvent.holderChangeEvents || !ownerChangeEvent.beneficiary) {
+        //     return new Error("Invalid Event: Transfer Event does not have new owner or new holder address");
+        //   }
+
+        //   ownerChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
+        //     const isNewOwnerAddress = previousOwner !== ownerChangeEvent.beneficiary;
+        //     const isNewHolderAddress = previousHolder !== holderChangeEvent.holder;
+        //     let endorseChangeOfOwnershipFlag = false;
+        //     let transferHoldershipFlag = false;
+        //     let rejectedDocumentFlag = false;
+
+        //     if (isNewOwnerAddress) noOfNewOwner++;
+        //     if (isNewHolderAddress) noOfNewHolder++;
+
+        //     if (isNewOwnerAddress) endorseChangeOfOwnershipFlag = true;
+        //     if (isNewHolderAddress && !isNewOwnerAddress) transferHoldershipFlag = true;
+        //     if (!isNewOwnerAddress && !isNewHolderAddress) rejectedDocumentFlag = true;
+
+        //     const isFirstRowHolder = eventIndex === 0 && holderIndex === 0;
+        //     noOfTransferActions++;
+
+        //     // ui for each row of holderChangeEvent
+        //     tableRows.push(
+        //       <tr className="table-row" key={tableRowIndex++}>
+        //         <td className="table-cell">
+        //           {endorseChangeOfOwnershipFlag && <div className="action-title">Endorse change of ownership</div>}
+        //           {transferHoldershipFlag && <div className="action-title">Transfer holdership</div>}
+        //           {rejectedDocumentFlag && <div className="action-title">Surrender of document rejected</div>}
+        //           <div className="date">{format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}</div>
+        //         </td>
+        //         <td className="table-cell">
+        //           <AddressCell
+        //             address={ownerChangeEvent.beneficiary}
+        //             titleEscrowAddress={ownerChangeEvent.documentOwner}
+        //             isNewAddress={isNewOwnerAddress || (!isNewOwnerAddress && !isNewHolderAddress)}
+        //             displayDashHead={!isLastEvent || endorseChangeOfOwnershipFlag || rejectedDocumentFlag}
+        //             displayDashTail={!isLastEvent || noOfNewOwner !== totalNumberOfNewBeneficiaryEvents}
+        //           />
+        //         </td>
+        //         <td className="table-cell">
+        //           <AddressCell
+        //             address={holderChangeEvent.holder}
+        //             titleEscrowAddress={ownerChangeEvent.documentOwner}
+        //             isNewAddress={isNewHolderAddress || (!isNewOwnerAddress && !isNewHolderAddress)}
+        //             displayDashHead={
+        //               (!isFirstRowHolder && !isLastEvent) || transferHoldershipFlag || rejectedDocumentFlag
+        //             }
+        //             displayDashTail={
+        //               noOfNewHolder !== totalNumberOfNewHolderEvents ||
+        //               noOfTransferActions !== totalNumberOfTransferActions
+        //             }
+        //           />
+        //         </td>
+        //         {/* {console.log(noOfNewHolder, totalNumberOfNewHolderEvents)} */}
+        //       </tr>
+        //     );
+        //     previousOwner = ownerChangeEvent.beneficiary;
+        //     previousHolder = holderChangeEvent.holder;
+        //   });
+        //   break;
+
+        // ui for each surrender row
+        // case "Surrender":
+        //   tableRows.push(
+        //     <tr className="table-row" key={tableRowIndex++}>
+        //       <td className="table-cell">
+        //         <div className="action-title">Document surrendered to issuer</div>
+        //         <div className="date">
+        //           {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+        //         </div>
+        //       </td>
+        //       <td className="table-cell">
+        //         <AddressCell address="" isNewAddress={true} displayDashHead={true} displayDashTail={!isLastEvent} />
+        //       </td>
+        //       <td className="table-cell">
+        //         <AddressCell
+        //           address=""
+        //           isNewAddress={false}
+        //           displayDashHead={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
+        //           displayDashTail={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
+        //         />
+        //       </td>
+        //     </tr>
+        //   );
+        //   break;
+
+        // ui for each accepted surrender row
+        // case "Burnt":
+        //   tableRows.push(
+        //     <SimpleTableRow
+        //       key={tableRowIndex++}
+        //       index={tableRowIndex++}
+        //       date={format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+        //       actionTitle="Surrender of document accepted"
+        //       displayDashHead={true}
+        //       displayDot={true}
+        //       displayDashTail={!isLastEvent}
+        //     />
+        //   );
+        //   break;
+
+        // ui for each transfer to wallet row
+        // case "Transfer to Wallet":
+        //   tableRows.push(
+        //     <tr className="table-row" key={tableRowIndex++}>
+        //       <td className="table-cell">
+        //         <div className="action-title" data-testid="transferred-to-wallet">
+        //           Transferred to wallet
+        //         </div>
+        //         <div className="date">
+        //           {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
+        //         </div>
+        //       </td>
+        //       <td className="table-cell">
+        //         <EndorsementJourney displayDashHead={true} displayDot={true} displayDashTail={!isLastEvent} />
+        //         <div className="address">{tradetrustErc721Event.documentOwner}</div>
+        //       </td>
+        //       <td className="table-cell">
+        //         <EndorsementJourney
+        //           displayDashHead={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
+        //           displayDot={false}
+        //           displayDashTail={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
+        //         />
+        //       </td>
+        //     </tr>
+        //   );
+        //   break;
 
         // default not needed as eventType has only 4 possibilities which are all accounted for
         default:
@@ -245,7 +515,7 @@ const EndorsementChainLayoutStyle = styled.div`
 
   tbody {
     td {
-      ${tw`px-4 py-4`}
+      ${tw`pl-7 pr-4 py-4`}
     }
   }
 
