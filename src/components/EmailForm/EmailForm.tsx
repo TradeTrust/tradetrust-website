@@ -5,27 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Checkbox } from "./../UI/Checkbox";
 import { TextareaDefault } from "./../UI/Textarea";
 
-export const optionsBusiness = [
-  { value: "Shipper", label: "Shipper" },
-  { value: "Shipping line", label: "Shipping line" },
-  { value: "Public Sector", label: "Public Sector" },
-  { value: "Tech/Platform Provider", label: "Tech/Platform Provider" },
-  { value: "Port Operator", label: "Port Operator" },
-  { value: "International Organisation", label: "International Organisation" },
-  { value: "Trade Association", label: "Trade Association" },
-  { value: "Others", label: "Others" },
-];
-
-export const optionsRegion = [
-  { value: "Asia", label: "Asia" },
-  { value: "Europe", label: "Europe" },
-  { value: "Middle East", label: "Middle East" },
-  { value: "Oceania", label: "Oceania" },
-  { value: "North America", label: "North America" },
-  { value: "South Amercia", label: "South Amercia" },
-  { value: "Africa", label: "Africa" },
-];
-
+// https://docs.netlify.com/forms/setup/#submit-javascript-rendered-forms-with-ajax
 export const encode: any = (data: { [x: string]: string | number | boolean }) => {
   return Object.keys(data)
     .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -108,7 +88,6 @@ export const EmailForm: FunctionComponent = () => {
             <TextareaDefault
               name="Message"
               placeholder="Message"
-              required
               onChange={handleInputOrTextareaChange}
               className="rounded"
             />

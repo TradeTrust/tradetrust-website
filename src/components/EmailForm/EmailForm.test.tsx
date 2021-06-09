@@ -19,37 +19,43 @@ describe("emailForm", () => {
     expect(inputNetlify).toHaveAttribute("type", "hidden");
   });
 
-  it("should have full name field", () => {
+  it("should have required full name field", () => {
     const history = createMemoryHistory();
     const container = render(
       <Router history={history}>
         <EmailForm />
       </Router>
     );
+    const field = container.getByPlaceholderText("* Full Name");
 
-    expect(container.getByPlaceholderText("* Full Name")).not.toBeNull();
+    expect(field).not.toBeNull();
+    expect(field).toHaveAttribute("required");
   });
 
-  it("should have email field", () => {
+  it("should have required email field", () => {
     const history = createMemoryHistory();
     const container = render(
       <Router history={history}>
         <EmailForm />
       </Router>
     );
+    const field = container.getByPlaceholderText("* Email Address");
 
-    expect(container.getByPlaceholderText("* Email Address")).not.toBeNull();
+    expect(field).not.toBeNull();
+    expect(field).toHaveAttribute("required");
   });
 
-  it("should have organisation field", () => {
+  it("should have required organisation field", () => {
     const history = createMemoryHistory();
     const container = render(
       <Router history={history}>
         <EmailForm />
       </Router>
     );
+    const field = container.getByPlaceholderText("* Name of your organisation");
 
-    expect(container.getByPlaceholderText("* Name of your organisation")).not.toBeNull();
+    expect(field).not.toBeNull();
+    expect(field).toHaveAttribute("required");
   });
 
   it("should have message field", () => {
@@ -59,7 +65,9 @@ describe("emailForm", () => {
         <EmailForm />
       </Router>
     );
+    const field = container.getByPlaceholderText("Message");
 
-    expect(container.getByPlaceholderText("Message")).not.toBeNull();
+    expect(field).not.toBeNull();
+    expect(field).not.toHaveAttribute("required");
   });
 });
