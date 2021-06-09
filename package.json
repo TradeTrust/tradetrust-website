@@ -42,7 +42,7 @@
     "@govtechsg/open-attestation": "^5.3.2",
     "@govtechsg/open-attestation-cli": "^1.40.4",
     "@govtechsg/token-registry": "2.5.1",
-    "@govtechsg/tradetrust-ui-components": "2.0.0",
+    "@govtechsg/tradetrust-ui-components": "^2.0.0",
     "@hot-loader/react-dom": "^17.0.1",
     "connected-react-router": "^6.9.1",
     "date-fns": "^2.22.1",
