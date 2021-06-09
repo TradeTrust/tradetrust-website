@@ -3,7 +3,7 @@ const toPath = (_path) => path.join(process.cwd(), _path);
 
 module.exports = {
   stories: ["../src/**/*.stories.@(tsx)"],
-  addons: ["@storybook/addon-essentials"],
+  addons: ["@storybook/addon-essentials", "@storybook/addon-postcss"],
   typescript: {
     reactDocgen: "none", // https://github.com/styleguidist/react-docgen-typescript/issues/356
   },

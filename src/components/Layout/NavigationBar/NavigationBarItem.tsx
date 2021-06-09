@@ -32,7 +32,10 @@ const NavigationLink: FunctionComponent<{ item: NavType.NavigationLink }> = ({ i
     );
   } else {
     return (
-      <NavLink className={`font-medium ${item.className}`} to={item.path}>
+      <NavLink
+        className={`text-cloud-500 hover:text-black transition-color duration-200 ease-out font-medium ${item.className}`}
+        to={item.path}
+      >
         {item.label}
       </NavLink>
     );
@@ -43,14 +46,21 @@ const LabelButton: FunctionComponent<{ item: NavType.LabelButton }> = ({ item })
   if (item.path.indexOf("http://") === 0 || item.path.indexOf("https://") === 0) {
     // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
     return (
-      <LinkButton href={item.path} className={`font-bold py-2 px-3 ${item.className}`} data-testid={item.id}>
+      <LinkButton
+        href={item.path}
+        className={`font-bold transition-color duration-200 ease-out shadow-lg rounded-xl border p-2 ${item.className}`}
+        data-testid={item.id}
+      >
         {item.label}
       </LinkButton>
     );
   } else {
     return (
       <NavLink to={item.path} className="w-full">
-        <button className={`font-bold py-2 px-3 ${item.className}`} data-testid={item.id}>
+        <button
+          className={`font-bold transition-color duration-200 ease-out shadow-lg rounded-xl border p-2 ${item.className}`}
+          data-testid={item.id}
+        >
           {item.label}
         </button>
       </NavLink>
@@ -64,7 +74,7 @@ const IconButton: FunctionComponent<{ item: NavType.IconButton }> = ({ item }) =
     // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
     return (
       <a
-        className={`text-cloud-500 hover:text-black transition-color duration-200 ease-out  ${item.className}`}
+        className={`text-cloud-500 hover:text-black transition-color duration-200 ease-out ${item.className}`}
         href={item.path}
         data-testid={item.id}
       >
@@ -73,7 +83,11 @@ const IconButton: FunctionComponent<{ item: NavType.IconButton }> = ({ item }) =
     );
   } else {
     return (
-      <NavLink className={`font-medium ${item.className}`} to={item.path} data-testid={item.id}>
+      <NavLink
+        className={`text-cloud-500 hover:text-black transition-color duration-200 ease-out ${item.className}`}
+        to={item.path}
+        data-testid={item.id}
+      >
         <ButtonIcon />
       </NavLink>
     );

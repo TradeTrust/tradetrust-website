@@ -37,11 +37,11 @@
     @apply transition-colors;
     @apply duration-200;
     @apply ease-out;
-    @apply text-blue;
+    @apply text-cerulean-500;
   }
 
   a:hover {
-    @apply text-blue-700;
+    @apply text-cerulean;
   }
 
   svg {
@@ -65,8 +65,8 @@
     @apply border-transparent;
     @apply border-solid;
     @apply font-bold;
-    @apply text-grey-700;
-    @apply bg-grey-100;
+    @apply text-gray-700;
+    @apply bg-gray-100;
     @apply transition-colors;
     @apply duration-200;
     @apply uppercase;
@@ -75,8 +75,8 @@
   }
 
   .multi-tab:hover {
-    @apply text-grey-800;
-    @apply bg-grey-200;
+    @apply text-gray-800;
+    @apply bg-gray-200;
   }
 
   .btn {

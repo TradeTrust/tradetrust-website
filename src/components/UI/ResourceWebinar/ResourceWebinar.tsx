@@ -44,7 +44,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
         <div className="w-full px-5 pt-3 pb-5">
           <h4 className="title mb-2">
             <a
-              className="text-grey-700 font-medium text-2xl"
+              className="text-gray-700 font-medium text-2xl"
               href={`https://www.youtube.com/watch?v=${youtubeEmbedCode}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -53,14 +53,14 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
               {title}
             </a>
           </h4>
-          <div className="inline-block border border-solid border-grey text-grey w-auto text-sm rounded font-medium p-1 mb-4">
+          <div className="inline-block border border-solid border-gray text-gray-500 w-auto text-sm rounded font-medium p-1 mb-4">
             {tag}
           </div>
           <p className="mb-4">{description}</p>
           <Dropdown
             data-testid="quick-video-links-dropdown"
             dropdownButtonText="Quick Video Links"
-            className="rounded border border-grey-300 text-grey-700 p-2 mb-2"
+            className="rounded border border-gray-300 text-gray-700 p-2 mb-2"
           >
             {videoChapters.map((videoChapter, i) => {
               return (

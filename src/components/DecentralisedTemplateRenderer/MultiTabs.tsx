@@ -54,7 +54,7 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
               }}
             >
               <div className="mr-2 w-auto">Attachments</div>
-              <div className="rounded-full w-6 h-6 bg-grey-300 text-center" data-testid="attachment-number">
+              <div className="rounded-full w-6 h-6 bg-gray-300 text-center" data-testid="attachment-number">
                 {attachments && attachments.length}
               </div>
             </div>

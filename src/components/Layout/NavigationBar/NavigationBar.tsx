@@ -77,14 +77,14 @@ const rightNavItems: NavigationItem[] = [
     id: "create-documents",
     label: "Create Doc",
     path: "https://creator.tradetrust.io/",
-    className: "create-btn",
+    className: "bg-white text-cerulean border-cerulean-100 hover:bg-gray-50",
   },
   {
     schema: NavigationItemType.LabelButton,
     id: "verify",
     label: "Verify Doc",
     path: "/verify",
-    className: "verify-btn",
+    className: "bg-cerulean text-white border-cerulean hover:bg-cerulean-300 hover:border-cerulean-300",
   },
 ];
 
