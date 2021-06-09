@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, CheckboxDefault } from "./Checkbox";
+import { Checkbox } from "./Checkbox";
 
 export default {
   title: "UI/Checkbox",
@@ -10,5 +10,5 @@ export default {
 };
 
 export const Default = () => {
-  return <CheckboxDefault text="This is default checkbox." name="test" />;
+  return <Checkbox>This is default checkbox.</Checkbox>;
 };
