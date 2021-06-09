@@ -1,7 +1,4 @@
 import React from "react";
-import { LandingSection } from "./HomePageContent/LandingSection";
-import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
-import { DocumentationSection } from "./HomePageContent/DocumentationSection";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import {
@@ -13,7 +10,16 @@ import {
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { NestedDocumentState } from "../constants/NestedDocumentState";
+// import { LandingSection } from "./HomePageContent/LandingSection";
+// import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
+// import { DocumentationSection } from "./HomePageContent/DocumentationSection";
+// import { EmailSection } from "./HomePageContent/EmailSection";
+// import { DropZoneSectionContainer } from "./HomePageContent/DropZoneSection";
 import { getLogger } from "../utils/logger";
+
+import { WelcomeSection } from "./HomePageContent/WelcomeSection";
+import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
+import { HowItWorksSection } from "./HomePageContent/HowItWorksSection";
 
 const { error } = getLogger("component:mainpage");
 
@@ -51,9 +57,9 @@ export const MainPageContainer = (): React.ReactElement => {
   }, [dispatch, location, history]);
   return (
     <div className="text-lg">
-      <LandingSection />
+      <WelcomeSection />
       <MainBenefitsSection />
-      <DocumentationSection />
+      <HowItWorksSection />
     </div>
   );
 };
