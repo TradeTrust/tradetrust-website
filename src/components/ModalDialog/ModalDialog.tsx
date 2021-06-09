@@ -15,7 +15,7 @@ export const ModalDialogUnStyled: FunctionComponent<ModalDialogProps> = ({ class
         <div className={className}>
           <div className={`modal-content p-4`}>
             <div className={`modal-cross cursor-pointer`} onClick={() => toggle()}>
-              <i className="fa fa-times text-grey-700" />
+              <i className="fa fa-times text-gray-700" />
             </div>
             {children}
           </div>

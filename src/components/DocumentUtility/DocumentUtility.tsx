@@ -52,7 +52,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
                   setQrCodePopover(!qrCodePopover);
                 }}
               >
-                <ButtonIcon className="bg-white hover:bg-grey-100" aria-label="document-utility-qr-button">
+                <ButtonIcon className="bg-white hover:bg-gray-100" aria-label="document-utility-qr-button">
                   <SvgIcon strokeWidth="0.5" fill="currentColor">
                     <SvgIconQRCode />
                   </SvgIcon>
@@ -77,7 +77,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
           </div>
           <div className="w-auto ml-3">
             <ButtonIcon
-              className="bg-white hover:bg-grey-100"
+              className="bg-white hover:bg-gray-100"
               aria-label="document-utility-print-button"
               onClick={() => onPrint()}
             >
@@ -87,7 +87,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
           <FeatureFlag name="SHARE_BY_EMAIL">
             <div className="w-auto ml-3">
               <ButtonIcon
-                className="bg-white hover:bg-grey-100"
+                className="bg-white hover:bg-gray-100"
                 aria-label="document-utility-share-by-email-button"
                 onClick={() => handleSharingToggle()}
               >
@@ -101,7 +101,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
               target="_black"
               href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
             >
-              <ButtonIcon className="bg-white hover:bg-grey-100" aria-label="document-utility-download-document-button">
+              <ButtonIcon className="bg-white hover:bg-gray-100" aria-label="document-utility-download-document-button">
                 <Download />
               </ButtonIcon>
             </a>
@@ -120,15 +120,15 @@ export const DocumentUtilities = styled.div`
   }
 
   svg {
-    ${tw`text-teal`}
+    ${tw`text-turquoise`}
 
     .x-circle {
-      ${tw`text-red`}
+      ${tw`text-red-500`}
     }
   }
 
   .issuedby {
-    ${tw`text-grey-700 text-lg font-semibold`}
+    ${tw`text-gray-700 text-lg font-semibold`}
 
     span {
       ${tw`inline-block`}
@@ -136,7 +136,7 @@ export const DocumentUtilities = styled.div`
     }
 
     .domain {
-      ${tw`text-blue`}
+      ${tw`text-cerulean-500`}
     }
   }
 

@@ -7,7 +7,7 @@ export const SectionMainBenefits = styled(Section)`
   ${tw`py-20 flex flex-col justify-center`}
 
   h5 {
-    ${tw`font-bold text-grey-700`}
+    ${tw`font-bold text-gray-700`}
   }
 
   .img-icon {
@@ -17,7 +17,7 @@ export const SectionMainBenefits = styled(Section)`
 
 export const MainBenefitsSection: FunctionComponent = () => {
   return (
-    <SectionMainBenefits className="bg-grey-100 text-grey-800">
+    <SectionMainBenefits className="bg-gray-100 text-gray-800">
       <div className="flex">
         <div className="w-full lg:w-auto lg:mx-auto">
           <h1 className="mb-6 font-medium text-black">Main Benefits</h1>

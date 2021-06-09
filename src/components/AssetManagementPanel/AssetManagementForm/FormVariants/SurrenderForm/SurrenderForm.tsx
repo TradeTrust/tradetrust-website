@@ -71,7 +71,7 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
           <div className="flex flex-wrap">
             <div className="w-auto">
               <Button
-                className="bg-white text-grey hover:bg-grey-100"
+                className="bg-white text-gray-500 hover:bg-gray-100"
                 onClick={setFormActionNone}
                 disabled={isPendingConfirmation}
                 data-testid={"cancelSurrenderBtn"}
@@ -81,7 +81,7 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
             </div>
             <div className="w-auto ml-2">
               <Button
-                className="bg-red text-white hover:bg-red-600"
+                className="bg-red-500 text-white hover:bg-red-700"
                 onClick={handleSurrender}
                 disabled={isPendingConfirmation}
                 data-testid={"surrenderBtn"}

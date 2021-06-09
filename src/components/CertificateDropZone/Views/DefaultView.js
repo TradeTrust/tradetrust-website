@@ -17,19 +17,19 @@ export const DefaultView = ({ hover, accept, toggleQrReaderVisible, verification
     </div>
     {accept ? null : <div>File cannot be read. Please check that you have a valid .tt or .json file</div>}
     {verificationError ? <div>{verificationError}</div> : null}
-    <div className="text-navy text-xl font-normal">Drag and drop your tradetrust file</div>
-    <div className="text-grey-700">to view its contents</div>
-    <div className="text-grey-700 flex flex-wrap items-center my-2">
+    <div className="text-gray-700 text-xl font-normal">Drag and drop your tradetrust file</div>
+    <div className="text-gray-700">to view its contents</div>
+    <div className="text-gray-700 flex flex-wrap items-center my-2">
       <div className="w-1/6" />
       <div className="w-1/4">
-        <hr className="border-grey-400" />
+        <hr className="border-gray-400" />
       </div>
       <div className="w-1/6">or</div>
       <div className="w-1/4">
-        <hr className="border-grey-400" />
+        <hr className="border-gray-400" />
       </div>
     </div>
-    <div className="text-grey-700 flex flex-wrap">
+    <div className="text-gray-700 flex flex-wrap">
       <div className="mx-auto">
         <ViewerButton>Select File</ViewerButton>
         <ViewerButton
