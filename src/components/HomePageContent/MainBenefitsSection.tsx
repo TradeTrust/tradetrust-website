@@ -23,7 +23,7 @@ const Background = styled.div`
   //background-attachment: fixed;
 
   @media screen and (min-width: 801px) {
-    background-image: url("/static/images/home/main-benefits/single-wave.png");
+    background-image: url("/static/images/home/single-wave.png");
   }
 `;
 

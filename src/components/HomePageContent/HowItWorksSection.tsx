@@ -156,11 +156,11 @@ export const HowItWorksSection = () => {
     <section id="how-it-works" className="text-gray-700 py-16">
       <div className="container">
         <div className="w-5/5 text-center">
-          <h3 className="font-ubuntu text-4xl leading-none lg:text-5xl">How It Works</h3>
-          <h6 className="font-ubuntu mt-10 text-base leading-none md:text-xl md:mt-3">
+          <h3 className="font-ubuntu text-4xl leading-none md:text-5xl">How It Works</h3>
+          <h6 className="mt-10 text-base leading-none md:text-xl md:mt-3">
             See how each persona benefit from the use of TradeTrust
           </h6>
-          <h5 className="font-roboto mt-4 text-xl leading-6 md:mt-8 md:text-3xl">Choose a persona</h5>
+          <h5 className="mt-4 text-xl leading-6 md:mt-8 md:text-3xl">Choose a persona</h5>
         </div>
         <div className="flex flex-wrap my-8 text-base md:items-start md:justify-start">
           {howItWorksUsers.map((details, index) => (
@@ -173,13 +173,15 @@ export const HowItWorksSection = () => {
             className="flex w-full h-64 m-auto rounded-xl text-white text-center justify-center items-center"
             style={{ backgroundColor: "#3B8CC5" }}
           >
-            <h3 className="text-4xl">Ready to learn how TradeTrust can benefit your business?</h3>
+            <h3 className="font-ubuntu text-4.5xl md:mx-72">
+              Ready to learn how TradeTrust can benefit your business?
+            </h3>
           </div>
           <Link
             to="/contact"
             className="flex h-12 w-56 m-auto -mt-5 justify-center items-center rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
           >
-            <h4>Get in Touch Now</h4>
+            <h4 className="font-ubuntu">Get in Touch Now</h4>
           </Link>
         </div>
       </div>

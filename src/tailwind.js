@@ -30,6 +30,12 @@ const localConfig = {
         "-24": "-6rem",
         "50%": "50%",
       },
+      fontSize: {
+        '4.5xl': ['2.5rem', {
+          letterSpacing: '-0.02em',
+          lineHeight: '44px',
+        }]
+      },
       minWidth: {
         135: "135px",
         200: "200px",
