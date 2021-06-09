@@ -45,7 +45,7 @@ export class CertificateSharingForm extends Component {
           <h3>Send your document</h3>
           <p className="w-full mt-2">This sends an email with your .tt attached, and instructions on how to view it.</p>
           <input
-            className="w-full border border-solid border-grey my-4 p-1 placeholder-grey-dark"
+            className="w-full border border-solid border-gray my-4 p-1 placeholder-gray-dark"
             value={this.state.emailAddress}
             onChange={this.handleEmailChange}
             placeholder="Enter recipient's email"

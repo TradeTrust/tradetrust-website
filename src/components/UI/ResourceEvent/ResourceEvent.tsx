@@ -24,14 +24,14 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
   return (
     <div className="bg-white shadow-md mb-4 w-full px-5 pt-3 pb-5">
       {isFuture(new Date(date)) && (
-        <div className="border-2 border-orange rounded inline-block py-1 px-2 uppercase font-bold text-xs text-orange my-2">
+        <div className="border-2 border-tangerine rounded inline-block py-1 px-2 uppercase font-bold text-xs text-tangerine my-2">
           Upcoming
         </div>
       )}
       <h4 className="title mb-2">
-        <span className="text-grey-700 font-medium text-2xl">{title}</span>
+        <span className="text-gray-700 font-medium text-2xl">{title}</span>
       </h4>
-      <div className="text-grey text-base font-medium pb-3">
+      <div className="text-gray-500 text-base font-medium pb-3">
         <span>{date}</span>
         {timeStart && timeEnd && (
           <>
@@ -47,7 +47,7 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
         <LinkButton
           href={registerLink}
           target="_blank"
-          className="bg-orange text-white hover:bg-orange-600 hover:text-white inline-block mb-2"
+          className="bg-tangerine-600 text-white hover:bg-tangerine hover:text-white inline-block mb-2"
         >
           Register
         </LinkButton>

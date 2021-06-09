@@ -124,14 +124,14 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                     canHandleSurrender={canHandleSurrender}
                   />
                 ) : (
-                  <Button className="bg-orange text-white hover:bg-orange-600" onClick={handleNoAccess}>
+                  <Button className="bg-tangerine-600 text-white hover:bg-tangerine" onClick={handleNoAccess}>
                     No Access
                   </Button>
                 )}
               </>
             ) : (
               <Button
-                className="bg-orange text-white hover:bg-orange-600"
+                className="bg-tangerine-600 text-white hover:bg-tangerine"
                 data-testid={"connectToWallet"}
                 onClick={handleConnectWallet}
               >

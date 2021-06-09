@@ -17,7 +17,7 @@ export const ResourceDownload: FunctionComponent<ResourceDownloadProps> = ({ tit
   return (
     <div className="bg-white shadow-md mb-4 pt-2 px-3 pb-3">
       <div className="flex-grow">
-        <div className="text-grey-700 text-xl font-medium">{title}</div>
+        <div className="text-gray-700 text-xl font-medium">{title}</div>
         {resources.map((resource, index) => (
           <div className="pt-2 text-blue" key={index}>
             <div className="flex">

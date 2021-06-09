@@ -16,7 +16,7 @@ export const SectionEmail = styled(Section)`
 
 export const EmailSection: FunctionComponent = () => {
   return (
-    <SectionEmail className="bg-gradient-to-r from-blue-400 to-pink py-16" id="contact">
+    <SectionEmail className="bg-gradient-to-r from-indigo-100 to-pink-200 py-16" id="contact">
       <div className="flex text-center mb-6">
         <div className="w-full lg:w-7/12 xl:w-6/12 lg:mx-auto">
           <h1 className="mb-6">Get in Touch</h1>

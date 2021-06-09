@@ -28,7 +28,7 @@ export class ErrorBoundary extends Component<Record<string, unknown>, ErrorBound
           description="There is an error with this document, please contact your issuing institution."
         >
           <Link
-            className="mt-4 inline-block px-8 py-4 bg-navy hover:bg-orange text-white hover:text-white border-none rounded-full font-semibold uppercase no-underline transition duration-300 ease-out text-sm"
+            className="mt-4 inline-block px-8 py-4 bg-cerulean-50 hover:bg-tangerine-600 text-white hover:text-white border-none rounded-full font-semibold uppercase no-underline transition duration-300 ease-out text-sm"
             to="/"
           >
             Go back to home

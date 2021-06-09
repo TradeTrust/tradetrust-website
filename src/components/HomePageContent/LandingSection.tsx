@@ -17,16 +17,16 @@ export const SectionLanding = styled(Section)`
   }
 
   .play {
-    ${tw`transition duration-300 ease-out rounded-full cursor-pointer bg-blue flex flex-col justify-center`}
+    ${tw`transition duration-300 ease-out rounded-full cursor-pointer bg-cerulean-500 flex flex-col justify-center`}
     width: 60px;
     height: 60px;
 
     &:hover {
-      ${tw`bg-blue-800`}
+      ${tw`bg-cerulean`}
     }
 
     .fa-play {
-      ${tw`text-2xl text-pink`}
+      ${tw`text-2xl text-pink-200`}
 
       &::before {
         ${tw`ml-1`}
@@ -43,7 +43,7 @@ export const LandingSection: FunctionComponent = () => {
 
   return (
     <SectionLanding
-      className="relative flex flex-col justify-center text-center bg-gradient-to-r from-blue-400 to-pink py-8"
+      className="relative flex flex-col justify-center text-center bg-gradient-to-r from-indigo-100 to-pink-200 py-8"
       id="about"
     >
       <div className="flex">

@@ -9,7 +9,7 @@ export const ObfuscatedMessage: FunctionComponent<ObfuscatedMessageProps> = ({ d
   if (!utils.isObfuscated(document)) return null;
 
   return (
-    <div className="text-lg font-bold text-red" data-testid="obfuscation-info">
+    <div className="text-lg font-bold text-red-500" data-testid="obfuscation-info">
       <div className="container">
         <p className="py-6">Note: There are fields/data obfuscated in this document.</p>
       </div>

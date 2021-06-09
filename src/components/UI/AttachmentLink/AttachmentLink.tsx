@@ -50,7 +50,7 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
     default:
       return (
         <div
-          className="w-12 h-12 bg-grey-200 text-grey-700 p-2 rounded-full flex items-center"
+          className="w-12 h-12 bg-gray-200 text-gray-700 p-2 rounded-full flex items-center"
           data-testid={`attachment-icon-paperclip`}
         >
           <Paperclip className="m-auto" />
@@ -96,15 +96,15 @@ export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filenam
   filesize = prettyBytes(decodedData.length);
 
   return (
-    <div className="transition duration-300 ease-out flex-1 border border-solid border-grey-200 py-2 px-4 hover:no-underline hover:bg-blue-300">
+    <div className="transition duration-300 ease-out flex-1 border border-solid border-gray-200 py-2 px-4 hover:no-underline hover:bg-cerulean-300">
       <div className="flex flex-row">
         <div className="w-auto mr-4">{getExtension(type)}</div>
         <div className="w-5/6">
           <p className="mb-2 break-all">
-            <span className="transition duration-300 ease-out leading-5 text-grey-700 break-words font-semibold mr-1">
+            <span className="transition duration-300 ease-out leading-5 text-gray-700 break-words font-semibold mr-1">
               {filename}
             </span>
-            {hasBase64 && <span className="font-normal text-grey text-sm">({filesize})</span>}
+            {hasBase64 && <span className="font-normal text-gray-500 text-sm">({filesize})</span>}
           </p>
           <div className="flex">
             <div className="w-auto mr-2">

@@ -95,7 +95,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
   };
 
   const renderedEndorsementChain = (
-    <div className="bg-blue-300 no-print">
+    <div className="bg-cerulean-50 no-print">
       <DocumentStatus verificationStatus={verificationStatus} />
       <ObfuscatedMessage document={document} />
       {tokenRegistryAddress && (
@@ -110,7 +110,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
 
   const renderedCertificateViewer = (
     <>
-      <div className="bg-blue-300 no-print">
+      <div className="bg-cerulean-50 no-print">
         <DocumentStatus verificationStatus={verificationStatus} />
         <ObfuscatedMessage document={document} />
         {tokenRegistryAddress && (
@@ -121,7 +121,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
           />
         )}
       </div>
-      <div className="bg-blue-300 no-print">
+      <div className="bg-cerulean-50 no-print">
         <MultiTabs
           hasAttachments={hasAttachments}
           attachments={attachments}
