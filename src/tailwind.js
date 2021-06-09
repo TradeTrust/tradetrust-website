@@ -27,10 +27,18 @@ const localConfig = {
         6: "1.5rem",
         7: "1.75rem",
         8: "2rem",
+        "-24": "-6rem",
+        "50%": "50%",
       },
       minWidth: {
         135: "135px",
         200: "200px",
+      },
+      maxWidth: {
+        220: "220px",
+      },
+      height: {
+        140: "35rem",
       },
       minHeight: {
         400: "400px",
@@ -53,6 +61,16 @@ const localConfig = {
       cursor: {
         grab: "grab",
         grabbing: "grabbing",
+      },
+      backgroundPosition: {
+        "center-right": "center right",
+      },
+      backgroundSize: {
+        "135%": "135%",
+      },
+      margin: {
+        "-10%": "-10%",
+        "85%": "85%",
       },
     },
   },
