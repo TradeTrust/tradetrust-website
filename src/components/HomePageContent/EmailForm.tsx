@@ -122,7 +122,7 @@ export const EmailForm: FunctionComponent = () => {
               required
             />
           </div>
-          <Button className="bg-orange text-white hover:bg-orange-600 w-full">Send Enquiry</Button>
+          <Button className="bg-tangerine-600 text-white hover:bg-tangerine w-full">Send Enquiry</Button>
         </div>
       </div>
     </form>

@@ -29,19 +29,19 @@ const Journey = styled.div`
   width: 0;
 
   .dash-head {
-    ${tw`border-l border-dashed border-teal flex h-6`}
+    ${tw`border-l border-dashed border-turquoise flex h-6`}
     width: 0;
   }
 
   .dot {
-    ${tw`rounded-full bg-teal flex`}
+    ${tw`rounded-full bg-turquoise flex`}
     height: 10px;
     width: 10px;
     margin-left: -5px;
   }
 
   .dash-tail {
-    ${tw`border-l border-dashed border-teal flex flex-grow`}
+    ${tw`border-l border-dashed border-turquoise flex flex-grow`}
     width: 0;
   }
 `;

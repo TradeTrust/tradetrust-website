@@ -67,7 +67,7 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
             <div className="flex flex-wrap">
               <div className="w-auto">
                 <Button
-                  className="bg-white text-grey hover:bg-grey-100"
+                  className="bg-white text-gray-500 hover:bg-gray-100"
                   onClick={setFormActionNone}
                   disabled={isDestroyTokenPendingConfirmation}
                   data-testid={"cancelSurrenderBtn"}
@@ -77,7 +77,7 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
               </div>
               <div className="w-auto ml-2">
                 <Button
-                  className="bg-red text-white hover:bg-red-600"
+                  className="bg-red-500 text-white hover:bg-red-700"
                   onClick={handleDestroyToken}
                   disabled={isDestroyTokenPendingConfirmation}
                   data-testid={"acceptSurrenderBtn"}

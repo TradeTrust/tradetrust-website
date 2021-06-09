@@ -28,7 +28,7 @@ const AppContainer = () => {
       </NetworkBar>
       {/* for CR: see if any chance to pass and cater for logo/home too, that will need router navLink too */}
       <NavigationBar toggleNavBar={toggleNavBar} setToggleNavBar={setToggleNavBar} />
-      <Main className="bg-brand-100 flex-1">
+      <Main className="bg-cerulean-50 flex-1">
         <Switch>
           {routes.map((route, id) => (
             <Route key={id} {...route} />

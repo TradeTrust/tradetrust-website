@@ -11,24 +11,24 @@ export const SectionDocumentation = styled(Section)`
   }
 
   p {
-    ${tw`text-grey-700`}
+    ${tw`text-gray-700`}
   }
 
   a {
-    ${tw`block text-grey-700 no-underline`}
+    ${tw`block text-gray-700 no-underline`}
 
     p {
-      ${tw`transition duration-300 ease-out text-blue font-semibold`}
+      ${tw`transition duration-300 ease-out text-cerulean-500 font-semibold`}
     }
 
     &:hover {
       .fa-file-alt,
       .fa-code {
-        ${tw`text-navy`}
+        ${tw`text-gray-500`}
       }
 
       p {
-        ${tw`text-orange`}
+        ${tw`text-tangerine`}
       }
     }
   }
@@ -49,7 +49,7 @@ export const SectionDocumentation = styled(Section)`
 
 export const DocumentationSection: FunctionComponent = () => {
   return (
-    <SectionDocumentation id="integrate" className="bg-grey-100">
+    <SectionDocumentation id="integrate" className="bg-gray-100">
       <div className="mb-12">
         <h1 className="mb-3">Integrate TradeTrust into your platform?</h1>
         <p>Get started today! Browse the Documentation or download the source code.</p>
