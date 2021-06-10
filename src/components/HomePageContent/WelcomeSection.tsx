@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { Link } from "react-router-dom";
 import { OverlayContext, Youtube } from "@govtechsg/tradetrust-ui-components";
 import styled from "@emotion/styled";
@@ -11,7 +11,7 @@ const Background = styled.div`
   // }
 `;
 
-const DescriptionSection = () => {
+const DescriptionSection: FunctionComponent = () => {
   const { showOverlay } = useContext(OverlayContext);
   const onOverlayHandler = () => {
     showOverlay(<Youtube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />);

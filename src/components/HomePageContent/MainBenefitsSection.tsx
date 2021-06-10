@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { SVGProps } from "react";
+import React, { FunctionComponent, SVGProps } from "react";
 import tw from "twin.macro";
 import { Section } from "../Layout/Section";
 
@@ -29,7 +29,7 @@ const Background = styled.div`
 
 interface MainBenefitsProps {
   details: MainBenefits;
-  index: Number;
+  index: number;
 }
 
 type MainBenefits = {
@@ -327,7 +327,7 @@ const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ detai
   );
 };
 
-export const MainBenefitsSection = () => {
+export const MainBenefitsSection: FunctionComponent = () => {
   return (
     <section id="main-benefits" className="bg-white text-gray-700 py-16">
       <Background className="">
@@ -345,7 +345,7 @@ export const MainBenefitsSection = () => {
             {/* <div className="w-full text-center"> */}
             {/* </div> */}
             {mainBenefits.map((details, index) => (
-              <MainBenefitsElement details={details} index={index} />
+              <MainBenefitsElement key={index} details={details} index={index} />
             ))}
           </div>
         </div>

@@ -1,10 +1,10 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, FunctionComponent, SetStateAction, useState } from "react";
 import { Link } from "react-router-dom";
 
 interface HowItWorksProps {
   details: HowItWorks;
   index: number;
-  open: Number;
+  open: number;
   setOpen: Dispatch<SetStateAction<number>>;
 }
 
@@ -149,7 +149,7 @@ const HowItWorksElement: React.FunctionComponent<HowItWorksProps> = ({ details, 
   );
 };
 
-export const HowItWorksSection = () => {
+export const HowItWorksSection: FunctionComponent = () => {
   const [open, setOpen] = useState(-1);
 
   return (
@@ -164,7 +164,7 @@ export const HowItWorksSection = () => {
         </div>
         <div className="flex flex-wrap my-8 text-base md:items-start md:justify-start">
           {howItWorksUsers.map((details, index) => (
-            <HowItWorksElement details={details} index={index} open={open} setOpen={setOpen} />
+            <HowItWorksElement key={index} details={details} index={index} open={open} setOpen={setOpen} />
           ))}
         </div>
 
