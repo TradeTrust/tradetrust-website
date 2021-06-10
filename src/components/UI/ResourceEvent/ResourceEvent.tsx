@@ -7,6 +7,7 @@ import { formatTime } from "../../../common/utils/dateTime";
 export interface EventProps {
   attributes: {
     title: string;
+    thumbnail?: string;
     description: string;
     link: string;
     date: string;
@@ -19,92 +20,102 @@ export interface EventProps {
 }
 
 export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => {
-  const { title, description, link, date, timeStart, timeEnd, videoLink, slides, registerLink } = attributes;
+  const { title, thumbnail, description, link, date, timeStart, timeEnd, videoLink, slides, registerLink } = attributes;
 
   return (
-    <div className="bg-white shadow-md mb-4 w-full px-5 pt-3 pb-5">
-      {isFuture(new Date(date)) && (
-        <div className="border-2 border-tangerine rounded inline-block py-1 px-2 uppercase font-bold text-xs text-tangerine my-2">
-          Upcoming
-        </div>
+    <div className="flex flex-wrap rounded-xl shadow-xl mb-4">
+      {thumbnail && (
+        <img className="object-cover rounded-t-xl md:w-4/12 md:rounded-none md:rounded-l-xl" src={thumbnail} />
       )}
-      <h4 className="title mb-2">
-        <span className="text-gray-700 font-medium text-2xl">{title}</span>
-      </h4>
-      <div className="text-gray-500 text-base font-medium pb-3">
-        <span>{date}</span>
-        {timeStart && timeEnd && (
-          <>
-            <span className="mx-1">|</span>
-            <span>
-              {formatTime(timeStart, "HH:mm")} to {formatTime(timeEnd, "HH:mm")} ({formatTime(timeStart, "zzz")})
-            </span>
-          </>
-        )}
-      </div>
-      <p className="mb-4">{description}</p>
-      {isFuture(new Date(date)) && registerLink && (
-        <LinkButton
-          href={registerLink}
-          target="_blank"
-          className="bg-tangerine-600 text-white hover:bg-tangerine hover:text-white inline-block mb-2"
-        >
-          Register
-        </LinkButton>
-      )}
-      <div className="flex flex-wrap pt-4 text-blue">
-        <div className="w-full sm:w-auto mb-2 sm:mb-0">
-          <a
-            className="text-lg font-medium inline-block pr-4"
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="event-link"
-          >
-            <div className="flex">
-              <div className="w-auto">
-                <ExternalLink />
-              </div>
-              <div className="flex-grow px-2">Event Link</div>
-            </div>
-          </a>
-        </div>
-        {videoLink && (
-          <div className="w-full sm:w-auto mb-2 sm:mb-0">
-            <a
-              className="text-lg font-medium inline-block pr-4"
-              href={videoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="watch-link"
-            >
-              <div className="flex">
-                <div className="w-auto">
-                  <PlayCircle />
-                </div>
-                <div className="flex-grow px-2">Watch Event</div>
-              </div>
-            </a>
+      <div
+        className={`w-full bg-white px-5 pt-3 pb-5 ${
+          thumbnail ? "rounded-b-xl md:w-8/12 md:rounded-none md:rounded-r-xl" : "rounded-xl"
+        }`}
+      >
+        {/* {isFuture(new Date(date)) && (
+          <div className="border-2 border-orange rounded inline-block py-1 px-2 uppercase font-bold text-xs text-orange my-2">
+            Upcoming
           </div>
+        )} */}
+        <h4 className="title mb-2">
+          <span className="text-grey-700 font-medium text-2xl">{title}</span>
+        </h4>
+        <div className="text-grey text-base font-medium pb-3">
+          <span>{date}</span>
+          {timeStart && timeEnd && (
+            <>
+              <span className="mx-1">|</span>
+              <span>
+                {formatTime(timeStart, "HH:mm")} to {formatTime(timeEnd, "HH:mm")} ({formatTime(timeStart, "zzz")})
+              </span>
+            </>
+          )}
+        </div>
+        <p className="mb-4">{description}</p>
+        {isFuture(new Date(date)) && registerLink && (
+          <LinkButton
+            href={registerLink}
+            target="_blank"
+            className="bg-blue rounded-xl text-white hover:bg-blue-700 hover:text-white inline-block mb-2"
+          >
+            Register
+          </LinkButton>
         )}
-        {slides && (
+        <div className="flex flex-wrap pt-4 text-blue">
+          {videoLink && (
+            <div className="w-full sm:w-auto mb-2 sm:mb-0">
+              <a
+                className="text-lg font-medium inline-block pr-4"
+                href={videoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="watch-link"
+              >
+                <div className="flex">
+                  <div className="w-auto">
+                    <PlayCircle />
+                  </div>
+                  <div className="flex-grow px-2">Watch Event</div>
+                </div>
+              </a>
+            </div>
+          )}
           <div className="w-full sm:w-auto mb-2 sm:mb-0">
             <a
               className="text-lg font-medium inline-block pr-4"
-              href={slides}
+              href={link}
               target="_blank"
               rel="noopener noreferrer"
-              data-testid="event-slides"
+              data-testid="event-link"
             >
               <div className="flex">
                 <div className="w-auto">
                   <ExternalLink />
                 </div>
-                <div className="flex-grow px-2">Event Slides</div>
+                <div className="flex-grow px-2">Event Link</div>
               </div>
             </a>
           </div>
-        )}
+
+          {slides && (
+            <div className="w-full sm:w-auto mb-2 sm:mb-0">
+              <a
+                className="text-lg font-medium inline-block pr-4"
+                href={slides}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="event-slides"
+              >
+                <div className="flex">
+                  <div className="w-auto">
+                    <ExternalLink />
+                  </div>
+                  <div className="flex-grow px-2">Event Slides</div>
+                </div>
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
