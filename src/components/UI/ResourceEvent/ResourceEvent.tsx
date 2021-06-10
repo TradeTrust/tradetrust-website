@@ -38,9 +38,9 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
           </div>
         )} */}
         <h4 className="title mb-2">
-          <span className="text-grey-700 font-medium text-2xl">{title}</span>
+          <span className="font-ubuntu font-bold text-cloud-900 text-2xl">{title}</span>
         </h4>
-        <div className="text-grey text-base font-medium pb-3">
+        <div className="text-cloud-300 text-base font-medium pb-3">
           <span>{date}</span>
           {timeStart && timeEnd && (
             <>
@@ -51,21 +51,21 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
             </>
           )}
         </div>
-        <p className="mb-4">{description}</p>
+        <p className="text-cloud-900 font-normal mb-4">{description}</p>
         {isFuture(new Date(date)) && registerLink && (
           <LinkButton
             href={registerLink}
             target="_blank"
-            className="bg-blue rounded-xl text-white hover:bg-blue-700 hover:text-white inline-block mb-2"
+            className="bg-cerulean-200 rounded-xl text-white hover:bg-cerulean-300 hover:text-white inline-block mb-2"
           >
             Register
           </LinkButton>
         )}
-        <div className="flex flex-wrap pt-4 text-blue">
+        <div className="flex flex-wrap pt-4">
           {videoLink && (
             <div className="w-full sm:w-auto mb-2 sm:mb-0">
               <a
-                className="text-lg font-medium inline-block pr-4"
+                className="text-lg text-cerulean-200 font-medium hover:text-cerulean-300 inline-block pr-4"
                 href={videoLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -82,7 +82,7 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
           )}
           <div className="w-full sm:w-auto mb-2 sm:mb-0">
             <a
-              className="text-lg font-medium inline-block pr-4"
+              className="text-lg text-cerulean-200 font-medium hover:text-cerulean-300 inline-block pr-4"
               href={link}
               target="_blank"
               rel="noopener noreferrer"
@@ -100,7 +100,7 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
           {slides && (
             <div className="w-full sm:w-auto mb-2 sm:mb-0">
               <a
-                className="text-lg font-medium inline-block pr-4"
+                className="text-lg text-cerulean-200 font-medium hover:text-cerulean-300 inline-block pr-4"
                 href={slides}
                 target="_blank"
                 rel="noopener noreferrer"
