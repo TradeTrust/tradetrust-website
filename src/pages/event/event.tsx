@@ -22,10 +22,6 @@ const CategoryFilter = styled.div`
   }
 `;
 
-// export const getEvents = () => {
-//   return importAll(require.context("../../../cms/event/", false, /\.md$/)) as EventProps[];
-// };
-
 const getSortedByDateDesc = (items: any[]) => {
   items.sort((a, b): number => {
     return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
@@ -33,19 +29,6 @@ const getSortedByDateDesc = (items: any[]) => {
 
   return items;
 };
-
-// export const filterByCategory = (item: string) => {
-//   switch (true) {
-//     case item === "All":
-//       return events;
-//     case item === "Upcoming Event":
-//       return events.filter((event) => isFuture(new Date(event.attributes.date)));
-//     case item === "Past Event":
-//       return events.filter((event) => isPast(new Date(event.attributes.date)));
-//     default:
-//       return events;
-//   }
-// };
 
 export const filterByCategory = (item: string, allEvents: EventProps[]): EventProps[] => {
   switch (true) {
@@ -73,9 +56,7 @@ export const EventPage: FunctionComponent = () => {
 
   const indexOfLastEvent = currentPage * postsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - postsPerPage;
-  // const currentPosts = filteredPosts.slice(indexOfFirstEvent, indexOfLastEvent); // able to use filter
   const currentPosts = filteredPosts.filter((post, index) => {
-    // if (index >= indexOfFirstEvent && index < indexOfLastEvent) return post;
     return index >= indexOfFirstEvent && index < indexOfLastEvent ? post : null;
   });
 
@@ -112,15 +93,6 @@ export const EventPage: FunctionComponent = () => {
         </CategoryFilter>
         <div className="flex flex-wrap py-4 -mx-4">
           <div className="w-full px-4 lg:w-9/12">
-            {/* {events
-              .filter((event, index) => {
-                if (category === "Upcoming Event") return isFuture(new Date(event.attributes.date)) ? event : null;
-                else if (category === "Past Event") return isPast(new Date(event.attributes.date)) ? event : null;
-                else return event;
-              })
-              .map((event, index) => (
-                <ResourceEvent key={index} attributes={event.attributes} />
-              ))} */}
             {currentPosts.map((event, index) => (
               <ResourceEvent key={index} attributes={event.attributes} />
             ))}
