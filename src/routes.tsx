@@ -8,7 +8,7 @@ import { ResourcesPage } from "./pages/resources";
 import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
 import { ViewerPage } from "./pages/viewer";
 import { ContactPage } from "./pages/contact";
-import { EventPage } from "./pages/event";
+import { EventPage } from "./pages/event/event";
 
 export const routes = [
   { path: "/", exact: true, component: HomePageContainer },

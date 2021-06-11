@@ -2,11 +2,11 @@ import styled from "@emotion/styled";
 import React, { FunctionComponent, useState } from "react";
 import { compareDesc, isFuture, isPast } from "date-fns";
 import { Helmet } from "react-helmet";
-import { ResourceEvent, EventProps } from "../components/UI/ResourceEvent";
-import { importAll } from "../common/utils/importAll";
+import { ResourceEvent, EventProps } from "../../components/UI/ResourceEvent";
+import { importAll } from "../../common/utils/importAll";
 import { Pagination } from "@govtechsg/tradetrust-ui-components";
 
-let events = importAll(require.context("../../cms/event/", false, /\.md$/)) as EventProps[];
+let events = importAll(require.context("../../../cms/event/", false, /\.md$/)) as EventProps[];
 
 const CategoryFilter = styled.div`
   h5 {
@@ -22,6 +22,10 @@ const CategoryFilter = styled.div`
   }
 `;
 
+// export const getEvents = () => {
+//   return importAll(require.context("../../../cms/event/", false, /\.md$/)) as EventProps[];
+// };
+
 const getSortedByDateDesc = (items: any[]) => {
   items.sort((a, b): number => {
     return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
@@ -30,16 +34,29 @@ const getSortedByDateDesc = (items: any[]) => {
   return items;
 };
 
-const filterByCategory = (item: string) => {
+// export const filterByCategory = (item: string) => {
+//   switch (true) {
+//     case item === "All":
+//       return events;
+//     case item === "Upcoming Event":
+//       return events.filter((event) => isFuture(new Date(event.attributes.date)));
+//     case item === "Past Event":
+//       return events.filter((event) => isPast(new Date(event.attributes.date)));
+//     default:
+//       return events;
+//   }
+// };
+
+export const filterByCategory = (item: string, allEvents: EventProps[]): EventProps[] => {
   switch (true) {
     case item === "All":
-      return events;
+      return allEvents;
     case item === "Upcoming Event":
-      return events.filter((event) => isFuture(new Date(event.attributes.date)));
+      return allEvents.filter((event) => isFuture(new Date(event.attributes.date)));
     case item === "Past Event":
-      return events.filter((event) => isPast(new Date(event.attributes.date)));
+      return allEvents.filter((event) => isPast(new Date(event.attributes.date)));
     default:
-      return events;
+      return allEvents;
   }
 };
 
@@ -56,7 +73,11 @@ export const EventPage: FunctionComponent = () => {
 
   const indexOfLastEvent = currentPage * postsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - postsPerPage;
-  const currentPosts = filteredPosts.slice(indexOfFirstEvent, indexOfLastEvent);
+  // const currentPosts = filteredPosts.slice(indexOfFirstEvent, indexOfLastEvent); // able to use filter
+  const currentPosts = filteredPosts.filter((post, index) => {
+    // if (index >= indexOfFirstEvent && index < indexOfLastEvent) return post;
+    return index >= indexOfFirstEvent && index < indexOfLastEvent ? post : null;
+  });
 
   return (
     <>
@@ -78,10 +99,11 @@ export const EventPage: FunctionComponent = () => {
             <h5
               className={`inline-block text-xl mr-4 cursor-pointer ${item === category ? "active" : ""}`}
               key={index}
+              data-testid="filter-category"
               onClick={() => {
                 setCurrentPage(1);
                 setCategory(item);
-                setFilteredPosts(filterByCategory(item));
+                setFilteredPosts(filterByCategory(item, events));
               }}
             >
               {item}
@@ -102,7 +124,9 @@ export const EventPage: FunctionComponent = () => {
             {currentPosts.map((event, index) => (
               <ResourceEvent key={index} attributes={event.attributes} />
             ))}
-            <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            {events.length > 0 && (
+              <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            )}
           </div>
         </div>
       </div>
