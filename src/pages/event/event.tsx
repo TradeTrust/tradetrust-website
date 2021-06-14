@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent, useState } from "react";
-import { compareDesc, isFuture, isPast } from "date-fns";
+import { isFuture, isPast } from "date-fns";
 import { Helmet } from "react-helmet";
 import { ResourceEvent, EventProps } from "../../components/UI/ResourceEvent";
 import { importAll } from "../../common/utils/importAll";
 import { Pagination } from "@govtechsg/tradetrust-ui-components";
+import { getSortedByDateDesc } from "../../utils/index";
 
 let events = importAll(require.context("../../../cms/event/", false, /\.md$/)) as EventProps[];
 
@@ -22,18 +23,22 @@ const CategoryFilter = styled.div`
   }
 `;
 
-const getSortedByDateDesc = (items: any[]) => {
-  items.sort((a, b): number => {
-    return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
-  });
+enum Categories {
+  ALL = "All",
+  UPCOMING_EVENT = "Upcoming Event",
+  PAST_EVENT = "Past Event",
+}
 
-  return items;
-};
+// const getSortedByDateDesc = (items: any[]) => {
+//   items.sort((a, b): number => {
+//     return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
+//   });
+
+//   return items;
+// };
 
 export const filterByCategory = (item: string, allEvents: EventProps[]): EventProps[] => {
   switch (true) {
-    case item === "All":
-      return allEvents;
     case item === "Upcoming Event":
       return allEvents.filter((event) => isFuture(new Date(event.attributes.date)));
     case item === "Past Event":
@@ -46,8 +51,8 @@ export const filterByCategory = (item: string, allEvents: EventProps[]): EventPr
 events = getSortedByDateDesc(events);
 
 export const EventPage: FunctionComponent = () => {
-  const categories = ["All", "Upcoming Event", "Past Event"];
-  const [category, setCategory] = useState("All");
+  const categories: Categories[] = [Categories.ALL, Categories.UPCOMING_EVENT, Categories.PAST_EVENT];
+  const [category, setCategory] = useState(Categories.ALL);
   const [filteredPosts, setFilteredPosts] = useState<EventProps[]>(events);
 
   const postsPerPage = 5;
@@ -96,7 +101,7 @@ export const EventPage: FunctionComponent = () => {
             {currentPosts.map((event, index) => (
               <ResourceEvent key={index} attributes={event.attributes} />
             ))}
-            {events.length > 0 && (
+            {filteredPosts.length > 0 && (
               <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             )}
           </div>

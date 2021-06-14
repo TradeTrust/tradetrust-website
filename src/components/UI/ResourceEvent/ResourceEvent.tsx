@@ -32,11 +32,6 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
           thumbnail ? "rounded-b-xl md:w-8/12 md:rounded-none md:rounded-r-xl" : "rounded-xl"
         }`}
       >
-        {/* {isFuture(new Date(date)) && (
-          <div className="border-2 border-orange rounded inline-block py-1 px-2 uppercase font-bold text-xs text-orange my-2">
-            Upcoming
-          </div>
-        )} */}
         <h4 className="title mb-2">
           <span className="font-ubuntu font-bold text-cloud-900 text-2xl">{title}</span>
         </h4>
