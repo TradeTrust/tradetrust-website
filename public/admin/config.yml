@@ -34,6 +34,14 @@ collections:
           hint: "Published date, doubling up as sequence order.",
         }
     sortable_fields: ["title", "publishedDate"]
+  - name: "article"
+    label: "Article"
+    folder: "cms/article"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "Title of article." }
   - name: "newsletter"
     label: "Newsletter"
     folder: "cms/newsletter"
@@ -43,6 +51,30 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "Title of newsletter." }
       - { label: "File", name: "file", widget: "file", hint: "File download of newsletter." }
+  - name: "partner-news"
+    label: "Partner News"
+    folder: "cms/partner-news"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "Title of partner news." }
+  - name: "press-release"
+    label: "Press Release"
+    folder: "cms/press-release"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "Title of press release." }
+  - name: "speech"
+    label: "Speech"
+    folder: "cms/speech"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "Title of speech." }
   - name: "media"
     label: "Media"
     folder: "cms/media"

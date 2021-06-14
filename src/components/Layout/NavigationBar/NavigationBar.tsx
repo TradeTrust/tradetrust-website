@@ -25,14 +25,14 @@ const leftNavItems: NavigationItem[] = [
   },
   {
     schema: NavigationItemType.DropDownList,
-    id: "media_events",
-    label: "Media & Events",
+    id: "news-events",
+    label: "News & Events",
     path: "",
     dropdownItems: [
       {
-        id: "media",
-        label: "Media",
-        path: "/media",
+        id: "news",
+        label: "News",
+        path: "/news",
       },
       {
         id: "event",
