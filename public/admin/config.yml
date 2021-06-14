@@ -42,6 +42,9 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "Title of article." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of article." }
+      - { label: "Link", name: "link", widget: "string", hint: "Url of article." }
   - name: "newsletter"
     label: "Newsletter"
     folder: "cms/newsletter"
@@ -50,6 +53,8 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "Title of newsletter." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of article." }
       - { label: "File", name: "file", widget: "file", hint: "File download of newsletter." }
   - name: "partner-news"
     label: "Partner News"
@@ -59,6 +64,9 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "Title of partner news." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of partner news." }
+      - { label: "Link", name: "link", widget: "string", hint: "Url of partner news." }
   - name: "press-release"
     label: "Press Release"
     folder: "cms/press-release"
@@ -67,6 +75,9 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "Title of press release." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of press release." }
+      - { label: "Link", name: "link", widget: "string", hint: "Url of press release." }
   - name: "speech"
     label: "Speech"
     folder: "cms/speech"
@@ -75,6 +86,9 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "Title of speech." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of speech." }
+      - { label: "Link", name: "link", widget: "string", hint: "Url of speech." }
   - name: "media"
     label: "Media"
     folder: "cms/media"

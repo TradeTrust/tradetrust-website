@@ -1,16 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { Download } from "react-feather";
-
-export type Newsletter = {
-  attributes: {
-    title: string;
-    file: string;
-  };
-};
-
+import { News } from "./../../News/types";
 export interface ResourceDownloadProps {
   title: string;
-  resources: Newsletter[];
+  resources: News[];
 }
 
 export const ResourceDownload: FunctionComponent<ResourceDownloadProps> = ({ title, resources }) => {
