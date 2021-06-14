@@ -42,9 +42,11 @@ const localConfig = {
       minWidth: {
         135: "135px",
         200: "200px",
+        xxs: "15.5rem",
       },
       maxWidth: {
         220: "220px",
+        xxs: "15.5rem",
       },
       height: {
         140: "35rem",

@@ -6,24 +6,19 @@ import {
   retrieveCertificateByAction,
   retrieveCertificateByActionFailure,
   updateCertificate,
-} from "../reducers/certificate";
+} from "../../reducers/certificate";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { NestedDocumentState } from "../constants/NestedDocumentState";
-// import { LandingSection } from "./HomePageContent/LandingSection";
-// import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
-// import { DocumentationSection } from "./HomePageContent/DocumentationSection";
-// import { EmailSection } from "./HomePageContent/EmailSection";
-// import { DropZoneSectionContainer } from "./HomePageContent/DropZoneSection";
-import { getLogger } from "../utils/logger";
+import { NestedDocumentState } from "../../constants/NestedDocumentState";
+import { getLogger } from "../../utils/logger";
 
-import { WelcomeSection } from "./HomePageContent/WelcomeSection";
-import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
-import { HowItWorksSection } from "./HomePageContent/HowItWorksSection";
+import { WelcomeSection } from "./WelcomeSection";
+import { MainBenefitsSection } from "./MainBenefitsSection";
+import { HowItWorksSection } from "./HowItWorksSection";
 
 const { error } = getLogger("component:mainpage");
 
-export const MainPageContainer = (): React.ReactElement => {
+export const HomePageContainer = (): React.ReactElement => {
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();

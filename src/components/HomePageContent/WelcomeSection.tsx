@@ -5,10 +5,6 @@ import styled from "@emotion/styled";
 
 const Background = styled.div`
   background-image: url("/static/images/home/map.png");
-
-  // @media screen and (min-width: 801px) {
-  //   background-image: url("/static/images/home/map.png");
-  // }
 `;
 
 const DescriptionSection: FunctionComponent = () => {
