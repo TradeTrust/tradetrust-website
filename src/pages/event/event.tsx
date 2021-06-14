@@ -8,6 +8,7 @@ import { Pagination } from "@govtechsg/tradetrust-ui-components";
 import { getSortedByDateDesc } from "../../utils/index";
 
 let events = importAll(require.context("../../../cms/event/", false, /\.md$/)) as EventProps[];
+events = getSortedByDateDesc(events);
 
 const CategoryFilter = styled.div`
   h5 {
@@ -29,14 +30,6 @@ enum Categories {
   PAST_EVENT = "Past Event",
 }
 
-// const getSortedByDateDesc = (items: any[]) => {
-//   items.sort((a, b): number => {
-//     return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
-//   });
-
-//   return items;
-// };
-
 export const filterByCategory = (item: string, allEvents: EventProps[]): EventProps[] => {
   switch (true) {
     case item === "Upcoming Event":
@@ -47,8 +40,6 @@ export const filterByCategory = (item: string, allEvents: EventProps[]): EventPr
       return allEvents;
   }
 };
-
-events = getSortedByDateDesc(events);
 
 export const EventPage: FunctionComponent = () => {
   const categories: Categories[] = [Categories.ALL, Categories.UPCOMING_EVENT, Categories.PAST_EVENT];

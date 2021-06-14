@@ -1,19 +1,12 @@
 import React, { FunctionComponent } from "react";
-import { compareDesc } from "date-fns";
 import { Helmet } from "react-helmet";
 import { ResourceEvent, EventProps } from "../components/UI/ResourceEvent";
 import { ResourceMedia, Media } from "../components/UI/ResourceMedia";
 import { importAll } from "../common/utils/importAll";
+import { getSortedByDateDesc } from "./../utils/index";
 
 let medias = importAll(require.context("../../cms/media/", false, /\.md$/)) as Media[];
 let events = importAll(require.context("../../cms/event/", false, /\.md$/)) as EventProps[];
-
-const getSortedByDateDesc = (items: any[]) => {
-  items.sort((a, b): number => {
-    return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
-  });
-  return items;
-};
 
 medias = getSortedByDateDesc(medias);
 events = getSortedByDateDesc(events);
