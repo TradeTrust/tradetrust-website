@@ -4,9 +4,11 @@ import React, { FunctionComponent, useState } from "react";
 import { Settings } from "react-feather";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
+import DemoNav from "./DemoNav";
+import Logout from "./Logout"
 import tw from "twin.macro";
 
-interface NavItemsProps {
+export interface NavItemsProps {
   id: string;
   label: string;
   path: string;
@@ -14,6 +16,11 @@ interface NavItemsProps {
 }
 
 export const navItems: NavItemsProps[] = [
+  {
+    id: "demo",
+    label: "Demo",
+    path: "/demo",
+  },
   {
     id: "verify-documents",
     label: "Verify Documents",
@@ -56,8 +63,14 @@ export const navItems: NavItemsProps[] = [
     label: "Settings",
     path: "/settings",
   },
+  {
+    id: "logout",
+    label: "Logout",
+    path: "/"
+  }
 ];
 
+const sharedStyles = "transition-colors duration-200 ease-out font-normal text-greyblue hover:text-white";
 export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
   const location = useLocation();
   switch (true) {
@@ -65,10 +78,7 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
       return <a href={item.path}>{item.label}</a>;
     case item.id === "info":
       return (
-        <Dropdown
-          dropdownButtonText="Info"
-          className="transition-colors duration-200 ease-out font-normal text-greyblue hover:text-white"
-        >
+        <Dropdown dropdownButtonText="Info" className={sharedStyles}>
           {item.dropdownItems?.map((dropdownItem: any, index: number) => {
             return (
               <DropdownItem key={index}>
@@ -91,6 +101,10 @@ export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
           <Settings />
         </NavHashLink>
       );
+    case item.id === "demo":
+      return <DemoNav className={`${sharedStyles} cursor-pointer`} {...item} />;
+    case item.id === "logout":
+      return <Logout className={`${sharedStyles} cursor-pointer`} {...item} />
     default:
       return (
         <NavHashLink

@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import AppContainer from "./AppContainer";
 import { ProviderContextProvider } from "./common/contexts/provider";
+import AuthProvider from "./common/contexts/AuthContext";
 import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";
 import "./index.css";
 import { configureStore, history } from "./store";
@@ -16,11 +17,13 @@ const App = () => {
     <OverlayContextProvider>
       <ProviderContextProvider>
         <TokenInformationContextProvider>
-          <Provider store={store}>
-            <ConnectedRouter history={history}>
-              <AppContainer />
-            </ConnectedRouter>
-          </Provider>
+          <AuthProvider>
+            <Provider store={store}>
+              <ConnectedRouter history={history}>
+                <AppContainer />
+              </ConnectedRouter>
+            </Provider>
+          </AuthProvider>
         </TokenInformationContextProvider>
       </ProviderContextProvider>
     </OverlayContextProvider>

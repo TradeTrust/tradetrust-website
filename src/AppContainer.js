@@ -1,11 +1,11 @@
 import { NetworkBar, Overlay } from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { hot } from "react-hot-loader/root";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar } from "./components/Layout/NavigationBar";
 import { NETWORK } from "./config";
-import { routes } from "./routes";
+import { Routes, routes } from "./routes";
 
 const AppContainer = () => {
   const location = useLocation();
@@ -17,11 +17,7 @@ const AppContainer = () => {
       </NetworkBar>
       <NavigationBar />
       <main className="flex-1">
-        <Switch>
-          {routes.map((route, id) => (
-            <Route key={id} {...route} />
-          ))}
-        </Switch>
+          <Routes routes={routes} />
       </main>
       <Footer />
       <Overlay />

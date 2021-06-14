@@ -20,7 +20,7 @@ import {
   print,
 } from "@govtechsg/decentralized-renderer-react-components";
 import { LEGACY_OPENCERTS_RENDERER } from "../../config";
-import { TemplateProps } from "./../../types";
+import { TemplateProps } from "../../types";
 
 interface DecentralisedRendererProps {
   rawDocument: WrappedDocument<v2.OpenAttestationDocument>;

@@ -9,12 +9,20 @@ export const CAPTCHA_CLIENT_KEY = "6LfiL3EUAAAAAHrfLvl2KhRAcXpanNXDqu6M0CCS";
 export const EMAIL_API_URL = IS_MAINNET ? "https://api.opencerts.io/email" : "https://api-ropsten.opencerts.io/email";
 export const INFURA_PROJECT_ID = "1f1ff2b3fca04f8d99f67d465c59e4ef";
 export const INFURA_API_KEY = process.env.INFURA_API_KEY || "bb46da3f80e040e8ab73c0a9ff365d18";
+// need to change this before commit
+export const MAGIC_API_KEY = process.env.MAGIC_API_KEY || "pk_test_8D18DB82D8775D5E";
 export const LEGACY_OPENCERTS_RENDERER = "https://legacy.opencerts.io/";
 
 export const NETWORK_ID = IS_MAINNET ? "1" : "3";
 export const NETWORK_NAME = IS_MAINNET ? "homestead" : NETWORK;
 
 export const ETHERSCAN_BASE_URL = `https://${IS_MAINNET ? "" : NETWORK_NAME + "."}etherscan.io/`;
+
+export enum DOMAINS {
+  ropsten = "https://dev.tradetrust.io/",
+  mainnet = "https://www.tradetrust.io/",
+  rinkeby = "https://rinkeby.tradetrust.io/",
+}
 
 trace(`CAPTCHA_CLIENT_KEY: ${CAPTCHA_CLIENT_KEY}`);
 trace(`EMAIL_API_URL: ${EMAIL_API_URL}`);

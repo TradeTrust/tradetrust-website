@@ -1,5 +1,6 @@
 import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
+import { useProviderContext, SIGNER_TYPE } from "../../../../../common/contexts/provider";
 import { TagBorderedRedLarge } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -52,6 +53,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     canEndorseTransfer;
 
   const { showOverlay } = useContext(OverlayContext);
+  const { providerType } = useProviderContext()
   const handleNoAccess = () => {
     showOverlay(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
   };
@@ -111,7 +113,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
       {!isTokenBurnt && (
         <div className="flex flex-wrap pb-4">
           <div className="w-auto lg:ml-auto">
-            {account ? (
+            {/* {(account)  ? ( */}
+            {(account && providerType === SIGNER_TYPE.METAMASK)  ? (
               <>
                 {canManage ? (
                   <AssetManagementDropdown

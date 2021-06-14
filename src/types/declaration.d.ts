@@ -1,3 +1,4 @@
+import { providers } from "ethers";
 declare module "tailwindcss/resolveConfig";
 
 declare module "*.scss" {
@@ -12,6 +13,9 @@ declare module "*.css" {
 
 declare module "*.md";
 
+interface Ethereum extends providers.ExternalProvider, providers.BaseProvider {
+  enable: () => void;
+}
 declare global {
   interface Window {
     ethereum: Ethereum;

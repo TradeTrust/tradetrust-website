@@ -2,6 +2,13 @@ import { MessageTitle } from "@govtechsg/tradetrust-ui-components";
 import { ethers, providers, Signer } from "ethers";
 import React, { createContext, FunctionComponent, useContext, useEffect, useState } from "react";
 import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
+import { magic } from "./helpers";
+
+export enum SIGNER_TYPE {
+  IDENTITY,
+  METAMASK,
+  MAGIC,
+}
 
 const getProvider =
   NETWORK_NAME === "local"
@@ -9,43 +16,32 @@ const getProvider =
     : new ethers.providers.InfuraProvider(NETWORK_NAME, INFURA_API_KEY);
 
 interface ProviderContextProps {
-  isUpgraded: boolean;
   provider: providers.Provider | Signer;
-  upgradeProvider: () => Promise<void>;
+  providerType: SIGNER_TYPE;
+  upgradeToMetaMaskSigner: () => Promise<void>;
+  upgradeToMagicSigner: () => Promise<void>;
   account?: string;
 }
 
 export const ProviderContext = createContext<ProviderContextProps>({
-  isUpgraded: false,
   provider: getProvider,
+  providerType: SIGNER_TYPE.IDENTITY,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  upgradeProvider: async () => {},
+  upgradeToMetaMaskSigner: async () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  upgradeToMagicSigner: async () => {},
   account: undefined,
 });
-
-interface Ethereum extends providers.ExternalProvider, providers.BaseProvider {
-  enable: () => void;
-}
-
-declare global {
-  interface Window {
-    ethereum: Ethereum;
-    web3: {
-      currentProvider: providers.ExternalProvider;
-    };
-  }
-}
-
 interface ProviderContextProviderProps {
   children: React.ReactNode;
 }
 
 export const ProviderContextProvider: FunctionComponent<ProviderContextProviderProps> = ({ children }) => {
-  const [isUpgraded, setIsUpgraded] = useState(false);
+  const [providerType, setProviderType] = useState(SIGNER_TYPE.IDENTITY);
   const [provider, setProvider] = useState<providers.Provider | Signer>(getProvider);
   const [account, setAccount] = useState<string>();
 
-  const initializeSigner = async () => {
+  const initializeMetaMaskSigner = async () => {
     const { ethereum, web3 } = window;
 
     const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
@@ -59,25 +55,41 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     const web3account = (await web3provider.listAccounts())[0];
 
     setProvider(signer);
-    setIsUpgraded(true);
+    setProviderType(SIGNER_TYPE.METAMASK);
     setAccount(web3account);
   };
 
-  const upgradeProvider = async () => {
-    if (isUpgraded) return;
-    return initializeSigner();
+  const initialiseMagicSigner = async () => {
+    // needs to be cast as any before https://github.com/magiclabs/magic-js/issues/83 has been merged.
+    const magicProvider = new ethers.providers.Web3Provider(magic.rpcProvider as any);
+    const signer = magicProvider.getSigner()
+    const account = await signer.getAddress()
+
+    setProvider(signer)
+    setProviderType(SIGNER_TYPE.MAGIC)
+    setAccount(account)
   };
+
+  const upgradeToMetaMaskSigner = async () => {
+    if (providerType === SIGNER_TYPE.METAMASK) return;
+    return initializeMetaMaskSigner();
+  };
+
+  const upgradeToMagicSigner = async () => {
+    if (providerType === SIGNER_TYPE.MAGIC) return;
+    return initialiseMagicSigner()
+  }
 
   useEffect(() => {
     // Do not listen before the provider is upgraded by the app
-    if (!isUpgraded) return;
+    if (providerType !== SIGNER_TYPE.METAMASK) return;
     window.ethereum.on("accountsChanged", () => {
-      return initializeSigner();
+      return initializeMetaMaskSigner();
     });
-  }, [isUpgraded]);
+  }, [providerType]);
 
   return (
-    <ProviderContext.Provider value={{ isUpgraded, provider, upgradeProvider, account }}>
+    <ProviderContext.Provider value={{ provider, providerType, upgradeToMetaMaskSigner, upgradeToMagicSigner, account }}>
       {children}
     </ProviderContext.Provider>
   );
