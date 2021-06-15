@@ -1,122 +1,226 @@
-import React, { Dispatch, FunctionComponent, SetStateAction, useState } from "react";
+import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
+import { PersonaModal } from "./PersonaModal";
 
-interface HowItWorksProps {
+export interface HowItWorksProps {
   details: HowItWorks;
-  index: number;
-  open: number;
-  setOpen: Dispatch<SetStateAction<number>>;
+  index?: number;
+  open?: number;
+  setOpen?: Dispatch<SetStateAction<number>>;
 }
 
 type HowItWorks = {
   image: string;
+  jobTitle: string;
   description: string;
-  steps: {
-    thenSteps: [
-      {
-        stepNumber: string;
-        stepDescription: string;
-      }
-    ];
-    nowSteps: [
-      {
-        stepNumber: string;
-        stepDescription: string;
-      }
-    ];
+  steps?: {
+    title: string;
+    thenSteps: {
+      stepNumber: string;
+      icon: string;
+      description: string;
+    }[];
+    nowSteps: {
+      stepNumber: string;
+      icon: string;
+      description: string;
+    }[];
+    endMessage: string;
+  };
+  benefits?: {
+    title: string;
+    benefitStage: { benefitNumber: string; icon: string; description: string }[];
+    endMessage: string;
   };
 };
 
 const howItWorksUsers: HowItWorks[] = [
   {
-    image: "/static/images/home/kevin.png",
+    image: "/static/images/home/kevin/kevin.png",
+    jobTitle: "The Exporter",
     description: "This is Kevin, he is an exporter with customers in many different countries",
     steps: {
+      title: "Blank-Endorsed BL",
       thenSteps: [
         {
           stepNumber: "1",
-          stepDescription: "Fill in details of the Sales Agreement",
+          icon: "/static/images/home/kevin/kevin-then-1.svg",
+          description: "Exporter received BL from carrier (via courier)",
+        },
+        {
+          stepNumber: "2",
+          icon: "/static/images/home/kevin/kevin-then-2.svg",
+          description: "Exporter checks the details of BL including entire endorsement chain",
+        },
+        {
+          stepNumber: "3",
+          icon: "/static/images/home/kevin/kevin-then-3.svg",
+          description: "Exporter endorses BL",
+        },
+        {
+          stepNumber: "4",
+          icon: "/static/images/home/kevin/kevin-then-4.svg",
+          description: "Exporter dispatches the BL to Negotiating Bank (via courier)",
         },
       ],
       nowSteps: [
         {
           stepNumber: "1",
-          stepDescription: "Placeholder",
+          icon: "/static/images/home/kevin/kevin-now-1.svg",
+          description: "Exporter receives eBL from carrier (via email)",
+        },
+        {
+          stepNumber: "2",
+          icon: "/static/images/home/kevin/kevin-now-2.svg",
+          description: "Exporter checks for authenticity and provenance including endorsement entry",
+        },
+        {
+          stepNumber: "3",
+          icon: "/static/images/home/kevin/kevin-now-3.svg",
+          description: "Exporter performs endorsement to Negotiating Bank",
         },
       ],
+      endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
     },
   },
   {
-    image: "/static/images/home/lizzie.png",
+    image: "/static/images/home/lizzie/lizzie.png",
+    jobTitle: "The Carrier",
     description:
       "This is Lizzie, she works for a Carrier, and her Company is using TradeTrust for their e-Bill-of-Lading Solution",
-    steps: {
-      thenSteps: [
+    benefits: {
+      title: "Issuance and Surrender of BL processes",
+      benefitStage: [
         {
-          stepNumber: "1",
-          stepDescription: "Fill in details of the Sales Agreement",
+          benefitNumber: "1",
+          icon: "/static/images/home/lizzie/lizzie-benefit-1.svg",
+          description: "Improve customer experience with fast, transparent and trusted eBL",
+        },
+        {
+          benefitNumber: "2",
+          icon: "/static/images/home/lizzie/lizzie-benefit-2.svg",
+          description: "Remove the need to sign up with different eBL service provider",
+        },
+        {
+          benefitNumber: "3",
+          icon: "/static/images/home/lizzie/lizzie-benefit-3.svg",
+          description: "Lower the risk of human error",
+        },
+        {
+          benefitNumber: "4",
+          icon: "/static/images/home/lizzie/lizzie-benefit-4.svg",
+          description: "Advantage of using technology that help his customer cut down on cost",
         },
       ],
-      nowSteps: [
-        {
-          stepNumber: "1",
-          stepDescription: "Placeholder",
-        },
-      ],
+      endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
     },
   },
   {
-    image: "/static/images/home/cara.png",
+    image: "/static/images/home/cara/cara.png",
+    jobTitle: "The Importer",
     description: "This is Cara, she is an importer using Tradetrust to streamline her cargo collection process",
-    steps: {
-      thenSteps: [
+    benefits: {
+      title: "Issuance and Surrender of BL processes",
+      benefitStage: [
         {
-          stepNumber: "1",
-          stepDescription: "Fill in details of the Sales Agreement",
+          benefitNumber: "1",
+          icon: "/static/images/home/cara/cara-benefit-1.svg",
+          description: "Shorten the endorsement process",
+        },
+        {
+          benefitNumber: "2",
+          icon: "/static/images/home/cara/cara-benefit-2.svg",
+          description: "Save cost on courier and paperwork",
+        },
+        {
+          benefitNumber: "3",
+          icon: "/static/images/home/cara/cara-benefit-3.svg",
+          description: "Lower the risk of human error",
+        },
+        {
+          benefitNumber: "4",
+          icon: "/static/images/home/cara/cara-benefit-4.svg",
+          description: "Eliminate the need to check the details of the entire endorsement chain",
         },
       ],
-      nowSteps: [
-        {
-          stepNumber: "1",
-          stepDescription: "Placeholder",
-        },
-      ],
+      endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
     },
   },
   {
-    image: "/static/images/home/liam.png",
+    image: "/static/images/home/liam/liam.png",
+    jobTitle: "The Banker",
     description: "This is Liam, He is a banker using TradeTrust to Minimize Fraud risk in trade financing",
     steps: {
+      title: "Blank-Endorsed BL",
       thenSteps: [
         {
           stepNumber: "1",
-          stepDescription: "Fill in details of the Sales Agreement",
+          icon: "/static/images/home/liam/liam-then-1.svg",
+          description:
+            "Negotiating Bank receives BL from Exporter (via courier) and checks\the details of BL including entire endorsement chain",
+        },
+        {
+          stepNumber: "2",
+          icon: "/static/images/home/liam/liam-then-2.svg",
+          description: "Negotiating Bank endorses BL and dispatches BL to Issuing Bank (via courier)",
+        },
+        {
+          stepNumber: "3",
+          icon: "/static/images/home/liam/liam-then-3.svg",
+          description:
+            "Issuing Bank receives eBL from Negotiating Bank (via courier) and checks the details of BL including entire endorsement chain",
+        },
+        {
+          stepNumber: "4",
+          icon: "/static/images/home/liam/liam-then-4.svg",
+          description: "Issuing Bank endorses BL",
         },
       ],
       nowSteps: [
         {
           stepNumber: "1",
-          stepDescription: "Placeholder",
+          icon: "/static/images/home/liam/liam-now-1.svg",
+          description:
+            "Negotiating Bank receives eBL from Carrier (via email) and checks forauthenticity and provenance including endorsement entry",
+        },
+        {
+          stepNumber: "2",
+          icon: "/static/images/home/liam/liam-now-2.svg",
+          description: "Negotiating Bank performs endorsement and send to Issuing Bank (via email)",
+        },
+        {
+          stepNumber: "3",
+          icon: "/static/images/home/liam/liam-now-3.svg",
+          description:
+            "Issuing Bank checks for authenticity(via TradeTrust) and provenance including endorsement entry",
         },
       ],
+      endMessage: "TradeTrust is more than a tool to prevent fraud. Get in touch to find out more!",
     },
   },
 ];
 
 const HowItWorksElement: React.FunctionComponent<HowItWorksProps> = ({ details, index, open, setOpen }) => {
+  const { showOverlay } = useContext(OverlayContext);
+  const onOverlayHandler = (details: HowItWorks) => {
+    showOverlay(<PersonaModal key={index} details={details} />);
+  };
   // const [open, setOpen] = useState(false);
+  const [test, setTest] = useState(false);
   return (
     <div className="flex flex-col m-4 md:w-6/12 md:m-0 md:mb-8">
       <div className="min-h-220 md:flex md:items-center">
         <img className="mx-auto min-w-220" src={details.image} />
         <div className="flex flex-col items-center md:items-start md:justify-start">
           <p className="text-xl text-center mx-5 md:mx-0 md:text-left md:min-h-90">{details.description}</p>
-          <a className="block pt-3 text-base font-bold" onClick={() => setOpen(open !== index ? index : -1)}>
+          {/* <a className="block pt-3 text-base font-bold" onClick={() => setOpen(open !== index ? index : -1)}> */}
+          <a className="block pt-3 text-base font-bold" onClick={() => onOverlayHandler(details)}>
             Click to find out more
           </a>
         </div>
       </div>
-      {open === index && (
+      {/* {open === index && (
         // <div className="relative mb-2">
         //   <div className="flex min-w-220 max-w-220 justify-center mx-auto md:mx-0">
         //     <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -144,7 +248,7 @@ const HowItWorksElement: React.FunctionComponent<HowItWorksProps> = ({ details, 
           </div>
           <div className={`relative w-auto -mx-8 -mt-1 h-12`} style={{ backgroundColor: "#3B8CC5" }} />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
