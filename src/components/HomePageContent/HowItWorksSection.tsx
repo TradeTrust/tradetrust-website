@@ -201,13 +201,11 @@ const howItWorksUsers: HowItWorks[] = [
   },
 ];
 
-const HowItWorksElement: React.FunctionComponent<HowItWorksProps> = ({ details, index, open, setOpen }) => {
+const HowItWorksElement: React.FunctionComponent<HowItWorksProps> = ({ details, index }) => {
   const { showOverlay } = useContext(OverlayContext);
-  const onOverlayHandler = (details: HowItWorks) => {
-    showOverlay(<PersonaModal key={index} details={details} />);
+  const onOverlayHandler = (modalContent: HowItWorks) => {
+    showOverlay(<PersonaModal key={index} details={modalContent} />);
   };
-  // const [open, setOpen] = useState(false);
-  const [test, setTest] = useState(false);
   return (
     <div className="flex flex-col m-4 md:w-6/12 md:m-0 md:mb-8">
       <div className="min-h-220 md:flex md:items-center">

@@ -1,4 +1,4 @@
-import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { useOverlayContext } from "@govtechsg/tradetrust-ui-components";
 import { HowItWorksProps } from "./HowItWorksSection";
@@ -10,7 +10,7 @@ enum ContentType {
 }
 
 const StepsComponent: React.FunctionComponent<any> = ({ contentType, stepsDetails }) => {
-  let keyValueBorderStyle: { [key: string]: string } = {
+  const keyValueBorderStyle: { [key: string]: string } = {
     BENEFIT: "border-none",
     THEN: "border-dashed",
     NOW: "border-solid",
@@ -23,7 +23,7 @@ const StepsComponent: React.FunctionComponent<any> = ({ contentType, stepsDetail
       )}
       <div className="flex flex-row m-auto items-start">
         {stepsDetails.map((steps: any, index: any) => (
-          <div className="flex flex-row mt-6">
+          <div key={index} className="flex flex-row mt-6">
             <div className="flex flex-col justify-center " style={{ maxWidth: "11.5rem" }}>
               <img className="max-w-xs max-h-10 min-h-10" src={steps.icon} />
               {steps.stepNumber && <h6 className="text-center mt-4">Step {steps.stepNumber}</h6>}
@@ -33,7 +33,7 @@ const StepsComponent: React.FunctionComponent<any> = ({ contentType, stepsDetail
               <div
                 // className={`w-48 mt-8 border-t border-white ${stepsType === "THEN" ? "border-dashed" : "border-solid"}`}
                 className={`w-48 mt-8 border-t border-white ${keyValueBorderStyle[contentType]}`}
-              ></div>
+              />
             )}
           </div>
         ))}
@@ -43,8 +43,8 @@ const StepsComponent: React.FunctionComponent<any> = ({ contentType, stepsDetail
 };
 
 export const PersonaModal: FunctionComponent<HowItWorksProps> = ({ details }) => {
-  const [open, setOpen] = useState(-1);
-  const { isOverlayVisible, setOverlayVisible, showOverlay } = useOverlayContext();
+  // const [open, setOpen] = useState(-1);
+  const { setOverlayVisible, showOverlay } = useOverlayContext();
   const handleCloseOverlay = (): void => {
     setOverlayVisible(false);
     showOverlay(undefined);
