@@ -10,8 +10,8 @@ export type News = {
   type: NewsType.ARTICLE | NewsType.NEWSLETTER | NewsType.PARTNER_NEWS | NewsType.PRESS_RELEASE | NewsType.SPEECH;
   attributes: {
     title: string;
-    thumbnail: string;
     date: string;
+    thumbnail?: string;
     link?: string;
     file?: string;
   };
