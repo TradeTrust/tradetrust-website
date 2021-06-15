@@ -1,6 +1,6 @@
 import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
-import { TagBorderedRedLarge } from "../../../../UI/Tag";
+import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
@@ -86,14 +86,18 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
         {isSurrendered && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedRedLarge id="surrender-sign">Surrendered To Issuer</TagBorderedRedLarge>
+              <TagBorderedLg id="surrender-sign" className="text-red-500 border-red-500">
+                Surrendered To Issuer
+              </TagBorderedLg>
             </div>
           </div>
         )}
         {isTokenBurnt && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedRedLarge id="surrendered-sign">Surrendered</TagBorderedRedLarge>
+              <TagBorderedLg id="surrendered-sign" className="text-red-500 border-red-500">
+                Surrendered
+              </TagBorderedLg>
             </div>
           </div>
         )}
