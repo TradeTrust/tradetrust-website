@@ -23,7 +23,7 @@ export const NewsPage: FunctionComponent = () => (
           <h1>News</h1>
         </div>
       </div>
-      <div className="flex flex-wrap py-4">
+      <div className="flex flex-wrap py-4 mb-8">
         <div className="w-full">Check out our events and browse through our latest news and official statements.</div>
       </div>
       <NewsContent />

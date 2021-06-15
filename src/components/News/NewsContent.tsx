@@ -33,7 +33,7 @@ export const NewsContent: FunctionComponent = () => {
     <div className="flex flex-wrap py-4 -mx-4">
       {allNews.map((news, index) => {
         return (
-          <div key={index} className="w-full lg:w-1/3 mb-4 px-4">
+          <div key={index} className="w-full md:w-1/2 lg:w-1/3 mb-8 px-4">
             <NewsItem news={news} />
           </div>
         );

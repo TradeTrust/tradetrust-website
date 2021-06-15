@@ -64,7 +64,7 @@ describe("News", () => {
   it("should render generic thumbnail when there is no thumbnail", () => {
     render(<NewsItem news={mockNewsDefault} />);
     expect(screen.getByTestId("news-item-thumbnail").getAttribute("style")).toBe(
-      "background-image: url(/static/images/news/news-generic.jpg);"
+      "background-image: url(/static/images/news/news-generic.png);"
     );
   });
 
