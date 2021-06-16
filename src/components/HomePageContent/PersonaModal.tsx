@@ -15,7 +15,6 @@ const StepsComponent: React.FunctionComponent<any> = ({ contentType, stepsDetail
     THEN: "border-dashed",
     NOW: "border-solid",
   };
-  console.log(contentType);
   return (
     <>
       {(contentType === ContentType.THEN || contentType === ContentType.NOW) && (

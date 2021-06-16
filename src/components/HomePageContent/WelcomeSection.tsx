@@ -18,7 +18,7 @@ const DescriptionSection: FunctionComponent = () => {
         <div className="container md:h-140">
           <div className="md:w-6/12">
             <div className="w-5/5 text-center md:py-8 md:text-left">
-              <h1 className="font-ubuntu text-6xl leading-none">A Trust Network for Trading Partners</h1>
+              <h1 className="font-ubuntu text-cloud text-6xl leading-none">A Trust Network for Trading Partners</h1>
               <p className="text-base mb-85% leading-5 py-6 md:w-4/5 md:mb-16">
                 A digital utility that comprises a set of globally-accepted standards and frameworks that connects
                 governments and businesses to a public blockchain to enable trusted interoperability and exchanges of
