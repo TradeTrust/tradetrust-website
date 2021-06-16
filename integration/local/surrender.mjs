@@ -32,7 +32,7 @@ export const surrender = async (metamask, browser) => {
       visible: true,
     });
 
-    await expect(page).toMatchElement(".overlay h3", {
+    await expect(page).toMatchElement("[data-testid='overlay-title']", {
       text: "Surrender Document Success",
       visible: true,
     });

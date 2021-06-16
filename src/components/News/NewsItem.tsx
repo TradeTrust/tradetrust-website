@@ -18,8 +18,8 @@ const NewsItemTitle: FunctionComponent<{ title: string }> = ({ title }) => {
 };
 
 export const NewsItem: FunctionComponent<{ news: News }> = ({ news }) => {
-  const isGenericImagePlaceholder = !!news.attributes.thumbnail;
-  const image = isGenericImagePlaceholder ? news.attributes.thumbnail : "/static/images/news/news-generic.png";
+  const isThumbnail = !!news.attributes.thumbnail;
+  const image = isThumbnail ? news.attributes.thumbnail : "/static/images/news/news-generic.png";
   const isDownloadFile = !!news.attributes.file;
   const link = isDownloadFile ? news.attributes.file : news.attributes.link;
 
@@ -38,7 +38,7 @@ export const NewsItem: FunctionComponent<{ news: News }> = ({ news }) => {
       />
       <div
         className={`transition-color duration-200 ease-out bg-black absolute top-0 left-0 w-full h-full group-hover:opacity-80 ${
-          isGenericImagePlaceholder ? "opacity-60" : "opacity-70"
+          isThumbnail ? "opacity-60" : "opacity-70"
         }`}
       />
       <div className="relative z-10 flex flex-col h-full">
