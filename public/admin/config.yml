@@ -89,16 +89,6 @@ collections:
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
       - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of speech." }
       - { label: "Link", name: "link", widget: "string", hint: "Url of speech." }
-  - name: "media"
-    label: "Media"
-    folder: "cms/media"
-    create: true
-    editor:
-      preview: false
-    fields:
-      - { label: "Title", name: "title", widget: "string", hint: "Title the media article." }
-      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of media article." }
-      - { label: "Link", name: "link", widget: "string", hint: "Url of media article." }
   - name: "event"
     label: "Event"
     folder: "cms/event"

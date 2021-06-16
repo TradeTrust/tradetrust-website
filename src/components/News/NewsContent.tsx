@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
-import { compareDesc } from "date-fns";
 import { importAll } from "./../../common/utils/importAll";
 import { NewsType, News } from "./types";
 import { NewsItem } from "./NewsItem";
+import { getSortedByDateDesc } from "../../utils/index";
 
 const importedArticles = importAll(require.context("./../../../cms/article/", false, /\.md$/)) as News[];
 const importedNewsletters = importAll(require.context("./../../../cms/newsletter/", false, /\.md$/)) as News[];
@@ -18,14 +18,6 @@ const pressReleases = importedPressReleases.map((news) => ({
 }));
 const speeches = importedSpeeches.map((news) => ({ ...news, type: NewsType.SPEECH }));
 let allNews = [...articles, ...newsletters, ...partnerNews, ...pressReleases, ...speeches];
-
-const getSortedByDateDesc = (items: any[]) => {
-  items.sort((a, b): number => {
-    return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
-  });
-  return items;
-};
-
 allNews = getSortedByDateDesc(allNews);
 
 export const NewsContent: FunctionComponent = () => {

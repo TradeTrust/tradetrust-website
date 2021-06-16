@@ -1,40 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { NewsItem } from "./NewsItem";
-import { NewsType, News } from "./types";
-
-const mockNewsDefault: News = {
-  type: NewsType.NEWSLETTER,
-  attributes: {
-    title: "foobar",
-    date: "3 Feb 2021",
-  },
-  body: "",
-};
-
-const mockNewsFile: News = {
-  ...mockNewsDefault,
-  attributes: {
-    ...mockNewsDefault.attributes,
-    file: "/static/uploads/TradeTrust_Newsletter_Issue01.pdf",
-  },
-};
-
-const mockNewsLink: News = {
-  ...mockNewsDefault,
-  attributes: {
-    ...mockNewsDefault.attributes,
-    link: "https://www.swift.com/swift-at-sibos/joining-forces-trade-digitisation",
-  },
-};
-
-const mockNewsThumbnail: News = {
-  ...mockNewsDefault,
-  attributes: {
-    ...mockNewsDefault.attributes,
-    thumbnail: "/static/uploads/news-01.jpg",
-  },
-};
+import { mockNewsDefault, mockNewsFile, mockNewsLink, mockNewsThumbnail } from "./NewsItem.mock";
 
 describe("News", () => {
   it("should render title", () => {
@@ -49,7 +16,7 @@ describe("News", () => {
 
   it("should render download when there is file", () => {
     render(<NewsItem news={mockNewsFile} />);
-    expect(screen.getByTestId("news-item-file").getAttribute("href")).toBe(
+    expect(screen.getByTestId("news-item-link").getAttribute("href")).toBe(
       "/static/uploads/TradeTrust_Newsletter_Issue01.pdf"
     );
   });
