@@ -429,18 +429,14 @@ export const HowItWorksSection: FunctionComponent = () => {
   const [open, setOpen] = useState(-1);
   const [selectDocumentType, setSelectDocumentType] = useState<DocumentType>(DocumentType.TRANSFERABLE_RECORD);
   const documentType: DocumentType[] = [DocumentType.TRANSFERABLE_RECORD, DocumentType.VERIFIABLE_DOCUMENT];
-  // STOP HERE ^^^^
   const [documentTypeUsers, setDocumentTypeUsers] = useState<HowItWorks[]>(howItWorksTransferableRecordUsers);
 
   const selectedDocumentType = (input: DocumentType) => {
     setSelectDocumentType(input);
-    const test =
-      input === DocumentType.TRANSFERABLE_RECORD
-        ? setDocumentTypeUsers(howItWorksTransferableRecordUsers)
-        : setDocumentTypeUsers(howItWorksVerifiableDocumentUsers);
+    input === DocumentType.TRANSFERABLE_RECORD
+      ? setDocumentTypeUsers(howItWorksTransferableRecordUsers)
+      : setDocumentTypeUsers(howItWorksVerifiableDocumentUsers);
   };
-
-  // console.log(documentTypeUsers);
 
   return (
     <section id="how-it-works" className="text-gray-700 py-16">
