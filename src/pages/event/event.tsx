@@ -92,8 +92,14 @@ export const EventPage: FunctionComponent = () => {
             {currentPosts.map((event, index) => (
               <ResourceEvent key={index} attributes={event.attributes} />
             ))}
-            {filteredPosts.length > 0 && (
+            {/* {filteredPosts.length > 0 && (
+              
               <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            )} */}
+            {filteredPosts.length > 0 ? (
+              <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            ) : (
+              <h5 className="font-base font-medium text-cloud-500">There are no events listed right now.</h5>
             )}
           </div>
         </div>
