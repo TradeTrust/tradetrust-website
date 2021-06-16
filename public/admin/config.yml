@@ -62,6 +62,7 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "Title of event." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
       - { label: "Description", name: "description", widget: "text", hint: "Short description of event." }
       - { label: "Link", name: "link", widget: "string", hint: "Link of event." }
       - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Date of event." }

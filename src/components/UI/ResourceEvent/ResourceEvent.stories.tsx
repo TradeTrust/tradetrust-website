@@ -1,7 +1,7 @@
 import React from "react";
 import { ResourceEvent, EventProps } from "./ResourceEvent";
 
-const mockEventMedia: EventProps = {
+const mockEventDefault: EventProps = {
   attributes: {
     title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
     description:
@@ -16,6 +16,23 @@ const mockEventMedia: EventProps = {
   },
 };
 
+const mockEventFuture: EventProps = {
+  ...mockEventDefault,
+  attributes: {
+    ...mockEventDefault.attributes,
+    date: "1 Jan 2100",
+  },
+};
+
+const mockEventThumbnail: EventProps = {
+  ...mockEventDefault,
+  attributes: {
+    ...mockEventDefault.attributes,
+    thumbnail:
+      "https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uZmVyZW5jZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
+  },
+};
+
 export default {
   title: "UI/ResourceEvent",
   component: ResourceEvent,
@@ -25,5 +42,13 @@ export default {
 };
 
 export const Default = () => {
-  return <ResourceEvent attributes={mockEventMedia.attributes} />;
+  return <ResourceEvent attributes={mockEventDefault.attributes} />;
+};
+
+export const Future = () => {
+  return <ResourceEvent attributes={mockEventFuture.attributes} />;
+};
+
+export const Thumbnail = () => {
+  return <ResourceEvent attributes={mockEventThumbnail.attributes} />;
 };
