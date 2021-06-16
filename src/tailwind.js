@@ -17,6 +17,7 @@ const localConfig = {
       sans: ["Roboto", "sans-serif"],
       display: ["Roboto", "sans-serif"],
       body: ["Roboto", "sans-serif"],
+      ubuntu: ["Ubuntu", "sans-serif"],
     },
     extend: {
       inset: {
