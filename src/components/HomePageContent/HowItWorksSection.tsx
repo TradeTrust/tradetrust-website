@@ -2,7 +2,6 @@ import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useStat
 import { Link } from "react-router-dom";
 import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import { PersonaModal } from "./PersonaModal";
-import styled from "@emotion/styled";
 
 export interface HowItWorksProps {
   details: HowItWorks;
@@ -15,23 +14,19 @@ type HowItWorks = {
   image: string;
   jobTitle: string;
   description: string;
-  steps?: {
+  learnMore: {
     title: string;
-    thenSteps: {
+    thenSteps?: {
       stepNumber: string;
       icon: string;
       description: string;
     }[];
-    nowSteps: {
+    nowSteps?: {
       stepNumber: string;
       icon: string;
       description: string;
     }[];
-    endMessage: string;
-  };
-  benefits?: {
-    title: string;
-    benefitStage: { benefitNumber: string; icon: string; description: string }[];
+    benefits?: { benefitNumber: string; icon: string; description: string }[];
     endMessage: string;
   };
 };
@@ -41,7 +36,7 @@ const howItWorksTransferableRecordUsers: HowItWorks[] = [
     image: "/static/images/home/kevin/kevin.png",
     jobTitle: "The Exporter",
     description: "This is Kevin, he is an exporter with customers in many different countries",
-    steps: {
+    learnMore: {
       title: "Blank-Endorsed BL",
       thenSteps: [
         {
@@ -90,9 +85,9 @@ const howItWorksTransferableRecordUsers: HowItWorks[] = [
     jobTitle: "The Carrier",
     description:
       "This is Lizzie, she works for a Carrier, and her Company is using TradeTrust for their e-Bill-of-Lading Solution",
-    benefits: {
+    learnMore: {
       title: "Issuance and Surrender of BL processes",
-      benefitStage: [
+      benefits: [
         {
           benefitNumber: "1",
           icon: "/static/images/home/lizzie/lizzie-benefit-1.svg",
@@ -121,9 +116,9 @@ const howItWorksTransferableRecordUsers: HowItWorks[] = [
     image: "/static/images/home/cara/cara.png",
     jobTitle: "The Importer",
     description: "This is Cara, she is an importer using Tradetrust to streamline her cargo collection process",
-    benefits: {
+    learnMore: {
       title: "Issuance and Surrender of BL processes",
-      benefitStage: [
+      benefits: [
         {
           benefitNumber: "1",
           icon: "/static/images/home/cara/cara-benefit-1.svg",
@@ -152,7 +147,7 @@ const howItWorksTransferableRecordUsers: HowItWorks[] = [
     image: "/static/images/home/liam/liam.png",
     jobTitle: "The Banker",
     description: "This is Liam, He is a banker using TradeTrust to Minimize Fraud risk in trade financing",
-    steps: {
+    learnMore: {
       title: "Blank-Endorsed BL",
       thenSteps: [
         {
@@ -208,7 +203,7 @@ const howItWorksVerifiableDocumentUsers: HowItWorks[] = [
     jobTitle: "The Exporter",
     description:
       "This is Joan, she is an exporter with customers in many different countries. See how she cut down on time and cost when dealing with Certificate of Origin",
-    steps: {
+    learnMore: {
       title: "Certificate of Origin",
       thenSteps: [
         {
@@ -262,9 +257,9 @@ const howItWorksVerifiableDocumentUsers: HowItWorks[] = [
     jobTitle: "Cert Issuing/Checking Authority",
     description:
       "This is Sean, he works for Singapore Custom, and he is using TradeTrust to issue Certificate of Origin. See how he benefited from using TradeTrust to issue the Certificate of Origin",
-    benefits: {
+    learnMore: {
       title: "Certificate of Origin",
-      benefitStage: [
+      benefits: [
         {
           benefitNumber: "1",
           icon: "/static/images/home/sean/sean-benefit-1.svg",
@@ -294,9 +289,9 @@ const howItWorksVerifiableDocumentUsers: HowItWorks[] = [
     jobTitle: "The Importer",
     description:
       "This is James, he is an importer using Tradetrust to streamline his cargo collection process. See how he benefited from using TradeTrust",
-    benefits: {
+    learnMore: {
       title: "Certificate of Origin",
-      benefitStage: [
+      benefits: [
         {
           benefitNumber: "1",
           icon: "/static/images/home/james/james-benefit-1.svg",
@@ -326,9 +321,9 @@ const howItWorksVerifiableDocumentUsers: HowItWorks[] = [
     jobTitle: "The Banker",
     description:
       "This is Tanu, she is a banker using TradeTrust to Minimize Fraud risk in trade financing. See how she lower the risk of fraud when dealing with Certificate of Origin",
-    benefits: {
+    learnMore: {
       title: "Certificate of Origin",
-      benefitStage: [
+      benefits: [
         {
           benefitNumber: "1",
           icon: "/static/images/home/tanu/tanu-benefit-1.svg",
@@ -360,19 +355,6 @@ enum DocumentType {
   TRANSFERABLE_RECORD = "Transferable Record",
 }
 
-const DocumentTypeFilter = styled.div`
-  h5 {
-    color: #4bc3e9;
-    &:hover {
-      font-weight: bold;
-    }
-    &.active {
-      font-weight: bold;
-      text-decoration: underline;
-    }
-  }
-`;
-
 const HowItWorksElement: React.FunctionComponent<HowItWorksProps> = ({ details, index }) => {
   const { showOverlay } = useContext(OverlayContext);
   const onOverlayHandler = (modalContent: HowItWorks) => {
@@ -392,35 +374,6 @@ const HowItWorksElement: React.FunctionComponent<HowItWorksProps> = ({ details, 
           </a>
         </div>
       </div>
-      {/* {open === index && (
-        // <div className="relative mb-2">
-        //   <div className="flex min-w-220 max-w-220 justify-center mx-auto md:mx-0">
-        //     <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        //       <path
-        //         d="M10.768 0.999999C11.5378 -0.333335 13.4622 -0.333333 14.232 1L24.1913 18.25C24.9611 19.5833 23.9989 21.25 22.4593 21.25H2.54071C1.0011 21.25 0.0388563 19.5833 0.808657 18.25L10.768 0.999999Z"
-        //         fill="#3B8CC5"
-        //       />
-        //     </svg>
-        //   </div>
-        //   <div
-        //     className={`relative w-auto -mx-8 -mt-1 h-12 md:w-screen md:mx-0 ${
-        //       index % 2 === 0 ? "md:-left-24" : "md:-left-100"
-        //     }`}
-        //     style={{ backgroundColor: "#3B8CC5" }}
-        //   />
-        // </div>
-        <div className="relative mb-2">
-          <div className="flex min-w-220 max-w-220 justify-center mx-auto">
-            <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M10.768 0.999999C11.5378 -0.333335 13.4622 -0.333333 14.232 1L24.1913 18.25C24.9611 19.5833 23.9989 21.25 22.4593 21.25H2.54071C1.0011 21.25 0.0388563 19.5833 0.808657 18.25L10.768 0.999999Z"
-                fill="#3B8CC5"
-              />
-            </svg>
-          </div>
-          <div className={`relative w-auto -mx-8 -mt-1 h-12`} style={{ backgroundColor: "#3B8CC5" }} />
-        </div>
-      )} */}
     </div>
   );
 };
@@ -444,19 +397,19 @@ export const HowItWorksSection: FunctionComponent = () => {
         <div className="w-5/5 text-center">
           <h3 className="font-ubuntu text-4xl leading-none md:text-5xl">How It Works</h3>
           {/* <div className="flex mt-5 m-auto justify-center"> */}
-          <DocumentTypeFilter className="flex m-auto mt-6 justify-center">
+          <div className="flex m-auto mt-6 justify-center">
             {documentType.map((item, index) => (
               <h5
                 key={index}
-                className={`font-ubuntu font-normal text-xl text-cerulean-200 cursor-pointer ${
-                  item === selectDocumentType ? "active" : ""
+                className={`font-ubuntu font-normal text-xl text-cerulean-200 cursor-pointer hover:font-bold ${
+                  item === selectDocumentType ? "font-bold underline" : ""
                 }`}
                 onClick={() => selectedDocumentType(item)}
               >
                 {item}
               </h5>
             ))}
-          </DocumentTypeFilter>
+          </div>
 
           {/* <h5
               className="font-normal text-cerulean-200 md:mr-5"
@@ -485,9 +438,9 @@ export const HowItWorksSection: FunctionComponent = () => {
           ))}
         </div>
 
-        <div className="flex-col h-96 justify-center">
+        <div className="flex flex-col h-96 justify-center">
           <div
-            className="flex w-full h-64 m-auto rounded-xl text-white text-center justify-center items-center"
+            className="flex w-full h-64 mx-auto rounded-xl text-white text-center justify-center items-center"
             style={{ backgroundColor: "#3B8CC5" }}
           >
             <h3 className="font-ubuntu text-4.5xl md:mx-72">
@@ -496,9 +449,10 @@ export const HowItWorksSection: FunctionComponent = () => {
           </div>
           <Link
             to="/contact"
-            className="flex h-12 w-56 m-auto -mt-5 justify-center items-center rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
+            // className="flex h-12 w-56 m-auto -mt-5 justify-center items-center rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
+            className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
           >
-            <h4 className="font-ubuntu">Get in Touch Now</h4>
+            <h4 className="font-ubuntu text-2xl">Get in Touch Now</h4>
           </Link>
         </div>
       </div>
