@@ -90,17 +90,13 @@ const rightNavItems: NavigationItem[] = [
 
 // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
 const rightMenu = (navigationItems: NavigationItem[]) => {
-  return (
-    <div className="flex items-center">
-      {navigationItems.map((item, index) => {
-        return (
-          <div key={index} className="md:ml-2 lg:ml-4">
-            <NavigationBarItem item={item} />
-          </div>
-        );
-      })}
-    </div>
-  );
+  return navigationItems.map((item, index) => {
+    return (
+      <div key={index} className="md:ml-2 lg:ml-4">
+        <NavigationBarItem item={item} />
+      </div>
+    );
+  });
 };
 
 const mobileMenu = (navigationItems: NavigationItem[]) => {
@@ -120,6 +116,11 @@ const mobileMenu = (navigationItems: NavigationItem[]) => {
   });
 };
 
+const websiteLogo = {
+  logo: "https://www.tradetrust.io/static/images/tradetrust_logo.svg",
+  link: "https://www.tradetrust.io/",
+};
+
 export const NavigationBar: FunctionComponent<{
   toggleNavBar: boolean;
   setToggleNavBar: (toggleNavbar: boolean) => void;
@@ -130,6 +131,7 @@ export const NavigationBar: FunctionComponent<{
         leftMenuChildren={leftMenu(leftNavItems)}
         rightMenuChildren={rightMenu(rightNavItems)}
         mobileMenuChildren={mobileMenu(leftNavItems.concat(rightNavItems))}
+        websiteLogo={websiteLogo}
         setToggleNavBar={props.setToggleNavBar}
         toggleNavBar={props.toggleNavBar}
       />

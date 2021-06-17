@@ -1,4 +1,10 @@
-import { LinkButton } from "@govtechsg/tradetrust-ui-components";
+import {
+  LinkButton,
+  NavigationLinkStyle,
+  LabelButtonStyle,
+  IconButtonStyle,
+  DropDownItemStyle,
+} from "@govtechsg/tradetrust-ui-components";
 import React, { useState, FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -23,19 +29,13 @@ const NavigationLink: FunctionComponent<{ item: NavType.NavigationLink }> = ({ i
   if (item.path.indexOf("http://") === 0 || item.path.indexOf("https://") === 0) {
     // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
     return (
-      <a
-        className={`text-cloud-500 hover:text-black transition-color duration-200 ease-out font-medium ${item.className}`}
-        href={item.path}
-      >
+      <a className={`${NavigationLinkStyle.styles} ${item.className}`} href={item.path}>
         {item.label}
       </a>
     );
   } else {
     return (
-      <NavLink
-        className={`text-cloud-500 hover:text-black transition-color duration-200 ease-out font-medium ${item.className}`}
-        to={item.path}
-      >
+      <NavLink className={`${NavigationLinkStyle.styles} ${item.className}`} to={item.path}>
         {item.label}
       </NavLink>
     );
@@ -46,21 +46,14 @@ const LabelButton: FunctionComponent<{ item: NavType.LabelButton }> = ({ item })
   if (item.path.indexOf("http://") === 0 || item.path.indexOf("https://") === 0) {
     // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
     return (
-      <LinkButton
-        href={item.path}
-        className={`font-bold transition-color duration-200 ease-out shadow-lg rounded-xl border p-2 ${item.className}`}
-        data-testid={item.id}
-      >
+      <LinkButton href={item.path} className={`${LabelButtonStyle.styles} ${item.className}`} data-testid={item.id}>
         {item.label}
       </LinkButton>
     );
   } else {
     return (
       <NavLink to={item.path} className="w-full">
-        <button
-          className={`font-bold transition-color duration-200 ease-out shadow-lg rounded-xl border p-2 ${item.className}`}
-          data-testid={item.id}
-        >
+        <button className={`${LabelButtonStyle.styles} ${item.className}`} data-testid={item.id}>
           {item.label}
         </button>
       </NavLink>
@@ -73,21 +66,13 @@ const IconButton: FunctionComponent<{ item: NavType.IconButton }> = ({ item }) =
   if (item.path.indexOf("http://") === 0 || item.path.indexOf("https://") === 0) {
     // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
     return (
-      <a
-        className={`text-cloud-500 hover:text-black transition-color duration-200 ease-out ${item.className}`}
-        href={item.path}
-        data-testid={item.id}
-      >
-        <ButtonIcon className="stroke-current" />
+      <a className={`${IconButtonStyle.styles} ${item.className}`} href={item.path} data-testid={item.id}>
+        <ButtonIcon />
       </a>
     );
   } else {
     return (
-      <NavLink
-        className={`text-cloud-500 hover:text-black transition-color duration-200 ease-out ${item.className}`}
-        to={item.path}
-        data-testid={item.id}
-      >
+      <NavLink className={`${IconButtonStyle.styles} ${item.className}`} to={item.path} data-testid={item.id}>
         <ButtonIcon />
       </NavLink>
     );
@@ -146,7 +131,7 @@ const DropDownList: FunctionComponent<{ item: NavType.DropDownList }> = ({ item 
                   return (
                     <a
                       key={index}
-                      className="text-cloud-500 hover:text-black transition-color duration-200 ease-out font-medium block px-4 py-2"
+                      className={`${DropDownItemStyle.styles}`}
                       href={dropdownItem.path}
                       onClick={() => {
                         setIsOpen(false);
@@ -160,7 +145,7 @@ const DropDownList: FunctionComponent<{ item: NavType.DropDownList }> = ({ item 
                     <NavLink
                       key={index}
                       role="menuitem"
-                      className="block px-4 py-2 font-medium dropdown-item"
+                      className={`${DropDownItemStyle.styles}`}
                       to={dropdownItem.path}
                       onClick={() => {
                         setIsOpen(false);
