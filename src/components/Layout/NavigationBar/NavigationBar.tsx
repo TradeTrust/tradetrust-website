@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { Settings } from "react-feather";
-import { NavigationBarStyled, NavigationBar as NavBar } from "@govtechsg/tradetrust-ui-components";
-import { NavigationItem, NavigationItemType } from "./type"; // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
-import { NavigationBarItem } from "./NavigationBarItem"; // for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
+import { NavigationBar as NavBar, NavigationItem, NAVIGATION_ITEM_TYPE } from "@govtechsg/tradetrust-ui-components";
+import { NavLink } from "react-router-dom";
 
 const leftNavItems: NavigationItem[] = [
   {
-    schema: NavigationItemType.DropDownList,
+    schema: NAVIGATION_ITEM_TYPE.NavigationDropDownList,
     id: "resources",
     label: "Resources",
     path: "",
@@ -15,16 +14,26 @@ const leftNavItems: NavigationItem[] = [
         id: "learn",
         label: "Learn",
         path: "/learn",
+        customLink: (
+          <NavLink className="block w-full px-4 py-2" to={"/learn"}>
+            Learn
+          </NavLink>
+        ),
       },
       {
         id: "faq",
         label: "FAQ",
         path: "/faq",
+        customLink: (
+          <NavLink className="block w-full px-4 py-2" to={"/faq"}>
+            FAQ
+          </NavLink>
+        ),
       },
     ],
   },
   {
-    schema: NavigationItemType.DropDownList,
+    schema: NAVIGATION_ITEM_TYPE.NavigationDropDownList,
     id: "news-events",
     label: "News & Events",
     path: "",
@@ -33,91 +42,77 @@ const leftNavItems: NavigationItem[] = [
         id: "news",
         label: "News",
         path: "/news",
+        customLink: (
+          <NavLink className="block w-full px-4 py-2" to={"/news"}>
+            News
+          </NavLink>
+        ),
       },
       {
         id: "event",
         label: "Event",
         path: "/event",
+        customLink: (
+          <NavLink className="block w-full px-4 py-2" to={"/event"}>
+            Event
+          </NavLink>
+        ),
       },
     ],
   },
   {
-    schema: NavigationItemType.NavigationLink,
+    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
     id: "contact",
     label: "Contact",
     path: "/contact",
+    customLink: (
+      <NavLink className="block w-full p-2 text-current" to={"/contact"}>
+        Contact
+      </NavLink>
+    ),
   },
 ];
 
-// for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
-const leftMenu = (navigationItems: NavigationItem[]) => {
-  return (
-    <div className="flex items-center">
-      {navigationItems.map((item, index) => {
-        return (
-          <div key={index} className="lg:ml-6">
-            <NavigationBarItem item={item} />
-          </div>
-        );
-      })}
-    </div>
-  );
-};
-
 const rightNavItems: NavigationItem[] = [
   {
-    schema: NavigationItemType.IconButton,
+    schema: NAVIGATION_ITEM_TYPE.NavigationIconButton,
     id: "settings",
     label: "Settings",
     path: "/settings",
     icon: Settings,
+    customLink: (
+      <NavLink className="block w-full p-2 text-cloud-500" to={"/settings"}>
+        <Settings className="stroke-current" />
+      </NavLink>
+    ),
   },
   {
-    schema: NavigationItemType.LabelButton,
+    schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
     id: "create-documents",
     label: "Create Doc",
     path: "https://creator.tradetrust.io/",
     className: "bg-white text-cerulean border-cerulean-100 hover:bg-gray-50",
   },
   {
-    schema: NavigationItemType.LabelButton,
+    schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
     id: "verify",
     label: "Verify Doc",
     path: "/verify",
     className: "bg-cerulean text-white border-cerulean hover:bg-cerulean-300 hover:border-cerulean-300",
+    customLink: (
+      <NavLink className="block w-full p-2 text-current hover:text-current" to={"/verify"}>
+        Verify
+      </NavLink>
+    ),
   },
 ];
 
-// for CR: see if any chance to use this as exported from tradetrust-ui-components (to maintain component shape)
-const rightMenu = (navigationItems: NavigationItem[]) => {
+const NavLogo = () => {
   return (
-    <div className="flex items-center">
-      {navigationItems.map((item, index) => {
-        return (
-          <div key={index} className="md:ml-2 lg:ml-4">
-            <NavigationBarItem item={item} />
-          </div>
-        );
-      })}
-    </div>
+    <NavLink to={"/"}>
+      <img className="img-fluid h-10" src="/static/images/tradetrust_logo.svg" alt="TradeTrust" />
+    </NavLink>
   );
-};
-
-const mobileMenu = (navigationItems: NavigationItem[]) => {
-  return navigationItems.map((item, index) => {
-    if (item.id === "create-documents" || item.id === "verify" || item.id === "settings") {
-      return (
-        <div key={index} className="py-4 md:hidden">
-          <NavigationBarItem item={item} />
-        </div>
-      );
-    }
-    return (
-      <div key={index} className="py-4">
-        <NavigationBarItem item={item} />
-      </div>
-    );
-  });
 };
 
 export const NavigationBar: FunctionComponent<{
@@ -125,14 +120,13 @@ export const NavigationBar: FunctionComponent<{
   setToggleNavBar: (toggleNavbar: boolean) => void;
 }> = (props) => {
   return (
-    <NavigationBarStyled>
-      <NavBar
-        leftMenuChildren={leftMenu(leftNavItems)}
-        rightMenuChildren={rightMenu(rightNavItems)}
-        mobileMenuChildren={mobileMenu(leftNavItems.concat(rightNavItems))}
-        setToggleNavBar={props.setToggleNavBar}
-        toggleNavBar={props.toggleNavBar}
-      />
-    </NavigationBarStyled>
+    <NavBar
+      logo={<NavLogo />}
+      menuLeft={leftNavItems}
+      menuRight={rightNavItems}
+      menuMobile={leftNavItems.concat(rightNavItems)}
+      setToggleNavBar={props.setToggleNavBar}
+      toggleNavBar={props.toggleNavBar}
+    />
   );
 };
