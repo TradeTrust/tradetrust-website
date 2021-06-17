@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { ResourceEvent, EventProps } from "../../components/UI/ResourceEvent";
 import { importAll } from "../../common/utils/importAll";
 import { Pagination } from "@govtechsg/tradetrust-ui-components";
-import { getSortedByDateDesc } from "../../utils/index";
+import { getSortedByDateDesc } from "../../utils";
 
 let events = importAll(require.context("../../../cms/event/", false, /\.md$/)) as EventProps[];
 events = getSortedByDateDesc(events);
@@ -92,10 +92,6 @@ export const EventPage: FunctionComponent = () => {
             {currentPosts.map((event, index) => (
               <ResourceEvent key={index} attributes={event.attributes} />
             ))}
-            {/* {filteredPosts.length > 0 && (
-              
-              <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            )} */}
             {filteredPosts.length > 0 ? (
               <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             ) : (

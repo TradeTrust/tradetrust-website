@@ -2,20 +2,13 @@ import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { ResourceWebinar } from "../components/UI/ResourceWebinar";
 import { ResourceLink } from "../components/UI/ResourceLink";
-import { ResourceDownload, Newsletter } from "../components/UI/ResourceDownload";
+import { ResourceDownload } from "../components/UI/ResourceDownload";
+import { News } from "../components/News/types";
+
 import { importAll } from "../common/utils/importAll";
 import { compareAsc } from "date-fns";
 
-const getSortedByDateAsc = (items: any[]) => {
-  items.sort((a, b): number => {
-    return compareAsc(new Date(a.attributes.date), new Date(b.attributes.date));
-  });
-  return items;
-};
-
-let newsletters = importAll(require.context("../../cms/newsletter/", false, /\.md$/)) as Newsletter[];
-
-newsletters = getSortedByDateAsc(newsletters);
+const newsletters = importAll(require.context("../../cms/newsletter/", false, /\.md$/)) as News[];
 
 const documentations = [
   {
