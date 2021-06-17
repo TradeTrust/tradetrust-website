@@ -2,10 +2,12 @@ import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { ResourceWebinar } from "../components/UI/ResourceWebinar";
 import { ResourceLink } from "../components/UI/ResourceLink";
-import { ResourceDownload, Newsletter } from "../components/UI/ResourceDownload";
+import { ResourceDownload } from "../components/UI/ResourceDownload";
+import { News } from "../components/News/types";
+
 import { importAll } from "../common/utils/importAll";
 
-const newsletters = importAll(require.context("../../cms/newsletter/", false, /\.md$/)) as Newsletter[];
+const newsletters = importAll(require.context("../../cms/newsletter/", false, /\.md$/)) as News[];
 
 const documentations = [
   {
