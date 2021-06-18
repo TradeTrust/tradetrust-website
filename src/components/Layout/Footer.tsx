@@ -36,7 +36,7 @@ const data = [
   {
     category: "Resources",
     items: [
-      { label: "Webinars", to: "B-1", render: renderExternalLink },
+      { label: "Webinars", to: "/learn", render: renderExternalLink },
       { label: "Media", to: "/media", render: renderNavLink },
       { label: "Events", to: "/event", render: renderNavLink },
     ],
