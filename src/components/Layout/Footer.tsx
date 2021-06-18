@@ -2,8 +2,6 @@ import React from "react";
 import { Footer as BaseFooter, FooterColumnItemProps } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { ExternalLink } from "react-feather";
-import tw from "twin.macro";
-import styled from "@emotion/styled";
 import { URLS } from "../../constants";
 
 const sharedStyles = `text-cloud-500 hover:text-black transition-color duration-200 ease-out font-medium text-sm`;
@@ -59,12 +57,13 @@ const data = [
   },
 ];
 
-const EnhancedFooter = styled(BaseFooter)`
-  ${tw`px-7 md:py-0 md:pt-6`}
-  > div {
-    ${tw`md:flex-nowrap`}
-  }
-`;
 export const Footer: React.FunctionComponent = () => {
-  return <EnhancedFooter title={"TradeTrust"} copyright={"Copyright \u00A9 2021 TradeTrust"} data={data} />;
+  return (
+    <BaseFooter
+      className="px-7 md:py-0 md:pt-6"
+      title={"TradeTrust"}
+      copyright={"Copyright \u00A9 2021 TradeTrust"}
+      data={data}
+    />
+  );
 };
