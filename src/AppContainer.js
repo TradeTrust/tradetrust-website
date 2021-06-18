@@ -26,7 +26,6 @@ const AppContainer = () => {
       <NetworkBar network={NETWORK}>
         You are currently on <span className="capitalize">{NETWORK}</span> network.
       </NetworkBar>
-      {/* for CR: see if any chance to pass and cater for logo/home too, that will need router navLink too */}
       <NavigationBar toggleNavBar={toggleNavBar} setToggleNavBar={setToggleNavBar} />
       <Main className="bg-cerulean-50 flex-1">
         <Switch>
