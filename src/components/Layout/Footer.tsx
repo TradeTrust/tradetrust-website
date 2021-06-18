@@ -35,7 +35,7 @@ const data = [
     category: "Resources",
     items: [
       { label: "Webinars", to: "/learn", render: renderExternalLink },
-      { label: "Media", to: "/media", render: renderNavLink },
+      { label: "Media", to: "/news", render: renderNavLink },
       { label: "Events", to: "/event", render: renderNavLink },
     ],
   },
@@ -51,8 +51,8 @@ const data = [
   {
     category: "Settings",
     items: [
-      { label: "Address Book", to: "/settings", render: renderNavLink },
-      { label: "Address Book Resolver", to: "/settings", render: renderNavLink },
+      { label: "Address Book", to: "/settings/address-book", render: renderNavLink },
+      { label: "Address Book Resolver", to: "/settings/address-resolver", render: renderNavLink },
     ],
   },
 ];
