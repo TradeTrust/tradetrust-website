@@ -1,36 +1,19 @@
 import React, { FunctionComponent } from "react";
-// import styled from "@emotion/styled";
 import { Download } from "react-feather";
-import { News, NewsType } from "./types";
-import { TagBordered } from "./../UI/Tag";
-
-export const mockNewsDefault: News = {
-  type: NewsType.NEWSLETTER,
-  attributes: {
-    title: "foobar",
-    date: "3 Feb 2021",
-  },
-  body: "",
-};
+import { NewsItem } from "../types";
+import { TagBordered } from "../../UI/Tag";
 
 const NewsItemTitle: FunctionComponent<{ title: string }> = ({ title }) => {
   return <h5 className="mt-8 mb-2">{title}</h5>;
 };
 
-export const NewsItem: FunctionComponent<{ news: News }> = ({ news }) => {
+export const NewsCard: FunctionComponent<{ news: NewsItem }> = ({ news }) => {
   const isThumbnail = !!news.attributes.thumbnail;
   const image = isThumbnail ? news.attributes.thumbnail : "/static/images/news/news-generic.png";
   const isDownloadFile = !!news.attributes.file;
-  const link = isDownloadFile ? news.attributes.file : news.attributes.link;
 
   return (
-    <a
-      data-testid="news-item-link"
-      className="group inline-block w-full p-6 rounded-lg overflow-hidden relative h-full text-white hover:text-white"
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <>
       <div
         data-testid="news-item-thumbnail"
         style={{ backgroundImage: `url(${image})` }}
@@ -55,6 +38,6 @@ export const NewsItem: FunctionComponent<{ news: News }> = ({ news }) => {
         <NewsItemTitle title={news.attributes.title} />
         <p>{news.attributes.date}</p>
       </div>
-    </a>
+    </>
   );
 };

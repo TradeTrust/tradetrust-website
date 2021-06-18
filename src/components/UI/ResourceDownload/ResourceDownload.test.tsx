@@ -1,12 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { ResourceDownload } from "./ResourceDownload";
-import { NewsType, News } from "../../News/types";
+import { NewsTag, NewsItem } from "../../News/types";
 
 const mockTitle = "Source code";
-const mockResources: News[] = [
+const mockResources: NewsItem[] = [
   {
-    type: NewsType.NEWSLETTER,
+    slug: "foobar",
+    type: NewsTag.NEWSLETTER,
     attributes: {
       title: "TradeTrust Newsletter Issue 01",
       date: "3 Feb 2021",

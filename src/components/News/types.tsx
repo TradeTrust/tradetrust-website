@@ -1,4 +1,4 @@
-export enum NewsType {
+export enum NewsTag {
   ARTICLE = "Article",
   NEWSLETTER = "Newsletter",
   PARTNER_NEWS = "Partner News",
@@ -6,8 +6,16 @@ export enum NewsType {
   SPEECH = "Speech",
 }
 
-export type News = {
-  type: NewsType.ARTICLE | NewsType.NEWSLETTER | NewsType.PARTNER_NEWS | NewsType.PRESS_RELEASE | NewsType.SPEECH;
+export type NewsType =
+  | NewsTag.ARTICLE
+  | NewsTag.NEWSLETTER
+  | NewsTag.PARTNER_NEWS
+  | NewsTag.PRESS_RELEASE
+  | NewsTag.SPEECH;
+
+export type NewsItem = {
+  slug: string;
+  type: NewsType;
   attributes: {
     title: string;
     date: string;
