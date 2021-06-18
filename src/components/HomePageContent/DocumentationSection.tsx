@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
 import tw from "twin.macro";
 import { Section } from "../Layout/Section";
+import { URLS } from "../../constants";
 
 export const SectionDocumentation = styled(Section)`
   ${tw`py-20 text-center`}
@@ -56,13 +57,13 @@ export const DocumentationSection: FunctionComponent = () => {
       </div>
       <div className="flex justify-center items-end">
         <div className="w-auto px-8">
-          <a href="https://docs.tradetrust.io/" target="_blank" rel="noopener noreferrer">
+          <a href={URLS.DOCS} target="_blank" rel="noopener noreferrer">
             <i className="far fa-file-alt" />
             <p>Documentation</p>
           </a>
         </div>
         <div className="w-auto px-8">
-          <a href="https://github.com/tradeTrust/" target="_blank" rel="noopener noreferrer">
+          <a href={URLS.GITHUB} target="_blank" rel="noopener noreferrer">
             <i className="fas fa-code" />
             <p>Source code</p>
           </a>
