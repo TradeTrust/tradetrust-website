@@ -109,7 +109,7 @@ const rightNavItems: NavigationItem[] = [
 
 const NavLogo = () => {
   return (
-    <NavLink to={"/"}>
+    <NavLink to={"/"} data-testid="nav-logo-home">
       <img className="img-fluid h-10" src="/static/images/tradetrust_logo.svg" alt="TradeTrust" />
     </NavLink>
   );
