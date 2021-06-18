@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Settings } from "react-feather";
 import { NavigationBar as NavBar, NavigationItem, NAVIGATION_ITEM_TYPE } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
+import { URLS } from "../../../constants";
 
 const leftNavItems: NavigationItem[] = [
   {
@@ -90,7 +91,7 @@ const rightNavItems: NavigationItem[] = [
     schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
     id: "create-documents",
     label: "Create Doc",
-    path: "https://creator.tradetrust.io/",
+    path: URLS.CREATOR,
     className: "bg-white text-cerulean border-cerulean-100 hover:bg-gray-50",
   },
   {

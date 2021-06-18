@@ -6,20 +6,21 @@ import { ResourceDownload } from "../components/UI/ResourceDownload";
 import { News } from "../components/News/types";
 
 import { importAll } from "../common/utils/importAll";
+import { URLS } from "../constants";
 
 const newsletters = importAll(require.context("../../cms/newsletter/", false, /\.md$/)) as News[];
 
 const documentations = [
   {
     title: "Browse TradeTrust documentation",
-    url: "https://docs.tradetrust.io/",
+    url: URLS.DOCS,
   },
 ];
 
 const sourceCodes = [
   {
     title: "View TradeTrust source code",
-    url: "https://github.com/TradeTrust/tradetrust-website",
+    url: URLS.GITHUB,
   },
 ];
 
