@@ -1,1 +1,1 @@
-export * from "./NewsContent";
+export * from "./News";
