@@ -1,4 +1,4 @@
-import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from "react";
+import React, { FunctionComponent, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import { PersonaModal } from "./PersonaModal";
@@ -104,7 +104,6 @@ export const HowItWorksSection: FunctionComponent = () => {
   // const [selectedDocumentTypeUsers, setSelectedDocumentTypeUsers] = useState<DocumentTypeUsers[]>(
   //   howItWorksTransferableRecordUsers
   // );
-  // new
   const [selectDocumentTypeTest, setSelectedDocumentTypeTest] = useState<DocumentContent>(documentTestType3[0]);
 
   const documentTypeFilterStyle = (item: DocumentType): string => {
@@ -129,10 +128,9 @@ export const HowItWorksSection: FunctionComponent = () => {
   //     : setSelectedDocumentTypeUsers(howItWorksVerifiableDocumentUsers);
   // };
 
-  //new
   const selectedDocumentTestType = (input: DocumentType) => {
     setSelectDocumentType(input);
-    documentTestType3.map((documentDetails, index) => {
+    documentTestType3.forEach((documentDetails) => {
       if (input === documentDetails.type) {
         console.log(documentDetails);
         setSelectedDocumentTypeTest(documentDetails);
