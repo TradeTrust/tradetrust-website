@@ -39,5 +39,5 @@ jobs:
       - name: Integration - testcafe
         run: ./scripts/integration-headless.sh
       # TODO: integration:dappeteer working locally, but not ci/cd
-      # - name: Integration - dappeteer
-      #   run: npm run integration:dappeteer
+      - name: Integration - dappeteer
+        run: npm run integration:dappeteer
