@@ -1,5 +1,5 @@
 import React from "react";
-import { Tag, TagBordered, TagBorderedLg } from "./Tag";
+import { Tag, TagBordered, TagBorderedSm, TagBorderedLg } from "./Tag";
 
 export default {
   title: "UI/Tag",
@@ -19,6 +19,10 @@ export const BorderedWhite = () => {
 
 export const BorderedRed = () => {
   return <TagBordered className="text-red-500 border-red-500">TagBorderedRed</TagBordered>;
+};
+
+export const BorderedGraySmall = () => {
+  return <TagBorderedSm className="text-gray-600">BorderedGraySmall</TagBorderedSm>;
 };
 
 export const BorderedRedLarge = () => {

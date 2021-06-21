@@ -8,7 +8,7 @@ interface TagProps {
 
 export const Tag: FunctionComponent<TagProps> = ({ className, children, ...props }) => {
   return (
-    <div className={`inline-block rounded-lg py-1 px-2 text-lg font-semibold ${className}`} {...props}>
+    <div className={`inline-block rounded-lg py-1 px-2 font-medium ${className}`} {...props}>
       {children}
     </div>
   );
@@ -19,6 +19,14 @@ export const TagBordered: FunctionComponent<TagProps> = ({ className, children, 
     <Tag className={`border-solid border-2 ${className}`} {...props}>
       {children}
     </Tag>
+  );
+};
+
+export const TagBorderedSm: FunctionComponent<TagProps> = ({ className, children, ...props }) => {
+  return (
+    <TagBordered className={`text-sm ${className}`} {...props}>
+      {children}
+    </TagBordered>
   );
 };
 
