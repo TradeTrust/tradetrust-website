@@ -78,6 +78,7 @@ collections:
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
       - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of press release." }
       - { label: "Link", name: "link", widget: "string", hint: "Url of press release." }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
   - name: "speech"
     label: "Speech"
     folder: "cms/speech"

@@ -1,6 +1,6 @@
 import React from "react";
 import { ResourceDownload } from "./ResourceDownload";
-import { NewsType } from "../../News/types";
+import { NewsTag } from "../../News/types";
 
 export default {
   title: "UI/ResourceDownload",
@@ -16,29 +16,32 @@ export const Default = () => {
       title="Newsletters"
       resources={[
         {
-          type: NewsType.NEWSLETTER,
+          slug: "foo bar",
+          type: NewsTag.NEWSLETTER,
           attributes: {
-            title: "TradeTrust Newsletter Issue 01",
+            title: "TradeTrust Newsletter Issue 1",
             date: "3 Feb 2021",
-            file: "/static/images/newsletter/TradeTrust_Newsletter_Issue01.pdf",
+            file: "/static/images/newsletter/tradetrust-newsletter-1.pdf",
           },
           body: "",
         },
         {
-          type: NewsType.NEWSLETTER,
+          slug: "foo bar",
+          type: NewsTag.NEWSLETTER,
           attributes: {
-            title: "TradeTrust Newsletter Issue 02",
+            title: "TradeTrust Newsletter Issue 2",
             date: "3 Feb 2021",
-            file: "/static/images/newsletter/TradeTrust_Newsletter_Issue02.pdf",
+            file: "/static/images/newsletter/tradetrust-newsletter-2.pdf",
           },
           body: "",
         },
         {
-          type: NewsType.NEWSLETTER,
+          slug: "foo bar",
+          type: NewsTag.NEWSLETTER,
           attributes: {
-            title: "TradeTrust Newsletter Issue 03",
+            title: "TradeTrust Newsletter Issue 3",
             date: "3 Feb 2021",
-            file: "/static/images/newsletter/Tradetrust_Newsletter_Issue03.pdf",
+            file: "/static/images/newsletter/tradetrust-newsletter-3.pdf",
           },
           body: "",
         },
