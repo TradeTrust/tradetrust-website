@@ -1,3 +1,5 @@
+// let's separate types in here, to avoid require.context
+
 export enum NewsTag {
   ARTICLE = "Article",
   NEWSLETTER = "Newsletter",
@@ -13,7 +15,7 @@ export type NewsType =
   | NewsTag.PRESS_RELEASE
   | NewsTag.SPEECH;
 
-export type NewsItem = {
+export type NewsSingle = {
   slug: string;
   type: NewsType;
   attributes: {

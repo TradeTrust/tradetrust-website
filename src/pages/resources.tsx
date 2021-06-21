@@ -3,12 +3,12 @@ import { Helmet } from "react-helmet";
 import { ResourceWebinar } from "../components/UI/ResourceWebinar";
 import { ResourceLink } from "../components/UI/ResourceLink";
 import { ResourceDownload } from "../components/UI/ResourceDownload";
-import { NewsItem } from "../components/News/types";
+import { NewsSingle } from "../components/News/types";
 
 import { importAll } from "../common/utils/importAll";
 import { URLS } from "../constants";
 
-const newsletters = importAll(require.context("../../cms/newsletter/", false, /\.md$/)) as NewsItem[];
+const newsletters = importAll(require.context("../../cms/newsletter/", false, /\.md$/)) as NewsSingle[];
 
 const documentations = [
   {

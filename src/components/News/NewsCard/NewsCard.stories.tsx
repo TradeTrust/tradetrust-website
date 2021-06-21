@@ -10,10 +10,10 @@ export default {
   },
 };
 
-export const NewsItemDefault = () => {
+export const NewsSingleDefault = () => {
   return <NewsCard news={mockNewsDefault} />;
 };
 
-export const NewsItemThumbnail = () => {
+export const NewsSingleThumbnail = () => {
   return <NewsCard news={mockNewsThumbnail} />;
 };

@@ -1,6 +1,6 @@
-import { NewsTag, NewsItem } from "./../types";
+import { NewsTag, NewsSingle } from "./../types";
 
-export const mockNewsDefault: NewsItem = {
+export const mockNewsDefault: NewsSingle = {
   slug: "foobar",
   type: NewsTag.NEWSLETTER,
   attributes: {
@@ -10,7 +10,7 @@ export const mockNewsDefault: NewsItem = {
   body: "",
 };
 
-export const mockNewsThumbnail: NewsItem = {
+export const mockNewsThumbnail: NewsSingle = {
   ...mockNewsDefault,
   attributes: {
     ...mockNewsDefault.attributes,

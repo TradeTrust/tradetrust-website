@@ -1,31 +1,28 @@
 import React, { FunctionComponent } from "react";
 import { Download } from "react-feather";
-import { NewsItem } from "./../../News/types";
+import { NewsSingle } from "./../../News/types";
 export interface ResourceDownloadProps {
   title: string;
-  resources: NewsItem[];
+  resources: NewsSingle[];
 }
 
 export const ResourceDownload: FunctionComponent<ResourceDownloadProps> = ({ title, resources }) => {
   return (
-    <div className="bg-white shadow-md mb-4 pt-2 px-3 pb-3">
-      <div className="flex-grow">
-        <div className="text-gray-700 text-xl font-medium">{title}</div>
+    <>
+      <div className="text-gray-700 text-xl font-medium mb-2">{title}</div>
+      <div className="bg-white rounded-lg shadow-lg py-1 px-4">
         {resources.map((resource, index) => (
-          <div className="pt-2 text-blue" key={index}>
-            <div className="flex">
-              <a
-                href={resource.attributes.file}
-                download={resource.attributes.title}
-                className="text-base font-medium flex items-end mb-2"
-              >
-                <Download className="mr-1" />
-                {resource.attributes.title}
-              </a>
-            </div>
-          </div>
+          <a
+            key={index}
+            href={resource.attributes.file}
+            download={resource.attributes.title}
+            className="inline-block text-base font-medium text-cerulean-200 flex items-center my-3"
+          >
+            <Download className="mr-2" width="20" height="20" />
+            {resource.attributes.title}
+          </a>
         ))}
       </div>
-    </div>
+    </>
   );
 };

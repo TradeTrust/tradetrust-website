@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
-import { NewsItem } from "./../types";
+import { NewsSingle } from "./../types";
 import { NewsCard } from "../NewsCard";
 
-const getLink = (news: NewsItem) => {
+const getLink = (news: NewsSingle) => {
   switch (true) {
     case !!news.body:
       return `/news/${news.slug}`;
@@ -14,7 +14,7 @@ const getLink = (news: NewsItem) => {
   }
 };
 
-export const NewsLink: FunctionComponent<{ news: NewsItem }> = ({ news }) => {
+export const NewsLink: FunctionComponent<{ news: NewsSingle }> = ({ news }) => {
   const isNavLink = !!news.body;
   const link = getLink(news);
   const sharedStylesLink = `group inline-block w-full p-6 rounded-lg overflow-hidden relative h-full text-white hover:text-white`;
