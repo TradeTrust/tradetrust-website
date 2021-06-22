@@ -1,6 +1,6 @@
-import { uploadDocument, validateIframeTexts, validateIssuerTexts } from "./helper";
+import { uploadDocument, validateIframeTexts, validateIssuerTexts, location } from "./helper";
 
-fixture("Multiple DNS Verified for Certificate Rendering").page`http://localhost:3000`;
+fixture("Multiple DNS Verified for Certificate Rendering").page`${location}`;
 
 test("Sample document is rendered correctly when multiple dns is verfied", async () => {
   await uploadDocument("./fixture/sample-multidns-verified.json");

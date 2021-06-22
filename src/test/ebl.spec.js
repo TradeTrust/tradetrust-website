@@ -1,7 +1,7 @@
-import { uploadDocument, validateIframeTexts, validateIssuerTexts } from "./helper";
+import { uploadDocument, validateIframeTexts, validateIssuerTexts, location } from "./helper";
 import { Selector } from "testcafe";
 
-fixture("Token Document Rendering").page`http://localhost:3000`;
+fixture("Token Document Rendering").page`${location}`;
 
 const VerifyDocuments = Selector("[data-testid='navbar-verify-documents']");
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { VerificationFragment } from "@govtechsg/oa-verify";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { UnverifiedView } from "./UnverifiedView";
@@ -15,7 +16,7 @@ describe("unverifiedView", () => {
       <MemoryRouter>
         <UnverifiedView
           handleRenderOverwrite={() => {}}
-          verificationStatus={whenDocumentHashInvalid}
+          verificationStatus={whenDocumentHashInvalid as VerificationFragment[]}
           resetData={() => {}}
         />
       </MemoryRouter>
@@ -30,7 +31,7 @@ describe("unverifiedView", () => {
       <MemoryRouter>
         <UnverifiedView
           handleRenderOverwrite={() => {}}
-          verificationStatus={whenDocumentNotIssued}
+          verificationStatus={whenDocumentNotIssued as VerificationFragment[]}
           resetData={() => {}}
         />
       </MemoryRouter>
@@ -45,7 +46,7 @@ describe("unverifiedView", () => {
       <MemoryRouter>
         <UnverifiedView
           handleRenderOverwrite={() => {}}
-          verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt}
+          verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]}
           resetData={() => {}}
         />
       </MemoryRouter>

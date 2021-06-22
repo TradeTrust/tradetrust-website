@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { validateTextContent } from "./helper";
+import { validateTextContent, location } from "./helper";
 
-fixture("Address Resolver").page`http://localhost:3000`;
+fixture("Address Resolver").page`${location}`;
 
 const LinkSettings = Selector("a[href='/settings']");
 const LinkSettingsAddressResolver = Selector("a[href='/settings/address-resolver']");

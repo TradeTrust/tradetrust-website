@@ -12,7 +12,7 @@ interface DropzoneStateProps {
   verificationStatus?: VerificationFragment[];
   verificationError?: string;
   retrieveCertificateByActionError?: string;
-  resetData?: () => void;
+  resetData: () => void;
   handleRenderOverwrite?: () => void;
   toggleQrReaderVisible?: () => void;
 }

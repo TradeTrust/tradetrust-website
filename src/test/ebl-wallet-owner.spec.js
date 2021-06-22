@@ -1,6 +1,7 @@
 import { Selector } from "testcafe";
+import { location } from "./helper";
 
-fixture("Render document for direct ownership").page`http://localhost:3000`;
+fixture("Render document for direct ownership").page`${location}`;
 
 const Document = "./fixture/ebl-wallet-owner.json";
 const DocumentStatus = Selector("#document-status");

@@ -29,3 +29,5 @@ export const validateIssuerTexts = async (texts) => {
 };
 
 export const CloseWindow = ClientFunction(() => window.close());
+
+export const location = "http://localhost:3000/verify";
