@@ -1,5 +1,4 @@
 import { uploadDocument, validateIframeTexts, validateIssuerTexts, location } from "./helper";
-
 fixture("Multiple DNS Verified for Certificate Rendering").page`${location}`;
 
 test("Sample document is rendered correctly when multiple dns is verfied", async () => {

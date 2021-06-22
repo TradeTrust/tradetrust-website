@@ -60,7 +60,7 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
 };
 
 const openTab = (data: string) => {
-  const url = `${window.location.protocol}//${window.location.host}/verify`;
+  const url = `${window.location.protocol}//${window.location.host}`;
   const childWin = window.open(url, "_blank") as Window; // to omit noopener noreferrer for this case, otherwise unable to postMessage
 
   childWin.onload = (): void => {

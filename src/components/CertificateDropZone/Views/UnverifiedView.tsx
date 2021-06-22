@@ -16,8 +16,6 @@ const DetailedErrors = ({ verificationStatus }: { verificationStatus: Verificati
   if (!issuedValid) errors.push(TYPES.ISSUED);
   if (!identityValid) errors.push(TYPES.IDENTITY);
 
-  console.log(errors);
-
   return (
     <div data-testid="error-tab" className="verifications">
       {errors.map((errorType, index) => (

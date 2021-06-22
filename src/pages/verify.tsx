@@ -1,32 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
-import queryString from "query-string";
-import { useLocation } from "react-router-dom";
-import {
-  resetCertificateState,
-  retrieveCertificateByAction,
-  retrieveCertificateByActionFailure,
-} from "../reducers/certificate";
-import { useDispatch } from "react-redux";
 
 const VerifyPage = (): React.ReactElement => {
-  const location = useLocation();
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    if (location.search !== "") {
-      const queryParams = queryString.parse(location.search);
-      dispatch(resetCertificateState());
-      const action = JSON.parse(queryParams.q as string);
-      if (action.type === "DOCUMENT") {
-        dispatch(retrieveCertificateByAction(action.payload));
-      } else {
-        dispatch(
-          retrieveCertificateByActionFailure(`The type ${action.type} provided from the action is not supported`)
-        );
-      }
-    }
-  }, [dispatch, location]);
   return (
     <>
       <Helmet>

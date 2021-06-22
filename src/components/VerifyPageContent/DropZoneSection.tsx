@@ -4,10 +4,6 @@ import { roundInstructionsText } from ".";
 import { NETWORK_NAME } from "../../config";
 import { updateCertificate } from "../../reducers/certificate";
 import CertificateDropzoneContainer from "../CertificateDropZone";
-import { NestedDocumentState } from "../../constants/NestedDocumentState";
-import { getLogger } from "../../utils/logger";
-
-const { error } = getLogger("component:verifypage");
 
 type LoadCertificate = (certificate: any) => void;
 
@@ -58,17 +54,6 @@ const DraggableDemoCertificate = () => (
 export const DropZoneSectionContainer = (): React.ReactElement => {
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
-  // event listener for any custom postMessage
-  window.addEventListener("message", (event) => {
-    if (event.data.type === NestedDocumentState.LOAD) {
-      try {
-        const doc = atob(event.data.payload);
-        loadCertificate(JSON.parse(doc));
-      } catch (e) {
-        error("decode data not json: " + e);
-      }
-    }
-  });
   return (
     <section id="verify-documents" className="pb-12 lg:pb-16">
       <div className="container">

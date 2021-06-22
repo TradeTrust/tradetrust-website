@@ -15,7 +15,6 @@ test("Load document from action should work when url is valid", async (t) => {
       redirect: "https://dev.tradetrust.io/",
     },
   };
-
   await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
 
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
