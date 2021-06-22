@@ -8,7 +8,7 @@ describe("CertificateDropZone", () => {
   it("shows QrReader when qrReaderVisible is true", () => {
     render(
       <CertificateDropZoneContainer updateNetworkId={() => {}}>
-        <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} />
+        <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} resetData={() => {}} />
       </CertificateDropZoneContainer>
     );
     fireEvent.click(screen.getByTestId("scan-qr-button"));
@@ -18,7 +18,7 @@ describe("CertificateDropZone", () => {
   it("shows CertificateDropZone when qrReaderVisible is false", () => {
     render(
       <CertificateDropZoneContainer updateNetworkId={() => {}}>
-        <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} />
+        <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} resetData={() => {}} />
       </CertificateDropZoneContainer>
     );
     expect(screen.getByTestId("certificate-dropzone")).not.toBeNull();
