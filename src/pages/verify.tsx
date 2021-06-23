@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
+import { Page } from "../components/Layout/Page";
 
 const VerifyPage = (): React.ReactElement => {
   return (
@@ -18,7 +19,9 @@ const VerifyPage = (): React.ReactElement => {
         <meta property="og:url" content={`${window.location.origin}/verify`} />
         <title>TradeTrust - Verify</title>
       </Helmet>
-      <DropZoneSectionContainer />
+      <Page title="Verify Documents">
+        <DropZoneSectionContainer />
+      </Page>
     </>
   );
 };

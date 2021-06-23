@@ -14,9 +14,7 @@ const localConfig = {
   },
   theme: {
     fontFamily: {
-      sans: ["Roboto", "sans-serif"],
-      display: ["Roboto", "sans-serif"],
-      body: ["Roboto", "sans-serif"],
+      roboto: ["Roboto", "sans-serif"],
       ubuntu: ["Ubuntu", "sans-serif"],
     },
     extend: {
@@ -52,8 +50,16 @@ const localConfig = {
         invalid: `0 0 0 8px #ff5268`, // try to reuse tw colors if can
         dropdown: `0px 4px 20px rgba(0, 0, 0, 0.15)`, // try to reuse tw colors if can
       },
+      cursor: {
+        grab: "grab",
+        grabbing: "grabbing",
+      },
     },
   },
+  variants: {
+    cursor: ["responsive", "hover", "focus", "active"],
+  },
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };
 
 const finalConfig = _.merge(commonUiConfig, localConfig); // deep merge

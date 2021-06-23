@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { ContactUs } from "./contact";
 import { EmailContactUsError } from "../components/EmailContactUs";
+import { Page } from "../components/Layout/Page";
 
 export const EmailErrorPage: FunctionComponent = () => (
   <>
@@ -12,8 +13,10 @@ export const EmailErrorPage: FunctionComponent = () => (
       <meta property="og:url" content={`${window.location.origin}/email/error`} />
       <title>TradeTrust - An easy way to check and verify your documents</title>
     </Helmet>
-    <ContactUs>
-      <EmailContactUsError />
-    </ContactUs>
+    <Page title="Contact Us">
+      <ContactUs>
+        <EmailContactUsError />
+      </ContactUs>
+    </Page>
   </>
 );
