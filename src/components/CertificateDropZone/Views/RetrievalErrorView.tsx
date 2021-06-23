@@ -1,16 +1,24 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 import { ViewerContainer } from "./SharedViewerStyledComponents";
+import { docNotValidMessage, tryAnotherMessage, unverifiedMessage } from "./";
 
-export const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError }) => (
+interface RetrievalErrorViewProps {
+  resetData: () => void;
+  retrieveCertificateByActionError: string;
+}
+
+export const RetrievalErrorView = ({
+  resetData,
+  retrieveCertificateByActionError,
+}: RetrievalErrorViewProps): React.ReactElement => (
   <ViewerContainer id="viewer-container" className="invalid">
     <div className="flex justify-center my-4">
       <div className="w-auto mr-2">
         <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
       </div>
       <div className="w-auto">
-        <p className="invalid text-black text-2xl">This document is not valid</p>
+        <p className="invalid text-black text-2xl">{docNotValidMessage}</p>
       </div>
     </div>
     <div data-testid="error-tab" className="verifications">
@@ -22,7 +30,7 @@ export const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError
 
     <div className="unverified-btn-container">
       <Link to="/faq">
-        <span className="unverified-btn">What should I do?</span>
+        <span className="unverified-btn">{unverifiedMessage}</span>
       </Link>
     </div>
 
@@ -34,13 +42,8 @@ export const RetrievalErrorView = ({ resetData, retrieveCertificateByActionError
         }}
         className="text-link"
       >
-        Try another
+        {tryAnotherMessage}
       </span>
     </div>
   </ViewerContainer>
 );
-
-RetrievalErrorView.propTypes = {
-  resetData: PropTypes.func,
-  document: PropTypes.object,
-};

@@ -1,11 +1,13 @@
-import PropTypes from "prop-types";
+import { VerificationFragment } from "@govtechsg/oa-verify";
+import { v2, WrappedDocument } from "@govtechsg/open-attestation";
 import React from "react";
 import { Link } from "react-router-dom";
 import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../../services/verify/fragments";
 import { ViewerContainer } from "./SharedViewerStyledComponents";
+import { docNotValidMessage, tryAnotherMessage, unverifiedMessage } from "./";
 
-const DetailedErrors = ({ verificationStatus }) => {
+const DetailedErrors = ({ verificationStatus }: { verificationStatus: VerificationFragment[] }) => {
   const errors = [];
 
   const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
@@ -19,32 +21,35 @@ const DetailedErrors = ({ verificationStatus }) => {
       {errors.map((errorType, index) => (
         <div key={index}>
           <p className="messages">{MESSAGES[errorType].failureTitle}</p>
-          <p className="break-words">{MESSAGES[errorType].failureMessage}</p>
+          <p className="break-words text-black">{MESSAGES[errorType].failureMessage}</p>
         </div>
       ))}
     </div>
   );
 };
 
-DetailedErrors.propTypes = {
-  verificationStatus: PropTypes.array,
-};
+interface UnverifiedViewProps {
+  handleRenderOverwrite?: () => void;
+  resetData: () => void;
+  document?: WrappedDocument<v2.OpenAttestationDocument>;
+  verificationStatus: VerificationFragment[];
+}
 
-export const UnverifiedView = ({ resetData, verificationStatus }) => (
+export const UnverifiedView = ({ resetData, verificationStatus }: UnverifiedViewProps): React.ReactElement => (
   <ViewerContainer id="viewer-container" className="invalid">
-    <div className="flex justify-center my-4">
+    <div className="flex justify-center items-center my-4">
       <div className="w-auto mr-2">
         <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
       </div>
       <div className="w-auto">
-        <p className="invalid text-black text-2xl">This document is not valid</p>
+        <p className="invalid text-black text-2xl">{docNotValidMessage}</p>
       </div>
     </div>
     <DetailedErrors verificationStatus={verificationStatus} />
 
     <div className="unverified-btn-container">
       <Link to="/faq">
-        <span className="unverified-btn">What should I do?</span>
+        <span className="unverified-btn">{unverifiedMessage}</span>
       </Link>
     </div>
 
@@ -56,15 +61,8 @@ export const UnverifiedView = ({ resetData, verificationStatus }) => (
         }}
         className="text-link"
       >
-        Try another
+        {tryAnotherMessage}
       </span>
     </div>
   </ViewerContainer>
 );
-
-UnverifiedView.propTypes = {
-  handleRenderOverwrite: PropTypes.func,
-  resetData: PropTypes.func,
-  document: PropTypes.object,
-  verificationStatus: PropTypes.array,
-};

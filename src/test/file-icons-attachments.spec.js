@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIframeTexts } from "./helper";
+import { uploadDocument, validateIframeTexts, location } from "./helper";
 
-fixture("Document with 8 Attachments Rendering File Icons").page`http://localhost:3000`;
+fixture("Document with 8 Attachments Rendering File Icons").page`${location}`;
 
 const TabsItems = Selector(".multi-tab");
 const TabDefault = Selector("[data-testid='default']");
