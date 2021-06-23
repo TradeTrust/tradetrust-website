@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { NewsContent } from "./NewsContent";
+import { NewsContent, newsPerPage } from "./NewsContent";
 import { NewsTag, NewsSingle, NewsSort } from "./../types";
 
 const mock: NewsSingle[] = [
@@ -167,7 +167,7 @@ const mock: NewsSingle[] = [
 describe("NewsContent", () => {
   it("should not filter anything by default", () => {
     render(<NewsContent allNews={mock} />);
-    expect(screen.getAllByTestId("news-item-link").length).toBe(15);
+    expect(screen.getAllByTestId("news-item-link").length).toBe(newsPerPage);
   });
 
   it("should filter to 1 item when searched r3", () => {
@@ -191,7 +191,7 @@ describe("NewsContent", () => {
 
     fireEvent.click(screen.getByTestId("dropdown-button-filter"));
     fireEvent.click(screen.getByTestId("show-all"));
-    expect(screen.getAllByTestId("news-item-link").length).toBe(15);
+    expect(screen.getAllByTestId("news-item-link").length).toBe(newsPerPage);
   });
 
   it("should sort by asc date, first item to be oldest", () => {

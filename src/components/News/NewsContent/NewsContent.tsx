@@ -1,8 +1,11 @@
 import React, { FunctionComponent, useState } from "react";
 import { compareAsc, compareDesc } from "date-fns";
+import { Pagination } from "@govtechsg/tradetrust-ui-components";
 import { NewsTag, NewsSort, NewsSingle } from "./../types";
 import { NewsLink } from "./../NewsLink";
 import { NewsFilter } from "./../NewsFilter";
+
+export const newsPerPage = 12;
 
 export const NewsContent: FunctionComponent<{ allNews: NewsSingle[] }> = ({ allNews }) => {
   const [searchStr, setSearchStr] = useState<string>("");
@@ -29,6 +32,15 @@ export const NewsContent: FunctionComponent<{ allNews: NewsSingle[] }> = ({ allN
       }
     });
 
+  const totalNoOfPages = Math.ceil(filteredNews.length / newsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const indexOfLastEvent = currentPage * newsPerPage;
+  const indexOfFirstEvent = indexOfLastEvent - newsPerPage;
+  const currentNews = filteredNews.filter((post, index) => {
+    return index >= indexOfFirstEvent && index < indexOfLastEvent ? post : null;
+  });
+
   return (
     <>
       <NewsFilter
@@ -40,7 +52,7 @@ export const NewsContent: FunctionComponent<{ allNews: NewsSingle[] }> = ({ allN
         setDropdownSort={setDropdownSort}
       />
       <div className="flex flex-wrap py-4 -mx-4">
-        {filteredNews.map((news, index) => {
+        {currentNews.map((news, index) => {
           return (
             <div key={index} className="w-full md:w-1/2 lg:w-1/3 mb-8 px-4">
               <NewsLink news={news} />
@@ -48,6 +60,7 @@ export const NewsContent: FunctionComponent<{ allNews: NewsSingle[] }> = ({ allN
           );
         })}
       </div>
+      <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </>
   );
 };
