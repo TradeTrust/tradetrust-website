@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { News } from "../components/News";
+import { Page } from "../components/Layout/Page";
 
 export const NewsPage: FunctionComponent = () => (
   <>
@@ -17,16 +18,9 @@ export const NewsPage: FunctionComponent = () => (
       <meta property="og:url" content={`${window.location.origin}/news`} />
       <title>TradeTrust - News</title>
     </Helmet>
-    <div className="container py-12">
-      <div className="flex">
-        <div className="w-full">
-          <h1>News</h1>
-        </div>
-      </div>
-      <div className="flex flex-wrap py-4 mb-8">
-        <div className="w-full">Check out our events and browse through our latest news and official statements.</div>
-      </div>
+    <Page title="News">
+      <p className="mt-2 mb-12">Check out our events and browse through our latest news and official statements.</p>
       <News />
-    </div>
+    </Page>
   </>
 );

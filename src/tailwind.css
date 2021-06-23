@@ -7,26 +7,38 @@
 
   h1 {
     font-size: 40px;
+    @apply font-ubuntu;
+    @apply font-bold;
   }
 
   h2 {
     font-size: 32px;
+    @apply font-ubuntu;
+    @apply font-bold;
   }
 
   h3 {
     font-size: 28px;
+    @apply font-ubuntu;
+    @apply font-bold;
   }
 
   h4 {
     font-size: 24px;
+    @apply font-ubuntu;
+    @apply font-bold;
   }
 
   h5 {
     font-size: 18px;
+    @apply font-roboto;
+    @apply font-bold;
   }
 
   h6 {
     font-size: 16px;
+    @apply font-roboto;
+    @apply font-bold;
   }
 
   input[disabled] {

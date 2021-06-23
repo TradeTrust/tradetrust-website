@@ -4,7 +4,7 @@ export const surrenderAccept = async (metamask, browser) => {
   // force process to exit if any assertion fail
   try {
     const page = await browser.newPage();
-    await page.goto("http://localhost:3000/");
+    await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
     inputUploadHandle.uploadFile("./integration/local/ebl-surrender.json"); // use back the same ebl
