@@ -32,7 +32,7 @@ export const TagBorderedSm: FunctionComponent<TagProps> = ({ className, children
 
 export const TagBorderedLg: FunctionComponent<TagProps> = ({ className, children, ...props }) => {
   return (
-    <TagBordered className={`border-4 text-4xl py-2 px-4 ${className}`} {...props}>
+    <TagBordered className={`border-4 text-4xl py-2 px-4 font-bold ${className}`} {...props}>
       {children}
     </TagBordered>
   );

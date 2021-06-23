@@ -6,7 +6,7 @@ export const nominateOwnerAccept = async (metamask, browser) => {
     await metamask.switchAccount(2);
 
     const page = await browser.newPage();
-    await page.goto("http://localhost:3000/");
+    await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
     inputUploadHandle.uploadFile("./integration/local/ebl-nominate-owner.json"); // use back the same ebl

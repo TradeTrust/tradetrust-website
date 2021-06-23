@@ -42,7 +42,7 @@ export const allNews = getSortedByDateDesc([
 
 export const News: FunctionComponent = () => {
   return (
-    <div className="flex flex-wrap py-4 -mx-4">
+    <div className="flex flex-wrap -mx-4">
       {allNews.map((news, index) => {
         return (
           <div key={index} className="w-full md:w-1/2 lg:w-1/3 mb-8 px-4">
