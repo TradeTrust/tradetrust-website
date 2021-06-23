@@ -102,7 +102,7 @@ const rightNavItems: NavigationItem[] = [
     className: "bg-cerulean text-white border-cerulean hover:bg-cerulean-300 hover:border-cerulean-300",
     customLink: (
       <NavLink className="block w-full p-2 text-current hover:text-current" to={"/verify"}>
-        Verify
+        Verify Doc
       </NavLink>
     ),
   },

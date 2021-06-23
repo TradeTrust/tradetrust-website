@@ -2,6 +2,7 @@ import { EmailSuccessPage } from "./pages/emailSuccess";
 import { EmailErrorPage } from "./pages/emailError";
 import { FaqPage } from "./pages/faq";
 import { HomePageContainer } from "./pages/home";
+import VerifyPage from "./pages/verify";
 import { PageNotFound } from "./pages/pageNotFound";
 import { NewsPage } from "./pages/news";
 import { NewsPageDetail } from "./pages/newsDetail";
@@ -13,6 +14,7 @@ import { EventPage } from "./pages/event/event";
 
 export const routes = [
   { path: "/", exact: true, component: HomePageContainer },
+  { path: "/verify", exact: true, component: VerifyPage },
   { path: "/viewer", exact: true, component: ViewerPage },
   { path: "/faq", exact: true, component: FaqPage },
   { path: "/settings", exact: true, component: SettingsPage },
