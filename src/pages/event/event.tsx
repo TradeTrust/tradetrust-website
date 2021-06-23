@@ -6,6 +6,7 @@ import { ResourceEvent, EventProps } from "../../components/UI/ResourceEvent";
 import { importAll } from "../../common/utils/importAll";
 import { Pagination } from "@govtechsg/tradetrust-ui-components";
 import { getSortedByDateDesc } from "../../utils";
+import { Page } from "../../components/Layout/Page";
 
 let events = importAll(require.context("../../../cms/event/", false, /\.md$/)) as EventProps[];
 events = getSortedByDateDesc(events);
@@ -65,12 +66,7 @@ export const EventPage: FunctionComponent = () => {
         <meta property="og:url" content={`${window.location.origin}/media`} />
         <title>TradeTrust - Events</title>
       </Helmet>
-      <div className="container py-12">
-        <div className="flex">
-          <div className="w-full">
-            <h1>Event</h1>
-          </div>
-        </div>
+      <Page title="Event">
         <CategoryFilter className="mt-2 mb-1">
           {categories.map((item, index) => (
             <h5
@@ -99,7 +95,7 @@ export const EventPage: FunctionComponent = () => {
             )}
           </div>
         </div>
-      </div>
+      </Page>
     </>
   );
 };

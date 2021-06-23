@@ -64,23 +64,14 @@ const FaqElement: FunctionComponent<{ question: string; answer: string }> = ({ q
 };
 
 export const FaqContent: FunctionComponent = () => (
-  <div className="py-12">
-    <div className="container">
-      <div className="flex">
-        <div className="w-full mx-auto">
-          <h1 className="mb-8">Frequently Asked Questions</h1>
-          <div className="flex flex-wrap">
-            <div className="w-full lg:w-2/3">
-              {faqs.map((faq, index) => (
-                <FaqElement key={index} question={faq.attributes.title} answer={faq.body} />
-              ))}
-            </div>
-            <div className="mx-auto my-8 w-1/2 lg:w-1/3">
-              <img src="/static/images/faq/faq-person.png" alt="FAQ person" />
-            </div>
-          </div>
-        </div>
-      </div>
+  <div className="flex flex-wrap mt-4">
+    <div className="w-full lg:w-2/3">
+      {faqs.map((faq, index) => (
+        <FaqElement key={index} question={faq.attributes.title} answer={faq.body} />
+      ))}
+    </div>
+    <div className="mx-auto my-8 w-1/2 lg:w-1/3">
+      <img src="/static/images/faq/faq-person.png" alt="FAQ person" />
     </div>
   </div>
 );

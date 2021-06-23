@@ -119,7 +119,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
   toggleQrReaderVisible,
 }) => {
   return (
-    <div id="certificate-dropzone" data-testid="certificate-dropzone" className="w-full h-auto p-2">
+    <div id="certificate-dropzone" data-testid="certificate-dropzone" className="w-full h-auto px-4">
       <Dropzone onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}>
         {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => (
           <div {...getRootProps()}>
