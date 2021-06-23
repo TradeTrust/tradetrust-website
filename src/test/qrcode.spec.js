@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIframeTexts, validateIssuerTexts } from "./helper";
+import { uploadDocument, validateIframeTexts, validateIssuerTexts, location } from "./helper";
 
-fixture("QRcode Rendering").page`http://localhost:3000`;
+fixture("QRcode Rendering").page`${location}`;
 const qrcode = Selector("[data-testid='qr-code-svg']");
 const logo = qrcode.child("img");
 

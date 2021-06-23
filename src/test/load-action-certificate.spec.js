@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { validateTextContent, validateIframeTexts, validateIssuerTexts } from "./helper";
+import { validateTextContent, validateIframeTexts, validateIssuerTexts, location } from "./helper";
 
-fixture("Load action from plain certificate").page`http://localhost:3000`;
+fixture("Load action from plain certificate").page`${location}`;
 
 const DocumentStatus = Selector("#document-status");
 const ViewerContainer = Selector("#viewer-container");
@@ -15,8 +15,7 @@ test("Load document from action should work when url is valid", async (t) => {
       redirect: "https://dev.tradetrust.io/",
     },
   };
-
-  await t.navigateTo(`http://localhost:3000/?q=${encodeURI(JSON.stringify(action))}`);
+  await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
 
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
   validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
@@ -31,7 +30,7 @@ test("Load document from action should fail when url is invalid", async (t) => {
     },
   };
 
-  await t.navigateTo(`http://localhost:3000/?q=${encodeURI(JSON.stringify(action))}`);
+  await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
 
   await DocumentStatus.with({ visibilityCheck: false })();
   await validateTextContent(t, ViewerContainer, [

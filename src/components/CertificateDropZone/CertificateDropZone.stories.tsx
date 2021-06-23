@@ -19,11 +19,18 @@ export default {
 };
 
 export const Ready = () => {
-  return <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} />;
+  return <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} resetData={() => {}} />;
 };
 
 export const Verifying = () => {
-  return <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} verifying={true} />;
+  return (
+    <CertificateDropZone
+      handleCertificateChange={() => {}}
+      handleFileError={() => {}}
+      verifying={true}
+      resetData={() => {}}
+    />
+  );
 };
 
 export const AllVerificationErrors = () => {
@@ -34,6 +41,7 @@ export const AllVerificationErrors = () => {
         handleFileError={() => {}}
         verifying={false}
         verificationStatus={whenDocumentHashInvalidAndNotIssued as VerificationFragment[]}
+        resetData={() => {}}
       />
     </Router>
   );
@@ -47,6 +55,7 @@ export const InvalidHash = () => {
         handleFileError={() => {}}
         verifying={false}
         verificationStatus={whenDocumentHashInvalid as VerificationFragment[]}
+        resetData={() => {}}
       />
     </Router>
   );
@@ -60,6 +69,7 @@ export const NotIssued = () => {
         handleFileError={() => {}}
         verifying={false}
         verificationStatus={whenDocumentNotIssued as VerificationFragment[]}
+        resetData={() => {}}
       />
     </Router>
   );
@@ -73,6 +83,7 @@ export const Revoked = () => {
         handleFileError={() => {}}
         verifying={false}
         verificationStatus={whenDocumentRevoked as VerificationFragment[]}
+        resetData={() => {}}
       />
     </Router>
   );
@@ -86,6 +97,7 @@ export const IssuerIdentityInvalid = () => {
         handleFileError={() => {}}
         verifying={false}
         verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]}
+        resetData={() => {}}
       />
     </Router>
   );
@@ -99,6 +111,7 @@ export const FileError = () => {
         handleFileError={() => {}}
         verifying={false}
         fileError={true}
+        resetData={() => {}}
       />
     </Router>
   );
@@ -113,6 +126,7 @@ export const QrCodeError = () => {
         verifying={false}
         fileError={false}
         verificationError={"QR Code is not formatted to TradeTrust specifications"}
+        resetData={() => {}}
       />
     </Router>
   );

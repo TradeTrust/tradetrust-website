@@ -2,39 +2,58 @@ import React from "react";
 import { LandingSection } from "./HomePageContent/LandingSection";
 import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
 import { DocumentationSection } from "./HomePageContent/DocumentationSection";
-import { DropZoneSectionContainer } from "./HomePageContent/DropZoneSection";
-import { updateCertificate } from "../reducers/certificate";
+import queryString from "query-string";
+import { useLocation } from "react-router-dom";
+import {
+  resetCertificateState,
+  retrieveCertificateByAction,
+  retrieveCertificateByActionFailure,
+  updateCertificate,
+} from "../reducers/certificate";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { NestedDocumentState } from "../constants/NestedDocumentState";
 import { getLogger } from "../utils/logger";
-import { connect } from "react-redux";
-import { NestedDocumentState } from "./../constants/NestedDocumentState";
 
 const { error } = getLogger("component:mainpage");
 
-const MainPage = ({ loadCertificate }: { loadCertificate: (certificate: any) => void }) => {
+export const MainPageContainer = (): React.ReactElement => {
+  const location = useLocation();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
   // event listener for any custom postMessage
   window.addEventListener("message", (event) => {
     if (event.data.type === NestedDocumentState.LOAD) {
       try {
         const doc = atob(event.data.payload);
         loadCertificate(JSON.parse(doc));
+        history.push("/verify");
       } catch (e) {
         error("decode data not json: " + e);
       }
     }
   });
-
+  React.useEffect(() => {
+    if (location.search !== "") {
+      const queryParams = queryString.parse(location.search);
+      dispatch(resetCertificateState());
+      const action = JSON.parse(queryParams.q as string);
+      if (action.type === "DOCUMENT") {
+        dispatch(retrieveCertificateByAction(action.payload));
+      } else {
+        dispatch(
+          retrieveCertificateByActionFailure(`The type ${action.type} provided from the action is not supported`)
+        );
+      }
+      history.push("/verify");
+    }
+  }, [dispatch, location, history]);
   return (
     <div className="text-lg">
-      <DropZoneSectionContainer />
       <LandingSection />
       <MainBenefitsSection />
       <DocumentationSection />
     </div>
   );
 };
-
-const mapDispatchToProps = (dispatch: any) => ({
-  loadCertificate: (payload: any) => dispatch(updateCertificate(payload)),
-});
-
-export const MainPageContainer = connect(null, mapDispatchToProps)(MainPage);
