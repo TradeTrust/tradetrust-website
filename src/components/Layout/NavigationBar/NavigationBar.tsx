@@ -16,7 +16,7 @@ const leftNavItems: NavigationItem[] = [
         label: "Learn",
         path: "/learn",
         customLink: (
-          <NavLink className="block w-full px-4 py-2" to={"/learn"}>
+          <NavLink className="block w-full px-4 py-2 font-bold text-cloud-500 hover:text-black" to={"/learn"}>
             Learn
           </NavLink>
         ),
@@ -26,7 +26,7 @@ const leftNavItems: NavigationItem[] = [
         label: "FAQ",
         path: "/faq",
         customLink: (
-          <NavLink className="block w-full px-4 py-2" to={"/faq"}>
+          <NavLink className="block w-full px-4 py-2 font-bold text-cloud-500 hover:text-black" to={"/faq"}>
             FAQ
           </NavLink>
         ),
@@ -44,7 +44,7 @@ const leftNavItems: NavigationItem[] = [
         label: "News",
         path: "/news",
         customLink: (
-          <NavLink className="block w-full px-4 py-2" to={"/news"}>
+          <NavLink className="block w-full px-4 py-2 font-bold text-cloud-500 hover:text-black" to={"/news"}>
             News
           </NavLink>
         ),
@@ -54,7 +54,7 @@ const leftNavItems: NavigationItem[] = [
         label: "Event",
         path: "/event",
         customLink: (
-          <NavLink className="block w-full px-4 py-2" to={"/event"}>
+          <NavLink className="block w-full px-4 py-2 font-bold text-cloud-500 hover:text-black " to={"/event"}>
             Event
           </NavLink>
         ),
@@ -67,7 +67,7 @@ const leftNavItems: NavigationItem[] = [
     label: "Contact",
     path: "/contact",
     customLink: (
-      <NavLink className="block w-full p-2 text-current" to={"/contact"}>
+      <NavLink className="block w-full py-2 text-cloud-500 hover:text-black" to={"/contact"}>
         Contact
       </NavLink>
     ),
@@ -82,7 +82,7 @@ const rightNavItems: NavigationItem[] = [
     path: "/settings",
     icon: Settings,
     customLink: (
-      <NavLink className="block w-full p-2 text-cloud-500" to={"/settings"}>
+      <NavLink className="block w-full py-2 text-cloud-500 hover:text-black" to={"/settings"}>
         <Settings className="stroke-current" />
       </NavLink>
     ),
@@ -92,7 +92,7 @@ const rightNavItems: NavigationItem[] = [
     id: "create-documents",
     label: "Create Doc",
     path: URLS.CREATOR,
-    className: "bg-white text-cerulean border-cerulean-100 hover:bg-gray-50",
+    className: "text-cerulean border-cerulean-100 bg-white hover:bg-gray-50 rounded-xl",
   },
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
@@ -101,7 +101,7 @@ const rightNavItems: NavigationItem[] = [
     path: "/verify",
     className: "bg-cerulean text-white border-cerulean hover:bg-cerulean-300 hover:border-cerulean-300",
     customLink: (
-      <NavLink className="block w-full p-2 text-current hover:text-current" to={"/verify"}>
+      <NavLink className="block w-full p-2 shadow-lg text-current hover:text-current rounded-xl" to={"/verify"}>
         Verify Doc
       </NavLink>
     ),
