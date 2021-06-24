@@ -9,7 +9,6 @@ const mock = {
   attributes: {
     title: "Singapore leading the way in promoting digital trade",
     date: "3 Feb 2021",
-    link: "https://www.businesstimes.com.sg/opinion/singapore-leading-the-way-in-promoting-digital-trade",
   },
   body: "",
   slug: "singapore-leading-the-way-in-promoting-digital-trade",
@@ -30,13 +29,6 @@ const mockInternalLink = {
 };
 
 describe("NewsLink", () => {
-  it("should render external link when there is link", () => {
-    render(<NewsLink news={mock} />);
-    expect(screen.getByTestId("news-item-link").getAttribute("href")).toBe(
-      "https://www.businesstimes.com.sg/opinion/singapore-leading-the-way-in-promoting-digital-trade"
-    );
-  });
-
   it("should render download when there is file", () => {
     render(<NewsLink news={mockFile} />);
     expect(screen.getByTestId("news-item-link").getAttribute("href")).toBe(
@@ -44,7 +36,7 @@ describe("NewsLink", () => {
     );
   });
 
-  it("should render filename as internal news link when body has content", () => {
+  it("should render filename slug as internal news link", () => {
     const history = createMemoryHistory();
 
     render(

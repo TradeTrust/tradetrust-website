@@ -11,7 +11,6 @@ const mock: NewsSingle[] = [
       title: "R3 partners with Tramés and IMDA to develop new solutions to bridge R3 Corda eBL and TradeTrust",
       thumbnail: "/static/uploads/news-02.jpg",
       date: "19 Apr 2021",
-      link: "https://www.r3.com/press-media/r3-partners-with-trames-and-imda-to-develop-new-solutions-to-bridge-r3-corda-ebl-and-tradetrust/",
     },
     body: "",
   },
@@ -22,7 +21,6 @@ const mock: NewsSingle[] = [
       title: "Adoption of UNCITRAL model law heralds a quiet revolution in digital trade",
       thumbnail: "/static/uploads/news-01.jpg",
       date: "3 Feb 2021",
-      link: "https://www.businesstimes.com.sg/opinion/adoption-of-uncitral-model-law-heralds-a-quiet-revolution-in-digital-trade",
     },
     body: "",
   },
@@ -32,7 +30,6 @@ const mock: NewsSingle[] = [
     attributes: {
       title: "Singapore leading the way in promoting digital trade",
       date: "3 Feb 2021",
-      link: "https://www.businesstimes.com.sg/opinion/singapore-leading-the-way-in-promoting-digital-trade",
     },
     body: "",
   },
@@ -44,7 +41,6 @@ const mock: NewsSingle[] = [
         "Electronic Transactions Act Amended To Facilitate Electronic Transactions, Providing Convenience And Strengthening Singapore’s Trade Competitiveness In The Digital Economy",
       thumbnail: "/static/uploads/news-03.jpg",
       date: "1 Feb 2021",
-      link: "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2021/Electronic-Transactions-Act-Amended-To-Facilitate-Electronic-Transactions-Providing-Convenience-And-Strengthening-Singapores-Trade-Competitiveness",
     },
     body: "",
   },
@@ -64,7 +60,6 @@ const mock: NewsSingle[] = [
     attributes: {
       title: "SWIFT and Singapore's IMDA Join Forces to Drive Global Trade Digitalisation",
       date: "5 Oct 2020",
-      link: "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/SWIFT-and-Singapores-IMDA-Join-Forces-to-Drive-Global-Trade-Digitalisation",
     },
     body: "",
   },
@@ -84,7 +79,6 @@ const mock: NewsSingle[] = [
     attributes: {
       title: "Singapore and Australia Sign Digital Economy Agreement",
       date: "6 Aug 2020",
-      link: "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/Signing-of-Singapore-Australia-Digital-Economy-Agreement",
     },
     body: "",
   },
@@ -105,7 +99,6 @@ const mock: NewsSingle[] = [
       title:
         "Singapore Strengthens Digital Collaboration and Linkages with Shenzhen to Create New Market Opportunities",
       date: "18 Jun 2020",
-      link: "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/Singapore-Strengthens-Digital-Collaboration-and-Linkages-with-Shenzhen-to-Create-New-Market-Opportunities",
     },
     body: "",
   },
@@ -115,7 +108,6 @@ const mock: NewsSingle[] = [
     attributes: {
       title: "Singapore, Chile and New Zealand Sign Digital Economy Partnership Agreement Electronically",
       date: "12 Jun 2020",
-      link: "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/Singapore-Chile-and-New-Zealand-Sign-Digital-Economy-Partnership-Agreement-Electronically",
     },
     body: "",
   },
@@ -136,7 +128,6 @@ const mock: NewsSingle[] = [
       title:
         "World's Largest Business Organisation Joins Singapore Government and Major Industry Partners to Drive Global Digitalisation",
       date: "22 Jan 2020",
-      link: "https://www.imda.gov.sg/news-and-events/Media-Room/Media-Releases/2020/Worlds-Largest-Business-Organisation-Joins-Singapore-Government-and-Major-Industry-Partners-to-Drive-Global-Digitalisation",
     },
     body: "",
   },
@@ -147,7 +138,6 @@ const mock: NewsSingle[] = [
       title:
         "Remarks by Mr S Iswaran, Minister for Communications and Information, at the International Chamber of Commerce 'Taking Trade Digital' Forum in Davos on 22 Jan 2020",
       date: "22 Jan 2020",
-      link: "https://www.mci.gov.sg/pressroom/news-and-stories/pressroom/2020/1/Remarks%20by%20Minister%20S%20Iswaran%20at%20the%20International%20Chamber%20of%20Commerce#.X5gGtAayHwc.gmail",
     },
     body: "",
   },
@@ -158,7 +148,6 @@ const mock: NewsSingle[] = [
       title:
         "Launch of TradeTrust announced by Mr S Iswaran, Minister for Communications and Information at the Committee of Supply Debate on 4 March 2019",
       date: "4 Mar 2019",
-      link: "https://www.mci.gov.sg/pressroom/news-and-stories/pressroom/2019/3/securing-our-future-in-a-digital-age#.X5gFH3jrCCc.gmail",
     },
     body: "",
   },

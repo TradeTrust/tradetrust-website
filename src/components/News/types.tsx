@@ -27,7 +27,6 @@ export type NewsSingle = {
     title: string;
     date: string;
     thumbnail?: string;
-    link?: string;
     file?: string;
   };
   body: string;
