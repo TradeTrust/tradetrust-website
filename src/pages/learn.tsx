@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { ResourceWebinar } from "../components/UI/ResourceWebinar";
 import { ResourceLink } from "../components/UI/ResourceLink";
 import { URLS } from "../constants";
-import { Pagination } from "@govtechsg/tradetrust-ui-components";
+import { getPaginatedPagesTotal, getPaginatedPosts, Pagination } from "@govtechsg/tradetrust-ui-components";
 
 const documentations = [
   {
@@ -278,14 +278,10 @@ const webinars = [
 
 export const LearnPage: FunctionComponent = () => {
   const postsPerPage = 5;
-  const totalNoOfPages = Math.ceil(webinars.length / postsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
+  const paginatedPosts = getPaginatedPosts({ posts: webinars, postsPerPage: postsPerPage, currentPage });
+  const totalNoOfPages = getPaginatedPagesTotal({ posts: webinars, postsPerPage: postsPerPage });
 
-  const indexOfLastEvent = currentPage * postsPerPage;
-  const indexOfFirstEvent = indexOfLastEvent - postsPerPage;
-  const currentWebinars = webinars.filter((post, index) => {
-    return index >= indexOfFirstEvent && index < indexOfLastEvent ? post : null;
-  });
   return (
     <>
       <Helmet>
@@ -316,7 +312,7 @@ export const LearnPage: FunctionComponent = () => {
             </div>
           </div>
           <div className="w-full lg:w-8/12 lg:order-1 lg:pr-3">
-            {currentWebinars.map((webinar, index) => (
+            {paginatedPosts.map((webinar, index) => (
               <ResourceWebinar
                 title={webinar.title}
                 description={webinar.description}

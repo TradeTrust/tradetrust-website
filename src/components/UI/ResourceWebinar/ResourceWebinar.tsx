@@ -60,7 +60,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
           <Dropdown
             data-testid="quick-video-links-dropdown"
             dropdownButtonText="Quick Video Links"
-            fullWidth={true}
+            classNameShared="w-full"
             className="rounded border border-gray-300 text-gray-700 p-2 mb-2"
           >
             {videoChapters.map((videoChapter, i) => {
