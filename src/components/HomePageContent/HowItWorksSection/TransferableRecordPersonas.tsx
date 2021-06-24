@@ -1,6 +1,6 @@
-import { DocumentTypeUsers } from "./HowItWorksSection";
+import { Persona } from "../../../types";
 
-export const howItWorksTransferableRecordUsers: DocumentTypeUsers[] = [
+export const TransferableRecordPersonas: Persona[] = [
   {
     image: "/static/images/home/kevin/kevin.png",
     jobTitle: "The Exporter",
