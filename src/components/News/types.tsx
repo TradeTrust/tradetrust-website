@@ -8,6 +8,11 @@ export enum NewsTag {
   SPEECH = "Speech",
 }
 
+export enum NewsSort {
+  ASC = "Ascending Date",
+  DESC = "Descending Date",
+}
+
 export type NewsType =
   | NewsTag.ARTICLE
   | NewsTag.NEWSLETTER

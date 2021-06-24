@@ -4,7 +4,7 @@ import { isFuture, isPast } from "date-fns";
 import { Helmet } from "react-helmet";
 import { ResourceEvent, EventProps } from "../../components/UI/ResourceEvent";
 import { importAll } from "../../common/utils/importAll";
-import { Pagination } from "@govtechsg/tradetrust-ui-components";
+import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@govtechsg/tradetrust-ui-components";
 import { getSortedByDateDesc } from "../../utils";
 import { Page } from "../../components/Layout/Page";
 
@@ -48,14 +48,9 @@ export const EventPage: FunctionComponent = () => {
   const [filteredPosts, setFilteredPosts] = useState<EventProps[]>(events);
 
   const postsPerPage = 5;
-  const totalNoOfPages = Math.ceil(filteredPosts.length / postsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const indexOfLastEvent = currentPage * postsPerPage;
-  const indexOfFirstEvent = indexOfLastEvent - postsPerPage;
-  const currentPosts = filteredPosts.filter((post, index) => {
-    return index >= indexOfFirstEvent && index < indexOfLastEvent ? post : null;
-  });
+  const paginatedPosts = getPaginatedPosts({ posts: filteredPosts, postsPerPage, currentPage });
+  const totalNoOfPages = getPaginatedPagesTotal({ posts: filteredPosts, postsPerPage });
 
   return (
     <>
@@ -85,7 +80,7 @@ export const EventPage: FunctionComponent = () => {
         </CategoryFilter>
         <div className="flex flex-wrap py-4 -mx-4">
           <div className="w-full px-4 lg:w-9/12">
-            {currentPosts.map((event, index) => (
+            {paginatedPosts.map((event, index) => (
               <ResourceEvent key={index} attributes={event.attributes} />
             ))}
             {filteredPosts.length > 0 ? (
