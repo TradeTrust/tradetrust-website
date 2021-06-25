@@ -102,7 +102,7 @@ const onFileDrop = (
 };
 
 interface CertificateDropzoneProps extends DropzoneStateProps {
-  handleCertificateChange: () => void;
+  handleCertificateChange: (certificate: any) => void;
   handleFileError: () => void;
 }
 

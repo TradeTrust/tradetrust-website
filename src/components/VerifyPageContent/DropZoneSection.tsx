@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { roundInstructionsText } from ".";
 import { NETWORK_NAME } from "../../config";
 import { updateCertificate } from "../../reducers/certificate";
-import CertificateDropzoneContainer from "../CertificateDropZone";
+import { CertificateDropZoneContainer } from "../CertificateDropZone/CertificateDropZoneContainer";
 
 type LoadCertificate = (certificate: any) => void;
 
@@ -64,7 +64,7 @@ export const DropZoneSectionContainer = (): React.ReactElement => {
             }
           }}
         >
-          <CertificateDropzoneContainer />
+          <CertificateDropZoneContainer />
         </div>
       </div>
       <DraggableDemoCertificate />
