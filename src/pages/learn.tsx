@@ -300,7 +300,7 @@ export const LearnPage: FunctionComponent = () => {
 
       <div className="container py-12">
         <div className="flex">
-          <div className="w-full text-gray-600">
+          <div className="w-full text-cloud-900">
             <h1>Learn TradeTrust</h1>
           </div>
         </div>
