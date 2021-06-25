@@ -1,9 +1,8 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { ResourceWebinar } from "../components/UI/ResourceWebinar";
 import { ResourceLink } from "../components/UI/ResourceLink";
 import { URLS } from "../constants";
-import { getPaginatedPagesTotal, getPaginatedPosts, Pagination } from "@govtechsg/tradetrust-ui-components";
+import { PaginatedWebinar } from "../components/Webinars";
 
 const documentations = [
   {
@@ -277,11 +276,6 @@ const webinars = [
 ];
 
 export const LearnPage: FunctionComponent = () => {
-  const postsPerPage = 5;
-  const [currentPage, setCurrentPage] = useState(1);
-  const paginatedPosts = getPaginatedPosts({ posts: webinars, postsPerPage: postsPerPage, currentPage });
-  const totalNoOfPages = getPaginatedPagesTotal({ posts: webinars, postsPerPage: postsPerPage });
-
   return (
     <>
       <Helmet>
@@ -294,8 +288,8 @@ export const LearnPage: FunctionComponent = () => {
           content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
         />
         <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${window.location.origin}/resources`} />
-        <title>TradeTrust - Resources</title>
+        <meta property="og:url" content={`${window.location.origin}/learn`} />
+        <title>TradeTrust - Learn</title>
       </Helmet>
 
       <div className="container py-12">
@@ -312,18 +306,8 @@ export const LearnPage: FunctionComponent = () => {
             </div>
           </div>
           <div className="w-full lg:w-8/12 lg:order-1 lg:pr-3">
-            {paginatedPosts.map((webinar, index) => (
-              <ResourceWebinar
-                title={webinar.title}
-                description={webinar.description}
-                resource={webinar.resource}
-                key={index}
-              />
-            ))}
+            <PaginatedWebinar webinars={webinars} />
           </div>
-        </div>
-        <div className="w-min mx-auto mb-14">
-          <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
       </div>
     </>
