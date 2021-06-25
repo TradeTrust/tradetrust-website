@@ -26,7 +26,6 @@ export const routes = [
   { path: "/news", exact: true, component: NewsPage },
   { path: "/news/:slug", exact: true, component: NewsPageDetail },
   { path: "/learn", exact: true, component: LearnPage },
-  { path: "/resources", exact: true, component: ResourcesPage },
   { path: "/event", exact: true, component: EventPage },
   { path: "/contact", exact: true, component: ContactPage },
   { path: "*", component: PageNotFound },
