@@ -41,6 +41,7 @@ export type Persona = {
   description: string;
   learnMore: {
     title: string;
+    startMessage?: string;
     thenSteps?: {
       stepNumber: string;
       icon: string;

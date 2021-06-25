@@ -62,6 +62,8 @@ export const VerifiableDocumentPersonas: Persona[] = [
       "This is Sean, he works for Singapore Custom, and he is using TradeTrust to issue Certificate of Origin. See how he benefited from using TradeTrust to issue the Certificate of Origin",
     learnMore: {
       title: "Certificate of Origin",
+      startMessage:
+        "These are some of the benefits Sean enjoys when dealing with eCoOs using TradeTrust-enabled solutions",
       benefits: [
         {
           benefitNumber: "1",
@@ -94,6 +96,8 @@ export const VerifiableDocumentPersonas: Persona[] = [
       "This is James, he is an importer using Tradetrust to streamline his cargo collection process. See how he benefited from using TradeTrust",
     learnMore: {
       title: "Certificate of Origin",
+      startMessage:
+        "These are some of the benefits James enjoys when dealing with eCoOs using TradeTrust-enabled solutions",
       benefits: [
         {
           benefitNumber: "1",
@@ -126,6 +130,8 @@ export const VerifiableDocumentPersonas: Persona[] = [
       "This is Tanu, she is a banker using TradeTrust to Minimize Fraud risk in trade financing. See how she lower the risk of fraud when dealing with Certificate of Origin",
     learnMore: {
       title: "Certificate of Origin",
+      startMessage:
+        "These are some of the benefits Tanu enjoys when dealing with eCoOs using TradeTrust-enabled solutions",
       benefits: [
         {
           benefitNumber: "1",

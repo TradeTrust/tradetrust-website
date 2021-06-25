@@ -33,7 +33,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ details }) => {
         <div className="relative flex flex-col text-white flex p-5 overflow-auto h-auto">
           <div className="flex flex-col justify-center">
             <div className="relative flex justify-center w-full">
-              <h4 className="flex">{details.learnMore.title}</h4>
+              <h4 className="text-center">{details.learnMore.title}</h4>
               {details.learnMore.thenSteps && details.learnMore.nowSteps && (
                 <div className="hidden absolute bottom-0 right-0 lg:block">
                   <div className="flex justify-end">
@@ -47,6 +47,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ details }) => {
                 </div>
               )}
             </div>
+            {details.learnMore.startMessage && <h6 className="text-center mt-8">{details.learnMore.startMessage}</h6>}
             {details.learnMore.thenSteps && details.learnMore.nowSteps && (
               <div className="flex flex-row justify-center lg:hidden">
                 {contentType.map((content, index) => (
@@ -79,11 +80,11 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ details }) => {
             {details.learnMore.benefits && (
               <Steps contentType={ContentType.BENEFIT} stepsDetails={details.learnMore.benefits} />
             )}
-            <h5 className="text-center mt-6">{details.learnMore.endMessage}</h5>
+            <h5 className="text-center mt-8">{details.learnMore.endMessage}</h5>
           </div>
           <Link
             to="/contact"
-            className="px-4 py-2 mx-auto mt-5 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
+            className="px-4 py-2 mx-auto mt-8 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
             onClick={handleCloseOverlay}
           >
             <h4 className="font-ubuntu text-2xl">Get in Touch Now</h4>

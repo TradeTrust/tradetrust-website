@@ -56,6 +56,8 @@ export const TransferableRecordPersonas: Persona[] = [
       "This is Lizzie, she works for a Carrier, and her Company is using TradeTrust for their e-Bill-of-Lading Solution",
     learnMore: {
       title: "Issuance and Surrender of BL processes",
+      startMessage:
+        "These are some of the benefits Lizzie enjoys when dealing with eBLs using TradeTrust-enabled solutions",
       benefits: [
         {
           benefitNumber: "1",
@@ -87,6 +89,8 @@ export const TransferableRecordPersonas: Persona[] = [
     description: "This is Cara, she is an importer using Tradetrust to streamline her cargo collection process",
     learnMore: {
       title: "Issuance and Surrender of BL processes",
+      startMessage:
+        "These are some of the benefits Cara enjoys when dealing with eBLs using TradeTrust-enabled solutions",
       benefits: [
         {
           benefitNumber: "1",

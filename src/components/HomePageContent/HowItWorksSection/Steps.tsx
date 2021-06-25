@@ -15,7 +15,7 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
       <div className="flex flex-wrap m-auto items-start lg:w-full">
         {stepsDetails.map((steps: any, index: any) => (
           <>
-            <div key={index} className="flex flex-row flex-none w-6/12 mt-6 justify-center lg:w-auto">
+            <div key={index} className="flex flex-row flex-none w-6/12 mt-8 justify-center lg:w-auto">
               <div className="flex flex-col max-w-46 min-w-46 justify-center">
                 <img className="max-h-10 min-h-10" src={steps.icon} />
                 {steps.stepNumber && <h6 className="text-center mt-4">Step {steps.stepNumber}</h6>}
@@ -24,7 +24,7 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
             </div>
             {index + 1 != stepsDetails.length && (
               <div
-                className={`flex-grow lg:-mx-8 lg:mt-12 lg:border-t lg:border-white ${keyValueBorderStyle[contentType]}`}
+                className={`flex-grow lg:-mx-8 lg:mt-14 lg:border-t lg:border-white ${keyValueBorderStyle[contentType]}`}
               />
             )}
           </>
