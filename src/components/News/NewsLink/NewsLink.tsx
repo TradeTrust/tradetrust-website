@@ -5,12 +5,10 @@ import { NewsCard } from "../NewsCard";
 
 const getLink = (news: NewsSingle) => {
   switch (true) {
-    case !!news.body:
-      return `/news/${news.slug}`;
     case !!news.attributes.file:
       return news.attributes.file;
     default:
-      return news.attributes.link;
+      return `/news/${news.slug}`;
   }
 };
 
