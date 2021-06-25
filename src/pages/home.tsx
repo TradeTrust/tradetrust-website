@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { MainPageContainer } from "../components/MainPageContainer";
+import { HomePageContainer } from "../components/HomePageContent";
 
-export const HomePageContainer: FunctionComponent = () => {
+export const HomePage: FunctionComponent = () => {
   return (
     <>
       <Helmet>
@@ -18,7 +18,7 @@ export const HomePageContainer: FunctionComponent = () => {
         <meta property="og:url" content={`${window.location.origin}`} />
         <title>TradeTrust - An easy way to check and verify your documents</title>
       </Helmet>
-      <MainPageContainer />
+      <HomePageContainer />
     </>
   );
 };
