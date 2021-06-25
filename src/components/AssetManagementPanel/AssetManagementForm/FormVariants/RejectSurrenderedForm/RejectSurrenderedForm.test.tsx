@@ -1,5 +1,5 @@
 import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
-import "@testing-library/jest-dom";
+
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { act } from "react-dom/test-utils";

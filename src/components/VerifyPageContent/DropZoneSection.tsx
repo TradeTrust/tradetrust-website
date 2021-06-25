@@ -20,29 +20,29 @@ const loadDemoCertificate = (loadCertificate: LoadCertificate) => {
 
 const DraggableDemoCertificate = () => (
   <div className="hidden md:block w-full md:w-1/2 px-4">
-    <div className="flex flex-wrap lg:flex-nowrap justify-center items-center h-full -mx-4">
-      <div
-        className="w-2/3 lg:w-1/2 px-4 box-content flex items-center justify-center relative"
-        draggable
-        onDragStart={(e) => e.dataTransfer.setData(DEMO_CERT, "true")}
-      >
-        <img
-          src="/static/images/dropzone/drop_arrow.svg"
-          className="absolute -left-40 lg:-left-24 xl:-left-32"
-          style={{ width: "135px", top: "10%" }}
-        />
-        <a href={DEMO_CERT} download="demo.tt" rel="noindex nofollow" className="cursor-default relative">
-          <img src="/static/images/dropzone/man_with_doc.svg" />
-          <img
-            className="absolute top-0 cursor-grab active:cursor-grabbing"
-            src="/static/images/dropzone/certificate.svg"
-          />
-        </a>
-      </div>
-      <div className="w-2/3 lg:w-1/2 xl:w-1/3 px-4 inline-block box-content">
-        <div className="aspect-w-1 aspect-h-1">
-          <div className="rounded-full w-full h-full bg-cerulean-500 flex items-center justify-center">
-            <p className="text-xl px-5 text-center text-white font-bold">{roundInstructionsText}</p>
+    <div className="relative w-full h-full">
+      <img
+        src="/static/images/dropzone/drop_arrow.svg"
+        className="absolute -left-28 lg:-left-24 xl:-left-32 top-1/4"
+        style={{ width: "135px" }}
+      />
+      <div className="flex justify-center items-center w-full h-full">
+        <div className="w-2/3 lg:w-1/2 xl:w-1/3 px-4 inline-block box-content">
+          <div className="aspect-w-1 aspect-h-1">
+            <div className="rounded-full w-full h-full bg-cerulean-500 flex ">
+              <p className="text-base px-5 text-center text-white font-bold absolute top-1/2">
+                {roundInstructionsText}
+              </p>
+            </div>
+            <div className="absolute" draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CERT, "true")}>
+              <a href={DEMO_CERT} download="demo.tt" rel="noindex nofollow" className="cursor-default">
+                <img
+                  className="absolute cursor-grab active:cursor-grabbing"
+                  style={{ top: "-40%" }}
+                  src="/static/images/dropzone/certificate.svg"
+                />
+              </a>
+            </div>
           </div>
         </div>
       </div>
