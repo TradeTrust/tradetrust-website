@@ -5,7 +5,7 @@ import { PersonaProps } from "../../../types";
 import { Steps } from "./Steps";
 import { ContentType } from "../../../types";
 
-export const PersonaModal: FunctionComponent<PersonaProps> = ({ details }) => {
+export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, details }) => {
   const { setOverlayVisible, showOverlay } = useOverlayContext();
   const [selectedContentType, setSelectedContentType] = useState<ContentType>(ContentType.THEN);
   const contentType: ContentType[] = [ContentType.THEN, ContentType.NOW];
@@ -86,6 +86,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ details }) => {
             to="/contact"
             className="px-4 py-2 mx-auto mt-8 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
             onClick={handleCloseOverlay}
+            data-testid={`get-in-touch-${personaIndex}`}
           >
             <h4 className="font-ubuntu text-2xl">Get in Touch Now</h4>
           </Link>

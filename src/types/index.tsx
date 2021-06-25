@@ -28,6 +28,7 @@ export type Resource = {
 };
 
 export interface PersonaProps {
+  personaIndex: number;
   details: Persona;
 }
 

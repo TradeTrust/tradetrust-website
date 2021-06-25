@@ -28,12 +28,14 @@ const DescriptionSection: FunctionComponent = () => {
                 <div
                   className=" h-12 w-12 transition duration-300 ease-out rounded-full cursor-pointer bg-tangerine flex items-center justify-center hover:bg-tangerine-600"
                   onClick={onOverlayHandler}
+                  data-testid="play-button"
                 >
                   <i className="fas fa-play text-white" />
                 </div>
                 <Link
                   to="/verify"
                   className="px-4 py-3 ml-3 bg-cerulean rounded-xl text-white font-bold hover:bg-cerulean-500 hover:text-white "
+                  data-testid="verify-button"
                 >
                   Verify Documents
                 </Link>

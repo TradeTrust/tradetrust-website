@@ -6,7 +6,7 @@ export const TransferableRecordPersonas: Persona[] = [
     jobTitle: "The Exporter",
     description: "This is Kevin, he is an exporter with customers in many different countries",
     learnMore: {
-      title: "Blank-Endorsed BL",
+      title: "Electronic Bill of Lading",
       thenSteps: [
         {
           stepNumber: "1",
@@ -55,7 +55,7 @@ export const TransferableRecordPersonas: Persona[] = [
     description:
       "This is Lizzie, she works for a Carrier, and her Company is using TradeTrust for their e-Bill-of-Lading Solution",
     learnMore: {
-      title: "Issuance and Surrender of BL processes",
+      title: "Electronic Bill of Lading",
       startMessage:
         "These are some of the benefits Lizzie enjoys when dealing with eBLs using TradeTrust-enabled solutions",
       benefits: [
@@ -88,7 +88,7 @@ export const TransferableRecordPersonas: Persona[] = [
     jobTitle: "The Importer",
     description: "This is Cara, she is an importer using Tradetrust to streamline her cargo collection process",
     learnMore: {
-      title: "Issuance and Surrender of BL processes",
+      title: "Electronic Bill of Lading",
       startMessage:
         "These are some of the benefits Cara enjoys when dealing with eBLs using TradeTrust-enabled solutions",
       benefits: [
@@ -121,7 +121,7 @@ export const TransferableRecordPersonas: Persona[] = [
     jobTitle: "The Banker",
     description: "This is Liam, He is a banker using TradeTrust to Minimize Fraud risk in trade financing",
     learnMore: {
-      title: "Blank-Endorsed BL",
+      title: "Electronic Bill of Lading",
       thenSteps: [
         {
           stepNumber: "1",

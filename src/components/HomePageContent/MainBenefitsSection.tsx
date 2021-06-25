@@ -65,7 +65,9 @@ const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ detai
       className={`w-full flex flex-col items-center mt-12 md:mx-1 md:w-4/12 md:max-w-xxs md:min-w-xxs ${svgAlignment()}`}
     >
       <img src={details.image} alt="mainBenefitsIcon" />
-      <h4 className="font-ubuntu mx-16 md:mx-0 text-center md:text-left md:text-xl">{details.title}</h4>
+      <h4 className="font-ubuntu mx-16 md:mx-0 text-center md:text-left md:text-xl" data-testid="benefit-title">
+        {details.title}
+      </h4>
       <p className="text-left text-base m-4 md:text-base md:m-0 md:mt-4">{details.description}</p>
     </div>
   );
