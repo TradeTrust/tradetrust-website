@@ -46,6 +46,7 @@ const localConfig = {
         xxs: "15.5rem",
       },
       maxWidth: {
+        12: "3rem",
         46: "11.5rem",
         220: "220px",
         xxs: "15.5rem",
@@ -61,7 +62,8 @@ const localConfig = {
       maxHeight: {
         0: "0",
         120: "40rem",
-        full: "1000px",
+        1000: "1000px",
+        "9/10": "90vh",
       },
       transitionProperty: {
         height: "max-height",

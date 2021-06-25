@@ -17,7 +17,7 @@ export const PersonaCard: React.FunctionComponent<PersonaProps> = ({ personaInde
           <h6>{details.jobTitle}</h6>
           <p className="text-xl text-center mx-5 lg:mx-0 lg:text-left lg:min-h-90">{details.description}</p>
           <a
-            className="block pt-3 text-cerulean-200 text-base font-bold"
+            className="block pt-3 text-cerulean-200 text-base font-bold cursor-pointer"
             onClick={() => onOverlayHandler(details)}
             data-testid={`persona-details-${personaIndex}`}
           >

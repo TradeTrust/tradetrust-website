@@ -29,7 +29,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
 
   return (
     <section id="persona-modal">
-      <OverlayContent title="" className="max-h-120 text-white bg-cerulean rounded-xl">
+      <OverlayContent title="" className="max-h-9/10 text-white bg-cerulean rounded-xl">
         <div className="relative flex flex-col text-white flex p-5 overflow-auto h-auto">
           <div className="flex flex-col justify-center">
             <div className="relative flex justify-center w-full">

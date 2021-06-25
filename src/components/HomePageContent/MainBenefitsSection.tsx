@@ -6,7 +6,7 @@ const Background = styled.div`
   background-size: 100%;
   background-position: 0 35%;
   @media screen and (min-width: 768px) {
-    background-image: url("/static/images/home/single-wave.png");
+    background-image: url("/static/images/home/mainBenefits/single-wave.png");
   }
 `;
 
@@ -23,21 +23,21 @@ type MainBenefits = {
 
 const mainBenefits: MainBenefits[] = [
   {
-    image: "/static/images/home/cost.svg",
+    image: "/static/images/home/mainBenefits/cost.svg",
     title: "Reduced costs of documentation",
     description: `Digitalising paper documents would eliminate costs associated with printing, including the handling and
     transportation of typically hundreds of pages amongst numerous parties. This will significantly reduce the costs
     of shipping.`,
   },
   {
-    image: "/static/images/home/efficiency.svg",
+    image: "/static/images/home/mainBenefits/efficiency.svg",
     title: "Increased efficiencies through certainty",
     description: `Reduce the risk of receiving fake documents or information as sources will be accredited. Removes the need for
     repetitive checks by the various trade ecosystem parties to ascertain whether the documents/information received
     are legitimate.`,
   },
   {
-    image: "/static/images/home/support.svg",
+    image: "/static/images/home/mainBenefits/support.svg",
     title: "Support for new service offerings through digitalisation and interoperability",
     description: `Current digitalisation efforts are fragmented digital ecosystems consisting of silo groups of trade parties.
     TradeTrust will work with the current ecosystem to enable various enterprise and platform systems to be

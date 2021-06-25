@@ -4,7 +4,7 @@ import { OverlayContext, Youtube } from "@govtechsg/tradetrust-ui-components";
 import styled from "@emotion/styled";
 
 const Background = styled.div`
-  background-image: url("/static/images/home/map.png");
+  background-image: url("/static/images/home/welcome/map.png");
 `;
 
 const DescriptionSection: FunctionComponent = () => {
