@@ -6,7 +6,6 @@ import { HomePage } from "./pages/home";
 import { PageNotFound } from "./pages/pageNotFound";
 import { NewsPage } from "./pages/news";
 import { NewsPageDetail } from "./pages/newsDetail";
-import { ResourcesPage } from "./pages/resources";
 import { LearnPage } from "./pages/learn";
 import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
 import { ViewerPage } from "./pages/viewer";
