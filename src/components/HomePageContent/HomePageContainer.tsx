@@ -1,7 +1,4 @@
 import React from "react";
-import { LandingSection } from "./HomePageContent/LandingSection";
-import { MainBenefitsSection } from "./HomePageContent/MainBenefitsSection";
-import { DocumentationSection } from "./HomePageContent/DocumentationSection";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import {
@@ -9,15 +6,19 @@ import {
   retrieveCertificateByAction,
   retrieveCertificateByActionFailure,
   updateCertificate,
-} from "../reducers/certificate";
+} from "../../reducers/certificate";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { NestedDocumentState } from "../constants/NestedDocumentState";
-import { getLogger } from "../utils/logger";
+import { NestedDocumentState } from "../../constants/NestedDocumentState";
+import { getLogger } from "../../utils/logger";
+
+import { WelcomeSection } from "./WelcomeSection";
+import { MainBenefitsSection } from "./MainBenefitsSection";
+import { HowItWorksSection } from "./HowItWorksSection";
 
 const { error } = getLogger("component:mainpage");
 
-export const MainPageContainer = (): React.ReactElement => {
+export const HomePageContainer = (): React.ReactElement => {
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -51,9 +52,9 @@ export const MainPageContainer = (): React.ReactElement => {
   }, [dispatch, location, history]);
   return (
     <div className="text-lg">
-      <LandingSection />
+      <WelcomeSection />
       <MainBenefitsSection />
-      <DocumentationSection />
+      <HowItWorksSection />
     </div>
   );
 };

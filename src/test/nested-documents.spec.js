@@ -3,7 +3,7 @@ import { uploadDocument, validateIframeTexts, validateTextContent, CloseWindow, 
 
 fixture("Nested documents").page`${location}`;
 
-const AboutSection = Selector("[id='about']");
+const WelcomeSection = Selector("[id='welcome']");
 const NavLogoHome = Selector("[data-testid='nav-logo-home']");
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
 const AttachmentOpen0 = Selector("[data-testid='attachment-tile-0']").find("[data-testid='attachment-open-link']");
@@ -19,7 +19,7 @@ test("Document with nested documents in attachments should open in new tab corre
   await t.click(NavLogoHome);
 
   // should not re-render nested document
-  await validateTextContent(t, AboutSection, ["A Trust Network for Trading Partners"]);
+  await validateTextContent(t, WelcomeSection, ["A Trust Network for Trading Partners"]);
   await CloseWindow();
 
   await t.click(AttachmentOpen0);
