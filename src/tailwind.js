@@ -27,10 +27,33 @@ const localConfig = {
         6: "1.5rem",
         7: "1.75rem",
         8: "2rem",
+        "-24": "-6rem",
+        "50%": "50%",
+      },
+      fontSize: {
+        "4.5xl": [
+          "2.5rem",
+          {
+            letterSpacing: "-0.02em",
+            lineHeight: "44px",
+          },
+        ],
       },
       minWidth: {
+        46: "11.5rem",
         135: "135px",
         200: "200px",
+        xxs: "15.5rem",
+      },
+      maxWidth: {
+        12: "3rem",
+        46: "11.5rem",
+        220: "220px",
+        xxs: "15.5rem",
+        xxxs: "12.5rem",
+      },
+      height: {
+        140: "35rem",
       },
       minHeight: {
         400: "400px",
@@ -38,7 +61,9 @@ const localConfig = {
       },
       maxHeight: {
         0: "0",
-        full: "1000px",
+        120: "40rem",
+        1000: "1000px",
+        "9/10": "90vh",
       },
       transitionProperty: {
         height: "max-height",
@@ -53,6 +78,16 @@ const localConfig = {
       cursor: {
         grab: "grab",
         grabbing: "grabbing",
+      },
+      backgroundPosition: {
+        "center-right": "center right",
+      },
+      backgroundSize: {
+        "135%": "135%",
+      },
+      margin: {
+        "-10%": "-10%",
+        "85%": "85%",
       },
     },
   },

@@ -16,6 +16,15 @@ const Wysiwyg = styled.div`
     height: auto;
     margin-bottom: 24px;
   }
+
+  p {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  a {
+    word-break: break-word;
+  }
 `;
 
 export const NewsPageDetail: FunctionComponent = () => {
