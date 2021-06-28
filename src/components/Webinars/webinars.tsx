@@ -4,9 +4,8 @@ import { FunctionComponent, useState } from "react";
 import { ResourceWebinar } from "../UI/ResourceWebinar";
 import { WebinarSingle } from "./types";
 
-export const webinarPerPage = 6;
-
 export const PaginatedWebinar: FunctionComponent<{ webinars: WebinarSingle[] }> = ({ webinars }) => {
+  const webinarPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const paginatedPosts = getPaginatedPosts({ posts: webinars, postsPerPage: webinarPerPage, currentPage });
   const totalNoOfPages = getPaginatedPagesTotal({ posts: webinars, postsPerPage: webinarPerPage });
