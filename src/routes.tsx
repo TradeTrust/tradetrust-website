@@ -6,7 +6,7 @@ import { HomePage } from "./pages/home";
 import { PageNotFound } from "./pages/pageNotFound";
 import { NewsPage } from "./pages/news";
 import { NewsPageDetail } from "./pages/newsDetail";
-import { ResourcesPage } from "./pages/resources";
+import { LearnPage } from "./pages/learn";
 import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
 import { ViewerPage } from "./pages/viewer";
 import { ContactPage } from "./pages/contact";
@@ -24,7 +24,7 @@ export const routes = [
   { path: "/email/error", exact: true, component: EmailErrorPage },
   { path: "/news", exact: true, component: NewsPage },
   { path: "/news/:slug", exact: true, component: NewsPageDetail },
-  { path: "/resources", exact: true, component: ResourcesPage },
+  { path: "/learn", exact: true, component: LearnPage },
   { path: "/event", exact: true, component: EventPage },
   { path: "/contact", exact: true, component: ContactPage },
   { path: "*", component: PageNotFound },

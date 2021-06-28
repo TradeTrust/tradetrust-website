@@ -1,14 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { ResourceWebinar } from "../components/UI/ResourceWebinar";
 import { ResourceLink } from "../components/UI/ResourceLink";
-import { ResourceDownload } from "../components/UI/ResourceDownload";
-import { NewsSingle } from "../components/News/types";
-
-import { importAll } from "../common/utils/importAll";
 import { URLS } from "../constants";
-
-const newsletters = importAll(require.context("../../cms/newsletter/", false, /\.md$/)) as NewsSingle[];
+import { PaginatedWebinar } from "../components/Webinars";
 
 const documentations = [
   {
@@ -281,47 +275,41 @@ const webinars = [
   },
 ];
 
-export const ResourcesPage: FunctionComponent = () => (
-  <>
-    <Helmet>
-      <meta
-        property="description"
-        content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
-      />
-      <meta
-        property="og:description"
-        content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
-      />
-      <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-      <meta property="og:url" content={`${window.location.origin}/resources`} />
-      <title>TradeTrust - Resources</title>
-    </Helmet>
+export const LearnPage: FunctionComponent = () => {
+  return (
+    <>
+      <Helmet>
+        <meta
+          property="description"
+          content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
+        />
+        <meta
+          property="og:description"
+          content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
+        />
+        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
+        <meta property="og:url" content={`${window.location.origin}/learn`} />
+        <title>TradeTrust - Learn</title>
+      </Helmet>
 
-    <div className="container py-12">
-      <div className="flex">
-        <div className="w-full">
-          <h1>Resources</h1>
-        </div>
-      </div>
-      <div className="flex flex-wrap py-4 -mx-4">
-        <div className="w-full lg:w-4/12 lg:order-2 px-4">
-          <div className="lg:sticky lg:top-3">
-            <ResourceLink title="Documentation" resources={documentations} />
-            <ResourceLink title="Source code" resources={sourceCodes} icon="/static/images/Github_Octocat.png" />
-            <ResourceDownload title="Newsletters" resources={newsletters} />
+      <div className="container py-12">
+        <div className="flex">
+          <div className="w-full text-cloud-900">
+            <h1>Learn TradeTrust</h1>
           </div>
         </div>
-        <div className="w-full lg:w-8/12 lg:order-1 px-4 mb-16">
-          {webinars.map((webinar, index) => (
-            <ResourceWebinar
-              title={webinar.title}
-              description={webinar.description}
-              resource={webinar.resource}
-              key={index}
-            />
-          ))}
+        <div className="flex flex-wrap py-4">
+          <div className="w-full lg:w-4/12 lg:order-2 lg:pl-3">
+            <div className="lg:sticky lg:top-3">
+              <ResourceLink title="Documentation" resources={documentations} />
+              <ResourceLink title="Source code" resources={sourceCodes} icon="/static/images/Github_Octocat.png" />
+            </div>
+          </div>
+          <div className="w-full lg:w-8/12 lg:order-1 lg:pr-3">
+            <PaginatedWebinar webinars={webinars} />
+          </div>
         </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
