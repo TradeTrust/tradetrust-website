@@ -38,7 +38,10 @@ export const surrender = async (metamask, browser) => {
     });
 
     await page.close();
+
+    console.log("✅ Surrender success");
   } catch (e) {
+    console.log("❌ Surrender fail");
     console.log(e);
     process.exit(1);
   }

@@ -46,7 +46,10 @@ export const endorseOwner = async (metamask, browser) => {
     });
 
     await page.close();
+
+    console.log("✅ Endorse owner success");
   } catch (e) {
+    console.log("❌ Endorse owner fail");
     console.log(e);
     process.exit(1);
   }

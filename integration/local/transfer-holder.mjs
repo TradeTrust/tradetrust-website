@@ -47,7 +47,10 @@ export const transferHolder = async (metamask, browser) => {
     });
 
     await page.close();
+
+    console.log("✅ Transfer holder success");
   } catch (e) {
+    console.log("❌ Transfer holder fail");
     console.log(e);
     process.exit(1);
   }

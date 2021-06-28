@@ -10,9 +10,10 @@ import { surrenderAccept } from "./surrender-accept.mjs";
 
 const main = async () => {
   const browser = await dappeteer.launch(puppeteer, {
-    headless: false, // https://github.com/puppeteer/puppeteer#default-runtime-settings
+    args: ["--no-sandbox"],
+    executablePath: process.env.PUPPETEER_EXEC_PATH,
+    headless: false, // must be false, so can test with metamask extension
     defaultViewport: null,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"], // https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#setting-up-chrome-linux-sandbox
     slowMo: 10, // to see what's gg on
   });
   const metamask = await dappeteer.getMetamask(browser, {

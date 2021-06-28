@@ -16,7 +16,7 @@
     "integration:headless": "testcafe -c 4 chrome:headless src/**/*.spec.js",
     "integration:watch": "nodemon --exec \"npm run integration\" --watch src",
     "integration:wait": "wait-on -l -i 1000 tcp:8545 http-get://localhost:3000",
-    "integration:transfers": "node ./integration/local/index.mjs",
+    "integration:transfers": "node --experimental-modules ./integration/local/index.mjs",
     "blockchain": "ganache-cli --mnemonic \"indicate swing place chair flight used hammer soon photo region volume shuffle\"",
     "integration:local": "NET=local npm run dev",
     "integration:contracts": "./scripts/integration-contracts.sh",

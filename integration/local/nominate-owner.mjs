@@ -42,7 +42,10 @@ export const nominateOwner = async (metamask, browser) => {
     });
 
     await page.close();
+
+    console.log("✅ Nominate owner success");
   } catch (e) {
+    console.log("❌ Nominate owner fail");
     console.log(e);
     process.exit(1);
   }
