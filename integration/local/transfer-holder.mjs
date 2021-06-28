@@ -48,7 +48,7 @@ export const transferHolder = async (metamask, browser) => {
 
     await page.close();
 
-    console.log("✅ Transfer holder success");
+    console.log("✅ Transfer hlder success");
   } catch (e) {
     console.log("❌ Transfer holder fail");
     console.log(e);
