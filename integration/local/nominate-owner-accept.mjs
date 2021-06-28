@@ -46,7 +46,10 @@ export const nominateOwnerAccept = async (metamask, browser) => {
 
     await page.close();
     await metamask.switchAccount(1);
+
+    console.log("✅ Nominate owner accept success");
   } catch (e) {
+    console.log("❌ Nominate owner accept fail");
     console.log(e);
     process.exit(1);
   }
