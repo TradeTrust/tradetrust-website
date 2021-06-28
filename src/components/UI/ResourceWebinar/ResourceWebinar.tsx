@@ -27,11 +27,11 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
   const [currentTimeStamp, setCurrentTimeStamp] = useState(0);
 
   return (
-    <div className="bg-white shadow-md mb-4">
+    <div className="bg-white shadow-lg rounded-lg mb-8">
       <div className="flex flex-col lg:flex-row">
         <div className="aspect-16-9">
           <iframe
-            className="absolute top-0 left-0 w-full h-full"
+            className="absolute top-0 left-0 w-full h-full rounded-t-lg"
             src={`https://www.youtube.com/embed/${youtubeEmbedCode}${
               currentTimeStamp ? `?autoplay=1&rel=0&start=${currentTimeStamp}` : "?rel=0"
             }`}
@@ -41,31 +41,33 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
             data-testid="youtubeEmbed-iframe"
           />
         </div>
-        <div className="w-full px-5 pt-3 pb-5">
+        <div className="w-full text-cloud-900 px-5 pt-3 pb-5">
           <h4 className="title mb-2">
             <a
-              className="text-gray-700 font-medium text-2xl"
               href={`https://www.youtube.com/watch?v=${youtubeEmbedCode}`}
               target="_blank"
               rel="noopener noreferrer"
+              className="text-cloud-900"
               data-testid="youtubeEmbed-title-link"
             >
               {title}
             </a>
           </h4>
-          <div className="inline-block border border-solid border-gray text-gray-500 w-auto text-sm rounded font-medium p-1 mb-4">
+          <div className="inline-block border border-solid border-gray w-auto text-sm rounded font-medium p-1 mb-4">
             {tag}
           </div>
           <p className="mb-4">{description}</p>
           <Dropdown
             data-testid="quick-video-links-dropdown"
             dropdownButtonText="Quick Video Links"
-            className="rounded border border-gray-300 text-gray-700 p-2 mb-2"
+            classNameShared="w-full lg:w-auto"
+            className="rounded border border-gray-300 p-2 mb-2"
           >
             {videoChapters.map((videoChapter, i) => {
               return (
                 <DropdownItem
                   key={i}
+                  className={"break-words overflow-clip whitespace-normal text-cloud-900 "}
                   data-testid="video-chapters-dropdown"
                   onClick={() => setCurrentTimeStamp(videoChapter.timeStamp)}
                 >
