@@ -42,7 +42,7 @@ export const transferHolder = async (metamask, browser) => {
     });
 
     await expect(page).toMatchElement("[data-testid='overlay-title']", {
-      text: "Transfer Hlder Success",
+      text: "Transfer Holder Success",
       visible: true,
     });
 
