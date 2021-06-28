@@ -30,14 +30,14 @@ jobs:
           git config --global url."https://".insteadOf git+https://
           git config --global url."https://".insteadOf ssh://git
           npm ci
-      # - name: Check Lint
-      #   run: npm run lint
-      # - name: Test
-      #   run: npm run test
+      - name: Check Lint
+        run: npm run lint
+      - name: Test
+        run: npm run test
       - name: Build
         run: npm run build
-      # - name: Integration - testcafe
-      #   run: ./scripts/integration-headless.sh
+      - name: Integration - testcafe
+        run: ./scripts/integration-headless.sh
       - name: Integration - dappeteer
         uses: mujo-code/puppeteer-headful@master
         env:
