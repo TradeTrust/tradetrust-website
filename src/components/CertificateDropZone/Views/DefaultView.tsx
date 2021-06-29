@@ -1,6 +1,6 @@
 import React from "react";
 import { ViewerButton, ViewerContainer } from "./SharedViewerStyledComponents";
-
+import { DemoCertMobile } from "./DemoCertMobile";
 interface DefaultViewProps {
   hover: boolean;
   accept: boolean;
@@ -25,6 +25,7 @@ export const DefaultView = ({
     data-testid="viewer-container"
     className={`${hover ? (accept && !verificationError ? "accept" : "invalid") : "default"}`}
   >
+    <DemoCertMobile />
     <div className="mb-4">
       <img
         className="mx-auto"

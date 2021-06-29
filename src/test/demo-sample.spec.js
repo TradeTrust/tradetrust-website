@@ -10,11 +10,9 @@ test("demo sample document is rendered correctly when dragged", async (t) => {
   await validateIframeTexts(["Name & Address of Shipping Agent/Freight Forwarder"]);
 });
 
-// TODO, implement
-// eslint-disable-next-line jest/no-disabled-tests
-test.skip("demo sample document is rendered correctly when clicked", async (t) => {
+test("demo sample document is rendered correctly when clicked", async (t) => {
   await navigateToVerify();
-  await t.resizeWindow(800, 600);
+  await t.resizeWindow(375, 812);
   await t.click(Selector("#demoClick"));
   await validateIssuerTexts(["EXAMPLE.OPENATTESTATION.COM"]);
   await validateIframeTexts(["Name & Address of Shipping Agent/Freight Forwarder"]);

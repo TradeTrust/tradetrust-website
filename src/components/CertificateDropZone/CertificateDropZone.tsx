@@ -102,40 +102,19 @@ const onFileDrop = (
 };
 
 interface CertificateDropzoneProps extends DropzoneStateProps {
-  handleCertificateChange: () => void;
+  handleCertificateChange: (certificate: any) => void;
   handleFileError: () => void;
 }
 
-export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = ({
-  fileError,
-  verifying,
-  verificationStatus,
-  verificationError,
-  retrieveCertificateByActionError,
-  resetData,
-  handleCertificateChange,
-  handleFileError,
-  handleRenderOverwrite,
-  toggleQrReaderVisible,
-}) => {
+export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = (props) => {
+  const { handleCertificateChange, handleFileError } = props;
   return (
     <div id="certificate-dropzone" data-testid="certificate-dropzone" className="w-full h-auto px-4">
       <Dropzone onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}>
         {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => (
           <div {...getRootProps()}>
             <input {...getInputProps()} />
-            <DropzoneContent
-              fileError={fileError}
-              verifying={verifying}
-              verificationStatus={verificationStatus}
-              verificationError={verificationError}
-              retrieveCertificateByActionError={retrieveCertificateByActionError}
-              resetData={resetData}
-              handleRenderOverwrite={handleRenderOverwrite}
-              toggleQrReaderVisible={toggleQrReaderVisible}
-              isDragAccept={isDragAccept}
-              isDragReject={isDragReject}
-            />
+            <DropzoneContent {...props} isDragAccept={isDragAccept} isDragReject={isDragReject} />
           </div>
         )}
       </Dropzone>

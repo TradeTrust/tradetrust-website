@@ -10,7 +10,7 @@ if (process.env.DEBUG) {
 }
 
 // polyfill (https://stackoverflow.com/questions/42213522/mocking-document-createrange-for-jest)
-document.createRange = () => ({
+const createRange = () => ({
   setStart: () => {},
   setEnd: () => {},
   commonAncestorContainer: {
@@ -19,3 +19,5 @@ document.createRange = () => ({
   },
 });
 window.alert = jest.fn();
+
+Object.defineProperty(document, 'createRange', createRange)
