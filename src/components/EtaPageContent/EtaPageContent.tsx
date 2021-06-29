@@ -1,122 +1,136 @@
 import React, { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@govtechsg/tradetrust-ui-components";
+import styled from "@emotion/styled";
 
 const SectionMap = () => {
   return (
-    <section>
-      <img src="/static/images/eta/map.png" alt="" />
-      <div className="container">
-        <div className="flex flex-wrap -mx-4">
-          <div className="w-full lg:w-1/3 px-4">
-            <h3>Europe</h3>
-            <p>IMDA & MPA&lsquo;s collaboration with Port of Rotterdam on eBL through TradeTrust</p>
+    <section className="pt-8 pb-16">
+      <div className="max-w-3xl mx-auto absolute left-0 right-0">
+        <img src="/static/images/eta/map.png" alt="" />
+      </div>
+      <div className="h-48" />
+      <div className="container relative z-10">
+        <div className="flex flex-wrap -mx-4 mb-16">
+          <div className="w-full lg:w-1/3 px-4 lg:px-8">
+            <div className="mb-8">
+              <h3 className="text-cerulean">Europe</h3>
+              <p>IMDA & MPA&lsquo;s collaboration with Port of Rotterdam on eBL through TradeTrust</p>
+            </div>
           </div>
-          <div className="w-full lg:w-1/3 px-4">
-            <h3>Singapore</h3>
-            <h5>TradeTrust</h5>
-            <ul>
-              <li>
-                <p>comprises set of globally-accepted standards and frameworks</p>
-              </li>
-              <li>
-                <p>enables trusted interoperability of digital trade documents</p>
-              </li>
-              <li>
-                <p>
-                  provides proof of authenticity and provenance of documents and offers title transfer through
-                  open-source software
-                </p>
-              </li>
-            </ul>
-            <p>IMDA & MPA&lsquo;s collaboration with Port of Rotterdam on eBL through TradeTrust</p>
+          <div className="w-full lg:w-1/3 px-4 lg:px-8">
+            <div className="mb-8">
+              <h3 className="text-cerulean-200">Singapore</h3>
+              <h5>TradeTrust</h5>
+              <ul>
+                <li>
+                  <p>comprises set of globally-accepted standards and frameworks</p>
+                </li>
+                <li>
+                  <p>enables trusted interoperability of digital trade documents</p>
+                </li>
+                <li>
+                  <p>
+                    provides proof of authenticity and provenance of documents and offers title transfer through
+                    open-source software
+                  </p>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="w-full lg:w-1/3 px-4">
-            <h3>China</h3>
-            <p>
-              SG-Shenzhen Smart City Initiative to explore cross-border trade and trade financing using eBLs and Letters
-              of Credit
-            </p>
-            <h3>Australia</h3>
+          <div className="w-full lg:w-1/3 px-4 lg:px-8">
+            <div className="mb-4">
+              <h3 className="text-rose">China</h3>
+              <p>
+                SG-Shenzhen Smart City Initiative to explore cross-border trade and trade financing using eBLs and
+                Letters of Credit
+              </p>
+            </div>
+            <h3 className="text-tangerine">Australia</h3>
             <p>
               Trial of digital verification methods for electronic Certificates of Origin between border agencies and
               businesses
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap">
-          <h4>Ready to learn how TradeTrust can benefit your business?</h4>
-          <Button className="bg-tangerine text-white hover:bg-tangerine-600">Get in Touch Now</Button>
+        <div className="flex flex-wrap text-center">
+          <div className="w-full mb-4">
+            <h4>Ready to learn how TradeTrust can benefit your business?</h4>
+          </div>
+          <div className="w-full">
+            <Link to="/contact">
+              <Button className="bg-tangerine text-white hover:bg-tangerine-600 rounded-xl">Get in Touch Now</Button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
+const AmendedEta = styled.div`
+  background-image: url("/static/images/common/wave-lines-light.png");
+  background-size: cover;
+`;
+
 const SectionAmendedEta = () => {
   return (
-    <section className="bg-white">
-      <div className="container">
-        <div className="bg-cerulean rounded-lg text-white">
-          <h2>The amended ETA supports and complements the government’s trade digitalization initiatives.</h2>
-        </div>
-      </div>
+    <section className="bg-white relative z-10">
+      <AmendedEta className="bg-cerulean rounded-lg text-white p-8 text-center absolute left-0 right-0 max-w-4xl mx-auto transform -translate-y-1/2">
+        <h2>The amended ETA supports and complements the government’s trade digitalization initiatives.</h2>
+      </AmendedEta>
     </section>
+  );
+};
+
+const EblFeature = ({ title, src }: { title: string; src: string }) => {
+  return (
+    <div className="flex items-center my-4">
+      <div className="w-16 mr-4 text-center flex-none">
+        <img className="ml-auto" src={src} alt={title} />
+      </div>
+      <div className="flex-grow">
+        <h5 className="uppercase leading-tight">{title}</h5>
+      </div>
+    </div>
   );
 };
 
 const SectionWhyBl = () => {
   return (
-    <section>
+    <section className="bg-white pt-8 pb-48 lg:pb-32">
       <div className="container">
-        <h1>Why Do We Need eBLs?</h1>
+        <h1 className="text-center mb-8">Why Do We Need eBLs?</h1>
         <div className="flex flex-wrap">
-          <div className="w-full lg:w-1/2 px-4">
+          <div className="w-2/3 lg:w-1/2 xl:w-2/5 mx-auto px-4">
             <img src="/static/images/eta/why-ebls.png" alt="" />
           </div>
-          <div className="w-full lg:w-1/2 px-4">
-            <div className="flex flex-wrap">
-              <div className="w-1/2">
-                <div className="w-16">
-                  <img src="/static/images/eta/time.svg" alt="" />
-                </div>
-                <div className="flex-grow">
-                  <h5>Faster Processing</h5>
-                </div>
+          <div className="w-full lg:w-1/2 xl:w-2/5 mx-auto px-4">
+            <div className="flex flex-wrap items-center">
+              <div className="w-1/2 mr-auto">
+                <EblFeature title="Faster Processing" src="/static/images/eta/time.svg" />
               </div>
               <div className="w-1/2">
-                <div className="w-16">
-                  <img src="/static/images/eta/fraud.svg" alt="" />
-                </div>
-                <div className="flex-grow">
-                  <h5>Lowered Fraud Risks</h5>
-                </div>
+                <EblFeature title="Lowered Fraud Risks" src="/static/images/eta/fraud.svg" />
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center">
+              <div className="w-1/2 mr-auto">
+                <EblFeature title="Cost Saving" src="/static/images/eta/cost.svg" />
               </div>
               <div className="w-1/2">
-                <div className="w-16">
-                  <img src="/static/images/eta/cost.svg" alt="" />
-                </div>
-                <div className="flex-grow">
-                  <h5>Cost Saving</h5>
-                </div>
-              </div>
-              <div className="w-1/2">
-                <div className="w-16">
-                  <img src="/static/images/eta/idea.svg" alt="" />
-                </div>
-                <div className="flex-grow">
-                  <h5>Faster Processing</h5>
-                </div>
+                <EblFeature title="Faster Processing" src="/static/images/eta/idea.svg" />
               </div>
             </div>
             <div className="flex flex-wrap">
-              <ul>
-                <li>
+              <ul className="list-disc">
+                <li className="mb-8">
                   <p>
                     No additional costs to hold cargo as goods are less likely to arrive at their port of destination
                     before document processing is complete
                   </p>
                 </li>
-                <li>
+                <li className="mb-8">
                   <p>
                     US$4 billion estimated savings a year if 50% of the container shipping industry adopts eBLs,
                     according to Digital Container Shipping Association
@@ -136,40 +150,45 @@ const SectionWhyBl = () => {
     </section>
   );
 };
+
 const SectionWhatBl = () => {
   return (
-    <section>
+    <section className="py-8 text-center">
       <div className="container">
-        <h1>What Is The Bill of Lading?</h1>
-        <h5>
-          A Bill of Lading is a transport document and a document of title over goods in transit, it is also a key
-          document for international trade
-        </h5>
-        <div className="flex flex-wrap -mx-4">
+        <div className="max-w-3xl mx-auto mb-8">
+          <h1>What Is The Bill of Lading?</h1>
+          <h5>
+            A Bill of Lading is a transport document and a document of title over goods in transit, it is also a key
+            document for international trade
+          </h5>
+        </div>
+        <div className="flex flex-wrap -mx-4 mb-8">
           <div className="w-full lg:w-1/3 px-4">
-            <div className="h-full rounded-lg bg-cerulean text-white p-4">
-              <img src="/static/images/eta/ship.svg" alt="" />
+            <div className="h-full rounded-lg bg-cerulean text-white py-4 px-16">
+              <img className="mx-auto mb-8" src="/static/images/eta/ship.svg" alt="" />
               <h5>Seller engages Carrier to deliver cargo and will receive a Bill of Lading (BL)</h5>
             </div>
           </div>
           <div className="w-full lg:w-1/3 px-4">
-            <div className="h-full rounded-lg bg-cerulean text-white p-4">
-              <img src="/static/images/eta/bl.svg" alt="" />
+            <div className="h-full rounded-lg bg-cerulean text-white py-4 px-16">
+              <img className="mx-auto mb-8" src="/static/images/eta/bl.svg" alt="" />
               <h5>Seller releases BL to Buyer upon payment</h5>
             </div>
           </div>
           <div className="w-full lg:w-1/3 px-4">
-            <div className="h-full rounded-lg bg-cerulean text-white p-4">
-              <img src="/static/images/eta/bl.svg" alt="" />
+            <div className="h-full rounded-lg bg-cerulean text-white py-4 px-16">
+              <img className="mx-auto mb-8" src="/static/images/eta/bl.svg" alt="" />
               <h5>Buyer can only collect the goods when they produce the original BL</h5>
             </div>
           </div>
         </div>
-        <p>
-          Possession of the original BL is of crucial importance. Previously, usage of electronic versions of BLs had
-          been difficult due to technological and legal challenges in establishing what is the &quot;original
-          document&quot; and &quot;who possesses it&quot;
-        </p>
+        <div className="max-w-4xl mx-auto">
+          <p>
+            Possession of the original BL is of crucial importance. Previously, usage of electronic versions of BLs had
+            been difficult due to technological and legal challenges in establishing what is the &quot;original
+            document&quot; and &quot;who possesses it&quot;
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -177,27 +196,31 @@ const SectionWhatBl = () => {
 
 const SectionWhatEta = () => {
   return (
-    <section className="bg-white">
+    <section className="py-8 bg-white text-center">
       <div className="container">
         <h1>What is ETA?</h1>
-        <div className="flex flex-wrap">
-          <div className="w-full lg:w-1/2">
-            <div className="rounded-full w-16 h-16 shadow-xl">
-              <img src="/static/images/eta/cart.svg" alt="" />
+        <div className="flex flex-wrap max-w-5xl mx-auto">
+          <div className="w-full lg:w-2/5 mx-auto">
+            <div className="py-4 lg:py-8">
+              <div className="rounded-full w-16 h-16 shadow-xl mx-auto items-center flex mb-8">
+                <img className="mx-auto w-8" src="/static/images/eta/cart.svg" alt="" />
+              </div>
+              <h5>
+                The Electronic Transactions Act (ETA) facilitates the use of e-commerce and e-transactions by giving
+                e-contracts and e-signatures the same status as written contracts and signatures
+              </h5>
             </div>
-            <h5>
-              The Electronic Transactions Act (ETA) facilitates the use of e-commerce and e-transactions by giving
-              e-contracts and e-signatures the same status as written contracts and signatures
-            </h5>
           </div>
-          <div className="w-full lg:w-1/2">
-            <div className="rounded-full w-16 h-16 shadow-xl">
-              <img src="/static/images/eta/file.svg" alt="" />
+          <div className="w-full lg:w-2/5 mx-auto">
+            <div className="py-4 lg:py-8">
+              <div className="rounded-full w-16 h-16 shadow-xl mx-auto items-center flex mb-8">
+                <img className="mx-auto w-8" src="/static/images/eta/file.svg" alt="" />
+              </div>
+              <h5>
+                Recent ETA amendments enable the creation and use of Electronic Transferable Records (ETRs), such as
+                electrotonic Bills of Lading (eBLs)
+              </h5>
             </div>
-            <h5>
-              Recent ETA amendments enable the creation and use of Electronic Transferable Records (ETRs), such as
-              electrotonic Bills of Lading (eBLs)
-            </h5>
           </div>
         </div>
       </div>
@@ -207,16 +230,16 @@ const SectionWhatEta = () => {
 
 const SectionEta = () => {
   return (
-    <section>
+    <section className="py-8 lg:py-4">
       <div className="container">
-        <div className="flex flex-wrap">
-          <div className="w-full lg:w-1/3">
-            <h1>TradeTrust - Electronic Transactions Act</h1>
-            <h4 className="uppercase">
+        <div className="flex flex-wrap lg:flex-nowrap items-center">
+          <div className="w-full lg:w-1/3 xxl:w-1/4 lg:flex-none">
+            <h1 className="leading-tight mb-4 lg:mb-8">Electronic Transactions Act (ETA)</h1>
+            <h4 className="leading-tight uppercase">
               Enabling digitalisation of trade documents: convenience & savings for businesses
             </h4>
           </div>
-          <div className="w-full lg:w-2/3">
+          <div className="w-full lg:flex-grow">
             <img src="/static/images/eta/eta-bg.png" alt="" />
           </div>
         </div>
