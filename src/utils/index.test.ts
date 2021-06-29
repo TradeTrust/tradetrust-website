@@ -1,7 +1,7 @@
 import { convertSecondsToMinAndSec, isEthereumAddress } from "./";
 
 describe("utils/isEthereumAddress", () => {
-  test("should work", () => {
+  it("should work", () => {
     expect(isEthereumAddress("0x")).toEqual(false);
     expect(isEthereumAddress("")).toEqual(false);
     expect(isEthereumAddress("foo")).toEqual(false);
