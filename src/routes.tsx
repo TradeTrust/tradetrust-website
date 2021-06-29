@@ -1,6 +1,7 @@
 import { EmailSuccessPage } from "./pages/emailSuccess";
 import { EmailErrorPage } from "./pages/emailError";
 import { FaqPage } from "./pages/faq";
+import { EtaPage } from "./pages/eta";
 import VerifyPage from "./pages/verify";
 import { HomePage } from "./pages/home";
 import { PageNotFound } from "./pages/pageNotFound";
@@ -17,6 +18,7 @@ export const routes = [
   { path: "/verify", exact: true, component: VerifyPage },
   { path: "/viewer", exact: true, component: ViewerPage },
   { path: "/faq", exact: true, component: FaqPage },
+  { path: "/eta", exact: true, component: EtaPage },
   { path: "/settings", exact: true, component: SettingsPage },
   { path: "/settings/address-resolver", exact: true, component: SettingsAddressResolverPage },
   { path: "/settings/address-book", exact: true, component: SettingsAddressBookPage },
