@@ -1,22 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { roundInstructionsText } from ".";
-import { NETWORK_NAME } from "../../config";
 import { updateCertificate } from "../../reducers/certificate";
 import { CertificateDropZoneContainer } from "../CertificateDropZone/CertificateDropZoneContainer";
-
-type LoadCertificate = (certificate: any) => void;
-
-const DEMO_CERT = `/static/demo/${NETWORK_NAME}.tt`;
-
-const loadDemoCertificate = (loadCertificate: LoadCertificate) => {
-  window
-    .fetch(DEMO_CERT)
-    .then((res) => res.json())
-    .then((res) => {
-      loadCertificate(res);
-    });
-};
+import { loadDemoCertificate, DEMO_CERT } from "./helpers";
 
 const DraggableDemoCertificate = () => (
   <div className="hidden md:block w-full md:w-1/2 px-4">

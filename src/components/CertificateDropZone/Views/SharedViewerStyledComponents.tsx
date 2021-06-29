@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 export const ViewerContainer = styled.div`
-  ${tw`text-center px-6 py-20 flex flex-col justify-center rounded-xl min-h-400 lg:min-h-600`}
+  ${tw`text-center px-6 pt-6 pb-20 md:py-20 flex flex-col justify-center rounded-xl min-h-400 lg:min-h-600`}
   border-width: 2px;
   border-style: dashed;
 
