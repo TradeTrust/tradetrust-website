@@ -1,8 +1,4 @@
 {
-  "SHARE_BY_EMAIL": {
-    "development": false,
-    "production": false
-  },
   "WATERMARK": {
     "development": false,
     "production": false
