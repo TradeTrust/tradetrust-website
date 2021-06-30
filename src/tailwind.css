@@ -7,6 +7,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  body {
+    @apply text-cloud-900;
+  }
+
   h1 {
     font-size: 40px;
     @apply font-ubuntu;
