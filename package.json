@@ -29,7 +29,8 @@
     "test": "jest",
     "test:coverage": "npm run test -- --collectCoverage",
     "test:watch": "npm run test -- --watchAll",
-    "test:update": "npm run test -- -u"
+    "test:update": "npm run test -- -u",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
@@ -142,7 +143,8 @@
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
-    "webpack-env": "^0.8.0"
+    "webpack-env": "^0.8.0",
+    "husky": "^6.0.0"
   },
   "repository": {
     "type": "git",
