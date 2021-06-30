@@ -59,7 +59,9 @@ const SectionMap = () => {
           </div>
           <div className="w-full">
             <Link to="/contact">
-              <Button className="bg-tangerine text-white hover:bg-tangerine-600 rounded-xl">Get in Touch Now</Button>
+              <Button className="bg-tangerine text-white hover:bg-tangerine-600 rounded-xl text-2xl px-4">
+                Get in Touch Now
+              </Button>
             </Link>
           </div>
         </div>
@@ -151,6 +153,17 @@ const SectionWhyBl = () => {
   );
 };
 
+const WhatBl = ({ title, src }: { title: string; src: string }) => {
+  return (
+    <div className="w-full lg:w-1/3 px-4 mb-4 lg:mb-0">
+      <div className="h-full rounded-lg bg-cerulean text-white py-4 px-16">
+        <img className="mx-auto mb-8" src={src} alt={title} />
+        <h5>{title}</h5>
+      </div>
+    </div>
+  );
+};
+
 const SectionWhatBl = () => {
   return (
     <section className="py-8 text-center">
@@ -163,24 +176,15 @@ const SectionWhatBl = () => {
           </h5>
         </div>
         <div className="flex flex-wrap -mx-4 mb-8">
-          <div className="w-full lg:w-1/3 px-4">
-            <div className="h-full rounded-lg bg-cerulean text-white py-4 px-16">
-              <img className="mx-auto mb-8" src="/static/images/eta/ship.svg" alt="" />
-              <h5>Seller engages Carrier to deliver cargo and will receive a Bill of Lading (BL)</h5>
-            </div>
-          </div>
-          <div className="w-full lg:w-1/3 px-4">
-            <div className="h-full rounded-lg bg-cerulean text-white py-4 px-16">
-              <img className="mx-auto mb-8" src="/static/images/eta/bl.svg" alt="" />
-              <h5>Seller releases BL to Buyer upon payment</h5>
-            </div>
-          </div>
-          <div className="w-full lg:w-1/3 px-4">
-            <div className="h-full rounded-lg bg-cerulean text-white py-4 px-16">
-              <img className="mx-auto mb-8" src="/static/images/eta/bl.svg" alt="" />
-              <h5>Buyer can only collect the goods when they produce the original BL</h5>
-            </div>
-          </div>
+          <WhatBl
+            title="Seller engages Carrier to deliver cargo and will receive a Bill of Lading (BL)"
+            src="/static/images/eta/ship.svg"
+          />
+          <WhatBl title="Seller releases BL to Buyer upon payment" src="/static/images/eta/bl.svg" />
+          <WhatBl
+            title="Buyer can only collect the goods when they produce the original BL"
+            src="/static/images/eta/goods.svg"
+          />
         </div>
         <div className="max-w-4xl mx-auto">
           <p>
