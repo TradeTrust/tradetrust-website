@@ -1,4 +1,4 @@
-import uniqueId from "lodash.uniqueId";
+import uniqueId from "lodash/uniqueId";
 import React, { FunctionComponent, useState } from "react";
 import ReactTooltip from "react-tooltip";
 

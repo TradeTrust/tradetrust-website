@@ -1,4 +1,4 @@
-const merge = require("lodash.merge"); //eslint-disable-line @typescript-eslint/no-var-requires
+const merge = require("lodash/merge"); //eslint-disable-line @typescript-eslint/no-var-requires
 const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwind"); //eslint-disable-line @typescript-eslint/no-var-requires
 
 // https://tailwindcss.com/docs/theme
