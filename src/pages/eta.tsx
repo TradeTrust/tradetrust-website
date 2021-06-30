@@ -7,11 +7,11 @@ export const EtaPage: FunctionComponent = () => (
     <Helmet>
       <meta
         name="description"
-        content="Have some questions in mind? Here are a list of collated questions and answers that might answer your questions."
+        content="The Electronic Transactions Act (ETA) facilitates the use of e-commerce and e-transactions by giving e-contracts and e-signatures the same status as written contracts and signatures. Recent ETA amendments enable the creation and use of Electronic Transferable Records (ETRs), such as electrotonic Bills of Lading (eBLs)."
       />
       <meta
         property="og:description"
-        content="Have some questions in mind? Here are a list of collated questions and answers that might answer your questions."
+        content="The Electronic Transactions Act (ETA) facilitates the use of e-commerce and e-transactions by giving e-contracts and e-signatures the same status as written contracts and signatures. Recent ETA amendments enable the creation and use of Electronic Transferable Records (ETRs), such as electrotonic Bills of Lading (eBLs)."
       />
       <meta property="og:title" content="TradeTrust - Electronic Transactions Act" />
       <meta property="og:url" content={`${window.location.origin}/eta`} />
