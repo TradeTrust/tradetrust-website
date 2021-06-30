@@ -31,6 +31,16 @@ const leftNavItems: NavigationItem[] = [
           </NavLink>
         ),
       },
+      {
+        id: "eta",
+        label: "ETA",
+        path: "/eta",
+        customLink: (
+          <NavLink className="block w-full px-4 py-2" to={"/eta"}>
+            ETA
+          </NavLink>
+        ),
+      },
     ],
   },
   {
