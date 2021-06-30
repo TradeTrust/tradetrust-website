@@ -1,4 +1,3 @@
-import "isomorphic-fetch";
 import { EMAIL_API_URL } from "../../config";
 
 export const sendEmail = ({ certificate, email, captcha }) =>

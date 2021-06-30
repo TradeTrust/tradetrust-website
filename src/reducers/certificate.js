@@ -1,4 +1,3 @@
-import { get } from "lodash";
 import { obfuscateDocument } from "@govtechsg/open-attestation";
 
 export const states = {
@@ -205,7 +204,7 @@ export function getCertificate(store) {
 }
 
 export function getVerifying(store) {
-  return get(store, "certificate.verificationPending");
+  return store.certificate.verificationPending;
 }
 
 export function getVerifyingCertificateFailure(store) {

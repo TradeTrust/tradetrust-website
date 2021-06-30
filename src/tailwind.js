@@ -1,4 +1,4 @@
-const _ = require("lodash"); //eslint-disable-line @typescript-eslint/no-var-requires
+const merge = require("lodash.merge"); //eslint-disable-line @typescript-eslint/no-var-requires
 const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwind"); //eslint-disable-line @typescript-eslint/no-var-requires
 
 // https://tailwindcss.com/docs/theme
@@ -97,6 +97,6 @@ const localConfig = {
   plugins: [require("@tailwindcss/aspect-ratio")],
 };
 
-const finalConfig = _.merge(commonUiConfig, localConfig); // deep merge
+const finalConfig = merge(commonUiConfig, localConfig); // deep merge
 
 module.exports = finalConfig;
