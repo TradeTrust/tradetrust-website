@@ -1,6 +1,11 @@
 {
   "name": "tradetrust-website",
   "version": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TradeTrust/tradetrust-website.git"
+  },
+  "license": "ISC",
   "scripts": {
     "build": "run-s check-types build:css build:app",
     "build:css": "NODE_ENV=production postcss src/tailwind.css -o src/index.css",
@@ -70,7 +75,6 @@
     "twin.macro": "^2.4.2",
     "use-persisted-state": "^0.3.3"
   },
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-env": "^7.14.5",
@@ -121,6 +125,7 @@
     "ganache-cli": "^6.12.2",
     "html-webpack-plugin": "^4.5.2",
     "http-server": "^0.12.3",
+    "husky": "^6.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
     "jest-environment-jsdom-sixteen": "^2.0.0",
@@ -140,11 +145,6 @@
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
-    "webpack-env": "^0.8.0",
-    "husky": "^6.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TradeTrust/tradetrust-website.git"
+    "webpack-env": "^0.8.0"
   }
 }
