@@ -9,6 +9,7 @@ export const metamaskInit = async () => {
       headless: false, // must be false, so can test with metamask extension
       defaultViewport: null,
     });
+    const version = await browser.version();
     const metamask = await dappeteer.getMetamask(browser, {
       seed: "indicate swing place chair flight used hammer soon photo region volume shuffle",
     });
@@ -18,6 +19,7 @@ export const metamaskInit = async () => {
     await metamask.switchAccount(1);
 
     console.log("✅ Metamask account init success");
+    console.log(`❤️ Browser version: ${version}`);
     return { metamask, browser };
   } catch (e) {
     console.log("❌ Metamask account init fail");
