@@ -1,101 +1,12 @@
 import { put, select } from "redux-saga/effects";
-import sinon from "sinon";
 import { types, getCertificate } from "../reducers/certificate";
-import { sendCertificate, verifyCertificate } from "./certificate";
-import { MakeCertUtil } from "./testutils";
-import * as emailService from "../services/email/sendEmail";
+import { verifyCertificate } from "./certificate";
 import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalidAndNotIssued,
 } from "../test/fixture/verifier-responses";
 
 jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
-
-function whenThereIsOneEthereumAddressIssuer() {
-  const ethereumAddresses = ["0xd2536C3cc7eb51447F6dA8d60Ba6344A79590b4F"];
-  const testCert = new MakeCertUtil().addIssuer(ethereumAddresses[0]).finish();
-  return { testCert, ethereumAddresses };
-}
-
-describe("sagas/certificate", () => {
-  describe("sendCertificate", () => {
-    let sendEmailStub;
-    beforeEach(() => {
-      sendEmailStub = sinon.stub(emailService, "sendEmail");
-    });
-    afterEach(() => {
-      sendEmailStub.restore();
-    });
-    it("should put SENDING_CERTIFICATE_SUCCESS on success", () => {
-      const { testCert } = whenThereIsOneEthereumAddressIssuer();
-      const email = "admin@opencerts.io";
-      const captcha = "ABCD";
-      const saga = sendCertificate({ payload: { email, captcha } });
-
-      expect(saga.next().value).toStrictEqual(select(getCertificate));
-      expect(saga.next(testCert).value).toStrictEqual(
-        sendEmailStub({
-          certificate: testCert,
-          email,
-          captcha,
-        })
-      );
-      expect(saga.next(true).value).toStrictEqual(
-        put({
-          type: "SENDING_CERTIFICATE_SUCCESS",
-        })
-      );
-      expect(saga.next().done).toBe(true);
-    });
-
-    it("should put SENDING_CERTIFICATE_SUCCESS on failure", () => {
-      const { testCert } = whenThereIsOneEthereumAddressIssuer();
-      const email = "admin@opencerts.io";
-      const captcha = "ABCD";
-      const saga = sendCertificate({ payload: { email, captcha } });
-
-      expect(saga.next().value).toStrictEqual(select(getCertificate));
-      expect(saga.next(testCert).value).toStrictEqual(
-        sendEmailStub({
-          certificate: testCert,
-          email,
-          captcha,
-        })
-      );
-      expect(saga.next(false).value).toStrictEqual(
-        put({
-          type: "SENDING_CERTIFICATE_FAILURE",
-          payload: "Fail to send certificate",
-        })
-      );
-      expect(saga.next().done).toBe(true);
-    });
-
-    it("should put SENDING_CERTIFICATE_SUCCESS on error", () => {
-      const { testCert } = whenThereIsOneEthereumAddressIssuer();
-      const email = "admin@opencerts.io";
-      const captcha = "ABCD";
-      const errorMsg = "Some unknown error has occured";
-      const saga = sendCertificate({ payload: { email, captcha } });
-
-      expect(saga.next().value).toStrictEqual(select(getCertificate));
-      expect(saga.next(testCert).value).toStrictEqual(
-        sendEmailStub({
-          certificate: testCert,
-          email,
-          captcha,
-        })
-      );
-      expect(saga.throw(new Error(errorMsg)).value).toStrictEqual(
-        put({
-          type: "SENDING_CERTIFICATE_FAILURE",
-          payload: errorMsg,
-        })
-      );
-      expect(saga.next().done).toBe(true);
-    });
-  });
-});
 
 describe("verifyCertificate", () => {
   it("verifies the document and change the router to /viewer when verification passes", () => {

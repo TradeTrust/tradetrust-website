@@ -1,6 +1,5 @@
 import { NetworkBar, Overlay } from "@govtechsg/tradetrust-ui-components";
 import React, { useEffect, useState } from "react";
-import { hot } from "react-hot-loader/root";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar } from "./components/Layout/NavigationBar";
@@ -41,4 +40,4 @@ const AppContainer = () => {
   );
 };
 
-export default hot(AppContainer);
+export default AppContainer;
