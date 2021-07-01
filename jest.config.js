@@ -18,5 +18,4 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/jest.dom.setup.ts"],
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)test.[jt]s?(x)"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/"],
-  testResultsProcessor: "jest-sonar-reporter",
 };

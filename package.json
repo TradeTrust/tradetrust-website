@@ -1,6 +1,11 @@
 {
   "name": "tradetrust-website",
   "version": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TradeTrust/tradetrust-website.git"
+  },
+  "license": "ISC",
   "scripts": {
     "build": "run-s check-types build:css build:app",
     "build:css": "NODE_ENV=production postcss src/tailwind.css -o src/index.css",
@@ -29,7 +34,8 @@
     "test": "jest",
     "test:coverage": "npm run test -- --collectCoverage",
     "test:watch": "npm run test -- --watchAll",
-    "test:update": "npm run test -- -u"
+    "test:update": "npm run test -- -u",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
@@ -43,18 +49,13 @@
     "@govtechsg/open-attestation-cli": "^1.40.4",
     "@govtechsg/token-registry": "2.5.1",
     "@govtechsg/tradetrust-ui-components": "^2.2.5",
-    "@hot-loader/react-dom": "^17.0.1",
-    "autoprefixer": "^10.2.6",
     "connected-react-router": "^6.9.1",
     "date-fns": "^2.22.1",
     "date-fns-tz": "^1.1.4",
-    "debug": "^4.3.1",
     "ethers": "^5.3.0",
     "history": "^4.10.1",
-    "isomorphic-fetch": "^3.0.0",
     "lodash": "^4.17.21",
     "pretty-bytes": "^5.6.0",
-    "prop-types": "^15.7.2",
     "qr-scanner": "^1.2.0",
     "qrcode.react": "^1.0.1",
     "query-string": "^7.0.0",
@@ -62,9 +63,7 @@
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.3.2",
     "react-feather": "^2.0.9",
-    "react-google-recaptcha": "^2.1.0",
     "react-helmet": "^6.1.0",
-    "react-hot-loader": "^4.13.0",
     "react-markdown": "^6.0.2",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
@@ -72,18 +71,15 @@
     "react-router-hash-link": "^2.4.3",
     "react-tooltip": "^4.2.21",
     "redux": "^4.1.0",
-    "redux-devtools-extension": "^2.13.9",
     "redux-saga": "^1.1.3",
     "twin.macro": "^2.4.2",
     "use-persisted-state": "^0.3.3"
   },
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.14.5",
-    "@openzeppelin/test-environment": "^0.1.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "^6.2.9",
@@ -92,8 +88,6 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/react-hooks": "^7.0.0",
     "@types/debug": "^4.1.5",
-    "@types/enzyme": "^3.10.8",
-    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.2",
     "@types/qrcode.react": "^1.0.1",
@@ -107,6 +101,7 @@
     "@types/use-persisted-state": "^0.3.0",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
+    "autoprefixer": "^10.2.6",
     "babel-jest": "^27.0.2",
     "babel-loader": "^8.2.2",
     "babel-plugin-macros": "^3.1.0",
@@ -116,8 +111,7 @@
     "copy-webpack-plugin": "^6.4.1",
     "css-loader": "^5.2.6",
     "dappeteer": "rjchow/dappeteer",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
+    "debug": "^4.3.1",
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^24.3.6",
@@ -125,17 +119,16 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testcafe": "^0.2.1",
-    "esm": "^3.2.25",
     "expect-puppeteer": "^5.0.4",
     "file-loader": "^6.2.0",
     "frontmatter-markdown-loader": "^3.6.2",
     "ganache-cli": "^6.12.2",
     "html-webpack-plugin": "^4.5.2",
     "http-server": "^0.12.3",
+    "husky": "^6.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
     "jest-environment-jsdom-sixteen": "^2.0.0",
-    "jest-sonar-reporter": "^2.0.0",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.3.0",
@@ -143,7 +136,7 @@
     "prettier": "^2.3.1",
     "puppeteer": "^10.0.0",
     "react-test-renderer": "^17.0.2",
-    "sinon": "^11.1.1",
+    "redux-devtools-extension": "^2.13.9",
     "style-loader": "^2.0.0",
     "tailwindcss": "^2.1.4",
     "testcafe": "^1.14.2",
@@ -153,132 +146,5 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
     "webpack-env": "^0.8.0"
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ],
-      "@babel/preset-typescript",
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-proposal-nullish-coalescing-operator",
-      "@babel/plugin-proposal-optional-chaining",
-      "react-hot-loader/babel",
-      "macros"
-    ]
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "env": {
-      "browser": true
-    },
-    "extends": [
-      "plugin:react/recommended",
-      "plugin:testcafe/recommended",
-      "plugin:prettier/recommended"
-    ],
-    "plugins": [
-      "react-hooks",
-      "testcafe"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "rules": {
-      "react/prop-types": "off",
-      "react/self-closing-comp": "error",
-      "array-callback-return": "error",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "error",
-      "no-unused-expressions": "off",
-      "jest/no-disabled-tests": "error",
-      "no-shadow": "off"
-    },
-    "overrides": [
-      {
-        "files": [
-          "src/**/*.{ts,tsx}"
-        ],
-        "extends": [
-          "plugin:@typescript-eslint/recommended"
-        ],
-        "rules": {
-          "@typescript-eslint/explicit-function-return-type": "off",
-          "@typescript-eslint/no-explicit-any": "off",
-          "@typescript-eslint/no-shadow": [
-            "error"
-          ]
-        }
-      },
-      {
-        "files": [
-          "*.test.{ts,tsx}",
-          "*.stories.{ts,tsx}"
-        ],
-        "rules": {
-          "@typescript-eslint/explicit-module-boundary-types": "off",
-          "@typescript-eslint/ban-types": "off",
-          "@typescript-eslint/no-empty-function": "off"
-        }
-      },
-      {
-        "files": [
-          "*.md"
-        ],
-        "rules": {
-          "prettier/prettier": [
-            2,
-            {
-              "parser": "markdown"
-            }
-          ]
-        }
-      },
-      {
-        "files": [
-          "**/*.test.js"
-        ],
-        "env": {
-          "jest": true
-        },
-        "extends": [
-          "plugin:jest/all"
-        ],
-        "rules": {
-          "jest/prefer-expect-assertions": "off",
-          "jest/no-hooks": "off"
-        }
-      }
-    ]
-  },
-  "jestSonar": {
-    "sonar56x": true,
-    "reportPath": ".coverage",
-    "reportFile": "sonar-report.xml",
-    "indent": 2
-  },
-  "prettier": {
-    "printWidth": 120
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TradeTrust/tradetrust-website.git"
   }
 }

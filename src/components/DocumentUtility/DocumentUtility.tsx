@@ -3,14 +3,12 @@ import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
-import { Download, Mail, Printer } from "react-feather";
+import { Download, Printer } from "react-feather";
 import tw from "twin.macro";
-import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
 
 interface DocumentUtilityProps {
   document: WrappedDocument<v2.OpenAttestationDocument>;
-  handleSharingToggle: any;
   onPrint: () => void;
 }
 
@@ -23,11 +21,7 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
   };
 }
 
-export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
-  document,
-  handleSharingToggle,
-  onPrint,
-}) => {
+export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint }) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
   // Extending document data to account for undefined metadata in OA schema
   const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);
@@ -84,17 +78,6 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
               <Printer />
             </ButtonIcon>
           </div>
-          <FeatureFlag name="SHARE_BY_EMAIL">
-            <div className="w-auto ml-3">
-              <ButtonIcon
-                className="bg-white hover:bg-gray-100"
-                aria-label="document-utility-share-by-email-button"
-                onClick={() => handleSharingToggle()}
-              >
-                <Mail />
-              </ButtonIcon>
-            </div>
-          </FeatureFlag>
           <div className="w-auto ml-3">
             <a
               download={`${fileName}.tt`}

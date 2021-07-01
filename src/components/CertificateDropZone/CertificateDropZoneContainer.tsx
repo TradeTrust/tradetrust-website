@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { processQrCode, resetCertificateState, updateCertificate } from "../../reducers/certificate";
-import QrReader from "../QrReader/";
+import QrReader, { QrDataType } from "../QrReader/qrReader";
 import { CertificateDropZone } from "./CertificateDropZone";
 import { ViewerButton } from "./Views/SharedViewerStyledComponents";
 
@@ -16,7 +16,6 @@ const DisabledButton = styled(ViewerButton)`
 `;
 
 // type as any for now
-type QrData = any;
 type CertificateData = any;
 const DisableMessage = "Disabled";
 
@@ -30,7 +29,7 @@ export const CertificateDropZoneContainer = (): React.ReactElement => {
   const dispatch = useDispatch();
 
   const handleQrScanned = React.useCallback(
-    (data: QrData) => {
+    (data: QrDataType) => {
       dispatch(processQrCode(data));
       setQrReaderVisible(false);
     },

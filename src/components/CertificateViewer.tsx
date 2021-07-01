@@ -7,14 +7,12 @@ import { resetCertificateState } from "../reducers/certificate";
 import { getLogger } from "../utils/logger";
 import { TemplateProps } from "./../types";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
-import { CertificateSharingForm } from "./CertificateSharing/CertificateSharingForm";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain";
 import { ErrorBoundary } from "./ErrorBoundary";
-import { ModalDialog } from "./ModalDialog";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 
@@ -23,21 +21,9 @@ const { trace } = getLogger("component: certificateviewer");
 interface CertificateViewerProps {
   document: WrappedDocument<v2.OpenAttestationDocument>;
   verificationStatus: VerificationFragment[];
-  shareLink: { id?: string; key?: string };
-  showSharing: boolean;
-  emailSendingState: string;
-  handleSharingToggle: () => void;
-  handleSendCertificate: (event: { email: string; captcha: string }) => void;
 }
 
-export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
-  document,
-  verificationStatus,
-  handleSharingToggle,
-  showSharing,
-  emailSendingState,
-  handleSendCertificate,
-}) => {
+export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ document, verificationStatus }) => {
   const isTransferableAsset = utils.isTransferableAsset(document);
   let tokenId = "";
   if (isTransferableAsset) {
@@ -137,7 +123,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
           </div>
         )}
         <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-          <DocumentUtility document={document} handleSharingToggle={handleSharingToggle} onPrint={onPrint} />
+          <DocumentUtility document={document} onPrint={onPrint} />
           <DecentralisedRendererContainer
             rawDocument={document}
             updateTemplates={updateTemplates}
@@ -146,13 +132,6 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
           />
         </div>
       </div>
-      <ModalDialog show={showSharing} toggle={handleSharingToggle}>
-        <CertificateSharingForm
-          emailSendingState={emailSendingState}
-          handleSendCertificate={handleSendCertificate}
-          handleSharingToggle={handleSharingToggle}
-        />
-      </ModalDialog>
     </>
   );
 
