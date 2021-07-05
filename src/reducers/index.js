@@ -1,9 +1,7 @@
 import { combineReducers } from "redux";
-import { connectRouter } from "connected-react-router";
 import certificate from "./certificate";
 
-export const createRootReducer = (history) =>
+export const createRootReducer = () =>
   combineReducers({
-    router: connectRouter(history),
     certificate,
   });

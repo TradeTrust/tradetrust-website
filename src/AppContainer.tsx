@@ -12,7 +12,7 @@ const Main = styled.main`
   background-size: cover;
 `;
 
-const AppContainer = () => {
+const AppContainer = (): React.ReactElement => {
   const location = useLocation();
   const [toggleNavBar, setToggleNavBar] = useState(false);
 
