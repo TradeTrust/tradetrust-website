@@ -16,8 +16,6 @@ export const SettingsAddressBookPage: FunctionComponent = () => (
       <Link to="/settings">
         <BackArrow />
       </Link>
-      <h3>Settings: Address Book</h3>
-      <p className="text-gray-500">Please select an address book to view. </p>
       <AddressBook className="py-6" network="ropsten" />
     </div>
   </>
