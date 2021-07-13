@@ -33,6 +33,7 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "Title of newsletter." }
+      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date." }
       - { label: "File", name: "file", widget: "file", hint: "File download of newsletter." }
   - name: "media"
     label: "Media"
