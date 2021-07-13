@@ -1,5 +1,5 @@
 import { TileInfo, TileInfoProps, IconAddressBook, IconResolverAddress } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, SVGProps } from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Page } from "../../components/Layout/Page";
