@@ -2,8 +2,8 @@
 title: Electronic Transactions Act Amended To Facilitate Electronic
   Transactions, Providing Convenience And Strengthening Singapore’s Trade
   Competitiveness In The Digital Economy
+date: 2021-01-31T16:00:00.000Z
 thumbnail: /static/uploads/news-03.jpg
-date: 1 Feb 2021
 ---
 
 ![](/static/uploads/news-03.jpg)
