@@ -7,7 +7,6 @@ import {
   verifyingCertificateFailure,
   getCertificate,
 } from "../reducers/certificate";
-import { sendEmail } from "../services/email/sendEmail";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { isValid } from "@govtechsg/oa-verify";
@@ -35,31 +34,6 @@ export function* verifyCertificate() {
     }
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));
-  }
-}
-
-export function* sendCertificate({ payload }) {
-  try {
-    const certificate = yield select(getCertificate);
-    const { email, captcha } = payload;
-    const success = yield sendEmail({
-      certificate,
-      email,
-      captcha,
-    });
-
-    if (!success) {
-      throw new Error("Fail to send certificate");
-    }
-
-    yield put({
-      type: types.SENDING_CERTIFICATE_SUCCESS,
-    });
-  } catch (e) {
-    yield put({
-      type: types.SENDING_CERTIFICATE_FAILURE,
-      payload: e.message,
-    });
   }
 }
 
@@ -127,6 +101,5 @@ export function* retrieveCertificateByAction({ payload: { uri, key } }) {
 export default [
   takeEvery(types.CERTIFICATE_PROCESS_QR_CODE, handleQrScanned),
   takeEvery(types.UPDATE_CERTIFICATE, verifyCertificate),
-  takeEvery(types.SENDING_CERTIFICATE, sendCertificate),
   takeEvery(types.RETRIEVE_CERTIFICATE_BY_ACTION, retrieveCertificateByAction),
 ];

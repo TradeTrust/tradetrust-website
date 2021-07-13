@@ -3,14 +3,12 @@ import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
-import { Download, Mail, Printer } from "react-feather";
+import { Download, Printer } from "react-feather";
 import tw from "twin.macro";
-import { FeatureFlag } from "../FeatureFlag";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
 
 interface DocumentUtilityProps {
   document: WrappedDocument<v2.OpenAttestationDocument>;
-  handleSharingToggle: any;
   onPrint: () => void;
 }
 
@@ -23,11 +21,7 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
   };
 }
 
-export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
-  document,
-  handleSharingToggle,
-  onPrint,
-}) => {
+export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint }) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
   // Extending document data to account for undefined metadata in OA schema
   const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);
@@ -52,7 +46,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
                   setQrCodePopover(!qrCodePopover);
                 }}
               >
-                <ButtonIcon className="bg-white hover:bg-grey-100" aria-label="document-utility-qr-button">
+                <ButtonIcon className="bg-white hover:bg-gray-100" aria-label="document-utility-qr-button">
                   <SvgIcon strokeWidth="0.5" fill="currentColor">
                     <SvgIconQRCode />
                   </SvgIcon>
@@ -77,31 +71,20 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
           </div>
           <div className="w-auto ml-3">
             <ButtonIcon
-              className="bg-white hover:bg-grey-100"
+              className="bg-white hover:bg-gray-100"
               aria-label="document-utility-print-button"
               onClick={() => onPrint()}
             >
               <Printer />
             </ButtonIcon>
           </div>
-          <FeatureFlag name="SHARE_BY_EMAIL">
-            <div className="w-auto ml-3">
-              <ButtonIcon
-                className="bg-white hover:bg-grey-100"
-                aria-label="document-utility-share-by-email-button"
-                onClick={() => handleSharingToggle()}
-              >
-                <Mail />
-              </ButtonIcon>
-            </div>
-          </FeatureFlag>
           <div className="w-auto ml-3">
             <a
               download={`${fileName}.tt`}
               target="_black"
               href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
             >
-              <ButtonIcon className="bg-white hover:bg-grey-100" aria-label="document-utility-download-document-button">
+              <ButtonIcon className="bg-white hover:bg-gray-100" aria-label="document-utility-download-document-button">
                 <Download />
               </ButtonIcon>
             </a>
@@ -120,15 +103,15 @@ export const DocumentUtilities = styled.div`
   }
 
   svg {
-    ${tw`text-teal`}
+    ${tw`text-turquoise`}
 
     .x-circle {
-      ${tw`text-red`}
+      ${tw`text-red-500`}
     }
   }
 
   .issuedby {
-    ${tw`text-grey-700 text-lg font-semibold`}
+    ${tw`text-gray-700 text-lg font-semibold`}
 
     span {
       ${tw`inline-block`}
@@ -136,7 +119,7 @@ export const DocumentUtilities = styled.div`
     }
 
     .domain {
-      ${tw`text-blue`}
+      ${tw`text-cerulean-500`}
     }
   }
 

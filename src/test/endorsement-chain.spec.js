@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIssuerTexts } from "./helper";
+import { uploadDocument, validateIssuerTexts, location } from "./helper";
 
-fixture("Endorsement Chain Rendering").page`http://localhost:3000`;
+fixture("Endorsement Chain Rendering").page`${location}`;
 
 const ViewEndorsementChainButton = Selector("#endorsement-chain-button").withText("View Endorsement Chain");
 const EndorsementChainTitle = Selector("[data-testid='endorsement-chain-title']").withText("Endorsement Chain");

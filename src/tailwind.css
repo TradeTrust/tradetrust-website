@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
 @tailwind base;
 
 @layer base {
@@ -5,28 +7,44 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  body {
+    @apply text-cloud-900;
+  }
+
   h1 {
     font-size: 40px;
+    @apply font-ubuntu;
+    @apply font-bold;
   }
 
   h2 {
     font-size: 32px;
+    @apply font-ubuntu;
+    @apply font-bold;
   }
 
   h3 {
     font-size: 28px;
+    @apply font-ubuntu;
+    @apply font-bold;
   }
 
   h4 {
     font-size: 24px;
+    @apply font-ubuntu;
+    @apply font-bold;
   }
 
   h5 {
     font-size: 18px;
+    @apply font-roboto;
+    @apply font-bold;
   }
 
   h6 {
     font-size: 16px;
+    @apply font-roboto;
+    @apply font-bold;
   }
 
   input[disabled] {
@@ -37,11 +55,11 @@
     @apply transition-colors;
     @apply duration-200;
     @apply ease-out;
-    @apply text-blue;
+    @apply text-cerulean-500;
   }
 
   a:hover {
-    @apply text-blue-700;
+    @apply text-cerulean;
   }
 
   svg {
@@ -65,8 +83,8 @@
     @apply border-transparent;
     @apply border-solid;
     @apply font-bold;
-    @apply text-grey-700;
-    @apply bg-grey-100;
+    @apply text-gray-700;
+    @apply bg-gray-100;
     @apply transition-colors;
     @apply duration-200;
     @apply uppercase;
@@ -75,8 +93,8 @@
   }
 
   .multi-tab:hover {
-    @apply text-grey-800;
-    @apply bg-grey-200;
+    @apply text-gray-800;
+    @apply bg-gray-200;
   }
 
   .btn {

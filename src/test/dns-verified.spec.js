@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIframeTexts, validateIssuerTexts } from "./helper";
+import { uploadDocument, validateIframeTexts, validateIssuerTexts, location } from "./helper";
 
-fixture("DNS Certificate Rendering").page`http://localhost:3000`;
+fixture("DNS Certificate Rendering").page`${location}`;
 
 const ButtonUploadAddressBook = Selector("[data-testid='multi-button'] button").withText("Address Book");
 

@@ -4,7 +4,7 @@ export const surrender = async (metamask, browser) => {
   // force process to exit if any assertion fail
   try {
     const page = await browser.newPage();
-    await page.goto("http://localhost:3000/");
+    await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
     inputUploadHandle.uploadFile("./integration/local/ebl-surrender.json");
@@ -32,13 +32,16 @@ export const surrender = async (metamask, browser) => {
       visible: true,
     });
 
-    await expect(page).toMatchElement(".overlay h3", {
+    await expect(page).toMatchElement("[data-testid='overlay-title']", {
       text: "Surrender Document Success",
       visible: true,
     });
 
     await page.close();
+
+    console.log("✅ Surrender success");
   } catch (e) {
+    console.log("❌ Surrender fail");
     console.log(e);
     process.exit(1);
   }

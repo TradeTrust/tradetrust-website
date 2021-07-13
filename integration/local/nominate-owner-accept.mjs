@@ -6,7 +6,7 @@ export const nominateOwnerAccept = async (metamask, browser) => {
     await metamask.switchAccount(2);
 
     const page = await browser.newPage();
-    await page.goto("http://localhost:3000/");
+    await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
     inputUploadHandle.uploadFile("./integration/local/ebl-nominate-owner.json"); // use back the same ebl
@@ -39,14 +39,17 @@ export const nominateOwnerAccept = async (metamask, browser) => {
       visible: true,
     });
 
-    await expect(page).toMatchElement(".overlay h3", {
+    await expect(page).toMatchElement("[data-testid='overlay-title']", {
       text: "Endorse Ownership/Holdership Success",
       visible: true,
     });
 
     await page.close();
     await metamask.switchAccount(1);
+
+    console.log("✅ Nominate owner accept success");
   } catch (e) {
+    console.log("❌ Nominate owner accept fail");
     console.log(e);
     process.exit(1);
   }

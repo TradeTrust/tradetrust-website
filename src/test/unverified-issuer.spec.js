@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateTextContent } from "./helper";
+import { uploadDocument, validateTextContent, location } from "./helper";
 
-fixture("Unverified Document Rendering").page`http://localhost:3000`;
+fixture("Unverified Document Rendering").page`${location}`;
 
 const RenderedDocument = Selector("#certificate-dropzone");
 const InvalidMessage = Selector(".invalid");

@@ -1,9 +1,9 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIframeTexts, validateTextContent, CloseWindow } from "./helper";
+import { uploadDocument, validateIframeTexts, validateTextContent, CloseWindow, location } from "./helper";
 
-fixture("Nested documents").page`http://localhost:3000`;
+fixture("Nested documents").page`${location}`;
 
-const CertificateDropzone = Selector("[id='certificate-dropzone']");
+const WelcomeSection = Selector("[id='welcome']");
 const NavLogoHome = Selector("[data-testid='nav-logo-home']");
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
 const AttachmentOpen0 = Selector("[data-testid='attachment-tile-0']").find("[data-testid='attachment-open-link']");
@@ -19,7 +19,7 @@ test("Document with nested documents in attachments should open in new tab corre
   await t.click(NavLogoHome);
 
   // should not re-render nested document
-  await validateTextContent(t, CertificateDropzone, ["Drag and drop your tradetrust file"]);
+  await validateTextContent(t, WelcomeSection, ["A Trust Network for Trading Partners"]);
   await CloseWindow();
 
   await t.click(AttachmentOpen0);

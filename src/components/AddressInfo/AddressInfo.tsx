@@ -44,11 +44,11 @@ export const AddressInfo = styled(AddressInfoUnStyled)`
   }
 
   h6 {
-    ${tw`text-grey mb-2 font-bold`}
+    ${tw`text-gray-500 mb-2 font-bold`}
   }
 
   .info {
-    ${tw`text-sm text-grey font-semibold`}
+    ${tw`text-sm text-gray-500 font-semibold`}
   }
 
   .etherum-address {

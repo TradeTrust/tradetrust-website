@@ -26,3 +26,47 @@ export type Resource = {
   url: string;
   date?: string;
 };
+
+export interface PersonaProps {
+  personaIndex: number;
+  details: Persona;
+}
+
+export interface DocumentTypeContentProps {
+  documentTypeContent: DocumentTypeContent;
+}
+
+export type Persona = {
+  image: string;
+  jobTitle: string;
+  description: string;
+  learnMore: {
+    title: string;
+    startMessage?: string;
+    thenSteps?: {
+      stepNumber: string;
+      icon: string;
+      description: string;
+    }[];
+    nowSteps?: {
+      stepNumber: string;
+      icon: string;
+      description: string;
+    }[];
+    benefits?: { benefitNumber: string; icon: string; description: string }[];
+    endMessage: string;
+  };
+};
+
+export type DocumentTypeContent = {
+  type: string;
+  description: string;
+  message: string;
+  users: Persona[];
+};
+
+export enum ContentType {
+  BENEFIT = "BENEFIT",
+  THEN = "THEN",
+  NOW = "NOW",
+}

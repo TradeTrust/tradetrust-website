@@ -79,7 +79,7 @@ const DocumentStatusStyles = styled.div`
   }
 
   .issuedby {
-    ${tw`text-grey-700 text-lg font-semibold`}
+    ${tw`text-gray-700 text-lg font-semibold`}
 
     span {
       ${tw`inline-block`}
@@ -87,7 +87,7 @@ const DocumentStatusStyles = styled.div`
     }
 
     .domain {
-      ${tw`text-blue`}
+      ${tw`text-cerulean-500`}
     }
   }
 

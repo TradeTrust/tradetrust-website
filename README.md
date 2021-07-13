@@ -5,9 +5,8 @@
 See also:
 
 - [tradetrust-documentation](https://docs.tradetrust.io)
-- [open-certificate](https://github.com/OpenCerts/open-certificate)
-- [certificate-contract](https://github.com/OpenCerts/certificate-store-contract)
-- [certificate-cli](https://github.com/OpenCerts/certificate-cli)
+- [document-store](https://github.com/Open-Attestation/document-store)
+- [open-attestation-cli](https://github.com/Open-Attestation/open-attestation-cli)
 
 ## Development
 

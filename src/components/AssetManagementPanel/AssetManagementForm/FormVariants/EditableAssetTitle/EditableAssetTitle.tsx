@@ -56,13 +56,13 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
             hasError={error}
           />
           {error && (
-            <div className="text-red my-2" data-testid="error-msg">
+            <div className="text-red-500 my-2" data-testid="error-msg">
               Unidentified address. Please check and input again.
             </div>
           )}
         </div>
         <div className="w-auto">
-          <ButtonIcon className="bg-orange hover:bg-orange-600" onClick={onOverlayHandler}>
+          <ButtonIcon className="bg-tangerine-600 hover:bg-tangerine" onClick={onOverlayHandler}>
             <Book className="text-white" />
           </ButtonIcon>
         </div>

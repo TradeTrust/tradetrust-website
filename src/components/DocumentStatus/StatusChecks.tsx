@@ -28,10 +28,10 @@ export const StatusChecks = styled(({ verificationStatus }: { verificationStatus
   }
 
   svg {
-    ${tw`text-teal`}
+    ${tw`text-turquoise`}
 
     .x-circle {
-      ${tw`text-red`}
+      ${tw`text-red-500`}
     }
   }
 

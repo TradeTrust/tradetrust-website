@@ -1,7 +1,7 @@
 import { t, Selector } from "testcafe";
-import { uploadDocument, validateIssuerTexts } from "./helper";
+import { uploadDocument, validateIssuerTexts, location } from "./helper";
 
-fixture("Obfuscated Document Rendering").page`http://localhost:3000`;
+fixture("Obfuscated Document Rendering").page`${location}`;
 
 const ObfuscationInfo = Selector("[data-testid='obfuscation-info']");
 

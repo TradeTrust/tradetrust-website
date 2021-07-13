@@ -1,6 +1,6 @@
-import { uploadDocument, validateIframeTexts, validateIssuerTexts } from "./helper";
+import { uploadDocument, validateIframeTexts, validateIssuerTexts, location } from "./helper";
 
-fixture("DNS DID Certificate Rendering").page`http://localhost:3000`;
+fixture("DNS DID Certificate Rendering").page`${location}`;
 
 test("sample document is rendered correctly when dns did is verified", async () => {
   await uploadDocument("./fixture/sample-dns-did-verified.json");

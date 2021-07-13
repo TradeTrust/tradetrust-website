@@ -4,7 +4,7 @@ export const nominateOwner = async (metamask, browser) => {
   // force process to exit if any assertion fail
   try {
     const page = await browser.newPage();
-    await page.goto("http://localhost:3000/");
+    await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
     inputUploadHandle.uploadFile("./integration/local/ebl-nominate-owner.json");
@@ -36,13 +36,16 @@ export const nominateOwner = async (metamask, browser) => {
       visible: true,
     }); // not changed yet, so should be still previous address
 
-    await expect(page).toMatchElement(".overlay h3", {
+    await expect(page).toMatchElement("[data-testid='overlay-title']", {
       text: "Nomination Success",
       visible: true,
     });
 
     await page.close();
+
+    console.log("✅ Nominate owner success");
   } catch (e) {
+    console.log("❌ Nominate owner fail");
     console.log(e);
     process.exit(1);
   }

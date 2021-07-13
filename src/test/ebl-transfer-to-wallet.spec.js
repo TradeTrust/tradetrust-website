@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { uploadDocument } from "./helper";
+import { uploadDocument, location } from "./helper";
 
-fixture("Render 'Transferred to wallet' status").page`http://localhost:3000`;
+fixture("Render 'Transferred to wallet' status").page`${location}`;
 
 const ViewEndorsementChainButton = Selector("#endorsement-chain-button");
 const TransferredSign = Selector("[data-testid='transferred-to-wallet']");

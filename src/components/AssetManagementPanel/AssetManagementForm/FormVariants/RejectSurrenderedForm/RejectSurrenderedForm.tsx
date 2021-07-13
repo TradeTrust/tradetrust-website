@@ -9,7 +9,7 @@ import React, { FunctionComponent, useContext, useEffect } from "react";
 import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { FormState } from "../../../../../constants/FormState";
 import { TitleEscrowEvent } from "../../../../../types";
-import { TagBorderedRedLarge } from "../../../../UI/Tag";
+import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
@@ -84,7 +84,9 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
           </div>
           <div className="w-full lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedRedLarge id="surrender-sign">Surrendered To Issuer</TagBorderedRedLarge>
+              <TagBorderedLg id="surrender-sign" className="text-red-500 border-red-500">
+                Surrendered To Issuer
+              </TagBorderedLg>
             </div>
           </div>
         </div>
@@ -93,7 +95,7 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
             <div className="flex flex-wrap">
               <div className="w-auto">
                 <Button
-                  className="bg-white text-grey hover:bg-grey-100"
+                  className="bg-white text-gray-500 hover:bg-gray-100"
                   onClick={setFormActionNone}
                   disabled={isRestoreTokenPendingConfirmation}
                   data-testid={"cancelSurrenderBtn"}
@@ -103,7 +105,7 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
               </div>
               <div className="w-auto ml-2">
                 <Button
-                  className="bg-red text-white hover:bg-red-600"
+                  className="bg-red-500 text-white hover:bg-red-700"
                   onClick={onClickRejectSurrender}
                   disabled={isRestoreTokenPendingConfirmation || pending}
                   data-testid={"rejectSurrenderBtn"}

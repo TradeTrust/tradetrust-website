@@ -1,4 +1,4 @@
-import _uniqueId from "lodash/uniqueId";
+import uniqueId from "lodash/uniqueId";
 import React, { FunctionComponent, useState } from "react";
 import ReactTooltip from "react-tooltip";
 
@@ -21,7 +21,7 @@ export const TooltipIcon: FunctionComponent<TooltipIconProps> = ({
   className,
   placement = "right",
 }) => {
-  const [id] = useState(_uniqueId("tt-"));
+  const [id] = useState(uniqueId("tt-"));
 
   return (
     <>

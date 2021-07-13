@@ -2,6 +2,7 @@ import { TileInfo } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { Page } from "../../components/Layout/Page";
 
 export const SettingsPage: FunctionComponent = () => (
   <>
@@ -12,9 +13,8 @@ export const SettingsPage: FunctionComponent = () => (
       <meta property="og:url" content={`${window.location.origin}/settings`} />
       <title>TradeTrust - Settings</title>
     </Helmet>
-    <div className="container py-8">
-      <h3>Settings</h3>
-      <div className="my-4">
+    <Page title="Settings">
+      <div className="mt-4">
         <Link to="/settings/address-book">
           <TileInfo title="Address Book" description="Access and update your addresses" />
         </Link>
@@ -26,6 +26,6 @@ export const SettingsPage: FunctionComponent = () => (
           />
         </Link>
       </div>
-    </div>
+    </Page>
   </>
 );

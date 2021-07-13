@@ -4,7 +4,7 @@ export const transferHolder = async (metamask, browser) => {
   // force process to exit if any assertion fail
   try {
     const page = await browser.newPage();
-    await page.goto("http://localhost:3000/");
+    await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
     inputUploadHandle.uploadFile("./integration/local/ebl-transfer-holder.json");
@@ -41,13 +41,16 @@ export const transferHolder = async (metamask, browser) => {
       visible: true,
     });
 
-    await expect(page).toMatchElement(".overlay h3", {
+    await expect(page).toMatchElement("[data-testid='overlay-title']", {
       text: "Transfer Holder Success",
       visible: true,
     });
 
     await page.close();
+
+    console.log("✅ Transfer holder success");
   } catch (e) {
+    console.log("❌ Transfer holder fail");
     console.log(e);
     process.exit(1);
   }
