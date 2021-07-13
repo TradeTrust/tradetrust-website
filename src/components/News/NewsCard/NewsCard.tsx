@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Download } from "react-feather";
+import { format } from "date-fns";
 import { NewsSingle } from "../types";
 import { TagBorderedSm } from "../../UI/Tag";
 
@@ -36,7 +37,7 @@ export const NewsCard: FunctionComponent<{ news: NewsSingle }> = ({ news }) => {
           </div>
         </div>
         <NewsSingleTitle title={news.attributes.title} />
-        <p>{news.attributes.date}</p>
+        <p>{format(new Date(news.attributes.date), "d MMM yyyy")}</p>
       </div>
     </>
   );

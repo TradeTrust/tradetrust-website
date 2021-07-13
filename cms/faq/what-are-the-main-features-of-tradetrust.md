@@ -1,6 +1,6 @@
 ---
 title: What are the main features of TradeTrust?
-publishedDate: 2021-04-17T08:55:40.218Z
+date: 2020-07-01T16:00:00.000Z
 ---
 
 The v1 prototype is designed for notarisation of trade documents using open-source solution leveraging on Distributed Ledger Technology (DLT). This allows end users receiving the document to verify the provenance and integrity of the document. The use of such technology offers several advantages.
