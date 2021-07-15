@@ -13,7 +13,7 @@ describe("decodeQrCode", () => {
     };
 
     const { action, anchor } = decodeQrCode(encodeQrCode(sampleAction));
-    expect(action).toStrictEqual(action);
+    expect(action).toStrictEqual(sampleAction);
     expect(anchor).toStrictEqual({});
   });
 
@@ -24,8 +24,8 @@ describe("decodeQrCode", () => {
     const sampleAnchor = { key: "secret" };
 
     const { action, anchor } = decodeQrCode(encodeQrCodeWithAnchor(sampleAction, sampleAnchor));
-    expect(action).toStrictEqual(action);
-    expect(anchor).toStrictEqual(anchor);
+    expect(action).toStrictEqual(sampleAction);
+    expect(anchor).toStrictEqual(sampleAnchor);
   });
 
   it("throws error when qr code is malformed", () => {
