@@ -12,7 +12,7 @@ const mockAllEvents: EventProps[] = [
   {
     attributes: {
       title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
-      description:
+      blurb:
         "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
       link: "https://www.baft.org/baft-education/e-learning/past-webinars",
       date: "2 Jul 2020",
@@ -25,7 +25,7 @@ const mockAllEvents: EventProps[] = [
   {
     attributes: {
       title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
-      description:
+      blurb:
         "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
       link: "https://www.baft.org/baft-education/e-learning/past-webinars",
       date: "2 Jul 2020",
@@ -38,7 +38,7 @@ const mockAllEvents: EventProps[] = [
   {
     attributes: {
       title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
-      description:
+      blurb:
         "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
       link: "https://www.baft.org/baft-education/e-learning/past-webinars",
       date: "31 Dec 9999",

@@ -1,5 +1,5 @@
 import { LinkButton } from "@govtechsg/tradetrust-ui-components";
-import { isFuture } from "date-fns";
+import { isFuture, format } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { ExternalLink, PlayCircle } from "react-feather";
 import { formatTime } from "../../../common/utils/dateTime";
@@ -8,7 +8,7 @@ export interface EventProps {
   attributes: {
     title: string;
     thumbnail?: string;
-    description: string;
+    blurb: string;
     link: string;
     date: string;
     timeStart: string;
@@ -20,7 +20,7 @@ export interface EventProps {
 }
 
 export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => {
-  const { title, thumbnail, description, link, date, timeStart, timeEnd, videoLink, slides, registerLink } = attributes;
+  const { title, thumbnail, blurb, link, date, timeStart, timeEnd, videoLink, slides, registerLink } = attributes;
 
   return (
     <div className="flex flex-wrap rounded-xl shadow-xl mb-4">
@@ -36,7 +36,7 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
           <span className="font-ubuntu font-bold text-cloud-900 text-2xl">{title}</span>
         </h4>
         <div className="text-cloud-300 text-base font-medium pb-3">
-          <span>{date}</span>
+          <span>{format(new Date(date), "d MMM yyyy")}</span>
           {timeStart && timeEnd && (
             <>
               <span className="mx-1">|</span>
@@ -46,7 +46,7 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
             </>
           )}
         </div>
-        <p className="text-cloud-900 font-normal mb-4">{description}</p>
+        <p className="text-cloud-900 font-normal mb-4">{blurb}</p>
         {isFuture(new Date(date)) && registerLink && (
           <LinkButton
             href={registerLink}
