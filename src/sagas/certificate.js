@@ -58,7 +58,7 @@ export function* retrieveCertificateByAction({ payload: { uri, key: payloadKey }
     });
 
     const key = anchorKey || payloadKey;
-    console.log("KEY: ", key);
+
     // if a key has been provided, let's assume
     let certificate = yield window.fetch(uri).then((response) => {
       if (response.status >= 400 && response.status < 600) {
