@@ -139,10 +139,11 @@ export const verifyingCertificateFailure = (payload) => ({
   payload,
 });
 
-export function retrieveCertificateByAction(payload) {
+export function retrieveCertificateByAction(payload, anchor) {
   return {
     type: types.RETRIEVE_CERTIFICATE_BY_ACTION,
     payload,
+    anchor,
   };
 }
 
