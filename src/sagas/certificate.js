@@ -39,11 +39,12 @@ export function* verifyCertificate() {
 
 export function* handleQrScanned({ payload: qrCode }) {
   try {
-    const actionPayload = yield processQrCode(qrCode);
+    const { payload, anchor } = yield processQrCode(qrCode);
 
     yield put({
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION,
-      payload: actionPayload,
+      payload,
+      anchor,
     });
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));
