@@ -39,22 +39,25 @@ export function* verifyCertificate() {
 
 export function* handleQrScanned({ payload: qrCode }) {
   try {
-    const actionPayload = yield processQrCode(qrCode);
+    const { payload, anchor } = yield processQrCode(qrCode);
 
     yield put({
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION,
-      payload: actionPayload,
+      payload,
+      anchor,
     });
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));
   }
 }
 
-export function* retrieveCertificateByAction({ payload: { uri, key } }) {
+export function* retrieveCertificateByAction({ payload: { uri, key: payloadKey }, anchor: { key: anchorKey } }) {
   try {
     yield put({
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING,
     });
+
+    const key = anchorKey || payloadKey;
 
     // if a key has been provided, let's assume
     let certificate = yield window.fetch(uri).then((response) => {

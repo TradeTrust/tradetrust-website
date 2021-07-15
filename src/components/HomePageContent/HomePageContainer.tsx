@@ -38,10 +38,12 @@ export const HomePageContainer = (): React.ReactElement => {
   React.useEffect(() => {
     if (location.search !== "") {
       const queryParams = queryString.parse(location.search);
+      const anchorStr = decodeURIComponent(location.hash.substr(1));
+      const anchor = anchorStr ? JSON.parse(anchorStr) : {};
       dispatch(resetCertificateState());
       const action = JSON.parse(queryParams.q as string);
       if (action.type === "DOCUMENT") {
-        dispatch(retrieveCertificateByAction(action.payload));
+        dispatch(retrieveCertificateByAction(action.payload, anchor));
       } else {
         dispatch(
           retrieveCertificateByActionFailure(`The type ${action.type} provided from the action is not supported`)
