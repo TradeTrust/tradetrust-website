@@ -1,6 +1,12 @@
 import React, { FunctionComponent } from "react";
 import { Settings } from "react-feather";
-import { NavigationBar as NavBar, NavigationItem, NAVIGATION_ITEM_TYPE } from "@govtechsg/tradetrust-ui-components";
+import {
+  NavigationBar as NavBar,
+  NavigationItem,
+  NAVIGATION_ITEM_TYPE,
+  stylesButtonCreateDocument,
+  stylesButtonVerifyDocument,
+} from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
 
@@ -77,7 +83,7 @@ const leftNavItems: NavigationItem[] = [
     label: "Contact",
     path: "/contact",
     customLink: (
-      <NavLink className="block w-full p-2 text-current" to={"/contact"}>
+      <NavLink className="block w-full text-current" to={"/contact"}>
         Contact
       </NavLink>
     ),
@@ -92,7 +98,7 @@ const rightNavItems: NavigationItem[] = [
     path: "/settings",
     icon: Settings,
     customLink: (
-      <NavLink className="block w-full p-2 text-cloud-500" to={"/settings"}>
+      <NavLink className="block w-full py-2 text-cloud-500" to={"/settings"}>
         <Settings className="stroke-current" />
       </NavLink>
     ),
@@ -102,16 +108,16 @@ const rightNavItems: NavigationItem[] = [
     id: "create-documents",
     label: "Create Doc",
     path: URLS.CREATOR,
-    className: "bg-white text-cerulean border-cerulean-100 hover:bg-gray-50",
+    className: stylesButtonCreateDocument,
   },
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
     id: "verify",
     label: "Verify Doc",
     path: "/verify",
-    className: "bg-cerulean text-white border-cerulean hover:bg-cerulean-300 hover:border-cerulean-300",
+    className: stylesButtonVerifyDocument,
     customLink: (
-      <NavLink className="block w-full p-2 text-current hover:text-current" to={"/verify"}>
+      <NavLink className="inline-block p-2 text-current hover:text-current" to={"/verify"}>
         Verify Doc
       </NavLink>
     ),
