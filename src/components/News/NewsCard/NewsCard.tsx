@@ -20,7 +20,7 @@ export const NewsCard: FunctionComponent<{ news: NewsSingle }> = ({ news }) => {
         className="bg-center bg-no-repeat bg-cover p-8 absolute top-0 left-0 w-full h-full"
       />
       <div
-        className={`transition-color duration-200 ease-out bg-black absolute top-0 left-0 w-full h-full group-hover:opacity-80 ${
+        className={`transition-color duration-200 ease-out bg-black backface-invisible absolute top-0 left-0 w-full h-full group-hover:opacity-80 ${
           isThumbnail ? "opacity-60" : "opacity-70"
         }`}
       />

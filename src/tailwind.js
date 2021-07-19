@@ -1,7 +1,7 @@
 const merge = require("lodash/merge");
 const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwind"); //eslint-disable-line @typescript-eslint/no-var-requires
+const plugin = require("tailwindcss/plugin");
 
-// https://tailwindcss.com/docs/theme
 const localConfig = {
   purge: {
     content: [
@@ -94,7 +94,19 @@ const localConfig = {
   variants: {
     cursor: ["responsive", "hover", "focus", "active"],
   },
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".backface-visible": {
+          backfaceVisibility: "visible",
+        },
+        ".backface-invisible": {
+          backfaceVisibility: "hidden",
+        },
+      });
+    }),
+  ],
 };
 
 const finalConfig = merge(commonUiConfig, localConfig); // deep merge
