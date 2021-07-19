@@ -15,7 +15,7 @@ export const SettingsPage: FunctionComponent = () => (
     </Helmet>
     <Page title="Settings">
       <div className="mt-4">
-        <Link to="/settings/address-book" className="inline-block">
+        <Link to="/settings/address-book" className="inline-block mb-4">
           <TileInfo
             title="Address Book"
             description="Access and update your addresses"
