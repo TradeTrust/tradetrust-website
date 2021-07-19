@@ -15,7 +15,7 @@ export const SettingsPage: FunctionComponent = () => (
     </Helmet>
     <Page title="Settings">
       <div className="mt-4">
-        <Link to="/settings/address-book">
+        <Link to="/settings/address-book" className="inline-block">
           <TileInfo
             title="Address Book"
             description="Access and update your addresses"
@@ -23,7 +23,7 @@ export const SettingsPage: FunctionComponent = () => (
           />
         </Link>
         <br />
-        <Link to="/settings/address-resolver">
+        <Link to="/settings/address-resolver" className="inline-block">
           <TileInfo
             title="Address Book Resolver"
             description="Set up and add third party’s endpoint to resolve addresses’ identity"
