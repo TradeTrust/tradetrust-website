@@ -1,4 +1,4 @@
-import { TileInfo } from "@govtechsg/tradetrust-ui-components";
+import { TileInfo, IconAddressBook, IconResolverAddress } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -16,13 +16,18 @@ export const SettingsPage: FunctionComponent = () => (
     <Page title="Settings">
       <div className="mt-4">
         <Link to="/settings/address-book">
-          <TileInfo title="Address Book" description="Access and update your addresses" />
+          <TileInfo
+            title="Address Book"
+            description="Access and update your addresses"
+            tileIcon={<IconAddressBook />}
+          />
         </Link>
         <br />
         <Link to="/settings/address-resolver">
           <TileInfo
             title="Address Book Resolver"
             description="Set up and add third party’s endpoint to resolve addresses’ identity"
+            tileIcon={<IconResolverAddress />}
           />
         </Link>
       </div>
