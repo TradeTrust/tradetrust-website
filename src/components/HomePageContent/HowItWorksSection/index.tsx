@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import { DocumentContent } from "./DocumentContent";
 import { DocumentTypeContent } from "../../../types";
 import { DocumentTypeDetails } from "./DocumentTypeDetails";
+import styled from "@emotion/styled";
+
+const GetInTouchBackground = styled.div`
+  background-image: url("/static/images/common/wave-lines-light.png");
+  background-size: cover;
+`;
 
 enum DocumentType {
   VERIFIABLE_DOCUMENT = "Verifiable Documents",
@@ -66,11 +72,11 @@ export const HowItWorksSection: FunctionComponent = () => {
         <DocumentTypeDetails documentTypeContent={selectedDocumentTypeContent} />
 
         <div className="flex flex-col h-96 justify-center">
-          <div className="flex w-full h-64 mx-auto bg-cerulean rounded-xl text-white text-center justify-center items-center">
+          <GetInTouchBackground className="flex w-full h-64 mx-auto bg-cerulean rounded-xl text-white text-center justify-center items-center">
             <h3 className="font-ubuntu text-4.5xl md:mx-72">
               Ready to learn how TradeTrust can benefit your business?
             </h3>
-          </div>
+          </GetInTouchBackground>
           <Link
             to="/contact"
             className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"

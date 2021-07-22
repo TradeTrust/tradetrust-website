@@ -23,14 +23,14 @@ type MainBenefits = {
 
 const mainBenefits: MainBenefits[] = [
   {
-    image: "/static/images/home/mainBenefits/cost.svg",
+    image: "/static/images/home/mainBenefits/secure.svg",
     title: "Legal certainty for electronic Transferable Documents",
     description: [
       `Singapore’s  Electronic Transactions Act (ETA) amendments enables the creation and use of electronic Bills of Lading (eBLs) that are legally equivalent to paper-based Bills of Lading.`,
     ],
   },
   {
-    image: "/static/images/home/mainBenefits/efficiency.svg",
+    image: "/static/images/home/mainBenefits/reduce.svg",
     title: "Increase efficiency, lower cost and lower risk of fraud",
     description: [
       `Risk of fraud is mitigated through the use of DLT technology to verify the authenticity and provenance of the trade documents`,
@@ -38,7 +38,7 @@ const mainBenefits: MainBenefits[] = [
     ],
   },
   {
-    image: "/static/images/home/mainBenefits/support.svg",
+    image: "/static/images/home/mainBenefits/trade.svg",
     title: "Support innovative service offerings",
     description: [
       `Aid the convergence of physical, financial and document chains making automation of key processes possible`,
@@ -65,7 +65,10 @@ const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ detai
       className={`w-full flex flex-col items-center mt-12 md:mx-1 md:w-4/12 md:max-w-xxs md:min-w-xxs ${svgAlignment()}`}
     >
       <img src={details.image} alt="mainBenefitsIcon" />
-      <h4 className="font-ubuntu mx-16 md:mx-0 text-center md:text-left md:text-3xl" data-testid="benefit-title">
+      <h4
+        className="font-ubuntu font-normal mx-16 md:mx-0 text-center md:text-left md:text-3xl"
+        data-testid="benefit-title"
+      >
         {details.title}
       </h4>
       <ul className="list-disc">
