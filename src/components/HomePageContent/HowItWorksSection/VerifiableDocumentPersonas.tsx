@@ -5,51 +5,49 @@ export const VerifiableDocumentPersonas: Persona[] = [
     image: "/static/images/home/howItWorks/persona/persona5.png",
     jobTitle: "The Exporter",
     description:
-      "This is Joan, she is an exporter with customers in many different countries. See how she cut down on time and cost when dealing with Certificate of Origin",
+      "This is Joan. She is an exporter with customers in many countries. Find out how she improves the process of handling the Certificate of Origin using TradeTrust.",
     learnMore: {
       title: "Electronic Certificate of Origin",
       thenSteps: [
         {
-          stepNumber: "1",
+          stepTitle: "Step 1",
           icon: "/static/images/home/howItWorks/icons/paperReceive.svg",
           description: "Exporter receives CoO from Exporting Country's Cert Issuing Authority (via courier)",
         },
         {
-          stepNumber: "2",
+          stepTitle: "Step 2",
           icon: "/static/images/home/howItWorks/icons/paperCheck.svg",
           description: "Exporter checks the details of CoO",
         },
         {
-          stepNumber: "3",
+          stepTitle: "Step 3",
           icon: "/static/images/home/howItWorks/icons/paperDispatch.svg",
           description: "Exporter dispatches the CoO to Bank (via courier)",
         },
         {
-          stepNumber: "4",
-          icon: "/static/images/home/howItWorks/icons/paperDispatch.svg",
+          stepTitle: "Total Time Taken",
           description: "10-20 days",
         },
       ],
       nowSteps: [
         {
-          stepNumber: "1",
+          stepTitle: "Step 1",
           icon: "/static/images/home/howItWorks/icons/eReceive.svg",
           description: "Exporter receives eCoO from Exporting Country's Cert Issuing Authority (via email)",
         },
         {
-          stepNumber: "2",
+          stepTitle: "Step 2",
           icon: "/static/images/home/howItWorks/icons/eCheck.svg",
           description: "Exporter checks for authenticity and provenance",
         },
         {
-          stepNumber: "3",
+          stepTitle: "Step 3",
           icon: "/static/images/home/howItWorks/icons/eDispatch.svg",
           description: "Exporter sends the eCoO to Bank (via email)",
         },
         {
-          stepNumber: "4",
-          icon: "/static/images/home/howItWorks/icons/eDispatch.svg",
-          description: "1 day",
+          stepTitle: "Total Time Taken",
+          description: "Less Than 1 day",
         },
       ],
       endMessage: "TradeTrust is more than a tool to hasten your exporting processs. Get in touch to find out more!",
@@ -59,65 +57,81 @@ export const VerifiableDocumentPersonas: Persona[] = [
     image: "/static/images/home/howItWorks/persona/persona6.png",
     jobTitle: "Cert Issuing/Checking Authority",
     description:
-      "This is Sean, he works for Singapore Custom, and he is using TradeTrust to issue Certificate of Origin. See how he benefited from using TradeTrust to issue the Certificate of Origin",
+      "This is Sean, he works for Customs Authority, and he is using TradeTrust to issue Certificate of Origin. See how he benefited from using TradeTrust to issue the Certificate of Origin",
     learnMore: {
       title: "Electronic Certificate of Origin",
-      startMessage:
-        "These are some of the benefits Sean enjoys when dealing with eCoOs using TradeTrust-enabled solutions",
-      benefits: [
+      thenSteps: [
         {
-          benefitNumber: "1",
-          icon: "/static/images/home/howItWorks/icons/speedUp.svg",
-          description: "Shorten the endorsement process",
+          stepTitle: "Step 1",
+          icon: "/static/images/home/howItWorks/icons/paperDispatch.svg",
+          description: "Exporting Country's Cert Issuing Authority issues and dispatches CoO to Exporter's courier",
         },
         {
-          benefitNumber: "2",
-          icon: "/static/images/home/howItWorks/icons/eDispatch.svg",
-          description: "CoO can be sent via email instead of courier",
+          stepTitle: "Step 2",
+          icon: "/static/images/home/howItWorks/icons/paperTick.svg",
+          description: "Exporter uses CoO for various process including sending to Importer for verification",
         },
         {
-          benefitNumber: "3",
-          icon: "/static/images/home/howItWorks/icons/paperRisk.svg",
-          description: "Lower the risk of human error while checking",
+          stepTitle: "Step 3",
+          icon: "/static/images/home/howItWorks/icons/paperReceive.svg",
+          description: "Importing Country's Cert Checking Authority receives CoO from Importer (via courier)",
         },
         {
-          benefitNumber: "4",
-          icon: "/static/images/home/howItWorks/icons/paperAuthenticity.svg",
-          description: "Legal certainty as TradeTrust is designed to be compliant to MLETR",
+          stepTitle: "Step 4",
+          icon: "/static/images/home/howItWorks/icons/paperCheck.svg",
+          description: "Importing Country's Cert Checking Authority checks the details of CoO Manually",
         },
       ],
-      endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
+      nowSteps: [
+        {
+          stepTitle: "Step 1",
+          icon: "/static/images/home/howItWorks/icons/eDispatch.svg",
+          description: "Exporting Country's Cert Issuing Authority issues and send eCoO to Exporter via email",
+        },
+        {
+          stepTitle: "Step 2",
+          icon: "/static/images/home/howItWorks/icons/eDistribute.svg",
+          description: "Exporter uses eCoO for various process including sending to Importer for verification",
+        },
+        {
+          stepTitle: "Step 3",
+          icon: "/static/images/home/howItWorks/icons/eCheck.svg",
+          description:
+            "Importing Country's Cert Checking Authority receives eCoO from Importer via email and checks for authenticity and provenance via TradeTrust website",
+        },
+      ],
+      endMessage: "TradeTrust is more than a tool to hasten your exporting processs. Get in touch to find out more!",
     },
   },
   {
     image: "/static/images/home/howItWorks/persona/persona7.png",
     jobTitle: "The Importer",
     description:
-      "This is James, he is an importer using Tradetrust to streamline his cargo collection process. See how he benefited from using TradeTrust",
+      "The Importer This is James, he is an importer using TradeTrust to streamline his cargo collection process. See how he has benefited from using TradeTrust.",
     learnMore: {
       title: "Electronic Certificate of Origin",
-      startMessage:
-        "These are some of the benefits James enjoys when dealing with eCoOs using TradeTrust-enabled solutions",
+      startMessage: "Benefits gained by James",
       benefits: [
         {
-          benefitNumber: "1",
-          icon: "/static/images/home/howItWorks/icons/speedUp.svg",
-          description: "Shorten the endorsement process",
+          benefitTitle: "1",
+          icon: "/static/images/home/howItWorks/icons/efficiency.svg",
+          description: "Efficiency gain from streamlining of processes",
         },
         {
-          benefitNumber: "2",
+          benefitTitle: "2",
           icon: "/static/images/home/howItWorks/icons/wallet.svg",
-          description: "Save cost on courier and paperwork",
+          description: "Reduced cost, faster turnaround and less paperwork",
         },
         {
-          benefitNumber: "3",
+          benefitTitle: "3",
           icon: "/static/images/home/howItWorks/icons/paperRisk.svg",
-          description: "Lower the risk of human error",
+          description: "Lower risk of fraud and human error",
         },
         {
-          benefitNumber: "4",
+          benefitTitle: "4",
           icon: "/static/images/home/howItWorks/icons/eCheck.svg",
-          description: "CoO can be verified and authenticate via TradeTrust website",
+          description:
+            "Need not subscribe to expensive solutions as eCoO can be verified for free via the TradeTrust website",
         },
       ],
       endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
@@ -127,31 +141,30 @@ export const VerifiableDocumentPersonas: Persona[] = [
     image: "/static/images/home/howItWorks/persona/persona8.png",
     jobTitle: "The Banker",
     description:
-      "This is Tanu, she is a banker using TradeTrust to Minimize Fraud risk in trade financing. See how she lower the risk of fraud when dealing with Certificate of Origin",
+      "This is Tanu. She is a banker using TradeTrust to minimize fraud when processing the Certificate of Origins in trade financing applications.",
     learnMore: {
       title: "Electronic Certificate of Origin",
-      startMessage:
-        "These are some of the benefits Tanu enjoys when dealing with eCoOs using TradeTrust-enabled solutions",
+      startMessage: "Benefits gained by Tanu",
       benefits: [
         {
-          benefitNumber: "1",
-          icon: "/static/images/home/howItWorks/icons/eReceive.svg",
-          description: "Receive CoO via email instead of courier",
+          benefitTitle: "1",
+          icon: "/static/images/home/howItWorks/icons/speedUp.svg",
+          description: "Faster turnaround and less manual paperwork",
         },
         {
-          benefitNumber: "2",
-          icon: "/static/images/home/howItWorks/icons/secure.svg",
-          description: "Decreases Fraud risk",
+          benefitTitle: "2",
+          icon: "/static/images/home/howItWorks/icons/paperAuthenticity.svg",
+          description: "Lower risk of fraud as eCoO can be verified for its authenticity and provenance",
         },
         {
-          benefitNumber: "3",
+          benefitTitle: "3",
           icon: "/static/images/home/howItWorks/icons/paperRisk.svg",
-          description: "Lower the risk of human error while checking",
+          description: "Lower the risk of human error",
         },
         {
-          benefitNumber: "4",
-          icon: "/static/images/home/howItWorks/icons/eCheck.svg",
-          description: "CoO can be verified and authenticate via TradeTrust website",
+          benefitTitle: "4",
+          icon: "/static/images/home/howItWorks/icons/paperMoney.svg",
+          description: "May be able to offer better trade financing terms to customers due to reduced risk",
         },
       ],
       endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",

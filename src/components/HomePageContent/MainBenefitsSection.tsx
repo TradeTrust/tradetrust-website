@@ -12,43 +12,43 @@ const Background = styled.div`
 
 interface MainBenefitsProps {
   details: MainBenefits;
-  index: number;
+  id: number;
 }
 
 type MainBenefits = {
   image: string;
   title: string;
-  description: string;
+  description: string[];
 };
 
 const mainBenefits: MainBenefits[] = [
   {
     image: "/static/images/home/mainBenefits/cost.svg",
-    title: "Reduced costs of documentation",
-    description: `Digitalising paper documents would eliminate costs associated with printing, including the handling and
-    transportation of typically hundreds of pages amongst numerous parties. This will significantly reduce the costs
-    of shipping.`,
+    title: "Legal certainty for electronic Transferable Documents",
+    description: [
+      `Singapore’s  Electronic Transactions Act (ETA) amendments enables the creation and use of electronic Bills of Lading (eBLs) that are legally equivalent to paper-based Bills of Lading.`,
+    ],
   },
   {
     image: "/static/images/home/mainBenefits/efficiency.svg",
-    title: "Increased efficiencies through certainty",
-    description: `Reduce the risk of receiving fake documents or information as sources will be accredited. Removes the need for
-    repetitive checks by the various trade ecosystem parties to ascertain whether the documents/information received
-    are legitimate.`,
+    title: "Increase efficiency, lower cost and lower risk of fraud",
+    description: [
+      `Risk of fraud is mitigated through the use of DLT technology to verify the authenticity and provenance of the trade documents`,
+      `US$4 billion savings annually if half of today’s shipping lines adopt eBLs – according to the Digital Container Shipping Association (DSCA)`,
+    ],
   },
   {
     image: "/static/images/home/mainBenefits/support.svg",
-    title: "Support for new service offerings through digitalisation and interoperability",
-    description: `Current digitalisation efforts are fragmented digital ecosystems consisting of silo groups of trade parties.
-    TradeTrust will work with the current ecosystem to enable various enterprise and platform systems to be
-    interoperable. Coupled with enabling legal validity of electronic trade documents, this can facilitate the
-    creation of new service offerings.`,
+    title: "Support innovative service offerings",
+    description: [
+      `Aid the convergence of physical, financial and document chains making automation of key processes possible`,
+    ],
   },
 ];
 
-const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ details, index }) => {
+const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ details, id }) => {
   const svgAlignment = (): string => {
-    switch (index) {
+    switch (id) {
       case 0:
         return "md:mt-52 xl:mt-60";
       case 1:
@@ -65,10 +65,16 @@ const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ detai
       className={`w-full flex flex-col items-center mt-12 md:mx-1 md:w-4/12 md:max-w-xxs md:min-w-xxs ${svgAlignment()}`}
     >
       <img src={details.image} alt="mainBenefitsIcon" />
-      <h4 className="font-ubuntu mx-16 md:mx-0 text-center md:text-left md:text-xl" data-testid="benefit-title">
+      <h4 className="font-ubuntu mx-16 md:mx-0 text-center md:text-left md:text-3xl" data-testid="benefit-title">
         {details.title}
       </h4>
-      <p className="text-left text-base m-4 md:text-base md:m-0 md:mt-4">{details.description}</p>
+      <ul className="list-disc">
+        {details.description.map((description, index) => (
+          <li key={index}>
+            <p className="text-left text-base m-4 md:text-base md:m-0 md:mt-4">{description}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -86,7 +92,7 @@ export const MainBenefitsSection: FunctionComponent = () => {
           </div>
           <div className="flex flex-col md:flex-row md:justify-around">
             {mainBenefits.map((details, index) => (
-              <MainBenefitsElement key={index} details={details} index={index} />
+              <MainBenefitsElement key={index} details={details} id={index} />
             ))}
           </div>
         </div>

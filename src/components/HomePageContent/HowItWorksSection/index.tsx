@@ -5,8 +5,8 @@ import { DocumentTypeContent } from "../../../types";
 import { DocumentTypeDetails } from "./DocumentTypeDetails";
 
 enum DocumentType {
-  VERIFIABLE_DOCUMENT = "Verifiable Document",
-  TRANSFERABLE_RECORD = "Transferable Record",
+  VERIFIABLE_DOCUMENT = "Verifiable Documents",
+  TRANSFERABLE_RECORD = "Transferable Records",
 }
 
 export const HowItWorksSection: FunctionComponent = () => {
@@ -25,9 +25,9 @@ export const HowItWorksSection: FunctionComponent = () => {
 
     switch (item) {
       case DocumentType.TRANSFERABLE_RECORD:
-        return returnStyle + " md:mr-5";
+        return returnStyle + " lg:mr-5";
       case DocumentType.VERIFIABLE_DOCUMENT:
-        return returnStyle + " hidden md:inline";
+        return returnStyle + " hidden lg:inline";
       default:
         return "";
     }
