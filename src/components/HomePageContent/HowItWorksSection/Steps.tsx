@@ -14,9 +14,8 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
       )}
       <div className="flex flex-wrap m-auto lg:px-16 2xl:px-0 items-start lg:w-full 2xl:max-w-7xl">
         {stepsDetails.map((steps: any, index: any) => (
-          <>
+          <React.Fragment key={index}>
             <div
-              key={index}
               className={`flex flex-row flex-none w-6/12 mt-8 justify-center lg:w-auto ${steps.icon ? "" : "lg:ml-6"}`}
             >
               <div className="flex flex-col max-w-46 min-w-46 justify-center">
@@ -38,7 +37,7 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
                 className={`flex-grow lg:-mx-8 lg:mt-14 lg:border-t lg:border-white ${keyValueBorderStyle[contentType]}`}
               />
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>

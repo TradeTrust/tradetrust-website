@@ -26,22 +26,22 @@ const mainBenefits: MainBenefits[] = [
     image: "/static/images/home/mainBenefits/secure.svg",
     title: "Legal certainty for electronic Transferable Documents",
     description: [
-      `Singapore’s  Electronic Transactions Act (ETA) amendments enables the creation and use of electronic Bills of Lading (eBLs) that are legally equivalent to paper-based Bills of Lading.`,
+      "Singapore’s  Electronic Transactions Act (ETA) amendments enables the creation and use of electronic Bills of Lading (eBLs) that are legally equivalent to paper-based Bills of Lading.",
     ],
   },
   {
     image: "/static/images/home/mainBenefits/reduce.svg",
     title: "Increase efficiency, lower cost and lower risk of fraud",
     description: [
-      `Risk of fraud is mitigated through the use of DLT technology to verify the authenticity and provenance of the trade documents`,
-      `US$4 billion savings annually if half of today’s shipping lines adopt eBLs – according to the Digital Container Shipping Association (DSCA)`,
+      "Risk of fraud is mitigated through the use of DLT technology to verify the authenticity and provenance of the trade documents",
+      "US$4 billion savings annually if half of today’s shipping lines adopt eBLs – according to the Digital Container Shipping Association (DSCA)",
     ],
   },
   {
     image: "/static/images/home/mainBenefits/trade.svg",
     title: "Support innovative service offerings",
     description: [
-      `Aid the convergence of physical, financial and document chains making automation of key processes possible`,
+      "Aid the convergence of physical, financial and document chains making automation of key processes possible",
     ],
   },
 ];
@@ -50,11 +50,11 @@ const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ detai
   const svgAlignment = (): string => {
     switch (id) {
       case 0:
-        return "md:mt-52 xl:mt-60";
+        return "md:mt-36 xl:mt-44";
       case 1:
-        return "md:mt-24";
+        return "md:mt-12";
       case 2:
-        return "md:mt-60 xl:mt-72";
+        return "md:mt-44 xl:mt-56";
       default:
         return "";
     }

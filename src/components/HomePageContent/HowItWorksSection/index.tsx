@@ -43,7 +43,6 @@ export const HowItWorksSection: FunctionComponent = () => {
     setSelectedDocumentTypeLabel(input);
     DocumentContent.forEach((documentDetails) => {
       if (input === documentDetails.type) {
-        console.log(documentDetails);
         setSelectedDocumentTypeContent(documentDetails);
       }
     });
@@ -82,7 +81,7 @@ export const HowItWorksSection: FunctionComponent = () => {
             className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
             data-testid="get-in-touch"
           >
-            <h4 className="font-ubuntu text-2xl">Get in Touch Now</h4>
+            <h3 className="font-normal text-2xl">Get in Touch Now</h3>
           </Link>
         </div>
       </div>

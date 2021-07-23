@@ -56,7 +56,7 @@ export const TransferableRecordPersonas: Persona[] = [
     description:
       "This is Lizzie and she works for a Carrier. She uses an electronic Bill-of-Lading (eBL) solution enabled by TradeTrust to issue and surrender eBLs to her clients.",
     learnMore: {
-      title: "Electronic Bill of Lading",
+      title: "Issuance and Surrender of Electronic Bill of Lading",
       startMessage: "Benefits gained by Lizzie",
       benefits: [
         {
