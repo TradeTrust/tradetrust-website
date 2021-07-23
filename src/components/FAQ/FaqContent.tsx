@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
-import { compareDesc } from "date-fns";
 import ReactMarkdown from "react-markdown";
 import { importAll } from "../../common/utils/importAll";
+import { getSortedByDateAsc } from "../../utils";
 
 export type FAQS = {
   body: string;
@@ -11,15 +11,7 @@ export type FAQS = {
 };
 
 let faqs = importAll(require.context("../../../cms/faq/", false, /\.md$/)) as FAQS[];
-
-const getSortedByPublishedDateDesc = (items: any[]) => {
-  items.sort((a, b): number => {
-    return compareDesc(new Date(a.attributes.publishedDate), new Date(b.attributes.publishedDate));
-  });
-  return items;
-};
-
-faqs = getSortedByPublishedDateDesc(faqs);
+faqs = getSortedByDateAsc(faqs);
 
 const FaqElement: FunctionComponent<{ question: string; answer: string }> = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
