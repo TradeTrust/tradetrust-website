@@ -1,6 +1,6 @@
 import { utils } from "ethers";
 import { ETHERSCAN_BASE_URL } from "../config";
-import { compareDesc } from "date-fns";
+import { compareDesc, compareAsc } from "date-fns";
 
 export const makeEtherscanAddressURL = (address: string): string => {
   return `${ETHERSCAN_BASE_URL}address/${address}`;
@@ -26,6 +26,14 @@ export const convertSecondsToMinAndSec = (seconds: number): string => {
 export const getSortedByDateDesc = (items: any[]): any[] => {
   items.sort((a, b): number => {
     return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
+  });
+
+  return items;
+};
+
+export const getSortedByDateAsc = (items: any[]): any[] => {
+  items.sort((a, b): number => {
+    return compareAsc(new Date(a.attributes.date), new Date(b.attributes.date));
   });
 
   return items;
