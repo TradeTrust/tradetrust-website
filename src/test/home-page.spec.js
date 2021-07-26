@@ -12,14 +12,16 @@ const VerifyButton = Selector("[data-testid='verify-button']");
 
 const YoutubeTitle = Selector("[data-testid='overlay-title']").withText("Digitalising Trust for Cross-Border Trade");
 
-const ReducedCostTitle = Selector("[data-testid='benefit-title']").withText("Reduced costs of documentation");
-const EfficiencyTitle = Selector("[data-testid='benefit-title']").withText("Increased efficiencies through certainty");
-const SupportTitle = Selector("[data-testid='benefit-title']").withText(
-  "Support for new service offerings through digitalisation and interoperability"
+const ReducedCostTitle = Selector("[data-testid='benefit-title']").withText(
+  "Legal certainty for electronic Transferable Documents"
 );
+const EfficiencyTitle = Selector("[data-testid='benefit-title']").withText(
+  "Increase efficiency, lower cost and lower risk of fraud"
+);
+const SupportTitle = Selector("[data-testid='benefit-title']").withText("Support innovative service offerings");
 
-const TransferableRecordsTitle = Selector("[data-testid='document-type-0']").withText("Transferable Record");
-const VerifiableDocumentsTitle = Selector("[data-testid='document-type-1']").withText("Verifiable Document");
+const TransferableRecordsTitle = Selector("[data-testid='document-type-0']").withText("Transferable Records");
+const VerifiableDocumentsTitle = Selector("[data-testid='document-type-1']").withText("Verifiable Documents");
 
 const Personas = Selector("[data-testid='persona-card']");
 
