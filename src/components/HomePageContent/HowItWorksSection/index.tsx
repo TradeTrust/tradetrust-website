@@ -72,7 +72,7 @@ export const HowItWorksSection: FunctionComponent = () => {
 
         <div className="flex flex-col h-96 justify-center">
           <GetInTouchBackground className="flex w-full h-64 mx-auto bg-cerulean rounded-xl text-white text-center justify-center items-center">
-            <h3 className="font-ubuntu text-4.5xl md:mx-72">
+            <h3 className="font-ubuntu text-4.5xl lg:mx-72">
               Ready to learn how TradeTrust can benefit your business?
             </h3>
           </GetInTouchBackground>
