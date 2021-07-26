@@ -4,6 +4,13 @@ import { useOverlayContext, OverlayContent } from "@govtechsg/tradetrust-ui-comp
 import { PersonaProps } from "../../../types";
 import { Steps } from "./Steps";
 import { ContentType } from "../../../types";
+import styled from "@emotion/styled";
+
+const ModalBackground = styled.div`
+  background-image: url("/static/images/common/wave-lines-light-2.png");
+  background-size: cover;
+  margin: 0 -1.25rem;
+`;
 
 export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, details }) => {
   const { setOverlayVisible, showOverlay } = useOverlayContext();
@@ -30,10 +37,10 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
   return (
     <section id="persona-modal">
       <OverlayContent title="" className="max-h-9/10 text-white bg-cerulean rounded-xl">
-        <div className="relative flex flex-col text-white flex p-5 overflow-auto h-auto">
+        <ModalBackground className="relative flex flex-col text-white flex p-5 overflow-auto h-auto">
           <div className="flex flex-col justify-center">
             <div className="relative flex justify-center w-full">
-              <h4 className="text-center">{details.learnMore.title}</h4>
+              <h3 className="font-normal text-center">{details.learnMore.title}</h3>
               {details.learnMore.thenSteps && details.learnMore.nowSteps && (
                 <div className="hidden absolute bottom-0 right-0 lg:block">
                   <div className="flex justify-end">
@@ -88,9 +95,9 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
             onClick={handleCloseOverlay}
             data-testid={`get-in-touch-${personaIndex}`}
           >
-            <h4 className="font-ubuntu text-2xl">Get in Touch Now</h4>
+            <h3 className="font-normal text-2xl">Get in Touch Now</h3>
           </Link>
-        </div>
+        </ModalBackground>
       </OverlayContent>
     </section>
   );

@@ -43,7 +43,7 @@ const localConfig = {
         46: "11.5rem",
         135: "135px",
         200: "200px",
-        xxs: "15.5rem",
+        xxs: "20rem",
       },
       maxWidth: {
         12: "3rem",

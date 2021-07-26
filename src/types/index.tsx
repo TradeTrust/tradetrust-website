@@ -44,16 +44,16 @@ export type Persona = {
     title: string;
     startMessage?: string;
     thenSteps?: {
-      stepNumber: string;
-      icon: string;
+      stepTitle: string;
+      icon?: string;
       description: string;
     }[];
     nowSteps?: {
-      stepNumber: string;
-      icon: string;
+      stepTitle: string;
+      icon?: string;
       description: string;
     }[];
-    benefits?: { benefitNumber: string; icon: string; description: string }[];
+    benefits?: { benefitTitle: string; icon: string; description: string }[];
     endMessage: string;
   };
 };
@@ -61,6 +61,7 @@ export type Persona = {
 export type DocumentTypeContent = {
   type: string;
   description: string;
+  examples: string;
   message: string;
   users: Persona[];
 };

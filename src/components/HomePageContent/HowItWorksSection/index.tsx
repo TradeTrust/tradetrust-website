@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 import { DocumentContent } from "./DocumentContent";
 import { DocumentTypeContent } from "../../../types";
 import { DocumentTypeDetails } from "./DocumentTypeDetails";
+import styled from "@emotion/styled";
+
+const GetInTouchBackground = styled.div`
+  background-image: url("/static/images/common/wave-lines-light.png");
+  background-size: cover;
+`;
 
 enum DocumentType {
-  VERIFIABLE_DOCUMENT = "Verifiable Document",
-  TRANSFERABLE_RECORD = "Transferable Record",
+  VERIFIABLE_DOCUMENT = "Verifiable Documents",
+  TRANSFERABLE_RECORD = "Transferable Records",
 }
 
 export const HowItWorksSection: FunctionComponent = () => {
@@ -25,9 +31,9 @@ export const HowItWorksSection: FunctionComponent = () => {
 
     switch (item) {
       case DocumentType.TRANSFERABLE_RECORD:
-        return returnStyle + " md:mr-5";
+        return returnStyle + " lg:mr-5";
       case DocumentType.VERIFIABLE_DOCUMENT:
-        return returnStyle + " hidden md:inline";
+        return returnStyle + " hidden lg:inline";
       default:
         return "";
     }
@@ -37,7 +43,6 @@ export const HowItWorksSection: FunctionComponent = () => {
     setSelectedDocumentTypeLabel(input);
     DocumentContent.forEach((documentDetails) => {
       if (input === documentDetails.type) {
-        console.log(documentDetails);
         setSelectedDocumentTypeContent(documentDetails);
       }
     });
@@ -66,17 +71,17 @@ export const HowItWorksSection: FunctionComponent = () => {
         <DocumentTypeDetails documentTypeContent={selectedDocumentTypeContent} />
 
         <div className="flex flex-col h-96 justify-center">
-          <div className="flex w-full h-64 mx-auto bg-cerulean rounded-xl text-white text-center justify-center items-center">
-            <h3 className="font-ubuntu text-4.5xl md:mx-72">
+          <GetInTouchBackground className="flex w-full h-64 mx-auto bg-cerulean rounded-xl text-white text-center justify-center items-center">
+            <h3 className="font-ubuntu text-4.5xl lg:mx-72">
               Ready to learn how TradeTrust can benefit your business?
             </h3>
-          </div>
+          </GetInTouchBackground>
           <Link
             to="/contact"
             className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
             data-testid="get-in-touch"
           >
-            <h4 className="font-ubuntu text-2xl">Get in Touch Now</h4>
+            <h3 className="font-normal text-2xl">Get in Touch Now</h3>
           </Link>
         </div>
       </div>
