@@ -46,7 +46,10 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
                   setQrCodePopover(!qrCodePopover);
                 }}
               >
-                <ButtonIcon className="bg-white hover:bg-gray-100" aria-label="document-utility-qr-button">
+                <ButtonIcon
+                  className="bg-white border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
+                  aria-label="document-utility-qr-button"
+                >
                   <SvgIcon strokeWidth="0.5" fill="currentColor">
                     <SvgIconQRCode />
                   </SvgIcon>
@@ -71,7 +74,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
           </div>
           <div className="w-auto ml-3">
             <ButtonIcon
-              className="bg-white hover:bg-gray-100"
+              className="bg-white border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
               aria-label="document-utility-print-button"
               onClick={() => onPrint()}
             >
@@ -84,7 +87,10 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
               target="_black"
               href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
             >
-              <ButtonIcon className="bg-white hover:bg-gray-100" aria-label="document-utility-download-document-button">
+              <ButtonIcon
+                className="bg-white border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
+                aria-label="document-utility-download-document-button"
+              >
                 <Download />
               </ButtonIcon>
             </a>
@@ -103,7 +109,7 @@ export const DocumentUtilities = styled.div`
   }
 
   svg {
-    ${tw`text-turquoise`}
+    ${tw`text-cerulean`}
 
     .x-circle {
       ${tw`text-red-500`}

@@ -91,7 +91,7 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
           <div className="flex flex-wrap">
             <div className="w-auto">
               <Button
-                className="bg-white text-gray-500 hover:bg-gray-100"
+                className="bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-900 shadow-none hover:bg-cloud-200"
                 onClick={setFormActionNone}
                 disabled={isPendingConfirmation}
                 data-testid={"cancelTransferBtn"}
@@ -101,7 +101,7 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
             </div>
             <div className="w-auto ml-2">
               <Button
-                className="bg-tangerine-600 text-white hover:bg-tangerine"
+                className="bg-cerulean rounded-xl text-lg py-2 px-3 shadow-none hover:bg-cerulean-300"
                 disabled={!isValidTransfer() || isPendingConfirmation}
                 onClick={() => handleTransfer(newHolder)}
                 data-testid={"transferBtn"}

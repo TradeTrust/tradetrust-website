@@ -47,10 +47,10 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
   const formattedDomainNames = fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 
   return (
-    <h3 id="issuedby" className="mb-0 issuedby">
-      <span className="mr-1">Issued by</span>
-      <span className="domain">{formattedDomainNames}</span>
-    </h3>
+    <h2 id="issuedby" className="mb-0 issuedby">
+      <span className="mr-1">TYPEOF DOC Issued by</span>
+      <span className="text-cerulean">{formattedDomainNames}</span>
+    </h2>
   );
 };
 
@@ -58,8 +58,8 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ verific
   return (
     <DocumentStatusStyles>
       <div className="container">
-        <div id="document-status" className="statusbar">
-          <div className="flex flex-col xl:flex-row">
+        <div id="document-status">
+          <div className="flex flex-col">
             <div className="flex-grow">
               {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
             </div>
@@ -79,7 +79,7 @@ const DocumentStatusStyles = styled.div`
   }
 
   .issuedby {
-    ${tw`text-gray-700 text-lg font-semibold`}
+    ${tw`text-cloud-900 text-lg font-semibold`}
 
     span {
       ${tw`inline-block`}

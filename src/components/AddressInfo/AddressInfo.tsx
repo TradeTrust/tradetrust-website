@@ -40,19 +40,23 @@ export const AddressInfoUnStyled: FunctionComponent<AddressInfoProps> = ({
 
 export const AddressInfo = styled(AddressInfoUnStyled)`
   h5 {
-    ${tw`mb-1 font-bold`}
+    ${tw`text-cloud-900 mb-1 font-bold`}
   }
 
   h6 {
-    ${tw`text-gray-500 mb-2 font-bold`}
+    ${tw`text-cloud-300 text-xl mb-2 font-bold`}
   }
 
   .info {
-    ${tw`text-sm text-gray-500 font-semibold`}
+    ${tw`text-sm text-cloud-300 font-semibold`}
   }
 
-  .etherum-address {
-    display: inline-block;
-    word-break: break-all;
+  .ethereum-address {
+    ${tw`inline-block break-all text-cerulean-200`}
   }
+
+  // .etherum-address {
+  //   display: inline-block;
+  //   word-break: break-all;
+  // }
 `;

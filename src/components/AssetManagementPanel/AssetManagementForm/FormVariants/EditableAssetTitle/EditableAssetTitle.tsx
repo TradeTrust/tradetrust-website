@@ -43,8 +43,9 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   return (
     <AssetTitle role={role} address={newValue || ""}>
       <div className="flex items-start">
-        <div className="w-64 mr-2">
+        <div className="w-72 mr-2">
           <Input
+            className="rounded-xl font-normal py-2.5 border-cloud-100"
             data-testid={`editable-input-${role.toLowerCase()}`}
             type="text"
             value={newValue}
@@ -56,14 +57,14 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
             hasError={error}
           />
           {error && (
-            <div className="text-red-500 my-2" data-testid="error-msg">
+            <div className="text-rose my-2" data-testid="error-msg">
               Unidentified address. Please check and input again.
             </div>
           )}
         </div>
         <div className="w-auto">
-          <ButtonIcon className="bg-tangerine-600 hover:bg-tangerine" onClick={onOverlayHandler}>
-            <Book className="text-white" />
+          <ButtonIcon className="bg-white rounded-xl border-cloud-100 hover:bg-cloud-100" onClick={onOverlayHandler}>
+            <Book className="text-cerulean" />
           </ButtonIcon>
         </div>
       </div>

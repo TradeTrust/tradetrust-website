@@ -5,7 +5,6 @@ import { useTokenInformationContext } from "../../../common/contexts/TokenInform
 import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistryContract";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "./../AssetManagementForm";
-import { AssetManagementTags } from "./../AssetManagementTags";
 
 interface AssetManagementApplicationProps {
   tokenId: string;
@@ -81,7 +80,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   return (
     <div id="title-transfer-panel">
       <div className="container">
-        <AssetManagementTags />
         {isTitleEscrow !== undefined && (
           <AssetManagementForm
             account={account}

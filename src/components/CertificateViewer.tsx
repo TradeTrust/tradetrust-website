@@ -2,6 +2,7 @@ import { VerificationFragment } from "@govtechsg/oa-verify";
 import { getData, utils, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { resetCertificateState } from "../reducers/certificate";
 import { getLogger } from "../utils/logger";
@@ -96,7 +97,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
 
   const renderedCertificateViewer = (
     <>
-      <div className="bg-cerulean-50 no-print">
+      <div className="no-print">
         <DocumentStatus verificationStatus={verificationStatus} />
         <ObfuscatedMessage document={document} />
         {tokenRegistryAddress && (
@@ -107,7 +108,23 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
           />
         )}
       </div>
-      <div className="bg-cerulean-50 no-print">
+
+      <div className="container">
+        <div className="flex flex-col bg-cerulean rounded-xl p-5 mt-9 md:flex-row">
+          <h3 className="font-normal text-white text-2xl">
+            Want to try creating a verifiable document? <br /> You will be surprised how easy it is.
+          </h3>
+          <Link
+            to="/contact"
+            className="h-12 px-4 py-2 ml-auto my-auto rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
+            data-testid="try-demo"
+          >
+            <h3 className="font-normal text-2xl">Try our demo now</h3>
+          </Link>
+        </div>
+      </div>
+
+      <div className="no-print mt-16">
         <MultiTabs
           hasAttachments={hasAttachments}
           attachments={attachments}

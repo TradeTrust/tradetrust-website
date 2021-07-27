@@ -21,7 +21,7 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanelProps
         </div>
         <div
           onClick={() => setShowEndorsementChain(true)}
-          className="text-cerulean-500 cursor-pointer transition-colors duration-300 ease-out hover:text-cerulean hover:underline"
+          className="text-cerulean-200 font-bold cursor-pointer transition-colors duration-300 ease-out hover:text-cerulean"
           id="endorsement-chain-button"
         >
           View Endorsement Chain

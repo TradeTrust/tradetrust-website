@@ -3,6 +3,7 @@ import React, { FunctionComponent, useContext } from "react";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
+import { AssetManagementTags } from "../../../AssetManagementTags";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
@@ -76,6 +77,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   };
   return (
     <>
+      <AssetManagementTags />
       <div className="flex flex-wrap justify-between pb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <AssetInformationPanel
@@ -83,20 +85,20 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             setShowEndorsementChain={setShowEndorsementChain}
           />
         </div>
-        {isSurrendered && (
+        {/* {isSurrendered && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrender-sign" className="text-red-500 border-red-500">
-                Surrendered To Issuer
+              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-rose border-rose">
+                <h3>Surrendered To Issuer</h3>
               </TagBorderedLg>
             </div>
           </div>
-        )}
+        )} */}
         {isTokenBurnt && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrendered-sign" className="text-red-500 border-red-500">
-                Surrendered
+              <TagBorderedLg id="surrendered-sign" className="bg-white rounded-xl text-rose border-rose">
+                <h3>Document Shredded</h3>
               </TagBorderedLg>
             </div>
           </div>
@@ -114,6 +116,13 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
       </div>
       {!isTokenBurnt && (
         <div className="flex flex-wrap pb-4">
+          {isSurrendered && (
+            <div className="w-full lg:w-auto self-end">
+              <TagBorderedLg id="surrender-sign" className="text-rose border-none font-ubuntu pt-0 pb-0 pl-0 pr-0">
+                Surrendered To Issuer
+              </TagBorderedLg>
+            </div>
+          )}
           <div className="w-auto lg:ml-auto">
             {account ? (
               <>
@@ -128,14 +137,17 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                     canHandleSurrender={canHandleSurrender}
                   />
                 ) : (
-                  <Button className="bg-tangerine-600 text-white hover:bg-tangerine" onClick={handleNoAccess}>
+                  <Button
+                    className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
+                    onClick={handleNoAccess}
+                  >
                     No Access
                   </Button>
                 )}
               </>
             ) : (
               <Button
-                className="bg-tangerine-600 text-white hover:bg-tangerine"
+                className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
                 data-testid={"connectToWallet"}
                 onClick={handleConnectWallet}
               >
