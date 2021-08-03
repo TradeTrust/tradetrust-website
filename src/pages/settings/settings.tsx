@@ -36,12 +36,29 @@ export const SettingsPage: FunctionComponent = () => (
       <div className="flex flex-col flex-wrap mt-4 md:flex-row">
         {settingsOptions.map((details, index) => (
           <div className="mr-4 mb-4" key={index}>
-            <Link to={details.pathLink}>
+            <Link to={details.pathLink} className="inline-block">
               <TileInfo title={details.title} description={details.description} tileIcon={details.tileIcon} />
             </Link>
           </div>
         ))}
       </div>
+      {/* <div className="mt-4">
+        <Link to="/settings/address-book" className="inline-block mb-4">
+          <TileInfo
+            title="Address Book"
+            description="Access and update your addresses"
+            tileIcon={<IconAddressBook />}
+          />
+        </Link>
+        <br />
+        <Link to="/settings/address-resolver" className="inline-block">
+          <TileInfo
+            title="Address Book Resolver"
+            description="Set up and add third party’s endpoint to resolve addresses’ identity"
+            tileIcon={<IconResolverAddress />}
+          />
+        </Link>
+      </div> */}
     </Page>
   </>
 );

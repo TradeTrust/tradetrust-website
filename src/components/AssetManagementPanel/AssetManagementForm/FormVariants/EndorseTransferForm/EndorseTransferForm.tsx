@@ -86,7 +86,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
             </div>
             <div className="w-auto ml-2">
               <Button
-                className="bg-cerulean rounded-xl text-lg py-2 px-3 shadow-none hover:bg-cerulean-300"
+                className="bg-cerulean rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-300"
                 onClick={() => handleEndorseTransfer(approvedBeneficiary || "", approvedHolder || "")}
                 disabled={isPendingConfirmation}
                 data-testid={"endorseTransferBtn"}
