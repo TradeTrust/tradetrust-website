@@ -23,7 +23,8 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
 }) => {
   return (
     <div className="container">
-      <div className="flex flex-wrap items-end">
+      {/* <div className="flex flex-wrap items-end"> */}
+      <div className="flex overflow-x-auto items-end">
         {templates.map(({ id, label }) => (
           <div
             className={`px-3 py-2 mr-2 multi-tab border-t border-r border-l rounded-t-xl border-cloud-100 ${

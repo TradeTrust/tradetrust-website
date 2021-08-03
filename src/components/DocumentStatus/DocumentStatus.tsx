@@ -48,7 +48,7 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
 
   return (
     <h2 id="issuedby" className="mb-0 issuedby">
-      <span className="mr-1">TYPEOF DOC Issued by</span>
+      <span className="mr-1">Issued by</span>
       <span className="text-cerulean">{formattedDomainNames}</span>
     </h2>
   );
