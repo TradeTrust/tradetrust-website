@@ -67,7 +67,7 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
         </div>
       </div>
       <div className="flex flex-wrap pb-4">
-        <div className="w-auto ml-auto">
+        <div className="w-auto lg:ml-auto">
           <div className="flex flex-wrap">
             <div className="w-auto">
               <Button

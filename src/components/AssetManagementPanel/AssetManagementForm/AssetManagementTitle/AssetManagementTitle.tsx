@@ -14,14 +14,14 @@ export const AssetManagementTitle: FunctionComponent<AssetManagementTitleProps> 
   disabled,
 }) => {
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap my-2">
       <div
         className={`mb-2 ${disabled ? "text-gray-300 cursor-default" : "text-gray-500 cursor-pointer"}`}
         onClick={() => setFormActionNone(disabled)}
         data-disabled={disabled}
       >
         <BackArrow />
-        <h3 className="font-bold text-gray-700 mb-2">
+        <h3 className="font-bold text-gray-700">
           {formAction === AssetManagementActions.Surrender && <>Surrender Document</>}
           {formAction === AssetManagementActions.AcceptSurrendered && <>Accept Surrender of Document</>}
           {formAction === AssetManagementActions.RejectSurrendered && <>Reject Surrender of Document</>}

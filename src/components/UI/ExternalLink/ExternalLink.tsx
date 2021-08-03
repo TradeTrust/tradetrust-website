@@ -9,6 +9,7 @@ interface ExternalLinkProps {
 interface ExternalLinkEtherscanAddressProps {
   name: string;
   address: string;
+  className?: string;
 }
 
 export const ExternalLink: FunctionComponent<ExternalLinkProps> = ({ name, href, ...props }) => {

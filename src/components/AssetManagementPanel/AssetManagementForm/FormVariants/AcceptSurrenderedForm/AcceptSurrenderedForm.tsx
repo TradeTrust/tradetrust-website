@@ -56,21 +56,21 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
               tokenRegistryAddress={tokenRegistryAddress}
             />
           </div>
-          {/* <div className="w-full lg:w-auto self-end">
+          <div className="w-full lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrender-sign" className="text-red-500 border-red-500">
-                Surrendered To Issuer
+              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-rose border-rose">
+                <h3>Surrendered To Issuer</h3>
               </TagBorderedLg>
             </div>
-          </div> */}
+          </div>
         </div>
         <div className="flex flex-wrap pb-4">
-          <div className="w-full lg:w-auto self-end">
+          {/* <div className="w-full lg:w-auto self-end">
             <TagBorderedLg id="surrender-sign" className="text-rose border-none font-ubuntu pt-0 pb-0 pl-0 pr-0">
               Surrendered To Issuer
             </TagBorderedLg>
-          </div>
-          <div className="w-auto ml-auto">
+          </div> */}
+          <div className="w-auto lg:ml-auto">
             <div className="flex flex-wrap">
               <div className="w-auto">
                 <Button

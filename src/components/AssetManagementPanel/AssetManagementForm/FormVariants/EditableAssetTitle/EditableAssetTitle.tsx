@@ -45,7 +45,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
       <div className="flex items-start">
         <div className="w-72 mr-2">
           <Input
-            className="rounded-xl font-normal py-2.5 border-cloud-100"
+            className="w-full rounded-xl font-normal py-2.5 border-cloud-100"
             data-testid={`editable-input-${role.toLowerCase()}`}
             type="text"
             value={newValue}

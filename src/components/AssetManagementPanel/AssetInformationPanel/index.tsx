@@ -17,7 +17,11 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanelProps
     <div className={`py-4 ${className}`}>
       <AddressInfo title="BL information" name="" resolvedBy="" source="">
         <div>
-          <ExternalLinkEtherscanAddress name="View BL Registry" address={tokenRegistryAddress} />
+          <ExternalLinkEtherscanAddress
+            name="View BL Registry"
+            address={tokenRegistryAddress}
+            className="text-cerulean-200 font-bold"
+          />
         </div>
         <div
           onClick={() => setShowEndorsementChain(true)}

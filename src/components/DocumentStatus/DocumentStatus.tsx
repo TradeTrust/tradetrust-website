@@ -57,14 +57,12 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
 export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ verificationStatus }) => {
   return (
     <DocumentStatusStyles>
-      <div className="container">
-        <div id="document-status">
-          <div className="flex flex-col">
-            <div className="flex-grow">
-              {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
-            </div>
-            <StatusChecks verificationStatus={verificationStatus} />
+      <div id="document-status">
+        <div className="flex flex-col">
+          <div className="flex-grow">
+            {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
           </div>
+          <StatusChecks verificationStatus={verificationStatus} />
         </div>
       </div>
     </DocumentStatusStyles>

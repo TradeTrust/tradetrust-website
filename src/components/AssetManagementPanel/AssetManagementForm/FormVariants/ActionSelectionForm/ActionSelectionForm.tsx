@@ -1,5 +1,9 @@
+import { VerificationFragment } from "@govtechsg/oa-verify";
+import { v2, WrappedDocument } from "@govtechsg/open-attestation";
 import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
+import { DocumentStatus } from "../../../../DocumentStatus";
+import { ObfuscatedMessage } from "../../../../ObfuscatedMessage";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -24,6 +28,8 @@ interface ActionSelectionFormProps {
   canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
+  document: WrappedDocument<v2.OpenAttestationDocument>;
+  verificationStatus: VerificationFragment[];
 }
 
 export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = ({
@@ -43,6 +49,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canEndorseTransfer,
   setShowEndorsementChain,
   isTitleEscrow,
+  document,
+  verificationStatus,
 }) => {
   const canManage =
     canHandleSurrender ||
@@ -77,6 +85,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   };
   return (
     <>
+      <DocumentStatus verificationStatus={verificationStatus} />
+      <ObfuscatedMessage document={document} />
       <AssetManagementTags />
       <div className="flex flex-wrap justify-between pb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
@@ -85,7 +95,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             setShowEndorsementChain={setShowEndorsementChain}
           />
         </div>
-        {/* {isSurrendered && (
+        {isSurrendered && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-rose border-rose">
@@ -93,12 +103,12 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
               </TagBorderedLg>
             </div>
           </div>
-        )} */}
+        )}
         {isTokenBurnt && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrendered-sign" className="bg-white rounded-xl text-rose border-rose">
-                <h3>Document Shredded</h3>
+                <h3>Surrendered</h3>
               </TagBorderedLg>
             </div>
           </div>
@@ -116,13 +126,13 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
       </div>
       {!isTokenBurnt && (
         <div className="flex flex-wrap pb-4">
-          {isSurrendered && (
+          {/* {isSurrendered && (
             <div className="w-full lg:w-auto self-end">
               <TagBorderedLg id="surrender-sign" className="text-rose border-none font-ubuntu pt-0 pb-0 pl-0 pr-0">
                 Surrendered To Issuer
               </TagBorderedLg>
             </div>
-          )}
+          )} */}
           <div className="w-auto lg:ml-auto">
             {account ? (
               <>
