@@ -1,5 +1,5 @@
 // Set this to true for production
-var doCache = false;
+var doCache = true;
 
 // Name our cache
 var CACHE_NAME = "tradetrust-pwa-v1";
