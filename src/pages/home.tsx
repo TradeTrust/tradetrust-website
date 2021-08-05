@@ -1,3 +1,4 @@
+declare const window: any;
 import React, { FunctionComponent, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
@@ -8,6 +9,7 @@ import {
   resetCertificateState,
   retrieveCertificateByAction,
   retrieveCertificateByActionFailure,
+  updateCertificate,
 } from "../reducers/certificate";
 
 export const HomePage: FunctionComponent = (props: any) => {
@@ -23,7 +25,29 @@ export const HomePage: FunctionComponent = (props: any) => {
       }
     }
   }, [props]);
-
+  useEffect(() => {
+    // https://web.dev/file-handling/
+    // https://web.dev/deprecating-excalidraw-electron/
+    // https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileHandle
+    // https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
+    if ("launchQueue" in window) {
+      window.launchQueue.setConsumer(async (launchParams: any) => {
+        // Nothing to do when the queue is empty.
+        if (!launchParams.files.length) {
+          return;
+        }
+        for (const fileHandle of launchParams.files) {
+          try {
+            const fileData = await fileHandle.getFile();
+            const text = await fileData.text();
+            props.updateCertificate(JSON.parse(text));
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      });
+    }
+  }, [props]);
   return (
     <>
       <Helmet>
@@ -48,6 +72,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   retrieveCertificateByAction: (payload: any) => dispatch(retrieveCertificateByAction(payload)),
   retrieveCertificateByActionFailure: (payload: any) => dispatch(retrieveCertificateByActionFailure(payload)),
   resetCertificateState: () => dispatch(resetCertificateState()),
+  updateCertificate: (payload: any) => dispatch(updateCertificate(payload)),
 });
 
 export const HomePageContainer = connect(null, mapDispatchToProps)(HomePage);
@@ -56,4 +81,5 @@ HomePage.propTypes = {
   retrieveCertificateByAction: PropTypes.func,
   resetCertificateState: PropTypes.func,
   retrieveCertificateByActionFailure: PropTypes.func,
+  updateCertificate: PropTypes.func,
 };
