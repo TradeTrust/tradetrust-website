@@ -1,10 +1,18 @@
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { MESSAGES, TYPES } from "../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../services/verify/fragments";
 import { StatusCheck } from "./StatusCheck";
 
-export const StatusChecks = ({ verificationStatus }: { verificationStatus: VerificationFragment[] }) => {
+interface StatusChecksProps {
+  verificationStatus: VerificationFragment[];
+}
+
+export const StatusChecks: FunctionComponent<StatusChecksProps> = ({
+  verificationStatus,
+}: {
+  verificationStatus: VerificationFragment[];
+}) => {
   const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
 
   return (
