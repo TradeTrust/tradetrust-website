@@ -29,7 +29,7 @@ self.addEventListener("install", function (event) {
       caches.open(CACHE_NAME).then(function (cache) {
         // Get the assets manifest so we can see what our js file is named
         // This is because webpack hashes it
-        fetch("manifest.json")
+        fetch("/static/manifest.json")
           .then((response) => {
             response.json();
           })
