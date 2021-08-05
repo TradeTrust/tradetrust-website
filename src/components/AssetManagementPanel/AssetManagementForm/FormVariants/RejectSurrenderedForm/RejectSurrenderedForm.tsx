@@ -91,11 +91,6 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
           </div>
         </div>
         <div className="flex flex-wrap pb-4">
-          {/* <div className="w-full lg:w-auto self-end">
-            <TagBorderedLg id="surrender-sign" className="text-rose border-none font-ubuntu pt-0 pb-0 pl-0 pr-0">
-              Surrendered To Issuer
-            </TagBorderedLg>
-          </div> */}
           <div className="w-auto lg:ml-auto">
             <div className="flex flex-wrap">
               <div className="w-auto">

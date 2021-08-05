@@ -1,12 +1,9 @@
-import styled from "@emotion/styled";
 import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
 import { Download, Printer } from "react-feather";
-import tw from "twin.macro";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
-
 interface DocumentUtilityProps {
   document: WrappedDocument<v2.OpenAttestationDocument>;
   onPrint: () => void;
@@ -35,101 +32,66 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
   };
 
   return (
-    <DocumentUtilities>
-      <div className="container no-print">
-        <div className="flex flex-wrap">
-          <div className="w-auto ml-auto">
-            {qrcodeUrl && (
-              <div
-                className="relative"
-                onClick={() => {
-                  setQrCodePopover(!qrCodePopover);
-                }}
-              >
-                <ButtonIcon
-                  className="bg-white border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
-                  aria-label="document-utility-qr-button"
-                >
-                  <SvgIcon strokeWidth="0.5" fill="currentColor">
-                    <SvgIconQRCode />
-                  </SvgIcon>
-                </ButtonIcon>
-                <div
-                  data-testid="qr-code-svg"
-                  className={`absolute border p-2 mt-2 top-100 right-0 shadow-md rounded bg-white ${
-                    qrCodePopover ? "block" : "hidden"
-                  }`}
-                >
-                  <QRCode
-                    value={qrcodeUrl}
-                    level="Q"
-                    size={200}
-                    bgColor="#FFFFFF"
-                    fgColor="#000000"
-                    imageSettings={imageSettings}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="w-auto ml-3">
-            <ButtonIcon
-              className="bg-white border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
-              aria-label="document-utility-print-button"
-              onClick={() => onPrint()}
-            >
-              <Printer />
-            </ButtonIcon>
-          </div>
-          <div className="w-auto ml-3">
-            <a
-              download={`${fileName}.tt`}
-              target="_black"
-              href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
+    <div className="container no-print bg-white pb-8">
+      <div className="flex flex-wrap">
+        <div className="w-auto ml-auto">
+          {qrcodeUrl && (
+            <div
+              className="relative"
+              onClick={() => {
+                setQrCodePopover(!qrCodePopover);
+              }}
             >
               <ButtonIcon
                 className="bg-white border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
-                aria-label="document-utility-download-document-button"
+                aria-label="document-utility-qr-button"
               >
-                <Download />
+                <SvgIcon className="text-cerulean" strokeWidth="0.5" fill="currentColor">
+                  <SvgIconQRCode />
+                </SvgIcon>
               </ButtonIcon>
-            </a>
-          </div>
+              <div
+                data-testid="qr-code-svg"
+                className={`absolute border p-2 mt-2 top-100 right-0 shadow-md rounded bg-white ${
+                  qrCodePopover ? "block" : "hidden"
+                }`}
+              >
+                <QRCode
+                  value={qrcodeUrl}
+                  level="Q"
+                  size={200}
+                  bgColor="#FFFFFF"
+                  fgColor="#000000"
+                  imageSettings={imageSettings}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="w-auto ml-3">
+          <ButtonIcon
+            className="bg-white text-cerulean border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
+            aria-label="document-utility-print-button"
+            onClick={() => onPrint()}
+          >
+            <Printer />
+          </ButtonIcon>
+        </div>
+        <div className="w-auto ml-3">
+          <a
+            download={`${fileName}.tt`}
+            target="_black"
+            href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
+          >
+            <ButtonIcon
+              className="bg-white text-cerulean border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
+              aria-label="document-utility-download-document-button"
+            >
+              <Download />
+            </ButtonIcon>
+          </a>
         </div>
       </div>
-    </DocumentUtilities>
+    </div>
   );
 };
-
-export const DocumentUtilities = styled.div`
-  ${tw`bg-white pb-8`}
-
-  .statusbar {
-    ${tw`bg-white py-2 rounded`}
-  }
-
-  svg {
-    ${tw`text-cerulean`}
-
-    .x-circle {
-      ${tw`text-red-500`}
-    }
-  }
-
-  .issuedby {
-    ${tw`text-gray-700 text-lg font-semibold`}
-
-    span {
-      ${tw`inline-block`}
-      word-break: break-all;
-    }
-
-    .domain {
-      ${tw`text-cerulean-500`}
-    }
-  }
-
-  .message {
-    ${tw`text-sm leading-5`}
-  }
-`;

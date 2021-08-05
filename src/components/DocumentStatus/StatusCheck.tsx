@@ -7,12 +7,10 @@ interface StatusProps {
 }
 
 const Status = ({ message, icon }: StatusProps) => (
-  <div className="status">
-    <div className="flex items-center">
-      <div className="h-5 w-5">{icon}</div>
-      <div className="flex-grow">
-        <p className="pl-2 mb-0 message">{message}</p>
-      </div>
+  <div className="flex justify-start items-center">
+    <div>{icon}</div>
+    <div className="flex-grow">
+      <p className="pl-2 mb-0 text-sm leading-5">{message}</p>
     </div>
   </div>
 );

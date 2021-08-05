@@ -23,7 +23,6 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
 }) => {
   return (
     <div className="container">
-      {/* <div className="flex flex-wrap items-end"> */}
       <div className="flex overflow-x-auto items-end">
         {templates.map(({ id, label }) => (
           <div

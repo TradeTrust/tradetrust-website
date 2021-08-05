@@ -317,242 +317,6 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
   );
 };
 
-export const SurrenderPending = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
-
-  return (
-    <AssetManagementForm
-      setShowEndorsementChain={() => {}}
-      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
-      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
-      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedHolder=""
-      formAction={assetManagementAction}
-      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.PENDING_CONFIRMATION}
-      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
-      holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-      }
-      beneficiaryEndorseState={FormState.UNINITIALIZED}
-      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-      }
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
-      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
-      }
-      transferToNewEscrowState={FormState.UNINITIALIZED}
-      isTitleEscrow={true}
-      onDestroyToken={() => alert("Accept document surrender")}
-      destroyTokenState={FormState.UNINITIALIZED}
-      isTokenBurnt={false}
-      onRestoreToken={() => alert("Reject document surrender")}
-      restoreTokenState={FormState.UNINITIALIZED}
-      tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
-    />
-  );
-};
-
-export const SurrenderedIsMinter = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-
-  return (
-    <AssetManagementForm
-      setShowEndorsementChain={() => {}}
-      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
-      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
-      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedHolder=""
-      formAction={assetManagementAction}
-      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      onSetFormAction={setAssetManagementAction}
-      isSurrendered={true}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
-      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
-      holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-      }
-      beneficiaryEndorseState={FormState.UNINITIALIZED}
-      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-      }
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
-      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
-      }
-      transferToNewEscrowState={FormState.UNINITIALIZED}
-      isTitleEscrow={false}
-      onDestroyToken={() => alert("Accept document surrender")}
-      destroyTokenState={FormState.UNINITIALIZED}
-      isTokenBurnt={false}
-      onRestoreToken={() => alert("Reject document surrender")}
-      restoreTokenState={FormState.UNINITIALIZED}
-      tokenId=""
-      isMinter={true}
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
-    />
-  );
-};
-
-export const SurrenderedNotMinter = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-
-  return (
-    <AssetManagementForm
-      setShowEndorsementChain={() => {}}
-      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
-      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
-      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedHolder=""
-      formAction={assetManagementAction}
-      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      onSetFormAction={setAssetManagementAction}
-      isSurrendered={true}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
-      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
-      holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-      }
-      beneficiaryEndorseState={FormState.UNINITIALIZED}
-      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-      }
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
-      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
-      }
-      transferToNewEscrowState={FormState.UNINITIALIZED}
-      isTitleEscrow={false}
-      onDestroyToken={() => alert("Accept document surrender")}
-      destroyTokenState={FormState.UNINITIALIZED}
-      isTokenBurnt={false}
-      onRestoreToken={() => alert("Reject document surrender")}
-      restoreTokenState={FormState.UNINITIALIZED}
-      tokenId=""
-      isMinter={false}
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
-    />
-  );
-};
-
-export const SurrenderedAcceptForm = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.AcceptSurrendered);
-
-  return (
-    <AssetManagementForm
-      setShowEndorsementChain={() => {}}
-      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
-      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
-      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedHolder=""
-      formAction={assetManagementAction}
-      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-      onSetFormAction={setAssetManagementAction}
-      isSurrendered={true}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
-      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
-      holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-      }
-      beneficiaryEndorseState={FormState.UNINITIALIZED}
-      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-      }
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
-      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
-      }
-      transferToNewEscrowState={FormState.UNINITIALIZED}
-      isTitleEscrow={false}
-      onDestroyToken={() => alert("Accept document surrender")}
-      destroyTokenState={FormState.UNINITIALIZED}
-      isTokenBurnt={false}
-      onRestoreToken={() => alert("Reject document surrender")}
-      restoreTokenState={FormState.UNINITIALIZED}
-      tokenId=""
-      isMinter={true}
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
-    />
-  );
-};
-
-export const SurrenderedRejectForm = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.RejectSurrendered);
-
-  return (
-    <OverlayContextProvider>
-      <Overlay />
-      <AssetManagementForm
-        setShowEndorsementChain={() => {}}
-        account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        onConnectToWallet={() => alert("Login to Metamask")}
-        beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        approvedBeneficiary=""
-        holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        approvedHolder=""
-        formAction={assetManagementAction}
-        tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-        documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-        onSetFormAction={setAssetManagementAction}
-        isSurrendered={true}
-        onSurrender={() => alert("Surrender document")}
-        surrenderingState={FormState.UNINITIALIZED}
-        onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
-        holderTransferringState={FormState.UNINITIALIZED}
-        onEndorseBeneficiary={(newBeneficiary, newHolder) =>
-          alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-        }
-        beneficiaryEndorseState={FormState.UNINITIALIZED}
-        onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
-          alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
-        }
-        approveNewTransferTargetsState={FormState.UNINITIALIZED}
-        onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
-          alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
-        }
-        transferToNewEscrowState={FormState.UNINITIALIZED}
-        isTitleEscrow={false}
-        onDestroyToken={() => alert("Accept document surrender")}
-        destroyTokenState={FormState.UNINITIALIZED}
-        isTokenBurnt={false}
-        onRestoreToken={() => alert("Reject document surrender")}
-        restoreTokenState={FormState.UNINITIALIZED}
-        tokenId=""
-        isMinter={true}
-        document={obfuscatedDocument}
-        verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
-      />
-    </OverlayContextProvider>
-  );
-};
-
 export const TransferHolderError = () => {
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.TransferHolder);
 
@@ -904,6 +668,332 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       onDestroyToken={() => alert("Accept document surrender")}
       destroyTokenState={FormState.UNINITIALIZED}
       isTokenBurnt={false}
+      onRestoreToken={() => alert("Reject document surrender")}
+      restoreTokenState={FormState.UNINITIALIZED}
+      tokenId=""
+      document={obfuscatedDocument}
+      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
+    />
+  );
+};
+
+export const SurrenderDocument = () => {
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
+
+  return (
+    <AssetManagementForm
+      setShowEndorsementChain={() => {}}
+      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      onConnectToWallet={() => alert("Login to Metamask")}
+      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedBeneficiary=""
+      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedHolder=""
+      formAction={assetManagementAction}
+      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      onSetFormAction={setAssetManagementAction}
+      isSurrendered={true}
+      onSurrender={() => alert("Surrender document")}
+      surrenderingState={FormState.UNINITIALIZED}
+      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+      holderTransferringState={FormState.UNINITIALIZED}
+      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      beneficiaryEndorseState={FormState.UNINITIALIZED}
+      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+      }
+      transferToNewEscrowState={FormState.UNINITIALIZED}
+      isTitleEscrow={true}
+      onDestroyToken={() => alert("Accept document surrender")}
+      destroyTokenState={FormState.UNINITIALIZED}
+      isTokenBurnt={false}
+      onRestoreToken={() => alert("Reject document surrender")}
+      restoreTokenState={FormState.UNINITIALIZED}
+      tokenId=""
+      document={obfuscatedDocument}
+      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
+    />
+  );
+};
+
+export const SurrenderPending = () => {
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
+
+  return (
+    <AssetManagementForm
+      setShowEndorsementChain={() => {}}
+      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      onConnectToWallet={() => alert("Login to Metamask")}
+      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedBeneficiary=""
+      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedHolder=""
+      formAction={assetManagementAction}
+      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      onSetFormAction={setAssetManagementAction}
+      isSurrendered={false}
+      onSurrender={() => alert("Surrender document")}
+      surrenderingState={FormState.PENDING_CONFIRMATION}
+      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+      holderTransferringState={FormState.UNINITIALIZED}
+      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      beneficiaryEndorseState={FormState.UNINITIALIZED}
+      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+      }
+      transferToNewEscrowState={FormState.UNINITIALIZED}
+      isTitleEscrow={true}
+      onDestroyToken={() => alert("Accept document surrender")}
+      destroyTokenState={FormState.UNINITIALIZED}
+      isTokenBurnt={false}
+      onRestoreToken={() => alert("Reject document surrender")}
+      restoreTokenState={FormState.UNINITIALIZED}
+      tokenId=""
+      document={obfuscatedDocument}
+      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
+    />
+  );
+};
+
+export const SurrenderedNotMinter = () => {
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+
+  return (
+    <AssetManagementForm
+      setShowEndorsementChain={() => {}}
+      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      onConnectToWallet={() => alert("Login to Metamask")}
+      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedBeneficiary=""
+      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedHolder=""
+      formAction={assetManagementAction}
+      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      onSetFormAction={setAssetManagementAction}
+      isSurrendered={true}
+      onSurrender={() => alert("Surrender document")}
+      surrenderingState={FormState.UNINITIALIZED}
+      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+      holderTransferringState={FormState.UNINITIALIZED}
+      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      beneficiaryEndorseState={FormState.UNINITIALIZED}
+      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+      }
+      transferToNewEscrowState={FormState.UNINITIALIZED}
+      isTitleEscrow={false}
+      onDestroyToken={() => alert("Accept document surrender")}
+      destroyTokenState={FormState.UNINITIALIZED}
+      isTokenBurnt={false}
+      onRestoreToken={() => alert("Reject document surrender")}
+      restoreTokenState={FormState.UNINITIALIZED}
+      tokenId=""
+      isMinter={false}
+      document={obfuscatedDocument}
+      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
+    />
+  );
+};
+
+export const SurrenderedIsMinter = () => {
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+
+  return (
+    <AssetManagementForm
+      setShowEndorsementChain={() => {}}
+      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      onConnectToWallet={() => alert("Login to Metamask")}
+      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedBeneficiary=""
+      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedHolder=""
+      formAction={assetManagementAction}
+      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      onSetFormAction={setAssetManagementAction}
+      isSurrendered={true}
+      onSurrender={() => alert("Surrender document")}
+      surrenderingState={FormState.UNINITIALIZED}
+      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+      holderTransferringState={FormState.UNINITIALIZED}
+      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      beneficiaryEndorseState={FormState.UNINITIALIZED}
+      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+      }
+      transferToNewEscrowState={FormState.UNINITIALIZED}
+      isTitleEscrow={false}
+      onDestroyToken={() => alert("Accept document surrender")}
+      destroyTokenState={FormState.UNINITIALIZED}
+      isTokenBurnt={false}
+      onRestoreToken={() => alert("Reject document surrender")}
+      restoreTokenState={FormState.UNINITIALIZED}
+      tokenId=""
+      isMinter={true}
+      document={obfuscatedDocument}
+      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
+    />
+  );
+};
+
+export const SurrenderedAcceptForm = () => {
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.AcceptSurrendered);
+
+  return (
+    <AssetManagementForm
+      setShowEndorsementChain={() => {}}
+      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      onConnectToWallet={() => alert("Login to Metamask")}
+      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedBeneficiary=""
+      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedHolder=""
+      formAction={assetManagementAction}
+      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      onSetFormAction={setAssetManagementAction}
+      isSurrendered={true}
+      onSurrender={() => alert("Surrender document")}
+      surrenderingState={FormState.UNINITIALIZED}
+      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+      holderTransferringState={FormState.UNINITIALIZED}
+      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      beneficiaryEndorseState={FormState.UNINITIALIZED}
+      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+      }
+      transferToNewEscrowState={FormState.UNINITIALIZED}
+      isTitleEscrow={false}
+      onDestroyToken={() => alert("Accept document surrender")}
+      destroyTokenState={FormState.UNINITIALIZED}
+      isTokenBurnt={false}
+      onRestoreToken={() => alert("Reject document surrender")}
+      restoreTokenState={FormState.UNINITIALIZED}
+      tokenId=""
+      isMinter={true}
+      document={obfuscatedDocument}
+      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
+    />
+  );
+};
+
+export const SurrenderedRejectForm = () => {
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.RejectSurrendered);
+
+  return (
+    <OverlayContextProvider>
+      <Overlay />
+      <AssetManagementForm
+        setShowEndorsementChain={() => {}}
+        account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+        onConnectToWallet={() => alert("Login to Metamask")}
+        beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+        approvedBeneficiary=""
+        holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+        approvedHolder=""
+        formAction={assetManagementAction}
+        tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+        documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+        onSetFormAction={setAssetManagementAction}
+        isSurrendered={true}
+        onSurrender={() => alert("Surrender document")}
+        surrenderingState={FormState.UNINITIALIZED}
+        onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+        holderTransferringState={FormState.UNINITIALIZED}
+        onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+          alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+        }
+        beneficiaryEndorseState={FormState.UNINITIALIZED}
+        onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+          alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+        }
+        approveNewTransferTargetsState={FormState.UNINITIALIZED}
+        onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+          alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        }
+        transferToNewEscrowState={FormState.UNINITIALIZED}
+        isTitleEscrow={false}
+        onDestroyToken={() => alert("Accept document surrender")}
+        destroyTokenState={FormState.UNINITIALIZED}
+        isTokenBurnt={false}
+        onRestoreToken={() => alert("Reject document surrender")}
+        restoreTokenState={FormState.UNINITIALIZED}
+        tokenId=""
+        isMinter={true}
+        document={obfuscatedDocument}
+        verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
+      />
+    </OverlayContextProvider>
+  );
+};
+
+export const SurrenderedDocument = () => {
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+
+  return (
+    <AssetManagementForm
+      setShowEndorsementChain={() => {}}
+      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      onConnectToWallet={() => alert("Login to Metamask")}
+      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedBeneficiary=""
+      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      approvedHolder=""
+      formAction={assetManagementAction}
+      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      onSetFormAction={setAssetManagementAction}
+      isSurrendered={false}
+      onSurrender={() => alert("Surrender document")}
+      surrenderingState={FormState.PENDING_CONFIRMATION}
+      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+      holderTransferringState={FormState.UNINITIALIZED}
+      onEndorseBeneficiary={(newBeneficiary, newHolder) =>
+        alert(`Change Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      beneficiaryEndorseState={FormState.UNINITIALIZED}
+      onApproveNewTransferTargets={(newBeneficiary, newHolder) =>
+        alert(`Nominate Owner: ${newBeneficiary}, Holder: ${newHolder}`)
+      }
+      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      onTransferToNewEscrow={(approvedBeneficiary, approvedHolder) =>
+        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+      }
+      transferToNewEscrowState={FormState.UNINITIALIZED}
+      isTitleEscrow={true}
+      onDestroyToken={() => alert("Accept document surrender")}
+      destroyTokenState={FormState.UNINITIALIZED}
+      isTokenBurnt={true}
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
