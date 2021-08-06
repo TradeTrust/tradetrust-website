@@ -107,7 +107,7 @@ export const VerifiableDocumentPersonas: Persona[] = [
     image: "/static/images/home/howItWorks/persona/persona7.png",
     jobTitle: "The Importer",
     description:
-      "The Importer This is James, he is an importer using TradeTrust to streamline his cargo collection process. See how he has benefited from using TradeTrust.",
+      "This is James, he is an importer using TradeTrust to streamline his cargo collection process. See how he has benefited from using TradeTrust.",
     learnMore: {
       title: "Electronic Certificate of Origin",
       startMessage: "Benefits gained by James",
@@ -141,7 +141,7 @@ export const VerifiableDocumentPersonas: Persona[] = [
     image: "/static/images/home/howItWorks/persona/persona8.png",
     jobTitle: "The Banker",
     description:
-      "This is Tanu. She is a banker using TradeTrust to minimize fraud when processing the Certificate of Origins in trade financing applications.",
+      "This is Tanu. She is a banker using TradeTrust to minimize fraud when processing Certificates of Origin in trade financing applications.",
     learnMore: {
       title: "Electronic Certificate of Origin",
       startMessage: "Benefits gained by Tanu",

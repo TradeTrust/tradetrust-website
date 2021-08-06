@@ -27,7 +27,11 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
                 {steps.stepTitle && (
                   <h6 className={`text-center ${steps.icon ? "mt-4" : "mt-0"}`}>{steps.stepTitle}</h6>
                 )}
-                <h6 className={`font-normal text-center mt-2 ${steps.icon ? "font-roboto" : "font-ubuntu text-2xl"}`}>
+                <h6
+                  className={`font-normal text-center mt-2 lg:-mx-6 ${
+                    steps.icon ? "font-roboto" : "font-ubuntu text-2xl"
+                  }`}
+                >
                   {steps.description}
                 </h6>
               </div>

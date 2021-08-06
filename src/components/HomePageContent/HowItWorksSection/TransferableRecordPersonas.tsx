@@ -5,7 +5,7 @@ export const TransferableRecordPersonas: Persona[] = [
     image: "/static/images/home//howItWorks/persona/persona1.png",
     jobTitle: "The Exporter",
     description:
-      "This is Kevin, he is an exporter with customers in many different countries. See how he cut down on time and cost when dealing with Blank-Endorsed BL.",
+      "This is Kevin, he is an exporter with customers in many different countries. See how he cuts down on time and cost when dealing with Blank-Endorsed BL.",
     learnMore: {
       title: "Electronic Bill of Lading",
       thenSteps: [
@@ -22,7 +22,7 @@ export const TransferableRecordPersonas: Persona[] = [
         {
           stepTitle: "Step 3",
           icon: "/static/images/home/howItWorks/icons/paperEndorse.svg",
-          description: "Exporter endorses BL",
+          description: "Exporter inserts BL into document pack and arranges courier pickup",
         },
         {
           stepTitle: "Step 4",
@@ -44,7 +44,8 @@ export const TransferableRecordPersonas: Persona[] = [
         {
           stepTitle: "Step 3",
           icon: "/static/images/home/howItWorks/icons/eEndorse.svg",
-          description: "Exporter performs endorsement to Negotiating Bank",
+          description:
+            "Exporter performs endorsement to Negotiating Bank and sends eBL to Negotiating Bank (via email)",
         },
       ],
       endMessage: "TradeTrust is more than a tool to hasten your exporting processes. Get in touch to find out more!",
@@ -62,17 +63,17 @@ export const TransferableRecordPersonas: Persona[] = [
         {
           benefitTitle: "1",
           icon: "/static/images/home/howItWorks/icons/customerExperience.svg",
-          description: "Improve customer experience with fast, transparent and trusted eBL",
+          description: "Improved customer experience with fast, transparent and trusted eBL",
         },
         {
           benefitTitle: "2",
           icon: "/static/images/home/howItWorks/icons/signUp.svg",
-          description: "Remove the need to subscribe to multiple eBL solutions",
+          description: "Removed the need to subscribe to multiple eBL solutions",
         },
         {
           benefitTitle: "3",
           icon: "/static/images/home/howItWorks/icons/paperRisk.svg",
-          description: "Lower the risk of human error",
+          description: "Lowered the risk of human error",
         },
         {
           benefitTitle: "4",
@@ -95,7 +96,7 @@ export const TransferableRecordPersonas: Persona[] = [
         {
           benefitTitle: "1",
           icon: "/static/images/home/howItWorks/icons/speedUp.svg",
-          description: "Shorten the endorsement process",
+          description: "Shortened endorsement process",
         },
         {
           benefitTitle: "2",
@@ -105,7 +106,7 @@ export const TransferableRecordPersonas: Persona[] = [
         {
           benefitTitle: "3",
           icon: "/static/images/home/howItWorks/icons/paperRisk.svg",
-          description: "Lower the risk of human error",
+          description: "Lower risk of human error",
         },
         {
           benefitTitle: "4",
@@ -120,7 +121,7 @@ export const TransferableRecordPersonas: Persona[] = [
     image: "/static/images/home/howItWorks/persona/persona4.png",
     jobTitle: "The Banker",
     description:
-      "The Banker This is Liam. He is a banker who processes trade financing applications. Find out how he managed to reduce fraud by using TradeTrust to process blank endorse BL.",
+      "The Banker This is Liam. He is a banker who processes trade financing applications. Find out how he managed to reduce fraud by using TradeTrust to process Blank-Endorsed BL.",
     learnMore: {
       title: "Electronic Bill of Lading",
       thenSteps: [
@@ -128,7 +129,7 @@ export const TransferableRecordPersonas: Persona[] = [
           stepTitle: "Step 1",
           icon: "/static/images/home/howItWorks/icons/paperReceive.svg",
           description:
-            "Negotiating Bank receives BL from Exporter (via courier) and checks\the details of BL including entire endorsement chain",
+            "Negotiating Bank receives BL from Exporter (via courier) and checks the details of BL including entire endorsement chain",
         },
         {
           stepTitle: "Step 2",
@@ -139,12 +140,11 @@ export const TransferableRecordPersonas: Persona[] = [
           stepTitle: "Step 3",
           icon: "/static/images/home/howItWorks/icons/paperCheck.svg",
           description:
-            "Issuing Bank receives eBL from Negotiating Bank (via courier) and checks the details of BL including entire endorsement chain",
+            "Issuing Bank receives eBL from Negotiating Bank (via courier) and checks the details of BL including the entire endorsement chain before endorsing the BL",
         },
         {
-          stepTitle: "Step 4",
-          icon: "/static/images/home/howItWorks/icons/paperIssue.svg",
-          description: "Issuing Bank endorses BL",
+          stepTitle: "Total Time Taken",
+          description: "10-20 days",
         },
       ],
       nowSteps: [
@@ -152,18 +152,22 @@ export const TransferableRecordPersonas: Persona[] = [
           stepTitle: "Step 1",
           icon: "/static/images/home/howItWorks/icons/eCheck.svg",
           description:
-            "Negotiating Bank receives eBL from Carrier (via email) and checks for authenticity and provenance including endorsement entry",
+            "Negotiating Bank receives eBL from Carrier (via email) and checks for authenticity and provenance including the endorsement entry",
         },
         {
           stepTitle: "Step 2",
           icon: "/static/images/home/howItWorks/icons/eEndorse.svg",
-          description: "Negotiating Bank performs endorsement and sends to Issuing Bank (via email)",
+          description: "Negotiating Bank performs endorsement and sends to the Issuing Bank (via email)",
         },
         {
           stepTitle: "Step 3",
           icon: "/static/images/home/howItWorks/icons/cheque.svg",
           description:
-            "Issuing Bank checks for authenticity(via TradeTrust) and provenance including the endorsement entry",
+            "Issuing Bank checks for authenticity (via TradeTrust) and provenance including the endorsement entry before endorsing the eBL",
+        },
+        {
+          stepTitle: "Total Time Taken",
+          description: "Less Than 1 day",
         },
       ],
       endMessage: "TradeTrust is more than a tool to prevent fraud. Get in touch to find out more!",
