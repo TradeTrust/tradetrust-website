@@ -50,7 +50,7 @@ export const VerifiableDocumentPersonas: Persona[] = [
           description: "Less Than 1 day",
         },
       ],
-      endMessage: "TradeTrust is more than a tool to hasten your exporting processs. Get in touch to find out more!",
+      endMessage: "TradeTrust is more than a tool to hasten your exporting processes. Get in touch to find out more!",
     },
   },
   {
@@ -100,7 +100,7 @@ export const VerifiableDocumentPersonas: Persona[] = [
             "Importing Country's Cert Checking Authority receives eCoO from Importer via email and checks for authenticity and provenance via TradeTrust website",
         },
       ],
-      endMessage: "TradeTrust is more than a tool to hasten your exporting processs. Get in touch to find out more!",
+      endMessage: "TradeTrust is more than a tool to hasten your exporting processes. Get in touch to find out more!",
     },
   },
   {
