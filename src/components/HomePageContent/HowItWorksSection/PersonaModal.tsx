@@ -54,7 +54,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
                 </div>
               )}
             </div>
-            {details.learnMore.startMessage && <h6 className="text-center mt-8">{details.learnMore.startMessage}</h6>}
+            {details.learnMore.startMessage && <h4 className="text-center mt-8">{details.learnMore.startMessage}</h4>}
             {details.learnMore.thenSteps && details.learnMore.nowSteps && (
               <div className="flex flex-row justify-center lg:hidden">
                 {contentType.map((content, index) => (
@@ -87,7 +87,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
             {details.learnMore.benefits && (
               <Steps contentType={ContentType.BENEFIT} stepsDetails={details.learnMore.benefits} />
             )}
-            <h5 className="text-center mt-8">{details.learnMore.endMessage}</h5>
+            <h4 className="text-center mt-8">{details.learnMore.endMessage}</h4>
           </div>
           <Link
             to="/contact"

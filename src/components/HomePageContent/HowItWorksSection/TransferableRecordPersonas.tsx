@@ -121,7 +121,7 @@ export const TransferableRecordPersonas: Persona[] = [
     image: "/static/images/home/howItWorks/persona/persona4.png",
     jobTitle: "The Banker",
     description:
-      "The Banker This is Liam. He is a banker who processes trade financing applications. Find out how he managed to reduce fraud by using TradeTrust to process Blank-Endorsed BL.",
+      "This is Liam. He is a banker who processes trade financing applications. Find out how he managed to reduce fraud by using TradeTrust to process Blank-Endorsed BL.",
     learnMore: {
       title: "Electronic Bill of Lading",
       thenSteps: [
