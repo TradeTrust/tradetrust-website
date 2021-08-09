@@ -1,13 +1,8 @@
-import { VerificationFragment } from "@govtechsg/oa-verify";
-import { v2, WrappedDocument } from "@govtechsg/open-attestation";
 import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
-import { DocumentStatus } from "../../../../DocumentStatus";
-import { ObfuscatedMessage } from "../../../../ObfuscatedMessage";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
-import { AssetManagementTags } from "../../../AssetManagementTags";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 
@@ -28,8 +23,6 @@ interface ActionSelectionFormProps {
   canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
-  document: WrappedDocument<v2.OpenAttestationDocument>;
-  verificationStatus: VerificationFragment[];
 }
 
 export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = ({
@@ -49,8 +42,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canEndorseTransfer,
   setShowEndorsementChain,
   isTitleEscrow,
-  document,
-  verificationStatus,
 }) => {
   const canManage =
     canHandleSurrender ||
@@ -85,9 +76,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   };
   return (
     <>
-      <DocumentStatus verificationStatus={verificationStatus} />
-      <ObfuscatedMessage document={document} />
-      <AssetManagementTags />
       <div className="flex flex-wrap justify-between pb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <AssetInformationPanel

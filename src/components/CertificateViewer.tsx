@@ -2,6 +2,7 @@ import { VerificationFragment } from "@govtechsg/oa-verify";
 import { getData, utils, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+// import { Link } from "react-router-dom";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { resetCertificateState } from "../reducers/certificate";
 import { getLogger } from "../utils/logger";
@@ -82,6 +83,8 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
 
   const renderedEndorsementChain = (
     <div className="bg-cerulean-50 no-print">
+      <DocumentStatus verificationStatus={verificationStatus} />
+      <ObfuscatedMessage document={document} />
       {tokenRegistryAddress && (
         <EndorsementChainContainer
           tokenId={tokenId}
@@ -95,19 +98,14 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const renderedCertificateViewer = (
     <>
       <div className="no-print">
-        {tokenRegistryAddress ? (
+        <DocumentStatus verificationStatus={verificationStatus} />
+        <ObfuscatedMessage document={document} />
+        {tokenRegistryAddress && (
           <AssetManagementApplication
             tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
-            document={document}
-            verificationStatus={verificationStatus}
           />
-        ) : (
-          <div className="container">
-            <DocumentStatus verificationStatus={verificationStatus} />
-            <ObfuscatedMessage document={document} />
-          </div>
         )}
       </div>
 

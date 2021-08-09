@@ -1,27 +1,22 @@
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { VerificationFragment } from "@govtechsg/oa-verify";
-import { v2, WrappedDocument } from "@govtechsg/open-attestation";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistryContract";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "./../AssetManagementForm";
+import { AssetManagementTags } from "./../AssetManagementTags";
 
 interface AssetManagementApplicationProps {
   tokenId: string;
   tokenRegistryAddress: string;
   setShowEndorsementChain: (payload: boolean) => void;
-  document: WrappedDocument<v2.OpenAttestationDocument>;
-  verificationStatus: VerificationFragment[];
 }
 
 export const AssetManagementApplication: FunctionComponent<AssetManagementApplicationProps> = ({
   tokenId,
   tokenRegistryAddress,
   setShowEndorsementChain,
-  document,
-  verificationStatus,
 }) => {
   const {
     approvedHolder,
@@ -86,6 +81,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   return (
     <div id="title-transfer-panel">
       <div className="container">
+        <AssetManagementTags />
         {isTitleEscrow !== undefined && (
           <AssetManagementForm
             account={account}
@@ -118,8 +114,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             onRestoreToken={onRestoreToken}
             restoreTokenState={restoreTokenState}
             tokenId={tokenId}
-            document={document}
-            verificationStatus={verificationStatus}
           />
         )}
       </div>

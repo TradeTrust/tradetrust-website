@@ -9,8 +9,6 @@ import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
 import { AcceptSurrenderedForm } from "./FormVariants/AcceptSurrenderedForm";
 import { RejectSurrenderedForm } from "./FormVariants/RejectSurrenderedForm";
-import { VerificationFragment } from "@govtechsg/oa-verify";
-import { v2, WrappedDocument } from "@govtechsg/open-attestation";
 
 interface AssetManagementFormProps {
   beneficiary?: string;
@@ -43,8 +41,6 @@ interface AssetManagementFormProps {
   onRestoreToken: (lastBeneficiary?: string, lastHolder?: string) => void;
   restoreTokenState: string;
   tokenId: string;
-  document: WrappedDocument<v2.OpenAttestationDocument>;
-  verificationStatus: VerificationFragment[];
 }
 
 export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = ({
@@ -78,8 +74,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   onRestoreToken,
   restoreTokenState,
   tokenId,
-  document,
-  verificationStatus,
 }) => {
   const isHolder = isTitleEscrow && account === holder;
   const isBeneficiary = isTitleEscrow && account === beneficiary;
@@ -232,8 +226,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           canEndorseTransfer={canEndorseTransfer}
           setShowEndorsementChain={setShowEndorsementChain}
           isTitleEscrow={isTitleEscrow}
-          document={document}
-          verificationStatus={verificationStatus}
         />
       );
   }

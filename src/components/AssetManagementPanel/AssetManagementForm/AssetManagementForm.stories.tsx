@@ -3,9 +3,6 @@ import React, { useState } from "react";
 import { FormState } from "../../../constants/FormState";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "./AssetManagementForm";
-import { whenDocumentValidAndIssuedByDns } from "../../../test/fixture/verifier-responses";
-import { v2, WrappedDocument } from "@govtechsg/open-attestation";
-import { VerificationFragment } from "@govtechsg/oa-verify";
 
 export default {
   title: "TitleTransfer/AssetManagementForm",
@@ -14,35 +11,6 @@ export default {
     componentSubtitle: "All various scenarios with title transfer.",
   },
 };
-
-const obfuscatedDocument = {
-  version: "https://schema.openattestation.com/2.0/schema.json",
-  data: {
-    $template: {
-      name: "fdb9d37a-ac86-4956-887c-d221c8e0cd62:string:main",
-      type: "31f7607f-54b9-46e7-8c1d-9c013c2ecd88:string:EMBEDDED_RENDERER",
-      url: "744f3009-426f-4ab7-91be-72abc02332e1:string:https://tutorial-renderer.openattestation.com",
-    },
-    recipient: {},
-    issuers: [
-      {
-        name: "d722d892-03c5-479d-af14-e4e7c6a4b822:string:Demo Issuer",
-        documentStore: "0aaf2824-6679-4bda-a669-b94ce50ef590:string:0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca",
-        identityProof: {
-          type: "af17ca30-0e7f-4fd9-848e-815f12badd6f:string:DNS-TXT",
-          location: "39c6d282-3061-492c-ae56-85745cc3edb7:string:demo-tradetrust.openattestation.com",
-        },
-      },
-    ],
-  },
-  signature: {
-    type: "SHA3MerkleProof",
-    targetHash: "c5d53262962b192c5c977f2252acd4862f41cc1ccce7e87c5b406905a2726692",
-    proof: [],
-    merkleRoot: "c5d53262962b192c5c977f2252acd4862f41cc1ccce7e87c5b406905a2726692",
-  },
-  privacy: {},
-} as WrappedDocument<v2.OpenAttestationDocument>;
 
 export const NotLoggedIn = () => {
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
@@ -83,8 +51,6 @@ export const NotLoggedIn = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -130,8 +96,6 @@ export const NoMatch = () => {
         onRestoreToken={() => alert("Reject document surrender")}
         restoreTokenState={FormState.UNINITIALIZED}
         tokenId=""
-        document={obfuscatedDocument}
-        verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
       />
     </OverlayContextProvider>
   );
@@ -176,8 +140,6 @@ export const BeneficiaryAndHolder = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -221,8 +183,6 @@ export const Beneficiary = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -266,8 +226,6 @@ export const Holder = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -311,8 +269,6 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -356,8 +312,6 @@ export const TransferHolderError = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -401,8 +355,6 @@ export const TransferHolderPending = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -446,8 +398,6 @@ export const EndorseChangeBeneficiaryError = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -491,8 +441,6 @@ export const EndorseChangeBeneficiaryPending = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -536,8 +484,6 @@ export const NominateBeneficiaryAndHolderError = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -581,8 +527,6 @@ export const NominateBeneficiaryAndHolderPending = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -626,8 +570,6 @@ export const EndorseTransferHolderBeneficiary = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -671,8 +613,6 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -716,8 +656,6 @@ export const SurrenderDocument = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -761,8 +699,6 @@ export const SurrenderPending = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -808,8 +744,6 @@ export const SurrenderedNotMinter = () => {
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
       isMinter={false}
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -855,8 +789,6 @@ export const SurrenderedIsMinter = () => {
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
       isMinter={true}
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -902,8 +834,6 @@ export const SurrenderedAcceptForm = () => {
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
       isMinter={true}
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
@@ -951,8 +881,6 @@ export const SurrenderedRejectForm = () => {
         restoreTokenState={FormState.UNINITIALIZED}
         tokenId=""
         isMinter={true}
-        document={obfuscatedDocument}
-        verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
       />
     </OverlayContextProvider>
   );
@@ -997,8 +925,6 @@ export const SurrenderedDocument = () => {
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
       tokenId=""
-      document={obfuscatedDocument}
-      verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
     />
   );
 };
