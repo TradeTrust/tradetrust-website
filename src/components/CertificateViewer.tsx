@@ -2,7 +2,6 @@ import { VerificationFragment } from "@govtechsg/oa-verify";
 import { getData, utils, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-// import { Link } from "react-router-dom";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { resetCertificateState } from "../reducers/certificate";
 import { getLogger } from "../utils/logger";
