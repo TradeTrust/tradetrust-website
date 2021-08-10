@@ -7,12 +7,10 @@ interface StatusProps {
 }
 
 const Status = ({ message, icon }: StatusProps) => (
-  <div className="status">
-    <div className="flex items-center">
-      <div className="w-auto">{icon}</div>
-      <div className="flex-grow">
-        <p className="pl-2 mb-0 message">{message}</p>
-      </div>
+  <div className="flex justify-start items-center">
+    <div>{icon}</div>
+    <div className="flex-grow">
+      <p className="pl-2 mb-0 text-sm leading-5">{message}</p>
     </div>
   </div>
 );
@@ -28,7 +26,7 @@ interface StatusCheck {
 
 export const StatusCheck: FunctionComponent<StatusCheck> = ({ valid, messageSet }) => {
   const message = valid ? messageSet.successTitle : messageSet.failureTitle;
-  const icon = valid ? <CheckCircle className="text-turquoise" /> : <XCircle className="text-red-500" />;
+  const icon = valid ? <CheckCircle className="text-emerald" /> : <XCircle className="text-rose" />;
 
   return <Status message={message} icon={icon} />;
 };

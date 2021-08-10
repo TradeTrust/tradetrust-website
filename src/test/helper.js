@@ -4,7 +4,7 @@ export const Iframe = Selector("#iframe[title='Decentralised Rendered Certificat
 export const SampleTemplate = Selector("#root");
 const CertificateDropzone = Selector("#certificate-dropzone");
 const DocumentStatus = Selector("#document-status");
-const IssuedByDomainName = Selector("#issuedby .domain");
+const IssuedByDomainName = Selector("#issuedby");
 const VerifyPage = Selector("a[href='/verify']");
 const SettingsPage = Selector("a[href='/settings']");
 const AddressResolverPage = Selector("a[href='/settings/address-resolver']");

@@ -96,7 +96,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
 
   const renderedCertificateViewer = (
     <>
-      <div className="bg-cerulean-50 no-print">
+      <div className="no-print">
         <DocumentStatus verificationStatus={verificationStatus} />
         <ObfuscatedMessage document={document} />
         {tokenRegistryAddress && (
@@ -107,7 +107,8 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
           />
         )}
       </div>
-      <div className="bg-cerulean-50 no-print">
+
+      <div className="no-print mt-16">
         <MultiTabs
           hasAttachments={hasAttachments}
           attachments={attachments}

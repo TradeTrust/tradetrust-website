@@ -73,11 +73,11 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
         </div>
       </div>
       <div className="flex flex-wrap pb-4">
-        <div className="w-auto ml-auto">
+        <div className="w-auto lg:ml-auto">
           <div className="flex flex-wrap">
             <div className="w-auto">
               <Button
-                className="bg-white text-gray-500 hover:bg-gray-100"
+                className="bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-900 shadow-none hover:bg-cloud-200"
                 onClick={setFormActionNone}
                 disabled={isPendingConfirmation}
               >
@@ -86,7 +86,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
             </div>
             <div className="w-auto ml-2">
               <Button
-                className="bg-tangerine-600 text-white hover:bg-tangerine"
+                className="bg-cerulean rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-300"
                 onClick={() => handleEndorseTransfer(approvedBeneficiary || "", approvedHolder || "")}
                 disabled={isPendingConfirmation}
                 data-testid={"endorseTransferBtn"}

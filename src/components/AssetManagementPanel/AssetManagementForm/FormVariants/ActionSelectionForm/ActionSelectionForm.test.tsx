@@ -1,6 +1,10 @@
+import { v2, WrappedDocument } from "@govtechsg/open-attestation";
+import * as obfuscatedDocument from "../../../../../test/fixture/obfuscated-document.json";
 import { act, fireEvent, render } from "@testing-library/react";
 import React from "react";
+import { whenDocumentValidAndIssuedByDns } from "../../../../../test/fixture/verifier-responses";
 import { ActionSelectionForm } from "./ActionSelectionForm";
+import { VerificationFragment } from "@govtechsg/oa-verify";
 
 const defaultProps = {
   setShowEndorsementChain: () => {},
@@ -19,6 +23,8 @@ const defaultProps = {
   canEndorseTransfer: false,
   isTitleEscrow: true,
   isTokenBurnt: false,
+  document: obfuscatedDocument as WrappedDocument<v2.OpenAttestationDocument>,
+  verificationStatus: whenDocumentValidAndIssuedByDns as VerificationFragment[],
 };
 
 describe("ActionSelectionForm", () => {

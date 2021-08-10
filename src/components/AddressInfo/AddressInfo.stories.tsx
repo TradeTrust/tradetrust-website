@@ -1,10 +1,10 @@
 import React from "react";
-import { AddressInfo, AddressInfoUnStyled } from "./AddressInfo";
+import { AddressInfo } from "./AddressInfo";
 import { ExternalLink } from "../UI/ExternalLink";
 
 export default {
   title: "TitleTransfer/AddressInfo",
-  component: AddressInfoUnStyled,
+  component: AddressInfo,
   parameters: {
     componentSubtitle: "AddressInfo with role, resolved address, external link.",
   },
