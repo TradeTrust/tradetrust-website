@@ -34,6 +34,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
     }
   }
   const tokenRegistryAddress = isTransferableAsset ? utils.getIssuerAddress(document)[0] : "";
+  const isTransferableDocument = tokenRegistryAddress;
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
@@ -82,9 +83,8 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
 
   const renderedEndorsementChain = (
     <div className="bg-cerulean-50 no-print">
-      <DocumentStatus verificationStatus={verificationStatus} />
       <ObfuscatedMessage document={document} />
-      {tokenRegistryAddress && (
+      {isTransferableDocument && (
         <EndorsementChainContainer
           tokenId={tokenId}
           tokenRegistry={tokenRegistryAddress}
@@ -97,13 +97,14 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const renderedCertificateViewer = (
     <>
       <div className="no-print">
-        <DocumentStatus verificationStatus={verificationStatus} />
+        {!isTransferableDocument && <DocumentStatus verificationStatus={verificationStatus} />}
         <ObfuscatedMessage document={document} />
-        {tokenRegistryAddress && (
+        {isTransferableDocument && (
           <AssetManagementApplication
             tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
+            verificationStatus={verificationStatus}
           />
         )}
       </div>
