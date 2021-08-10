@@ -96,15 +96,15 @@ export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filenam
   filesize = prettyBytes(decodedData.length);
 
   return (
-    <div className="transition duration-300 ease-out flex-1 border border-solid border-gray-200 py-2 px-4 hover:no-underline hover:bg-cerulean-300">
+    <div className="transition duration-300 ease-out flex-1 rounded-xl border border-cloud-100 shadow-lg py-2 px-4 hover:no-underline">
       <div className="flex flex-row">
         <div className="w-auto mr-4">{getExtension(type)}</div>
         <div className="w-5/6">
           <p className="mb-2 break-all">
-            <span className="transition duration-300 ease-out leading-5 text-gray-700 break-words font-semibold mr-1">
+            <span className="transition duration-300 ease-out leading-5 text-cloud-500 break-words font-bold mr-1">
               {filename}
             </span>
-            {hasBase64 && <span className="font-normal text-gray-500 text-sm">({filesize})</span>}
+            {hasBase64 && <span className="font-normal text-cloud-500 text-sm">({filesize})</span>}
           </p>
           <div className="flex">
             <div className="w-auto mr-2">
@@ -112,7 +112,7 @@ export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filenam
                 href={downloadHref}
                 download={`${filename}`}
                 data-testid="attachment-download-link"
-                className="text-blue hover:underline"
+                className="text-cerulean-200 font-bold hover:underline"
               >
                 Download
               </a>
@@ -123,7 +123,7 @@ export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filenam
                   onClick={() => {
                     openTab(data);
                   }}
-                  className="text-blue hover:underline"
+                  className="text-cerulean-200 hover:underline"
                   data-testid="attachment-open-link"
                 >
                   Open

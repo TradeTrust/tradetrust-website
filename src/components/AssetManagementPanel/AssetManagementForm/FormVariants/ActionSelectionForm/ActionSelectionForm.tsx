@@ -86,8 +86,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
         {isSurrendered && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrender-sign" className="text-red-500 border-red-500">
-                Surrendered To Issuer
+              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-rose border-rose">
+                <h3 className="text-4xl">Surrendered To Issuer</h3>
               </TagBorderedLg>
             </div>
           </div>
@@ -95,8 +95,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
         {isTokenBurnt && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrendered-sign" className="text-red-500 border-red-500">
-                Surrendered
+              <TagBorderedLg id="surrendered-sign" className="bg-white rounded-xl text-rose border-rose">
+                <h3 className="text-4xl">Surrendered</h3>
               </TagBorderedLg>
             </div>
           </div>
@@ -128,14 +128,17 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                     canHandleSurrender={canHandleSurrender}
                   />
                 ) : (
-                  <Button className="bg-tangerine-600 text-white hover:bg-tangerine" onClick={handleNoAccess}>
+                  <Button
+                    className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
+                    onClick={handleNoAccess}
+                  >
                     No Access
                   </Button>
                 )}
               </>
             ) : (
               <Button
-                className="bg-tangerine-600 text-white hover:bg-tangerine"
+                className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
                 data-testid={"connectToWallet"}
                 onClick={handleConnectWallet}
               >

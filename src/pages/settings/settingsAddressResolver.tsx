@@ -16,6 +16,10 @@ export const SettingsAddressResolverPage: FunctionComponent = () => (
       <Link to="/settings">
         <BackArrow />
       </Link>
+      <div className="flex-1 flex-col">
+        <h3 className="font-ubuntu text-4xl text-cloud-900">Resolver: Address</h3>
+        <p className="mb-5 text-cloud-900">Add third party’s endpoint to resolve addresses.</p>
+      </div>
       <AddressResolver />
     </div>
   </>
