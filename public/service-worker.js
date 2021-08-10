@@ -1,5 +1,5 @@
 // Set this to true for production
-var doCache = true;
+var doCache = false;
 
 // Name our cache
 var CACHE_NAME = "tradetrust-pwa-v1";
@@ -29,7 +29,7 @@ self.addEventListener("install", function (event) {
       caches.open(CACHE_NAME).then(function (cache) {
         // Get the assets manifest so we can see what our js file is named
         // This is because webpack hashes it
-        fetch("/static/pwa/manifest.json")
+        fetch("/manifest.json")
           .then((response) => {
             response.json();
           })

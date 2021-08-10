@@ -56,15 +56,16 @@ module.exports = {
     }),
     ...(IS_PROD
       ? [
-          new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
-          new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
+          new CompressionPlugin({ test: /\.(js|css|html|svg|json)$/ }),
+          new BrotliPlugin({ test: /\.(js|css|html|svg|json)$/ }),
           new CopyWebpackPlugin({
             patterns: [
               { from: "public/static/images", to: "static/images" },
               { from: "public/static/demo", to: "static/demo" },
               { from: "public/static/uploads", to: "static/uploads" },
-              { from: "public/static/pwa", to: "static/pwa" },
               { from: "public/admin", to: "admin" },
+              { from: "public/manifest.json", to: "public/manifest.json" },
+              { from: "public/service-worker.js", to: "public/service-worker.js" },
             ],
           }),
         ]
