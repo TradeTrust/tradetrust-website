@@ -16,7 +16,7 @@ export const DocumentContent: DocumentTypeContent[] = [
     type: "Verifiable Documents",
     description: "Verifiable Documents are other non-transferable trade documents that do not confer ownership.",
     examples:
-      "Examples of Verifiable documents typically include Certificate of Origin(CoO), Invoices and promissory notes.",
+      "Examples of verifiable documents typically include Certificate of Origin (CoO), Invoices and promissory notes.",
     message: "See how each persona has benefited from using TradeTrust when dealing with Certificate of Origin.",
     users: VerifiableDocumentPersonas,
   },

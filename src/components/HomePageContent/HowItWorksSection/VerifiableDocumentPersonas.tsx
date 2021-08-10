@@ -50,7 +50,7 @@ export const VerifiableDocumentPersonas: Persona[] = [
           description: "Less Than 1 day",
         },
       ],
-      endMessage: "TradeTrust is more than a tool to hasten your exporting processs. Get in touch to find out more!",
+      endMessage: "TradeTrust is more than a tool to hasten your exporting processes. Get in touch to find out more!",
     },
   },
   {
@@ -100,14 +100,14 @@ export const VerifiableDocumentPersonas: Persona[] = [
             "Importing Country's Cert Checking Authority receives eCoO from Importer via email and checks for authenticity and provenance via TradeTrust website",
         },
       ],
-      endMessage: "TradeTrust is more than a tool to hasten your exporting processs. Get in touch to find out more!",
+      endMessage: "TradeTrust is more than a tool to hasten your exporting processes. Get in touch to find out more!",
     },
   },
   {
     image: "/static/images/home/howItWorks/persona/persona7.png",
     jobTitle: "The Importer",
     description:
-      "The Importer This is James, he is an importer using TradeTrust to streamline his cargo collection process. See how he has benefited from using TradeTrust.",
+      "This is James, he is an importer using TradeTrust to streamline his cargo collection process. See how he has benefited from using TradeTrust.",
     learnMore: {
       title: "Electronic Certificate of Origin",
       startMessage: "Benefits gained by James",
@@ -141,7 +141,7 @@ export const VerifiableDocumentPersonas: Persona[] = [
     image: "/static/images/home/howItWorks/persona/persona8.png",
     jobTitle: "The Banker",
     description:
-      "This is Tanu. She is a banker using TradeTrust to minimize fraud when processing the Certificate of Origins in trade financing applications.",
+      "This is Tanu. She is a banker using TradeTrust to minimise fraud when processing Certificates of Origin in trade financing applications.",
     learnMore: {
       title: "Electronic Certificate of Origin",
       startMessage: "Benefits gained by Tanu",
