@@ -1,3 +1,4 @@
+declare const window: any;
 import React from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
@@ -24,7 +25,7 @@ export const HomePageContainer = (): React.ReactElement => {
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
   // event listener for any custom postMessage
-  window.addEventListener("message", (event) => {
+  window.addEventListener("message", (event: any) => {
     if (event.data.type === NestedDocumentState.LOAD) {
       try {
         const doc = atob(event.data.payload);
@@ -35,6 +36,7 @@ export const HomePageContainer = (): React.ReactElement => {
       }
     }
   });
+
   React.useEffect(() => {
     if (location.search !== "") {
       const queryParams = queryString.parse(location.search);
@@ -52,6 +54,31 @@ export const HomePageContainer = (): React.ReactElement => {
       history.push("/verify");
     }
   }, [dispatch, location, history]);
+
+  React.useEffect(() => {
+    // https://web.dev/file-handling/
+    // https://web.dev/deprecating-excalidraw-electron/
+    // https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileHandle
+    // https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
+    if ("launchQueue" in window) {
+      window.launchQueue.setConsumer(async (launchParams: any) => {
+        // Nothing to do when the queue is empty.
+        if (!launchParams.files.length) {
+          return;
+        }
+        for (const fileHandle of launchParams.files) {
+          try {
+            const fileData = await fileHandle.getFile();
+            const text = await fileData.text();
+            loadCertificate(JSON.parse(text));
+            history.push("/verify");
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      });
+    }
+  }, [loadCertificate, history]);
   return (
     <div className="text-lg">
       <WelcomeSection />
