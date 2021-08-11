@@ -88,6 +88,9 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
                 <td className="table-cell">
                   {isNewOwnerAddress && <div className="action-title">Endorse change of ownership</div>}
                   {isNewHolderAddress && !isNewOwnerAddress && <div className="action-title">Transfer holdership</div>}
+                  {!isNewHolderAddress && !isNewOwnerAddress && (
+                    <div className="action-title">Surrender of document rejected</div>
+                  )}
                   <div className="date">{format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}</div>
                 </td>
                 <td className="table-cell">
