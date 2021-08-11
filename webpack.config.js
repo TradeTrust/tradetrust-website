@@ -64,6 +64,8 @@ module.exports = {
               { from: "public/static/demo", to: "static/demo" },
               { from: "public/static/uploads", to: "static/uploads" },
               { from: "public/admin", to: "admin" },
+              { from: "public/service-worker.js", to: "service-worker.js" },
+              { from: "public/manifest.json", to: "manifest.json" },
             ],
           }),
         ]
