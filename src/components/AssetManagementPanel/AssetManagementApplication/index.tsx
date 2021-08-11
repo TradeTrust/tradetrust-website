@@ -1,3 +1,4 @@
+import { VerificationFragment } from "@govtechsg/oa-verify";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
@@ -6,17 +7,20 @@ import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistry
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "./../AssetManagementForm";
 import { AssetManagementTags } from "./../AssetManagementTags";
+import { DocumentStatus } from "./../../DocumentStatus";
 
 interface AssetManagementApplicationProps {
   tokenId: string;
   tokenRegistryAddress: string;
   setShowEndorsementChain: (payload: boolean) => void;
+  verificationStatus: VerificationFragment[];
 }
 
 export const AssetManagementApplication: FunctionComponent<AssetManagementApplicationProps> = ({
   tokenId,
   tokenRegistryAddress,
   setShowEndorsementChain,
+  verificationStatus,
 }) => {
   const {
     approvedHolder,
@@ -80,8 +84,13 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
 
   return (
     <div id="title-transfer-panel">
+      {assetManagementAction === AssetManagementActions.None && (
+        <>
+          <DocumentStatus verificationStatus={verificationStatus} />
+          <AssetManagementTags />
+        </>
+      )}
       <div className="container">
-        <AssetManagementTags />
         {isTitleEscrow !== undefined && (
           <AssetManagementForm
             account={account}

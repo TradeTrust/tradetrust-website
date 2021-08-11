@@ -14,7 +14,7 @@ export const AssetManagementTitle: FunctionComponent<AssetManagementTitleProps> 
   disabled,
 }) => {
   return (
-    <div className="flex flex-wrap my-2">
+    <div className="flex flex-wrap my-4">
       <div
         className={`mb-2 ${disabled ? "text-gray-300 cursor-default" : "text-gray-500 cursor-pointer"}`}
         onClick={() => setFormActionNone(disabled)}

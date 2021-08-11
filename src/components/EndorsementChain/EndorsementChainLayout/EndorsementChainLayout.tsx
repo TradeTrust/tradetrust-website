@@ -187,7 +187,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
     });
 
   return (
-    <EndorsementChainLayoutStyle className="container pb-40">
+    <EndorsementChainLayoutStyle className="container pb-40 my-4">
       <div className="back-button" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
         <BackArrow />
       </div>
