@@ -7,7 +7,7 @@ import { createRootReducer } from "./reducers";
 const sagaMiddleware = createSagaMiddleware();
 
 export const configureStore = (): ReturnType<typeof createStore> => {
-  const store = createStore(createRootReducer(), composeWithDevTools(applyMiddleware(sagaMiddleware)));
+  const store = createStore(createRootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
   sagaMiddleware.run(sagas);
   return store;
 };

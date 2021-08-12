@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { roundInstructionsText } from ".";
 import { updateCertificate } from "../../reducers/certificate";
 import { CertificateDropZoneContainer } from "../CertificateDropZone/CertificateDropZoneContainer";
+import { setActive, reset } from "../../reducers/demo";
 import { loadDemoCertificate, DEMO_CERT } from "./helpers";
 
 const DraggableDemoCertificate = () => (
@@ -48,6 +49,9 @@ export const DropZoneSectionContainer = (): React.ReactElement => {
           onDrop={(event) => {
             if (event.dataTransfer && event.dataTransfer.getData(DEMO_CERT)) {
               loadDemoCertificate(loadCertificate);
+              dispatch(setActive());
+            } else {
+              dispatch(reset());
             }
           }}
         >

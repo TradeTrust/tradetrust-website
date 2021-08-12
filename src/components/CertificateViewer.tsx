@@ -1,9 +1,10 @@
 import { VerificationFragment } from "@govtechsg/oa-verify";
 import { getData, utils, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { resetCertificateState } from "../reducers/certificate";
+import { RootState } from "../reducers";
 import { getLogger } from "../utils/logger";
 import { TemplateProps } from "./../types";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
@@ -15,6 +16,7 @@ import { EndorsementChainContainer } from "./EndorsementChain";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
+import { Banner } from "./UI/Banner";
 
 const { trace } = getLogger("component: certificateviewer");
 
@@ -45,6 +47,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const dispatch = useDispatch();
 
   const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
+  const isDemo = useSelector((state: RootState) => state.demo.value);
 
   /*
   initialise the meta token information context when new tokenId
@@ -98,6 +101,11 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
     <>
       <div className="no-print">
         {!isTransferableDocument && <DocumentStatus verificationStatus={verificationStatus} />}
+        {isDemo && (
+          <Banner className="mt-8">
+            Want to try creating a verifiable document? You will be surprised how easy it is.
+          </Banner>
+        )}
         <ObfuscatedMessage document={document} />
         {isTransferableDocument && (
           <AssetManagementApplication
