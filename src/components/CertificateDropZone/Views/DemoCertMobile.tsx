@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { setActive } from "../../../reducers/demo";
 import { updateCertificate } from "../../../reducers/certificate";
 import { loadDemoCertificate } from "../../../components/VerifyPageContent/helpers";
 
@@ -19,6 +20,7 @@ export const DemoCertMobile = (): React.ReactElement => {
         onClick={(e: React.SyntheticEvent) => {
           e.stopPropagation();
           loadDemoCertificate(loadCertificate);
+          dispatch(setActive());
         }}
       >
         {btnMessage}
