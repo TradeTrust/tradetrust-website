@@ -6,10 +6,10 @@ import styled from "@emotion/styled";
 const SectionMap = () => {
   return (
     <section className="pt-8 pb-16">
-      <div className="max-w-3xl mx-auto absolute left-0 right-0">
+      <div className="max-w-3xl mx-auto lg:absolute left-0 right-0">
         <img src="/static/images/eta/map.png" alt="" />
       </div>
-      <div className="h-48" />
+      <div className="lg:h-48" />
       <div className="container relative z-10">
         <div className="flex flex-wrap -mx-4 mb-16">
           <div className="w-full lg:w-1/3 px-4 lg:px-8">
@@ -78,7 +78,7 @@ const AmendedEta = styled.div`
 const SectionAmendedEta = () => {
   return (
     <section className="bg-white relative z-10">
-      <AmendedEta className="bg-cerulean rounded-lg text-white p-8 text-center absolute left-0 right-0 max-w-4xl mx-auto transform -translate-y-1/2">
+      <AmendedEta className="bg-cerulean rounded-lg text-white p-8 text-center lg:absolute left-0 right-0 max-w-4xl mx-auto transform lg:-translate-y-1/2">
         <h2>The amended ETA supports and complements the government’s trade digitalization initiatives.</h2>
       </AmendedEta>
     </section>
@@ -100,7 +100,7 @@ const EblFeature = ({ title, src }: { title: string; src: string }) => {
 
 const SectionWhyBl = () => {
   return (
-    <section className="bg-white pt-8 pb-48 lg:pb-32">
+    <section className="bg-white pt-8 pb-12 lg:pb-40">
       <div className="container">
         <h1 className="text-center mb-8">Why Do We Need eBLs?</h1>
         <div className="flex flex-wrap">
@@ -206,9 +206,7 @@ const SectionWhatEta = () => {
         <div className="flex flex-wrap max-w-5xl mx-auto">
           <div className="w-full lg:w-2/5 mx-auto">
             <div className="py-4 lg:py-8">
-              <div className="rounded-full w-16 h-16 shadow-xl mx-auto items-center flex mb-8">
-                <img className="mx-auto w-8" src="/static/images/eta/cart.svg" alt="" />
-              </div>
+              <img className="mx-auto" src="/static/images/eta/ecommerce.svg" alt="" />
               <h5>
                 The Electronic Transactions Act (ETA) facilitates the use of e-commerce and e-transactions by giving
                 e-contracts and e-signatures the same status as written contracts and signatures
@@ -217,9 +215,7 @@ const SectionWhatEta = () => {
           </div>
           <div className="w-full lg:w-2/5 mx-auto">
             <div className="py-4 lg:py-8">
-              <div className="rounded-full w-16 h-16 shadow-xl mx-auto items-center flex mb-8">
-                <img className="mx-auto w-8" src="/static/images/eta/file.svg" alt="" />
-              </div>
+              <img className="mx-auto" src="/static/images/eta/document.svg" alt="" />
               <h5>
                 Recent ETA amendments enable the creation and use of Electronic Transferable Records (ETRs), such as
                 electrotonic Bills of Lading (eBLs)
@@ -234,7 +230,7 @@ const SectionWhatEta = () => {
 
 const SectionEta = () => {
   return (
-    <section className="py-8 lg:py-4">
+    <section className="py-8 lg:py-12 bg-cerulean-50">
       <div className="container">
         <div className="flex flex-wrap lg:flex-nowrap items-center">
           <div className="w-full lg:w-1/3 xxl:w-1/4 lg:flex-none">

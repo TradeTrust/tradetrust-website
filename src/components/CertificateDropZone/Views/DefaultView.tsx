@@ -48,6 +48,7 @@ export const DefaultView = ({
       <div className="mx-auto">
         <ViewerButton>Select File</ViewerButton>
         <ViewerButton
+          className="md:hidden"
           data-testid="scan-qr-button"
           onClick={(event) => {
             event.preventDefault();

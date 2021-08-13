@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { Settings } from "react-feather";
 import {
+  Button,
   NavigationBar as NavBar,
   NavigationItem,
   NAVIGATION_ITEM_TYPE,
-  stylesButtonCreateDocument,
-  stylesButtonVerifyDocument,
+  Size,
 } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
@@ -22,7 +22,7 @@ const leftNavItems: NavigationItem[] = [
         label: "Learn",
         path: "/learn",
         customLink: (
-          <NavLink className="block w-full px-4 py-2" to={"/learn"}>
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/learn"}>
             Learn
           </NavLink>
         ),
@@ -32,7 +32,7 @@ const leftNavItems: NavigationItem[] = [
         label: "FAQ",
         path: "/faq",
         customLink: (
-          <NavLink className="block w-full px-4 py-2" to={"/faq"}>
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/faq"}>
             FAQ
           </NavLink>
         ),
@@ -42,7 +42,7 @@ const leftNavItems: NavigationItem[] = [
         label: "ETA",
         path: "/eta",
         customLink: (
-          <NavLink className="block w-full px-4 py-2" to={"/eta"}>
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/eta"}>
             ETA
           </NavLink>
         ),
@@ -60,7 +60,7 @@ const leftNavItems: NavigationItem[] = [
         label: "News",
         path: "/news",
         customLink: (
-          <NavLink className="block w-full px-4 py-2" to={"/news"}>
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/news"}>
             News
           </NavLink>
         ),
@@ -70,7 +70,7 @@ const leftNavItems: NavigationItem[] = [
         label: "Event",
         path: "/event",
         customLink: (
-          <NavLink className="block w-full px-4 py-2" to={"/event"}>
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/event"}>
             Event
           </NavLink>
         ),
@@ -83,7 +83,7 @@ const leftNavItems: NavigationItem[] = [
     label: "Contact",
     path: "/contact",
     customLink: (
-      <NavLink className="block w-full text-current" to={"/contact"}>
+      <NavLink activeClassName="text-cerulean" className="block w-full text-current" to={"/contact"}>
         Contact
       </NavLink>
     ),
@@ -98,7 +98,7 @@ const rightNavItems: NavigationItem[] = [
     path: "/settings",
     icon: Settings,
     customLink: (
-      <NavLink className="block w-full py-2 text-cloud-500" to={"/settings"}>
+      <NavLink activeClassName="text-cerulean" className="block w-full py-2 text-current" to={"/settings"}>
         <Settings className="stroke-current" />
       </NavLink>
     ),
@@ -108,17 +108,24 @@ const rightNavItems: NavigationItem[] = [
     id: "create-documents",
     label: "Create Doc",
     path: URLS.CREATOR,
-    className: stylesButtonCreateDocument,
+    customLink: (
+      <a href={URLS.CREATOR}>
+        <Button className="bg-white text-cerulean hover:bg-gray-50 border border-cloud-200" size={Size.SM}>
+          Create Doc
+        </Button>
+      </a>
+    ),
   },
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
     id: "verify",
     label: "Verify Doc",
     path: "/verify",
-    className: stylesButtonVerifyDocument,
     customLink: (
-      <NavLink className="inline-block p-2 text-current hover:text-current" to={"/verify"}>
-        Verify Doc
+      <NavLink to={"/verify"}>
+        <Button className="bg-cerulean text-white hover:bg-cerulean-500" size={Size.SM}>
+          Verify Doc
+        </Button>
       </NavLink>
     ),
   },
