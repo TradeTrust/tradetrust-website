@@ -3,29 +3,10 @@ import { ChevronLeft } from "react-feather";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useLocation, useParams } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import styled from "@emotion/styled";
 import { allNews } from "./../components/News";
 import { NewsSingle, NewsTag } from "./../components/News/types";
+import { NewsDetailContent } from "./../components/News/NewsDetailContent/NewsDetailContent";
 import { ResourceDownload } from "./../components/UI/ResourceDownload";
-import { TagBorderedSm } from "./../components/UI/Tag";
-
-const Wysiwyg = styled.div`
-  img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 24px;
-  }
-
-  p {
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
-
-  a {
-    word-break: break-word;
-  }
-`;
 
 export const NewsPageDetail: FunctionComponent = () => {
   const location = useLocation();
@@ -59,14 +40,7 @@ export const NewsPageDetail: FunctionComponent = () => {
         </div>
         <div className="flex flex-wrap py-4 mb-8 -mx-4">
           <div className="w-full lg:w-2/3 lg:px-4">
-            <div className="bg-white text-gray-600 shadow-lg rounded-lg p-8">
-              <TagBorderedSm className="mb-4">{detail.type}</TagBorderedSm>
-              <h3 className="mb-4 leading-8">{detail.attributes.title}</h3>
-              <p className="text-sm text-gray-400 mb-4">{detail.attributes.date}</p>
-              <Wysiwyg>
-                <ReactMarkdown>{detail.body}</ReactMarkdown>
-              </Wysiwyg>
-            </div>
+            <NewsDetailContent detail={detail} />
           </div>
           <div className="w-full lg:w-1/3 lg:px-4 hidden lg:block">
             <ResourceDownload title="Newsletter" resources={newsletters} />

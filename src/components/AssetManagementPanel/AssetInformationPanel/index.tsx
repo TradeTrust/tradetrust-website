@@ -17,15 +17,11 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanelProps
     <div className={`py-4 ${className}`}>
       <AddressInfo title="BL information" name="" resolvedBy="" source="">
         <div>
-          <ExternalLinkEtherscanAddress
-            name="View BL Registry"
-            address={tokenRegistryAddress}
-            className="text-cerulean-200 font-bold"
-          />
+          <ExternalLinkEtherscanAddress name="View BL Registry" address={tokenRegistryAddress} />
         </div>
         <div
           onClick={() => setShowEndorsementChain(true)}
-          className="text-cerulean-200 font-bold cursor-pointer transition-colors duration-300 ease-out hover:text-cerulean"
+          className="cursor-pointer transition-colors duration-200 ease-out hover:text-cerulean"
           id="endorsement-chain-button"
         >
           View Endorsement Chain

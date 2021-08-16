@@ -12,39 +12,45 @@
   }
 
   h1 {
-    font-size: 40px;
+    font-size: 52px;
     @apply font-ubuntu;
     @apply font-bold;
   }
 
   h2 {
-    font-size: 32px;
+    font-size: 40px;
     @apply font-ubuntu;
     @apply font-bold;
   }
 
   h3 {
-    font-size: 28px;
+    font-size: 26px;
     @apply font-ubuntu;
-    @apply font-bold;
+    @apply font-normal;
   }
 
   h4 {
-    font-size: 24px;
-    @apply font-ubuntu;
+    font-size: 20px;
+    @apply font-roboto;
     @apply font-bold;
   }
 
   h5 {
-    font-size: 18px;
+    font-size: 16px;
     @apply font-roboto;
     @apply font-bold;
   }
 
   h6 {
+    font-size: 14px;
+    @apply font-roboto;
+    @apply font-normal;
+  }
+
+  p {
     font-size: 16px;
     @apply font-roboto;
-    @apply font-bold;
+    @apply font-normal;
   }
 
   input[disabled] {
@@ -55,7 +61,7 @@
     @apply transition-colors;
     @apply duration-200;
     @apply ease-out;
-    @apply text-cerulean-500;
+    @apply text-cloud-500;
   }
 
   a:hover {

@@ -16,7 +16,7 @@ export const encode: any = (data: { [x: string]: string | number | boolean }) =>
 const TextArea = styled.textarea`
   min-height: 140px;
   &::placeholder {
-    ${tw`italic text-gray-500 text-base`}
+    ${tw`text-cloud-200 text-base`}
   }
 `;
 
@@ -75,7 +75,7 @@ export const EmailForm: FunctionComponent = () => {
               placeholder="* Full Name"
               required
               onChange={handleInputOrTextareaChange}
-              className="mb-4 rounded"
+              className="w-full mb-4 rounded"
             />
             <Input
               type="email"
@@ -83,7 +83,7 @@ export const EmailForm: FunctionComponent = () => {
               placeholder="* Email Address"
               required
               onChange={handleInputOrTextareaChange}
-              className="mb-4 rounded"
+              className="w-full mb-4 rounded"
             />
             <Input
               type="text"
@@ -91,7 +91,7 @@ export const EmailForm: FunctionComponent = () => {
               placeholder="* Name of your organisation"
               required
               onChange={handleInputOrTextareaChange}
-              className="mb-4 rounded"
+              className="w-full mb-4 rounded"
             />
             <TextArea
               name="Message"

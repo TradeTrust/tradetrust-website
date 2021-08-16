@@ -18,14 +18,14 @@ const FaqElement: FunctionComponent<{ question: string; answer: string }> = ({ q
   return (
     <div className={`transition-color duration-200 cursor-pointer bg-white`}>
       <div
-        className={`flex justify-between items-center p-4 rounded transition-colors duration-200 hover:text-blue ${
-          open ? "text-blue" : ""
+        className={`flex justify-between items-center p-4 rounded transition-colors duration-200 hover:text-cerulean ${
+          open ? "text-cerulean" : ""
         }`}
         onClick={() => setOpen(!open)}
       >
         <h5>{question}</h5>
         <svg
-          className={`transition-transform duration-200 transform ${open ? "rotate-90" : "rotate-0"}`}
+          className={`transition-transform duration-200 transform ${open ? "rotate-180" : "rotate-0"}`}
           width="24"
           height="24"
           viewBox="0 0 24 24"
