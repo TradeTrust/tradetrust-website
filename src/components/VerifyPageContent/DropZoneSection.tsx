@@ -15,7 +15,7 @@ const DraggableDemoCertificate = () => (
         style={{ width: "135px" }}
       />
       <div className="flex justify-center items-center w-full h-full">
-        <div className="w-2/3 lg:w-1/2 xl:w-1/3 px-4 inline-block box-content">
+        <div className="w-2/3 lg:w-1/2 xl:w-64 mr-auto px-4 inline-block box-content">
           <div className="aspect-w-1 aspect-h-1">
             <div className="rounded-full w-full h-full bg-cerulean-500 flex ">
               <p className="text-base px-5 text-center text-white font-bold absolute top-1/2">
