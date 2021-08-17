@@ -1,11 +1,11 @@
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { v2, WrappedDocument } from "@govtechsg/open-attestation";
 import React from "react";
 import { Link } from "react-router-dom";
 import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../../services/verify/fragments";
 import { ViewerContainer } from "./SharedViewerStyledComponents";
 import { docNotValidMessage, tryAnotherMessage, unverifiedMessage } from "./";
+import { WrappedOrSignedOpenAttestationDocument } from "../../../utils/shared";
 
 const DetailedErrors = ({ verificationStatus }: { verificationStatus: VerificationFragment[] }) => {
   const errors = [];
@@ -31,7 +31,7 @@ const DetailedErrors = ({ verificationStatus }: { verificationStatus: Verificati
 interface UnverifiedViewProps {
   handleRenderOverwrite?: () => void;
   resetData: () => void;
-  document?: WrappedDocument<v2.OpenAttestationDocument>;
+  document?: WrappedOrSignedOpenAttestationDocument;
   verificationStatus: VerificationFragment[];
 }
 

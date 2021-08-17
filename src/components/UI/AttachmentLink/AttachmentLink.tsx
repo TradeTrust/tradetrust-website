@@ -1,9 +1,9 @@
-import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
 import prettyBytes from "pretty-bytes";
 import React, { FunctionComponent } from "react";
 import { Paperclip } from "react-feather";
 import { getLogger } from "../../../utils/logger";
 import { NestedDocumentState } from "./../../../constants/NestedDocumentState";
+import { getOpenAttestationData } from "../../../utils/shared";
 
 const { error } = getLogger("component:attachmentlink");
 
@@ -13,15 +13,6 @@ export interface AttachmentLinkProps {
   type?: string;
   path?: string;
 }
-
-interface OriginalDocumentProps extends v2.OpenAttestationDocument {
-  links?: {
-    self?: {
-      href: string;
-    };
-  };
-}
-
 interface ExtensionIconProps {
   src: string;
 }
@@ -77,7 +68,7 @@ const openTab = (data: string) => {
 const isOpenAttestationFile = (decodedData: string) => {
   try {
     const decodedJson = JSON.parse(decodedData);
-    const unwrappedDocument = getData<WrappedDocument<OriginalDocumentProps>>(decodedJson);
+    const unwrappedDocument = getOpenAttestationData(decodedJson);
     if (!unwrappedDocument) throw new Error("File is not OA document"); //non-OA document returns undefined
     return true;
   } catch (e) {

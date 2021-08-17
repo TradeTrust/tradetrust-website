@@ -1,6 +1,5 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { VerificationFragment, VerificationFragmentWithData } from "@govtechsg/oa-verify";
 import { DocumentStatus, IssuedBy } from "./DocumentStatus";
 import {
   whenDocumentHashInvalid,
@@ -10,8 +9,38 @@ import {
   whenDocumentIssuerIdentityInvalidDid,
 } from "../../test/fixture/verifier-responses";
 import { MESSAGES } from "../../constants/VerificationErrorMessages";
+import { Provider } from "react-redux";
+import { configureStore } from "../../store";
+import { v2, wrapDocument } from "@govtechsg/open-attestation";
+
+const document = wrapDocument({
+  issuers: [
+    {
+      name: "John",
+      documentStore: "0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
+      identityProof: {
+        type: v2.IdentityProofType.DNSTxt,
+        location: "example.com",
+      },
+    },
+  ],
+  name: "bah bah black sheep",
+  links: {
+    self: {
+      href: "https://openattestation.com",
+    },
+  },
+});
 
 describe("IssuedBy", () => {
+  const renderWithStore = (additionalProps: any) => {
+    const store = configureStore({ certificate: { rawModified: document, verificationStatus: additionalProps } });
+    return render(
+      <Provider store={store}>
+        <IssuedBy />
+      </Provider>
+    );
+  };
   it("should return appropriate display text when single dns is verified", () => {
     const fragments = [
       {
@@ -25,8 +54,8 @@ describe("IssuedBy", () => {
           },
         ],
       },
-    ] as VerificationFragmentWithData[];
-    const container = render(<IssuedBy verificationStatus={fragments} />);
+    ];
+    const container = renderWithStore(fragments);
     expect(container.queryByText("ABC.COM")).not.toBeNull();
   });
 
@@ -51,8 +80,8 @@ describe("IssuedBy", () => {
           },
         ],
       },
-    ] as VerificationFragmentWithData[];
-    const container = render(<IssuedBy verificationStatus={fragments} />);
+    ];
+    const container = renderWithStore(fragments);
     expect(container.queryByText("ABC.COM, XYZ.COM and DEMO.COM")).not.toBeNull();
   });
 
@@ -69,8 +98,8 @@ describe("IssuedBy", () => {
           },
         ],
       },
-    ] as VerificationFragmentWithData[];
-    const container = render(<IssuedBy verificationStatus={fragments} />);
+    ];
+    const container = renderWithStore(fragments);
     expect(container.queryByText("ABC.COM")).not.toBeNull();
   });
 
@@ -88,49 +117,51 @@ describe("IssuedBy", () => {
           },
         ],
       },
-    ] as VerificationFragmentWithData[];
-    const container = render(<IssuedBy verificationStatus={fragments} />);
+    ];
+    const container = renderWithStore(fragments);
     expect(container.queryByText(sampleDidIdentity.toUpperCase())).not.toBeNull();
   });
 });
 
 describe("DocumentStatus", () => {
+  const renderWithStore = (verificationStatus: any) => {
+    const store = configureStore({ certificate: { rawModified: document, verificationStatus: verificationStatus } });
+    return render(
+      <Provider store={store}>
+        <DocumentStatus />
+      </Provider>
+    );
+  };
   it("should display hash error if the hash is invalid", () => {
-    const container = render(<DocumentStatus verificationStatus={whenDocumentHashInvalid as VerificationFragment[]} />);
+    const container = renderWithStore(whenDocumentHashInvalid);
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
   });
 
   it("displays issuing error if the document is not issued", () => {
-    const container = render(<DocumentStatus verificationStatus={whenDocumentNotIssued as VerificationFragment[]} />);
+    const container = renderWithStore(whenDocumentNotIssued);
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
   });
 
   it("displays identity error if the dns txt identity is not verified", () => {
-    const container = render(
-      <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]} />
-    );
+    const container = renderWithStore(whenDocumentIssuerIdentityInvalidDnsTxt);
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
   });
 
   it("displays identity error if the did identity is not verified", () => {
-    const container = render(
-      <DocumentStatus verificationStatus={whenDocumentIssuerIdentityInvalidDid as VerificationFragment[]} />
-    );
+    const container = renderWithStore(whenDocumentIssuerIdentityInvalidDid);
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
   });
 
   it("displays error in all fields when all verification fail", () => {
-    const container = render(
-      <DocumentStatus verificationStatus={whenDocumentHashInvalidAndNotIssued as VerificationFragment[]} />
-    );
+    const container = renderWithStore(whenDocumentHashInvalidAndNotIssued);
     expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
     expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
     expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();

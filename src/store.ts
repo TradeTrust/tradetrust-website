@@ -6,8 +6,10 @@ import { createRootReducer } from "./reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 
-export const configureStore = (): ReturnType<typeof createStore> => {
-  const store = createStore(createRootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+// type initialState as any first, need to type Store properly
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const configureStore = (initialState?: any): ReturnType<typeof createStore> => {
+  const store = createStore(createRootReducer, initialState, composeWithDevTools(applyMiddleware(sagaMiddleware)));
   sagaMiddleware.run(sagas);
   return store;
 };
