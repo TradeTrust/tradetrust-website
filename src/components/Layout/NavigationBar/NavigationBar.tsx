@@ -5,7 +5,7 @@ import {
   NavigationBar as NavBar,
   NavigationItem,
   NAVIGATION_ITEM_TYPE,
-  Size,
+  ButtonSize,
 } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
@@ -110,7 +110,7 @@ const rightNavItems: NavigationItem[] = [
     path: URLS.CREATOR,
     customLink: (
       <a href={URLS.CREATOR}>
-        <Button className="bg-white text-cerulean hover:bg-gray-50 border border-cloud-200" size={Size.SM}>
+        <Button className="bg-white text-cerulean hover:bg-gray-50" size={ButtonSize.SM}>
           Create Doc
         </Button>
       </a>
@@ -123,7 +123,7 @@ const rightNavItems: NavigationItem[] = [
     path: "/verify",
     customLink: (
       <NavLink to={"/verify"}>
-        <Button className="bg-cerulean text-white hover:bg-cerulean-500" size={Size.SM}>
+        <Button className="bg-cerulean text-white hover:bg-cerulean-500" size={ButtonSize.SM}>
           Verify Doc
         </Button>
       </NavLink>
