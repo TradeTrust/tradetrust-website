@@ -1,18 +1,12 @@
-import { VerificationFragment } from "@govtechsg/oa-verify";
 import React, { FunctionComponent } from "react";
 import { MESSAGES, TYPES } from "../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../services/verify/fragments";
 import { StatusCheck } from "./StatusCheck";
+import { useSelector } from "react-redux";
 
-interface StatusChecksProps {
-  verificationStatus: VerificationFragment[];
-}
-
-export const StatusChecks: FunctionComponent<StatusChecksProps> = ({
-  verificationStatus,
-}: {
-  verificationStatus: VerificationFragment[];
-}) => {
+export const StatusChecks: FunctionComponent = () => {
+  const certificateState = useSelector((state: any) => state?.certificate);
+  const { verificationStatus } = certificateState;
   const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
 
   return (

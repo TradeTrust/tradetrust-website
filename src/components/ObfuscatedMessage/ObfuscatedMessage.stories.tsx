@@ -1,6 +1,6 @@
-import { v2, WrappedDocument } from "@govtechsg/open-attestation";
 import React from "react";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
+import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
 export default {
   title: "UI/ObfuscatedMessage",
@@ -36,7 +36,7 @@ const document = {
   privacy: {
     obfuscatedData: ["45c49a0e6efbde83c602cf6bbe4aa356d495feaf78a9a309cc1bad101f5c52f4"],
   },
-} as WrappedDocument<v2.OpenAttestationDocument>;
+} as WrappedOrSignedOpenAttestationDocument;
 
 export const Default = () => {
   return <ObfuscatedMessage document={document} />;

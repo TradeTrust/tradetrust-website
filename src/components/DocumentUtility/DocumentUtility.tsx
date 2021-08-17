@@ -1,11 +1,12 @@
-import { getData, v2, WrappedDocument } from "@govtechsg/open-attestation";
+import { v2 } from "@govtechsg/open-attestation";
 import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
 import { Download, Printer } from "react-feather";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
+import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData } from "../../utils/shared";
 interface DocumentUtilityProps {
-  document: WrappedDocument<v2.OpenAttestationDocument>;
+  document: WrappedOrSignedOpenAttestationDocument;
   onPrint: () => void;
 }
 
@@ -21,7 +22,7 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
 export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint }) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
   // Extending document data to account for undefined metadata in OA schema
-  const documentWithMetadata = getData<WrappedDocument<DocumentWithAdditionalMetadata>>(document);
+  const documentWithMetadata = getOpenAttestationData(document) as DocumentWithAdditionalMetadata;
   const fileName = documentWithMetadata.name ?? "Untitled";
   const qrcodeUrl = documentWithMetadata.links?.self?.href ?? "";
   const imageSettings: ImageSettings = {

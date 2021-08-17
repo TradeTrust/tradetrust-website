@@ -5,13 +5,9 @@ import { Redirect } from "react-router";
 
 const ViewerPageContainer = (): React.ReactElement => {
   const certificateState = useSelector((state: any) => state?.certificate);
-  const { rawModified: document, verificationStatus } = certificateState;
+  const { rawModified: document } = certificateState;
 
-  return document ? (
-    <CertificateViewer document={document} verificationStatus={verificationStatus} />
-  ) : (
-    <Redirect to="/" />
-  );
+  return document ? <CertificateViewer document={document} /> : <Redirect to="/" />;
 };
 
 export default ViewerPageContainer;

@@ -2,9 +2,8 @@ import { VerificationFragment, VerificationFragmentWithData, utils } from "@govt
 import React, { FunctionComponent } from "react";
 import { NETWORK_NAME } from "../../config";
 import { StatusChecks } from "./StatusChecks";
-interface DocumentStatusProps {
-  verificationStatus: VerificationFragment[];
-}
+import { useSelector } from "react-redux";
+import { utils as oaUtils, WrappedDocument, v3 } from "@govtechsg/open-attestation";
 
 interface VerificationFragmentData {
   did: string;
@@ -12,12 +11,13 @@ interface VerificationFragmentData {
   status: string;
 }
 
-export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationStatus }) => {
+const getV2FormattedDomainNames = (verificationStatus: VerificationFragment[]) => {
   const joinIssuers = (issuers: string[] | undefined): string => {
     if (!issuers) return "Unknown";
     const issuerNames = issuers.join(", ");
     return issuerNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
   };
+
   const formatIdentifier = (fragment: VerificationFragmentWithData<VerificationFragmentData[]>): string | undefined => {
     switch (fragment.name) {
       case "OpenAttestationDnsTxtIdentityProof":
@@ -30,7 +30,6 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
         return "Unknown";
     }
   };
-
   const identityProofFragment = utils
     .getIssuerIdentityFragments(verificationStatus)
     .find((fragment) => utils.isValidFragment(fragment)) as VerificationFragmentWithData;
@@ -41,8 +40,21 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
     dataFragment?.every(
       (issuer: { status: string; verified: boolean }) => issuer.status === "VALID" || issuer.verified === true
     ); // every will return true even though dataFragment is empty, hence the additional check for length
-  const formattedDomainNames = fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 
+  return fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
+};
+
+export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenAttestationDocument>): string => {
+  return document.openAttestationMetadata.identityProof.identifier.toUpperCase();
+};
+
+export const IssuedBy: FunctionComponent = () => {
+  const certificateState = useSelector((state: any) => state?.certificate);
+  const { rawModified: document, verificationStatus } = certificateState;
+
+  const formattedDomainNames = oaUtils.isWrappedV2Document(document)
+    ? getV2FormattedDomainNames(verificationStatus)
+    : getV3IdentityVerificationText(document);
   return (
     <h2 id="issuedby" className="mb-0 text-cloud-900 text-lg font-semibold">
       <span className="mr-1 inline-block break-all">Issued by</span>
@@ -51,15 +63,13 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
   );
 };
 
-export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ verificationStatus }) => {
+export const DocumentStatus: FunctionComponent = () => {
   return (
     <div className="container">
       <div id="document-status" className="py-4">
         <div className="flex flex-col">
-          <div className="flex-grow">
-            {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
-          </div>
-          <StatusChecks verificationStatus={verificationStatus} />
+          <div className="flex-grow">{NETWORK_NAME !== "local" && <IssuedBy />}</div>
+          <StatusChecks />
         </div>
       </div>
     </div>

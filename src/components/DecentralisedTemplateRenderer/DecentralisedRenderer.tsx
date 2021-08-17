@@ -9,7 +9,6 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { connect } from "react-redux";
-import { getData, WrappedDocument, v2 } from "@govtechsg/open-attestation";
 import { applyPrivacyFilter } from "../../reducers/certificate";
 import {
   FrameActions,
@@ -19,11 +18,11 @@ import {
   selectTemplate,
   print,
 } from "@govtechsg/decentralized-renderer-react-components";
-import { LEGACY_OPENCERTS_RENDERER } from "../../config";
 import { TemplateProps } from "./../../types";
+import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplate } from "../../utils/shared";
 
 interface DecentralisedRendererProps {
-  rawDocument: WrappedDocument<v2.OpenAttestationDocument>;
+  rawDocument: WrappedOrSignedOpenAttestationDocument;
   updateTemplates: (templates: TemplateProps[]) => void;
   selectedTemplate: string;
   setPrivacyFilter: (doc: any) => void;
@@ -41,7 +40,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   forwardedRef,
 }) => {
   const toFrame = useRef<Dispatch>();
-  const document = useMemo(() => getData(rawDocument), [rawDocument]);
+  const document = useMemo(() => getOpenAttestationData(rawDocument), [rawDocument]);
   const [height, setHeight] = useState(250);
   const [isTimeout, setIsTimeout] = useState(false);
 
@@ -96,7 +95,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
     <div className={`${isTimeout ? "container" : ""}`}>
       <FrameConnector
         style={{ height: `${height}px`, width: "100%", border: "0px" }}
-        source={`${typeof document.$template === "object" ? document.$template.url : LEGACY_OPENCERTS_RENDERER}`}
+        source={`${getTemplate(rawDocument)}`}
         dispatch={dispatch}
         onConnected={onConnected}
       />
@@ -112,7 +111,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 const ForwardedRefDecentralisedRenderer = React.forwardRef<
   { print: () => void } | undefined,
   {
-    rawDocument: WrappedDocument<v2.OpenAttestationDocument>;
+    rawDocument: WrappedOrSignedOpenAttestationDocument;
     updateTemplates: (templates: TemplateProps[]) => void;
     setPrivacyFilter: (doc: any) => void;
     selectedTemplate: string;
