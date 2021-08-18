@@ -27,7 +27,7 @@ export const TransferableRecordPersonas: Persona[] = [
         {
           stepTitle: "Step 4",
           icon: "/static/images/home/howItWorks/icons/paperDispatch.svg",
-          description: "Exporter dispatches the BL to Negotiating Bank (via courier)",
+          description: "Exporter endorses and dispatches the BL to Negotiating Bank (via courier)",
         },
       ],
       nowSteps: [
@@ -140,7 +140,7 @@ export const TransferableRecordPersonas: Persona[] = [
           stepTitle: "Step 3",
           icon: "/static/images/home/howItWorks/icons/paperCheck.svg",
           description:
-            "Issuing Bank receives eBL from Negotiating Bank (via courier) and checks the details of BL including the entire endorsement chain before endorsing the BL",
+            "Issuing Bank receives BL from Negotiating Bank (via courier) and checks the details of BL including the entire endorsement chain before endorsing the BL",
         },
         {
           stepTitle: "Total Time Taken",
