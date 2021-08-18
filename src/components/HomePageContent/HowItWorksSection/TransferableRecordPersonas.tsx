@@ -68,12 +68,12 @@ export const TransferableRecordPersonas: Persona[] = [
         {
           benefitTitle: "2",
           icon: "/static/images/home/howItWorks/icons/signUp.svg",
-          description: "Removed the need to subscribe to multiple eBL solutions",
+          description: "Remove the need to subscribe to multiple eBL solutions",
         },
         {
           benefitTitle: "3",
           icon: "/static/images/home/howItWorks/icons/paperRisk.svg",
-          description: "Lowered the risk of human error",
+          description: "Lower the risk of human error",
         },
         {
           benefitTitle: "4",
