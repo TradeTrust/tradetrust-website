@@ -1,5 +1,5 @@
 ---
-title: TradeTrust Newsletter Issue 04
-date: 1 Jan 2021
-file: /static/uploads/tradetrust_newsletter04.pdf
+title: TradeTrust Newsletter Issue 4
+date: 2020-12-31T16:00:00.000Z
+file: /static/uploads/tradetrust-newsletter-4.pdf
 ---

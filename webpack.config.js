@@ -11,7 +11,7 @@ const IS_PROD = !IS_DEV;
 
 module.exports = {
   entry: {
-    app: ["./src/index.js"],
+    app: ["./src/index.tsx"],
   },
   context: path.resolve(__dirname),
   mode: IS_DEV ? "development" : "production",
@@ -103,7 +103,6 @@ module.exports = {
     extensions: [".js", ".ts", ".tsx"],
     modules: ["node_modules", path.resolve(__dirname, "src")],
     alias: {
-      "react-dom": "@hot-loader/react-dom",
       react: path.resolve("./node_modules/react"),
     },
   },

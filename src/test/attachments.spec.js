@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { Iframe, SampleTemplate, uploadDocument, validateTextContent, validateIframeTexts } from "./helper";
+import { Iframe, SampleTemplate, uploadDocument, validateTextContent, validateIframeTexts, location } from "./helper";
 
-fixture("Document with Attachment Rendering").page`http://localhost:3000`;
+fixture("Document with Attachment Rendering").page`${location}`;
 
 const TabsItems = Selector(".multi-tab");
 const TabDefault = Selector("[data-testid='default']");

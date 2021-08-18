@@ -17,14 +17,27 @@ media_folder: "public/static/uploads"
 public_folder: "/static/uploads"
 
 collections:
-  - name: "faq-page"
-    label: "FAQ Page"
-    folder: "cms/faq-page"
+  - name: "faq"
+    label: "FAQ"
+    folder: "cms/faq"
+    create: true
     editor:
       preview: false
     fields:
-      - { label: "Title", name: "title", widget: "string", hint: "Title of FAQ page." }
-      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of FAQ page." }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "article"
+    label: "Article"
+    folder: "cms/article"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
   - name: "newsletter"
     label: "Newsletter"
     folder: "cms/newsletter"
@@ -32,19 +45,43 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Title", name: "title", widget: "string", hint: "Title of newsletter." }
-      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date." }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
       - { label: "File", name: "file", widget: "file", hint: "File download of newsletter." }
-  - name: "media"
-    label: "Media"
-    folder: "cms/media"
+  - name: "partner-news"
+    label: "Partner News"
+    folder: "cms/partner-news"
     create: true
     editor:
       preview: false
     fields:
-      - { label: "Title", name: "title", widget: "string", hint: "Title the media article." }
-      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Publish date of media article." }
-      - { label: "Link", name: "link", widget: "string", hint: "Url of media article." }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+  - name: "press-release"
+    label: "Press Release"
+    folder: "cms/press-release"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+  - name: "speech"
+    label: "Speech"
+    folder: "cms/speech"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
   - name: "event"
     label: "Event"
     folder: "cms/event"
@@ -52,10 +89,11 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Title", name: "title", widget: "string", hint: "Title of event." }
-      - { label: "Description", name: "description", widget: "text", hint: "Short description of event." }
-      - { label: "Link", name: "link", widget: "string", hint: "Link of event." }
-      - { label: "Date", name: "date", widget: "date", format: "D MMM YYYY", hint: "Date of event." }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Blurb", name: "blurb", widget: "text" }
+      - { label: "Link", name: "link", widget: "string", hint: "Direct link." }
       - {
           label: "Time Start",
           name: "timeStart",
@@ -76,12 +114,6 @@ collections:
           hint: "End time of event.",
           default: "",
         }
-      - { label: "Video Link", name: "videoLink", widget: "string", required: false, hint: "Video link of event." }
-      - { label: "Slides", name: "slides", widget: "file", required: false, hint: "Presentation slides of event." }
-      - {
-          label: "Register Link",
-          name: "registerLink",
-          widget: "string",
-          required: false,
-          hint: "Video link of event.",
-        }
+      - { label: "Video Link", name: "videoLink", widget: "string", required: false }
+      - { label: "Slides", name: "slides", widget: "file", required: false, hint: "Presentation slides." }
+      - { label: "Register Link", name: "registerLink", widget: "string", required: false }

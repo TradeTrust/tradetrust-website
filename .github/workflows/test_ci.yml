@@ -37,7 +37,10 @@ jobs:
       - name: Build
         run: npm run build
       - name: Integration - testcafe
-        run: ./scripts/integration-headless.sh
-      # TODO: integration:dappeteer working locally, but not ci/cd
-      # - name: Integration - dappeteer
-      #   run: npm run integration:dappeteer
+        run: npm run integration:headless
+      - name: Integration - dappeteer
+        uses: mujo-code/puppeteer-headful@master
+        env:
+          CI: "true"
+        with:
+          args: npm run integration:headful

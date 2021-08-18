@@ -1,6 +1,6 @@
 import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
-import { TagBorderedRedLarge } from "../../../../UI/Tag";
+import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
@@ -86,14 +86,18 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
         {isSurrendered && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedRedLarge id="surrender-sign">Surrendered To Issuer</TagBorderedRedLarge>
+              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-rose border-rose">
+                <h3 className="text-4xl">Surrendered To Issuer</h3>
+              </TagBorderedLg>
             </div>
           </div>
         )}
         {isTokenBurnt && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedRedLarge id="surrendered-sign">Surrendered</TagBorderedRedLarge>
+              <TagBorderedLg id="surrendered-sign" className="bg-white rounded-xl text-rose border-rose">
+                <h3 className="text-4xl">Surrendered</h3>
+              </TagBorderedLg>
             </div>
           </div>
         )}
@@ -124,14 +128,17 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                     canHandleSurrender={canHandleSurrender}
                   />
                 ) : (
-                  <Button className="bg-orange text-white hover:bg-orange-600" onClick={handleNoAccess}>
+                  <Button
+                    className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
+                    onClick={handleNoAccess}
+                  >
                     No Access
                   </Button>
                 )}
               </>
             ) : (
               <Button
-                className="bg-orange text-white hover:bg-orange-600"
+                className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
                 data-testid={"connectToWallet"}
                 onClick={handleConnectWallet}
               >

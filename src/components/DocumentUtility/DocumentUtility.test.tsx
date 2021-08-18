@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 import React from "react";
 import { act } from "react-dom/test-utils";
@@ -18,9 +17,7 @@ describe("Nominate Owner", () => {
       },
     };
     await act(async () => {
-      const container = render(
-        <DocumentUtility document={document as any} handleSharingToggle={() => {}} onPrint={() => {}} />
-      );
+      const container = render(<DocumentUtility document={document as any} onPrint={() => {}} />);
 
       const qrbuttonComponent = container.getByRole("button", { name: "document-utility-qr-button" });
 
@@ -35,9 +32,7 @@ describe("Nominate Owner", () => {
       },
     };
     await act(async () => {
-      const container = render(
-        <DocumentUtility document={document as any} handleSharingToggle={() => {}} onPrint={() => {}} />
-      );
+      const container = render(<DocumentUtility document={document as any} onPrint={() => {}} />);
 
       const qrbuttonComponent = container.queryByRole("button", { name: "document-utility-qr-button" });
 

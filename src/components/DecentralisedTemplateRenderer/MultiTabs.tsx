@@ -23,10 +23,12 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
 }) => {
   return (
     <div className="container">
-      <div className="flex flex-wrap items-end">
+      <div className="flex overflow-x-auto items-end">
         {templates.map(({ id, label }) => (
           <div
-            className={`p-4 mr-2 multi-tab ${id === selectedTemplate && "bg-white border-t-4 border-blue"}`}
+            className={`px-3 py-2 mr-2 multi-tab border-t border-r border-l rounded-t-xl border-cloud-100 ${
+              id === selectedTemplate ? "bg-white text-cloud-900" : "bg-cloud-100 text-cloud-300"
+            }`}
             key={id}
             data-testid={id}
           >
@@ -42,8 +44,8 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
         ))}
         {hasAttachments && (
           <div
-            className={`p-4 mr-2 multi-tab ${
-              selectedTemplate === "attachmentTab" && "bg-white border-t-4 border-blue"
+            className={`px-3 py-2 mr-2 multi-tab border-t border-r border-l rounded-t-xl border-cloud-100 ${
+              selectedTemplate === "attachmentTab" ? "bg-white text-cloud-900" : "bg-cloud-100 text-cloud-300"
             }`}
           >
             <div
@@ -54,7 +56,7 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
               }}
             >
               <div className="mr-2 w-auto">Attachments</div>
-              <div className="rounded-full w-6 h-6 bg-grey-300 text-center" data-testid="attachment-number">
+              <div className="rounded-full w-6 h-6 bg-gray-300 text-center" data-testid="attachment-number">
                 {attachments && attachments.length}
               </div>
             </div>

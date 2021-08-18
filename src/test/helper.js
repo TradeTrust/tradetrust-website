@@ -4,7 +4,10 @@ export const Iframe = Selector("#iframe[title='Decentralised Rendered Certificat
 export const SampleTemplate = Selector("#root");
 const CertificateDropzone = Selector("#certificate-dropzone");
 const DocumentStatus = Selector("#document-status");
-const IssuedByDomainName = Selector("#issuedby .domain");
+const IssuedByDomainName = Selector("#issuedby");
+const VerifyPage = Selector("a[href='/verify']");
+const SettingsPage = Selector("a[href='/settings']");
+const AddressResolverPage = Selector("a[href='/settings/address-resolver']");
 
 export const validateTextContent = async (testcafe, component, texts) =>
   texts.reduce(
@@ -12,7 +15,17 @@ export const validateTextContent = async (testcafe, component, texts) =>
     Promise.resolve()
   );
 
+export const navigateToVerify = async () => {
+  await t.click(VerifyPage);
+};
+
+export const navigateToAddressResolver = async () => {
+  await t.click(SettingsPage);
+  await t.click(AddressResolverPage);
+};
+
 export const uploadDocument = async (documentPath) => {
+  await navigateToVerify();
   await CertificateDropzone();
   await t.setFilesToUpload("input[type=file]", [documentPath]);
 };
@@ -29,3 +42,5 @@ export const validateIssuerTexts = async (texts) => {
 };
 
 export const CloseWindow = ClientFunction(() => window.close());
+
+export const location = "http://localhost:3000";

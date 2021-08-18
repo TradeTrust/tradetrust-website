@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { FaqContent } from "../components/FAQ/FaqContent";
+import { Page } from "../components/Layout/Page";
 
 export const FaqPage: FunctionComponent = () => (
   <>
@@ -17,6 +18,8 @@ export const FaqPage: FunctionComponent = () => (
       <meta property="og:url" content={`${window.location.origin}/faq`} />
       <title>TradeTrust - Frequently Asked Questions</title>
     </Helmet>
-    <FaqContent />
+    <Page title="Frequently Asked Questions">
+      <FaqContent />
+    </Page>
   </>
 );

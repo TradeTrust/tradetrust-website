@@ -42,7 +42,8 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
 }) => {
   const toFrame = useRef<Dispatch>();
   const document = useMemo(() => getData(rawDocument), [rawDocument]);
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState(250);
+  const [isTimeout, setIsTimeout] = useState(false);
 
   useImperativeHandle(forwardedRef, () => ({
     print() {
@@ -72,6 +73,9 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
     if (action.type === "OBFUSCATE") {
       setPrivacyFilter(action.payload);
     }
+    if (action.type === "TIMEOUT") {
+      setIsTimeout(true);
+    }
   };
 
   // render document onload
@@ -89,12 +93,14 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   }, [selectedTemplate, toFrame]);
 
   return (
-    <FrameConnector
-      style={{ height: `${height}px`, width: "100%", border: "0px" }}
-      source={`${typeof document.$template === "object" ? document.$template.url : LEGACY_OPENCERTS_RENDERER}`}
-      dispatch={dispatch}
-      onConnected={onConnected}
-    />
+    <div className={`${isTimeout ? "container" : ""}`}>
+      <FrameConnector
+        style={{ height: `${height}px`, width: "100%", border: "0px" }}
+        source={`${typeof document.$template === "object" ? document.$template.url : LEGACY_OPENCERTS_RENDERER}`}
+        dispatch={dispatch}
+        onConnected={onConnected}
+      />
+    </div>
   );
 };
 

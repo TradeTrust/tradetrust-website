@@ -1,22 +1,21 @@
-import { uploadDocument, validateIframeTexts, validateIssuerTexts } from "./helper";
-import { Selector } from "testcafe";
+import { uploadDocument, validateIframeTexts, validateIssuerTexts, location, navigateToVerify } from "./helper";
 
-fixture("Token Document Rendering").page`http://localhost:3000`;
-
-const VerifyDocuments = Selector("[data-testid='navbar-verify-documents']");
+fixture("Token Document Rendering").page`${location}`;
 
 test("Token is verified and rendered correctly", async () => {
+  await navigateToVerify();
   await uploadDocument("./fixture/ebl.json");
   await validateIssuerTexts(["TRADETRUST.IO"]);
   await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 });
 
 test("Should be able to render certificate twice consecutively", async (t) => {
+  await navigateToVerify();
   await uploadDocument("./fixture/ebl.json");
   await validateIssuerTexts(["TRADETRUST.IO"]);
   await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 
-  await t.click(VerifyDocuments);
+  await navigateToVerify();
   await uploadDocument("./fixture/ebl.json");
   await validateIssuerTexts(["TRADETRUST.IO"]);
   await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);

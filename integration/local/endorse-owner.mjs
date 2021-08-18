@@ -4,7 +4,7 @@ export const endorseOwner = async (metamask, browser) => {
   // force process to exit if any assertion fail
   try {
     const page = await browser.newPage();
-    await page.goto("http://localhost:3000/");
+    await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
     inputUploadHandle.uploadFile("./integration/local/ebl-endorse-owner.json");
@@ -40,13 +40,16 @@ export const endorseOwner = async (metamask, browser) => {
       visible: true,
     });
 
-    await expect(page).toMatchElement(".overlay h3", {
+    await expect(page).toMatchElement("[data-testid='overlay-title']", {
       text: "Change Owner Success",
       visible: true,
     });
 
     await page.close();
+
+    console.log("✅ Endorse owner success");
   } catch (e) {
+    console.log("❌ Endorse owner fail");
     console.log(e);
     process.exit(1);
   }

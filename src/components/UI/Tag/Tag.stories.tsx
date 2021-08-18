@@ -1,34 +1,30 @@
 import React from "react";
-import { TagSolid, TagSolidTeal, TagSolidOrange, TagBordered, TagBorderedRed, TagBorderedRedLarge } from "./Tag";
+import { Tag, TagBordered, TagBorderedSm, TagBorderedLg } from "./Tag";
 
 export default {
   title: "UI/Tag",
-  component: TagSolid,
+  component: Tag,
   parameters: {
     componentSubtitle: "Types of Tags, Solid, Bordered.",
   },
 };
 
-export const Solid = () => {
-  return <TagSolid>TagSolid</TagSolid>;
-};
-
 export const SolidTeal = () => {
-  return <TagSolidTeal>TagSolid</TagSolidTeal>;
+  return <Tag className="text-white bg-turquoise">SolidDefault</Tag>;
 };
 
-export const SolidOrange = () => {
-  return <TagSolidOrange>TagSolid</TagSolidOrange>;
-};
-
-export const Bordered = () => {
-  return <TagBordered>TagBordered</TagBordered>;
+export const BorderedWhite = () => {
+  return <TagBordered className="text-white border-white">BorderedWhite</TagBordered>;
 };
 
 export const BorderedRed = () => {
-  return <TagBorderedRed>TagBorderedRed</TagBorderedRed>;
+  return <TagBordered className="text-red-500 border-red-500">TagBorderedRed</TagBordered>;
+};
+
+export const BorderedGraySmall = () => {
+  return <TagBorderedSm className="text-gray-600">BorderedGraySmall</TagBorderedSm>;
 };
 
 export const BorderedRedLarge = () => {
-  return <TagBorderedRedLarge>TagBorderedRedLarge</TagBorderedRedLarge>;
+  return <TagBorderedLg className="text-red-500 border-red-500">BorderedRedLarge</TagBorderedLg>;
 };

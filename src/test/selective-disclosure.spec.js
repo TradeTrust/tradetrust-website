@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIssuerTexts } from "./helper";
+import { uploadDocument, validateIssuerTexts, location } from "./helper";
 
-fixture("Selective Disclosure").page`http://localhost:3000`;
+fixture("Selective Disclosure").page`${location}`;
 
 const IframeBlock = Selector("#iframe");
 

@@ -187,17 +187,17 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
     });
 
   return (
-    <EndorsementChainLayoutStyle className="container pb-40">
+    <EndorsementChainLayoutStyle className="container pb-40 my-4">
       <div className="back-button" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
         <BackArrow />
       </div>
-      <div className="text-grey-700 text-3xl font-bold mb-4" data-testid="endorsement-chain-title">
+      <div className="text-gray-700 text-3xl font-bold mb-4" data-testid="endorsement-chain-title">
         Endorsement Chain
       </div>
       <div className="table-responsive">
         <table className="w-full mb-0">
           <thead className="text-left">
-            <tr className="w-full bg-blue-800 text-white text-lg font-bold">
+            <tr className="w-full bg-denim-900 text-white text-lg font-bold">
               <th className="table-cell">Action/Date</th>
               <th className="table-cell">Owner</th>
               <th className="table-cell">Holder</th>
@@ -216,10 +216,10 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 
 const EndorsementChainLayoutStyle = styled.div`
   .back-button {
-    ${tw`text-grey cursor-pointer mb-2`}
+    ${tw`text-gray-500 cursor-pointer mb-2`}
 
     &[data-disabled="true"] {
-      ${tw`text-grey-300 cursor-not-allowed`}
+      ${tw`text-gray-300 cursor-not-allowed`}
     }
   }
 
@@ -250,15 +250,15 @@ const EndorsementChainLayoutStyle = styled.div`
   }
 
   .date {
-    ${tw`text-sm font-semibold text-grey min-w-135 flex justify-end text-right`}
+    ${tw`text-sm font-semibold text-gray-500 min-w-135 flex justify-end text-right`}
   }
 
   .action-title {
-    ${tw`text-lg text-grey-700 font-semibold flex justify-end text-right`}
+    ${tw`text-lg text-gray-700 font-semibold flex justify-end text-right`}
   }
 
   .address {
-    ${tw`text-blue`}
+    ${tw`text-cerulean-500`}
     word-break: break-word;
   }
 `;

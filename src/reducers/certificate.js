@@ -1,4 +1,3 @@
-import { get } from "lodash";
 import { obfuscateDocument } from "@govtechsg/open-attestation";
 
 export const states = {
@@ -16,9 +15,6 @@ export const initialState = {
   verificationStatus: null,
   verificationError: null,
 
-  emailState: states.INITIAL,
-  emailError: null,
-
   retrieveCertificateByActionState: states.INITIAL,
   retrieveCertificateByActionStateError: null,
 };
@@ -33,11 +29,6 @@ export const types = {
 
   VERIFYING_CERTIFICATE_COMPLETED: "VERIFYING_CERTIFICATE_COMPLETED",
   VERIFYING_CERTIFICATE_FAILURE: "VERIFYING_CERTIFICATE_FAILURE",
-
-  SENDING_CERTIFICATE: "SENDING_CERTIFICATE",
-  SENDING_CERTIFICATE_SUCCESS: "SENDING_CERTIFICATE_SUCCESS",
-  SENDING_CERTIFICATE_FAILURE: "SENDING_CERTIFICATE_FAILURE",
-  SENDING_CERTIFICATE_RESET: "SENDING_CERTIFICATE_RESET",
 
   CERTIFICATE_OBFUSCATE_RESET: "CERTIFICATE_OBFUSCATE_RESET",
   CERTIFICATE_OBFUSCATE_UPDATE: "CERTIFICATE_OBFUSCATE_UPDATE",
@@ -80,30 +71,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         verificationPending: false,
         verificationError: action.payload,
-      };
-    case types.SENDING_CERTIFICATE:
-      return {
-        ...state,
-        emailState: states.PENDING,
-        emailError: null,
-      };
-    case types.SENDING_CERTIFICATE_RESET:
-      return {
-        ...state,
-        emailState: states.INITIAL,
-        emailError: null,
-      };
-    case types.SENDING_CERTIFICATE_SUCCESS:
-      return {
-        ...state,
-        emailState: states.SUCCESS,
-        emailError: null,
-      };
-    case types.SENDING_CERTIFICATE_FAILURE:
-      return {
-        ...state,
-        emailState: states.FAILURE,
-        emailError: action.payload,
       };
     case types.CERTIFICATE_OBFUSCATE_RESET:
       return {
@@ -150,19 +117,6 @@ export function updateCertificate(payload) {
   };
 }
 
-export function sendCertificate(payload) {
-  return {
-    type: types.SENDING_CERTIFICATE,
-    payload,
-  };
-}
-
-export function sendCertificateReset() {
-  return {
-    type: types.SENDING_CERTIFICATE_RESET,
-  };
-}
-
 export function applyPrivacyFilter(payload) {
   return {
     type: types.CERTIFICATE_OBFUSCATE_UPDATE,
@@ -185,10 +139,11 @@ export const verifyingCertificateFailure = (payload) => ({
   payload,
 });
 
-export function retrieveCertificateByAction(payload) {
+export function retrieveCertificateByAction(payload, anchor) {
   return {
     type: types.RETRIEVE_CERTIFICATE_BY_ACTION,
     payload,
+    anchor,
   };
 }
 
@@ -205,7 +160,7 @@ export function getCertificate(store) {
 }
 
 export function getVerifying(store) {
-  return get(store, "certificate.verificationPending");
+  return store.certificate.verificationPending;
 }
 
 export function getVerifyingCertificateFailure(store) {
@@ -214,10 +169,6 @@ export function getVerifyingCertificateFailure(store) {
 
 export function getVerificationStatus(store) {
   return store.certificate.verificationStatus;
-}
-
-export function getEmailSendingState(store) {
-  return store.certificate.emailState;
 }
 
 export function getCertificateByActionError(store) {

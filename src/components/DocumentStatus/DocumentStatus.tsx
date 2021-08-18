@@ -1,10 +1,7 @@
-import styled from "@emotion/styled";
 import { VerificationFragment, VerificationFragmentWithData, utils } from "@govtechsg/oa-verify";
 import React, { FunctionComponent } from "react";
-import tw from "twin.macro";
 import { NETWORK_NAME } from "../../config";
 import { StatusChecks } from "./StatusChecks";
-
 interface DocumentStatusProps {
   verificationStatus: VerificationFragment[];
 }
@@ -47,51 +44,24 @@ export const IssuedBy: FunctionComponent<DocumentStatusProps> = ({ verificationS
   const formattedDomainNames = fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 
   return (
-    <h3 id="issuedby" className="mb-0 issuedby">
-      <span className="mr-1">Issued by</span>
-      <span className="domain">{formattedDomainNames}</span>
-    </h3>
+    <h2 id="issuedby" className="mb-0 text-cloud-900 text-lg font-semibold">
+      <span className="mr-1 inline-block break-all">Issued by</span>
+      <span className="text-cerulean inline-block break-all">{formattedDomainNames}</span>
+    </h2>
   );
 };
 
 export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ verificationStatus }) => {
   return (
-    <DocumentStatusStyles>
-      <div className="container">
-        <div id="document-status" className="statusbar">
-          <div className="flex flex-col xl:flex-row">
-            <div className="flex-grow">
-              {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
-            </div>
-            <StatusChecks verificationStatus={verificationStatus} />
+    <div className="container">
+      <div id="document-status" className="py-4">
+        <div className="flex flex-col">
+          <div className="flex-grow">
+            {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} />}
           </div>
+          <StatusChecks verificationStatus={verificationStatus} />
         </div>
       </div>
-    </DocumentStatusStyles>
+    </div>
   );
 };
-
-const DocumentStatusStyles = styled.div`
-  ${tw`py-4`}
-
-  .statusbar {
-    ${tw`bg-white p-4 rounded`}
-  }
-
-  .issuedby {
-    ${tw`text-grey-700 text-lg font-semibold`}
-
-    span {
-      ${tw`inline-block`}
-      word-break: break-all;
-    }
-
-    .domain {
-      ${tw`text-blue`}
-    }
-  }
-
-  .message {
-    ${tw`text-sm leading-5`}
-  }
-`;

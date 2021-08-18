@@ -1,203 +1,156 @@
-import styled from "@emotion/styled";
-import { Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Settings } from "react-feather";
-import { useLocation } from "react-router-dom";
-import { NavHashLink } from "react-router-hash-link";
-import tw from "twin.macro";
+import {
+  Button,
+  NavigationBar as NavBar,
+  NavigationItem,
+  NAVIGATION_ITEM_TYPE,
+  ButtonSize,
+} from "@govtechsg/tradetrust-ui-components";
+import { NavLink } from "react-router-dom";
+import { URLS } from "../../../constants";
 
-interface NavItemsProps {
-  id: string;
-  label: string;
-  path: string;
-  dropdownItems?: { id: string; label: string; path: string }[];
-}
-
-export const navItems: NavItemsProps[] = [
+const leftNavItems: NavigationItem[] = [
   {
-    id: "verify-documents",
-    label: "Verify Documents",
-    path: "/#verify-documents",
-  },
-  {
-    id: "create-documents",
-    label: "Create Documents",
-    path: "https://creator.tradetrust.io/",
-  },
-  {
-    id: "info",
-    label: "Info",
-    path: "/info",
+    schema: NAVIGATION_ITEM_TYPE.NavigationDropDownList,
+    id: "resources",
+    label: "Resources",
+    path: "",
     dropdownItems: [
       {
-        id: "resources",
-        label: "Resources",
-        path: "/resources",
+        id: "learn",
+        label: "Learn",
+        path: "/learn",
+        customLink: (
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/learn"}>
+            Learn
+          </NavLink>
+        ),
       },
       {
-        id: "media",
-        label: "Events and Media Centre",
-        path: "/media",
+        id: "faq",
+        label: "FAQ",
+        path: "/faq",
+        customLink: (
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/faq"}>
+            FAQ
+          </NavLink>
+        ),
+      },
+      {
+        id: "eta",
+        label: "ETA",
+        path: "/eta",
+        customLink: (
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/eta"}>
+            ETA
+          </NavLink>
+        ),
       },
     ],
   },
   {
-    id: "faq",
-    label: "FAQ",
-    path: "/faq",
+    schema: NAVIGATION_ITEM_TYPE.NavigationDropDownList,
+    id: "news-events",
+    label: "News & Events",
+    path: "",
+    dropdownItems: [
+      {
+        id: "news",
+        label: "News",
+        path: "/news",
+        customLink: (
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/news"}>
+            News
+          </NavLink>
+        ),
+      },
+      {
+        id: "event",
+        label: "Event",
+        path: "/event",
+        customLink: (
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/event"}>
+            Event
+          </NavLink>
+        ),
+      },
+    ],
   },
   {
+    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
     id: "contact",
     label: "Contact",
-    path: "/#contact",
-  },
-  {
-    id: "settings",
-    label: "Settings",
-    path: "/settings",
+    path: "/contact",
+    customLink: (
+      <NavLink activeClassName="text-cerulean" className="block w-full text-current" to={"/contact"}>
+        Contact
+      </NavLink>
+    ),
   },
 ];
 
-export const NavBarItem = (item: NavItemsProps): React.ReactNode => {
-  const location = useLocation();
-  switch (true) {
-    case item.id === "create-documents":
-      return <a href={item.path}>{item.label}</a>;
-    case item.id === "info":
-      return (
-        <Dropdown
-          dropdownButtonText="Info"
-          className="transition-colors duration-200 ease-out font-normal text-greyblue hover:text-white"
-        >
-          {item.dropdownItems?.map((dropdownItem: any, index: number) => {
-            return (
-              <DropdownItem key={index}>
-                <NavHashLink key={index} to={dropdownItem.path} className="dropdown-link" smooth>
-                  {dropdownItem.label}
-                </NavHashLink>
-              </DropdownItem>
-            );
-          })}
-        </Dropdown>
-      );
-    case item.id === "settings":
-      return (
-        <NavHashLink
-          to={item.path}
-          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
-          activeClassName=""
-          smooth
-        >
-          <Settings />
-        </NavHashLink>
-      );
-    default:
-      return (
-        <NavHashLink
-          to={item.path}
-          className={`${location.pathname}${location.hash}` === item.path ? "active" : ""}
-          activeClassName=""
-          smooth
-          data-testid={`navbar-${item.id}`}
-        >
-          {item.label}
-        </NavHashLink>
-      );
-  }
+const rightNavItems: NavigationItem[] = [
+  {
+    schema: NAVIGATION_ITEM_TYPE.NavigationIconButton,
+    id: "settings",
+    label: "Settings",
+    path: "/settings",
+    icon: Settings,
+    customLink: (
+      <NavLink activeClassName="text-cerulean" className="block w-full py-2 text-current" to={"/settings"}>
+        <Settings className="stroke-current" />
+      </NavLink>
+    ),
+  },
+  {
+    schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
+    id: "create-documents",
+    label: "Create Doc",
+    path: URLS.CREATOR,
+    customLink: (
+      <a href={URLS.CREATOR}>
+        <Button className="bg-white text-cerulean hover:bg-gray-50" size={ButtonSize.SM}>
+          Create Doc
+        </Button>
+      </a>
+    ),
+  },
+  {
+    schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
+    id: "verify",
+    label: "Verify Doc",
+    path: "/verify",
+    customLink: (
+      <NavLink to={"/verify"}>
+        <Button className="bg-cerulean text-white hover:bg-cerulean-500" size={ButtonSize.SM}>
+          Verify Doc
+        </Button>
+      </NavLink>
+    ),
+  },
+];
+
+const NavLogo = () => {
+  return (
+    <NavLink to={"/"} data-testid="nav-logo-home">
+      <h4 className="text-gray-800">TradeTrust</h4>
+    </NavLink>
+  );
 };
 
-export const NavBar = styled.nav`
-  a {
-    ${tw`text-greyblue`}
-
-    &:hover {
-      ${tw`text-white`}
-    }
-
-    &.active {
-      ${tw`text-white`}
-    }
-  }
-
-  .dropdown-link {
-    ${tw`text-grey-800 font-normal px-2 py-1 block items-center`}
-
-    &:not(.active) {
-      &:hover {
-        ${tw`text-grey-800`}
-      }
-    }
-
-    &.active {
-      ${tw`text-orange`}
-    }
-  }
-`;
-
-export const NavigationBar: FunctionComponent = () => {
-  const [isOn, setIsOn] = useState(false);
+export const NavigationBar: FunctionComponent<{
+  toggleNavBar: boolean;
+  setToggleNavBar: (toggleNavbar: boolean) => void;
+}> = (props) => {
   return (
-    <NavBar className="bg-navy">
-      <div className="container py-4">
-        <div className="relative flex items-center justify-between h-16">
-          <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
-            <button
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
-              onClick={() => {
-                setIsOn(!isOn);
-              }}
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isOn ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-          <div className="flex-1 flex items-center justify-center lg:items-stretch lg:justify-start">
-            <div className="flex-shrink-0">
-              <NavHashLink to="/" smooth>
-                <img
-                  data-testid="nav-logo-home"
-                  className="img-fluid h-12"
-                  src="/static/images/tradetrust_logo.svg"
-                  alt="TradeTrust"
-                />
-              </NavHashLink>
-            </div>
-            <div className="hidden lg:block lg:ml-auto">
-              <div className="flex h-full items-center">
-                {navItems.map((item, index) => {
-                  return (
-                    <div key={index} className="text-lg font-normal w-auto lg:ml-10">
-                      {NavBarItem(item)}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={`lg:hidden ${isOn ? "block" : "hidden"}`}>
-        <div className="container py-4">
-          {navItems.map((item, index) => {
-            return (
-              <div key={index} className="text-lg font-normal w-full mb-4">
-                {NavBarItem(item)}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </NavBar>
+    <NavBar
+      logo={<NavLogo />}
+      menuLeft={leftNavItems}
+      menuRight={rightNavItems}
+      menuMobile={leftNavItems.concat(rightNavItems)}
+      setToggleNavBar={props.setToggleNavBar}
+      toggleNavBar={props.toggleNavBar}
+    />
   );
 };

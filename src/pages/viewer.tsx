@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import ViewerPageContainer from "../components/ViewerPageContainer";
-import { PrintWatermark } from "../components/PrintWatermark";
-import { FeatureFlag } from "../components/FeatureFlag";
 
 export const ViewerPage: FunctionComponent = () => (
   <>
@@ -19,9 +17,6 @@ export const ViewerPage: FunctionComponent = () => (
       <meta property="og:url" content={`${window.location.origin}/viewer`} />
       <title>TradeTrust - Viewer</title>
     </Helmet>
-    <FeatureFlag name="WATERMARK">
-      <PrintWatermark />
-    </FeatureFlag>
     <ViewerPageContainer />
   </>
 );

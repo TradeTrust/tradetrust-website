@@ -1,5 +1,4 @@
 import { put, select, takeEvery } from "redux-saga/effects";
-import { push } from "connected-react-router";
 import { getLogger } from "../utils/logger";
 import {
   types,
@@ -7,12 +6,12 @@ import {
   verifyingCertificateFailure,
   getCertificate,
 } from "../reducers/certificate";
-import { sendEmail } from "../services/email/sendEmail";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { isValid } from "@govtechsg/oa-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
 import { NETWORK_NAME } from "./../config";
+import { history } from "../history";
 
 const { trace } = getLogger("saga:certificate");
 
@@ -31,56 +30,34 @@ export function* verifyCertificate() {
     // Instead of success/failure, report completeness
     yield put(verifyingCertificateCompleted(verificationStatus));
     if (NETWORK_NAME === "local" ? true : isValid(verificationStatus)) {
-      yield put(push("/viewer"));
+      yield history.push("/viewer");
     }
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));
-  }
-}
-
-export function* sendCertificate({ payload }) {
-  try {
-    const certificate = yield select(getCertificate);
-    const { email, captcha } = payload;
-    const success = yield sendEmail({
-      certificate,
-      email,
-      captcha,
-    });
-
-    if (!success) {
-      throw new Error("Fail to send certificate");
-    }
-
-    yield put({
-      type: types.SENDING_CERTIFICATE_SUCCESS,
-    });
-  } catch (e) {
-    yield put({
-      type: types.SENDING_CERTIFICATE_FAILURE,
-      payload: e.message,
-    });
   }
 }
 
 export function* handleQrScanned({ payload: qrCode }) {
   try {
-    const actionPayload = yield processQrCode(qrCode);
+    const { payload, anchor } = yield processQrCode(qrCode);
 
     yield put({
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION,
-      payload: actionPayload,
+      payload,
+      anchor,
     });
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));
   }
 }
 
-export function* retrieveCertificateByAction({ payload: { uri, key } }) {
+export function* retrieveCertificateByAction({ payload: { uri, key: payloadKey }, anchor: { key: anchorKey } }) {
   try {
     yield put({
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING,
     });
+
+    const key = anchorKey || payloadKey;
 
     // if a key has been provided, let's assume
     let certificate = yield window.fetch(uri).then((response) => {
@@ -127,6 +104,5 @@ export function* retrieveCertificateByAction({ payload: { uri, key } }) {
 export default [
   takeEvery(types.CERTIFICATE_PROCESS_QR_CODE, handleQrScanned),
   takeEvery(types.UPDATE_CERTIFICATE, verifyCertificate),
-  takeEvery(types.SENDING_CERTIFICATE, sendCertificate),
   takeEvery(types.RETRIEVE_CERTIFICATE_BY_ACTION, retrieveCertificateByAction),
 ];

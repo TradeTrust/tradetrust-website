@@ -1,6 +1,11 @@
 module.exports = {
   collectCoverage: false,
-  collectCoverageFrom: ["src/**/*.{ts,tsx,js,jsx}", "scripts/**/*.{ts,tsx,js,jsx}", "!src/**/*.spec.{ts,tsx,js,jsx}"],
+  collectCoverageFrom: [
+    "src/**/*.{ts,tsx,js,jsx}",
+    "scripts/**/*.{ts,tsx,js,jsx}",
+    "!src/**/*.spec.{ts,tsx,js,jsx}",
+    "!src/**/*.stories.tsx",
+  ],
   coverageDirectory: "<rootDir>/.coverage/",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   moduleNameMapper: {
@@ -8,9 +13,9 @@ module.exports = {
       "<rootDir>/_mocks_/fileMock.js",
     "\\.(css|sass|scss)$": "identity-obj-proxy",
   },
-  setupFiles: ["<rootDir>/jest.setup.js"],
   testEnvironment: "jest-environment-jsdom",
+  setupFiles: ["<rootDir>/jest.setup.ts"],
+  setupFilesAfterEnv: ["<rootDir>/jest.dom.setup.ts"],
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)test.[jt]s?(x)"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/"],
-  testResultsProcessor: "jest-sonar-reporter",
 };

@@ -57,10 +57,10 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
   }
 
   .icon {
-    ${tw`h-5 w-5 text-grey ml-1`}
+    ${tw`h-5 w-5 text-gray-500 ml-1`}
   }
 
   .name {
-    ${tw`text-lg text-grey-700 font-semibold`}
+    ${tw`text-lg text-gray-700 font-semibold`}
   }
 `;
