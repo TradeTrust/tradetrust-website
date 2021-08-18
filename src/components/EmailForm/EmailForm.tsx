@@ -1,4 +1,4 @@
-import { Button, Input } from "@govtechsg/tradetrust-ui-components";
+import { Button, Input, ButtonSize } from "@govtechsg/tradetrust-ui-components";
 import { OverlayContext, Textual } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
@@ -113,7 +113,9 @@ export const EmailForm: FunctionComponent = () => {
               </Checkbox>
               <p className="mt-8 font-medium">*Mandatory</p>
             </div>
-            <Button className="text-white bg-cerulean hover:bg-cerulean-300 rounded-xl">Submit</Button>
+            <Button className="text-white bg-cerulean hover:bg-cerulean-300 rounded-xl" size={ButtonSize.SM}>
+              Submit
+            </Button>
           </div>
         </div>
       </div>

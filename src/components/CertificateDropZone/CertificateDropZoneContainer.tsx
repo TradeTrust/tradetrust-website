@@ -1,23 +1,13 @@
-import styled from "@emotion/styled";
 import React from "react";
+import { Button } from "@govtechsg/tradetrust-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { processQrCode, resetCertificateState, updateCertificate } from "../../reducers/certificate";
 import QrReader, { QrDataType } from "../QrReader/qrReader";
 import { CertificateDropZone } from "./CertificateDropZone";
-import { ViewerButton } from "./Views/SharedViewerStyledComponents";
-
-const DisabledButton = styled(ViewerButton)`
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  z-index: 999;
-  margin: 0;
-  transform: translateX(-50%);
-`;
 
 // type as any for now
 type CertificateData = any;
-const DisableMessage = "Disabled";
+const DisableMessage = "Disable";
 
 export const CertificateDropZoneContainer = (): React.ReactElement => {
   const [fileError, setFileError] = React.useState(false);
@@ -57,10 +47,14 @@ export const CertificateDropZoneContainer = (): React.ReactElement => {
   }, [dispatch]);
 
   return qrReaderVisible ? (
-    <div className="relative">
+    <>
       <QrReader handleQrScanned={handleQrScanned} />
-      <DisabledButton onClick={toggleQrReaderVisible}>{DisableMessage}</DisabledButton>
-    </div>
+      <div className="py-2 text-center">
+        <Button className="bg-cerulean text-white hover:bg-cerulean-500" onClick={toggleQrReaderVisible}>
+          {DisableMessage}
+        </Button>
+      </div>
+    </>
   ) : (
     <CertificateDropZone
       fileError={fileError}

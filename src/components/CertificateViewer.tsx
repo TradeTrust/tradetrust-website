@@ -133,7 +133,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
           </div>
         )}
         <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-          <DocumentUtility document={document} onPrint={onPrint} />
+          {templates.length > 0 && <DocumentUtility document={document} onPrint={onPrint} />}
           <DecentralisedRendererContainer
             rawDocument={document}
             updateTemplates={updateTemplates}

@@ -1,5 +1,6 @@
 import React from "react";
-import { ViewerButton, ViewerContainer } from "./SharedViewerStyledComponents";
+import { Button } from "@govtechsg/tradetrust-ui-components";
+import { ViewerContainer } from "./SharedViewerStyledComponents";
 import { DemoCertMobile } from "./DemoCertMobile";
 interface DefaultViewProps {
   hover: boolean;
@@ -46,9 +47,9 @@ export const DefaultView = ({
     </div>
     <div className="text-gray-700 flex flex-wrap">
       <div className="mx-auto">
-        <ViewerButton>Select File</ViewerButton>
-        <ViewerButton
-          className="md:hidden"
+        <Button className="bg-cerulean text-white hover:bg-cerulean-500 mr-2 md:mr-0">Select File</Button>
+        <Button
+          className="bg-cerulean text-white hover:bg-cerulean-500 md:hidden"
           data-testid="scan-qr-button"
           onClick={(event) => {
             event.preventDefault();
@@ -57,7 +58,7 @@ export const DefaultView = ({
           }}
         >
           Scan QR Code
-        </ViewerButton>
+        </Button>
       </div>
     </div>
   </ViewerContainer>

@@ -64,16 +64,3 @@ export const ViewerContainer = styled.div`
     ${tw`text-red-500 underline cursor-pointer hover:text-gray-500`}
   }
 `;
-
-export const ViewerButton = styled.button`
-  ${tw`
-  transition-colors duration-200 ease-out
-  shadow-lg rounded-xl 
-  border border-cerulean hover:border-cerulean-300
-  bg-cerulean hover:bg-cerulean-300
-  font-bold
-  text-white
-  p-2
-  mx-3
-  `}
-`;
