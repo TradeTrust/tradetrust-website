@@ -50,10 +50,6 @@ NET=rinkeby npm run dev
 
 To enable debug logs in the browser, set `localStorage.debug="*"`
 
-### Running single integration test
-
-`npm run integration:single <path>`, for the path, you can copy paste relative path via text editor.
-
 ### Test single feature flag
 
 To test, simply run the following in console and refresh the website:
@@ -80,11 +76,7 @@ or
 localStorage.FEATURE_FLAG =  JSON.stringify({ALL: true})
 ```
 
-### Generating CREDITS.md
-
-Run `npx @opengovsg/credits-generator`
-
-###### Module build failed
+### Module build failed
 
 If you see module build failure message like:
 
@@ -96,6 +88,14 @@ at Object.readdirSync (fs.js:783:3)
 ```
 
 Try running `npm rebuild`
+
+### Generating CREDITS.md
+
+Run `npx @opengovsg/credits-generator`
+
+### Running single integration test
+
+`npm run integration:single <path>`, for the path, you can copy paste relative path via text editor.
 
 ### Managing Netlify CMS
 
