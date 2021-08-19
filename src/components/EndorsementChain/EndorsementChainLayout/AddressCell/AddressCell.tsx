@@ -8,24 +8,14 @@ import { EndorsementJourney } from "../EndorsementJourney";
 
 interface AddressCell {
   address: string;
-  className?: string;
   titleEscrowAddress?: string;
   isNewAddress: boolean;
   displayDashHead?: boolean;
   displayDashTail?: boolean;
-  pathDistance?: number;
 }
 
 export const AddressCell: FunctionComponent<AddressCell> = styled(
-  ({
-    address,
-    className,
-    titleEscrowAddress,
-    isNewAddress,
-    displayDashHead,
-    displayDashTail,
-    pathDistance,
-  }: AddressCell) => {
+  ({ address, titleEscrowAddress, isNewAddress, displayDashHead, displayDashTail }: AddressCell) => {
     const { identityName } = useIdentifierResolver(address);
 
     const tooltipContent = (
@@ -36,12 +26,11 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
     );
 
     return (
-      <div className={`${className}`}>
+      <>
         <EndorsementJourney
           displayDashHead={!!displayDashHead}
           displayDot={isNewAddress}
           displayDashTail={!!displayDashTail}
-          pathDistance={pathDistance}
         />
         <div className="flex">
           {identityName && <div className="name">{identityName}</div>}
@@ -52,7 +41,7 @@ export const AddressCell: FunctionComponent<AddressCell> = styled(
           )}
         </div>
         <div className="address">{address}</div>
-      </div>
+      </>
     );
   }
 )`

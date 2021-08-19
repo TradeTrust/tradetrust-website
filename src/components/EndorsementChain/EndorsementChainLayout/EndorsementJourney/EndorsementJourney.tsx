@@ -6,31 +6,27 @@ interface EndorsementJourneyProps {
   displayDashHead: boolean;
   displayDot: boolean;
   displayDashTail: boolean;
-  pathDistance?: number;
 }
 
 export const EndorsementJourney: FunctionComponent<EndorsementJourneyProps> = ({
   // displayDashHead,
   displayDot,
   // displayDashTail,
-  pathDistance,
 }) => {
-  let pathHeight = "";
-  if (pathDistance) pathHeight = `h-${pathDistance * 20}`;
+  // let pathHeight = "";
+  // if (pathDistance) pathHeight = `h-${pathDistance * 20}`;
+  // console.log(pathHeight);
 
-  console.log(pathHeight);
   return (
     // <Journey>
     //   {/* <div className={`dash-head ${displayDashHead ? "" : "invisible"}`} data-testid="dash-head" /> */}
     //   <div className={`dash-head ${displayDashHead ? "" : "invisible"}`} data-testid="dash-head" />
-
     //   <div className={displayDot ? "dot" : "invisible"} data-testid="dot" />
     //   {/* <div className={`dash-tail ${displayDashTail ? "" : "invisible"}`} data-testid="dash-tail" /> */}
     // </Journey>
 
-    <div className="absolute bottom-0 left-0 mb-5 z-10">
+    <div className="absolute top-1/2 transform -translate-y-1/2 left-0 z-10">
       <div className={`border-l border-dashed border-rose pl-2`} data-testid="dash-head" />
-
       <div className={displayDot ? "rounded-full bg-cerulean-200 h-4 w-4 " : "invisible"} data-testid="dot" />
     </div>
   );
