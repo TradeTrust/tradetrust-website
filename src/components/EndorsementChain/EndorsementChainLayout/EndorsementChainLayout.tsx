@@ -102,10 +102,26 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   error,
   pending,
 }) => {
+  let historyChainIndex = 0;
+
   // TODO - START
-  const historyChain = endorsementChain?.map((endorsementChainEvent) => {
+  const historyChain: any[] = [
+    {
+      action: ActionType.INITIAL,
+      isNewBeneficiary: true,
+      isNewHolder: false,
+      timestamp: 123,
+      documentOwner: "",
+      beneficiary: "",
+      holder: "",
+    },
+  ];
+
+  // const historyChain = endorsementChain.map((endorsementChainEvent) => {
+  // eslint-disable-next-line array-callback-return
+  endorsementChain?.map((endorsementChainEvent) => {
     const chain = endorsementChainEvent as TitleEscrowEvent;
-    let action;
+    let action = "";
     let isNewBeneficiary = true;
     let isNewHolder = false;
     let previousBeneficiary = "";
@@ -117,7 +133,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
         chain.holderChangeEvents.forEach((holderEvent) => {
           const holder = holderEvent.holder;
 
-          if (previousBeneficiary !== beneficiary && previousHolder !== holder) {
+          if (previousBeneficiary !== beneficiary && previousHolder !== holder && historyChainIndex !== 0) {
             action = ActionType.SURRENDER_REJECTED;
             isNewBeneficiary = true;
             isNewHolder = true;
@@ -137,42 +153,81 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 
             previousHolder = holder;
           }
+
+          historyChainIndex++;
+          historyChain.push({
+            action,
+            isNewBeneficiary, // to determine to draw dot
+            isNewHolder, // to determine to draw dot
+            timestamp: 1594608110000,
+            documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
+            beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+            holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+          });
         });
 
         break;
       case EventType.SURRENDER:
         action = ActionType.SURRENDERED;
+        historyChainIndex++;
+        historyChain.push({
+          action,
+          isNewBeneficiary, // to determine to draw dot
+          isNewHolder, // to determine to draw dot
+          timestamp: 1594608110000,
+          documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
+          beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+          holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+        });
         break;
       case EventType.BURNT:
         action = ActionType.SURRENDER_ACCEPTED;
+        historyChainIndex++;
+        historyChain.push({
+          action,
+          isNewBeneficiary, // to determine to draw dot
+          isNewHolder, // to determine to draw dot
+          timestamp: 1594608110000,
+          documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
+          beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+          holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+        });
         break;
       case EventType.TRANSFER_TO_WALLET:
         action = ActionType.TRANSFER_TO_WALLET;
+        historyChainIndex++;
+        historyChain.push({
+          action,
+          isNewBeneficiary, // to determine to draw dot
+          isNewHolder, // to determine to draw dot
+          timestamp: 1594608110000,
+          documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
+          beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+          holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+        });
         break;
       default:
         action = "foobar default";
     }
 
-    return {
-      action,
-      isNewBeneficiary, // to determine to draw dot
-      isNewHolder, // to determine to draw dot
-      timestamp: 1594608110000,
-      documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
-      beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-      holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    };
-  });
-
-  // initial fake event
-  historyChain?.unshift({
-    action: ActionType.INITIAL,
-    isNewBeneficiary: true,
-    isNewHolder: false,
-    timestamp: 123,
-    documentOwner: "",
-    beneficiary: "",
-    holder: "",
+    // historyChain.push({
+    //   action,
+    //   isNewBeneficiary, // to determine to draw dot
+    //   isNewHolder, // to determine to draw dot
+    //   timestamp: 1594608110000,
+    //   documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
+    //   beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+    //   holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+    // });
+    // return {
+    //   action,
+    //   isNewBeneficiary, // to determine to draw dot
+    //   isNewHolder, // to determine to draw dot
+    //   timestamp: 1594608110000,
+    //   documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
+    //   beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+    //   holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+    // };
   });
 
   console.log(historyChain);
