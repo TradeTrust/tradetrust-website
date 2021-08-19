@@ -56,18 +56,6 @@ enum ActionType {
   TRANSFER_TO_WALLET = "Transfer to Wallet",
 }
 
-// const foobar = [
-//   {
-//     action: "Endorse change of ownership",
-//     timestamp: 1594608110000,
-//     documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
-//     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-//     holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-//     isNewBeneficiary: false, // to determine to draw dot
-//     isNewHolder: false, // to determine to draw dot
-//   },
-// ];
-
 // const foobarz = {
 //   documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
 //   eventType: "Transfer",
@@ -86,15 +74,15 @@ enum ActionType {
 //   ],
 // };
 
-// interface HistoryChain {
-//   action: ActionType;
-//   isNewBeneficiary: boolean; // to determine to draw dot
-//   isNewHolder: boolean;
-//   timestamp?: number;
-//   documentOwner?: string;
-//   beneficiary?: string;
-//   holder?: string;
-// }
+interface HistoryChain {
+  action: ActionType;
+  isNewBeneficiary: boolean;
+  isNewHolder: boolean;
+  documentOwner?: string;
+  beneficiary?: string;
+  holder?: string;
+  timestamp?: number;
+}
 
 export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> = ({
   endorsementChain,
@@ -102,132 +90,117 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   error,
   pending,
 }) => {
-  let historyChainIndex = 0;
-
   // TODO - START
-  const historyChain: any[] = [
+  const historyChain: HistoryChain[] = [
     {
       action: ActionType.INITIAL,
       isNewBeneficiary: true,
       isNewHolder: false,
-      timestamp: 123,
-      documentOwner: "",
-      beneficiary: "",
-      holder: "",
     },
   ];
 
-  // const historyChain = endorsementChain.map((endorsementChainEvent) => {
-  // eslint-disable-next-line array-callback-return
-  endorsementChain?.map((endorsementChainEvent) => {
+  endorsementChain?.forEach((endorsementChainEvent) => {
     const chain = endorsementChainEvent as TitleEscrowEvent;
-    let action = "";
-    let isNewBeneficiary = true;
-    let isNewHolder = false;
     let previousBeneficiary = "";
     let previousHolder = "";
 
     switch (chain.eventType) {
       case EventType.TRANSFER:
+        const documentOwner = chain.documentOwner;
         const beneficiary = chain.beneficiary;
-        chain.holderChangeEvents.forEach((holderEvent) => {
+
+        chain.holderChangeEvents.forEach((holderEvent, index) => {
           const holder = holderEvent.holder;
+          const timestamp = holderEvent.timestamp;
+          const isNewBeneficiary = beneficiary !== previousBeneficiary;
+          const isNewHolder = holder !== previousHolder;
 
-          if (previousBeneficiary !== beneficiary && previousHolder !== holder && historyChainIndex !== 0) {
-            action = ActionType.SURRENDER_REJECTED;
-            isNewBeneficiary = true;
-            isNewHolder = true;
-
-            previousBeneficiary = beneficiary;
-            previousHolder = holder;
-          } else if (previousBeneficiary !== beneficiary) {
-            action = ActionType.ENDORSE;
-            isNewBeneficiary = true;
-            isNewHolder = false;
-
-            previousBeneficiary = beneficiary;
-          } else if (previousHolder !== holder) {
-            action = ActionType.TRANSFER;
-            isNewBeneficiary = false;
-            isNewHolder = true;
-
-            previousHolder = holder;
+          if (index === 0) {
+            historyChain.push({
+              action: ActionType.ENDORSE,
+              isNewBeneficiary,
+              isNewHolder,
+              documentOwner,
+              beneficiary,
+              holder,
+              timestamp,
+            });
+          } else {
+            if (previousHolder !== holder) {
+              historyChain.push({
+                action: ActionType.TRANSFER,
+                isNewBeneficiary,
+                isNewHolder,
+                documentOwner,
+                beneficiary,
+                holder,
+                timestamp,
+              });
+            } else if (previousBeneficiary !== beneficiary) {
+              historyChain.push({
+                action: ActionType.ENDORSE,
+                isNewBeneficiary,
+                isNewHolder,
+                documentOwner,
+                beneficiary,
+                holder,
+                timestamp,
+              });
+            } else if (previousBeneficiary !== beneficiary && previousHolder !== holder) {
+              historyChain.push({
+                action: ActionType.SURRENDER_REJECTED,
+                isNewBeneficiary,
+                isNewHolder,
+                documentOwner,
+                beneficiary,
+                holder,
+                timestamp,
+              });
+            } else {
+              throw Error("holderChangeEvents no scenarios met");
+            }
           }
 
-          historyChainIndex++;
-          historyChain.push({
-            action,
-            isNewBeneficiary, // to determine to draw dot
-            isNewHolder, // to determine to draw dot
-            timestamp: 1594608110000,
-            documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
-            beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-            holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-          });
+          previousHolder = holder;
+          previousBeneficiary = beneficiary;
         });
-
         break;
       case EventType.SURRENDER:
-        action = ActionType.SURRENDERED;
-        historyChainIndex++;
         historyChain.push({
-          action,
-          isNewBeneficiary, // to determine to draw dot
-          isNewHolder, // to determine to draw dot
-          timestamp: 1594608110000,
-          documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
-          beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-          holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+          action: ActionType.SURRENDERED,
+          isNewBeneficiary: true,
+          isNewHolder: false,
+          timestamp: 0,
+          documentOwner: "TODO",
+          beneficiary: "TODO",
+          holder: "TODO",
         });
         break;
       case EventType.BURNT:
-        action = ActionType.SURRENDER_ACCEPTED;
-        historyChainIndex++;
         historyChain.push({
-          action,
-          isNewBeneficiary, // to determine to draw dot
-          isNewHolder, // to determine to draw dot
-          timestamp: 1594608110000,
-          documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
-          beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-          holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+          action: ActionType.SURRENDER_ACCEPTED,
+          isNewBeneficiary: true,
+          isNewHolder: false,
+          timestamp: 0,
+          documentOwner: "TODO",
+          beneficiary: "TODO",
+          holder: "TODO",
         });
         break;
       case EventType.TRANSFER_TO_WALLET:
-        action = ActionType.TRANSFER_TO_WALLET;
-        historyChainIndex++;
         historyChain.push({
-          action,
-          isNewBeneficiary, // to determine to draw dot
-          isNewHolder, // to determine to draw dot
-          timestamp: 1594608110000,
-          documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
-          beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-          holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
+          action: ActionType.TRANSFER_TO_WALLET,
+          isNewBeneficiary: true,
+          isNewHolder: false,
+          timestamp: 0,
+          documentOwner: "TODO",
+          beneficiary: "TODO",
+          holder: "TODO",
         });
         break;
       default:
-        action = "foobar default";
+        throw Error("eventType not matched");
     }
-
-    // historyChain.push({
-    //   action,
-    //   isNewBeneficiary, // to determine to draw dot
-    //   isNewHolder, // to determine to draw dot
-    //   timestamp: 1594608110000,
-    //   documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
-    //   beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    //   holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    // });
-    // return {
-    //   action,
-    //   isNewBeneficiary, // to determine to draw dot
-    //   isNewHolder, // to determine to draw dot
-    //   timestamp: 1594608110000,
-    //   documentOwner: "0x777FeD6E6591b808130a9b248fEA32101b5220eca",
-    //   beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    //   holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    // };
   });
 
   console.log(historyChain);
