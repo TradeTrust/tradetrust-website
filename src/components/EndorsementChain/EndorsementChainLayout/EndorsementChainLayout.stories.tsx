@@ -208,14 +208,14 @@ const sampleSuccessEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[
       {
         blockNumber: 8283046,
         holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594609044000,
+        timestamp: 1594609306000,
       },
     ],
   },
   {
     documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
     eventType: "Surrender",
-    eventTimestamp: 1594609205000,
+    eventTimestamp: 1594609402000,
   },
   {
     documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
@@ -225,7 +225,7 @@ const sampleSuccessEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[
       {
         blockNumber: 8283052,
         holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594609306000,
+        timestamp: 1594609508000,
       },
     ],
   },
@@ -237,14 +237,14 @@ const sampleSuccessEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[
       {
         blockNumber: 8283046,
         holder: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
-        timestamp: 1594609044000,
+        timestamp: 1594609608000,
       },
     ],
   },
   {
     documentOwner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
     eventType: "Surrender",
-    eventTimestamp: 1594609308000,
+    eventTimestamp: 1594609708000,
   },
   // {
   //   documentOwner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
@@ -261,7 +261,7 @@ const sampleSuccessEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[
   {
     documentOwner: "0x000000000000000000000000000000000000dEaD",
     eventType: "Burnt",
-    eventTimestamp: 1594609405000,
+    eventTimestamp: 1594609808000,
   },
 ];
 
