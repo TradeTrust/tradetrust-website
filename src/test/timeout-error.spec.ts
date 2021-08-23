@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { uploadDocument, location, navigateToVerify } from "./helper";
+import { location, navigateToVerify, uploadDocument } from "./helper";
 
 fixture("Timeout error").page`${location}`;
 

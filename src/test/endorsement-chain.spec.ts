@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIssuerTexts, location } from "./helper";
+import { location, navigateToVerify, uploadDocument, validateIssuerTexts } from "./helper";
 
 fixture("Endorsement Chain Rendering").page`${location}`;
 
@@ -14,6 +14,7 @@ const SurrenderToIssuerAction = Selector(".action-title").withText("Document sur
 const SurrenderAcceptedAction = Selector(".action-title").withText("Surrender of document accepted");
 
 test("Endorsement chain title and actions are rendered correctly", async (t) => {
+  await navigateToVerify();
   await uploadDocument("./fixture/ebl-endorsement-chain.json");
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
 

@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIssuerTexts, location } from "./helper";
+import { location, navigateToVerify, uploadDocument, validateIssuerTexts } from "./helper";
 
 fixture("Selective Disclosure").page`${location}`;
 
@@ -10,6 +10,7 @@ const CertificateSection = Selector("#rendered-certificate");
 const ExporterObfuscationButton = Selector(".fa-minus-circle").nth(0);
 
 test("Fields on a document can be hidden", async (t) => {
+  await navigateToVerify();
   await uploadDocument("./fixture/coo-selective-disclosure.json");
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
 

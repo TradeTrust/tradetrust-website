@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { validateTextContent, validateIframeTexts, validateIssuerTexts, location } from "./helper";
+import { location, validateTextContent, validateIframeTexts, validateIssuerTexts } from "./helper";
 
 fixture("Load action from plain certificate").page`${location}`;
 

@@ -1,5 +1,13 @@
 import { Selector } from "testcafe";
-import { Iframe, SampleTemplate, uploadDocument, validateTextContent, validateIframeTexts, location } from "./helper";
+import {
+  location,
+  navigateToVerify,
+  uploadDocument,
+  Iframe,
+  SampleTemplate,
+  validateTextContent,
+  validateIframeTexts,
+} from "./helper";
 
 fixture("Document with Attachment Rendering").page`${location}`;
 
@@ -17,6 +25,7 @@ const Pdf1Span = Selector("span").withText("UNCITRAL Model Law on");
 const Pdf2Span = Selector("span").withText("Dumm");
 
 test("Attachment Tab and Panel rendered correctly", async (t) => {
+  await navigateToVerify();
   await uploadDocument("./fixture/attachments.json");
 
   // default document pdf content should render
