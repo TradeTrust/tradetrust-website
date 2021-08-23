@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
-import { validateIframeTexts, validateIssuerTexts, navigateToVerify, location } from "./helper";
+import { location, navigateToVerify, validateIframeTexts, validateIssuerTexts } from "./helper";
 
-fixture("Demo Sample Certificate Rendering").page`${location}/`;
+fixture("Demo Sample Certificate Rendering").page`${location}`;
 
 test("demo sample document is rendered correctly when dragged", async (t) => {
   await navigateToVerify();

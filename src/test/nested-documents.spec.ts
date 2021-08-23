@@ -1,5 +1,12 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIframeTexts, validateTextContent, CloseWindow, location } from "./helper";
+import {
+  location,
+  navigateToVerify,
+  uploadDocument,
+  validateIframeTexts,
+  validateTextContent,
+  CloseWindow,
+} from "./helper";
 
 fixture("Nested documents").page`${location}`;
 
@@ -10,6 +17,7 @@ const AttachmentOpen0 = Selector("[data-testid='attachment-tile-0']").find("[dat
 const AttachmentOpen1 = Selector("[data-testid='attachment-tile-1']").find("[data-testid='attachment-open-link']");
 
 test("Document with nested documents in attachments should open in new tab correctly", async (t) => {
+  await navigateToVerify();
   await uploadDocument("./fixture/nested-documents.json");
   await validateIframeTexts(["Root level nested"]);
 

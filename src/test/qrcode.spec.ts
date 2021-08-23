@@ -1,11 +1,12 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIframeTexts, validateIssuerTexts, location } from "./helper";
+import { location, navigateToVerify, uploadDocument, validateIframeTexts, validateIssuerTexts } from "./helper";
 
 fixture("QRcode Rendering").page`${location}`;
 const qrcode = Selector("[data-testid='qr-code-svg']");
 const logo = qrcode.child("img");
 
 test("UI renders QR code with logo correctly when present in the document", async (t) => {
+  await navigateToVerify();
   await uploadDocument("./fixture/ebl-with-qrcode.json");
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
   await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);

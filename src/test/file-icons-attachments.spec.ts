@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIframeTexts, location } from "./helper";
+import { location, navigateToVerify, uploadDocument, validateIframeTexts } from "./helper";
 
 fixture("Document with 8 Attachments Rendering File Icons").page`${location}`;
 
@@ -18,6 +18,7 @@ const AttachmentNumber = Selector("[data-testid='attachment-number']");
 const AttachmentLink = Selector("[data-testid='attachment-download-link']");
 
 test("Attachment Tab and Panel rendered correctly", async (t) => {
+  await navigateToVerify();
   await uploadDocument("./fixture/file-with-attachments.json");
 
   // default document pdf content should render

@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { uploadDocument, location } from "./helper";
+import { location, navigateToVerify, uploadDocument } from "./helper";
 
 fixture("Render 'Transferred to wallet' status").page`${location}`;
 
@@ -7,6 +7,7 @@ const ViewEndorsementChainButton = Selector("#endorsement-chain-button");
 const TransferredSign = Selector("[data-testid='transferred-to-wallet']");
 
 test("should display 'Transferred to wallet' when document is owned by wallet address", async (t) => {
+  await navigateToVerify();
   await uploadDocument("./fixture/ebl-transfer-to-wallet.json");
   await t.click(ViewEndorsementChainButton);
 
