@@ -16,7 +16,6 @@ export const DemoCertMobile = (): React.ReactElement => {
       <button
         className="bg-tangerine text-white hover:bg-tangerine-600 rounded-xl font-bold py-2 px-3 mx-auto"
         draggable={false}
-        id="demoClick"
         onClick={(e: React.SyntheticEvent) => {
           e.stopPropagation();
           loadDemoCertificate(loadCertificate);

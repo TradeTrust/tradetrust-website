@@ -27,6 +27,7 @@
     font-size: 26px;
     @apply font-ubuntu;
     @apply font-normal;
+    @apply leading-tight;
   }
 
   h4 {
@@ -83,6 +84,10 @@
 @tailwind components;
 
 @layer components {
+  main a {
+    @apply text-cerulean-200;
+  }
+
   .multi-tab {
     @apply bg-white;
     @apply border-t-2;

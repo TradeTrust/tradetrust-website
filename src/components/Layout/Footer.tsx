@@ -34,7 +34,14 @@ const data = [
   {
     category: "Resources",
     items: [
-      { label: "Webinars", to: "/learn", render: renderNavLink },
+      { label: "Learn", to: "/learn", render: renderNavLink },
+      { label: "FAQ", to: "/faq", render: renderNavLink },
+      { label: "ETA", to: "/eta", render: renderNavLink },
+    ],
+  },
+  {
+    category: "News & Event",
+    items: [
       { label: "News", to: "/news", render: renderNavLink },
       { label: "Events", to: "/event", render: renderNavLink },
     ],
@@ -59,11 +66,6 @@ const data = [
 
 export const Footer: React.FunctionComponent = () => {
   return (
-    <BaseFooter
-      className="px-7 md:py-0 md:pt-6"
-      title={"TradeTrust"}
-      copyright={"Copyright \u00A9 2021 TradeTrust"}
-      data={data}
-    />
+    <BaseFooter className="py-8 px-6" title={"TradeTrust"} copyright={"Copyright \u00A9 2021 TradeTrust"} data={data} />
   );
 };
