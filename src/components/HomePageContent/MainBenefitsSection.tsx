@@ -3,9 +3,9 @@ import React, { FunctionComponent } from "react";
 
 const Background = styled.div`
   background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: 0 35%;
-  @media screen and (min-width: 768px) {
+  background-size: 1920px auto; // assuming screens will not be wider than 1920px, otherwise this bg pattern needs to be repeatable-x
+  background-position: center 160px;
+  @media screen and (min-width: 1024px) {
     background-image: url("/static/images/home/mainBenefits/single-wave.png");
   }
 `;
@@ -47,34 +47,29 @@ const mainBenefits: MainBenefits[] = [
 ];
 
 const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ details, id }) => {
-  const svgAlignment = (): string => {
+  const offsetAlignment = (): string => {
     switch (id) {
       case 0:
-        return "md:mt-36 xl:mt-44";
+        return "lg:mt-40 xl:mt-44 2xl:mt-52";
       case 1:
-        return "md:mt-12";
+        return "lg:mt-8 xl:mt-8 2xl:mt-8";
       case 2:
-        return "md:mt-44 xl:mt-56";
+        return "lg:mt-40 xl:mt-52 2xl:mt-64";
       default:
         return "";
     }
   };
 
   return (
-    <div
-      className={`w-full flex flex-col items-center mt-12 md:mx-1 md:w-4/12 md:max-w-xxs md:min-w-xxs ${svgAlignment()}`}
-    >
-      <img src={details.image} alt="mainBenefitsIcon" />
-      <h4
-        className="font-ubuntu font-normal mx-16 md:mx-0 text-center md:text-left md:text-3xl"
-        data-testid="benefit-title"
-      >
+    <div className={`px-0 lg:px-8 xl:px-12 2xl:px-24 lg:w-4/12 mt-12 ${offsetAlignment()}`}>
+      <img className="mx-auto" src={details.image} alt="mainBenefitsIcon" />
+      <h4 className="font-ubuntu font-normal text-center mb-8 lg:text-left lg:text-3xl" data-testid="benefit-title">
         {details.title}
       </h4>
       <ul className="list-disc">
         {details.description.map((description, index) => (
-          <li key={index}>
-            <p className="text-left text-base m-4 md:text-base md:m-0 md:mt-4">{description}</p>
+          <li key={index} className="mb-4">
+            <p className="text-base">{description}</p>
           </li>
         ))}
       </ul>
@@ -87,13 +82,13 @@ export const MainBenefitsSection: FunctionComponent = () => {
     <section id="main-benefits" className="bg-white text-gray-700 py-16">
       <Background>
         <div className="container">
-          <div className="w-5/5 text-center">
-            <h1 className="font-ubuntu text-cloud text-4xl leading-none md:text-5xl">Main Benefits</h1>
-            <h2 className="font-roboto mt-4 mx-4 text-xl leading-6 md:text-xl">
+          <div className="text-center">
+            <h1 className="font-ubuntu text-cloud leading-none text-4xl lg:text-5xl">Main Benefits</h1>
+            <h2 className="font-roboto mt-4 leading-6 text-xl lg:text-xl">
               TradeTrust can bring benefits to the trade, finance and logistics community:
             </h2>
           </div>
-          <div className="flex flex-col md:flex-row md:justify-around">
+          <div className="flex flex-wrap lg:justify-around">
             {mainBenefits.map((details, index) => (
               <MainBenefitsElement key={index} details={details} id={index} />
             ))}

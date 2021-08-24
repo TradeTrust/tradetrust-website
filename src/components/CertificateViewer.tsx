@@ -102,9 +102,10 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
       <div className="no-print">
         {!isTransferableDocument && <DocumentStatus verificationStatus={verificationStatus} />}
         {isDemo && (
-          <Banner className="mt-8">
-            Want to try creating a verifiable document? You will be surprised how easy it is.
-          </Banner>
+          <Banner
+            className="mt-8"
+            title="Want to try creating a verifiable document? You will be surprised how easy it is."
+          />
         )}
         <ObfuscatedMessage document={document} />
         {isTransferableDocument && (

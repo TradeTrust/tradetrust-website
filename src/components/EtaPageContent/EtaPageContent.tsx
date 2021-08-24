@@ -134,7 +134,7 @@ const SectionWhyBl = () => {
                 </li>
                 <li className="mb-8">
                   <p>
-                    US$4 billion estimated savings a year if 50% of the container shipping industry adopts eBLs,
+                    <b>US$4 billion</b> estimated savings a year if 50% of the container shipping industry adopts eBLs,
                     according to Digital Container Shipping Association
                   </p>
                 </li>

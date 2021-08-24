@@ -13,7 +13,7 @@ export default {
 export const Default = () => {
   return (
     <Router>
-      <Banner>Want to try creating a verifiable document? You will be surprised how easy it is.</Banner>
+      <Banner title="Want to try creating a verifiable document? You will be surprised how easy it is." />
     </Router>
   );
 };
