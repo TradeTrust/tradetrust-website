@@ -276,6 +276,14 @@ export const Error = () => {
 };
 
 export const TransferHolder = () => {
+  localStorage.setItem(
+    "ADDRESS_BOOK",
+    JSON.stringify({
+      "0x6FFeD6E6591b808130a9b248fEA32101b5220eca": "DBS",
+      "0x28f7ab32c521d13f2e6980d072ca7ca493020145": "Standard Chartered",
+    })
+  );
+
   return (
     <EndorsementChainLayout
       endorsementChain={transferHolderEndorsementChain}
