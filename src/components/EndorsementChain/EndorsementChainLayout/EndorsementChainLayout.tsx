@@ -13,8 +13,9 @@ import { EndorsementChainLoading } from "./EndorsementChainLoading";
 
 // const { trace } = getLogger("component: endorsementchainlayout");
 
+type EndorsementChain = (TradeTrustErc721Event | TitleEscrowEvent)[];
 interface EndorsementChainLayout {
-  endorsementChain?: (TradeTrustErc721Event | TitleEscrowEvent)[];
+  endorsementChain?: EndorsementChain;
   error?: string;
   pending: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -79,7 +80,7 @@ const EndorsementChainData: React.FunctionComponent<any> = ({ data }) => {
     <div className="mt-10">
       {/* <div className="absolute top-1/2 transform -translate-y-1/2 left-0 z-10"> */}
       <div className="inline-block align-top px-5 z-10 lg:hidden">
-        <div className="border-l border-dashed border-cerulean ml-1.5" data-testid="dash-head" />
+        <div className="absolute z-10 border-l border-dashed border-cerulean ml-1.5" data-testid="dash-head" />
         <div className="rounded-full bg-cerulean h-3 w-3" data-testid="dot" />
       </div>
 
@@ -123,13 +124,7 @@ const EndorsementChainData: React.FunctionComponent<any> = ({ data }) => {
   );
 };
 
-export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> = ({
-  endorsementChain,
-  setShowEndorsementChain,
-  error,
-  pending,
-}) => {
-  // TODO - START
+const getHistoryChain = (endorsementChain?: EndorsementChain) => {
   const historyChain: HistoryChain[] = [
     {
       action: ActionType.INITIAL,
@@ -198,7 +193,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
           isNewHolder: false,
           timestamp: chainEventTimestamp,
         });
-
+        // not reassigning previousBeneficiary and previousHolder so that it takes the addresses from the point when it was surrendered
         break;
       case EventType.BURNT:
         historyChain.push({
@@ -227,8 +222,16 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
     }
   });
 
-  console.log(historyChain);
-  // TODO - END
+  return historyChain;
+};
+
+export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> = ({
+  endorsementChain,
+  setShowEndorsementChain,
+  error,
+  pending,
+}) => {
+  const historyChain = getHistoryChain(endorsementChain);
 
   return (
     <div className="">
