@@ -68,6 +68,61 @@ interface HistoryChain {
   timestamp?: number;
 }
 
+const EndorsementChainData: React.FunctionComponent<any> = ({ data }) => {
+  const tooltipContent = (
+    <div className="relative flex flex-col">
+      <div className="text-white font-bold text-base">Title Escrow:</div>
+      <div className="text-white text-base">{data.documentOwner}</div>
+    </div>
+  );
+  return (
+    <div className="mt-10">
+      {/* <div className="absolute top-1/2 transform -translate-y-1/2 left-0 z-10"> */}
+      <div className="inline-block align-top px-5 z-10 lg:hidden">
+        <div className="border-l border-dashed border-cerulean ml-1.5" data-testid="dash-head" />
+        <div className="rounded-full bg-cerulean h-3 w-3" data-testid="dot" />
+      </div>
+
+      <div className="inline-block lg:flex lg:flex-row">
+        <div className="pr-6 lg:w-4/12 lg:text-right">
+          <div className="inline-block lg:w-10/12">
+            <h4 className="text-cloud-900">{data.action}</h4>
+            {data.timestamp && (
+              <h6 className="text-gray-400">{format(new Date(data.timestamp ?? 0), "do MMM yyyy, hh:mm aa")}</h6>
+            )}
+          </div>
+
+          <div className="hidden lg:inline-block lg:align-top lg:px-5 lg:w-2/12">
+            <div className="border-l border-dashed border-cerulean ml-1.5" data-testid="dash-head" />
+            <div className="rounded-full bg-cerulean h-3 w-3" data-testid="dot" />
+          </div>
+        </div>
+
+        {data.beneficiary && (
+          <div className="lg:w-4/12">
+            <h5 className="inline-block text-gray-400 mr-2 lg:hidden">Owner</h5>
+            <TooltipIcon className="inline-block h-5 w-5 icon" content={tooltipContent} placement="top">
+              <Info />
+            </TooltipIcon>
+
+            <h6 className="text-cerulean break-all">{data.beneficiary}</h6>
+          </div>
+        )}
+
+        {data.holder && (
+          <div className="lg:w-4/12">
+            <h5 className="inline-block text-gray-400 mr-2 lg:hidden">Holder</h5>
+            <TooltipIcon className="inline-block h-5 w-5 icon" content={tooltipContent} placement="top">
+              <Info />
+            </TooltipIcon>
+            <h6 className="text-cerulean break-all">{data.holder}</h6>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> = ({
   endorsementChain,
   setShowEndorsementChain,
@@ -75,7 +130,6 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   pending,
 }) => {
   // TODO - START
-  let historyChainIndex = 0; // to count and keep track of the events
   const historyChain: HistoryChain[] = [
     {
       action: ActionType.INITIAL,
@@ -101,17 +155,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
           const isNewBeneficiary = beneficiary !== previousBeneficiary;
           const isNewHolder = holder !== previousHolder;
 
-          if (previousBeneficiary !== beneficiary && previousHolder !== holder && historyChainIndex === 0) {
-            historyChain.push({
-              action: ActionType.ENDORSE,
-              isNewBeneficiary,
-              isNewHolder,
-              documentOwner,
-              beneficiary,
-              holder,
-              timestamp: holderEventTimestamp,
-            });
-          } else if (previousBeneficiary !== beneficiary && previousHolder !== holder) {
+          if (previousBeneficiary === beneficiary && previousHolder === holder) {
             historyChain.push({
               action: ActionType.SURRENDER_REJECTED,
               isNewBeneficiary,
@@ -145,7 +189,6 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 
           previousHolder = holder;
           previousBeneficiary = beneficiary;
-          historyChainIndex++;
         });
         break;
       case EventType.SURRENDER:
@@ -156,9 +199,6 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
           timestamp: chainEventTimestamp,
         });
 
-        previousHolder = "";
-        previousBeneficiary = "";
-        historyChainIndex++;
         break;
       case EventType.BURNT:
         historyChain.push({
@@ -181,7 +221,6 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
         });
         previousHolder = "";
         previousBeneficiary = beneficiary;
-        historyChainIndex++;
         break;
       default:
         throw Error("eventType not matched");
@@ -190,61 +229,6 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 
   console.log(historyChain);
   // TODO - END
-
-  const EndorsementChainData: React.FunctionComponent<any> = ({ data }) => {
-    const tooltipContent = (
-      <div className="relative flex flex-col">
-        <div className="text-white font-bold text-base">Title Escrow:</div>
-        <div className="text-white text-base">{data.documentOwner}</div>
-      </div>
-    );
-    return (
-      <div className="mt-10">
-        {/* <div className="absolute top-1/2 transform -translate-y-1/2 left-0 z-10"> */}
-        <div className="inline-block align-top px-5 z-10 lg:hidden">
-          <div className="border-l border-dashed border-cerulean ml-1.5" data-testid="dash-head" />
-          <div className="rounded-full bg-cerulean h-3 w-3" data-testid="dot" />
-        </div>
-
-        <div className="inline-block lg:flex lg:flex-row">
-          <div className="pr-6 lg:w-4/12 lg:text-right">
-            <div className="inline-block lg:w-10/12">
-              <h4 className="text-cloud-900">{data.action}</h4>
-              {data.timestamp && (
-                <h6 className="text-gray-400">{format(new Date(data.timestamp ?? 0), "do MMM yyyy, hh:mm aa")}</h6>
-              )}
-            </div>
-
-            <div className="hidden lg:inline-block lg:align-top lg:px-5 lg:w-2/12">
-              <div className="border-l border-dashed border-cerulean ml-1.5" data-testid="dash-head" />
-              <div className="rounded-full bg-cerulean h-3 w-3" data-testid="dot" />
-            </div>
-          </div>
-
-          {data.beneficiary && (
-            <div className="lg:w-4/12">
-              <h5 className="inline-block text-gray-400 mr-2 lg:hidden">Owner</h5>
-              <TooltipIcon className="inline-block h-5 w-5 icon" content={tooltipContent} placement="top">
-                <Info />
-              </TooltipIcon>
-
-              <h6 className="text-cerulean break-all">{data.beneficiary}</h6>
-            </div>
-          )}
-
-          {data.holder && (
-            <div className="lg:w-4/12">
-              <h5 className="inline-block text-gray-400 mr-2 lg:hidden">Holder</h5>
-              <TooltipIcon className="inline-block h-5 w-5 icon" content={tooltipContent} placement="top">
-                <Info />
-              </TooltipIcon>
-              <h6 className="text-cerulean break-all">{data.holder}</h6>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div className="">
