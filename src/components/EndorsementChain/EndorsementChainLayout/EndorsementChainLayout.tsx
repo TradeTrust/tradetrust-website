@@ -70,10 +70,8 @@ interface AddressResolvedNameProps {
 }
 
 const AddressResolvedName: React.FunctionComponent<AddressResolvedNameProps> = ({ address }) => {
-  // console.log("AddressResolvedName", address);
   const { identityName } = useIdentifierResolver(address);
   return <>{identityName && <div>{identityName}</div>}</>;
-  // return <div className="mr-2">Bank of China</div>; // TODO don't hardcode later
 };
 
 interface DetailsEntityProps {
