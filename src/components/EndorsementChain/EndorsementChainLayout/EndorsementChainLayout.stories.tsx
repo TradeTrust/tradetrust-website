@@ -75,7 +75,7 @@ const transferToWalletEndorsementChain: (TradeTrustErc721Event | TitleEscrowEven
   },
 ];
 
-const surrenderSurrenderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const surrenderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -246,18 +246,6 @@ const sampleSuccessEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[
     eventType: "Surrender",
     eventTimestamp: 1594609708000,
   },
-  // {
-  //   documentOwner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
-  //   eventType: "Transfer",
-  //   beneficiary: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
-  //   holderChangeEvents: [
-  //     {
-  //       blockNumber: 8283046,
-  //       holder: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
-  //       timestamp: 1594609044000,
-  //     },
-  //   ],
-  // },
   {
     documentOwner: "0x000000000000000000000000000000000000dEaD",
     eventType: "Burnt",
@@ -270,9 +258,7 @@ export const Loading = () => {
 };
 
 export const Error = () => {
-  return (
-    <EndorsementChainLayout error="An unknown error has occurred" pending={false} setShowEndorsementChain={() => {}} />
-  );
+  return <EndorsementChainLayout error="UNKNOWN ERROR" pending={false} setShowEndorsementChain={() => {}} />;
 };
 
 export const TransferHolder = () => {
@@ -316,7 +302,7 @@ export const TransferToWallet = () => {
 export const Surrender = () => {
   return (
     <EndorsementChainLayout
-      endorsementChain={surrenderSurrenderEndorsementChain}
+      endorsementChain={surrenderEndorsementChain}
       pending={false}
       setShowEndorsementChain={() => {}}
     />

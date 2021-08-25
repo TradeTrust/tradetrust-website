@@ -4,13 +4,7 @@ import { EndorsementChainLoading } from "./EndorsementChainLoading";
 
 describe("EndorsementChainLoading", () => {
   it("should render correctly", () => {
-    render(
-      <table>
-        <tbody>
-          <EndorsementChainLoading />
-        </tbody>
-      </table>
-    );
+    render(<EndorsementChainLoading />);
 
     expect(screen.getAllByTestId("loader-skeleton")).toHaveLength(9);
   });

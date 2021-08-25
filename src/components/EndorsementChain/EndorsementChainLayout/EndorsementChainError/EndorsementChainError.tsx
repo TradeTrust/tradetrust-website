@@ -7,16 +7,9 @@ interface EndorsementChainErrorProps {
 
 export const EndorsementChainError: FunctionComponent<EndorsementChainErrorProps> = ({ error }) => {
   return (
-    <tr>
-      <td className="mb-6 p-0 border-t-0" role="cell" colSpan={3}>
-        <div className="flex flex-col items-center justify-center h-48 bg-white">
-          <div className="flex">
-            <AlertTriangle className="mr-2 text-red-500" />
-            <div className="text-gray-700 font-bold text-lg">An error occurred, please try again later.</div>
-          </div>
-          <div className="text-gray-700 font-bold text-lg text-center">{error}</div>
-        </div>
-      </td>
-    </tr>
+    <div className="text-center">
+      <AlertTriangle className="text-rose" />
+      <h4>{error ? error : "An error"} has occurred, please try again later.</h4>
+    </div>
   );
 };
