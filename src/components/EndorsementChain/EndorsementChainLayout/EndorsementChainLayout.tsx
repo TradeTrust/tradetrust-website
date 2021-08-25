@@ -52,7 +52,7 @@ enum ActionType {
   SURRENDERED = "Document surrendered to issuer",
   SURRENDER_REJECTED = "Surrender of document rejected",
   SURRENDER_ACCEPTED = "Surrender of document accepted", // burnt token
-  TRANSFER_TO_WALLET = "Transfer to Wallet",
+  TRANSFER_TO_WALLET = "Transferred to wallet",
 }
 
 interface HistoryChain {
@@ -211,7 +211,9 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
               </TooltipIcon>
             </div>
           </div>
-          <h6 className="text-cerulean break-all">{address}</h6>
+          <h6 className="text-cerulean break-all" data-testid="address-entity">
+            {address}
+          </h6>
         </div>
       </div>
     </div>
@@ -233,7 +235,9 @@ const EndorsementChainData: React.FunctionComponent<any> = ({ data }) => {
           </div>
           <div className="lg:ml-auto lg:order-1">
             <div className="lg:text-right py-6 lg:py-4">
-              <h4 className="text-cloud-900">{data.action}</h4>
+              <h4 className="text-cloud-900" data-testid="action-title">
+                {data.action}
+              </h4>
               {data.timestamp && (
                 <h6 className="text-gray-400">{format(new Date(data.timestamp ?? 0), "do MMM yyyy, hh:mm aa")}</h6>
               )}

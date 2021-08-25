@@ -5,13 +5,17 @@ fixture("Endorsement Chain Rendering").page`${location}`;
 
 const ViewEndorsementChainButton = Selector("#endorsement-chain-button").withText("View Endorsement Chain");
 const EndorsementChainTitle = Selector("[data-testid='endorsement-chain-title']").withText("Endorsement Chain");
-const EndorsementChainAddress1 = Selector(".address").withText("0xFC6e365B926166d0D69bF336d03164FB301D6C41");
-const EndorsementChainAddress2 = Selector(".address").withText("0x1Dc271EaE22a83c9670571d1a206043E8a420fdE");
-const DocumentIssuedAction = Selector(".action-title").withText("Document has been issued");
-const ChangeOwnershipAction = Selector(".action-title").withText("Endorse change of ownership");
-const TransferHoldershipAction = Selector(".action-title").withText("Transfer holdership");
-const SurrenderToIssuerAction = Selector(".action-title").withText("Document surrendered to issuer");
-const SurrenderAcceptedAction = Selector(".action-title").withText("Surrender of document accepted");
+const EndorsementChainAddress1 = Selector("[data-testid='address-entity']").withText(
+  "0xFC6e365B926166d0D69bF336d03164FB301D6C41"
+);
+const EndorsementChainAddress2 = Selector("[data-testid='address-entity']").withText(
+  "0x1Dc271EaE22a83c9670571d1a206043E8a420fdE"
+);
+const DocumentIssuedAction = Selector("[data-testid='action-title']").withText("Document has been issued");
+const ChangeOwnershipAction = Selector("[data-testid='action-title']").withText("Endorse change of ownership");
+const TransferHoldershipAction = Selector("[data-testid='action-title']").withText("Transfer holdership");
+const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("Document surrendered to issuer");
+const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("Surrender of document accepted");
 
 test("Endorsement chain title and actions are rendered correctly", async (t) => {
   await navigateToVerify();
