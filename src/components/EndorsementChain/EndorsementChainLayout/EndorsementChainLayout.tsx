@@ -258,34 +258,32 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   const historyChain = getHistoryChain(endorsementChain);
 
   return (
-    <div className="">
-      <div className="">
-        <div className="cursor-pointer" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
-          <BackArrow />
-        </div>
-        <div data-testid="endorsement-chain-title">
-          <h3>Endorsement Chain</h3>
-        </div>
-        <div className="bg-white rounded-xl shadow-xl px-3 py-8 lg:px-8">
-          <div className="hidden lg:block mb-8">
-            <div className="flex text-gray-400">
-              <h5 className="w-1/3">Action/Date</h5>
-              <h5 className="w-1/3">Owner</h5>
-              <h5 className="w-1/3">Holder</h5>
-            </div>
-            <div className="border-t" />
+    <div className="container my-8">
+      <div className="cursor-pointer" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
+        <BackArrow />
+      </div>
+      <div className="my-4" data-testid="endorsement-chain-title">
+        <h3>Endorsement Chain</h3>
+      </div>
+      <div className="bg-white rounded-xl shadow-xl px-3 py-8 lg:px-8">
+        <div className="hidden lg:block mb-8">
+          <div className="flex text-gray-400">
+            <h5 className="w-1/3">Action/Date</h5>
+            <h5 className="w-1/3">Owner</h5>
+            <h5 className="w-1/3">Holder</h5>
           </div>
-
-          {pending && !endorsementChain && !error && <EndorsementChainLoading />}
-          {!pending && endorsementChain && !error && (
-            <EndorsementChainDataStyle>
-              {historyChain.map((item, key) => (
-                <EndorsementChainData data={item} key={key} />
-              ))}
-            </EndorsementChainDataStyle>
-          )}
-          {!pending && !endorsementChain && error && <EndorsementChainError error={error} />}
+          <div className="border-t" />
         </div>
+
+        {pending && !endorsementChain && !error && <EndorsementChainLoading />}
+        {!pending && endorsementChain && !error && (
+          <EndorsementChainDataStyle>
+            {historyChain.map((item, key) => (
+              <EndorsementChainData data={item} key={key} />
+            ))}
+          </EndorsementChainDataStyle>
+        )}
+        {!pending && !endorsementChain && error && <EndorsementChainError error={error} />}
       </div>
     </div>
   );
