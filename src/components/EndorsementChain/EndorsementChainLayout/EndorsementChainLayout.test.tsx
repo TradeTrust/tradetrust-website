@@ -197,7 +197,7 @@ describe("EndorsementChainLayout", () => {
     expect(screen.getAllByText("Surrender of document rejected")).toHaveLength(1);
   });
 
-  it("should render text 'Surrender of document accepted' in reject flow", () => {
+  it("should render text 'Surrender of document accepted' in accept flow", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
