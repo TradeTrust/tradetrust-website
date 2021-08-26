@@ -168,6 +168,13 @@ const acceptSurrenderedEndorsementChain: EndorsementChain = [
   },
 ];
 
+/*
+ * Logic in EndorsementChainLayout.tsx:
+ * When the endorsementChain events above, similar to the ones from the blockchain are passed into the component,
+ * the information will be extracted and restructured into an array of HistoryChain using the getHistoryChain() method.
+ * Which would then be used to populate and render the different events the document has gone through.
+ */
+
 describe("EndorsementChainLayout", () => {
   it("should render error message when error has occurred", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
