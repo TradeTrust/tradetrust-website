@@ -19,7 +19,7 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanelProps
         <ExternalLinkEtherscanAddress name="View BL Registry" address={tokenRegistryAddress} />
         <div
           onClick={() => setShowEndorsementChain(true)}
-          className="cursor-pointer transition-colors duration-200 ease-out"
+          className="cursor-pointer transition-colors duration-200 ease-out text-cerulean-200 hover:text-cerulean"
           id="endorsement-chain-button"
         >
           <h5 className="text-cerulean-200 hover:text-cerulean">View Endorsement Chain</h5>
