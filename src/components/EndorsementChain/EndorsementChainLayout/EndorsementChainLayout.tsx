@@ -18,7 +18,7 @@ const EndorsementChainDataStyle = styled.div`
   }
 
   & > *:last-of-type {
-    // for desktop scren
+    // for desktop screen
     .dot-path {
       height: 50%;
     }
@@ -30,7 +30,6 @@ const EndorsementChainDataStyle = styled.div`
   }
 `;
 
-// export type EndorsementChain = (TradeTrustErc721Event | TitleEscrowEvent)[];
 interface EndorsementChainLayout {
   endorsementChain?: EndorsementChain;
   error?: string;
