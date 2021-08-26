@@ -176,12 +176,6 @@ const acceptSurrenderedEndorsementChain: EndorsementChain = [
  */
 
 describe("EndorsementChainLayout", () => {
-  it("should render error message when error has occurred", () => {
-    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
-    render(<EndorsementChainLayout error={"Unknown Error"} pending={false} setShowEndorsementChain={() => {}} />);
-    expect(screen.getAllByText("Unknown Error has occurred, please try again later.")).toHaveLength(1);
-  });
-
   it("should render the loading component when pending is true", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(<EndorsementChainLayout error={""} pending={true} setShowEndorsementChain={() => {}} />);
