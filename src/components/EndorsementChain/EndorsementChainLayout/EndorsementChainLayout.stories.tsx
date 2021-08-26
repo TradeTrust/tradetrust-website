@@ -1,5 +1,5 @@
 import React from "react";
-import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
+import { EndorsementChain } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: EndorsementChainLayout,
 };
 
-const transferHolderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const transferHolderEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -27,7 +27,7 @@ const transferHolderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)
   },
 ];
 
-const endorseBeneficiaryEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const endorseBeneficiaryEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -54,7 +54,7 @@ const endorseBeneficiaryEndorsementChain: (TradeTrustErc721Event | TitleEscrowEv
   },
 ];
 
-const transferToWalletEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const transferToWalletEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -75,7 +75,7 @@ const transferToWalletEndorsementChain: (TradeTrustErc721Event | TitleEscrowEven
   },
 ];
 
-const surrenderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const surrenderEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -95,7 +95,7 @@ const surrenderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = 
   },
 ];
 
-const rejectSurrenderedEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const rejectSurrenderedEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -127,7 +127,7 @@ const rejectSurrenderedEndorsementChain: (TradeTrustErc721Event | TitleEscrowEve
   },
 ];
 
-const acceptSurrenderedEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const acceptSurrenderedEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -152,7 +152,7 @@ const acceptSurrenderedEndorsementChain: (TradeTrustErc721Event | TitleEscrowEve
   },
 ];
 
-const sampleSuccessEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const sampleSuccessEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -258,7 +258,7 @@ export const Loading = () => {
 };
 
 export const Error = () => {
-  return <EndorsementChainLayout error="UNKNOWN ERROR" pending={false} setShowEndorsementChain={() => {}} />;
+  return <EndorsementChainLayout error="UNKNOWN" pending={false} setShowEndorsementChain={() => {}} />;
 };
 
 export const TransferHolder = () => {

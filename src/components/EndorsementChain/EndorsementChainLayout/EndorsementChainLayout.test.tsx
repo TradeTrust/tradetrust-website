@@ -1,14 +1,14 @@
 import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
-import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
+import { EndorsementChain } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
 
 jest.mock("@govtechsg/address-identity-resolver", () => ({ useIdentifierResolver: jest.fn() }));
 
 const mockUseIdentifierResolver = useIdentifierResolver as jest.Mock;
 
-const transferHolderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const transferHolderEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -28,7 +28,7 @@ const transferHolderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)
   },
 ];
 
-const endorseBeneficiaryEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const endorseBeneficiaryEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -55,7 +55,7 @@ const endorseBeneficiaryEndorsementChain: (TradeTrustErc721Event | TitleEscrowEv
   },
 ];
 
-const surrenderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const surrenderEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -75,7 +75,7 @@ const surrenderEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = 
   },
 ];
 
-const rejectSurrenderedEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const rejectSurrenderedEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -107,7 +107,7 @@ const rejectSurrenderedEndorsementChain: (TradeTrustErc721Event | TitleEscrowEve
   },
 ];
 
-const acceptSurrenderedEndorsementChain: (TradeTrustErc721Event | TitleEscrowEvent)[] = [
+const acceptSurrenderedEndorsementChain: EndorsementChain = [
   {
     documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
@@ -135,8 +135,8 @@ const acceptSurrenderedEndorsementChain: (TradeTrustErc721Event | TitleEscrowEve
 describe("EndorsementChainLayout", () => {
   it("should render specific error component when occurred", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
-    render(<EndorsementChainLayout error={"Some Error"} pending={false} setShowEndorsementChain={() => {}} />);
-    expect(screen.getAllByText("Some Error has occurred, please try again later.")).toHaveLength(1);
+    render(<EndorsementChainLayout error={"Unknown Error"} pending={false} setShowEndorsementChain={() => {}} />);
+    expect(screen.getAllByText("Unknown Error has occurred, please try again later.")).toHaveLength(1);
   });
 
   it("should render the loading component when pending is true", () => {

@@ -3,7 +3,7 @@ import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { Info } from "react-feather";
-import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
+import { EndorsementChain, TitleEscrowEvent } from "../../../types";
 import { TooltipIcon } from "../../UI/SvgIcon";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
@@ -30,7 +30,7 @@ const EndorsementChainDataStyle = styled.div`
   }
 `;
 
-type EndorsementChain = (TradeTrustErc721Event | TitleEscrowEvent)[];
+// export type EndorsementChain = (TradeTrustErc721Event | TitleEscrowEvent)[];
 interface EndorsementChainLayout {
   endorsementChain?: EndorsementChain;
   error?: string;

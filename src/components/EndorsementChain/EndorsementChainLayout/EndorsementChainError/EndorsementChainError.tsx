@@ -9,7 +9,7 @@ export const EndorsementChainError: FunctionComponent<EndorsementChainErrorProps
   return (
     <div className="text-center">
       <AlertTriangle className="text-rose" />
-      <h4>{error ? error : "An error"} has occurred, please try again later.</h4>
+      <h4>{error} has occurred, please try again later.</h4>
     </div>
   );
 };
