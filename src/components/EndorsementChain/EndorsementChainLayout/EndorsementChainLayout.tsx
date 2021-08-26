@@ -189,7 +189,7 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
   );
 
   return (
-    <div className="w-full lg:w-1/3">
+    <div className="w-full lg:w-1/3" data-testid={`row-event-${title}`}>
       <div className="flex flex-nowrap pr-8">
         <div className="flex-shrink-0 lg:hidden" style={{ width: "40px" }}>
           <div className="relative h-full">
@@ -217,9 +217,9 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
   );
 };
 
-const EndorsementChainData: React.FunctionComponent<any> = ({ data }) => {
+const EndorsementChainData: React.FunctionComponent<any> = ({ index, data }) => {
   return (
-    <div className="flex flex-wrap items-center">
+    <div className="flex flex-wrap items-center" data-testid={`row-event-${index}`}>
       <div className="w-full lg:w-1/3">
         <div className="flex flex-nowrap">
           <div className="flex-shrink-0 lg:order-2" style={{ width: "40px" }}>
@@ -280,7 +280,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
         {!pending && endorsementChain && !error && (
           <EndorsementChainDataStyle>
             {historyChain.map((item, key) => (
-              <EndorsementChainData data={item} key={key} />
+              <EndorsementChainData index={key} data={item} key={key} />
             ))}
           </EndorsementChainDataStyle>
         )}
