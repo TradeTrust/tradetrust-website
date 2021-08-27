@@ -2,41 +2,22 @@ import React, { FunctionComponent } from "react";
 import { LoaderSkeleton } from "../../../UI/LoaderSkeleton";
 
 export const EndorsementChainLoading: FunctionComponent = () => {
+  const loadingRows = 3;
   return (
     <>
-      <tr className="table-row">
-        <td className="mb-6 p-0 border-t-0" role="cell">
-          <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-        </td>
-        <td className="mb-6 p-0 border-t-0" role="cell">
-          <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-        </td>
-        <td className="mb-6 p-0 border-t-0" role="cell">
-          <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-        </td>
-      </tr>
-      <tr className="table-row">
-        <td className="mb-6 p-0 border-t-0" role="cell">
-          <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-        </td>
-        <td className="mb-6 p-0 border-t-0" role="cell">
-          <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-        </td>
-        <td className="mb-6 p-0 border-t-0" role="cell">
-          <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-        </td>
-      </tr>
-      <tr className="table-row">
-        <td className="mb-6 p-0 border-t-0" role="cell">
-          <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-        </td>
-        <td className="mb-6 p-0 border-t-0" role="cell">
-          <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-        </td>
-        <td className="mb-6 p-0 border-t-0" role="cell">
-          <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-        </td>
-      </tr>
+      {[...Array(loadingRows)].map((item, key) => (
+        <div className="flex flex-wrap" key={key}>
+          <div className="w-full lg:w-1/3">
+            <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
+          </div>
+          <div className="w-full lg:w-1/3">
+            <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
+          </div>
+          <div className="w-full lg:w-1/3">
+            <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
+          </div>
+        </div>
+      ))}
     </>
   );
 };

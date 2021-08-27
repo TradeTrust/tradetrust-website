@@ -6,8 +6,8 @@ interface LoaderProps {
   width?: string;
 }
 
-const Loader = ({ className, width = "260px", ...props }: LoaderProps) => {
-  return <div className={`skeleton-loading ${className}`} {...props} style={{ width: width }} />;
+const Loader = ({ className, ...props }: LoaderProps) => {
+  return <div className={`skeleton-loading ${className}`} {...props} />;
 };
 
 export const LoaderSkeleton = styled(Loader)`

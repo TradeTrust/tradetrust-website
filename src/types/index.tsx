@@ -21,6 +21,8 @@ export interface TitleEscrowEvent extends TradeTrustErc721Event {
   }[];
 }
 
+export type EndorsementChain = (TradeTrustErc721Event | TitleEscrowEvent)[];
+
 export type Resource = {
   title: string;
   url: string;

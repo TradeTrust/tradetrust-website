@@ -1,24 +1,254 @@
-import styled from "@emotion/styled";
 import { BackArrow } from "@govtechsg/tradetrust-ui-components";
+import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
-import tw from "twin.macro";
-import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
-import { getLogger } from "../../../utils/logger";
-import { AddressCell } from "./AddressCell";
+import { Info } from "react-feather";
+import { EndorsementChain, TitleEscrowEvent } from "../../../types";
+import { TooltipIcon } from "../../UI/SvgIcon";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
-import { EndorsementJourney } from "./EndorsementJourney";
-import { SimpleTableRow } from "./SimpleTableRow";
+import styled from "@emotion/styled";
 
-const { trace } = getLogger("component: endorsementchainlayout");
+const EndorsementChainDataStyle = styled.div`
+  & > *:first-of-type {
+    .dot-path {
+      bottom: 0;
+      height: 50%;
+    }
+  }
+
+  & > *:last-of-type {
+    // for desktop screen
+    .dot-path {
+      height: 50%;
+    }
+
+    // for mobile screen
+    .path {
+      height: 0;
+    }
+  }
+`;
 
 interface EndorsementChainLayout {
-  endorsementChain?: TradeTrustErc721Event[];
+  endorsementChain?: EndorsementChain;
   error?: string;
   pending: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
 }
+
+enum EventType {
+  TRANSFER = "Transfer",
+  SURRENDER = "Surrender",
+  BURNT = "Burnt",
+  TRANSFER_TO_WALLET = "Transfer to Wallet",
+}
+
+enum ActionType {
+  INITIAL = "Document has been issued",
+  ENDORSE = "Endorse change of ownership",
+  TRANSFER = "Transfer holdership",
+  SURRENDERED = "Document surrendered to issuer",
+  SURRENDER_REJECTED = "Surrender of document rejected",
+  SURRENDER_ACCEPTED = "Surrender of document accepted", // burnt token
+  TRANSFER_TO_WALLET = "Transferred to wallet",
+}
+
+interface HistoryChain {
+  action: ActionType;
+  isNewBeneficiary: boolean;
+  isNewHolder: boolean;
+  documentOwner?: string;
+  beneficiary?: string;
+  holder?: string;
+  timestamp?: number;
+}
+
+interface AddressResolvedNameProps {
+  address: string;
+}
+
+const AddressResolvedName: React.FunctionComponent<AddressResolvedNameProps> = ({ address }) => {
+  const { identityName } = useIdentifierResolver(address);
+  return <>{identityName && <div className="mr-2">{identityName}</div>}</>;
+};
+
+interface DetailsEntityProps {
+  title: string;
+  address: string;
+  documentOwner: string;
+}
+
+const getHistoryChain = (endorsementChain?: EndorsementChain) => {
+  const historyChain: HistoryChain[] = [
+    {
+      action: ActionType.INITIAL,
+      isNewBeneficiary: true,
+      isNewHolder: false,
+    },
+  ];
+
+  let previousBeneficiary = "";
+  let previousHolder = "";
+
+  endorsementChain?.forEach((endorsementChainEvent) => {
+    const chain = endorsementChainEvent as TitleEscrowEvent;
+    const documentOwner = chain.documentOwner;
+    const beneficiary = chain.beneficiary;
+    const chainEventTimestamp = chain.eventTimestamp;
+
+    switch (chain.eventType) {
+      case EventType.TRANSFER:
+        chain.holderChangeEvents.forEach((holderEvent) => {
+          const holder = holderEvent.holder;
+          const holderEventTimestamp = holderEvent.timestamp;
+          const isNewBeneficiary = beneficiary !== previousBeneficiary;
+          const isNewHolder = holder !== previousHolder;
+
+          if (previousBeneficiary === beneficiary && previousHolder === holder) {
+            historyChain.push({
+              action: ActionType.SURRENDER_REJECTED,
+              isNewBeneficiary,
+              isNewHolder,
+              documentOwner,
+              beneficiary,
+              holder,
+              timestamp: holderEventTimestamp,
+            });
+          } else if (previousBeneficiary != beneficiary) {
+            historyChain.push({
+              action: ActionType.ENDORSE,
+              isNewBeneficiary,
+              isNewHolder,
+              documentOwner,
+              beneficiary,
+              holder,
+              timestamp: holderEventTimestamp,
+            });
+          } else if (previousHolder !== holder) {
+            historyChain.push({
+              action: ActionType.TRANSFER,
+              isNewBeneficiary,
+              isNewHolder,
+              documentOwner,
+              beneficiary,
+              holder,
+              timestamp: holderEventTimestamp,
+            });
+          }
+
+          previousHolder = holder;
+          previousBeneficiary = beneficiary;
+        });
+        break;
+      case EventType.SURRENDER:
+        historyChain.push({
+          action: ActionType.SURRENDERED,
+          isNewBeneficiary: true,
+          isNewHolder: false,
+          timestamp: chainEventTimestamp,
+        });
+        // not reassigning previousBeneficiary and previousHolder so that it takes the addresses from the point just before it was surrendered
+        break;
+      case EventType.BURNT:
+        historyChain.push({
+          action: ActionType.SURRENDER_ACCEPTED,
+          isNewBeneficiary: true,
+          isNewHolder: false,
+          timestamp: chainEventTimestamp,
+        });
+        previousHolder = "";
+        previousBeneficiary = "";
+        break;
+      case EventType.TRANSFER_TO_WALLET:
+        historyChain.push({
+          action: ActionType.TRANSFER_TO_WALLET,
+          isNewBeneficiary: true,
+          isNewHolder: false,
+          timestamp: chainEventTimestamp,
+          documentOwner,
+          beneficiary,
+        });
+        previousHolder = "";
+        previousBeneficiary = beneficiary;
+        break;
+      default:
+        throw Error("eventType not matched");
+    }
+  });
+
+  return historyChain;
+};
+
+const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, address, documentOwner }) => {
+  const tooltipContent = (
+    <div className="relative flex flex-col">
+      <div className="text-white font-bold text-base">Title Escrow:</div>
+      <div className="text-white text-base">{documentOwner}</div>
+    </div>
+  );
+
+  return (
+    <div className="w-full lg:w-1/3" data-testid={`row-event-${title}`}>
+      <div className="flex flex-nowrap pr-8">
+        <div className="flex-shrink-0 lg:hidden" style={{ width: "40px" }}>
+          <div className="relative h-full">
+            <div className="path border-l border-dashed border-cerulean absolute top-0 left-1/2 h-full" />
+          </div>
+        </div>
+        <div className="pb-4 lg:pb-0">
+          <h5 className="text-gray-400 mr-2 lg:hidden">{title}</h5>
+          <div className="flex flex-wrap items-center">
+            <div className="w-auto">
+              <AddressResolvedName address={address} />
+            </div>
+            <div className="w-auto">
+              <TooltipIcon className="h-5 w-5 block" content={tooltipContent} placement="top">
+                <Info />
+              </TooltipIcon>
+            </div>
+          </div>
+          <h6 className="text-cerulean break-all" data-testid="address-entity">
+            {address}
+          </h6>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const EndorsementChainData: React.FunctionComponent<any> = ({ index, data }) => {
+  return (
+    <div className="flex flex-wrap items-center" data-testid={`row-event-${index}`}>
+      <div className="w-full lg:w-1/3">
+        <div className="flex flex-nowrap">
+          <div className="flex-shrink-0 lg:order-2" style={{ width: "40px" }}>
+            <div className="relative h-full">
+              <div className="dot-path border-l border-dashed border-cerulean absolute left-1/2 h-full" />
+              <div className="flex justify-center items-center h-full">
+                <div className="rounded-full bg-cerulean h-3 w-3 mx-auto" />
+              </div>
+            </div>
+          </div>
+          <div className="lg:ml-auto lg:order-1">
+            <div className="lg:text-right py-6 lg:py-4">
+              <h4 className="text-cloud-900" data-testid="action-title">
+                {data.action}
+              </h4>
+              {data.timestamp && (
+                <h6 className="text-gray-400">{format(new Date(data.timestamp ?? 0), "do MMM yyyy, hh:mm aa")}</h6>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      {data.beneficiary && (
+        <DetailsEntity title="Owner" address={data.beneficiary} documentOwner={data.documentOwner} />
+      )}
+      {data.holder && <DetailsEntity title="Holder" address={data.holder} documentOwner={data.documentOwner} />}
+    </div>
+  );
+};
 
 export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> = ({
   endorsementChain,
@@ -26,239 +256,36 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   error,
   pending,
 }) => {
-  let previousOwner = "";
-  let previousHolder = "";
-  let noOfNewHolder = 0;
-  let tableRowIndex = 0;
-  let noOfTransferActions = 0;
-
-  const tableRows: JSX.Element[] = [
-    // By default there will always be this 'Document has been issued'
-    <SimpleTableRow
-      key={tableRowIndex++}
-      index={tableRowIndex++}
-      actionTitle="Document has been issued"
-      displayDashHead={false}
-      displayDot={true}
-      displayDashTail={true}
-    />,
-  ];
-
-  // scan endorsement chain for total number of holder change events and total number of NEW holders before building the ui.
-  let totalNumberOfTransferActions = 0;
-  let totalNumberOfNewHolderEvents = 0;
-  let scanPreviousHolder = "";
-  endorsementChain &&
-    endorsementChain.forEach((event) => {
-      if (event.eventType !== "Transfer") return;
-
-      const ownerChangeEvent = event as TitleEscrowEvent;
-      totalNumberOfTransferActions += ownerChangeEvent.holderChangeEvents.length;
-
-      ownerChangeEvent.holderChangeEvents.forEach((holderChangeEvent) => {
-        if (scanPreviousHolder !== holderChangeEvent.holder) totalNumberOfNewHolderEvents++;
-        scanPreviousHolder = holderChangeEvent.holder;
-      });
-    });
-
-  // for each erc721 event, build the ui according to the event type.
-  endorsementChain &&
-    endorsementChain.forEach((tradetrustErc721Event, eventIndex) => {
-      const isLastEvent = eventIndex + 1 === endorsementChain.length;
-
-      switch (tradetrustErc721Event.eventType) {
-        // for transfer event we need to loop through the holderChangeEvents to get each holder change.
-        case "Transfer":
-          const ownerChangeEvent = tradetrustErc721Event as TitleEscrowEvent;
-
-          if (!ownerChangeEvent.holderChangeEvents || !ownerChangeEvent.beneficiary) {
-            return new Error("Invalid Event: Transfer Event does not have new owner or new holder address");
-          }
-
-          ownerChangeEvent.holderChangeEvents.forEach((holderChangeEvent, holderIndex) => {
-            const isNewOwnerAddress = previousOwner !== ownerChangeEvent.beneficiary;
-            const isNewHolderAddress = previousHolder !== holderChangeEvent.holder;
-            if (isNewHolderAddress) noOfNewHolder++;
-            const isFirstRowHolder = eventIndex === 0 && holderIndex === 0;
-            noOfTransferActions++;
-
-            // ui for each row of holderChangeEvent
-            tableRows.push(
-              <tr className="table-row" key={tableRowIndex++}>
-                <td className="table-cell">
-                  {isNewOwnerAddress && <div className="action-title">Endorse change of ownership</div>}
-                  {isNewHolderAddress && !isNewOwnerAddress && <div className="action-title">Transfer holdership</div>}
-                  <div className="date">{format(new Date(holderChangeEvent.timestamp), "do MMM yyyy, hh:mm aa")}</div>
-                </td>
-                <td className="table-cell">
-                  <AddressCell
-                    address={ownerChangeEvent.beneficiary}
-                    titleEscrowAddress={ownerChangeEvent.documentOwner}
-                    isNewAddress={isNewOwnerAddress}
-                    displayDashHead={!(isLastEvent && !isNewOwnerAddress)}
-                    displayDashTail={!isLastEvent}
-                  />
-                </td>
-                <td className="table-cell">
-                  <AddressCell
-                    address={holderChangeEvent.holder}
-                    titleEscrowAddress={ownerChangeEvent.documentOwner}
-                    isNewAddress={isNewHolderAddress}
-                    displayDashHead={
-                      !(isFirstRowHolder || (noOfNewHolder === totalNumberOfNewHolderEvents && !isNewHolderAddress))
-                    }
-                    displayDashTail={
-                      !(
-                        (isFirstRowHolder && noOfTransferActions === totalNumberOfTransferActions) ||
-                        noOfNewHolder === totalNumberOfNewHolderEvents
-                      )
-                    }
-                  />
-                </td>
-              </tr>
-            );
-            previousOwner = ownerChangeEvent.beneficiary;
-            previousHolder = holderChangeEvent.holder;
-          });
-          break;
-
-        // ui for each surrender row
-        case "Surrender":
-          tableRows.push(
-            <SimpleTableRow
-              key={tableRowIndex++}
-              index={tableRowIndex++}
-              date={format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
-              actionTitle="Document surrendered to issuer"
-              displayDashHead={true}
-              displayDot={true}
-              displayDashTail={!isLastEvent}
-            />
-          );
-          break;
-
-        // ui for each accepted surrender row
-        case "Burnt":
-          tableRows.push(
-            <SimpleTableRow
-              key={tableRowIndex++}
-              index={tableRowIndex++}
-              date={format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
-              actionTitle="Surrender of document accepted"
-              displayDashHead={true}
-              displayDot={true}
-              displayDashTail={!isLastEvent}
-            />
-          );
-          break;
-
-        // ui for each transfer to wallet row
-        case "Transfer to Wallet":
-          tableRows.push(
-            <tr className="table-row" key={tableRowIndex++}>
-              <td className="table-cell">
-                <div className="action-title" data-testid="transferred-to-wallet">
-                  Transferred to wallet
-                </div>
-                <div className="date">
-                  {format(new Date(tradetrustErc721Event?.eventTimestamp ?? 0), "do MMM yyyy, hh:mm aa")}
-                </div>
-              </td>
-              <td className="table-cell">
-                <EndorsementJourney displayDashHead={true} displayDot={true} displayDashTail={!isLastEvent} />
-                <div className="address">{tradetrustErc721Event.documentOwner}</div>
-              </td>
-              <td className="table-cell">
-                <EndorsementJourney
-                  displayDashHead={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
-                  displayDot={false}
-                  displayDashTail={!isLastEvent && noOfTransferActions !== totalNumberOfTransferActions}
-                />
-              </td>
-            </tr>
-          );
-          break;
-
-        // default not needed as eventType has only 4 possibilities which are all accounted for
-        default:
-          trace("Unknown event type please check event history");
-          break;
-      }
-    });
+  const historyChain = getHistoryChain(endorsementChain);
 
   return (
-    <EndorsementChainLayoutStyle className="container pb-40 my-4">
-      <div className="back-button" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
+    <div className="container my-8">
+      <div className="cursor-pointer" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
         <BackArrow />
       </div>
-      <div className="text-gray-700 text-3xl font-bold mb-4" data-testid="endorsement-chain-title">
-        Endorsement Chain
+      <div className="my-4" data-testid="endorsement-chain-title">
+        <h3>Endorsement Chain</h3>
       </div>
-      <div className="table-responsive">
-        <table className="w-full mb-0">
-          <thead className="text-left">
-            <tr className="w-full bg-denim-900 text-white text-lg font-bold">
-              <th className="table-cell">Action/Date</th>
-              <th className="table-cell">Owner</th>
-              <th className="table-cell">Holder</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pending && !endorsementChain && !error && <EndorsementChainLoading />}
-            {!pending && endorsementChain && !error && tableRows}
-            {!pending && !endorsementChain && error && <EndorsementChainError error={error} />}
-          </tbody>
-        </table>
+      <div className="bg-white rounded-xl shadow-xl px-3 py-8 lg:px-8">
+        <div className="hidden lg:block mb-8">
+          <div className="flex text-gray-400">
+            <h5 className="w-1/3">Action/Date</h5>
+            <h5 className="w-1/3">Owner</h5>
+            <h5 className="w-1/3">Holder</h5>
+          </div>
+          <div className="border-t" />
+        </div>
+
+        {pending && !endorsementChain && !error && <EndorsementChainLoading />}
+        {!pending && endorsementChain && !error && (
+          <EndorsementChainDataStyle>
+            {historyChain.map((item, key) => (
+              <EndorsementChainData index={key} data={item} key={key} />
+            ))}
+          </EndorsementChainDataStyle>
+        )}
+        {!pending && !endorsementChain && error && <EndorsementChainError error={error} />}
       </div>
-    </EndorsementChainLayoutStyle>
+    </div>
   );
 };
-
-const EndorsementChainLayoutStyle = styled.div`
-  .back-button {
-    ${tw`text-gray-500 cursor-pointer mb-2`}
-
-    &[data-disabled="true"] {
-      ${tw`text-gray-300 cursor-not-allowed`}
-    }
-  }
-
-  .table-row {
-    ${tw`bg-white`}
-  }
-
-  .table-row > div {
-    display: table-cell;
-  }
-
-  .table-cell {
-    position: relative;
-    vertical-align: top;
-    border-top: none;
-  }
-
-  thead {
-    th {
-      ${tw`px-4 py-2`}
-    }
-  }
-
-  tbody {
-    td {
-      ${tw`px-4 py-4`}
-    }
-  }
-
-  .date {
-    ${tw`text-sm font-semibold text-gray-500 min-w-135 flex justify-end text-right`}
-  }
-
-  .action-title {
-    ${tw`text-lg text-gray-700 font-semibold flex justify-end text-right`}
-  }
-
-  .address {
-    ${tw`text-cerulean-500`}
-    word-break: break-word;
-  }
-`;

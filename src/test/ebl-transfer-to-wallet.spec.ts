@@ -4,7 +4,7 @@ import { location, navigateToVerify, uploadDocument } from "./helper";
 fixture("Render 'Transferred to wallet' status").page`${location}`;
 
 const ViewEndorsementChainButton = Selector("#endorsement-chain-button");
-const TransferredSign = Selector("[data-testid='transferred-to-wallet']");
+const TransferredSign = Selector("h4").withText("Transferred to wallet");
 
 test("should display 'Transferred to wallet' when document is owned by wallet address", async (t) => {
   await navigateToVerify();
