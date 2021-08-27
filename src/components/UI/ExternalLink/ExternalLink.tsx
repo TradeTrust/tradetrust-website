@@ -15,7 +15,7 @@ interface ExternalLinkEtherscanAddressProps {
 export const ExternalLink: FunctionComponent<ExternalLinkProps> = ({ name, href, ...props }) => {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-      {name}
+      <h5>{name}</h5>
     </a>
   );
 };
