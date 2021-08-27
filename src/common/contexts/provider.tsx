@@ -2,11 +2,12 @@ import { MessageTitle } from "@govtechsg/tradetrust-ui-components";
 import { ethers, providers, Signer } from "ethers";
 import React, { createContext, FunctionComponent, useContext, useEffect, useState } from "react";
 import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
+import { utils } from "@govtechsg/oa-verify";
 
 const getProvider =
   NETWORK_NAME === "local"
     ? new providers.JsonRpcProvider()
-    : new ethers.providers.InfuraProvider(NETWORK_NAME, INFURA_API_KEY);
+    : utils.generateProvider({ network: NETWORK_NAME, providerType: "infura", apiKey: INFURA_API_KEY });
 
 interface ProviderContextProps {
   isUpgraded: boolean;
