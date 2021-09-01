@@ -3,7 +3,7 @@ import { location, navigateToVerify, uploadDocument, validateTextContent } from 
 
 fixture("Unverified Document Rendering").page`${location}`;
 
-const RenderedDocument = Selector("#certificate-dropzone");
+const RenderedDocument = Selector("[data-testid='certificate-dropzone']");
 const InvalidMessage = Selector(".invalid");
 
 test("Error view rendered when document issuers are unverified", async (t) => {

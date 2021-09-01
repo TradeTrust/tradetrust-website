@@ -3,9 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
 import { interpretFragments } from "../../../services/verify/fragments";
-import { ViewerContainer } from "./SharedViewerStyledComponents";
 import { docNotValidMessage, tryAnotherMessage, unverifiedMessage } from "./";
 import { WrappedOrSignedOpenAttestationDocument } from "../../../utils/shared";
+import { sharedViewer, sharedViewerInvalid, sharedViewerInvalidButton } from "./DefaultView";
 
 const DetailedErrors = ({ verificationStatus }: { verificationStatus: VerificationFragment[] }) => {
   const errors = [];
@@ -17,10 +17,10 @@ const DetailedErrors = ({ verificationStatus }: { verificationStatus: Verificati
   if (!identityValid) errors.push(TYPES.IDENTITY);
 
   return (
-    <div data-testid="error-tab" className="verifications">
+    <div data-testid="error-tab" className="mb-8">
       {errors.map((errorType, index) => (
-        <div key={index}>
-          <p className="messages">{MESSAGES[errorType].failureTitle}</p>
+        <div key={index} className="my-2">
+          <h4 className="mb-0">{MESSAGES[errorType].failureTitle}</h4>
           <p className="break-words text-black">{MESSAGES[errorType].failureMessage}</p>
         </div>
       ))}
@@ -28,15 +28,30 @@ const DetailedErrors = ({ verificationStatus }: { verificationStatus: Verificati
   );
 };
 
+const ActionError = ({ retrieveCertificateByActionError }: { retrieveCertificateByActionError: string }) => {
+  return (
+    <div data-testid="error-tab" className="mb-8">
+      <div>
+        <h4 className="mb-0">Unable to load certificate with the provided parameters</h4>
+        <p className="break-words text-black">{retrieveCertificateByActionError}</p>
+      </div>
+    </div>
+  );
+};
+
 interface UnverifiedViewProps {
-  handleRenderOverwrite?: () => void;
   resetData: () => void;
   document?: WrappedOrSignedOpenAttestationDocument;
-  verificationStatus: VerificationFragment[];
+  verificationStatus?: VerificationFragment[];
+  retrieveCertificateByActionError?: string;
 }
 
-export const UnverifiedView = ({ resetData, verificationStatus }: UnverifiedViewProps): React.ReactElement => (
-  <ViewerContainer id="viewer-container" className="invalid">
+export const UnverifiedView = ({
+  resetData,
+  verificationStatus,
+  retrieveCertificateByActionError,
+}: UnverifiedViewProps): React.ReactElement => (
+  <div className={`${sharedViewer} ${sharedViewerInvalid}`}>
     <div className="flex justify-center items-center my-4">
       <div className="w-auto mr-2">
         <img src="/static/images/dropzone/invalid.svg" alt="The Certificate is invalid" />
@@ -45,24 +60,23 @@ export const UnverifiedView = ({ resetData, verificationStatus }: UnverifiedView
         <p className="invalid text-black text-2xl">{docNotValidMessage}</p>
       </div>
     </div>
-    <DetailedErrors verificationStatus={verificationStatus} />
-
-    <div className="unverified-btn-container">
-      <Link to="/faq">
-        <span className="unverified-btn">{unverifiedMessage}</span>
-      </Link>
-    </div>
-
-    <div className="secondary-links">
+    {verificationStatus && <DetailedErrors verificationStatus={verificationStatus} />}
+    {retrieveCertificateByActionError && (
+      <ActionError retrieveCertificateByActionError={retrieveCertificateByActionError} />
+    )}
+    <Link to="/faq">
+      <span className={`${sharedViewerInvalidButton}`}>{unverifiedMessage}</span>
+    </Link>
+    <div className="my-8">
       <span
         onClick={(e) => {
           e.preventDefault();
           resetData();
         }}
-        className="text-link"
+        className="text-red-500 underline cursor-pointer hover:text-gray-500"
       >
         {tryAnotherMessage}
       </span>
     </div>
-  </ViewerContainer>
+  </div>
 );

@@ -17,20 +17,18 @@ const renderWithStore = (additionalProps: any) => {
 
 describe("defaultView", () => {
   it("displays correctly if accept is true", () => {
-    const { queryByText, getByTestId } = renderWithStore({
+    const { queryByText } = renderWithStore({
       hover: true,
       accept: true,
     });
-    expect(getByTestId("viewer-container")).toBeInTheDocument();
     expect(queryByText("File cannot be read")).toBeFalsy();
   });
 
   it("displays correctly class if accept is false", () => {
-    const { getByText, getByTestId } = renderWithStore({
+    const { getByText } = renderWithStore({
       hover: true,
       accept: false,
     });
-    expect(getByTestId("viewer-container")).toBeInTheDocument();
     expect(getByText("File cannot be read", { exact: false })).toBeInTheDocument();
   });
 

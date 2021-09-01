@@ -1,7 +1,11 @@
 import React from "react";
 import { Button } from "@govtechsg/tradetrust-ui-components";
-import { ViewerContainer } from "./SharedViewerStyledComponents";
 import { DemoCertMobile } from "./DemoCertMobile";
+
+export const sharedViewer = `bg-white text-center px-6 pt-6 pb-20 md:py-20 flex flex-col justify-center rounded-xl min-h-400 lg:min-h-600 border-2 border-dashed`;
+export const sharedViewerInvalid = `text-red-500 border-cloud-100 bg-red-100`;
+export const sharedViewerInvalidButton = `transition-colors duration-200 ease-out border border-solid border-red-500 text-white bg-red-500 py-2 px-6 rounded-xl font-bold text-center align-middle min-w-135 cursor-pointer hover:border-red-300 hover:bg-red-300 hover:shadow-md hover:no-underline`;
+
 interface DefaultViewProps {
   hover: boolean;
   accept: boolean;
@@ -22,9 +26,14 @@ export const DefaultView = ({
   toggleQrReaderVisible,
   verificationError,
 }: DefaultViewProps): React.ReactElement => (
-  <ViewerContainer
-    data-testid="viewer-container"
-    className={`${hover ? (accept && !verificationError ? "accept" : "invalid") : "default"}`}
+  <div
+    className={`${sharedViewer} ${
+      hover
+        ? accept && !verificationError
+          ? "border-green-400 bg-green-50 shadow-accept"
+          : "text-red-500 border-cloud-100 bg-red-100"
+        : "border-cloud-100 bg-white"
+    }`}
   >
     <DemoCertMobile />
     <div className="mb-4">
@@ -61,5 +70,5 @@ export const DefaultView = ({
         </Button>
       </div>
     </div>
-  </ViewerContainer>
+  </div>
 );

@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import Dropzone from "react-dropzone";
 import { DefaultView } from "./Views/DefaultView";
-import { RetrievalErrorView } from "./Views/RetrievalErrorView";
 import { isValid, VerificationFragment } from "@govtechsg/oa-verify";
 import { UnverifiedView } from "./Views/UnverifiedView";
 import { VerifyingView } from "./Views/VerifyingView";
@@ -13,7 +12,6 @@ interface DropzoneStateProps {
   verificationError?: string;
   retrieveCertificateByActionError?: string;
   resetData: () => void;
-  handleRenderOverwrite?: () => void;
   toggleQrReaderVisible?: () => void;
 }
 
@@ -29,7 +27,6 @@ export const DropzoneContent: FunctionComponent<DropzoneContentProps> = ({
   retrieveCertificateByActionError,
   verificationError,
   resetData,
-  handleRenderOverwrite,
   toggleQrReaderVisible,
   isDragAccept,
   isDragReject,
@@ -64,18 +61,10 @@ export const DropzoneContent: FunctionComponent<DropzoneContentProps> = ({
     return <VerifyingView />;
   }
   if (!!retrieveCertificateByActionError) {
-    return (
-      <RetrievalErrorView resetData={resetData} retrieveCertificateByActionError={retrieveCertificateByActionError} />
-    );
+    return <UnverifiedView resetData={resetData} retrieveCertificateByActionError={retrieveCertificateByActionError} />;
   }
   if (verificationStatus && !isValid(verificationStatus)) {
-    return (
-      <UnverifiedView
-        handleRenderOverwrite={handleRenderOverwrite}
-        verificationStatus={verificationStatus}
-        resetData={resetData}
-      />
-    );
+    return <UnverifiedView verificationStatus={verificationStatus} resetData={resetData} />;
   }
   return <DefaultView hover={false} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
 };
@@ -109,7 +98,7 @@ interface CertificateDropzoneProps extends DropzoneStateProps {
 export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = (props) => {
   const { handleCertificateChange, handleFileError } = props;
   return (
-    <div id="certificate-dropzone" data-testid="certificate-dropzone" className="w-full h-auto px-4">
+    <div data-testid="certificate-dropzone" className="w-full h-auto px-4">
       <Dropzone onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}>
         {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => (
           <div {...getRootProps()}>

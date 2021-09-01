@@ -2,7 +2,7 @@ import { t, Selector, ClientFunction } from "testcafe";
 
 export const Iframe = Selector("#iframe[title='Decentralised Rendered Certificate']", { timeout: 10000 });
 export const SampleTemplate = Selector("#root");
-const CertificateDropzone = Selector("#certificate-dropzone");
+const CertificateDropzone = Selector("[data-testid='certificate-dropzone']");
 const DocumentStatus = Selector("#document-status");
 const IssuedByDomainName = Selector("#issuedby");
 const VerifyPage = Selector("a[href='/verify']");
