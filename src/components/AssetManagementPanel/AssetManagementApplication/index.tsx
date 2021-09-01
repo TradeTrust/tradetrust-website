@@ -1,4 +1,3 @@
-import { VerificationFragment } from "@govtechsg/oa-verify";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
@@ -13,14 +12,12 @@ interface AssetManagementApplicationProps {
   tokenId: string;
   tokenRegistryAddress: string;
   setShowEndorsementChain: (payload: boolean) => void;
-  verificationStatus: VerificationFragment[];
 }
 
 export const AssetManagementApplication: FunctionComponent<AssetManagementApplicationProps> = ({
   tokenId,
   tokenRegistryAddress,
   setShowEndorsementChain,
-  verificationStatus,
 }) => {
   const {
     approvedHolder,
@@ -86,7 +83,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     <div id="title-transfer-panel">
       {assetManagementAction === AssetManagementActions.None && (
         <>
-          <DocumentStatus verificationStatus={verificationStatus} />
+          <DocumentStatus />
           <AssetManagementTags />
         </>
       )}

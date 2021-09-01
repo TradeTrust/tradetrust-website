@@ -1,14 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { TemplateProps } from "./../../types";
+import { OpenAttestationAttachment } from "../../utils/shared";
 
 interface MultiTabsProps {
   className?: string;
   hasAttachments: boolean;
-  attachments?: {
-    filename: string;
-    data: string;
-    type: string;
-  }[];
+  attachments?: OpenAttestationAttachment[];
   templates: TemplateProps[];
   setSelectedTemplate: (id: string) => void;
   selectedTemplate: string;

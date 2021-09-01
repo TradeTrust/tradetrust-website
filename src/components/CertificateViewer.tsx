@@ -1,5 +1,4 @@
-import { VerificationFragment } from "@govtechsg/oa-verify";
-import { getData, utils, v2, WrappedDocument } from "@govtechsg/open-attestation";
+import { utils } from "@govtechsg/open-attestation";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
@@ -17,15 +16,15 @@ import { ErrorBoundary } from "./ErrorBoundary";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
+import { WrappedOrSignedOpenAttestationDocument, getAttachments } from "../utils/shared";
 
 const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
-  document: WrappedDocument<v2.OpenAttestationDocument>;
-  verificationStatus: VerificationFragment[];
+  document: WrappedOrSignedOpenAttestationDocument;
 }
 
-export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ document, verificationStatus }) => {
+export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ document }) => {
   const isTransferableAsset = utils.isTransferableAsset(document);
   let tokenId = "";
   if (isTransferableAsset) {
@@ -40,8 +39,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
-  const originalData = getData(document);
-  const attachments = originalData?.attachments;
+  const attachments = getAttachments(document);
   const hasAttachments = attachments ? attachments.length > 0 : false;
   const { initialize, resetStates: resetTokenInformationState } = useTokenInformationContext();
   const dispatch = useDispatch();
@@ -100,7 +98,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const renderedCertificateViewer = (
     <>
       <div className="no-print">
-        {!isTransferableDocument && <DocumentStatus verificationStatus={verificationStatus} />}
+        {!isTransferableDocument && <DocumentStatus />}
         {isDemo && (
           <Banner
             className="mt-8"
@@ -113,7 +111,6 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
             tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
-            verificationStatus={verificationStatus}
           />
         )}
       </div>

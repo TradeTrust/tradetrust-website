@@ -1,12 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { AttachmentLink } from "../UI/AttachmentLink";
+import { OpenAttestationAttachment } from "../../utils/shared";
 
 interface TabPaneAttachmentsProps {
-  attachments: {
-    filename: string;
-    data: string;
-    type: string;
-  }[];
+  attachments: OpenAttestationAttachment[];
 }
 
 export const TabPaneAttachments: FunctionComponent<TabPaneAttachmentsProps> = ({ attachments }) => {
