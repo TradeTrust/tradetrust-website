@@ -14,11 +14,7 @@ describe("unverifiedView", () => {
   it("displays hash error if the hash is invalid", () => {
     render(
       <MemoryRouter>
-        <UnverifiedView
-          handleRenderOverwrite={() => {}}
-          verificationStatus={whenDocumentHashInvalid as VerificationFragment[]}
-          resetData={() => {}}
-        />
+        <UnverifiedView verificationStatus={whenDocumentHashInvalid as VerificationFragment[]} resetData={() => {}} />
       </MemoryRouter>
     );
     const errorContainerElm = screen.getByTestId("error-tab");
@@ -29,11 +25,7 @@ describe("unverifiedView", () => {
   it("displays issuing error if the document is not issued", () => {
     render(
       <MemoryRouter>
-        <UnverifiedView
-          handleRenderOverwrite={() => {}}
-          verificationStatus={whenDocumentNotIssued as VerificationFragment[]}
-          resetData={() => {}}
-        />
+        <UnverifiedView verificationStatus={whenDocumentNotIssued as VerificationFragment[]} resetData={() => {}} />
       </MemoryRouter>
     );
     const errorContainerElm = screen.getByTestId("error-tab");
@@ -45,7 +37,6 @@ describe("unverifiedView", () => {
     render(
       <MemoryRouter>
         <UnverifiedView
-          handleRenderOverwrite={() => {}}
           verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]}
           resetData={() => {}}
         />

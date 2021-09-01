@@ -3,8 +3,6 @@ import { OverlayContext, Textual } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Checkbox } from "./../UI/Checkbox";
-import styled from "@emotion/styled";
-import tw from "twin.macro";
 
 // https://docs.netlify.com/forms/setup/#submit-javascript-rendered-forms-with-ajax
 export const encode: any = (data: { [x: string]: string | number | boolean }) => {
@@ -12,13 +10,6 @@ export const encode: any = (data: { [x: string]: string | number | boolean }) =>
     .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
     .join("&");
 };
-
-const TextArea = styled.textarea`
-  min-height: 140px;
-  &::placeholder {
-    ${tw`text-cloud-200 text-base`}
-  }
-`;
 
 export const EmailForm: FunctionComponent = () => {
   const { showOverlay } = useContext(OverlayContext);
@@ -93,11 +84,12 @@ export const EmailForm: FunctionComponent = () => {
               onChange={handleInputOrTextareaChange}
               className="w-full mb-4 rounded"
             />
-            <TextArea
+            <textarea
               name="Message"
               placeholder="Message"
               onChange={handleInputOrTextareaChange}
-              className="border border-solid rounded border-gray-300 bg-white py-1 px-2 mb-2 w-full resize-none"
+              className="border border-solid rounded-lg border-gray-300 bg-white py-1 px-2 mb-2 w-full resize-none placeholder-cloud-200"
+              style={{ minHeight: "140px" }}
             />
             <div className="my-4">
               <p className="mb-2">You can unsubscribe from these communications at any time.</p>
