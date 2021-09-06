@@ -44,7 +44,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     restoreTokenState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-  const { upgradeProvider, account, provider } = useProviderContext();
+  const { upgradeToMetaMaskSigner, account, provider } = useProviderContext();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
   // Check if direct owner is minter, useContractFunctionHook value returns {0: boolean}
   const { call: checkIsMinter, value: isMinter } = useContractFunctionHook(tokenRegistry, "isMinter");
@@ -91,7 +91,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
         {isTitleEscrow !== undefined && (
           <AssetManagementForm
             account={account}
-            onConnectToWallet={upgradeProvider}
+            onConnectToWallet={upgradeToMetaMaskSigner}
             beneficiary={beneficiary}
             approvedBeneficiary={approvedBeneficiary}
             holder={holder}
