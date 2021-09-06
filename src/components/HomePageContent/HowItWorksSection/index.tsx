@@ -76,12 +76,19 @@ export const HowItWorksSection: FunctionComponent = () => {
               Ready to learn how TradeTrust can benefit your business?
             </h3>
           </GetInTouchBackground>
-          <Link
+          {/* <Link
             to="/contact"
             className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
             data-testid="get-in-touch"
           >
             <h3 className="font-normal text-2xl">Get in Touch Now</h3>
+          </Link> */}
+          <Link
+            to="/demo"
+            className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
+            data-testid="demo"
+          >
+            <h3 className="font-normal text-2xl">Try our demo now</h3>
           </Link>
         </div>
       </div>
