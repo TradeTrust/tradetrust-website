@@ -14,7 +14,8 @@
     "sourceMap": true,
     "types": ["jest", "node", "webpack-env", "@testing-library/jest-dom"],
     "allowJs": true,
-    "noEmit": true
+    "noEmit": true,
+    "useUnknownInCatchVariables":true
   },
   "include": ["src"]
 }

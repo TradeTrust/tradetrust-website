@@ -70,7 +70,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   const handleConnectWallet = async () => {
     try {
       await onConnectToWallet();
-    } catch (error) {
+    } catch (error: any) {
       handleMetamaskError(error.message, error.code);
     }
   };

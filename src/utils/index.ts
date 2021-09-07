@@ -11,7 +11,7 @@ export const isEthereumAddress = (address: string): boolean | undefined => {
     if (utils.getAddress(address)) {
       return true;
     }
-  } catch (e) {
+  } catch (e: any) {
     if (e.reason === "invalid address") {
       return false;
     } else throw e;
