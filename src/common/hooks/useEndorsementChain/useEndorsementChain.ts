@@ -55,8 +55,10 @@ export const useEndorsementChain = (
       );
       setEndorsementChain(titleEscrowLogs);
     } catch (e) {
-      console.error(e);
-      setError(e.message);
+      if (e instanceof Error) {
+        console.error(e);
+        setError(e.message);
+      }
     }
     setPending(false);
   }, [provider, tokenId, tokenRegistry, tokenRegistryAddress]);

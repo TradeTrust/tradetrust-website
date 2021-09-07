@@ -139,9 +139,11 @@ export const useRestoreToken = (
 
       setState("CONFIRMED");
     } catch (error) {
-      setErrorMessage(error);
-      errorLogger(error);
-      setState("ERROR");
+      if (error instanceof Error) {
+        setErrorMessage(JSON.stringify(error));
+        errorLogger(error);
+        setState("ERROR");
+      }
     }
   };
 
