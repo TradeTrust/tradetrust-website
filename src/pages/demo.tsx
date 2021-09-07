@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { Invite } from "../components/Demo";
+import { Demo } from "../components/Demo";
 import { Page } from "../components/Layout/Page";
 
 export const DemoPage: FunctionComponent = () => (
@@ -19,7 +19,7 @@ export const DemoPage: FunctionComponent = () => (
       <title>TradeTrust - Demo</title>
     </Helmet>
     <Page title="Demo">
-      <Invite />
+      <Demo />
     </Page>
   </>
 );
