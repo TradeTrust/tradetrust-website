@@ -31,6 +31,13 @@ module.exports = {
         },
       },
       {
+        test: /\.(ts|js)x?$/,
+        include: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        },
+      },
+      {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
