@@ -12,13 +12,13 @@ const settingsOptions: SettingsOptions[] = [
   {
     title: "Address Book",
     description: "Access and update your addresses",
-    tileIcon: <IconAddressBook />,
+    tileIcon: <IconAddressBook className="max-w-full" />,
     pathLink: "/settings/address-book",
   },
   {
     title: "Address Book Resolver",
     description: "Set up and add third party’s endpoint to resolve addresses’ identity",
-    tileIcon: <IconResolverAddress />,
+    tileIcon: <IconResolverAddress className="max-w-full" />,
     pathLink: "/settings/address-resolver",
   },
 ];
