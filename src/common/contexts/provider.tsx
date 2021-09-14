@@ -5,9 +5,9 @@ import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
 import { magic } from "./helpers";
 
 export enum SIGNER_TYPE {
-  IDENTITY,
-  METAMASK,
-  MAGIC,
+  IDENTITY = "Identity",
+  METAMASK = "Metamask",
+  MAGIC = "Magic",
 }
 
 const getProvider =
@@ -51,7 +51,7 @@ interface ProviderContextProviderProps {
 }
 
 export const ProviderContextProvider: FunctionComponent<ProviderContextProviderProps> = ({ children }) => {
-  const [providerType, setProviderType] = useState(SIGNER_TYPE.IDENTITY);
+  const [providerType, setProviderType] = useState<SIGNER_TYPE>(SIGNER_TYPE.IDENTITY);
   const [provider, setProvider] = useState<providers.Provider | Signer>(getProvider);
   const [account, setAccount] = useState<string>();
 
