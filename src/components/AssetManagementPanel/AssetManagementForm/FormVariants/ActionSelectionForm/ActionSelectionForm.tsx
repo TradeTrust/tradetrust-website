@@ -5,7 +5,6 @@ import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
-import { useProviderContext, SIGNER_TYPE } from "../../../../../common/contexts/provider";
 
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
@@ -53,7 +52,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     canEndorseTransfer;
 
   const { showOverlay } = useContext(OverlayContext);
-  const { providerType } = useProviderContext();
   const handleNoAccess = () => {
     showOverlay(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
   };
@@ -72,7 +70,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   const handleConnectWallet = async () => {
     try {
       await onConnectToWallet();
-    } catch (error) {
+    } catch (error: any) {
       handleMetamaskError(error.message, error.code);
     }
   };
@@ -117,7 +115,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
       {!isTokenBurnt && (
         <div className="flex flex-wrap pb-4">
           <div className="w-auto lg:ml-auto">
-            {account && providerType === SIGNER_TYPE.METAMASK ? (
+            {account ? (
               <>
                 {canManage ? (
                   <AssetManagementDropdown
