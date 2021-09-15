@@ -38,10 +38,10 @@ const AppContainer = (): React.ReactElement => {
           ))}
           {NETWORK === "ropsten" && (
             <>
-              <PrivateRoute path="/demo/create" redirectPath="/demo">
+              <PrivateRoute path="/demo/create" redirectPath="/demo" exact>
                 <DemoCreatePage />
               </PrivateRoute>
-              <Route path="/demo">
+              <Route path="/demo" exact>
                 <DemoPage />
               </Route>
             </>
