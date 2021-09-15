@@ -9,6 +9,7 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
+import { NETWORK } from "./../../../config";
 
 const leftNavItems: NavigationItem[] = [
   {
@@ -89,6 +90,21 @@ const leftNavItems: NavigationItem[] = [
     ),
   },
 ];
+
+if (NETWORK === "ropsten") {
+  // demo flow is only ropsten network
+  leftNavItems.unshift({
+    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
+    id: "demo",
+    label: "Demo",
+    path: "/demo",
+    customLink: (
+      <NavLink activeClassName="text-cerulean" className="block w-full text-current" to={"/demo"}>
+        Demo
+      </NavLink>
+    ),
+  });
+}
 
 const rightNavItems: NavigationItem[] = [
   {
