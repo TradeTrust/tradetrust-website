@@ -77,11 +77,11 @@ export const HowItWorksSection: FunctionComponent = () => {
             </h3>
           </GetInTouchBackground>
           <Link
-            to="/demo"
+            to="/contact"
             className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
-            data-testid="demo"
+            data-testid="get-in-touch"
           >
-            <h3 className="font-normal text-2xl">Try our demo now</h3>
+            <h3 className="font-normal text-2xl">Get in Touch Now</h3>
           </Link>
         </div>
       </div>
