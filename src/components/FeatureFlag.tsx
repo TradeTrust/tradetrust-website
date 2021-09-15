@@ -1,6 +1,7 @@
 import React, { FunctionComponent, ReactElement } from "react";
 import { useFeatureFlagOverride } from "../common/hooks/useFeatureFlagOverride";
 import Features from "../config/feature-toggle.json";
+import { isDevelopment } from "../config";
 
 interface FeatureFlag {
   name: string;
@@ -22,7 +23,6 @@ export const FeatureFlag: FunctionComponent<FeatureFlag> = ({ name, children, fa
   const { getFeatureFlagOverride } = useFeatureFlagOverride();
   const override = getFeatureFlagOverride(name);
   // Combining allowing both test and development environment to render the development features
-  const isDevelopment = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
   const environment: Environment = isDevelopment ? "development" : "production";
   const features = Features as FeatureJson;
   const featureFlag: boolean = features?.[name]?.[environment];

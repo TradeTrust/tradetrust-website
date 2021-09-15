@@ -4,15 +4,13 @@ import { Checkbox } from "../../UI/Checkbox";
 import { useHistory } from "react-router-dom";
 import { contentPdpa } from "../../../common/utils/overlay";
 import { magic } from "../../../common/contexts/helpers";
-import { DemoState, setDemoStateType } from "./../types";
 
 interface DemoInitialProps {
-  setDemoState: setDemoStateType;
   login: (email: string) => Promise<void | null | string> | ReturnType<typeof magic.auth.loginWithMagicLink>;
   upgradeToMagicSigner: () => () => Promise<void>;
 }
 
-export const DemoInitial: FunctionComponent<DemoInitialProps> = ({ setDemoState, login, upgradeToMagicSigner }) => {
+export const DemoInitial: FunctionComponent<DemoInitialProps> = ({ login, upgradeToMagicSigner }) => {
   const { showOverlay } = useContext(OverlayContext);
   const [form, setForm] = useState({
     "Receive communications": "No",
@@ -34,10 +32,9 @@ export const DemoInitial: FunctionComponent<DemoInitialProps> = ({ setDemoState,
       event.preventDefault();
       await login(form.email);
       await upgradeToMagicSigner();
-      setDemoState(DemoState.LOGIN);
-      history.push("/demo");
+      history.push("/demo/create");
     } catch (e) {
-      console.log("demo/invite: " + e);
+      console.log("demo invite: " + e);
     }
   };
   return (

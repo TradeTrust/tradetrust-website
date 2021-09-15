@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar } from "./components/Layout/NavigationBar";
+import { PrivateRoute } from "./components/PrivateRoute";
 import { NETWORK } from "./config";
 import { routes } from "./routes";
 import styled from "@emotion/styled";
+import { PageNotFound } from "./pages/pageNotFound";
+import { DemoCreatePage } from "./pages/demoCreate";
 
 const Main = styled.main`
   background-image: url("/static/images/common/wave-lines.png");
@@ -32,6 +35,12 @@ const AppContainer = (): React.ReactElement => {
           {routes.map((route, id) => (
             <Route key={id} {...route} />
           ))}
+          <PrivateRoute path="/demo/create" redirectPath="/demo">
+            <DemoCreatePage />
+          </PrivateRoute>
+          <Route path="*">
+            <PageNotFound />
+          </Route>
         </Switch>
       </Main>
       <Footer />

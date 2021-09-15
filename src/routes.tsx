@@ -4,7 +4,6 @@ import { FaqPage } from "./pages/faq";
 import { EtaPage } from "./pages/eta";
 import VerifyPage from "./pages/verify";
 import { HomePage } from "./pages/home";
-import { PageNotFound } from "./pages/pageNotFound";
 import { NewsPage } from "./pages/news";
 import { NewsPageDetail } from "./pages/newsDetail";
 import { LearnPage } from "./pages/learn";
@@ -31,5 +30,4 @@ export const routes = [
   { path: "/event", exact: true, component: EventPage },
   { path: "/contact", exact: true, component: ContactPage },
   { path: "/demo", exact: true, component: DemoPage },
-  { path: "*", component: PageNotFound },
 ];
