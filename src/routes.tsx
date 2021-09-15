@@ -4,7 +4,6 @@ import { FaqPage } from "./pages/faq";
 import { EtaPage } from "./pages/eta";
 import VerifyPage from "./pages/verify";
 import { HomePage } from "./pages/home";
-import { PageNotFound } from "./pages/pageNotFound";
 import { NewsPage } from "./pages/news";
 import { NewsPageDetail } from "./pages/newsDetail";
 import { LearnPage } from "./pages/learn";
@@ -12,7 +11,6 @@ import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } fr
 import { ViewerPage } from "./pages/viewer";
 import { ContactPage } from "./pages/contact";
 import { EventPage } from "./pages/event/event";
-import { DemoPage } from "./pages/demo";
 
 export const routes = [
   { path: "/", exact: true, component: HomePage },
@@ -30,6 +28,4 @@ export const routes = [
   { path: "/learn", exact: true, component: LearnPage },
   { path: "/event", exact: true, component: EventPage },
   { path: "/contact", exact: true, component: ContactPage },
-  { path: "/demo", exact: true, component: DemoPage },
-  { path: "*", component: PageNotFound },
 ];

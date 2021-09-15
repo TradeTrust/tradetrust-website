@@ -1,7 +1,37 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { Demo } from "../components/Demo";
+import { useHistory } from "react-router-dom";
+import { useAuthContext } from "../common/contexts/AuthenticationContext";
+import { useProviderContext } from "../common/contexts/provider";
+import { DemoInitial } from "../components/Demo/DemoInitial";
 import { Page } from "../components/Layout/Page";
+
+export const DemoLayout: FunctionComponent = ({ children }) => {
+  return (
+    <div className="flex flex-wrap mt-4">
+      <div className="w-full lg:w-2/3 xl:w-1/2">
+        <div className="bg-white rounded-xl shadow-xl p-6">{children}</div>
+      </div>
+      <div className="w-1/2 lg:w-1/3 xl:w-1/2 mx-auto my-8">
+        <img className="max-h-96 mx-auto" src="/static/images/faq/faq-person.png" alt="FAQ person" />
+      </div>
+    </div>
+  );
+};
+
+export const Demo: FunctionComponent = () => {
+  const { login, isLoggedIn } = useAuthContext();
+  const { upgradeToMagicSigner } = useProviderContext();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push("/demo/create");
+    }
+  }, [isLoggedIn, history]);
+
+  return <DemoInitial login={login} upgradeToMagicSigner={() => upgradeToMagicSigner} />;
+};
 
 export const DemoPage: FunctionComponent = () => (
   <>
@@ -19,7 +49,9 @@ export const DemoPage: FunctionComponent = () => (
       <title>TradeTrust - Demo</title>
     </Helmet>
     <Page title="Demo">
-      <Demo />
+      <DemoLayout>
+        <Demo />
+      </DemoLayout>
     </Page>
   </>
 );
