@@ -9,6 +9,7 @@ import { routes } from "./routes";
 import styled from "@emotion/styled";
 import { PageNotFound } from "./pages/pageNotFound";
 import { DemoCreatePage } from "./pages/demoCreate";
+import { DemoPage } from "./pages/demo";
 
 const Main = styled.main`
   background-image: url("/static/images/common/wave-lines.png");
@@ -35,9 +36,16 @@ const AppContainer = (): React.ReactElement => {
           {routes.map((route, id) => (
             <Route key={id} {...route} />
           ))}
-          <PrivateRoute path="/demo/create" redirectPath="/demo">
-            <DemoCreatePage />
-          </PrivateRoute>
+          {NETWORK === "ropsten" && (
+            <>
+              <PrivateRoute path="/demo/create" redirectPath="/demo">
+                <DemoCreatePage />
+              </PrivateRoute>
+              <Route path="/demo">
+                <DemoPage />
+              </Route>
+            </>
+          )}
           <Route path="*">
             <PageNotFound />
           </Route>
