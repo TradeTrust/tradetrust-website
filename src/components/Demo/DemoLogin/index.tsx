@@ -1,10 +1,14 @@
 import { Button } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
-import { Stages } from ".";
+import { DemoState, setDemoStateType } from "./../types";
 
-export const DemoInitial: FunctionComponent<any> = ({ setFormStage }) => {
+interface DemoLoginProps {
+  setDemoState: setDemoStateType;
+}
+
+export const DemoLogin: FunctionComponent<DemoLoginProps> = ({ setDemoState }) => {
   return (
-    <div>
+    <>
       <h5>
         Take the TradeTrust User Journey and have a hands-on experience on how easy it is to streamline your operations
         using TradeTrust
@@ -15,10 +19,10 @@ export const DemoInitial: FunctionComponent<any> = ({ setFormStage }) => {
       </p>
       <Button
         className="bg-cerulean text-white mt-8 hover:bg-cerulean-300"
-        onClick={() => setFormStage(Stages.DOCUMENT_DETAIL)}
+        onClick={() => setDemoState(DemoState.CREATE)}
       >
         <h5>Start now</h5>
       </Button>
-    </div>
+    </>
   );
 };
