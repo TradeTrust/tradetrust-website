@@ -9,7 +9,7 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
-import { NETWORK } from "./../../../config";
+import { NETWORK_NAME } from "./../../../config";
 
 const leftNavItems: NavigationItem[] = [
   {
@@ -91,7 +91,7 @@ const leftNavItems: NavigationItem[] = [
   },
 ];
 
-if (NETWORK === "ropsten") {
+if (NETWORK_NAME === "ropsten") {
   // demo flow is only ropsten network
   leftNavItems.unshift({
     schema: NAVIGATION_ITEM_TYPE.NavigationLink,
