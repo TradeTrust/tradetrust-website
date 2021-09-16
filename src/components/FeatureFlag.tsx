@@ -22,7 +22,6 @@ interface FeatureJson {
 export const FeatureFlag: FunctionComponent<FeatureFlag> = ({ name, children, fallback }) => {
   const { getFeatureFlagOverride } = useFeatureFlagOverride();
   const override = getFeatureFlagOverride(name);
-  // Combining allowing both test and development environment to render the development features
   const environment: Environment = isDevelopment ? "development" : "production";
   const features = Features as FeatureJson;
   const featureFlag: boolean = features?.[name]?.[environment];

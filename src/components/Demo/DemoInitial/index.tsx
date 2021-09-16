@@ -34,7 +34,7 @@ export const DemoInitial: FunctionComponent<DemoInitialProps> = ({ login, upgrad
       await upgradeToMagicSigner();
       history.push("/demo/create");
     } catch (e) {
-      console.log("demo invite: " + e);
+      console.log(e);
     }
   };
   return (
