@@ -49,6 +49,7 @@
     "@govtechsg/token-registry": "2.5.1",
     "@govtechsg/tradetrust-ui-components": "^2.7.4",
     "@reduxjs/toolkit": "^1.6.1",
+    "cross-env": "^7.0.3",
     "date-fns": "^2.22.1",
     "date-fns-tz": "^1.1.4",
     "ethers": "^5.4.3",
