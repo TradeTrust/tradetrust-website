@@ -1,15 +1,10 @@
 import { Button, Input, ButtonSize } from "@govtechsg/tradetrust-ui-components";
-import { OverlayContext, Textual } from "@govtechsg/tradetrust-ui-components";
+import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Checkbox } from "./../UI/Checkbox";
-
-// https://docs.netlify.com/forms/setup/#submit-javascript-rendered-forms-with-ajax
-export const encode: any = (data: { [x: string]: string | number | boolean }) => {
-  return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
-};
+import { contentPdpa } from "./../../common/utils/overlay";
+import { encode } from "./../../utils";
 
 export const EmailForm: FunctionComponent = () => {
   const { showOverlay } = useContext(OverlayContext);
@@ -26,7 +21,7 @@ export const EmailForm: FunctionComponent = () => {
     setForm({ ...form, [event.target.name]: event.target.checked ? "Yes" : "No" });
   };
 
-  const handleFormSubmit = (event: { preventDefault: () => void }) => {
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -43,15 +38,9 @@ export const EmailForm: FunctionComponent = () => {
     event.preventDefault();
   };
 
-  const onOverlayHandler = () => {
-    showOverlay(
-      <Textual title="Consent to process data *" className="max-w-md py-8 px-12">
-        <p>
-          In order to contact you or provide the content requested, we need to store and process the personal data you
-          provide us. If you consent to us storing your personal data for this purpose, please tick the checkbox.
-        </p>
-      </Textual>
-    );
+  const onOverlayHandler = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    showOverlay(contentPdpa);
   };
 
   return (

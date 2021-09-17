@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import AppContainer from "./AppContainer";
 import { ProviderContextProvider } from "./common/contexts/provider";
 import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";
+import { AuthProvider } from "./common/contexts/AuthenticationContext/AuthContext";
 import "./index.css";
 import { configureStore } from "./store";
 import { Router } from "react-router-dom";
@@ -17,11 +18,13 @@ const App = () => {
     <OverlayContextProvider>
       <ProviderContextProvider>
         <TokenInformationContextProvider>
-          <Provider store={store}>
-            <Router history={history}>
-              <AppContainer />
-            </Router>
-          </Provider>
+          <AuthProvider>
+            <Provider store={store}>
+              <Router history={history}>
+                <AppContainer />
+              </Router>
+            </Provider>
+          </AuthProvider>
         </TokenInformationContextProvider>
       </ProviderContextProvider>
     </OverlayContextProvider>
