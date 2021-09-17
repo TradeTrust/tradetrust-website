@@ -90,6 +90,9 @@ const localConfig = {
   },
   variants: {
     cursor: ["responsive", "hover", "focus", "active"],
+    extend: {
+      borderWidth: ["last"],
+    },
   },
   plugins: [
     require("@tailwindcss/aspect-ratio"),
