@@ -1,6 +1,6 @@
 import { put, select } from "redux-saga/effects";
-import { getDemoMagicDocument } from "../reducers/demoMagicWallet";
-import { verifyDemoMagicDocument } from "./demoMagicWallet";
+import { getDemoDocument } from "../reducers/demo";
+import { verifyDemoDocument } from "./demo";
 import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalidAndNotIssued,
@@ -9,22 +9,22 @@ import { history } from "../history";
 
 jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
 
-describe("verifyDemoMagicDocument", () => {
+describe("verifyDemoDocument", () => {
   it("should verify the document and change the router to /demoViewer when verification passes", () => {
     jest.spyOn(history, "push");
-    const generator = verifyDemoMagicDocument();
+    const generator = verifyDemoDocument();
 
-    // Should dispatch demoMagicWallet/verifyingDemoMagicDocument first
+    // Should dispatch demo/verifyingDemoDocument first
     const verifyingAction = generator.next().value;
     expect(verifyingAction).toStrictEqual(
       put({
-        type: "demoMagicWallet/verifyingDemoMagicDocument",
+        type: "demo/verifyingDemoDocument",
       })
     );
 
     // Should get the document to be verified from the store next
     const selectDocument = generator.next().value;
-    expect(selectDocument).toStrictEqual(select(getDemoMagicDocument));
+    expect(selectDocument).toStrictEqual(select(getDemoDocument));
 
     generator.next("DOCUMENT_OBJECT");
 
@@ -32,7 +32,7 @@ describe("verifyDemoMagicDocument", () => {
     const verificationCompletionAction = generator.next(whenDocumentValidAndIssuedByDns).value;
     expect(verificationCompletionAction).toStrictEqual(
       put({
-        type: "demoMagicWallet/verifyDemoMagicDocumentCompleted",
+        type: "demo/verifyDemoDocumentCompleted",
         payload: whenDocumentValidAndIssuedByDns,
       })
     );
@@ -45,19 +45,19 @@ describe("verifyDemoMagicDocument", () => {
   });
 
   it("should verify the document and dont update the router when verification fails", () => {
-    const generator = verifyDemoMagicDocument();
+    const generator = verifyDemoDocument();
 
-    // Should dispatch demoMagicWallet/verifyingDemoMagicDocument first
+    // Should dispatch demo/verifyingDemoDocument first
     const verifyingAction = generator.next().value;
     expect(verifyingAction).toStrictEqual(
       put({
-        type: "demoMagicWallet/verifyingDemoMagicDocument",
+        type: "demo/verifyingDemoDocument",
       })
     );
 
     // Should get the document to be verified from the store next
     const selectDocument = generator.next().value;
-    expect(selectDocument).toStrictEqual(select(getDemoMagicDocument));
+    expect(selectDocument).toStrictEqual(select(getDemoDocument));
 
     generator.next("DOCUMENT_OBJECT");
 
@@ -65,7 +65,7 @@ describe("verifyDemoMagicDocument", () => {
     const verificationCompletionAction = generator.next(whenDocumentHashInvalidAndNotIssued).value;
     expect(verificationCompletionAction).toStrictEqual(
       put({
-        type: "demoMagicWallet/verifyDemoMagicDocumentCompleted",
+        type: "demo/verifyDemoDocumentCompleted",
         payload: whenDocumentHashInvalidAndNotIssued,
       })
     );

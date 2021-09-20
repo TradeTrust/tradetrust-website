@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // TODO: from the looks it needs this states, update once demo flow is more confirmed
-interface DemoMagicWalletState {
+interface DemoState {
   rawDocument: string | null;
   rawModifiedDocument: string | null;
 
@@ -17,32 +17,32 @@ const initialState = {
   verificationPending: false,
   verificationStatus: null,
   verificationError: null,
-} as DemoMagicWalletState;
+} as DemoState;
 
-const demoMagicWalletSlice = createSlice({
-  name: "demoMagicWallet",
+const demoSlice = createSlice({
+  name: "demo",
   initialState,
   reducers: {
-    resetDemoMagicDocument: (state) => {
+    resetDemoState: (state) => {
       state.rawDocument = null;
       state.rawModifiedDocument = null;
       state.verificationPending = false;
       state.verificationStatus = null;
       state.verificationError = null;
     },
-    updateDemoMagicDocument: (state, action) => {
+    updateDemoDocument: (state, action) => {
       state.rawDocument = action.payload;
       state.rawModifiedDocument = action.payload;
     },
-    verifyingDemoMagicDocument: (state) => {
+    verifyingDemoDocument: (state) => {
       state.verificationPending = true;
       state.verificationStatus = null;
     },
-    verifyDemoMagicDocumentCompleted: (state, action) => {
+    verifyDemoDocumentCompleted: (state, action) => {
       state.verificationPending = false;
       state.verificationStatus = action.payload;
     },
-    verifyDemoMagicDocumentFailure: (state, action) => {
+    verifyDemoDocumentFailure: (state, action) => {
       state.verificationPending = false;
       state.verificationError = action.payload;
     },
@@ -50,16 +50,16 @@ const demoMagicWalletSlice = createSlice({
 });
 
 // Selectors
-export const getDemoMagicDocument = (store: { demoMagicWallet: { rawModifiedDocument: string } }): string => {
-  return store.demoMagicWallet.rawModifiedDocument;
+export const getDemoDocument = (store: { demo: { rawModifiedDocument: string } }): string => {
+  return store.demo.rawModifiedDocument;
 };
 
 export const {
-  resetDemoMagicDocument,
-  updateDemoMagicDocument,
-  verifyingDemoMagicDocument,
-  verifyDemoMagicDocumentCompleted,
-  verifyDemoMagicDocumentFailure,
-} = demoMagicWalletSlice.actions;
+  resetDemoState,
+  updateDemoDocument,
+  verifyingDemoDocument,
+  verifyDemoDocumentCompleted,
+  verifyDemoDocumentFailure,
+} = demoSlice.actions;
 
-export const demoMagicWallet = demoMagicWalletSlice.reducer;
+export const demo = demoSlice.reducer;

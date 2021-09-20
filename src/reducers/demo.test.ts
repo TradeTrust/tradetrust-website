@@ -1,13 +1,13 @@
 import {
-  demoMagicWallet,
-  resetDemoMagicDocument,
-  updateDemoMagicDocument,
-  verifyingDemoMagicDocument,
-  verifyDemoMagicDocumentCompleted,
-  verifyDemoMagicDocumentFailure,
-} from "./demoMagicWallet";
+  demo,
+  resetDemoState,
+  updateDemoDocument,
+  verifyingDemoDocument,
+  verifyDemoDocumentCompleted,
+  verifyDemoDocumentFailure,
+} from "./demo";
 
-describe("demoMagicWallet", () => {
+describe("demo", () => {
   let initialState: any;
   beforeEach(() => {
     initialState = {
@@ -27,7 +27,7 @@ describe("demoMagicWallet", () => {
       verificationStatus: null,
       verificationError: null,
     };
-    const state = demoMagicWallet(initialState, updateDemoMagicDocument("demoDocument"));
+    const state = demo(initialState, updateDemoDocument("demoDocument"));
     expect(state).toStrictEqual(finalState);
   });
 
@@ -39,7 +39,7 @@ describe("demoMagicWallet", () => {
       verificationStatus: null,
       verificationError: null,
     };
-    const state = demoMagicWallet(initialState, verifyingDemoMagicDocument());
+    const state = demo(initialState, verifyingDemoDocument());
     expect(state).toStrictEqual(finalState);
   });
 
@@ -51,7 +51,7 @@ describe("demoMagicWallet", () => {
       verificationStatus: "completed",
       verificationError: null,
     };
-    const state = demoMagicWallet(initialState, verifyDemoMagicDocumentCompleted("completed"));
+    const state = demo(initialState, verifyDemoDocumentCompleted("completed"));
     expect(state).toStrictEqual(finalState);
   });
 
@@ -63,16 +63,16 @@ describe("demoMagicWallet", () => {
       verificationStatus: null,
       verificationError: "failed",
     };
-    const state = demoMagicWallet(initialState, verifyDemoMagicDocumentFailure("failed"));
+    const state = demo(initialState, verifyDemoDocumentFailure("failed"));
     expect(state).toStrictEqual(finalState);
   });
 
   it("should reset the state when resetDemoDocument is called", () => {
-    const action1 = demoMagicWallet(initialState, updateDemoMagicDocument("demoDocument"));
-    const action2 = demoMagicWallet(action1, verifyingDemoMagicDocument());
-    const action3 = demoMagicWallet(action2, verifyDemoMagicDocumentCompleted("completed"));
-    const action4 = demoMagicWallet(action3, verifyDemoMagicDocumentFailure("failed"));
-    const resetState = demoMagicWallet(action4, resetDemoMagicDocument());
+    const action1 = demo(initialState, updateDemoDocument("demoDocument"));
+    const action2 = demo(action1, verifyingDemoDocument());
+    const action3 = demo(action2, verifyDemoDocumentCompleted("completed"));
+    const action4 = demo(action3, verifyDemoDocumentFailure("failed"));
+    const resetState = demo(action4, resetDemoState());
     expect(resetState).toStrictEqual(initialState);
   });
 });

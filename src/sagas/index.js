@@ -1,9 +1,9 @@
 import { all } from "redux-saga/effects";
 import certificateSaga from "./certificate";
-import demoMagicWalletSaga from "./demoMagicWallet";
+import demoSaga from "./demo";
 
 function* rootSaga() {
-  yield all([...certificateSaga, ...demoMagicWalletSaga]);
+  yield all([...certificateSaga, ...demoSaga]);
 }
 
 export default rootSaga;

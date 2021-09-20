@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import certificate from "./certificate";
 import { sample } from "./sample";
-import { demoMagicWallet } from "./demoMagicWallet";
+import { demo } from "./demo";
 
 export const createRootReducer = combineReducers({
   certificate,
   sample,
-  demoMagicWallet,
+  demo,
 });
 
 export type RootState = ReturnType<typeof createRootReducer>;
