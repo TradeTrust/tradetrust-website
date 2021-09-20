@@ -34,7 +34,7 @@ describe("ResourceEvent", () => {
   it("should render time correctly", () => {
     render(<ResourceEvent attributes={mockEventMedia.attributes} />);
 
-    expect(screen.getByText("21:00 to 22:00 (SGT)")).not.toBeNull();
+    expect(screen.getByText("21:00 to 22:00 (GMT+8)")).not.toBeNull();
   });
 
   it("should render event link correctly", () => {
