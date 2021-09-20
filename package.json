@@ -21,7 +21,7 @@
     "integration:headless": "testcafe -c 4 chrome:headless src/**/*.spec.ts --app \"npm run serve-static\"",
     "integration:title-transfers": "node --experimental-modules ./integration/local/index.mjs",
     "integration:dappeteer": "run-s wait blockchain:contracts integration:title-transfers",
-    "integration:local": "NET=local npm run dev",
+    "integration:local": "cross-env NET=local npm run dev",
     "integration:headful": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:local\" \"npm:integration:dappeteer\"",
     "lint": "eslint ./src --ext .js,.ts,.tsx --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
