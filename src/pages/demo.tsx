@@ -13,7 +13,7 @@ export const DemoLayout: FunctionComponent = ({ children }) => {
         <div className="bg-white rounded-xl shadow-xl p-6">{children}</div>
       </div>
       <div className="w-1/2 lg:w-1/3 xl:w-1/2 mx-auto my-8">
-        <img className="max-h-96 mx-auto" src="/static/images/faq/faq-person.png" alt="FAQ person" />
+        <img className="max-h-96 mx-auto" src="/static/images/faq/faq-man.png" alt="FAQ person" />
       </div>
     </div>
   );
