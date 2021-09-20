@@ -1,4 +1,4 @@
-import { Button, ProgressBar } from "@govtechsg/tradetrust-ui-components";
+import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { DemoFormContext } from "../DemoFormContext";
@@ -7,7 +7,7 @@ import { schema } from "./schema";
 import { FormItemSchema } from "./types";
 
 export const DemoCreateForm: FunctionComponent = () => {
-  const { formValues, setFormValues, setCurrentStep } = useContext(DemoFormContext);
+  const { formValues, setFormValues } = useContext(DemoFormContext);
 
   const handleChange = (name: string, value: string) => {
     // parse name

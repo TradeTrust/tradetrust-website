@@ -10,9 +10,9 @@ export interface DemoFormContextProps {
 
 const defaultContext = {
   currentStep: 0,
-  setCurrentStep: () => {},
+  setCurrentStep: () => null,
   formValues: data,
-  setFormValues: () => {},
+  setFormValues: () => null,
 };
 
 export const DemoFormContext = createContext<DemoFormContextProps>(defaultContext);

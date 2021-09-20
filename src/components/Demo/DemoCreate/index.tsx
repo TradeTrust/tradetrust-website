@@ -1,4 +1,3 @@
-import { Button } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
 import { DemoCreateForm } from "./DemoCreateForm";
 import { data } from "./DemoCreateForm/data";
@@ -13,7 +12,11 @@ export const DemoCreate: FunctionComponent = () => {
 
   const value = { formValues, setFormValues, currentStep, setCurrentStep } as DemoFormContextProps;
 
-  const components = [<DemoCreateStart />, <DemoCreateForm />, <DemoCreateReview />];
+  const components = [
+    <DemoCreateStart key="start" />,
+    <DemoCreateForm key="form" />,
+    <DemoCreateReview key="review" />,
+  ];
 
   return (
     <>

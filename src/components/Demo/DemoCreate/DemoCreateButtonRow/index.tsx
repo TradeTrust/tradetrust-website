@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Button } from "@govtechsg/tradetrust-ui-components";
 import { useContext } from "react";
 import { DemoFormContext } from "../DemoFormContext";
 
-export const DemoCreateButtonRow = () => {
+export const DemoCreateButtonRow: FunctionComponent = () => {
   const { setCurrentStep } = useContext(DemoFormContext);
 
   return (
