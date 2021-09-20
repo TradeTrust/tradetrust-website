@@ -20,9 +20,6 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
   heading,
   children,
 }) => {
-  console.log(contentClassName);
-  console.log(addClassNameIfExist(contentClassName, { prefix: "" }));
-
   const [open, setOpen] = useState(false);
   return (
     <div className={`transition-color duration-200${addClassNameIfExist(containerClassName, { prefix: " " })}`}>
