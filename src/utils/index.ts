@@ -46,7 +46,7 @@ export const encode: any = (data: { [x: string]: string | number | boolean }) =>
     .join("&");
 };
 
-export const addClassNameIfExist = (className?: string, options?: { prefix?: string; postfix?: string }) => {
+export const addClassNameIfExist = (className?: string, options?: { prefix?: string; postfix?: string }): string => {
   if (!className) {
     return "";
   }
