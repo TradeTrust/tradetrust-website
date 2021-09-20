@@ -18,7 +18,13 @@ export const FaqContent: FunctionComponent = () => (
   <div className="flex flex-wrap mt-4">
     <div className="w-full lg:w-2/3">
       {faqs.map((faq, index) => (
-        <AccordionItem key={`faq-${index}`} className="bg-white" heading={faq.attributes.title}>
+        <AccordionItem
+          key={`faq-${index}`}
+          containerClassName="bg-white mb-2"
+          collapseClassName="rounded p-4"
+          contentClassName="px-4 pb-4"
+          heading={faq.attributes.title}
+        >
           <ReactMarkdown>{faq.body}</ReactMarkdown>
         </AccordionItem>
       ))}
