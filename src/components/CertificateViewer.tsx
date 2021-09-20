@@ -45,7 +45,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const dispatch = useDispatch();
 
   const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
-  const isDemo = useSelector((state: RootState) => state.demo.value);
+  const isDemo = useSelector((state: RootState) => state.demoDocument.isDemoDocument);
 
   /*
   initialise the meta token information context when new tokenId
@@ -56,7 +56,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
       trace("initialise token information context");
       initialize(tokenRegistryAddress, tokenId);
       return () => {
-        trace("reseting token information on unmount");
+        trace("resetting token information on unmount");
         resetTokenInformationState();
         resetCertificateData();
       };

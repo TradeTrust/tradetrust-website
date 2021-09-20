@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setActive } from "../../../reducers/demo";
+import { setActive } from "../../../reducers/demoDocument";
 import { updateCertificate } from "../../../reducers/certificate";
 import { loadDemoCertificate } from "../../../components/VerifyPageContent/helpers";
 
