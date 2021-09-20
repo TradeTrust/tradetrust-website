@@ -1,18 +1,28 @@
-import { Button, ProgressBar } from "@govtechsg/tradetrust-ui-components";
-import React, { useContext } from "react";
+import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
+import React, { FunctionComponent, useContext } from "react";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { schema } from "../DemoCreateForm/schema";
 import { FormItemSchema } from "../DemoCreateForm/types";
 import { DemoFormContext } from "../DemoFormContext";
 import { getFormValue } from "../utils";
 
-const DemoCreateReviewItem = ({ title, properties, name }: { title: string; properties?: object; name: string }) => {
+const DemoCreateReviewItem = ({
+  title,
+  properties,
+  name,
+}: {
+  title: string;
+  properties?: Record<string, any>;
+  name: string;
+}) => {
   const { formValues } = useContext(DemoFormContext);
   if (properties !== undefined) {
     return (
       <>
         {Object.entries(properties).map(([itemName, item]) => {
-          return <DemoCreateReviewItem name={`${name}.${itemName}`} title={item.title} properties={item.properties} />;
+          const _name = `${name}.${itemName}`;
+
+          return <DemoCreateReviewItem key={_name} name={_name} title={item.title} properties={item.properties} />;
         })}
       </>
     );
@@ -26,7 +36,7 @@ const DemoCreateReviewItem = ({ title, properties, name }: { title: string; prop
   );
 };
 
-export const DemoCreateReview = () => {
+export const DemoCreateReview: FunctionComponent = () => {
   return (
     <>
       <ProgressBar totalSteps={3} step={2} />
@@ -36,7 +46,9 @@ export const DemoCreateReview = () => {
         {Object.entries(schema).map(([itemName, item]) => {
           const _item = item as FormItemSchema;
 
-          return <DemoCreateReviewItem name={itemName} title={_item.title} properties={_item.properties} />;
+          return (
+            <DemoCreateReviewItem key={itemName} name={itemName} title={_item.title} properties={_item.properties} />
+          );
         })}
       </div>
       <DemoCreateButtonRow />

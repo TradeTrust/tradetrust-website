@@ -1,4 +1,3 @@
-import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 
 export const DemoCreateHeader: FunctionComponent = () => {
