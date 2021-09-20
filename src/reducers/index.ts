@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 import certificate from "./certificate";
-import { demoDocument } from "./demoDocument";
+import { sample } from "./sample";
 import { demoMagicWallet } from "./demoMagicWallet";
 
 export const createRootReducer = combineReducers({
   certificate,
-  demoDocument,
+  sample,
   demoMagicWallet,
 });
 
