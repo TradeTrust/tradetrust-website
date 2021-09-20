@@ -46,10 +46,10 @@ export const encode: any = (data: { [x: string]: string | number | boolean }) =>
     .join("&");
 };
 
-export const addClassNameIfExist = (className?: string, options?: { prefix?: string; postfix?: string }): string => {
+export const addClassNameIfExist = (className?: string): string => {
   if (!className) {
     return "";
   }
 
-  return (options?.prefix || "") + className + (options?.postfix || "");
+  return className;
 };

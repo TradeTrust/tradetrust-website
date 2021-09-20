@@ -8,7 +8,7 @@ describe("DateTime", () => {
 
   it("should render time to default GMT correctly", () => {
     const time = formatTime("2021-03-19T07:00:00.000Z", "zzz");
-    expect(time).toBe("GMT+8");
+    expect(time).toBe("SGT");
   });
 
   it("should render time to custom America/New_York timezone correctly", () => {

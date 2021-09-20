@@ -20,9 +20,9 @@ export const FaqContent: FunctionComponent = () => (
       {faqs.map((faq, index) => (
         <AccordionItem
           key={`faq-${index}`}
-          containerClassName="bg-white mb-2"
-          collapseClassName="rounded p-4"
-          contentClassName="px-4 pb-4"
+          classNameContainer="bg-white mb-2"
+          classNameCollapse="rounded p-4"
+          classNameContent="px-4 pb-4"
           heading={faq.attributes.title}
         >
           <ReactMarkdown>{faq.body}</ReactMarkdown>

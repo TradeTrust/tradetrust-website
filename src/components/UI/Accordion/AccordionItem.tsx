@@ -4,29 +4,29 @@ import { addClassNameIfExist } from "../../../utils";
 type headingTag = "h3" | "h5";
 
 interface AccordionItemProps {
-  containerClassName?: string;
-  collapseClassName?: string;
-  contentClassName?: string;
+  classNameContainer?: string;
+  classNameCollapse?: string;
+  classNameContent?: string;
   headingTag?: headingTag;
   heading: string;
   children: React.ReactNode;
 }
 
 export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
-  containerClassName,
-  collapseClassName,
-  contentClassName,
+  classNameContainer,
+  classNameCollapse,
+  classNameContent,
   headingTag = "h5",
   heading,
   children,
 }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`transition-color duration-200${addClassNameIfExist(containerClassName, { prefix: " " })}`}>
+    <div className={`transition-color duration-200${addClassNameIfExist(` ${classNameContainer}`)}`}>
       <div
         className={`flex justify-between items-center transition-colors duration-200 cursor-pointer hover:text-cerulean${
           open ? " text-cerulean" : ""
-        }${addClassNameIfExist(collapseClassName, { prefix: " " })}`}
+        }${addClassNameIfExist(` ${classNameCollapse}`)}`}
         onClick={() => setOpen(!open)}
       >
         {headingTag === "h3" && <h3>{heading}</h3>}
@@ -55,7 +55,7 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
           />
         </svg>
       </div>
-      {open && <div className={addClassNameIfExist(contentClassName)}>{children}</div>}
+      {open && <div className={addClassNameIfExist(classNameContent)}>{children}</div>}
     </div>
   );
 };

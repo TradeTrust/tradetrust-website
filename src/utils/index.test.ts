@@ -1,4 +1,4 @@
-import { convertSecondsToMinAndSec, isEthereumAddress } from "./";
+import { addClassNameIfExist, convertSecondsToMinAndSec, isEthereumAddress } from "./";
 
 describe("utils/isEthereumAddress", () => {
   it("should work", () => {
@@ -18,5 +18,15 @@ describe("convertSecondsToMinAndSec", () => {
     expect(convertSecondsToMinAndSec(61)).toEqual("1:01m");
     expect(convertSecondsToMinAndSec(730)).toEqual("12:10m");
     expect(convertSecondsToMinAndSec(1065)).toEqual("17:45m");
+  });
+});
+
+describe("utils/addClassNameIfExist", () => {
+  it("should return a non-empty string if classname exists", () => {
+    expect(addClassNameIfExist("random-class")).toEqual("random-class");
+  });
+
+  it("should return an empty string is no classname is provided", () => {
+    expect(addClassNameIfExist(undefined)).toEqual("");
   });
 });
