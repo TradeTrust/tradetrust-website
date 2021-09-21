@@ -1,10 +1,5 @@
 export const data = {
   cooId: "WBC 208897",
-
-  //needs to be set when issued
-  issueDate: "Mon 5 July 2021",
-  issueTime: "2:15 PM",
-
   exporterDetails: {
     exportCountry: "AU",
     exporterName: "TREASURY WINE ESTATES VINTNERS LIMITED",
