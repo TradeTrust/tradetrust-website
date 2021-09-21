@@ -1,7 +1,7 @@
 import { put, select, takeEvery } from "redux-saga/effects";
 import { getLogger } from "../utils/logger";
 import { verifyDemoDocumentCompleted, verifyDemoDocumentFailure, getDemoDocument } from "../reducers/demo";
-import { verifyDocument } from "../services/verify";
+import { verifyDocument, VerifierType } from "../services/verify";
 import { isValid } from "@govtechsg/oa-verify";
 import { NETWORK_NAME } from "../config";
 import { history } from "../history";
@@ -15,7 +15,7 @@ export function* verifyDemoDocument() {
     });
 
     const demoDocument = yield select(getDemoDocument);
-    const verificationStatus = yield verifyDocument(demoDocument);
+    const verificationStatus = yield verifyDocument(demoDocument, VerifierType.DEMO);
     trace(`Verification Status: ${JSON.stringify(verificationStatus)}`);
 
     yield put(verifyDemoDocumentCompleted(verificationStatus));
