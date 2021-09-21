@@ -34,6 +34,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
 
       return (
         <Input
+          className="w-full"
           defaultValue={defaultValue}
           onChange={(e) => onChange(e.target.name, e.target.value)}
           name={formItemName}
@@ -46,25 +47,30 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
   switch (formItem.uiType) {
     case "accordion":
       return (
-        <AccordionItem heading={formItem.title} headingTag="h3">
+        <AccordionItem
+          classNameContent="pt-6"
+          classNameContainer="py-5 border-t border-cloud-300"
+          heading={formItem.title}
+          headingTag="h3"
+        >
           {renderInput()}
           {renderProperties()}
         </AccordionItem>
       );
     case "withLabel":
       return (
-        <div>
-          <h4>{formItem.title}</h4>
+        <div className="mb-5">
+          <h4 className="mb-1">{formItem.title}</h4>
           {renderInput()}
           {renderProperties()}
         </div>
       );
     default:
       return (
-        <>
+        <div className="mb-5">
           {renderInput()}
           {renderProperties()}
-        </>
+        </div>
       );
   }
 };

@@ -40,8 +40,10 @@ export const DemoCreateReview: FunctionComponent = () => {
   return (
     <>
       <ProgressBar totalSteps={3} step={2} />
-      <h3>Fill in Details of CoO</h3>
-      <p>The form is already pre-filled for your convenience, feel free to make changes if needed. </p>
+      <div className="my-4">
+        <h3 className="my-3">Fill in Details of CoO</h3>
+        <p>The form is already pre-filled for your convenience, feel free to make changes if needed. </p>
+      </div>
       <div>
         {Object.entries(schema).map(([itemName, item]) => {
           const _item = item as FormItemSchema;

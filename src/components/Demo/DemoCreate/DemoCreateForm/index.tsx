@@ -43,7 +43,9 @@ export const DemoCreateForm: FunctionComponent = () => {
           );
         })}
       </div>
-      <DemoCreateButtonRow />
+      <div className="border-t border-cloud-300">
+        <DemoCreateButtonRow />
+      </div>
     </>
   );
 };
