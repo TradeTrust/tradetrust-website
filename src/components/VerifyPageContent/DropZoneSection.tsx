@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { roundInstructionsText } from ".";
 import { updateCertificate } from "../../reducers/certificate";
 import { CertificateDropZoneContainer } from "../CertificateDropZone/CertificateDropZoneContainer";
-import { setActive, reset } from "../../reducers/demo";
+import { setActive, reset } from "../../reducers/sample";
 import { loadDemoCertificate, DEMO_CERT } from "./helpers";
 
 const DraggableDemoCertificate = () => (
