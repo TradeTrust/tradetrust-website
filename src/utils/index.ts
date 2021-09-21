@@ -45,3 +45,11 @@ export const encode: any = (data: { [x: string]: string | number | boolean }) =>
     .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
     .join("&");
 };
+
+export const addClassNameIfExist = (className?: string): string => {
+  if (!className) {
+    return "";
+  }
+
+  return className;
+};

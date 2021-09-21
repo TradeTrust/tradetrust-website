@@ -1,27 +1,32 @@
 import React, { FunctionComponent, useState } from "react";
+import { addClassNameIfExist } from "../../../utils";
 
 type headingTag = "h3" | "h5";
 
 interface AccordionItemProps {
-  className?: string;
+  classNameContainer?: string;
+  classNameCollapse?: string;
+  classNameContent?: string;
   headingTag?: headingTag;
   heading: string;
   children: React.ReactNode;
 }
 
 export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
-  className,
+  classNameContainer,
+  classNameCollapse,
+  classNameContent,
   headingTag = "h5",
   heading,
   children,
 }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`transition-color duration-200 mb-2${className ? ` ${className}` : ""}`}>
+    <div className={`transition-color duration-200${addClassNameIfExist(` ${classNameContainer}`)}`}>
       <div
-        className={`flex justify-between items-center p-4 rounded transition-colors duration-200 cursor-pointer hover:text-cerulean${
+        className={`flex justify-between items-center transition-colors duration-200 cursor-pointer hover:text-cerulean${
           open ? " text-cerulean" : ""
-        }`}
+        }${addClassNameIfExist(` ${classNameCollapse}`)}`}
         onClick={() => setOpen(!open)}
       >
         {headingTag === "h3" && <h3>{heading}</h3>}
@@ -50,7 +55,7 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
           />
         </svg>
       </div>
-      {open && <div className="px-4 pb-4">{children}</div>}
+      {open && <div className={addClassNameIfExist(classNameContent)}>{children}</div>}
     </div>
   );
 };
