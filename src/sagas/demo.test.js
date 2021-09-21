@@ -1,76 +1,64 @@
-import { put, select } from "redux-saga/effects";
-import { getDemoDocument } from "../reducers/demo";
+import * as demo from "../reducers/demo";
+import * as verify from "../services/verify";
 import { verifyDemoDocument } from "./demo";
 import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalidAndNotIssued,
 } from "../test/fixture/verifier-responses";
 import { history } from "../history";
+import { runSaga } from "redux-saga";
 
-jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
+async function recordSaga(saga, initialAction) {
+  const dispatched = [];
+
+  await runSaga(
+    {
+      getState: () => ({ demo: { rawModifiedDocument: "DEMO_DOCUMENT_OBJECT" } }),
+      dispatch: (action) => dispatched.push(action),
+    },
+    saga,
+    initialAction
+  ).done;
+
+  return dispatched;
+}
 
 describe("verifyDemoDocument", () => {
-  it("should verify the document and change the router to /demoViewer when verification passes", () => {
-    jest.spyOn(history, "push");
-    const generator = verifyDemoDocument();
-
-    // Should dispatch demo/verifyingDemoDocument first
-    const verifyingAction = generator.next().value;
-    expect(verifyingAction).toStrictEqual(
-      put({
-        type: "demo/verifyingDemoDocument",
-      })
-    );
-
-    // Should get the document to be verified from the store next
-    const selectDocument = generator.next().value;
-    expect(selectDocument).toStrictEqual(select(getDemoDocument));
-
-    generator.next("DOCUMENT_OBJECT");
-
-    // Should mark verification as completed and report the payload
-    const verificationCompletionAction = generator.next(whenDocumentValidAndIssuedByDns).value;
-    expect(verificationCompletionAction).toStrictEqual(
-      put({
-        type: "demo/verifyDemoDocumentCompleted",
-        payload: whenDocumentValidAndIssuedByDns,
-      })
-    );
-
-    // If verification passes, update the router
-    generator.next();
-    //TODO: update the path once its ready
-    // expect(history.push).toHaveBeenCalledWith("/demoViewer");
-    expect(generator.next().done).toStrictEqual(true);
+  beforeEach(() => {
+    jest.resetAllMocks();
   });
 
-  it("should verify the document and dont update the router when verification fails", () => {
-    const generator = verifyDemoDocument();
+  it("should verify the document and change the router to /demoViewer when verification passes", async () => {
+    const initialAction = { type: "demo/updateDemoDocument" };
+    const getDemoDocument = jest
+      .spyOn(demo, "getDemoDocument")
+      .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+    jest.spyOn(verify, "verifyDocument").mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+    const dispatched = await recordSaga(verifyDemoDocument, initialAction);
 
-    // Should dispatch demo/verifyingDemoDocument first
-    const verifyingAction = generator.next().value;
-    expect(verifyingAction).toStrictEqual(
-      put({
-        type: "demo/verifyingDemoDocument",
-      })
-    );
+    expect(getDemoDocument).toHaveBeenCalledTimes(1);
+    expect(dispatched).toContainEqual({
+      type: "demo/verifyDemoDocumentCompleted",
+      payload: whenDocumentValidAndIssuedByDns,
+    });
 
-    // Should get the document to be verified from the store next
-    const selectDocument = generator.next().value;
-    expect(selectDocument).toStrictEqual(select(getDemoDocument));
+    //TODO: test for path as it will redirect to /demoViewer if success
+  });
 
-    generator.next("DOCUMENT_OBJECT");
+  it("should verify the document and dont update the router when verification fails", async () => {
+    const initialAction = { type: "demo/updateDemoDocument" };
+    const getDemoDocument = jest
+      .spyOn(demo, "getDemoDocument")
+      .mockImplementation(() => Promise.resolve(whenDocumentHashInvalidAndNotIssued));
+    jest
+      .spyOn(verify, "verifyDocument")
+      .mockImplementation(() => Promise.reject(new Error("Failed to verify document")));
+    const dispatched = await recordSaga(verifyDemoDocument, initialAction);
 
-    // Should mark verification as completed and report the payload
-    const verificationCompletionAction = generator.next(whenDocumentHashInvalidAndNotIssued).value;
-    expect(verificationCompletionAction).toStrictEqual(
-      put({
-        type: "demo/verifyDemoDocumentCompleted",
-        payload: whenDocumentHashInvalidAndNotIssued,
-      })
-    );
-
-    // Does not update router if the validation failed
-    expect(generator.next().done).toStrictEqual(true);
+    expect(getDemoDocument).toHaveBeenCalledTimes(1);
+    expect(dispatched).toContainEqual({
+      type: "demo/verifyDemoDocumentFailure",
+      payload: "Failed to verify document",
+    });
   });
 });
