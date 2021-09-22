@@ -7,7 +7,7 @@ import { magic } from "../../../common/contexts/helpers";
 
 interface DemoInitialProps {
   login: (email: string) => Promise<void | null | string> | ReturnType<typeof magic.auth.loginWithMagicLink>;
-  upgradeToMagicSigner: () => () => Promise<void>;
+  upgradeToMagicSigner: () => Promise<void>;
 }
 
 export const DemoInitial: FunctionComponent<DemoInitialProps> = ({ login, upgradeToMagicSigner }) => {

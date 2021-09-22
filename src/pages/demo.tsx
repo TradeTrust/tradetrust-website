@@ -30,7 +30,7 @@ export const Demo: FunctionComponent = () => {
     }
   }, [isLoggedIn, history]);
 
-  return <DemoInitial login={login} upgradeToMagicSigner={() => upgradeToMagicSigner} />;
+  return <DemoInitial login={login} upgradeToMagicSigner={upgradeToMagicSigner} />;
 };
 
 export const DemoPage: FunctionComponent = () => (
