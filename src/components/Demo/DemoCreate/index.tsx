@@ -1,20 +1,27 @@
-import { Button } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
+import { DemoCreateForm } from "./DemoCreateForm";
+import { data } from "./DemoCreateForm/data";
+import { DemoCreateHeader } from "./DemoCreateHeader";
+import { DemoCreateReview } from "./DemoCreateReview";
+import { DemoCreateStart } from "./DemoCreateStart";
+import { DemoFormContext } from "./DemoFormContext";
 
 export const DemoCreate: FunctionComponent = () => {
+  const components = [
+    <DemoCreateStart key="start" />,
+    <DemoCreateForm key="form" />,
+    <DemoCreateReview key="review" />,
+  ];
+
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formValues, setFormValues] = useState(data);
+
   return (
     <>
-      <h5>
-        Take the TradeTrust User Journey and have a hands-on experience on how easy it is to streamline your operations
-        using TradeTrust
-      </h5>
-      <h4 className="mt-8">Create CoO</h4>
-      <p className="mt-8">
-        See how a TradeTrust Document can be issued and provide your bank the assurance of document integrity
-      </p>
-      <Button className="bg-cerulean text-white mt-8 hover:bg-cerulean-300">
-        <h5>Start now</h5>
-      </Button>
+      <DemoCreateHeader />
+      <DemoFormContext.Provider value={{ formValues, setFormValues, currentStep, setCurrentStep }}>
+        {components[currentStep]}
+      </DemoFormContext.Provider>
     </>
   );
 };
