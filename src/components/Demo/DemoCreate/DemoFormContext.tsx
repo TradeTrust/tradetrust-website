@@ -1,18 +1,33 @@
-import { createContext } from "react";
+import React, { createContext, ReactChildren, useContext, useState } from "react";
 import { data } from "./DemoCreateForm/data";
 
-export interface DemoFormContextProps {
+interface DemoFormContextProps {
   currentStep: number;
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentStep: (step: number) => void;
   formValues: any;
-  setFormValues: React.Dispatch<React.SetStateAction<any>>;
+  setFormValues: (formValues: any) => void;
 }
 
-const defaultContext = {
+export const DemoFormContext = createContext<DemoFormContextProps>({
   currentStep: 0,
-  setCurrentStep: () => null,
+  setCurrentStep: () => {
+    return null;
+  },
   formValues: data,
-  setFormValues: () => null,
+  setFormValues: () => {
+    return null;
+  },
+});
+
+export const DemoFormProvider: any = ({ children }: { children: ReactChildren }) => {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formValues, setFormValues] = useState(data);
+
+  return (
+    <DemoFormContext.Provider value={{ formValues, setFormValues, currentStep, setCurrentStep }}>
+      {children}
+    </DemoFormContext.Provider>
+  );
 };
 
-export const DemoFormContext = createContext<DemoFormContextProps>(defaultContext);
+export const useDemoFormContext = (): DemoFormContextProps => useContext<DemoFormContextProps>(DemoFormContext);

@@ -1,9 +1,9 @@
 import { Button } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useContext } from "react";
-import { DemoFormContext } from "../DemoFormContext";
+import React, { FunctionComponent } from "react";
+import { useDemoFormContext } from "../DemoFormContext";
 
 export const DemoCreateStart: FunctionComponent = () => {
-  const { setCurrentStep } = useContext(DemoFormContext);
+  const { currentStep, setCurrentStep } = useDemoFormContext();
 
   return (
     <>
@@ -12,7 +12,7 @@ export const DemoCreateStart: FunctionComponent = () => {
         See how a TradeTrust Document can be issued and provide your bank the assurance of document integrity
       </p>
       <Button
-        onClick={() => setCurrentStep((step) => step + 1)}
+        onClick={() => setCurrentStep(currentStep + 1)}
         className="bg-cerulean text-white mt-8 hover:bg-cerulean-300"
       >
         Start Now

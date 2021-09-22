@@ -1,9 +1,9 @@
 import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent } from "react";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { schema } from "../DemoCreateForm/schema";
 import { FormItemSchema } from "../DemoCreateForm/types";
-import { DemoFormContext } from "../DemoFormContext";
+import { useDemoFormContext } from "../DemoFormContext";
 import { getFormValue } from "../utils";
 
 const DemoCreateReviewItem = ({
@@ -15,7 +15,7 @@ const DemoCreateReviewItem = ({
   properties?: Record<string, any>;
   name: string;
 }) => {
-  const { formValues } = useContext(DemoFormContext);
+  const { formValues } = useDemoFormContext();
   if (properties !== undefined) {
     return (
       <>
