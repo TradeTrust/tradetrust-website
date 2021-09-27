@@ -1,5 +1,6 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import ReactMarkdown from "react-markdown";
+import { AccordionItem } from "../../components/UI/Accordion/AccordionItem";
 import { importAll } from "../../common/utils/importAll";
 import { getSortedByDateAsc } from "../../utils";
 
@@ -13,53 +14,19 @@ export type FAQS = {
 let faqs = importAll(require.context("../../../cms/faq/", false, /\.md$/)) as FAQS[];
 faqs = getSortedByDateAsc(faqs);
 
-const FaqElement: FunctionComponent<{ question: string; answer: string }> = ({ question, answer }) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className={`transition-color duration-200 cursor-pointer bg-white`}>
-      <div
-        className={`flex justify-between items-center p-4 rounded transition-colors duration-200 hover:text-cerulean ${
-          open ? "text-cerulean" : ""
-        }`}
-        onClick={() => setOpen(!open)}
-      >
-        <h5>{question}</h5>
-        <svg
-          className={`transition-transform duration-200 transform ${open ? "rotate-180" : "rotate-0"}`}
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            className="stroke-current"
-            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            className="stroke-current"
-            d="M8 10L12 14L16 10"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
-      <div className={`overflow-hidden bg-white mb-2 ${open ? "" : "h-0"}`}>
-        <ReactMarkdown className="px-4 pb-4">{answer}</ReactMarkdown>
-      </div>
-    </div>
-  );
-};
-
 export const FaqContent: FunctionComponent = () => (
   <div className="flex flex-wrap mt-4">
     <div className="w-full lg:w-2/3">
       {faqs.map((faq, index) => (
-        <FaqElement key={index} question={faq.attributes.title} answer={faq.body} />
+        <AccordionItem
+          key={`faq-${index}`}
+          classNameContainer="bg-white mb-2"
+          classNameCollapse="rounded p-4"
+          classNameContent="px-4 pb-4"
+          heading={faq.attributes.title}
+        >
+          <ReactMarkdown>{faq.body}</ReactMarkdown>
+        </AccordionItem>
       ))}
     </div>
     <div className="mx-auto my-8 w-1/2 lg:w-1/3">

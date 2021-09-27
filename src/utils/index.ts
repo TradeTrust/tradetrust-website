@@ -38,3 +38,18 @@ export const getSortedByDateAsc = (items: any[]): any[] => {
 
   return items;
 };
+
+// https://docs.netlify.com/forms/setup/#submit-javascript-rendered-forms-with-ajax
+export const encode: any = (data: { [x: string]: string | number | boolean }) => {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+};
+
+export const addClassNameIfExist = (className?: string): string => {
+  if (!className) {
+    return "";
+  }
+
+  return className;
+};

@@ -46,7 +46,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const dispatch = useDispatch();
 
   const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
-  const isDemo = useSelector((state: RootState) => state.demo.value);
+  const isSampleDocument = useSelector((state: RootState) => state.sample.isSampleDocument);
 
   /*
   initialise the meta token information context when new tokenId
@@ -57,7 +57,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
       trace("initialise token information context");
       initialize(tokenRegistryAddress, tokenId);
       return () => {
-        trace("reseting token information on unmount");
+        trace("resetting token information on unmount");
         resetTokenInformationState();
         resetCertificateData();
       };
@@ -100,7 +100,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
     <>
       <div className="no-print">
         {!isTransferableDocument && <DocumentStatus />}
-        {isDemo && (
+        {isSampleDocument && (
           <Banner
             className="mt-8"
             title="Want to try creating a verifiable document? You will be surprised how easy it is."
