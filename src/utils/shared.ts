@@ -34,3 +34,8 @@ export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocume
     });
   }
 };
+
+export const getTokenRegistryAddress = (document: WrappedOrSignedOpenAttestationDocument): string | undefined => {
+  const issuerAddress = utils.getIssuerAddress(document);
+  return issuerAddress instanceof Array ? issuerAddress[0] : issuerAddress;
+};

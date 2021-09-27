@@ -16,7 +16,7 @@ import { ErrorBoundary } from "./ErrorBoundary";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
-import { WrappedOrSignedOpenAttestationDocument, getAttachments } from "../utils/shared";
+import { WrappedOrSignedOpenAttestationDocument, getAttachments, getTokenRegistryAddress } from "../utils/shared";
 
 const { trace } = getLogger("component: certificateviewer");
 
@@ -35,8 +35,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
     }
   }
 
-  const issuerAddress = isTransferableAsset ? utils.getIssuerAddress(document) : "";
-  const tokenRegistryAddress = issuerAddress instanceof Array ? issuerAddress[0] : issuerAddress;
+  const tokenRegistryAddress = isTransferableAsset ? getTokenRegistryAddress(document) : "";
   const isTransferableDocument = !!tokenRegistryAddress;
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
