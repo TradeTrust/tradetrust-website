@@ -1,8 +1,9 @@
-import { uploadDocument, validateIframeTexts, validateIssuerTexts, location } from "./helper";
+import { uploadDocument, validateIframeTexts, validateIssuerTexts, location, navigateToVerify } from "./helper";
 
 fixture("v3 DNS DID Certificate Rendering").page`${location}`;
 
 test("sample document is rendered correctly when dns did is verified", async () => {
+  await navigateToVerify();
   await uploadDocument("./fixture/v3/dns-did-signed.json");
   await validateIssuerTexts(["EXAMPLE.OPENATTESTATION.COM"]);
 
