@@ -10,6 +10,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
 import { NETWORK } from "./../../../config";
+import { getIsFeatureHidden } from "../../../components/FeatureFlag";
 
 const leftNavItems: NavigationItem[] = [
   {
@@ -91,7 +92,8 @@ const leftNavItems: NavigationItem[] = [
   },
 ];
 
-if (NETWORK === "ropsten") {
+// temporary hide demo feature behind flag
+if (!getIsFeatureHidden("DEMO") && NETWORK === "ropsten") {
   // demo flow is only for ropsten network
   leftNavItems.unshift({
     schema: NAVIGATION_ITEM_TYPE.NavigationLink,

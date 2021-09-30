@@ -19,6 +19,20 @@ interface FeatureJson {
   [key: string]: EnvironmentToggle;
 }
 
+export const getIsFeatureHidden = (name: string): boolean => {
+  const string = localStorage.getItem("FEATURE_FLAG");
+  if (!string) return true;
+
+  const featureFlag = JSON.parse(string);
+  for (const [key, value] of Object.entries(featureFlag)) {
+    if (key === name && !value) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
 export const FeatureFlag: FunctionComponent<FeatureFlag> = ({ name, children, fallback }) => {
   const { getFeatureFlagOverride } = useFeatureFlagOverride();
   const override = getFeatureFlagOverride(name);

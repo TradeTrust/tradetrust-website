@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { FeatureFlag } from "./FeatureFlag";
+import { FeatureFlag, getIsFeatureHidden } from "./FeatureFlag";
 import { useFeatureFlagOverride } from "../common/hooks/useFeatureFlagOverride";
 
 jest.mock("../config/feature-toggle.json", () => ({
@@ -134,5 +134,30 @@ describe("featureFlag", () => {
       );
       expect(container.querySelectorAll("div").length).toBe(0);
     });
+  });
+});
+
+describe("getIsFeatureHidden", () => {
+  it("should hide feature by default when not set", () => {
+    const isFeatureHidden = getIsFeatureHidden("DEMO");
+    expect(isFeatureHidden).toBe(true);
+  });
+
+  it("should hide feature when key is set to false", () => {
+    localStorage.setItem("FEATURE_FLAG", JSON.stringify({ DEMO: false }));
+    const isFeatureHidden = getIsFeatureHidden("DEMO");
+    expect(isFeatureHidden).toBe(true);
+  });
+
+  it("should show feature when key is set to true", () => {
+    localStorage.setItem("FEATURE_FLAG", JSON.stringify({ DEMO: true }));
+    const isFeatureHidden = getIsFeatureHidden("DEMO");
+    expect(isFeatureHidden).toBe(false);
+  });
+
+  it("should show feature when key is set to true with other multiple other flags", () => {
+    localStorage.setItem("FEATURE_FLAG", JSON.stringify({ DEMO: true, FOO: true, BAR: true }));
+    const isFeatureHidden = getIsFeatureHidden("DEMO");
+    expect(isFeatureHidden).toBe(false);
   });
 });

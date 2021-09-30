@@ -10,6 +10,7 @@ import styled from "@emotion/styled";
 import { PageNotFound } from "./pages/pageNotFound";
 import { DemoCreatePage } from "./pages/demoCreate";
 import { DemoPage } from "./pages/demo";
+import { FeatureFlag } from "./components/FeatureFlag";
 
 const Main = styled.main`
   background-image: url("/static/images/common/wave-lines.png");
@@ -36,16 +37,19 @@ const AppContainer = (): React.ReactElement => {
           {routes.map((route, id) => (
             <Route key={id} {...route} />
           ))}
-          {NETWORK === "ropsten" && (
-            <>
-              <PrivateRoute path="/demo/create" redirectPath="/demo" exact>
-                <DemoCreatePage />
-              </PrivateRoute>
-              <Route path="/demo" exact>
-                <DemoPage />
-              </Route>
-            </>
-          )}
+          {/* temporary hide demo feature behind flag */}
+          <FeatureFlag name="DEMO">
+            {NETWORK === "ropsten" && (
+              <>
+                <PrivateRoute path="/demo/create" redirectPath="/demo" exact>
+                  <DemoCreatePage />
+                </PrivateRoute>
+                <Route path="/demo" exact>
+                  <DemoPage />
+                </Route>
+              </>
+            )}
+          </FeatureFlag>
           <Route path="*">
             <PageNotFound />
           </Route>
