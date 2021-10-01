@@ -2,7 +2,7 @@ import { NetworkBar, Overlay } from "@govtechsg/tradetrust-ui-components";
 import React, { useEffect, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
-import { NavigationBar } from "./components/Layout/NavigationBar";
+import { NavigationBar, leftNavItems, rightNavItems } from "./components/Layout/NavigationBar";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { NETWORK } from "./config";
 import { routes } from "./routes";
@@ -10,6 +10,7 @@ import styled from "@emotion/styled";
 import { PageNotFound } from "./pages/pageNotFound";
 import { DemoCreatePage } from "./pages/demoCreate";
 import { DemoPage } from "./pages/demo";
+import { FeatureFlag } from "./components/FeatureFlag";
 
 const Main = styled.main`
   background-image: url("/static/images/common/wave-lines.png");
@@ -30,21 +31,26 @@ const AppContainer = (): React.ReactElement => {
       <NetworkBar network={NETWORK}>
         You are currently on <span className="capitalize">{NETWORK}</span> network.
       </NetworkBar>
-      <NavigationBar toggleNavBar={toggleNavBar} setToggleNavBar={setToggleNavBar} />
+      <NavigationBar
+        toggleNavBar={toggleNavBar}
+        setToggleNavBar={setToggleNavBar}
+        leftItems={leftNavItems}
+        rightItems={rightNavItems}
+      />
       <Main className="bg-cerulean-50 flex-1">
         <Switch>
           {routes.map((route, id) => (
             <Route key={id} {...route} />
           ))}
           {NETWORK === "ropsten" && (
-            <>
+            <FeatureFlag name="MAGIC_DEMO">
               <PrivateRoute path="/demo/create" redirectPath="/demo" exact>
                 <DemoCreatePage />
               </PrivateRoute>
               <Route path="/demo" exact>
                 <DemoPage />
               </Route>
-            </>
+            </FeatureFlag>
           )}
           <Route path="*">
             <PageNotFound />
