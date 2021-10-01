@@ -1,5 +1,8 @@
 export const data = {
-  cooId: "WBC 208897",
+  documentName: "Form for Free Trade Agreement",
+  cooId: "IMDA0001",
+  issueIn: "IMDA Singapore",
+  issueDateTime: "21 September 2021, 3:05pm",
   exporterDetails: {
     exportCountry: "AU",
     exporterName: "TREASURY WINE ESTATES VINTNERS LIMITED",
@@ -22,8 +25,8 @@ export const data = {
     includedConsignments: "SG",
     importerNameMarksAndNumber: "SSCC: 59312345670002345",
     numberAndKindOfPackage: "Bin 23 Pinot Noir 201",
-    hs: "2204.21",
-    numberOfInvoice: "1122345",
+    hsCode: "2204.21",
+    invoiceNumber: "1122345",
     dateOfInvoice: "Mon 5 July 2021",
     loadingBaseportLocationName: "AUMEL",
     mainCarriageTransportMovementId: "IMO 9367815",

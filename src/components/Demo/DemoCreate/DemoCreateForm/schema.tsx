@@ -1,8 +1,34 @@
+import { FormItemSchema } from "./types";
+
 export const schema = {
+  documentName: {
+    type: "string",
+    uiType: "withLabel",
+    title: "Document Name",
+    options: {
+      readonly: true,
+    },
+  },
   cooId: {
     type: "string",
     uiType: "withLabel",
     title: "CoO ID",
+    options: {
+      readonly: true,
+    },
+  },
+  issueIn: {
+    type: "string",
+    uiType: "withLabel",
+    title: "Issued In",
+    options: {
+      readonly: true,
+    },
+  },
+  issueDateTime: {
+    type: "string",
+    uiType: "withLabel",
+    title: "Issued Date and Time",
   },
   exporterDetails: {
     title: "Exporter Details",
@@ -102,13 +128,13 @@ export const schema = {
         type: "string",
         uiType: "withLabel",
       },
-      hs: {
-        title: "H.S",
+      hsCode: {
+        title: "H.S. Code",
         type: "string",
         uiType: "withLabel",
       },
-      numberOfInvoice: {
-        title: "Number of Invoice",
+      invoiceNumber: {
+        title: "Invoice Number",
         type: "string",
         uiType: "withLabel",
       },
@@ -129,4 +155,4 @@ export const schema = {
       },
     },
   },
-};
+} as Record<string, FormItemSchema>;

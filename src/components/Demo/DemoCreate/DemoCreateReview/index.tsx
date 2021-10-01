@@ -30,7 +30,7 @@ const DemoCreateReviewItem = ({
 
   return (
     <div className="my-5">
-      <h4>{title}</h4>
+      <h4 className="mb-2">{title}</h4>
       <p>{getFormValue(formValues, name)}</p>
     </div>
   );
