@@ -1,9 +1,19 @@
 import { Button } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
+import { useProviderContext } from "../../../../common/contexts/provider";
 import { useDemoFormContext } from "../DemoFormContext";
 
 export const DemoCreateStart: FunctionComponent = () => {
+  const { upgradeToMagicSigner } = useProviderContext();
   const { currentStep, setCurrentStep } = useDemoFormContext();
+
+  useEffect(() => {
+    async function upgrade() {
+      await upgradeToMagicSigner();
+    }
+
+    upgrade();
+  });
 
   return (
     <>

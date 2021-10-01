@@ -3,4 +3,7 @@ export interface FormItemSchema {
   uiType?: "accordion" | "withLabel" | "withoutLabel";
   title: string;
   properties?: { [s: string]: FormItemSchema } | ArrayLike<FormItemSchema>;
+  options?: {
+    readonly: boolean;
+  };
 }
