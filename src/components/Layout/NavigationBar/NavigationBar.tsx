@@ -9,8 +9,7 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
-import Features from "../../../config/feature-toggle.json";
-import { isDevelopment } from "../../../config";
+import { useFeatureFlag } from "../../FeatureFlag";
 
 export const leftNavItems: NavigationItem[] = [
   {
@@ -164,7 +163,7 @@ interface NavigationBarProps {
 export const NavigationBar: FunctionComponent<NavigationBarProps> = (props) => {
   const { leftItems, rightItems } = props;
   const [derivedLeftItems, setDerivedLeftItems] = React.useState<NavigationItem[]>([]);
-  const flag = isDevelopment ? Features[flagName].development : Features[flagName].production;
+  const flag = useFeatureFlag(flagName);
   React.useEffect(() => {
     const filterCallback = flag ? identityFn : (item: NavigationItem) => item.id !== "demo";
     const currentLeftItems = leftItems.filter(filterCallback);

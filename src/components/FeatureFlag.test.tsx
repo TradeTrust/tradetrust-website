@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { FeatureFlag } from "./FeatureFlag";
+import { FeatureFlag, useFeatureFlag } from "./FeatureFlag";
 import { useFeatureFlagOverride } from "../common/hooks/useFeatureFlagOverride";
 
 jest.mock("../config/feature-toggle.json", () => ({
@@ -134,5 +134,26 @@ describe("featureFlag", () => {
       );
       expect(container.querySelectorAll("div").length).toBe(0);
     });
+  });
+});
+
+const RenderWithHook = ({ name, text }: { name: string; text: string }) => {
+  const flag = useFeatureFlag(name);
+  return render(<>{flag && <div>{text}</div>}</>);
+};
+describe("useFeatureFlag", () => {
+  beforeEach(() => {
+    jest.resetModules(); // this is important - it clears the cache
+    mockUseFeatureFlagOverride.mockReturnValue({ getFeatureFlagOverride: mockGetFeature });
+    mockGetFeature.mockReturnValue(undefined);
+  });
+
+  it("should follow default behavior when override is not present (JOB_POST)", () => {
+    RenderWithHook({ name: "JOB_POST", text: "Job post" });
+    expect(screen.queryByText("Job post")).toBeNull();
+  });
+  it("should follow default behavior when override is not present (MANAGE_ASSET)", () => {
+    RenderWithHook({ name: "MANAGE_ASSET", text: "Manage asset" });
+    expect(screen.getByText("Manage asset")).not.toBeNull();
   });
 });

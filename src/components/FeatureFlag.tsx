@@ -39,3 +39,18 @@ export const FeatureFlag: FunctionComponent<FeatureFlag> = ({ name, children, fa
   }
   return null;
 };
+
+/**
+ * the hook variant of the above component FeatureFlag
+ * @param name Name of the flag
+ * @returns a boolean that states if the flag has been overriden (from LocalStorage), or if the flag from local config (feature-toggle.json) has not been set to false (which implies that override is undefined).
+ */
+export const useFeatureFlag = (name: string): boolean => {
+  const { getFeatureFlagOverride } = useFeatureFlagOverride();
+  const override = getFeatureFlagOverride(name);
+  const environment: Environment = isDevelopment ? "development" : "production";
+  const features = Features as FeatureJson;
+  const featureFlag: boolean = features?.[name]?.[environment];
+
+  return override || (featureFlag && override === undefined);
+};
