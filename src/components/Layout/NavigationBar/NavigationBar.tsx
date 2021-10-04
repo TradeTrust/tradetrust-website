@@ -9,9 +9,20 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
-import { NETWORK } from "./../../../config";
+import { useFeatureFlag } from "../../FeatureFlag";
 
-const leftNavItems: NavigationItem[] = [
+export const leftNavItems: NavigationItem[] = [
+  {
+    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
+    id: "demo",
+    label: "Demo",
+    path: "/demo",
+    customLink: (
+      <NavLink activeClassName="text-cerulean" className="block w-full text-current" to={"/demo"}>
+        Demo
+      </NavLink>
+    ),
+  },
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationDropDownList,
     id: "resources",
@@ -91,22 +102,7 @@ const leftNavItems: NavigationItem[] = [
   },
 ];
 
-if (NETWORK === "ropsten") {
-  // demo flow is only for ropsten network
-  leftNavItems.unshift({
-    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
-    id: "demo",
-    label: "Demo",
-    path: "/demo",
-    customLink: (
-      <NavLink activeClassName="text-cerulean" className="block w-full text-current" to={"/demo"}>
-        Demo
-      </NavLink>
-    ),
-  });
-}
-
-const rightNavItems: NavigationItem[] = [
+export const rightNavItems: NavigationItem[] = [
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationIconButton,
     id: "settings",
@@ -155,16 +151,30 @@ const NavLogo = () => {
   );
 };
 
-export const NavigationBar: FunctionComponent<{
+const flagName = "MAGIC_DEMO";
+const identityFn = (x: any) => x;
+interface NavigationBarProps {
   toggleNavBar: boolean;
   setToggleNavBar: (toggleNavbar: boolean) => void;
-}> = (props) => {
+  leftItems: NavigationItem[];
+  rightItems: NavigationItem[];
+}
+
+export const NavigationBar: FunctionComponent<NavigationBarProps> = (props) => {
+  const { leftItems, rightItems } = props;
+  const [derivedLeftItems, setDerivedLeftItems] = React.useState<NavigationItem[]>([]);
+  const flag = useFeatureFlag(flagName);
+  React.useEffect(() => {
+    const filterCallback = flag ? identityFn : (item: NavigationItem) => item.id !== "demo";
+    const currentLeftItems = leftItems.filter(filterCallback);
+    return setDerivedLeftItems(currentLeftItems);
+  }, [flag, leftItems]);
   return (
     <NavBar
       logo={<NavLogo />}
-      menuLeft={leftNavItems}
-      menuRight={rightNavItems}
-      menuMobile={leftNavItems.concat(rightNavItems)}
+      menuLeft={derivedLeftItems}
+      menuRight={rightItems}
+      menuMobile={[...derivedLeftItems, ...rightItems]}
       setToggleNavBar={props.setToggleNavBar}
       toggleNavBar={props.toggleNavBar}
     />
