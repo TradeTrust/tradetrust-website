@@ -1,15 +1,25 @@
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext, useState, useEffect } from "react";
 import { ReactNode } from "react-markdown";
 import { DemoCreateContext } from "./contexts/DemoCreateContext";
 import { DemoFormProvider } from "./contexts/DemoFormContext";
+import { Prompt } from "react-router";
+import { useHistory } from "react-router-dom";
+import { Location } from "history";
+import { useOverlayContext } from "@govtechsg/tradetrust-ui-components";
 import { DemoCreateForm } from "./DemoCreateForm";
 import { DemoCreateHeader } from "./DemoCreateHeader";
 import { DemoCreateIssue } from "./DemoCreateIssue";
 import { DemoCreateReview } from "./DemoCreateReview";
 import { DemoCreateStart } from "./DemoCreateStart";
+import { ModalNavigateOut } from "../ModalNavigateOut";
 
 export const DemoCreate: FunctionComponent = () => {
+  const history = useHistory();
   const { activeStep } = useContext(DemoCreateContext);
+  const { setOverlayVisible, showOverlay } = useOverlayContext();
+  const [isUserNavigateOut, setIsUserNavigateOut] = useState(false);
+  const when = activeStep !== "start";
+  console.log(activeStep);
 
   const components: Record<string, ReactNode> = {
     form: <DemoCreateForm />,
@@ -18,8 +28,49 @@ export const DemoCreate: FunctionComponent = () => {
     start: <DemoCreateStart />,
   };
 
+  const closeModal = () => {
+    setOverlayVisible(false);
+    showOverlay(undefined);
+  };
+
+  const handlePrompt = (location: Location) => {
+    if (!isUserNavigateOut) {
+      setOverlayVisible(true);
+      showOverlay(
+        <ModalNavigateOut
+          closeModal={closeModal}
+          closeModalAndNavigate={() => {
+            closeModal();
+            history.push(location.pathname);
+          }}
+          setIsUserNavigateOut={setIsUserNavigateOut}
+        />
+      );
+      return false;
+    }
+
+    return true;
+  };
+
+  // https://stackoverflow.com/questions/38879742/is-it-possible-to-display-a-custom-message-in-the-beforeunload-popup
+  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+    event.preventDefault();
+    event.returnValue = "";
+  };
+
+  useEffect(() => {
+    if (when) {
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, [when]);
+
   return (
     <>
+      <Prompt when={when} message={handlePrompt} />
       <DemoCreateHeader />
       <DemoFormProvider>{components[activeStep]}</DemoFormProvider>
     </>
