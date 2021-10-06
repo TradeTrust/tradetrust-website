@@ -16,17 +16,17 @@ const store = configureStore();
 const App = () => {
   return (
     <OverlayContextProvider>
-      <ProviderContextProvider>
-        <TokenInformationContextProvider>
-          <AuthProvider>
-            <Provider store={store}>
+      <Provider store={store}>
+        <ProviderContextProvider>
+          <TokenInformationContextProvider>
+            <AuthProvider>
               <Router history={history}>
                 <AppContainer />
               </Router>
-            </Provider>
-          </AuthProvider>
-        </TokenInformationContextProvider>
-      </ProviderContextProvider>
+            </AuthProvider>
+          </TokenInformationContextProvider>
+        </ProviderContextProvider>
+      </Provider>
     </OverlayContextProvider>
   );
 };

@@ -1,19 +1,30 @@
 import { Button } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useEffect } from "react";
-import { useProviderContext } from "../../../../common/contexts/provider";
-import { useDemoFormContext } from "../DemoFormContext";
+import React, { FunctionComponent, useContext, useState } from "react";
+import { ProviderContext } from "../../../../common/contexts/provider";
 
 export const DemoCreateStart: FunctionComponent = () => {
-  const { upgradeToMagicSigner } = useProviderContext();
-  const { currentStep, setCurrentStep } = useDemoFormContext();
+  const { account } = useContext(ProviderContext);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    async function upgrade() {
-      await upgradeToMagicSigner();
+  const addFunds = async (address: string) => {
+    await fetch(`https://faucet.openattestation.com/donate/${address}`);
+  };
+
+  const handleStart = async () => {
+    setLoading(true);
+
+    try {
+      await addFunds(account as string);
+      // dispatch(updateDemoCreateStatusToForm());
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      if (e instanceof Error) {
+        setError(e.message);
+      }
     }
-
-    upgrade();
-  });
+  };
 
   return (
     <>
@@ -21,12 +32,15 @@ export const DemoCreateStart: FunctionComponent = () => {
       <p className="mt-8">
         See how a TradeTrust Document can be issued and provide your bank the assurance of document integrity
       </p>
-      <Button
-        onClick={() => setCurrentStep(currentStep + 1)}
-        className="bg-cerulean text-white mt-8 hover:bg-cerulean-300"
-      >
-        Start Now
-      </Button>
+      {loading ? (
+        "getting funds"
+      ) : error.length > 0 ? (
+        error
+      ) : (
+        <Button onClick={handleStart} className="bg-cerulean text-white mt-8 hover:bg-cerulean-300">
+          Start Now
+        </Button>
+      )}
     </>
   );
 };

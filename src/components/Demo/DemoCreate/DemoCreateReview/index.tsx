@@ -1,9 +1,16 @@
-import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
+import { Button, LoaderSpinner, ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
+import { XCircle } from "react-feather";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getDemoFormValues,
+  getDocumentPrepared,
+  updateDemoCreateStatusToForm,
+  updateDemoCreateStatusToIssue,
+} from "../../../../reducers/demo";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { schema } from "../DemoCreateForm/schema";
 import { FormItemSchema } from "../DemoCreateForm/types";
-import { useDemoFormContext } from "../DemoFormContext";
 import { getFormValue } from "../utils";
 
 const DemoCreateReviewItem = ({
@@ -15,7 +22,12 @@ const DemoCreateReviewItem = ({
   properties?: Record<string, any>;
   name: string;
 }) => {
-  const { formValues } = useDemoFormContext();
+  const isImageData = (value: string) => {
+    return value && value.slice(0, 10) === "data:image";
+  };
+
+  const formValues = useSelector(getDemoFormValues);
+
   if (properties !== undefined) {
     return (
       <>
@@ -28,15 +40,35 @@ const DemoCreateReviewItem = ({
     );
   }
 
+  const formValue = getFormValue(formValues, name);
+
+  let renderedFormValue = <p>{formValue}</p>;
+
+  if (isImageData(formValue)) {
+    renderedFormValue = <img src={formValue} className="h-24" />;
+  }
+
   return (
     <div className="my-5">
       <h4 className="mb-2">{title}</h4>
-      <p>{getFormValue(formValues, name)}</p>
+      {renderedFormValue}
     </div>
   );
 };
 
 export const DemoCreateReview: FunctionComponent = () => {
+  const dispatch = useDispatch();
+
+  const { prepared, error } = useSelector(getDocumentPrepared);
+
+  const handleBack = () => {
+    dispatch(updateDemoCreateStatusToForm());
+  };
+
+  const handleNext = () => {
+    dispatch(updateDemoCreateStatusToIssue());
+  };
+
   return (
     <>
       <ProgressBar totalSteps={3} step={2} />
@@ -53,7 +85,25 @@ export const DemoCreateReview: FunctionComponent = () => {
           );
         })}
       </div>
-      <DemoCreateButtonRow />
+      <div className="border-t border-cloud-300">
+        {!prepared && !error && (
+          <div className="pt-12 pb-3 text-center">
+            <LoaderSpinner className="mx-auto" width="36px" primary="#3B8CC5" />
+            <h3 className="ml-2 my-2">Preparing to issue</h3>
+          </div>
+        )}
+        {prepared && <DemoCreateButtonRow onBack={handleBack} onNext={handleNext} />}
+
+        {error && (
+          <div className="pt-12 pb-3 text-center">
+            <XCircle className="text-rose h-12 w-12" />
+            <h3 className="my-2">We encountered an error</h3>
+            <Button onClick={handleBack} className="bg-cerulean text-white hover:bg-cerulean-500">
+              Try Again
+            </Button>
+          </div>
+        )}
+      </div>
     </>
   );
 };

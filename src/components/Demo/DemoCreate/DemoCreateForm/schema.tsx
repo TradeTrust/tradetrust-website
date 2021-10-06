@@ -155,4 +155,27 @@ export const schema = {
       },
     },
   },
+
+  firstSignatoryAuthentication: {
+    title: "First Signatory Authentication",
+    type: "object",
+    uiType: "accordion",
+    properties: {
+      actualDate: {
+        title: "Date",
+        type: "string",
+        uiType: "withoutLabel",
+      },
+      statement: {
+        title: "Statement",
+        type: "string",
+        uiType: "textarea",
+      },
+      signature: {
+        title: "Signature",
+        type: "string",
+        uiType: "upload",
+      },
+    },
+  },
 } as Record<string, FormItemSchema>;

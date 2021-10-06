@@ -1,13 +1,40 @@
 import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  updateDemoCreateStatusToReview,
+  updateDemoCreateStatusToStart,
+  updateDemoFormValues,
+} from "../../../../reducers/demo";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
-import { useDemoFormContext } from "../DemoFormContext";
+import { data } from "./data";
 import { DemoCreateFormItem } from "./DemoCreateFormItem";
 import { schema } from "./schema";
 import { FormItemSchema } from "./types";
 
 export const DemoCreateForm: FunctionComponent = () => {
-  const { formValues, setFormValues } = useDemoFormContext();
+  const dispatch = useDispatch();
+  const [formValues, setFormValues] = useState<Record<string, any>>({
+    ...data,
+    exporterDetails: {
+      ...data.exporterDetails,
+      exporterAddress: {
+        ...data.exporterDetails.exporterAddress,
+      },
+    },
+    importerDetails: {
+      ...data.importerDetails,
+      importerAddress: {
+        ...data.importerDetails.importerAddress,
+      },
+    },
+    descriptionOfGoods: {
+      ...data.descriptionOfGoods,
+    },
+    firstSignatoryAuthentication: {
+      ...data.firstSignatoryAuthentication,
+    },
+  });
 
   const handleChange = (name: string, value: string) => {
     // parse name
@@ -22,6 +49,15 @@ export const DemoCreateForm: FunctionComponent = () => {
     obj[keys[0]] = value;
 
     setFormValues(formValues);
+  };
+
+  const handleBack = () => {
+    dispatch(updateDemoCreateStatusToStart());
+  };
+
+  const handleNext = () => {
+    dispatch(updateDemoFormValues(formValues));
+    dispatch(updateDemoCreateStatusToReview());
   };
 
   return (
@@ -43,9 +79,7 @@ export const DemoCreateForm: FunctionComponent = () => {
           );
         })}
       </div>
-      <div className="border-t border-cloud-300">
-        <DemoCreateButtonRow />
-      </div>
+      <DemoCreateButtonRow onBack={handleBack} onNext={handleNext} />
     </>
   );
 };

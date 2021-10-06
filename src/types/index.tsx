@@ -73,3 +73,5 @@ export enum ContentType {
   THEN = "THEN",
   NOW = "NOW",
 }
+
+export type DemoCreateStatus = "start" | "form" | "review" | "issue";

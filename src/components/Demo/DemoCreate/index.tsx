@@ -1,29 +1,28 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
+import { ReactNode } from "react-markdown";
+import { useSelector } from "react-redux";
+import { getDemoCreateStatus } from "../../../reducers/demo";
+import { DemoCreateStatus } from "../../../types";
 import { DemoCreateForm } from "./DemoCreateForm";
-import { data } from "./DemoCreateForm/data";
 import { DemoCreateHeader } from "./DemoCreateHeader";
 import { DemoCreateIssue } from "./DemoCreateIssue";
 import { DemoCreateReview } from "./DemoCreateReview";
 import { DemoCreateStart } from "./DemoCreateStart";
-import { DemoFormContext } from "./DemoFormContext";
 
 export const DemoCreate: FunctionComponent = () => {
-  const components = [
-    <DemoCreateStart key="start" />,
-    <DemoCreateForm key="form" />,
-    <DemoCreateReview key="review" />,
-    <DemoCreateIssue key="issue" />,
-  ];
+  const demoCreateStatus = useSelector(getDemoCreateStatus);
 
-  const [currentStep, setCurrentStep] = useState(0);
-  const [formValues, setFormValues] = useState(data);
+  const components: Record<DemoCreateStatus, ReactNode> = {
+    form: <DemoCreateForm />,
+    issue: <DemoCreateIssue />,
+    review: <DemoCreateReview />,
+    start: <DemoCreateStart />,
+  };
 
   return (
     <>
       <DemoCreateHeader />
-      <DemoFormContext.Provider value={{ formValues, setFormValues, currentStep, setCurrentStep }}>
-        {components[currentStep]}
-      </DemoFormContext.Provider>
+      {components[demoCreateStatus]}
     </>
   );
 };

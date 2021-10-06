@@ -25,10 +25,15 @@ export const Demo: FunctionComponent = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (isLoggedIn) {
-      history.push("/demo/create");
-    }
-  }, [isLoggedIn, history]);
+    const handleIsLoggedIn = async () => {
+      if (isLoggedIn) {
+        await upgradeToMagicSigner();
+        history.push("/demo/create");
+      }
+    };
+
+    handleIsLoggedIn();
+  }, [isLoggedIn, history, upgradeToMagicSigner]);
 
   return <DemoInitial login={login} upgradeToMagicSigner={upgradeToMagicSigner} />;
 };
