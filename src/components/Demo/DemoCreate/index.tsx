@@ -1,8 +1,7 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { ReactNode } from "react-markdown";
-import { useSelector } from "react-redux";
-import { getDemoCreateStatus } from "../../../reducers/demo";
-import { DemoCreateStatus } from "../../../types";
+import { DemoCreateContext } from "./contexts/DemoCreateContext";
+import { DemoFormProvider } from "./contexts/DemoFormContext";
 import { DemoCreateForm } from "./DemoCreateForm";
 import { DemoCreateHeader } from "./DemoCreateHeader";
 import { DemoCreateIssue } from "./DemoCreateIssue";
@@ -10,9 +9,9 @@ import { DemoCreateReview } from "./DemoCreateReview";
 import { DemoCreateStart } from "./DemoCreateStart";
 
 export const DemoCreate: FunctionComponent = () => {
-  const demoCreateStatus = useSelector(getDemoCreateStatus);
+  const { activeStep } = useContext(DemoCreateContext);
 
-  const components: Record<DemoCreateStatus, ReactNode> = {
+  const components: Record<string, ReactNode> = {
     form: <DemoCreateForm />,
     issue: <DemoCreateIssue />,
     review: <DemoCreateReview />,
@@ -22,7 +21,7 @@ export const DemoCreate: FunctionComponent = () => {
   return (
     <>
       <DemoCreateHeader />
-      {components[demoCreateStatus]}
+      <DemoFormProvider>{components[activeStep]}</DemoFormProvider>
     </>
   );
 };

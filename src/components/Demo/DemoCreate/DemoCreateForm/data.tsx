@@ -1,6 +1,6 @@
 export const data = {
   documentName: "Form for Free Trade Agreement",
-  issueDateAndTime: "21 September 2021, 3:05pm",
+  issueDateTime: "21 September 2021, 3:05pm",
   issueIn: "IMDA Singapore",
   cooId: "IMDA0001",
   exporterDetails: {

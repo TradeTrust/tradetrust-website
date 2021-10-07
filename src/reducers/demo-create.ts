@@ -1,22 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { providers, Signer } from "ethers";
-import { DemoCreateStatus } from "../types";
 import { data } from "../components/Demo/DemoCreate/DemoCreateForm/data";
 import { WrappedDocument } from "@govtechsg/open-attestation/dist/types/3.0/types";
 
 // TODO: from the looks it needs this states, update once demo flow is more confirmed
 
 type Status = "failure" | "success" | "pending";
-interface DemoState {
-  rawDocument: string | null;
-  rawModifiedDocument: string | null;
-
-  verificationPending: boolean;
-  verificationStatus: string | null;
-  verificationError: string | null;
-
-  signer: Signer | providers.Provider | null;
-
+interface DemoCreateState {
   documentStoreAddress: string | null;
   deploymentDocStoreStatus: Status | null;
   deploymentDocStoreError: string | null;
@@ -33,20 +22,9 @@ interface DemoState {
   issueDocumentError: Status | null;
 
   demoFormValues: Record<string, any>;
-
-  demoCreateStatus: DemoCreateStatus;
 }
 
 export const initialState: Record<string, any> = {
-  rawDocument: null,
-  rawModifiedDocument: null,
-
-  verificationPending: false,
-  verificationStatus: null,
-  verificationError: null,
-
-  signer: null,
-
   documentStoreAddress: null,
   deploymentDocStoreStatus: null,
   deploymentDocStoreError: null,
@@ -63,56 +41,19 @@ export const initialState: Record<string, any> = {
   issueDocumentError: null,
 
   demoFormValues: data,
+} as DemoCreateState;
 
-  demoCreateStatus: "start",
-} as DemoState;
-
-const demoSlice = createSlice({
-  name: "demo",
+const demoCreateSlice = createSlice({
+  name: "demo-create",
   initialState,
   reducers: {
-    resetDemoState: (state) => {
+    resetDemoCreateState: (state) => {
       Object.keys(state).forEach((key: string) => {
         delete state[key];
       });
       Object.entries(initialState).forEach(([key, value]) => {
         state[key] = value;
       });
-    },
-    updateDemoDocument: (state, action) => {
-      state.rawDocument = action.payload;
-      state.rawModifiedDocument = action.payload;
-    },
-
-    verifyingDemoDocument: (state) => {
-      state.verificationPending = true;
-      state.verificationStatus = null;
-    },
-    verifyDemoDocumentCompleted: (state, action) => {
-      state.verificationPending = false;
-      state.verificationStatus = action.payload;
-    },
-    verifyDemoDocumentFailure: (state, action) => {
-      state.verificationPending = false;
-      state.verificationError = action.payload;
-    },
-
-    updateSigner: (state, action) => {
-      state.signer = action.payload;
-    },
-
-    updateDemoCreateStatusToStart: (state) => {
-      state.demoCreateStatus = "start";
-    },
-
-    updateDemoCreateStatusToForm: (state) => {
-      state.demoCreateStatus = "form";
-    },
-    updateDemoCreateStatusToReview: (state) => {
-      state.demoCreateStatus = "review";
-    },
-    updateDemoCreateStatusToIssue: (state) => {
-      state.demoCreateStatus = "issue";
     },
 
     deployingDocStore: (state) => {
@@ -171,44 +112,41 @@ const demoSlice = createSlice({
   },
 });
 
-// Selectors
-export const getDemoDocument = (store: { demo: { rawModifiedDocument: string } }): string => {
-  return store.demo.rawModifiedDocument;
+export const getDocumentStoreAddress = (store: { demoCreate: { documentStoreAddress: string } }): string => {
+  return store.demoCreate.documentStoreAddress;
 };
 
-export const getDemoCreateStatus = (store: { demo: { demoCreateStatus: DemoCreateStatus } }): DemoCreateStatus => {
-  return store.demo.demoCreateStatus;
+export const getTempDns = (store: { demoCreate: { tempDns: string } }): string => {
+  return store.demoCreate.tempDns;
 };
 
-export const getSigner = (store: { demo: { signer: Signer | providers.Provider } }): Signer | providers.Provider => {
-  return store.demo.signer;
+export const getDemoFormValues = (store: {
+  demoCreate: { demoFormValues: Record<string, any> };
+}): Record<string, any> => {
+  return store.demoCreate.demoFormValues;
 };
 
-export const getDocumentStoreAddress = (store: { demo: { documentStoreAddress: string } }): string => {
-  return store.demo.documentStoreAddress;
-};
-
-export const getTempDns = (store: { demo: { tempDns: string } }): string => {
-  return store.demo.tempDns;
-};
-
-export const getDemoFormValues = (store: { demo: { demoFormValues: Record<string, any> } }): Record<string, any> => {
-  return store.demo.demoFormValues;
+export const getDeploymentDocStoreStatus = (store: { demoCreate: { deploymentDocStoreStatus: Status } }): Status => {
+  return store.demoCreate.deploymentDocStoreStatus;
 };
 
 export const getWrappedDocument = (store: {
-  demo: { wrappedDocument: WrappedDocument<any> };
+  demoCreate: { wrappedDocument: WrappedDocument<any> };
 }): WrappedDocument<any> => {
-  return store.demo.wrappedDocument;
+  return store.demoCreate.wrappedDocument;
+};
+
+export const getWrappedDocumentStatus = (store: { demoCreate: { wrapDocumentStatus: Status } }): Status => {
+  return store.demoCreate.wrapDocumentStatus;
 };
 
 export const getDocumentPrepared = (store: {
-  demo: {
+  demoCreate: {
     createTempDnsStatus: Status;
     deploymentDocStoreStatus: Status;
   };
 }): { prepared: boolean; error: boolean } => {
-  const { createTempDnsStatus, deploymentDocStoreStatus } = store.demo;
+  const { createTempDnsStatus, deploymentDocStoreStatus } = store.demoCreate;
 
   return {
     prepared: createTempDnsStatus === "success" && deploymentDocStoreStatus === "success",
@@ -217,12 +155,12 @@ export const getDocumentPrepared = (store: {
 };
 
 export const getDocumentIssued = (store: {
-  demo: {
+  demoCreate: {
     wrapDocumentStatus: Status;
     issueDocumentStatus: Status;
   };
 }): { issued: boolean; error: boolean } => {
-  const { wrapDocumentStatus, issueDocumentStatus } = store.demo;
+  const { wrapDocumentStatus, issueDocumentStatus } = store.demoCreate;
 
   return {
     issued: wrapDocumentStatus === "success" && issueDocumentStatus === "success",
@@ -231,16 +169,7 @@ export const getDocumentIssued = (store: {
 };
 
 export const {
-  resetDemoState,
-  updateDemoDocument,
-  verifyingDemoDocument,
-  verifyDemoDocumentCompleted,
-  verifyDemoDocumentFailure,
-  updateSigner,
-  updateDemoCreateStatusToStart,
-  updateDemoCreateStatusToForm,
-  updateDemoCreateStatusToReview,
-  updateDemoCreateStatusToIssue,
+  resetDemoCreateState,
   deployingDocStore,
   deployDocStoreSuccess,
   deployDocStoreFailure,
@@ -254,6 +183,6 @@ export const {
   issueDocumentSuccess,
   issueDocumentFailure,
   updateDemoFormValues,
-} = demoSlice.actions;
+} = demoCreateSlice.actions;
 
-export const demo = demoSlice.reducer;
+export const demoCreate = demoCreateSlice.reducer;

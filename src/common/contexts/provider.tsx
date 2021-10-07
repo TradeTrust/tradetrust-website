@@ -4,8 +4,6 @@ import React, { createContext, FunctionComponent, useContext, useEffect, useStat
 import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
 import { utils } from "@govtechsg/oa-verify/";
 import { magic } from "./helpers";
-import { useDispatch } from "react-redux";
-import { updateSigner } from "../../reducers/demo";
 
 export enum SIGNER_TYPE {
   IDENTITY = "Identity",
@@ -58,8 +56,6 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   const [provider, setProvider] = useState<providers.Provider | Signer>(getProvider);
   const [account, setAccount] = useState<string>();
 
-  const dispatch = useDispatch();
-
   const initializeMetaMaskSigner = async () => {
     const { ethereum, web3 } = window;
 
@@ -106,10 +102,6 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       return initializeMetaMaskSigner();
     });
   }, [providerType]);
-
-  useEffect(() => {
-    dispatch(updateSigner(provider));
-  }, [provider, dispatch]);
 
   return (
     <ProviderContext.Provider

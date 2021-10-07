@@ -1,7 +1,6 @@
 import { Signer, ContractTransaction, ContractReceipt } from "ethers";
 import { DocumentStoreFactory } from "@govtechsg/document-store";
 import { getLogger } from "../../utils/logger";
-import axios from "axios";
 import { isDevelopment } from "../../config";
 import { WrappedDocument } from "@govtechsg/open-attestation/dist/types/2.0/types";
 import { wrapDocument } from "@govtechsg/open-attestation";
@@ -75,19 +74,19 @@ export const createTempDns = async (documentStoreAddress: string): Promise<strin
   const sandboxEndpoint = `https://sandbox.fyntech.io`;
 
   try {
-    const { data } = await axios({
+    const postRes = await fetch(sandboxEndpoint, {
       method: "POST",
-      url: sandboxEndpoint,
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      data: {
+      body: JSON.stringify({
         address: documentStoreAddress,
         networkId: 3,
-      },
+      }),
     });
 
-    const { executionId } = data;
+    const { executionId } = await postRes.json();
 
     let identityLocation;
 
@@ -99,12 +98,8 @@ export const createTempDns = async (documentStoreAddress: string): Promise<strin
       // wont work for verification
       identityLocation = "random-blue-cat";
     } else {
-      const {
-        data: { name },
-      } = await axios({
-        method: "GET",
-        url: `${sandboxEndpoint}/execution/${executionId}`,
-      });
+      const getRes = await fetch(`${sandboxEndpoint}/execution/${executionId}`);
+      const { name } = await getRes.json();
 
       identityLocation = name;
     }

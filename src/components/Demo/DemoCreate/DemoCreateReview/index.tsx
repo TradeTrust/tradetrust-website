@@ -1,13 +1,10 @@
 import { Button, LoaderSpinner, ProgressBar } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { XCircle } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getDemoFormValues,
-  getDocumentPrepared,
-  updateDemoCreateStatusToForm,
-  updateDemoCreateStatusToIssue,
-} from "../../../../reducers/demo";
+import { getDocumentPrepared, wrappingDocument } from "../../../../reducers/demo-create";
+import { DemoCreateContext } from "../contexts/DemoCreateContext";
+import { DemoFormContext } from "../contexts/DemoFormContext";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { schema } from "../DemoCreateForm/schema";
 import { FormItemSchema } from "../DemoCreateForm/types";
@@ -26,7 +23,7 @@ const DemoCreateReviewItem = ({
     return value && value.slice(0, 10) === "data:image";
   };
 
-  const formValues = useSelector(getDemoFormValues);
+  const { formValues } = useContext(DemoFormContext);
 
   if (properties !== undefined) {
     return (
@@ -58,15 +55,18 @@ const DemoCreateReviewItem = ({
 
 export const DemoCreateReview: FunctionComponent = () => {
   const dispatch = useDispatch();
+  const { formValues } = useContext(DemoFormContext);
+  const { setActiveStep } = useContext(DemoCreateContext);
 
   const { prepared, error } = useSelector(getDocumentPrepared);
 
   const handleBack = () => {
-    dispatch(updateDemoCreateStatusToForm());
+    setActiveStep("form");
   };
 
   const handleNext = () => {
-    dispatch(updateDemoCreateStatusToIssue());
+    dispatch(wrappingDocument(formValues));
+    setActiveStep("issue");
   };
 
   return (

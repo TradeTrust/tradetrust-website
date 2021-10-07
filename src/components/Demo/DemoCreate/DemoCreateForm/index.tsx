@@ -1,40 +1,16 @@
 import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  updateDemoCreateStatusToReview,
-  updateDemoCreateStatusToStart,
-  updateDemoFormValues,
-} from "../../../../reducers/demo";
+import React, { FunctionComponent, useContext } from "react";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
-import { data } from "./data";
+import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { DemoCreateFormItem } from "./DemoCreateFormItem";
 import { schema } from "./schema";
 import { FormItemSchema } from "./types";
+import { DemoFormContext } from "../contexts/DemoFormContext";
 
 export const DemoCreateForm: FunctionComponent = () => {
-  const dispatch = useDispatch();
-  const [formValues, setFormValues] = useState<Record<string, any>>({
-    ...data,
-    exporterDetails: {
-      ...data.exporterDetails,
-      exporterAddress: {
-        ...data.exporterDetails.exporterAddress,
-      },
-    },
-    importerDetails: {
-      ...data.importerDetails,
-      importerAddress: {
-        ...data.importerDetails.importerAddress,
-      },
-    },
-    descriptionOfGoods: {
-      ...data.descriptionOfGoods,
-    },
-    firstSignatoryAuthentication: {
-      ...data.firstSignatoryAuthentication,
-    },
-  });
+  const { setActiveStep } = useContext(DemoCreateContext);
+
+  const { formValues, setFormValues } = useContext(DemoFormContext);
 
   const handleChange = (name: string, value: string) => {
     // parse name
@@ -52,12 +28,11 @@ export const DemoCreateForm: FunctionComponent = () => {
   };
 
   const handleBack = () => {
-    dispatch(updateDemoCreateStatusToStart());
+    setActiveStep("start");
   };
 
   const handleNext = () => {
-    dispatch(updateDemoFormValues(formValues));
-    dispatch(updateDemoCreateStatusToReview());
+    setActiveStep("review");
   };
 
   return (

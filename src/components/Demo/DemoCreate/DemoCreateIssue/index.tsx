@@ -1,15 +1,32 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import { saveAs } from "file-saver";
 import { Button, LoaderSpinner, ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import { CheckCircle, XCircle } from "react-feather";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getDemoFormValues, getDocumentIssued, getWrappedDocument } from "../../../../reducers/demo";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getDemoFormValues,
+  getDocumentIssued,
+  getWrappedDocument,
+  getWrappedDocumentStatus,
+  issuingDocument,
+} from "../../../../reducers/demo-create";
+import { ProviderContext } from "../../../../common/contexts/provider";
 
 export const DemoCreateIssue: FunctionComponent = () => {
   const { issued, error } = useSelector(getDocumentIssued);
   const wrappedDocument = useSelector(getWrappedDocument);
   const { documentName } = useSelector(getDemoFormValues);
+  const wrapDocumentStatus = useSelector(getWrappedDocumentStatus);
+  const dispatch = useDispatch();
+
+  const { provider } = useContext(ProviderContext);
+
+  useEffect(() => {
+    if (wrapDocumentStatus === "success") {
+      dispatch(issuingDocument(provider));
+    }
+  }, [wrapDocumentStatus, dispatch, provider]);
 
   const downloadDocument = () => {
     const blob = new Blob([JSON.stringify(wrappedDocument)], { type: "text/json;charset=utf-8" });

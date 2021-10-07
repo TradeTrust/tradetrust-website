@@ -1,11 +1,17 @@
 import { Button } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useState } from "react";
+import { useDispatch } from "react-redux";
 import { ProviderContext } from "../../../../common/contexts/provider";
+import { deployingDocStore } from "../../../../reducers/demo-create";
+import { DemoCreateContext } from "../contexts/DemoCreateContext";
 
 export const DemoCreateStart: FunctionComponent = () => {
-  const { account } = useContext(ProviderContext);
+  const { account, provider } = useContext(ProviderContext);
+  const { setActiveStep } = useContext(DemoCreateContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const dispatch = useDispatch();
 
   const addFunds = async (address: string) => {
     await fetch(`https://faucet.openattestation.com/donate/${address}`);
@@ -16,7 +22,8 @@ export const DemoCreateStart: FunctionComponent = () => {
 
     try {
       await addFunds(account as string);
-      // dispatch(updateDemoCreateStatusToForm());
+      dispatch(deployingDocStore(provider));
+      setActiveStep("form");
       setLoading(false);
     } catch (e) {
       setLoading(false);
