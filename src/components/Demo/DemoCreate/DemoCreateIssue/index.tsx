@@ -5,19 +5,19 @@ import { CheckCircle, XCircle } from "react-feather";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getDemoFormValues,
   getDocumentIssued,
   getWrappedDocument,
   getWrappedDocumentStatus,
   issuingDocument,
 } from "../../../../reducers/demo-create";
 import { ProviderContext } from "../../../../common/contexts/provider";
+import { DemoFormContext } from "../contexts/DemoFormContext";
 
 export const DemoCreateIssue: FunctionComponent = () => {
   const { issued, error } = useSelector(getDocumentIssued);
   const wrappedDocument = useSelector(getWrappedDocument);
-  const { documentName } = useSelector(getDemoFormValues);
   const wrapDocumentStatus = useSelector(getWrappedDocumentStatus);
+  const { formValues } = useContext(DemoFormContext);
   const dispatch = useDispatch();
 
   const { provider } = useContext(ProviderContext);
@@ -30,7 +30,7 @@ export const DemoCreateIssue: FunctionComponent = () => {
 
   const downloadDocument = () => {
     const blob = new Blob([JSON.stringify(wrappedDocument)], { type: "text/json;charset=utf-8" });
-    saveAs(blob, `${documentName}.tt`);
+    saveAs(blob, `${formValues.documentName || `demo`}.tt`);
   };
 
   if (issued) {

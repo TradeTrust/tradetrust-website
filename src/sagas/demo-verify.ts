@@ -11,7 +11,7 @@ const { trace } = getLogger("saga:demo");
 export function* verifyDemoDocument(): any {
   try {
     yield put({
-      type: "demo/verifyingDemoDocument",
+      type: "demo-verify/verifyingDemoDocument",
     });
 
     const demoDocument = yield select(getDemoDocument);

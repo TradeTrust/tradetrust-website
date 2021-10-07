@@ -1,8 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { data } from "../components/Demo/DemoCreate/DemoCreateForm/data";
 import { WrappedDocument } from "@govtechsg/open-attestation/dist/types/3.0/types";
-
-// TODO: from the looks it needs this states, update once demo flow is more confirmed
 
 type Status = "failure" | "success" | "pending";
 interface DemoCreateState {
@@ -20,8 +17,6 @@ interface DemoCreateState {
 
   issueDocumentStatus: Status | null;
   issueDocumentError: Status | null;
-
-  demoFormValues: Record<string, any>;
 }
 
 export const initialState: Record<string, any> = {
@@ -39,8 +34,6 @@ export const initialState: Record<string, any> = {
 
   issueDocumentStatus: null,
   issueDocumentError: null,
-
-  demoFormValues: data,
 } as DemoCreateState;
 
 const demoCreateSlice = createSlice({
@@ -56,7 +49,8 @@ const demoCreateSlice = createSlice({
       });
     },
 
-    deployingDocStore: (state) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    deployingDocStore: (state, _) => {
       state.deploymentDocStoreStatus = "pending";
     },
     deployDocStoreSuccess: (state, action) => {
@@ -80,7 +74,8 @@ const demoCreateSlice = createSlice({
       state.createTempDnsStatus = "failure";
     },
 
-    wrappingDocument: (state) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    wrappingDocument: (state, _) => {
       state.wrapDocumentStatus = "pending";
     },
     wrapDocumentSuccess: (state, action) => {
@@ -92,7 +87,8 @@ const demoCreateSlice = createSlice({
       state.wrapDocumentError = action.payload;
     },
 
-    issuingDocument: (state) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    issuingDocument: (state, _) => {
       state.issueDocumentStatus = "pending";
     },
     issueDocumentSuccess: (state) => {
@@ -101,13 +97,6 @@ const demoCreateSlice = createSlice({
     issueDocumentFailure: (state, action) => {
       state.issueDocumentError = action.payload;
       state.issueDocumentStatus = "failure";
-    },
-
-    updateDemoFormValues: (state, action) => {
-      state.demoFormValues = {
-        ...state.demoFormValues,
-        ...action.payload,
-      };
     },
   },
 });
@@ -118,16 +107,6 @@ export const getDocumentStoreAddress = (store: { demoCreate: { documentStoreAddr
 
 export const getTempDns = (store: { demoCreate: { tempDns: string } }): string => {
   return store.demoCreate.tempDns;
-};
-
-export const getDemoFormValues = (store: {
-  demoCreate: { demoFormValues: Record<string, any> };
-}): Record<string, any> => {
-  return store.demoCreate.demoFormValues;
-};
-
-export const getDeploymentDocStoreStatus = (store: { demoCreate: { deploymentDocStoreStatus: Status } }): Status => {
-  return store.demoCreate.deploymentDocStoreStatus;
 };
 
 export const getWrappedDocument = (store: {
@@ -182,7 +161,6 @@ export const {
   issuingDocument,
   issueDocumentSuccess,
   issueDocumentFailure,
-  updateDemoFormValues,
 } = demoCreateSlice.actions;
 
 export const demoCreate = demoCreateSlice.reducer;

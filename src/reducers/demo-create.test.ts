@@ -1,17 +1,12 @@
 import {
   initialState as defaultInitialState,
   demoCreate,
-  updateDemoCreateStatusToStart,
-  updateDemoCreateStatusToForm,
-  updateDemoCreateStatusToReview,
-  updateDemoCreateStatusToIssue,
   deployDocStoreSuccess,
   deployDocStoreFailure,
   deployingDocStore,
   creatingTempDns,
   createTempDnsSuccess,
   createTempDnsFailure,
-  updateDemoFormValues,
   wrappingDocument,
   wrapDocumentSuccess,
   wrapDocumentFailure,
@@ -26,53 +21,13 @@ describe("demo", () => {
     initialState = { ...defaultInitialState };
   });
 
-  it("should set the correct state when updateDemoCreateStatusToStart is called", () => {
-    const finalState = {
-      ...initialState,
-      demoCreateStatus: "start",
-    };
-
-    const state = demoCreate(initialState, updateDemoCreateStatusToStart());
-    expect(state).toStrictEqual(finalState);
-  });
-
-  it("should set the correct state when updateDemoCreateStatusToForm is called", () => {
-    const finalState = {
-      ...initialState,
-      demoCreateStatus: "form",
-    };
-
-    const state = demoCreate(initialState, updateDemoCreateStatusToForm());
-    expect(state).toStrictEqual(finalState);
-  });
-
-  it("should set the correct state when updateDemoCreateStatusToReview is called", () => {
-    const finalState = {
-      ...initialState,
-      demoCreateStatus: "review",
-    };
-
-    const state = demoCreate(initialState, updateDemoCreateStatusToReview());
-    expect(state).toStrictEqual(finalState);
-  });
-
-  it("should set the correct state when updateDemoCreateStatusToIssue is called", () => {
-    const finalState = {
-      ...initialState,
-      demoCreateStatus: "issue",
-    };
-
-    const state = demoCreate(initialState, updateDemoCreateStatusToIssue());
-    expect(state).toStrictEqual(finalState);
-  });
-
   it("should set the correct state when deployingDocStore is called", () => {
     const finalState = {
       ...initialState,
       deploymentDocStoreStatus: "pending",
     };
 
-    const state = demoCreate(initialState, deployingDocStore());
+    const state = demoCreate(initialState, deployingDocStore({ signer: "SIGNER" }));
     expect(state).toStrictEqual(finalState);
   });
 
@@ -136,7 +91,7 @@ describe("demo", () => {
       wrapDocumentStatus: "pending",
     };
 
-    const state = demoCreate(initialState, wrappingDocument());
+    const state = demoCreate(initialState, wrappingDocument({ documentName: "DOCUMENT_NAME" }));
     expect(state).toStrictEqual(finalState);
   });
 
@@ -168,7 +123,7 @@ describe("demo", () => {
       issueDocumentStatus: "pending",
     };
 
-    const state = demoCreate(initialState, issuingDocument());
+    const state = demoCreate(initialState, issuingDocument({ signer: "SIGNER" }));
     expect(state).toStrictEqual(finalState);
   });
 
@@ -191,64 +146,5 @@ describe("demo", () => {
 
     const state = demoCreate(initialState, issueDocumentFailure("Error: some error message"));
     expect(state).toStrictEqual(finalState);
-  });
-
-  it("should set the correct state from payload when updateDemoFormValues is called", () => {
-    const finalState = {
-      ...initialState,
-      demoFormValues: {
-        ...initialState.demoFormValues,
-        documentName: "DOCUMENT_NAME",
-        exporterDetails: {
-          ...initialState.demoFormValues.exporterDetails,
-          exporterCountry: "JAPAN",
-        },
-        importerDetails: {
-          ...initialState.demoFormValues.importerDetails,
-          importerAddress: {
-            ...initialState.demoFormValues.importerDetails.importerAddress,
-            line1: "IMPORTER_ADDRESS_LINE_1",
-          },
-        },
-        descriptionOfGoods: {
-          ...initialState.demoFormValues.descriptionOfGoods,
-          hsCode: "123456789",
-        },
-      },
-    };
-
-    const state1 = demoCreate(initialState, updateDemoFormValues({ documentName: "DOCUMENT_NAME" }));
-    const state2 = demoCreate(
-      state1,
-      updateDemoFormValues({
-        exporterDetails: {
-          ...initialState.demoFormValues.exporterDetails,
-          exporterCountry: "JAPAN",
-        },
-      })
-    );
-    const state3 = demoCreate(
-      state2,
-      updateDemoFormValues({
-        importerDetails: {
-          ...initialState.demoFormValues.importerDetails,
-          importerAddress: {
-            ...initialState.demoFormValues.importerDetails.importerAddress,
-            line1: "IMPORTER_ADDRESS_LINE_1",
-          },
-        },
-      })
-    );
-    const state4 = demoCreate(
-      state3,
-      updateDemoFormValues({
-        descriptionOfGoods: {
-          ...initialState.demoFormValues.descriptionOfGoods,
-          hsCode: "123456789",
-        },
-      })
-    );
-
-    expect(state4).toStrictEqual(finalState);
   });
 });
