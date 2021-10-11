@@ -5,9 +5,6 @@ export const schema = {
     type: "string",
     uiType: "withLabel",
     title: "Document Name",
-    options: {
-      readonly: true,
-    },
   },
   cooId: {
     type: "string",
@@ -21,9 +18,6 @@ export const schema = {
     type: "string",
     uiType: "withLabel",
     title: "Issued In",
-    options: {
-      readonly: true,
-    },
   },
   issueDateTime: {
     type: "string",
