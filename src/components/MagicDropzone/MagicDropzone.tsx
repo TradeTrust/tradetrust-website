@@ -138,7 +138,7 @@ export const MagicDropzone: FunctionComponent = () => {
         reader.onload = () => {
           try {
             const json = JSON.parse(reader.result as string);
-            dispatch(updateDemoDocument(json)); // pushes to demo/viewer page
+            dispatch(updateDemoDocument(json)); // pushes to `demo/viewer` page
           } catch (e) {
             console.log(e);
           }

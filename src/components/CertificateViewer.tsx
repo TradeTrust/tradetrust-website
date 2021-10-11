@@ -47,7 +47,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const dispatch = useDispatch();
 
   const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
-  const resetDemoData = useCallback(() => dispatch(resetDemoState()), [dispatch]);
+  const resetMagicData = useCallback(() => dispatch(resetDemoState()), [dispatch]);
   const isSampleDocument = useSelector((state: RootState) => state.sample.isSampleDocument);
 
   /*
@@ -62,10 +62,10 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
         trace("resetting token information on unmount");
         resetTokenInformationState();
         resetCertificateData();
-        resetDemoData();
+        resetMagicData();
       };
     }
-  }, [tokenId, tokenRegistryAddress, resetCertificateData, resetDemoData, resetTokenInformationState, initialize]);
+  }, [tokenId, tokenRegistryAddress, resetCertificateData, resetMagicData, resetTokenInformationState, initialize]);
 
   const childRef = React.useRef<{ print: () => void }>();
 

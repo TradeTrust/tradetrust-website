@@ -9,7 +9,7 @@ const Viewer: FunctionComponent<{ document: WrappedOrSignedOpenAttestationDocume
   return document ? <CertificateViewer document={document} /> : <Redirect to="/" />;
 };
 
-const ViewerDemo: FunctionComponent<{ document: string | null }> = ({ document }) => {
+const ViewerMagic: FunctionComponent<{ document: string | null }> = ({ document }) => {
   return document ? <CertificateViewer document={document} /> : <Redirect to="/" />;
 };
 
@@ -19,8 +19,8 @@ export const ViewerPageContainer = (): React.ReactElement => {
   return <Viewer document={document} />;
 };
 
-export const ViewerDemoPageContainer = (): React.ReactElement => {
+export const ViewerMagicPageContainer = (): React.ReactElement => {
   const document = useSelector((state: RootState) => state.demoVerify.rawModifiedDocument);
 
-  return <ViewerDemo document={document} />;
+  return <ViewerMagic document={document} />;
 };
