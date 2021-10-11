@@ -1,27 +1,27 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useContext } from "react";
+import { ReactNode } from "react-markdown";
+import { DemoCreateContext } from "./contexts/DemoCreateContext";
+import { DemoFormProvider } from "./contexts/DemoFormContext";
 import { DemoCreateForm } from "./DemoCreateForm";
-import { data } from "./DemoCreateForm/data";
 import { DemoCreateHeader } from "./DemoCreateHeader";
+import { DemoCreateIssue } from "./DemoCreateIssue";
 import { DemoCreateReview } from "./DemoCreateReview";
 import { DemoCreateStart } from "./DemoCreateStart";
-import { DemoFormContext } from "./DemoFormContext";
 
 export const DemoCreate: FunctionComponent = () => {
-  const components = [
-    <DemoCreateStart key="start" />,
-    <DemoCreateForm key="form" />,
-    <DemoCreateReview key="review" />,
-  ];
+  const { activeStep } = useContext(DemoCreateContext);
 
-  const [currentStep, setCurrentStep] = useState(0);
-  const [formValues, setFormValues] = useState(data);
+  const components: Record<string, ReactNode> = {
+    form: <DemoCreateForm />,
+    issue: <DemoCreateIssue />,
+    review: <DemoCreateReview />,
+    start: <DemoCreateStart />,
+  };
 
   return (
     <>
       <DemoCreateHeader />
-      <DemoFormContext.Provider value={{ formValues, setFormValues, currentStep, setCurrentStep }}>
-        {components[currentStep]}
-      </DemoFormContext.Provider>
+      <DemoFormProvider>{components[activeStep]}</DemoFormProvider>
     </>
   );
 };

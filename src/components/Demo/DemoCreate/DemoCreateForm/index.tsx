@@ -1,13 +1,16 @@
 import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
-import { useDemoFormContext } from "../DemoFormContext";
+import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { DemoCreateFormItem } from "./DemoCreateFormItem";
 import { schema } from "./schema";
 import { FormItemSchema } from "./types";
+import { DemoFormContext } from "../contexts/DemoFormContext";
 
 export const DemoCreateForm: FunctionComponent = () => {
-  const { formValues, setFormValues } = useDemoFormContext();
+  const { setActiveStep } = useContext(DemoCreateContext);
+
+  const { formValues, setFormValues } = useContext(DemoFormContext);
 
   const handleChange = (name: string, value: string) => {
     // parse name
@@ -22,6 +25,14 @@ export const DemoCreateForm: FunctionComponent = () => {
     obj[keys[0]] = value;
 
     setFormValues(formValues);
+  };
+
+  const handleBack = () => {
+    setActiveStep("start");
+  };
+
+  const handleNext = () => {
+    setActiveStep("review");
   };
 
   return (
@@ -43,9 +54,7 @@ export const DemoCreateForm: FunctionComponent = () => {
           );
         })}
       </div>
-      <div className="border-t border-cloud-300">
-        <DemoCreateButtonRow />
-      </div>
+      <DemoCreateButtonRow onBack={handleBack} onNext={handleNext} />
     </>
   );
 };

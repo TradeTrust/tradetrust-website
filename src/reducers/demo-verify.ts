@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // TODO: from the looks it needs this states, update once demo flow is more confirmed
-interface DemoState {
+interface DemoVerifyState {
   rawDocument: string | null;
   rawModifiedDocument: string | null;
 
@@ -17,10 +17,10 @@ const initialState = {
   verificationPending: false,
   verificationStatus: null,
   verificationError: null,
-} as DemoState;
+} as DemoVerifyState;
 
-const demoSlice = createSlice({
-  name: "demo",
+const demoVerifySlice = createSlice({
+  name: "demo-verify",
   initialState,
   reducers: {
     resetDemoState: (state) => {
@@ -60,6 +60,6 @@ export const {
   verifyingDemoDocument,
   verifyDemoDocumentCompleted,
   verifyDemoDocumentFailure,
-} = demoSlice.actions;
+} = demoVerifySlice.actions;
 
-export const demo = demoSlice.reducer;
+export const demoVerify = demoVerifySlice.reducer;

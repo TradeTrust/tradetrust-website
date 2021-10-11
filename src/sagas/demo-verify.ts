@@ -1,6 +1,6 @@
 import { put, select, takeEvery } from "redux-saga/effects";
 import { getLogger } from "../utils/logger";
-import { verifyDemoDocumentCompleted, verifyDemoDocumentFailure, getDemoDocument } from "../reducers/demo";
+import { verifyDemoDocumentCompleted, verifyDemoDocumentFailure, getDemoDocument } from "../reducers/demo-verify";
 import { verifyDocument, VerifierType } from "../services/verify";
 // import { isValid } from "@govtechsg/oa-verify";
 // import { NETWORK_NAME } from "../config";
@@ -11,7 +11,7 @@ const { trace } = getLogger("saga:demo");
 export function* verifyDemoDocument(): any {
   try {
     yield put({
-      type: "demo/verifyingDemoDocument",
+      type: "demo-verify/verifyingDemoDocument",
     });
 
     const demoDocument = yield select(getDemoDocument);
@@ -30,4 +30,4 @@ export function* verifyDemoDocument(): any {
   }
 }
 
-export default [takeEvery("demo/updateDemoDocument", verifyDemoDocument)];
+export default [takeEvery("demo-verify/updateDemoDocument", verifyDemoDocument)];

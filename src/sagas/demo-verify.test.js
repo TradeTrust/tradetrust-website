@@ -1,11 +1,10 @@
-import * as demo from "../reducers/demo";
+import * as demoVerify from "../reducers/demo-verify";
 import * as verify from "../services/verify";
-import { verifyDemoDocument } from "./demo";
+import { verifyDemoDocument } from "./demo-verify";
 import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalidAndNotIssued,
 } from "../test/fixture/verifier-responses";
-import { history } from "../history";
 import { runSaga } from "redux-saga";
 
 async function recordSaga(saga, initialAction) {
@@ -29,16 +28,16 @@ describe("verifyDemoDocument", () => {
   });
 
   it("should verify the document and change the router to /demoViewer when verification passes", async () => {
-    const initialAction = { type: "demo/updateDemoDocument" };
+    const initialAction = { type: "demo-verify/updateDemoDocument" };
     const getDemoDocument = jest
-      .spyOn(demo, "getDemoDocument")
+      .spyOn(demoVerify, "getDemoDocument")
       .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
     jest.spyOn(verify, "verifyDocument").mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
     const dispatched = await recordSaga(verifyDemoDocument, initialAction);
 
     expect(getDemoDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
-      type: "demo/verifyDemoDocumentCompleted",
+      type: "demo-verify/verifyDemoDocumentCompleted",
       payload: whenDocumentValidAndIssuedByDns,
     });
 
@@ -46,9 +45,9 @@ describe("verifyDemoDocument", () => {
   });
 
   it("should verify the document and dont update the router when verification fails", async () => {
-    const initialAction = { type: "demo/updateDemoDocument" };
+    const initialAction = { type: "demo-verify/updateDemoDocument" };
     const getDemoDocument = jest
-      .spyOn(demo, "getDemoDocument")
+      .spyOn(demoVerify, "getDemoDocument")
       .mockImplementation(() => Promise.resolve(whenDocumentHashInvalidAndNotIssued));
     jest
       .spyOn(verify, "verifyDocument")
@@ -57,7 +56,7 @@ describe("verifyDemoDocument", () => {
 
     expect(getDemoDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
-      type: "demo/verifyDemoDocumentFailure",
+      type: "demo-verify/verifyDemoDocumentFailure",
       payload: "Failed to verify document",
     });
   });

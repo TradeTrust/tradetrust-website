@@ -51,3 +51,17 @@ export const FormItemWithoutLabel = () => {
     />
   );
 };
+
+export const FormItemUpload = () => {
+  return (
+    <DemoCreateFormItem
+      formItem={{
+        type: "string",
+        uiType: "upload",
+        title: "",
+      }}
+      formItemName=""
+      onChange={() => {}}
+    />
+  );
+};

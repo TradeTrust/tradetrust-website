@@ -1,11 +1,11 @@
 import {
-  demo,
+  demoVerify,
   resetDemoState,
   updateDemoDocument,
   verifyingDemoDocument,
   verifyDemoDocumentCompleted,
   verifyDemoDocumentFailure,
-} from "./demo";
+} from "./demo-verify";
 
 describe("demo", () => {
   let initialState: any;
@@ -27,7 +27,7 @@ describe("demo", () => {
       verificationStatus: null,
       verificationError: null,
     };
-    const state = demo(initialState, updateDemoDocument("demoDocument"));
+    const state = demoVerify(initialState, updateDemoDocument("demoDocument"));
     expect(state).toStrictEqual(finalState);
   });
 
@@ -39,7 +39,7 @@ describe("demo", () => {
       verificationStatus: null,
       verificationError: null,
     };
-    const state = demo(initialState, verifyingDemoDocument());
+    const state = demoVerify(initialState, verifyingDemoDocument());
     expect(state).toStrictEqual(finalState);
   });
 
@@ -51,7 +51,7 @@ describe("demo", () => {
       verificationStatus: "completed",
       verificationError: null,
     };
-    const state = demo(initialState, verifyDemoDocumentCompleted("completed"));
+    const state = demoVerify(initialState, verifyDemoDocumentCompleted("completed"));
     expect(state).toStrictEqual(finalState);
   });
 
@@ -63,16 +63,16 @@ describe("demo", () => {
       verificationStatus: null,
       verificationError: "failed",
     };
-    const state = demo(initialState, verifyDemoDocumentFailure("failed"));
+    const state = demoVerify(initialState, verifyDemoDocumentFailure("failed"));
     expect(state).toStrictEqual(finalState);
   });
 
   it("should reset the state when resetDemoDocument is called", () => {
-    const action1 = demo(initialState, updateDemoDocument("demoDocument"));
-    const action2 = demo(action1, verifyingDemoDocument());
-    const action3 = demo(action2, verifyDemoDocumentCompleted("completed"));
-    const action4 = demo(action3, verifyDemoDocumentFailure("failed"));
-    const resetState = demo(action4, resetDemoState());
+    const action1 = demoVerify(initialState, updateDemoDocument("demoDocument"));
+    const action2 = demoVerify(action1, verifyingDemoDocument());
+    const action3 = demoVerify(action2, verifyDemoDocumentCompleted("completed"));
+    const action4 = demoVerify(action3, verifyDemoDocumentFailure("failed"));
+    const resetState = demoVerify(action4, resetDemoState());
     expect(resetState).toStrictEqual(initialState);
   });
 });
