@@ -13,6 +13,7 @@ interface interpretFragmentsReturnTypes {
   revokedValid: boolean;
 }
 
+// TODO: to handle all `skipped` scenario, probably a file format that is not .tt or .json
 export const interpretFragments = (fragments: VerificationFragment[]): interpretFragmentsReturnTypes => {
   const notRevokeFragments = getNotRevokeFragment(fragments);
   const revokeFragments = getRevokeFragment(fragments);
