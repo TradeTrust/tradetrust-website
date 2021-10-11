@@ -24,7 +24,7 @@ const Main = styled.main`
 const AppContainer = (): React.ReactElement => {
   const location = useLocation();
   const [toggleNavBar, setToggleNavBar] = useState(false);
-  const isDemoDocumentVerified = useSelector((state: RootState) => state.demoVerify.verificationStatus);
+  const isMagicDemoDocumentVerified = useSelector((state: RootState) => state.demoVerify.verificationStatus);
 
   useEffect(() => {
     setToggleNavBar(false);
@@ -50,7 +50,7 @@ const AppContainer = (): React.ReactElement => {
           {NETWORK === "ropsten" && (
             <FeatureFlag name="MAGIC_DEMO">
               <Route path="/demo/viewer" exact>
-                {isDemoDocumentVerified ? <DemoViewerPage /> : <Redirect to="/demo/verify" />}
+                {isMagicDemoDocumentVerified ? <DemoViewerPage /> : <Redirect to="/demo/verify" />}
               </Route>
               <Route path="/demo/verify" exact>
                 <DemoVerifyPage />
