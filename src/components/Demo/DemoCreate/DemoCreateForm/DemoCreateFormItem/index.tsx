@@ -46,6 +46,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
       <Dropzone onDrop={handleDrop}>
         {({ getRootProps, getInputProps }) => (
           <div
+            data-testid="form-item-dropzone"
             className={`h-48 cursor-pointer flex justify-center border-dashed border-2 rounded-xl border-cloud-100`}
             {...getRootProps()}
           >
@@ -63,6 +64,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
 
       return (
         <textarea
+          data-testid="form-item-textarea"
           rows={4}
           className="w-full border rounded-md px-2 py-1 mb-0 focus:border-cloud-900 focus:outline-none placeholder-cloud-200 w-full border-cloud-200"
           defaultValue={defaultValue}
@@ -80,6 +82,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
 
       return (
         <Input
+          data-testid="form-item-input"
           className="w-full"
           defaultValue={defaultValue}
           onChange={(e) => onChange(e.target.name, e.target.value)}
@@ -106,7 +109,9 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
     case "withLabel":
       return (
         <div className="mb-5">
-          <h4 className="mb-1">{formItem.title}</h4>
+          <h4 data-testid="form-item-label" className="mb-1">
+            {formItem.title}
+          </h4>
           {renderInput()}
           {renderProperties()}
         </div>
