@@ -4,7 +4,13 @@ import { MemoryRouter as Router } from "react-router-dom";
 import { v2, wrapDocument } from "@govtechsg/open-attestation";
 import { MagicDropzone } from "./MagicDropzone";
 import { configureStore } from "../../store";
-import { whenDocumentHashInvalidAndNotIssued } from "../../test/fixture/verifier-responses";
+import {
+  whenDocumentHashInvalidAndNotIssued,
+  whenDocumentHashInvalid,
+  whenDocumentNotIssued,
+  whenDocumentIssuerIdentityInvalidDnsTxt,
+  whenDocumentRevoked,
+} from "../../test/fixture/verifier-responses";
 
 const sampleDocument = wrapDocument({
   issuers: [
@@ -40,7 +46,7 @@ export default {
   },
 };
 
-export const Demo = () => {
+export const MagicDemo = () => {
   return (
     <RenderWithStore document={sampleDocument} fragments={null}>
       <MagicDropzone />
@@ -48,7 +54,7 @@ export const Demo = () => {
   );
 };
 
-export const Verifying = () => {
+export const MagicDemoVerifying = () => {
   return (
     <RenderWithStore document={sampleDocument} fragments={null} isPending={true}>
       <MagicDropzone />
@@ -56,9 +62,41 @@ export const Verifying = () => {
   );
 };
 
-export const AllVerificationErrors = () => {
+export const MagicDemoVerificationErrorsAll = () => {
   return (
     <RenderWithStore document={sampleDocument} fragments={whenDocumentHashInvalidAndNotIssued}>
+      <MagicDropzone />
+    </RenderWithStore>
+  );
+};
+
+export const MagicDemoVerificationErrorHash = () => {
+  return (
+    <RenderWithStore document={sampleDocument} fragments={whenDocumentHashInvalid}>
+      <MagicDropzone />
+    </RenderWithStore>
+  );
+};
+
+export const MagicDemoVerificationErrorIssue = () => {
+  return (
+    <RenderWithStore document={sampleDocument} fragments={whenDocumentNotIssued}>
+      <MagicDropzone />
+    </RenderWithStore>
+  );
+};
+
+export const MagicDemoVerificationErrorIdentity = () => {
+  return (
+    <RenderWithStore document={sampleDocument} fragments={whenDocumentIssuerIdentityInvalidDnsTxt}>
+      <MagicDropzone />
+    </RenderWithStore>
+  );
+};
+
+export const MagicDemoVerificationErrorRevoked = () => {
+  return (
+    <RenderWithStore document={sampleDocument} fragments={whenDocumentRevoked}>
       <MagicDropzone />
     </RenderWithStore>
   );

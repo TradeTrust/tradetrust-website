@@ -62,7 +62,7 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
     case isPending:
       return (
         <div>
-          <LoaderSpinner data-testid={"veriyfing-spinner"} className="mx-auto" width="50px" primary="#0099cc" />
+          <LoaderSpinner data-testid={"loader-spinner"} className="mx-auto" width="50px" primary="#0099cc" />
           <p className="m-4 text-2xl">Verifying Document...</p>
         </div>
       );
@@ -109,7 +109,7 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
           </h2>
           <img
             className="mx-auto w-56"
-            alt="Dropzone TradeTrust"
+            alt="Magic Dropzone TradeTrust"
             src="/static/images/dropzone/dropzone_illustration.svg"
           />
           <h4>Drop your TradeTrust demo document to view its content</h4>

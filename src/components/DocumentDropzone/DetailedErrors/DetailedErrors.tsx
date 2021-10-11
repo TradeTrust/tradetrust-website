@@ -9,18 +9,18 @@ export const DetailedErrors: FunctionComponent<{ verificationStatus: Verificatio
   if (!verificationStatus) return null;
 
   const errors = [];
-  const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
+  const { hashValid, issuedValid, identityValid, revokedValid } = interpretFragments(verificationStatus);
 
   if (!hashValid) errors.push(TYPES.HASH);
-  if (!issuedValid) errors.push(TYPES.ISSUED);
+  if (!issuedValid || !revokedValid) errors.push(TYPES.ISSUED);
   if (!identityValid) errors.push(TYPES.IDENTITY);
 
   return (
-    <div data-testid="error-tab" className="mb-8">
+    <div className="mb-8">
       {errors.map((errorType, index) => (
         <div key={index} className="my-2">
           <h4 className="text-red-500 mb-0">{MESSAGES[errorType].failureTitle}</h4>
-          <p className="break-words">{MESSAGES[errorType].failureMessage}</p>
+          <p className="text-gray-700 break-words">{MESSAGES[errorType].failureMessage}</p>
         </div>
       ))}
     </div>
