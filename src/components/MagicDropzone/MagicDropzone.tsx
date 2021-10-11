@@ -2,16 +2,14 @@ import React, { FunctionComponent, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
-import { isValid, VerificationFragment } from "@govtechsg/oa-verify";
+import { isValid } from "@govtechsg/oa-verify";
 import { Button, ButtonSize, LoaderSpinner } from "@govtechsg/tradetrust-ui-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reducers";
-import { MESSAGES, TYPES } from "../../constants/VerificationErrorMessages";
-import { interpretFragments } from "../../services/verify/fragments";
+import { DetailedErrors } from "../DocumentDropzone/DetailedErrors";
 import { updateDemoDocument, resetDemoState } from "../../reducers/demo-verify";
-import { updateCertificate, resetCertificateState } from "../../reducers/certificate";
 
-enum DropzoneState {
+enum MagicDropzoneState {
   DRAG_REJECT = "border-red-400 bg-red-100",
   DRAG_ACTIVE = "border-green-400 bg-green-50",
   DRAG_ACCEPT = "border-green-400 bg-green-50",
@@ -20,7 +18,7 @@ enum DropzoneState {
   DEFAULT = "border-cloud-100 bg-white",
 }
 
-interface GetDropzoneBoxUi {
+interface GetMagicDropzoneBoxUi {
   isDragReject: boolean;
   isDragActive: boolean;
   isDragAccept: boolean;
@@ -28,64 +26,38 @@ interface GetDropzoneBoxUi {
   isError: boolean | null;
 }
 
-const getDropzoneBoxUi = ({ isDragReject, isDragActive, isDragAccept, isPending, isError }: GetDropzoneBoxUi) => {
+const getMagicDropzoneBoxUi = ({
+  isDragReject,
+  isDragActive,
+  isDragAccept,
+  isPending,
+  isError,
+}: GetMagicDropzoneBoxUi) => {
   switch (true) {
     case isDragReject:
-      return DropzoneState.DRAG_REJECT;
+      return MagicDropzoneState.DRAG_REJECT;
     case isDragActive:
-      return DropzoneState.DRAG_ACTIVE;
+      return MagicDropzoneState.DRAG_ACTIVE;
     case isDragAccept:
-      return DropzoneState.DRAG_ACCEPT;
+      return MagicDropzoneState.DRAG_ACCEPT;
     case isPending:
-      return DropzoneState.PENDING;
+      return MagicDropzoneState.PENDING;
     case isError:
-      return DropzoneState.ERROR;
+      return MagicDropzoneState.ERROR;
     default:
-      return DropzoneState.DEFAULT;
+      return MagicDropzoneState.DEFAULT;
   }
 };
 
-interface DetailedErrorsProps {
-  verificationStatus: VerificationFragment[];
-}
-
-const DetailedErrors: FunctionComponent<DetailedErrorsProps> = ({ verificationStatus }) => {
-  if (!verificationStatus) return null;
-
-  const errors = [];
-  const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
-
-  if (!hashValid) errors.push(TYPES.HASH);
-  if (!issuedValid) errors.push(TYPES.ISSUED);
-  if (!identityValid) errors.push(TYPES.IDENTITY);
-
-  return (
-    <div data-testid="error-tab" className="mb-8">
-      {errors.map((errorType, index) => (
-        <div key={index} className="my-2">
-          <h4 className="text-red-500 mb-0">{MESSAGES[errorType].failureTitle}</h4>
-          <p className="break-words">{MESSAGES[errorType].failureMessage}</p>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-interface DocumentDropzoneViewProps {
-  isDemo: boolean;
+interface MagicDropzoneViewProps {
   isPending: boolean;
   isError: boolean | null;
-  verificationStatus: VerificationFragment[];
   resetDocument: () => void;
 }
 
-const DocumentDropzoneView: FunctionComponent<DocumentDropzoneViewProps> = ({
-  isDemo,
-  isPending,
-  isError,
-  verificationStatus,
-  resetDocument,
-}) => {
+const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPending, isError, resetDocument }) => {
+  const verificationStatus = useSelector((state: RootState) => state.demoVerify.verificationStatus);
+
   switch (true) {
     case isPending:
       return (
@@ -132,11 +104,9 @@ const DocumentDropzoneView: FunctionComponent<DocumentDropzoneViewProps> = ({
     default:
       return (
         <div>
-          {isDemo && (
-            <h2 className="absolute top-0 left-0 right-0 mt-8 mx-auto text-gray-600 text-opacity-10 text-7xl lg:text-9xl">
-              DEMO
-            </h2>
-          )}
+          <h2 className="absolute top-0 left-0 right-0 mt-8 mx-auto text-gray-600 text-opacity-10 text-7xl lg:text-9xl">
+            DEMO
+          </h2>
           <img
             className="mx-auto w-56"
             alt="Dropzone TradeTrust"
@@ -152,46 +122,11 @@ const DocumentDropzoneView: FunctionComponent<DocumentDropzoneViewProps> = ({
   }
 };
 
-interface DocumentDropzoneProps {
-  isDemo: boolean;
-}
-
-export const DocumentDropzone: FunctionComponent<DocumentDropzoneProps> = ({ isDemo }) => {
+export const MagicDropzone: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const isPending = useSelector((state: RootState) => {
-    if (isDemo) {
-      return state.demoVerify.verificationPending;
-    } else {
-      return state.certificate.verificationPending;
-    }
-  });
-  const verificationStatus = useSelector((state: RootState) => {
-    if (isDemo) {
-      return state.demoVerify.verificationStatus;
-    } else {
-      return state.certificate.verificationStatus;
-    }
-  });
+  const isPending = useSelector((state: RootState) => state.demoVerify.verificationPending);
+  const verificationStatus = useSelector((state: RootState) => state.demoVerify.verificationStatus);
   const isError = verificationStatus && !isValid(verificationStatus);
-
-  const updateDocument = useCallback(
-    (json) => {
-      if (isDemo) {
-        dispatch(updateDemoDocument(json));
-      } else {
-        dispatch(updateCertificate(json));
-      }
-    },
-    [dispatch, isDemo]
-  );
-
-  const resetDocument = useCallback(() => {
-    if (isDemo) {
-      dispatch(resetDemoState());
-    } else {
-      dispatch(resetCertificateState());
-    }
-  }, [dispatch, isDemo]);
 
   const onDrop = useCallback(
     (acceptedFiles: Blob[]) => {
@@ -203,7 +138,7 @@ export const DocumentDropzone: FunctionComponent<DocumentDropzoneProps> = ({ isD
         reader.onload = () => {
           try {
             const json = JSON.parse(reader.result as string);
-            updateDocument(json); // pushes to viewer page
+            dispatch(updateDemoDocument(json)); // pushes to demo/viewer page
           } catch (e) {
             console.log(e);
           }
@@ -211,7 +146,7 @@ export const DocumentDropzone: FunctionComponent<DocumentDropzoneProps> = ({ isD
         reader.readAsText(file);
       });
     },
-    [updateDocument]
+    [dispatch]
   );
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
@@ -219,7 +154,7 @@ export const DocumentDropzone: FunctionComponent<DocumentDropzoneProps> = ({ isD
     multiple: false,
     // accept: "application/json", // TODO: https://react-dropzone.js.org/#!/Accepting%20specific%20file%20types
   });
-  const dropzoneBoxUi = getDropzoneBoxUi({
+  const dropzoneBoxUi = getMagicDropzoneBoxUi({
     isPending,
     isDragActive,
     isDragAccept,
@@ -233,13 +168,7 @@ export const DocumentDropzone: FunctionComponent<DocumentDropzoneProps> = ({ isD
       <div
         className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-400 flex flex-col justify-center ${dropzoneBoxUi}`}
       >
-        <DocumentDropzoneView
-          isDemo={isDemo}
-          isPending={isPending}
-          isError={isError}
-          verificationStatus={verificationStatus}
-          resetDocument={resetDocument}
-        />
+        <MagicDropzoneView isPending={isPending} isError={isError} resetDocument={resetDemoState} />
       </div>
     </div>
   );
