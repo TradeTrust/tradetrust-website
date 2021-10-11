@@ -1,6 +1,8 @@
 import { NetworkBar, Overlay } from "@govtechsg/tradetrust-ui-components";
 import React, { useEffect, useState } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "./reducers";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar, leftNavItems, rightNavItems } from "./components/Layout/NavigationBar";
 import { PrivateRoute } from "./components/PrivateRoute";
@@ -9,6 +11,8 @@ import { routes } from "./routes";
 import styled from "@emotion/styled";
 import { PageNotFound } from "./pages/pageNotFound";
 import { DemoCreatePage } from "./pages/demoCreate";
+import { DemoVerifyPage } from "./pages/demoVerify";
+import { DemoViewerPage } from "./pages/demoViewer";
 import { DemoPage } from "./pages/demo";
 import { FeatureFlag } from "./components/FeatureFlag";
 
@@ -20,6 +24,7 @@ const Main = styled.main`
 const AppContainer = (): React.ReactElement => {
   const location = useLocation();
   const [toggleNavBar, setToggleNavBar] = useState(false);
+  const isDemoDocumentVerified = useSelector((state: RootState) => state.demoVerify.verificationStatus);
 
   useEffect(() => {
     setToggleNavBar(false);
@@ -44,6 +49,12 @@ const AppContainer = (): React.ReactElement => {
           ))}
           {NETWORK === "ropsten" && (
             <FeatureFlag name="MAGIC_DEMO">
+              <Route path="/demo/viewer" exact>
+                {isDemoDocumentVerified ? <DemoViewerPage /> : <Redirect to="/demo/verify" />}
+              </Route>
+              <Route path="/demo/verify" exact>
+                <DemoVerifyPage />
+              </Route>
               <PrivateRoute path="/demo/create" redirectPath="/demo" exact>
                 <DemoCreatePage />
               </PrivateRoute>

@@ -4,6 +4,8 @@ import { NETWORK_NAME } from "../../config";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
 import { utils as oaUtils, WrappedDocument, v3 } from "@govtechsg/open-attestation";
+import { RootState } from "../../reducers";
+import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
 interface VerificationFragmentData {
   did: string;
@@ -48,10 +50,12 @@ export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenA
   return document.openAttestationMetadata.identityProof.identifier.toUpperCase();
 };
 
-export const IssuedBy: FunctionComponent = () => {
-  const certificateState = useSelector((state: any) => state?.certificate);
-  const { rawModified: document, verificationStatus } = certificateState;
+interface IssuedByProps {
+  verificationStatus: VerificationFragment[];
+  document: WrappedOrSignedOpenAttestationDocument;
+}
 
+export const IssuedBy: FunctionComponent<IssuedByProps> = ({ verificationStatus, document }) => {
   const formattedDomainNames = oaUtils.isWrappedV2Document(document)
     ? getV2FormattedDomainNames(verificationStatus)
     : getV3IdentityVerificationText(document);
@@ -64,12 +68,19 @@ export const IssuedBy: FunctionComponent = () => {
 };
 
 export const DocumentStatus: FunctionComponent = () => {
+  const certificate = useSelector((state: RootState) => state.certificate);
+  const demoVerify = useSelector((state: RootState) => state.demoVerify);
+  const document = demoVerify.rawModifiedDocument ?? certificate.rawModified;
+  const verificationStatus = demoVerify.verificationStatus ?? certificate.verificationStatus;
+
   return (
     <div className="container">
       <div id="document-status" className="py-4">
         <div className="flex flex-col">
-          <div className="flex-grow">{NETWORK_NAME !== "local" && <IssuedBy />}</div>
-          <StatusChecks />
+          <div className="flex-grow">
+            {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} document={document} />}
+          </div>
+          <StatusChecks verificationStatus={verificationStatus} />
         </div>
       </div>
     </div>

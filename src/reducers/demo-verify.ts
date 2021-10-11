@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { VerificationFragment } from "@govtechsg/oa-verify";
 
 // TODO: from the looks it needs this states, update once demo flow is more confirmed
 interface DemoVerifyState {
@@ -6,7 +7,7 @@ interface DemoVerifyState {
   rawModifiedDocument: string | null;
 
   verificationPending: boolean;
-  verificationStatus: string | null;
+  verificationStatus: VerificationFragment[] | null;
   verificationError: string | null;
 }
 
@@ -50,8 +51,8 @@ const demoVerifySlice = createSlice({
 });
 
 // Selectors
-export const getDemoDocument = (store: { demo: { rawModifiedDocument: string } }): string => {
-  return store.demo.rawModifiedDocument;
+export const getDemoDocument = (store: { demoVerify: { rawModifiedDocument: string } }): string => {
+  return store.demoVerify.rawModifiedDocument;
 };
 
 export const {

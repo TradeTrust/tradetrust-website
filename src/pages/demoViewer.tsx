@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { ViewerPageContainer } from "../components/ViewerPageContainer";
+import { ViewerDemoPageContainer } from "../components/ViewerPageContainer";
 
-export const ViewerPage: FunctionComponent = () => (
+export const DemoViewerPage: FunctionComponent = () => (
   <>
     <Helmet>
       <meta
@@ -14,9 +14,9 @@ export const ViewerPage: FunctionComponent = () => (
         content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
       />
       <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-      <meta property="og:url" content={`${window.location.origin}/viewer`} />
-      <title>TradeTrust - Viewer</title>
+      <meta property="og:url" content={`${window.location.origin}/demo/viewer`} />
+      <title>TradeTrust - Demo Viewer</title>
     </Helmet>
-    <ViewerPageContainer />
+    <ViewerDemoPageContainer />
   </>
 );

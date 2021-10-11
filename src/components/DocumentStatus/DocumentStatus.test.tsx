@@ -37,7 +37,7 @@ describe("IssuedBy", () => {
     const store = configureStore({ certificate: { rawModified: document, verificationStatus: additionalProps } });
     return render(
       <Provider store={store}>
-        <IssuedBy />
+        <IssuedBy verificationStatus={additionalProps} document={document} />
       </Provider>
     );
   };

@@ -16,12 +16,13 @@ import { ErrorBoundary } from "./ErrorBoundary";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
-import { WrappedOrSignedOpenAttestationDocument, getAttachments, getTokenRegistryAddress } from "../utils/shared";
+import { getAttachments, getTokenRegistryAddress } from "../utils/shared";
+import { resetDemoState } from "../reducers/demo-verify";
 
 const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
-  document: WrappedOrSignedOpenAttestationDocument;
+  document: any;
 }
 
 export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ document }) => {
@@ -46,6 +47,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const dispatch = useDispatch();
 
   const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
+  const resetDemoData = useCallback(() => dispatch(resetDemoState()), [dispatch]);
   const isSampleDocument = useSelector((state: RootState) => state.sample.isSampleDocument);
 
   /*
@@ -60,9 +62,10 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
         trace("resetting token information on unmount");
         resetTokenInformationState();
         resetCertificateData();
+        resetDemoData();
       };
     }
-  }, [tokenId, tokenRegistryAddress, resetCertificateData, resetTokenInformationState, initialize]);
+  }, [tokenId, tokenRegistryAddress, resetCertificateData, resetDemoData, resetTokenInformationState, initialize]);
 
   const childRef = React.useRef<{ print: () => void }>();
 
