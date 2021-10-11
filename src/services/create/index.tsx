@@ -110,3 +110,7 @@ export const createTempDns = async (documentStoreAddress: string): Promise<strin
     throw new Error(e.message);
   }
 };
+
+export const getFunds = async (address: string): Promise<void> => {
+  await fetch(`https://faucet.openattestation.com/donate/${address}`);
+};

@@ -8,7 +8,7 @@ import { DemoFormContext } from "../contexts/DemoFormContext";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { schema } from "../DemoCreateForm/schema";
 import { FormItemSchema } from "../DemoCreateForm/types";
-import { getFormValue } from "../utils";
+import { getFormValue, isImageData } from "../utils";
 
 const DemoCreateReviewItem = ({
   title,
@@ -19,10 +19,6 @@ const DemoCreateReviewItem = ({
   properties?: Record<string, any>;
   name: string;
 }) => {
-  const isImageData = (value: string) => {
-    return value && value.slice(0, 10) === "data:image";
-  };
-
   const { formValues } = useContext(DemoFormContext);
 
   if (properties !== undefined) {

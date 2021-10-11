@@ -9,7 +9,7 @@ interface DemoCreateButtonRowProps {
 export const DemoCreateButtonRow: FunctionComponent<DemoCreateButtonRowProps> = ({ onBack, onNext }) => {
   return (
     <div className="flex justify-center pt-12 pb-3">
-      {onBack !== undefined && (
+      {onBack && (
         <Button
           data-testid="demo-create-button-back"
           className="mx-12 bg-white text-cerulean hover:bg-cloud-200"
@@ -18,7 +18,7 @@ export const DemoCreateButtonRow: FunctionComponent<DemoCreateButtonRowProps> = 
           Back
         </Button>
       )}
-      {onNext !== undefined && (
+      {onNext && (
         <Button
           data-testid="demo-create-button-next"
           className="mx-12 bg-cerulean text-white hover:bg-cerulean-500"

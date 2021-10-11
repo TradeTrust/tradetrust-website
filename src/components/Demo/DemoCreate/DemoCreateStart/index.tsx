@@ -3,6 +3,7 @@ import React, { FunctionComponent, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ProviderContext } from "../../../../common/contexts/provider";
 import { deployingDocStore } from "../../../../reducers/demo-create";
+import { getFunds } from "../../../../services/create";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 
 export const DemoCreateStart: FunctionComponent = () => {
@@ -13,15 +14,11 @@ export const DemoCreateStart: FunctionComponent = () => {
 
   const dispatch = useDispatch();
 
-  const addFunds = async (address: string) => {
-    await fetch(`https://faucet.openattestation.com/donate/${address}`);
-  };
-
   const handleStart = async () => {
     setLoading(true);
 
     try {
-      await addFunds(account as string);
+      await getFunds(account as string);
       dispatch(deployingDocStore(provider));
       setActiveStep("form");
       setLoading(false);

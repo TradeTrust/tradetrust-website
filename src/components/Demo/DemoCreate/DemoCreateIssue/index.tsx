@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect } from "react";
+import React, { FunctionComponent, useCallback, useContext, useEffect } from "react";
 import { saveAs } from "file-saver";
 import { Button, LoaderSpinner, ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import { CheckCircle, XCircle } from "react-feather";
@@ -28,14 +28,16 @@ export const DemoCreateIssue: FunctionComponent = () => {
     }
   }, [wrapDocumentStatus, dispatch, provider]);
 
-  const downloadDocument = () => {
+  const downloadDocument = useCallback(() => {
     const blob = new Blob([JSON.stringify(wrappedDocument)], { type: "text/json;charset=utf-8" });
     saveAs(blob, `${formValues.documentName || `demo`}.tt`);
-  };
+  }, [formValues.documentName, wrappedDocument]);
 
-  if (issued) {
-    downloadDocument();
-  }
+  useEffect(() => {
+    if (issued) {
+      downloadDocument();
+    }
+  }, [issued, downloadDocument]);
 
   return (
     <>
