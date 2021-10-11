@@ -70,8 +70,8 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ verificationStatus,
 export const DocumentStatus: FunctionComponent = () => {
   const certificate = useSelector((state: RootState) => state.certificate);
   const demoVerify = useSelector((state: RootState) => state.demoVerify);
-  const document = demoVerify.rawModifiedDocument ?? certificate.rawModified;
-  const verificationStatus = demoVerify.verificationStatus ?? certificate.verificationStatus;
+  const document = certificate.rawModified ?? demoVerify.rawModifiedDocument;
+  const verificationStatus = certificate.verificationStatus ?? demoVerify.verificationStatus;
 
   return (
     <div className="container">

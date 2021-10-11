@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { ViewerDemoPageContainer } from "../components/ViewerPageContainer";
+import { ViewerMagicPageContainer } from "../components/ViewerPageContainer";
 
 export const DemoViewerPage: FunctionComponent = () => (
   <>
@@ -17,6 +17,6 @@ export const DemoViewerPage: FunctionComponent = () => (
       <meta property="og:url" content={`${window.location.origin}/demo/viewer`} />
       <title>TradeTrust - Demo Viewer</title>
     </Helmet>
-    <ViewerDemoPageContainer />
+    <ViewerMagicPageContainer />
   </>
 );
