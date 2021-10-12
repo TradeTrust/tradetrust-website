@@ -16,13 +16,13 @@ import { ErrorBoundary } from "./ErrorBoundary";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
-import { getAttachments, getTokenRegistryAddress } from "../utils/shared";
+import { WrappedOrSignedOpenAttestationDocument, getAttachments, getTokenRegistryAddress } from "../utils/shared";
 import { resetDemoState } from "../reducers/demo-verify";
 
 const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
-  document: any;
+  document: WrappedOrSignedOpenAttestationDocument;
 }
 
 export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ document }) => {
