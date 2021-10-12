@@ -1,29 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { Route, RouteProps, Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { useAuthContext } from "../../common/contexts/AuthenticationContext";
+import { RouteInterface } from "../../routes";
 
-interface PrivateRouteProps extends RouteProps {
-  redirectPath: string;
-}
-
-export const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({ redirectPath, children, ...rest }) => {
+export const PrivateRoute: FunctionComponent<RouteInterface> = (routeProps: RouteInterface) => {
   const { isLoggedIn } = useAuthContext();
 
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        isLoggedIn ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: redirectPath,
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
+  return isLoggedIn ? <Route {...routeProps} /> : <Redirect to="/" />;
 };
