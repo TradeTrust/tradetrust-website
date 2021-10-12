@@ -6,21 +6,32 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDocumentIssued,
+  getDocumentPrepared,
   getWrappedDocument,
   getWrappedDocumentStatus,
   issuingDocument,
+  wrappingDocument,
 } from "../../../../reducers/demo-create";
 import { ProviderContext } from "../../../../common/contexts/provider";
 import { DemoFormContext } from "../contexts/DemoFormContext";
 
 export const DemoCreateIssue: FunctionComponent = () => {
-  const { issued, error } = useSelector(getDocumentIssued);
+  const { issued, error: issuedError } = useSelector(getDocumentIssued);
   const wrappedDocument = useSelector(getWrappedDocument);
   const wrapDocumentStatus = useSelector(getWrappedDocumentStatus);
+  const { prepared, error: preparedError } = useSelector(getDocumentPrepared);
   const { formValues } = useContext(DemoFormContext);
   const dispatch = useDispatch();
 
+  const error = issuedError || preparedError;
+
   const { provider } = useContext(ProviderContext);
+
+  useEffect(() => {
+    if (prepared) {
+      dispatch(wrappingDocument(formValues));
+    }
+  }, [prepared, dispatch, formValues]);
 
   useEffect(() => {
     if (wrapDocumentStatus === "success") {
@@ -47,7 +58,7 @@ export const DemoCreateIssue: FunctionComponent = () => {
           {!issued && !error && (
             <>
               <LoaderSpinner width="36px" className="mx-auto mb-4" primary="#3B8CC5" />
-              <h3>Issuing Document</h3>
+              {!prepared ? <h3>Preparing Document</h3> : <h3>Issuing Document</h3>}
             </>
           )}
           {issued && (

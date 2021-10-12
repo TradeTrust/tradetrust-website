@@ -1,4 +1,4 @@
-import { Button } from "@govtechsg/tradetrust-ui-components";
+import { Button, LoaderSpinner } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ProviderContext } from "../../../../common/contexts/provider";
@@ -37,7 +37,10 @@ export const DemoCreateStart: FunctionComponent = () => {
         See how a TradeTrust Document can be issued and provide your bank the assurance of document integrity
       </p>
       {loading ? (
-        "getting funds"
+        <div className="mt-12">
+          <LoaderSpinner width="36px" className="mx-auto mb-4" primary="#3B8CC5" />
+          <h3 className="text-center">Loading funds to your wallet...</h3>
+        </div>
       ) : error.length > 0 ? (
         error
       ) : (

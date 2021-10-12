@@ -64,6 +64,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
 
       return (
         <textarea
+          disabled={formItem.options?.readonly}
           data-testid="form-item-textarea"
           rows={4}
           className="w-full border rounded-md px-2 py-1 mb-0 focus:border-cloud-900 focus:outline-none placeholder-cloud-200 w-full border-cloud-200"
@@ -82,6 +83,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
 
       return (
         <Input
+          disabled={formItem.options?.readonly}
           data-testid="form-item-input"
           className="w-full"
           defaultValue={defaultValue}
