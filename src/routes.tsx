@@ -1,3 +1,4 @@
+import React from "react";
 import { EmailSuccessPage } from "./pages/emailSuccess";
 import { EmailErrorPage } from "./pages/emailError";
 import { FaqPage } from "./pages/faq";
@@ -11,11 +12,33 @@ import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } fr
 import { ViewerPage } from "./pages/viewer";
 import { ContactPage } from "./pages/contact";
 import { EventPage } from "./pages/event/event";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { Route, Switch } from "react-router-dom";
+import { DemoPage } from "./pages/demo";
+import { DemoVerifyPage } from "./pages/demoVerify";
+import { DemoCreatePage } from "./pages/demoCreate";
+import { PageNotFound } from "./pages/pageNotFound";
 
-export const routes = [
+const renderViewer = (): React.ReactElement => <ViewerPage />;
+const renderMagicViewer = (): React.ReactElement => <ViewerPage isMagicDemo />;
+export const routes: RouteInterface[] = [
   { path: "/", exact: true, component: HomePage },
   { path: "/verify", exact: true, component: VerifyPage },
-  { path: "/viewer", exact: true, component: ViewerPage },
+  { path: "/viewer", exact: true, render: renderViewer },
+  { path: "/demo", exact: true, component: DemoPage },
+  {
+    path: "/demo/create",
+    exact: true,
+    component: DemoCreatePage,
+    privateRoute: true,
+  },
+  { path: "/demo/verify", exact: true, component: DemoVerifyPage, privateRoute: true },
+  {
+    path: "/demo/viewer",
+    exact: true,
+    render: renderMagicViewer,
+    privateRoute: true,
+  },
   { path: "/faq", exact: true, component: FaqPage },
   { path: "/eta", exact: true, component: EtaPage },
   { path: "/settings", exact: true, component: SettingsPage },
@@ -28,4 +51,24 @@ export const routes = [
   { path: "/learn", exact: true, component: LearnPage },
   { path: "/event", exact: true, component: EventPage },
   { path: "/contact", exact: true, component: ContactPage },
+  { path: "*", component: PageNotFound },
 ];
+export interface RouteInterface {
+  path: string;
+  exact?: boolean;
+  component?: React.FunctionComponent;
+  render?: () => JSX.Element;
+  privateRoute?: boolean;
+}
+interface RouteProps {
+  routes: RouteInterface[];
+}
+
+const routeMapper = (route: RouteInterface, id: number) => {
+  const { privateRoute } = route;
+  return privateRoute ? <PrivateRoute key={id} {...route} /> : <Route key={id} {...route} />;
+};
+
+export const Routes = ({ routes: routeItems }: RouteProps): React.ReactElement => {
+  return <Switch>{routeItems.map(routeMapper)}</Switch>;
+};
