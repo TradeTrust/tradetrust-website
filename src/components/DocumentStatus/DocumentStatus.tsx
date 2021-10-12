@@ -67,11 +67,16 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ verificationStatus,
   );
 };
 
-export const DocumentStatus: FunctionComponent = () => {
-  const certificate = useSelector((state: RootState) => state.certificate);
-  const demoVerify = useSelector((state: RootState) => state.demoVerify);
-  const document = certificate.rawModified ?? demoVerify.rawModifiedDocument;
-  const verificationStatus = certificate.verificationStatus ?? demoVerify.verificationStatus;
+interface DocumentStatusProps {
+  isMagicDemo?: boolean;
+}
+
+export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ isMagicDemo }) => {
+  const rootState = useSelector((state: RootState) => state);
+  const document = isMagicDemo ? rootState.demoVerify.rawModifiedDocument : rootState.certificate.rawModified;
+  const verificationStatus = isMagicDemo ? rootState.certificate.rawModified : rootState.certificate.verificationStatus;
+
+  if (!document || !verificationStatus) return null;
 
   return (
     <div className="container">

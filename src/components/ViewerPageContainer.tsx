@@ -8,13 +8,8 @@ interface ViewerPageContainerProps {
   isMagicDemo?: boolean;
 }
 export const ViewerPageContainer = ({ isMagicDemo }: ViewerPageContainerProps): React.ReactElement => {
-  console.log(isMagicDemo);
-  // from here, toggle logic
-  // pass into CertificateViewer ---> pass into DocumentStatus
+  const rootState = useSelector((state: RootState) => state);
+  const document = isMagicDemo ? rootState.demoVerify.rawModifiedDocument : rootState.certificate.rawModified;
 
-  const certificate = useSelector((state: RootState) => state.certificate);
-  const demoVerify = useSelector((state: RootState) => state.demoVerify);
-  const document = certificate.rawModified ?? demoVerify.rawModifiedDocument;
-
-  return document ? <CertificateViewer document={document} /> : <Redirect to="/" />;
+  return document ? <CertificateViewer isMagicDemo={isMagicDemo} document={document} /> : <Redirect to="/" />;
 };

@@ -22,10 +22,11 @@ import { resetDemoState } from "../reducers/demo-verify";
 const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
+  isMagicDemo?: boolean;
   document: WrappedOrSignedOpenAttestationDocument;
 }
 
-export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ document }) => {
+export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document }) => {
   const isTransferableAsset = utils.isTransferableAsset(document);
   let tokenId = "";
   if (isTransferableAsset) {
@@ -102,7 +103,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const renderedCertificateViewer = (
     <>
       <div className="no-print">
-        {!isTransferableDocument && <DocumentStatus />}
+        {!isTransferableDocument && <DocumentStatus isMagicDemo={isMagicDemo} />}
         {isSampleDocument && (
           <Banner
             className="mt-8"

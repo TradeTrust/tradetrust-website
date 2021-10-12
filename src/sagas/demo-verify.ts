@@ -21,7 +21,7 @@ export function* verifyDemoDocument(): any {
     yield put(verifyDemoDocumentCompleted(verificationStatus));
 
     if (NETWORK_NAME === "local" ? true : isValid(verificationStatus)) {
-      yield history.push("/viewer");
+      yield history.push("/demo/viewer");
     }
   } catch (e) {
     if (e instanceof Error) {
