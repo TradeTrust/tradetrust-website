@@ -9,12 +9,14 @@ import { AssetManagementTags } from "./../AssetManagementTags";
 import { DocumentStatus } from "./../../DocumentStatus";
 
 interface AssetManagementApplicationProps {
+  isMagicDemo?: boolean;
   tokenId: string;
   tokenRegistryAddress: string;
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
 export const AssetManagementApplication: FunctionComponent<AssetManagementApplicationProps> = ({
+  isMagicDemo,
   tokenId,
   tokenRegistryAddress,
   setShowEndorsementChain,
@@ -82,8 +84,9 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   return (
     <div id="title-transfer-panel">
       {assetManagementAction === AssetManagementActions.None && (
+        // ui design requirement, to not show DocumentStatus & AssetManagementTags when user is on other actions
         <>
-          <DocumentStatus />
+          <DocumentStatus isMagicDemo={isMagicDemo} />
           <AssetManagementTags />
         </>
       )}

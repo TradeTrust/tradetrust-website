@@ -113,6 +113,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
         <ObfuscatedMessage document={document} />
         {isTransferableDocument && (
           <AssetManagementApplication
+            isMagicDemo={isMagicDemo}
             tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}

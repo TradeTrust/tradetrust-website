@@ -74,7 +74,9 @@ interface DocumentStatusProps {
 export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ isMagicDemo }) => {
   const rootState = useSelector((state: RootState) => state);
   const document = isMagicDemo ? rootState.demoVerify.rawModifiedDocument : rootState.certificate.rawModified;
-  const verificationStatus = isMagicDemo ? rootState.certificate.rawModified : rootState.certificate.verificationStatus;
+  const verificationStatus = isMagicDemo
+    ? rootState.demoVerify.verificationStatus
+    : rootState.certificate.verificationStatus;
 
   if (!document || !verificationStatus) return null;
 
