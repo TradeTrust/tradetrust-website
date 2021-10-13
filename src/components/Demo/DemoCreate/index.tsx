@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState, useEffect } from "react";
+import React, { FunctionComponent, useContext, useState } from "react";
 import { ReactNode } from "react-markdown";
 import { DemoCreateContext } from "./contexts/DemoCreateContext";
 import { DemoFormProvider } from "./contexts/DemoFormContext";
@@ -19,7 +19,6 @@ export const DemoCreate: FunctionComponent = () => {
   const { setOverlayVisible, showOverlay } = useOverlayContext();
   const [isUserNavigateOut, setIsUserNavigateOut] = useState(false);
   const when = activeStep !== "start";
-  console.log(activeStep);
 
   const components: Record<string, ReactNode> = {
     form: <DemoCreateForm />,
@@ -51,22 +50,6 @@ export const DemoCreate: FunctionComponent = () => {
 
     return true;
   };
-
-  // https://stackoverflow.com/questions/38879742/is-it-possible-to-display-a-custom-message-in-the-beforeunload-popup
-  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-    event.preventDefault();
-    event.returnValue = "";
-  };
-
-  useEffect(() => {
-    if (when) {
-      window.addEventListener("beforeunload", handleBeforeUnload);
-
-      return () => {
-        window.removeEventListener("beforeunload", handleBeforeUnload);
-      };
-    }
-  }, [when]);
 
   return (
     <>
