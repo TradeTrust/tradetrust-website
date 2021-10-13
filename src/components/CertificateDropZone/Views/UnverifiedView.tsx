@@ -2,32 +2,10 @@ import { Button } from "@govtechsg/tradetrust-ui-components";
 import { VerificationFragment } from "@govtechsg/oa-verify";
 import React from "react";
 import { Link } from "react-router-dom";
-import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
-import { interpretFragments } from "../../../services/verify/fragments";
+import { DetailedErrors } from "../../DocumentDropzone/DetailedErrors";
 import { docNotValidMessage, tryAnotherMessage, unverifiedMessage } from "./";
 import { WrappedOrSignedOpenAttestationDocument } from "../../../utils/shared";
 import { sharedViewer } from "./DefaultView";
-
-const DetailedErrors = ({ verificationStatus }: { verificationStatus: VerificationFragment[] }) => {
-  const errors = [];
-
-  const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
-
-  if (!hashValid) errors.push(TYPES.HASH);
-  if (!issuedValid) errors.push(TYPES.ISSUED);
-  if (!identityValid) errors.push(TYPES.IDENTITY);
-
-  return (
-    <div data-testid="error-tab" className="mb-8">
-      {errors.map((errorType, index) => (
-        <div key={index} className="my-2">
-          <h4 className="mb-0">{MESSAGES[errorType].failureTitle}</h4>
-          <p className="break-words text-black">{MESSAGES[errorType].failureMessage}</p>
-        </div>
-      ))}
-    </div>
-  );
-};
 
 const ActionError = ({ retrieveCertificateByActionError }: { retrieveCertificateByActionError: string }) => {
   return (

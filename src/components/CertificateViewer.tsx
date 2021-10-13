@@ -17,14 +17,16 @@ import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
 import { WrappedOrSignedOpenAttestationDocument, getAttachments, getTokenRegistryAddress } from "../utils/shared";
+import { resetDemoState } from "../reducers/demo-verify";
 
 const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
+  isMagicDemo?: boolean;
   document: WrappedOrSignedOpenAttestationDocument;
 }
 
-export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ document }) => {
+export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document }) => {
   const isTransferableAsset = utils.isTransferableAsset(document);
   let tokenId = "";
   if (isTransferableAsset) {
@@ -46,6 +48,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const dispatch = useDispatch();
 
   const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
+  const resetMagicData = useCallback(() => dispatch(resetDemoState()), [dispatch]);
   const isSampleDocument = useSelector((state: RootState) => state.sample.isSampleDocument);
 
   /*
@@ -60,9 +63,10 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
         trace("resetting token information on unmount");
         resetTokenInformationState();
         resetCertificateData();
+        resetMagicData();
       };
     }
-  }, [tokenId, tokenRegistryAddress, resetCertificateData, resetTokenInformationState, initialize]);
+  }, [tokenId, tokenRegistryAddress, resetCertificateData, resetMagicData, resetTokenInformationState, initialize]);
 
   const childRef = React.useRef<{ print: () => void }>();
 
@@ -99,7 +103,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
   const renderedCertificateViewer = (
     <>
       <div className="no-print">
-        {!isTransferableDocument && <DocumentStatus />}
+        {!isTransferableDocument && <DocumentStatus isMagicDemo={isMagicDemo} />}
         {isSampleDocument && (
           <Banner
             className="mt-8"
@@ -109,6 +113,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ d
         <ObfuscatedMessage document={document} />
         {isTransferableDocument && (
           <AssetManagementApplication
+            isMagicDemo={isMagicDemo}
             tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}

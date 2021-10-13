@@ -2,12 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { CertificateViewer } from "./CertificateViewer";
 import { Redirect } from "react-router";
+import { RootState } from "../reducers";
 
-const ViewerPageContainer = (): React.ReactElement => {
-  const certificateState = useSelector((state: any) => state?.certificate);
-  const { rawModified: document } = certificateState;
+interface ViewerPageContainerProps {
+  isMagicDemo?: boolean;
+}
+export const ViewerPageContainer = ({ isMagicDemo }: ViewerPageContainerProps): React.ReactElement => {
+  const rootState = useSelector((state: RootState) => state);
+  const document = isMagicDemo ? rootState.demoVerify.rawModifiedDocument : rootState.certificate.rawModified;
 
-  return document ? <CertificateViewer document={document} /> : <Redirect to="/" />;
+  return document ? <CertificateViewer isMagicDemo={isMagicDemo} document={document} /> : <Redirect to="/" />;
 };
-
-export default ViewerPageContainer;

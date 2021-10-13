@@ -13,14 +13,14 @@ const Public = () => <div>Public</div>;
 
 describe("private route", () => {
   it("should render public by default", () => {
-    const history = createMemoryHistory({ initialEntries: ["/public"] });
+    const history = createMemoryHistory({ initialEntries: ["/"] });
     render(
       <Router history={history}>
         <Switch>
-          <PrivateRoute exact path="/private" redirectPath="/public">
+          <PrivateRoute exact path="/private">
             <Private />
           </PrivateRoute>
-          <Route exact path="/public">
+          <Route exact path="/">
             <Public />
           </Route>
         </Switch>
@@ -40,10 +40,10 @@ describe("private route", () => {
     render(
       <Router history={history}>
         <Switch>
-          <PrivateRoute exact path="/private" redirectPath="/public">
+          <PrivateRoute exact path="/private">
             <Private />
           </PrivateRoute>
-          <Route exact path="/public">
+          <Route exact path="/">
             <Public />
           </Route>
         </Switch>
@@ -63,10 +63,10 @@ describe("private route", () => {
     render(
       <Router history={history}>
         <Switch>
-          <PrivateRoute exact path="/private" redirectPath="/public">
+          <PrivateRoute exact path="/private">
             <Private />
           </PrivateRoute>
-          <Route exact path="/public">
+          <Route exact path="/">
             <Public />
           </Route>
         </Switch>

@@ -1,5 +1,4 @@
-import { v2, v3 } from "@govtechsg/open-attestation";
-import { getData, utils } from "@govtechsg/open-attestation";
+import { getData, utils, v2, v3 } from "@govtechsg/open-attestation";
 import { LEGACY_OPENCERTS_RENDERER } from "../config";
 
 export type WrappedOrSignedOpenAttestationDocument = v2.WrappedDocument | v3.WrappedDocument;
