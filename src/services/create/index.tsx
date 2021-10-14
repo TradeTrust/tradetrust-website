@@ -71,7 +71,7 @@ export const getWrappedDocument = async (
 };
 
 export const createTempDns = async (documentStoreAddress: string): Promise<string> => {
-  const sandboxEndpoint = `https://sandbox.openattestation.com`; // testing sandbox.openattestation.com first, will revert back to fyntech
+  const sandboxEndpoint = `https://sandbox.fyntech.io`;
 
   try {
     const postRes = await fetch(sandboxEndpoint, {
