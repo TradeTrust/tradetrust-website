@@ -4,20 +4,20 @@ import { OverlayContent, Button } from "@govtechsg/tradetrust-ui-components";
 interface ModalNavigateOutProps {
   closeModal: () => void;
   closeModalAndNavigate: () => void;
-  setIsUserNavigateOut: (isUserNavigateOut: boolean) => void;
+  setOnNavigateOut: (isUserNavigateOut: boolean) => void;
 }
 
 export const ModalNavigateOut: FunctionComponent<ModalNavigateOutProps> = ({
   closeModal,
   closeModalAndNavigate,
-  setIsUserNavigateOut,
+  setOnNavigateOut,
 }) => {
   useEffect(() => {
-    setIsUserNavigateOut(true);
+    setOnNavigateOut(true);
     return () => {
-      setIsUserNavigateOut(false);
+      setOnNavigateOut(false);
     };
-  }, [setIsUserNavigateOut]);
+  }, [setOnNavigateOut]);
 
   return (
     <OverlayContent title="" className="max-w-md px-6 pb-12 text-center">
