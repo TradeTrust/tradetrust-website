@@ -9,11 +9,16 @@ export const DetailedErrors: FunctionComponent<{ verificationStatus: Verificatio
   if (!verificationStatus) return null;
 
   const errors = [];
-  const { hashValid, issuedValid, identityValid, revokedValid } = interpretFragments(verificationStatus);
 
-  if (!hashValid) errors.push(TYPES.HASH);
-  if (!issuedValid || !revokedValid) errors.push(TYPES.ISSUED);
-  if (!identityValid) errors.push(TYPES.IDENTITY);
+  try {
+    const { hashValid, issuedValid, identityValid, revokedValid } = interpretFragments(verificationStatus);
+
+    if (!hashValid) errors.push(TYPES.HASH);
+    if (!issuedValid || !revokedValid) errors.push(TYPES.ISSUED);
+    if (!identityValid) errors.push(TYPES.IDENTITY);
+  } catch (e) {
+    errors.push(TYPES.INVALID);
+  }
 
   return (
     <div className="mb-8">

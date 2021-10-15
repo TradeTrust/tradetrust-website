@@ -527,3 +527,76 @@ export const whenTransferableDocumentVerified = [
     status: "VALID",
   },
 ];
+
+export const whenDocumentInvalid = [
+  {
+    status: "SKIPPED",
+    type: "DOCUMENT_INTEGRITY",
+    name: "OpenAttestationHash",
+    reason: {
+      code: 2,
+      codeString: "SKIPPED",
+      message: "Document does not have merkle root, target hash or data.",
+    },
+  },
+  {
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+    name: "OpenAttestationEthereumTokenRegistryStatus",
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+    },
+  },
+  {
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+    name: "OpenAttestationEthereumDocumentStoreStatus",
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "documentStore" or "certificateStore" property or DOCUMENT_STORE method',
+    },
+  },
+  {
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+    name: "OpenAttestationDidSignedDocumentStatus",
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: "Document was not signed by DID directly",
+    },
+  },
+  {
+    status: "SKIPPED",
+    type: "ISSUER_IDENTITY",
+    name: "OpenAttestationDnsTxtIdentityProof",
+    reason: {
+      code: 2,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "documentStore" / "tokenRegistry" property or doesn\'t use DNS-TXT type',
+    },
+  },
+  {
+    status: "SKIPPED",
+    type: "ISSUER_IDENTITY",
+    name: "OpenAttestationDnsDidIdentityProof",
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: "Document was not issued using DNS-DID",
+    },
+  },
+  {
+    status: "SKIPPED",
+    type: "ISSUER_IDENTITY",
+    name: "OpenAttestationDidIdentityProof",
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: "Document is not using DID as top level identifier or has not been wrapped",
+    },
+  },
+];

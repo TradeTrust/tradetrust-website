@@ -9,6 +9,7 @@ import {
   whenDocumentNotIssued,
   whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentRevoked,
+  whenDocumentInvalid,
 } from "../../../test/fixture/verifier-responses";
 
 describe("DetailedErrors", () => {
@@ -30,6 +31,8 @@ describe("DetailedErrors", () => {
     expect(screen.getByText(MESSAGES[TYPES.HASH].failureMessage)).toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureMessage)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).not.toBeInTheDocument();
   });
 
   it("should display only verification error message on fragment 'issue' when document is not issued", () => {
@@ -40,6 +43,8 @@ describe("DetailedErrors", () => {
     expect(screen.queryByText(MESSAGES[TYPES.HASH].failureMessage)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureMessage)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).not.toBeInTheDocument();
   });
 
   it("should display only verification error message on fragment 'identity' when document is not identified by DNS", () => {
@@ -50,6 +55,8 @@ describe("DetailedErrors", () => {
     expect(screen.queryByText(MESSAGES[TYPES.HASH].failureMessage)).not.toBeInTheDocument();
     expect(screen.getByText(MESSAGES[TYPES.IDENTITY].failureTitle)).toBeInTheDocument();
     expect(screen.getByText(MESSAGES[TYPES.IDENTITY].failureMessage)).toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).not.toBeInTheDocument();
   });
 
   it("should display only verification error message on fragment 'issue' when document is revoked", () => {
@@ -60,5 +67,31 @@ describe("DetailedErrors", () => {
     expect(screen.queryByText(MESSAGES[TYPES.HASH].failureMessage)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureMessage)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).not.toBeInTheDocument();
+  });
+
+  it("should display only verification error message on fragment 'issue' when document is revoked", () => {
+    render(<DetailedErrors verificationStatus={whenDocumentRevoked as VerificationFragment[]} />);
+    expect(screen.getByText(MESSAGES[TYPES.ISSUED].failureTitle)).toBeInTheDocument();
+    expect(screen.getByText(MESSAGES[TYPES.ISSUED].failureMessage)).toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.HASH].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.HASH].failureMessage)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureMessage)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).not.toBeInTheDocument();
+  });
+
+  it("should display only verification error message 'invalid' when document has no fragments", () => {
+    render(<DetailedErrors verificationStatus={whenDocumentInvalid as VerificationFragment[]} />);
+    expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.HASH].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.HASH].failureMessage)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureTitle)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureMessage)).not.toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureTitle)).toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).toBeInTheDocument();
   });
 });
