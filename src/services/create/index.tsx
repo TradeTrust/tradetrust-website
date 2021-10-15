@@ -91,7 +91,7 @@ export const createTempDns = async (documentStoreAddress: string): Promise<strin
     let identityLocation;
 
     /**
-     * dns-sandbox only allows requests from dev.tradetrust.io,
+     * dns-sandbox only allows requests from tradetrust.io,
      * so we just mock the identity location when testing from localhost
      */
     if (isDevelopment) {
