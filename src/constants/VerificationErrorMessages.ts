@@ -3,6 +3,7 @@ export const TYPES = {
   ISSUED: "ISSUED",
   HASH: "HASH",
   IDENTITY: "IDENTITY",
+  INVALID: "INVALID",
 };
 
 export const MESSAGES = {
@@ -26,5 +27,10 @@ export const MESSAGES = {
     failureTitle: "Document issuer identity is invalid",
     successTitle: "Document issuer has been identified",
     failureMessage: "This document was issued by an invalid issuer.",
+  },
+  [TYPES.INVALID]: {
+    failureTitle: "Document is invalid",
+    successTitle: "",
+    failureMessage: "This document is not valid. Please upload a valid document.",
   },
 };
