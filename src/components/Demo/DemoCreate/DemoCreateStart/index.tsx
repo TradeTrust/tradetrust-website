@@ -1,5 +1,6 @@
 import { Button, LoaderSpinner } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useState } from "react";
+import { ethers } from "ethers";
 import { useDispatch } from "react-redux";
 import { ProviderContext } from "../../../../common/contexts/provider";
 import { deployingDocStore } from "../../../../reducers/demo-create";
@@ -18,7 +19,13 @@ export const DemoCreateStart: FunctionComponent = () => {
     setLoading(true);
 
     try {
-      await getFunds(account as string);
+      const balance = await provider.getBalance("latest");
+      const formattedBalance = Number(ethers.utils.formatEther(balance));
+
+      if (formattedBalance === 0) {
+        await getFunds(account as string);
+      }
+
       dispatch(deployingDocStore(provider));
       setActiveStep("form");
       setLoading(false);
