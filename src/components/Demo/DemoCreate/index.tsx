@@ -17,8 +17,8 @@ export const DemoCreate: FunctionComponent = () => {
   const history = useHistory();
   const { activeStep } = useContext(DemoCreateContext);
   const { setOverlayVisible, showOverlay } = useOverlayContext();
-  const [isUserNavigateOut, setIsUserNavigateOut] = useState(false);
-  const when = activeStep !== "start";
+  const [isOnNavigateOut, setOnNavigateOut] = useState(false);
+  const when = activeStep !== "start" && activeStep !== "issue";
 
   const components: Record<string, ReactNode> = {
     form: <DemoCreateForm />,
@@ -33,7 +33,7 @@ export const DemoCreate: FunctionComponent = () => {
   };
 
   const handlePrompt = (location: Location) => {
-    if (!isUserNavigateOut) {
+    if (!isOnNavigateOut) {
       setOverlayVisible(true);
       showOverlay(
         <ModalNavigateOut
@@ -42,7 +42,7 @@ export const DemoCreate: FunctionComponent = () => {
             closeModal();
             history.push(location.pathname);
           }}
-          setIsUserNavigateOut={setIsUserNavigateOut}
+          setOnNavigateOut={setOnNavigateOut}
         />
       );
       return false;
