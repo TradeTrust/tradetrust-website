@@ -1,4 +1,4 @@
-import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
+import { Button, ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
@@ -54,7 +54,22 @@ export const DemoCreateForm: FunctionComponent = () => {
           );
         })}
       </div>
-      <DemoCreateButtonRow onBack={handleBack} onNext={handleNext} />
+      <div className="flex justify-center pt-12 pb-3">
+        <Button
+          data-testid="demoFormBack"
+          className="mx-12 bg-white text-cerulean hover:bg-cloud-200"
+          onClick={handleBack}
+        >
+          Back
+        </Button>
+        <Button
+          data-testid="demoFormNext"
+          className="mx-12 bg-cerulean text-white hover:bg-cerulean-500"
+          onClick={handleNext}
+        >
+          Next
+        </Button>
+      </div>
     </>
   );
 };

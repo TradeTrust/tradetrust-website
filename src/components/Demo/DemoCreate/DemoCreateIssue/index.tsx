@@ -75,7 +75,9 @@ export const DemoCreateIssue: FunctionComponent = () => {
                 .
               </p>
               <Link to="/demo/verify">
-                <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">Test Your File Now</Button>
+                <Button data-testid="demoVerifyButton" className="bg-cerulean text-white rounded hover:bg-cerulean-500">
+                  Test Your File Now
+                </Button>
               </Link>
             </>
           )}

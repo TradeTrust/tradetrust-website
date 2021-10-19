@@ -18,6 +18,7 @@ import { DemoPage } from "./pages/demo";
 import { DemoVerifyPage } from "./pages/demoVerify";
 import { DemoCreatePage } from "./pages/demoCreate";
 import { PageNotFound } from "./pages/pageNotFound";
+import { NETWORK } from "./config";
 
 const renderViewer = (): React.ReactElement => <ViewerPage />;
 const renderMagicViewer = (): React.ReactElement => <ViewerPage isMagicDemo />;
@@ -30,14 +31,14 @@ export const routes: RouteInterface[] = [
     path: "/demo/create",
     exact: true,
     component: DemoCreatePage,
-    privateRoute: true,
+    privateRoute: NETWORK !== "local",
   },
-  { path: "/demo/verify", exact: true, component: DemoVerifyPage, privateRoute: true },
+  { path: "/demo/verify", exact: true, component: DemoVerifyPage, privateRoute: NETWORK !== "local" },
   {
     path: "/demo/viewer",
     exact: true,
     render: renderMagicViewer,
-    privateRoute: true,
+    privateRoute: NETWORK !== "local",
   },
   { path: "/faq", exact: true, component: FaqPage },
   { path: "/eta", exact: true, component: EtaPage },

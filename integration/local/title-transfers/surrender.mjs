@@ -7,7 +7,7 @@ export const surrender = async (metamask, browser) => {
     await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
-    inputUploadHandle.uploadFile("./integration/local/ebl-surrender.json");
+    inputUploadHandle.uploadFile("./integration/local/title-transfers/ebl-surrender.json");
 
     await page.waitForSelector("[data-testid='connectToWallet']", { visible: true });
     await page.click("[data-testid='connectToWallet']");

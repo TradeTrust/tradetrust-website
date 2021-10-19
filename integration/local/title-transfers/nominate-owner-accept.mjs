@@ -1,13 +1,15 @@
 import expect from "expect-puppeteer";
 
-export const nominateOwner = async (metamask, browser) => {
+export const nominateOwnerAccept = async (metamask, browser) => {
   // force process to exit if any assertion fail
   try {
+    await metamask.switchAccount(2);
+
     const page = await browser.newPage();
     await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
-    inputUploadHandle.uploadFile("./integration/local/ebl-nominate-owner.json");
+    inputUploadHandle.uploadFile("./integration/local/title-transfers/ebl-nominate-owner.json"); // use back the same ebl
 
     await page.waitForSelector("[data-testid='connectToWallet']", { visible: true });
     await page.click("[data-testid='connectToWallet']");
@@ -16,15 +18,11 @@ export const nominateOwner = async (metamask, browser) => {
     await page.waitForSelector("[data-testid='manageAssetDropdown']", { visible: true });
     await page.click("[data-testid='manageAssetDropdown']");
 
-    await page.waitForSelector("[data-testid='nominateBeneficiaryHolderDropdown']", { visible: true });
-    await page.click("[data-testid='nominateBeneficiaryHolderDropdown']");
+    await page.waitForSelector("[data-testid='endorseTransferDropdown']", { visible: true });
+    await page.click("[data-testid='endorseTransferDropdown']");
 
-    await page.waitForSelector("[data-testid='editable-input-owner']", { visible: true });
-    await page.focus("[data-testid='editable-input-owner']");
-    await page.keyboard.type("0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60");
-
-    await page.waitForSelector("[data-testid='nominationBtn']", { visible: true });
-    await page.click("[data-testid='nominationBtn']");
+    await page.waitForSelector("[data-testid='endorseTransferBtn']", { visible: true });
+    await page.click("[data-testid='endorseTransferBtn']");
 
     await page.waitFor(1500);
     await metamask.confirmTransaction();
@@ -32,20 +30,26 @@ export const nominateOwner = async (metamask, browser) => {
     await page.waitFor(1500);
 
     await expect(page).toMatchElement("[data-testid='non-editable-input-owner']", {
-      text: "0xe0A71284EF59483795053266CB796B65E48B5124",
+      text: "0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60",
       visible: true,
-    }); // not changed yet, so should be still previous address
+    });
+
+    await expect(page).toMatchElement("[data-testid='non-editable-input-holder']", {
+      text: "0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60",
+      visible: true,
+    });
 
     await expect(page).toMatchElement("[data-testid='overlay-title']", {
-      text: "Nomination Success",
+      text: "Endorse Ownership/Holdership Success",
       visible: true,
     });
 
     await page.close();
+    await metamask.switchAccount(1);
 
-    console.log("✅ Nominate owner success");
+    console.log("✅ Nominate owner accept success");
   } catch (e) {
-    console.log("❌ Nominate owner fail");
+    console.log("❌ Nominate owner accept fail");
     console.log(e);
     process.exit(1);
   }

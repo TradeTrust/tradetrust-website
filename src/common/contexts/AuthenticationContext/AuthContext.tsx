@@ -1,5 +1,6 @@
 import React, { createContext, ReactChildren, useContext } from "react";
 import { magic } from "../helpers";
+import { NETWORK } from "../../../config";
 
 interface AuthContextProps {
   isLoggedIn: boolean;
@@ -19,7 +20,10 @@ export const AuthProvider: any = ({ children }: { children: ReactChildren }) => 
   const login = async (email: string) => {
     // needs error handling here
     // better to defer error handling to another function
-    await magic.auth.loginWithMagicLink({ email });
+    if (NETWORK !== "local") {
+      await magic.auth.loginWithMagicLink({ email });
+    }
+
     setIsLoggedIn(true);
   };
 

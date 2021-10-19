@@ -7,7 +7,7 @@ export const endorseOwner = async (metamask, browser) => {
     await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
-    inputUploadHandle.uploadFile("./integration/local/ebl-endorse-owner.json");
+    inputUploadHandle.uploadFile("./integration/local/title-transfers/ebl-endorse-owner.json");
 
     await page.waitForSelector("[data-testid='connectToWallet']", { visible: true });
     await page.click("[data-testid='connectToWallet']");

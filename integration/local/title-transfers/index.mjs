@@ -1,13 +1,13 @@
-import { metamaskInit } from "./metamask-init.mjs";
+import { metamaskInit } from "../metamask-init.mjs";
 import { transferHolder } from "./transfer-holder.mjs";
 import { endorseOwner } from "./endorse-owner.mjs";
 import { nominateOwner } from "./nominate-owner.mjs";
-import { nominateOwnerAccept } from "./nominate-owner-accept.mjs";
+import { nominateOwnerAccept } from "../title-transfers/nominate-owner-accept.mjs";
 import { surrender } from "./surrender.mjs";
 import { surrenderReject } from "./surrender-reject.mjs";
 import { surrenderAccept } from "./surrender-accept.mjs";
 
-const main = async () => {
+const titleTransfers = async () => {
   const { metamask, browser } = await metamaskInit();
   await transferHolder(metamask, browser);
   await endorseOwner(metamask, browser);
@@ -23,4 +23,4 @@ const main = async () => {
   process.exit(0);
 };
 
-main();
+titleTransfers();

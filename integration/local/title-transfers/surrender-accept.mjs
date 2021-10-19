@@ -1,13 +1,13 @@
 import expect from "expect-puppeteer";
 
-export const surrenderReject = async (metamask, browser) => {
+export const surrenderAccept = async (metamask, browser) => {
   // force process to exit if any assertion fail
   try {
     const page = await browser.newPage();
     await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
-    inputUploadHandle.uploadFile("./integration/local/ebl-surrender.json"); // use back the same ebl
+    inputUploadHandle.uploadFile("./integration/local/title-transfers/ebl-surrender.json"); // use back the same ebl
 
     await page.waitForSelector("[data-testid='connectToWallet']", { visible: true });
     await page.click("[data-testid='connectToWallet']");
@@ -16,15 +16,11 @@ export const surrenderReject = async (metamask, browser) => {
     await page.waitForSelector("[data-testid='manageAssetDropdown']", { visible: true });
     await page.click("[data-testid='manageAssetDropdown']");
 
-    await page.waitForSelector("[data-testid='rejectSurrenderDropdown']", { visible: true });
-    await page.click("[data-testid='rejectSurrenderDropdown']");
+    await page.waitForSelector("[data-testid='acceptSurrenderDropdown']", { visible: true });
+    await page.click("[data-testid='acceptSurrenderDropdown']");
 
-    await page.waitFor(1500); // need to wait for reject surrender btn, not sure why
-    await page.waitForSelector("[data-testid='rejectSurrenderBtn']", { visible: true });
-    await page.click("[data-testid='rejectSurrenderBtn']");
-
-    await page.waitForSelector("[data-testid='confirmActionBtn']", { visible: true });
-    await page.click("[data-testid='confirmActionBtn']");
+    await page.waitForSelector("[data-testid='acceptSurrenderBtn']", { visible: true });
+    await page.click("[data-testid='acceptSurrenderBtn']");
 
     await page.waitFor(1500);
     await metamask.confirmTransaction();
@@ -32,15 +28,15 @@ export const surrenderReject = async (metamask, browser) => {
     await page.waitFor(1500);
 
     await expect(page).toMatchElement("[data-testid='overlay-title']", {
-      text: "Surrender Rejected",
+      text: "Surrender Accepted",
       visible: true,
     });
 
     await page.close();
 
-    console.log("✅ Surrender reject success");
+    console.log("✅ Surrender accept success");
   } catch (e) {
-    console.log("❌ Surrender reject fail");
+    console.log("❌ Surrender accept fail");
     console.log(e);
     process.exit(1);
   }

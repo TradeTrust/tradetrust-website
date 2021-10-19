@@ -51,7 +51,11 @@ export const DemoCreateStart: FunctionComponent = () => {
       ) : error.length > 0 ? (
         error
       ) : (
-        <Button onClick={handleStart} className="bg-cerulean text-white mt-8 hover:bg-cerulean-300">
+        <Button
+          data-testid="demoStartNow"
+          onClick={handleStart}
+          className="bg-cerulean text-white mt-8 hover:bg-cerulean-300"
+        >
           Start Now
         </Button>
       )}

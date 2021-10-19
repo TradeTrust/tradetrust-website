@@ -5,6 +5,7 @@ import { useAuthContext } from "../common/contexts/AuthenticationContext";
 import { useProviderContext } from "../common/contexts/provider";
 import { DemoInitial } from "../components/Demo/DemoInitial";
 import { Page } from "../components/Layout/Page";
+import { NETWORK } from "../config";
 
 export const DemoLayout: FunctionComponent = ({ children }) => {
   return (
@@ -21,11 +22,18 @@ export const DemoLayout: FunctionComponent = ({ children }) => {
 
 export const Demo: FunctionComponent = () => {
   const { login, isLoggedIn } = useAuthContext();
-  const { upgradeToMagicSigner } = useProviderContext();
+  const { upgradeToMagicSigner, upgradeToMetaMaskSigner } = useProviderContext();
   const history = useHistory();
 
   useEffect(() => {
     const handleIsLoggedIn = async () => {
+      if (NETWORK === "local") {
+        await upgradeToMetaMaskSigner();
+        login("");
+        history.push("/demo/create");
+        return;
+      }
+
       if (isLoggedIn) {
         await upgradeToMagicSigner();
         history.push("/demo/create");

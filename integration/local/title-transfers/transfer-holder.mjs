@@ -7,7 +7,7 @@ export const transferHolder = async (metamask, browser) => {
     await page.goto("http://localhost:3000/verify");
 
     const inputUploadHandle = await page.$("input[type=file]");
-    inputUploadHandle.uploadFile("./integration/local/ebl-transfer-holder.json");
+    inputUploadHandle.uploadFile("./integration/local/title-transfers/ebl-transfer-holder.json");
 
     await page.waitForSelector("[data-testid='connectToWallet']", { visible: true });
     await page.click("[data-testid='connectToWallet']");
