@@ -41,7 +41,7 @@ export const Demo: FunctionComponent = () => {
     };
 
     handleIsLoggedIn();
-  }, [isLoggedIn, history, upgradeToMagicSigner]);
+  }, [isLoggedIn, history, upgradeToMagicSigner, login, upgradeToMetaMaskSigner]);
 
   return <DemoInitial login={login} upgradeToMagicSigner={upgradeToMagicSigner} />;
 };

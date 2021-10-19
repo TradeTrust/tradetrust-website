@@ -1,6 +1,5 @@
 import { Button, ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
-import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { DemoCreateFormItem } from "./DemoCreateFormItem";
 import { schema } from "./schema";

@@ -2,7 +2,6 @@ import { Button, ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { DemoFormContext } from "../contexts/DemoFormContext";
-import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { schema } from "../DemoCreateForm/schema";
 import { FormItemSchema } from "../DemoCreateForm/types";
 import { getFormValue, isImageData } from "../utils";
