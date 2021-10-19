@@ -1,7 +1,7 @@
 import { metamaskInit } from "../metamask-init.mjs";
 import { demoCreate } from "./demo-create.mjs";
 
-export const demoFlow = async (metamask, browser) => {
+export const demoFlow = async () => {
   const { metamask, browser } = await metamaskInit();
   await demoCreate(metamask, browser);
 
