@@ -8,7 +8,7 @@ interface DemoCreateContextProps {
 }
 
 export const DemoCreateContext = createContext<DemoCreateContextProps>({
-  activeStep: "form",
+  activeStep: "start",
   setActiveStep: () => null,
 });
 
