@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { WrappedDocument } from "@govtechsg/open-attestation/dist/types/3.0/types";
+import { RootState } from "./";
 
 type Status = "failure" | "success" | "pending";
 interface DemoCreateState {
@@ -101,30 +102,23 @@ const demoCreateSlice = createSlice({
   },
 });
 
-export const getDocumentStoreAddress = (store: { demoCreate: { documentStoreAddress: string } }): string => {
+export const getDocumentStoreAddress = (store: RootState): string => {
   return store.demoCreate.documentStoreAddress;
 };
 
-export const getTempDns = (store: { demoCreate: { tempDns: string } }): string => {
+export const getTempDns = (store: RootState): string => {
   return store.demoCreate.tempDns;
 };
 
-export const getWrappedDocument = (store: {
-  demoCreate: { wrappedDocument: WrappedDocument<any> };
-}): WrappedDocument<any> => {
+export const getWrappedDocument = (store: RootState): WrappedDocument<any> => {
   return store.demoCreate.wrappedDocument;
 };
 
-export const getWrappedDocumentStatus = (store: { demoCreate: { wrapDocumentStatus: Status } }): Status => {
+export const getWrappedDocumentStatus = (store: RootState): Status => {
   return store.demoCreate.wrapDocumentStatus;
 };
 
-export const getDocumentPrepared = (store: {
-  demoCreate: {
-    createTempDnsStatus: Status;
-    deploymentDocStoreStatus: Status;
-  };
-}): { prepared: boolean; error: boolean } => {
+export const getDocumentPrepared = (store: RootState): { prepared: boolean; error: boolean } => {
   const { createTempDnsStatus, deploymentDocStoreStatus } = store.demoCreate;
 
   return {
@@ -133,12 +127,7 @@ export const getDocumentPrepared = (store: {
   };
 };
 
-export const getDocumentIssued = (store: {
-  demoCreate: {
-    wrapDocumentStatus: Status;
-    issueDocumentStatus: Status;
-  };
-}): { issued: boolean; error: boolean } => {
+export const getDocumentIssued = (store: RootState): { issued: boolean; error: boolean } => {
   const { wrapDocumentStatus, issueDocumentStatus } = store.demoCreate;
 
   return {
