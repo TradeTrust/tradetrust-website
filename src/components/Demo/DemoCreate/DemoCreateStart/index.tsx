@@ -1,9 +1,9 @@
 import { Button, LoaderSpinner } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useState } from "react";
 import { ethers } from "ethers";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ProviderContext } from "../../../../common/contexts/provider";
-import { deployingDocStore } from "../../../../reducers/demo-create";
+import { deployingDocStore, getDocumentStoreStatus } from "../../../../reducers/demo-create";
 import { getFunds } from "../../../../services/create";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 
@@ -14,6 +14,7 @@ export const DemoCreateStart: FunctionComponent = () => {
   const [error, setError] = useState("");
 
   const dispatch = useDispatch();
+  const deployedDocStoreStatus = useSelector(getDocumentStoreStatus);
 
   const handleStart = async () => {
     setLoading(true);
@@ -22,13 +23,11 @@ export const DemoCreateStart: FunctionComponent = () => {
       const balance = await provider.getBalance("latest");
       const formattedBalance = Number(ethers.utils.formatEther(balance));
 
-      if (formattedBalance === 0) {
+      if (formattedBalance <= 1) {
         await getFunds(account as string);
       }
 
       dispatch(deployingDocStore(provider));
-      setActiveStep("form");
-      setLoading(false);
     } catch (e) {
       setLoading(false);
       if (e instanceof Error) {
@@ -36,6 +35,13 @@ export const DemoCreateStart: FunctionComponent = () => {
       }
     }
   };
+
+  React.useEffect(() => {
+    if (deployedDocStoreStatus === "success") {
+      setLoading(false);
+      setActiveStep("form");
+    }
+  }, [deployedDocStoreStatus, setActiveStep]);
 
   return (
     <>
