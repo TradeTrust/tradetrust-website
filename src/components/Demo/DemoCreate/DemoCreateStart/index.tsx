@@ -22,7 +22,7 @@ export const DemoCreateStart: FunctionComponent = () => {
       const balance = await provider.getBalance("latest");
       const formattedBalance = Number(ethers.utils.formatEther(balance));
 
-      if (formattedBalance === 0) {
+      if (formattedBalance <= 1) {
         await getFunds(account as string);
       }
 
