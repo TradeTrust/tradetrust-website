@@ -7,6 +7,6 @@ thumbnail: /static/uploads/5.5.jpg
 
 ![](/static/uploads/tfg..jpg)
 
-Read the full article at article 5.5, Trade Finance Talks Issue 7 - 2021. 
+Read the full article at section 5.5, Trade Finance Talks Issue 7 - 2021. 
 
-You may download it at https://www.tradefinanceglobal.com/trade-finance-talks/issue-7-autumn-2021/
+You may download it at <https://www.tradefinanceglobal.com/trade-finance-talks/issue-7-autumn-2021/>
