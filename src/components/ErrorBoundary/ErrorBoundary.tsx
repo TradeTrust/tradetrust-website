@@ -24,15 +24,19 @@ export class ErrorBoundary extends Component<Record<string, unknown>, ErrorBound
     if (this.state.hasError) {
       return (
         <ErrorPage
-          title="Something went wrong"
+          pageTitle="ERROR"
+          header="Something Went Wrong"
           description="There is an error with this document, please contact your issuing institution."
+          image="/static/images/errorpage/error-boundary.png"
         >
-          <Link
-            className="mt-4 inline-block px-8 py-4 bg-cerulean-50 hover:bg-tangerine-600 text-white hover:text-white border-none rounded-full font-semibold uppercase no-underline transition duration-300 ease-out text-sm"
-            to="/"
-          >
-            Go back to home
-          </Link>
+          <h3 className="font-normal my-2 sm:my-4 text-lg sm:text-2xl">
+            Go to
+            <Link className="text-cerulean-200" to="/">
+              {" "}
+              Homepage
+            </Link>
+            ?
+          </h3>
         </ErrorPage>
       );
     }
