@@ -71,19 +71,21 @@ export function* retrieveCertificateByAction({ payload: { uri, key: payloadKey }
     if (!certificate) {
       throw new Error(`Certificate at address ${uri} is empty`);
     }
-    // if there is a key and the type is "OPEN-ATTESTATION-TYPE-1", let's use oa-encryption
-    if (key && certificate.type === "OPEN-ATTESTATION-TYPE-1") {
-      certificate = JSON.parse(
-        decryptString({
+
+    // will only decrypt if type is `OPEN-ATTESTATION-TYPE-1`, so far only oa-encryption uses this
+    if (certificate.type === "OPEN-ATTESTATION-TYPE-1") {
+      if (key) {
+        const decryptedCertificate = decryptString({
           tag: certificate.tag,
           cipherText: certificate.cipherText,
           iv: certificate.iv,
           key,
           type: certificate.type,
-        })
-      );
-    } else if (key || certificate.type) {
-      throw new Error(`Unable to decrypt certificate with key=${key} and type=${certificate.type}`);
+        });
+        certificate = JSON.parse(decryptedCertificate);
+      } else {
+        throw new Error(`Unable to decrypt certificate with key=${key} and type=${certificate.type}`);
+      }
     }
 
     yield put({
