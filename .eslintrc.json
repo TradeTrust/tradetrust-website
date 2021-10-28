@@ -18,6 +18,8 @@
     }
   },
   "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react/self-closing-comp": "error",
     "array-callback-return": "error",

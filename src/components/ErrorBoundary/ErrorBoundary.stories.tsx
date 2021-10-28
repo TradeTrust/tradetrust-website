@@ -1,5 +1,5 @@
 import { createBrowserHistory } from "history";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Router } from "react-router-dom";
 import { ErrorBoundary } from "./ErrorBoundary";
 
@@ -13,29 +13,17 @@ export default {
   },
 };
 
-const ChildSuccess = () => {
-  return <p>success</p>;
-};
-
-const ChildErrored = () => {
-  throw "Error thrown from child";
+const ErrorComponent: FunctionComponent = () => {
+  throw new Error(
+    "Error!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  );
 };
 
 export const Default = () => {
   return (
     <Router history={history}>
       <ErrorBoundary>
-        <ChildSuccess />
-      </ErrorBoundary>
-    </Router>
-  );
-};
-
-export const Error = () => {
-  return (
-    <Router history={history}>
-      <ErrorBoundary>
-        <ChildErrored />
+        <ErrorComponent />
       </ErrorBoundary>
     </Router>
   );

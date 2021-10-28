@@ -1,10 +1,21 @@
 import debug from "debug";
 
-// not using .extends because of stupid next.js resolve modules bug where its picking up old version of debug
-export const trace = (namespace: string): debug.Debugger => debug(`tradetrust-website:trace:${namespace}`);
-export const error = (namespace: string): debug.Debugger => debug(`tradetrust-website:error:${namespace}`);
+const creator = debug("tradetrust-website");
 
-export const getLogger = (namespace: string): { trace: debug.Debugger; error: debug.Debugger } => ({
-  trace: trace(namespace),
-  error: error(namespace),
+const trace = creator.extend("trace");
+const error = creator.extend("error");
+
+export const stack =
+  (namespace: string) =>
+  (err: Error): void => {
+    error.extend(namespace)(err.message);
+    error.extend(namespace)(err.stack);
+  };
+
+export const getLogger = (
+  namespace: string
+): { trace: debug.Debugger; error: debug.Debugger; stack: (error: Error) => void } => ({
+  trace: trace.extend(namespace),
+  error: error.extend(namespace),
+  stack: stack(namespace),
 });

@@ -1,9 +1,13 @@
 import { ErrorPage } from "@govtechsg/tradetrust-ui-components";
-import React, { Component } from "react";
+import React, { Component, ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { getLogger } from "../../utils/logger";
+
+const { stack } = getLogger("component:errorBoundary");
 
 interface ErrorBoundaryState {
   hasError: boolean;
+  error?: Error;
 }
 
 export class ErrorBoundary extends Component<Record<string, unknown>, ErrorBoundaryState> {
@@ -12,31 +16,35 @@ export class ErrorBoundary extends Component<Record<string, unknown>, ErrorBound
     this.state = { hasError: false };
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  componentDidCatch() {
-    this.setState({
-      hasError: true,
-    });
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  render() {
-    if (this.state.hasError) {
-      return (
-        <ErrorPage
-          title="Something went wrong"
-          description="There is an error with this document, please contact your issuing institution."
-        >
-          <Link
-            className="mt-4 inline-block px-8 py-4 bg-cerulean-50 hover:bg-tangerine-600 text-white hover:text-white border-none rounded-full font-semibold uppercase no-underline transition duration-300 ease-out text-sm"
-            to="/"
-          >
-            Go back to home
-          </Link>
-        </ErrorPage>
-      );
-    }
+  componentDidCatch(error: Error): void {
+    stack(error);
+  }
 
-    return this.props.children;
+  render(): ReactNode {
+    const error = this.state.error;
+    const description = error?.message ? error.message : "TradeTrust has encountered an issue.";
+    return this.state.hasError ? (
+      <ErrorPage
+        pageTitle="ERROR"
+        header="Something Went Wrong"
+        description={description}
+        image="/static/images/errorpage/error-boundary.png"
+      >
+        <h3 className="font-normal my-2 sm:my-4 text-lg sm:text-2xl">
+          Go to
+          <Link className="text-cerulean-200" to="/">
+            {" "}
+            Homepage
+          </Link>
+          ?
+        </h3>
+      </ErrorPage>
+    ) : (
+      this.props.children
+    );
   }
 }
