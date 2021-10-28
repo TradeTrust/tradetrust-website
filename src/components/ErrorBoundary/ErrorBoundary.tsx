@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<Record<string, unknown>, ErrorBound
 
   render(): ReactNode {
     const error = this.state.error;
-    const description = error?.message ? error.message : "TradeTrust has encountered an issue, please try again later.";
+    const description = error?.message ? error.message : "TradeTrust has encountered an issue.";
     return this.state.hasError ? (
       <ErrorPage
         pageTitle="ERROR"
