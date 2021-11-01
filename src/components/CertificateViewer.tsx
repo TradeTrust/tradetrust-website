@@ -104,10 +104,14 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
     <>
       <div className="no-print">
         {!isTransferableDocument && <DocumentStatus isMagicDemo={isMagicDemo} />}
-        {isSampleDocument && (
+        {(isSampleDocument || isMagicDemo) && (
           <Banner
             className="mt-8"
-            title="Want to try creating a verifiable document? You will be surprised how easy it is."
+            title={
+              isMagicDemo
+                ? "Ready to learn how TradeTrust can benefit your business?"
+                : "Want to try creating a verifiable document? You will be surprised how easy it is."
+            }
           />
         )}
         <ObfuscatedMessage document={document} />
