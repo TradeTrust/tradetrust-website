@@ -51,18 +51,19 @@ export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenA
 };
 
 interface IssuedByProps {
+  title: string;
   verificationStatus: VerificationFragment[];
   document: WrappedOrSignedOpenAttestationDocument;
 }
 
-export const IssuedBy: FunctionComponent<IssuedByProps> = ({ verificationStatus, document }) => {
+export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title, verificationStatus, document }) => {
   const formattedDomainNames = oaUtils.isWrappedV2Document(document)
     ? getV2FormattedDomainNames(verificationStatus)
     : getV3IdentityVerificationText(document);
   return (
-    <h2 id="issuedby" className="mb-0 text-cloud-900 text-lg font-semibold">
-      <span className="mr-1 inline-block break-all">Issued by</span>
-      <span className="text-cerulean inline-block break-all">{formattedDomainNames}</span>
+    <h2 id="issuedby" className="break-words leading-tight">
+      <span className="mr-2 inline-block break-all">{title}</span>
+      <span className="text-cerulean inline-block">{formattedDomainNames}</span>
     </h2>
   );
 };
@@ -85,7 +86,13 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ isMagic
       <div id="document-status" className="py-4">
         <div className="flex flex-col">
           <div className="flex-grow">
-            {NETWORK_NAME !== "local" && <IssuedBy verificationStatus={verificationStatus} document={document} />}
+            {NETWORK_NAME !== "local" && (
+              <IssuedBy
+                title={isMagicDemo ? "Demo issued by" : "Issued by"}
+                verificationStatus={verificationStatus}
+                document={document}
+              />
+            )}
           </div>
           <StatusChecks verificationStatus={verificationStatus} />
         </div>
