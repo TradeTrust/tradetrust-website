@@ -51,12 +51,12 @@ export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenA
 };
 
 interface IssuedByProps {
-  title: string;
+  title?: string;
   verificationStatus: VerificationFragment[];
   document: WrappedOrSignedOpenAttestationDocument;
 }
 
-export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title, verificationStatus, document }) => {
+export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by", verificationStatus, document }) => {
   const formattedDomainNames = oaUtils.isWrappedV2Document(document)
     ? getV2FormattedDomainNames(verificationStatus)
     : getV3IdentityVerificationText(document);
