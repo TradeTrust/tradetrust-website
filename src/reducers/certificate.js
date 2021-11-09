@@ -16,7 +16,7 @@ export const initialState = {
   verificationError: null,
 
   retrieveCertificateByActionState: states.INITIAL,
-  retrieveCertificateByActionStateError: null,
+  retrieveCertificateByActionError: null,
 };
 
 // Actions

@@ -3,6 +3,15 @@ import { VerificationFragment } from "@govtechsg/oa-verify";
 import { interpretFragments } from "../../../services/verify/fragments";
 import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
 
+export const DetailedError: FunctionComponent<{ title: string; message: string }> = ({ title, message }) => {
+  return (
+    <div className="my-2">
+      <h4 className="text-red-500 mb-0">{title}</h4>
+      <p className="text-gray-700 break-words">{message}</p>
+    </div>
+  );
+};
+
 export const DetailedErrors: FunctionComponent<{ verificationStatus: VerificationFragment[] | null }> = ({
   verificationStatus,
 }) => {
@@ -23,10 +32,11 @@ export const DetailedErrors: FunctionComponent<{ verificationStatus: Verificatio
   return (
     <div className="mb-8">
       {errors.map((errorType, index) => (
-        <div key={index} className="my-2">
-          <h4 className="text-red-500 mb-0">{MESSAGES[errorType].failureTitle}</h4>
-          <p className="text-gray-700 break-words">{MESSAGES[errorType].failureMessage}</p>
-        </div>
+        <DetailedError
+          key={index}
+          title={MESSAGES[errorType].failureTitle}
+          message={MESSAGES[errorType].failureMessage}
+        />
       ))}
     </div>
   );

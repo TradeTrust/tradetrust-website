@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback } from "react";
+import React, { FunctionComponent, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
@@ -8,46 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 import { DetailedErrors } from "../DocumentDropzone/DetailedErrors";
 import { updateDemoDocument, resetDemoState } from "../../reducers/demo-verify";
-
-enum MagicDropzoneState {
-  DRAG_REJECT = "border-red-400 bg-red-100",
-  DRAG_ACTIVE = "border-green-400 bg-green-50",
-  DRAG_ACCEPT = "border-green-400 bg-green-50",
-  PENDING = "border-cloud-100 bg-white",
-  ERROR = "border-red-400 bg-red-100",
-  DEFAULT = "border-cloud-100 bg-white",
-}
-
-interface GetMagicDropzoneBoxUi {
-  isDragReject: boolean;
-  isDragActive: boolean;
-  isDragAccept: boolean;
-  isPending: boolean;
-  isError: boolean | null;
-}
-
-const getMagicDropzoneBoxUi = ({
-  isDragReject,
-  isDragActive,
-  isDragAccept,
-  isPending,
-  isError,
-}: GetMagicDropzoneBoxUi) => {
-  switch (true) {
-    case isDragReject:
-      return MagicDropzoneState.DRAG_REJECT;
-    case isDragActive:
-      return MagicDropzoneState.DRAG_ACTIVE;
-    case isDragAccept:
-      return MagicDropzoneState.DRAG_ACCEPT;
-    case isPending:
-      return MagicDropzoneState.PENDING;
-    case isError:
-      return MagicDropzoneState.ERROR;
-    default:
-      return MagicDropzoneState.DEFAULT;
-  }
-};
+import { getDropzoneBoxUi } from "./../../common/utils/getDropzoneBoxUi";
 
 interface MagicDropzoneViewProps {
   isPending: boolean;
@@ -124,9 +85,10 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
 
 export const MagicDropzone: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const isPending = useSelector((state: RootState) => state.demoVerify.verificationPending);
-  const verificationStatus = useSelector((state: RootState) => state.demoVerify.verificationStatus);
-  const isError = verificationStatus && !isValid(verificationStatus);
+  const { verificationPending, verificationStatus } = useSelector((state: RootState) => state.demoVerify);
+
+  const isVerificationPending = verificationPending;
+  const isVerificationError = verificationStatus && !isValid(verificationStatus);
 
   const onDrop = useCallback(
     (acceptedFiles: Blob[]) => {
@@ -154,21 +116,22 @@ export const MagicDropzone: FunctionComponent = () => {
     multiple: false,
     // accept: "application/json", // TODO: https://react-dropzone.js.org/#!/Accepting%20specific%20file%20types
   });
-  const dropzoneBoxUi = getMagicDropzoneBoxUi({
-    isPending,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-    isError,
-  });
+
+  const customStyle = useMemo(() => {
+    return getDropzoneBoxUi({ isDragReject, isDragActive, isDragAccept, isVerificationPending, isVerificationError });
+  }, [isDragReject, isDragActive, isDragAccept, isVerificationPending, isVerificationError]);
 
   return (
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       <div
-        className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-400 flex flex-col justify-center ${dropzoneBoxUi}`}
+        className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-400 flex flex-col justify-center ${customStyle}`}
       >
-        <MagicDropzoneView isPending={isPending} isError={isError} resetDocument={resetDemoState} />
+        <MagicDropzoneView
+          isPending={isVerificationPending}
+          isError={isVerificationError}
+          resetDocument={resetDemoState}
+        />
       </div>
     </div>
   );

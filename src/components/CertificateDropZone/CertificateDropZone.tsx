@@ -1,112 +1,88 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import Dropzone from "react-dropzone";
-import { DefaultView } from "./Views/DefaultView";
-import { isValid, VerificationFragment } from "@govtechsg/oa-verify";
-import { UnverifiedView } from "./Views/UnverifiedView";
-import { VerifyingView } from "./Views/VerifyingView";
+import React, { FunctionComponent, useCallback, useMemo } from "react";
+import { isValid } from "@govtechsg/oa-verify";
+import { useDropzone } from "react-dropzone";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../reducers";
+import { updateCertificate, resetCertificateState, states } from "../../reducers/certificate";
+import { getDropzoneBoxUi } from "./../../common/utils/getDropzoneBoxUi";
+import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "./../DocumentDropzone/Views";
 
-interface DropzoneStateProps {
-  fileError?: boolean;
-  verifying?: boolean;
-  verificationStatus?: VerificationFragment[];
-  verificationError?: string;
-  retrieveCertificateByActionError?: string;
-  resetData: () => void;
+interface CertificateDropzoneProps {
   toggleQrReaderVisible?: () => void;
 }
 
-interface DropzoneContentProps extends DropzoneStateProps {
-  isDragAccept: boolean;
-  isDragReject: boolean;
-}
-
-export const DropzoneContent: FunctionComponent<DropzoneContentProps> = ({
-  verifying,
-  fileError,
-  verificationStatus,
-  retrieveCertificateByActionError,
-  verificationError,
-  resetData,
-  toggleQrReaderVisible,
-  isDragAccept,
-  isDragReject,
-}) => {
-  // isDragReject is checking for mimetype (but we skipped it)
-  // fileError is when the file is not in JSON format and threw when deserilising
-  // valid JSON files will be handled by handleCertificateChange()
-
-  // change in prop does not update state, needs to update state
-  const [verificationErrorMessage, setVerificationError] = useState(verificationError);
-  useEffect(() => {
-    setVerificationError(verificationError);
-  }, [verificationError]);
-
-  if (isDragReject || fileError) {
-    return <DefaultView hover={true} accept={false} toggleQrReaderVisible={toggleQrReaderVisible} />;
-  }
-  if (isDragAccept) {
-    return <DefaultView hover={true} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
-  }
-  if (verificationError) {
-    return (
-      <DefaultView
-        hover={true}
-        accept={true}
-        toggleQrReaderVisible={toggleQrReaderVisible}
-        verificationError={verificationErrorMessage}
-      />
-    );
-  }
-  if (verifying) {
-    return <VerifyingView />;
-  }
-  if (!!retrieveCertificateByActionError) {
-    return <UnverifiedView resetData={resetData} retrieveCertificateByActionError={retrieveCertificateByActionError} />;
-  }
-  if (verificationStatus && !isValid(verificationStatus)) {
-    return <UnverifiedView verificationStatus={verificationStatus} resetData={resetData} />;
-  }
-  return <DefaultView hover={false} accept={true} toggleQrReaderVisible={toggleQrReaderVisible} />;
-};
-
-const onFileDrop = (
-  acceptedFiles: Blob[],
-  handleCertificateChange: (json: string) => void,
-  handleFileError: (error: any) => void
-) => {
-  const reader = new FileReader();
-  if (reader.error) {
-    handleFileError(reader.error as any);
-  }
-  reader.onload = () => {
-    try {
-      const json = JSON.parse(reader.result as string);
-      handleCertificateChange(json);
-    } catch (e) {
-      handleFileError(e);
-    }
-  };
-  if (acceptedFiles && acceptedFiles.length && acceptedFiles.length > 0)
-    acceptedFiles.map((f: Blob) => reader.readAsText(f));
-};
-
-interface CertificateDropzoneProps extends DropzoneStateProps {
-  handleCertificateChange: (certificate: any) => void;
-  handleFileError: () => void;
-}
-
 export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = (props) => {
-  const { handleCertificateChange, handleFileError } = props;
+  const { toggleQrReaderVisible } = props;
+  const dispatch = useDispatch();
+  const { verificationPending, verificationStatus, retrieveCertificateByActionState } = useSelector(
+    (state: RootState) => state.certificate
+  );
+
+  const isVerificationPending = verificationPending;
+  const isVerificationError = verificationStatus && !isValid(verificationStatus);
+  const isActionError = retrieveCertificateByActionState === states.FAILURE;
+
+  const resetData = useCallback(() => {
+    dispatch(resetCertificateState());
+  }, [dispatch]);
+
+  const onDrop = useCallback(
+    (acceptedFiles: Blob[]) => {
+      acceptedFiles.forEach((file: Blob) => {
+        const reader = new FileReader();
+
+        reader.onabort = () => console.log("file reading was aborted");
+        reader.onerror = () => console.log("file reading has failed");
+        reader.onload = () => {
+          try {
+            const json = JSON.parse(reader.result as string);
+            dispatch(updateCertificate(json));
+          } catch (e) {
+            console.error(e);
+          }
+        };
+        reader.readAsText(file);
+      });
+    },
+    [dispatch]
+  );
+
+  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
+    onDrop,
+    multiple: false,
+    // accept: "application/json", // TODO: https://react-dropzone.js.org/#!/Accepting%20specific%20file%20types
+  });
+
+  const customStyle = useMemo(() => {
+    return getDropzoneBoxUi({
+      isDragReject,
+      isDragActive,
+      isDragAccept,
+      isVerificationPending,
+      isVerificationError,
+      isActionError,
+    });
+  }, [isDragReject, isDragActive, isDragAccept, isVerificationPending, isVerificationError, isActionError]);
+
   return (
-    <div data-testid="certificate-dropzone" className="w-full h-auto px-4">
-      <Dropzone onDrop={(acceptedFiles) => onFileDrop(acceptedFiles, handleCertificateChange, handleFileError)}>
-        {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => (
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            <DropzoneContent {...props} isDragAccept={isDragAccept} isDragReject={isDragReject} />
-          </div>
-        )}
-      </Dropzone>
+    <div data-testid="certificate-dropzone" {...getRootProps()}>
+      <input {...getInputProps()} />
+      <div
+        className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-400 flex flex-col justify-center ${customStyle}`}
+      >
+        {(() => {
+          switch (true) {
+            case isVerificationPending:
+              return <ViewVerificationPending />;
+            case isVerificationError:
+              return <ViewVerificationError resetData={resetData} />;
+            case isActionError:
+              return <ViewActionError resetData={resetData} />;
+            default:
+              return <View toggleQrReaderVisible={toggleQrReaderVisible} />;
+          }
+        })()}
+      </div>
     </div>
   );
 };

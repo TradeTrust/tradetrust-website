@@ -8,11 +8,38 @@ import {
   whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentHashInvalidAndNotIssued,
 } from "../../test/fixture/verifier-responses";
-import { VerificationFragment } from "@govtechsg/oa-verify";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
+import { states } from "../../reducers/certificate";
 
-const store = configureStore();
+const RenderWithStore = ({ children, ...props }: any) => {
+  const {
+    raw,
+    rawModified,
+    verificationStatus,
+    verificationPending,
+    verificationError,
+    retrieveCertificateByActionState,
+    retrieveCertificateByActionError,
+  } = props;
+
+  const store = configureStore({
+    certificate: {
+      raw,
+      rawModified,
+      verificationStatus,
+      verificationPending,
+      verificationError,
+      retrieveCertificateByActionState,
+      retrieveCertificateByActionError,
+    },
+  });
+  return (
+    <Provider store={store}>
+      <Router>{children}</Router>
+    </Provider>
+  );
+};
 
 export default {
   title: "Dropzone/CertificateDropZone",
@@ -24,132 +51,67 @@ export default {
 
 export const Ready = () => {
   return (
-    <Provider store={store}>
-      <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} resetData={() => {}} />
-    </Provider>
+    <RenderWithStore verificationStatus={null}>
+      <CertificateDropZone />
+    </RenderWithStore>
   );
 };
 
 export const Verifying = () => {
   return (
-    <Provider store={store}>
-      <CertificateDropZone
-        handleCertificateChange={() => {}}
-        handleFileError={() => {}}
-        verifying={true}
-        resetData={() => {}}
-      />
-    </Provider>
+    <RenderWithStore verificationPending={true}>
+      <CertificateDropZone />
+    </RenderWithStore>
   );
 };
 
 export const AllVerificationErrors = () => {
   return (
-    <Router>
-      <CertificateDropZone
-        handleCertificateChange={() => {}}
-        handleFileError={() => {}}
-        verifying={false}
-        verificationStatus={whenDocumentHashInvalidAndNotIssued as VerificationFragment[]}
-        resetData={() => {}}
-      />
-    </Router>
+    <RenderWithStore verificationStatus={whenDocumentHashInvalidAndNotIssued}>
+      <CertificateDropZone />
+    </RenderWithStore>
   );
 };
 
 export const InvalidHash = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <CertificateDropZone
-          handleCertificateChange={() => {}}
-          handleFileError={() => {}}
-          verifying={false}
-          verificationStatus={whenDocumentHashInvalid as VerificationFragment[]}
-          resetData={() => {}}
-        />
-      </Router>
-    </Provider>
+    <RenderWithStore verificationStatus={whenDocumentHashInvalid}>
+      <CertificateDropZone />
+    </RenderWithStore>
   );
 };
 
 export const NotIssued = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <CertificateDropZone
-          handleCertificateChange={() => {}}
-          handleFileError={() => {}}
-          verifying={false}
-          verificationStatus={whenDocumentNotIssued as VerificationFragment[]}
-          resetData={() => {}}
-        />
-      </Router>
-    </Provider>
-  );
-};
-
-export const Revoked = () => {
-  return (
-    <Provider store={store}>
-      <Router>
-        <CertificateDropZone
-          handleCertificateChange={() => {}}
-          handleFileError={() => {}}
-          verifying={false}
-          verificationStatus={whenDocumentRevoked as VerificationFragment[]}
-          resetData={() => {}}
-        />
-      </Router>
-    </Provider>
+    <RenderWithStore verificationStatus={whenDocumentNotIssued}>
+      <CertificateDropZone />
+    </RenderWithStore>
   );
 };
 
 export const IssuerIdentityInvalid = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <CertificateDropZone
-          handleCertificateChange={() => {}}
-          handleFileError={() => {}}
-          verifying={false}
-          verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]}
-          resetData={() => {}}
-        />
-      </Router>
-    </Provider>
+    <RenderWithStore verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt}>
+      <CertificateDropZone />
+    </RenderWithStore>
   );
 };
 
-export const FileError = () => {
+export const Revoked = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <CertificateDropZone
-          handleCertificateChange={() => {}}
-          handleFileError={() => {}}
-          verifying={false}
-          fileError={true}
-          resetData={() => {}}
-        />
-      </Router>
-    </Provider>
+    <RenderWithStore verificationStatus={whenDocumentRevoked}>
+      <CertificateDropZone />
+    </RenderWithStore>
   );
 };
 
-export const QrCodeError = () => {
+export const ActionError = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <CertificateDropZone
-          handleCertificateChange={() => {}}
-          handleFileError={() => {}}
-          verifying={false}
-          fileError={false}
-          verificationError={"QR Code is not formatted to TradeTrust specifications"}
-          resetData={() => {}}
-        />
-      </Router>
-    </Provider>
+    <RenderWithStore
+      retrieveCertificateByActionState={states.FAILURE}
+      retrieveCertificateByActionError={`Unable to decrypt certificate with key=undefined and type=OPEN-ATTESTATION-TYPE-1`}
+    >
+      <CertificateDropZone />
+    </RenderWithStore>
   );
 };
