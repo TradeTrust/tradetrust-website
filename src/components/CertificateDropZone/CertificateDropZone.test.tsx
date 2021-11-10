@@ -12,7 +12,7 @@ const renderWithStore = (additionalProps: any) => {
   return render(
     <Provider store={store}>
       <CertificateDropZoneContainer {...additionalProps}>
-        <CertificateDropZone handleCertificateChange={() => {}} handleFileError={() => {}} resetData={() => {}} />
+        <CertificateDropZone />
       </CertificateDropZoneContainer>
     </Provider>
   );
@@ -22,7 +22,7 @@ describe("CertificateDropZone", () => {
     renderWithStore({
       updateNetworkId: () => {},
     });
-    fireEvent.click(screen.getByTestId("scan-qr-button"));
+    fireEvent.click(screen.getByText("Scan QR Code"));
     expect(screen.getByTestId("qr-code-reader")).not.toBeNull();
   });
 

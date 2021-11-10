@@ -2,12 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setActive } from "../../../reducers/sample";
 import { updateCertificate } from "../../../reducers/certificate";
-import { loadDemoCertificate } from "../../../components/VerifyPageContent/helpers";
+import { loadDemoCertificate } from "../../VerifyPageContent/helpers";
 
 const topMessage = "To verify a demo document";
 const btnMessage = "Click Here";
 const bottomMessage = "or";
-export const DemoCertMobile = (): React.ReactElement => {
+
+export const SampleMobile = (): React.ReactElement => {
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
   return (

@@ -1,6 +1,5 @@
 import React from "react";
-
-import { render, fireEvent } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
 import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
@@ -19,8 +18,7 @@ const renderWithStore = (additionalProps: any) => {
 describe("certificateDropZoneContainer", () => {
   it("toggles qrReaderVisible when toggleQrReaderVisible is called", () => {
     const { getByTestId } = renderWithStore({ updateNetworkId: () => {} });
-    const qrToggle = getByTestId("scan-qr-button");
-    fireEvent.click(qrToggle);
+    fireEvent.click(screen.getByText("Scan QR Code"));
     expect(getByTestId("qr-code-reader")).toBeInTheDocument();
   });
 });
