@@ -7,6 +7,12 @@ import {
   whenDocumentNotIssued,
   whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentHashInvalidAndNotIssued,
+  whenDocumentAddressInvalid,
+  whenDocumentNotFound,
+  whenInvalidCallArgument,
+  whenServerError,
+  whenUnhandledError,
+  whenDocumentInvalid,
 } from "../../test/fixture/verifier-responses";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
@@ -49,69 +55,89 @@ export default {
   },
 };
 
-export const Ready = () => {
-  return (
-    <RenderWithStore verificationStatus={null}>
-      <CertificateDropZone />
-    </RenderWithStore>
-  );
-};
+export const Ready = () => (
+  <RenderWithStore verificationStatus={null}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
 
-export const Verifying = () => {
-  return (
-    <RenderWithStore verificationPending={true}>
-      <CertificateDropZone />
-    </RenderWithStore>
-  );
-};
+export const Verifying = () => (
+  <RenderWithStore verificationPending={true}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
 
-export const AllVerificationErrors = () => {
-  return (
-    <RenderWithStore verificationStatus={whenDocumentHashInvalidAndNotIssued}>
-      <CertificateDropZone />
-    </RenderWithStore>
-  );
-};
+export const AllVerificationErrors = () => (
+  <RenderWithStore verificationStatus={whenDocumentHashInvalidAndNotIssued}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
 
-export const InvalidHash = () => {
-  return (
-    <RenderWithStore verificationStatus={whenDocumentHashInvalid}>
-      <CertificateDropZone />
-    </RenderWithStore>
-  );
-};
+export const InvalidHash = () => (
+  <RenderWithStore verificationStatus={whenDocumentHashInvalid}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
 
-export const NotIssued = () => {
-  return (
-    <RenderWithStore verificationStatus={whenDocumentNotIssued}>
-      <CertificateDropZone />
-    </RenderWithStore>
-  );
-};
+export const NotIssued = () => (
+  <RenderWithStore verificationStatus={whenDocumentNotIssued}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
 
-export const IssuerIdentityInvalid = () => {
-  return (
-    <RenderWithStore verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt}>
-      <CertificateDropZone />
-    </RenderWithStore>
-  );
-};
+export const IssuerIdentityInvalid = () => (
+  <RenderWithStore verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
 
-export const Revoked = () => {
-  return (
-    <RenderWithStore verificationStatus={whenDocumentRevoked}>
-      <CertificateDropZone />
-    </RenderWithStore>
-  );
-};
+export const Revoked = () => (
+  <RenderWithStore verificationStatus={whenDocumentRevoked}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
 
-export const ActionError = () => {
-  return (
-    <RenderWithStore
-      retrieveCertificateByActionState={states.FAILURE}
-      retrieveCertificateByActionError={`Unable to decrypt certificate with key=undefined and type=OPEN-ATTESTATION-TYPE-1`}
-    >
-      <CertificateDropZone />
-    </RenderWithStore>
-  );
-};
+export const ActionError = () => (
+  <RenderWithStore
+    retrieveCertificateByActionState={states.FAILURE}
+    retrieveCertificateByActionError={`Unable to decrypt certificate with key=undefined and type=OPEN-ATTESTATION-TYPE-1`}
+  >
+    <CertificateDropZone />
+  </RenderWithStore>
+);
+
+export const InvalidDocument = () => (
+  <RenderWithStore verificationStatus={whenDocumentInvalid}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
+
+export const AddressInvalidError = () => (
+  <RenderWithStore verificationStatus={whenDocumentAddressInvalid}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
+
+export const ContractNotFoundError = () => (
+  <RenderWithStore verificationStatus={whenDocumentNotFound}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
+
+export const InvalidArgumentError = () => (
+  <RenderWithStore verificationStatus={whenInvalidCallArgument}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
+
+export const ServerError = () => (
+  <RenderWithStore verificationStatus={whenServerError}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);
+
+export const UnhandledError = () => (
+  <RenderWithStore verificationStatus={whenUnhandledError}>
+    <CertificateDropZone />
+  </RenderWithStore>
+);

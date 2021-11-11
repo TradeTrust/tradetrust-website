@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { interpretFragments } from "../../../services/verify/fragments";
+import { errorMessageHandling } from "../../../services/verify/fragments";
 import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
 
 export const DetailedError: FunctionComponent<{ title: string; message: string }> = ({ title, message }) => {
@@ -17,14 +17,10 @@ export const DetailedErrors: FunctionComponent<{ verificationStatus: Verificatio
 }) => {
   if (!verificationStatus) return null;
 
-  const errors = [];
+  let errors: string[] = [];
 
   try {
-    const { hashValid, issuedValid, identityValid, revokedValid } = interpretFragments(verificationStatus);
-
-    if (!hashValid) errors.push(TYPES.HASH);
-    if (!issuedValid || !revokedValid) errors.push(TYPES.ISSUED);
-    if (!identityValid) errors.push(TYPES.IDENTITY);
+    errors = errorMessageHandling(verificationStatus);
   } catch (e) {
     errors.push(TYPES.INVALID);
   }

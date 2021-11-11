@@ -1,75 +1,83 @@
-import { put, select } from "redux-saga/effects";
-import { types, getCertificate } from "../reducers/certificate";
+import * as certificate from "../reducers/certificate";
+import * as verify from "../services/verify";
 import { verifyCertificate } from "./certificate";
 import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalidAndNotIssued,
+  whenDocumentRevoked,
 } from "../test/fixture/verifier-responses";
-import { history } from "../history";
+import { runSaga } from "redux-saga";
 
-jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
+async function recordSaga(saga, initialAction) {
+  const dispatched = [];
+  await runSaga(
+    {
+      getState: () => ({ demo: { rawModifiedDocument: "DOCUMENT_OBJECT" } }),
+      dispatch: (action) => dispatched.push(action),
+    },
+    saga,
+    initialAction
+  ).done;
+
+  return dispatched;
+}
 
 describe("verifyCertificate", () => {
-  it("verifies the document and change the router to /viewer when verification passes", () => {
-    jest.spyOn(history, "push");
-    const generator = verifyCertificate();
-
-    // Should dispatch VERIFYING_CERTIFICATE first
-    const verifyingAction = generator.next().value;
-    expect(verifyingAction).toStrictEqual(
-      put({
-        type: types.VERIFYING_CERTIFICATE,
-      })
-    );
-
-    // Should get the document to be verified from the store next
-    const selectCertificate = generator.next().value;
-    expect(selectCertificate).toStrictEqual(select(getCertificate));
-
-    generator.next("CERTIFICATE_OBJECT");
-
-    // Should mark verification as completed and report the payload
-    const verificationCompletionAction = generator.next(whenDocumentValidAndIssuedByDns).value;
-    expect(verificationCompletionAction).toStrictEqual(
-      put({
-        type: types.VERIFYING_CERTIFICATE_COMPLETED,
-        payload: whenDocumentValidAndIssuedByDns,
-      })
-    );
-
-    // If verification passes, update the router
-    generator.next();
-    expect(history.push).toHaveBeenCalledWith("/viewer");
-    expect(generator.next().done).toStrictEqual(true);
+  beforeEach(() => {
+    jest.resetAllMocks();
   });
 
-  it("verifies the document and dont change the router to /viewer when verification fails", () => {
-    const generator = verifyCertificate();
+  it("should verify the document and change the router to /viewer when verification passes", async () => {
+    const initialAction = { type: certificate.types.UPDATE_CERTIFICATE };
+    const getCertificate = jest
+      .spyOn(certificate, "getCertificate")
+      .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+    const verifyDocument = jest
+      .spyOn(verify, "verifyDocument")
+      .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+    const dispatched = await recordSaga(verifyCertificate, initialAction);
 
-    // Should dispatch VERIFYING_CERTIFICATE first
-    const verifyingAction = generator.next().value;
-    expect(verifyingAction).toStrictEqual(
-      put({
-        type: types.VERIFYING_CERTIFICATE,
-      })
-    );
+    expect(getCertificate).toHaveBeenCalledTimes(1);
+    expect(verifyDocument).toHaveBeenCalledTimes(1);
+    expect(dispatched).toContainEqual({
+      type: certificate.types.VERIFYING_CERTIFICATE_COMPLETED,
+      payload: whenDocumentValidAndIssuedByDns,
+    });
+  });
 
-    // Should get the document to be verified from the store next
-    const selectCertificate = generator.next().value;
-    expect(selectCertificate).toStrictEqual(select(getCertificate));
+  it("should verify the document and do not update the router when verification fails", async () => {
+    const initialAction = { type: certificate.types.UPDATE_CERTIFICATE };
+    const getCertificate = jest
+      .spyOn(certificate, "getCertificate")
+      .mockImplementation(() => Promise.resolve(whenDocumentHashInvalidAndNotIssued));
+    const verifyDocument = jest
+      .spyOn(verify, "verifyDocument")
+      .mockImplementation(() => Promise.reject(new Error("Failed to verify document")));
+    const dispatched = await recordSaga(verifyCertificate, initialAction);
 
-    generator.next("CERTIFICATE_OBJECT");
+    expect(getCertificate).toHaveBeenCalledTimes(1);
+    expect(verifyDocument).toHaveBeenCalledTimes(1);
+    expect(dispatched).toContainEqual({
+      type: certificate.types.VERIFYING_CERTIFICATE_FAILURE,
+      payload: ["Failed to verify document"],
+    });
+  });
 
-    // Should mark verification as completed and report the payload
-    const verificationCompletionAction = generator.next(whenDocumentHashInvalidAndNotIssued).value;
-    expect(verificationCompletionAction).toStrictEqual(
-      put({
-        type: types.VERIFYING_CERTIFICATE_COMPLETED,
-        payload: whenDocumentHashInvalidAndNotIssued,
-      })
-    );
+  it("should verify document and return error message when fragments are invalid", async () => {
+    const initialAction = { type: certificate.types.UPDATE_CERTIFICATE };
+    const getCertificate = jest
+      .spyOn(certificate, "getCertificate")
+      .mockImplementation(() => Promise.resolve(whenDocumentRevoked));
+    const verifyDocument = jest
+      .spyOn(verify, "verifyDocument")
+      .mockImplementation(() => Promise.resolve(whenDocumentRevoked));
+    const dispatched = await recordSaga(verifyCertificate, initialAction);
 
-    // Does not update router if the validation failed
-    expect(generator.next().done).toStrictEqual(true);
+    expect(getCertificate).toHaveBeenCalledTimes(1);
+    expect(verifyDocument).toHaveBeenCalledTimes(1);
+    expect(dispatched).toContainEqual({
+      type: certificate.types.VERIFYING_CERTIFICATE_FAILURE,
+      payload: ["This document has been revoked by the issuing authority. Please contact them for more details."],
+    });
   });
 });

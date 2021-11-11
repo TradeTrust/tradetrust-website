@@ -47,28 +47,30 @@ export const whenDocumentHashInvalidAndNotIssued = [
     type: "DOCUMENT_STATUS",
   },
   {
+    name: "OpenAttestationEthereumDocumentStoreStatus",
+    type: "DOCUMENT_STATUS",
     data: {
       details: [
         {
-          address: "0x20bc9C354A18C8178A713B9BcCFFaC2152b53991",
+          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+          issued: false,
           reason: {
-            code: 2,
-            codeString: "CONTRACT_ADDRESS_INVALID",
-            message: "Contract address 0x20bc9C354A18C8178A713B9BcCFFaC2152b53991 is invalid",
+            code: 1,
+            codeString: "DOCUMENT_NOT_ISSUED",
+            message:
+              "Certificate 0xda7a25d51e62bc50e1c7cfa17f7be0e5df3428b96f584e5d021f0cd8da97306d has not been issued under contract 0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
           },
-          revoked: true,
         },
       ],
-      revokedOnAny: true,
+      issuedOnAll: false,
     },
     reason: {
-      code: 2,
-      codeString: "CONTRACT_ADDRESS_INVALID",
-      message: "Contract address 0x20bc9C354A18C8178A713B9BcCFFaC2152b53991 is invalid",
+      code: 1,
+      codeString: "DOCUMENT_NOT_ISSUED",
+      message:
+        "Certificate 0xda7a25d51e62bc50e1c7cfa17f7be0e5df3428b96f584e5d021f0cd8da97306d has not been issued under contract 0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
     },
     status: "INVALID",
-    name: "OpenAttestationEthereumDocumentStoreRevoked",
-    type: "DOCUMENT_STATUS",
   },
   {
     reason: {
@@ -104,7 +106,7 @@ export const whenDocumentHashInvalidAndNotIssued = [
 
 export const whenDocumentNotIssued = [
   {
-    name: "OpenAttestationEthereumDocumentStoreIssued",
+    name: "OpenAttestationEthereumDocumentStoreStatus",
     type: "DOCUMENT_STATUS",
     data: {
       details: [
@@ -146,20 +148,6 @@ export const whenDocumentNotIssued = [
     type: "DOCUMENT_STATUS",
   },
   {
-    data: {
-      details: [
-        {
-          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
-          revoked: false,
-        },
-      ],
-      revokedOnAny: false,
-    },
-    status: "VALID",
-    name: "OpenAttestationEthereumDocumentStoreRevoked",
-    type: "DOCUMENT_STATUS",
-  },
-  {
     name: "OpenAttestationDnsTxtIdentityProof",
     type: "ISSUER_IDENTITY",
     data: [
@@ -172,6 +160,7 @@ export const whenDocumentNotIssued = [
     status: "VALID",
   },
 ];
+
 export const whenDocumentValidAndIssuedByDns = [
   {
     data: true,
@@ -180,18 +169,27 @@ export const whenDocumentValidAndIssuedByDns = [
     type: "DOCUMENT_INTEGRITY",
   },
   {
+    name: "OpenAttestationEthereumDocumentStoreStatus",
+    type: "DOCUMENT_STATUS",
     data: {
-      details: [
-        {
-          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
-          issued: true,
-        },
-      ],
       issuedOnAll: true,
+      revokedOnAny: false,
+      details: {
+        issuance: [
+          {
+            issued: true,
+            address: "0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
+          },
+        ],
+        revocation: [
+          {
+            revoked: false,
+            address: "0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
+          },
+        ],
+      },
     },
     status: "VALID",
-    name: "OpenAttestationEthereumDocumentStoreIssued",
-    type: "DOCUMENT_STATUS",
   },
   {
     reason: {
@@ -204,20 +202,6 @@ export const whenDocumentValidAndIssuedByDns = [
     type: "DOCUMENT_STATUS",
   },
   {
-    data: {
-      details: [
-        {
-          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
-          revoked: false,
-        },
-      ],
-      revokedOnAny: false,
-    },
-    status: "VALID",
-    name: "OpenAttestationEthereumDocumentStoreRevoked",
-    type: "DOCUMENT_STATUS",
-  },
-  {
     name: "OpenAttestationDnsTxtIdentityProof",
     type: "ISSUER_IDENTITY",
     data: [
@@ -230,6 +214,7 @@ export const whenDocumentValidAndIssuedByDns = [
     status: "VALID",
   },
 ];
+
 export const whenDocumentValidAndIssuedByDid = [
   {
     data: true,
@@ -287,6 +272,7 @@ export const whenDocumentValidAndIssuedByDid = [
     status: "VALID",
   },
 ];
+
 export const whenDocumentHashInvalid = [
   ...whenDocumentValidAndIssuedByDns.filter((fragment) => fragment.type !== "DOCUMENT_INTEGRITY"),
   {
@@ -301,6 +287,7 @@ export const whenDocumentHashInvalid = [
     type: "DOCUMENT_INTEGRITY",
   },
 ];
+
 export const whenDocumentRevoked = [
   {
     type: "DOCUMENT_INTEGRITY",
@@ -309,23 +296,9 @@ export const whenDocumentRevoked = [
     status: "VALID",
   },
   {
-    name: "OpenAttestationEthereumDocumentStoreIssued",
-    type: "DOCUMENT_STATUS",
-    data: {
-      issuedOnAll: true,
-      details: [
-        {
-          issued: true,
-          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
-        },
-      ],
-    },
-    status: "VALID",
-  },
-  {
     status: "SKIPPED",
     type: "DOCUMENT_STATUS",
-    name: "OpenAttestationEthereumTokenRegistryMinted",
+    name: "OpenAttestationEthereumTokenRegistryStatus",
     reason: {
       code: 4,
       codeString: "SKIPPED",
@@ -333,30 +306,49 @@ export const whenDocumentRevoked = [
     },
   },
   {
-    name: "OpenAttestationEthereumDocumentStoreRevoked",
+    name: "OpenAttestationEthereumDocumentStoreStatus",
     type: "DOCUMENT_STATUS",
     data: {
+      issuedOnAll: true,
       revokedOnAny: true,
-      details: [
-        {
-          revoked: true,
-          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
-          reason: {
-            code: 1,
-            codeString: "DOCUMENT_REVOKED",
-            message:
-              "Certificate 0x3d29524b18c3efe1cbad07e1ba9aa80c496cbf0b6255d6f331ca9b540e17e452 has been revoked under contract 0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+      details: {
+        issuance: [
+          {
+            issued: true,
+            address: "0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
           },
-        },
-      ],
+        ],
+        revocation: [
+          {
+            revoked: true,
+            address: "0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
+            reason: {
+              message:
+                "Document 0x1268951303ad546f18d00f26344b1841d4f6a4f432cec898308a3535ba7f9bdd has been revoked under contract 0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
+              code: 5,
+              codeString: "DOCUMENT_REVOKED",
+            },
+          },
+        ],
+      },
     },
     reason: {
-      code: 1,
-      codeString: "DOCUMENT_REVOKED",
       message:
-        "Certificate 0x3d29524b18c3efe1cbad07e1ba9aa80c496cbf0b6255d6f331ca9b540e17e452 has been revoked under contract 0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+        "Document 0x1268951303ad546f18d00f26344b1841d4f6a4f432cec898308a3535ba7f9bdd has been revoked under contract 0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
+      code: 5,
+      codeString: "DOCUMENT_REVOKED",
     },
     status: "INVALID",
+  },
+  {
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+    name: "OpenAttestationDidSignedDocumentStatus",
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: "Document was not signed by DID directly",
+    },
   },
   {
     name: "OpenAttestationDnsTxtIdentityProof",
@@ -364,11 +356,31 @@ export const whenDocumentRevoked = [
     data: [
       {
         status: "VALID",
-        location: "example.tradetrust.io",
-        value: "0xe59877ac86c0310e9ddaeb627f42fdee5f793fbe",
+        location: "inc-brown-jaguar.sandbox.fyntech.io",
+        value: "0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
       },
     ],
     status: "VALID",
+  },
+  {
+    status: "SKIPPED",
+    type: "ISSUER_IDENTITY",
+    name: "OpenAttestationDnsDidIdentityProof",
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: "Document was not issued using DNS-DID",
+    },
+  },
+  {
+    status: "SKIPPED",
+    type: "ISSUER_IDENTITY",
+    name: "OpenAttestationDidIdentityProof",
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: "Document is not using DID as top level identifier or has not been wrapped",
+    },
   },
 ];
 
@@ -598,5 +610,299 @@ export const whenDocumentInvalid = [
       codeString: "SKIPPED",
       message: "Document is not using DID as top level identifier or has not been wrapped",
     },
+  },
+];
+
+export const whenDocumentAddressInvalid = [
+  {
+    type: "DOCUMENT_INTEGRITY",
+    name: "OpenAttestationHash",
+    data: true,
+    status: "VALID",
+  },
+  {
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+    name: "OpenAttestationEthereumTokenRegistryStatus",
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+    },
+  },
+  {
+    name: "OpenAttestationEthereumDocumentStoreStatus",
+    type: "DOCUMENT_STATUS",
+    data: {
+      issuedOnAll: true,
+      revokedOnAny: true,
+      details: {
+        issuance: [
+          {
+            issued: true,
+            address: "0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
+          },
+        ],
+        revocation: [
+          {
+            revoked: true,
+            address: "0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
+            reason: {
+              message: "Invalid document store address",
+              code: 1,
+              codeString: "DOCUMENT_STORE_ADDRESS_INVALID",
+            },
+          },
+        ],
+      },
+    },
+    reason: {
+      code: 1,
+      codeString: "DOCUMENT_STORE_ADDRESS_INVALID",
+      message: "Invalid document store address",
+    },
+    status: "INVALID",
+  },
+  {
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+    name: "OpenAttestationDidSignedDocumentStatus",
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: "Document was not signed by DID directly",
+    },
+  },
+  {
+    name: "OpenAttestationDnsTxtIdentityProof",
+    type: "ISSUER_IDENTITY",
+    data: [
+      {
+        status: "VALID",
+        location: "inc-brown-jaguar.sandbox.fyntech.io",
+        value: "0xF02F69B0c9F9Fc74110545E20a4A8CE7e0575fb4",
+      },
+    ],
+    status: "VALID",
+  },
+  {
+    status: "SKIPPED",
+    type: "ISSUER_IDENTITY",
+    name: "OpenAttestationDnsDidIdentityProof",
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: "Document was not issued using DNS-DID",
+    },
+  },
+  {
+    status: "SKIPPED",
+    type: "ISSUER_IDENTITY",
+    name: "OpenAttestationDidIdentityProof",
+    reason: {
+      code: 0,
+      codeString: "SKIPPED",
+      message: "Document is not using DID as top level identifier or has not been wrapped",
+    },
+  },
+];
+
+export const whenDocumentNotFound = [
+  {
+    data: true,
+    status: "VALID",
+    name: "OpenAttestationHash",
+    type: "DOCUMENT_INTEGRITY",
+  },
+  {
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+    },
+    name: "OpenAttestationEthereumTokenRegistryMinted",
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    data: {
+      details: [
+        {
+          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+          revoked: false,
+        },
+      ],
+      revokedOnAny: false,
+    },
+    status: "INVALID",
+    name: "OpenAttestationEthereumDocumentStoreStatus",
+    type: "DOCUMENT_STATUS",
+    reason: {
+      code: 1,
+      codeString: "1",
+      message: "Contract is not found",
+    },
+  },
+  {
+    name: "OpenAttestationDnsTxtIdentityProof",
+    type: "ISSUER_IDENTITY",
+    data: [
+      {
+        status: "VALID",
+        location: "example.tradetrust.io",
+        value: "0xe59877ac86c0310e9ddaeb627f42fdee5f793fbe",
+      },
+    ],
+    status: "VALID",
+  },
+];
+
+export const whenInvalidCallArgument = [
+  {
+    data: true,
+    status: "INVALID",
+    name: "OpenAttestationHash",
+    type: "DOCUMENT_INTEGRITY",
+  },
+  {
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+    },
+    name: "OpenAttestationEthereumTokenRegistryMinted",
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    data: {
+      details: [
+        {
+          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+          revoked: false,
+        },
+      ],
+      revokedOnAny: false,
+    },
+    status: "INVALID",
+    name: "OpenAttestationEthereumDocumentStoreStatus",
+    type: "DOCUMENT_STATUS",
+    reason: {
+      code: 1,
+      codeString: "1",
+      message: "Invalid call arguments",
+    },
+  },
+  {
+    name: "OpenAttestationDnsTxtIdentityProof",
+    type: "ISSUER_IDENTITY",
+    data: [
+      {
+        status: "VALID",
+        location: "example.tradetrust.io",
+        value: "0xe59877ac86c0310e9ddaeb627f42fdee5f793fbe",
+      },
+    ],
+    status: "VALID",
+  },
+];
+
+export const whenServerError = [
+  {
+    data: true,
+    status: "VALID",
+    name: "OpenAttestationHash",
+    type: "DOCUMENT_INTEGRITY",
+  },
+  {
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+    },
+    name: "OpenAttestationEthereumTokenRegistryMinted",
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    data: {
+      details: [
+        {
+          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+          revoked: false,
+        },
+      ],
+      revokedOnAny: false,
+    },
+    status: "INVALID",
+    name: "OpenAttestationEthereumDocumentStoreStatus",
+    type: "DOCUMENT_STATUS",
+    reason: {
+      code: 500,
+      codeString: "SERVER_ERROR",
+      message: "Server error",
+    },
+  },
+  {
+    name: "OpenAttestationDnsTxtIdentityProof",
+    type: "ISSUER_IDENTITY",
+    data: [
+      {
+        status: "VALID",
+        location: "example.tradetrust.io",
+        value: "0xe59877ac86c0310e9ddaeb627f42fdee5f793fbe",
+      },
+    ],
+    status: "VALID",
+  },
+];
+
+export const whenUnhandledError = [
+  {
+    data: true,
+    status: "VALID",
+    name: "OpenAttestationHash",
+    type: "DOCUMENT_INTEGRITY",
+  },
+  {
+    reason: {
+      code: 4,
+      codeString: "SKIPPED",
+      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+    },
+    name: "OpenAttestationEthereumTokenRegistryMinted",
+    status: "SKIPPED",
+    type: "DOCUMENT_STATUS",
+  },
+  {
+    data: {
+      details: [
+        {
+          address: "0x8Fc57204c35fb9317D91285eF52D6b892EC08cD3",
+          revoked: false,
+        },
+      ],
+      revokedOnAny: false,
+    },
+    status: "INVALID",
+    name: "OpenAttestationEthereumDocumentStoreStatus",
+    type: "DOCUMENT_STATUS",
+    reason: {
+      code: 3,
+      codeString: "UNHANDLED_ERROR",
+      message: "Unhandled error",
+    },
+  },
+  {
+    name: "OpenAttestationDnsTxtIdentityProof",
+    type: "ISSUER_IDENTITY",
+    data: [
+      {
+        status: "VALID",
+        location: "example.tradetrust.io",
+        value: "0xe59877ac86c0310e9ddaeb627f42fdee5f793fbe",
+      },
+    ],
+    status: "VALID",
   },
 ];

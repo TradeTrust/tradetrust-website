@@ -4,6 +4,11 @@ export const TYPES = {
   HASH: "HASH",
   IDENTITY: "IDENTITY",
   INVALID: "INVALID",
+  ADDRESS_INVALID: "ADDRESS_INVALID",
+  CONTRACT_NOT_FOUND: "CONTRACT_NOT_FOUND",
+  INVALID_ARGUMENT: "INVALID_ARGUMENT",
+  SERVER_ERROR: "SERVER_ERROR",
+  ETHERS_UNHANDLED_ERROR: "ETHERS_UNHANDLED_ERROR",
 };
 
 export const MESSAGES = {
@@ -32,5 +37,35 @@ export const MESSAGES = {
     failureTitle: "Document is invalid",
     successTitle: "",
     failureMessage: "This document is not valid. Please upload a valid document.",
+  },
+  [TYPES.ADDRESS_INVALID]: {
+    failureTitle: "Document store or Token registry address is invalid",
+    successTitle: "",
+    failureMessage:
+      "Please inform the issuer of this document that they have misconfigured their Document store or Token registry address.",
+  },
+  [TYPES.CONTRACT_NOT_FOUND]: {
+    failureTitle: "Document store or Token registry address cannot be found",
+    successTitle: "",
+    failureMessage:
+      "Please inform the issuer of this document that they have misconfigured their Document store or Token registry address.",
+  },
+  [TYPES.INVALID_ARGUMENT]: {
+    failureTitle: "Document's merkle root is invalid",
+    successTitle: "",
+    failureMessage:
+      "Please inform the issuer of this document that the merkle root is invalid, or it may have been tampered with.",
+  },
+  [TYPES.SERVER_ERROR]: {
+    failureTitle: "Unable to connect to the Ethereum network",
+    successTitle: "",
+    failureMessage:
+      "We are unable to connect to the Ethereum network, please try again later. If this issue persists, contact us using the feedback link below.",
+  },
+  [TYPES.ETHERS_UNHANDLED_ERROR]: {
+    failureTitle: "Whoops! It's not you, it's us",
+    successTitle: "",
+    failureMessage:
+      "We encountered an internal error and cannot determine the cause, please try again later. If this issue persists, contact us using the feedback link below.",
   },
 };

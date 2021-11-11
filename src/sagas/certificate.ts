@@ -1,4 +1,5 @@
-import { put, select, takeEvery } from "redux-saga/effects";
+import { put, select } from "redux-saga/effects";
+import * as SagaEffects from "redux-saga/effects";
 import { getLogger } from "../utils/logger";
 import {
   types,
@@ -10,14 +11,14 @@ import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { isValid } from "@govtechsg/oa-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
-import { NETWORK_NAME } from "./../config";
+import { NETWORK_NAME } from "../config";
 import { history } from "../history";
+import { MESSAGES } from "../constants/VerificationErrorMessages";
+import { errorMessageHandling } from "../services/verify/fragments";
 
 const { trace } = getLogger("saga:certificate");
 
-// still used in sagas: handleQrScanned and retrieveCertificateByAction
-// please delete this when those two have been moved out of sagas
-export function* verifyCertificate() {
+export function* verifyCertificate(): any {
   try {
     yield put({
       type: types.VERIFYING_CERTIFICATE,
@@ -31,13 +32,18 @@ export function* verifyCertificate() {
     yield put(verifyingCertificateCompleted(verificationStatus));
     if (NETWORK_NAME === "local" ? true : isValid(verificationStatus)) {
       yield history.push("/viewer");
+    } else {
+      const errorMsg = errorMessageHandling(verificationStatus).map((errorType) => MESSAGES[errorType].failureMessage);
+      yield put(verifyingCertificateFailure(errorMsg));
     }
   } catch (e) {
-    yield put(verifyingCertificateFailure(e.message));
+    if (e instanceof Error) {
+      yield put(verifyingCertificateFailure([e.message]));
+    }
   }
 }
 
-export function* handleQrScanned({ payload: qrCode }) {
+export function* handleQrScanned({ payload: qrCode }: { payload: any }): any {
   try {
     const { payload, anchor } = yield processQrCode(qrCode);
 
@@ -47,11 +53,19 @@ export function* handleQrScanned({ payload: qrCode }) {
       anchor,
     });
   } catch (e) {
-    yield put(verifyingCertificateFailure(e.message));
+    if (e instanceof Error) {
+      yield put(verifyingCertificateFailure([e.message]));
+    }
   }
 }
 
-export function* retrieveCertificateByAction({ payload: { uri, key: payloadKey }, anchor: { key: anchorKey } }) {
+export function* retrieveCertificateByAction({
+  payload: { uri, key: payloadKey },
+  anchor: { key: anchorKey },
+}: {
+  payload: { uri: any; key: any };
+  anchor: { key: any };
+}): any {
   try {
     yield put({
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING,
@@ -96,12 +110,16 @@ export function* retrieveCertificateByAction({ payload: { uri, key: payloadKey }
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION_SUCCESS,
     });
   } catch (e) {
-    yield put({
-      type: types.RETRIEVE_CERTIFICATE_BY_ACTION_FAILURE,
-      payload: e.message,
-    });
+    if (e instanceof Error) {
+      yield put({
+        type: types.RETRIEVE_CERTIFICATE_BY_ACTION_FAILURE,
+        payload: e.message,
+      });
+    }
   }
 }
+
+const takeEvery: any = SagaEffects.takeEvery;
 
 export default [
   takeEvery(types.CERTIFICATE_PROCESS_QR_CODE, handleQrScanned),

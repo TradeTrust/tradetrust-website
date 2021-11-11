@@ -4,6 +4,7 @@ import { verifyDemoDocument } from "./demo-verify";
 import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalidAndNotIssued,
+  whenDocumentRevoked,
 } from "../test/fixture/verifier-responses";
 import { runSaga } from "redux-saga";
 
@@ -32,10 +33,13 @@ describe("verifyDemoDocument", () => {
     const getDemoDocument = jest
       .spyOn(demoVerify, "getDemoDocument")
       .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
-    jest.spyOn(verify, "verifyDocument").mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+    const verifyDocument = jest
+      .spyOn(verify, "verifyDocument")
+      .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
     const dispatched = await recordSaga(verifyDemoDocument, initialAction);
 
     expect(getDemoDocument).toHaveBeenCalledTimes(1);
+    expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: "demo-verify/verifyDemoDocumentCompleted",
       payload: whenDocumentValidAndIssuedByDns,
@@ -49,15 +53,34 @@ describe("verifyDemoDocument", () => {
     const getDemoDocument = jest
       .spyOn(demoVerify, "getDemoDocument")
       .mockImplementation(() => Promise.resolve(whenDocumentHashInvalidAndNotIssued));
-    jest
+    const verifyDocument = jest
       .spyOn(verify, "verifyDocument")
       .mockImplementation(() => Promise.reject(new Error("Failed to verify document")));
     const dispatched = await recordSaga(verifyDemoDocument, initialAction);
 
     expect(getDemoDocument).toHaveBeenCalledTimes(1);
+    expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: "demo-verify/verifyDemoDocumentFailure",
-      payload: "Failed to verify document",
+      payload: ["Failed to verify document"],
+    });
+  });
+
+  it("should verify document and return error message when fragments are invalid", async () => {
+    const initialAction = { type: "demo-verify/updateDemoDocument" };
+    const getDemoDocument = jest
+      .spyOn(demoVerify, "getDemoDocument")
+      .mockImplementation(() => Promise.resolve(whenDocumentRevoked));
+    const verifyDocument = jest
+      .spyOn(verify, "verifyDocument")
+      .mockImplementation(() => Promise.resolve(whenDocumentRevoked));
+    const dispatched = await recordSaga(verifyDemoDocument, initialAction);
+
+    expect(getDemoDocument).toHaveBeenCalledTimes(1);
+    expect(verifyDocument).toHaveBeenCalledTimes(1);
+    expect(dispatched).toContainEqual({
+      type: "demo-verify/verifyDemoDocumentFailure",
+      payload: ["This document has been revoked by the issuing authority. Please contact them for more details."],
     });
   });
 });
