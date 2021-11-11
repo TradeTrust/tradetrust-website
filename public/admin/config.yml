@@ -3,11 +3,11 @@ backend:
   branch: master
   squash_merges: true
   commit_messages:
-    create: "feat: Create {{collection}} “{{slug}}” {{author-name}} [skip ci]"
-    update: "chore: Update {{collection}} “{{slug}}” {{author-name}} [skip ci]"
-    delete: "chore: Delete {{collection}} “{{slug}}” {{author-name}} [skip ci]"
-    uploadMedia: "chore: Upload “{{path}}” {{author-name}} [skip ci]"
-    deleteMedia: "chore: Delete “{{path}}” {{author-name}} [skip ci]"
+    create: "feat: Create {{collection}} “{{slug}}” {{author-name}}"
+    update: "chore: Update {{collection}} “{{slug}}” {{author-name}}"
+    delete: "chore: Delete {{collection}} “{{slug}}” {{author-name}}"
+    uploadMedia: "chore: Upload “{{path}}” {{author-name}}"
+    deleteMedia: "chore: Delete “{{path}}” {{author-name}}"
 
 local_backend: true
 
