@@ -1,5 +1,4 @@
 import { getData, utils, v2, v3 } from "@govtechsg/open-attestation";
-import { LEGACY_OPENCERTS_RENDERER } from "../config";
 
 export type WrappedOrSignedOpenAttestationDocument = v2.WrappedDocument | v3.WrappedDocument;
 // note that the return type for getting attachments will normalise the structure into v2.Attachment
@@ -13,7 +12,9 @@ export const getOpenAttestationData = (
 export const getTemplate = (rawDocument: WrappedOrSignedOpenAttestationDocument): string | undefined => {
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);
-    return typeof documentData.$template === "object" ? documentData.$template.url : LEGACY_OPENCERTS_RENDERER;
+    return typeof documentData.$template === "object"
+      ? documentData.$template.url
+      : `https://generic-templates.tradetrust.io`;
   } else {
     return rawDocument.openAttestationMetadata.template?.url;
   }
