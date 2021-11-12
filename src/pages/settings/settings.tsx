@@ -1,6 +1,6 @@
 import { TileInfo, TileInfoProps, IconAddressBook, IconResolverAddress } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Helmet } from "react-helmet";
 import { Page } from "../../components/Layout/Page";
 
@@ -36,8 +36,10 @@ export const SettingsPage: FunctionComponent = () => (
       <div className="flex flex-col flex-wrap mt-4 md:flex-row">
         {settingsOptions.map((details, index) => (
           <div className="mr-4 mb-4" key={index}>
-            <Link to={details.pathLink} className="inline-block">
-              <TileInfo title={details.title} description={details.description} tileIcon={details.tileIcon} />
+            <Link href={details.pathLink}>
+              <a className="inline-block">
+                <TileInfo title={details.title} description={details.description} tileIcon={details.tileIcon} />
+              </a>
             </Link>
           </div>
         ))}

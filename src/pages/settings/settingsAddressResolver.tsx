@@ -1,6 +1,6 @@
 import { AddressResolver, BackArrow } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Helmet } from "react-helmet";
 
 export const SettingsAddressResolverPage: FunctionComponent = () => (
@@ -13,7 +13,7 @@ export const SettingsAddressResolverPage: FunctionComponent = () => (
       <title>TradeTrust - Address Resolver</title>
     </Helmet>
     <div className="container py-8">
-      <Link to="/settings">
+      <Link href="/settings">
         <BackArrow />
       </Link>
       <div className="flex-1 flex-col">

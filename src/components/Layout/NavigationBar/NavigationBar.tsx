@@ -7,9 +7,9 @@ import {
   NAVIGATION_ITEM_TYPE,
   ButtonSize,
 } from "@govtechsg/tradetrust-ui-components";
-import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
 import { useFeatureFlag } from "../../FeatureFlag";
+import { NavLink } from "../../UI/NavLink";
 
 export const leftNavItems: NavigationItem[] = [
   {
@@ -18,8 +18,8 @@ export const leftNavItems: NavigationItem[] = [
     label: "Demo",
     path: "/demo",
     customLink: (
-      <NavLink activeClassName="text-cerulean" className="block w-full text-current" to={"/demo"}>
-        Demo
+      <NavLink activeClassName="text-cerulean" href={"/demo"}>
+        <a className="block w-full text-current">Demo</a>
       </NavLink>
     ),
   },
@@ -34,8 +34,8 @@ export const leftNavItems: NavigationItem[] = [
         label: "Learn",
         path: "/learn",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/learn"}>
-            Learn
+          <NavLink activeClassName="text-cerulean" href={"/learn"}>
+            <a className="block w-full px-4 py-3">Learn</a>
           </NavLink>
         ),
       },
@@ -44,8 +44,8 @@ export const leftNavItems: NavigationItem[] = [
         label: "FAQ",
         path: "/faq",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/faq"}>
-            FAQ
+          <NavLink activeClassName="text-cerulean" href={"/faq"}>
+            <a className="block w-full px-4 py-3">FAQ</a>
           </NavLink>
         ),
       },
@@ -54,8 +54,8 @@ export const leftNavItems: NavigationItem[] = [
         label: "ETA",
         path: "/eta",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/eta"}>
-            ETA
+          <NavLink activeClassName="text-cerulean" href={"/eta"}>
+            <a className="block w-full px-4 py-3">ETA</a>
           </NavLink>
         ),
       },
@@ -72,8 +72,8 @@ export const leftNavItems: NavigationItem[] = [
         label: "News",
         path: "/news",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/news"}>
-            News
+          <NavLink activeClassName="text-cerulean" href={"/news"}>
+            <a className="block w-full px-4 py-3">News</a>
           </NavLink>
         ),
       },
@@ -82,8 +82,8 @@ export const leftNavItems: NavigationItem[] = [
         label: "Event",
         path: "/event",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/event"}>
-            Event
+          <NavLink activeClassName="text-cerulean" href={"/event"}>
+            <a className="block w-full px-4 py-3">Event</a>
           </NavLink>
         ),
       },
@@ -95,8 +95,8 @@ export const leftNavItems: NavigationItem[] = [
     label: "Contact",
     path: "/contact",
     customLink: (
-      <NavLink activeClassName="text-cerulean" className="block w-full text-current" to={"/contact"}>
-        Contact
+      <NavLink activeClassName="text-cerulean" href={"/contact"}>
+        <a className="block w-full text-current">Contact</a>
       </NavLink>
     ),
   },
@@ -110,8 +110,10 @@ export const rightNavItems: NavigationItem[] = [
     path: "/settings",
     icon: Settings,
     customLink: (
-      <NavLink activeClassName="text-cerulean" className="block w-full py-2 text-current" to={"/settings"}>
-        <Settings className="stroke-current" />
+      <NavLink activeClassName="text-cerulean" href={"/settings"}>
+        <a className="block w-full py-2 text-current">
+          <Settings className="stroke-current" />
+        </a>
       </NavLink>
     ),
   },
@@ -134,7 +136,7 @@ export const rightNavItems: NavigationItem[] = [
     label: "Verify Doc",
     path: "/verify",
     customLink: (
-      <NavLink to={"/verify"}>
+      <NavLink href={"/verify"}>
         <Button className="bg-cerulean text-white hover:bg-cerulean-500" size={ButtonSize.SM}>
           Verify Doc
         </Button>
@@ -145,7 +147,7 @@ export const rightNavItems: NavigationItem[] = [
 
 const NavLogo = () => {
   return (
-    <NavLink to={"/"} data-testid="nav-logo-home">
+    <NavLink href={"/"} data-testid="nav-logo-home">
       <h4 className="text-gray-800">TradeTrust</h4>
     </NavLink>
   );

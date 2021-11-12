@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@govtechsg/tradetrust-ui-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
@@ -23,15 +23,16 @@ export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps
         </div>
       </div>
       <DetailedErrors verificationStatus={verificationStatus} />
-      <Link
-        to="/faq"
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <Button className={`text-white bg-red-500 border-red-500 hover:bg-red-300 hover:border-red-300`}>
-          What Should I do?
-        </Button>
+      <Link passHref href="/faq">
+        <a
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <Button className={`text-white bg-red-500 border-red-500 hover:bg-red-300 hover:border-red-300`}>
+            What Should I do?
+          </Button>
+        </a>
       </Link>
       <br />
       <div

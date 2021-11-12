@@ -34,7 +34,10 @@
     "test:coverage": "npm run test -- --collectCoverage",
     "test:watch": "npm run test -- --watchAll",
     "test:update": "npm run test -- -u",
-    "wait": "wait-on -l -i 1000 tcp:8545 http-get://localhost:3000"
+    "wait": "wait-on -l -i 1000 tcp:8545 http-get://localhost:3000",
+    "next-dev": "next dev",
+    "next-start": "next start",
+    "next-build": "next build"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
@@ -57,6 +60,7 @@
     "history": "^4.10.1",
     "lodash": "^4.17.21",
     "magic-sdk": "^5.1.0",
+    "next": "^12.0.3",
     "pretty-bytes": "^5.6.0",
     "qr-scanner": "^1.2.0",
     "qrcode.react": "^1.0.1",

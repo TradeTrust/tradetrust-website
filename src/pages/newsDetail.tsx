@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { ChevronLeft } from "react-feather";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Helmet } from "react-helmet";
 import { useLocation, useParams } from "react-router-dom";
 import { allNews } from "./../components/News";
@@ -32,9 +32,11 @@ export const NewsPageDetail: FunctionComponent = () => {
       <div className="container py-12">
         <div className="flex">
           <div className="w-auto">
-            <Link to="/news" className="text-gray-800 flex flex-nowrap items-center">
-              <ChevronLeft />
-              <span>Back</span>
+            <Link href="/news">
+              <a className="text-gray-800 flex flex-nowrap items-center">
+                <ChevronLeft />
+                <span>Back</span>
+              </a>
             </Link>
           </div>
         </div>

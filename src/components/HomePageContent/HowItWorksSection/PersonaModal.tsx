@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useOverlayContext, OverlayContent } from "@govtechsg/tradetrust-ui-components";
 import { PersonaProps } from "../../../types";
 import { Steps } from "./Steps";

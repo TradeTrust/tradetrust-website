@@ -1,6 +1,6 @@
 import React, { FunctionComponent, InputHTMLAttributes } from "react";
 import { Button, ButtonSize } from "@govtechsg/tradetrust-ui-components";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "../NavLink";
 
 interface BannerProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -20,7 +20,7 @@ export const Banner: FunctionComponent<BannerProps> = ({ className, title }: Ban
               <h3 data-testid="banner-title">{title}</h3>
             </div>
             <div className="px-2 w-auto lg:ml-auto">
-              <NavLink to="/contact">
+              <NavLink href="/contact">
                 <Button className="bg-tangerine text-white hover:bg-tangerine-600 border-none" size={ButtonSize.LG}>
                   <h3>Contact us now</h3>
                 </Button>

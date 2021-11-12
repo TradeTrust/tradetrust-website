@@ -1,6 +1,6 @@
 import { ErrorPage } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export const PageNotFound: FunctionComponent = () => {
   return (
@@ -12,9 +12,8 @@ export const PageNotFound: FunctionComponent = () => {
     >
       <h3 className="font-normal my-2 sm:my-4 text-lg sm:text-2xl">
         Go to
-        <Link className="text-cerulean-200" to="/">
-          {" "}
-          Homepage
+        <Link href="/">
+          <a className="text-cerulean-200"> Homepage</a>
         </Link>
         ?
       </h3>

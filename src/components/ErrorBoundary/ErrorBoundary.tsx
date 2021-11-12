@@ -1,6 +1,6 @@
 import { ErrorPage } from "@govtechsg/tradetrust-ui-components";
 import React, { Component, ReactNode } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { getLogger } from "../../utils/logger";
 
 const { stack } = getLogger("component:errorBoundary");

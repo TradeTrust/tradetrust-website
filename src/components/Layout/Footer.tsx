@@ -1,14 +1,14 @@
 import React from "react";
 import { Footer as BaseFooter, FooterColumnItemProps } from "@govtechsg/tradetrust-ui-components";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "../../components/UI/NavLink";
 import { ExternalLink } from "react-feather";
 import { URLS } from "../../constants";
 
 const sharedStyles = `font-medium text-sm`;
 const renderNavLink = ({ label, to }: FooterColumnItemProps) => {
   return (
-    <NavLink className={sharedStyles} to={to}>
-      {label}
+    <NavLink href={to}>
+      <a className={sharedStyles}>{label}</a>
     </NavLink>
   );
 };

@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -10,12 +13,24 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "sourceMap": true,
-    "types": ["jest", "node", "webpack-env", "@testing-library/jest-dom"],
+    "types": [
+      "jest",
+      "node",
+      "webpack-env",
+      "@testing-library/jest-dom"
+    ],
     "allowJs": true,
     "noEmit": true,
-    "useUnknownInCatchVariables":true
+    "useUnknownInCatchVariables": true,
+    "incremental": true,
+    "isolatedModules": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@govtechsg/tradetrust-ui-components";
 import { CheckCircle, XCircle } from "react-feather";
 
@@ -13,7 +13,7 @@ export const EmailContactUsSuccess: FunctionComponent = () => {
         </div>
         <p>Our engagement team will get in touch with you soon!</p>
       </div>
-      <Link to="/">
+      <Link href="/">
         <Button className="bg-white text-blue hover:bg-grey-100">Back to Home Page</Button>
       </Link>
     </div>

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
 import { MagicDropzone } from "../../MagicDropzone";
 
 export const DemoVerify: FunctionComponent = () => {
@@ -8,7 +8,7 @@ export const DemoVerify: FunctionComponent = () => {
       <div className="w-full lg:w-2/3 xl:w-1/2">
         <p className="mb-8">
           This is a demo verifier used specifically for verifying files created via our demo. To verify other files,
-          please use the <NavLink to="/verify">verifier on our main net</NavLink>.
+          please use the <Link href="/verify">verifier on our main net</Link>.
         </p>
         <MagicDropzone />
       </div>

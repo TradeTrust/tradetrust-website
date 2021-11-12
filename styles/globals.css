@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+@tailwind base;
+
+@layer base {
+  :root {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply text-cloud-900;
+  }
+
+  h1 {
+    font-size: 52px;
+    @apply font-ubuntu;
+    @apply font-bold;
+  }
+
+  h2 {
+    font-size: 40px;
+    @apply font-ubuntu;
+    @apply font-bold;
+  }
+
+  h3 {
+    font-size: 26px;
+    @apply font-ubuntu;
+    @apply font-normal;
+    @apply leading-tight;
+  }
+
+  h4 {
+    font-size: 20px;
+    @apply font-roboto;
+    @apply font-bold;
+  }
+
+  h5 {
+    font-size: 16px;
+    @apply font-roboto;
+    @apply font-bold;
+  }
+
+  h6 {
+    font-size: 14px;
+    @apply font-roboto;
+    @apply font-normal;
+  }
+
+  p {
+    font-size: 16px;
+    @apply font-roboto;
+    @apply font-normal;
+  }
+
+  input[disabled] {
+    @apply cursor-not-allowed;
+  }
+
+  a {
+    @apply transition-colors;
+    @apply duration-200;
+    @apply ease-out;
+    @apply text-cloud-500;
+  }
+
+  a:hover {
+    @apply text-cerulean;
+  }
+
+  svg {
+    display: inline; /* must leave default as `inline` else testcafe cannot select somehow */
+  }
+
+  ol,
+  ul {
+    list-style: decimal;
+    margin: 16 0;
+    padding: 0 0 0 40;
+  }
+}
+
+@tailwind components;
+
+@layer components {
+  main a {
+    @apply text-cerulean-200;
+  }
+
+  .multi-tab {
+    @apply bg-white;
+    @apply border-t-2;
+    @apply border-transparent;
+    @apply border-solid;
+    @apply font-bold;
+    @apply text-gray-700;
+    @apply bg-gray-100;
+    @apply transition-colors;
+    @apply duration-200;
+    @apply uppercase;
+    @apply cursor-pointer;
+    max-width: 220px;
+  }
+
+  .multi-tab:hover {
+    @apply text-gray-800;
+    @apply bg-gray-200;
+  }
+
+  .btn {
+    @apply transition-colors;
+    @apply duration-200;
+    @apply ease-out;
+    @apply rounded;
+    @apply cursor-pointer;
+    @apply py-2;
+    @apply px-4;
+  }
+}
+
+@tailwind utilities;
+
+@layer utilities {
+  .pulse {
+    animation: pulse 3s alternate infinite;
+  }
+
+  .skeleton-loading:empty::after {
+    animation: skeleton-loading 1.4s infinite;
+  }
+
+  .exact-print {
+    -webkit-print-color-adjust: exact;
+  }
+
+  .aspect-16-9 {
+    position: relative;
+    width: 100%;
+  }
+
+  .aspect-16-9::before {
+    content: "";
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: calc(9 / 16 * 100%);
+  }
+
+  .aspect-16-9::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  @media print {
+    .no-print {
+      display: none;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes skeleton-loading {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}

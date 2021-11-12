@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
-import { NavLink } from "react-router-dom";
 import { NewsSingle } from "./../types";
 import { NewsCard } from "../NewsCard";
+import { NavLink } from "../../UI/NavLink";
 
 const getLink = (news: NewsSingle) => {
   switch (true) {
@@ -20,8 +20,10 @@ export const NewsLink: FunctionComponent<{ news: NewsSingle }> = ({ news }) => {
   return (
     <>
       {isNavLink && link ? (
-        <NavLink data-testid="news-item-link" to={link} className={`${sharedStylesLink}`}>
-          <NewsCard news={news} />
+        <NavLink data-testid="news-item-link" href={link}>
+          <a className={`${sharedStylesLink}`}>
+            <NewsCard news={news} />
+          </a>
         </NavLink>
       ) : (
         <a

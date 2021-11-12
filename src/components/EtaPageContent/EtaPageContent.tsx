@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@govtechsg/tradetrust-ui-components";
 import styled from "@emotion/styled";
 
@@ -58,7 +58,7 @@ const SectionMap = () => {
             <h4>Ready to learn how TradeTrust can benefit your business?</h4>
           </div>
           <div className="w-full">
-            <Link to="/contact">
+            <Link href="/contact">
               <Button className="bg-tangerine text-white hover:bg-tangerine-600 rounded-xl text-2xl px-4">
                 Get in Touch Now
               </Button>

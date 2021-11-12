@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { OverlayContext, Youtube } from "@govtechsg/tradetrust-ui-components";
 import styled from "@emotion/styled";
 

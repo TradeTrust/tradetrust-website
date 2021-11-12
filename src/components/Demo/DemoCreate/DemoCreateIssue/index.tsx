@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useContext, useEffect } from "re
 import { saveAs } from "file-saver";
 import { Button, LoaderSpinner, ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import { CheckCircle, XCircle } from "react-feather";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDocumentIssued,
@@ -74,7 +74,7 @@ export const DemoCreateIssue: FunctionComponent = () => {
                 </a>
                 .
               </p>
-              <Link to="/demo/verify">
+              <Link href="/demo/verify">
                 <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">Test Your File Now</Button>
               </Link>
             </>
@@ -85,11 +85,11 @@ export const DemoCreateIssue: FunctionComponent = () => {
               <h3>Failed</h3>
               <p className="py-5">
                 Please check if you have internet connection,
-                <br /> alternatively, see <Link to="/faq">FAQ</Link> or <Link to="/contact">Contact us</Link>
+                <br /> alternatively, see <Link href="/faq">FAQ</Link> or <Link href="/contact">Contact us</Link>
               </p>
               <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">
-                <Link className="text-white hover:text-white" to="/demo/create">
-                  Try Again
+                <Link href="/demo/create">
+                  <a className="text-white hover:text-white">Try Again</a>
                 </Link>
               </Button>
             </>

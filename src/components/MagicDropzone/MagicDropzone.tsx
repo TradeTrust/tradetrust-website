@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useDropzone } from "react-dropzone";
 import { isValid } from "@govtechsg/oa-verify";
 import { Button, ButtonSize, LoaderSpinner } from "@govtechsg/tradetrust-ui-components";
@@ -39,15 +39,16 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
             </div>
           </div>
           <DetailedErrors verificationStatus={verificationStatus} />
-          <Link
-            to="/faq"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <Button className={`text-white bg-red-500 border-red-500 hover:bg-red-300 hover:border-red-300`}>
-              What Should I do?
-            </Button>
+          <Link passHref href="/faq">
+            <a
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <Button className={`text-white bg-red-500 border-red-500 hover:bg-red-300 hover:border-red-300`}>
+                What Should I do?
+              </Button>
+            </a>
           </Link>
           <br />
           <div
