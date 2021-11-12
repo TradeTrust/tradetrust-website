@@ -13,7 +13,7 @@ import { isValid } from "@govtechsg/oa-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
 import { NETWORK_NAME } from "../config";
 import { history } from "../history";
-import { MESSAGES } from "../constants/VerificationErrorMessages";
+import { TYPES } from "../constants/VerificationErrorMessages";
 import { errorMessageHandling } from "../services/verify/fragments";
 
 const { trace } = getLogger("saga:certificate");
@@ -33,13 +33,10 @@ export function* verifyCertificate(): any {
     if (NETWORK_NAME === "local" ? true : isValid(verificationStatus)) {
       yield history.push("/viewer");
     } else {
-      const errorMsg = errorMessageHandling(verificationStatus).map((errorType) => MESSAGES[errorType].failureMessage);
-      yield put(verifyingCertificateFailure(errorMsg));
+      yield put(verifyingCertificateFailure(errorMessageHandling(verificationStatus)));
     }
   } catch (e) {
-    if (e instanceof Error) {
-      yield put(verifyingCertificateFailure([e.message]));
-    }
+    yield put(verifyingCertificateFailure([TYPES.INVALID]));
   }
 }
 
@@ -53,9 +50,7 @@ export function* handleQrScanned({ payload: qrCode }: { payload: any }): any {
       anchor,
     });
   } catch (e) {
-    if (e instanceof Error) {
-      yield put(verifyingCertificateFailure([e.message]));
-    }
+    yield put(verifyingCertificateFailure([TYPES.INVALID]));
   }
 }
 

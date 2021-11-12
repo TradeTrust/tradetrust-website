@@ -8,7 +8,7 @@ interface DemoVerifyState {
 
   verificationPending: boolean;
   verificationStatus: VerificationFragment[] | null;
-  verificationError: string | null;
+  verificationError: string[] | null;
 }
 
 const initialState = {

@@ -22,7 +22,6 @@ describe("interpretFragments", () => {
       hashValid: false,
       issuedValid: false,
       identityValid: false,
-      revokedValid: false,
     });
   });
   it("should interpret whenDocumentNotIssued correctly", () => {
@@ -30,7 +29,6 @@ describe("interpretFragments", () => {
       hashValid: true,
       issuedValid: false,
       identityValid: true,
-      revokedValid: false,
     });
   });
   it("should interpret whenDocumentValidAndIssuedByDns correctly", () => {
@@ -38,7 +36,6 @@ describe("interpretFragments", () => {
       hashValid: true,
       issuedValid: true,
       identityValid: true,
-      revokedValid: false,
     });
   });
   it("should interpret whenDocumentValidAndIssuedByDid correctly", () => {
@@ -46,7 +43,6 @@ describe("interpretFragments", () => {
       hashValid: true,
       issuedValid: true,
       identityValid: true,
-      revokedValid: false,
     });
   });
   it("should interpret whenDocumentHashInvalid correctly", () => {
@@ -54,7 +50,6 @@ describe("interpretFragments", () => {
       hashValid: false,
       issuedValid: true,
       identityValid: true,
-      revokedValid: false,
     });
   });
   it("should interpret whenDocumentRevoked correctly", () => {
@@ -62,7 +57,6 @@ describe("interpretFragments", () => {
       hashValid: true,
       issuedValid: false,
       identityValid: true,
-      revokedValid: true,
     });
   });
   it("should interpret whenDocumentIssuerIdentityInvalidDnsTxt correctly", () => {
@@ -70,7 +64,6 @@ describe("interpretFragments", () => {
       hashValid: true,
       issuedValid: true,
       identityValid: false,
-      revokedValid: false,
     });
   });
   it("should interpret whenDocumentIssuerIdentityInvalidDid correctly", () => {
@@ -78,7 +71,6 @@ describe("interpretFragments", () => {
       hashValid: true,
       issuedValid: true,
       identityValid: false,
-      revokedValid: false,
     });
   });
   it("should interpret whenTransferableDocumentVerified correctly", () => {
@@ -86,7 +78,6 @@ describe("interpretFragments", () => {
       hashValid: true,
       issuedValid: true,
       identityValid: true,
-      revokedValid: false,
     });
   });
 });

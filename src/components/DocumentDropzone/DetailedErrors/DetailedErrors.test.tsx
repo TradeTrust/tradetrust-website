@@ -1,20 +1,11 @@
 import React from "react";
-import { VerificationFragment } from "@govtechsg/oa-verify";
 import { render, screen } from "@testing-library/react";
 import { DetailedErrors } from "./DetailedErrors";
 import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
-import {
-  whenDocumentHashInvalidAndNotIssued,
-  whenDocumentHashInvalid,
-  whenDocumentNotIssued,
-  whenDocumentIssuerIdentityInvalidDnsTxt,
-  whenDocumentRevoked,
-  whenDocumentInvalid,
-} from "../../../test/fixture/verifier-responses";
 
 describe("DetailedErrors", () => {
   it("should display all verification error messages", () => {
-    render(<DetailedErrors verificationStatus={whenDocumentHashInvalidAndNotIssued as VerificationFragment[]} />);
+    render(<DetailedErrors verificationError={[TYPES.ISSUED, TYPES.HASH, TYPES.IDENTITY]} />);
     expect(screen.getByText(MESSAGES[TYPES.ISSUED].failureTitle)).toBeInTheDocument();
     expect(screen.getByText(MESSAGES[TYPES.ISSUED].failureMessage)).toBeInTheDocument();
     expect(screen.getByText(MESSAGES[TYPES.HASH].failureTitle)).toBeInTheDocument();
@@ -23,8 +14,8 @@ describe("DetailedErrors", () => {
     expect(screen.getByText(MESSAGES[TYPES.IDENTITY].failureMessage)).toBeInTheDocument();
   });
 
-  it("should display only verification error message on fragment 'hash' when document is tampered", () => {
-    render(<DetailedErrors verificationStatus={whenDocumentHashInvalid as VerificationFragment[]} />);
+  it("should display only verification error message on fragment 'hash' when verification error is HASH", () => {
+    render(<DetailedErrors verificationError={[TYPES.HASH]} />);
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
     expect(screen.getByText(MESSAGES[TYPES.HASH].failureTitle)).toBeInTheDocument();
@@ -35,8 +26,8 @@ describe("DetailedErrors", () => {
     expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).not.toBeInTheDocument();
   });
 
-  it("should display only verification error message on fragment 'issue' when document is not issued", () => {
-    render(<DetailedErrors verificationStatus={whenDocumentNotIssued as VerificationFragment[]} />);
+  it("should display only verification error message on fragment 'issue' when verification error is issued", () => {
+    render(<DetailedErrors verificationError={[TYPES.ISSUED]} />);
     expect(screen.getByText(MESSAGES[TYPES.ISSUED].failureTitle)).toBeInTheDocument();
     expect(screen.getByText(MESSAGES[TYPES.ISSUED].failureMessage)).toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.HASH].failureTitle)).not.toBeInTheDocument();
@@ -47,8 +38,8 @@ describe("DetailedErrors", () => {
     expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).not.toBeInTheDocument();
   });
 
-  it("should display only verification error message on fragment 'identity' when document is not identified by DNS", () => {
-    render(<DetailedErrors verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]} />);
+  it("should display only verification error message on fragment 'identity' when verification error is IDENTITY", () => {
+    render(<DetailedErrors verificationError={[TYPES.IDENTITY]} />);
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.HASH].failureTitle)).not.toBeInTheDocument();
@@ -59,8 +50,8 @@ describe("DetailedErrors", () => {
     expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).not.toBeInTheDocument();
   });
 
-  it("should display only verification error message on fragment 'issue' when document is revoked", () => {
-    render(<DetailedErrors verificationStatus={whenDocumentRevoked as VerificationFragment[]} />);
+  it("should display only verification error message on fragment 'issue' when verification error is REVOKED", () => {
+    render(<DetailedErrors verificationError={[TYPES.REVOKED]} />);
     expect(screen.getByText(MESSAGES[TYPES.REVOKED].failureTitle)).toBeInTheDocument();
     expect(screen.getByText(MESSAGES[TYPES.REVOKED].failureMessage)).toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
@@ -73,8 +64,8 @@ describe("DetailedErrors", () => {
     expect(screen.queryByText(MESSAGES[TYPES.INVALID].failureMessage)).not.toBeInTheDocument();
   });
 
-  it("should display only verification error message 'invalid' when document has no fragments", () => {
-    render(<DetailedErrors verificationStatus={whenDocumentInvalid as VerificationFragment[]} />);
+  it("should display only verification error message 'invalid' when verification error is INVALID", () => {
+    render(<DetailedErrors verificationError={[TYPES.INVALID]} />);
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.HASH].failureTitle)).not.toBeInTheDocument();

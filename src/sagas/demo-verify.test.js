@@ -7,6 +7,7 @@ import {
   whenDocumentRevoked,
 } from "../test/fixture/verifier-responses";
 import { runSaga } from "redux-saga";
+import { TYPES } from "../constants/VerificationErrorMessages";
 
 async function recordSaga(saga, initialAction) {
   const dispatched = [];
@@ -62,7 +63,7 @@ describe("verifyDemoDocument", () => {
     expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: "demo-verify/verifyDemoDocumentFailure",
-      payload: ["Failed to verify document"],
+      payload: [TYPES.INVALID],
     });
   });
 
@@ -80,7 +81,7 @@ describe("verifyDemoDocument", () => {
     expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: "demo-verify/verifyDemoDocumentFailure",
-      payload: ["This document has been revoked by the issuing authority. Please contact them for more details."],
+      payload: [TYPES.REVOKED],
     });
   });
 });

@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useCallback, useMemo } from "react";
-import { isValid } from "@govtechsg/oa-verify";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
@@ -14,12 +13,12 @@ interface CertificateDropzoneProps {
 export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = (props) => {
   const { toggleQrReaderVisible } = props;
   const dispatch = useDispatch();
-  const { verificationPending, verificationStatus, retrieveCertificateByActionState } = useSelector(
+  const { verificationPending, retrieveCertificateByActionState, verificationError } = useSelector(
     (state: RootState) => state.certificate
   );
 
   const isVerificationPending = verificationPending;
-  const isVerificationError = verificationStatus && !isValid(verificationStatus);
+  const isVerificationError = verificationError && verificationError.length > 0;
   const isActionError = retrieveCertificateByActionState === states.FAILURE;
 
   const resetData = useCallback(() => {

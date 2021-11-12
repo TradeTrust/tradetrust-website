@@ -11,6 +11,7 @@ import {
   whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentRevoked,
 } from "../../test/fixture/verifier-responses";
+import { TYPES } from "../../constants/VerificationErrorMessages";
 
 const sampleDocument = wrapDocument({
   issuers: [
@@ -27,9 +28,14 @@ const sampleDocument = wrapDocument({
 });
 
 const RenderWithStore = ({ children, ...props }: any) => {
-  const { document, fragments, isPending } = props;
+  const { document, fragments, isPending, error } = props;
   const store = configureStore({
-    demoVerify: { rawModifiedDocument: document, verificationStatus: fragments, verificationPending: isPending },
+    demoVerify: {
+      rawModifiedDocument: document,
+      verificationStatus: fragments,
+      verificationPending: isPending,
+      verificationError: error,
+    },
   });
   return (
     <Provider store={store}>
@@ -64,7 +70,11 @@ export const MagicDemoVerifying = () => {
 
 export const MagicDemoVerificationErrorsAll = () => {
   return (
-    <RenderWithStore document={sampleDocument} fragments={whenDocumentHashInvalidAndNotIssued}>
+    <RenderWithStore
+      document={sampleDocument}
+      fragments={whenDocumentHashInvalidAndNotIssued}
+      error={[TYPES.HASH, TYPES.ISSUED, TYPES.IDENTITY]}
+    >
       <MagicDropzone />
     </RenderWithStore>
   );
@@ -72,7 +82,7 @@ export const MagicDemoVerificationErrorsAll = () => {
 
 export const MagicDemoVerificationErrorHash = () => {
   return (
-    <RenderWithStore document={sampleDocument} fragments={whenDocumentHashInvalid}>
+    <RenderWithStore document={sampleDocument} fragments={whenDocumentHashInvalid} error={[TYPES.HASH]}>
       <MagicDropzone />
     </RenderWithStore>
   );
@@ -80,7 +90,7 @@ export const MagicDemoVerificationErrorHash = () => {
 
 export const MagicDemoVerificationErrorIssue = () => {
   return (
-    <RenderWithStore document={sampleDocument} fragments={whenDocumentNotIssued}>
+    <RenderWithStore document={sampleDocument} fragments={whenDocumentNotIssued} error={[TYPES.ISSUED]}>
       <MagicDropzone />
     </RenderWithStore>
   );
@@ -88,7 +98,11 @@ export const MagicDemoVerificationErrorIssue = () => {
 
 export const MagicDemoVerificationErrorIdentity = () => {
   return (
-    <RenderWithStore document={sampleDocument} fragments={whenDocumentIssuerIdentityInvalidDnsTxt}>
+    <RenderWithStore
+      document={sampleDocument}
+      fragments={whenDocumentIssuerIdentityInvalidDnsTxt}
+      error={[TYPES.IDENTITY]}
+    >
       <MagicDropzone />
     </RenderWithStore>
   );
@@ -96,7 +110,7 @@ export const MagicDemoVerificationErrorIdentity = () => {
 
 export const MagicDemoVerificationErrorRevoked = () => {
   return (
-    <RenderWithStore document={sampleDocument} fragments={whenDocumentRevoked}>
+    <RenderWithStore document={sampleDocument} fragments={whenDocumentRevoked} error={[TYPES.REVOKED]}>
       <MagicDropzone />
     </RenderWithStore>
   );

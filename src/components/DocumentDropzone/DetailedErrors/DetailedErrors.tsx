@@ -1,7 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { VerificationFragment } from "@govtechsg/oa-verify";
-import { errorMessageHandling } from "../../../services/verify/fragments";
-import { MESSAGES, TYPES } from "../../../constants/VerificationErrorMessages";
+import { MESSAGES } from "../../../constants/VerificationErrorMessages";
 
 export const DetailedError: FunctionComponent<{ title: string; message: string }> = ({ title, message }) => {
   return (
@@ -12,22 +10,11 @@ export const DetailedError: FunctionComponent<{ title: string; message: string }
   );
 };
 
-export const DetailedErrors: FunctionComponent<{ verificationStatus: VerificationFragment[] | null }> = ({
-  verificationStatus,
-}) => {
-  if (!verificationStatus) return null;
-
-  let errors: string[] = [];
-
-  try {
-    errors = errorMessageHandling(verificationStatus);
-  } catch (e) {
-    errors.push(TYPES.INVALID);
-  }
-
+export const DetailedErrors: FunctionComponent<{ verificationError: string[] | null }> = ({ verificationError }) => {
+  if (!verificationError) return null;
   return (
     <div className="mb-8">
-      {errors.map((errorType, index) => (
+      {verificationError.map((errorType, index) => (
         <DetailedError
           key={index}
           title={MESSAGES[errorType].failureTitle}

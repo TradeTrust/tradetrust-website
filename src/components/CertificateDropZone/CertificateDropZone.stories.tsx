@@ -1,22 +1,10 @@
 import React from "react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { CertificateDropZone } from "./CertificateDropZone";
-import {
-  whenDocumentHashInvalid,
-  whenDocumentRevoked,
-  whenDocumentNotIssued,
-  whenDocumentIssuerIdentityInvalidDnsTxt,
-  whenDocumentHashInvalidAndNotIssued,
-  whenDocumentAddressInvalid,
-  whenDocumentNotFound,
-  whenInvalidCallArgument,
-  whenServerError,
-  whenUnhandledError,
-  whenDocumentInvalid,
-} from "../../test/fixture/verifier-responses";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
 import { states } from "../../reducers/certificate";
+import { TYPES } from "../../constants/VerificationErrorMessages";
 
 const RenderWithStore = ({ children, ...props }: any) => {
   const {
@@ -56,7 +44,7 @@ export default {
 };
 
 export const Ready = () => (
-  <RenderWithStore verificationStatus={null}>
+  <RenderWithStore verificationError={null}>
     <CertificateDropZone />
   </RenderWithStore>
 );
@@ -68,31 +56,31 @@ export const Verifying = () => (
 );
 
 export const AllVerificationErrors = () => (
-  <RenderWithStore verificationStatus={whenDocumentHashInvalidAndNotIssued}>
+  <RenderWithStore verificationError={[TYPES.HASH, TYPES.ISSUED, TYPES.IDENTITY]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const InvalidHash = () => (
-  <RenderWithStore verificationStatus={whenDocumentHashInvalid}>
+  <RenderWithStore verificationError={[TYPES.HASH]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const NotIssued = () => (
-  <RenderWithStore verificationStatus={whenDocumentNotIssued}>
+  <RenderWithStore verificationError={[TYPES.ISSUED]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const IssuerIdentityInvalid = () => (
-  <RenderWithStore verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt}>
+  <RenderWithStore verificationError={[TYPES.IDENTITY]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const Revoked = () => (
-  <RenderWithStore verificationStatus={whenDocumentRevoked}>
+  <RenderWithStore verificationError={[TYPES.REVOKED]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
@@ -107,37 +95,37 @@ export const ActionError = () => (
 );
 
 export const InvalidDocument = () => (
-  <RenderWithStore verificationStatus={whenDocumentInvalid}>
+  <RenderWithStore verificationError={[TYPES.INVALID]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const AddressInvalidError = () => (
-  <RenderWithStore verificationStatus={whenDocumentAddressInvalid}>
+  <RenderWithStore verificationError={[TYPES.ADDRESS_INVALID]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const ContractNotFoundError = () => (
-  <RenderWithStore verificationStatus={whenDocumentNotFound}>
+  <RenderWithStore verificationError={[TYPES.CONTRACT_NOT_FOUND]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const InvalidArgumentError = () => (
-  <RenderWithStore verificationStatus={whenInvalidCallArgument}>
+  <RenderWithStore verificationError={[TYPES.HASH, TYPES.INVALID_ARGUMENT]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const ServerError = () => (
-  <RenderWithStore verificationStatus={whenServerError}>
+  <RenderWithStore verificationError={[TYPES.SERVER_ERROR]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const UnhandledError = () => (
-  <RenderWithStore verificationStatus={whenUnhandledError}>
+  <RenderWithStore verificationError={[TYPES.ETHERS_UNHANDLED_ERROR]}>
     <CertificateDropZone />
   </RenderWithStore>
 );
