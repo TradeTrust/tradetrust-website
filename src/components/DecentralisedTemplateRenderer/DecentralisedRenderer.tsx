@@ -19,7 +19,9 @@ import {
   print,
 } from "@govtechsg/decentralized-renderer-react-components";
 import { TemplateProps } from "./../../types";
-import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplate } from "../../utils/shared";
+import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
+
+const DEFAULT_RENDERER_URL = `https://generic-templates.tradetrust.io`;
 
 interface DecentralisedRendererProps {
   rawDocument: WrappedOrSignedOpenAttestationDocument;
@@ -43,6 +45,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   const document = useMemo(() => getOpenAttestationData(rawDocument), [rawDocument]);
   const [height, setHeight] = useState(250);
   const [isTimeout, setIsTimeout] = useState(false);
+  const source = getTemplateUrl(rawDocument) ?? DEFAULT_RENDERER_URL;
 
   useImperativeHandle(forwardedRef, () => ({
     print() {
@@ -95,7 +98,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
     <div className={`${isTimeout ? "container" : ""}`}>
       <FrameConnector
         style={{ height: `${height}px`, width: "100%", border: "0px" }}
-        source={`${getTemplate(rawDocument)}`}
+        source={source}
         dispatch={dispatch}
         onConnected={onConnected}
       />
