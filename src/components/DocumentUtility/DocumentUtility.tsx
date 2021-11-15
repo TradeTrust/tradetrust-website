@@ -1,4 +1,4 @@
-import { v2 } from "@govtechsg/open-attestation";
+import { v2, utils } from "@govtechsg/open-attestation";
 import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
@@ -21,10 +21,13 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
 
 export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint }) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
-  // Extending document data to account for undefined metadata in OA schema
-  const documentWithMetadata = getOpenAttestationData(document) as DocumentWithAdditionalMetadata;
-  const fileName = documentWithMetadata.name ?? "Untitled";
-  const qrcodeUrl = documentWithMetadata.links?.self?.href ?? "";
+  const documentWithMetadata = getOpenAttestationData(document) as DocumentWithAdditionalMetadata; // Extending document data to account for undefined metadata in OA schema
+  const { name, links } = utils.isRawV3Document(documentWithMetadata)
+    ? documentWithMetadata.credentialSubject
+    : documentWithMetadata;
+  const fileName = name ?? "Untitled";
+  const qrcodeUrl = links?.self?.href;
+
   const imageSettings: ImageSettings = {
     src: `/static/images/logo-qrcode.png`,
     height: 50,
@@ -83,11 +86,10 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
             download={`${fileName}.tt`}
             target="_black"
             href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
+            role="button"
+            aria-label="document-utility-download"
           >
-            <ButtonIcon
-              className="bg-white text-cerulean border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
-              aria-label="document-utility-download-document-button"
-            >
+            <ButtonIcon className="bg-white text-cerulean border-2 border-cloud-100 rounded-xl hover:bg-gray-100">
               <Download />
             </ButtonIcon>
           </a>

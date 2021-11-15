@@ -1,13 +1,12 @@
-import { getData, utils, v2, v3 } from "@govtechsg/open-attestation";
+import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@govtechsg/open-attestation";
 
-export type WrappedOrSignedOpenAttestationDocument = v2.WrappedDocument | v3.WrappedDocument;
+export type WrappedOrSignedOpenAttestationDocument = WrappedDocument<OpenAttestationDocument>;
 // note that the return type for getting attachments will normalise the structure into v2.Attachment
 export type OpenAttestationAttachment = v2.Attachment;
 
 export const getOpenAttestationData = (
-  rawDocument: WrappedOrSignedOpenAttestationDocument
-): v3.WrappedDocument<v3.OpenAttestationDocument> | v2.OpenAttestationDocument =>
-  utils.isWrappedV2Document(rawDocument) ? getData(rawDocument) : rawDocument;
+  wrappedDocument: WrappedDocument<OpenAttestationDocument>
+): OpenAttestationDocument => utils.getDocumentData(wrappedDocument);
 
 export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocument): string | undefined => {
   if (utils.isWrappedV2Document(rawDocument)) {
