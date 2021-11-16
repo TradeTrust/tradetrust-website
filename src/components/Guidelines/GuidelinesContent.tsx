@@ -3,7 +3,6 @@ import ReactMarkdown from "react-markdown";
 import { AccordionItem } from "../../components/UI/Accordion/AccordionItem";
 import { importAll } from "../../common/utils/importAll";
 import { getSortedByDateAsc } from "../../utils";
-import remarkGfm from "remark-gfm";
 
 export type Guidelines = {
   body: string;
@@ -28,10 +27,7 @@ export const GuidelinesContent: FunctionComponent = () => (
           heading={guideline.attributes.title}
           divider
         >
-          <ReactMarkdown
-            components={{ p: ({ ...props }) => <p style={{ marginBottom: "1rem" }} {...props} /> }}
-            remarkPlugins={[remarkGfm]}
-          >
+          <ReactMarkdown components={{ p: ({ ...props }) => <p style={{ marginBottom: "1rem" }} {...props} /> }}>
             {guideline.body}
           </ReactMarkdown>
         </AccordionItem>
