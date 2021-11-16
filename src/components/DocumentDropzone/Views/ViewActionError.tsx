@@ -26,17 +26,18 @@ export const ViewActionError: FunctionComponent<ViewActionErrorProps> = ({ reset
         title={`Unable to load certificate with the provided parameters`}
         message={retrieveCertificateByActionError}
       />
-      <Link passHref href="/faq">
-        <a
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <Button className={`text-white bg-red-500 border-red-500 hover:bg-red-300 hover:border-red-300`}>
+      <Button className={`bg-red-500 border-red-500 hover:bg-red-300 hover:border-red-300`}>
+        <Link passHref href="/faq">
+          <a
+            className="text-white"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             What Should I do?
-          </Button>
-        </a>
-      </Link>
+          </a>
+        </Link>
+      </Button>
       <br />
       <div
         data-testid="try-another"

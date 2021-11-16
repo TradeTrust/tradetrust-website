@@ -14,7 +14,9 @@ export const SettingsAddressResolverPage: FunctionComponent = () => (
     </Helmet>
     <div className="container py-8">
       <Link href="/settings">
-        <BackArrow />
+        <a>
+          <BackArrow />
+        </a>
       </Link>
       <div className="flex-1 flex-col">
         <h2 className="font-ubuntu text-4xl text-cloud-900">Resolver: Address</h2>

@@ -3,6 +3,7 @@ import { isFuture, format } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { ExternalLink, PlayCircle } from "react-feather";
 import { formatTime } from "../../../common/utils/dateTime";
+import Link from "next/link";
 
 export interface EventProps {
   attributes: {
@@ -48,13 +49,14 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ attributes }) => 
         </div>
         <p className="text-cloud-900 font-normal mb-4">{blurb}</p>
         {isFuture(new Date(date)) && registerLink && (
-          <LinkButton
-            href={registerLink}
-            target="_blank"
-            className="bg-cerulean-200 rounded-xl text-white hover:bg-cerulean-300 hover:text-white inline-block mb-2"
-          >
-            Register
-          </LinkButton>
+          <Link href={registerLink}>
+            <LinkButton
+              target="_blank"
+              className="bg-cerulean-200 rounded-xl text-white hover:bg-cerulean-300 hover:text-white inline-block mb-2"
+            >
+              Register
+            </LinkButton>
+          </Link>
         )}
         <div className="flex flex-wrap pt-4">
           {videoLink && (

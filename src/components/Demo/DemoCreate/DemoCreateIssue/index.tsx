@@ -74,9 +74,11 @@ export const DemoCreateIssue: FunctionComponent = () => {
                 </a>
                 .
               </p>
-              <Link href="/demo/verify">
-                <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">Test Your File Now</Button>
-              </Link>
+              <Button className="bg-cerulean rounded hover:bg-cerulean-500">
+                <Link href="/demo/verify">
+                  <a className="text-white">Test Your File Now</a>
+                </Link>
+              </Button>
             </>
           )}
           {error && (
@@ -85,11 +87,18 @@ export const DemoCreateIssue: FunctionComponent = () => {
               <h3>Failed</h3>
               <p className="py-5">
                 Please check if you have internet connection,
-                <br /> alternatively, see <Link href="/faq">FAQ</Link> or <Link href="/contact">Contact us</Link>
+                <br /> alternatively, see{" "}
+                <Link href="/faq">
+                  <a>FAQ</a>
+                </Link>{" "}
+                or{" "}
+                <Link href="/contact">
+                  <a>Contact us</a>
+                </Link>
               </p>
-              <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">
+              <Button className="bg-cerulean rounded hover:bg-cerulean-500">
                 <Link href="/demo/create">
-                  <a className="text-white hover:text-white">Try Again</a>
+                  <a className="text-white">Try Again</a>
                 </Link>
               </Button>
             </>

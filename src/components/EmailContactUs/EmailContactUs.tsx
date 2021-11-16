@@ -13,9 +13,11 @@ export const EmailContactUsSuccess: FunctionComponent = () => {
         </div>
         <p>Our engagement team will get in touch with you soon!</p>
       </div>
-      <Link href="/">
-        <Button className="bg-white text-blue hover:bg-grey-100">Back to Home Page</Button>
-      </Link>
+      <Button className="bg-white hover:bg-grey-100">
+        <Link href="/">
+          <a className="text-blue">Back to Home Page</a>
+        </Link>
+      </Button>
     </div>
   );
 };

@@ -58,11 +58,11 @@ const SectionMap = () => {
             <h4>Ready to learn how TradeTrust can benefit your business?</h4>
           </div>
           <div className="w-full">
-            <Link href="/contact">
-              <Button className="bg-tangerine text-white hover:bg-tangerine-600 rounded-xl text-2xl px-4">
-                Get in Touch Now
-              </Button>
-            </Link>
+            <Button className="bg-tangerine hover:bg-tangerine-600 rounded-xl text-2xl px-4">
+              <Link href="/contact">
+                <a className="text-white">Get in Touch Now</a>
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

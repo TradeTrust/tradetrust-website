@@ -2,7 +2,7 @@ import React from "react";
 import { NextPage } from "next";
 
 import Link from "next/link";
-import { NavLink } from "../src/components/ui/NavLink";
+import { NavLink } from "../src/components/UI/NavLink";
 
 const HomePage: NextPage = () => {
   return (
