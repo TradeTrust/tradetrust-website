@@ -66,7 +66,7 @@
     "react-dropzone": "^11.3.2",
     "react-feather": "^2.0.9",
     "react-helmet": "^6.1.0",
-    "react-markdown": "^7.1.0",
+    "react-markdown": "^6.0.2",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-tooltip": "^4.2.21",
