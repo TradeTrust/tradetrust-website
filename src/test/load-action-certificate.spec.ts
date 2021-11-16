@@ -10,9 +10,9 @@ test("Load document from action should work when url is valid", async (t) => {
   const action = {
     type: "DOCUMENT",
     payload: {
-      uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/ebl.tt`,
-      permittedActions: ["VIEW", "STORE"],
-      redirect: "https://dev.tradetrust.io/",
+      uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-ropsten.tt`,
+      permittedActions: ["VIEW"],
+      redirect: "https://dev.tradetrust.io",
     },
   };
   await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
@@ -26,7 +26,7 @@ test("Load document from action should fail when url is invalid", async (t) => {
     type: "DOCUMENT",
     payload: {
       uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/123.tt`,
-      redirect: "https://dev.tradetrust.io/",
+      redirect: "https://dev.tradetrust.io",
     },
   };
 
