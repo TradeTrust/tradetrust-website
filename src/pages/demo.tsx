@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
 import { useAuthContext } from "../common/contexts/AuthenticationContext";
 import { useProviderContext } from "../common/contexts/provider";
 import { DemoInitial } from "../components/Demo/DemoInitial";
@@ -22,18 +22,18 @@ export const DemoLayout: FunctionComponent = ({ children }) => {
 export const Demo: FunctionComponent = () => {
   const { login, isLoggedIn } = useAuthContext();
   const { upgradeToMagicSigner } = useProviderContext();
-  const history = useHistory();
+  const router = useRouter();
 
   useEffect(() => {
     const handleIsLoggedIn = async () => {
       if (isLoggedIn) {
         await upgradeToMagicSigner();
-        history.push("/demo/create");
+        router.push("/demo/create");
       }
     };
 
     handleIsLoggedIn();
-  }, [isLoggedIn, history, upgradeToMagicSigner]);
+  }, [isLoggedIn, router, upgradeToMagicSigner]);
 
   return <DemoInitial login={login} upgradeToMagicSigner={upgradeToMagicSigner} />;
 };

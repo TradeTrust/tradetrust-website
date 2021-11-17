@@ -1,11 +1,11 @@
 import { NetworkBar, Overlay } from "@govtechsg/tradetrust-ui-components";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar, leftNavItems, rightNavItems } from "./components/Layout/NavigationBar";
 import { NETWORK } from "./config";
 import { Routes, routes } from "./routes";
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 
 const Main = styled.main`
   background-image: url("/static/images/common/wave-lines.png");
@@ -13,16 +13,16 @@ const Main = styled.main`
 `;
 
 const AppContainer = (): React.ReactElement => {
-  const location = useLocation();
+  const router = useRouter();
   const [toggleNavBar, setToggleNavBar] = useState(false);
 
   useEffect(() => {
     setToggleNavBar(false);
     window.scrollTo(0, 0);
-  }, [location]);
+  }, [router]);
 
   return (
-    <div className="flex flex-col min-h-full" data-location={location.pathname}>
+    <div className="flex flex-col min-h-full" data-location={router.pathname}>
       <NetworkBar network={NETWORK}>
         You are currently on <span className="capitalize">{NETWORK}</span> network.
       </NetworkBar>

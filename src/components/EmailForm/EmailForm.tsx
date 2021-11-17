@@ -1,7 +1,7 @@
 import { Button, Input, ButtonSize } from "@govtechsg/tradetrust-ui-components";
 import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
 import { Checkbox } from "./../UI/Checkbox";
 import { contentPdpa } from "./../../common/utils/overlay";
 import { encode } from "./../../utils";
@@ -11,7 +11,7 @@ export const EmailForm: FunctionComponent = () => {
   const [form, setForm] = useState({
     "Receive communications": "No",
   });
-  const history = useHistory();
+  const router = useRouter();
 
   const handleInputOrTextareaChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -28,11 +28,11 @@ export const EmailForm: FunctionComponent = () => {
       body: encode({ "form-name": "contact", ...form }),
     })
       .then(() => {
-        history.push("/email/success");
+        router.push("/email/success");
       })
       .catch((error) => {
         console.log(error);
-        history.push("/email/error");
+        router.push("/email/error");
       });
 
     event.preventDefault();
