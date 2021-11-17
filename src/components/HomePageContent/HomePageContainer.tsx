@@ -1,6 +1,4 @@
 import React from "react";
-import queryString from "query-string";
-import { useLocation } from "react-router-dom";
 import {
   resetCertificateState,
   retrieveCertificateByAction,
@@ -15,11 +13,12 @@ import { getLogger } from "../../utils/logger";
 import { WelcomeSection } from "./WelcomeSection";
 import { MainBenefitsSection } from "./MainBenefitsSection";
 import { HowItWorksSection } from "./HowItWorksSection";
+import { useRouter } from "next/dist/client/router";
 
 const { error } = getLogger("component:mainpage");
 
 export const HomePageContainer = (): React.ReactElement => {
-  const location = useLocation();
+  const router = useRouter();
   const history = useHistory();
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
@@ -36,12 +35,14 @@ export const HomePageContainer = (): React.ReactElement => {
     }
   });
   React.useEffect(() => {
-    if (location.search !== "") {
-      const queryParams = queryString.parse(location.search);
-      const anchorStr = decodeURIComponent(location.hash.substr(1));
+    const { query, asPath } = router;
+    if (Object.values(query).length > 0) {
+      const hash = asPath.split("#")[1];
+
+      const anchorStr = decodeURIComponent(hash);
       const anchor = anchorStr ? JSON.parse(anchorStr) : {};
       dispatch(resetCertificateState());
-      const action = JSON.parse(queryParams.q as string);
+      const action = JSON.parse(query.q as string);
       if (action.type === "DOCUMENT") {
         dispatch(retrieveCertificateByAction(action.payload, anchor));
       } else {
@@ -51,7 +52,7 @@ export const HomePageContainer = (): React.ReactElement => {
       }
       history.push("/verify");
     }
-  }, [dispatch, location, history]);
+  }, [dispatch, router, history]);
   return (
     <div className="text-lg">
       <WelcomeSection />
