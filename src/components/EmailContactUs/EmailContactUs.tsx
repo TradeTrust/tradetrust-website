@@ -14,7 +14,9 @@ export const EmailContactUsSuccess: FunctionComponent = () => {
         <p>Our engagement team will get in touch with you soon!</p>
       </div>
       <Link href="/">
-        <Button className="bg-white text-blue hover:bg-grey-100">Back to Home Page</Button>
+        <a>
+          <Button className="text-blue bg-white hover:bg-grey-100">Back to Home Page</Button>
+        </a>
       </Link>
     </div>
   );

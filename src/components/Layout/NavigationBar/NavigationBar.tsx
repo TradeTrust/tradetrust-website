@@ -137,9 +137,11 @@ export const rightNavItems: NavigationItem[] = [
     path: "/verify",
     customLink: (
       <NavLink href={"/verify"}>
-        <Button className="bg-cerulean text-white hover:bg-cerulean-500" size={ButtonSize.SM}>
-          Verify Doc
-        </Button>
+        <a>
+          <Button className="text-white bg-cerulean hover:bg-cerulean-500" size={ButtonSize.SM}>
+            Verify Doc
+          </Button>
+        </a>
       </NavLink>
     ),
   },
@@ -148,7 +150,9 @@ export const rightNavItems: NavigationItem[] = [
 const NavLogo = () => {
   return (
     <NavLink href={"/"} data-testid="nav-logo-home">
-      <h4 className="text-gray-800">TradeTrust</h4>
+      <a>
+        <h4 className="text-gray-800">TradeTrust</h4>
+      </a>
     </NavLink>
   );
 };

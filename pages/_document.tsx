@@ -1,5 +1,5 @@
 import React from "react";
-import Document, { DocumentContext, Head, Main, NextScript } from "next/document";
+import Document, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
 
 export default class MyDocument extends Document<any> {
   static async getInitialProps(ctx: DocumentContext) {
@@ -10,7 +10,7 @@ export default class MyDocument extends Document<any> {
 
   render() {
     return (
-      <html>
+      <Html>
         <Head>
           <meta charSet="utf-8" />
           <meta name="robots" content="index,follow" />
@@ -42,7 +42,7 @@ export default class MyDocument extends Document<any> {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }

@@ -32,12 +32,10 @@ const DescriptionSection: FunctionComponent = () => {
                 >
                   <i className="fas fa-play text-white" />
                 </div>
-                <Link
-                  to="/verify"
-                  className="px-4 py-3 ml-3 bg-cerulean rounded-xl text-white font-bold hover:bg-cerulean-500 hover:text-white "
-                  data-testid="verify-button"
-                >
-                  Verify Documents
+                <Link href="/verify" data-testid="verify-button">
+                  <a className="px-4 py-3 ml-3 bg-cerulean rounded-xl text-white font-bold hover:bg-cerulean-500 hover:text-white">
+                    Verify Documents
+                  </a>
                 </Link>
               </div>
             </div>

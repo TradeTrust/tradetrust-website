@@ -75,7 +75,9 @@ export const DemoCreateIssue: FunctionComponent = () => {
                 .
               </p>
               <Link href="/demo/verify">
-                <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">Test Your File Now</Button>
+                <a>
+                  <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">Test Your File Now</Button>
+                </a>
               </Link>
             </>
           )}
@@ -85,13 +87,20 @@ export const DemoCreateIssue: FunctionComponent = () => {
               <h3>Failed</h3>
               <p className="py-5">
                 Please check if you have internet connection,
-                <br /> alternatively, see <Link href="/faq">FAQ</Link> or <Link href="/contact">Contact us</Link>
-              </p>
-              <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">
-                <Link href="/demo/create">
-                  <a className="text-white hover:text-white">Try Again</a>
+                <br /> alternatively, see{" "}
+                <Link href="/faq">
+                  <a>FAQ</a>
+                </Link>{" "}
+                or{" "}
+                <Link href="/contact">
+                  <a>Contact us</a>
                 </Link>
-              </Button>
+              </p>
+              <Link href="/demo/create">
+                <a>
+                  <Button className="text-white bg-cerulean rounded hover:bg-cerulean-500">Try Again</Button>
+                </a>
+              </Link>
             </>
           )}
         </div>

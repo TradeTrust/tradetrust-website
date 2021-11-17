@@ -8,7 +8,11 @@ export const DemoVerify: FunctionComponent = () => {
       <div className="w-full lg:w-2/3 xl:w-1/2">
         <p className="mb-8">
           This is a demo verifier used specifically for verifying files created via our demo. To verify other files,
-          please use the <Link href="/verify">verifier on our main net</Link>.
+          please use the{" "}
+          <Link href="/verify">
+            <a>verifier on our main net</a>
+          </Link>
+          .
         </p>
         <MagicDropzone />
       </div>

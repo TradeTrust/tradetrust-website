@@ -21,9 +21,11 @@ export const Banner: FunctionComponent<BannerProps> = ({ className, title }: Ban
             </div>
             <div className="px-2 w-auto lg:ml-auto">
               <NavLink href="/contact">
-                <Button className="bg-tangerine text-white hover:bg-tangerine-600 border-none" size={ButtonSize.LG}>
-                  <h3>Contact us now</h3>
-                </Button>
+                <a>
+                  <Button className="text-white bg-tangerine hover:bg-tangerine-600 border-none" size={ButtonSize.LG}>
+                    <h3>Contact us now</h3>
+                  </Button>
+                </a>
               </NavLink>
             </div>
           </div>
