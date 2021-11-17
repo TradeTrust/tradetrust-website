@@ -6,17 +6,19 @@ export interface FeatureFlagOverride {
   ALL?: boolean;
 }
 
-const originalSetItem = localStorage.setItem;
-
 const EVENT_NAME = "LocalStorageInserted";
-// use custom event because storage event doesn't work for the current window
-// https://stackoverflow.com/questions/26974084/listen-for-changes-with-localstorage-on-the-same-window
-// the event must be triggered AFTER updating the storage
-localStorage.setItem = function (...args) {
-  const event = new Event(EVENT_NAME);
-  originalSetItem.apply(this, args);
-  document.dispatchEvent(event);
-};
+
+if (typeof window !== "undefined") {
+  const originalSetItem = localStorage.setItem;
+  // use custom event because storage event doesn't work for the current window
+  // https://stackoverflow.com/questions/26974084/listen-for-changes-with-localstorage-on-the-same-window
+  // the event must be triggered AFTER updating the storage
+  localStorage.setItem = function (...args) {
+    const event = new Event(EVENT_NAME);
+    originalSetItem.apply(this, args);
+    document.dispatchEvent(event);
+  };
+}
 
 export const useFeatureFlagOverride = (): {
   featureFlagOverride: FeatureFlagOverride;

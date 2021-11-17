@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   resetCertificateState,
   retrieveCertificateByAction,
@@ -6,7 +6,6 @@ import {
   updateCertificate,
 } from "../../reducers/certificate";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
 import { NestedDocumentState } from "../../constants/NestedDocumentState";
 import { getLogger } from "../../utils/logger";
 
@@ -19,21 +18,28 @@ const { error } = getLogger("component:mainpage");
 
 export const HomePageContainer = (): React.ReactElement => {
   const router = useRouter();
-  const history = useHistory();
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
   // event listener for any custom postMessage
-  window.addEventListener("message", (event) => {
-    if (event.data.type === NestedDocumentState.LOAD) {
-      try {
-        const doc = atob(event.data.payload);
-        loadCertificate(JSON.parse(doc));
-        history.push("/verify");
-      } catch (e) {
-        error("decode data not json: " + e);
+
+  useEffect(() => {
+    const handleMessageEvent = (event: MessageEvent) => {
+      if (event.data.type === NestedDocumentState.LOAD) {
+        try {
+          const doc = atob(event.data.payload);
+          loadCertificate(JSON.parse(doc));
+          router.push("/verify");
+        } catch (e) {
+          error("decode data not json: " + e);
+        }
       }
-    }
-  });
+    };
+
+    window.addEventListener("message", handleMessageEvent);
+
+    return () => window.removeEventListener("message", handleMessageEvent);
+  }, [loadCertificate, router]);
+
   React.useEffect(() => {
     const { query, asPath } = router;
     if (Object.values(query).length > 0) {
@@ -50,9 +56,9 @@ export const HomePageContainer = (): React.ReactElement => {
           retrieveCertificateByActionFailure(`The type ${action.type} provided from the action is not supported`)
         );
       }
-      history.push("/verify");
+      router.push("/verify");
     }
-  }, [dispatch, router, history]);
+  }, [dispatch, router]);
   return (
     <div className="text-lg">
       <WelcomeSection />
