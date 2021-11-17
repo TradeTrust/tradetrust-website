@@ -33,8 +33,8 @@ export const GuidelinesContent: FunctionComponent = () => (
         </AccordionItem>
       ))}
     </div>
-    <div className="my-8 w-full lg:w-1/3 flex justify-center">
-      <img src="/static/images/guidelines/Guidelines.png" alt="Guidelines person" />
+    <div className="my-12 lg:my-8 w-full lg:w-1/3">
+      <img className="mx-auto" src="/static/images/guidelines/Guidelines.png" alt="Guidelines person" />
     </div>
   </div>
 );
