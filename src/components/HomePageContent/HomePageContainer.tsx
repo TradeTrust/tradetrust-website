@@ -13,7 +13,7 @@ import { getLogger } from "../../utils/logger";
 import { WelcomeSection } from "./WelcomeSection";
 import { MainBenefitsSection } from "./MainBenefitsSection";
 import { HowItWorksSection } from "./HowItWorksSection";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 
 const { error } = getLogger("component:mainpage");
 

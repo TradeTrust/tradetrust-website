@@ -1,7 +1,7 @@
 import { Button, Input, OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useState } from "react";
 import { Checkbox } from "../../UI/Checkbox";
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
 import { contentPdpa } from "../../../common/utils/overlay";
 import { magic } from "../../../common/contexts/helpers";
 
@@ -16,7 +16,7 @@ export const DemoInitial: FunctionComponent<DemoInitialProps> = ({ login, upgrad
     "Receive communications": "No",
     email: "",
   });
-  const history = useHistory();
+  const router = useRouter();
 
   const handleInputOrTextareaChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -32,7 +32,7 @@ export const DemoInitial: FunctionComponent<DemoInitialProps> = ({ login, upgrad
       event.preventDefault();
       await login(form.email);
       await upgradeToMagicSigner();
-      history.push("/demo/create");
+      router.push("/demo/create");
     } catch (e) {
       console.log(e);
     }

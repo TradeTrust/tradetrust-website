@@ -5,7 +5,7 @@ import { NavigationBar, leftNavItems, rightNavItems } from "./components/Layout/
 import { NETWORK } from "./config";
 import { Routes, routes } from "./routes";
 import styled from "@emotion/styled";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 
 const Main = styled.main`
   background-image: url("/static/images/common/wave-lines.png");

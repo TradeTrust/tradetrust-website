@@ -2,16 +2,18 @@ import React, { FunctionComponent } from "react";
 import { ChevronLeft } from "react-feather";
 import Link from "next/link";
 import { Helmet } from "react-helmet";
-import { useLocation, useParams } from "react-router-dom";
 import { allNews } from "./../components/News";
 import { NewsSingle, NewsTag } from "./../components/News/types";
 import { NewsDetailContent } from "./../components/News/NewsDetailContent/NewsDetailContent";
 import { ResourceDownload } from "./../components/UI/ResourceDownload";
+import { useRouter } from "next/router";
 
 export const NewsPageDetail: FunctionComponent = () => {
-  const location = useLocation();
-  const params: { slug: string } = useParams();
-  const detail: NewsSingle = allNews.find((news) => news.slug === params.slug);
+  const router = useRouter();
+
+  const slug = router.pathname.split("news/")[1];
+
+  const detail: NewsSingle = allNews.find((news) => news.slug === slug);
   const newsletters: NewsSingle[] = allNews.filter((news) => news.type === NewsTag.NEWSLETTER);
 
   return (
@@ -26,7 +28,7 @@ export const NewsPageDetail: FunctionComponent = () => {
           content="Check out our events and browse through our latest news and official statements."
         />
         <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${window.location.origin}${location.pathname}`} />
+        <meta property="og:url" content={`${window.location.origin}${router.pathname}`} />
         <title>TradeTrust - {detail.attributes.title}</title>
       </Helmet>
       <div className="container py-12">

@@ -3,7 +3,7 @@ import { ReactNode } from "react-markdown";
 import { DemoCreateContext } from "./contexts/DemoCreateContext";
 import { DemoFormProvider } from "./contexts/DemoFormContext";
 import { Prompt } from "react-router";
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
 import { Location } from "history";
 import { useOverlayContext } from "@govtechsg/tradetrust-ui-components";
 import { DemoCreateForm } from "./DemoCreateForm";
@@ -14,7 +14,7 @@ import { DemoCreateStart } from "./DemoCreateStart";
 import { ModalNavigateOut } from "../ModalNavigateOut";
 
 export const DemoCreate: FunctionComponent = () => {
-  const history = useHistory();
+  const router = useRouter();
   const { activeStep } = useContext(DemoCreateContext);
   const { setOverlayVisible, showOverlay } = useOverlayContext();
   const [isOnNavigateOut, setOnNavigateOut] = useState(false);
@@ -40,7 +40,7 @@ export const DemoCreate: FunctionComponent = () => {
           closeModal={closeModal}
           closeModalAndNavigate={() => {
             closeModal();
-            history.push(location.pathname);
+            router.push(location.pathname);
           }}
           setOnNavigateOut={setOnNavigateOut}
         />
