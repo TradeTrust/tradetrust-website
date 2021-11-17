@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import Link, { LinkProps } from "next/link";
-import React, { Children, FunctionComponent, ReactChild, ReactChildren, ReactNode } from "react";
+import React, { Children, FunctionComponent, ReactNode } from "react";
 
 interface NavLinkProps {
   children: ReactNode;

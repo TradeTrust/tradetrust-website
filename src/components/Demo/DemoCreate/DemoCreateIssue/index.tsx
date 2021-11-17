@@ -74,11 +74,11 @@ export const DemoCreateIssue: FunctionComponent = () => {
                 </a>
                 .
               </p>
-              <Button className="bg-cerulean rounded hover:bg-cerulean-500">
-                <Link href="/demo/verify">
-                  <a className="text-white">Test Your File Now</a>
-                </Link>
-              </Button>
+              <Link href="/demo/verify">
+                <a>
+                  <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">Test Your File Now</Button>
+                </a>
+              </Link>
             </>
           )}
           {error && (
@@ -96,11 +96,11 @@ export const DemoCreateIssue: FunctionComponent = () => {
                   <a>Contact us</a>
                 </Link>
               </p>
-              <Button className="bg-cerulean rounded hover:bg-cerulean-500">
-                <Link href="/demo/create">
-                  <a className="text-white">Try Again</a>
-                </Link>
-              </Button>
+              <Link href="/demo/create">
+                <a>
+                  <Button className="text-white bg-cerulean rounded hover:bg-cerulean-500">Try Again</Button>
+                </a>
+              </Link>
             </>
           )}
         </div>

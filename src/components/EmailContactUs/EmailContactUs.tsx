@@ -13,11 +13,11 @@ export const EmailContactUsSuccess: FunctionComponent = () => {
         </div>
         <p>Our engagement team will get in touch with you soon!</p>
       </div>
-      <Button className="bg-white hover:bg-grey-100">
-        <Link href="/">
-          <a className="text-blue">Back to Home Page</a>
-        </Link>
-      </Button>
+      <Link href="/">
+        <a>
+          <Button className="text-blue bg-white hover:bg-grey-100">Back to Home Page</Button>
+        </a>
+      </Link>
     </div>
   );
 };

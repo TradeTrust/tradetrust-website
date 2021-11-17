@@ -136,11 +136,13 @@ export const rightNavItems: NavigationItem[] = [
     label: "Verify Doc",
     path: "/verify",
     customLink: (
-      <Button className="bg-cerulean hover:bg-cerulean-500" size={ButtonSize.SM}>
-        <NavLink href={"/verify"}>
-          <a className="text-white">Verify Doc</a>
-        </NavLink>
-      </Button>
+      <NavLink href={"/verify"}>
+        <a>
+          <Button className="text-white bg-cerulean hover:bg-cerulean-500" size={ButtonSize.SM}>
+            Verify Doc
+          </Button>
+        </a>
+      </NavLink>
     ),
   },
 ];

@@ -20,13 +20,13 @@ export const Banner: FunctionComponent<BannerProps> = ({ className, title }: Ban
               <h3 data-testid="banner-title">{title}</h3>
             </div>
             <div className="px-2 w-auto lg:ml-auto">
-              <Button className="bg-tangerine hover:bg-tangerine-600 border-none" size={ButtonSize.LG}>
-                <NavLink href="/contact">
-                  <a className="text-white">
+              <NavLink href="/contact">
+                <a>
+                  <Button className="text-white bg-tangerine hover:bg-tangerine-600 border-none" size={ButtonSize.LG}>
                     <h3>Contact us now</h3>
-                  </a>
-                </NavLink>
-              </Button>
+                  </Button>
+                </a>
+              </NavLink>
             </div>
           </div>
         </div>
