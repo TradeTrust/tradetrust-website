@@ -40,7 +40,7 @@ export const HomePageContainer = (): React.ReactElement => {
     return () => window.removeEventListener("message", handleMessageEvent);
   }, [loadCertificate, router]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const { query, asPath } = router;
     if (Object.values(query).length > 0) {
       const hash = asPath.split("#")[1];
