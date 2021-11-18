@@ -10,6 +10,7 @@ interface AccordionItemProps {
   headingTag?: headingTag;
   heading: string;
   children: React.ReactNode;
+  divider?: boolean;
 }
 
 export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
@@ -18,6 +19,7 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
   classNameContent,
   headingTag = "h5",
   heading,
+  divider = false,
   children,
 }) => {
   const [open, setOpen] = useState(false);
@@ -33,7 +35,9 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
         {headingTag === "h5" && <h5>{heading}</h5>}
         <svg
           data-testid="accordion-icon"
-          className={`transition-transform duration-200 transform${open ? " rotate-180" : " rotate-0"}`}
+          className={`transition-transform duration-200 transform${
+            open ? " rotate-180" : " rotate-0"
+          } min-w-min min-h-min`}
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -57,6 +61,7 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
         </svg>
       </div>
       {open && <div className={addClassNameIfExist(classNameContent)}>{children}</div>}
+      {divider && <div className="border-b border-cloud-300 border-solid mx-4" />}
     </div>
   );
 };

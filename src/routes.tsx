@@ -18,6 +18,7 @@ import { DemoPage } from "./pages/demo";
 import { DemoVerifyPage } from "./pages/demoVerify";
 import { DemoCreatePage } from "./pages/demoCreate";
 import { PageNotFound } from "./pages/pageNotFound";
+import { Guidelines } from "./pages/guidelines";
 
 const renderViewer = (): React.ReactElement => <ViewerPage />;
 const renderMagicViewer = (): React.ReactElement => <ViewerPage isMagicDemo />;
@@ -51,6 +52,7 @@ export const routes: RouteInterface[] = [
   { path: "/learn", exact: true, component: LearnPage },
   { path: "/event", exact: true, component: EventPage },
   { path: "/contact", exact: true, component: ContactPage },
+  { path: "/guidelines", exact: true, component: Guidelines },
   { path: "*", component: PageNotFound },
 ];
 export interface RouteInterface {

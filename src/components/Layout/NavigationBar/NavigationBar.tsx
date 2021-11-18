@@ -59,6 +59,16 @@ export const leftNavItems: NavigationItem[] = [
           </NavLink>
         ),
       },
+      {
+        id: "guidelines(non-ethereum)",
+        label: "Guidelines (Non-Ethereum)",
+        path: "/guidelines",
+        customLink: (
+          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/guidelines"}>
+            Guidelines (Non-Ethereum)
+          </NavLink>
+        ),
+      },
     ],
   },
   {
