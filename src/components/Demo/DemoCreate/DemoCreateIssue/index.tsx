@@ -88,7 +88,7 @@ export const DemoCreateIssue: FunctionComponent = () => {
                 <br /> alternatively, see <Link to="/faq">FAQ</Link> or <Link to="/contact">Contact us</Link>
               </p>
               <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">
-                <Link className="text-white hover:text-white" to="/demo/create">
+                <Link className="text-white hover:text-white" to="/demo">
                   Try Again
                 </Link>
               </Button>
