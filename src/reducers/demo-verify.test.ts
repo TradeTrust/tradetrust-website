@@ -15,7 +15,7 @@ describe("demo", () => {
       rawModifiedDocument: null,
       verificationPending: false,
       verificationStatus: null,
-      verificationError: null,
+      verificationError: [],
     };
   });
 
@@ -25,7 +25,7 @@ describe("demo", () => {
       rawModifiedDocument: "demoDocument",
       verificationPending: false,
       verificationStatus: null,
-      verificationError: null,
+      verificationError: [],
     };
     const state = demoVerify(initialState, updateDemoDocument("demoDocument"));
     expect(state).toStrictEqual(finalState);
@@ -37,7 +37,7 @@ describe("demo", () => {
       rawModifiedDocument: null,
       verificationPending: true,
       verificationStatus: null,
-      verificationError: null,
+      verificationError: [],
     };
     const state = demoVerify(initialState, verifyingDemoDocument());
     expect(state).toStrictEqual(finalState);
@@ -49,7 +49,7 @@ describe("demo", () => {
       rawModifiedDocument: null,
       verificationPending: false,
       verificationStatus: "completed",
-      verificationError: null,
+      verificationError: [],
     };
     const state = demoVerify(initialState, verifyDemoDocumentCompleted("completed"));
     expect(state).toStrictEqual(finalState);
@@ -61,9 +61,9 @@ describe("demo", () => {
       rawModifiedDocument: null,
       verificationPending: false,
       verificationStatus: null,
-      verificationError: "failed",
+      verificationError: ["failed"],
     };
-    const state = demoVerify(initialState, verifyDemoDocumentFailure("failed"));
+    const state = demoVerify(initialState, verifyDemoDocumentFailure(["failed"]));
     expect(state).toStrictEqual(finalState);
   });
 
