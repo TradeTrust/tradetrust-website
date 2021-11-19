@@ -49,7 +49,11 @@ export const DemoCreateStart: FunctionComponent = () => {
           <h3 className="text-center">Loading funds to your wallet...</h3>
         </div>
       ) : error.length > 0 ? (
-        error
+        <div className="mt-12">
+          <h3 className="text-center">
+            There maybe something wrong with the underlying network, please try again later.
+          </h3>
+        </div>
       ) : (
         <Button onClick={handleStart} className="bg-cerulean text-white mt-8 hover:bg-cerulean-300">
           Start Now
