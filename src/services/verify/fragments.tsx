@@ -19,20 +19,24 @@ export const errorMessageHandling = (fragments: VerificationFragment[]): string[
   const { hashValid, issuedValid, identityValid } = interpretFragments(fragments);
   const errors = [];
 
+  if (utils.isDocumentStoreAddressOrTokenRegistryAddressInvalid(fragments)) {
+    // if the error is because the address is invalid, only return this one
+    return [TYPES.ADDRESS_INVALID];
+  }
+  if (utils.contractNotFound(fragments)) {
+    // if the error is because the contract cannot be found, only return this one
+    return [TYPES.CONTRACT_NOT_FOUND];
+  }
+  if (utils.serverError(fragments)) {
+    // if the error is because cannot connect to Ethereum, only return this one
+    return [TYPES.SERVER_ERROR];
+  }
+
   if (!hashValid) errors.push(TYPES.HASH);
   if (!identityValid) errors.push(TYPES.IDENTITY);
   if (!issuedValid) {
     if (utils.certificateRevoked(fragments)) errors.push(TYPES.REVOKED);
-    else if (utils.isDocumentStoreAddressOrTokenRegistryAddressInvalid(fragments)) {
-      // if the error is because the address is invalid, only keep this one
-      return [TYPES.ADDRESS_INVALID];
-    } else if (utils.contractNotFound(fragments)) {
-      // if the error is because the contract cannot be found, only keep this one
-      return [TYPES.CONTRACT_NOT_FOUND];
-    } else if (utils.serverError(fragments)) {
-      // if the error is because cannot connect to Ethereum, only keep this one
-      return [TYPES.SERVER_ERROR];
-    } else if (utils.invalidArgument(fragments)) {
+    else if (utils.invalidArgument(fragments)) {
       // this error is caused when the merkle root is wrong, and should always be shown with the DOCUMENT_INTEGRITY error
       errors.push(TYPES.INVALID_ARGUMENT);
     } else if (utils.certificateNotIssued(fragments)) errors.push(TYPES.ISSUED);

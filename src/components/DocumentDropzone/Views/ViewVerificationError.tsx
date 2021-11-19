@@ -10,7 +10,7 @@ interface ViewVerificationErrorProps {
 }
 
 export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps> = ({ resetData }) => {
-  const { verificationError } = useSelector((state: RootState) => state.certificate);
+  const { verificationStatus, verificationError } = useSelector((state: RootState) => state.certificate);
 
   return (
     <div>
@@ -22,7 +22,7 @@ export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps
           <p className="text-2xl">This document is not valid</p>
         </div>
       </div>
-      <DetailedErrors verificationError={verificationError} />
+      <DetailedErrors verificationStatus={verificationStatus} verificationError={verificationError} />
       <Link
         to="/faq"
         onClick={(e) => {

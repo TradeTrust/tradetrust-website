@@ -4,7 +4,6 @@ import { verifyCertificate } from "./certificate";
 import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalidAndNotIssued,
-  whenDocumentRevoked,
 } from "../test/fixture/verifier-responses";
 import { runSaga } from "redux-saga";
 import { TYPES } from "../constants/VerificationErrorMessages";
@@ -60,25 +59,7 @@ describe("verifyCertificate", () => {
     expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: certificate.types.VERIFYING_CERTIFICATE_FAILURE,
-      payload: [TYPES.INVALID],
-    });
-  });
-
-  it("should verify document and return error message when fragments are invalid", async () => {
-    const initialAction = { type: certificate.types.UPDATE_CERTIFICATE };
-    const getCertificate = jest
-      .spyOn(certificate, "getCertificate")
-      .mockImplementation(() => Promise.resolve(whenDocumentRevoked));
-    const verifyDocument = jest
-      .spyOn(verify, "verifyDocument")
-      .mockImplementation(() => Promise.resolve(whenDocumentRevoked));
-    const dispatched = await recordSaga(verifyCertificate, initialAction);
-
-    expect(getCertificate).toHaveBeenCalledTimes(1);
-    expect(verifyDocument).toHaveBeenCalledTimes(1);
-    expect(dispatched).toContainEqual({
-      type: certificate.types.VERIFYING_CERTIFICATE_FAILURE,
-      payload: [TYPES.REVOKED],
+      payload: [TYPES.CLIENT_NETWORK_ERROR],
     });
   });
 });

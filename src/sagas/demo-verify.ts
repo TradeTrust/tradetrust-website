@@ -6,7 +6,6 @@ import { isValid } from "@govtechsg/oa-verify";
 import { NETWORK_NAME } from "../config";
 import { history } from "../history";
 import { TYPES } from "../constants/VerificationErrorMessages";
-import { errorMessageHandling } from "../services/verify/fragments";
 
 const { trace } = getLogger("saga:demo");
 
@@ -24,11 +23,9 @@ export function* verifyDemoDocument(): any {
 
     if (NETWORK_NAME === "local" ? true : isValid(verificationStatus)) {
       yield history.push("/demo/viewer");
-    } else {
-      yield put(verifyDemoDocumentFailure(errorMessageHandling(verificationStatus)));
     }
   } catch (e) {
-    yield put(verifyDemoDocumentFailure([TYPES.INVALID]));
+    yield put(verifyDemoDocumentFailure([TYPES.CLIENT_NETWORK_ERROR]));
   }
 }
 

@@ -9,6 +9,7 @@ export const TYPES = {
   INVALID_ARGUMENT: "INVALID_ARGUMENT",
   SERVER_ERROR: "SERVER_ERROR",
   ETHERS_UNHANDLED_ERROR: "ETHERS_UNHANDLED_ERROR",
+  CLIENT_NETWORK_ERROR: "CLIENT_NETWORK_ERROR",
 };
 
 export const MESSAGES = {
@@ -67,5 +68,10 @@ export const MESSAGES = {
     successTitle: "",
     failureMessage:
       "We encountered an internal error and cannot determine the cause, please try again later. If this issue persists, contact us using the feedback link below.",
+  },
+  [TYPES.CLIENT_NETWORK_ERROR]: {
+    failureTitle: "Whoops! There seems to be an error verifying the document",
+    successTitle: "",
+    failureMessage: "Please check your network and try again",
   },
 };

@@ -4,7 +4,6 @@ import { verifyDemoDocument } from "./demo-verify";
 import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalidAndNotIssued,
-  whenDocumentRevoked,
 } from "../test/fixture/verifier-responses";
 import { runSaga } from "redux-saga";
 import { TYPES } from "../constants/VerificationErrorMessages";
@@ -63,25 +62,7 @@ describe("verifyDemoDocument", () => {
     expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: "demo-verify/verifyDemoDocumentFailure",
-      payload: [TYPES.INVALID],
-    });
-  });
-
-  it("should verify document and return error message when fragments are invalid", async () => {
-    const initialAction = { type: "demo-verify/updateDemoDocument" };
-    const getDemoDocument = jest
-      .spyOn(demoVerify, "getDemoDocument")
-      .mockImplementation(() => Promise.resolve(whenDocumentRevoked));
-    const verifyDocument = jest
-      .spyOn(verify, "verifyDocument")
-      .mockImplementation(() => Promise.resolve(whenDocumentRevoked));
-    const dispatched = await recordSaga(verifyDemoDocument, initialAction);
-
-    expect(getDemoDocument).toHaveBeenCalledTimes(1);
-    expect(verifyDocument).toHaveBeenCalledTimes(1);
-    expect(dispatched).toContainEqual({
-      type: "demo-verify/verifyDemoDocumentFailure",
-      payload: [TYPES.REVOKED],
+      payload: [TYPES.CLIENT_NETWORK_ERROR],
     });
   });
 });
