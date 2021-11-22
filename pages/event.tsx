@@ -1,35 +1,20 @@
 import React from "react";
 import { NextPage } from "next";
-import Head from "next/head";
-
-import { getHeadersFromContext } from "../src/utils/index";
-import { NextPageProps } from "../src/types";
 
 import { Page } from "../src/components/Layout/Page";
 import { EventContent } from "../src/components/Event/EventContent";
+import { NextSeo } from "next-seo";
+import { SEO_EVENT } from "../src/common/utils/seo";
 
-// need fix
-export const EventPage: NextPage<NextPageProps> = ({ headers }) => {
+export const EventPage: NextPage = () => {
   return (
     <>
-      <Head>
-        <meta property="description" content="These are media events which TradeTrust has been involved in." />
-        <meta property="og:description" content="These are media events which TradeTrust has been involved in." />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${headers.host}/media`} />
-        <title>TradeTrust - Events</title>
-      </Head>
+      <NextSeo {...SEO_EVENT} />
       <Page title="Event">
         <EventContent />
       </Page>
     </>
   );
-};
-
-EventPage.getInitialProps = async (ctx) => {
-  return {
-    headers: getHeadersFromContext(ctx),
-  };
 };
 
 export default EventPage;

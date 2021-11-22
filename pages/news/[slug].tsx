@@ -1,10 +1,6 @@
 import React from "react";
 import { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
-
-import { getHeadersFromContext } from "../../src/utils/index";
-import { NextPageProps } from "../../src/types";
 
 import { useRouter } from "next/router";
 import { NewsSingle, NewsTag } from "../../src/components/News/types";
@@ -13,8 +9,10 @@ import { NewsDetailContent } from "../../src/components/News/NewsDetailContent/N
 
 import { allNews } from "../../src/components/News";
 import { ChevronLeft } from "react-feather";
+import { NextSeo } from "next-seo";
+import { getSeo } from "../../src/common/utils/seo";
 
-const NewsDetailPage: NextPage<NextPageProps> = ({ headers }) => {
+const NewsDetailPage: NextPage = () => {
   const router = useRouter();
 
   const { slug } = router.query;
@@ -24,19 +22,13 @@ const NewsDetailPage: NextPage<NextPageProps> = ({ headers }) => {
 
   return (
     <>
-      <Head>
-        <meta
-          property="description"
-          content="Check out our events and browse through our latest news and official statements."
-        />
-        <meta
-          property="og:description"
-          content="Check out our events and browse through our latest news and official statements."
-        />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${headers.host}${router.pathname}`} />
-        <title>TradeTrust - {detail.attributes.title}</title>
-      </Head>
+      <NextSeo
+        {...getSeo({
+          title: detail.attributes.title,
+          path: router.pathname,
+          description: "Check out our events and browse through our latest news and official statements.",
+        })}
+      />
       <div className="container py-12">
         <div className="flex">
           <div className="w-auto">
@@ -59,12 +51,6 @@ const NewsDetailPage: NextPage<NextPageProps> = ({ headers }) => {
       </div>
     </>
   );
-};
-
-NewsDetailPage.getInitialProps = async (ctx) => {
-  return {
-    headers: getHeadersFromContext(ctx),
-  };
 };
 
 export default NewsDetailPage;

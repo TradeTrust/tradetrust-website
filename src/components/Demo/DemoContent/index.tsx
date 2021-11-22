@@ -22,5 +22,3 @@ export const DemoContent: FunctionComponent = () => {
 
   return <DemoInitial login={login} upgradeToMagicSigner={upgradeToMagicSigner} />;
 };
-
-export default DemoContent;

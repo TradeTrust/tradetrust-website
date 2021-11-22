@@ -1,5 +1,3 @@
-import { IncomingHttpHeaders } from "http";
-
 export interface TemplateProps {
   id: string;
   label: string;
@@ -74,8 +72,4 @@ export enum ContentType {
   BENEFIT = "BENEFIT",
   THEN = "THEN",
   NOW = "NOW",
-}
-
-export interface NextPageProps {
-  headers: IncomingHttpHeaders;
 }

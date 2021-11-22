@@ -4,7 +4,7 @@ import { CertificateViewer } from "./CertificateViewer";
 import { Redirect } from "react-router";
 import { RootState } from "../reducers";
 
-interface ViewerPageContainerProps {
+export interface ViewerPageContainerProps {
   isMagicDemo?: boolean;
 }
 export const ViewerPageContainer = ({ isMagicDemo }: ViewerPageContainerProps): React.ReactElement => {
@@ -13,5 +13,3 @@ export const ViewerPageContainer = ({ isMagicDemo }: ViewerPageContainerProps): 
 
   return document ? <CertificateViewer isMagicDemo={isMagicDemo} document={document} /> : <Redirect to="/" />;
 };
-
-export default ViewerPageContainer;

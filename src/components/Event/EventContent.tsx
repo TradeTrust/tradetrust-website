@@ -7,19 +7,7 @@ import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@govtechs
 import { getSortedByDateDesc } from "../../utils";
 
 let events = importAll(require.context("../../../cms/event/", false, /\.md$/)) as EventProps[];
-// let events = [
-//   {
-//     attributes: {
-//       title: "fuck u",
-//       thumbnail: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
-//       blurb: "ewfwefew",
-//       link: "enfwfewfwe",
-//       date: "2021-04-07T16:00:00.000Z",
-//       timeStart: "2021-03-19T07:00:00.000Z",
-//       timeEnd: "2021-03-19T08:00:00.000Z",
-//     },
-//   },
-// ] as EventProps[];
+
 events = getSortedByDateDesc(events);
 
 const CategoryFilter = styled.div`

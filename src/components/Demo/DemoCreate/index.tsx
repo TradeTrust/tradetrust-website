@@ -59,5 +59,3 @@ export const DemoCreate: FunctionComponent = () => {
     </>
   );
 };
-
-export default DemoCreate;

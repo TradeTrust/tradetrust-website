@@ -5,8 +5,12 @@ import dynamic from "next/dynamic";
 
 import { getHeadersFromContext } from "../../src/utils/index";
 import { NextPageProps } from "../../src/types";
+import { ViewerPageContainerProps } from "../../src/components/ViewerPageContainer";
 
-const ViewerPageContainer = dynamic(() => import("../../src/components/ViewerPageContainer"), { ssr: false });
+const ViewerPageContainer = dynamic<ViewerPageContainerProps>(
+  () => import("../../src/components/ViewerPageContainer").then((mod) => mod.ViewerPageContainer),
+  { ssr: false }
+);
 
 const DemoViewerPage: NextPage<NextPageProps> = ({ headers }) => {
   return (

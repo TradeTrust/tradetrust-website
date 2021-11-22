@@ -1,5 +1,6 @@
 import React from "react";
 import Document, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
+import { NextSeo } from "next-seo";
 
 export default class MyDocument extends Document<any> {
   render() {

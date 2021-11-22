@@ -1,13 +1,12 @@
 import React from "react";
 import { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 
-import { getHeadersFromContext } from "../../src/utils/index";
-import { NextPageProps } from "../../src/types";
 import { Page } from "../../src/components/Layout/Page";
 
 import { TileInfo, TileInfoProps, IconAddressBook, IconResolverAddress } from "@govtechsg/tradetrust-ui-components";
+import { NextSeo } from "next-seo";
+import { SEO_SETTINGS } from "../../src/common/utils/seo";
 
 interface SettingsOptions extends TileInfoProps {
   pathLink: string;
@@ -28,16 +27,10 @@ const settingsOptions: SettingsOptions[] = [
   },
 ];
 
-const SettingsPage: NextPage<NextPageProps> = ({ headers }) => {
+const SettingsPage: NextPage = () => {
   return (
     <>
-      <Head>
-        <meta property="description" content="TradeTrust settings page." />
-        <meta property="og:description" content="TradeTrust settings page." />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${headers.host}/settings`} />
-        <title>TradeTrust - Settings</title>
-      </Head>
+      <NextSeo {...SEO_SETTINGS} />
       <Page title="Settings">
         <div className="flex flex-col flex-wrap mt-4 md:flex-row">
           {settingsOptions.map((details, index) => (
@@ -53,12 +46,6 @@ const SettingsPage: NextPage<NextPageProps> = ({ headers }) => {
       </Page>
     </>
   );
-};
-
-SettingsPage.getInitialProps = async (ctx) => {
-  return {
-    headers: getHeadersFromContext(ctx),
-  };
 };
 
 export default SettingsPage;

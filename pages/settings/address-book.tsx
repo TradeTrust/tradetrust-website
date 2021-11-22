@@ -1,23 +1,16 @@
 import React from "react";
 import { NextPage } from "next";
-import Head from "next/head";
 
 import Link from "next/link";
 
-import { getHeadersFromContext } from "../../src/utils/index";
-import { NextPageProps } from "../../src/types";
 import { AddressBook, BackArrow } from "@govtechsg/tradetrust-ui-components";
+import { NextSeo } from "next-seo";
+import { SEO_ADDRESS_BOOK } from "../../src/common/utils/seo";
 
-const SettingsAddressBookPage: NextPage<NextPageProps> = ({ headers }) => {
+const SettingsAddressBookPage: NextPage = () => {
   return (
     <>
-      <Head>
-        <meta property="description" content="Add a local address book to resolve addresses." />
-        <meta property="og:description" content="a local address book to resolve addresses." />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${headers.host}/settings/address-book`} />
-        <title>TradeTrust - Address Book</title>
-      </Head>
+      <NextSeo {...SEO_ADDRESS_BOOK} />
       <div className="container py-8">
         <Link href="/settings">
           <a>
@@ -32,12 +25,6 @@ const SettingsAddressBookPage: NextPage<NextPageProps> = ({ headers }) => {
       </div>
     </>
   );
-};
-
-SettingsAddressBookPage.getInitialProps = async (ctx) => {
-  return {
-    headers: getHeadersFromContext(ctx),
-  };
 };
 
 export default SettingsAddressBookPage;

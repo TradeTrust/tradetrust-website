@@ -1,13 +1,11 @@
 import React from "react";
 import { NextPage } from "next";
-import Head from "next/head";
-
-import { getHeadersFromContext } from "../src/utils/index";
-import { NextPageProps } from "../src/types";
 
 import { ResourceLink } from "../src/components/UI/ResourceLink";
 import { URLS } from "../src/constants";
 import { PaginatedWebinar } from "../src/components/Webinars";
+import { NextSeo } from "next-seo";
+import { SEO_LEARN } from "../src/common/utils/seo";
 
 const documentations = [
   {
@@ -280,23 +278,10 @@ const webinars = [
   },
 ];
 
-export const LearnPage: NextPage<NextPageProps> = ({ headers }) => {
+export const LearnPage: NextPage = () => {
   return (
     <>
-      <Head>
-        <meta
-          property="description"
-          content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
-        />
-        <meta
-          property="og:description"
-          content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
-        />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${headers.host}/learn`} />
-        <title>TradeTrust - Learn</title>
-      </Head>
-
+      <NextSeo {...SEO_LEARN} />
       <div className="container py-12">
         <div className="flex">
           <div className="w-full text-cloud-900">
@@ -317,12 +302,6 @@ export const LearnPage: NextPage<NextPageProps> = ({ headers }) => {
       </div>
     </>
   );
-};
-
-LearnPage.getInitialProps = async (ctx) => {
-  return {
-    headers: getHeadersFromContext(ctx),
-  };
 };
 
 export default LearnPage;

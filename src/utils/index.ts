@@ -55,15 +55,3 @@ export const addClassNameIfExist = (className?: string): string => {
 
   return className;
 };
-
-export const getHeadersFromContext = (ctx: NextPageContext): IncomingHttpHeaders => {
-  const { req } = ctx;
-
-  let headers = {};
-
-  if (req) {
-    headers = req.headers;
-  }
-
-  return headers;
-};

@@ -19,5 +19,3 @@ export const DemoVerify: FunctionComponent = () => {
     </div>
   );
 };
-
-export default DemoVerify;

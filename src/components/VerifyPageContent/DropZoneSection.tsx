@@ -62,5 +62,3 @@ export const DropZoneSectionContainer = (): React.ReactElement => {
     </div>
   );
 };
-
-export default DropZoneSectionContainer;

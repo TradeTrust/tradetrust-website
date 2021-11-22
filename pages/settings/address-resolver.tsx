@@ -1,22 +1,14 @@
 import React from "react";
 import { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
-
-import { getHeadersFromContext } from "../../src/utils/index";
-import { NextPageProps } from "../../src/types";
+import { NextSeo } from "next-seo";
+import { SEO_ADDRESS_RESOLVER } from "../../src/common/utils/seo";
 import { AddressResolver, BackArrow } from "@govtechsg/tradetrust-ui-components";
 
-const SettingsAddressResolverPage: NextPage<NextPageProps> = ({ headers }) => {
+const SettingsAddressResolverPage: NextPage = () => {
   return (
     <>
-      <Head>
-        <meta property="description" content="Add third party’s endpoint to resolve addresses." />
-        <meta property="og:description" content="Add third party’s endpoint to resolve addresses." />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${headers.host}/settings/address-resolver`} />
-        <title>TradeTrust - Address Resolver</title>
-      </Head>
+      <NextSeo {...SEO_ADDRESS_RESOLVER} />
       <div className="container py-8">
         <Link href="/settings">
           <a>
@@ -31,12 +23,6 @@ const SettingsAddressResolverPage: NextPage<NextPageProps> = ({ headers }) => {
       </div>
     </>
   );
-};
-
-SettingsAddressResolverPage.getInitialProps = async (ctx) => {
-  return {
-    headers: getHeadersFromContext(ctx),
-  };
 };
 
 export default SettingsAddressResolverPage;
