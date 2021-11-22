@@ -6,10 +6,12 @@ import dynamic from "next/dynamic";
 import { getHeadersFromContext } from "../../src/utils/index";
 import { NextPageProps } from "../../src/types";
 import { Page } from "../../src/components/Layout/Page";
+import { DemoCreateProvider } from "../../src/components/Demo/DemoCreate/contexts/DemoCreateContext";
 import { DemoLayout } from "../../src/components/Demo/DemoLayout";
-const DemoContent = dynamic(() => import("../../src/components/Demo/DemoContent"), { ssr: false });
 
-const DemoPage: NextPage<NextPageProps> = ({ headers }) => {
+const DemoCreate = dynamic(() => import("../../src/components/Demo/DemoCreate"), { ssr: false });
+
+const DemoCreatePage: NextPage<NextPageProps> = ({ headers }) => {
   return (
     <>
       <Head>
@@ -22,22 +24,24 @@ const DemoPage: NextPage<NextPageProps> = ({ headers }) => {
           content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
         />
         <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${headers.host}/demo`} />
-        <title>TradeTrust - Demo</title>
+        <meta property="og:url" content={`${headers.host}/demo-create`} />
+        <title>TradeTrust - Demo Create</title>
       </Head>
-      <Page title="Demo">
+      <Page title="Demo Create">
         <DemoLayout>
-          <DemoContent />
+          <DemoCreateProvider>
+            <DemoCreate />
+          </DemoCreateProvider>
         </DemoLayout>
       </Page>
     </>
   );
 };
 
-DemoPage.getInitialProps = async (ctx) => {
+DemoCreatePage.getInitialProps = async (ctx) => {
   return {
     headers: getHeadersFromContext(ctx),
   };
 };
 
-export default DemoPage;
+export default DemoCreatePage;

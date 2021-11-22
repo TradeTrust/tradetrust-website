@@ -1,42 +1,8 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { useRouter } from "next/router";
-import { useAuthContext } from "../common/contexts/AuthenticationContext";
-import { useProviderContext } from "../common/contexts/provider";
-import { DemoInitial } from "../components/Demo/DemoInitial";
 import { Page } from "../components/Layout/Page";
-
-export const DemoLayout: FunctionComponent = ({ children }) => {
-  return (
-    <div className="flex flex-wrap mt-4">
-      <div className="w-full lg:w-2/3 xl:w-1/2">
-        <div className="bg-white rounded-xl shadow-xl p-6">{children}</div>
-      </div>
-      <div className="w-1/2 lg:w-1/3 xl:w-1/2 mx-auto my-8">
-        <img className="max-h-96 mx-auto" src="/static/images/faq/faq-man.png" alt="FAQ person" />
-      </div>
-    </div>
-  );
-};
-
-export const Demo: FunctionComponent = () => {
-  const { login, isLoggedIn } = useAuthContext();
-  const { upgradeToMagicSigner } = useProviderContext();
-  const router = useRouter();
-
-  useEffect(() => {
-    const handleIsLoggedIn = async () => {
-      if (isLoggedIn) {
-        await upgradeToMagicSigner();
-        router.push("/demo/create");
-      }
-    };
-
-    handleIsLoggedIn();
-  }, [isLoggedIn, router, upgradeToMagicSigner]);
-
-  return <DemoInitial login={login} upgradeToMagicSigner={upgradeToMagicSigner} />;
-};
+import { DemoLayout } from "../components/Demo/DemoLayout";
+import { DemoContent } from "../components/Demo/DemoContent";
 
 export const DemoPage: FunctionComponent = () => (
   <>
@@ -55,7 +21,7 @@ export const DemoPage: FunctionComponent = () => (
     </Helmet>
     <Page title="Demo">
       <DemoLayout>
-        <Demo />
+        <DemoContent />
       </DemoLayout>
     </Page>
   </>

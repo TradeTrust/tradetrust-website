@@ -1,6 +1,8 @@
 import { utils } from "ethers";
 import { ETHERSCAN_BASE_URL } from "../config";
 import { compareDesc, compareAsc } from "date-fns";
+import { IncomingHttpHeaders } from "http";
+import { NextPageContext } from "next";
 
 export const makeEtherscanAddressURL = (address: string): string => {
   return `${ETHERSCAN_BASE_URL}address/${address}`;
@@ -52,4 +54,16 @@ export const addClassNameIfExist = (className?: string): string => {
   }
 
   return className;
+};
+
+export const getHeadersFromContext = (ctx: NextPageContext): IncomingHttpHeaders => {
+  const { req } = ctx;
+
+  let headers = {};
+
+  if (req) {
+    headers = req.headers;
+  }
+
+  return headers;
 };

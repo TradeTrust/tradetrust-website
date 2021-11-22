@@ -2,8 +2,8 @@ import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { DemoCreate } from "../components/Demo/DemoCreate";
 import { DemoCreateProvider } from "../components/Demo/DemoCreate/contexts/DemoCreateContext";
+import { DemoLayout } from "../components/Demo/DemoLayout";
 import { Page } from "../components/Layout/Page";
-import { DemoLayout } from "./demo";
 
 export const DemoCreatePage: FunctionComponent = () => (
   <>

@@ -13,3 +13,5 @@ export const ViewerPageContainer = ({ isMagicDemo }: ViewerPageContainerProps): 
 
   return document ? <CertificateViewer isMagicDemo={isMagicDemo} document={document} /> : <Redirect to="/" />;
 };
+
+export default ViewerPageContainer;

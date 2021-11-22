@@ -2,13 +2,12 @@ import React from "react";
 import { NextPage } from "next";
 import Head from "next/head";
 
+import { getHeadersFromContext } from "../src/utils/index";
+import { NextPageProps } from "../src/types";
+
 import { HomePageContainer } from "../src/components/HomePageContent";
 
-interface HomePageProps {
-  host: string;
-}
-
-const HomePage: NextPage<HomePageProps> = ({ host }) => {
+const HomePage: NextPage<NextPageProps> = ({ headers }) => {
   return (
     <>
       <Head>
@@ -21,7 +20,7 @@ const HomePage: NextPage<HomePageProps> = ({ host }) => {
           content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
         />
         <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={host} />
+        <meta property="og:url" content={headers.host} />
         <title>TradeTrust - An easy way to check and verify your documents</title>
       </Head>
       <HomePageContainer />
@@ -30,15 +29,9 @@ const HomePage: NextPage<HomePageProps> = ({ host }) => {
 };
 
 HomePage.getInitialProps = async (ctx) => {
-  const { req } = ctx;
-
-  let host = "";
-
-  if (req) {
-    host = req.headers.host;
-  }
-
-  return { host };
+  return {
+    headers: getHeadersFromContext(ctx),
+  };
 };
 
 export default HomePage;
