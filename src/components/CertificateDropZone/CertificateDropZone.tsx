@@ -19,8 +19,11 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
   );
 
   const isVerificationPending = verificationPending;
-  const isVerificationError =
-    (verificationError && verificationError.length > 0) || (verificationStatus && !isValid(verificationStatus));
+  const isVerificationError = useCallback(() => {
+    if (verificationError) return true;
+    if (verificationStatus && !isValid(verificationStatus)) return true;
+    return false;
+  }, [verificationError, verificationStatus]);
   const isActionError = retrieveCertificateByActionState === states.FAILURE;
 
   const resetData = useCallback(() => {
@@ -60,7 +63,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
       isDragActive,
       isDragAccept,
       isVerificationPending,
-      isVerificationError,
+      isVerificationError: isVerificationError(),
       isActionError,
     });
   }, [isDragReject, isDragActive, isDragAccept, isVerificationPending, isVerificationError, isActionError]);
@@ -75,7 +78,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           switch (true) {
             case isVerificationPending:
               return <ViewVerificationPending />;
-            case isVerificationError:
+            case isVerificationError():
               return <ViewVerificationError resetData={resetData} />;
             case isActionError:
               return <ViewActionError resetData={resetData} />;

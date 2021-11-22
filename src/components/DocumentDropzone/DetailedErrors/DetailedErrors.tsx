@@ -14,10 +14,12 @@ export const DetailedError: FunctionComponent<{ title: string; message: string }
 
 export const DetailedErrors: FunctionComponent<{
   verificationStatus: VerificationFragment[] | null;
-  verificationError: string[];
+  verificationError: string | null;
 }> = ({ verificationStatus, verificationError }) => {
   if (!verificationStatus) return null;
-  const errors = [...errorMessageHandling(verificationStatus), ...verificationError];
+  const errors = errorMessageHandling(verificationStatus);
+  if (verificationError) errors.push(verificationError);
+
   return (
     <div className="mb-8">
       {errors.map((errorType, index) => (

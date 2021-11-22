@@ -13,7 +13,7 @@ export const initialState = {
 
   verificationPending: false,
   verificationStatus: null,
-  verificationError: [],
+  verificationError: null,
 
   retrieveCertificateByActionState: states.INITIAL,
   retrieveCertificateByActionError: null,

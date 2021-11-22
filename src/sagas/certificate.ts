@@ -1,5 +1,4 @@
-import { put, select } from "redux-saga/effects";
-import * as SagaEffects from "redux-saga/effects";
+import { put, select, takeEvery } from "redux-saga/effects";
 import { getLogger } from "../utils/logger";
 import {
   types,
@@ -33,11 +32,11 @@ export function* verifyCertificate(): any {
       yield history.push("/viewer");
     }
   } catch (e) {
-    yield put(verifyingCertificateFailure([TYPES.CLIENT_NETWORK_ERROR]));
+    yield put(verifyingCertificateFailure(TYPES.CLIENT_NETWORK_ERROR));
   }
 }
 
-export function* handleQrScanned({ payload: qrCode }: { payload: any }): any {
+export function* handleQrScanned({ payload: qrCode }: { type: string; payload: any }): any {
   try {
     const { payload, anchor } = yield processQrCode(qrCode);
 
@@ -47,7 +46,7 @@ export function* handleQrScanned({ payload: qrCode }: { payload: any }): any {
       anchor,
     });
   } catch (e) {
-    yield put(verifyingCertificateFailure([TYPES.CLIENT_NETWORK_ERROR]));
+    yield put(verifyingCertificateFailure(TYPES.CLIENT_NETWORK_ERROR));
   }
 }
 
@@ -55,6 +54,7 @@ export function* retrieveCertificateByAction({
   payload: { uri, key: payloadKey },
   anchor: { key: anchorKey },
 }: {
+  type: string;
   payload: { uri: any; key: any };
   anchor: { key: any };
 }): any {
@@ -110,8 +110,6 @@ export function* retrieveCertificateByAction({
     }
   }
 }
-
-const takeEvery: any = SagaEffects.takeEvery;
 
 export default [
   takeEvery(types.CERTIFICATE_PROCESS_QR_CODE, handleQrScanned),

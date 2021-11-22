@@ -23,7 +23,7 @@ describe("DetailedErrors", () => {
     render(
       <DetailedErrors
         verificationStatus={whenDocumentHashInvalidAndNotIssued as VerificationFragment[]}
-        verificationError={[]}
+        verificationError={null}
       />
     );
     expect(screen.getByText(MESSAGES[TYPES.ISSUED].failureTitle)).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe("DetailedErrors", () => {
 
   it("should display only verification error message on fragment 'hash' when verification error is HASH", () => {
     render(
-      <DetailedErrors verificationStatus={whenDocumentHashInvalid as VerificationFragment[]} verificationError={[]} />
+      <DetailedErrors verificationStatus={whenDocumentHashInvalid as VerificationFragment[]} verificationError={null} />
     );
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
@@ -50,7 +50,7 @@ describe("DetailedErrors", () => {
 
   it("should display only verification error message on fragment 'issue' when verification error is issued", () => {
     render(
-      <DetailedErrors verificationStatus={whenDocumentNotIssued as VerificationFragment[]} verificationError={[]} />
+      <DetailedErrors verificationStatus={whenDocumentNotIssued as VerificationFragment[]} verificationError={null} />
     );
     expect(screen.getByText(MESSAGES[TYPES.ISSUED].failureTitle)).toBeInTheDocument();
     expect(screen.getByText(MESSAGES[TYPES.ISSUED].failureMessage)).toBeInTheDocument();
@@ -66,7 +66,7 @@ describe("DetailedErrors", () => {
     render(
       <DetailedErrors
         verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt as VerificationFragment[]}
-        verificationError={[]}
+        verificationError={null}
       />
     );
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
@@ -81,7 +81,7 @@ describe("DetailedErrors", () => {
 
   it("should display only verification error message on fragment 'issue' when verification error is REVOKED", () => {
     render(
-      <DetailedErrors verificationStatus={whenDocumentRevoked as VerificationFragment[]} verificationError={[]} />
+      <DetailedErrors verificationStatus={whenDocumentRevoked as VerificationFragment[]} verificationError={null} />
     );
     expect(screen.getByText(MESSAGES[TYPES.REVOKED].failureTitle)).toBeInTheDocument();
     expect(screen.getByText(MESSAGES[TYPES.REVOKED].failureMessage)).toBeInTheDocument();
@@ -97,7 +97,7 @@ describe("DetailedErrors", () => {
 
   it("should display only verification error message 'invalid' when verification error is INVALID", () => {
     render(
-      <DetailedErrors verificationStatus={whenDocumentInvalid as VerificationFragment[]} verificationError={[]} />
+      <DetailedErrors verificationStatus={whenDocumentInvalid as VerificationFragment[]} verificationError={null} />
     );
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
@@ -110,7 +110,7 @@ describe("DetailedErrors", () => {
   });
 
   it("should display only verification error message 'server error' when verification error is SERVER_ERROR", () => {
-    render(<DetailedErrors verificationStatus={whenServerError as VerificationFragment[]} verificationError={[]} />);
+    render(<DetailedErrors verificationStatus={whenServerError as VerificationFragment[]} verificationError={null} />);
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.HASH].failureTitle)).not.toBeInTheDocument();
@@ -125,7 +125,7 @@ describe("DetailedErrors", () => {
     render(
       <DetailedErrors
         verificationStatus={whenDocumentAddressInvalid as VerificationFragment[]}
-        verificationError={[]}
+        verificationError={null}
       />
     );
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
@@ -140,7 +140,7 @@ describe("DetailedErrors", () => {
 
   it("should display only verification error message 'contract not found' when verification error is CONTRACT_NOT_FOUND", () => {
     render(
-      <DetailedErrors verificationStatus={whenDocumentNotFound as VerificationFragment[]} verificationError={[]} />
+      <DetailedErrors verificationStatus={whenDocumentNotFound as VerificationFragment[]} verificationError={null} />
     );
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
@@ -154,7 +154,7 @@ describe("DetailedErrors", () => {
 
   it("should display verification error message 'invalid argument' when verification error is INVALID_ARGUMENT", () => {
     render(
-      <DetailedErrors verificationStatus={whenInvalidCallArgument as VerificationFragment[]} verificationError={[]} />
+      <DetailedErrors verificationStatus={whenInvalidCallArgument as VerificationFragment[]} verificationError={null} />
     );
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
@@ -167,7 +167,9 @@ describe("DetailedErrors", () => {
   });
 
   it("should display only verification error message 'unhandled error' when verification error is ETHERS_UNHANDLED_ERROR", () => {
-    render(<DetailedErrors verificationStatus={whenUnhandledError as VerificationFragment[]} verificationError={[]} />);
+    render(
+      <DetailedErrors verificationStatus={whenUnhandledError as VerificationFragment[]} verificationError={null} />
+    );
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureMessage)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.HASH].failureTitle)).not.toBeInTheDocument();
@@ -182,7 +184,7 @@ describe("DetailedErrors", () => {
     render(
       <DetailedErrors
         verificationStatus={whenDocumentValidAndIssuedByDns as VerificationFragment[]}
-        verificationError={[TYPES.CLIENT_NETWORK_ERROR]}
+        verificationError={TYPES.CLIENT_NETWORK_ERROR}
       />
     );
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].failureTitle)).not.toBeInTheDocument();

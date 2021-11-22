@@ -25,7 +25,7 @@ export function* verifyDemoDocument(): any {
       yield history.push("/demo/viewer");
     }
   } catch (e) {
-    yield put(verifyDemoDocumentFailure([TYPES.CLIENT_NETWORK_ERROR]));
+    yield put(verifyDemoDocumentFailure(TYPES.CLIENT_NETWORK_ERROR));
   }
 }
 

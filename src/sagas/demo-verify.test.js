@@ -62,7 +62,7 @@ describe("verifyDemoDocument", () => {
     expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: "demo-verify/verifyDemoDocumentFailure",
-      payload: [TYPES.CLIENT_NETWORK_ERROR],
+      payload: TYPES.CLIENT_NETWORK_ERROR,
     });
   });
 });

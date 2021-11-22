@@ -59,7 +59,7 @@ describe("verifyCertificate", () => {
     expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: certificate.types.VERIFYING_CERTIFICATE_FAILURE,
-      payload: [TYPES.CLIENT_NETWORK_ERROR],
+      payload: TYPES.CLIENT_NETWORK_ERROR,
     });
   });
 });

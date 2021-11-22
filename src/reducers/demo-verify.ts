@@ -8,7 +8,7 @@ interface DemoVerifyState {
 
   verificationPending: boolean;
   verificationStatus: VerificationFragment[] | null;
-  verificationError: string[];
+  verificationError: string | null;
 }
 
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
 
   verificationPending: false,
   verificationStatus: null,
-  verificationError: [],
+  verificationError: null,
 } as DemoVerifyState;
 
 const demoVerifySlice = createSlice({
@@ -29,7 +29,7 @@ const demoVerifySlice = createSlice({
       state.rawModifiedDocument = null;
       state.verificationPending = false;
       state.verificationStatus = null;
-      state.verificationError = [];
+      state.verificationError = null;
     },
     updateDemoDocument: (state, action) => {
       state.rawDocument = action.payload;
