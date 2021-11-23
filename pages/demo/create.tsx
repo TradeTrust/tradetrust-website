@@ -7,14 +7,14 @@ import { DemoCreateProvider } from "../../src/components/Demo/DemoCreate/context
 import { DemoLayout } from "../../src/components/Demo/DemoLayout";
 import { NextSeo } from "next-seo";
 import { SEO_DEMO_CREATE } from "../../src/common/utils/seo";
-import { useAuthContext } from "../../src/common/contexts/AuthenticationContext";
+import { usePrivateRoute } from "../../src/common/hooks/usePrivateRoute";
 
 const DemoCreate = dynamic<{}>(() => import("../../src/components/Demo/DemoCreate").then((mod) => mod.DemoCreate), {
   ssr: false,
 });
 
 const DemoCreatePage: NextPage = () => {
-  const { isLoggedIn } = useAuthContext();
+  usePrivateRoute();
 
   return (
     <>

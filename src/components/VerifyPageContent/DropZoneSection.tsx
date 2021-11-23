@@ -49,7 +49,7 @@ export const DropZoneSectionContainer = (): React.ReactElement => {
     if (verificationStatus && (NETWORK_NAME === "local" ? true : isValid(verificationStatus))) {
       router.push("/viewer");
     }
-  }, [verificationStatus]);
+  }, [verificationStatus, router]);
 
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);

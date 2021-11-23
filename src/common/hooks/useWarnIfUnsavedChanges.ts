@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Router from "next/router";
 
-export const useWarnIfUnsavedChanges = (unsavedChanges: boolean) => {
+export const useWarnIfUnsavedChanges = (unsavedChanges: boolean): void => {
   const message = "Do you want to leave?";
 
   useEffect(() => {
