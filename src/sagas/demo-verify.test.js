@@ -6,6 +6,7 @@ import {
   whenDocumentHashInvalidAndNotIssued,
 } from "../test/fixture/verifier-responses";
 import { runSaga } from "redux-saga";
+import { TYPES } from "../constants/VerificationErrorMessages";
 
 async function recordSaga(saga, initialAction) {
   const dispatched = [];
@@ -32,10 +33,13 @@ describe("verifyDemoDocument", () => {
     const getDemoDocument = jest
       .spyOn(demoVerify, "getDemoDocument")
       .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
-    jest.spyOn(verify, "verifyDocument").mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+    const verifyDocument = jest
+      .spyOn(verify, "verifyDocument")
+      .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
     const dispatched = await recordSaga(verifyDemoDocument, initialAction);
 
     expect(getDemoDocument).toHaveBeenCalledTimes(1);
+    expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: "demo-verify/verifyDemoDocumentCompleted",
       payload: whenDocumentValidAndIssuedByDns,
@@ -49,15 +53,16 @@ describe("verifyDemoDocument", () => {
     const getDemoDocument = jest
       .spyOn(demoVerify, "getDemoDocument")
       .mockImplementation(() => Promise.resolve(whenDocumentHashInvalidAndNotIssued));
-    jest
+    const verifyDocument = jest
       .spyOn(verify, "verifyDocument")
       .mockImplementation(() => Promise.reject(new Error("Failed to verify document")));
     const dispatched = await recordSaga(verifyDemoDocument, initialAction);
 
     expect(getDemoDocument).toHaveBeenCalledTimes(1);
+    expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: "demo-verify/verifyDemoDocumentFailure",
-      payload: "Failed to verify document",
+      payload: TYPES.CLIENT_NETWORK_ERROR,
     });
   });
 });

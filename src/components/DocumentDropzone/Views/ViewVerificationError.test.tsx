@@ -4,7 +4,7 @@ import { screen, render, fireEvent } from "@testing-library/react";
 import { ViewVerificationError } from "./ViewVerificationError";
 import { Provider } from "react-redux";
 import { configureStore } from "../../../store";
-import { whenDocumentHashInvalidAndNotIssued } from "../../../test/fixture/verifier-responses";
+import { TYPES } from "../../../constants/VerificationErrorMessages";
 
 const RenderWithStore = ({ children, ...props }: any) => {
   const {
@@ -38,7 +38,7 @@ const RenderWithStore = ({ children, ...props }: any) => {
 describe("ViewVerificationError", () => {
   it("displays texts correctly", () => {
     render(
-      <RenderWithStore verificationStatus={whenDocumentHashInvalidAndNotIssued}>
+      <RenderWithStore verificationError={[TYPES.HASH, TYPES.ISSUED]}>
         <ViewVerificationError resetData={() => {}} />
       </RenderWithStore>
     );
@@ -52,7 +52,7 @@ describe("ViewVerificationError", () => {
     const resetData = jest.fn();
 
     render(
-      <RenderWithStore verificationStatus={whenDocumentHashInvalidAndNotIssued}>
+      <RenderWithStore verificationError={[TYPES.HASH, TYPES.ISSUED]}>
         <ViewVerificationError resetData={resetData} />
       </RenderWithStore>
     );

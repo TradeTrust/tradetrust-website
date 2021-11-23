@@ -5,6 +5,7 @@ import { verifyDocument, VerifierType } from "../services/verify";
 import { isValid } from "@govtechsg/oa-verify";
 import { NETWORK_NAME } from "../config";
 import { history } from "../history";
+import { TYPES } from "../constants/VerificationErrorMessages";
 
 const { trace } = getLogger("saga:demo");
 
@@ -24,9 +25,7 @@ export function* verifyDemoDocument(): any {
       yield history.push("/demo/viewer");
     }
   } catch (e) {
-    if (e instanceof Error) {
-      yield put(verifyDemoDocumentFailure(e.message));
-    }
+    yield put(verifyDemoDocumentFailure(TYPES.CLIENT_NETWORK_ERROR));
   }
 }
 

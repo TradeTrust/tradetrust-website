@@ -10,14 +10,13 @@ import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { isValid } from "@govtechsg/oa-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
-import { NETWORK_NAME } from "./../config";
+import { NETWORK_NAME } from "../config";
 import { history } from "../history";
+import { TYPES } from "../constants/VerificationErrorMessages";
 
 const { trace } = getLogger("saga:certificate");
 
-// still used in sagas: handleQrScanned and retrieveCertificateByAction
-// please delete this when those two have been moved out of sagas
-export function* verifyCertificate() {
+export function* verifyCertificate(): any {
   try {
     yield put({
       type: types.VERIFYING_CERTIFICATE,
@@ -33,11 +32,11 @@ export function* verifyCertificate() {
       yield history.push("/viewer");
     }
   } catch (e) {
-    yield put(verifyingCertificateFailure(e.message));
+    yield put(verifyingCertificateFailure(TYPES.CLIENT_NETWORK_ERROR));
   }
 }
 
-export function* handleQrScanned({ payload: qrCode }) {
+export function* handleQrScanned({ payload: qrCode }: { type: string; payload: any }): any {
   try {
     const { payload, anchor } = yield processQrCode(qrCode);
 
@@ -47,11 +46,18 @@ export function* handleQrScanned({ payload: qrCode }) {
       anchor,
     });
   } catch (e) {
-    yield put(verifyingCertificateFailure(e.message));
+    yield put(verifyingCertificateFailure(TYPES.CLIENT_NETWORK_ERROR));
   }
 }
 
-export function* retrieveCertificateByAction({ payload: { uri, key: payloadKey }, anchor: { key: anchorKey } }) {
+export function* retrieveCertificateByAction({
+  payload: { uri, key: payloadKey },
+  anchor: { key: anchorKey },
+}: {
+  type: string;
+  payload: { uri: any; key: any };
+  anchor: { key: any };
+}): any {
   try {
     yield put({
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING,
@@ -96,10 +102,12 @@ export function* retrieveCertificateByAction({ payload: { uri, key: payloadKey }
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION_SUCCESS,
     });
   } catch (e) {
-    yield put({
-      type: types.RETRIEVE_CERTIFICATE_BY_ACTION_FAILURE,
-      payload: e.message,
-    });
+    if (e instanceof Error) {
+      yield put({
+        type: types.RETRIEVE_CERTIFICATE_BY_ACTION_FAILURE,
+        payload: e.message,
+      });
+    }
   }
 }
 

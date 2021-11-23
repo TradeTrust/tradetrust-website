@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useCallback, useMemo } from "react";
-import { isValid } from "@govtechsg/oa-verify";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 import { updateCertificate, resetCertificateState, states } from "../../reducers/certificate";
 import { getDropzoneBoxUi } from "./../../common/utils/getDropzoneBoxUi";
 import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "./../DocumentDropzone/Views";
+import { isValid } from "@govtechsg/oa-verify";
 
 interface CertificateDropzoneProps {
   toggleQrReaderVisible?: () => void;
@@ -14,12 +14,16 @@ interface CertificateDropzoneProps {
 export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = (props) => {
   const { toggleQrReaderVisible } = props;
   const dispatch = useDispatch();
-  const { verificationPending, verificationStatus, retrieveCertificateByActionState } = useSelector(
+  const { verificationPending, retrieveCertificateByActionState, verificationStatus, verificationError } = useSelector(
     (state: RootState) => state.certificate
   );
 
   const isVerificationPending = verificationPending;
-  const isVerificationError = verificationStatus && !isValid(verificationStatus);
+  const isVerificationError = useMemo(() => {
+    if (verificationError) return true;
+    if (verificationStatus && !isValid(verificationStatus)) return true;
+    return false;
+  }, [verificationError, verificationStatus]);
   const isActionError = retrieveCertificateByActionState === states.FAILURE;
 
   const resetData = useCallback(() => {
