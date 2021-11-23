@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { roundInstructionsText } from ".";
 import { getVerificationStatus, updateCertificate } from "../../reducers/certificate";
@@ -45,11 +45,13 @@ export const DropZoneSectionContainer = (): React.ReactElement => {
   const router = useRouter();
   const verificationStatus = useSelector(getVerificationStatus);
 
+  const [hasDropped, setHasDropped] = useState<boolean>(false);
+
   useEffect(() => {
-    if (verificationStatus && (NETWORK_NAME === "local" ? true : isValid(verificationStatus))) {
+    if (hasDropped && verificationStatus && (NETWORK_NAME === "local" ? true : isValid(verificationStatus))) {
       router.push("/viewer");
     }
-  }, [verificationStatus, router]);
+  }, [hasDropped, verificationStatus, router]);
 
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
@@ -65,6 +67,7 @@ export const DropZoneSectionContainer = (): React.ReactElement => {
             } else {
               dispatch(reset());
             }
+            setHasDropped(true);
           }}
         >
           <CertificateDropZoneContainer />

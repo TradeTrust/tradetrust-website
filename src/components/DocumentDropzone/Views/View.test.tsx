@@ -1,5 +1,4 @@
 import React from "react";
-import { MemoryRouter as Router } from "react-router-dom";
 import { screen, render } from "@testing-library/react";
 import { View } from "./View";
 import { Provider } from "react-redux";
@@ -27,11 +26,7 @@ const RenderWithStore = ({ children, ...props }: any) => {
       retrieveCertificateByActionError,
     },
   });
-  return (
-    <Provider store={store}>
-      <Router>{children}</Router>
-    </Provider>
-  );
+  return <Provider store={store}>{children}</Provider>;
 };
 
 describe("View", () => {

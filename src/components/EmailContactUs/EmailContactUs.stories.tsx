@@ -1,5 +1,4 @@
 import React from "react";
-import { MemoryRouter as Router } from "react-router-dom";
 import { EmailContactUsSuccess, EmailContactUsError } from "./EmailContactUs";
 import { ContactUs } from "../../pages/contact";
 export default {
@@ -12,20 +11,16 @@ export default {
 
 export const Success = () => {
   return (
-    <Router>
-      <ContactUs>
-        <EmailContactUsSuccess />
-      </ContactUs>
-    </Router>
+    <ContactUs>
+      <EmailContactUsSuccess />
+    </ContactUs>
   );
 };
 
 export const Error = () => {
   return (
-    <Router>
-      <ContactUs>
-        <EmailContactUsError />
-      </ContactUs>
-    </Router>
+    <ContactUs>
+      <EmailContactUsError />
+    </ContactUs>
   );
 };

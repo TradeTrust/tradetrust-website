@@ -1,5 +1,4 @@
 import React from "react";
-import { MemoryRouter as Router } from "react-router-dom";
 import { screen, render, fireEvent } from "@testing-library/react";
 import { ViewVerificationError } from "./ViewVerificationError";
 import { Provider } from "react-redux";
@@ -28,11 +27,7 @@ const RenderWithStore = ({ children, ...props }: any) => {
       retrieveCertificateByActionError,
     },
   });
-  return (
-    <Provider store={store}>
-      <Router>{children}</Router>
-    </Provider>
-  );
+  return <Provider store={store}>{children}</Provider>;
 };
 
 describe("ViewVerificationError", () => {

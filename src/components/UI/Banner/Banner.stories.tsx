@@ -1,5 +1,4 @@
 import React from "react";
-import { MemoryRouter as Router } from "react-router-dom";
 import { Banner } from "./Banner";
 
 export default {
@@ -11,9 +10,5 @@ export default {
 };
 
 export const Default = () => {
-  return (
-    <Router>
-      <Banner title="Want to try creating a verifiable document? You will be surprised how easy it is." />
-    </Router>
-  );
+  return <Banner title="Want to try creating a verifiable document? You will be surprised how easy it is." />;
 };

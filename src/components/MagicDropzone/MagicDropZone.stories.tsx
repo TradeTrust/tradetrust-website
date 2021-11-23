@@ -1,6 +1,5 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { MemoryRouter as Router } from "react-router-dom";
 import { v2, wrapDocument } from "@govtechsg/open-attestation";
 import { MagicDropzone } from "./MagicDropzone";
 import { configureStore } from "../../store";
@@ -31,11 +30,7 @@ const RenderWithStore = ({ children, ...props }: any) => {
   const store = configureStore({
     demoVerify: { rawModifiedDocument: document, verificationStatus: fragments, verificationPending: isPending },
   });
-  return (
-    <Provider store={store}>
-      <Router>{children}</Router>
-    </Provider>
-  );
+  return <Provider store={store}>{children}</Provider>;
 };
 
 export default {

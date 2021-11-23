@@ -9,6 +9,7 @@ export const usePrivateRoute = (): void => {
   useEffect(() => {
     if (typeof window !== undefined) {
       if (!isLoggedIn) {
+        console.log("NOT LOGGED IN");
         router.push("/");
       }
     }

@@ -1,4 +1,4 @@
-import React, { createContext, ReactChildren, useContext } from "react";
+import React, { createContext, ReactChildren, useContext, useEffect } from "react";
 
 import { magic } from "../helpers";
 

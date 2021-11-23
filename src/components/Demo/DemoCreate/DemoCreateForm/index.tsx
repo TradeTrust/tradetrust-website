@@ -6,9 +6,12 @@ import { DemoCreateFormItem } from "./DemoCreateFormItem";
 import { schema } from "./schema";
 import { FormItemSchema } from "./types";
 import { DemoFormContext } from "../contexts/DemoFormContext";
+import { useWarnIfUnsavedChanges } from "../../../../common/hooks/useWarnIfUnsavedChanges";
 
 export const DemoCreateForm: FunctionComponent = () => {
   const { setActiveStep } = useContext(DemoCreateContext);
+
+  useWarnIfUnsavedChanges(true);
 
   const { formValues, setFormValues } = useContext(DemoFormContext);
 

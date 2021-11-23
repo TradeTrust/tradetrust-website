@@ -7,15 +7,9 @@ import { DemoCreateHeader } from "./DemoCreateHeader";
 import { DemoCreateIssue } from "./DemoCreateIssue";
 import { DemoCreateReview } from "./DemoCreateReview";
 import { DemoCreateStart } from "./DemoCreateStart";
-import { useWarnIfUnsavedChanges } from "../../../common/hooks/useWarnIfUnsavedChanges";
-import { useAuthContext } from "../../../common/contexts/AuthenticationContext";
 
 export const DemoCreate: FunctionComponent = () => {
   const { activeStep } = useContext(DemoCreateContext);
-
-  const { isLoggedIn } = useAuthContext();
-
-  useWarnIfUnsavedChanges(isLoggedIn);
 
   const components: Record<string, ReactNode> = {
     form: <DemoCreateForm />,

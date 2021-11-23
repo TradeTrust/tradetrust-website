@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useEffect, useMemo } from "react";
+import React, { FunctionComponent, useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { useDropzone } from "react-dropzone";
@@ -90,11 +90,13 @@ export const MagicDropzone: FunctionComponent = () => {
   const dispatch = useDispatch();
   const { verificationPending, verificationStatus } = useSelector((state: RootState) => state.demoVerify);
 
+  const [hasDropped, setHasDropped] = useState<boolean>(false);
+
   useEffect(() => {
-    if (verificationStatus && (NETWORK_NAME === "local" ? true : isValid(verificationStatus))) {
+    if (hasDropped && verificationStatus && (NETWORK_NAME === "local" ? true : isValid(verificationStatus))) {
       router.push("/demo/viewer");
     }
-  }, [verificationStatus]);
+  }, [verificationStatus, hasDropped]);
 
   const isVerificationPending = verificationPending;
   const isVerificationError = verificationStatus && !isValid(verificationStatus);
@@ -116,6 +118,7 @@ export const MagicDropzone: FunctionComponent = () => {
         };
         reader.readAsText(file);
       });
+      setHasDropped(true);
     },
     [dispatch]
   );
