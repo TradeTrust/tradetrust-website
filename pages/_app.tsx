@@ -7,15 +7,17 @@ import { Provider } from "react-redux";
 import { configureStore } from "../src/store";
 import AppContainerNext from "../src/AppContainerNext";
 import Head from "next/head";
+import { DefaultSeo } from "next-seo";
+import { SEO_DEFAULT } from "../src/common/utils/seo";
 
 const store = configureStore();
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
+      <DefaultSeo {...SEO_DEFAULT} />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>TradeTrust - An easy way to check and verify your documents</title>
       </Head>
       <Provider store={store}>
         <AppContainerNext>

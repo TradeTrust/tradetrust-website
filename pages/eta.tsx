@@ -1,8 +1,15 @@
 import React from "react";
 import { NextPage } from "next";
 
-const EtaPage: NextPage = () => {
-  return <div>Eta</div>;
-};
+import { EtaPageContent } from "../src/components/EtaPageContent";
+import { NextSeo } from "next-seo";
+import { SEO_ETA } from "../src/common/utils/seo";
+
+const EtaPage: NextPage = () => (
+  <>
+    <NextSeo {...SEO_ETA} />
+    <EtaPageContent />
+  </>
+);
 
 export default EtaPage;
