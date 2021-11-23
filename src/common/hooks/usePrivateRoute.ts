@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAuthContext } from "../contexts/AuthenticationContext";
 
-export const usePrivateRoute = () => {
+export const usePrivateRoute = (): void => {
   const { isLoggedIn } = useAuthContext();
   const router = useRouter();
 
