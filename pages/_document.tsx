@@ -7,21 +7,6 @@ export default class MyDocument extends Document<any> {
       <Html>
         <Head>
           <meta charSet="utf-8" />
-          <meta name="robots" content="index,follow" />
-          <meta name="googlebot" content="index,follow" />
-          <meta
-            name="description"
-            content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
-          />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content="/static/images/common/share.jpg" />
-          <meta property="og:image:alt" content="TradeTrust" />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
-
-          <link rel="icon" type="image/png" href="/static/images/favicon/favicon-32x32.png" sizes="32x32" />
-          <link rel="icon" type="image/png" href="/static/images/favicon/favicon-16x16.png" sizes="16x16" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
           <link

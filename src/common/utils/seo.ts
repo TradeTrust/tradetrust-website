@@ -21,6 +21,39 @@ const DESCRIPTION_NEWS = "Check out our events and browse through our latest new
 const DESCRIPTION_EMAIL_ERROR = "Oops, something is not right here, please try again.";
 const DESCRIPTION_EMAIL_SUCCESS = "Thank you for your email enquiry. We will get back to you shortly!";
 
+export const SEO_DEFAULT: NextSeoProps = {
+  title: TITLE_DEFAULT,
+  description: DESCRIPTION_DEFAULT,
+  twitter: {
+    cardType: "summary_large_image",
+  },
+  openGraph: {
+    type: "website",
+    images: [
+      {
+        url: "/static/images/common/share.jpg",
+        alt: "TradeTrust",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  additionalLinkTags: [
+    {
+      rel: "icon",
+      sizes: "32x32",
+      href: "/static/images/favicon/favicon-32x32.png",
+      type: "image/png",
+    },
+    {
+      rel: "icon",
+      sizes: "16x16",
+      href: "/static/images/favicon/favicon-16x16.png",
+      type: "image/png",
+    },
+  ],
+};
+
 export const getSeo = ({
   title,
   path,
