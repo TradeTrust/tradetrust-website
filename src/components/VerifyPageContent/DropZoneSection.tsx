@@ -1,10 +1,13 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { roundInstructionsText } from ".";
-import { updateCertificate } from "../../reducers/certificate";
+import { getVerificationStatus, updateCertificate } from "../../reducers/certificate";
 import { CertificateDropZoneContainer } from "../CertificateDropZone/CertificateDropZoneContainer";
 import { setActive, reset } from "../../reducers/sample";
 import { loadDemoCertificate, DEMO_CERT } from "./helpers";
+import { useRouter } from "next/router";
+import { isValid } from "@govtechsg/oa-verify";
+import { NETWORK_NAME } from "../../config";
 
 const DraggableDemoCertificate = () => (
   <div className="hidden md:block w-full md:w-1/2 px-4">
@@ -39,6 +42,15 @@ const DraggableDemoCertificate = () => (
 );
 
 export const DropZoneSectionContainer = (): React.ReactElement => {
+  const router = useRouter();
+  const verificationStatus = useSelector(getVerificationStatus);
+
+  useEffect(() => {
+    if (verificationStatus && (NETWORK_NAME === "local" ? true : isValid(verificationStatus))) {
+      router.push("/viewer");
+    }
+  }, [verificationStatus]);
+
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
   return (

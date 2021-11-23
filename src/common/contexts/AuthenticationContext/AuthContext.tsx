@@ -1,4 +1,5 @@
 import React, { createContext, ReactChildren, useContext } from "react";
+
 import { magic } from "../helpers";
 
 interface AuthContextProps {
@@ -9,8 +10,8 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps>({
   isLoggedIn: false,
-  login: async () => new Promise((resolve) => resolve()),
-  logout: async () => new Promise((resolve) => resolve()),
+  login: async () => new Promise<void>((resolve) => resolve()),
+  logout: async () => new Promise<void>((resolve) => resolve()),
 });
 
 export const AuthProvider: any = ({ children }: { children: ReactChildren }) => {

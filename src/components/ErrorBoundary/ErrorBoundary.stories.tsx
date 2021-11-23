@@ -1,9 +1,5 @@
-import { createBrowserHistory } from "history";
 import React, { FunctionComponent } from "react";
-import { Router } from "react-router-dom";
 import { ErrorBoundary } from "./ErrorBoundary";
-
-const history = createBrowserHistory();
 
 export default {
   title: "Error/ErrorBoundary",
@@ -21,10 +17,8 @@ const ErrorComponent: FunctionComponent = () => {
 
 export const Default = () => {
   return (
-    <Router history={history}>
-      <ErrorBoundary>
-        <ErrorComponent />
-      </ErrorBoundary>
-    </Router>
+    <ErrorBoundary>
+      <ErrorComponent />
+    </ErrorBoundary>
   );
 };

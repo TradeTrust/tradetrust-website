@@ -8,10 +8,7 @@ import {
 } from "../reducers/certificate";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
-import { isValid } from "@govtechsg/oa-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
-import { NETWORK_NAME } from "./../config";
-import { history } from "../history";
 
 const { trace } = getLogger("saga:certificate");
 
@@ -29,9 +26,6 @@ export function* verifyCertificate() {
 
     // Instead of success/failure, report completeness
     yield put(verifyingCertificateCompleted(verificationStatus));
-    if (NETWORK_NAME === "local" ? true : isValid(verificationStatus)) {
-      yield history.push("/viewer");
-    }
   } catch (e) {
     yield put(verifyingCertificateFailure(e.message));
   }

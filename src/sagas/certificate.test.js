@@ -5,13 +5,11 @@ import {
   whenDocumentValidAndIssuedByDns,
   whenDocumentHashInvalidAndNotIssued,
 } from "../test/fixture/verifier-responses";
-import { history } from "../history";
 
 jest.mock("../services/verify", () => ({ verifyDocument: () => {} }));
 
 describe("verifyCertificate", () => {
   it("verifies the document and change the router to /viewer when verification passes", () => {
-    jest.spyOn(history, "push");
     const generator = verifyCertificate();
 
     // Should dispatch VERIFYING_CERTIFICATE first
@@ -38,8 +36,6 @@ describe("verifyCertificate", () => {
     );
 
     // If verification passes, update the router
-    generator.next();
-    expect(history.push).toHaveBeenCalledWith("/viewer");
     expect(generator.next().done).toStrictEqual(true);
   });
 

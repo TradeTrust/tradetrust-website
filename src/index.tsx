@@ -8,8 +8,6 @@ import { TokenInformationContextProvider } from "./common/contexts/TokenInformat
 import { AuthProvider } from "./common/contexts/AuthenticationContext/AuthContext";
 import "./index.css";
 import { configureStore } from "./store";
-import { Router } from "react-router-dom";
-import { history } from "./history";
 
 const store = configureStore();
 
@@ -20,9 +18,7 @@ const App = () => {
         <TokenInformationContextProvider>
           <AuthProvider>
             <Provider store={store}>
-              <Router history={history}>
-                <AppContainer />
-              </Router>
+              <AppContainer />
             </Provider>
           </AuthProvider>
         </TokenInformationContextProvider>

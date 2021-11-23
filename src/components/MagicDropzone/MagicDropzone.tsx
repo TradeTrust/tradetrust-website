@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useMemo } from "react";
+import React, { FunctionComponent, useCallback, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { useDropzone } from "react-dropzone";
@@ -9,6 +9,8 @@ import { RootState } from "../../reducers";
 import { DetailedErrors } from "../DocumentDropzone/DetailedErrors";
 import { updateDemoDocument, resetDemoState } from "../../reducers/demo-verify";
 import { getDropzoneBoxUi } from "./../../common/utils/getDropzoneBoxUi";
+import { NETWORK_NAME } from "../../config";
+import router from "next/router";
 
 interface MagicDropzoneViewProps {
   isPending: boolean;
@@ -87,6 +89,12 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
 export const MagicDropzone: FunctionComponent = () => {
   const dispatch = useDispatch();
   const { verificationPending, verificationStatus } = useSelector((state: RootState) => state.demoVerify);
+
+  useEffect(() => {
+    if (verificationStatus && (NETWORK_NAME === "local" ? true : isValid(verificationStatus))) {
+      router.push("/demo/viewer");
+    }
+  }, [verificationStatus]);
 
   const isVerificationPending = verificationPending;
   const isVerificationError = verificationStatus && !isValid(verificationStatus);

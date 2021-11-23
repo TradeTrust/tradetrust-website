@@ -1,7 +1,5 @@
 import React from "react";
-import { createMemoryHistory } from "history";
 import { render, screen } from "@testing-library/react";
-import { Router } from "react-router-dom";
 import { NewsLink } from "./NewsLink";
 import { NewsTag } from "../types";
 
@@ -37,13 +35,7 @@ describe("NewsLink", () => {
   });
 
   it("should render filename slug as internal news link", () => {
-    const history = createMemoryHistory();
-
-    render(
-      <Router history={history}>
-        <NewsLink news={mockInternalLink} />
-      </Router>
-    );
+    render(<NewsLink news={mockInternalLink} />);
     expect(screen.getByTestId("news-item-link").getAttribute("href")).toBe(
       "/news/singapore-leading-the-way-in-promoting-digital-trade"
     );

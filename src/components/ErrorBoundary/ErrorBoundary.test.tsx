@@ -1,7 +1,5 @@
 import { render } from "@testing-library/react";
-import { createMemoryHistory } from "history";
 import React from "react";
-import { Router } from "react-router-dom";
 import { ErrorBoundary } from "./ErrorBoundary";
 
 const ProblemChild = () => {
@@ -20,16 +18,12 @@ const pauseErrorLogging = (codeToRun: () => void) => {
 
 describe("<ErrorBoundary />", () => {
   it("should catch errors with componentDidCatch", () => {
-    const history = createMemoryHistory();
-
     pauseErrorLogging(() => {
       jest.spyOn(ErrorBoundary.prototype, "componentDidCatch");
       render(
-        <Router history={history}>
-          <ErrorBoundary>
-            <ProblemChild />
-          </ErrorBoundary>
-        </Router>
+        <ErrorBoundary>
+          <ProblemChild />
+        </ErrorBoundary>
       );
       expect(ErrorBoundary.prototype.componentDidCatch).toHaveBeenCalledTimes(1);
     });
