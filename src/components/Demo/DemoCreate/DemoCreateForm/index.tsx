@@ -43,13 +43,14 @@ export const DemoCreateForm: FunctionComponent = () => {
         <p>The form is already pre-filled for your convenience, feel free to make changes if needed. </p>
       </div>
       <div>
-        {Object.entries(schema).map(([formItemName, formItem]) => {
+        {Object.entries(schema).map(([formItemName, formItem], index) => {
           return (
             <DemoCreateFormItem
               key={formItemName}
               onChange={handleChange}
               formItemName={formItemName}
               formItem={formItem as FormItemSchema}
+              formItemIndex={index}
             />
           );
         })}

@@ -1,5 +1,5 @@
 import { Input } from "@govtechsg/tradetrust-ui-components";
-import React from "react";
+import React, { useState } from "react";
 import { FunctionComponent } from "react";
 import Dropzone from "react-dropzone";
 import { AccordionItem } from "../../../../UI/Accordion";
@@ -11,20 +11,30 @@ interface DemoCreateFormItemProps {
   onChange: (name: string, value: string) => void;
   formItem: FormItemSchema;
   formItemName: string;
+  formItemIndex: number;
 }
 
 export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
   formItem,
   formItemName,
   onChange,
+  formItemIndex,
 }) => {
   const renderProperties = () => {
     if (formItem.type === "object" && formItem.properties) {
-      return Object.entries(formItem.properties).map(([name, item]) => {
+      return Object.entries(formItem.properties).map(([name, item], index) => {
         //join by . delimiter to parse later
         const itemName = `${formItemName}.${name}`;
 
-        return <DemoCreateFormItem key={name} onChange={onChange} formItemName={itemName} formItem={item} />;
+        return (
+          <DemoCreateFormItem
+            key={name}
+            onChange={onChange}
+            formItemName={itemName}
+            formItem={item}
+            formItemIndex={index}
+          />
+        );
       });
     }
   };
@@ -67,7 +77,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
           disabled={formItem.options?.readonly}
           data-testid="form-item-textarea"
           rows={4}
-          className="w-full border rounded-md px-2 py-1 mb-0 focus:border-cloud-900 focus:outline-none placeholder-cloud-200 w-full border-cloud-200"
+          className="w-full border rounded-md px-2 py-1 mb-0 focus:border-cloud-900 focus:outline-none placeholder-cloud-200 border-cloud-200"
           defaultValue={defaultValue}
           onChange={(e) => onChange(e.target.name, e.target.value)}
           name={formItemName}
@@ -95,6 +105,8 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
     }
   };
 
+  const [openIndex, setOpenIndex] = useState(-1);
+
   switch (formItem.uiType) {
     case "accordion":
       return (
@@ -103,6 +115,9 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
           classNameContainer="py-5 border-t border-cloud-300"
           heading={formItem.title}
           headingTag="h3"
+          isOpen={openIndex === formItemIndex}
+          index={formItemIndex}
+          setOpen={setOpenIndex}
         >
           {renderInput()}
           {renderProperties()}
