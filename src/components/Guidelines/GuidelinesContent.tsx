@@ -30,9 +30,9 @@ export const GuidelinesContent: FunctionComponent = () => {
             headingTag="h3"
             heading={guideline.attributes.title}
             divider
-            isOpen={openIndex === index}
-            index={index}
-            setOpen={setOpenIndex}
+            openIndex={openIndex}
+            accordionIndex={index}
+            setOpenIndex={setOpenIndex}
           >
             <ReactMarkdown components={{ p: ({ ...props }) => <p style={{ marginBottom: "1rem" }} {...props} /> }}>
               {guideline.body}

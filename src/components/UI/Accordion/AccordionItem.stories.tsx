@@ -10,10 +10,15 @@ export default {
 };
 
 export const AccordionItemFaq = () => {
-  const [isOpenIndex, setOpenIndex] = useState(-1);
+  const [openIndex, setOpenIndex] = useState(-1);
   const index = 1;
   return (
-    <AccordionItem heading="What is TradeTrust?" isOpen={isOpenIndex === index} setOpen={setOpenIndex} index={index}>
+    <AccordionItem
+      heading="What is TradeTrust?"
+      openIndex={openIndex}
+      setOpenIndex={setOpenIndex}
+      accordionIndex={index}
+    >
       TradeTrust is a digital utility that comprises a set of globally-accepted standards and frameworks that connects
       governments and businesses to a public blockchain to enable trusted interoperability and exchanges of electronic
       trade documents across digital platforms. The four key components of TradeTrust are:
@@ -22,15 +27,15 @@ export const AccordionItemFaq = () => {
 };
 
 export const AccordionItemDemo = () => {
-  const [isOpenIndex, setOpenIndex] = useState(-1);
+  const [openIndex, setOpenIndex] = useState(-1);
   return (
     <>
       <AccordionItem
         heading="Exporter Details"
         headingTag="h3"
-        isOpen={isOpenIndex === 1}
-        setOpen={setOpenIndex}
-        index={1}
+        openIndex={openIndex}
+        setOpenIndex={setOpenIndex}
+        accordionIndex={1}
       >
         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
         aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
@@ -42,9 +47,9 @@ export const AccordionItemDemo = () => {
       <AccordionItem
         heading="Importer Details"
         headingTag="h3"
-        isOpen={isOpenIndex === 2}
-        setOpen={setOpenIndex}
-        index={2}
+        openIndex={openIndex}
+        setOpenIndex={setOpenIndex}
+        accordionIndex={2}
       >
         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
         aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
@@ -56,9 +61,9 @@ export const AccordionItemDemo = () => {
       <AccordionItem
         heading="Description of Goods"
         headingTag="h3"
-        isOpen={isOpenIndex === 3}
-        setOpen={setOpenIndex}
-        index={3}
+        openIndex={openIndex}
+        setOpenIndex={setOpenIndex}
+        accordionIndex={3}
       >
         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
         aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo

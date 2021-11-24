@@ -26,9 +26,9 @@ export const FaqContent: FunctionComponent = () => {
             classNameCollapse="rounded p-4"
             classNameContent="px-4 pb-4"
             heading={faq.attributes.title}
-            isOpen={openIndex === index}
-            index={index}
-            setOpen={setOpenIndex}
+            openIndex={openIndex}
+            accordionIndex={index}
+            setOpenIndex={setOpenIndex}
           >
             <ReactMarkdown>{faq.body}</ReactMarkdown>
           </AccordionItem>

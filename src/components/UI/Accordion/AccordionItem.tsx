@@ -11,9 +11,9 @@ interface AccordionItemProps {
   heading: string;
   children: React.ReactNode;
   divider?: boolean;
-  isOpen: boolean;
-  setOpen: (index: number) => void;
-  index: number;
+  openIndex: number;
+  setOpenIndex: (index: number) => void;
+  accordionIndex: number;
 }
 
 export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
@@ -23,18 +23,19 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
   headingTag = "h5",
   heading,
   divider = false,
-  isOpen = false,
-  setOpen,
-  index,
+  openIndex,
+  setOpenIndex,
+  accordionIndex,
   children,
 }) => {
+  const isOpen = openIndex === accordionIndex;
   return (
     <div className={`transition-color duration-200${addClassNameIfExist(` ${classNameContainer}`)}`}>
       <div
         className={`flex justify-between items-center transition-colors duration-200 cursor-pointer hover:text-cerulean${
           isOpen ? " text-cerulean" : ""
         }${addClassNameIfExist(` ${classNameCollapse}`)}`}
-        onClick={() => setOpen(isOpen ? -1 : index)}
+        onClick={() => setOpenIndex(isOpen ? -1 : accordionIndex)}
       >
         {headingTag === "h3" && <h3>{heading}</h3>}
         {headingTag === "h5" && <h5>{heading}</h5>}

@@ -115,9 +115,9 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
           classNameContainer="py-5 border-t border-cloud-300"
           heading={formItem.title}
           headingTag="h3"
-          isOpen={openIndex === formItemIndex}
-          index={formItemIndex}
-          setOpen={setOpenIndex}
+          openIndex={openIndex}
+          accordionIndex={formItemIndex}
+          setOpenIndex={setOpenIndex}
         >
           {renderInput()}
           {renderProperties()}
