@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { addClassNameIfExist } from "../../../utils";
 
 type headingTag = "h3" | "h5";
@@ -11,6 +11,9 @@ interface AccordionItemProps {
   heading: string;
   children: React.ReactNode;
   divider?: boolean;
+  openIndex: number;
+  setOpenIndex: (index: number) => void;
+  accordionIndex: number;
 }
 
 export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
@@ -20,23 +23,26 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
   headingTag = "h5",
   heading,
   divider = false,
+  openIndex,
+  setOpenIndex,
+  accordionIndex,
   children,
 }) => {
-  const [open, setOpen] = useState(false);
+  const isOpen = openIndex === accordionIndex;
   return (
     <div className={`transition-color duration-200${addClassNameIfExist(` ${classNameContainer}`)}`}>
       <div
         className={`flex justify-between items-center transition-colors duration-200 cursor-pointer hover:text-cerulean${
-          open ? " text-cerulean" : ""
+          isOpen ? " text-cerulean" : ""
         }${addClassNameIfExist(` ${classNameCollapse}`)}`}
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpenIndex(isOpen ? -1 : accordionIndex)}
       >
         {headingTag === "h3" && <h3>{heading}</h3>}
         {headingTag === "h5" && <h5>{heading}</h5>}
         <svg
           data-testid="accordion-icon"
           className={`transition-transform duration-200 transform${
-            open ? " rotate-180" : " rotate-0"
+            isOpen ? " rotate-180" : " rotate-0"
           } min-w-min min-h-min`}
           width="24"
           height="24"
@@ -60,7 +66,7 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
           />
         </svg>
       </div>
-      {open && <div className={addClassNameIfExist(classNameContent)}>{children}</div>}
+      {isOpen && <div className={addClassNameIfExist(classNameContent)}>{children}</div>}
       {divider && <div className="border-b border-cloud-300 border-solid mx-4" />}
     </div>
   );

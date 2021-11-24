@@ -1,11 +1,11 @@
 ---
-title: Using TradeTrust with Non-Ethereum Blockchains
+title: Mandatory properties of a blockchain
 date: 2020-01-04T16:00:00.000Z
 ---
 
 One of the most frequently asked questions posted to the team is whether TradeTrust is able to use alternative blockchains in addition to the Ethereum blockchain. This article seeks to provide a set of guidelines on the properties and features that an alternative blockchain must have in order to align to the TradeTrust framework.
 
-Here is a list of mandatory properties:
+**Here is a list of mandatory properties:**
 
 **1.Public**
 

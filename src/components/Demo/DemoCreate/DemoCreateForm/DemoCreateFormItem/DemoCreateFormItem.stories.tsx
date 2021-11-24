@@ -20,6 +20,7 @@ export const FormItemAccordion = () => {
       }}
       formItemName=""
       onChange={() => {}}
+      formItemIndex={1}
     />
   );
 };
@@ -34,6 +35,7 @@ export const FormItemWithLabel = () => {
       }}
       formItemName=""
       onChange={() => {}}
+      formItemIndex={1}
     />
   );
 };
@@ -48,6 +50,7 @@ export const FormItemWithoutLabel = () => {
       }}
       formItemName=""
       onChange={() => {}}
+      formItemIndex={1}
     />
   );
 };
@@ -62,6 +65,7 @@ export const FormItemUpload = () => {
       }}
       formItemName=""
       onChange={() => {}}
+      formItemIndex={1}
     />
   );
 };

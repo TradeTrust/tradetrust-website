@@ -12,10 +12,7 @@ export const Guidelines: FunctionComponent = () => (
       <meta property="og:url" content={`${window.location.origin}/guidelines`} />
       <title>TradeTrust - Guidelines</title>
     </Helmet>
-    <Page
-      title="Mandatory Properties of a blockchain required by the TradeTrust framework"
-      subtitle="Using TradeTrust with Non-Ethereum Blockchain"
-    >
+    <Page title="Using TradeTrust with non-Ethereum blockchain">
       <GuidelinesContent />
     </Page>
   </>

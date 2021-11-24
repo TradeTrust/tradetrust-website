@@ -27,6 +27,16 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
       - { label: "Body", name: "body", widget: "markdown" }
+  - name: "guidelines"
+    label: "Guidelines"
+    folder: "cms/guidelines"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Body", name: "body", widget: "markdown" }
   - name: "article"
     label: "Article"
     folder: "cms/article"
