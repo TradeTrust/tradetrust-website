@@ -12,6 +12,7 @@ import { DemoCreateIssue } from "./DemoCreateIssue";
 import { DemoCreateReview } from "./DemoCreateReview";
 import { DemoCreateStart } from "./DemoCreateStart";
 import { ModalNavigateOut } from "../ModalNavigateOut";
+import { gaEvent } from "../../../common/analytics";
 
 export const DemoCreate: FunctionComponent = () => {
   const history = useHistory();
@@ -41,6 +42,10 @@ export const DemoCreate: FunctionComponent = () => {
           closeModalAndNavigate={() => {
             closeModal();
             history.push(location.pathname);
+            gaEvent({
+              action: "magic_demo_drop_off",
+              category: "magic_demo",
+            });
           }}
           setOnNavigateOut={setOnNavigateOut}
         />

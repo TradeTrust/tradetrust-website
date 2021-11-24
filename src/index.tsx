@@ -10,8 +10,13 @@ import "./index.css";
 import { configureStore } from "./store";
 import { Router } from "react-router-dom";
 import { history } from "./history";
+import { gaPageView } from "./common/analytics";
 
 const store = configureStore();
+
+history.listen(() => {
+  gaPageView({ action: "page_view" });
+});
 
 const App = () => {
   return (

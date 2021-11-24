@@ -24,6 +24,19 @@
 
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://kit.fontawesome.com/491fca5fd9.js" crossorigin="anonymous"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-13GYPPVD4Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-13GYPPVD4Y', {
+        'allow_google_signals': false,
+        'allow_ad_personalization_signals': false,
+      });
+   </script>
   </head>
   <body>
     <form name="contact" netlify netlify-honeypot="bot-field" action="/email/success" hidden>
