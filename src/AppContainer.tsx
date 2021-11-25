@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar, leftNavItems, rightNavItems } from "./components/Layout/NavigationBar";
 import { NETWORK } from "./config";
-import { Routes, routes } from "./routes";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
@@ -32,9 +31,7 @@ const AppContainer = (): React.ReactElement => {
         leftItems={leftNavItems}
         rightItems={rightNavItems}
       />
-      <Main className="bg-cerulean-50 flex-1">
-        <Routes routes={routes} />
-      </Main>
+      <Main className="bg-cerulean-50 flex-1"></Main>
       <Footer />
       <Overlay />
     </div>
