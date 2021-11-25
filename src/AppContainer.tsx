@@ -31,7 +31,7 @@ const AppContainer = (): React.ReactElement => {
         leftItems={leftNavItems}
         rightItems={rightNavItems}
       />
-      <Main className="bg-cerulean-50 flex-1"></Main>
+      <Main className="bg-cerulean-50 flex-1" />
       <Footer />
       <Overlay />
     </div>

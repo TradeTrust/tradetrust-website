@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { CertificateViewer } from "./CertificateViewer";
 import { RootState } from "../reducers";
