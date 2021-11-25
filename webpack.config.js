@@ -51,6 +51,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: `${__dirname}/public/static/index.html`,
+      isDev: process.env.NODE_ENV === "development",
     }),
     ...(!IS_DEVELOPMENT
       ? [
