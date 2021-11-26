@@ -47,7 +47,6 @@ export const DemoCreate: FunctionComponent = () => {
       );
       return false;
     }
-
     return true;
   };
 

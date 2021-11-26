@@ -1,6 +1,6 @@
 import React, { createContext, ReactChildren, useContext } from "react";
 import { magic } from "../helpers";
-
+import { useProviderContext } from "../provider";
 interface AuthContextProps {
   isLoggedIn: boolean;
   login: (email: string) => Promise<void | null | string> | ReturnType<typeof magic.auth.loginWithMagicLink>;
@@ -13,13 +13,20 @@ const AuthContext = createContext<AuthContextProps>({
   logout: async () => new Promise((resolve) => resolve()),
 });
 
+/**
+ * note to maintainers:
+ * auth provider depends on provider provider
+ * so ensure that auth provider sits under provider provider component tree
+ */
 export const AuthProvider: any = ({ children }: { children: ReactChildren }) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const { upgradeToMagicSigner } = useProviderContext();
 
   const login = async (email: string) => {
     // needs error handling here
     // better to defer error handling to another function
     await magic.auth.loginWithMagicLink({ email });
+    await upgradeToMagicSigner();
     setIsLoggedIn(true);
   };
 
@@ -34,22 +41,16 @@ export const AuthProvider: any = ({ children }: { children: ReactChildren }) => 
     const execute = async () => {
       // needs error handling here
       const status = await magic.user.isLoggedIn();
+      if (status) {
+        // if logged in, then immediate upgrade to magic signer.
+        await upgradeToMagicSigner();
+      }
       setIsLoggedIn(status);
     };
     execute();
-  }, []);
+  }, [upgradeToMagicSigner]);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        isLoggedIn,
-        login,
-        logout,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ isLoggedIn, login, logout }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthContext = (): AuthContextProps => useContext<AuthContextProps>(AuthContext);

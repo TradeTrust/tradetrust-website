@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { useHistory } from "react-router-dom";
-import { useAuthContext } from "../common/contexts/AuthenticationContext";
-import { useProviderContext } from "../common/contexts/provider";
 import { DemoInitial } from "../components/Demo/DemoInitial";
 import { Page } from "../components/Layout/Page";
+import { resetDemoCreateState } from "../reducers/demo-create";
+import { resetDemoState as resetDemoVerifyState } from "../reducers/demo-verify";
+import { useDispatch } from "react-redux";
 
 export const DemoLayout: FunctionComponent = ({ children }) => {
   return (
@@ -20,22 +20,14 @@ export const DemoLayout: FunctionComponent = ({ children }) => {
 };
 
 export const Demo: FunctionComponent = () => {
-  const { login, isLoggedIn } = useAuthContext();
-  const { upgradeToMagicSigner } = useProviderContext();
-  const history = useHistory();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const handleIsLoggedIn = async () => {
-      if (isLoggedIn) {
-        await upgradeToMagicSigner();
-        history.push("/demo/create");
-      }
-    };
+  React.useLayoutEffect(() => {
+    dispatch(resetDemoCreateState());
+    dispatch(resetDemoVerifyState());
+  }, [dispatch]);
 
-    handleIsLoggedIn();
-  }, [isLoggedIn, history, upgradeToMagicSigner]);
-
-  return <DemoInitial login={login} upgradeToMagicSigner={upgradeToMagicSigner} />;
+  return <DemoInitial />;
 };
 
 export const DemoPage: FunctionComponent = () => (

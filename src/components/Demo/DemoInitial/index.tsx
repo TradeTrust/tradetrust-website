@@ -3,20 +3,23 @@ import React, { FunctionComponent, useContext, useState } from "react";
 import { Checkbox } from "../../UI/Checkbox";
 import { useHistory } from "react-router-dom";
 import { contentPdpa } from "../../../common/utils/overlay";
-import { magic } from "../../../common/contexts/helpers";
+import { useAuthContext } from "../../../common/contexts/AuthenticationContext";
 
-interface DemoInitialProps {
-  login: (email: string) => Promise<void | null | string> | ReturnType<typeof magic.auth.loginWithMagicLink>;
-  upgradeToMagicSigner: () => Promise<void>;
-}
-
-export const DemoInitial: FunctionComponent<DemoInitialProps> = ({ login, upgradeToMagicSigner }) => {
+export const DemoInitial: FunctionComponent = () => {
+  const { login, isLoggedIn } = useAuthContext();
   const { showOverlay } = useContext(OverlayContext);
+  const history = useHistory();
+
   const [form, setForm] = useState({
     "Receive communications": "No",
     email: "",
   });
-  const history = useHistory();
+
+  React.useLayoutEffect(() => {
+    if (isLoggedIn) {
+      history.push("/demo/create");
+    }
+  }, [isLoggedIn, history]);
 
   const handleInputOrTextareaChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -31,8 +34,6 @@ export const DemoInitial: FunctionComponent<DemoInitialProps> = ({ login, upgrad
     try {
       event.preventDefault();
       await login(form.email);
-      await upgradeToMagicSigner();
-      history.push("/demo/create");
     } catch (e) {
       console.log(e);
     }
