@@ -1,9 +1,10 @@
-import { MessageTitle } from "@govtechsg/tradetrust-ui-components";
 import { ethers, providers, Signer } from "ethers";
-import React, { createContext, FunctionComponent, useContext, useEffect, useState } from "react";
-import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
+import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
+import { INFURA_API_KEY } from "../../config";
 import { utils } from "@govtechsg/oa-verify/";
 import { magic } from "./helpers";
+import { ChainId, ChainInfoObject, getChainInfo } from "../../config/chain-info";
+import { NoMetaMaskError, UnsupportedNetworkError } from "../errors";
 
 export enum SIGNER_TYPE {
   IDENTITY = "Identity",
@@ -11,27 +12,50 @@ export enum SIGNER_TYPE {
   MAGIC = "Magic",
 }
 
-const getProvider =
-  NETWORK_NAME === "local"
+// Utility function for use in non-react components that cannot get through hooks
+let currentProvider: providers.Provider | undefined;
+export const getCurrentProvider = (): providers.Provider | undefined => currentProvider;
+
+const createProvider = (chainId: ChainId) =>
+  chainId === ChainId.Local
     ? new providers.JsonRpcProvider()
-    : utils.generateProvider({ network: NETWORK_NAME, providerType: "infura", apiKey: INFURA_API_KEY });
+    : utils.generateProvider({
+        network: getChainInfo(chainId).networkName,
+        providerType: "infura",
+        apiKey: INFURA_API_KEY,
+      });
 
 interface ProviderContextProps {
   providerType: SIGNER_TYPE;
-  provider: providers.Provider | Signer;
   upgradeToMetaMaskSigner: () => Promise<void>;
   upgradeToMagicSigner: () => Promise<void>;
-  account?: string;
+  changeNetwork: (chainId: ChainId) => void;
+  reloadNetwork: () => Promise<void>;
+  getTransactor: () => Signer | providers.Provider | undefined;
+  getSigner: () => Signer | undefined;
+  getProvider: () => providers.Provider | undefined;
+  supportedChainInfoObjects: ChainInfoObject[];
+  currentChainId: ChainId | undefined;
 }
 
 export const ProviderContext = createContext<ProviderContextProps>({
   providerType: SIGNER_TYPE.IDENTITY,
-  provider: getProvider,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   upgradeToMetaMaskSigner: async () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   upgradeToMagicSigner: async () => {},
-  account: undefined,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  changeNetwork: async (_chainId: ChainId) => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  reloadNetwork: async () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  getTransactor: () => undefined,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  getProvider: () => undefined,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  getSigner: () => undefined,
+  supportedChainInfoObjects: [],
+  currentChainId: undefined,
 });
 
 interface Ethereum extends providers.ExternalProvider, providers.BaseProvider {
@@ -49,44 +73,118 @@ declare global {
 
 interface ProviderContextProviderProps {
   children: React.ReactNode;
+  networks: ChainInfoObject[];
+  defaultChainId: ChainId;
 }
 
-export const ProviderContextProvider: FunctionComponent<ProviderContextProviderProps> = ({ children }) => {
+export const ProviderContextProvider: FunctionComponent<ProviderContextProviderProps> = ({
+  children,
+  networks: supportedChainInfoObjects,
+  defaultChainId,
+}) => {
   const [providerType, setProviderType] = useState<SIGNER_TYPE>(SIGNER_TYPE.IDENTITY);
-  const [provider, setProvider] = useState<providers.Provider | Signer>(getProvider);
-  const [account, setAccount] = useState<string>();
+  const [isConnected, setIsConnected] = useState<boolean>();
+  const [currentChainId, setCurrentChainId] = useState<ChainId | undefined>(defaultChainId);
 
-  const initializeMetaMaskSigner = async () => {
+  const isSupportedNetwork = (chainId: ChainId) =>
+    supportedChainInfoObjects.findIndex((chainInfoObj) => chainInfoObj.chainId === chainId) > -1;
+
+  const defaultProvider = isSupportedNetwork(defaultChainId) ? createProvider(defaultChainId) : undefined;
+  const [providerOrSigner, setProviderOrSigner] = useState<providers.Provider | Signer | undefined>(defaultProvider);
+
+  const updateProviderOrSigner = async (newProviderOrSigner: typeof providerOrSigner) => {
+    try {
+      if (!Signer.isSigner(newProviderOrSigner)) {
+        setIsConnected(false);
+      } else {
+        await (newProviderOrSigner as Signer).getAddress();
+        setIsConnected(true);
+      }
+    } catch (e) {
+      setIsConnected(false);
+    }
+    setProviderOrSigner(newProviderOrSigner);
+  };
+
+  const changeNetwork = async (chainId: ChainId) => {
+    if (!isSupportedNetwork(chainId)) throw new UnsupportedNetworkError(chainId);
+
+    const chainInfo = getChainInfo(chainId);
+
+    try {
+      const web3provider = getWeb3Provider();
+      await requestSwitchChain(chainId);
+      await updateProviderOrSigner(web3provider.getSigner());
+    } catch (e: unknown) {
+      if (e instanceof NoMetaMaskError) {
+        console.warn(e.message);
+        await updateProviderOrSigner(createProvider(chainInfo.chainId));
+      } else {
+        throw e;
+      }
+    }
+  };
+
+  const getProvider = useCallback(() => {
+    if (providers.Provider.isProvider(providerOrSigner)) return providerOrSigner;
+    if (Signer.isSigner(providerOrSigner)) return providerOrSigner.provider;
+    return undefined;
+  }, [providerOrSigner]);
+
+  const getSigner = useCallback(
+    () => (isConnected ? (providerOrSigner as Signer) : undefined),
+    [isConnected, providerOrSigner]
+  );
+
+  const getTransactor = useCallback(() => getSigner() ?? getProvider(), [getProvider, getSigner]);
+
+  const getWeb3Provider = () => {
     const { ethereum, web3 } = window;
-
     const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
-    if (metamaskExtensionNotFound) throw new Error(MessageTitle.NO_METAMASK);
+    if (metamaskExtensionNotFound || !ethereum.request) throw new NoMetaMaskError();
 
-    await ethereum.enable();
     const injectedWeb3 = ethereum || web3.currentProvider;
     if (!injectedWeb3) throw new Error("No injected web3 provider found");
-    const web3provider = new ethers.providers.Web3Provider(injectedWeb3);
-    const signer = web3provider.getSigner();
-    const web3account = (await web3provider.listAccounts())[0];
+    return new ethers.providers.Web3Provider(injectedWeb3, "any");
+  };
 
-    setProvider(signer);
+  const requestSwitchChain = async (chainId: ChainId) => {
+    const { ethereum } = window;
+    if (!ethereum || !ethereum.request) return;
+    try {
+      await ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: `0x${chainId.toString(16)}` }],
+      });
+    } catch (e: any) {
+      if (e.code === -32601) {
+        // Possibly on localhost which doesn't support the call
+        return console.error(e);
+      }
+      throw e;
+    }
+  };
+
+  const initializeMetaMaskSigner = async () => {
+    const web3Provider = getWeb3Provider();
+    const provider = getProvider();
+    const network = await (provider ? provider.getNetwork() : web3Provider.getNetwork());
+    await web3Provider.send("eth_requestAccounts", []);
+    await requestSwitchChain(network.chainId);
+
+    await updateProviderOrSigner(web3Provider.getSigner());
     setProviderType(SIGNER_TYPE.METAMASK);
-    setAccount(web3account);
   };
 
   const initialiseMagicSigner = async () => {
     // needs to be cast as any before https://github.com/magiclabs/magic-js/issues/83 has been merged.
     const magicProvider = new ethers.providers.Web3Provider(magic.rpcProvider as any);
-    const signer = magicProvider.getSigner();
-    const address = await signer.getAddress();
 
-    setProvider(signer);
+    await updateProviderOrSigner(magicProvider.getSigner());
     setProviderType(SIGNER_TYPE.MAGIC);
-    setAccount(address);
   };
 
   const upgradeToMetaMaskSigner = async () => {
-    if (providerType === SIGNER_TYPE.METAMASK) return;
     return initializeMetaMaskSigner();
   };
 
@@ -95,17 +193,81 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     return initialiseMagicSigner();
   };
 
+  const reloadNetwork = async () => {
+    const provider = getProvider();
+    if (!provider) throw new UnsupportedNetworkError();
+
+    const chainId = (await provider.getNetwork()).chainId;
+    await changeNetwork(chainId);
+  };
+
   useEffect(() => {
-    // Do not listen before the provider is upgraded by the app
-    if (providerType !== SIGNER_TYPE.METAMASK) return;
-    window.ethereum.on("accountsChanged", () => {
-      return initializeMetaMaskSigner();
-    });
-  }, [providerType]);
+    currentProvider = getProvider();
+    (async () => {
+      const provider = getProvider();
+      if (!provider) {
+        setCurrentChainId(undefined);
+      } else {
+        const network = await provider.getNetwork();
+        setCurrentChainId(network.chainId);
+      }
+    })();
+  }, [getProvider]);
+
+  useEffect(() => {
+    if (!window.ethereum) return;
+
+    const chainChangedHandler = async (chainIdHex: string) => {
+      try {
+        await changeNetwork(parseInt(chainIdHex, 16));
+      } catch (e) {
+        // Clear provider/signer when user selects an unsupported network
+        await updateProviderOrSigner(undefined);
+        console.warn("An unsupported network has been selected.", e);
+        throw e;
+      }
+    };
+
+    window.ethereum.on("accountsChanged", reloadNetwork).on("chainChanged", chainChangedHandler);
+
+    // Initialise provider for Metamask to take precedence
+    (async () => {
+      try {
+        const web3Provider = getWeb3Provider();
+        const provider = getProvider();
+        if (!provider) return;
+        const [web3Network, appNetwork] = await Promise.all([web3Provider.getNetwork(), provider.getNetwork()]);
+        if (web3Network.chainId === appNetwork.chainId) setProviderOrSigner(web3Provider.getSigner().provider);
+      } catch (e) {
+        if (e instanceof NoMetaMaskError) {
+          console.warn(e.message);
+        } else {
+          throw e;
+        }
+      }
+    })();
+
+    return () => {
+      if (!window.ethereum) return;
+      window.ethereum.off("chainChanged").off("accountsChanged");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ProviderContext.Provider
-      value={{ provider, providerType, upgradeToMetaMaskSigner, upgradeToMagicSigner, account }}
+      value={{
+        providerType,
+        upgradeToMetaMaskSigner,
+        upgradeToMagicSigner,
+        changeNetwork,
+        reloadNetwork,
+        getProvider,
+        getTransactor,
+        getSigner,
+        supportedChainInfoObjects,
+        currentChainId,
+      }}
     >
       {children}
     </ProviderContext.Provider>

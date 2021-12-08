@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { makeEtherscanAddressURL } from "../../../utils";
+import { useProviderContext } from "../../../common/contexts/provider";
 
 interface ExternalLinkProps {
   name: string;
@@ -25,7 +26,8 @@ export const ExternalLinkEtherscanAddress: FunctionComponent<ExternalLinkEthersc
   address,
   ...props
 }) => {
-  const href = makeEtherscanAddressURL(address);
+  const { currentChainId } = useProviderContext();
+  const href = currentChainId ? makeEtherscanAddressURL(address, currentChainId) : "#";
 
   return <ExternalLink name={name} href={href} {...props} />;
 };

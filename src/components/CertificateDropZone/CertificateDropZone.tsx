@@ -3,8 +3,8 @@ import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 import { updateCertificate, resetCertificateState, states } from "../../reducers/certificate";
-import { getDropzoneBoxUi } from "./../../common/utils/getDropzoneBoxUi";
-import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "./../DocumentDropzone/Views";
+import { getDropzoneBoxUi } from "../../common/utils/getDropzoneBoxUi";
+import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "../DocumentDropzone/Views";
 import { isValid } from "@govtechsg/oa-verify";
 
 interface CertificateDropzoneProps {

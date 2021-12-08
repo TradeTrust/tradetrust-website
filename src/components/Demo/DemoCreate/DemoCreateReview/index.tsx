@@ -1,7 +1,7 @@
 import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProviderContext } from "../../../../common/contexts/provider";
+import { useProviderContext } from "../../../../common/contexts/provider";
 import {
   getIssuedDocumentStatus,
   getWrappedDocumentStatus,
@@ -58,7 +58,7 @@ const DemoCreateReviewItem = ({
 export const DemoCreateReview: FunctionComponent = () => {
   const { setActiveStep } = useContext(DemoCreateContext);
   const { formValues } = useContext(DemoFormContext);
-  const { provider } = useContext(ProviderContext);
+  const { getTransactor } = useProviderContext();
   const wrapDocumentStatus = useSelector(getWrappedDocumentStatus);
   const issueDocumentStatus = useSelector(getIssuedDocumentStatus);
   const dispatch = useDispatch();
@@ -75,10 +75,11 @@ export const DemoCreateReview: FunctionComponent = () => {
   };
 
   useEffect(() => {
+    const provider = getTransactor();
     if (wrapDocumentStatus !== null && wrapDocumentStatus === "success") {
       dispatch(issuingDocument(provider));
     }
-  }, [wrapDocumentStatus, dispatch, provider]);
+  }, [wrapDocumentStatus, dispatch, getTransactor]);
 
   useEffect(() => {
     if (issueDocumentStatus !== null && issueDocumentStatus !== "pending") {

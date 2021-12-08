@@ -1,6 +1,4 @@
-import { ErrorPage } from "@govtechsg/tradetrust-ui-components";
-import React, { Component, ReactNode } from "react";
-import { Link } from "react-router-dom";
+import React, { Component, FunctionComponent, ReactNode } from "react";
 import { getLogger } from "../../utils/logger";
 
 const { stack } = getLogger("component:errorBoundary");
@@ -10,8 +8,21 @@ interface ErrorBoundaryState {
   error?: Error;
 }
 
-export class ErrorBoundary extends Component<Record<string, unknown>, ErrorBoundaryState> {
-  constructor(props: Record<string, unknown>) {
+export interface ErrorBoundaryRendererProps {
+  error?: Error;
+  recover: () => void;
+}
+
+export interface ErrorBoundaryProps {
+  renderer: ErrorBoundaryRenderer;
+  onError?: (error: Error) => void;
+  onRecover?: () => void;
+}
+
+export type ErrorBoundaryRenderer = FunctionComponent<ErrorBoundaryRendererProps>;
+
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
   }
@@ -22,29 +33,49 @@ export class ErrorBoundary extends Component<Record<string, unknown>, ErrorBound
 
   componentDidCatch(error: Error): void {
     stack(error);
+    const { onError } = this.props;
+    if (onError) onError(error);
   }
+
+  componentDidMount(): void {
+    window.addEventListener("unhandledrejection", this.onUnhandledRejection);
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener("unhandledrejection", this.onUnhandledRejection);
+  }
+
+  onUnhandledRejection = (event: PromiseRejectionEvent): void => {
+    const { onError } = this.props;
+    event.preventDefault();
+    event.promise.catch(async (error) => {
+      stack(error);
+      this.setState(ErrorBoundary.getDerivedStateFromError(error), () => {
+        if (onError) onError(error);
+      });
+    });
+  };
+
+  recover = (): void => {
+    const { onRecover } = this.props;
+    this.setState(
+      {
+        hasError: false,
+        error: undefined,
+      },
+      () => {
+        if (onRecover) onRecover();
+      }
+    );
+  };
 
   render(): ReactNode {
     const error = this.state.error;
-    const description = error?.message ? error.message : "TradeTrust has encountered an issue.";
-    return this.state.hasError ? (
-      <ErrorPage
-        pageTitle="ERROR"
-        header="Something Went Wrong"
-        description={description}
-        image="/static/images/errorpage/error-boundary.png"
-      >
-        <h3 className="font-normal my-2 sm:my-4 text-lg sm:text-2xl">
-          Go to
-          <Link className="text-cerulean-200" to="/">
-            {" "}
-            Homepage
-          </Link>
-          ?
-        </h3>
-      </ErrorPage>
-    ) : (
-      this.props.children
-    );
+    const {
+      recover,
+      props: { renderer: ErrorRenderer },
+    } = this;
+
+    return this.state.hasError ? <ErrorRenderer error={error} recover={recover} /> : this.props.children;
   }
 }

@@ -6,6 +6,7 @@ import { TitleEscrowCreator } from "@govtechsg/token-registry/dist/ts/contracts/
 import { TitleEscrowCreatorFactory, getTitleEscrowCreatorAddress, TitleEscrowFactory } from "@govtechsg/token-registry";
 import { ContractReceipt, providers, Signer } from "ethers";
 import { NETWORK } from "../../config";
+import { UnsupportedNetworkError } from "../errors";
 
 const { error: errorLogger } = getLogger("services:userestoretoken");
 
@@ -114,7 +115,7 @@ const deployAndSendToTitleEscrow = async (
  * state is changed based on the step of the ethereum transaction
  */
 export const useRestoreToken = (
-  provider: providers.Provider | Signer,
+  provider: providers.Provider | Signer | undefined,
   contractInstance?: TradeTrustErc721,
   tokenId?: string
 ): {
@@ -128,6 +129,7 @@ export const useRestoreToken = (
   const restoreToken = async (previousBeneficiary: string, previousHolder: string): Promise<void> => {
     setState("INITIALIZED");
     try {
+      if (!provider) throw new UnsupportedNetworkError();
       if (!tokenId) throw new Error("Ownership data is not provided");
       if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
       const supportsSendToTitleEscrow = await contractInstance?.supportsInterface("0x9f9e69f3");

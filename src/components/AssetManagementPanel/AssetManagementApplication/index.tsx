@@ -4,9 +4,9 @@ import { useProviderContext } from "../../../common/contexts/provider";
 import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistryContract";
 import { AssetManagementActions } from "../AssetManagementActions";
-import { AssetManagementForm } from "./../AssetManagementForm";
-import { AssetManagementTags } from "./../AssetManagementTags";
-import { DocumentStatus } from "./../../DocumentStatus";
+import { AssetManagementForm } from "../AssetManagementForm";
+import { AssetManagementTags } from "../AssetManagementTags";
+import { DocumentStatus } from "../../DocumentStatus";
 
 interface AssetManagementApplicationProps {
   isMagicDemo?: boolean;
@@ -46,10 +46,25 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     restoreTokenState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-  const { upgradeToMetaMaskSigner, account, provider } = useProviderContext();
+  const [account, setAccount] = useState<string | undefined>();
+  const { upgradeToMetaMaskSigner, getSigner, getProvider } = useProviderContext();
+
+  const provider = getProvider();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
   // Check if direct owner is minter, useContractFunctionHook value returns {0: boolean}
   const { call: checkIsMinter, value: isMinter } = useContractFunctionHook(tokenRegistry, "isMinter");
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const signer = getSigner();
+        const address = signer ? await signer.getAddress() : undefined;
+        setAccount(address);
+      } catch (_) {
+        setAccount(undefined);
+      }
+    })();
+  }, [getSigner]);
 
   useEffect(() => {
     if (isTitleEscrow === false && account) {

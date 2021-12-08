@@ -2,14 +2,14 @@ import { Button } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useDispatch, useSelector } from "react-redux";
-import { ProviderContext } from "../../../../common/contexts/provider";
+import { useProviderContext } from "../../../../common/contexts/provider";
 import { deployingDocStore, getDocumentPrepared } from "../../../../reducers/demo-create";
 import { getFunds } from "../../../../services/create";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { LoadingModal } from "../../LoadingModal";
 
 export const DemoCreateStart: FunctionComponent = () => {
-  const { account, provider } = useContext(ProviderContext);
+  const { getSigner } = useProviderContext();
   const { setActiveStep } = useContext(DemoCreateContext);
   const [loading, setLoading] = useState(false);
   const [getFundsError, setGetFundsError] = useState(false);
@@ -22,6 +22,9 @@ export const DemoCreateStart: FunctionComponent = () => {
     try {
       setLoading(true);
       setGetFundsError(false);
+      const provider = getSigner();
+      if (!provider) throw new Error("Not connected");
+      const account = await provider.getAddress();
       const balance = await provider.getBalance("latest");
       const formattedBalance = Number(ethers.utils.formatEther(balance));
 

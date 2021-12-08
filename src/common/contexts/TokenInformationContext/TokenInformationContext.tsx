@@ -74,9 +74,10 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
 }) => {
   const [tokenId, setTokenId] = useState<string>();
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
-  const { provider } = useProviderContext();
-  const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
-  const { titleEscrow, updateTitleEscrow, documentOwner } = useTitleEscrowContract(provider, tokenRegistry, tokenId);
+  const { getTransactor } = useProviderContext();
+  const transactor = getTransactor();
+  const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, transactor);
+  const { titleEscrow, updateTitleEscrow, documentOwner } = useTitleEscrowContract(transactor, tokenRegistry, tokenId);
   const isSurrendered = documentOwner === tokenRegistryAddress;
   const isTokenBurnt = documentOwner === "0x000000000000000000000000000000000000dEaD"; // check if the token belongs to burn address.
 
@@ -98,7 +99,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     reset: resetDestroyingTokenState,
   } = useContractFunctionHook(tokenRegistry, "destroyToken");
 
-  const { restoreToken, state: restoreTokenState } = useRestoreToken(provider, tokenRegistry, tokenId);
+  const { restoreToken, state: restoreTokenState } = useRestoreToken(transactor, tokenRegistry, tokenId);
 
   // Contract Write Functions (available only after provider has been upgraded)
   const {
@@ -194,7 +195,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   }, [transferToNewEscrowState, updateTitleEscrow]);
 
   // Reset states for all write functions when provider changes to allow methods to be called again without refreshing
-  useEffect(resetProviders, [resetProviders, provider]);
+  useEffect(resetProviders, [resetProviders, transactor]);
 
   return (
     <TokenInformationContext.Provider

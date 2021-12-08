@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
-import { providers, Signer } from "ethers";
 import { TradeTrustErc721Event } from "../../../types";
 import { fetchEvents, fetchEventInfo } from "./fetchEscrowTransfer";
 import { useProviderContext } from "../../contexts/provider";
@@ -13,10 +12,8 @@ export const useEndorsementChain = (
   pending: boolean;
   error: string;
 } => {
-  const { provider: providerOrSigner } = useProviderContext();
-  const provider = (providerOrSigner as Signer).provider
-    ? (providerOrSigner as Signer).provider
-    : (providerOrSigner as providers.Provider);
+  const { getProvider } = useProviderContext();
+  const provider = getProvider();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [endorsementChain, setEndorsementChain] = useState<TradeTrustErc721Event[]>();

@@ -1,17 +1,20 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { useDispatch } from "react-redux";
 import { setActive } from "../../../reducers/sample";
 import { updateCertificate } from "../../../reducers/certificate";
 import { loadDemoCertificate } from "../../VerifyPageContent/helpers";
+import { ChainId } from "../../../config/chain-info";
 
 const topMessage = "To verify a demo document";
 const btnMessage = "Click Here";
 const bottomMessage = "or";
 
-export const SampleMobile = (): React.ReactElement => {
+export const SampleMobile: FunctionComponent<{ currentChainId: ChainId | undefined }> = ({
+  currentChainId,
+}): React.ReactElement => {
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
-  return (
+  return currentChainId ? (
     <div className="md:hidden flex flex-col">
       <p className="font-bold text-xl mb-4">{topMessage}</p>
       <button
@@ -19,7 +22,7 @@ export const SampleMobile = (): React.ReactElement => {
         draggable={false}
         onClick={(e: React.SyntheticEvent) => {
           e.stopPropagation();
-          loadDemoCertificate(loadCertificate);
+          loadDemoCertificate(loadCertificate, currentChainId);
           dispatch(setActive());
         }}
       >
@@ -27,5 +30,7 @@ export const SampleMobile = (): React.ReactElement => {
       </button>
       <p className="font-bold text-xl mt-4">{bottomMessage}</p>
     </div>
+  ) : (
+    <div>You are currently on an unsupported network.</div>
   );
 };

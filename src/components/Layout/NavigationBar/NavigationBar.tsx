@@ -10,6 +10,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
 import { useFeatureFlag } from "../../FeatureFlag";
+import { NetworkSelect } from "../NetworkSelect";
 
 export const leftNavItems: NavigationItem[] = [
   {
@@ -114,6 +115,13 @@ export const leftNavItems: NavigationItem[] = [
 
 export const rightNavItems: NavigationItem[] = [
   {
+    schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
+    id: "network",
+    label: "Select a Network",
+    path: "#",
+    customLink: <NetworkSelect />,
+  },
+  {
     schema: NAVIGATION_ITEM_TYPE.NavigationIconButton,
     id: "settings",
     label: "Settings",
@@ -163,6 +171,7 @@ const NavLogo = () => {
 
 const flagName = "MAGIC_DEMO";
 const identityFn = (x: any) => x;
+
 interface NavigationBarProps {
   toggleNavBar: boolean;
   setToggleNavBar: (toggleNavbar: boolean) => void;

@@ -3,13 +3,14 @@ import React from "react";
 import { Provider } from "react-redux";
 import { SampleMobile } from "./SampleMobile";
 import { configureStore } from "../../../store";
+import { ChainId } from "../../../config/chain-info";
 
 const store = configureStore();
 
 const renderWithStore = () => {
   return render(
     <Provider store={store}>
-      <SampleMobile />
+      <SampleMobile currentChainId={ChainId.Ropsten} />
     </Provider>
   );
 };

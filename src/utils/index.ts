@@ -1,9 +1,10 @@
 import { utils } from "ethers";
-import { ETHERSCAN_BASE_URL } from "../config";
 import { compareDesc, compareAsc } from "date-fns";
+import { ChainId, getChainInfo } from "../config/chain-info";
 
-export const makeEtherscanAddressURL = (address: string): string => {
-  return `${ETHERSCAN_BASE_URL}address/${address}`;
+export const makeEtherscanAddressURL = (address: string, chainId: ChainId): string => {
+  const baseUrl = getChainInfo(chainId).explorerUrl;
+  return new URL(`/address/${address}`, baseUrl).href;
 };
 
 export const isEthereumAddress = (address: string): boolean | undefined => {
