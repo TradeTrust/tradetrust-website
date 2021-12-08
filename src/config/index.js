@@ -9,6 +9,6 @@ export const NETWORK_ID = IS_MAINNET ? "1" : "3";
 export const NETWORK_NAME = IS_MAINNET ? "homestead" : NETWORK;
 
 export const ETHERSCAN_BASE_URL = `https://${IS_MAINNET ? "" : NETWORK_NAME + "."}etherscan.io/`;
-export const MAGIC_API_KEY = process.env.MAGIC_API_KEY || "pk_test_9A196E6A11B0EF87";
+export const MAGIC_API_KEY = process.env.MAGIC_API_KEY || "pk_test_AB1F885AF848182E";
 
 export const isDevelopment = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
