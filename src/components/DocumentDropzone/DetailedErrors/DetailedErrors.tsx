@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { MESSAGES } from "../../../constants/VerificationErrorMessages";
-import { errorMessageHandling } from "../../../services/verify/fragments";
+import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+import { errorMessageHandling } from "@govtechsg/tradetrust-utils";
 
 export const DetailedError: FunctionComponent<{ title: string; message: string }> = ({ title, message }) => {
   return (
@@ -17,6 +17,7 @@ export const DetailedErrors: FunctionComponent<{
   verificationError: string | null;
 }> = ({ verificationStatus, verificationError }) => {
   if (!verificationStatus) return null;
+  const { MESSAGES } = CONSTANTS;
   const errors = errorMessageHandling(verificationStatus);
   if (verificationError) errors.push(verificationError);
 

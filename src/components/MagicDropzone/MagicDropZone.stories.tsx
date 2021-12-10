@@ -11,7 +11,9 @@ import {
   whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentRevoked,
 } from "../../test/fixture/verifier-responses";
-import { TYPES } from "../../constants/VerificationErrorMessages";
+import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+
+const { TYPES } = CONSTANTS;
 
 const sampleDocument = wrapDocument({
   issuers: [
