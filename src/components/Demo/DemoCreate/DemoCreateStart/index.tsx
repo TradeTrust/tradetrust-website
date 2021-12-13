@@ -37,12 +37,34 @@ export const DemoCreateStart: FunctionComponent = () => {
     }
   };
 
+  const features = [
+    {
+      img: "circle-form.png",
+      title: "Fill up the content for CoO",
+    },
+    {
+      img: "circle-load.png",
+      title: "Issue a CoO via TradeTrust",
+    },
+    {
+      img: "circle-verify.png",
+      title: "Verify it to make sure it’s not tempered with",
+    },
+  ];
+
   return (
     <>
-      <h4 className="mt-8">Create CoO</h4>
-      <p className="mt-8">
-        See how a TradeTrust Document can be issued and provide your bank the assurance of document integrity
-      </p>
+      <p className="mt-8">Here&apos;s what you can do with this Demo:</p>
+      <div className="flex justify-around">
+        {features.map(({ img, title }) => {
+          return (
+            <div key={img} className="w-1/3 px-3">
+              <img className="mx-auto" src={`/static/images/demo/${img}`} />
+              <p className="text-cerulean text-center">{title}</p>
+            </div>
+          );
+        })}
+      </div>
       {loading ? (
         <div className="mt-12">
           <LoaderSpinner width="36px" className="mx-auto mb-4" primary="#3B8CC5" />
@@ -55,7 +77,7 @@ export const DemoCreateStart: FunctionComponent = () => {
           </h3>
         </div>
       ) : (
-        <Button onClick={handleStart} className="bg-cerulean text-white mt-8 hover:bg-cerulean-300">
+        <Button onClick={handleStart} className="flex mx-auto bg-cerulean text-white mt-8 hover:bg-cerulean-300">
           Start Now
         </Button>
       )}

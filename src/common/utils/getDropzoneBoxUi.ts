@@ -2,10 +2,10 @@ enum DropzoneBoxUiState {
   DRAG_REJECT = "border-red-400 bg-red-100",
   DRAG_ACTIVE = "border-green-400 bg-green-50",
   DRAG_ACCEPT = "border-green-400 bg-green-50",
-  VERIFICATION_PENDING = "border-cloud-100 bg-white",
+  VERIFICATION_PENDING = "border-red-400 bg-white",
   VERIFICATION_ERROR = "border-red-400 bg-red-100",
   ACTION_ERROR = "border-red-400 bg-red-100",
-  DEFAULT = "border-cloud-100 bg-white",
+  DEFAULT = "border-red-400 bg-white",
 }
 
 interface GetDropzoneBoxUi {
