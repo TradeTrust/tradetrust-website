@@ -106,6 +106,8 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
         {!isTransferableDocument && <DocumentStatus isMagicDemo={isMagicDemo} />}
         {(isSampleDocument || isMagicDemo) && (
           <Banner
+            to="/contact"
+            buttonText="Contact us now"
             className="mt-8"
             title={
               isMagicDemo

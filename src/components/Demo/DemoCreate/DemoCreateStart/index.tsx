@@ -54,12 +54,12 @@ export const DemoCreateStart: FunctionComponent = () => {
 
   return (
     <>
-      <p className="mt-8">Here&apos;s what you can do with this Demo:</p>
+      <p className="mt-4 mb-4">Here&#39;s what you can do with this Demo:</p>
       <div className="flex justify-around">
         {features.map(({ img, title }) => {
           return (
             <div key={img} className="w-1/3 px-3">
-              <img className="mx-auto" src={`/static/images/demo/${img}`} />
+              <img alt={title} className="mx-auto h-32" src={`/static/images/demo/${img}`} />
               <p className="text-cerulean text-center">{title}</p>
             </div>
           );

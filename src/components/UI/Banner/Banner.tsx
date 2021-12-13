@@ -5,10 +5,11 @@ import { NavLink } from "react-router-dom";
 interface BannerProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   title: string;
-  buttonText?: string;
+  buttonText: string;
+  to: string;
 }
 
-export const Banner: FunctionComponent<BannerProps> = ({ className, title, buttonText }: BannerProps) => {
+export const Banner: FunctionComponent<BannerProps> = ({ className, title, buttonText, to }: BannerProps) => {
   return (
     <div className={`${className ? className : ""}`}>
       <div className="container">
@@ -21,9 +22,9 @@ export const Banner: FunctionComponent<BannerProps> = ({ className, title, butto
               <h3 data-testid="banner-title">{title}</h3>
             </div>
             <div className="px-2 w-auto lg:ml-auto">
-              <NavLink to="/contact">
+              <NavLink to={to}>
                 <Button className="bg-tangerine text-white hover:bg-tangerine-600 border-none" size={ButtonSize.LG}>
-                  <h4>{buttonText || "Contact us now"}</h4>
+                  <h4>{buttonText}</h4>
                 </Button>
               </NavLink>
             </div>

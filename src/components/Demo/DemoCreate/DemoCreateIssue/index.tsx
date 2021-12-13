@@ -75,13 +75,12 @@ export const DemoCreateIssue: FunctionComponent = () => {
                 </a>
                 .
               </p>
-              <Link to="/demo/verify">
-                <Banner
-                  className="text-left"
-                  buttonText="Verify Document"
-                  title="Now that you have created your CoO, verify it to make sure it is working."
-                />
-              </Link>
+              <Banner
+                to="/demo/verify"
+                className="text-left"
+                buttonText="Verify Document"
+                title="Now that you have created your CoO, verify it to make sure it is working."
+              />
             </>
           )}
           {error && (
