@@ -12,9 +12,11 @@ import { isValid } from "@govtechsg/oa-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
 import { NETWORK_NAME } from "../config";
 import { history } from "../history";
-import { TYPES } from "../constants/VerificationErrorMessages";
+import { CONSTANTS } from "@govtechsg/tradetrust-utils";
 
 const { trace } = getLogger("saga:certificate");
+
+const { TYPES } = CONSTANTS;
 
 export function* verifyCertificate(): any {
   try {

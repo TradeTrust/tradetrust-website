@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { DetailedErrors } from "./DetailedErrors";
-import { TYPES, MESSAGES } from "../../../constants/VerificationErrorMessages";
+import { CONSTANTS } from "@govtechsg/tradetrust-utils";
 import { VerificationFragment } from "@govtechsg/oa-verify";
 import {
   whenDocumentHashInvalidAndNotIssued,
@@ -17,6 +17,8 @@ import {
   whenUnhandledError,
   whenDocumentValidAndIssuedByDns,
 } from "../../../test/fixture/verifier-responses";
+
+const { TYPES, MESSAGES } = CONSTANTS;
 
 describe("DetailedErrors", () => {
   it("should display all verification error messages", () => {

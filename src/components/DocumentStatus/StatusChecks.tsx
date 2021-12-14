@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { MESSAGES, TYPES } from "../../constants/VerificationErrorMessages";
-import { interpretFragments } from "../../services/verify/fragments";
+import { CONSTANTS, interpretFragments } from "@govtechsg/tradetrust-utils";
 import { StatusCheck } from "./StatusCheck";
 
 interface StatusChecksProps {
@@ -10,6 +9,7 @@ interface StatusChecksProps {
 
 export const StatusChecks: FunctionComponent<StatusChecksProps> = ({ verificationStatus }) => {
   const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
+  const { MESSAGES, TYPES } = CONSTANTS;
 
   return (
     <div className="flex items-start flex-col mt-2 lg:flex-row xl:mt-0">

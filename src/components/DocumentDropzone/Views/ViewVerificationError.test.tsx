@@ -4,7 +4,7 @@ import { screen, render, fireEvent } from "@testing-library/react";
 import { ViewVerificationError } from "./ViewVerificationError";
 import { Provider } from "react-redux";
 import { configureStore } from "../../../store";
-import { TYPES } from "../../../constants/VerificationErrorMessages";
+import { CONSTANTS } from "@govtechsg/tradetrust-utils";
 
 const RenderWithStore = ({ children, ...props }: any) => {
   const {
@@ -34,6 +34,8 @@ const RenderWithStore = ({ children, ...props }: any) => {
     </Provider>
   );
 };
+
+const { TYPES } = CONSTANTS;
 
 describe("ViewVerificationError", () => {
   it("displays texts correctly", () => {
