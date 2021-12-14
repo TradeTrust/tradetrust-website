@@ -4,6 +4,7 @@ import { Checkbox } from "../../UI/Checkbox";
 import { useHistory } from "react-router-dom";
 import { contentPdpa } from "../../../common/utils/overlay";
 import { useAuthContext } from "../../../common/contexts/AuthenticationContext";
+import { DemoCreateHeader } from "../DemoCreate/DemoCreateHeader";
 
 export const DemoInitial: FunctionComponent = () => {
   const { login, isLoggedIn } = useAuthContext();
@@ -41,17 +42,16 @@ export const DemoInitial: FunctionComponent = () => {
   return (
     <form className="mb-0" name="invite" onSubmit={handleFormSubmit}>
       <div className="mb-8">
-        <h5 className="mb-8">
-          Take the TradeTrust User Journey and have a hands-on experience on how easy it is to streamline your
-          operations using TradeTrust
-        </h5>
-        <p className="mb-2">
-          To start using the demo, please key in your email address to create a free temporary cryptocurrency wallet.
-        </p>
-        <p>
-          Please take note that <span className="font-bold">all documents</span> created from this demo{" "}
-          <span className="font-bold"> can only be recognise via this demo</span>
-        </p>
+        <DemoCreateHeader />
+        <div className="mt-8">
+          <p className="mb-2">
+            To start using the demo, please key in your email address to create a free temporary cryptocurrency wallet.
+          </p>
+          <p>
+            Please take note that <span className="font-bold">all documents</span> created from this demo{" "}
+            <span className="font-bold"> can only be recognise via this demo</span>
+          </p>
+        </div>
       </div>
       <Input name="email" className="w-full" placeholder="Email address" onChange={handleInputOrTextareaChange} />
       <div className="mt-8">

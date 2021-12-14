@@ -118,6 +118,10 @@ export const getWrappedDocumentStatus = (store: RootState): Status => {
   return store.demoCreate.wrapDocumentStatus;
 };
 
+export const getIssuedDocumentStatus = (store: RootState): Status => {
+  return store.demoCreate.issueDocumentStatus;
+};
+
 export const getDocumentPrepared = (store: RootState): { prepared: boolean; error: boolean } => {
   const { createTempDnsStatus, deploymentDocStoreStatus } = store.demoCreate;
 
