@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { CONSTANTS } from "@govtechsg/tradetrust-utils";
-import { errorMessageHandling } from "@govtechsg/tradetrust-utils";
+import { CONSTANTS, errorMessageHandling } from "@govtechsg/tradetrust-utils";
 
 export const DetailedError: FunctionComponent<{ title: string; message: string }> = ({ title, message }) => {
   return (
