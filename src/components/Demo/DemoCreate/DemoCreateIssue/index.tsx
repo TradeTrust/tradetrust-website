@@ -14,6 +14,7 @@ import {
 } from "../../../../reducers/demo-create";
 import { ProviderContext } from "../../../../common/contexts/provider";
 import { DemoFormContext } from "../contexts/DemoFormContext";
+import { Banner } from "../../../UI/Banner";
 
 export const DemoCreateIssue: FunctionComponent = () => {
   const { issued, error: issuedError } = useSelector(getDocumentIssued);
@@ -53,7 +54,7 @@ export const DemoCreateIssue: FunctionComponent = () => {
   return (
     <>
       <ProgressBar totalSteps={3} step={3} />
-      <div className="h-72 flex items-center justify-center">
+      <div className="h-96 flex items-center justify-center">
         <div className="text-center">
           {!issued && !error && (
             <>
@@ -74,9 +75,12 @@ export const DemoCreateIssue: FunctionComponent = () => {
                 </a>
                 .
               </p>
-              <Link to="/demo/verify">
-                <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">Test Your File Now</Button>
-              </Link>
+              <Banner
+                to="/demo/verify"
+                className="text-left"
+                buttonText="Verify Document"
+                title="Now that you have created your CoO, verify it to make sure it is working."
+              />
             </>
           )}
           {error && (

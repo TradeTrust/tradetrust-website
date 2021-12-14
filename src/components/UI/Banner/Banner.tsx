@@ -5,9 +5,11 @@ import { NavLink } from "react-router-dom";
 interface BannerProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   title: string;
+  buttonText: string;
+  to: string;
 }
 
-export const Banner: FunctionComponent<BannerProps> = ({ className, title }: BannerProps) => {
+export const Banner: FunctionComponent<BannerProps> = ({ className, title, buttonText, to }: BannerProps) => {
   return (
     <div className={`${className ? className : ""}`}>
       <div className="container">
@@ -16,13 +18,13 @@ export const Banner: FunctionComponent<BannerProps> = ({ className, title }: Ban
           style={{ backgroundImage: "url('/static/images/common/wave-lines-light.png')" }}
         >
           <div className="flex flex-wrap items-center px-4 py-6 text-white">
-            <div className="px-2 w-full lg:w-1/2 mb-2 lg:mb-0">
+            <div className="px-2 w-full lg:w-2/3 mb-2 lg:mb-0">
               <h3 data-testid="banner-title">{title}</h3>
             </div>
             <div className="px-2 w-auto lg:ml-auto">
-              <NavLink to="/contact">
+              <NavLink to={to}>
                 <Button className="bg-tangerine text-white hover:bg-tangerine-600 border-none" size={ButtonSize.LG}>
-                  <h3>Contact us now</h3>
+                  <h4>{buttonText}</h4>
                 </Button>
               </NavLink>
             </div>
