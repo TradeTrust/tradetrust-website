@@ -8,10 +8,12 @@ import {
   whenDocumentHashInvalidAndNotIssued,
   whenDocumentIssuerIdentityInvalidDid,
 } from "../../test/fixture/verifier-responses";
-import { MESSAGES } from "../../constants/VerificationErrorMessages";
+import { CONSTANTS } from "@govtechsg/tradetrust-utils";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
 import { v2, wrapDocument } from "@govtechsg/open-attestation";
+
+const { MESSAGES } = CONSTANTS;
 
 const document = wrapDocument({
   issuers: [
