@@ -12,22 +12,27 @@ export const DemoCreateStart: FunctionComponent = () => {
   const { account, provider } = useContext(ProviderContext);
   const { setActiveStep } = useContext(DemoCreateContext);
   const [loading, setLoading] = useState(false);
+  const [getFundsError, setGetFundsError] = useState(false);
 
   const { prepared, error } = useSelector(getDocumentPrepared);
 
   const dispatch = useDispatch();
 
   const handleStart = async () => {
-    setLoading(true);
+    try {
+      setLoading(true);
+      setGetFundsError(false);
+      const balance = await provider.getBalance("latest");
+      const formattedBalance = Number(ethers.utils.formatEther(balance));
 
-    const balance = await provider.getBalance("latest");
-    const formattedBalance = Number(ethers.utils.formatEther(balance));
-
-    if (formattedBalance <= 1) {
-      await getFunds(account as string);
+      if (formattedBalance <= 1) {
+        await getFunds(account as string);
+      }
+      dispatch(deployingDocStore(provider));
+    } catch (e) {
+      setGetFundsError(true);
+      setLoading(false);
     }
-
-    dispatch(deployingDocStore(provider));
   };
 
   useEffect(() => {
@@ -81,7 +86,7 @@ export const DemoCreateStart: FunctionComponent = () => {
           );
         })}
       </div>
-      {error ? (
+      {error || getFundsError ? (
         <div className="mt-12">
           <h3 className="text-center">
             There maybe something wrong with the underlying network, please try again later.
