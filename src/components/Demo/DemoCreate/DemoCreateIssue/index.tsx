@@ -18,7 +18,7 @@ export const DemoCreateIssue: FunctionComponent = () => {
 
   const downloadDocument = useCallback(() => {
     const blob = new Blob([JSON.stringify(wrappedDocument)], { type: "text/json;charset=utf-8" });
-    saveAs(blob, `${formValues.documentName || `demo`}.tt`);
+    saveAs(blob, `${`demo-${formValues.documentName}` || `demo`}.tt`);
   }, [formValues.documentName, wrappedDocument]);
 
   useEffect(() => {
