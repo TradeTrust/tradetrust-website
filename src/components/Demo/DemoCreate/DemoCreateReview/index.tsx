@@ -1,5 +1,14 @@
 import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ProviderContext } from "../../../../common/contexts/provider";
+import {
+  getIssuedDocumentStatus,
+  getWrappedDocumentStatus,
+  issuingDocument,
+  wrappingDocument,
+} from "../../../../reducers/demo-create";
+import { LoadingModal } from "../../LoadingModal";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { DemoFormContext } from "../contexts/DemoFormContext";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
@@ -48,17 +57,49 @@ const DemoCreateReviewItem = ({
 
 export const DemoCreateReview: FunctionComponent = () => {
   const { setActiveStep } = useContext(DemoCreateContext);
+  const { formValues } = useContext(DemoFormContext);
+  const { provider } = useContext(ProviderContext);
+  const wrapDocumentStatus = useSelector(getWrappedDocumentStatus);
+  const issueDocumentStatus = useSelector(getIssuedDocumentStatus);
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleBack = () => {
     setActiveStep("form");
   };
 
   const handleNext = () => {
-    setActiveStep("issue");
+    setLoading(true);
+    dispatch(wrappingDocument(formValues));
   };
+
+  useEffect(() => {
+    if (wrapDocumentStatus !== null && wrapDocumentStatus === "success") {
+      dispatch(issuingDocument(provider));
+    }
+  }, [wrapDocumentStatus, dispatch, provider]);
+
+  useEffect(() => {
+    if (issueDocumentStatus !== null && issueDocumentStatus !== "pending") {
+      setActiveStep("issue");
+    }
+  }, [issueDocumentStatus, setActiveStep]);
 
   return (
     <>
+      {loading && (
+        <LoadingModal
+          title="Issuing Document"
+          content={
+            <p>
+              Please do not navigate out of this demo
+              <br />
+              This process might take a while
+            </p>
+          }
+        />
+      )}
       <ProgressBar totalSteps={3} step={2} />
       <div className="my-4">
         <h3 className="my-3">Fill in Details of CoO</h3>

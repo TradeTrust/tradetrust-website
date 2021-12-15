@@ -18,9 +18,9 @@ export const DemoCreatePage: FunctionComponent = () => (
       />
       <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
       <meta property="og:url" content={`${window.location.origin}/demo-create`} />
-      <title>TradeTrust - Demo Create</title>
+      <title>TradeTrust - Demo</title>
     </Helmet>
-    <Page title="Demo Create">
+    <Page title="Demo">
       <DemoLayout>
         <DemoCreateProvider>
           <DemoCreate />
