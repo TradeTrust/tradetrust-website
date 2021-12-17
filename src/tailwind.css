@@ -154,6 +154,14 @@
     clear: both;
   }
 
+  .event-details h3 {
+    margin-top: 1rem;
+  }
+
+  .event-details p {
+    margin-top: 0.5rem;
+  }
+
   @media print {
     .no-print {
       display: none;

@@ -102,7 +102,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
-      - { label: "Blurb", name: "blurb", widget: "text" }
+      - { label: "Blurb", name: "blurb", widget: "text", hint: "Event Description" }
       - { label: "Link", name: "link", widget: "string", hint: "Direct link." }
       - {
           label: "Time Start",
@@ -122,6 +122,46 @@ collections:
           time_format: "HH:mm",
           required: false,
           hint: "End time of event.",
+          default: "",
+        }
+      - {
+          label: "Location",
+          name: "location",
+          widget: "string",
+          required: false,
+          hint: "Location of event.",
+          default: "",
+        }
+      - {
+          label: "Event Details",
+          name: "eventDetails",
+          widget: "markdown",
+          required: false,
+          hint: "Details of the event, i.e. about the speakers, about the event host, etc..",
+          default: "",
+        }
+      - {
+          label: "Downloadable Media Content 1",
+          name: "downloadableMediaContent1",
+          widget: "file",
+          required: false,
+          hint: "Upload media contents/materials for user to download",
+          default: "",
+        }
+      - {
+          label: "Downloadable Media Content 2",
+          name: "downloadableMediaContent2",
+          widget: "file",
+          required: false,
+          hint: "Upload media contents/materials for user to download",
+          default: "",
+        }
+      - {
+          label: "Downloadable Media Content 3",
+          name: "downloadableMediaContent3",
+          widget: "file",
+          required: false,
+          hint: "Upload media contents/materials for user to download",
           default: "",
         }
       - { label: "Video Link", name: "videoLink", widget: "string", required: false }
