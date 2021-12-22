@@ -1,4 +1,5 @@
 import { ChainId, ChainInfoObject, getChainInfo } from "./chain-info";
+import { isDevelopment } from "./index";
 
 /**
  * Supported networks in production environment
@@ -22,11 +23,9 @@ const TEST_NETWORKS = [
  * Returns an array of supported chain info based on the environment type
  */
 export const getSupportedChainInfo = (): ChainInfoObject[] => {
-  const networks =
-    process.env.NODE_ENV === "development"
-      ? window.location.host.indexOf("localhost") > -1
-        ? [...TEST_NETWORKS, ChainId.Local]
-        : TEST_NETWORKS
-      : MAIN_NETWORKS;
+  const isLocal = window.location.host.indexOf("localhost") > -1;
+  const isTestEnv = process.env.NODE_ENV === "test";
+  const networks = isDevelopment ? [...TEST_NETWORKS] : [...MAIN_NETWORKS];
+  if (isTestEnv || isLocal) networks.push(ChainId.Local);
   return networks.map((chainId) => getChainInfo(chainId));
 };

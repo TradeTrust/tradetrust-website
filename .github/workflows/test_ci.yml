@@ -35,7 +35,7 @@ jobs:
       - name: Test
         run: npm run test
       - name: Build
-        run: npm run build
+        run: npm run build:integration:headless
       - name: Integration - testcafe
         run: npm run integration:headless
       - name: Integration - dappeteer
