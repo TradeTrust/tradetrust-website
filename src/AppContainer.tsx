@@ -6,7 +6,7 @@ import { NavigationBar, leftNavItems, rightNavItems } from "./components/Layout/
 import { Routes, routes } from "./routes";
 import styled from "@emotion/styled";
 import { useProviderContext } from "./common/contexts/provider";
-import { getChainInfo } from "./config/chain-info";
+import { getChainInfo } from "./common/utils/chain-utils";
 
 const Main = styled.main`
   background-image: url("/static/images/common/wave-lines.png");

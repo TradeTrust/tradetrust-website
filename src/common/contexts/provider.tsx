@@ -3,8 +3,9 @@ import React, { createContext, FunctionComponent, useCallback, useContext, useEf
 import { INFURA_API_KEY } from "../../config";
 import { utils } from "@govtechsg/oa-verify/";
 import { magic } from "./helpers";
-import { ChainId, ChainInfoObject, getChainInfo } from "../../config/chain-info";
+import { ChainId, ChainInfoObject } from "../../constants/chain-info";
 import { NoMetaMaskError, UnsupportedNetworkError } from "../errors";
+import { getChainInfo } from "../utils/chain-utils";
 
 export enum SIGNER_TYPE {
   IDENTITY = "Identity",

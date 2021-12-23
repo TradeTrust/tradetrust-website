@@ -3,7 +3,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { SampleMobile } from "./SampleMobile";
 import { configureStore } from "../../../store";
-import { ChainId } from "../../../config/chain-info";
+import { ChainId } from "../../../constants/chain-info";
 
 const store = configureStore();
 

@@ -1,6 +1,7 @@
 import { utils } from "ethers";
 import { compareDesc, compareAsc } from "date-fns";
-import { ChainId, getChainInfo } from "../config/chain-info";
+import { ChainId } from "../constants/chain-info";
+import { getChainInfo } from "../common/utils/chain-utils";
 
 export const makeEtherscanAddressURL = (address: string, chainId: ChainId): string => {
   const baseUrl = getChainInfo(chainId).explorerUrl;

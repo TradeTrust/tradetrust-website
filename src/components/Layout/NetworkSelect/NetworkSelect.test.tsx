@@ -1,8 +1,9 @@
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { NetworkSelect } from "./NetworkSelect";
-import { ChainId, ChainInfoObject, getChainInfo } from "../../../config/chain-info";
+import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { ProviderContextProvider } from "../../../common/contexts/provider";
+import { getChainInfo } from "../../../common/utils/chain-utils";
 
 const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Goerli), getChainInfo(ChainId.PolygonMumbai)];
 

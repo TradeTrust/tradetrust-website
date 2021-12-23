@@ -1,4 +1,5 @@
-import { ChainId, getChainInfo } from "../../config/chain-info";
+import { ChainId } from "../../constants/chain-info";
+import { getChainInfo } from "../../common/utils/chain-utils";
 
 type LoadCertificate = (certificate: any) => void;
 

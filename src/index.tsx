@@ -10,9 +10,8 @@ import "./index.css";
 import { configureStore } from "./store";
 import { Router } from "react-router-dom";
 import { history } from "./history";
-import { getSupportedChainInfo } from "./config/network-config";
 import { NETWORK_NAME } from "./config";
-import { getChainInfoFromNetworkName } from "./config/chain-info";
+import { getChainInfoFromNetworkName, getSupportedChainInfo } from "./common/utils/chain-utils";
 
 const store = configureStore();
 

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { setActive } from "../../../reducers/sample";
 import { updateCertificate } from "../../../reducers/certificate";
 import { loadDemoCertificate } from "../../VerifyPageContent/helpers";
-import { ChainId } from "../../../config/chain-info";
+import { ChainId } from "../../../constants/chain-info";
 
 const topMessage = "To verify a demo document";
 const btnMessage = "Click Here";

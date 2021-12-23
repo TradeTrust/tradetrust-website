@@ -1,5 +1,3 @@
-import { UnsupportedNetworkError } from "../common/errors";
-
 export interface ChainInfoObject {
   label: string;
   iconImage: string;
@@ -7,6 +5,8 @@ export interface ChainInfoObject {
   networkName: string; // network name that aligns with existing NETWORK_NAME
   explorerUrl: string;
 }
+
+type ChainInfo = Record<ChainId, ChainInfoObject>;
 
 export enum ChainId {
   // Localhost
@@ -25,8 +25,6 @@ export enum ChainId {
   Polygon = 137,
   PolygonMumbai = 80001,
 }
-
-type ChainInfo = Record<ChainId, ChainInfoObject>;
 
 export const ChainInfo: ChainInfo = {
   [ChainId.Local]: {
@@ -85,18 +83,4 @@ export const ChainInfo: ChainInfo = {
     networkName: "maticmum",
     explorerUrl: "https://mumbai.polygonscan.com",
   },
-};
-
-export const getChainInfo = (chainId: ChainId): ChainInfoObject => {
-  const res = ChainInfo[chainId];
-  if (!res) throw new UnsupportedNetworkError(chainId);
-  return res;
-};
-
-export const getChainInfoFromNetworkName = (networkName: string): ChainInfoObject => {
-  const res = Object.keys(ChainInfo)
-    .map((chainId) => ChainInfo[Number(chainId) as ChainId])
-    .find((chainInfo) => chainInfo.networkName === networkName);
-  if (!res) throw new UnsupportedNetworkError(networkName);
-  return res;
 };

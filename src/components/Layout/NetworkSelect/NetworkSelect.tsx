@@ -7,8 +7,9 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
 import styled from "@emotion/styled";
-import { ChainId, ChainInfoObject, getChainInfo } from "../../../config/chain-info";
+import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { useProviderContext } from "../../../common/contexts/provider";
+import { getChainInfo } from "../../../common/utils/chain-utils";
 
 interface NetworkSelectViewProps {
   onChange: (network: ChainInfoObject) => void;

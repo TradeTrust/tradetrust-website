@@ -6,7 +6,7 @@ import { CertificateDropZoneContainer } from "../CertificateDropZone/Certificate
 import { setActive, reset } from "../../reducers/sample";
 import { loadDemoCertificate, getDemoCert } from "./helpers";
 import { useProviderContext } from "../../common/contexts/provider";
-import { ChainId } from "../../config/chain-info";
+import { ChainId } from "../../constants/chain-info";
 
 interface DraggableDemoCertificateProps {
   chainId: ChainId;
