@@ -20,7 +20,8 @@ const TEST_NETWORKS = [
 ];
 
 /**
- * Returns an array of supported chain info based on the environment type
+ * Returns an array of supported chain info based on the environment type.
+ * Will include local chain if site is running under test or localhost environment.
  */
 export const getSupportedChainInfo = (): ChainInfoObject[] => {
   const isLocal = window.location.host.indexOf("localhost") > -1;
