@@ -1,5 +1,5 @@
 import { ChainId, ChainInfoObject, getChainInfo } from "./chain-info";
-import { isDevelopment } from "./index";
+import { isDevelopment } from ".";
 
 /**
  * Supported networks in production environment
