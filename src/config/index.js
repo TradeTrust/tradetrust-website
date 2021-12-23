@@ -1,4 +1,6 @@
-export const NETWORK = process.env.NET || "ropsten";
+export const isDevelopment = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
+
+export const NETWORK = process.env.NET ?? (isDevelopment ? "ropsten" : "mainnet");
 
 export const IS_MAINNET = NETWORK === "mainnet";
 
@@ -10,5 +12,3 @@ export const NETWORK_NAME = IS_MAINNET ? "homestead" : NETWORK;
 
 export const ETHERSCAN_BASE_URL = `https://${IS_MAINNET ? "" : NETWORK_NAME + "."}etherscan.io/`;
 export const MAGIC_API_KEY = process.env.MAGIC_API_KEY || "pk_test_AB1F885AF848182E";
-
-export const isDevelopment = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
