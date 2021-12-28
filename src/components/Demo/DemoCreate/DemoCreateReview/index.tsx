@@ -15,6 +15,7 @@ import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { schema } from "../DemoCreateForm/schema";
 import { FormItemSchema } from "../DemoCreateForm/types";
 import { getFormValue, isImageData } from "../utils";
+import { gaEvent } from "../../../../common/analytics";
 
 const DemoCreateReviewItem = ({
   title,
@@ -77,6 +78,10 @@ export const DemoCreateReview: FunctionComponent = () => {
   useEffect(() => {
     if (wrapDocumentStatus !== null && wrapDocumentStatus === "success") {
       dispatch(issuingDocument(provider));
+      gaEvent({
+        action: "magic_demo_issue",
+        category: "magic_demo",
+      });
     }
   }, [wrapDocumentStatus, dispatch, provider]);
 
