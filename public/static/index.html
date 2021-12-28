@@ -28,11 +28,12 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-13GYPPVD4Y"></script>
     <script>
+      var option = JSON.parse('<%= JSON.stringify(htmlWebpackPlugin.options.GA_CONFIG_OPTION) %>');
+
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      gtag('config', '<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>', '<%= htmlWebpackPlugin.options.GA_CONFIG_OPTION %>');
+      gtag('config', '<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>', option);
    </script>
   </head>
   <body>

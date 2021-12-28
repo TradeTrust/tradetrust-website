@@ -49,9 +49,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin({
-      GA_CONFIG_OPTION: JSON.stringify(true),
-    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
       NET: "ropsten",

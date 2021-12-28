@@ -1,5 +1,7 @@
-import { GA_MEASUREMENT_ID, validatePageViewEvent, validateGaEvent, gaPageView, gaEvent } from "./Analytics";
+import { GA_MEASUREMENT_ID } from "./../../config";
+import { validatePageViewEvent, validateGaEvent, gaPageView, gaEvent } from "./Analytics";
 
+const consoleSpy = jest.spyOn(console, "error");
 const mockGaEvent = {
   action: "TEST_ACTION",
   category: "TEST_CATEGORY",
@@ -7,12 +9,20 @@ const mockGaEvent = {
   value: 2,
 };
 
+beforeEach(() => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("validateGaPageView", () => {
   it("throws if action is missing", () => {
-    expect(() =>
-      // @ts-expect-error we expect this error to be thrown
-      validatePageViewEvent({})
-    ).toThrow("Action is required");
+    // @ts-expect-error we expect this error to be thrown
+    validatePageViewEvent({});
+    expect(consoleSpy).toBeCalledTimes(1);
+    expect(consoleSpy).toHaveBeenCalledWith("Action is required");
   });
 });
 
@@ -30,6 +40,7 @@ describe("gaPageView", () => {
     gaPageView({
       action: "TEST_ACTION",
     } as any);
+    expect(window.gtag).toBeCalledTimes(1);
     expect(window.gtag).toHaveBeenCalledWith("event", "TEST_ACTION", {
       send_to: GA_MEASUREMENT_ID,
     });
@@ -38,34 +49,36 @@ describe("gaPageView", () => {
   it("throws if there is a validation error", () => {
     const mockGaEventError = { action: 123 };
     // @ts-expect-error the mock does not match the signature
-    expect(() => gaPageView(mockGaEventError)).toThrow("Action must be a string");
+    gaPageView(mockGaEventError);
+    expect(consoleSpy).toBeCalledTimes(1);
+    expect(consoleSpy).toHaveBeenCalledWith("Action must be a string");
   });
 });
 
 describe("validateGaEvent", () => {
   it("throws if category is missing", () => {
-    expect(() =>
-      // @ts-expect-error we expect this error to be thrown
-      validateGaEvent({
-        action: "magic_demo_start",
-      })
-    ).toThrow("Category is required");
+    // @ts-expect-error we expect this error to be thrown
+    validateGaEvent({
+      action: "magic_demo_start",
+    });
+    expect(consoleSpy).toBeCalledTimes(1);
+    expect(consoleSpy).toHaveBeenCalledWith("Category is required");
   });
 
   it("throws if action is missing", () => {
-    expect(() =>
-      // @ts-expect-error we expect this error to be thrown
-      validateGaEvent({
-        category: "magic_demo",
-      })
-    ).toThrow("Action is required");
+    // @ts-expect-error we expect this error to be thrown
+    validateGaEvent({
+      category: "magic_demo",
+    });
+    expect(consoleSpy).toBeCalledTimes(1);
+    expect(consoleSpy).toHaveBeenCalledWith("Action is required");
   });
 
   it("throws if value is not number", () => {
     // @ts-expect-error we expect this error to be thrown
-    expect(() => validateGaEvent({ category: "magic_demo", action: "magic_demo_start", value: "STRING" })).toThrow(
-      "Value must be a number"
-    );
+    validateGaEvent({ category: "magic_demo", action: "magic_demo_start", value: "STRING" });
+    expect(consoleSpy).toBeCalledTimes(1);
+    expect(consoleSpy).toHaveBeenCalledWith("Value must be a number");
   });
 
   it("passes for minimum values", () => {
@@ -107,6 +120,7 @@ describe("gaEvent", () => {
   it("sends and log gtag event if window.gtag is present", () => {
     // @ts-expect-error the mock does not match the signature
     gaEvent(mockGaEvent);
+    expect(window.gtag).toBeCalledTimes(1);
     expect(window.gtag).toHaveBeenCalledWith("event", "TEST_ACTION", {
       event_category: "TEST_CATEGORY",
       event_label: "TEST_LABEL",
@@ -117,6 +131,8 @@ describe("gaEvent", () => {
   it("throws if there is a validation error", () => {
     const mockGaEventError = { ...mockGaEvent, value: "STRING" };
     // @ts-expect-error the mock does not match the signature
-    expect(() => gaEvent(mockGaEventError)).toThrow("Value must be a number");
+    gaEvent(mockGaEventError);
+    expect(consoleSpy).toBeCalledTimes(1);
+    expect(consoleSpy).toHaveBeenCalledWith("Value must be a number");
   });
 });
