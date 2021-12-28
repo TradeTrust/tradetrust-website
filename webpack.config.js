@@ -5,16 +5,14 @@ const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
-
-const IS_DEV = process.env.NODE_ENV === "development";
-const IS_PROD = !IS_DEV;
+const { IS_DEVELOPMENT } = require("./src/config");
 
 module.exports = {
   entry: {
     app: ["./src/index.tsx"],
   },
   context: path.resolve(__dirname),
-  mode: IS_DEV ? "development" : "production",
+  mode: IS_DEVELOPMENT ? "development" : "production",
   target: "web",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -54,7 +52,7 @@ module.exports = {
       filename: "index.html",
       template: `${__dirname}/public/static/index.html`,
     }),
-    ...(IS_PROD
+    ...(!IS_DEVELOPMENT
       ? [
           new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
           new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
@@ -83,7 +81,7 @@ module.exports = {
 
   // Using cheap-eval-source-map for build times
   // switch to inline-source-map if detailed debugging needed
-  devtool: IS_PROD ? false : "eval-cheap-source-map",
+  devtool: !IS_DEVELOPMENT ? false : "eval-cheap-source-map",
 
   devServer: {
     compress: true,

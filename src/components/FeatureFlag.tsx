@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from "react";
 import { useFeatureFlagOverride } from "../common/hooks/useFeatureFlagOverride";
 import Features from "../config/feature-toggle.json";
-import { isDevelopment } from "../config";
+import { IS_DEVELOPMENT } from "../config";
 
 interface FeatureFlag {
   name: string;
@@ -22,7 +22,7 @@ interface FeatureJson {
 export const FeatureFlag: FunctionComponent<FeatureFlag> = ({ name, children, fallback }) => {
   const { getFeatureFlagOverride } = useFeatureFlagOverride();
   const override = getFeatureFlagOverride(name);
-  const environment: Environment = isDevelopment ? "development" : "production";
+  const environment: Environment = IS_DEVELOPMENT ? "development" : "production";
   const features = Features as FeatureJson;
   const featureFlag: boolean = features?.[name]?.[environment];
 
@@ -48,7 +48,7 @@ export const FeatureFlag: FunctionComponent<FeatureFlag> = ({ name, children, fa
 export const useFeatureFlag = (name: string): boolean => {
   const { getFeatureFlagOverride } = useFeatureFlagOverride();
   const override = getFeatureFlagOverride(name);
-  const environment: Environment = isDevelopment ? "development" : "production";
+  const environment: Environment = IS_DEVELOPMENT ? "development" : "production";
   const features = Features as FeatureJson;
   const featureFlag: boolean = features?.[name]?.[environment];
 
