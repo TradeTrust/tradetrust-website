@@ -7,6 +7,13 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
 const { IS_DEVELOPMENT } = require("./src/config");
 
+const GA_MEASUREMENT_ID = "G-13GYPPVD4Y";
+const GA_CONFIG_OPTION = {
+  allow_google_signals: false,
+  allow_ad_personalization_signals: false,
+  debug_mode: IS_DEV,
+};
+
 module.exports = {
   entry: {
     app: ["./src/index.tsx"],
@@ -42,6 +49,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      GA_CONFIG_OPTION: JSON.stringify(true),
+    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
       NET: "ropsten",
@@ -51,7 +61,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: `${__dirname}/public/static/index.html`,
-      isDev: process.env.NODE_ENV === "development",
+      GA_MEASUREMENT_ID,
+      GA_CONFIG_OPTION,
     }),
     ...(!IS_DEVELOPMENT
       ? [

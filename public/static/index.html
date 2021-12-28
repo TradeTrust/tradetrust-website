@@ -32,11 +32,7 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-13GYPPVD4Y', {
-        'allow_google_signals': false,
-        'allow_ad_personalization_signals': false,
-        'debug_mode': '<%= htmlWebpackPlugin.options.isDev %>'
-      });
+      gtag('config', '<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>', '<%= htmlWebpackPlugin.options.GA_CONFIG_OPTION %>');
    </script>
   </head>
   <body>

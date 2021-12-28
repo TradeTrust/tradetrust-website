@@ -22,8 +22,8 @@ interface GaPageViewProps {
 
 export const validatePageViewEvent = (event: GaPageViewProps): void => {
   const { action } = event;
-  if (!action) throw new Error("Action is required");
-  if (action && typeof action !== "string") throw new Error("Action must be a string");
+  if (!action) console.error("Action is required");
+  if (action && typeof action !== "string") console.error("Action must be a string");
 };
 
 export const gaPageView = (event: GaPageViewProps): void => {
@@ -36,10 +36,10 @@ export const gaPageView = (event: GaPageViewProps): void => {
 
 export const validateGaEvent = (event: GaEventProps): void => {
   const { action, category, label, value } = event;
-  if (!category) throw new Error("Category is required");
-  if (!action) throw new Error("Action is required");
-  if (label && typeof label !== "string") throw new Error("Label must be a string");
-  if (value && typeof value !== "number") throw new Error("Value must be a number");
+  if (!category) console.error("Category is required");
+  if (!action) console.error("Action is required");
+  if (label && typeof label !== "string") console.error("Label must be a string");
+  if (value && typeof value !== "number") console.error("Value must be a number");
 };
 
 export const gaEvent = (event: GaEventProps): void => {
