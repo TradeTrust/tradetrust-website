@@ -5,14 +5,7 @@ const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
-const { IS_DEVELOPMENT } = require("./src/config");
-
-const GA_MEASUREMENT_ID = "G-13GYPPVD4Y";
-const GA_CONFIG_OPTION = {
-  allow_google_signals: false,
-  allow_ad_personalization_signals: false,
-  debug_mode: IS_DEV,
-};
+const { IS_DEVELOPMENT, GA_MEASUREMENT_ID, GA_CONFIG_OPTION } = require("./src/config");
 
 module.exports = {
   entry: {
