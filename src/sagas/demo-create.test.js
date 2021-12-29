@@ -97,17 +97,9 @@ describe("wrapDemoDocument", () => {
   it("should wrap a document", async () => {
     const initialAction = { type: "demo-create/wrappingDocument", payload: { documentName: "DOCUMENT_NAME" } };
 
-    const getTempDns = jest.spyOn(demoCreate, "getTempDns").mockImplementation(() => "pink-little-turtle");
-    const getDocumentStoreAddress = jest
-      .spyOn(demoCreate, "getDocumentStoreAddress")
-      .mockImplementation(() => "0x1234567890");
-
     jest.spyOn(create, "getWrappedDocument").mockImplementation(() => Promise.resolve({ name: "WRAPPED_DOCUMENT" }));
 
     const dispatched = await recordSaga(wrapDemoDocument, initialAction);
-
-    expect(getTempDns).toHaveBeenCalledTimes(1);
-    expect(getDocumentStoreAddress).toHaveBeenCalledTimes(1);
 
     expect(dispatched).toStrictEqual([
       {
@@ -120,19 +112,11 @@ describe("wrapDemoDocument", () => {
   it("should dispatch wrapDocumentFailure when getWrappedDocument fails", async () => {
     const initialAction = { type: "demo-create/wrappingDocument", payload: { documentName: "DOCUMENT_NAME" } };
 
-    const getTempDns = jest.spyOn(demoCreate, "getTempDns").mockImplementation(() => "pink-little-turtle");
-    const getDocumentStoreAddress = jest
-      .spyOn(demoCreate, "getDocumentStoreAddress")
-      .mockImplementation(() => "0x1234567890");
-
     jest
       .spyOn(create, "getWrappedDocument")
       .mockImplementation(() => Promise.reject(new Error("GET_WRAPPED_DOCUMENT_ERROR")));
 
     const dispatched = await recordSaga(wrapDemoDocument, initialAction);
-
-    expect(getTempDns).toHaveBeenCalledTimes(1);
-    expect(getDocumentStoreAddress).toHaveBeenCalledTimes(1);
 
     expect(dispatched).toStrictEqual([
       {

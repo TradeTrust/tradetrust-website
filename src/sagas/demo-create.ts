@@ -6,7 +6,6 @@ import {
   createTempDnsSuccess,
   createTempDnsFailure,
   getDocumentStoreAddress,
-  getTempDns,
   wrapDocumentSuccess,
   wrapDocumentFailure,
   issueDocumentSuccess,
@@ -15,6 +14,7 @@ import {
 } from "../reducers/demo-create";
 import { createTempDns, deployDocumentStore, getWrappedDocument, publishDocument } from "../services/create";
 import { Signer } from "ethers";
+import { OpenAttestationDocument, v2 } from "@govtechsg/open-attestation";
 
 export function* deployDemoDocStore({ payload }: { payload: Signer; type: string }): any {
   try {
@@ -45,13 +45,11 @@ export function* createDemoTempDns(): any {
   }
 }
 
-export function* wrapDemoDocument({ payload }: { payload: Record<string, any>; type: string }): any {
+export function* wrapDemoDocument({ payload }: { payload: OpenAttestationDocument; type: string }): any {
   try {
-    const demoFormValues = payload;
-    const documentStoreAddress = yield select(getDocumentStoreAddress);
-    const tempDns = yield select(getTempDns);
+    const rawDocument = payload;
 
-    const wrappedDocument = yield call(getWrappedDocument, documentStoreAddress, demoFormValues, tempDns);
+    const wrappedDocument = yield call(getWrappedDocument, rawDocument as v2.OpenAttestationDocument);
 
     yield put(wrapDocumentSuccess(wrappedDocument));
   } catch (e) {
