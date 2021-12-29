@@ -1,4 +1,4 @@
-export const GA_MEASUREMENT_ID = `G-13GYPPVD4Y`;
+import { GA_MEASUREMENT_ID } from "../../../src/config";
 
 type GaActionDefault = "page_view";
 type GaAction =
