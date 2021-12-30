@@ -1,5 +1,5 @@
 import { OpenAttestationDocument } from "@govtechsg/open-attestation";
-import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
+import { ProgressBar, ToggleSwitch } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProviderContext } from "../../../../common/contexts/provider";
@@ -21,7 +21,6 @@ import { getFormValue, isImageData } from "../utils";
 import { gaEvent } from "../../../../common/analytics";
 import { makeRawDocument } from "./helpers";
 import { DocumentPreview } from "./DemoPreview";
-import { ToggleSwitch } from "./Toggle";
 
 const DemoCreateReviewItem = ({
   title,
