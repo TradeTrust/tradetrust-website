@@ -1,6 +1,6 @@
 import { UnsupportedNetworkError } from "../errors";
 import { ChainId, ChainInfo, ChainInfoObject } from "../../constants/chain-info";
-import { isDevelopment } from "../../config";
+import { IS_DEVELOPMENT } from "../../config";
 import { MAIN_NETWORKS, TEST_NETWORKS } from "../../config/chain-config";
 
 /**
@@ -33,7 +33,7 @@ export const getChainInfoFromNetworkName = (networkName: string): ChainInfoObjec
 export const getSupportedChainInfo = (): ChainInfoObject[] => {
   const isLocal = window.location.host.indexOf("localhost") > -1;
   const isTestEnv = process.env.NODE_ENV === "test";
-  const networks = isDevelopment ? [...TEST_NETWORKS] : [...MAIN_NETWORKS];
+  const networks = IS_DEVELOPMENT ? [...TEST_NETWORKS] : [...MAIN_NETWORKS];
   if (isTestEnv || isLocal) networks.push(ChainId.Local);
   return networks.map((chainId) => getChainInfo(chainId));
 };

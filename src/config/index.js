@@ -1,4 +1,3 @@
-export const isDevelopment = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
 const IS_DEVELOPMENT = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
 
 const NETWORK = process.env.NET ?? (IS_DEVELOPMENT ? "ropsten" : "mainnet");
