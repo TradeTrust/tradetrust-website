@@ -1,6 +1,6 @@
 const IS_DEVELOPMENT = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
 
-const NETWORK = process.env.NET ?? (IS_DEVELOPMENT ? "ropsten" : "mainnet");
+const NETWORK = process.env.NET ? process.env.NET : IS_DEVELOPMENT ? "ropsten" : "mainnet";
 const IS_MAINNET = NETWORK === "mainnet";
 const NETWORK_NAME = IS_MAINNET ? "homestead" : NETWORK;
 const ETHERSCAN_SUBDOMAIN = IS_MAINNET ? "" : `${NETWORK_NAME}.`;
