@@ -1,3 +1,4 @@
+import { HostActions } from "@govtechsg/decentralized-renderer-react-components";
 export interface TemplateProps {
   id: string;
   label: string;
@@ -73,3 +74,5 @@ export enum ContentType {
   THEN = "THEN",
   NOW = "NOW",
 }
+
+export type Dispatch = (action: HostActions) => void;
