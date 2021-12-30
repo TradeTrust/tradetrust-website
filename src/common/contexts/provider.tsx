@@ -2,7 +2,7 @@ import { MessageTitle } from "@govtechsg/tradetrust-ui-components";
 import { ethers, providers, Signer } from "ethers";
 import React, { createContext, FunctionComponent, useContext, useEffect, useState } from "react";
 import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
-import { utils } from "@govtechsg/oa-verify/";
+import { utils } from "@govtechsg/oa-verify";
 import { magic } from "./helpers";
 
 export enum SIGNER_TYPE {

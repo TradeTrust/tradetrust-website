@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { getDocumentIssued, getDocumentPrepared, getWrappedDocument } from "../../../../reducers/demo-create";
 import { DemoFormContext } from "../contexts/DemoFormContext";
 import { Banner } from "../../../UI/Banner";
+import { gaEvent } from "../../../../common/analytics";
 
 export const DemoCreateIssue: FunctionComponent = () => {
   const { issued, error: issuedError } = useSelector(getDocumentIssued);
@@ -24,6 +25,10 @@ export const DemoCreateIssue: FunctionComponent = () => {
   useEffect(() => {
     if (issued) {
       downloadDocument();
+      gaEvent({
+        action: "magic_demo_downloaded",
+        category: "magic_demo",
+      });
     }
   }, [issued, downloadDocument]);
 
