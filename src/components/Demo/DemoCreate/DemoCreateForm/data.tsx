@@ -1,6 +1,9 @@
+import { format } from "date-fns";
+const issueDateTime = format(new Date(), "dd MMMM yyyy, K:mmaaa");
+const actualDate = format(new Date(), "dd MMMM yyyy");
 export const data = {
   documentName: "Form for Free Trade Agreement",
-  issueDateTime: "21 September 2021, 3:05pm",
+  issueDateTime,
   issueIn: "IMDA Singapore",
   cooId: "IMDA0001",
   exporterDetails: {
@@ -32,7 +35,7 @@ export const data = {
     mainCarriageTransportMovementId: "IMO 9367815",
   },
   firstSignatoryAuthentication: {
-    actualDate: "21 September 2021",
+    actualDate,
     statement:
       "The undersigned hereby declares that the above-stated information is correct and that the goods exported to",
     signature:
