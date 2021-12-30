@@ -1,4 +1,4 @@
-// import { GA_MEASUREMENT_ID } from "../../../src/config";
+import { GA_MEASUREMENT_ID } from "../../../src/config";
 
 type GaActionDefault = "page_view";
 type GaAction =
@@ -28,10 +28,10 @@ export const validatePageViewEvent = (event: GaPageViewProps): void => {
 
 export const gaPageView = (event: GaPageViewProps): void => {
   validatePageViewEvent(event);
-  // const { action } = event;
-  // gtag("event", action, {
-  //   send_to: GA_MEASUREMENT_ID,
-  // });
+  const { action } = event;
+  gtag("event", action, {
+    send_to: GA_MEASUREMENT_ID,
+  });
 };
 
 export const validateGaEvent = (event: GaEventProps): void => {
@@ -44,10 +44,10 @@ export const validateGaEvent = (event: GaEventProps): void => {
 
 export const gaEvent = (event: GaEventProps): void => {
   validateGaEvent(event);
-  // const { action, category, label, value } = event;
-  // gtag("event", action, {
-  //   event_category: category,
-  //   event_label: label,
-  //   value: value,
-  // });
+  const { action, category, label, value } = event;
+  gtag("event", action, {
+    event_category: category,
+    event_label: label,
+    value: value,
+  });
 };
