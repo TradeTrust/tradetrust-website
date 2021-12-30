@@ -1,7 +1,7 @@
 import { Signer, ContractTransaction, ContractReceipt } from "ethers";
 import { DocumentStoreFactory } from "@govtechsg/document-store";
 import { getLogger } from "../../utils/logger";
-import { isDevelopment } from "../../config";
+import { IS_DEVELOPMENT } from "../../config";
 import { WrappedDocument } from "@govtechsg/open-attestation/dist/types/2.0/types";
 import { wrapDocument } from "@govtechsg/open-attestation";
 import {
@@ -94,7 +94,7 @@ export const createTempDns = async (documentStoreAddress: string): Promise<strin
      * dns-sandbox only allows requests from tradetrust.io,
      * so we just mock the identity location when testing from localhost
      */
-    if (isDevelopment) {
+    if (IS_DEVELOPMENT) {
       // wont work for verification
       identityLocation = "random-blue-cat";
     } else {
