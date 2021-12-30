@@ -14,12 +14,11 @@ export enum VerifierType {
   CUSTOM = "custom",
 }
 
-const verificationOption = (provider: providers.Provider | undefined) =>
-  provider
-    ? { provider }
-    : NETWORK_NAME === "local"
-    ? { provider: new providers.JsonRpcProvider(), network: NETWORK_NAME }
-    : { network: NETWORK_NAME };
+const verificationOption = (provider: providers.Provider | undefined) => {
+  if (provider) return { provider };
+  if (NETWORK_NAME === "local") return { provider: new providers.JsonRpcProvider(), network: NETWORK_NAME };
+  return { network: NETWORK_NAME };
+};
 
 const customVerifier = (provider: providers.Provider | undefined) =>
   verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof], verificationOption(provider));
