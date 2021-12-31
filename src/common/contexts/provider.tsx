@@ -204,7 +204,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
   useEffect(() => {
     currentProvider = getProvider();
-    (async () => {
+    const updateChainId = async () => {
       const provider = getProvider();
       if (!provider) {
         setCurrentChainId(undefined);
@@ -212,7 +212,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
         const network = await provider.getNetwork();
         setCurrentChainId(network.chainId);
       }
-    })();
+    };
+    updateChainId();
   }, [getProvider]);
 
   useEffect(() => {
@@ -231,8 +232,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
     window.ethereum.on("accountsChanged", reloadNetwork).on("chainChanged", chainChangedHandler);
 
-    // Initialise provider for Metamask to take precedence
-    (async () => {
+    const initialiseWallet = async () => {
       try {
         const web3Provider = getWeb3Provider();
         const provider = getProvider();
@@ -246,7 +246,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
           throw e;
         }
       }
-    })();
+    };
+    initialiseWallet();
 
     return () => {
       if (!window.ethereum) return;

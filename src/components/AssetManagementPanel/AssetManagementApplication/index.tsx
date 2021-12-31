@@ -55,7 +55,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   const { call: checkIsMinter, value: isMinter } = useContractFunctionHook(tokenRegistry, "isMinter");
 
   useEffect(() => {
-    (async () => {
+    const updateAccount = async () => {
       try {
         const signer = getSigner();
         const address = signer ? await signer.getAddress() : undefined;
@@ -63,7 +63,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
       } catch (_) {
         setAccount(undefined);
       }
-    })();
+    };
+    updateAccount();
   }, [getSigner]);
 
   useEffect(() => {
