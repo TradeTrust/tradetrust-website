@@ -12,8 +12,13 @@ import { Router } from "react-router-dom";
 import { history } from "./history";
 import { NETWORK_NAME } from "./config";
 import { getChainInfoFromNetworkName, getSupportedChainInfo } from "./common/utils/chain-utils";
+import { gaPageView } from "./common/analytics";
 
 const store = configureStore();
+
+history.listen(() => {
+  gaPageView({ action: "page_view" });
+});
 
 const App = () => {
   return (

@@ -24,6 +24,17 @@
 
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://kit.fontawesome.com/491fca5fd9.js" crossorigin="anonymous"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>"></script>
+    <script>
+      var option = JSON.parse('<%= JSON.stringify(htmlWebpackPlugin.options.GA_CONFIG_OPTION) %>');
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>', option);
+   </script>
   </head>
   <body>
     <form name="contact" netlify netlify-honeypot="bot-field" action="/email/success" hidden>

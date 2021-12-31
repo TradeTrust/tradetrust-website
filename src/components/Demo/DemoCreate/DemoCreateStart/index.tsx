@@ -7,6 +7,7 @@ import { deployingDocStore, getDocumentPrepared } from "../../../../reducers/dem
 import { getFunds } from "../../../../services/create";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { LoadingModal } from "../../LoadingModal";
+import { gaEvent } from "../../../../common/analytics";
 
 export const DemoCreateStart: FunctionComponent = () => {
   const { getSigner } = useProviderContext();
@@ -42,6 +43,10 @@ export const DemoCreateStart: FunctionComponent = () => {
     if (prepared) {
       setActiveStep("form");
       setLoading(false);
+      gaEvent({
+        action: "magic_demo_start",
+        category: "magic_demo",
+      });
     }
 
     if (error) {

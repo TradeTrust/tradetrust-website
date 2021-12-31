@@ -9,6 +9,7 @@ import { RootState } from "../../reducers";
 import { DetailedErrors } from "../DocumentDropzone/DetailedErrors";
 import { updateDemoDocument, resetDemoState } from "../../reducers/demo-verify";
 import { getDropzoneBoxUi } from "./../../common/utils/getDropzoneBoxUi";
+import { gaEvent } from "./../../common/analytics";
 
 interface MagicDropzoneViewProps {
   isPending: boolean;
@@ -101,6 +102,10 @@ export const MagicDropzone: FunctionComponent = () => {
           try {
             const json = JSON.parse(reader.result as string);
             dispatch(updateDemoDocument(json)); // pushes to `/viewer` page
+            gaEvent({
+              action: "magic_demo_file_drop",
+              category: "magic_demo",
+            });
           } catch (e) {
             console.log(e);
           }
