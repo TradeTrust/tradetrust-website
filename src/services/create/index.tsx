@@ -3,12 +3,7 @@ import { DocumentStoreFactory } from "@govtechsg/document-store";
 import { getLogger } from "../../utils/logger";
 import { IS_DEVELOPMENT } from "../../config";
 import { WrappedDocument } from "@govtechsg/open-attestation/dist/types/2.0/types";
-import { wrapDocument } from "@govtechsg/open-attestation";
-import {
-  IdentityProofType,
-  Issuer,
-  TemplateType,
-} from "@govtechsg/open-attestation/dist/types/__generated__/schema.2.0";
+import { wrapDocument, v2 } from "@govtechsg/open-attestation";
 
 const { error } = getLogger("services:create");
 
@@ -41,33 +36,8 @@ export const deployDocumentStore = async (signer: Signer, documentStoreName: str
   }
 };
 
-export const getWrappedDocument = async (
-  documentStoreAddress: string,
-  formValues: Record<string, any>,
-  identityLocation: string
-): Promise<WrappedDocument<any>> => {
-  const issuers: Issuer[] = [
-    {
-      name: "Demo Issuer",
-      documentStore: documentStoreAddress,
-      identityProof: {
-        type: "DNS-TXT" as IdentityProofType,
-        location: identityLocation,
-      },
-    },
-  ];
-
-  const wrappedDocument = await wrapDocument({
-    $template: {
-      type: "EMBEDDED_RENDERER" as TemplateType,
-      name: "SIMPLE_COO",
-      url: "https://generic-templates.tradetrust.io",
-    },
-    issuers,
-    ...formValues,
-  });
-
-  return wrappedDocument;
+export const getWrappedDocument = async (rawDocument: v2.OpenAttestationDocument): Promise<WrappedDocument<any>> => {
+  return await wrapDocument(rawDocument);
 };
 
 export const createTempDns = async (documentStoreAddress: string): Promise<string> => {

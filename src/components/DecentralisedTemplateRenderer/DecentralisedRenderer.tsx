@@ -13,13 +13,13 @@ import { applyPrivacyFilter } from "../../reducers/certificate";
 import {
   FrameActions,
   FrameConnector,
-  HostActions,
   renderDocument,
   selectTemplate,
   print,
 } from "@govtechsg/decentralized-renderer-react-components";
 import { TemplateProps } from "./../../types";
 import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
+import { Dispatch } from "../../types";
 
 const DEFAULT_RENDERER_URL = `https://generic-templates.tradetrust.io`;
 
@@ -31,7 +31,6 @@ interface DecentralisedRendererProps {
   forwardedRef: Ref<{ print: () => void } | undefined>;
 }
 
-type Dispatch = (action: HostActions) => void;
 const SCROLLBAR_WIDTH = 20; // giving scrollbar a default width as there are no perfect ways to get it
 
 export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps> = ({
