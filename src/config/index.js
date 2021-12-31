@@ -4,10 +4,13 @@ const NETWORK = process.env.NET || "ropsten";
 const IS_MAINNET = NETWORK === "mainnet";
 const NETWORK_NAME = IS_MAINNET ? "homestead" : NETWORK;
 const ETHERSCAN_SUBDOMAIN = IS_MAINNET ? "" : `${NETWORK_NAME}.`;
+const GA_MEASUREMENT_ID_DEVELOPMENT = "G-13GYPPVD4Y";
+const GA_MEASUREMENT_ID_PRODUCTION = "G-7YL3CX08LM";
+const GA_MEASUREMENT_ID = IS_MAINNET ? GA_MEASUREMENT_ID_PRODUCTION : GA_MEASUREMENT_ID_DEVELOPMENT;
 
 module.exports = {
   ETHERSCAN_BASE_URL: `https://${ETHERSCAN_SUBDOMAIN}etherscan.io/`,
-  GA_MEASUREMENT_ID: "G-13GYPPVD4Y",
+  GA_MEASUREMENT_ID,
   GA_CONFIG_OPTION: {
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
