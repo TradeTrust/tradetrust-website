@@ -7,6 +7,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
 const { IS_DEVELOPMENT, GA_MEASUREMENT_ID, GA_CONFIG_OPTION } = require("./src/config");
 
+const IS_TEST_ENV = process.env.NODE_ENV === "test";
+const IS_DEV_SERVER = !!process.env.WEBPACK_DEV_SERVER;
+
 module.exports = {
   entry: {
     app: ["./src/index.tsx"],
@@ -54,7 +57,7 @@ module.exports = {
       GA_MEASUREMENT_ID,
       GA_CONFIG_OPTION,
     }),
-    ...(!IS_DEVELOPMENT
+    ...(!IS_DEV_SERVER
       ? [
           new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
           new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
@@ -83,7 +86,7 @@ module.exports = {
 
   // Using cheap-eval-source-map for build times
   // switch to inline-source-map if detailed debugging needed
-  devtool: !IS_DEVELOPMENT ? false : "eval-cheap-source-map",
+  devtool: !IS_DEVELOPMENT || IS_TEST_ENV ? false : "eval-cheap-source-map",
 
   devServer: {
     compress: true,
