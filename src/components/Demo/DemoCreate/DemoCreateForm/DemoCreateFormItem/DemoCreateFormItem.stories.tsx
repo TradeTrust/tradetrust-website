@@ -1,6 +1,7 @@
 import React from "react";
 
 import { DemoCreateFormItem } from ".";
+import { data } from "../data";
 
 export default {
   title: "Demo/FormItem",
@@ -21,6 +22,7 @@ export const FormItemAccordion = () => {
       formItemName=""
       onChange={() => {}}
       formItemIndex={1}
+      data={data}
     />
   );
 };
@@ -36,6 +38,7 @@ export const FormItemWithLabel = () => {
       formItemName=""
       onChange={() => {}}
       formItemIndex={1}
+      data={data}
     />
   );
 };
@@ -51,6 +54,7 @@ export const FormItemWithoutLabel = () => {
       formItemName=""
       onChange={() => {}}
       formItemIndex={1}
+      data={data}
     />
   );
 };
@@ -66,6 +70,7 @@ export const FormItemUpload = () => {
       formItemName=""
       onChange={() => {}}
       formItemIndex={1}
+      data={data}
     />
   );
 };
