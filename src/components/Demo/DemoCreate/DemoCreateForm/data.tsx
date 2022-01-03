@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-const issueDateTime = format(new Date(), "dd MMMM yyyy, K:mmaaa");
+const issueDateTime = format(new Date(), "dd MMMM yyyy, h:mmaaa");
 const actualDate = format(new Date(), "dd MMMM yyyy");
 export const data = {
   documentName: "Form for Free Trade Agreement",
