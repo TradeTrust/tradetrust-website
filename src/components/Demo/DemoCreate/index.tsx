@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useContext, useState } from "react";
 import { ReactNode } from "react-markdown";
 import { DemoCreateContext } from "./contexts/DemoCreateContext";
-import { DemoFormProvider } from "./contexts/DemoFormContext";
 import { Prompt } from "react-router";
 import { useHistory } from "react-router-dom";
 import { Location } from "history";
@@ -59,7 +58,7 @@ export const DemoCreate: FunctionComponent = () => {
     <>
       <Prompt when={when} message={handlePrompt} />
       <DemoCreateHeader />
-      <DemoFormProvider>{components[activeStep]}</DemoFormProvider>
+      {components[activeStep]}
     </>
   );
 };

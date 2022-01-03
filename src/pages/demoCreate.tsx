@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { DemoCreate } from "../components/Demo/DemoCreate";
 import { DemoCreateProvider } from "../components/Demo/DemoCreate/contexts/DemoCreateContext";
+import { DemoFormProvider } from "../components/Demo/DemoCreate/contexts/DemoFormContext";
 import { Page } from "../components/Layout/Page";
 import { DemoLayout } from "./demo";
 
@@ -22,9 +23,11 @@ export const DemoCreatePage: FunctionComponent = () => (
     </Helmet>
     <Page title="Demo">
       <DemoLayout>
-        <DemoCreateProvider>
-          <DemoCreate />
-        </DemoCreateProvider>
+        <DemoFormProvider>
+          <DemoCreateProvider>
+            <DemoCreate />
+          </DemoCreateProvider>
+        </DemoFormProvider>
       </DemoLayout>
     </Page>
   </>
