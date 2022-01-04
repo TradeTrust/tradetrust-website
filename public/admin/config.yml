@@ -141,28 +141,12 @@ collections:
           default: "",
         }
       - {
-          label: "Downloadable Media Content 1",
-          name: "downloadableMediaContent1",
-          widget: "file",
+          label: "Downloadable Media Content",
+          name: "downloadableMediaContent",
           required: false,
+          widget: "list",
+          field: { label: Media, name: media, widget: file },
           hint: "Upload media contents/materials for user to download",
-          default: "",
-        }
-      - {
-          label: "Downloadable Media Content 2",
-          name: "downloadableMediaContent2",
-          widget: "file",
-          required: false,
-          hint: "Upload media contents/materials for user to download",
-          default: "",
-        }
-      - {
-          label: "Downloadable Media Content 3",
-          name: "downloadableMediaContent3",
-          widget: "file",
-          required: false,
-          hint: "Upload media contents/materials for user to download",
-          default: "",
         }
       - { label: "Video Link", name: "videoLink", widget: "string", required: false }
       - { label: "Slides", name: "slides", widget: "file", required: false, hint: "Presentation slides." }

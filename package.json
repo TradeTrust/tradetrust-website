@@ -51,6 +51,7 @@
     "@govtechsg/tradetrust-utils": "^1.0.1",
     "@reduxjs/toolkit": "^1.6.1",
     "@types/gtag.js": "0.0.8",
+    "babel-plugin-transform-require-context": "^0.1.1",
     "cross-env": "^7.0.3",
     "date-fns": "^2.22.1",
     "date-fns-tz": "^1.1.4",

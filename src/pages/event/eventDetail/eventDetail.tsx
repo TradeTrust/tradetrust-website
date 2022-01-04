@@ -28,12 +28,9 @@ export const EventPageDetail: FunctionComponent = () => {
     slides,
     registerLink,
     location,
-    downloadableMediaContent1,
-    downloadableMediaContent2,
-    downloadableMediaContent3,
+    downloadableMediaContent,
     eventDetails,
   } = detail.attributes;
-  const downloadableContents = [downloadableMediaContent1, downloadableMediaContent2, downloadableMediaContent3];
 
   return (
     <>
@@ -59,9 +56,9 @@ export const EventPageDetail: FunctionComponent = () => {
             </Link>
           </div>
         </div>
-        <div className="w-full px-4 lg:w-9/12">
+        <div className="w-full lg:w-9/12">
           <div className="bg-white text-gray-600 shadow-lg rounded-lg p-8">
-            <h2 className="font-medium lg:font-bold text-2xl lg:text-4xl mb-6 lg:mb-10">{title}</h2>
+            <h2 className="font-medium lg:font-bold text-4xl mb-6 lg:mb-10">{title}</h2>
             {thumbnail && <img className="object-cover w-full h-96 mb-10" src={thumbnail} />}
             <div className="flex flex-col-reverse lg:flex-row">
               <div className="border-r border-cloud-100 border-solid w-full lg:w-2/6 mt-4 lg:mt-0">
@@ -132,28 +129,29 @@ export const EventPageDetail: FunctionComponent = () => {
                       </a>
                     </div>
                   )}
-                  {downloadableContents.map((downloadableContent, index) => {
-                    if (!downloadableContent) return null;
-                    const fileName = downloadableContent.match(/[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/)?.shift();
+                  {downloadableMediaContent !== undefined &&
+                    downloadableMediaContent.map((downloadableContent, index) => {
+                      if (!downloadableContent) return null;
+                      const fileName = downloadableContent.match(/[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/)?.shift();
 
-                    return (
-                      <div key={`downloadableContent-${index}`} className="w-full sm:w-auto mb-2 sm:mb-0 mt-4">
-                        <a
-                          className="text-lg text-cerulean-200 font-medium hover:text-cerulean-300 inline-block pr-4 cursor-pointer"
-                          href={downloadableContent}
-                          download
-                          data-testid={`downloadableContent-${index}`}
-                        >
-                          <div className="flex">
-                            <div className="w-auto">
-                              <Download />
+                      return (
+                        <div key={`downloadableContent-${index}`} className="w-full sm:w-auto mb-2 sm:mb-0 mt-4">
+                          <a
+                            className="text-lg text-cerulean-200 font-medium hover:text-cerulean-300 inline-block pr-4 cursor-pointer"
+                            href={downloadableContent}
+                            download
+                            data-testid={`downloadableContent-${index}`}
+                          >
+                            <div className="flex">
+                              <div className="w-auto">
+                                <Download />
+                              </div>
+                              <div className="flex-grow px-2">{fileName}</div>
                             </div>
-                            <div className="flex-grow px-2">{fileName}</div>
-                          </div>
-                        </a>
-                      </div>
-                    );
-                  })}
+                          </a>
+                        </div>
+                      );
+                    })}
                 </div>
                 {isFuture(new Date(date)) && registerLink && (
                   <LinkButton
@@ -168,7 +166,7 @@ export const EventPageDetail: FunctionComponent = () => {
               <div className="w-full lg:w-4/6 lg:pl-14 mb-4">
                 <h3>About this event</h3>
                 <div className="mt-2 mb-4">{blurb}</div>
-                {eventDetails && <ReactMarkdown className="event-details">{eventDetails}</ReactMarkdown>}
+                {eventDetails && <ReactMarkdown className="wysiwyg">{eventDetails}</ReactMarkdown>}
               </div>
             </div>
           </div>

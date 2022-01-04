@@ -154,12 +154,20 @@
     clear: both;
   }
 
-  .event-details h3 {
-    margin-top: 1rem;
+  .wysiwyg img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 24px;
   }
 
-  .event-details p {
-    margin-top: 0.5rem;
+  .wysiwyg p,
+  .wysiwyg h3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .wysiwyg a {
+    word-break: break-word;
   }
 
   @media print {

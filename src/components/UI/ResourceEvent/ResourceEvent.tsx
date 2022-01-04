@@ -19,9 +19,7 @@ export interface EventAttribute {
   slides?: string;
   registerLink?: string;
   location?: string;
-  downloadableMediaContent1?: string;
-  downloadableMediaContent2?: string;
-  downloadableMediaContent3?: string;
+  downloadableMediaContent?: string[];
   eventDetails?: string;
 }
 

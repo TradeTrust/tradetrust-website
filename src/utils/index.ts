@@ -1,6 +1,7 @@
 import { utils } from "ethers";
 import { ETHERSCAN_BASE_URL } from "../config";
 import { compareDesc, compareAsc } from "date-fns";
+import { NewsTag } from "../components/News/types";
 
 export const makeEtherscanAddressURL = (address: string): string => {
   return `${ETHERSCAN_BASE_URL}address/${address}`;
@@ -52,4 +53,20 @@ export const addClassNameIfExist = (className?: string): string => {
   }
 
   return className;
+};
+
+export const getCmsContentWithSlug = (context: __WebpackModuleApi.RequireContext, type?: NewsTag): any[] => {
+  const cmsContent: any[] = [];
+
+  context.keys().forEach((filename: string) => {
+    const content = context(filename);
+    const slug = filename.replace("./", "").replace(".md", "");
+    cmsContent.push({
+      slug,
+      type,
+      ...content,
+    });
+  });
+
+  return cmsContent;
 };
