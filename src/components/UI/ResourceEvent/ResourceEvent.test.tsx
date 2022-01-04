@@ -15,7 +15,7 @@ const mockEventMedia: EventProps = {
     timeEnd: "2021-03-19T14:00:00.000Z",
     videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
     slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
-    downloadableMediaContent1: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+    downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
     eventDetails: "",
   },
 };
