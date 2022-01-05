@@ -4,11 +4,8 @@ import { isFuture, isPast } from "date-fns";
 import { Helmet } from "react-helmet";
 import { ResourceEvent, EventProps } from "../../components/UI/ResourceEvent";
 import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@govtechsg/tradetrust-ui-components";
-import { getSortedByDateDesc, getCmsContentWithSlug } from "../../utils";
 import { Page } from "../../components/Layout/Page";
-
-const rawEvents = getCmsContentWithSlug(require.context("../../../cms/event/", false, /\.md$/));
-export const events = getSortedByDateDesc(rawEvents);
+import { events } from ".";
 
 const CategoryFilter = styled.div`
   h5 {

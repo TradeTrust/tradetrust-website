@@ -11,7 +11,7 @@ import { LearnPage } from "./pages/learn";
 import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
 import { ViewerPage } from "./pages/viewer";
 import { ContactPage } from "./pages/contact";
-import { EventPage } from "./pages/event/event";
+import { EventPage } from "./pages/event";
 import { EventPageDetail } from "./pages/event/eventDetail";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Route, Switch } from "react-router-dom";

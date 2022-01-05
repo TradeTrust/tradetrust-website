@@ -50,16 +50,22 @@ describe("EventPageDetail", () => {
   });
 
   it("should render event link correctly", () => {
+    jest.spyOn(Router, "useParams").mockReturnValue({ slug: "test" });
+
     render(
       <MemoryRouter initialEntries={["/event/test"]} initialIndex={0}>
         <EventPageDetail />
       </MemoryRouter>
     );
 
-    expect(screen.getByTestId("event-link").getAttribute("href")).toContain("past-webinars");
+    expect(screen.getByTestId("event-link").getAttribute("href")).toContain(
+      "https://www.baft.org/baft-education/e-learning/past-webinars"
+    );
   });
 
   it("should render watch link correctly", () => {
+    jest.spyOn(Router, "useParams").mockReturnValue({ slug: "test" });
+
     render(
       <MemoryRouter initialEntries={["/event/test"]} initialIndex={0}>
         <EventPageDetail />
@@ -70,6 +76,8 @@ describe("EventPageDetail", () => {
   });
 
   it("should render event slides correctly", () => {
+    jest.spyOn(Router, "useParams").mockReturnValue({ slug: "test" });
+
     render(
       <MemoryRouter initialEntries={["/event/test"]} initialIndex={0}>
         <EventPageDetail />
@@ -77,7 +85,7 @@ describe("EventPageDetail", () => {
     );
 
     expect(screen.getByTestId("event-slides").getAttribute("href")).toContain(
-      "webinar-the-journey-to-paperless-trade.pdf"
+      "/static/uploads/webinar-the-journey-to-paperless-trade.pdf"
     );
   });
 });

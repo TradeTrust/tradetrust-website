@@ -7,7 +7,7 @@ export type EventProps = {
   slug: string;
   attributes: EventAttribute;
 };
-export interface EventAttribute {
+interface EventAttribute {
   title: string;
   thumbnail?: string;
   blurb: string;

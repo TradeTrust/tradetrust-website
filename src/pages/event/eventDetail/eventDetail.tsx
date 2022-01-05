@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { EventProps } from "../../../components/UI/ResourceEvent";
-import { events } from "../event";
+import { events } from "../";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ExternalLink, PlayCircle, Download } from "react-feather";
@@ -10,6 +10,7 @@ import { isFuture, format } from "date-fns";
 import { formatTime } from "../../../common/utils/dateTime";
 import { LinkButton } from "@govtechsg/tradetrust-ui-components";
 import ReactMarkdown from "react-markdown";
+import { getFileName } from "../../../utils";
 
 export const EventPageDetail: FunctionComponent = () => {
   const locationPath = useLocation();
@@ -132,7 +133,7 @@ export const EventPageDetail: FunctionComponent = () => {
                   {downloadableMediaContent !== undefined &&
                     downloadableMediaContent.map((downloadableContent, index) => {
                       if (!downloadableContent) return null;
-                      const fileName = downloadableContent.match(/[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/)?.shift();
+                      const fileName = getFileName(downloadableContent);
 
                       return (
                         <div key={`downloadableContent-${index}`} className="w-full sm:w-auto mb-2 sm:mb-0 mt-4">
