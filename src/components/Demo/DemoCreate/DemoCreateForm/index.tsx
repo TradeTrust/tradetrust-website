@@ -51,6 +51,7 @@ export const DemoCreateForm: FunctionComponent = () => {
               formItemName={formItemName}
               formItem={formItem as FormItemSchema}
               formItemIndex={index}
+              data={formValues}
             />
           );
         })}

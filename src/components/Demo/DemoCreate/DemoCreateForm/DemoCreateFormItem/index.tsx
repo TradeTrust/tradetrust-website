@@ -4,7 +4,6 @@ import { FunctionComponent } from "react";
 import Dropzone from "react-dropzone";
 import { AccordionItem } from "../../../../UI/Accordion";
 import { getFormValue } from "../../utils";
-import { data } from "../data";
 import { FormItemSchema } from "../types";
 
 interface DemoCreateFormItemProps {
@@ -12,6 +11,7 @@ interface DemoCreateFormItemProps {
   formItem: FormItemSchema;
   formItemName: string;
   formItemIndex: number;
+  data: Record<string, any>;
 }
 
 export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
@@ -19,6 +19,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
   formItemName,
   onChange,
   formItemIndex,
+  data,
 }) => {
   const renderProperties = () => {
     if (formItem.type === "object" && formItem.properties) {
@@ -33,6 +34,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
             formItemName={itemName}
             formItem={item}
             formItemIndex={index}
+            data={data}
           />
         );
       });
@@ -68,18 +70,20 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
     );
   };
 
-  const renderTextArea = () => {
+  const RenderTextArea = () => {
+    const [value, setValue] = useState(getFormValue(data, formItemName));
     if (formItem.type === "string") {
-      const defaultValue = getFormValue(data, formItemName);
-
       return (
         <textarea
           disabled={formItem.options?.readonly}
           data-testid="form-item-textarea"
           rows={4}
           className="w-full border rounded-md px-2 py-1 mb-0 focus:border-cloud-900 focus:outline-none placeholder-cloud-200 border-cloud-200"
-          defaultValue={defaultValue}
-          onChange={(e) => onChange(e.target.name, e.target.value)}
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            onChange(e.target.name, e.target.value);
+          }}
           name={formItemName}
           placeholder={formItem.uiType === "withoutLabel" ? formItem.title : undefined}
         />
@@ -87,17 +91,19 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
     }
   };
 
-  const renderInput = () => {
+  const RenderInput = () => {
+    const [value, setValue] = useState(getFormValue(data, formItemName));
     if (formItem.type === "string") {
-      const defaultValue = getFormValue(data, formItemName);
-
       return (
         <Input
           disabled={formItem.options?.readonly}
           data-testid="form-item-input"
           className="w-full"
-          defaultValue={defaultValue}
-          onChange={(e) => onChange(e.target.name, e.target.value)}
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            onChange(e.target.name, e.target.value);
+          }}
           name={formItemName}
           placeholder={formItem.uiType === "withoutLabel" ? formItem.title : undefined}
         />
@@ -119,7 +125,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
           accordionIndex={formItemIndex}
           setOpenIndex={setOpenIndex}
         >
-          {renderInput()}
+          {RenderInput()}
           {renderProperties()}
         </AccordionItem>
       );
@@ -129,21 +135,21 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
           <h4 data-testid="form-item-label" className="mb-1">
             {formItem.title}
           </h4>
-          {renderInput()}
+          {RenderInput()}
           {renderProperties()}
         </div>
       );
     case "withoutLabel":
       return (
         <div className="mb-5">
-          {renderInput()}
+          {RenderInput()}
           {renderProperties()}
         </div>
       );
     case "textarea":
       return (
         <div className="mb-5">
-          {renderTextArea()}
+          {RenderTextArea()}
           {renderProperties()}
         </div>
       );
