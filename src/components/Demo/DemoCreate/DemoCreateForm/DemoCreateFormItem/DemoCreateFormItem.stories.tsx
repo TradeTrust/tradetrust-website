@@ -59,13 +59,29 @@ export const FormItemWithoutLabel = () => {
   );
 };
 
-export const FormItemUpload = () => {
+export const FormItemUploadWithSignature = () => {
   return (
     <DemoCreateFormItem
       formItem={{
         type: "string",
         uiType: "upload",
-        title: "",
+        title: "Form Item as upload",
+      }}
+      formItemName="firstSignatoryAuthentication.signature"
+      onChange={() => {}}
+      formItemIndex={1}
+      data={data}
+    />
+  );
+};
+
+export const FormItemUploadWithoutSignature = () => {
+  return (
+    <DemoCreateFormItem
+      formItem={{
+        type: "string",
+        uiType: "upload",
+        title: "Form Item as upload",
       }}
       formItemName=""
       onChange={() => {}}
