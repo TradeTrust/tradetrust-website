@@ -1,7 +1,7 @@
-import { Input } from "@govtechsg/tradetrust-ui-components";
-import React, { useState } from "react";
-import { FunctionComponent } from "react";
-import Dropzone from "react-dropzone";
+import { Input, Button } from "@govtechsg/tradetrust-ui-components";
+import React, { FunctionComponent, useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import { Upload } from "react-feather";
 import { AccordionItem } from "../../../../UI/Accordion";
 import { getFormValue } from "../../utils";
 import { FormItemSchema } from "../types";
@@ -41,32 +41,54 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
     }
   };
 
-  const renderUpload = () => {
-    const defaultValue = getFormValue(data, formItemName);
+  const RenderUpload = () => {
+    const [value, setValue] = useState(getFormValue(data, formItemName));
 
-    const handleDrop = (acceptedFiles: any) => {
+    const onDrop = useCallback((acceptedFiles) => {
       acceptedFiles.forEach((file: any) => {
         const reader = new FileReader();
-        reader.onloadend = () => {
+
+        reader.onabort = () => console.log("file reading was aborted");
+        reader.onerror = () => console.log("file reading has failed");
+        reader.onload = () => {
+          setValue(reader.result as string);
           onChange(formItemName, reader.result as string);
         };
         reader.readAsDataURL(file);
       });
-    };
+    }, []);
+
+    const { getRootProps, getInputProps, open } = useDropzone({
+      onDrop,
+      multiple: false,
+      accept: "image/jpeg, image/png",
+    });
 
     return (
-      <Dropzone onDrop={handleDrop}>
-        {({ getRootProps, getInputProps }) => (
+      <>
+        <h4 className="mb-2">Upload First Signatory Authentication</h4>
+        <Button onClick={open} className="bg-white text-cerulean-500 hover:bg-gray-50 mb-4">
+          <div className="flex items-center mx-0">
+            <div className="col-auto mr-2">
+              <Upload />
+            </div>
+            <h5 className="col-auto text-base">Upload Signature</h5>
+          </div>
+        </Button>
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
           <div
             data-testid="form-item-dropzone"
-            className={`h-48 cursor-pointer flex justify-center border-dashed border-2 rounded-xl border-cloud-100`}
-            {...getRootProps()}
+            className={`p-2 cursor-pointer flex justify-center border-dashed border-2 rounded-xl border-cloud-100`}
           >
-            <input {...getInputProps()} />
-            {defaultValue ? <img className="h-full" src={defaultValue} /> : <div>UPLOAD</div>}
+            {value ? (
+              <img className="max-h-60" src={value} alt="First Signatory Authentication" />
+            ) : (
+              <div className="uppercase">Upload</div>
+            )}
           </div>
-        )}
-      </Dropzone>
+        </div>
+      </>
     );
   };
 
@@ -78,7 +100,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
           disabled={formItem.options?.readonly}
           data-testid="form-item-textarea"
           rows={4}
-          className="w-full border rounded-md px-2 py-1 mb-0 focus:border-cloud-900 focus:outline-none placeholder-cloud-200 border-cloud-200"
+          className="resize-none w-full border rounded-md px-2 py-1 mb-0 focus:border-cloud-900 focus:outline-none placeholder-cloud-200 border-cloud-200"
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
@@ -156,7 +178,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
     case "upload":
       return (
         <div className="mb-5">
-          {renderUpload()}
+          {RenderUpload()}
           {renderProperties()}
         </div>
       );
