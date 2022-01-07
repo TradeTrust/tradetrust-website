@@ -1,4 +1,5 @@
 import expect from "expect-puppeteer";
+import { confirmTransaction, approveAllAccounts } from "./utils.mjs";
 
 export const transferHolder = async (metamask, browser) => {
   // force process to exit if any assertion fail
@@ -12,10 +13,10 @@ export const transferHolder = async (metamask, browser) => {
     await page.waitForSelector("[data-testid='connectToWallet']", { visible: true });
     await page.click("[data-testid='connectToWallet']");
 
-    // START - approve application once, subsequent tests no longer need
-    await metamask.approve({ allAccounts: true });
+    // START - approve application once after connect to wallet, subsequent tests no longer need
+    await approveAllAccounts(metamask);
     await page.bringToFront();
-    // END - approve application once, subsequent tests no longer need
+    // END - approve application once after connect to wallet, subsequent tests no longer need
 
     await page.waitFor(1500); // after connect, need to wait awhile
     await page.waitForSelector("[data-testid='manageAssetDropdown']", { visible: true });
@@ -32,7 +33,7 @@ export const transferHolder = async (metamask, browser) => {
     await page.click("[data-testid='transferBtn']");
 
     await page.waitFor(1500); // switch between metamask / page tab, need to wait awhile
-    await metamask.confirmTransaction();
+    await confirmTransaction(metamask);
     await page.bringToFront();
     await page.waitFor(1500); // switch between metamask / page tab, need to wait awhile
 

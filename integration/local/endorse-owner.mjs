@@ -1,4 +1,5 @@
 import expect from "expect-puppeteer";
+import { confirmTransaction } from "./utils.mjs";
 
 export const endorseOwner = async (metamask, browser) => {
   // force process to exit if any assertion fail
@@ -31,7 +32,7 @@ export const endorseOwner = async (metamask, browser) => {
     await page.click("[data-testid='endorseBtn']");
 
     await page.waitFor(1500);
-    await metamask.confirmTransaction();
+    await confirmTransaction(metamask);
     await page.bringToFront();
     await page.waitFor(1500);
 
