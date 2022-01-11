@@ -17,14 +17,14 @@ import {
   selectTemplate,
   print,
 } from "@govtechsg/decentralized-renderer-react-components";
-import { TemplateProps } from "./../../types";
-import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
+import { TemplateProps, WrappedOrSignedTradeTrustDocument } from "./../../types";
+import { getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
 import { Dispatch } from "../../types";
 
 const DEFAULT_RENDERER_URL = `https://generic-templates.tradetrust.io`;
 
 interface DecentralisedRendererProps {
-  rawDocument: WrappedOrSignedOpenAttestationDocument;
+  rawDocument: WrappedOrSignedTradeTrustDocument;
   updateTemplates: (templates: TemplateProps[]) => void;
   selectedTemplate: string;
   setPrivacyFilter: (doc: any) => void;
@@ -113,7 +113,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 const ForwardedRefDecentralisedRenderer = React.forwardRef<
   { print: () => void } | undefined,
   {
-    rawDocument: WrappedOrSignedOpenAttestationDocument;
+    rawDocument: WrappedOrSignedTradeTrustDocument;
     updateTemplates: (templates: TemplateProps[]) => void;
     setPrivacyFilter: (doc: any) => void;
     selectedTemplate: string;

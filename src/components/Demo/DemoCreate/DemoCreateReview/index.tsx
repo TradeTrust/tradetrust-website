@@ -1,4 +1,3 @@
-import { OpenAttestationDocument } from "@govtechsg/open-attestation";
 import { ProgressBar, ToggleSwitch } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +20,7 @@ import { getFormValue, isImageData } from "../utils";
 import { gaEvent } from "../../../../common/analytics";
 import { makeRawDocument } from "./helpers";
 import { DocumentPreview } from "./DemoPreview";
+import { TradeTrustDocument } from "../../../../types";
 
 const DemoCreateReviewItem = ({
   title,
@@ -84,7 +84,7 @@ export const DemoCreateReview: FunctionComponent = () => {
   const documentStoreAddress = useSelector(getDocumentStoreAddress);
   const tempDns = useSelector(getTempDns);
   const dispatch = useDispatch();
-  const rawDocument: OpenAttestationDocument = useMemo(() => {
+  const rawDocument: TradeTrustDocument = useMemo(() => {
     return makeRawDocument(documentStoreAddress, formValues, tempDns);
   }, [documentStoreAddress, formValues, tempDns]);
   const [isPreviewMode, setIsPreviewMode] = useState(false);

@@ -1,9 +1,9 @@
 import { utils } from "@govtechsg/open-attestation";
 import React, { FunctionComponent } from "react";
-import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
+import { WrappedOrSignedTradeTrustDocument } from "../../types";
 
 interface ObfuscatedMessageProps {
-  document: WrappedOrSignedOpenAttestationDocument;
+  document: WrappedOrSignedTradeTrustDocument;
 }
 
 export const ObfuscatedMessage: FunctionComponent<ObfuscatedMessageProps> = ({ document }) => {

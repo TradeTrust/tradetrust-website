@@ -3,9 +3,9 @@ import React, { FunctionComponent } from "react";
 import { NETWORK_NAME } from "../../config";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
-import { utils as oaUtils, WrappedDocument, v3 } from "@govtechsg/open-attestation";
+import { utils as oaUtils, WrappedDocument } from "@govtechsg/open-attestation";
 import { RootState } from "../../reducers";
-import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
+import { WrappedOrSignedTradeTrustDocument, TradeTrustDocumentV3 } from "../../types";
 
 interface VerificationFragmentData {
   did: string;
@@ -46,14 +46,14 @@ const getV2FormattedDomainNames = (verificationStatus: VerificationFragment[]) =
   return fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 };
 
-export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenAttestationDocument>): string => {
+export const getV3IdentityVerificationText = (document: WrappedDocument<TradeTrustDocumentV3>): string => {
   return document.openAttestationMetadata.identityProof.identifier.toUpperCase();
 };
 
 interface IssuedByProps {
   title?: string;
   verificationStatus: VerificationFragment[];
-  document: WrappedOrSignedOpenAttestationDocument;
+  document: WrappedOrSignedTradeTrustDocument;
 }
 
 export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by", verificationStatus, document }) => {

@@ -3,7 +3,8 @@ import { DocumentStoreFactory } from "@govtechsg/document-store";
 import { getLogger } from "../../utils/logger";
 import { IS_DEVELOPMENT } from "../../config";
 import { WrappedDocument } from "@govtechsg/open-attestation/dist/types/2.0/types";
-import { wrapDocument, v2 } from "@govtechsg/open-attestation";
+import { wrapDocument } from "@govtechsg/open-attestation";
+import { TradeTrustDocumentV2 } from "../../types";
 
 const { error } = getLogger("services:create");
 
@@ -36,7 +37,7 @@ export const deployDocumentStore = async (signer: Signer, documentStoreName: str
   }
 };
 
-export const getWrappedDocument = async (rawDocument: v2.OpenAttestationDocument): Promise<WrappedDocument<any>> => {
+export const getWrappedDocument = async (rawDocument: TradeTrustDocumentV2): Promise<WrappedDocument<any>> => {
   return await wrapDocument(rawDocument);
 };
 

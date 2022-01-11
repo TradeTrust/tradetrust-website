@@ -5,7 +5,7 @@ import { useTokenInformationContext } from "../common/contexts/TokenInformationC
 import { resetCertificateState, updateCertificate } from "../reducers/certificate";
 import { RootState } from "../reducers";
 import { getLogger } from "../utils/logger";
-import { TemplateProps } from "../types";
+import { TemplateProps, WrappedOrSignedTradeTrustDocument } from "../types";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
@@ -15,7 +15,7 @@ import { EndorsementChainContainer } from "./EndorsementChain";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
-import { WrappedOrSignedOpenAttestationDocument, getAttachments, getTokenRegistryAddress } from "../utils/shared";
+import { getAttachments, getTokenRegistryAddress } from "../utils/shared";
 import { resetDemoState } from "../reducers/demo-verify";
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { useProviderContext } from "../common/contexts/provider";
@@ -24,7 +24,7 @@ const { trace } = getLogger("component: certificateviewer");
 
 interface CertificateViewerProps {
   isMagicDemo?: boolean;
-  document: WrappedOrSignedOpenAttestationDocument;
+  document: WrappedOrSignedTradeTrustDocument;
 }
 
 export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document }) => {
