@@ -137,7 +137,7 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
     if (currentChainId) {
       selectedLabel = <StyledDropdownItemLabel network={getChainInfo(currentChainId)} />;
     }
-  } catch (_) {}
+  } catch {}
 
   return (
     <StyledDropdown
