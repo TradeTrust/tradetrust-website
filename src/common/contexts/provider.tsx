@@ -88,7 +88,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   const [currentChainId, setCurrentChainId] = useState<ChainId | undefined>(defaultChainId);
 
   const isSupportedNetwork = (chainId: ChainId) =>
-    supportedChainInfoObjects.findIndex((chainInfoObj) => chainInfoObj.chainId === chainId) > -1;
+    supportedChainInfoObjects.some((chainInfoObj) => chainInfoObj.chainId === chainId);
 
   const defaultProvider = isSupportedNetwork(defaultChainId) ? createProvider(defaultChainId) : undefined;
   const [providerOrSigner, setProviderOrSigner] = useState<providers.Provider | Signer | undefined>(defaultProvider);
