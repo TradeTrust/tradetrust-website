@@ -32,12 +32,12 @@ describe("utils/addClassNameIfExist", () => {
 });
 
 describe("utils/getFileName", () => {
-  it("shold return the file name with the given file path", () => {
+  it("should return the file name with the given file path", () => {
     const filePath = "/abc/path2/file.jpeg";
     expect(getFileName(filePath)).toEqual("file.jpeg");
   });
 
-  it("should return the correct file name even if file name does not have an extention", () => {
+  it("should return the correct file name even if file name does not have an extension", () => {
     const filePath = "/abc/path2/file";
     expect(getFileName(filePath)).toEqual("file");
   });
