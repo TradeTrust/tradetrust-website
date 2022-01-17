@@ -24,4 +24,6 @@ module.exports = {
   NETWORK,
   NETWORK_NAME,
   NETWORK_ID: IS_MAINNET ? "1" : "3",
+  IS_TEST_ENV: process.env.NODE_ENV === "test",
+  IS_DEV_SERVER: !!process.env.WEBPACK_DEV_SERVER,
 };
