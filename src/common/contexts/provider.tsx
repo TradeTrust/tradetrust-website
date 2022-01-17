@@ -1,7 +1,7 @@
 import { ethers, providers, Signer } from "ethers";
 import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
 import { INFURA_API_KEY } from "../../config";
-import { utils } from "@govtechsg/oa-verify/";
+import { utils } from "@govtechsg/oa-verify";
 import { magic } from "./helpers";
 import { ChainId, ChainInfoObject } from "../../constants/chain-info";
 import { NoMetaMaskError, UnsupportedNetworkError } from "../errors";
