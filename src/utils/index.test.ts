@@ -1,4 +1,4 @@
-import { addClassNameIfExist, convertSecondsToMinAndSec, isEthereumAddress } from "./";
+import { addClassNameIfExist, convertSecondsToMinAndSec, isEthereumAddress, getFileName } from "./";
 
 describe("utils/isEthereumAddress", () => {
   it("should work", () => {
@@ -28,5 +28,17 @@ describe("utils/addClassNameIfExist", () => {
 
   it("should return an empty string is no classname is provided", () => {
     expect(addClassNameIfExist(undefined)).toEqual("");
+  });
+});
+
+describe("utils/getFileName", () => {
+  it("shold return the file name with the given file path", () => {
+    const filePath = "/abc/path2/file.jpeg";
+    expect(getFileName(filePath)).toEqual("file.jpeg");
+  });
+
+  it("should return the correct file name even if file name does not have an extention", () => {
+    const filePath = "/abc/path2/file";
+    expect(getFileName(filePath)).toEqual("file");
   });
 });

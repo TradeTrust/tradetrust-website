@@ -86,6 +86,9 @@ export const getCmsContentWithSlug = (context: __WebpackModuleApi.RequireContext
  * @returns name of file i.e. "image.png"
  */
 export const getFileName = (filePath: string): string => {
-  const fileName = filePath.match(/[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/)?.shift();
-  return !fileName ? "" : fileName;
+  return (
+    filePath.match(/[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/)?.shift() ||
+    filePath.match(/[A-Za-z0-9_\-\.]+$/)?.shift() ||
+    filePath
+  );
 };
