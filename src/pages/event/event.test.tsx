@@ -10,6 +10,7 @@ const mockFilterByCategory = filterByCategory as jest.Mock;
 
 const mockAllEvents: EventProps[] = [
   {
+    slug: "",
     attributes: {
       title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
       blurb:
@@ -20,9 +21,12 @@ const mockAllEvents: EventProps[] = [
       timeEnd: "2021-03-19T14:00:00.000Z",
       videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
       slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+      downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
+      eventDetails: "",
     },
   },
   {
+    slug: "",
     attributes: {
       title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
       blurb:
@@ -33,9 +37,12 @@ const mockAllEvents: EventProps[] = [
       timeEnd: "2021-03-19T14:00:00.000Z",
       videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
       slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+      downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
+      eventDetails: "",
     },
   },
   {
+    slug: "",
     attributes: {
       title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
       blurb:
@@ -46,6 +53,8 @@ const mockAllEvents: EventProps[] = [
       timeEnd: "2021-03-19T14:00:00.000Z",
       videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
       slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+      downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
+      eventDetails: "",
     },
   },
 ];

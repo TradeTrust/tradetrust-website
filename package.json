@@ -40,7 +40,7 @@
     "wait": "wait-on -l -i 1000 tcp:8545 http-get://localhost:3000"
   },
   "dependencies": {
-    "@emotion/react": "^11.4.0",
+    "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.3.0",
     "@govtechsg/address-identity-resolver": "^1.4.1",
     "@govtechsg/decentralized-renderer-react-components": "^3.6.2",
@@ -110,6 +110,7 @@
     "babel-jest": "^27.0.2",
     "babel-loader": "^8.2.2",
     "babel-plugin-macros": "^3.1.0",
+    "babel-plugin-transform-require-context": "^0.1.1",
     "brotli-webpack-plugin": "^1.1.0",
     "compression-webpack-plugin": "^6.1.1",
     "concurrently": "^6.2.0",

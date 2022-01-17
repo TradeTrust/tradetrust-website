@@ -2,6 +2,7 @@ import { utils } from "ethers";
 import { compareDesc, compareAsc } from "date-fns";
 import { ChainId } from "../constants/chain-info";
 import { getChainInfo } from "../common/utils/chain-utils";
+import { NewsTag } from "../components/News/types";
 
 export const makeEtherscanAddressURL = (address: string, chainId: ChainId): string => {
   const baseUrl = getChainInfo(chainId).explorerUrl;
@@ -54,4 +55,42 @@ export const addClassNameIfExist = (className?: string): string => {
   }
 
   return className;
+};
+
+/**
+ * Fetch CMS content according to the context provided and returns an array of cms content.
+ * 'context' in this case is some directory that is used as a base for resolving paths to modules.
+ *
+ * @param context  directory in which the contents are stored
+ * @param type     this applies for news content only. It is the type of news article. (other CMS content will be undefined)
+ * @returns array of CMS contents
+ */
+export const getCmsContentWithSlug = (context: __WebpackModuleApi.RequireContext, type?: NewsTag): any[] => {
+  const cmsContent: any[] = [];
+
+  context.keys().forEach((filename: string) => {
+    const content = context(filename);
+    const slug = filename.replace("./", "").replace(".md", "");
+    cmsContent.push({
+      slug,
+      type,
+      ...content,
+    });
+  });
+
+  return cmsContent;
+};
+
+/**
+ * Takes a file path, i.e. "static/img/image.png" , and returns the file name, i.e. "image.png".
+ *
+ * @param filePath a string that represents the filePath i.e. "static/img/image.png"
+ * @returns name of file i.e. "image.png"
+ */
+export const getFileName = (filePath: string): string => {
+  return (
+    filePath.match(/[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/)?.shift() ||
+    filePath.match(/[A-Za-z0-9_\-\.]+$/)?.shift() ||
+    filePath
+  );
 };

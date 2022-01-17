@@ -154,6 +154,22 @@
     clear: both;
   }
 
+  .wysiwyg img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 24px;
+  }
+
+  .wysiwyg p,
+  .wysiwyg h3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .wysiwyg a {
+    word-break: break-word;
+  }
+
   @media print {
     .no-print {
       display: none;

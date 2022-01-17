@@ -11,7 +11,8 @@ import { LearnPage } from "./pages/learn";
 import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
 import { ViewerPage } from "./pages/viewer";
 import { ContactPage } from "./pages/contact";
-import { EventPage } from "./pages/event/event";
+import { EventPage } from "./pages/event";
+import { EventPageDetail } from "./pages/event/eventDetail";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Route, Switch } from "react-router-dom";
 import { DemoPage } from "./pages/demo";
@@ -51,6 +52,7 @@ export const routes: RouteInterface[] = [
   { path: "/news/:slug", exact: true, component: NewsPageDetail },
   { path: "/learn", exact: true, component: LearnPage },
   { path: "/event", exact: true, component: EventPage },
+  { path: "/event/:slug", exact: true, component: EventPageDetail },
   { path: "/contact", exact: true, component: ContactPage },
   { path: "/guidelines", exact: true, component: Guidelines },
   { path: "*", component: PageNotFound },

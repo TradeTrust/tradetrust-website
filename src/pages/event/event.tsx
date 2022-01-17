@@ -3,13 +3,9 @@ import React, { FunctionComponent, useState } from "react";
 import { isFuture, isPast } from "date-fns";
 import { Helmet } from "react-helmet";
 import { ResourceEvent, EventProps } from "../../components/UI/ResourceEvent";
-import { importAll } from "../../common/utils/importAll";
 import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@govtechsg/tradetrust-ui-components";
-import { getSortedByDateDesc } from "../../utils";
 import { Page } from "../../components/Layout/Page";
-
-let events = importAll(require.context("../../../cms/event/", false, /\.md$/)) as EventProps[];
-events = getSortedByDateDesc(events);
+import { events } from ".";
 
 const CategoryFilter = styled.div`
   h5 {
@@ -49,7 +45,7 @@ export const EventPage: FunctionComponent = () => {
 
   const postsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
-  const paginatedPosts = getPaginatedPosts({ posts: filteredPosts, postsPerPage, currentPage });
+  const paginatedPosts = getPaginatedPosts({ posts: filteredPosts, postsPerPage, currentPage }) as EventProps[];
   const totalNoOfPages = getPaginatedPagesTotal({ posts: filteredPosts, postsPerPage });
 
   return (
@@ -81,7 +77,7 @@ export const EventPage: FunctionComponent = () => {
         <div className="flex flex-wrap py-4 -mx-4">
           <div className="w-full px-4 lg:w-9/12">
             {paginatedPosts.map((event, index) => (
-              <ResourceEvent key={index} attributes={event.attributes} />
+              <ResourceEvent key={index} slug={event.slug} attributes={event.attributes} />
             ))}
             {filteredPosts.length > 0 ? (
               <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />

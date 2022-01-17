@@ -1,7 +1,9 @@
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 import { ResourceEvent, EventProps } from "./ResourceEvent";
 
 const mockEventDefault: EventProps = {
+  slug: "",
   attributes: {
     title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
     blurb:
@@ -13,6 +15,8 @@ const mockEventDefault: EventProps = {
     videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
     slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
     registerLink: "https://zoom.us/webinar/register/WN_9Z2Jg3INT0aYUC7SpY5q3g",
+    downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
+    eventDetails: "",
   },
 };
 
@@ -42,13 +46,25 @@ export default {
 };
 
 export const Default = () => {
-  return <ResourceEvent attributes={mockEventDefault.attributes} />;
+  return (
+    <MemoryRouter>
+      <ResourceEvent slug={mockEventDefault.slug} attributes={mockEventDefault.attributes} />
+    </MemoryRouter>
+  );
 };
 
 export const Future = () => {
-  return <ResourceEvent attributes={mockEventFuture.attributes} />;
+  return (
+    <MemoryRouter>
+      <ResourceEvent slug={mockEventFuture.slug} attributes={mockEventFuture.attributes} />
+    </MemoryRouter>
+  );
 };
 
 export const Thumbnail = () => {
-  return <ResourceEvent attributes={mockEventThumbnail.attributes} />;
+  return (
+    <MemoryRouter>
+      <ResourceEvent slug={mockEventThumbnail.slug} attributes={mockEventThumbnail.attributes} />
+    </MemoryRouter>
+  );
 };

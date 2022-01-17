@@ -102,7 +102,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
-      - { label: "Blurb", name: "blurb", widget: "text" }
+      - { label: "Blurb", name: "blurb", widget: "text", hint: "Event Description" }
       - { label: "Link", name: "link", widget: "string", hint: "Direct link." }
       - {
           label: "Time Start",
@@ -123,6 +123,30 @@ collections:
           required: false,
           hint: "End time of event.",
           default: "",
+        }
+      - {
+          label: "Location",
+          name: "location",
+          widget: "string",
+          required: false,
+          hint: "Location of event.",
+          default: "",
+        }
+      - {
+          label: "Event Details",
+          name: "eventDetails",
+          widget: "markdown",
+          required: false,
+          hint: "Details of the event, i.e. about the speakers, about the event host, etc..",
+          default: "",
+        }
+      - {
+          label: "Downloadable Media Content",
+          name: "downloadableMediaContent",
+          required: false,
+          widget: "list",
+          field: { label: Media, name: media, widget: file },
+          hint: "Upload media contents/materials for user to download",
         }
       - { label: "Video Link", name: "videoLink", widget: "string", required: false }
       - { label: "Slides", name: "slides", widget: "file", required: false, hint: "Presentation slides." }
