@@ -60,7 +60,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
         const signer = getSigner();
         const address = signer ? await signer.getAddress() : undefined;
         setAccount(address);
-      } catch (_) {
+      } catch {
         setAccount(undefined);
       }
     };
