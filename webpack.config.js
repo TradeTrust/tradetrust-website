@@ -47,7 +47,6 @@ module.exports = {
       NET: "ropsten",
       INFURA_API_KEY: "bb46da3f80e040e8ab73c0a9ff365d18",
       ETHEREUM_PROVIDER: "notcloudflare", // temporary fix that wont be needed after oa-verify > 6
-      MAGIC_API_KEY: process.env.MAGIC_API_KEY || MAGIC_API_KEY,
     }),
     new HtmlWebpackPlugin({
       filename: "index.html",
