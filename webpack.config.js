@@ -5,7 +5,7 @@ const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
-const { IS_DEVELOPMENT, GA_MEASUREMENT_ID, GA_CONFIG_OPTION, MAGIC_API_KEY } = require("./src/config");
+const { IS_DEVELOPMENT, GA_MEASUREMENT_ID, GA_CONFIG_OPTION } = require("./src/config");
 
 module.exports = {
   entry: {
