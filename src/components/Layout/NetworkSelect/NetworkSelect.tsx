@@ -142,14 +142,7 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   }
 
   return (
-    <StyledDropdown
-      // Unorthodox workaround
-      // TODO: Update the dropdownButtonText in Dropdown component in tradetrust-ui-components to remove this workaround
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      dropdownButtonText={selectedLabel}
-      classNameShared="w-full max-w-xs"
-    >
+    <StyledDropdown dropdownButtonText={selectedLabel} classNameShared="w-full max-w-xs">
       <div>
         <span className="select-msg">Select a Network</span>
         {itemsList}
