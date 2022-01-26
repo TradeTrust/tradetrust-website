@@ -1,5 +1,4 @@
 import { HostActions } from "@govtechsg/decentralized-renderer-react-components";
-
 export interface TemplateProps {
   id: string;
   label: string;
