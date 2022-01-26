@@ -1,5 +1,4 @@
 import { put, select, takeLatest, call } from "redux-saga/effects";
-
 import {
   deployDocStoreSuccess,
   deployDocStoreFailure,
@@ -14,7 +13,7 @@ import {
 } from "../reducers/demo-create";
 import { createTempDns, deployDocumentStore, getWrappedDocument, publishDocument } from "../services/create";
 import { Signer } from "ethers";
-import { TradeTrustDocument, TradeTrustDocumentV2 } from "../types";
+import { OpenAttestationDocument, v2 } from "@govtechsg/open-attestation";
 
 export function* deployDemoDocStore({ payload }: { payload: Signer; type: string }): any {
   try {
@@ -45,11 +44,11 @@ export function* createDemoTempDns(): any {
   }
 }
 
-export function* wrapDemoDocument({ payload }: { payload: TradeTrustDocument; type: string }): any {
+export function* wrapDemoDocument({ payload }: { payload: OpenAttestationDocument; type: string }): any {
   try {
     const rawDocument = payload;
 
-    const wrappedDocument = yield call(getWrappedDocument, rawDocument as TradeTrustDocumentV2);
+    const wrappedDocument = yield call(getWrappedDocument, rawDocument as v2.OpenAttestationDocument);
 
     yield put(wrapDocumentSuccess(wrappedDocument));
   } catch (e) {

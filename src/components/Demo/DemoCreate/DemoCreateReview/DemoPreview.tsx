@@ -1,11 +1,10 @@
 import React, { useState, useCallback, useRef, FunctionComponent } from "react";
 import { FrameConnector, renderDocument, FrameActions } from "@govtechsg/decentralized-renderer-react-components";
-import { utils } from "@govtechsg/open-attestation";
+import { OpenAttestationDocument, utils } from "@govtechsg/open-attestation";
 import { Dispatch } from "../../../../types";
-import { TradeTrustDocument } from "../../../../types";
 
 interface DocumentPreviewProps {
-  document: TradeTrustDocument;
+  document: OpenAttestationDocument;
 }
 
 export const DocumentPreview: FunctionComponent<DocumentPreviewProps> = ({ document }) => {

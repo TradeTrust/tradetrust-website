@@ -1,17 +1,16 @@
-import { utils } from "@govtechsg/open-attestation";
+import { v2, utils } from "@govtechsg/open-attestation";
 import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
 import { Download, Printer } from "react-feather";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
-import { getOpenAttestationData } from "../../utils/shared";
-import { WrappedOrSignedTradeTrustDocument, TradeTrustDocumentV2 } from "../../types";
+import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData } from "../../utils/shared";
 interface DocumentUtilityProps {
-  document: WrappedOrSignedTradeTrustDocument;
+  document: WrappedOrSignedOpenAttestationDocument;
   onPrint: () => void;
 }
 
-interface DocumentWithAdditionalMetadata extends TradeTrustDocumentV2 {
+interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
   name?: string;
   links?: {
     self?: {

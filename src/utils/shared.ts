@@ -1,14 +1,16 @@
-import { getData, utils, v2, v3, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@govtechsg/open-attestation";
 import { ChainId } from "../constants/chain-info";
-import { TradeTrustDocument, WrappedOrSignedTradeTrustDocument } from "../types";
+// import { TradeTrustDocument, WrappedOrSignedTradeTrustDocument } from "../types";
 
+export type WrappedOrSignedOpenAttestationDocument = WrappedDocument<OpenAttestationDocument>;
 // note that the return type for getting attachments will normalise the structure into v2.Attachment
 export type OpenAttestationAttachment = v2.Attachment;
 
-export const getOpenAttestationData = (wrappedDocument: WrappedDocument<TradeTrustDocument>): TradeTrustDocument =>
-  utils.getDocumentData(wrappedDocument) as TradeTrustDocument;
+export const getOpenAttestationData = (
+  wrappedDocument: WrappedDocument<OpenAttestationDocument>
+): OpenAttestationDocument => utils.getDocumentData(wrappedDocument) as OpenAttestationDocument;
 
-export const getTemplateUrl = (rawDocument: WrappedOrSignedTradeTrustDocument): string | undefined => {
+export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocument): string | undefined => {
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);
     return typeof documentData.$template === "object" ? documentData.$template.url : undefined;
@@ -18,7 +20,7 @@ export const getTemplateUrl = (rawDocument: WrappedOrSignedTradeTrustDocument): 
 };
 
 export const getAttachments = (
-  rawDocument: WrappedOrSignedTradeTrustDocument
+  rawDocument: WrappedOrSignedOpenAttestationDocument
 ): OpenAttestationAttachment[] | undefined => {
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);
@@ -34,15 +36,25 @@ export const getAttachments = (
   }
 };
 
-export const getTokenRegistryAddress = (document: WrappedOrSignedTradeTrustDocument): string | undefined => {
+export const getTokenRegistryAddress = (document: WrappedOrSignedOpenAttestationDocument): string | undefined => {
   const issuerAddress = utils.getIssuerAddress(document);
   return issuerAddress instanceof Array ? issuerAddress[0] : issuerAddress;
 };
 
-export const getChainId = (rawDocument: WrappedOrSignedTradeTrustDocument): ChainId | undefined => {
+export const getChainId = (rawDocument: WrappedOrSignedOpenAttestationDocument): ChainId | undefined => {
+  const warn = () =>
+    console.warn(
+      "You are using an older version of Open-Attestation Document, to use the auto network feature, please use an updated version. Otherwise, please make sure that you select the correct network."
+    );
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);
-    return documentData.chainId ? parseInt(documentData.chainId) : undefined;
+    if (documentData.chainDetail?.type === "ETH" || documentData.chainDetail?.type === "MATIC")
+      return documentData.chainDetail?.chainId ? parseInt(documentData.chainDetail.chainId) : undefined;
+    warn();
+    return undefined;
   }
-  return rawDocument.chainId ? parseInt(rawDocument.chainId) : undefined;
+  if (rawDocument.chainDetail?.type === "ETH" || rawDocument.chainDetail?.type === "MATIC")
+    return rawDocument.chainDetail?.chainId ? parseInt(rawDocument.chainDetail.chainId) : undefined;
+  warn();
+  return undefined;
 };

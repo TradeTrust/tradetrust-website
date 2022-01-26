@@ -1,7 +1,4 @@
 import { HostActions } from "@govtechsg/decentralized-renderer-react-components";
-import { OpenAttestationDocument as OpenAttestationDocumentV2 } from "@govtechsg/open-attestation/dist/types/__generated__/schema.2.0";
-import { OpenAttestationDocument as OpenAttestationDocumentV3 } from "@govtechsg/open-attestation/dist/types/__generated__/schema.3.0";
-import { WrappedDocument } from "@govtechsg/open-attestation";
 
 export interface TemplateProps {
   id: string;
@@ -80,15 +77,3 @@ export enum ContentType {
 }
 
 export type Dispatch = (action: HostActions) => void;
-
-export interface TradeTrustDocumentV2 extends OpenAttestationDocumentV2 {
-  chainId?: string;
-}
-
-export interface TradeTrustDocumentV3 extends OpenAttestationDocumentV3 {
-  chainId?: string;
-}
-
-export type TradeTrustDocument = TradeTrustDocumentV2 | TradeTrustDocumentV3;
-
-export type WrappedOrSignedTradeTrustDocument = WrappedDocument<TradeTrustDocument>;

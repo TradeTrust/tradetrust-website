@@ -4,7 +4,7 @@ import React from "react";
 import { whenDocumentValidAndIssuedByDns } from "../../../../../test/fixture/verifier-responses";
 import { ActionSelectionForm } from "./ActionSelectionForm";
 import { VerificationFragment } from "@govtechsg/oa-verify";
-import { WrappedOrSignedTradeTrustDocument } from "../../../../../types";
+import { WrappedOrSignedOpenAttestationDocument } from "../../../../../utils/shared";
 
 const defaultProps = {
   setShowEndorsementChain: () => {},
@@ -23,7 +23,7 @@ const defaultProps = {
   canEndorseTransfer: false,
   isTitleEscrow: true,
   isTokenBurnt: false,
-  document: obfuscatedDocument as WrappedOrSignedTradeTrustDocument,
+  document: obfuscatedDocument as WrappedOrSignedOpenAttestationDocument,
   verificationStatus: whenDocumentValidAndIssuedByDns as VerificationFragment[],
 };
 

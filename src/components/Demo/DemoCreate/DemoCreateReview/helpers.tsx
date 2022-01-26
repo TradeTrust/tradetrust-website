@@ -1,15 +1,15 @@
+import { v2 } from "@govtechsg/open-attestation";
 import {
   IdentityProofType,
   Issuer,
   TemplateType,
 } from "@govtechsg/open-attestation/dist/types/__generated__/schema.2.0";
-import { TradeTrustDocument } from "../../../../types";
 
 export const makeRawDocument = (
   documentStoreAddress: string,
   formValues: Record<string, any>,
   identityLocation: string
-): TradeTrustDocument => {
+): v2.OpenAttestationDocument => {
   const issuers: Issuer[] = [
     {
       name: "Demo Issuer",
