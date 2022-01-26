@@ -1,6 +1,5 @@
 import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@govtechsg/open-attestation";
 import { ChainId } from "../constants/chain-info";
-// import { TradeTrustDocument, WrappedOrSignedTradeTrustDocument } from "../types";
 
 export type WrappedOrSignedOpenAttestationDocument = WrappedDocument<OpenAttestationDocument>;
 // note that the return type for getting attachments will normalise the structure into v2.Attachment
@@ -8,7 +7,7 @@ export type OpenAttestationAttachment = v2.Attachment;
 
 export const getOpenAttestationData = (
   wrappedDocument: WrappedDocument<OpenAttestationDocument>
-): OpenAttestationDocument => utils.getDocumentData(wrappedDocument) as OpenAttestationDocument;
+): OpenAttestationDocument => utils.getDocumentData(wrappedDocument);
 
 export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocument): string | undefined => {
   if (utils.isWrappedV2Document(rawDocument)) {
@@ -19,9 +18,7 @@ export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocume
   }
 };
 
-export const getAttachments = (
-  rawDocument: WrappedOrSignedOpenAttestationDocument
-): OpenAttestationAttachment[] | undefined => {
+export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocument): v2.Attachment[] | undefined => {
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);
     return documentData.attachments;
