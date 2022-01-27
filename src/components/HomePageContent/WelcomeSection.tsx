@@ -13,8 +13,8 @@ const DescriptionSection: FunctionComponent = () => {
     showOverlay(<Youtube title="Digitalising Trust for Cross-Border Trade" youtubeId="udvPQyuqEug" />);
   };
   return (
-    <section id="welcome" className="bg-cerulean-50 h-full text-gray-700 md:pt-16 mb-4">
-      <Background className="relative bg-135% bg-right-bottom bg-no-repeat py-16 md:bg-auto md:h-full md:bg-right-top">
+    <section id="welcome" className="bg-cerulean-50 text-gray-700 md:pt-16">
+      <Background className="relative bg-135% bg-right-bottom bg-no-repeat py-16 md:bg-auto md:bg-right-top">
         <div className="container md:h-140">
           <div className="md:w-6/12">
             <div className="w-5/5 text-center md:py-8 md:text-left">
