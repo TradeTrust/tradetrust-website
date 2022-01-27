@@ -117,6 +117,12 @@
     @apply py-2;
     @apply px-4;
   }
+
+  .active-icon {
+    @apply p-1;
+    @apply bg-emerald-500;
+    @apply rounded-lg;
+  }
 }
 
 @tailwind utilities;

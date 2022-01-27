@@ -47,10 +47,8 @@ const DropdownItemLabel: FunctionComponent<DropdownItemLabelProps> = ({ classNam
     <div className={className}>
       <div className="flex items-center" data-testid={`network-select-dropdown-label-${network.chainId}`}>
         <img className="mr-2 w-5 h-5 rounded-full" src={network.iconImage} alt={network.label} />
-        <span className="py-2 hover:text-cerulean transition-colors duration-200 ease-out w-full text-neutral-400">
-          {network.label}
-        </span>
-        {active ? <span className="m-1 p-1 bg-emerald-500 rounded-lg justify-self-end" /> : null}
+        <span className="py-2 hover:text-cerulean transition-colors duration-200 ease-out w-full">{network.label}</span>
+        {active ? <span className="m-1 active-icon justify-self-end" /> : null}
       </div>
     </div>
   );
@@ -104,12 +102,11 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   return (
     <WrappedDropdown
       dropdownButtonText={selectedLabel}
-      classNameShared="w-full"
-      className="text-sm"
-      classNameMenu="lg:shadow-dropdown rounded-md w-max min-w-full z-30 lg:left-0 lg:absolute lg:-bottom-0 lg:transform lg:translate-y-full py-0 text-sm font-bold "
+      classNameShared="w-full font-medium text-cloud-500"
+      classNameMenu="text-sm font-bold lg:shadow-dropdown rounded-md w-max min-w-full z-30 lg:left-0 lg:absolute lg:-bottom-0 lg:transform lg:translate-y-full py-0"
     >
       <div>
-        <span className="p-3 pr-8 text-cloud-500 cursor-default">Select a Network</span>
+        <span className="p-3 pr-8 cursor-default">Select a Network</span>
         {itemsList}
       </div>
     </WrappedDropdown>
