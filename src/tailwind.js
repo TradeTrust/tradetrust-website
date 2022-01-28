@@ -13,6 +13,14 @@ const localConfig = {
     ],
   },
   theme: {
+    backgroundImage: {
+      "single-wave": 'url("/static/images/home/mainBenefits/single-wave.png")',
+      map: 'url("/static/images/home/welcome/map.png")',
+      "wave-lines": 'url("/static/images/common/wave-lines.png")',
+      "news-generic": 'url("/static/images/news/news-generic.png")',
+      "waves-lines-light": 'url("/static/images/common/wave-lines-light.png")',
+      "waves-lines-light-2": 'url("/static/images/common/wave-lines-light-2.png")',
+    },
     fontFamily: {
       roboto: ["Roboto", "sans-serif"],
       ubuntu: ["Ubuntu", "sans-serif"],

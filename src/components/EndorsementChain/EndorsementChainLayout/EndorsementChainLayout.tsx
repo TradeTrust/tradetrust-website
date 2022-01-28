@@ -7,28 +7,6 @@ import { EndorsementChain, TitleEscrowEvent } from "../../../types";
 import { TooltipIcon } from "../../UI/SvgIcon";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
-import styled from "@emotion/styled";
-
-const EndorsementChainDataStyle = styled.div`
-  & > *:first-of-type {
-    .dot-path {
-      bottom: 0;
-      height: 50%;
-    }
-  }
-
-  & > *:last-of-type {
-    // for desktop screen
-    .dot-path {
-      height: 50%;
-    }
-
-    // for mobile screen
-    .path {
-      height: 0;
-    }
-  }
-`;
 
 interface EndorsementChainLayout {
   endorsementChain?: EndorsementChain;
@@ -193,7 +171,7 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
       <div className="flex flex-nowrap pr-8">
         <div className="relative flex-shrink-0 lg:hidden" style={{ width: "40px" }}>
           <div className="absolute left-0 right-0 mx-auto h-full">
-            <div className="absolute top-0 left-1/2 h-full border-l border-dashed border-cerulean path" />
+            <div className="absolute top-0 left-1/2 h-full border-l border-dashed border-cerulean last-of-type:h-0" />
           </div>
         </div>
         <div className="pb-4 lg:pb-0">
@@ -224,7 +202,7 @@ const EndorsementChainData: React.FunctionComponent<any> = ({ index, data }) => 
         <div className="flex flex-nowrap">
           <div className="relative flex-shrink-0 lg:order-2" style={{ width: "40px" }}>
             <div className="absolute left-0 right-0 mx-auto h-full">
-              <div className="absolute left-1/2 h-full border-l border-dashed border-cerulean dot-path" />
+              <div className="absolute left-1/2 h-full border-l border-dashed border-cerulean last-of-type:h-1/2 first-of-type:h-1/2 first-of-type:bottom-0" />
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-cerulean h-3 w-3" />
             </div>
           </div>
@@ -276,11 +254,11 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 
         {pending && !endorsementChain && !error && <EndorsementChainLoading />}
         {!pending && endorsementChain && !error && (
-          <EndorsementChainDataStyle>
+          <div>
             {historyChain.map((item, key) => (
               <EndorsementChainData index={key} data={item} key={key} />
             ))}
-          </EndorsementChainDataStyle>
+          </div>
         )}
         {!pending && !endorsementChain && error && <EndorsementChainError error={error} />}
       </div>

@@ -48,7 +48,7 @@ const DropdownItemLabel: FunctionComponent<DropdownItemLabelProps> = ({ classNam
       <div className="flex items-center" data-testid={`network-select-dropdown-label-${network.chainId}`}>
         <img className="mr-2 w-5 h-5 rounded-full" src={network.iconImage} alt={network.label} />
         <span className="py-2 hover:text-cerulean transition-colors duration-200 ease-out w-full">{network.label}</span>
-        {active ? <span className="m-1 active-icon justify-self-end" /> : null}
+        {active ? <span className="m-1 p-1 bg-emerald-500 rounded-lg justify-self-end" /> : null}
       </div>
     </div>
   );
