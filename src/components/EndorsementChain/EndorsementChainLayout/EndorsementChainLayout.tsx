@@ -254,7 +254,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 
         {pending && !endorsementChain && !error && <EndorsementChainLoading />}
         {!pending && endorsementChain && !error && (
-          <div>
+          <div className="endorsement-chain">
             {historyChain.map((item, key) => (
               <EndorsementChainData index={key} data={item} key={key} />
             ))}
