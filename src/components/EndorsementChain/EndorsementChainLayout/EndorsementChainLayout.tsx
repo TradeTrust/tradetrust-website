@@ -171,7 +171,7 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
       <div className="flex flex-nowrap pr-8">
         <div className="relative flex-shrink-0 lg:hidden" style={{ width: "40px" }}>
           <div className="absolute left-0 right-0 mx-auto h-full">
-            <div className="absolute top-0 left-1/2 h-full border-l border-dashed border-cerulean last-of-type:h-0" />
+            <div className="absolute top-0 left-1/2 h-full border-l border-dashed border-cerulean path" />
           </div>
         </div>
         <div className="pb-4 lg:pb-0">
@@ -202,7 +202,7 @@ const EndorsementChainData: React.FunctionComponent<any> = ({ index, data }) => 
         <div className="flex flex-nowrap">
           <div className="relative flex-shrink-0 lg:order-2" style={{ width: "40px" }}>
             <div className="absolute left-0 right-0 mx-auto h-full">
-              <div className="absolute left-1/2 h-full border-l border-dashed border-cerulean last-of-type:h-1/2 first-of-type:h-1/2 first-of-type:bottom-0" />
+              <div className="absolute left-1/2 h-full border-l border-dashed border-cerulean dot-path" />
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-cerulean h-3 w-3" />
             </div>
           </div>
