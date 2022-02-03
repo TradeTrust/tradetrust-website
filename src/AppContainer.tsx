@@ -30,7 +30,10 @@ const AppContainer = (): React.ReactElement => {
         leftItems={leftNavItems}
         rightItems={rightNavItems}
       />
-      <main className="bg-cerulean-50 flex-1 bg-cover bg-wave-lines">
+      <main
+        className="bg-cerulean-50 flex-1 bg-cover"
+        style={{ backgroundImage: "url('/static/images/common/wave-lines.png')" }}
+      >
         <Routes routes={routes} />
       </main>
       <Footer />

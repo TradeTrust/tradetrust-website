@@ -30,7 +30,10 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
   return (
     <section id="persona-modal">
       <OverlayContent title="" className="max-h-9/10 text-white bg-cerulean rounded-xl">
-        <div className="bg-wave-lines-light-2 mx-5 my-0 bg-cover relative flex flex-col text-white p-5 overflow-auto h-auto">
+        <div
+          className="mx-5 my-0 bg-cover relative flex flex-col text-white p-5 overflow-auto h-auto"
+          style={{ backgroundImage: "url('/static/images/common/wave-lines-light-2.png')" }}
+        >
           <div className="flex flex-col justify-center">
             <div className="relative flex justify-center w-full">
               <h3 className="font-normal text-center">{details.learnMore.title}</h3>
