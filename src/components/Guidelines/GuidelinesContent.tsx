@@ -34,7 +34,7 @@ export const GuidelinesContent: FunctionComponent = () => {
             accordionIndex={index}
             setOpenIndex={setOpenIndex}
           >
-            <ReactMarkdown components={{ p: ({ ...props }) => <p style={{ marginBottom: "1rem" }} {...props} /> }}>
+            <ReactMarkdown components={{ p: ({ ...props }) => <p className={"mb-4"} {...props} /> }}>
               {guideline.body}
             </ReactMarkdown>
           </AccordionItem>

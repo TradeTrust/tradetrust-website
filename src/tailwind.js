@@ -13,6 +13,10 @@ const localConfig = {
     ],
   },
   theme: {
+    backgroundImage: {
+      "single-wave": "url('/static/images/home/mainBenefits/single-wave.png')",
+      "wave-lines-light": "url('/static/images/common/wave-lines-light.png')",
+    },
     fontFamily: {
       roboto: ["Roboto", "sans-serif"],
       ubuntu: ["Ubuntu", "sans-serif"],
@@ -28,6 +32,7 @@ const localConfig = {
         7: "1.75rem",
         8: "2rem",
         "-24": "-6rem",
+        "-2/5": "-40%",
         "50%": "50%",
       },
       fontSize: {

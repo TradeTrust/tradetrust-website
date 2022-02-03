@@ -35,8 +35,7 @@ const DraggableDemoCertificate: FunctionComponent<DraggableDemoCertificateProps>
             >
               <a href={getDemoCert(props.chainId)} download="demo.tt" rel="noindex nofollow" className="cursor-default">
                 <img
-                  className="absolute cursor-grab active:cursor-grabbing"
-                  style={{ top: "-40%" }}
+                  className="-top-2/5 absolute cursor-grab active:cursor-grabbing"
                   src="/static/images/dropzone/certificate.svg"
                 />
               </a>
