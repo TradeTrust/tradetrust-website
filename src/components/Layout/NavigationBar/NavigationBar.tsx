@@ -9,7 +9,6 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
-import { useFeatureFlag } from "../../FeatureFlag";
 
 export const leftNavItems: NavigationItem[] = [
   {
@@ -161,8 +160,6 @@ const NavLogo = () => {
   );
 };
 
-const flagName = "MAGIC_DEMO";
-const identityFn = (x: any) => x;
 interface NavigationBarProps {
   toggleNavBar: boolean;
   setToggleNavBar: (toggleNavbar: boolean) => void;
@@ -172,19 +169,13 @@ interface NavigationBarProps {
 
 export const NavigationBar: FunctionComponent<NavigationBarProps> = (props) => {
   const { leftItems, rightItems } = props;
-  const [derivedLeftItems, setDerivedLeftItems] = React.useState<NavigationItem[]>([]);
-  const flag = useFeatureFlag(flagName);
-  React.useEffect(() => {
-    const filterCallback = flag ? identityFn : (item: NavigationItem) => item.id !== "demo";
-    const currentLeftItems = leftItems.filter(filterCallback);
-    return setDerivedLeftItems(currentLeftItems);
-  }, [flag, leftItems]);
+
   return (
     <NavBar
       logo={<NavLogo />}
-      menuLeft={derivedLeftItems}
+      menuLeft={leftItems}
       menuRight={rightItems}
-      menuMobile={[...derivedLeftItems, ...rightItems]}
+      menuMobile={[...leftItems, ...rightItems]}
       setToggleNavBar={props.setToggleNavBar}
       toggleNavBar={props.toggleNavBar}
     />
