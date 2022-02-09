@@ -45,13 +45,13 @@ export const getChainId = (rawDocument: WrappedOrSignedOpenAttestationDocument):
     );
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);
-    if (documentData.chainDetail?.type === "ETH" || documentData.chainDetail?.type === "MATIC")
-      return documentData.chainDetail?.chainId ? parseInt(documentData.chainDetail.chainId) : undefined;
+    if (documentData.network?.chain === "ETH" || documentData.network?.chain === "MATIC")
+      return documentData.network?.chainId ? parseInt(documentData.network?.chainId) : undefined;
     warn();
     return undefined;
   }
-  if (rawDocument.chainDetail?.type === "ETH" || rawDocument.chainDetail?.type === "MATIC")
-    return rawDocument.chainDetail?.chainId ? parseInt(rawDocument.chainDetail.chainId) : undefined;
+  if (rawDocument.network?.chain === "ETH" || rawDocument.network?.chain === "MATIC")
+    return rawDocument.network?.chainId ? parseInt(rawDocument.network?.chainId) : undefined;
   warn();
   return undefined;
 };
