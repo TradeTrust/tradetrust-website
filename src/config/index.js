@@ -20,10 +20,8 @@ module.exports = {
   INFURA_PROJECT_ID: "1f1ff2b3fca04f8d99f67d465c59e4ef",
   IS_DEVELOPMENT,
   IS_MAINNET,
-  MAGIC_API_KEY: process.env.MAGIC_API_KEY || "temp",
+  MAGIC_API_KEY: process.env.MAGIC_API_KEY || "pk_live_3053B1D4161B0C40", // dlt gmail fallback
   NETWORK,
   NETWORK_NAME,
   NETWORK_ID: IS_MAINNET ? "1" : "3",
 };
-
-console.log(process.env.MAGIC_API_KEY, "!!!");
