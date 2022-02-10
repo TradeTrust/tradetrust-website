@@ -17,3 +17,4 @@
 [context.deploy-preview]
   [context.deploy-preview.environment]
     INFURA_API_KEY = ""
+    MAGIC_API_KEY = "abc"
