@@ -15,6 +15,7 @@ import { getLogger } from "../../utils/logger";
 import { WelcomeSection } from "./WelcomeSection";
 import { MainBenefitsSection } from "./MainBenefitsSection";
 import { HowItWorksSection } from "./HowItWorksSection";
+import { MAGIC_API_KEY } from "../../config";
 
 const { error } = getLogger("component:mainpage");
 
@@ -54,6 +55,7 @@ export const HomePageContainer = (): React.ReactElement => {
   }, [dispatch, location, history]);
   return (
     <div className="text-lg">
+      <h1>{MAGIC_API_KEY}</h1>
       <WelcomeSection />
       <MainBenefitsSection />
       <HowItWorksSection />
