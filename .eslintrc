@@ -3,7 +3,7 @@
   "env": {
     "browser": true
   },
-  "extends": ["plugin:react/recommended", "plugin:testcafe/recommended", "plugin:prettier/recommended"],
+  "extends": ["plugin:react/recommended", "plugin:testcafe/recommended", "plugin:prettier/recommended", "plugin:storybook/recommended"],
   "plugins": ["react-hooks", "testcafe"],
   "parserOptions": {
     "ecmaVersion": 2018,
@@ -67,6 +67,12 @@
       "rules": {
         "jest/prefer-expect-assertions": "off",
         "jest/no-hooks": "off"
+      }
+    },
+    {
+      "files": ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
+      "rules": {
+        "storybook/hierarchy-separator": "error",
       }
     }
   ]
