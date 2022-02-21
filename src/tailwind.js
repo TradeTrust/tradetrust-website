@@ -3,15 +3,10 @@ const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwi
 const plugin = require("tailwindcss/plugin");
 
 const localConfig = {
-  purge: {
-    content: [
-      "./src/**/*.ts",
-      "./src/**/*.tsx",
-      "./src/**/*.js",
-      "./src/**/*.jsx",
-      "./node_modules/@govtechsg/tradetrust-ui-components/src/**/*.tsx",
-    ],
-  },
+  content: [
+    `./src/**/*.{ts,tsx,js,jsx}`,
+    "./node_modules/@govtechsg/tradetrust-ui-components/src/**/*.{ts,tsx,js,jsx}",
+  ],
   theme: {
     backgroundImage: {
       "single-wave": "url('/static/images/home/mainBenefits/single-wave.png')",
@@ -91,12 +86,6 @@ const localConfig = {
         "-10%": "-10%",
         "85%": "85%",
       },
-    },
-  },
-  variants: {
-    cursor: ["responsive", "hover", "focus", "active"],
-    extend: {
-      borderWidth: ["last"],
     },
   },
   plugins: [

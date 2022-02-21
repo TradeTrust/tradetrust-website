@@ -32,7 +32,7 @@ export const ViewActionError: FunctionComponent<ViewActionErrorProps> = ({ reset
           e.stopPropagation();
         }}
       >
-        <Button className={`text-white bg-red-500 border-red-500 hover:bg-red-300 hover:border-red-300`}>
+        <Button className="text-white bg-red-500 border-red-500 hover:bg-red-300 hover:border-red-300">
           What Should I do?
         </Button>
       </Link>
