@@ -79,7 +79,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
           <input {...getInputProps()} />
           <div
             data-testid="form-item-dropzone"
-            className={`p-2 cursor-pointer flex justify-center border-dashed border-2 rounded-xl border-cloud-100`}
+            className="p-2 cursor-pointer flex justify-center border-dashed border-2 rounded-xl border-cloud-100"
           >
             {value ? (
               <img className="max-h-60" src={value} alt="First Signatory Authentication" />
