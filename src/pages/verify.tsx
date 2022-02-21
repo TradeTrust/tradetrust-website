@@ -5,6 +5,7 @@ import { Page } from "../components/Layout/Page";
 import { useProviderContext } from "../common/contexts/provider";
 import { Link } from "react-router-dom";
 import { ErrorPage } from "@govtechsg/tradetrust-ui-components";
+import { NetworkSelect } from "../components/Layout/NetworkSelect";
 
 const VerifyPage = (): React.ReactElement => {
   const { getProvider } = useProviderContext();
@@ -26,6 +27,10 @@ const VerifyPage = (): React.ReactElement => {
 
       {getProvider() ? (
         <Page title="Verify Documents">
+          <span className="text-gray-900 mr-3 mb-3" data-testid="page-subtitle">
+            Verify your document on
+          </span>
+          <NetworkSelect />
           <DropZoneSectionContainer />
         </Page>
       ) : (
