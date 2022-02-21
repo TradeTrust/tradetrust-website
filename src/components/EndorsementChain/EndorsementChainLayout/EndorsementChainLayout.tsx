@@ -7,28 +7,6 @@ import { EndorsementChain, TitleEscrowEvent } from "../../../types";
 import { TooltipIcon } from "../../UI/SvgIcon";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
-import styled from "@emotion/styled";
-
-const EndorsementChainDataStyle = styled.div`
-  & > *:first-of-type {
-    .dot-path {
-      bottom: 0;
-      height: 50%;
-    }
-  }
-
-  & > *:last-of-type {
-    // for desktop screen
-    .dot-path {
-      height: 50%;
-    }
-
-    // for mobile screen
-    .path {
-      height: 0;
-    }
-  }
-`;
 
 interface EndorsementChainLayout {
   endorsementChain?: EndorsementChain;
@@ -276,11 +254,11 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
 
         {pending && !endorsementChain && !error && <EndorsementChainLoading />}
         {!pending && endorsementChain && !error && (
-          <EndorsementChainDataStyle>
+          <div className="endorsement-chain">
             {historyChain.map((item, key) => (
               <EndorsementChainData index={key} data={item} key={key} />
             ))}
-          </EndorsementChainDataStyle>
+          </div>
         )}
         {!pending && !endorsementChain && error && <EndorsementChainError error={error} />}
       </div>

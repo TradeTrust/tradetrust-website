@@ -1,14 +1,9 @@
-import styled from "@emotion/styled";
 import React, { FunctionComponent } from "react";
 
-const Background = styled.div`
-  background-repeat: no-repeat;
-  background-size: 1920px auto; // assuming screens will not be wider than 1920px, otherwise this bg pattern needs to be repeatable-x
-  background-position: center 160px;
-  @media screen and (min-width: 1024px) {
-    background-image: url("/static/images/home/mainBenefits/single-wave.png");
-  }
-`;
+const backgroundStyling = {
+  backgroundSize: "1920px auto",
+  backgroundPosition: "center 160px",
+};
 
 interface MainBenefitsProps {
   details: MainBenefits;
@@ -80,7 +75,7 @@ const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ detai
 export const MainBenefitsSection: FunctionComponent = () => {
   return (
     <section id="main-benefits" className="bg-white text-gray-700 py-16">
-      <Background>
+      <div className="bg-no-repeat lg:bg-single-wave" style={backgroundStyling}>
         <div className="container">
           <div className="text-center">
             <h1 className="font-ubuntu text-cloud leading-none text-4xl lg:text-5xl">Main Benefits</h1>
@@ -94,7 +89,7 @@ export const MainBenefitsSection: FunctionComponent = () => {
             ))}
           </div>
         </div>
-      </Background>
+      </div>
     </section>
   );
 };
