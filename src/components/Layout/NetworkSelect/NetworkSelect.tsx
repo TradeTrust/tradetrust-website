@@ -33,7 +33,7 @@ interface DropdownItemLabelProps {
 const WrappedDropdown = (props: DropdownProps) => {
   const { children, className, ...rest } = props;
   return (
-    <div className={className}>
+    <div className={className} style={{ minWidth: "12.5em" }}>
       <Dropdown className="rounded-md py-1 pl-4 p-2 border border-gray-300 bg-white" {...rest}>
         {children}
       </Dropdown>
@@ -106,7 +106,6 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
       dropdownButtonText={selectedLabel}
       className="inline-block text-sm"
       classNameShared="w-full max-w-xs"
-      style={{ "min-width": "12.5em" }}
     >
       <div>
         <span className="text-cloud-500 p-3 pr-8 cursor-default">Select a Network</span>
