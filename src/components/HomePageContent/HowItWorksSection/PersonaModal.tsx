@@ -4,6 +4,13 @@ import { useOverlayContext, OverlayContent } from "@govtechsg/tradetrust-ui-comp
 import { PersonaProps } from "../../../types";
 import { Steps } from "./Steps";
 import { ContentType } from "../../../types";
+import styled from "@emotion/styled";
+
+const ModalBackground = styled.div`
+  background-image: url("/static/images/common/wave-lines-light-2.png");
+  background-size: cover;
+  margin: 0 -1.25rem;
+`;
 
 export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, details }) => {
   const { setOverlayVisible, showOverlay } = useOverlayContext();
@@ -30,10 +37,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
   return (
     <section id="persona-modal">
       <OverlayContent title="" className="max-h-9/10 text-white bg-cerulean rounded-xl">
-        <div
-          className="mx-5 my-0 bg-cover relative flex flex-col text-white p-5 overflow-auto h-auto"
-          style={{ backgroundImage: "url('/static/images/common/wave-lines-light-2.png')" }}
-        >
+        <ModalBackground className="relative flex flex-col text-white flex p-5 overflow-auto h-auto">
           <div className="flex flex-col justify-center">
             <div className="relative flex justify-center w-full">
               <h3 className="font-normal text-center">{details.learnMore.title}</h3>
@@ -93,7 +97,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
           >
             <h3 className="font-normal text-2xl">Get in Touch Now</h3>
           </Link>
-        </div>
+        </ModalBackground>
       </OverlayContent>
     </section>
   );

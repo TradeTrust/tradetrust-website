@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import React, { FunctionComponent, useState } from "react";
 import { isFuture, isPast } from "date-fns";
 import { Helmet } from "react-helmet";
@@ -5,6 +6,20 @@ import { ResourceEvent, EventProps } from "../../components/UI/ResourceEvent";
 import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@govtechsg/tradetrust-ui-components";
 import { Page } from "../../components/Layout/Page";
 import { events } from ".";
+
+const CategoryFilter = styled.div`
+  h5 {
+    color: #b4bcc2;
+
+    &:hover {
+      color: #454b50;
+    }
+
+    &.active {
+      color: #454b50;
+    }
+  }
+`;
 
 enum Categories {
   ALL = "All",
@@ -43,12 +58,10 @@ export const EventPage: FunctionComponent = () => {
         <title>TradeTrust - Events</title>
       </Helmet>
       <Page title="Event">
-        <div className="mt-2 mb-1">
+        <CategoryFilter className="mt-2 mb-1">
           {categories.map((item, index) => (
             <h5
-              className={`text-cloud-300 hover:text-cloud-900 inline-block text-xl mr-4 cursor-pointer ${
-                item === category ? "text-cloud-900" : ""
-              }`}
+              className={`inline-block text-xl mr-4 cursor-pointer ${item === category ? "active" : ""}`}
               key={index}
               data-testid="filter-category"
               onClick={() => {
@@ -60,7 +73,7 @@ export const EventPage: FunctionComponent = () => {
               {item}
             </h5>
           ))}
-        </div>
+        </CategoryFilter>
         <div className="flex flex-wrap py-4 -mx-4">
           <div className="w-full px-4 lg:w-9/12">
             {paginatedPosts.map((event, index) => (

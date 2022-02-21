@@ -4,9 +4,9 @@ import {
   DropdownProps,
   OverlayContext,
   showDocumentTransferMessage,
-  IconError,
 } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
+import styled from "@emotion/styled";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { getChainInfo } from "../../../common/utils/chain-utils";
@@ -34,25 +34,72 @@ const WrappedDropdown = (props: DropdownProps) => {
   const { children, className, ...rest } = props;
   return (
     <div className={className}>
-      <Dropdown {...rest}>{children}</Dropdown>
+      <Dropdown className="rounded-md py-1 pl-4 p-2 border border-gray-300 bg-white" {...rest}>
+        {children}
+      </Dropdown>
     </div>
   );
 };
+
+const StyledDropdown = styled(WrappedDropdown)`
+  display: inline-block;
+  min-width: 12.5rem;
+  font-size: 0.87rem;
+
+  span.select-msg {
+    padding: 0.25rem 0.7rem;
+    color: darkgrey;
+    cursor: default;
+  }
+`;
 
 /**
  * Label for the items of the dropdown list
  */
 const DropdownItemLabel: FunctionComponent<DropdownItemLabelProps> = ({ className, active, network }) => {
   return (
-    <div className={className}>
-      <div className="flex items-center" data-testid={`network-select-dropdown-label-${network.chainId}`}>
-        <img className="mr-2 w-5 h-5 rounded-full" src={network.iconImage} alt={network.label} />
-        <span className="py-2 hover:text-cerulean transition-colors duration-200 ease-out w-full">{network.label}</span>
-        {active ? <span className="m-1 p-1 bg-emerald-500 rounded-lg justify-self-end" /> : null}
-      </div>
+    <div className={className} data-testid={`network-select-dropdown-label-${network.chainId}`}>
+      <img className="network-icon" src={network.iconImage} alt={network.label} />
+      <span className="label">{network.label}</span>
+      {active ? <span className="active" /> : null}
     </div>
   );
 };
+
+const StyledDropdownItemLabel = styled(DropdownItemLabel)`
+  display: flex;
+  align-items: center;
+
+  & img.network-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin-right: 0.5rem;
+  }
+
+  & span.label {
+    width: 100%;
+  }
+
+  & span.active {
+    padding: 0.25rem;
+    background-color: #27ae60;
+    border-radius: 0.5rem;
+    justify-self: flex-end;
+  }
+`;
+
+/**
+ * Dropdown item label specially for unsupported networks
+ */
+const DropdownUnsupportedLabel = styled.div`
+  color: #bb2323;
+
+  &::before {
+    content: "❌";
+    margin-right: 0.5rem;
+  }
+`;
 
 /**
  * Item component for the dropdown list
@@ -62,7 +109,7 @@ const NetworkSelectDropdownItem = (props: NetworkSelectDropdownItemProps) => {
   return (
     <div className={className}>
       <DropdownItem {...rest}>
-        <DropdownItemLabel network={network} active={active} />
+        <StyledDropdownItemLabel network={network} active={active} />
       </DropdownItem>
     </div>
   );
@@ -85,31 +132,22 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
     );
   });
 
-  let selectedLabel: React.ReactNode = (
-    <div className="bg-white">
-      <IconError className="mr-2 w-5 h-5 rounded-full" />
-      Unsupported Network
-    </div>
-  );
+  let selectedLabel: React.ReactNode = <DropdownUnsupportedLabel>Unsupported Network</DropdownUnsupportedLabel>;
   try {
     if (currentChainId) {
-      selectedLabel = <DropdownItemLabel network={getChainInfo(currentChainId)} />;
+      selectedLabel = <StyledDropdownItemLabel network={getChainInfo(currentChainId)} />;
     }
   } catch (e: any) {
     console.log(e.message);
   }
 
   return (
-    <WrappedDropdown
-      dropdownButtonText={selectedLabel}
-      classNameShared="w-full font-medium text-cloud-500"
-      classNameMenu="text-sm font-bold lg:shadow-dropdown rounded-md w-max min-w-full z-30 lg:left-0 lg:absolute lg:-bottom-0 lg:transform lg:translate-y-full py-0"
-    >
+    <StyledDropdown dropdownButtonText={selectedLabel} classNameShared="w-full max-w-xs">
       <div>
-        <span className="p-3 pr-8 cursor-default">Select a Network</span>
+        <span className="select-msg">Select a Network</span>
         {itemsList}
       </div>
-    </WrappedDropdown>
+    </StyledDropdown>
   );
 };
 

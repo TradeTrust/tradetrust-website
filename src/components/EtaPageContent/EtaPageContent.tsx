@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@govtechsg/tradetrust-ui-components";
+import styled from "@emotion/styled";
 
 const SectionMap = () => {
   return (
@@ -69,12 +70,17 @@ const SectionMap = () => {
   );
 };
 
+const AmendedEta = styled.div`
+  background-image: url("/static/images/common/wave-lines-light.png");
+  background-size: cover;
+`;
+
 const SectionAmendedEta = () => {
   return (
     <section className="bg-white relative z-10">
-      <div className="bg-wave-lines-light bg-cover bg-cerulean rounded-lg text-white p-8 text-center lg:absolute left-0 right-0 max-w-4xl mx-auto transform lg:-translate-y-1/2">
+      <AmendedEta className="bg-cerulean rounded-lg text-white p-8 text-center lg:absolute left-0 right-0 max-w-4xl mx-auto transform lg:-translate-y-1/2">
         <h2>The amended ETA supports and complements the government’s trade digitalization initiatives.</h2>
-      </div>
+      </AmendedEta>
     </section>
   );
 };

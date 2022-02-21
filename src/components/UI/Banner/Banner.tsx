@@ -13,7 +13,10 @@ export const Banner: FunctionComponent<BannerProps> = ({ className, title, butto
   return (
     <div className={`${className ? className : ""}`}>
       <div className="container">
-        <div className="rounded-xl bg-cerulean bg-cover bg-wave-lines-light">
+        <div
+          className="rounded-xl bg-cerulean bg-cover"
+          style={{ backgroundImage: "url('/static/images/common/wave-lines-light.png')" }}
+        >
           <div className="flex flex-wrap items-center px-4 py-6 text-white">
             <div className="px-2 w-full lg:w-2/3 mb-2 lg:mb-0">
               <h3 data-testid="banner-title">{title}</h3>

@@ -4,8 +4,14 @@ import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar, leftNavItems, rightNavItems } from "./components/Layout/NavigationBar";
 import { Routes, routes } from "./routes";
+import styled from "@emotion/styled";
 import { useProviderContext } from "./common/contexts/provider";
 import { getChainInfo } from "./common/utils/chain-utils";
+
+const Main = styled.main`
+  background-image: url("/static/images/common/wave-lines.png");
+  background-size: cover;
+`;
 
 const AppContainer = (): React.ReactElement => {
   const location = useLocation();
@@ -30,12 +36,9 @@ const AppContainer = (): React.ReactElement => {
         leftItems={leftNavItems}
         rightItems={rightNavItems}
       />
-      <main
-        className="bg-cerulean-50 flex-1 bg-cover"
-        style={{ backgroundImage: "url('/static/images/common/wave-lines.png')" }}
-      >
+      <Main className="bg-cerulean-50 flex-1">
         <Routes routes={routes} />
-      </main>
+      </Main>
       <Footer />
       <Overlay />
     </div>
