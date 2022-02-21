@@ -33,8 +33,10 @@ interface DropdownItemLabelProps {
 const WrappedDropdown = (props: DropdownProps) => {
   const { children, className, ...rest } = props;
   return (
-    <div className={className}>
-      <Dropdown {...rest}>{children}</Dropdown>
+    <div className={className} style={{ minWidth: "12.5em" }}>
+      <Dropdown className="rounded-md py-1 pl-4 p-2 border border-gray-300 bg-white" {...rest}>
+        {children}
+      </Dropdown>
     </div>
   );
 };
@@ -47,7 +49,7 @@ const DropdownItemLabel: FunctionComponent<DropdownItemLabelProps> = ({ classNam
     <div className={className}>
       <div className="flex items-center" data-testid={`network-select-dropdown-label-${network.chainId}`}>
         <img className="mr-2 w-5 h-5 rounded-full" src={network.iconImage} alt={network.label} />
-        <span className="py-2 hover:text-cerulean transition-colors duration-200 ease-out w-full">{network.label}</span>
+        <span className="w-full">{network.label}</span>
         {active ? <span className="m-1 p-1 bg-emerald-500 rounded-lg justify-self-end" /> : null}
       </div>
     </div>
@@ -102,11 +104,11 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   return (
     <WrappedDropdown
       dropdownButtonText={selectedLabel}
-      classNameShared="w-full font-medium text-cloud-500"
-      classNameMenu="text-sm font-bold lg:shadow-dropdown rounded-md w-max min-w-full z-30 lg:left-0 lg:absolute lg:-bottom-0 lg:transform lg:translate-y-full py-0"
+      className="inline-block text-sm"
+      classNameShared="w-full max-w-xs"
     >
       <div>
-        <span className="p-3 pr-8 cursor-default">Select a Network</span>
+        <span className="text-cloud-500 p-3 pr-8 cursor-default">Select a Network</span>
         {itemsList}
       </div>
     </WrappedDropdown>
