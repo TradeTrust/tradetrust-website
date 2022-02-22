@@ -21,7 +21,7 @@ const QrReaderZone = ({ handleQrScanned }: QrReaderZoneProps): React.ReactElemen
       <video
         data-testid="qr-code-reader"
         ref={scannerRef}
-        className={"top-0 left-0 block absolute overflow-hidden w-full h-full object-cover transform scale-x-0"}
+        className={"top-0 left-0 block absolute overflow-hidden w-full h-full object-cover scale-x-0"}
       />
     </div>
   );

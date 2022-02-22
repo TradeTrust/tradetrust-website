@@ -41,9 +41,7 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
         {headingTag === "h5" && <h5>{heading}</h5>}
         <svg
           data-testid="accordion-icon"
-          className={`transition-transform duration-200 transform${
-            isOpen ? " rotate-180" : " rotate-0"
-          } min-w-min min-h-min`}
+          className={`transition-transform duration-200 ${isOpen ? " rotate-180" : " rotate-0"} min-w-min min-h-min`}
           width="24"
           height="24"
           viewBox="0 0 24 24"
