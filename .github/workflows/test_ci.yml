@@ -33,12 +33,15 @@ jobs:
       - name: Check Lint
         run: npm run lint
       - name: Test
+        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run test
       - name: Build
         run: npm run build
       - name: Integration - testcafe
+        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run integration:headless
       - name: Integration - dappeteer
+        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         uses: mujo-code/puppeteer-headful@master
         env:
           CI: "true"
