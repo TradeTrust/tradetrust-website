@@ -1,11 +1,33 @@
-import React from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { Helmet } from "react-helmet";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
 import { Page } from "../components/Layout/Page";
 import { useProviderContext } from "../common/contexts/provider";
 import { Link } from "react-router-dom";
-import { ErrorPage } from "@govtechsg/tradetrust-ui-components";
+import {
+  Button,
+  ErrorPage,
+  Overlay,
+  OverlayContext,
+  OverlayContextProvider,
+  Textual,
+} from "@govtechsg/tradetrust-ui-components";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
+export interface OverlayProps {
+  buttonText: string;
+  children: React.ReactNode;
+}
+
+const QuestionOverlay: FunctionComponent<OverlayProps> = ({ buttonText, children }) => {
+  const { showOverlay } = useContext(OverlayContext);
+
+  return (
+    <>
+      <Overlay />
+      <Button onClick={() => showOverlay(children)}>{buttonText}</Button>
+    </>
+  );
+};
 
 const VerifyPage = (): React.ReactElement => {
   const { getProvider } = useProviderContext();
@@ -31,6 +53,17 @@ const VerifyPage = (): React.ReactElement => {
             Verify your document on
           </span>
           <NetworkSelect />
+          <span className="mr-3" />
+          <OverlayContextProvider>
+            <QuestionOverlay buttonText="?">
+              <Textual title="Network Selector" style={{}}>
+                A document can only be successfully verified on the same network where the document was created in.
+                <br />
+                If unsure, do check with the document issuer.
+              </Textual>
+            </QuestionOverlay>
+          </OverlayContextProvider>
+
           <DropZoneSectionContainer />
         </Page>
       ) : (
