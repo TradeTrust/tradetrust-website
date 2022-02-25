@@ -123,7 +123,13 @@ export const MagicDropzone: FunctionComponent = () => {
   });
 
   const customStyle = useMemo(() => {
-    return getDropzoneBoxUi({ isDragReject, isDragActive, isDragAccept, isVerificationPending, isVerificationError });
+    return getDropzoneBoxUi({
+      isDragReject,
+      isDragActive,
+      isDragAccept,
+      isVerificationPending,
+      isVerificationError,
+    });
   }, [isDragReject, isDragActive, isDragAccept, isVerificationPending, isVerificationError]);
 
   return (
