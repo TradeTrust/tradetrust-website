@@ -5,7 +5,6 @@ import {
   OverlayContext,
   showDocumentTransferMessage,
   IconError,
-  useOverlayContext,
 } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
@@ -119,19 +118,21 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
 
 export const NetworkSelect: FunctionComponent = () => {
   const { changeNetwork, supportedChainInfoObjects, currentChainId } = useProviderContext();
-  const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
-
-  const closeOverlay = () => {
-    setOverlayVisible(false);
-    showOverlay(undefined);
-  }
+  const { showOverlay } = useContext(OverlayContext);
+  // const closeOverlay = () => {
+  //   setOverlayVisible(false);
+  //   showOverlay(undefined);
+  // };
 
   const changeHandler = async (network: ChainInfoObject) => {
     try {
-      showOverlay(
-        <LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"}/>
-      );
+      showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
       await changeNetwork(network.chainId);
+      showOverlay(
+        showDocumentTransferMessage("Network Changed.", {
+          isSuccess: true,
+        })
+      );
     } catch (e: any) {
       showOverlay(
         showDocumentTransferMessage("You've cancelled changing network.", {
@@ -139,7 +140,6 @@ export const NetworkSelect: FunctionComponent = () => {
         })
       );
     }
-    closeOverlay();
   };
 
   return (

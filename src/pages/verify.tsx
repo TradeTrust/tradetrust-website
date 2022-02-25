@@ -15,16 +15,20 @@ import {
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
 export interface OverlayProps {
   buttonText: string;
+  className: string;
+  style: Record<string, string | number>;
   children: React.ReactNode;
 }
 
-const QuestionOverlay: FunctionComponent<OverlayProps> = ({ buttonText, children }) => {
+const QuestionOverlay: FunctionComponent<OverlayProps> = ({ buttonText, className, style, children }) => {
   const { showOverlay } = useContext(OverlayContext);
 
   return (
     <>
       <Overlay />
-      <Button onClick={() => showOverlay(children)}>{buttonText}</Button>
+      <Button className={className} style={style} onClick={() => showOverlay(children)}>
+        {buttonText}
+      </Button>
     </>
   );
 };
@@ -55,8 +59,12 @@ const VerifyPage = (): React.ReactElement => {
           <NetworkSelect />
           <span className="mr-3" />
           <OverlayContextProvider>
-            <QuestionOverlay buttonText="?">
-              <Textual title="Network Selector" style={{}}>
+            <QuestionOverlay
+              buttonText="?"
+              className="w-6 h-6 rounded-full font-bold text-cerulean-200 border-1 border-cerulean-200 p-0"
+              style={{ borderColor: "#4BC3E9", padding: "0" }}
+            >
+              <Textual title="Network Selector">
                 A document can only be successfully verified on the same network where the document was created in.
                 <br />
                 If unsure, do check with the document issuer.
