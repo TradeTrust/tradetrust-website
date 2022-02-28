@@ -13,7 +13,7 @@ const mockUseProviderContext = useProviderContext as jest.Mock;
 
 describe("useEndorsementChain|integration", () => {
   beforeAll(() => {
-    mockUseProviderContext.mockReturnValue({ provider: ropstenProvider });
+    mockUseProviderContext.mockReturnValue({ getProvider: jest.fn().mockReturnValue(ropstenProvider) });
   });
   it("should work correctly for a given document ID and token registry", async () => {
     const { result } = renderHook(() =>

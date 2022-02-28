@@ -2,8 +2,12 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
 import { Page } from "../components/Layout/Page";
+import { useProviderContext } from "../common/contexts/provider";
+import { Link } from "react-router-dom";
+import { ErrorPage } from "@govtechsg/tradetrust-ui-components";
 
 const VerifyPage = (): React.ReactElement => {
+  const { getProvider } = useProviderContext();
   return (
     <>
       <Helmet>
@@ -19,9 +23,25 @@ const VerifyPage = (): React.ReactElement => {
         <meta property="og:url" content={`${window.location.origin}/verify`} />
         <title>TradeTrust - Verify</title>
       </Helmet>
-      <Page title="Verify Documents">
-        <DropZoneSectionContainer />
-      </Page>
+
+      {getProvider() ? (
+        <Page title="Verify Documents">
+          <DropZoneSectionContainer />
+        </Page>
+      ) : (
+        <ErrorPage
+          pageTitle="Unsupported Network"
+          header="You're currently on an unsupported network!"
+          description="Please change to a supported network at the top of the page and try again."
+          image="/static/images/errorpage/error-boundary.png"
+        >
+          <h3 className="font-normal my-2 sm:my-4 text-lg sm:text-2xl">
+            <Link className="text-cerulean-200" to="/verify" onClick={() => window.location.reload()}>
+              Try again
+            </Link>
+          </h3>
+        </ErrorPage>
+      )}
     </>
   );
 };

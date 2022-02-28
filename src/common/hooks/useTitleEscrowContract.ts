@@ -11,7 +11,7 @@ interface useTitleEscrowContractProps {
 }
 
 export const useTitleEscrowContract = (
-  provider: providers.Provider | Signer,
+  provider: providers.Provider | Signer | undefined,
   tokenRegistry?: TradeTrustErc721,
   tokenId?: string
 ): useTitleEscrowContractProps => {
@@ -19,7 +19,7 @@ export const useTitleEscrowContract = (
   const [documentOwner, setDocumentOwner] = useState<string>();
 
   const updateTitleEscrow = useCallback(async () => {
-    if (!tokenRegistry || !tokenId) return;
+    if (!tokenRegistry || !tokenId || !provider) return;
     const titleEscrowAddress = await tokenRegistry.ownerOf(tokenId);
     setDocumentOwner(titleEscrowAddress);
     const instance = TitleEscrowFactory.connect(titleEscrowAddress, provider);

@@ -1,7 +1,7 @@
 import { createBrowserHistory } from "history";
 import React, { FunctionComponent } from "react";
 import { Router } from "react-router-dom";
-import { ErrorBoundary } from "./ErrorBoundary";
+import { ErrorBoundary, ErrorBoundaryRenderer } from "./ErrorBoundary";
 
 const history = createBrowserHistory();
 
@@ -19,10 +19,12 @@ const ErrorComponent: FunctionComponent = () => {
   );
 };
 
+const MockRenderer: ErrorBoundaryRenderer = () => <div>Error Renderer</div>;
+
 export const Default = () => {
   return (
     <Router history={history}>
-      <ErrorBoundary>
+      <ErrorBoundary renderer={MockRenderer}>
         <ErrorComponent />
       </ErrorBoundary>
     </Router>

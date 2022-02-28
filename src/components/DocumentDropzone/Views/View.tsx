@@ -1,15 +1,17 @@
 import React, { FunctionComponent } from "react";
 import { Button, ButtonSize } from "@govtechsg/tradetrust-ui-components";
 import { SampleMobile } from "../SampleMobile";
+import { useProviderContext } from "../../../common/contexts/provider";
 
 interface ViewProps {
   toggleQrReaderVisible?: () => void;
 }
 
 export const View: FunctionComponent<ViewProps> = ({ toggleQrReaderVisible }) => {
+  const { currentChainId } = useProviderContext();
   return (
     <div>
-      <SampleMobile />
+      <SampleMobile currentChainId={currentChainId} />
       <img
         className="mx-auto w-56"
         alt="Document Dropzone TradeTrust"

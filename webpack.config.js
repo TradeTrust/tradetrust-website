@@ -5,7 +5,7 @@ const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
-const { IS_DEVELOPMENT, GA_MEASUREMENT_ID, GA_CONFIG_OPTION } = require("./src/config");
+const { IS_DEVELOPMENT, IS_TEST_ENV, IS_DEV_SERVER, GA_MEASUREMENT_ID, GA_CONFIG_OPTION } = require("./src/config");
 
 module.exports = {
   entry: {
@@ -30,7 +30,9 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader", options: { url: false } }],
       },
       {
         test: /\.md$/,
@@ -58,19 +60,19 @@ module.exports = {
       GA_MEASUREMENT_ID,
       GA_CONFIG_OPTION,
     }),
-    ...(!IS_DEVELOPMENT
+    ...(!IS_DEV_SERVER
       ? [
-          new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
-          new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
-          new CopyWebpackPlugin({
-            patterns: [
-              { from: "public/static/images", to: "static/images" },
-              { from: "public/static/demo", to: "static/demo" },
-              { from: "public/static/uploads", to: "static/uploads" },
-              { from: "public/admin", to: "admin" },
-            ],
-          }),
-        ]
+        new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
+        new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
+        new CopyWebpackPlugin({
+          patterns: [
+            { from: "public/static/images", to: "static/images" },
+            { from: "public/static/demo", to: "static/demo" },
+            { from: "public/static/uploads", to: "static/uploads" },
+            { from: "public/admin", to: "admin" },
+          ],
+        }),
+      ]
       : []),
   ],
   optimization: {
@@ -87,7 +89,7 @@ module.exports = {
 
   // Using cheap-eval-source-map for build times
   // switch to inline-source-map if detailed debugging needed
-  devtool: !IS_DEVELOPMENT ? false : "eval-cheap-source-map",
+  devtool: !IS_DEVELOPMENT || IS_TEST_ENV ? false : "eval-cheap-source-map",
 
   devServer: {
     compress: true,

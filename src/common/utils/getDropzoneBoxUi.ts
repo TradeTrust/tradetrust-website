@@ -1,7 +1,7 @@
 enum DropzoneBoxUiState {
   DRAG_REJECT = "border-red-400 bg-red-100",
-  DRAG_ACTIVE = "border-green-400 bg-green-50",
-  DRAG_ACCEPT = "border-green-400 bg-green-50",
+  DRAG_ACTIVE = "border-emerald-400 bg-emerald-50",
+  DRAG_ACCEPT = "border-emerald-400 bg-emerald-50",
   VERIFICATION_PENDING = "border-cloud-100 bg-white",
   VERIFICATION_ERROR = "border-red-400 bg-red-100",
   ACTION_ERROR = "border-red-400 bg-red-100",

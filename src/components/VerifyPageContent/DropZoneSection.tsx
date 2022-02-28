@@ -1,12 +1,18 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { useDispatch } from "react-redux";
 import { roundInstructionsText } from ".";
 import { updateCertificate } from "../../reducers/certificate";
 import { CertificateDropZoneContainer } from "../CertificateDropZone/CertificateDropZoneContainer";
 import { setActive, reset } from "../../reducers/sample";
-import { loadDemoCertificate, DEMO_CERT } from "./helpers";
+import { loadDemoCertificate, getDemoCert } from "./helpers";
+import { useProviderContext } from "../../common/contexts/provider";
+import { ChainId } from "../../constants/chain-info";
 
-const DraggableDemoCertificate = () => (
+interface DraggableDemoCertificateProps {
+  chainId: ChainId;
+}
+
+const DraggableDemoCertificate: FunctionComponent<DraggableDemoCertificateProps> = (props) => (
   <div className="hidden md:block w-full md:w-1/2 px-4">
     <div className="relative w-full h-full">
       <img
@@ -22,11 +28,14 @@ const DraggableDemoCertificate = () => (
                 {roundInstructionsText}
               </p>
             </div>
-            <div className="absolute" draggable onDragStart={(e) => e.dataTransfer.setData(DEMO_CERT, "true")}>
-              <a href={DEMO_CERT} download="demo.tt" rel="noindex nofollow" className="cursor-default">
+            <div
+              className="absolute"
+              draggable
+              onDragStart={(e) => e.dataTransfer.setData(getDemoCert(props.chainId), "true")}
+            >
+              <a href={getDemoCert(props.chainId)} download="demo.tt" rel="noindex nofollow" className="cursor-default">
                 <img
-                  className="absolute cursor-grab active:cursor-grabbing"
-                  style={{ top: "-40%" }}
+                  className="-top-2/5 absolute cursor-grab active:cursor-grabbing"
                   src="/static/images/dropzone/certificate.svg"
                 />
               </a>
@@ -41,14 +50,16 @@ const DraggableDemoCertificate = () => (
 export const DropZoneSectionContainer = (): React.ReactElement => {
   const dispatch = useDispatch();
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
-  return (
+  const { currentChainId } = useProviderContext();
+
+  return currentChainId ? (
     <div className="flex flex-wrap md:flex-nowrap mt-4 -mx-4">
       <div className="w-full md:w-1/2">
         <div
           id="demoDrop"
           onDrop={(event) => {
-            if (event.dataTransfer && event.dataTransfer.getData(DEMO_CERT)) {
-              loadDemoCertificate(loadCertificate);
+            if (event.dataTransfer && event.dataTransfer.getData(getDemoCert(currentChainId))) {
+              loadDemoCertificate(loadCertificate, currentChainId);
               dispatch(setActive());
             } else {
               dispatch(reset());
@@ -58,7 +69,9 @@ export const DropZoneSectionContainer = (): React.ReactElement => {
           <CertificateDropZoneContainer />
         </div>
       </div>
-      <DraggableDemoCertificate />
+      <DraggableDemoCertificate chainId={currentChainId} />
     </div>
+  ) : (
+    <div>You are currently on an unsupported network.</div>
   );
 };

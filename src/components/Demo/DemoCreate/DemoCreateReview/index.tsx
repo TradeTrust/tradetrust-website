@@ -2,7 +2,7 @@ import { OpenAttestationDocument } from "@govtechsg/open-attestation";
 import { ProgressBar, ToggleSwitch } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProviderContext } from "../../../../common/contexts/provider";
+import { useProviderContext } from "../../../../common/contexts/provider";
 import {
   getDocumentStoreAddress,
   getIssuedDocumentStatus,
@@ -78,7 +78,7 @@ const DefaultReview = (data: Record<string, FormItemSchema>) => {
 export const DemoCreateReview: FunctionComponent = () => {
   const { setActiveStep } = useContext(DemoCreateContext);
   const { formValues } = useContext(DemoFormContext);
-  const { provider } = useContext(ProviderContext);
+  const { getTransactor } = useProviderContext();
   const wrapDocumentStatus = useSelector(getWrappedDocumentStatus);
   const issueDocumentStatus = useSelector(getIssuedDocumentStatus);
   const documentStoreAddress = useSelector(getDocumentStoreAddress);
@@ -101,6 +101,7 @@ export const DemoCreateReview: FunctionComponent = () => {
   };
 
   useEffect(() => {
+    const provider = getTransactor();
     if (wrapDocumentStatus !== null && wrapDocumentStatus === "success") {
       dispatch(issuingDocument(provider));
       gaEvent({
@@ -108,7 +109,7 @@ export const DemoCreateReview: FunctionComponent = () => {
         category: "magic_demo",
       });
     }
-  }, [wrapDocumentStatus, dispatch, provider]);
+  }, [wrapDocumentStatus, dispatch, getTransactor]);
 
   useEffect(() => {
     if (issueDocumentStatus !== null && issueDocumentStatus !== "pending") {

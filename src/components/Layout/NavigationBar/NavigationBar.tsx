@@ -9,6 +9,7 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
+import { NetworkSelect } from "../NetworkSelect";
 
 export const leftNavItems: NavigationItem[] = [
   {
@@ -112,6 +113,13 @@ export const leftNavItems: NavigationItem[] = [
 ];
 
 export const rightNavItems: NavigationItem[] = [
+  {
+    schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
+    id: "network",
+    label: "Select a Network",
+    path: "#",
+    customLink: <NetworkSelect />,
+  },
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationIconButton,
     id: "settings",

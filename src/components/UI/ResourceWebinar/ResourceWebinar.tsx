@@ -70,7 +70,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
                 return (
                   <DropdownItem
                     key={i}
-                    className={"break-words overflow-clip whitespace-normal text-cloud-900 "}
+                    className={"break-words text-clip whitespace-normal text-cloud-900 "}
                     data-testid="video-chapters-dropdown"
                     onClick={() => setCurrentTimeStamp(videoChapter.timeStamp)}
                   >

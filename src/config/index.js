@@ -1,6 +1,6 @@
 const IS_DEVELOPMENT = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
 
-const NETWORK = process.env.NET || "ropsten";
+const NETWORK = process.env.NET ? process.env.NET : IS_DEVELOPMENT ? "ropsten" : "mainnet";
 const IS_MAINNET = NETWORK === "mainnet";
 const NETWORK_NAME = IS_MAINNET ? "homestead" : NETWORK;
 const ETHERSCAN_SUBDOMAIN = IS_MAINNET ? "" : `${NETWORK_NAME}.`;
@@ -24,4 +24,6 @@ module.exports = {
   NETWORK,
   NETWORK_NAME,
   NETWORK_ID: IS_MAINNET ? "1" : "3",
+  IS_TEST_ENV: process.env.NODE_ENV === "test",
+  IS_DEV_SERVER: !!process.env.WEBPACK_DEV_SERVER,
 };

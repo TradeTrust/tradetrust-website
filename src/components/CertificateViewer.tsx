@@ -2,22 +2,23 @@ import { utils } from "@govtechsg/open-attestation";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
-import { resetCertificateState } from "../reducers/certificate";
+import { resetCertificateState, updateCertificate } from "../reducers/certificate";
 import { RootState } from "../reducers";
 import { getLogger } from "../utils/logger";
-import { TemplateProps } from "./../types";
+import { TemplateProps } from "../types";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain";
-import { ErrorBoundary } from "./ErrorBoundary";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
 import { WrappedOrSignedOpenAttestationDocument, getAttachments, getTokenRegistryAddress } from "../utils/shared";
 import { resetDemoState } from "../reducers/demo-verify";
+import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
+import { useProviderContext } from "../common/contexts/provider";
 
 const { trace } = getLogger("component: certificateviewer");
 
@@ -47,9 +48,21 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const { initialize, resetStates: resetTokenInformationState } = useTokenInformationContext();
   const dispatch = useDispatch();
 
-  const resetCertificateData = useCallback(() => dispatch(resetCertificateState()), [dispatch]);
-  const resetMagicData = useCallback(() => dispatch(resetDemoState()), [dispatch]);
   const isSampleDocument = useSelector((state: RootState) => state.sample.isSampleDocument);
+  const certificateDoc = useSelector((state: RootState) => state.certificate.rawModified);
+
+  const resetCertificateData = useCallback(() => {
+    dispatch(resetCertificateState());
+    dispatch(resetDemoState());
+  }, [dispatch]);
+
+  const { currentChainId } = useProviderContext();
+
+  // Update the certificate when network is changed
+  useEffect(() => {
+    resetCertificateData();
+    dispatch(updateCertificate(certificateDoc));
+  }, [certificateDoc, currentChainId, dispatch, resetCertificateData]);
 
   /*
   initialise the meta token information context when new tokenId
@@ -59,14 +72,13 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
     if (tokenRegistryAddress) {
       trace("initialise token information context");
       initialize(tokenRegistryAddress, tokenId);
-      return () => {
-        trace("resetting token information on unmount");
-        resetTokenInformationState();
-        resetCertificateData();
-        resetMagicData();
-      };
     }
-  }, [tokenId, tokenRegistryAddress, resetCertificateData, resetMagicData, resetTokenInformationState, initialize]);
+    return () => {
+      trace("resetting token information on unmount");
+      resetTokenInformationState();
+      resetCertificateData();
+    };
+  }, [tokenId, tokenRegistryAddress, initialize, resetTokenInformationState, resetCertificateData]);
 
   const childRef = React.useRef<{ print: () => void }>();
 
@@ -155,5 +167,9 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
     </>
   );
 
-  return <ErrorBoundary>{showEndorsementChain ? renderedEndorsementChain : renderedCertificateViewer}</ErrorBoundary>;
+  return (
+    <CertificateViewerErrorBoundary>
+      {showEndorsementChain ? renderedEndorsementChain : renderedCertificateViewer}
+    </CertificateViewerErrorBoundary>
+  );
 };
