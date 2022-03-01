@@ -65,7 +65,7 @@ const webinars = [
     },
   },
   {
-    title: "Creation of Verifiable Documents (DNS)",
+    title: "Creation of Verifiable Documents (DNS-TXT)",
     description:
       "This Webinar focuses on the creation of verifiable documents. These are documents that do not have the functionality of transferring title.",
     resource: {
@@ -110,7 +110,7 @@ const webinars = [
     },
   },
   {
-    title: "Creation of Verifiable Documents (DID)",
+    title: "Creation of Verifiable Documents (DNS-DID)",
     description:
       "This Webinar focuses on the creation of verifiable documents using Ethereum DID. These are documents that do not have the functionality of transferring title.",
     resource: {
