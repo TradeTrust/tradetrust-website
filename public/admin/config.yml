@@ -8,6 +8,7 @@ backend:
     delete: "chore: Delete {{collection}} “{{slug}}” {{author-name}} [skip test]"
     uploadMedia: "chore: Upload “{{path}}” {{author-name}} [skip test]"
     deleteMedia: "chore: Delete “{{path}}” {{author-name}} [skip test]"
+  preview_context: netlify/tradetrust-mainnet/deploy-preview # beta feature = https://github.com/netlify/netlify-cms/issues/2315, https://github.com/netlify/netlify-cms/issues/4812
 
 local_backend: true
 
