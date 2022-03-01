@@ -22,6 +22,7 @@
     "integration": "testcafe chrome src/**/*.spec.ts",
     "integration:single": "testcafe chrome -L",
     "integration:headless": "testcafe -c 4 chrome:headless src/**/*.spec.ts --app \"npm run serve-static\"",
+    "integration:headless:slow": "testcafe -c 4 chrome:headless src/**/*.spec.ts --speed 0.5 --app \"npm run serve-static\"",
     "integration:title-transfers": "node --experimental-modules ./integration/local/index.mjs",
     "integration:dappeteer": "run-s wait blockchain:contracts integration:title-transfers",
     "integration:local": "cross-env NET=local npm run dev",
