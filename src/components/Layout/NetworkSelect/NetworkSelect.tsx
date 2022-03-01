@@ -118,21 +118,17 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
 
 export const NetworkSelect: FunctionComponent = () => {
   const { changeNetwork, supportedChainInfoObjects, currentChainId } = useProviderContext();
-  const { showOverlay } = useContext(OverlayContext);
-  // const closeOverlay = () => {
-  //   setOverlayVisible(false);
-  //   showOverlay(undefined);
-  // };
+  const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
+  const closeOverlay = () => {
+    showOverlay(undefined);
+    setOverlayVisible(false);
+  };
 
   const changeHandler = async (network: ChainInfoObject) => {
     try {
       showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
       await changeNetwork(network.chainId);
-      showOverlay(
-        showDocumentTransferMessage("Network Changed.", {
-          isSuccess: true,
-        })
-      );
+      closeOverlay();
     } catch (e: any) {
       showOverlay(
         showDocumentTransferMessage("You've cancelled changing network.", {
