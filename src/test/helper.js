@@ -9,7 +9,8 @@ const VerifyPage = Selector("a[href='/verify']");
 
 export const validateTextContent = async (testcafe, component, texts) =>
   texts.reduce(
-    async (previousValue, currentValue) => testcafe.expect(component.textContent, { timeout: 30000 }).contains(currentValue, { timeout: 300000 }),
+    async (previousValue, currentValue) =>
+      testcafe.expect(component.textContent, { timeout: 30000 }).contains(currentValue, { timeout: 300000 }),
     Promise.resolve()
   );
 
@@ -23,7 +24,7 @@ export const uploadDocument = async (documentPath) => {
 };
 
 export const validateIframeTexts = async (texts) => {
-  await t.switchToIframe(Iframe, {timeout: 60000});
+  await t.switchToIframe(Iframe, { timeout: 60000 });
   await validateTextContent(t, SampleTemplate, texts);
   await t.switchToMainWindow();
 };
