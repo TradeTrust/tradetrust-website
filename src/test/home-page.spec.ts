@@ -96,8 +96,9 @@ test("Render home page", async (t) => {
   await t.expect(Selector("[data-testid='get-in-touch-3']").count).eql(1);
   await t.click(OverlayCloseButton);
 
-  // display Get In Touch button and test for Contact Us
+  // display Get In Touch button and test for Try our Demo
   await t.expect(GetInTouchButton.count).eql(1);
   await t.click(GetInTouchButton);
-  await t.expect(Selector("[data-testid='page-title']").withText("Contact Us").count).eql(1);
+  const element = await Selector("[data-testid='page-title']");
+  await t.expect(element.textContent).contains("Demo");
 });
