@@ -65,7 +65,7 @@ const webinars = [
     },
   },
   {
-    title: "Creation of Verifiable Documents",
+    title: "Creation of Verifiable Documents (DNS-TXT)",
     description:
       "This Webinar focuses on the creation of verifiable documents. These are documents that do not have the functionality of transferring title.",
     resource: {
@@ -105,6 +105,42 @@ const webinars = [
         {
           title: "Reading Document",
           timeStamp: 2496,
+        },
+      ],
+    },
+  },
+  {
+    title: "Creation of Verifiable Documents (DNS-DID)",
+    description:
+      "This Webinar focuses on the creation of verifiable documents using Ethereum DID. These are documents that do not have the functionality of transferring title.",
+    resource: {
+      youtubeEmbedCode: "ml0I2EojhN4",
+      tag: "Technical",
+      downloads: [],
+      videoChapters: [
+        {
+          title: "Creating a DID",
+          timeStamp: 10,
+        },
+        {
+          title: "Configuring DNS",
+          timeStamp: 76,
+        },
+        {
+          title: "Creating a Raw Document",
+          timeStamp: 134,
+        },
+        {
+          title: "Wrapping Documents",
+          timeStamp: 198,
+        },
+        {
+          title: "Signing Documents",
+          timeStamp: 236,
+        },
+        {
+          title: "Verify Documents",
+          timeStamp: 286,
         },
       ],
     },
