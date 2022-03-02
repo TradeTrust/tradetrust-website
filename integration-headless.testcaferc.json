@@ -1,0 +1,10 @@
+{
+    "concurrency": 2,
+    "speed": 0.75,
+    "selectorTimeout": 20000,
+    "assertionTimeout": 10000,
+    "pageLoadTimeout": 15000,
+    "ajaxRequestTimeout": 120000,
+    "pageRequestTimeout": 45000,
+    "browserInitTimeout": 400000
+}
