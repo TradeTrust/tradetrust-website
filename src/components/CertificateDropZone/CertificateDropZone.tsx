@@ -2,10 +2,21 @@ import React, { FunctionComponent, useCallback, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
-import { updateCertificate, resetCertificateState, states } from "../../reducers/certificate";
+import {
+  updateCertificate,
+  resetCertificateState,
+  states,
+  verifyingCertificateFailure,
+  verifyingCertificateCompleted,
+} from "../../reducers/certificate";
 import { getDropzoneBoxUi } from "../../common/utils/getDropzoneBoxUi";
 import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "../DocumentDropzone/Views";
 import { isValid } from "@govtechsg/oa-verify";
+import { useProviderContext } from "../../common/contexts/provider";
+import { getChainId } from "../../utils/shared";
+import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+
+const { TYPES } = CONSTANTS;
 
 interface CertificateDropzoneProps {
   toggleQrReaderVisible?: () => void;
@@ -30,6 +41,8 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     dispatch(resetCertificateState());
   }, [dispatch]);
 
+  const { currentChainId, changeNetwork } = useProviderContext();
+
   const onDrop = useCallback(
     (acceptedFiles: Blob[]) => {
       acceptedFiles.forEach((file: Blob) => {
@@ -37,18 +50,26 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
         reader.onabort = () => console.log("file reading was aborted");
         reader.onerror = () => console.log("file reading has failed");
-        reader.onload = () => {
+        reader.onload = async () => {
           try {
             const json = JSON.parse(reader.result as string);
+            const chainId = getChainId(json);
+            if (chainId && currentChainId !== chainId) {
+              await changeNetwork(chainId);
+            }
             dispatch(updateCertificate(json));
           } catch (e) {
+            if (e instanceof Error) {
+              dispatch(verifyingCertificateCompleted([e.message]));
+              dispatch(verifyingCertificateFailure(TYPES.NETWORK_INVALID));
+            }
             console.error(e);
           }
         };
         reader.readAsText(file);
       });
     },
-    [dispatch]
+    [changeNetwork, currentChainId, dispatch]
   );
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
