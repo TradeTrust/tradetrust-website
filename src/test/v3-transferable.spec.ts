@@ -7,7 +7,7 @@ test("should render correctly when verified", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/v3/ebl-ropsten.json");
 
-  await t.expect(Selector("h5").withText("View BL Registry").exists).ok();
+  await t.expect(Selector("h5").withText("View NFT Registry").exists).ok();
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
   await validateIframeTexts(["Demo Shipper", "Singapore Port", "Green Apples"]);
 });
