@@ -15,7 +15,6 @@ interface GetDropzoneBoxUi {
   isVerificationPending: boolean;
   isVerificationError: boolean | null;
   isActionError?: boolean | null;
-  isInputError?: boolean | null;
 }
 
 export const getDropzoneBoxUi = ({
