@@ -1,37 +1,12 @@
-import React, { FunctionComponent, useContext } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
 import { Page } from "../components/Layout/Page";
 import { useProviderContext } from "../common/contexts/provider";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  ErrorPage,
-  Overlay,
-  OverlayContext,
-  OverlayContextProvider,
-  Textual,
-} from "@govtechsg/tradetrust-ui-components";
+import { ErrorPage, OverlayContextProvider, Textual } from "@govtechsg/tradetrust-ui-components";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
-export interface OverlayProps {
-  buttonText: string;
-  className: string;
-  style: Record<string, string | number>;
-  children: React.ReactNode;
-}
-
-const QuestionOverlay: FunctionComponent<OverlayProps> = ({ buttonText, className, style, children }) => {
-  const { showOverlay } = useContext(OverlayContext);
-
-  return (
-    <>
-      <Overlay />
-      <Button className={className} style={style} onClick={() => showOverlay(children)}>
-        {buttonText}
-      </Button>
-    </>
-  );
-};
+import { StaticOverlay } from "../components/UI/Overlay/StaticOverlay";
 
 const VerifyPage = (): React.ReactElement => {
   const { getProvider } = useProviderContext();
@@ -53,25 +28,25 @@ const VerifyPage = (): React.ReactElement => {
 
       {getProvider() ? (
         <Page title="Verify Documents">
-          <span className="text-gray-900 mr-3 mb-3" data-testid="page-subtitle">
-            Verify your document on
-          </span>
-          <NetworkSelect />
-          <span className="mr-3" />
-          <OverlayContextProvider>
-            <QuestionOverlay
-              buttonText="?"
-              className="w-6 h-6 rounded-full font-bold text-cerulean-200 border-1 border-cerulean-200 p-0"
-              style={{ borderColor: "#4BC3E9", padding: "0" }}
-            >
-              <Textual title="Network Selector">
-                A document can only be successfully verified on the same network where the document was created in.
-                <br />
-                If unsure, do check with the document issuer.
-              </Textual>
-            </QuestionOverlay>
-          </OverlayContextProvider>
-
+          <div className="flex items-center">
+            <div className="text-gray-900 mr-3" data-testid="page-subtitle">
+              Verify your document on
+            </div>
+            <NetworkSelect />
+            <OverlayContextProvider>
+              <StaticOverlay
+                buttonText="?"
+                className="w-6 h-6 rounded-full font-bold text-cerulean-200 border-1 border-cerulean-200 p-0 ml-3"
+                style={{ borderColor: "#4BC3E9", padding: "0" }}
+              >
+                <Textual title="Network Selector">
+                  A document can only be successfully verified on the same network where the document was created in.
+                  <br />
+                  If unsure, do check with the document issuer.
+                </Textual>
+              </StaticOverlay>
+            </OverlayContextProvider>
+          </div>
           <DropZoneSectionContainer />
         </Page>
       ) : (
