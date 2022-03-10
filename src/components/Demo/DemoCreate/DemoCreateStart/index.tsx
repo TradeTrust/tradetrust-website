@@ -6,7 +6,7 @@ import { useProviderContext } from "../../../../common/contexts/provider";
 import { deployingDocStore, getDocumentPrepared } from "../../../../reducers/demo-create";
 import { getFunds } from "../../../../services/create";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
-import { LoadingModal } from "../../LoadingModal";
+import { LoadingModal } from "../../../UI/Overlay";
 import { gaEvent } from "../../../../common/analytics";
 
 export const DemoCreateStart: FunctionComponent = () => {

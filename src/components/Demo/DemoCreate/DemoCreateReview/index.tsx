@@ -11,7 +11,7 @@ import {
   issuingDocument,
   wrappingDocument,
 } from "../../../../reducers/demo-create";
-import { LoadingModal } from "../../LoadingModal";
+import { LoadingModal } from "../../../UI/Overlay";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { DemoFormContext } from "../contexts/DemoFormContext";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
