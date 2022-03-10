@@ -6,8 +6,7 @@ import { OverlayContextProvider, Textual } from "@govtechsg/tradetrust-ui-compon
 
 const mockOverlayProps: StaticOverlayProps = {
   buttonText: "?",
-  className: "w-6 h-6 rounded-full font-bold text-cerulean-200 border-1 border-cerulean-200 p-0 ml-3",
-  style: { borderColor: "#4BC3E9", padding: "0" },
+  className: "w-6 h-6 rounded-full font-bold text-cerulean-200 border border-cerulean-200 p-0 ml-3",
   children: <Textual title="Network Selector">Experimental Text</Textual>,
 };
 
@@ -16,11 +15,7 @@ describe("StaticOverlay", () => {
     const container = render(
       <MemoryRouter>
         <OverlayContextProvider>
-          <StaticOverlay
-            buttonText={mockOverlayProps.buttonText}
-            className={mockOverlayProps.className}
-            style={mockOverlayProps.style}
-          >
+          <StaticOverlay buttonText={mockOverlayProps.buttonText} className={mockOverlayProps.className}>
             {mockOverlayProps.children}
           </StaticOverlay>
         </OverlayContextProvider>
@@ -30,19 +25,13 @@ describe("StaticOverlay", () => {
     const renderedButton = container.getByText(mockOverlayProps.buttonText);
     expect(renderedButton).not.toBeNull();
     expect(renderedButton.className).toContain(mockOverlayProps.className);
-    renderedButton.style;
-    expect(renderedButton).toHaveStyle(mockOverlayProps.style as string | Record<string, unknown>);
   });
 
   it("should render the children correctly", () => {
     const container = render(
       <MemoryRouter>
         <OverlayContextProvider>
-          <StaticOverlay
-            buttonText={mockOverlayProps.buttonText}
-            className={mockOverlayProps.className}
-            style={mockOverlayProps.style}
-          >
+          <StaticOverlay buttonText={mockOverlayProps.buttonText} className={mockOverlayProps.className}>
             {mockOverlayProps.buttonText}
           </StaticOverlay>
         </OverlayContextProvider>

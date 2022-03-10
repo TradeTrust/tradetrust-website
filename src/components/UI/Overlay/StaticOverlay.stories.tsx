@@ -17,8 +17,7 @@ export const Default = () => {
       <OverlayContextProvider>
         <StaticOverlay
           buttonText="?"
-          className="w-6 h-6 rounded-full font-bold text-cerulean-200 border-1 border-cerulean-200 p-0 ml-3"
-          style={{ borderColor: "#4BC3E9", padding: "0" }}
+          className="w-6 h-6 rounded-full font-bold text-cerulean-200 border border-cerulean-200 p-0 ml-3"
         >
           <Textual title="A Modal" data-testid="overlay-children">
             Experimental Text
