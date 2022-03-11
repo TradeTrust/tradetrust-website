@@ -1,13 +1,12 @@
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
-import { StaticOverlay, StaticOverlayProps } from "./StaticOverlay";
+import { InfoOverlay, InfoOverlayProps } from "./InfoOverlay";
 import { MemoryRouter } from "react-router-dom";
 import { OverlayContextProvider, Textual } from "@govtechsg/tradetrust-ui-components";
 
-const mockOverlayProps: StaticOverlayProps = {
-  buttonText: "?",
-  className: "w-6 h-6 rounded-full font-bold text-cerulean-200 border border-cerulean-200 p-0 ml-3",
+const mockOverlayProps: InfoOverlayProps = {
   children: <Textual title="Network Selector">Experimental Text</Textual>,
+  className: "w-6 h-6",
 };
 
 describe("StaticOverlay", () => {
@@ -15,30 +14,26 @@ describe("StaticOverlay", () => {
     const container = render(
       <MemoryRouter>
         <OverlayContextProvider>
-          <StaticOverlay buttonText={mockOverlayProps.buttonText} className={mockOverlayProps.className}>
-            {mockOverlayProps.children}
-          </StaticOverlay>
+          <InfoOverlay className={mockOverlayProps.className}>{mockOverlayProps.children}</InfoOverlay>
         </OverlayContextProvider>
       </MemoryRouter>
     );
 
-    const renderedButton = container.getByText(mockOverlayProps.buttonText);
+    const renderedButton = container.getByRole("img");
     expect(renderedButton).not.toBeNull();
-    expect(renderedButton.className).toContain(mockOverlayProps.className);
+    expect(renderedButton.parentElement?.className).toContain(mockOverlayProps.className);
   });
 
   it("should render the children correctly", () => {
     const container = render(
       <MemoryRouter>
         <OverlayContextProvider>
-          <StaticOverlay buttonText={mockOverlayProps.buttonText} className={mockOverlayProps.className}>
-            {mockOverlayProps.buttonText}
-          </StaticOverlay>
+          <InfoOverlay className={mockOverlayProps.className} />
         </OverlayContextProvider>
       </MemoryRouter>
     );
 
-    fireEvent.click(container.getByText("?"));
+    fireEvent.click(container.getByRole("img"));
 
     const overlayChildren = container.getAllByRole(Textual);
     expect(overlayChildren).not.toBeNull();

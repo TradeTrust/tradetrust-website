@@ -4,9 +4,9 @@ import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZo
 import { Page } from "../components/Layout/Page";
 import { useProviderContext } from "../common/contexts/provider";
 import { Link } from "react-router-dom";
-import { ErrorPage, OverlayContextProvider, Textual } from "@govtechsg/tradetrust-ui-components";
+import { ErrorPage, OverlayContent, OverlayContextProvider } from "@govtechsg/tradetrust-ui-components";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
-import { StaticOverlay } from "../components/UI/Overlay/StaticOverlay";
+import { InfoOverlay } from "../components/UI/Overlay/InfoOverlay";
 
 const VerifyPage = (): React.ReactElement => {
   const { getProvider } = useProviderContext();
@@ -34,16 +34,13 @@ const VerifyPage = (): React.ReactElement => {
             </div>
             <NetworkSelect />
             <OverlayContextProvider>
-              <StaticOverlay
-                buttonText="?"
-                className="w-6 h-6 rounded-full font-bold text-cerulean-200 border border-cerulean-200 p-0 ml-3"
-              >
-                <Textual title="Network Selector">
+              <InfoOverlay className=" p-0 ml-3">
+                <OverlayContent className="max-w-sm" title="Network Selector">
                   A document can only be successfully verified on the same network where the document was created in.
                   <br />
                   If unsure, do check with the document issuer.
-                </Textual>
-              </StaticOverlay>
+                </OverlayContent>
+              </InfoOverlay>
             </OverlayContextProvider>
           </div>
           <DropZoneSectionContainer />

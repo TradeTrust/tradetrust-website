@@ -1,2 +1,2 @@
-export * from "./StaticOverlay";
+export * from "./InfoOverlay";
 export * from "./LoadingModal";
