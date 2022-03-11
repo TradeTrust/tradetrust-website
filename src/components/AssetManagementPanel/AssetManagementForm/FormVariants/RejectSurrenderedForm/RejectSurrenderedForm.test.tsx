@@ -60,6 +60,7 @@ describe("RejectSurrenderedForm", () => {
             showOverlay: mockHandleRestoreToken,
             isOverlayVisible: false,
             setOverlayVisible: () => {},
+            closeOverlay: () => {}
           }}
         >
           <RejectSurrenderedForm
