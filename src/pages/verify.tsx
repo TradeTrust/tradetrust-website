@@ -34,7 +34,7 @@ const VerifyPage = (): React.ReactElement => {
             </div>
             <NetworkSelect />
             <OverlayContextProvider>
-              <InfoOverlay className=" p-0 ml-3">
+              <InfoOverlay className="p-0 ml-3 cursor-pointer focus:outline-none">
                 <OverlayContent className="max-w-sm" title="Network Selector">
                   A document can only be successfully verified on the same network where the document was created in.
                   <br />
