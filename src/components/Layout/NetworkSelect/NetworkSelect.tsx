@@ -10,6 +10,7 @@ import React, { FunctionComponent, useContext } from "react";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { getChainInfo } from "../../../common/utils/chain-utils";
+import { LoadingModal } from "../../UI/Overlay";
 
 interface NetworkSelectViewProps {
   onChange: (network: ChainInfoObject) => void;
@@ -117,11 +118,17 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
 
 export const NetworkSelect: FunctionComponent = () => {
   const { changeNetwork, supportedChainInfoObjects, currentChainId } = useProviderContext();
-  const { showOverlay } = useContext(OverlayContext);
+  const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
+  const closeOverlay = () => {
+    showOverlay(undefined);
+    setOverlayVisible(false);
+  };
 
   const changeHandler = async (network: ChainInfoObject) => {
     try {
+      showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
       await changeNetwork(network.chainId);
+      closeOverlay();
     } catch (e: any) {
       showOverlay(
         showDocumentTransferMessage("You've cancelled changing network.", {

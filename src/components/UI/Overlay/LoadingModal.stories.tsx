@@ -1,8 +1,8 @@
 import React from "react";
-import { LoadingModal } from "./index";
+import { LoadingModal } from "./LoadingModal";
 
 export default {
-  title: "UI/LoadingModal",
+  title: "UI/Overlay/LoadingModal",
   component: LoadingModal,
   parameters: {
     componentSubtitle: "Types of loaders, with custom parameters.",
