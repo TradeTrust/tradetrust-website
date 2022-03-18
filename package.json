@@ -21,7 +21,7 @@
     "dev:serve": "sleep 2 && cross-env NODE_ENV=development webpack-dev-server",
     "integration": "testcafe chrome src/**/*.spec.ts",
     "integration:single": "testcafe chrome -L",
-    "integration:headless": "testcafe -c 4 chrome:headless src/**/*.spec.ts --app \"npm run serve-static\"",
+    "integration:headless": "testcafe chrome:headless src/**/*.spec.ts --config-file \"integration-headless.testcaferc.json\" --app \"npm run serve-static\"",
     "integration:title-transfers": "node --experimental-modules ./integration/local/index.mjs",
     "integration:dappeteer": "run-s wait blockchain:contracts integration:title-transfers",
     "integration:local": "cross-env NET=local npm run dev",

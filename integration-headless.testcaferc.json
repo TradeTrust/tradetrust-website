@@ -1,0 +1,8 @@
+{
+    "concurrency": 4,
+    "cache": true,
+    "selectorTimeout": 15000,
+    "assertionTimeout": 15000,
+    "pageLoadTimeout": 60000,
+    "pageRequestTimeout": 75000
+}
