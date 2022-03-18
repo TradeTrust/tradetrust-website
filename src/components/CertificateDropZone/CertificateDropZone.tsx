@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useMemo } from "react";
+import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
@@ -15,6 +15,8 @@ import { isValid } from "@govtechsg/oa-verify";
 import { useProviderContext } from "../../common/contexts/provider";
 import { getChainId } from "../../utils/shared";
 import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+import { LoadingModal } from "../UI/Overlay";
+import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 
 const { TYPES } = CONSTANTS;
 
@@ -29,6 +31,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     (state: RootState) => state.certificate
   );
 
+  const { showOverlay, closeOverlay } = useContext(OverlayContext);
   const isVerificationPending = verificationPending;
   const isVerificationError = useMemo(() => {
     if (verificationError) return true;
@@ -36,6 +39,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     return false;
   }, [verificationError, verificationStatus]);
   const isActionError = retrieveCertificateByActionState === states.FAILURE;
+  const [networkSwitchModal, showNetworkSwitchModal] = useState(false);
 
   const resetData = useCallback(() => {
     dispatch(resetCertificateState());
@@ -55,7 +59,9 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
             if (chainId && currentChainId !== chainId) {
+              showNetworkSwitchModal(true);
               await changeNetwork(chainId);
+              showNetworkSwitchModal(false);
             }
             dispatch(updateCertificate(json));
           } catch (e) {
@@ -69,8 +75,16 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [changeNetwork, currentChainId, dispatch]
+    [changeNetwork, currentChainId, dispatch, showNetworkSwitchModal]
   );
+
+  useEffect(() => {
+    if (networkSwitchModal) {
+      showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
+    } else {
+      closeOverlay();
+    }
+  }, [networkSwitchModal, showOverlay, closeOverlay]);
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
     onDrop,
