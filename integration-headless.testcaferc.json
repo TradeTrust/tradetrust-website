@@ -17,7 +17,7 @@
         "attemptLimit": 5
     },
     "screenshots": {
-        "pathPattern": "${DATE}_${TIME}/test-${TEST_INDEX}/${USERAGENT}/${FILE_INDEX}.png",
+        "pathPattern": "test-${TEST_INDEX}/${USERAGENT}/${DATE}_${TIME}/${FILE_INDEX}.png",
         "takeOnFails": true,
         "fullPage": true
     }
