@@ -1,5 +1,5 @@
 import { utils } from "@govtechsg/open-attestation";
-import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
+import React, { FunctionComponent, Profiler, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { resetCertificateState, updateCertificate } from "../reducers/certificate";
@@ -19,6 +19,7 @@ import { WrappedOrSignedOpenAttestationDocument, getAttachments, getTokenRegistr
 import { resetDemoState } from "../reducers/demo-verify";
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { useProviderContext } from "../common/contexts/provider";
+import { renderCallbackLogger } from "../profiling";
 
 const { trace } = getLogger("component: certificateviewer");
 
@@ -114,62 +115,72 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
 
   const renderedCertificateViewer = (
     <>
-      <div className="no-print">
-        {!isTransferableDocument && <DocumentStatus isMagicDemo={isMagicDemo} />}
-        {(isSampleDocument || isMagicDemo) && (
-          <Banner
-            to="/contact"
-            buttonText="Contact us now"
-            className="mt-8"
-            title={
-              isMagicDemo
-                ? "Ready to learn how TradeTrust can benefit your business?"
-                : "Want to try creating a verifiable document? You will be surprised how easy it is."
-            }
-          />
-        )}
-        <ObfuscatedMessage document={document} />
-        {isTransferableDocument && (
-          <AssetManagementApplication
-            isMagicDemo={isMagicDemo}
-            tokenId={tokenId}
-            tokenRegistryAddress={tokenRegistryAddress}
-            setShowEndorsementChain={setShowEndorsementChain}
-          />
-        )}
-      </div>
+      <Profiler id="renderedCertificateViewer" onRender={renderCallbackLogger}>
+        <div className="no-print">
+          {!isTransferableDocument && <DocumentStatus isMagicDemo={isMagicDemo} />}
+          {(isSampleDocument || isMagicDemo) && (
+            <Banner
+              to="/contact"
+              buttonText="Contact us now"
+              className="mt-8"
+              title={
+                isMagicDemo
+                  ? "Ready to learn how TradeTrust can benefit your business?"
+                  : "Want to try creating a verifiable document? You will be surprised how easy it is."
+              }
+            />
+          )}
+          <Profiler id="ObfuscatedMessage" onRender={renderCallbackLogger}>
+            <ObfuscatedMessage document={document} />
+          </Profiler>
+          {isTransferableDocument && (
+            <AssetManagementApplication
+              isMagicDemo={isMagicDemo}
+              tokenId={tokenId}
+              tokenRegistryAddress={tokenRegistryAddress}
+              setShowEndorsementChain={setShowEndorsementChain}
+            />
+          )}
+        </div>
 
-      <div className="no-print mt-16">
-        <MultiTabs
-          hasAttachments={hasAttachments}
-          attachments={attachments}
-          templates={templates}
-          setSelectedTemplate={setSelectedTemplate}
-          selectedTemplate={selectedTemplate}
-        />
-      </div>
-      <div className="bg-white py-6">
-        {attachments && (
-          <div className={`${selectedTemplate !== "attachmentTab" ? "hidden" : "block"}`}>
-            <TabPaneAttachments attachments={attachments} />
-          </div>
-        )}
-        <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-          {templates.length > 0 && <DocumentUtility document={document} onPrint={onPrint} />}
-          <DecentralisedRendererContainer
-            rawDocument={document}
-            updateTemplates={updateTemplates}
+        <div className="no-print mt-16">
+          <MultiTabs
+            hasAttachments={hasAttachments}
+            attachments={attachments}
+            templates={templates}
+            setSelectedTemplate={setSelectedTemplate}
             selectedTemplate={selectedTemplate}
-            ref={childRef}
           />
         </div>
-      </div>
+        <div className="bg-white py-6">
+          {attachments && (
+            <div className={`${selectedTemplate !== "attachmentTab" ? "hidden" : "block"}`}>
+              <TabPaneAttachments attachments={attachments} />
+            </div>
+          )}
+          <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
+            <Profiler id="DocumentUtility" onRender={renderCallbackLogger}>
+              {templates.length > 0 && <DocumentUtility document={document} onPrint={onPrint} />}
+            </Profiler>
+            <Profiler id="DecentralisedRendererContainer" onRender={renderCallbackLogger}>
+              <DecentralisedRendererContainer
+                rawDocument={document}
+                updateTemplates={updateTemplates}
+                selectedTemplate={selectedTemplate}
+                ref={childRef}
+              />
+            </Profiler>
+          </div>
+        </div>
+      </Profiler>
     </>
   );
 
   return (
     <CertificateViewerErrorBoundary>
-      {showEndorsementChain ? renderedEndorsementChain : renderedCertificateViewer}
+      <Profiler id="CertificateViewerErrorBoundaryChildren" onRender={renderCallbackLogger}>
+        {showEndorsementChain ? renderedEndorsementChain : renderedCertificateViewer}
+      </Profiler>
     </CertificateViewerErrorBoundary>
   );
 };
