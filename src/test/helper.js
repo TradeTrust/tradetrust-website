@@ -7,11 +7,11 @@ const DocumentStatus = Selector("#document-status");
 const IssuedByDomainName = Selector("#issuedby");
 const VerifyPage = Selector("a[href='/verify']");
 
-export const validateTextContent = async (testcafe, component, texts) => {
-  for (const text of texts) {
-    await testcafe.expect(component.textContent).contains(text);
-  }
-};
+export const validateTextContent = async (testcafe, component, texts) =>
+  texts.reduce(
+    async (previousValue, currentValue) => testcafe.expect(component.textContent).contains(currentValue),
+    Promise.resolve()
+  );
 
 export const navigateToVerify = async () => {
   await t.click(VerifyPage);
