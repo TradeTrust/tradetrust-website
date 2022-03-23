@@ -1,6 +1,6 @@
 import { t, Selector, ClientFunction } from "testcafe";
 
-export const Iframe = Selector("#iframe[title='Decentralised Rendered Certificate']", { timeout: 10000 });
+export const Iframe = Selector("#iframe[title='Decentralised Rendered Certificate']", { timeout: 120000 });
 export const SampleTemplate = Selector("#root");
 const CertificateDropzone = Selector("[data-testid='certificate-dropzone']");
 const DocumentStatus = Selector("#document-status");

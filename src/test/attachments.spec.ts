@@ -46,7 +46,7 @@ test("Attachment Tab and Panel rendered correctly", async (t) => {
   await t.click(TabPdf1);
   await t.switchToIframe(Iframe);
   await Pdf1Span.with({ visibilityCheck: true })();
-  await validateTextContent(t, SampleTemplate, ["UNCITRAL Model Law on  Electronic Transferable Records"]);
+  await validateTextContent(t, SampleTemplate, ["UNCITRAL Model Law on Electronic Transferable Records"]);
   await t.switchToMainWindow();
 
   await t.click(TabPdf2);
