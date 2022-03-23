@@ -1,8 +1,34 @@
 {
     "concurrency": 4,
     "cache": true,
-    "selectorTimeout": 15000,
-    "assertionTimeout": 15000,
+    "selectorTimeout": 45000,
+    "assertionTimeout": 45000,
     "pageLoadTimeout": 60000,
-    "pageRequestTimeout": 75000
+    "ajaxRequestTimeout": 120000,
+    "pageRequestTimeout": 180000,
+    "browserInitTimeout": 180000,
+    "testExecutionTimeout": 60000,
+    "runExecutionTimeout": 600000,
+    "disableMultipleWindows": false,
+    "color": true,
+    "speed": 1,
+    "reporter": [
+        {
+            "name": "spec"
+        },
+        {
+            "name": "spec",
+            "output": "artifacts/report.json"
+        }
+    ],
+    "quarantineMode": {
+        "successThreshold": 1,
+        "attemptLimit": 5
+    },
+    "screenshots": {
+        "path": "artifacts/screenshots",
+        "pathPattern": "${USERAGENT}/test-${TEST_INDEX}-${USERAGENT}-${FILE_INDEX}.png",
+        "takeOnFails": true,
+        "fullPage": true
+    }
 }
