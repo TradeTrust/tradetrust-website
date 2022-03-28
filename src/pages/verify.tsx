@@ -7,9 +7,13 @@ import { Link } from "react-router-dom";
 import { ErrorPage, OverlayContent, OverlayContextProvider } from "@govtechsg/tradetrust-ui-components";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
 import { InfoOverlay } from "../components/UI/Overlay/InfoOverlay";
+import { ChainId } from "../constants/chain-info";
+import { ChainContextProvider, NetworkModalComponent } from "../common/contexts/network";
 
 const VerifyPage = (): React.ReactElement => {
-  const { getProvider } = useProviderContext();
+  const { getProvider, currentChainId } = useProviderContext();
+  const defaultChain = currentChainId ? currentChainId : ChainId.Ethereum;
+
   return (
     <>
       <Helmet>
@@ -28,22 +32,27 @@ const VerifyPage = (): React.ReactElement => {
 
       {getProvider() ? (
         <Page title="Verify Documents">
-          <div className="flex items-center">
-            <div className="text-gray-900 mr-3" data-testid="page-subtitle">
-              Verify your document on
-            </div>
-            <NetworkSelect />
-            <OverlayContextProvider>
-              <InfoOverlay className="p-0 ml-3 cursor-pointer focus:outline-none">
-                <OverlayContent className="max-w-sm" title="Network Selector">
-                  A document can only be successfully verified on the same network where the document was created in.
-                  <br />
-                  If unsure, do check with the document issuer.
-                </OverlayContent>
-              </InfoOverlay>
-            </OverlayContextProvider>
-          </div>
-          <DropZoneSectionContainer />
+          <ChainContextProvider defaultChain={defaultChain}>
+            <NetworkModalComponent>
+              <div className="flex items-center">
+                <div className="text-gray-900 mr-3" data-testid="page-subtitle">
+                  Verify your document on
+                </div>
+                <NetworkSelect />
+                <OverlayContextProvider>
+                  <InfoOverlay className="p-0 ml-3 cursor-pointer focus:outline-none">
+                    <OverlayContent className="max-w-sm" title="Network Selector">
+                      A document can only be successfully verified on the same network where the document was created
+                      in.
+                      <br />
+                      If unsure, do check with the document issuer.
+                    </OverlayContent>
+                  </InfoOverlay>
+                </OverlayContextProvider>
+              </div>
+              <DropZoneSectionContainer />
+            </NetworkModalComponent>
+          </ChainContextProvider>
         </Page>
       ) : (
         <ErrorPage
