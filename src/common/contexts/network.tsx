@@ -86,7 +86,6 @@ export const ChainContextProvider: FunctionComponent<ChainContextProps> = ({ def
 
 export const ChainContext = React.createContext({
   currentChain: ChainId.Ethereum,
-  updateChainId: (newChain: ChainId) => {
-    console.log(newChain);
-  },
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  updateChainId: (newChain: ChainId) => {},
 });
