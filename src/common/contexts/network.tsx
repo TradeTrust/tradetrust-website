@@ -1,5 +1,13 @@
 import { OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  DependencyList,
+  EffectCallback,
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { LoadingModal } from "../../components/UI/Overlay";
 import { ChainId } from "../../constants/chain-info";
 import { useProviderContext } from "./provider";
@@ -13,16 +21,11 @@ export const NetworkModalComponent: FunctionComponent<NetworkModalComponentProps
   const { currentChain } = useContext(ChainContext);
   const { showOverlay, closeOverlay } = useContext(OverlayContext);
 
-  const changeUserNetwork = useCallback(async () => {
-    if (currentChainId === currentChain) {
-      return;
-    }
+  const changeUserNetwork = async () => {
     const network: ChainId = currentChain;
     try {
       showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
       await changeNetwork(network);
-      console.log("changeNetwork");
-      console.log(currentChainId);
       closeOverlay();
     } catch (e: any) {
       showOverlay(
@@ -31,11 +34,28 @@ export const NetworkModalComponent: FunctionComponent<NetworkModalComponentProps
         })
       );
     }
-  }, [currentChainId, currentChain, changeNetwork, closeOverlay, showOverlay]);
+  };
 
-  useEffect(() => {
-    changeUserNetwork();
-  }, [changeUserNetwork]);
+  const useGranularEffect = (effect: EffectCallback, primaryDeps: DependencyList, secondaryDeps: DependencyList) => {
+    const ref = useRef<DependencyList>();
+
+    if (!ref.current || !primaryDeps.every((w, i) => Object.is(w, ref.current[i]))) {
+      ref.current = [...primaryDeps, ...secondaryDeps];
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return useEffect(effect, ref.current);
+  };
+
+  useGranularEffect(
+    () => {
+      if (currentChainId !== currentChain) {
+        changeUserNetwork();
+      }
+    },
+    [currentChain],
+    [currentChainId, changeUserNetwork]
+  );
 
   return <>{children}</>;
 };
