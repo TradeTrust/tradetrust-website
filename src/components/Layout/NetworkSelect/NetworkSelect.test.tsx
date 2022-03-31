@@ -4,6 +4,7 @@ import { NetworkSelect } from "./NetworkSelect";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { ProviderContextProvider } from "../../../common/contexts/provider";
 import { getChainInfo } from "../../../common/utils/chain-utils";
+import { ChainContextProvider, NetworkModalComponent } from "../../../common/contexts/network";
 
 const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Goerli), getChainInfo(ChainId.PolygonMumbai)];
 
@@ -61,7 +62,11 @@ describe("NetworkSelect", () => {
   it("should render the selected network name when user switches network", async () => {
     render(
       <ProviderContextProvider defaultChainId={ChainId.Goerli} networks={mockNetworks}>
-        <NetworkSelect />
+        <ChainContextProvider defaultChain={ChainId.Goerli}>
+          <NetworkModalComponent>
+            <NetworkSelect />
+          </NetworkModalComponent>
+        </ChainContextProvider>
       </ProviderContextProvider>
     );
 
