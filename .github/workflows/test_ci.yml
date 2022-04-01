@@ -38,8 +38,18 @@ jobs:
       - name: Build
         run: npm run build:test
       - name: Integration - testcafe
+        id: testcafe
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run integration:headless
+        continue-on-error: true
+      - name: 'Upload Artifact'
+        if: ${{ failure() && steps.testcafe.outcome == 'failure' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: testcafe-fail-screenshots
+          path: artifacts
+          if-no-files-found: ignore
+          retention-days: 5
       - name: Integration - dappeteer
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         uses: mujo-code/puppeteer-headful@master
