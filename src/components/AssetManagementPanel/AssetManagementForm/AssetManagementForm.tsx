@@ -9,7 +9,7 @@ import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
 import { AcceptSurrenderedForm } from "./FormVariants/AcceptSurrenderedForm";
 import { RejectSurrenderedForm } from "./FormVariants/RejectSurrenderedForm";
-
+import Web3Modal from "web3modal";
 interface AssetManagementFormProps {
   beneficiary?: string;
   holder?: string;
@@ -20,7 +20,8 @@ interface AssetManagementFormProps {
   tokenRegistryAddress: string;
   account?: string;
   formAction: AssetManagementActions;
-  onConnectToWallet: () => void;
+  onConnectToWallet: () => Promise<Web3Modal>;
+  setWeb3Provider: (web3Modal: any) => Promise<void>;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   onTransferHolder: (nextHolder: string) => void;
   onEndorseBeneficiary: (newBeneficiary: string, newHolder: string) => void;
@@ -48,6 +49,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   formAction,
   tokenRegistryAddress,
   onConnectToWallet,
+  setWeb3Provider,
   beneficiary,
   holder,
   approvedBeneficiary,
@@ -218,6 +220,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           canSurrender={canSurrender}
           canHandleSurrender={canHandleSurrender}
           onConnectToWallet={onConnectToWallet}
+          setWeb3Provider={setWeb3Provider}
           canChangeHolder={isHolder}
           canEndorseBeneficiary={canEndorseBeneficiary}
           isSurrendered={isSurrendered}

@@ -47,7 +47,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const [account, setAccount] = useState<string | undefined>();
-  const { upgradeToMetaMaskSigner, getSigner, getProvider } = useProviderContext();
+  const { setWeb3Provider, getWeb3Modal, getSigner, getProvider } = useProviderContext();
 
   const provider = getProvider();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
@@ -110,7 +110,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
         {isTitleEscrow !== undefined && (
           <AssetManagementForm
             account={account}
-            onConnectToWallet={upgradeToMetaMaskSigner}
+            onConnectToWallet={getWeb3Modal}
+            setWeb3Provider={setWeb3Provider}
             beneficiary={beneficiary}
             approvedBeneficiary={approvedBeneficiary}
             holder={holder}

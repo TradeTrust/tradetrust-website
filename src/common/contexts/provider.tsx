@@ -6,6 +6,30 @@ import { magic } from "./helpers";
 import { ChainId, ChainInfoObject } from "../../constants/chain-info";
 import { NoMetaMaskError, UnsupportedNetworkError } from "../errors";
 import { getChainInfo } from "../utils/chain-utils";
+import Web3Modal from "web3modal";
+
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
+
+const providerOptions = {
+  /* See Provider Options Section */
+  walletconnect: {
+    package: WalletConnectProvider, // required
+    options: {
+      infuraId: INFURA_API_KEY, // required
+    },
+  },
+  coinbasewallet: {
+    package: CoinbaseWalletSDK, // Required
+    options: {
+      appName: "Tradetrust-Website", // Required
+      infuraId: INFURA_API_KEY, // Required
+      // rpc: "", // Optional if `infuraId` is provided; otherwise it's required
+      chainId: 1, // Optional. It defaults to 1 if not provided
+      darkMode: false, // Optional. Use dark theme, defaults to false
+    },
+  },
+};
 
 export enum SIGNER_TYPE {
   IDENTITY = "Identity",
@@ -17,18 +41,22 @@ export enum SIGNER_TYPE {
 let currentProvider: providers.Provider | undefined;
 export const getCurrentProvider = (): providers.Provider | undefined => currentProvider;
 
-const createProvider = (chainId: ChainId) =>
-  chainId === ChainId.Local
-    ? new providers.JsonRpcProvider()
-    : utils.generateProvider({
-        network: getChainInfo(chainId).networkName,
-        providerType: "infura",
-        apiKey: INFURA_API_KEY,
-      });
+const createProvider = (chainId: ChainId) => {
+  if (chainId === ChainId.Local) {
+    return new providers.JsonRpcProvider();
+  } else {
+    return utils.generateProvider({
+      network: getChainInfo(chainId).networkName,
+      providerType: "infura",
+      apiKey: INFURA_API_KEY,
+    });
+  }
+};
 
 interface ProviderContextProps {
   providerType: SIGNER_TYPE;
-  upgradeToMetaMaskSigner: () => Promise<void>;
+  getWeb3Modal: () => Promise<Web3Modal>;
+  setWeb3Provider: (web3Modal: any) => Promise<void>;
   upgradeToMagicSigner: () => Promise<void>;
   changeNetwork: (chainId: ChainId) => void;
   reloadNetwork: () => Promise<void>;
@@ -41,8 +69,12 @@ interface ProviderContextProps {
 
 export const ProviderContext = createContext<ProviderContextProps>({
   providerType: SIGNER_TYPE.IDENTITY,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  getWeb3Modal: async () => {
+    return new Web3Modal();
+  },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  upgradeToMetaMaskSigner: async () => {},
+  setWeb3Provider: async () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   upgradeToMagicSigner: async () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
@@ -166,17 +198,6 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     }
   };
 
-  const initializeMetaMaskSigner = async () => {
-    const web3Provider = getWeb3Provider();
-    const provider = getProvider();
-    const network = await (provider ? provider.getNetwork() : web3Provider.getNetwork());
-    await web3Provider.send("eth_requestAccounts", []);
-    await requestSwitchChain(network.chainId);
-
-    await updateProviderOrSigner(web3Provider.getSigner());
-    setProviderType(SIGNER_TYPE.METAMASK);
-  };
-
   const initialiseMagicSigner = async () => {
     // needs to be cast as any before https://github.com/magiclabs/magic-js/issues/83 has been merged.
     const magicProvider = new ethers.providers.Web3Provider(magic.rpcProvider as any);
@@ -185,8 +206,25 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     setProviderType(SIGNER_TYPE.MAGIC);
   };
 
-  const upgradeToMetaMaskSigner = async () => {
-    return initializeMetaMaskSigner();
+  const setWeb3Provider = async (instance: any) => {
+    const web3Provider = new ethers.providers.Web3Provider(instance);
+    const signer = web3Provider.getSigner();
+    await updateProviderOrSigner(signer);
+    setProviderType(SIGNER_TYPE.METAMASK);
+  };
+
+  const getWeb3Modal = async (): Promise<Web3Modal> => {
+    const web3Provider = getWeb3Provider();
+    const provider = getProvider();
+    const network = await (provider ? provider.getNetwork() : web3Provider.getNetwork());
+
+    return new Web3Modal({
+      network: getChainInfo(network.chainId).networkName, // optional
+      // network: getChainInfo(1).networkName, // optional
+      // cacheProvider: true, // optional
+      cacheProvider: false, // optional
+      providerOptions, // required
+    });
   };
 
   const upgradeToMagicSigner = async () => {
@@ -260,7 +298,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     <ProviderContext.Provider
       value={{
         providerType,
-        upgradeToMetaMaskSigner,
+        getWeb3Modal,
+        setWeb3Provider,
         upgradeToMagicSigner,
         changeNetwork,
         reloadNetwork,

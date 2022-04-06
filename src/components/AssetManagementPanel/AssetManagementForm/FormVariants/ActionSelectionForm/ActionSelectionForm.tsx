@@ -5,7 +5,7 @@ import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
-
+import Web3Modal from "web3modal";
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenRegistryAddress: string;
@@ -14,7 +14,8 @@ interface ActionSelectionFormProps {
   account?: string;
   canSurrender: boolean;
   canHandleSurrender?: boolean;
-  onConnectToWallet: () => void;
+  onConnectToWallet: () => Promise<Web3Modal>;
+  setWeb3Provider: (newProvider: any) => Promise<void>;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
@@ -34,6 +35,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canSurrender,
   canHandleSurrender,
   onConnectToWallet,
+  setWeb3Provider,
   canChangeHolder,
   canEndorseBeneficiary,
   isSurrendered,
@@ -69,8 +71,12 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
 
   const handleConnectWallet = async () => {
     try {
-      await onConnectToWallet();
+      const web3Modal = await onConnectToWallet();
+      const instance = await web3Modal.connect();
+      console.log(instance);
+      await setWeb3Provider(instance);
     } catch (error: any) {
+      console.log(error);
       handleMetamaskError(error.message, error.code);
     }
   };
