@@ -123,6 +123,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     supportedChainInfoObjects.some((chainInfoObj) => chainInfoObj.chainId === chainId);
 
   const defaultProvider = isSupportedNetwork(defaultChainId) ? createProvider(defaultChainId) : undefined;
+  const [web3Provider, updateWeb3Provider] = useState<providers.Web3Provider | undefined>(undefined);
   const [providerOrSigner, setProviderOrSigner] = useState<providers.Provider | Signer | undefined>(defaultProvider);
 
   const updateProviderOrSigner = async (newProviderOrSigner: typeof providerOrSigner) => {
@@ -171,7 +172,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
   const getTransactor = useCallback(() => getSigner() ?? getProvider(), [getProvider, getSigner]);
 
-  const getWeb3Provider = () => {
+  const getWeb3Provider = (): providers.Web3Provider => {
+    if (web3Provider) return web3Provider;
     const { ethereum, web3 } = window;
     const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
     if (metamaskExtensionNotFound || !ethereum.request) throw new NoMetaMaskError();
@@ -182,10 +184,10 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   };
 
   const requestSwitchChain = async (chainId: ChainId) => {
-    const { ethereum } = window;
-    if (!ethereum || !ethereum.request) return;
+    const ethereum = getWeb3Provider();
+    if (!ethereum || !ethereum.provider.request) return;
     try {
-      await ethereum.request({
+      await ethereum.provider.request({
         method: "wallet_switchEthereumChain",
         params: [{ chainId: `0x${chainId.toString(16)}` }],
       });
@@ -207,19 +209,19 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   };
 
   const setWeb3Provider = async (instance: any) => {
-    const web3Provider = new ethers.providers.Web3Provider(instance);
-    const signer = web3Provider.getSigner();
+    const userWeb3Provider = new ethers.providers.Web3Provider(instance);
+    await updateWeb3Provider(userWeb3Provider);
+    const signer = userWeb3Provider.getSigner();
     await updateProviderOrSigner(signer);
     setProviderType(SIGNER_TYPE.METAMASK);
   };
 
   const getWeb3Modal = async (): Promise<Web3Modal> => {
-    const web3Provider = getWeb3Provider();
     const provider = getProvider();
-    const network = await (provider ? provider.getNetwork() : web3Provider.getNetwork());
+    const networkChainId = provider ? (await provider.getNetwork()).chainId : 1; //: web3Provider.getNetwork());
 
     return new Web3Modal({
-      network: getChainInfo(network.chainId).networkName, // optional
+      network: getChainInfo(networkChainId).networkName, // optional
       // network: getChainInfo(1).networkName, // optional
       // cacheProvider: true, // optional
       cacheProvider: false, // optional
@@ -255,7 +257,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   }, [getProvider]);
 
   useEffect(() => {
-    if (!window.ethereum) return;
+    if (!web3Provider) return;
 
     const chainChangedHandler = async (chainIdHex: string) => {
       try {
@@ -268,11 +270,10 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       }
     };
 
-    window.ethereum.on("accountsChanged", reloadNetwork).on("chainChanged", chainChangedHandler);
+    web3Provider.on("accountsChanged", reloadNetwork).on("chainChanged", chainChangedHandler);
 
     const initialiseWallet = async () => {
       try {
-        const web3Provider = getWeb3Provider();
         const provider = getProvider();
         if (!provider) return;
         const [web3Network, appNetwork] = await Promise.all([web3Provider.getNetwork(), provider.getNetwork()]);
@@ -288,8 +289,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     initialiseWallet();
 
     return () => {
-      if (!window.ethereum) return;
-      window.ethereum.off("chainChanged").off("accountsChanged");
+      if (!web3Provider) return;
+      web3Provider.off("chainChanged").off("accountsChanged");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
