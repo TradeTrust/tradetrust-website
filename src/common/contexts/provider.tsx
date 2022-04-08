@@ -195,6 +195,9 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       if (e.code === -32601) {
         // Possibly on localhost which doesn't support the call
         return console.error(e);
+      }else if(e.message === "JSON RPC response format is invalid"){
+        // Could be walletconnect
+        return console.error(e)
       }
       throw e;
     }
