@@ -1,5 +1,4 @@
-import { Button, MessageTitle, OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent } from "react";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -11,16 +10,16 @@ interface ActionSelectionFormProps {
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  account?: string;
-  canSurrender: boolean;
-  canHandleSurrender?: boolean;
-  onConnectToWallet: () => void;
-  canChangeHolder: boolean;
-  canEndorseBeneficiary: boolean;
+  // account?: string;
+  // canSurrender: boolean;
+  // canHandleSurrender?: boolean;
+  // onConnectToWallet: () => void;
+  // canChangeHolder: boolean;
+  // canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
   isTokenBurnt: boolean;
-  canNominateBeneficiaryHolder: boolean;
-  canEndorseTransfer: boolean;
+  // canNominateBeneficiaryHolder: boolean;
+  // canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
 }
@@ -30,50 +29,50 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   tokenRegistryAddress,
   beneficiary,
   holder,
-  account,
-  canSurrender,
-  canHandleSurrender,
-  onConnectToWallet,
-  canChangeHolder,
-  canEndorseBeneficiary,
+  // account,
+  // canSurrender,
+  // canHandleSurrender,
+  // onConnectToWallet,
+  // canChangeHolder,
+  // canEndorseBeneficiary,
   isSurrendered,
   isTokenBurnt,
-  canNominateBeneficiaryHolder,
-  canEndorseTransfer,
+  // canNominateBeneficiaryHolder,
+  // canEndorseTransfer,
   setShowEndorsementChain,
   isTitleEscrow,
 }) => {
-  const canManage =
-    canHandleSurrender ||
-    canSurrender ||
-    canChangeHolder ||
-    canEndorseBeneficiary ||
-    canNominateBeneficiaryHolder ||
-    canEndorseTransfer;
+  // const canManage = true;
+  // canHandleSurrender ||
+  // canSurrender ||
+  // canChangeHolder ||
+  // canEndorseBeneficiary ||
+  // canNominateBeneficiaryHolder ||
+  // canEndorseTransfer;
 
-  const { showOverlay } = useContext(OverlayContext);
-  const handleNoAccess = () => {
-    showOverlay(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
-  };
+  // const { showOverlay } = useContext(OverlayContext);
+  // const handleNoAccess = () => {
+  //   showOverlay(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
+  // };
 
-  const handleMetamaskError = (errorMesssage: string, errorCode: number) => {
-    const isUserDeniedAccountAuthorization = errorCode === 4001;
+  // const handleMetamaskError = (errorMesssage: string, errorCode: number) => {
+  //   const isUserDeniedAccountAuthorization = errorCode === 4001;
 
-    showOverlay(
-      showDocumentTransferMessage(errorMesssage, {
-        isSuccess: false,
-        isButtonMetamaskInstall: !isUserDeniedAccountAuthorization,
-      })
-    ); // there is 2 type of errors that will be handled here, 1st = NO_METAMASK (error thrown from provider.tsx), 2nd = NO_USER_AUTHORIZATION (error from metamask extension itself).
-  };
+  //   showOverlay(
+  //     showDocumentTransferMessage(errorMesssage, {
+  //       isSuccess: false,
+  //       isButtonMetamaskInstall: !isUserDeniedAccountAuthorization,
+  //     })
+  //   ); // there is 2 type of errors that will be handled here, 1st = NO_METAMASK (error thrown from provider.tsx), 2nd = NO_USER_AUTHORIZATION (error from metamask extension itself).
+  // };
 
-  const handleConnectWallet = async () => {
-    try {
-      await onConnectToWallet();
-    } catch (error: any) {
-      handleMetamaskError(error.message, error.code);
-    }
-  };
+  // const handleConnectWallet = async () => {
+  //   try {
+  //     await onConnectToWallet();
+  //   } catch (error: any) {
+  //     handleMetamaskError(error.message, error.code);
+  //   }
+  // };
   return (
     <>
       <div className="flex flex-wrap justify-between pb-4 -mx-4">
@@ -115,36 +114,15 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
       {!isTokenBurnt && (
         <div className="flex flex-wrap pb-4">
           <div className="w-auto lg:ml-auto">
-            {account ? (
-              <>
-                {canManage ? (
-                  <AssetManagementDropdown
-                    onSetFormAction={onSetFormAction}
-                    canSurrender={canSurrender}
-                    canChangeHolder={canChangeHolder}
-                    canEndorseBeneficiary={canEndorseBeneficiary}
-                    canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
-                    canEndorseTransfer={canEndorseTransfer}
-                    canHandleSurrender={canHandleSurrender}
-                  />
-                ) : (
-                  <Button
-                    className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
-                    onClick={handleNoAccess}
-                  >
-                    No Access
-                  </Button>
-                )}
-              </>
-            ) : (
-              <Button
-                className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
-                data-testid={"connectToWallet"}
-                onClick={handleConnectWallet}
-              >
-                Connect Wallet
-              </Button>
-            )}
+            <AssetManagementDropdown
+              onSetFormAction={onSetFormAction}
+              // canSurrender={canSurrender}
+              // canChangeHolder={canChangeHolder}
+              // canEndorseBeneficiary={canEndorseBeneficiary}
+              // canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
+              // canEndorseTransfer={canEndorseTransfer}
+              // canHandleSurrender={canHandleSurrender}
+            />
           </div>
         </div>
       )}

@@ -4,8 +4,9 @@ import { INFURA_API_KEY } from "../../config";
 import { utils } from "@govtechsg/oa-verify";
 import { magic } from "./helpers";
 import { ChainId, ChainInfoObject } from "../../constants/chain-info";
-import { NoMetaMaskError, UnsupportedNetworkError } from "../errors";
+// import { NoMetaMaskError } from "../errors";
 import { getChainInfo } from "../utils/chain-utils";
+import { UnsupportedNetworkError } from "../errors";
 
 export enum SIGNER_TYPE {
   IDENTITY = "Identity",
@@ -28,7 +29,7 @@ const createProvider = (chainId: ChainId) =>
 
 interface ProviderContextProps {
   providerType: SIGNER_TYPE;
-  upgradeToMetaMaskSigner: () => Promise<void>;
+  // upgradeToMetaMaskSigner: () => Promise<void>;
   upgradeToMagicSigner: () => Promise<void>;
   changeNetwork: (chainId: ChainId) => void;
   reloadNetwork: () => Promise<void>;
@@ -42,7 +43,7 @@ interface ProviderContextProps {
 export const ProviderContext = createContext<ProviderContextProps>({
   providerType: SIGNER_TYPE.IDENTITY,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  upgradeToMetaMaskSigner: async () => {},
+  // upgradeToMetaMaskSigner: async () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   upgradeToMagicSigner: async () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
@@ -109,20 +110,19 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
   const changeNetwork = async (chainId: ChainId) => {
     if (!isSupportedNetwork(chainId)) throw new UnsupportedNetworkError(chainId);
-
     const chainInfo = getChainInfo(chainId);
-
     try {
-      const web3provider = getWeb3Provider();
-      await requestSwitchChain(chainId);
-      await updateProviderOrSigner(web3provider.getSigner());
-    } catch (e: unknown) {
-      if (e instanceof NoMetaMaskError) {
-        console.warn(e.message);
+      const provider = getProvider();
+      if (provider === undefined) {
         await updateProviderOrSigner(createProvider(chainInfo.chainId));
+        return;
       } else {
-        throw e;
+        // provider.
       }
+      await updateProviderOrSigner(provider);
+    } catch (e: unknown) {
+      console.warn(e.message);
+      await updateProviderOrSigner(createProvider(chainInfo.chainId));
     }
   };
 
@@ -139,43 +139,43 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
   const getTransactor = useCallback(() => getSigner() ?? getProvider(), [getProvider, getSigner]);
 
-  const getWeb3Provider = () => {
-    const { ethereum, web3 } = window;
-    const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
-    if (metamaskExtensionNotFound || !ethereum.request) throw new NoMetaMaskError();
+  // const getWeb3Provider = () => {
+  // const { ethereum, web3 } = window;
+  // const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
+  // if (metamaskExtensionNotFound || !ethereum.request) throw new NoMetaMaskError();
 
-    const injectedWeb3 = ethereum || web3.currentProvider;
-    if (!injectedWeb3) throw new Error("No injected web3 provider found");
-    return new ethers.providers.Web3Provider(injectedWeb3, "any");
-  };
+  // const injectedWeb3 = ethereum || web3.currentProvider;
+  // if (!injectedWeb3) throw new Error("No injected web3 provider found");
+  // return new ethers.providers.Web3Provider(injectedWeb3, "any");
+  // };
 
-  const requestSwitchChain = async (chainId: ChainId) => {
-    const { ethereum } = window;
-    if (!ethereum || !ethereum.request) return;
-    try {
-      await ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: `0x${chainId.toString(16)}` }],
-      });
-    } catch (e: any) {
-      if (e.code === -32601) {
-        // Possibly on localhost which doesn't support the call
-        return console.error(e);
-      }
-      throw e;
-    }
-  };
+  // const requestSwitchChain = async (chainId: ChainId) => {
+  // const { ethereum } = window;
+  // if (!ethereum || !ethereum.request) return;
+  // try {
+  //   await ethereum.request({
+  //     method: "wallet_switchEthereumChain",
+  //     params: [{ chainId: `0x${chainId.toString(16)}` }],
+  //   });
+  // } catch (e: any) {
+  //   if (e.code === -32601) {
+  //     // Possibly on localhost which doesn't support the call
+  //     return console.error(e);
+  //   }
+  //   throw e;
+  // }
+  // };
 
-  const initializeMetaMaskSigner = async () => {
-    const web3Provider = getWeb3Provider();
-    const provider = getProvider();
-    const network = await (provider ? provider.getNetwork() : web3Provider.getNetwork());
-    await web3Provider.send("eth_requestAccounts", []);
-    await requestSwitchChain(network.chainId);
+  // const initializeMetaMaskSigner = async () => {
+  // const web3Provider = getWeb3Provider();
+  // const provider = getProvider();
+  // const network = await (provider ? provider.getNetwork() : web3Provider.getNetwork());
+  // await web3Provider.send("eth_requestAccounts", []);
+  // await requestSwitchChain(network.chainId);
 
-    await updateProviderOrSigner(web3Provider.getSigner());
-    setProviderType(SIGNER_TYPE.METAMASK);
-  };
+  // await updateProviderOrSigner(web3Provider.getSigner());
+  // setProviderType(SIGNER_TYPE.METAMASK);
+  // };
 
   const initialiseMagicSigner = async () => {
     // needs to be cast as any before https://github.com/magiclabs/magic-js/issues/83 has been merged.
@@ -185,9 +185,9 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     setProviderType(SIGNER_TYPE.MAGIC);
   };
 
-  const upgradeToMetaMaskSigner = async () => {
-    return initializeMetaMaskSigner();
-  };
+  // const upgradeToMetaMaskSigner = async () => {
+  //   return initializeMetaMaskSigner();
+  // };
 
   const upgradeToMagicSigner = async () => {
     if (providerType === SIGNER_TYPE.MAGIC) return;
@@ -234,11 +234,11 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
     const initialiseWallet = async () => {
       try {
-        const web3Provider = getWeb3Provider();
-        const provider = getProvider();
-        if (!provider) return;
-        const [web3Network, appNetwork] = await Promise.all([web3Provider.getNetwork(), provider.getNetwork()]);
-        if (web3Network.chainId === appNetwork.chainId) setProviderOrSigner(web3Provider.getSigner().provider);
+        // const web3Provider = getWeb3Provider();
+        // const provider = getProvider();
+        // if (!provider) return;
+        // const appNetwork = await provider.getNetwork();
+        // if (web3Network.chainId === appNetwork.chainId) setProviderOrSigner(web3Provider.getSigner().provider);
       } catch (e) {
         if (e instanceof NoMetaMaskError) {
           console.warn(e.message);
@@ -260,7 +260,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     <ProviderContext.Provider
       value={{
         providerType,
-        upgradeToMetaMaskSigner,
+        // upgradeToMetaMaskSigner,
         upgradeToMagicSigner,
         changeNetwork,
         reloadNetwork,

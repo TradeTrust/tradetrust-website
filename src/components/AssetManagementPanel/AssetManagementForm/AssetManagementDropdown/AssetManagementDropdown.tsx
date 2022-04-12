@@ -4,23 +4,21 @@ import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
-  canSurrender: boolean;
-  canHandleSurrender?: boolean;
-  canChangeHolder: boolean;
-  canEndorseBeneficiary: boolean;
-  canNominateBeneficiaryHolder: boolean;
-  canEndorseTransfer: boolean;
+  // canSurrender: boolean;
+  // canHandleSurrender?: boolean;
+  // canChangeHolder: boolean;
+  // canEndorseBeneficiary: boolean;
+  // canNominateBeneficiaryHolder: boolean;
+  // canEndorseTransfer: boolean;
 }
 
-export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownProps> = ({
-  onSetFormAction,
-  canSurrender,
-  canHandleSurrender,
-  canChangeHolder,
-  canEndorseBeneficiary,
-  canNominateBeneficiaryHolder,
-  canEndorseTransfer,
-}) => {
+export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownProps> = ({ onSetFormAction }) => {
+  const canSurrender = true;
+  const canHandleSurrender = true;
+  const canChangeHolder = true;
+  const canEndorseBeneficiary = true;
+  const canNominateBeneficiaryHolder = true;
+  const canEndorseTransfer = true;
   return (
     <Dropdown
       data-testid="manageAssetDropdown"

@@ -1,4 +1,3 @@
-import { ContractFunctionState, useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
 import React, { createContext, useContext, useEffect, useState, useCallback, FunctionComponent } from "react";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
@@ -7,6 +6,12 @@ import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
+import { ContractFunctionState, useContractFunctionHook } from "./hooks/ethers-contract-hook";
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const GetURIStub = (params: Record<string, unknown>): Promise<string | undefined> => {
+  return Promise.resolve("");
+};
 
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
@@ -16,22 +21,22 @@ interface TokenInformationContext {
   documentOwner?: string;
   approvedBeneficiary?: string;
   approvedHolder?: string;
-  changeHolder: TitleEscrow["changeHolder"];
+  changeHolder: typeof GetURIStub;
   changeHolderState: ContractFunctionState;
-  transferTo: TitleEscrow["transferTo"];
+  transferTo: typeof GetURIStub;
   transferToState: ContractFunctionState;
   endorseBeneficiary: TitleEscrow["endorseBeneficiary"];
   endorseBeneficiaryState: ContractFunctionState;
-  approveNewTransferTargets: TitleEscrow["approveNewTransferTargets"];
+  approveNewTransferTargets: typeof GetURIStub;
   approveNewTransferTargetsState: ContractFunctionState;
-  transferToNewEscrow: TitleEscrow["transferToNewEscrow"];
+  transferToNewEscrow: typeof GetURIStub;
   transferToNewEscrowState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
   isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
   resetStates: () => void;
-  destroyToken: TradeTrustErc721["destroyToken"];
+  destroyToken: typeof GetURIStub;
   destroyTokenState: ContractFunctionState;
   restoreToken: TradeTrustErc721["restoreToken"];
   restoreTokenState: ContractFunctionState;
@@ -44,22 +49,22 @@ const contractFunctionStub = () => {
 export const TokenInformationContext = createContext<TokenInformationContext>({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   initialize: () => {},
-  changeHolder: contractFunctionStub,
+  changeHolder: GetURIStub,
   changeHolderState: "UNINITIALIZED",
-  transferTo: contractFunctionStub,
+  transferTo: GetURIStub,
   transferToState: "UNINITIALIZED",
-  endorseBeneficiary: contractFunctionStub,
+  endorseBeneficiary: GetURIStub,
   endorseBeneficiaryState: "UNINITIALIZED",
   isSurrendered: false,
   isTokenBurnt: false,
   documentOwner: "",
-  approveNewTransferTargets: contractFunctionStub,
+  approveNewTransferTargets: GetURIStub,
   approveNewTransferTargetsState: "UNINITIALIZED",
-  transferToNewEscrow: contractFunctionStub,
+  transferToNewEscrow: GetURIStub,
   transferToNewEscrowState: "UNINITIALIZED",
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   resetStates: () => {},
-  destroyToken: contractFunctionStub,
+  destroyToken: GetURIStub,
   destroyTokenState: "UNINITIALIZED",
   restoreToken: contractFunctionStub,
   restoreTokenState: "UNINITIALIZED",
@@ -94,7 +99,8 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const { call: getApprovedHolder, value: approvedHolder } = useContractFunctionHook(titleEscrow, "approvedHolder");
 
   const {
-    send: destroyToken,
+    getURI: destroyToken,
+    // send: polldestroyToken,
     state: destroyTokenState,
     reset: resetDestroyingTokenState,
   } = useContractFunctionHook(tokenRegistry, "destroyToken");
@@ -103,27 +109,32 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
 
   // Contract Write Functions (available only after provider has been upgraded)
   const {
-    send: transferTo,
+    getURI: transferTo,
+    // send: polltransferTo,
     state: transferToState,
     reset: resetTransferTo,
   } = useContractFunctionHook(titleEscrow, "transferTo");
   const {
-    send: changeHolder,
+    getURI: changeHolder,
+    // send: pollchangeHolder,
     state: changeHolderState,
     reset: resetChangeHolder,
   } = useContractFunctionHook(titleEscrow, "changeHolder");
   const {
-    send: endorseBeneficiary,
+    getURI: endorseBeneficiary,
+    // send: pollendorseBeneficiary,
     state: endorseBeneficiaryState,
     reset: resetEndorseBeneficiary,
   } = useContractFunctionHook(titleEscrow, "transferToNewEscrow");
   const {
-    send: approveNewTransferTargets,
+    getURI: approveNewTransferTargets,
+    // send: pollapproveNewTransferTargets,
     state: approveNewTransferTargetsState,
     reset: resetApproveNewTransferTargets,
   } = useContractFunctionHook(titleEscrow, "approveNewTransferTargets");
   const {
-    send: transferToNewEscrow,
+    getURI: transferToNewEscrow,
+    // send: polltransferToNewEscrow,
     state: transferToNewEscrowState,
     reset: resetTransferToNewEscrow,
   } = useContractFunctionHook(titleEscrow, "transferToNewEscrow");

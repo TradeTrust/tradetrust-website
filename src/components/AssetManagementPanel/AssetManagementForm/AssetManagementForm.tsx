@@ -15,12 +15,12 @@ interface AssetManagementFormProps {
   holder?: string;
   approvedBeneficiary?: string;
   approvedHolder?: string;
-  documentOwner?: string;
-  isMinter?: boolean;
+  // documentOwner?: string;
+  // isMinter?: boolean;
   tokenRegistryAddress: string;
-  account?: string;
+  // account?: string;
   formAction: AssetManagementActions;
-  onConnectToWallet: () => void;
+  // onConnectToWallet: () => void;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   onTransferHolder: (nextHolder: string) => void;
   onEndorseBeneficiary: (newBeneficiary: string, newHolder: string) => void;
@@ -44,10 +44,10 @@ interface AssetManagementFormProps {
 }
 
 export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = ({
-  account,
+  // account,
   formAction,
   tokenRegistryAddress,
-  onConnectToWallet,
+  // onConnectToWallet,
   beneficiary,
   holder,
   approvedBeneficiary,
@@ -57,8 +57,8 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   destroyTokenState,
   onSurrender,
   onDestroyToken,
-  documentOwner,
-  isMinter,
+  // documentOwner,
+  // isMinter,
   onTransferHolder,
   holderTransferringState,
   onEndorseBeneficiary,
@@ -75,26 +75,26 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   restoreTokenState,
   tokenId,
 }) => {
-  const isHolder = isTitleEscrow && account === holder;
-  const isBeneficiary = isTitleEscrow && account === beneficiary;
-  const canSurrender = isBeneficiary && isHolder;
+  // const isHolder = isTitleEscrow && account === holder;
+  // const isBeneficiary = isTitleEscrow && account === beneficiary;
+  // const canSurrender = isBeneficiary && isHolder;
   /*
     In order for surrender we need to check 3 conditions
     - document is surrendered
     - documentOwner is the tokenRegistry
     -  currentUser === tokenRegistryMinter
   */
-  const canHandleSurrender =
-    isSurrendered && isTitleEscrow === false && documentOwner === tokenRegistryAddress && isMinter;
-  const canEndorseBeneficiary = isTitleEscrow && isBeneficiary && isHolder;
-  const canNominateBeneficiaryHolder = isTitleEscrow && isBeneficiary && !isHolder;
-  const canEndorseTransfer =
-    !!approvedBeneficiary &&
-    approvedBeneficiary !== "0x0000000000000000000000000000000000000000" &&
-    !!approvedHolder &&
-    approvedHolder !== "0x0000000000000000000000000000000000000000" &&
-    isHolder &&
-    isTitleEscrow;
+  // const canHandleSurrender =
+  //   isSurrendered && isTitleEscrow === false && documentOwner === tokenRegistryAddress && isMinter;
+  // const canEndorseBeneficiary = isTitleEscrow && isBeneficiary && isHolder;
+  // const canNominateBeneficiaryHolder = isTitleEscrow && isBeneficiary && !isHolder;
+  // const canEndorseTransfer =
+  //   !!approvedBeneficiary &&
+  //   approvedBeneficiary !== "0x0000000000000000000000000000000000000000" &&
+  //   !!approvedHolder &&
+  //   approvedHolder !== "0x0000000000000000000000000000000000000000" &&
+  //   isHolder &&
+  //   isTitleEscrow;
 
   const setFormActionNone = () => {
     if (
@@ -214,16 +214,16 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
-          account={account}
-          canSurrender={canSurrender}
-          canHandleSurrender={canHandleSurrender}
-          onConnectToWallet={onConnectToWallet}
-          canChangeHolder={isHolder}
-          canEndorseBeneficiary={canEndorseBeneficiary}
+          // account={account}
+          // canSurrender={canSurrender}
+          // canHandleSurrender={canHandleSurrender}
+          // onConnectToWallet={onConnectToWallet}
+          // canChangeHolder={isHolder}
+          // canEndorseBeneficiary={canEndorseBeneficiary}
           isSurrendered={isSurrendered}
           isTokenBurnt={isTokenBurnt}
-          canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
-          canEndorseTransfer={canEndorseTransfer}
+          // canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
+          // canEndorseTransfer={canEndorseTransfer}
           setShowEndorsementChain={setShowEndorsementChain}
           isTitleEscrow={isTitleEscrow}
         />
