@@ -41,6 +41,7 @@ const getErrorType = (error: Error | undefined): CertificateViewerErrorType => {
   if (!provider || error instanceof UnsupportedNetworkError) return CertificateViewerErrorType.UnsupportedNetwork;
 
   const errMsg = error?.message;
+  console.log(errMsg);
   if (!errMsg) return CertificateViewerErrorType.Generic;
 
   if (errMsg.indexOf("call revert exception") > -1) {

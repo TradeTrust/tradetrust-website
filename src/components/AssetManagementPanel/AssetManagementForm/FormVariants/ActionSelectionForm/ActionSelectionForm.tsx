@@ -6,6 +6,7 @@ import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 import Web3Modal from "web3modal";
+
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenRegistryAddress: string;
@@ -76,7 +77,13 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
       console.log(instance);
       await setWeb3Provider(instance);
     } catch (error: any) {
-      console.log(error);
+      if (typeof error === "string") {
+        if (error === "Modal closed by user") {
+          // User closed modal without selecting provider
+          // handleMetamaskError("Provider selection closed by user", 0);
+          return;
+        }
+      }
       handleMetamaskError(error.message, error.code);
     }
   };

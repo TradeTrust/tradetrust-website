@@ -130,6 +130,7 @@ export const NetworkSelect: FunctionComponent = () => {
       await changeNetwork(network.chainId);
       closeOverlay();
     } catch (e: any) {
+      console.log(e);
       showOverlay(
         showDocumentTransferMessage("You've cancelled changing network.", {
           isSuccess: false,

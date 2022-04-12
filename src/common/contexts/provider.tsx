@@ -6,7 +6,7 @@ import { magic } from "./helpers";
 import { ChainId, ChainInfoObject } from "../../constants/chain-info";
 import { NoMetaMaskError, UnsupportedNetworkError } from "../errors";
 import { getChainInfo } from "../utils/chain-utils";
-import Web3Modal from "web3modal";
+import Web3Modal, { getInjectedProviderName } from "web3modal";
 
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
@@ -195,9 +195,14 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       if (e.code === -32601) {
         // Possibly on localhost which doesn't support the call
         return console.error(e);
-      }else if(e.message === "JSON RPC response format is invalid"){
+      } else if (e.message === "JSON RPC response format is invalid") {
         // Could be walletconnect
-        return console.error(e)
+        console.log("test");
+        console.log(getInjectedProviderName());
+        console.log(ethereum.provider);
+        console.log(web3Provider);
+        console.log("test1");
+        return console.error(e);
       }
       throw e;
     }
@@ -213,9 +218,17 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
   const setWeb3Provider = async (instance: any) => {
     const userWeb3Provider = new ethers.providers.Web3Provider(instance);
+    if (!userWeb3Provider || !userWeb3Provider.provider.request) return;
     await updateWeb3Provider(userWeb3Provider);
-    const signer = userWeb3Provider.getSigner();
-    await updateProviderOrSigner(signer);
+    // await userWeb3Provider.send("eth_requestAccounts", []);
+    // await userWeb3Provider.provider.request({
+    //   method: "eth_requestAccounts",
+    //   params: [],
+    // });
+    if (typeof currentChainId !== "undefined") {
+      await requestSwitchChain(currentChainId);
+    }
+    await updateProviderOrSigner(userWeb3Provider.getSigner());
     setProviderType(SIGNER_TYPE.METAMASK);
   };
 
@@ -296,7 +309,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       web3Provider.off("chainChanged").off("accountsChanged");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [web3Provider]);
 
   return (
     <ProviderContext.Provider
