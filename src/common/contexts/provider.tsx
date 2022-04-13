@@ -110,20 +110,19 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
   const changeNetwork = async (chainId: ChainId) => {
     if (!isSupportedNetwork(chainId)) throw new UnsupportedNetworkError(chainId);
-    const chainInfo = getChainInfo(chainId);
-    try {
-      const provider = getProvider();
-      if (provider === undefined) {
-        await updateProviderOrSigner(createProvider(chainInfo.chainId));
-        return;
-      } else {
-        // provider.
-      }
-      await updateProviderOrSigner(provider);
-    } catch (e: unknown) {
-      console.warn(e.message);
-      await updateProviderOrSigner(createProvider(chainInfo.chainId));
+    // const chainInfo = getChainInfo(chainId);
+    // try {
+
+    const provider = getProvider();
+    if ((await provider?.getNetwork?.())?.chainId === chainId) {
+      return;
     }
+    await updateProviderOrSigner(createProvider(chainId));
+    return;
+    // } catch (e: unknown) {
+    //   console.warn(e.message);
+    //   await updateProviderOrSigner(createProvider(chainInfo.chainId));
+    // }
   };
 
   const getProvider = useCallback(() => {
@@ -195,11 +194,10 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   };
 
   const reloadNetwork = async () => {
-    const provider = getProvider();
-    if (!provider) throw new UnsupportedNetworkError();
-
-    const chainId = (await provider.getNetwork()).chainId;
-    await changeNetwork(chainId);
+    //   const provider = getProvider();
+    //   if (!provider) throw new UnsupportedNetworkError();
+    //   const chainId = (await provider.getNetwork()).chainId;
+    //   await changeNetwork(chainId);
   };
 
   useEffect(() => {
@@ -216,45 +214,45 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     updateChainId();
   }, [getProvider]);
 
-  useEffect(() => {
-    if (!window.ethereum) return;
+  // useEffect(() => {
+  //   if (!window.ethereum) return;
 
-    const chainChangedHandler = async (chainIdHex: string) => {
-      try {
-        await changeNetwork(parseInt(chainIdHex, 16));
-      } catch (e) {
-        // Clear provider/signer when user selects an unsupported network
-        await updateProviderOrSigner(undefined);
-        console.warn("An unsupported network has been selected.", e);
-        throw e;
-      }
-    };
+  // const chainChangedHandler = async (chainIdHex: string) => {
+  //   try {
+  //     await changeNetwork(parseInt(chainIdHex, 16));
+  //   } catch (e) {
+  //     // Clear provider/signer when user selects an unsupported network
+  //     await updateProviderOrSigner(undefined);
+  //     console.warn("An unsupported network has been selected.", e);
+  //     throw e;
+  //   }
+  // };
 
-    window.ethereum.on("accountsChanged", reloadNetwork).on("chainChanged", chainChangedHandler);
+  // window.ethereum.on("accountsChanged", reloadNetwork).on("chainChanged", chainChangedHandler);
 
-    const initialiseWallet = async () => {
-      try {
-        // const web3Provider = getWeb3Provider();
-        // const provider = getProvider();
-        // if (!provider) return;
-        // const appNetwork = await provider.getNetwork();
-        // if (web3Network.chainId === appNetwork.chainId) setProviderOrSigner(web3Provider.getSigner().provider);
-      } catch (e) {
-        if (e instanceof NoMetaMaskError) {
-          console.warn(e.message);
-        } else {
-          throw e;
-        }
-      }
-    };
-    initialiseWallet();
+  // const initialiseWallet = async () => {
+  //   try {
+  // const web3Provider = getWeb3Provider();
+  // const provider = getProvider();
+  // if (!provider) return;
+  // const appNetwork = await provider.getNetwork();
+  // if (web3Network.chainId === appNetwork.chainId) setProviderOrSigner(web3Provider.getSigner().provider);
+  //   } catch (e) {
+  //     if (e instanceof NoMetaMaskError) {
+  //       console.warn(e.message);
+  //     } else {
+  //       throw e;
+  //     }
+  //   }
+  // };
+  // initialiseWallet();
 
-    return () => {
-      if (!window.ethereum) return;
-      window.ethereum.off("chainChanged").off("accountsChanged");
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // return () => {
+  // if (!window.ethereum) return;
+  // window.ethereum.off("chainChanged").off("accountsChanged");
+  // };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <ProviderContext.Provider

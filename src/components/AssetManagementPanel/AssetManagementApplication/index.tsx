@@ -114,6 +114,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
 
   const showTransactionQRModal = useCallback(
     (transactionInfo: QRInfo) => {
+      console.log(transactionInfo.transactionURI);
+
       const imageSettings: ImageSettings = {
         src: `/static/images/logo-qrcode.png`,
         height: 50,

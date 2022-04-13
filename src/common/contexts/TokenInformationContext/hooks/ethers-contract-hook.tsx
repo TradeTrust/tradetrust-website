@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Contract, ContractTransaction } from "ethers";
 import { useCallback, useState } from "react";
 import { ContractReceipt } from "ethers/contract";
@@ -81,12 +82,12 @@ export function useContractFunctionHook<T extends Contract, S extends keyof T["f
     const deferredTx = contractMethod(...params);
     setState("INITIALIZED");
     try {
-      const currentTransaction: ContractTransaction = await deferredTx;
+      const transaction: ContractTransaction = await deferredTx;
       setState("PENDING_CONFIRMATION");
-      setTransaction(currentTransaction);
-      const currentReceipt = await currentTransaction.wait();
+      setTransaction(transaction);
+      const receipt = await transaction.wait();
       setState("CONFIRMED");
-      setReceipt(currentReceipt);
+      setReceipt(receipt);
     } catch (e) {
       setError(e);
       setState("ERROR");
@@ -118,9 +119,9 @@ export function useContractFunctionHook<T extends Contract, S extends keyof T["f
   const errorMessage = error?.message;
 
   const getURI = useCallback(getURIFn, [contract, method]);
-  const send = useCallback(sendFn, [contract, method, sendFn]);
-  const call = useCallback(callFn, [contract, method, callFn]);
-  const reset = useCallback(resetState, []);
+  const send = useCallback(sendFn, [contract, method]);
+  const call = useCallback(callFn, [contract, method]);
+  const reset = useCallback(resetState, [contract, method]);
 
   return {
     getURI,
