@@ -52,5 +52,7 @@ jobs:
           retention-days: 5
       - name: Integration - Synpress
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
+        env:
+          CI: "true"
         with:
-          run: npm run integration:headful
+          args: npm run integration:headful
