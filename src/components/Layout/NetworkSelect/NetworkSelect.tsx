@@ -35,7 +35,11 @@ const WrappedDropdown = (props: DropdownProps) => {
   const { children, className, ...rest } = props;
   return (
     <div className={className} style={{ minWidth: "12.5em" }}>
-      <Dropdown className="rounded-md py-1 pl-4 p-2 border border-gray-300 bg-white" {...rest}>
+      <Dropdown
+        className="rounded-md py-1 pl-4 p-2 border border-gray-300 bg-white"
+        data-testid="network-selector"
+        {...rest}
+      >
         {children}
       </Dropdown>
     </div>

@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "sourceMap": true,
-    "types": ["jest", "node", "webpack-env", "@testing-library/jest-dom", "@types/gtag.js"],
+    "types": ["jest", "node", "webpack-env", "@testing-library/jest-dom", "@types/gtag.js", "cypress", "cypress-file-upload"],
     "allowJs": true,
     "noEmit": true,
     "useUnknownInCatchVariables": true

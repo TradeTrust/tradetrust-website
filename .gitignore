@@ -13,3 +13,5 @@ yarn.lock
 /src/index.css
 /workflow
 /artifacts
+/tests/e2e/screenshots
+/tests/e2e/videos
