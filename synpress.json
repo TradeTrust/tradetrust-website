@@ -16,8 +16,8 @@
   "env": {
     "coverage": false
   },
-  "defaultCommandTimeout": 50000,
-  "pageLoadTimeout": 50000,
-  "requestTimeout": 50000,
+  "defaultCommandTimeout": 30000,
+  "pageLoadTimeout": 30000,
+  "requestTimeout": 30000,
   "supportFile": "tests/e2e/support/index.js"
 }
