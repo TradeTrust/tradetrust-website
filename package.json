@@ -25,7 +25,7 @@
     "integration:metamask": "run-s wait blockchain:contracts integration:synpress",
     "integration:metamask:ci": "run-s wait blockchain:contracts integration:synpress:ci",
     "integration:synpress": "SECRET_WORDS='indicate, swing, place, chair, flight, used, hammer, soon, photo, region, volume, shuffle' NETWORK_NAME='localhost' npx synpress run --configFile './synpress.json' --config supportFile='tests/e2e/support/index.js',fixturesFolder='tests/e2e/fixtures'",
-    "integration:synpress:ci": "SECRET_WORDS='indicate, swing, place, chair, flight, used, hammer, soon, photo, region, volume, shuffle' NETWORK_NAME='localhost' npx synpress run --configFile './synpress.json' --config supportFile='tests/e2e/support/index.js',fixturesFolder='tests/e2e/fixtures' --group e2e-metamask-tests --record --parallel",
+    "integration:synpress:ci": "SECRET_WORDS='indicate, swing, place, chair, flight, used, hammer, soon, photo, region, volume, shuffle' NETWORK_NAME='localhost' npx synpress run --configFile './synpress.json' --config supportFile='tests/e2e/support/index.js',fixturesFolder='tests/e2e/fixtures' --group e2e-metamask-tests --parallel",
     "integration:local": "cross-env NET=local npm run dev",
     "integration:headful:local": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:local\" \"npm:integration:metamask\"",
     "integration:headful:ci": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:local\" \"npm:integration:metamask:ci\"",
