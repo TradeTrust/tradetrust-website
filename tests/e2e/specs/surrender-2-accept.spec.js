@@ -11,7 +11,7 @@ describe("Surrender-Accept", () => {
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
     });
 
-    it("should transfer holder successfully", () => {
+    it("should surrender document successfully", () => {
       cy.connectWallet();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='surrenderDropdown']").click();
@@ -29,7 +29,7 @@ describe("Surrender-Accept", () => {
       cy.get("[data-testid='surrenderToIssuer']").should("be.visible");
     });
 
-    it("should transfer holder successfully", () => {
+    it("should accept surrenderred document successfully", () => {
       cy.connectWallet();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='acceptSurrenderDropdown']").click();
