@@ -32,7 +32,7 @@ describe("Nominate Owner", () => {
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
     });
 
-    it("should nominate owner successfully", () => {
+    it("should endorse nominated owner successfully", () => {
       cy.connectWallet();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='endorseTransferDropdown']").click();
