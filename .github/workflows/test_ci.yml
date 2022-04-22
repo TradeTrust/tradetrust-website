@@ -30,6 +30,8 @@ jobs:
           git config --global url."https://".insteadOf git+https://
           git config --global url."https://".insteadOf ssh://git
           npm ci
+        env:
+          CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
       - name: Check Lint
         run: npm run lint
       - name: Test
@@ -52,8 +54,7 @@ jobs:
           retention-days: 5
       - name: Integration - Synpress
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
-        uses: mujo-code/puppeteer-headful@master
         env:
           CI: "true"
-        with:
-          args: npm run integration:headful
+          CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
+        run: npm run integration:headful
