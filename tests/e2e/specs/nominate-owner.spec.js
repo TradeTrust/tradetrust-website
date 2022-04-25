@@ -1,9 +1,9 @@
 describe("Nominate Owner", () => {
-  before(() => {
-    cy.switchMetamaskAccount(1).should("be.true");
-  });
-
   context("Nominate Owner", () => {
+    it("should switch  and use account 1", () => {
+      cy.switchMetamaskAccount(1).should("be.true");
+    });
+
     it("should go to verify page and upload a file", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");

@@ -1,5 +1,5 @@
 describe("Transfer Holder", () => {
-  before(() => {
+  it("should switch  and use account 1", () => {
     cy.switchMetamaskAccount(1).should("be.true");
   });
 
