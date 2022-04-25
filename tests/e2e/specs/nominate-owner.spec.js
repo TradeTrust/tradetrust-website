@@ -1,6 +1,6 @@
 describe("Nominate Owner", () => {
   before(() => {
-    cy.switchMetamaskAccount(1);
+    cy.switchMetamaskAccount(1).should("be.true");
   });
 
   context("Nominate Owner", () => {

@@ -1,6 +1,6 @@
 describe("Surrender-Reject", () => {
   before(() => {
-    cy.switchMetamaskAccount(1);
+    cy.switchMetamaskAccount(1).should("be.true");
   });
 
   context("Surrender", () => {
