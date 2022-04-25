@@ -1,4 +1,8 @@
 describe("Nominate Owner", () => {
+  before(() => {
+    cy.resetMetamaskAccount();
+  });
+
   context("Nominate Owner", () => {
     it("should switch  and use account 1", () => {
       cy.switchMetamaskAccount(1).should("be.true");
