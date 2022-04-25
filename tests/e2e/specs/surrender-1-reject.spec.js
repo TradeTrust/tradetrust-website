@@ -12,7 +12,8 @@ describe("Surrender-Reject", () => {
     });
 
     it("should surrender document successfully", () => {
-      cy.connectWallet();
+      cy.get("[data-testid='connectToWallet']").should("be.visible");
+      cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='surrenderDropdown']").click();
       cy.get("[data-testid='surrenderBtn']").click();
@@ -30,7 +31,8 @@ describe("Surrender-Reject", () => {
     });
 
     it("should reject surrenderred document successfully", () => {
-      cy.connectWallet();
+      cy.get("[data-testid='connectToWallet']").should("be.visible");
+      cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='rejectSurrenderDropdown']").click();
       cy.get("[data-testid='rejectSurrenderBtn']").click();

@@ -11,7 +11,8 @@ describe("Transfer Holder", () => {
   });
 
   it("should transfer holder successfully", () => {
-    cy.connectWallet();
+    cy.get("[data-testid='connectToWallet']").should("be.visible");
+    cy.get("[data-testid='connectToWallet']").click();
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='transferHolderDropdown']").click();
     cy.get("[data-testid='editable-input-holder']").type("0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60");

@@ -11,7 +11,8 @@ describe("Endorse Owner", () => {
     cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879").should("be.true");
     cy.switchMetamaskAccount(1).should("be.true");
 
-    cy.connectWallet();
+    cy.get("[data-testid='connectToWallet']").should("be.visible");
+    cy.get("[data-testid='connectToWallet']").click();
     cy.acceptMetamaskAccess(true).should("be.true");
   });
   // END - approve application once after connect to wallet, subsequent tests no longer need

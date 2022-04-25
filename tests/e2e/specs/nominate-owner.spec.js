@@ -12,7 +12,8 @@ describe("Nominate Owner", () => {
     });
 
     it("should nominate owner successfully", () => {
-      cy.connectWallet();
+      cy.get("[data-testid='connectToWallet']").should("be.visible");
+      cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='nominateBeneficiaryHolderDropdown']").click();
       cy.get("[data-testid='editable-input-owner']").type("0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60");
@@ -37,7 +38,8 @@ describe("Nominate Owner", () => {
     });
 
     it("should endorse nominated owner successfully", () => {
-      cy.connectWallet();
+      cy.get("[data-testid='connectToWallet']").should("be.visible");
+      cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='endorseTransferDropdown']").click();
       cy.get("[data-testid='endorseTransferBtn']").click();
