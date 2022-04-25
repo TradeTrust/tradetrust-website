@@ -52,6 +52,14 @@ jobs:
           path: artifacts
           if-no-files-found: ignore
           retention-days: 5
+  synpress-run:
+    name: Synpress e2e test
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Synpress run
+        uses: cypress-io/github-action@v2
       - name: Integration - Synpress
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         env:
