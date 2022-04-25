@@ -1,4 +1,8 @@
 describe("Nominate Owner", () => {
+  before(() => {
+    cy.switchMetamaskAccount(1);
+  });
+
   context("Nominate Owner", () => {
     it("should go to verify page and upload a file", () => {
       cy.visit("/verify");
