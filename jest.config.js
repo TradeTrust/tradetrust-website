@@ -14,7 +14,7 @@ module.exports = {
     "\\.(css|sass|scss)$": "identity-obj-proxy",
   },
   testEnvironment: "jest-environment-jsdom",
-  setupFiles: ["@testing-library/react/dont-cleanup-after-each", "<rootDir>/jest.setup.ts"],
+  setupFiles: ["<rootDir>/jest.setup.ts"],
   setupFilesAfterEnv: ["<rootDir>/jest.dom.setup.ts"],
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)test.[jt]s?(x)"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/"],
