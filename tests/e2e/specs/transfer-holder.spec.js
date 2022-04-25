@@ -3,14 +3,11 @@ describe("Transfer Holder", () => {
     cy.switchMetamaskAccount(1).should("be.true");
   });
 
-  it("should go to verify page and upload a file", () => {
+  it("should go to verify page, upload a file, conect to wallet and transfer holder successfully", () => {
     cy.visit("/verify");
     cy.get("input[type=file]").attachFile("ebl-transfer-holder.json");
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
-  });
-
-  it("should transfer holder successfully", () => {
     cy.get("[data-testid='connectToWallet']").should("be.visible");
     cy.get("[data-testid='connectToWallet']").click();
     cy.get("[data-testid='manageAssetDropdown']").click();

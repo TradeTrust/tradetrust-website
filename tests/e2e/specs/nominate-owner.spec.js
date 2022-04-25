@@ -4,14 +4,11 @@ describe("Nominate Owner", () => {
       cy.switchMetamaskAccount(1).should("be.true");
     });
 
-    it("should go to verify page and upload a file", () => {
+    it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
-    });
-
-    it("should nominate owner successfully", () => {
       cy.get("[data-testid='connectToWallet']").should("be.visible");
       cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
@@ -28,16 +25,13 @@ describe("Nominate Owner", () => {
   });
 
   context("Accept Nominated Owner", () => {
-    it("should go to verify page and upload a file", () => {
+    it("should go to verify page, upload a file, connect a wallet and endorse nominated owner successfully", () => {
       cy.switchMetamaskAccount(2);
 
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
-    });
-
-    it("should endorse nominated owner successfully", () => {
       cy.get("[data-testid='connectToWallet']").should("be.visible");
       cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();

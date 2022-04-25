@@ -4,14 +4,11 @@ describe("Surrender-Accept", () => {
   });
 
   context("Surrender", () => {
-    it("should go to verify page and upload a file", () => {
+    it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-surrender.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
-    });
-
-    it("should surrender document successfully", () => {
       cy.get("[data-testid='connectToWallet']").should("be.visible");
       cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
@@ -24,13 +21,10 @@ describe("Surrender-Accept", () => {
   });
 
   context("Accept Surender", () => {
-    it("should go to verify page and upload a file", () => {
+    it("should go to verify page, upload a file, connect to wallet and accept the surrenderred document successfully", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-surrender.json");
       cy.get("[data-testid='surrenderToIssuer']").should("be.visible");
-    });
-
-    it("should accept surrenderred document successfully", () => {
       cy.get("[data-testid='connectToWallet']").should("be.visible");
       cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
