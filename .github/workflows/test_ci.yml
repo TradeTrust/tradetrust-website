@@ -61,12 +61,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Packages
-        # there's a problem with ganache-core using a very old version of ethereumjs-abi which fails on git checkout with ssh reasons
-        run: |
-          git config --global url."https://".insteadOf git://
-          git config --global url."https://".insteadOf git+https://
-          git config --global url."https://".insteadOf ssh://git
-          npm ci
+        run: npm ci
         env:
           CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
       
