@@ -1,14 +1,13 @@
 describe("Transfer Holder", () => {
-  it("should switch and use account 1", async () => {
+  it("should switch and use account 1", () => {
     cy.switchMetamaskAccount(1).should("be.true");
   });
 
-  it("should go to verify page, upload a file, conect to wallet and transfer holder successfully", async () => {
+  it("should go to verify page, upload a file, conect to wallet and transfer holder successfully", () => {
     cy.visit("/verify");
     cy.get("input[type=file]").attachFile("ebl-transfer-holder.json");
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
-    cy.get("[data-testid='connectToWallet']").should("be.visible");
     cy.get("[data-testid='connectToWallet']").click();
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='transferHolderDropdown']").click();

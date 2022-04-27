@@ -1,15 +1,14 @@
 describe("Surrender-Reject", () => {
-  it("should switch  and use account 1", async () => {
+  it("should switch and use account 1", () => {
     cy.switchMetamaskAccount(1).should("be.true");
   });
 
   context("Surrender", () => {
-    it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", async () => {
+    it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-surrender.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
-      cy.get("[data-testid='connectToWallet']").should("be.visible");
       cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='surrenderDropdown']").click();
@@ -21,11 +20,10 @@ describe("Surrender-Reject", () => {
   });
 
   context("Reject Surender", () => {
-    it("should go to verify page, upload a file, connect to wallet and reject the surrenderred document successfully", async () => {
+    it("should go to verify page, upload a file, connect to wallet and reject the surrenderred document successfully", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-surrender.json");
       cy.get("[data-testid='surrenderToIssuer']").should("be.visible");
-      cy.get("[data-testid='connectToWallet']").should("be.visible");
       cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='rejectSurrenderDropdown']").click();

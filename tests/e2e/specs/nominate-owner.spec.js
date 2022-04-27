@@ -1,19 +1,15 @@
 describe("Nominate Owner", () => {
-  before(() => {
-    cy.resetMetamaskAccount();
-  });
-
   context("Nominate Owner", () => {
-    it("should switch  and use account 1", async () => {
+    it("should switch and use account 1", () => {
       cy.switchMetamaskAccount(1).should("be.true");
     });
 
-    it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", async () => {
+    it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
-      cy.get("[data-testid='connectToWallet']").should("be.visible").click();
+      cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='nominateBeneficiaryHolderDropdown']").click();
       cy.get("[data-testid='editable-input-owner']").type("0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60");
@@ -27,15 +23,16 @@ describe("Nominate Owner", () => {
     });
   });
 
-  context("Accept Nominated Owner", async () => {
-    it("should go to verify page, upload a file, connect a wallet and endorse nominated owner successfully", () => {
-      cy.switchMetamaskAccount(2);
+  context("Accept Nominated Owner", () => {
+    it("should switch and use account 2", () => {
+      cy.switchMetamaskAccount(2).should("be.true");
+    });
 
+    it("should go to verify page, upload a file, connect a wallet and endorse nominated owner successfully", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
-      cy.get("[data-testid='connectToWallet']").should("be.visible");
       cy.get("[data-testid='connectToWallet']").click();
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='endorseTransferDropdown']").click();
