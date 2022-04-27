@@ -55,7 +55,6 @@ jobs:
   synpress-e2e:
     name: Synpress e2e test
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.17.6-chrome100-ff98
     steps: 
       - name: Checkout
         uses: actions/checkout@v2
