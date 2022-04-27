@@ -61,7 +61,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Packages
-        run: npm ci
+        run: |
+          git config --global url."https://".insteadOf git://
+          git config --global url."https://".insteadOf git+https://
+          git config --global url."https://".insteadOf ssh://git
+          npm i
         env:
           CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
       
