@@ -4,11 +4,11 @@ describe("Nominate Owner", () => {
   });
 
   context("Nominate Owner", () => {
-    it("should switch  and use account 1", () => {
+    it("should switch  and use account 1", async () => {
       cy.switchMetamaskAccount(1).should("be.true");
     });
 
-    it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", () => {
+    it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", async () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
@@ -27,7 +27,7 @@ describe("Nominate Owner", () => {
     });
   });
 
-  context("Accept Nominated Owner", () => {
+  context("Accept Nominated Owner", async () => {
     it("should go to verify page, upload a file, connect a wallet and endorse nominated owner successfully", () => {
       cy.switchMetamaskAccount(2);
 

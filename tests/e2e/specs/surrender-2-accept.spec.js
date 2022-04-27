@@ -1,10 +1,10 @@
 describe("Surrender-Accept", () => {
-  it("should switch  and use account 1", () => {
+  it("should switch  and use account 1", async () => {
     cy.switchMetamaskAccount(1).should("be.true");
   });
 
   context("Surrender", () => {
-    it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", () => {
+    it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", async () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-surrender.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
@@ -21,7 +21,7 @@ describe("Surrender-Accept", () => {
   });
 
   context("Accept Surender", () => {
-    it("should go to verify page, upload a file, connect to wallet and accept the surrenderred document successfully", () => {
+    it("should go to verify page, upload a file, connect to wallet and accept the surrenderred document successfully", async () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-surrender.json");
       cy.get("[data-testid='surrenderToIssuer']").should("be.visible");
