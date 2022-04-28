@@ -22,6 +22,7 @@ interface AssetManagementFormProps {
   formAction: AssetManagementActions;
   onConnectToWallet: () => Promise<Web3Modal>;
   setWeb3Provider: (web3Modal: any) => Promise<void>;
+  logout: () => Promise<void>;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   onTransferHolder: (nextHolder: string) => void;
   onEndorseBeneficiary: (newBeneficiary: string, newHolder: string) => void;
@@ -50,6 +51,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   tokenRegistryAddress,
   onConnectToWallet,
   setWeb3Provider,
+  logout,
   beneficiary,
   holder,
   approvedBeneficiary,
@@ -221,6 +223,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           canHandleSurrender={canHandleSurrender}
           onConnectToWallet={onConnectToWallet}
           setWeb3Provider={setWeb3Provider}
+          logout={logout}
           canChangeHolder={isHolder}
           canEndorseBeneficiary={canEndorseBeneficiary}
           isSurrendered={isSurrendered}

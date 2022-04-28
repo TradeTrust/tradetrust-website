@@ -17,6 +17,7 @@ interface ActionSelectionFormProps {
   canHandleSurrender?: boolean;
   onConnectToWallet: () => Promise<Web3Modal>;
   setWeb3Provider: (newProvider: any) => Promise<void>;
+  logout: () => Promise<void>;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
@@ -37,6 +38,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canHandleSurrender,
   onConnectToWallet,
   setWeb3Provider,
+  logout,
   canChangeHolder,
   canEndorseBeneficiary,
   isSurrendered,
@@ -74,7 +76,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     try {
       const web3Modal = await onConnectToWallet();
       const instance = await web3Modal.connect();
-      console.log(instance);
       await setWeb3Provider(instance);
     } catch (error: any) {
       if (typeof error === "string") {
@@ -139,6 +140,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                     canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
                     canEndorseTransfer={canEndorseTransfer}
                     canHandleSurrender={canHandleSurrender}
+                    logout={logout}
                   />
                 ) : (
                   <Button

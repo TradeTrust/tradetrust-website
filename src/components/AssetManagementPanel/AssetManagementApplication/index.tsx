@@ -47,7 +47,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const [account, setAccount] = useState<string | undefined>();
-  const { setWeb3Provider, getWeb3Modal, getSigner, getProvider } = useProviderContext();
+  const { logout, setWeb3Provider, getWeb3Modal, getSigner, getProvider } = useProviderContext();
 
   const provider = getProvider();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
@@ -59,7 +59,9 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
       try {
         const signer = getSigner();
         const address = signer ? await signer.getAddress() : undefined;
-        setAccount(address);
+        if (signer) {
+          setAccount(address);
+        }
       } catch {
         setAccount(undefined);
       }
@@ -112,6 +114,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             account={account}
             onConnectToWallet={getWeb3Modal}
             setWeb3Provider={setWeb3Provider}
+            logout={logout}
             beneficiary={beneficiary}
             approvedBeneficiary={approvedBeneficiary}
             holder={holder}

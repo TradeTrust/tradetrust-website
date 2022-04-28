@@ -10,6 +10,7 @@ interface AssetManagementDropdownProps {
   canEndorseBeneficiary: boolean;
   canNominateBeneficiaryHolder: boolean;
   canEndorseTransfer: boolean;
+  logout: () => Promise<void>;
 }
 
 export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownProps> = ({
@@ -20,6 +21,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
   canEndorseBeneficiary,
   canNominateBeneficiaryHolder,
   canEndorseTransfer,
+  logout,
 }) => {
   return (
     <Dropdown
@@ -92,6 +94,17 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           Endorse Transfer of ownership
         </DropdownItem>
       )}
+
+      <DropdownItem
+        className="active:bg-cloud-200 active:text-white"
+        data-testid={"logout"}
+        onClick={() => {
+          // console.log();
+          logout();
+        }}
+      >
+        Logout
+      </DropdownItem>
     </Dropdown>
   );
 };
