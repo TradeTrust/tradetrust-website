@@ -7,10 +7,6 @@ describe(
     },
   },
   () => {
-    after(() => {
-      cy.switchMetamaskAccount(1);
-    });
-
     context("Nominate Owner", () => {
       it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", () => {
         cy.visit("/verify");
