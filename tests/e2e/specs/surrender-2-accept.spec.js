@@ -7,10 +7,6 @@ describe(
     },
   },
   () => {
-    it("should switch and use account 1", () => {
-      cy.switchMetamaskAccount(1).should("be.true");
-    });
-
     context("Surrender", () => {
       it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", () => {
         cy.visit("/verify");

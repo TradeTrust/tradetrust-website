@@ -7,10 +7,6 @@ describe(
     },
   },
   () => {
-    it("should switch and use account 1", () => {
-      cy.switchMetamaskAccount(1).should("be.true");
-    });
-
     it("should go to verify page, upload a file, conect to wallet and transfer holder successfully", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-transfer-holder.json");

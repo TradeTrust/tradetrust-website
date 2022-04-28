@@ -8,10 +8,6 @@ describe(
   },
   () => {
     context("Nominate Owner", () => {
-      it("should switch and use account 1", () => {
-        cy.switchMetamaskAccount(1).should("be.true");
-      });
-
       it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", () => {
         cy.visit("/verify");
         cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
