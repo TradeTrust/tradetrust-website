@@ -17,7 +17,6 @@ describe(
 
     context("Surrender", () => {
       it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", () => {
-        cy.switchMetamaskAccount(1).should("be.true");
         cy.visit("/verify");
         cy.get("input[type=file]").attachFile("ebl-surrender.json");
         cy.get("[data-testid='asset-title-owner']").should("be.visible");
