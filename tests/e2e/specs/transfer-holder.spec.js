@@ -7,6 +7,14 @@ describe(
     },
   },
   () => {
+    before(() => {
+      cy.getMetamaskWalletAddress().then((address) => {
+        if (address !== "0xe0A71284EF59483795053266CB796B65E48B5124") {
+          cy.switchMetamaskAccount(1);
+        }
+      });
+    });
+
     it("should go to verify page, upload a file, conect to wallet and transfer holder successfully", () => {
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-transfer-holder.json");

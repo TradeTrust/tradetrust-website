@@ -7,6 +7,14 @@ describe(
     },
   },
   () => {
+    before(() => {
+      cy.getMetamaskWalletAddress().then((address) => {
+        if (address !== "0xe0A71284EF59483795053266CB796B65E48B5124") {
+          cy.switchMetamaskAccount(1);
+        }
+      });
+    });
+
     context("Surrender", () => {
       it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", () => {
         cy.visit("/verify");
