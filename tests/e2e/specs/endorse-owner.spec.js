@@ -1,3 +1,5 @@
+import { ACCOUNT_3, ACCOUNT_2 } from "../utils";
+
 describe(
   "Endorse Owner",
   {
@@ -25,14 +27,11 @@ describe(
 
       cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='endorseBeneficiaryDropdown']").click();
-      cy.get("[data-testid='editable-input-owner']").type("0x391aFf3942857a10958425FebF1fC1938D9F5AE7");
-      cy.get("[data-testid='editable-input-holder']").type("0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60");
+      cy.get("[data-testid='editable-input-owner']").type(ACCOUNT_3);
+      cy.get("[data-testid='editable-input-holder']").type(ACCOUNT_2);
       cy.get("[data-testid='endorseBtn']").click();
       cy.confirmMetamaskTransaction();
-      cy.get("[data-testid='non-editable-input-owner']").should(
-        "have.text",
-        "0x391aFf3942857a10958425FebF1fC1938D9F5AE7"
-      );
+      cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_3);
       cy.get("[data-testid='overlay-title']").should("have.text", "Change Owner Success");
     });
   }

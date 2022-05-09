@@ -1,3 +1,5 @@
+import { ACCOUNT_1 } from "../utils";
+
 describe(
   "Surrender-Accept",
   {
@@ -9,7 +11,7 @@ describe(
   () => {
     before(() => {
       cy.getMetamaskWalletAddress().then((address) => {
-        if (address !== "0xe0A71284EF59483795053266CB796B65E48B5124") {
+        if (address !== ACCOUNT_1) {
           cy.switchMetamaskAccount(1);
         }
       });
@@ -31,8 +33,8 @@ describe(
       });
     });
 
-    context("Accept Surender", () => {
-      it("should go to verify page, upload a file, connect to wallet and accept the surrenderred document successfully", () => {
+    context("Accept Surrender", () => {
+      it("should go to verify page, upload a file, connect to wallet and accept the surrendered document successfully", () => {
         cy.visit("/verify");
         cy.get("input[type=file]").attachFile("ebl-surrender.json");
         cy.get("[data-testid='surrenderToIssuer']").should("be.visible");
