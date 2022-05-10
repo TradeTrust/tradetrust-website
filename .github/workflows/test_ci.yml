@@ -7,12 +7,12 @@ jobs:
     name: Lint & Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 12.x
+          node-version: "14"
       - name: Cache Node Modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -42,7 +42,7 @@ jobs:
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run integration:headless
         continue-on-error: true
-      - name: 'Upload Artifact'
+      - name: "Upload Artifact"
         if: ${{ failure() && steps.testcafe.outcome == 'failure' }}
         uses: actions/upload-artifact@v3
         with:
@@ -50,10 +50,37 @@ jobs:
           path: artifacts
           if-no-files-found: ignore
           retention-days: 5
-      - name: Integration - dappeteer
-        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
-        uses: mujo-code/puppeteer-headful@master
-        env:
-          CI: "true"
+  synpress-e2e:
+    name: Synpress e2e test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
         with:
-          args: npm run integration:headful
+          node-version: "14"
+
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Packages
+        run: npm ci
+        env:
+          CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
+
+      - name: Integration - Synpress
+        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
+        run: npm run integration:headful
+        env:
+          CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
