@@ -75,11 +75,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Packages
-        run: |
-          git config --global url."https://".insteadOf git://
-          git config --global url."https://".insteadOf git+https://
-          git config --global url."https://".insteadOf ssh://git
-          npm ci
+        run: npm ci
         env:
           CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
 
