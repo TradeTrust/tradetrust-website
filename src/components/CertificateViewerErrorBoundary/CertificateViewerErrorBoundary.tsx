@@ -75,7 +75,7 @@ const ErrorRenderer: ErrorBoundaryRenderer = (props) => {
     children: (
       <h3 className="font-normal my-2 sm:my-4 text-lg sm:text-2xl">
         Go to
-        <Link className="text-cerulean-200" to="/">
+        <Link className="text-cerulean-300" to="/">
           {" "}
           Homepage
         </Link>

@@ -50,7 +50,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
                 className="bg-white border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
                 aria-label="document-utility-qr-button"
               >
-                <SvgIcon className="text-cerulean" strokeWidth="0.5" fill="currentColor">
+                <SvgIcon className="text-cerulean-500" strokeWidth="0.5" fill="currentColor">
                   <SvgIconQRCode />
                 </SvgIcon>
               </ButtonIcon>
@@ -74,7 +74,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
         </div>
         <div className="w-auto ml-3">
           <ButtonIcon
-            className="bg-white text-cerulean border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
+            className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-gray-100"
             aria-label="document-utility-print-button"
             onClick={() => onPrint()}
           >
@@ -89,7 +89,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
             role="button"
             aria-label="document-utility-download"
           >
-            <ButtonIcon className="bg-white text-cerulean border-2 border-cloud-100 rounded-xl hover:bg-gray-100">
+            <ButtonIcon className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-gray-100">
               <Download />
             </ButtonIcon>
           </a>

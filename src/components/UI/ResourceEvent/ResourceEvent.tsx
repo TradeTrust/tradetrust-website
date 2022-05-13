@@ -40,7 +40,7 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ slug, attributes 
           }`}
         >
           <h4 className="title mb-2">
-            <span className="font-ubuntu font-bold text-cloud-900 text-2xl">{title}</span>
+            <span className="font-ubuntu font-bold text-cloud-800 text-2xl">{title}</span>
           </h4>
           <div className="text-cloud-300 text-base font-medium pb-3">
             <span>{format(new Date(date), "d MMM yyyy")}</span>
@@ -53,8 +53,8 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ slug, attributes 
               </>
             )}
           </div>
-          <p className="text-cloud-900 font-normal mb-4">{blurb}</p>
-          <p className="text-cerulean-200 font-bold">Click to find out more</p>
+          <p className="text-cloud-800 font-normal mb-4">{blurb}</p>
+          <p className="text-cerulean-300 font-bold">Click to find out more</p>
         </div>
       </div>
     </Link>

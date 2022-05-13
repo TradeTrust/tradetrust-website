@@ -26,7 +26,7 @@ interface StatusCheck {
 
 export const StatusCheck: FunctionComponent<StatusCheck> = ({ valid, messageSet }) => {
   const message = valid ? messageSet.successTitle : messageSet.failureTitle;
-  const icon = valid ? <CheckCircle className="text-emerald" /> : <XCircle className="text-rose" />;
+  const icon = valid ? <CheckCircle className="text-forest-500" /> : <XCircle className="text-scarlet-500" />;
 
   return <Status message={message} icon={icon} />;
 };

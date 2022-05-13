@@ -44,13 +44,13 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
           </div>
         </div>
         <div className="w-full xl:w-1/2">
-          <div className="text-cloud-900 px-5 pt-3 pb-5">
+          <div className="text-cloud-800 px-5 pt-3 pb-5">
             <h4 className="title mb-2">
               <a
                 href={`https://www.youtube.com/watch?v=${youtubeEmbedCode}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cloud-900"
+                className="text-cloud-800"
                 data-testid="youtubeEmbed-title-link"
               >
                 {title}
@@ -70,7 +70,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
                 return (
                   <DropdownItem
                     key={i}
-                    className={"break-words text-clip whitespace-normal text-cloud-900 "}
+                    className={"break-words text-clip whitespace-normal text-cloud-800 "}
                     data-testid="video-chapters-dropdown"
                     onClick={() => setCurrentTimeStamp(videoChapter.timeStamp)}
                   >

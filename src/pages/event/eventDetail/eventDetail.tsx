@@ -80,7 +80,7 @@ export const EventPageDetail: FunctionComponent = () => {
                   {videoLink && (
                     <div className="w-full sm:w-auto mb-2 sm:mb-0">
                       <a
-                        className="text-lg text-cerulean-200 font-medium hover:text-cerulean-300 inline-block pr-4 cursor-pointer"
+                        className="text-lg text-cerulean-300 font-medium hover:text-cerulean-300 inline-block pr-4 cursor-pointer"
                         href={videoLink}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -97,7 +97,7 @@ export const EventPageDetail: FunctionComponent = () => {
                   )}
                   <div className="w-full sm:w-auto mb-2 sm:mb-0 mt-4">
                     <a
-                      className="text-lg text-cerulean-200 font-medium hover:text-cerulean-300 inline-block pr-4"
+                      className="text-lg text-cerulean-300 font-medium hover:text-cerulean-300 inline-block pr-4"
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -115,7 +115,7 @@ export const EventPageDetail: FunctionComponent = () => {
                   {slides && (
                     <div className="w-full sm:w-auto mb-2 sm:mb-0 mt-4">
                       <a
-                        className="text-lg text-cerulean-200 font-medium hover:text-cerulean-300 inline-block pr-4 cursor-pointer"
+                        className="text-lg text-cerulean-300 font-medium hover:text-cerulean-300 inline-block pr-4 cursor-pointer"
                         href={slides}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -138,7 +138,7 @@ export const EventPageDetail: FunctionComponent = () => {
                       return (
                         <div key={`downloadableContent-${index}`} className="w-full sm:w-auto mb-2 sm:mb-0 mt-4">
                           <a
-                            className="text-lg text-cerulean-200 font-medium hover:text-cerulean-300 inline-block pr-4 cursor-pointer"
+                            className="text-lg text-cerulean-300 font-medium hover:text-cerulean-300 inline-block pr-4 cursor-pointer"
                             href={downloadableContent}
                             download
                             data-testid={`downloadableContent-${index}`}

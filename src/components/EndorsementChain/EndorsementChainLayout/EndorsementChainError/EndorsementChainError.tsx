@@ -8,7 +8,7 @@ interface EndorsementChainErrorProps {
 export const EndorsementChainError: FunctionComponent<EndorsementChainErrorProps> = ({ error }) => {
   return (
     <div className="text-center">
-      <AlertTriangle className="text-rose" />
+      <AlertTriangle className="text-scarlet-500" />
       <h4>{error} has occurred, please try again later.</h4>
     </div>
   );

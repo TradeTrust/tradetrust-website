@@ -51,7 +51,7 @@ export const HowItWorksSection: FunctionComponent = () => {
             {documentType.map((item, index) => (
               <h5
                 key={index}
-                className={`font-ubuntu font-normal text-xl text-cerulean-200 cursor-pointer hover:font-bold ${documentTypeFilterStyle(
+                className={`font-ubuntu font-normal text-xl text-cerulean-300 cursor-pointer hover:font-bold ${documentTypeFilterStyle(
                   item
                 )}`}
                 onClick={() => selectDocumentType(item)}
@@ -65,14 +65,14 @@ export const HowItWorksSection: FunctionComponent = () => {
         <DocumentTypeDetails documentTypeContent={selectedDocumentTypeContent} />
 
         <div className="flex flex-col h-96 justify-center">
-          <div className="bg-wave-lines-light bg-cover flex w-full h-64 mx-auto bg-cerulean rounded-xl text-white text-center justify-center items-center">
+          <div className="bg-wave-lines-light bg-cover flex w-full h-64 mx-auto bg-cerulean-500 rounded-xl text-white text-center justify-center items-center">
             <h3 className="font-ubuntu text-4.5xl lg:mx-72">
               Ready to learn how TradeTrust can benefit your business?
             </h3>
           </div>
           <Link
             to="/demo"
-            className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
+            className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-gray-200"
             data-testid="get-in-touch"
           >
             <h3 className="font-normal text-2xl">Try Our Demo Now</h3>

@@ -39,13 +39,13 @@ export const DemoCreateIssue: FunctionComponent = () => {
         <div className="text-center">
           {error ? (
             <>
-              <XCircle width="48px" height="48px" className="text-rose w-full mb-4" />
+              <XCircle width="48px" height="48px" className="text-scarlet-500 w-full mb-4" />
               <h3>Failed</h3>
               <p className="py-5">
                 Please check if you have internet connection,
                 <br /> alternatively, see <Link to="/faq">FAQ</Link> or <Link to="/contact">Contact us</Link>
               </p>
-              <Button className="bg-cerulean text-white rounded hover:bg-cerulean-500">
+              <Button className="bg-cerulean-500 text-white rounded hover:bg-cerulean-500">
                 <Link className="text-white hover:text-white" to="/demo">
                   Try Again
                 </Link>
@@ -53,7 +53,7 @@ export const DemoCreateIssue: FunctionComponent = () => {
             </>
           ) : (
             <>
-              <CheckCircle width="48px" height="48px" className="text-emerald w-full mb-4" />
+              <CheckCircle width="48px" height="48px" className="text-forest-500 w-full mb-4" />
               <h3>Success!</h3>
               <p className="py-5">
                 Your file will be downloaded automatically, if it

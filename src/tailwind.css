@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply text-cloud-900;
+    @apply text-cloud-800;
   }
 
   h1 {
@@ -66,7 +66,7 @@
   }
 
   a:hover {
-    @apply text-cerulean;
+    @apply text-cerulean-800;
   }
 
   svg {
@@ -85,7 +85,7 @@
 
 @layer components {
   main a {
-    @apply text-cerulean-200;
+    @apply text-cerulean-500;
   }
 
   .multi-tab {
@@ -121,7 +121,7 @@
   .skeleton:empty::after {
     @apply block;
     @apply bg-no-repeat;
-    content: '';
+    content: "";
     background-color: #e5e5e5;
     background-image: linear-gradient(to left, #e5e5e5 0%, #f5f5f5 50%, #e5e5e5 100%);
     background-size: 50% 100%;

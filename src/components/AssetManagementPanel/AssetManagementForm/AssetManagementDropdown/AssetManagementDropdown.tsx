@@ -25,7 +25,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
     <Dropdown
       data-testid="manageAssetDropdown"
       dropdownButtonText="Manage Assets"
-      className="bg-cerulean font-bold text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300 w-30"
+      className="bg-cerulean-500 font-bold text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300 w-30"
       classNameMenu="lg:right-0"
     >
       {canChangeHolder && (

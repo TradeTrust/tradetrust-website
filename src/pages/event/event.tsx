@@ -46,8 +46,8 @@ export const EventPage: FunctionComponent = () => {
         <div className="mt-2 mb-1">
           {categories.map((item, index) => (
             <h5
-              className={`text-cloud-300 hover:text-cloud-900 inline-block text-xl mr-4 cursor-pointer ${
-                item === category ? "text-cloud-900" : ""
+              className={`text-cloud-300 hover:text-cloud-800 inline-block text-xl mr-4 cursor-pointer ${
+                item === category ? "text-cloud-800" : ""
               }`}
               key={index}
               data-testid="filter-category"

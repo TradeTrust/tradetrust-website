@@ -9,8 +9,8 @@ export default {
   },
 };
 
-export const SolidTeal = () => {
-  return <Tag className="text-white bg-turquoise">SolidDefault</Tag>;
+export const SolidGreen = () => {
+  return <Tag className="text-white bg-forest-200">SolidDefault</Tag>;
 };
 
 export const BorderedWhite = () => {

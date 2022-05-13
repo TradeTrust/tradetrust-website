@@ -29,7 +29,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
 
   return (
     <section id="persona-modal">
-      <OverlayContent title="" className="max-h-9/10 text-white bg-cerulean rounded-xl">
+      <OverlayContent title="" className="max-h-9/10 text-white bg-cerulean-500 rounded-xl">
         <div
           className="mx-5 my-0 bg-cover relative flex flex-col text-white p-5 overflow-auto h-auto"
           style={{ backgroundImage: "url('/static/images/common/wave-lines-light-2.png')" }}
@@ -56,7 +56,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
                 {contentType.map((content, index) => (
                   <h3
                     key={index}
-                    className={`font-normal text-lemon text-center mt-12 ${contentTypeFilterStyle(content)}`}
+                    className={`font-normal text-lemon-500 text-center mt-12 ${contentTypeFilterStyle(content)}`}
                     onClick={() => setSelectedContentType(content)}
                   >
                     {content}
@@ -87,7 +87,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
           </div>
           <Link
             to="/demo"
-            className="px-4 py-2 mx-auto mt-8 rounded-xl text-white bg-tangerine hover:bg-tangerine-600 hover:text-gray-200"
+            className="px-4 py-2 mx-auto mt-8 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-gray-200"
             onClick={handleCloseOverlay}
             data-testid={`get-in-touch-${personaIndex}`}
           >

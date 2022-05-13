@@ -10,7 +10,7 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
   return (
     <div className="flex flex-col justify-center">
       {(contentType === ContentType.THEN || contentType === ContentType.NOW) && (
-        <h3 className="hidden text-lemon text-center mt-12 lg:inline">{contentType}</h3>
+        <h3 className="hidden text-lemon-500 text-center mt-12 lg:inline">{contentType}</h3>
       )}
       <div className="flex flex-wrap m-auto lg:px-16 2xl:px-0 items-start lg:w-full 2xl:max-w-7xl">
         {stepsDetails.map((steps: any, index: any) => (

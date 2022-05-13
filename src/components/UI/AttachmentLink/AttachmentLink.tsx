@@ -103,7 +103,7 @@ export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filenam
                 href={downloadHref}
                 download={`${filename}`}
                 data-testid="attachment-download-link"
-                className="text-cerulean-200 font-bold hover:underline"
+                className="text-cerulean-300 font-bold hover:underline"
               >
                 Download
               </a>
@@ -114,7 +114,7 @@ export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filenam
                   onClick={() => {
                     openTab(data);
                   }}
-                  className="text-cerulean-200 hover:underline"
+                  className="text-cerulean-300 hover:underline"
                   data-testid="attachment-open-link"
                 >
                   Open

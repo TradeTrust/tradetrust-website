@@ -13,13 +13,13 @@ const SectionMap = () => {
         <div className="flex flex-wrap -mx-4 mb-16">
           <div className="w-full lg:w-1/3 px-4 lg:px-8">
             <div className="mb-8">
-              <h3 className="text-cerulean">Europe</h3>
+              <h3 className="text-cerulean-500">Europe</h3>
               <p>IMDA & MPA&lsquo;s collaboration with Port of Rotterdam on eBL through TradeTrust</p>
             </div>
           </div>
           <div className="w-full lg:w-1/3 px-4 lg:px-8">
             <div className="mb-8">
-              <h3 className="text-cerulean-200">Singapore</h3>
+              <h3 className="text-cerulean-300">Singapore</h3>
               <h5>TradeTrust</h5>
               <ul>
                 <li>
@@ -39,13 +39,13 @@ const SectionMap = () => {
           </div>
           <div className="w-full lg:w-1/3 px-4 lg:px-8">
             <div className="mb-4">
-              <h3 className="text-rose">China</h3>
+              <h3 className="text-scarlet-500">China</h3>
               <p>
                 SG-Shenzhen Smart City Initiative to explore cross-border trade and trade financing using eBLs and
                 Letters of Credit
               </p>
             </div>
-            <h3 className="text-tangerine">Australia</h3>
+            <h3 className="text-tangerine-500">Australia</h3>
             <p>
               Trial of digital verification methods for electronic Certificates of Origin between border agencies and
               businesses
@@ -58,7 +58,7 @@ const SectionMap = () => {
           </div>
           <div className="w-full">
             <Link to="/demo">
-              <Button className="bg-tangerine text-white hover:bg-tangerine-600 rounded-xl text-2xl px-4">
+              <Button className="bg-tangerine-500 text-white hover:bg-tangerine-800 rounded-xl text-2xl px-4">
                 Try Our Demo Now
               </Button>
             </Link>
@@ -72,7 +72,7 @@ const SectionMap = () => {
 const SectionAmendedEta = () => {
   return (
     <section className="bg-white relative z-10">
-      <div className="bg-wave-lines-light bg-cover bg-cerulean rounded-lg text-white p-8 text-center lg:absolute left-0 right-0 max-w-4xl mx-auto lg:-translate-y-1/2">
+      <div className="bg-wave-lines-light bg-cover bg-cerulean-500 rounded-lg text-white p-8 text-center lg:absolute left-0 right-0 max-w-4xl mx-auto lg:-translate-y-1/2">
         <h2>The amended ETA supports and complements the government’s trade digitalization initiatives.</h2>
       </div>
     </section>
@@ -150,7 +150,7 @@ const SectionWhyBl = () => {
 const WhatBl = ({ title, src }: { title: string; src: string }) => {
   return (
     <div className="w-full lg:w-1/3 px-4 mb-4 lg:mb-0">
-      <div className="h-full rounded-lg bg-cerulean text-white py-4 px-16">
+      <div className="h-full rounded-lg bg-cerulean-500 text-white py-4 px-16">
         <img className="mx-auto mb-8" src={src} alt={title} />
         <h5>{title}</h5>
       </div>

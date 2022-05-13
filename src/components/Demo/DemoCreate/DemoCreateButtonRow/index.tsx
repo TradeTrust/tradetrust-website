@@ -12,7 +12,7 @@ export const DemoCreateButtonRow: FunctionComponent<DemoCreateButtonRowProps> = 
       {onBack && (
         <Button
           data-testid="demo-create-button-back"
-          className="mx-12 bg-white text-cerulean hover:bg-cloud-200"
+          className="mx-12 bg-white text-cerulean-500 hover:bg-cloud-200"
           onClick={onBack}
         >
           Back
@@ -21,7 +21,7 @@ export const DemoCreateButtonRow: FunctionComponent<DemoCreateButtonRowProps> = 
       {onNext && (
         <Button
           data-testid="demo-create-button-next"
-          className="mx-12 bg-cerulean text-white hover:bg-cerulean-500"
+          className="mx-12 bg-cerulean-500 text-white hover:bg-cerulean-500"
           onClick={onNext}
         >
           Next

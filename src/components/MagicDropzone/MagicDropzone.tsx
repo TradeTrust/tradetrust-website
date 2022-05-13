@@ -76,7 +76,7 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
           />
           <h4>Drop your TradeTrust demo document to view its content</h4>
           <p className="my-6">Or</p>
-          <Button className="bg-cerulean text-white hover:bg-cerulean-500" size={ButtonSize.SM}>
+          <Button className="bg-cerulean-500 text-white hover:bg-cerulean-500" size={ButtonSize.SM}>
             Select Demo Document
           </Button>
         </div>

@@ -24,7 +24,7 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
         {templates.map(({ id, label }) => (
           <div
             className={`px-3 py-2 mr-2 multi-tab border-t border-r border-l rounded-t-xl border-cloud-100 ${
-              id === selectedTemplate ? "bg-white text-cloud-900" : "bg-cloud-100 text-cloud-300"
+              id === selectedTemplate ? "bg-white text-cloud-800" : "bg-cloud-100 text-cloud-300"
             }`}
             key={id}
             data-testid={id}
@@ -42,7 +42,7 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
         {hasAttachments && (
           <div
             className={`px-3 py-2 mr-2 multi-tab border-t border-r border-l rounded-t-xl border-cloud-100 ${
-              selectedTemplate === "attachmentTab" ? "bg-white text-cloud-900" : "bg-cloud-100 text-cloud-300"
+              selectedTemplate === "attachmentTab" ? "bg-white text-cloud-800" : "bg-cloud-100 text-cloud-300"
             }`}
           >
             <div

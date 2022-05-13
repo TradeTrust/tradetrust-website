@@ -86,7 +86,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
         {isSurrendered && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-rose border-rose">
+              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
                 <h3 className="text-4xl" data-testid="surrenderToIssuer">
                   Surrendered To Issuer
                 </h3>
@@ -97,7 +97,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
         {isTokenBurnt && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrendered-sign" className="bg-white rounded-xl text-rose border-rose">
+              <TagBorderedLg id="surrendered-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
                 <h3 className="text-4xl">Surrendered</h3>
               </TagBorderedLg>
             </div>
@@ -131,7 +131,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                   />
                 ) : (
                   <Button
-                    className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
+                    className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
                     onClick={handleNoAccess}
                   >
                     No Access
@@ -140,7 +140,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
               </>
             ) : (
               <Button
-                className="bg-cerulean text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
+                className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
                 data-testid={"connectToWallet"}
                 onClick={handleConnectWallet}
               >

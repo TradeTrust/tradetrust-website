@@ -16,7 +16,7 @@ const DescriptionSection: FunctionComponent = () => {
         <div className="container md:h-140">
           <div className="md:w-6/12">
             <div className="w-5/5 text-center md:py-8 md:text-left">
-              <h1 className="font-ubuntu text-cloud text-6xl leading-none">A Trust Network for Trading Partners</h1>
+              <h1 className="font-ubuntu text-cloud-500 text-6xl leading-none">A Trust Network for Trading Partners</h1>
               <p className="text-base mb-85% leading-5 py-6 md:w-4/5 md:mb-16">
                 A digital utility that comprises a set of globally-accepted standards and frameworks that connects
                 governments and businesses to a public blockchain to enable trusted interoperability and exchanges of
@@ -24,7 +24,7 @@ const DescriptionSection: FunctionComponent = () => {
               </p>
               <div className="absolute flex -mt-10% right-0 left-0 justify-center items-center md:relative md:justify-start">
                 <div
-                  className=" h-12 w-12 transition duration-300 ease-out rounded-full cursor-pointer bg-tangerine flex items-center justify-center hover:bg-tangerine-600"
+                  className=" h-12 w-12 transition duration-300 ease-out rounded-full cursor-pointer bg-tangerine-500 flex items-center justify-center hover:bg-tangerine-800"
                   onClick={onOverlayHandler}
                   data-testid="play-button"
                 >
@@ -32,7 +32,7 @@ const DescriptionSection: FunctionComponent = () => {
                 </div>
                 <Link
                   to="/verify"
-                  className="px-4 py-3 ml-3 bg-cerulean rounded-xl text-white font-bold hover:bg-cerulean-500 hover:text-white "
+                  className="px-4 py-3 ml-3 bg-cerulean-500 rounded-xl text-white font-bold hover:bg-cerulean-500 hover:text-white "
                   data-testid="verify-button"
                 >
                   Verify Documents
