@@ -29,7 +29,7 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
                 )}
                 <h6
                   className={`font-normal text-center mt-2 px-4 lg:px-0 lg:-mx-6 ${
-                    steps.icon ? "font-roboto" : "font-ubuntu text-2xl"
+                    steps.icon ? "font-gilroy-medium" : "font-ubuntu text-2xl"
                   }`}
                 >
                   {steps.description}

@@ -79,7 +79,7 @@ export const MainBenefitsSection: FunctionComponent = () => {
         <div className="container">
           <div className="text-center">
             <h1 className="font-ubuntu text-cloud-500 leading-none text-4xl lg:text-5xl">Main Benefits</h1>
-            <h2 className="font-roboto mt-4 leading-6 text-xl lg:text-xl">
+            <h2 className="font-gilroy-medium mt-4 leading-6 text-xl lg:text-xl">
               TradeTrust can bring benefits to the trade, finance and logistics community:
             </h2>
           </div>
