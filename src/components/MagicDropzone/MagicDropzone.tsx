@@ -136,7 +136,7 @@ export const MagicDropzone: FunctionComponent = () => {
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       <div
-        className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-400 flex flex-col justify-center ${customStyle}`}
+        className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
       >
         <MagicDropzoneView
           isPending={isVerificationPending}

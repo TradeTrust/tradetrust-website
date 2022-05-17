@@ -66,7 +66,7 @@ export const HowItWorksSection: FunctionComponent = () => {
 
         <div className="flex flex-col h-96 justify-center">
           <div className="bg-wave-lines-light bg-cover flex w-full h-64 mx-auto bg-cerulean-500 rounded-xl text-white text-center justify-center items-center">
-            <h3 className="font-ubuntu text-4.5xl lg:mx-72">
+            <h3 className="text-[2.5rem] tracking-tight leading-[44px] lg:mx-72">
               Ready to learn how TradeTrust can benefit your business?
             </h3>
           </div>
