@@ -82,7 +82,7 @@
     @apply transition-colors;
     @apply duration-200;
     @apply ease-out;
-    @apply text-cloud-500;
+    @apply text-cerulean-300;
   }
 
   a:hover {
@@ -105,7 +105,7 @@
 
 @layer components {
   main a {
-    @apply text-cerulean-500;
+    @apply text-cerulean-300;
   }
 
   .multi-tab {

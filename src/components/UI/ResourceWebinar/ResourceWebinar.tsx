@@ -79,7 +79,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
                 );
               })}
             </Dropdown>
-            <div className="py-2 text-blue">
+            <div className="py-2">
               {downloads?.map((download, index) => (
                 <a
                   className="font-semibold flex items-start mt-1"
