@@ -97,7 +97,7 @@ export const NominateBeneficiaryHolderForm: FunctionComponent<NominateBeneficiar
             </div>
             <div className="w-auto ml-2">
               <Button
-                className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-300"
+                className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={isInvalidNomination || isPendingConfirmation}
                 onClick={() => {
                   if (holder === undefined) return;

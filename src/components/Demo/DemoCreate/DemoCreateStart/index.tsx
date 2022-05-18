@@ -101,7 +101,7 @@ export const DemoCreateStart: FunctionComponent = () => {
           </h3>
         </div>
       ) : (
-        <Button onClick={handleStart} className="flex mx-auto bg-cerulean-500 text-white mt-8 hover:bg-cerulean-300">
+        <Button onClick={handleStart} className="flex mx-auto bg-cerulean-500 text-white mt-8 hover:bg-cerulean-800">
           Start Now
         </Button>
       )}

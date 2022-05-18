@@ -45,7 +45,7 @@ export const DemoCreateIssue: FunctionComponent = () => {
                 Please check if you have internet connection,
                 <br /> alternatively, see <Link to="/faq">FAQ</Link> or <Link to="/contact">Contact us</Link>
               </p>
-              <Button className="bg-cerulean-500 text-white rounded hover:bg-cerulean-500">
+              <Button className="bg-cerulean-500 text-white rounded hover:bg-cerulean-800">
                 <Link className="text-white hover:text-white" to="/demo">
                   Try Again
                 </Link>

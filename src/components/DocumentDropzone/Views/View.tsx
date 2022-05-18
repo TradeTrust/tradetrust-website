@@ -19,11 +19,11 @@ export const View: FunctionComponent<ViewProps> = ({ toggleQrReaderVisible }) =>
       />
       <h4>Drop your TradeTrust file to view its contents</h4>
       <p className="my-6">Or</p>
-      <Button className="bg-cerulean-500 text-white hover:bg-cerulean-500 mr-2 md:mr-0" size={ButtonSize.SM}>
+      <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800 mr-2 md:mr-0" size={ButtonSize.SM}>
         Select Document
       </Button>
       <Button
-        className="bg-cerulean-500 text-white hover:bg-cerulean-500 md:hidden"
+        className="bg-cerulean-500 text-white hover:bg-cerulean-800 md:hidden"
         size={ButtonSize.SM}
         onClick={(event) => {
           event.preventDefault();

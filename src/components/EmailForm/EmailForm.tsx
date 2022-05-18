@@ -94,7 +94,7 @@ export const EmailForm: FunctionComponent = () => {
               </Checkbox>
               <p className="mt-8 font-medium">*Mandatory</p>
             </div>
-            <Button className="text-white bg-cerulean-500 hover:bg-cerulean-300 rounded-xl" size={ButtonSize.SM}>
+            <Button className="text-white bg-cerulean-500 hover:bg-cerulean-800 rounded-xl" size={ButtonSize.SM}>
               Submit
             </Button>
           </div>

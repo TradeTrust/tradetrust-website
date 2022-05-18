@@ -21,7 +21,7 @@ export const DemoCreateButtonRow: FunctionComponent<DemoCreateButtonRowProps> = 
       {onNext && (
         <Button
           data-testid="demo-create-button-next"
-          className="mx-12 bg-cerulean-500 text-white hover:bg-cerulean-500"
+          className="mx-12 bg-cerulean-500 text-white hover:bg-cerulean-800"
           onClick={onNext}
         >
           Next

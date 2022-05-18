@@ -66,6 +66,11 @@ const data = [
 
 export const Footer: React.FunctionComponent = () => {
   return (
-    <BaseFooter className="py-8 px-6" title={"TradeTrust"} copyright={"Copyright \u00A9 2021 TradeTrust"} data={data} />
+    <BaseFooter
+      className="py-8 px-6"
+      logoUrl={"/static/images/tradetrust_logo.svg"}
+      copyright={"Copyright \u00A9 2021 TradeTrust"}
+      data={data}
+    />
   );
 };

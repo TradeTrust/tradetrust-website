@@ -131,7 +131,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                   />
                 ) : (
                   <Button
-                    className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
+                    className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-800"
                     onClick={handleNoAccess}
                   >
                     No Access
@@ -140,7 +140,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
               </>
             ) : (
               <Button
-                className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300"
+                className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-800"
                 data-testid={"connectToWallet"}
                 onClick={handleConnectWallet}
               >

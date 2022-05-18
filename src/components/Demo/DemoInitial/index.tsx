@@ -66,7 +66,7 @@ export const DemoInitial: FunctionComponent = () => {
           </p>
         </Checkbox>
       </div>
-      <Button className="bg-cerulean-500 text-white mt-8 hover:bg-cerulean-300">
+      <Button className="bg-cerulean-500 text-white mt-8 hover:bg-cerulean-800">
         <h5>Submit</h5>
       </Button>
     </form>
