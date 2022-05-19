@@ -10,6 +10,8 @@ import {
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
 
+const sharedStyles = "block w-full px-4 py-3 text-cloud-500";
+
 export const leftNavItems: NavigationItem[] = [
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationLink,
@@ -33,7 +35,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "Learn",
         path: "/learn",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className="block w-full px-4 py-3" to={"/learn"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/learn"}>
             Learn
           </NavLink>
         ),
@@ -43,7 +45,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "FAQ",
         path: "/faq",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className="block w-full px-4 py-3" to={"/faq"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/faq"}>
             FAQ
           </NavLink>
         ),
@@ -53,7 +55,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "ETA",
         path: "/eta",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className="block w-full px-4 py-3" to={"/eta"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/eta"}>
             ETA
           </NavLink>
         ),
@@ -63,7 +65,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "Guidelines (Non-Ethereum)",
         path: "/guidelines",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className="block w-full px-4 py-3" to={"/guidelines"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/guidelines"}>
             Guidelines (Non-Ethereum)
           </NavLink>
         ),
@@ -81,7 +83,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "News",
         path: "/news",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className="block w-full px-4 py-3" to={"/news"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/news"}>
             News
           </NavLink>
         ),
@@ -91,7 +93,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "Event",
         path: "/event",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className="block w-full px-4 py-3" to={"/event"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/event"}>
             Event
           </NavLink>
         ),
