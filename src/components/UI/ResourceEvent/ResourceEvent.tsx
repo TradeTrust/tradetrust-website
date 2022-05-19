@@ -54,7 +54,7 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ slug, attributes 
             )}
           </div>
           <p className="text-cloud-800 font-normal mb-4">{blurb}</p>
-          <p className="text-cerulean-300 font-bold">Click to find out more</p>
+          <p className="text-cerulean-300 font-bold hover:text-cerulean-500">Click to find out more</p>
         </div>
       </div>
     </Link>

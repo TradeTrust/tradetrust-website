@@ -15,7 +15,7 @@ const getLink = (news: NewsSingle) => {
 export const NewsLink: FunctionComponent<{ news: NewsSingle }> = ({ news }) => {
   const isNavLink = !!news.body;
   const link = getLink(news);
-  const sharedStylesLink = `group inline-block w-full p-6 rounded-lg overflow-hidden relative h-full text-white hover:text-white`;
+  const sharedStylesLink = `group inline-block w-full p-6 rounded-lg overflow-hidden relative h-full min-h-[262px] text-white hover:text-white`;
 
   return (
     <>

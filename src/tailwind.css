@@ -86,7 +86,7 @@
   }
 
   a:hover {
-    @apply text-cerulean-800;
+    @apply text-cerulean-500;
   }
 
   svg {
