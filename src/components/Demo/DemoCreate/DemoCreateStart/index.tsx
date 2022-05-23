@@ -1,4 +1,5 @@
 import { Button } from "@govtechsg/tradetrust-ui-components";
+import { gaEvent } from "@govtechsg/tradetrust-utils";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +8,7 @@ import { deployingDocStore, getDocumentPrepared } from "../../../../reducers/dem
 import { getFunds } from "../../../../services/create";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { LoadingModal } from "../../../UI/Overlay";
-import { gaEvent } from "../../../../common/analytics";
+import { GaAction, GaCategory } from "../../../../types";
 
 export const DemoCreateStart: FunctionComponent = () => {
   const { getSigner } = useProviderContext();
@@ -44,8 +45,8 @@ export const DemoCreateStart: FunctionComponent = () => {
       setActiveStep("form");
       setLoading(false);
       gaEvent({
-        action: "magic_demo_start",
-        category: "magic_demo",
+        action: GaAction.MAGIC_START,
+        category: GaCategory.MAGIC_DEMO,
       });
     }
 

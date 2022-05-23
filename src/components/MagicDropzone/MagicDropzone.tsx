@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { isValid } from "@govtechsg/oa-verify";
 import { Button, ButtonSize, LoaderSpinner } from "@govtechsg/tradetrust-ui-components";
+import { gaEvent } from "@govtechsg/tradetrust-utils";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 import { DetailedErrors } from "../DocumentDropzone/DetailedErrors";
 import { updateDemoDocument, resetDemoState } from "../../reducers/demo-verify";
 import { getDropzoneBoxUi } from "./../../common/utils/getDropzoneBoxUi";
-import { gaEvent } from "./../../common/analytics";
+import { GaAction, GaCategory } from "../../types";
 
 interface MagicDropzoneViewProps {
   isPending: boolean;
@@ -103,8 +104,8 @@ export const MagicDropzone: FunctionComponent = () => {
             const json = JSON.parse(reader.result as string);
             dispatch(updateDemoDocument(json)); // pushes to `/viewer` page
             gaEvent({
-              action: "magic_demo_file_drop",
-              category: "magic_demo",
+              action: GaAction.MAGIC_FILE_DROP,
+              category: GaCategory.MAGIC_DEMO,
             });
           } catch (e) {
             console.log(e);
