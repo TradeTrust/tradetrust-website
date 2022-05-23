@@ -1,13 +1,14 @@
 import React, { FunctionComponent, useCallback, useContext, useEffect } from "react";
 import { saveAs } from "file-saver";
 import { Button, ProgressBar } from "@govtechsg/tradetrust-ui-components";
+import { gaEvent } from "@govtechsg/tradetrust-utils";
 import { CheckCircle, XCircle } from "react-feather";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getDocumentIssued, getDocumentPrepared, getWrappedDocument } from "../../../../reducers/demo-create";
 import { DemoFormContext } from "../contexts/DemoFormContext";
 import { Banner } from "../../../UI/Banner";
-import { gaEvent } from "../../../../common/analytics";
+import { GaAction, GaCategory } from "../../../../types";
 
 export const DemoCreateIssue: FunctionComponent = () => {
   const { issued, error: issuedError } = useSelector(getDocumentIssued);
@@ -26,8 +27,8 @@ export const DemoCreateIssue: FunctionComponent = () => {
     if (issued) {
       downloadDocument();
       gaEvent({
-        action: "magic_demo_downloaded",
-        category: "magic_demo",
+        action: GaAction.MAGIC_DOWNLOADED,
+        category: GaCategory.MAGIC_DEMO,
       });
     }
   }, [issued, downloadDocument]);

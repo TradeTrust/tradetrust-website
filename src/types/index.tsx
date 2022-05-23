@@ -76,3 +76,15 @@ export enum ContentType {
 }
 
 export type Dispatch = (action: HostActions) => void;
+
+export enum GaAction {
+  MAGIC_START = "magic_demo_start",
+  MAGIC_ISSUE = "magic_demo_issue",
+  MAGIC_DOWNLOADED = "magic_demo_downloaded",
+  MAGIC_FILE_DROP = "magic_demo_file_drop",
+  MAGIC_DROP_OFF = "magic_demo_drop_off",
+}
+
+export enum GaCategory {
+  MAGIC_DEMO = "magic_demo",
+}

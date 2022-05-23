@@ -1,5 +1,6 @@
 import { OpenAttestationDocument } from "@govtechsg/open-attestation";
 import { ProgressBar, ToggleSwitch } from "@govtechsg/tradetrust-ui-components";
+import { gaEvent } from "@govtechsg/tradetrust-utils";
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../../../../common/contexts/provider";
@@ -18,9 +19,9 @@ import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { schema } from "../DemoCreateForm/schema";
 import { FormItemSchema } from "../DemoCreateForm/types";
 import { getFormValue, isImageData } from "../utils";
-import { gaEvent } from "../../../../common/analytics";
 import { makeRawDocument } from "./helpers";
 import { DocumentPreview } from "./DemoPreview";
+import { GaAction, GaCategory } from "../../../../types";
 
 const DemoCreateReviewItem = ({
   title,
@@ -105,8 +106,8 @@ export const DemoCreateReview: FunctionComponent = () => {
     if (wrapDocumentStatus !== null && wrapDocumentStatus === "success") {
       dispatch(issuingDocument(provider));
       gaEvent({
-        action: "magic_demo_issue",
-        category: "magic_demo",
+        action: GaAction.MAGIC_ISSUE,
+        category: GaCategory.MAGIC_DEMO,
       });
     }
   }, [wrapDocumentStatus, dispatch, getTransactor]);
