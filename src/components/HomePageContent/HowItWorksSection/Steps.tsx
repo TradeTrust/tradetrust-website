@@ -10,7 +10,7 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
   return (
     <div className="flex flex-col justify-center">
       {(contentType === ContentType.THEN || contentType === ContentType.NOW) && (
-        <h3 className="hidden text-lemon text-center mt-12 lg:inline">{contentType}</h3>
+        <h3 className="hidden text-lemon-500 text-center mt-12 lg:inline">{contentType}</h3>
       )}
       <div className="flex flex-wrap m-auto lg:px-16 2xl:px-0 items-start lg:w-full 2xl:max-w-7xl">
         {stepsDetails.map((steps: any, index: any) => (
@@ -18,10 +18,10 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
             <div
               className={`flex flex-row flex-none w-6/12 mt-8 justify-center lg:w-auto ${steps.icon ? "" : "lg:ml-6"}`}
             >
-              <div className="flex flex-col max-w-46 min-w-46 justify-center">
+              <div className="flex flex-col max-w-[11.5rem] min-w-[11.5rem] justify-center">
                 {steps.icon && (
                   <div className="flex justify-center">
-                    <img className="max-h-10 h-10 max-w-12" src={steps.icon} />
+                    <img className="max-h-10 h-10 max-w-[3rem]" src={steps.icon} />
                   </div>
                 )}
                 {steps.stepTitle && (
@@ -29,7 +29,7 @@ export const Steps: React.FunctionComponent<any> = ({ contentType, stepsDetails 
                 )}
                 <h6
                   className={`font-normal text-center mt-2 px-4 lg:px-0 lg:-mx-6 ${
-                    steps.icon ? "font-roboto" : "font-ubuntu text-2xl"
+                    steps.icon ? "font-gilroy-medium" : "font-ubuntu text-2xl"
                   }`}
                 >
                   {steps.description}

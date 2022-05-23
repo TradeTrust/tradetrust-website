@@ -16,7 +16,7 @@ export const ResourceDownload: FunctionComponent<ResourceDownloadProps> = ({ tit
             key={index}
             href={resource.attributes.file}
             download={resource.attributes.title}
-            className="inline-block text-base font-medium text-cerulean-200 flex items-center my-3"
+            className="inline-block text-base font-medium text-cerulean-300 flex items-center my-3"
           >
             <Download className="mr-2" width="20" height="20" />
             {resource.attributes.title}

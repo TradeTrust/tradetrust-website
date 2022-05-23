@@ -54,7 +54,7 @@ export const ModalNavigateOut: FunctionComponent<ModalNavigateOutProps> = ({
       <Button onClick={closeModal} className="bg-white text-cerulean-500 hover:bg-gray-50 lg:mr-2">
         Back to demo
       </Button>
-      <Button onClick={closeModalAndNavigate} className="bg-cerulean text-white hover:bg-cerulean-500">
+      <Button onClick={closeModalAndNavigate} className="bg-cerulean-500 text-white hover:bg-cerulean-800">
         Navigate away
       </Button>
     </OverlayContent>

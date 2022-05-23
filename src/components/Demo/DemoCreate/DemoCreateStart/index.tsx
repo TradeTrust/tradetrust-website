@@ -89,7 +89,7 @@ export const DemoCreateStart: FunctionComponent = () => {
           return (
             <div key={img} className="w-1/3 px-3">
               <img alt={title} className="mx-auto h-32" src={`/static/images/demo/${img}`} />
-              <p className="text-cerulean text-center">{title}</p>
+              <p className="text-cerulean-500 text-center">{title}</p>
             </div>
           );
         })}
@@ -101,7 +101,7 @@ export const DemoCreateStart: FunctionComponent = () => {
           </h3>
         </div>
       ) : (
-        <Button onClick={handleStart} className="flex mx-auto bg-cerulean text-white mt-8 hover:bg-cerulean-300">
+        <Button onClick={handleStart} className="flex mx-auto bg-cerulean-500 text-white mt-8 hover:bg-cerulean-800">
           Start Now
         </Button>
       )}

@@ -32,8 +32,8 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
   return (
     <div className={`transition-color duration-200${addClassNameIfExist(` ${classNameContainer}`)}`}>
       <div
-        className={`flex justify-between items-center transition-colors duration-200 cursor-pointer hover:text-cerulean${
-          isOpen ? " text-cerulean" : ""
+        className={`flex justify-between items-center transition-colors duration-200 cursor-pointer hover:text-cerulean-500 ${
+          isOpen ? " text-cerulean-500" : ""
         }${addClassNameIfExist(` ${classNameCollapse}`)}`}
         onClick={() => setOpenIndex(isOpen ? -1 : accordionIndex)}
       >

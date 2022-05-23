@@ -35,7 +35,7 @@ const VerifyPage = (): React.ReactElement => {
             <NetworkSelect />
             <OverlayContextProvider>
               <InfoOverlay className="p-0 ml-3 cursor-pointer focus:outline-none">
-                <OverlayContent className="max-w-sm" title="Network Selector">
+                <OverlayContent className="max-w-sm lg:max-w-md" title="Network Selector">
                   A document can only be successfully verified on the same network where the document was created in.
                   <br />
                   If unsure, do check with the document issuer.
@@ -53,7 +53,7 @@ const VerifyPage = (): React.ReactElement => {
           image="/static/images/errorpage/error-boundary.png"
         >
           <h3 className="font-normal my-2 sm:my-4 text-lg sm:text-2xl">
-            <Link className="text-cerulean-200" to="/verify" onClick={() => window.location.reload()}>
+            <Link className="text-cerulean-300" to="/verify" onClick={() => window.location.reload()}>
               Try again
             </Link>
           </h3>

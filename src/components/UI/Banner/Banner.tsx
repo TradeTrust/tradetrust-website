@@ -13,14 +13,14 @@ export const Banner: FunctionComponent<BannerProps> = ({ className, title, butto
   return (
     <div className={`${className ? className : ""}`}>
       <div className="container">
-        <div className="rounded-xl bg-cerulean bg-cover bg-wave-lines-light">
+        <div className="rounded-xl bg-cerulean-500 bg-cover bg-wave-lines-light">
           <div className="flex flex-wrap items-center px-4 py-6 text-white">
             <div className="px-2 w-full lg:w-2/3 mb-2 lg:mb-0">
               <h3 data-testid="banner-title">{title}</h3>
             </div>
             <div className="px-2 w-auto lg:ml-auto">
               <NavLink to={to}>
-                <Button className="bg-tangerine text-white hover:bg-tangerine-600 border-none" size={ButtonSize.LG}>
+                <Button className="bg-tangerine-500 text-white hover:bg-tangerine-800 border-none" size={ButtonSize.LG}>
                   <h4>{buttonText}</h4>
                 </Button>
               </NavLink>

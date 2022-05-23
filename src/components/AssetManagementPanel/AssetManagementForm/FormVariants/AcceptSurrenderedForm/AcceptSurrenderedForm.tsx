@@ -58,7 +58,7 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
           </div>
           <div className="w-full lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-rose border-rose">
+              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
                 <h3 className="text-4xl">Surrendered To Issuer</h3>
               </TagBorderedLg>
             </div>
@@ -69,7 +69,7 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
             <div className="flex flex-wrap">
               <div className="w-auto">
                 <Button
-                  className="bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-900 shadow-none hover:bg-cloud-200"
+                  className="bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-800 shadow-none hover:bg-cloud-200"
                   onClick={setFormActionNone}
                   disabled={isDestroyTokenPendingConfirmation}
                   data-testid={"cancelSurrenderBtn"}
@@ -79,7 +79,7 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
               </div>
               <div className="w-auto ml-2">
                 <Button
-                  className="bg-rose text-white rounded-xl text-lg py-2 px-3 shadow-none hover:bg-rose-400"
+                  className="bg-scarlet-500 text-white rounded-xl text-lg py-2 px-3 shadow-none hover:bg-scarlet-400"
                   onClick={handleDestroyToken}
                   disabled={isDestroyTokenPendingConfirmation}
                   data-testid={"acceptSurrenderBtn"}

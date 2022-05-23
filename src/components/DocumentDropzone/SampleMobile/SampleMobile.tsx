@@ -18,7 +18,7 @@ export const SampleMobile: FunctionComponent<{ currentChainId: ChainId | undefin
     <div className="md:hidden flex flex-col">
       <p className="font-bold text-xl mb-4">{topMessage}</p>
       <button
-        className="bg-tangerine text-white hover:bg-tangerine-600 rounded-xl font-bold py-2 px-3 mx-auto"
+        className="bg-tangerine-500 text-white hover:bg-tangerine-800 rounded-xl font-bold py-2 px-3 mx-auto"
         draggable={false}
         onClick={(e: React.SyntheticEvent) => {
           e.stopPropagation();

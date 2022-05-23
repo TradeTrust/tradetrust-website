@@ -10,6 +10,8 @@ import {
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
 
+const sharedStyles = "block w-full px-4 py-3 text-cloud-500";
+
 export const leftNavItems: NavigationItem[] = [
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationLink,
@@ -17,7 +19,7 @@ export const leftNavItems: NavigationItem[] = [
     label: "Demo",
     path: "/demo",
     customLink: (
-      <NavLink activeClassName="text-cerulean" className="block w-full text-current" to={"/demo"}>
+      <NavLink activeClassName="text-cerulean-500" className="block w-full text-current" to={"/demo"}>
         Demo
       </NavLink>
     ),
@@ -33,7 +35,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "Learn",
         path: "/learn",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/learn"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/learn"}>
             Learn
           </NavLink>
         ),
@@ -43,7 +45,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "FAQ",
         path: "/faq",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/faq"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/faq"}>
             FAQ
           </NavLink>
         ),
@@ -53,7 +55,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "ETA",
         path: "/eta",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/eta"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/eta"}>
             ETA
           </NavLink>
         ),
@@ -63,7 +65,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "Guidelines (Non-Ethereum)",
         path: "/guidelines",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/guidelines"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/guidelines"}>
             Guidelines (Non-Ethereum)
           </NavLink>
         ),
@@ -81,7 +83,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "News",
         path: "/news",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/news"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/news"}>
             News
           </NavLink>
         ),
@@ -91,7 +93,7 @@ export const leftNavItems: NavigationItem[] = [
         label: "Event",
         path: "/event",
         customLink: (
-          <NavLink activeClassName="text-cerulean" className="block w-full px-4 py-3" to={"/event"}>
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/event"}>
             Event
           </NavLink>
         ),
@@ -104,7 +106,7 @@ export const leftNavItems: NavigationItem[] = [
     label: "Contact",
     path: "/contact",
     customLink: (
-      <NavLink activeClassName="text-cerulean" className="block w-full text-current" to={"/contact"}>
+      <NavLink activeClassName="text-cerulean-500" className="block w-full text-current" to={"/contact"}>
         Contact
       </NavLink>
     ),
@@ -119,7 +121,7 @@ export const rightNavItems: NavigationItem[] = [
     path: "/settings",
     icon: Settings,
     customLink: (
-      <NavLink activeClassName="text-cerulean" className="block w-full py-2 text-current" to={"/settings"}>
+      <NavLink activeClassName="text-cerulean-500" className="block w-full py-2 text-current" to={"/settings"}>
         <Settings className="stroke-current" />
       </NavLink>
     ),
@@ -131,7 +133,7 @@ export const rightNavItems: NavigationItem[] = [
     path: URLS.CREATOR,
     customLink: (
       <a href={URLS.CREATOR}>
-        <Button className="bg-white text-cerulean hover:bg-gray-50" size={ButtonSize.SM}>
+        <Button className="bg-white text-cerulean-500 hover:bg-gray-50" size={ButtonSize.SM}>
           Create Doc
         </Button>
       </a>
@@ -144,7 +146,7 @@ export const rightNavItems: NavigationItem[] = [
     path: "/verify",
     customLink: (
       <NavLink to={"/verify"}>
-        <Button className="bg-cerulean text-white hover:bg-cerulean-500" size={ButtonSize.SM}>
+        <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800" size={ButtonSize.SM}>
           Verify Doc
         </Button>
       </NavLink>
@@ -155,7 +157,7 @@ export const rightNavItems: NavigationItem[] = [
 const NavLogo = () => {
   return (
     <NavLink to={"/"} data-testid="nav-logo-home">
-      <h4 className="text-gray-800">TradeTrust</h4>
+      <img src="/static/images/tradetrust_logo.svg" />
     </NavLink>
   );
 };

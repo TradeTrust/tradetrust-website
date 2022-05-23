@@ -63,7 +63,7 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by"
   return (
     <h2 id="issuedby" className="break-words leading-tight">
       <span className="mr-2 inline-block break-all">{title}</span>
-      <span className="text-cerulean inline-block">{formattedDomainNames}</span>
+      <span className="text-cerulean-500 inline-block">{formattedDomainNames}</span>
     </h2>
   );
 };

@@ -136,7 +136,7 @@ export const DemoCreateReview: FunctionComponent = () => {
       <ProgressBar totalSteps={3} step={2} />
       <div className="my-4 flex justify-between">
         <h3 className="my-3">Please confirm details</h3>
-        <div className="text-cloud-900 flex items-center">
+        <div className="text-cloud-800 flex items-center">
           <div className="align-middle mr-4">Preview mode:</div>
           <ToggleSwitch isOn={isPreviewMode} handleToggle={toggleHandler} />
         </div>

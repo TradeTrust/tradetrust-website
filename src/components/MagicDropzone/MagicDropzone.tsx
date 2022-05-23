@@ -76,7 +76,7 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
           />
           <h4>Drop your TradeTrust demo document to view its content</h4>
           <p className="my-6">Or</p>
-          <Button className="bg-cerulean text-white hover:bg-cerulean-500" size={ButtonSize.SM}>
+          <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800" size={ButtonSize.SM}>
             Select Demo Document
           </Button>
         </div>
@@ -136,7 +136,7 @@ export const MagicDropzone: FunctionComponent = () => {
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       <div
-        className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-400 flex flex-col justify-center ${customStyle}`}
+        className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
       >
         <MagicDropzoneView
           isPending={isVerificationPending}

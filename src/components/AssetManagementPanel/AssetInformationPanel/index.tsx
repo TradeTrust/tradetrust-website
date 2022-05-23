@@ -19,10 +19,10 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanelProps
         <ExternalLinkEtherscanAddress name="View NFT Registry" address={tokenRegistryAddress} />
         <div
           onClick={() => setShowEndorsementChain(true)}
-          className="cursor-pointer transition-colors duration-200 ease-out text-cerulean-200 hover:text-cerulean"
+          className="cursor-pointer transition-colors duration-200 ease-out text-cerulean-300 hover:text-cerulean-500"
           id="endorsement-chain-button"
         >
-          <h5 className="text-cerulean-200 hover:text-cerulean">View Endorsement Chain</h5>
+          <h5 className="text-cerulean-300 hover:text-cerulean-500">View Endorsement Chain</h5>
         </div>
       </AddressInfo>
     </div>

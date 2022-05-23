@@ -171,7 +171,7 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
       <div className="flex flex-nowrap pr-8">
         <div className="relative shrink-0 lg:hidden" style={{ width: "40px" }}>
           <div className="absolute left-0 right-0 mx-auto h-full">
-            <div className="absolute top-0 left-1/2 h-full border-l border-dashed border-cerulean path" />
+            <div className="absolute top-0 left-1/2 h-full border-l border-dashed border-cerulean-500 path" />
           </div>
         </div>
         <div className="pb-4 lg:pb-0">
@@ -186,7 +186,7 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
               </TooltipIcon>
             </div>
           </div>
-          <h6 className="text-cerulean break-all" data-testid="address-entity">
+          <h6 className="text-cerulean-500 break-all" data-testid="address-entity">
             {address}
           </h6>
         </div>
@@ -202,13 +202,13 @@ const EndorsementChainData: React.FunctionComponent<any> = ({ index, data }) => 
         <div className="flex flex-nowrap">
           <div className="relative shrink-0 lg:order-2" style={{ width: "40px" }}>
             <div className="absolute left-0 right-0 mx-auto h-full">
-              <div className="absolute left-1/2 h-full border-l border-dashed border-cerulean dot-path" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cerulean h-3 w-3" />
+              <div className="absolute left-1/2 h-full border-l border-dashed border-cerulean-500 dot-path" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cerulean-500 h-3 w-3" />
             </div>
           </div>
           <div className="lg:ml-auto lg:order-1">
             <div className="lg:text-right py-6 lg:py-4">
-              <h4 className="text-cloud-900" data-testid="action-title">
+              <h4 className="text-cloud-800" data-testid="action-title">
                 {data.action}
               </h4>
               {data.timestamp && (

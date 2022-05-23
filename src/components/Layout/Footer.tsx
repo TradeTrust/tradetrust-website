@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { ExternalLink } from "react-feather";
 import { URLS } from "../../constants";
 
-const sharedStyles = `font-medium text-sm`;
+const sharedStyles = `font-medium text-sm text-cloud-500`;
 const renderNavLink = ({ label, to }: FooterColumnItemProps) => {
   return (
     <NavLink className={sharedStyles} to={to}>
@@ -66,6 +66,11 @@ const data = [
 
 export const Footer: React.FunctionComponent = () => {
   return (
-    <BaseFooter className="py-8 px-6" title={"TradeTrust"} copyright={"Copyright \u00A9 2021 TradeTrust"} data={data} />
+    <BaseFooter
+      className="py-8 px-6"
+      logoUrl={"/static/images/tradetrust_logo.svg"}
+      copyright={"Copyright \u00A9 2021 TradeTrust"}
+      data={data}
+    />
   );
 };
