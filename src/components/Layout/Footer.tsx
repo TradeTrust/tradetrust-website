@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { ExternalLink } from "react-feather";
 import { URLS } from "../../constants";
 
-const sharedStyles = `font-medium text-sm text-cloud-500`;
+const sharedStyles = `font-medium text-sm text-cloud-500 hover:text-cerulean-500`;
 const renderNavLink = ({ label, to }: FooterColumnItemProps) => {
   return (
     <NavLink className={sharedStyles} to={to}>
