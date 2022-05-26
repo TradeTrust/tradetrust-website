@@ -54,7 +54,7 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
           <br />
           <div
             data-testid="try-another"
-            className="my-8 transition-colors duration-200 underline cursor-pointer text-red-500 hover:text-gray-500"
+            className="my-8 transition-colors duration-200 underline cursor-pointer text-red-500 hover:text-cloud-500"
             onClick={(e) => {
               e.preventDefault();
               resetDocument();
@@ -67,7 +67,7 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
     default:
       return (
         <div>
-          <h2 className="absolute top-0 left-0 right-0 mt-8 mx-auto text-gray-600 text-opacity-10 text-7xl lg:text-9xl">
+          <h2 className="absolute top-0 left-0 right-0 mt-8 mx-auto text-cloud-800 text-opacity-10 text-7xl lg:text-9xl">
             DEMO
           </h2>
           <img

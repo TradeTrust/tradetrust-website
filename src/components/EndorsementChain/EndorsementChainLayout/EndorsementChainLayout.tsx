@@ -175,7 +175,7 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
           </div>
         </div>
         <div className="pb-4 lg:pb-0">
-          <h5 className="text-gray-400 mr-2 lg:hidden">{title}</h5>
+          <h5 className="text-cloud-800 mr-2 lg:hidden">{title}</h5>
           <div className="flex flex-wrap items-center">
             <div className="w-auto">
               <AddressResolvedName address={address} />
@@ -212,7 +212,7 @@ const EndorsementChainData: React.FunctionComponent<any> = ({ index, data }) => 
                 {data.action}
               </h4>
               {data.timestamp && (
-                <h6 className="text-gray-400">{format(new Date(data.timestamp ?? 0), "do MMM yyyy, hh:mm aa")}</h6>
+                <h6 className="text-cloud-800">{format(new Date(data.timestamp ?? 0), "do MMM yyyy, hh:mm aa")}</h6>
               )}
             </div>
           </div>
@@ -244,7 +244,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
       </div>
       <div className="bg-white rounded-xl shadow-xl px-3 py-8 lg:px-8">
         <div className="hidden lg:block mb-8">
-          <div className="flex text-gray-400">
+          <div className="flex text-cloud-800">
             <h5 className="w-1/3">Action/Date</h5>
             <h5 className="w-1/3">Owner</h5>
             <h5 className="w-1/3">Holder</h5>

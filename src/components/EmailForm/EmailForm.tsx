@@ -77,7 +77,7 @@ export const EmailForm: FunctionComponent = () => {
               name="Message"
               placeholder="Message"
               onChange={handleInputOrTextareaChange}
-              className="border border-solid rounded-lg border-gray-300 bg-white py-1 px-2 mb-2 w-full resize-none placeholder-cloud-200"
+              className="border border-solid rounded-lg border-cloud-200 bg-white py-1 px-2 mb-2 w-full resize-none placeholder-cloud-200"
               style={{ minHeight: "140px" }}
             />
             <div className="my-4">

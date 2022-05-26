@@ -56,7 +56,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
                 {title}
               </a>
             </h4>
-            <div className="inline-block border border-solid border-gray w-auto text-sm rounded font-medium p-1 mb-4">
+            <div className="inline-block border border-solid border-cloud-500 w-auto text-sm rounded font-medium p-1 mb-4">
               {tag}
             </div>
             <p className="mb-4">{description}</p>
@@ -64,7 +64,7 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
               data-testid="quick-video-links-dropdown"
               dropdownButtonText="Quick Video Links"
               classNameShared="w-full lg:w-auto"
-              className="rounded border border-gray-300 p-2 mb-2"
+              className="rounded border border-cloud-200 p-2 mb-2"
             >
               {videoChapters.map((videoChapter, i) => {
                 return (

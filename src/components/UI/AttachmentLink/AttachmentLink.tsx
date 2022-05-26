@@ -41,7 +41,7 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
     default:
       return (
         <div
-          className="w-12 h-12 bg-gray-200 text-gray-700 p-2 rounded-full flex items-center"
+          className="w-12 h-12 bg-cloud-100 text-cloud-800 p-2 rounded-full flex items-center"
           data-testid={`attachment-icon-paperclip`}
         >
           <Paperclip className="m-auto" />

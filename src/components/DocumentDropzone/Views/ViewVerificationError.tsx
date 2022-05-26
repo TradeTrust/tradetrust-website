@@ -36,7 +36,7 @@ export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps
       <br />
       <div
         data-testid="try-another"
-        className="my-8 transition-colors duration-200 underline cursor-pointer text-red-500 hover:text-gray-500"
+        className="my-8 transition-colors duration-200 underline cursor-pointer text-red-500 hover:text-cloud-500"
         onClick={(e) => {
           e.stopPropagation();
           resetData();

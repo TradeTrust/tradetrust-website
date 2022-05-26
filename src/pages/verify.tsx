@@ -29,7 +29,7 @@ const VerifyPage = (): React.ReactElement => {
       {getProvider() ? (
         <Page title="Verify Documents">
           <div className="flex items-center">
-            <div className="text-gray-900 mr-3" data-testid="page-subtitle">
+            <div className="text-cloud-800 mr-3" data-testid="page-subtitle">
               Verify your document on
             </div>
             <NetworkSelect />

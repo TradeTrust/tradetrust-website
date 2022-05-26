@@ -114,8 +114,8 @@
     @apply border-transparent;
     @apply border-solid;
     @apply font-bold;
-    @apply text-gray-700;
-    @apply bg-gray-100;
+    @apply text-cloud-800;
+    @apply bg-cloud-100;
     @apply transition-colors;
     @apply duration-200;
     @apply uppercase;
@@ -124,8 +124,8 @@
   }
 
   .multi-tab:hover {
-    @apply text-gray-800;
-    @apply bg-gray-200;
+    @apply text-cloud-800;
+    @apply bg-cloud-200;
   }
 
   .btn {

@@ -229,9 +229,9 @@ const SectionEta = () => {
         <div className="flex flex-wrap lg:flex-nowrap items-center">
           <div className="w-full lg:w-1/3 xxl:w-1/4 lg:flex-none">
             <h1 className="leading-tight mb-4 lg:mb-8">Electronic Transactions Act (ETA)</h1>
-            <h4 className="leading-tight uppercase">
+            <h3 className="leading-tight uppercase">
               Enabling digitalisation of trade documents: convenience & savings for businesses
-            </h4>
+            </h3>
           </div>
           <div className="w-full lg:flex-grow">
             <img src="/static/images/eta/eta-bg.png" alt="" />

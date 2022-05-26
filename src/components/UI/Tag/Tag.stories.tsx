@@ -21,8 +21,8 @@ export const BorderedRed = () => {
   return <TagBordered className="text-red-500 border-red-500">TagBorderedRed</TagBordered>;
 };
 
-export const BorderedGraySmall = () => {
-  return <TagBorderedSm className="text-gray-600">BorderedGraySmall</TagBorderedSm>;
+export const BorderedGreySmall = () => {
+  return <TagBorderedSm className="text-cloud-800">BorderedGreySmall</TagBorderedSm>;
 };
 
 export const BorderedRedLarge = () => {

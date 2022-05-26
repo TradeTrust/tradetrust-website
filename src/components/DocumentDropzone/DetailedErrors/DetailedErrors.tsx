@@ -6,7 +6,7 @@ export const DetailedError: FunctionComponent<{ title: string; message: string }
   return (
     <div className="my-2 sm:mx-8 xl:mx-16">
       <h4 className="text-red-500 mb-0">{title}</h4>
-      <p className="text-gray-700 break-words">{message}</p>
+      <p className="text-cloud-800 break-words">{message}</p>
     </div>
   );
 };

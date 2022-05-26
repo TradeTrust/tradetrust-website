@@ -67,7 +67,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
     return (
       <>
         <h4 className="mb-2">Upload First Signatory Authentication</h4>
-        <Button onClick={open} className="bg-white text-cerulean-500 hover:bg-gray-50 mb-4">
+        <Button onClick={open} className="bg-white text-cerulean-500 hover:bg-cloud-100 mb-4">
           <div className="flex items-center mx-0">
             <div className="col-auto mr-2">
               <Upload />

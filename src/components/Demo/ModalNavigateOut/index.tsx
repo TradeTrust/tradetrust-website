@@ -51,7 +51,7 @@ export const ModalNavigateOut: FunctionComponent<ModalNavigateOutProps> = ({
       <h5 className="mb-8">
         You are about to navigate away from this demo, navigating away will result in the loss of input information
       </h5>
-      <Button onClick={closeModal} className="bg-white text-cerulean-500 hover:bg-gray-50 lg:mr-2">
+      <Button onClick={closeModal} className="bg-white text-cerulean-500 hover:bg-cloud-100 lg:mr-2">
         Back to demo
       </Button>
       <Button onClick={closeModalAndNavigate} className="bg-cerulean-500 text-white hover:bg-cerulean-800">

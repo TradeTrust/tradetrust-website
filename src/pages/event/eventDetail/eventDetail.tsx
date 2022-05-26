@@ -51,14 +51,14 @@ export const EventPageDetail: FunctionComponent = () => {
       <Page title="Event">
         <div className="flex my-4">
           <div className="w-auto">
-            <Link to="/event" className="text-gray-800 flex flex-nowrap items-center">
+            <Link to="/event" className="text-cloud-800 flex flex-nowrap items-center">
               <ChevronLeft />
               <span>Back</span>
             </Link>
           </div>
         </div>
         <div className="w-full lg:w-9/12">
-          <div className="bg-white text-gray-600 shadow-lg rounded-lg p-8">
+          <div className="bg-white text-cloud-800 shadow-lg rounded-lg p-8">
             <h2 className="font-medium lg:font-bold text-4xl mb-6 lg:mb-10">{title}</h2>
             {thumbnail && <img className="object-cover w-full h-96 mb-10" src={thumbnail} />}
             <div className="flex flex-col-reverse lg:flex-row">
