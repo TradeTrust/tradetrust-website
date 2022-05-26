@@ -9,7 +9,7 @@ export default {
   },
 };
 
-export const SolidGreen = () => {
+export const SolidForest = () => {
   return <Tag className="text-white bg-forest-200">SolidDefault</Tag>;
 };
 
@@ -17,14 +17,14 @@ export const BorderedWhite = () => {
   return <TagBordered className="text-white border-white">BorderedWhite</TagBordered>;
 };
 
-export const BorderedRed = () => {
-  return <TagBordered className="text-red-500 border-red-500">TagBorderedRed</TagBordered>;
+export const BorderedScarlet = () => {
+  return <TagBordered className="text-scarlet-500 border-scarlet-500">TagBorderedScarlet</TagBordered>;
 };
 
-export const BorderedGreySmall = () => {
-  return <TagBorderedSm className="text-cloud-800">BorderedGreySmall</TagBorderedSm>;
+export const BorderedCloudSmall = () => {
+  return <TagBorderedSm className="text-cloud-800">BorderedCloudSmall</TagBorderedSm>;
 };
 
-export const BorderedRedLarge = () => {
-  return <TagBorderedLg className="text-red-500 border-red-500">BorderedRedLarge</TagBorderedLg>;
+export const BorderedScarletLarge = () => {
+  return <TagBorderedLg className="text-scarlet-500 border-scarlet-500">BorderedScarletLarge</TagBorderedLg>;
 };

@@ -47,14 +47,14 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
               e.stopPropagation();
             }}
           >
-            <Button className="text-white bg-red-500 border-red-500 hover:bg-red-300 hover:border-red-300">
+            <Button className="text-white bg-scarlet-500 border-scarlet-500 hover:bg-scarlet-400 hover:border-scarlet-400">
               What Should I do?
             </Button>
           </Link>
           <br />
           <div
             data-testid="try-another"
-            className="my-8 transition-colors duration-200 underline cursor-pointer text-red-500 hover:text-cloud-500"
+            className="my-8 transition-colors duration-200 underline cursor-pointer text-scarlet-500 hover:text-cloud-500"
             onClick={(e) => {
               e.preventDefault();
               resetDocument();

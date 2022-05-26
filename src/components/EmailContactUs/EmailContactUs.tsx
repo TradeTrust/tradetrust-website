@@ -25,7 +25,7 @@ export const EmailContactUsError: FunctionComponent = () => {
     <div className="bg-white shadow-xl rounded-xl px-8 py-12 text-center">
       <div className="mb-8 mx-auto md:max-w-sm">
         <div className="mb-4">
-          <XCircle width="56" height="56" strokeWidth="1" className="text-red-600 mb-2" />
+          <XCircle width="56" height="56" strokeWidth="1" className="text-scarlet-500 mb-2" />
           <h4>Error</h4>
         </div>
         <p>
