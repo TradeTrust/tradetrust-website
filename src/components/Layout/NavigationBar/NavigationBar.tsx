@@ -133,7 +133,7 @@ export const rightNavItems: NavigationItem[] = [
     path: URLS.CREATOR,
     customLink: (
       <a href={URLS.CREATOR}>
-        <Button className="bg-white text-cerulean-500 hover:bg-gray-50" size={ButtonSize.SM}>
+        <Button className="bg-white text-cerulean-500 hover:bg-cloud-100" size={ButtonSize.SM}>
           Create Doc
         </Button>
       </a>

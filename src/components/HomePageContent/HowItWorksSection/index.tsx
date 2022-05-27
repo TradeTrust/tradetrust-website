@@ -43,10 +43,10 @@ export const HowItWorksSection: FunctionComponent = () => {
   };
 
   return (
-    <section id="how-it-works" className="text-gray-700 py-16">
+    <section id="how-it-works" className="text-cloud-800 py-16">
       <div className="container">
         <div className="w-5/5 text-center">
-          <h3 className="font-ubuntu text-4xl leading-none md:text-5xl">How It Works</h3>
+          <h1 className="leading-none text-4xl lg:text-5xl">How It Works</h1>
           <div className="flex m-auto mt-6 justify-center">
             {documentType.map((item, index) => (
               <h5
@@ -72,7 +72,7 @@ export const HowItWorksSection: FunctionComponent = () => {
           </div>
           <Link
             to="/demo"
-            className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-gray-200"
+            className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-cloud-100"
             data-testid="get-in-touch"
           >
             <h3 className="font-normal text-2xl">Try Our Demo Now</h3>

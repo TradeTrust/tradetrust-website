@@ -58,9 +58,9 @@ const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ detai
   return (
     <div className={`px-0 lg:px-8 xl:px-12 2xl:px-24 lg:w-4/12 mt-12 ${offsetAlignment()}`}>
       <img className="mx-auto" src={details.image} alt="mainBenefitsIcon" />
-      <h4 className="font-ubuntu font-normal text-center mb-8 lg:text-left lg:text-3xl" data-testid="benefit-title">
+      <h3 className="text-center lg:text-left mb-8" data-testid="benefit-title">
         {details.title}
-      </h4>
+      </h3>
       <ul className="list-disc">
         {details.description.map((description, index) => (
           <li key={index} className="mb-4">
@@ -74,11 +74,11 @@ const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ detai
 
 export const MainBenefitsSection: FunctionComponent = () => {
   return (
-    <section id="main-benefits" className="bg-white text-gray-700 py-16">
+    <section id="main-benefits" className="bg-white text-cloud-800 py-16">
       <div className="bg-no-repeat lg:bg-single-wave" style={backgroundStyling}>
         <div className="container">
           <div className="text-center">
-            <h1 className="font-ubuntu text-cloud-500 leading-none text-4xl lg:text-5xl">Main Benefits</h1>
+            <h1 className="leading-none text-4xl lg:text-5xl">Main Benefits</h1>
             <h2 className="font-gilroy-medium mt-4 leading-6 text-xl lg:text-xl">
               TradeTrust can bring benefits to the trade, finance and logistics community:
             </h2>

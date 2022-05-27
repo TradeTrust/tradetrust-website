@@ -32,7 +32,7 @@ export const NewsPageDetail: FunctionComponent = () => {
       <div className="container py-12">
         <div className="flex">
           <div className="w-auto">
-            <Link to="/news" className="text-gray-800 flex flex-nowrap items-center">
+            <Link to="/news" className="text-cloud-800 flex flex-nowrap items-center">
               <ChevronLeft />
               <span>Back</span>
             </Link>

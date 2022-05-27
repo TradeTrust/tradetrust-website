@@ -12,7 +12,7 @@ export const ResourceLink: FunctionComponent<ResourceLinkProps> = ({ title, reso
     <div className="bg-white shadow-md rounded-lg mb-4 py-2 px-4">
       <div className="flex">
         <div className="flex-grow">
-          <h4 className="text-gray-700">{title}</h4>
+          <h4 className="text-cloud-800">{title}</h4>
           {resources.map((resource, index) => (
             <div className="text-blue" key={index}>
               <a
@@ -25,7 +25,7 @@ export const ResourceLink: FunctionComponent<ResourceLinkProps> = ({ title, reso
                 {resource.title}
               </a>
               {resource.date && (
-                <div className="text-gray-500 text-base font-medium border-b border-solid border-gray-300">
+                <div className="text-cloud-500 text-base font-medium border-b border-solid border-cloud-200">
                   {resource.date}
                 </div>
               )}

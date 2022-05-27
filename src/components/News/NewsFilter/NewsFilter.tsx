@@ -57,7 +57,7 @@ export const NewsFilter: FunctionComponent<NewsFilterProps> = ({
           <Dropdown
             data-testid="dropdown-button-filter"
             dropdownButtonText={dropdownFilter ?? "Filter"}
-            className="rounded-md py-1 pl-8 pr-2 border border-gray-300 bg-white"
+            className="rounded-md py-1 pl-8 pr-2 border border-cloud-200 bg-white"
             classNameShared="w-full max-w-xs"
           >
             <DropdownItem
@@ -104,7 +104,7 @@ export const NewsFilter: FunctionComponent<NewsFilterProps> = ({
           <Dropdown
             data-testid="dropdown-button-sort"
             dropdownButtonText={dropdownSort ?? "Sort By"}
-            className="rounded-md py-1 pl-8 pr-2 border border-gray-300 bg-white"
+            className="rounded-md py-1 pl-8 pr-2 border border-cloud-200 bg-white"
             classNameShared="w-full max-w-xs"
           >
             <DropdownItem

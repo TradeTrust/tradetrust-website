@@ -87,7 +87,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
           </div>
           <Link
             to="/demo"
-            className="px-4 py-2 mx-auto mt-8 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-gray-200"
+            className="px-4 py-2 mx-auto mt-8 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-cloud-100"
             onClick={handleCloseOverlay}
             data-testid={`get-in-touch-${personaIndex}`}
           >

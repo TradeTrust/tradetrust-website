@@ -36,7 +36,7 @@ const WrappedDropdown = (props: DropdownProps) => {
   return (
     <div className={className} style={{ minWidth: "12.5em" }}>
       <Dropdown
-        className="rounded-md py-1 pl-4 p-2 border border-gray-300 bg-white"
+        className="rounded-md py-1 pl-4 p-2 border border-cloud-200 bg-white"
         data-testid="network-selector"
         {...rest}
       >
