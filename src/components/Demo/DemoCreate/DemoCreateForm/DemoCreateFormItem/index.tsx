@@ -100,7 +100,7 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
           disabled={formItem.options?.readonly}
           data-testid="form-item-textarea"
           rows={4}
-          className="resize-none w-full border rounded-md px-2 py-1 mb-0 focus:border-cloud-800 focus:outline-none placeholder-cloud-200 border-cloud-200"
+          className="resize-none w-full border rounded-md px-2 py-1 mb-0 focus:border-cloud-800 focus:outline-none placeholder-cloud-300 border-cloud-200"
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
