@@ -23,8 +23,7 @@ describe(
         cy.get("input[type=file]").attachFile("ebl-surrender.json");
         cy.get("[data-testid='asset-title-owner']").should("be.visible");
         cy.get("[data-testid='asset-title-holder']").should("be.visible");
-        cy.get("[data-testid='connectToWallet']").click();
-        cy.get("[data-testid='manageAssetDropdown']").click();
+        cy.clickConnectAndManageAssetButton();
         cy.get("[data-testid='surrenderDropdown']").click();
         cy.get("[data-testid='surrenderBtn']").click();
         cy.confirmMetamaskTransaction();
@@ -38,8 +37,7 @@ describe(
         cy.visit("/verify");
         cy.get("input[type=file]").attachFile("ebl-surrender.json");
         cy.get("[data-testid='surrenderToIssuer']").should("be.visible");
-        cy.get("[data-testid='connectToWallet']").click();
-        cy.get("[data-testid='manageAssetDropdown']").click();
+        cy.clickConnectAndManageAssetButton();
         cy.get("[data-testid='acceptSurrenderDropdown']").click();
         cy.get("[data-testid='acceptSurrenderBtn']").click();
         cy.confirmMetamaskTransaction();

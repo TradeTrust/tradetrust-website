@@ -23,8 +23,7 @@ describe(
         cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
         cy.get("[data-testid='asset-title-owner']").should("be.visible");
         cy.get("[data-testid='asset-title-holder']").should("be.visible");
-        cy.get("[data-testid='connectToWallet']").click();
-        cy.get("[data-testid='manageAssetDropdown']").click();
+        cy.clickConnectAndManageAssetButton();
         cy.get("[data-testid='nominateBeneficiaryHolderDropdown']").click();
         cy.get("[data-testid='editable-input-owner']").type(ACCOUNT_2);
         cy.get("[data-testid='nominationBtn']").click();
@@ -41,8 +40,7 @@ describe(
         cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
         cy.get("[data-testid='asset-title-owner']").should("be.visible");
         cy.get("[data-testid='asset-title-holder']").should("be.visible");
-        cy.get("[data-testid='connectToWallet']").click();
-        cy.get("[data-testid='manageAssetDropdown']").click();
+        cy.clickConnectAndManageAssetButton();
         cy.get("[data-testid='endorseTransferDropdown']").click();
         cy.get("[data-testid='endorseTransferBtn']").click();
         cy.confirmMetamaskTransaction();

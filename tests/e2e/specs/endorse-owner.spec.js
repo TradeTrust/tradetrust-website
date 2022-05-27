@@ -20,12 +20,10 @@ describe(
       cy.switchMetamaskAccount(1)
         .should("be.true")
         .then(() => {
-          cy.get("[data-testid='connectToWallet']").click();
-          cy.acceptMetamaskAccess(true).should("be.true");
+          cy.clickConnectAndManageAssetButton(true);
         });
       // END - approve application once after connect to wallet, subsequent tests no longer need
 
-      cy.get("[data-testid='manageAssetDropdown']").click();
       cy.get("[data-testid='endorseBeneficiaryDropdown']").click();
       cy.get("[data-testid='editable-input-owner']").type(ACCOUNT_3);
       cy.get("[data-testid='editable-input-holder']").type(ACCOUNT_2);
