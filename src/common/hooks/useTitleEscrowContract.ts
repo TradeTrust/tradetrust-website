@@ -1,28 +1,28 @@
 import { useState, useEffect, useCallback } from "react";
 import { providers, Signer } from "ethers";
-import { TitleEscrowFactory } from "@govtechsg/token-registry";
-import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
+import { TitleEscrowCloneableFactory } from "@govtechsg/token-registry";
+import { TitleEscrowCloneable } from "@govtechsg/token-registry";
+import { TradeTrustERC721 } from "@govtechsg/token-registry";
 
 interface useTitleEscrowContractProps {
-  titleEscrow?: TitleEscrow;
+  titleEscrow?: TitleEscrowCloneable;
   documentOwner?: string;
   updateTitleEscrow: () => Promise<void>;
 }
 
 export const useTitleEscrowContract = (
   provider: providers.Provider | Signer | undefined,
-  tokenRegistry?: TradeTrustErc721,
+  tokenRegistry?: TradeTrustERC721,
   tokenId?: string
 ): useTitleEscrowContractProps => {
-  const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
+  const [titleEscrow, setTitleEscrow] = useState<TitleEscrowCloneable>();
   const [documentOwner, setDocumentOwner] = useState<string>();
 
   const updateTitleEscrow = useCallback(async () => {
     if (!tokenRegistry || !tokenId || !provider) return;
     const titleEscrowAddress = await tokenRegistry.ownerOf(tokenId);
     setDocumentOwner(titleEscrowAddress);
-    const instance = TitleEscrowFactory.connect(titleEscrowAddress, provider);
+    const instance = TitleEscrowCloneableFactory.connect(titleEscrowAddress, provider);
     setTitleEscrow(instance);
   }, [provider, tokenId, tokenRegistry]);
 

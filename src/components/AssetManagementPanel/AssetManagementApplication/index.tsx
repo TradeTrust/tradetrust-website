@@ -30,8 +30,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     changeHolderState,
     endorseBeneficiary,
     endorseBeneficiaryState,
-    transferTo,
-    transferToState,
+    surrender,
+    surrenderState,
     destroyTokenState,
     destroyToken,
     isSurrendered,
@@ -74,7 +74,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   }, [account, checkIsMinter, isTitleEscrow]);
   const onSurrender = () => {
     // Change to surrendered state
-    transferTo(tokenRegistryAddress);
+    surrender();
   };
 
   const onDestroyToken = () => {
@@ -119,7 +119,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             formAction={assetManagementAction}
             tokenRegistryAddress={tokenRegistryAddress}
             onSetFormAction={onSetFormAction}
-            surrenderingState={transferToState}
+            surrenderingState={surrenderState}
             destroyTokenState={destroyTokenState}
             onSurrender={onSurrender}
             onTransferHolder={changeHolder}
