@@ -4,7 +4,11 @@ import { getChainInfo } from "../../common/utils/chain-utils";
 type LoadCertificate = (certificate: any) => void;
 
 export const getDemoCert = (chainId: ChainId): string => {
-  const networkName = getChainInfo(chainId).networkName;
+  let networkName: string | undefined;
+  try {
+    networkName = getChainInfo(chainId).networkName;
+  } catch (e) {}
+
   return `/static/demo/${networkName}.tt`;
 };
 

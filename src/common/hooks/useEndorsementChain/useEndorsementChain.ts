@@ -12,15 +12,14 @@ export const useEndorsementChain = (
   pending: boolean;
   error: string;
 } => {
-  const { getProvider } = useProviderContext();
-  const provider = getProvider();
+  const { providerOrSigner, provider } = useProviderContext();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [endorsementChain, setEndorsementChain] = useState<TradeTrustErc721Event[]>();
-  const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
+  const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
 
   const fetchEndorsementChain = useCallback(async () => {
-    if (!tokenRegistry || !provider) return;
+    if (!tokenRegistry || !provider || !providerOrSigner) return;
     setEndorsementChain(undefined);
     setPending(true);
     try {
@@ -58,7 +57,7 @@ export const useEndorsementChain = (
       }
     }
     setPending(false);
-  }, [provider, tokenId, tokenRegistry, tokenRegistryAddress]);
+  }, [provider, providerOrSigner, tokenId, tokenRegistry, tokenRegistryAddress]);
 
   useEffect(() => {
     fetchEndorsementChain();

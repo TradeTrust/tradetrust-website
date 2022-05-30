@@ -46,26 +46,11 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     restoreTokenState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
-  const [account, setAccount] = useState<string | undefined>();
-  const { upgradeToMetaMaskSigner, getSigner, getProvider } = useProviderContext();
+  const { upgradeToMetaMaskSigner, provider, account } = useProviderContext();
 
-  const provider = getProvider();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
   // Check if direct owner is minter, useContractFunctionHook value returns {0: boolean}
   const { call: checkIsMinter, value: isMinter } = useContractFunctionHook(tokenRegistry, "isMinter");
-
-  useEffect(() => {
-    const updateAccount = async () => {
-      try {
-        const signer = getSigner();
-        const address = signer ? await signer.getAddress() : undefined;
-        setAccount(address);
-      } catch {
-        setAccount(undefined);
-      }
-    };
-    updateAccount();
-  }, [getSigner]);
 
   useEffect(() => {
     if (isTitleEscrow === false && account) {
