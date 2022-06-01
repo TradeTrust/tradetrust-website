@@ -206,10 +206,13 @@
   .wysiwyg h3 {
     margin-top: 1rem;
     margin-bottom: 1rem;
+    @apply text-cloud-800;
   }
 
   .wysiwyg a {
     word-break: break-word;
+    @apply text-cerulean-300;
+    @apply hover:text-cerulean-500;
   }
 
   @media print {

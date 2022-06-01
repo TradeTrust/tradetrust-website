@@ -34,7 +34,7 @@ export const NewsPageDetail: FunctionComponent = () => {
           <div className="w-auto">
             <Link to="/news" className="text-cloud-800 flex flex-nowrap items-center">
               <ChevronLeft />
-              <span>Back</span>
+              <h5>Back</h5>
             </Link>
           </div>
         </div>

@@ -16,7 +16,7 @@ export const Tag: FunctionComponent<TagProps> = ({ className, children, ...props
 
 export const TagBordered: FunctionComponent<TagProps> = ({ className, children, ...props }) => {
   return (
-    <Tag className={`border-solid border-2 ${className}`} {...props}>
+    <Tag className={`border-solid border ${className}`} {...props}>
       {children}
     </Tag>
   );

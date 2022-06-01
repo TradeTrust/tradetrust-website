@@ -48,21 +48,21 @@ export const EventPageDetail: FunctionComponent = () => {
         <meta property="og:url" content={`${window.location.origin}${locationPath.pathname}`} />
         <title>TradeTrust - {title}</title>
       </Helmet>
-      <Page title="Event">
+      <Page>
         <div className="flex my-4">
           <div className="w-auto">
             <Link to="/event" className="text-cloud-800 flex flex-nowrap items-center">
               <ChevronLeft />
-              <span>Back</span>
+              <h5>Back</h5>
             </Link>
           </div>
         </div>
         <div className="w-full lg:w-9/12">
-          <div className="bg-white text-cloud-800 shadow-lg rounded-lg p-8">
+          <div className="bg-white text-cloud-800 drop-shadow-xl rounded-xl p-8">
             <h2 className="font-medium lg:font-bold text-4xl mb-6 lg:mb-10">{title}</h2>
             {thumbnail && <img className="object-cover w-full h-96 mb-10" src={thumbnail} />}
             <div className="flex flex-col-reverse lg:flex-row">
-              <div className="border-r border-cloud-100 border-solid w-full lg:w-2/6 mt-4 lg:mt-0">
+              <div className="border-r border-cloud-200 border-solid w-full lg:w-2/6 mt-4 lg:mt-0">
                 <div className="font-bold">Event Date and Time</div>
                 <div>{format(new Date(date), "d MMM yyyy")}</div>
                 {timeStart && timeEnd && (
