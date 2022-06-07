@@ -5,7 +5,7 @@ import { ChainId } from "../constants/chain-info";
  */
 export const MAIN_NETWORKS = [
   ChainId.Ethereum, //
-  // ChainId.Polygon,
+  ChainId.Polygon,
 ];
 
 /**
@@ -15,5 +15,5 @@ export const TEST_NETWORKS = [
   ChainId.Ropsten, //
   ChainId.Rinkeby,
   ChainId.Goerli,
-  // ChainId.PolygonMumbai,
+  ChainId.PolygonMumbai,
 ];
