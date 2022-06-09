@@ -45,8 +45,8 @@ export const EventPage: FunctionComponent = () => {
       <Page title="Event">
         <div className="mt-2 mb-1">
           {categories.map((item, index) => (
-            <h5
-              className={`hover:text-cloud-800 inline-block text-xl mr-4 cursor-pointer ${
+            <h4
+              className={`hover:text-cloud-800 inline-block mr-4 cursor-pointer ${
                 item === category ? "text-cloud-800" : "text-cloud-300"
               }`}
               key={index}
@@ -58,7 +58,7 @@ export const EventPage: FunctionComponent = () => {
               }}
             >
               {item}
-            </h5>
+            </h4>
           ))}
         </div>
         <div className="flex flex-wrap py-4 -mx-4">

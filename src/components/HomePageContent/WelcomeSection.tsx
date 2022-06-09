@@ -32,7 +32,7 @@ const DescriptionSection: FunctionComponent = () => {
                 </div>
                 <Link
                   to="/verify"
-                  className="px-4 py-3 ml-3 bg-cerulean-500 rounded-xl text-white font-bold hover:bg-cerulean-800 hover:text-white "
+                  className="px-4 py-3 ml-3 bg-cerulean-500 rounded-xl text-white font-gilroy-bold hover:bg-cerulean-800 hover:text-white "
                   data-testid="verify-button"
                 >
                   Verify Documents

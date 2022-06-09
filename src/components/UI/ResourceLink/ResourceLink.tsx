@@ -16,13 +16,13 @@ export const ResourceLink: FunctionComponent<ResourceLinkProps> = ({ title, reso
           {resources.map((resource, index) => (
             <div className="text-blue" key={index}>
               <a
-                className="text-base font-bold flex items-end mb-2"
+                className="flex items-end mb-2"
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="link"
               >
-                {resource.title}
+                <h5>{resource.title}</h5>
               </a>
               {resource.date && (
                 <div className="text-cloud-500 text-base font-medium border-b border-solid border-cloud-200">

@@ -21,7 +21,7 @@ export const HowItWorksSection: FunctionComponent = () => {
   const documentTypeFilterStyle = (item: DocumentType): string => {
     let returnStyle;
 
-    if (item === selectedDocumentTypeLabel) returnStyle = "font-bold underline";
+    if (item === selectedDocumentTypeLabel) returnStyle = "font-gilroy-bold underline";
 
     switch (item) {
       case DocumentType.TRANSFERABLE_RECORD:
@@ -51,7 +51,7 @@ export const HowItWorksSection: FunctionComponent = () => {
             {documentType.map((item, index) => (
               <h5
                 key={index}
-                className={`font-ubuntu font-normal text-xl text-cerulean-300 cursor-pointer hover:font-bold ${documentTypeFilterStyle(
+                className={`font-ubuntu font-normal text-xl text-cerulean-300 cursor-pointer hover:text-cerulean-500 ${documentTypeFilterStyle(
                   item
                 )}`}
                 onClick={() => selectDocumentType(item)}
@@ -66,9 +66,7 @@ export const HowItWorksSection: FunctionComponent = () => {
 
         <div className="flex flex-col h-96 justify-center">
           <div className="bg-wave-lines-light bg-cover flex w-full h-64 mx-auto bg-cerulean-500 rounded-xl text-white text-center justify-center items-center">
-            <h3 className="text-[2.5rem] tracking-tight leading-[44px] lg:mx-72">
-              Ready to learn how TradeTrust can benefit your business?
-            </h3>
+            <h2 className="leading-[44px] lg:mx-72">Ready to learn how TradeTrust can benefit your business?</h2>
           </div>
           <Link
             to="/demo"

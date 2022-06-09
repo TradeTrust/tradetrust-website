@@ -17,7 +17,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
   const contentTypeFilterStyle = (item: ContentType): string => {
     let returnStyle = "";
 
-    if (item === selectedContentType) returnStyle = "font-bold underline";
+    if (item === selectedContentType) returnStyle = "font-gilroy-bold underline cursor-default";
 
     switch (item) {
       case ContentType.THEN:
@@ -56,7 +56,9 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
                 {contentType.map((content, index) => (
                   <h3
                     key={index}
-                    className={`font-normal text-lemon-500 text-center mt-12 ${contentTypeFilterStyle(content)}`}
+                    className={`font-normal text-lemon-500 text-center mt-12 cursor-pointer ${contentTypeFilterStyle(
+                      content
+                    )}`}
                     onClick={() => setSelectedContentType(content)}
                   >
                     {content}

@@ -161,7 +161,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
 const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, address, documentOwner }) => {
   const tooltipContent = (
     <div className="relative flex flex-col">
-      <div className="text-white font-bold text-base">Title Escrow:</div>
+      <div className="text-white font-gilroy-bold text-base">Title Escrow:</div>
       <div className="text-white text-base">{documentOwner}</div>
     </div>
   );

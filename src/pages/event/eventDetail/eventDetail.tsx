@@ -59,11 +59,11 @@ export const EventPageDetail: FunctionComponent = () => {
         </div>
         <div className="w-full lg:w-9/12">
           <div className="bg-white text-cloud-800 drop-shadow-xl rounded-xl p-8">
-            <h2 className="font-medium lg:font-bold text-4xl mb-6 lg:mb-10">{title}</h2>
+            <h2 className="mb-6 lg:mb-10">{title}</h2>
             {thumbnail && <img className="object-cover w-full h-96 mb-10" src={thumbnail} />}
             <div className="flex flex-col-reverse lg:flex-row">
               <div className="border-r border-cloud-200 border-solid w-full lg:w-2/6 mt-4 lg:mt-0">
-                <div className="font-bold">Event Date and Time</div>
+                <h5>Event Date and Time</h5>
                 <div>{format(new Date(date), "d MMM yyyy")}</div>
                 {timeStart && timeEnd && (
                   <span>
@@ -72,7 +72,7 @@ export const EventPageDetail: FunctionComponent = () => {
                 )}
                 {location && (
                   <>
-                    <div className="font-bold">Location</div>
+                    <div className="font-gilroy-bold">Location</div>
                     <div className="lg:w-4/6">{location}</div>
                   </>
                 )}
@@ -90,7 +90,7 @@ export const EventPageDetail: FunctionComponent = () => {
                           <div className="w-auto">
                             <PlayCircle />
                           </div>
-                          <div className="flex-grow px-2">Watch Event</div>
+                          <h5 className="flex-grow px-2">Watch Event</h5>
                         </div>
                       </a>
                     </div>
@@ -107,7 +107,7 @@ export const EventPageDetail: FunctionComponent = () => {
                         <div className="w-auto">
                           <ExternalLink />
                         </div>
-                        <div className="flex-grow px-2">Event Link</div>
+                        <h5 className="flex-grow px-2">Event Link</h5>
                       </div>
                     </a>
                   </div>
@@ -125,7 +125,7 @@ export const EventPageDetail: FunctionComponent = () => {
                           <div className="w-auto">
                             <ExternalLink />
                           </div>
-                          <div className="flex-grow px-2">Event Slides</div>
+                          <h5 className="flex-grow px-2">Event Slides</h5>
                         </div>
                       </a>
                     </div>
@@ -147,7 +147,7 @@ export const EventPageDetail: FunctionComponent = () => {
                               <div className="w-auto">
                                 <Download />
                               </div>
-                              <div className="flex-grow px-2">{fileName}</div>
+                              <h5 className="flex-grow px-2">{fileName}</h5>
                             </div>
                           </a>
                         </div>

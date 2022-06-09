@@ -82,14 +82,14 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
             <div className="py-2">
               {downloads?.map((download, index) => (
                 <a
-                  className="font-semibold flex items-start mt-1"
+                  className="flex items-start mt-1"
                   href={download.path}
                   download={download.fileName}
                   key={index}
                   data-testid="download-link"
                 >
                   <Download />
-                  <span className="ml-2">{download.fileName}</span>
+                  <h5 className="ml-2">{download.fileName}</h5>
                 </a>
               ))}
             </div>
