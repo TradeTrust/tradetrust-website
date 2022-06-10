@@ -9,7 +9,7 @@ export interface ChainInfoObject {
   nativeCurrency?: {
     name: string;
     symbol: string;
-    decimals: 18;
+    decimals: number;
   };
 }
 
