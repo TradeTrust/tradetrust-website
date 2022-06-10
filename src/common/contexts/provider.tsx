@@ -111,7 +111,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       setProvider(createProvider(currentChainId || defaultChainId));
       setAccount(undefined);
     } else {
-      const injectedWeb3 = ethereum || web3.currentProvider;
+      const injectedWeb3 = ethereum || (web3 && web3.currentProvider);
       if (!injectedWeb3) throw new Error("No injected web3 provider found");
       const newProvider = new ethers.providers.Web3Provider(injectedWeb3, "any");
       const network = await newProvider.getNetwork();
