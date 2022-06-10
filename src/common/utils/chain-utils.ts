@@ -37,3 +37,24 @@ export const getSupportedChainInfo = (): ChainInfoObject[] => {
   if (isTestEnv || isLocal) networks.push(ChainId.Local);
   return networks.map((chainId) => getChainInfo(chainId));
 };
+
+/**
+ * Switches the network in user's wallet if installed.
+ * @param chainId Chain ID of target network
+ */
+export const walletSwitchChain = async (chainId: ChainId): Promise<void> => {
+  const { ethereum } = window;
+  if (!ethereum || !ethereum.request) return;
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: `0x${chainId.toString(16)}` }],
+    });
+  } catch (e: any) {
+    if (e.code === -32601) {
+      // Possibly on localhost which doesn't support the call
+      return console.error(e);
+    }
+    throw e;
+  }
+};

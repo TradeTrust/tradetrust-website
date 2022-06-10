@@ -5,7 +5,7 @@ import { utils } from "@govtechsg/oa-verify";
 import { magic } from "./helpers";
 import { ChainId, ChainInfoObject } from "../../constants/chain-info";
 import { UnsupportedNetworkError } from "../errors";
-import { getChainInfo, getChainInfoFromNetworkName } from "../utils/chain-utils";
+import { getChainInfo, getChainInfoFromNetworkName, walletSwitchChain } from "../utils/chain-utils";
 import { NETWORK_NAME } from "../../config";
 
 export enum SIGNER_TYPE {
@@ -100,7 +100,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   const [provider, setProvider] = useState<providers.Provider | undefined>(defaultProvider.current);
 
   const changeNetwork = async (chainId: ChainId) => {
-    await requestSwitchChain(chainId);
+    await walletSwitchChain(chainId);
     setCurrentChainId(chainId);
   };
 
@@ -139,28 +139,11 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     }
   }, [provider]);
 
-  const requestSwitchChain = async (chainId: ChainId) => {
-    const { ethereum } = window;
-    if (!ethereum || !ethereum.request) return;
-    try {
-      await ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: `0x${chainId.toString(16)}` }],
-      });
-    } catch (e: any) {
-      if (e.code === -32601) {
-        // Possibly on localhost which doesn't support the call
-        return console.error(e);
-      }
-      throw e;
-    }
-  };
-
   const initializeMetaMaskSigner = async () => {
     const web3Provider = provider as ethers.providers.Web3Provider;
     await web3Provider.send("eth_requestAccounts", []);
     const chainInfo = getChainInfo(currentChainId ?? defaultChainId);
-    await requestSwitchChain(chainInfo.chainId);
+    await walletSwitchChain(chainInfo.chainId);
 
     setProviderType(SIGNER_TYPE.METAMASK);
   };
