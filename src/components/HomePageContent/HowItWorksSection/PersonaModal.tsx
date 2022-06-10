@@ -15,16 +15,8 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
   };
 
   const contentTypeFilterStyle = (item: ContentType): string => {
-    let returnStyle = "";
-
-    if (item === selectedContentType) returnStyle = "font-gilroy-bold underline cursor-default";
-
-    switch (item) {
-      case ContentType.THEN:
-        return returnStyle + " mr-5";
-      default:
-        return returnStyle;
-    }
+    const returnStyle = item === ContentType.THEN ? "mr-5" : "";
+    return item === selectedContentType ? `${returnStyle} font-gilroy-bold underline cursor-default` : returnStyle;
   };
 
   return (
