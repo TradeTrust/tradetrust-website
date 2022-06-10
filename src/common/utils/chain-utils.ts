@@ -55,6 +55,39 @@ export const walletSwitchChain = async (chainId: ChainId): Promise<void> => {
       // Possibly on localhost which doesn't support the call
       return console.error(e);
     }
+    if (e.code === 4902) {
+      return walletAddChain(chainId);
+    }
+    throw e;
+  }
+};
+
+/**
+ * Adds network to user's wallet.
+ * Networks with no RPC URL provided will not be added, particularly the default chains that already comes with Metamask.
+ * @param chainId Chain ID of target network
+ */
+export const walletAddChain = async (chainId: ChainId): Promise<void> => {
+  const { ethereum } = window;
+  if (!ethereum || !ethereum.request) return;
+  const chainInfo = ChainInfo[chainId];
+  const rpcUrl = chainInfo.rpcUrl;
+  if (!rpcUrl) return;
+  try {
+    await ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [
+        {
+          chainId: `0x${chainId.toString(16)}`,
+          chainName: chainInfo.networkLabel,
+          nativeCurrency: chainInfo.nativeCurrency,
+          blockExplorerUrls: [chainInfo.explorerUrl],
+          rpcUrls: [rpcUrl],
+        },
+      ],
+    });
+  } catch (e) {
+    console.error(`Network ${chainId.toString()} could not be added.`, e);
     throw e;
   }
 };
