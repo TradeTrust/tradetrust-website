@@ -27,7 +27,7 @@ export const HowItWorksSection: FunctionComponent = () => {
       case DocumentType.TRANSFERABLE_RECORD:
         return returnStyle + " lg:mr-5";
       case DocumentType.VERIFIABLE_DOCUMENT:
-        return returnStyle + " hidden lg:inline";
+        return returnStyle + " hidden lg:inline"; // design decision to not show this button on on mobile
       default:
         return "";
     }

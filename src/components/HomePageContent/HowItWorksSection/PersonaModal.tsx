@@ -14,6 +14,8 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
     showOverlay(undefined);
   };
 
+  const { title, thenSteps, nowSteps, startMessage, benefits, endMessage } = details.learnMore;
+
   const contentTypeFilterStyle = (item: ContentType): string => {
     const returnStyle = item === ContentType.THEN ? "mr-5" : "";
     return item === selectedContentType ? `${returnStyle} font-gilroy-bold underline cursor-default` : returnStyle;
@@ -28,8 +30,8 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
         >
           <div className="flex flex-col justify-center">
             <div className="relative flex justify-center w-full">
-              <h3 className="font-normal text-center">{details.learnMore.title}</h3>
-              {details.learnMore.thenSteps && details.learnMore.nowSteps && (
+              <h3 className="text-center">{title}</h3>
+              {thenSteps && nowSteps && (
                 <div className="hidden absolute bottom-0 right-0 lg:block">
                   <div className="flex justify-end">
                     <p>Manual Process</p>
@@ -42,8 +44,8 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
                 </div>
               )}
             </div>
-            {details.learnMore.startMessage && <h4 className="text-center mt-8">{details.learnMore.startMessage}</h4>}
-            {details.learnMore.thenSteps && details.learnMore.nowSteps && (
+            {startMessage && <h4 className="text-center mt-8">{startMessage}</h4>}
+            {thenSteps && nowSteps && (
               <div className="flex flex-row justify-center lg:hidden">
                 {contentType.map((content, index) => (
                   <h3
@@ -58,26 +60,17 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, de
                 ))}
               </div>
             )}
-            {details.learnMore.thenSteps &&
-              details.learnMore.nowSteps &&
+            {thenSteps &&
+              nowSteps &&
               contentType.map((content, index) => (
                 <div key={index} className="flex flex-col justify-center">
-                  {content === "THEN" && (
-                    <div className={`lg:inline ${content === selectedContentType ? "inline" : "hidden"}`}>
-                      <Steps contentType={content} stepsDetails={details.learnMore.thenSteps} />
-                    </div>
-                  )}
-                  {content === "NOW" && (
-                    <div className={`lg:inline ${content === selectedContentType ? "inline" : "hidden"}`}>
-                      <Steps contentType={content} stepsDetails={details.learnMore.nowSteps} />
-                    </div>
-                  )}
+                  <div className={`lg:inline ${content === selectedContentType ? "inline" : "hidden"}`}>
+                    <Steps contentType={content} stepsDetails={content === ContentType.THEN ? thenSteps : nowSteps} />
+                  </div>
                 </div>
               ))}
-            {details.learnMore.benefits && (
-              <Steps contentType={ContentType.BENEFIT} stepsDetails={details.learnMore.benefits} />
-            )}
-            <h4 className="text-center mt-8">{details.learnMore.endMessage}</h4>
+            {benefits && <Steps contentType={ContentType.BENEFIT} stepsDetails={benefits} />}
+            <h4 className="text-center mt-8">{endMessage}</h4>
           </div>
           <Link
             to="/demo"
