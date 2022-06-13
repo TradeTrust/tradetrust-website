@@ -79,7 +79,7 @@ const DefaultReview = (data: Record<string, FormItemSchema>) => {
 export const DemoCreateReview: FunctionComponent = () => {
   const { setActiveStep } = useContext(DemoCreateContext);
   const { formValues } = useContext(DemoFormContext);
-  const { getTransactor } = useProviderContext();
+  const { provider } = useProviderContext();
   const wrapDocumentStatus = useSelector(getWrappedDocumentStatus);
   const issueDocumentStatus = useSelector(getIssuedDocumentStatus);
   const documentStoreAddress = useSelector(getDocumentStoreAddress);
@@ -102,7 +102,6 @@ export const DemoCreateReview: FunctionComponent = () => {
   };
 
   useEffect(() => {
-    const provider = getTransactor();
     if (wrapDocumentStatus !== null && wrapDocumentStatus === "success") {
       dispatch(issuingDocument(provider));
       gaEvent({
@@ -110,7 +109,7 @@ export const DemoCreateReview: FunctionComponent = () => {
         category: GaCategory.MAGIC_DEMO,
       });
     }
-  }, [wrapDocumentStatus, dispatch, getTransactor]);
+  }, [wrapDocumentStatus, dispatch, provider]);
 
   useEffect(() => {
     if (issueDocumentStatus !== null && issueDocumentStatus !== "pending") {

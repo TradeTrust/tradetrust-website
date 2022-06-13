@@ -1,21 +1,18 @@
-import { ethers, providers, Signer } from "ethers";
-import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
+import { ethers, providers } from "ethers";
+import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { INFURA_API_KEY } from "../../config";
 import { utils } from "@govtechsg/oa-verify";
 import { magic } from "./helpers";
 import { ChainId, ChainInfoObject } from "../../constants/chain-info";
-import { NoMetaMaskError, UnsupportedNetworkError } from "../errors";
-import { getChainInfo } from "../utils/chain-utils";
+import { UnsupportedNetworkError } from "../errors";
+import { getChainInfo, getChainInfoFromNetworkName, walletSwitchChain } from "../utils/chain-utils";
+import { NETWORK_NAME } from "../../config";
 
 export enum SIGNER_TYPE {
   IDENTITY = "Identity",
   METAMASK = "Metamask",
   MAGIC = "Magic",
 }
-
-// Utility function for use in non-react components that cannot get through hooks
-let currentProvider: providers.Provider | undefined;
-export const getCurrentProvider = (): providers.Provider | undefined => currentProvider;
 
 const createProvider = (chainId: ChainId) =>
   chainId === ChainId.Local
@@ -26,17 +23,21 @@ const createProvider = (chainId: ChainId) =>
         apiKey: INFURA_API_KEY,
       });
 
+// Utility function for use in non-react components that cannot get through hooks
+let currentProvider: providers.Provider | undefined = createProvider(getChainInfoFromNetworkName(NETWORK_NAME).chainId);
+export const getCurrentProvider = (): providers.Provider | undefined => currentProvider;
+
 interface ProviderContextProps {
   providerType: SIGNER_TYPE;
   upgradeToMetaMaskSigner: () => Promise<void>;
   upgradeToMagicSigner: () => Promise<void>;
   changeNetwork: (chainId: ChainId) => void;
   reloadNetwork: () => Promise<void>;
-  getTransactor: () => Signer | providers.Provider | undefined;
-  getSigner: () => Signer | undefined;
-  getProvider: () => providers.Provider | undefined;
   supportedChainInfoObjects: ChainInfoObject[];
   currentChainId: ChainId | undefined;
+  provider: providers.Provider | undefined;
+  providerOrSigner: providers.Provider | ethers.Signer | undefined;
+  account: string | undefined;
 }
 
 export const ProviderContext = createContext<ProviderContextProps>({
@@ -49,14 +50,11 @@ export const ProviderContext = createContext<ProviderContextProps>({
   changeNetwork: async (_chainId: ChainId) => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   reloadNetwork: async () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  getTransactor: () => undefined,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  getProvider: () => undefined,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  getSigner: () => undefined,
   supportedChainInfoObjects: [],
   currentChainId: undefined,
+  provider: currentProvider,
+  providerOrSigner: currentProvider,
+  account: undefined,
 });
 
 interface Ethereum extends providers.ExternalProvider, providers.BaseProvider {
@@ -83,97 +81,69 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   networks: supportedChainInfoObjects,
   defaultChainId,
 }) => {
-  const [providerType, setProviderType] = useState<SIGNER_TYPE>(SIGNER_TYPE.IDENTITY);
-  const [isConnected, setIsConnected] = useState<boolean>();
-  const [currentChainId, setCurrentChainId] = useState<ChainId | undefined>(defaultChainId);
+  const defaultProvider = useRef(createProvider(defaultChainId));
 
-  const isSupportedNetwork = (chainId: ChainId) =>
-    supportedChainInfoObjects.some((chainInfoObj) => chainInfoObj.chainId === chainId);
-
-  const defaultProvider = isSupportedNetwork(defaultChainId) ? createProvider(defaultChainId) : undefined;
-  const [providerOrSigner, setProviderOrSigner] = useState<providers.Provider | Signer | undefined>(defaultProvider);
-
-  const updateProviderOrSigner = async (newProviderOrSigner: typeof providerOrSigner) => {
-    try {
-      if (!Signer.isSigner(newProviderOrSigner)) {
-        setIsConnected(false);
-      } else {
-        await (newProviderOrSigner as Signer).getAddress();
-        setIsConnected(true);
-      }
-    } catch (e) {
-      setIsConnected(false);
-    }
-    setProviderOrSigner(newProviderOrSigner);
-  };
-
-  const changeNetwork = async (chainId: ChainId) => {
-    if (!isSupportedNetwork(chainId)) throw new UnsupportedNetworkError(chainId);
-
-    const chainInfo = getChainInfo(chainId);
-
-    try {
-      const web3provider = getWeb3Provider();
-      await requestSwitchChain(chainId);
-      await updateProviderOrSigner(web3provider.getSigner());
-    } catch (e: unknown) {
-      if (e instanceof NoMetaMaskError) {
-        console.warn(e.message);
-        await updateProviderOrSigner(createProvider(chainInfo.chainId));
-      } else {
-        throw e;
-      }
-    }
-  };
-
-  const getProvider = useCallback(() => {
-    if (providers.Provider.isProvider(providerOrSigner)) return providerOrSigner;
-    if (Signer.isSigner(providerOrSigner)) return providerOrSigner.provider;
-    return undefined;
-  }, [providerOrSigner]);
-
-  const getSigner = useCallback(
-    () => (isConnected ? (providerOrSigner as Signer) : undefined),
-    [isConnected, providerOrSigner]
+  const isSupportedNetwork = useCallback(
+    (chainId: ChainId | number | string) =>
+      supportedChainInfoObjects.some((chainInfoObj) => chainInfoObj.chainId.toString() === chainId.toString()),
+    [supportedChainInfoObjects]
   );
 
-  const getTransactor = useCallback(() => getSigner() ?? getProvider(), [getProvider, getSigner]);
+  const [providerType, setProviderType] = useState<SIGNER_TYPE>(SIGNER_TYPE.IDENTITY);
+  const [currentChainId, setCurrentChainId] = useState<ChainId | undefined>(
+    isSupportedNetwork(defaultChainId) ? defaultChainId : undefined
+  );
+  const [account, setAccount] = useState<string | undefined>();
+  const [providerOrSigner, setProviderOrSigner] = useState<providers.Provider | ethers.Signer | undefined>(
+    defaultProvider.current
+  );
+  const [provider, setProvider] = useState<providers.Provider | undefined>(defaultProvider.current);
 
-  const getWeb3Provider = () => {
+  const changeNetwork = async (chainId: ChainId) => {
+    await walletSwitchChain(chainId);
+    setCurrentChainId(chainId);
+  };
+
+  const updateProvider = useCallback(async () => {
     const { ethereum, web3 } = window;
     const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
-    if (metamaskExtensionNotFound || !ethereum.request) throw new NoMetaMaskError();
-
-    const injectedWeb3 = ethereum || web3.currentProvider;
-    if (!injectedWeb3) throw new Error("No injected web3 provider found");
-    return new ethers.providers.Web3Provider(injectedWeb3, "any");
-  };
-
-  const requestSwitchChain = async (chainId: ChainId) => {
-    const { ethereum } = window;
-    if (!ethereum || !ethereum.request) return;
-    try {
-      await ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: `0x${chainId.toString(16)}` }],
-      });
-    } catch (e: any) {
-      if (e.code === -32601) {
-        // Possibly on localhost which doesn't support the call
-        return console.error(e);
+    if (metamaskExtensionNotFound || !ethereum.request) {
+      setProvider(createProvider(currentChainId || defaultChainId));
+      setAccount(undefined);
+    } else {
+      const injectedWeb3 = ethereum || (web3 && web3.currentProvider);
+      const newProvider = new ethers.providers.Web3Provider(injectedWeb3, "any");
+      const network = await newProvider.getNetwork();
+      if (!isSupportedNetwork(network.chainId)) {
+        console.warn("User wallet is connected to an unsupported network, will fallback to default network");
+        setProvider(undefined);
+        setAccount(undefined);
+        setCurrentChainId(undefined);
+      } else {
+        setProvider(newProvider);
+        setCurrentChainId(network.chainId);
       }
-      throw e;
     }
-  };
+  }, [currentChainId, defaultChainId, isSupportedNetwork]);
+
+  const updateSigner = useCallback(async () => {
+    try {
+      const signer = (provider as ethers.providers.Web3Provider).getSigner();
+      const address = await signer.getAddress();
+      setAccount(address);
+      setProviderOrSigner(signer);
+    } catch (e) {
+      setAccount(undefined);
+      setProviderOrSigner(provider);
+    }
+  }, [provider]);
 
   const initializeMetaMaskSigner = async () => {
-    const web3Provider = getWeb3Provider();
-    const provider = getProvider();
-    const network = await (provider ? provider.getNetwork() : web3Provider.getNetwork());
+    const web3Provider = provider as ethers.providers.Web3Provider;
     await web3Provider.send("eth_requestAccounts", []);
-    await requestSwitchChain(network.chainId);
+    const chainInfo = getChainInfo(currentChainId ?? defaultChainId);
+    await walletSwitchChain(chainInfo.chainId);
 
-    await updateProviderOrSigner(web3Provider.getSigner());
     setProviderType(SIGNER_TYPE.METAMASK);
   };
 
@@ -181,7 +151,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     // needs to be cast as any before https://github.com/magiclabs/magic-js/issues/83 has been merged.
     const magicProvider = new ethers.providers.Web3Provider(magic.rpcProvider as any);
 
-    await updateProviderOrSigner(magicProvider.getSigner());
+    setProvider(magicProvider);
     setProviderType(SIGNER_TYPE.MAGIC);
   };
 
@@ -195,7 +165,6 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   };
 
   const reloadNetwork = async () => {
-    const provider = getProvider();
     if (!provider) throw new UnsupportedNetworkError();
 
     const chainId = (await provider.getNetwork()).chainId;
@@ -203,51 +172,23 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   };
 
   useEffect(() => {
-    currentProvider = getProvider();
-    const updateChainId = async () => {
-      const provider = getProvider();
-      if (!provider) {
-        setCurrentChainId(undefined);
-      } else {
-        const network = await provider.getNetwork();
-        setCurrentChainId(network.chainId);
-      }
-    };
-    updateChainId();
-  }, [getProvider]);
+    updateProvider();
+  }, [updateProvider]);
+
+  useEffect(() => {
+    updateSigner();
+  }, [updateSigner]);
+
+  useEffect(() => {
+    currentProvider = provider;
+  }, [provider]);
 
   useEffect(() => {
     if (!window.ethereum) return;
 
-    const chainChangedHandler = async (chainIdHex: string) => {
-      try {
-        await changeNetwork(parseInt(chainIdHex, 16));
-      } catch (e) {
-        // Clear provider/signer when user selects an unsupported network
-        await updateProviderOrSigner(undefined);
-        console.warn("An unsupported network has been selected.", e);
-        throw e;
-      }
-    };
-
-    window.ethereum.on("accountsChanged", reloadNetwork).on("chainChanged", chainChangedHandler);
-
-    const initialiseWallet = async () => {
-      try {
-        const web3Provider = getWeb3Provider();
-        const provider = getProvider();
-        if (!provider) return;
-        const [web3Network, appNetwork] = await Promise.all([web3Provider.getNetwork(), provider.getNetwork()]);
-        if (web3Network.chainId === appNetwork.chainId) setProviderOrSigner(web3Provider.getSigner().provider);
-      } catch (e) {
-        if (e instanceof NoMetaMaskError) {
-          console.warn(e.message);
-        } else {
-          throw e;
-        }
-      }
-    };
-    initialiseWallet();
+    window.ethereum
+      .on("accountsChanged", updateProvider)
+      .on("chainChanged", (chainIdHex: string) => changeNetwork(parseInt(chainIdHex, 16)));
 
     return () => {
       if (!window.ethereum) return;
@@ -264,11 +205,11 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
         upgradeToMagicSigner,
         changeNetwork,
         reloadNetwork,
-        getProvider,
-        getTransactor,
-        getSigner,
         supportedChainInfoObjects,
         currentChainId,
+        provider,
+        providerOrSigner,
+        account,
       }}
     >
       {children}

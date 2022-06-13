@@ -11,7 +11,7 @@ import { LoadingModal } from "../../../UI/Overlay";
 import { GaAction, GaCategory } from "../../../../types";
 
 export const DemoCreateStart: FunctionComponent = () => {
-  const { getSigner } = useProviderContext();
+  const { providerOrSigner, account } = useProviderContext();
   const { setActiveStep } = useContext(DemoCreateContext);
   const [loading, setLoading] = useState(false);
   const [getFundsError, setGetFundsError] = useState(false);
@@ -24,16 +24,15 @@ export const DemoCreateStart: FunctionComponent = () => {
     try {
       setLoading(true);
       setGetFundsError(false);
-      const provider = getSigner();
-      if (!provider) throw new Error("Not connected");
-      const account = await provider.getAddress();
-      const balance = await provider.getBalance("latest");
+      if (!providerOrSigner) throw new Error("Invalid provider");
+      if (!account) throw new Error("Not connected");
+      const balance = await providerOrSigner.getBalance("latest");
       const formattedBalance = Number(ethers.utils.formatEther(balance));
 
       if (formattedBalance <= 1) {
         await getFunds(account as string);
       }
-      dispatch(deployingDocStore(provider));
+      dispatch(deployingDocStore(providerOrSigner));
     } catch (e) {
       setGetFundsError(true);
       setLoading(false);
