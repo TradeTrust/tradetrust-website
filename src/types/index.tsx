@@ -30,51 +30,6 @@ export type Resource = {
   date?: string;
 };
 
-export interface PersonaProps {
-  personaIndex: number;
-  details: Persona;
-}
-
-export interface DocumentTypeContentProps {
-  documentTypeContent: DocumentTypeContent;
-}
-
-export type Persona = {
-  image: string;
-  jobTitle: string;
-  description: string;
-  learnMore: {
-    title: string;
-    startMessage?: string;
-    thenSteps?: {
-      stepTitle: string;
-      icon?: string;
-      description: string;
-    }[];
-    nowSteps?: {
-      stepTitle: string;
-      icon?: string;
-      description: string;
-    }[];
-    benefits?: { benefitTitle: string; icon: string; description: string }[];
-    endMessage: string;
-  };
-};
-
-export type DocumentTypeContent = {
-  type: string;
-  description: string;
-  examples: string;
-  message: string;
-  users: Persona[];
-};
-
-export enum ContentType {
-  BENEFIT = "BENEFIT",
-  THEN = "THEN",
-  NOW = "NOW",
-}
-
 export type Dispatch = (action: HostActions) => void;
 
 export enum GaAction {

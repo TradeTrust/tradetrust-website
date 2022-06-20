@@ -1,45 +1,36 @@
 import React, { FunctionComponent, useState } from "react";
 import { Link } from "react-router-dom";
 import { DocumentContent } from "./DocumentContent";
-import { DocumentTypeContent } from "../../../types";
-import { DocumentTypeDetails } from "./DocumentTypeDetails";
+import { DocumentType, DocumentTypeContent, Persona } from "./types";
+import { PersonaCard } from "./PersonaCard";
 
-enum DocumentType {
-  VERIFIABLE_DOCUMENT = "Verifiable Documents",
-  TRANSFERABLE_RECORD = "Transferable Records",
-}
+const DocumentTypeDetails: FunctionComponent<DocumentTypeContent> = (props) => {
+  const { text, personas } = props;
+
+  return (
+    <div className="flex flex-wrap my-8 text-base">
+      <p className="w-full text-center">{text.description}</p>
+      <p className="w-full text-center">{text.examples}</p>
+      <h5 className="w-full text-center mt-12 mb-8 text-xl">{text.message}</h5>
+      {personas.map((persona: Persona, index: number) => (
+        <PersonaCard key={index} persona={persona} personaIndex={index} />
+      ))}
+    </div>
+  );
+};
 
 export const HowItWorksSection: FunctionComponent = () => {
   const [selectedDocumentTypeLabel, setSelectedDocumentTypeLabel] = useState<DocumentType>(
     DocumentType.TRANSFERABLE_RECORD
   );
-  const documentType: DocumentType[] = [DocumentType.TRANSFERABLE_RECORD, DocumentType.VERIFIABLE_DOCUMENT];
-  const [selectedDocumentTypeContent, setSelectedDocumentTypeContent] = useState<DocumentTypeContent>(
-    DocumentContent[0]
-  );
+  const documentTypes: DocumentType[] = [DocumentType.TRANSFERABLE_RECORD, DocumentType.VERIFIABLE_DOCUMENT]; // manual set array here, but we could map the enums direct also
 
-  const documentTypeFilterStyle = (item: DocumentType): string => {
-    let returnStyle;
-
-    if (item === selectedDocumentTypeLabel) returnStyle = "font-gilroy-bold underline";
-
-    switch (item) {
-      case DocumentType.TRANSFERABLE_RECORD:
-        return returnStyle + " lg:mr-5";
-      case DocumentType.VERIFIABLE_DOCUMENT:
-        return returnStyle + " hidden lg:inline"; // design decision to not show this button on on mobile
-      default:
-        return "";
-    }
-  };
+  const selectedDocumentTypeContent = DocumentContent.find((content) => {
+    return content.type === selectedDocumentTypeLabel;
+  }) as DocumentTypeContent;
 
   const selectDocumentType = (input: DocumentType) => {
     setSelectedDocumentTypeLabel(input);
-    DocumentContent.forEach((documentDetails) => {
-      if (input === documentDetails.type) {
-        setSelectedDocumentTypeContent(documentDetails);
-      }
-    });
   };
 
   return (
@@ -48,22 +39,25 @@ export const HowItWorksSection: FunctionComponent = () => {
         <div className="w-5/5 text-center">
           <h1 className="leading-none text-4xl lg:text-5xl">How It Works</h1>
           <div className="flex m-auto mt-6 justify-center">
-            {documentType.map((item, index) => (
-              <h5
-                key={index}
-                className={`font-ubuntu font-normal text-xl text-cerulean-300 cursor-pointer hover:text-cerulean-500 ${documentTypeFilterStyle(
-                  item
-                )}`}
-                onClick={() => selectDocumentType(item)}
-                data-testid={`document-type-${index}`}
-              >
-                {item}
-              </h5>
-            ))}
+            {documentTypes.map((documentType, index) => {
+              const cssState =
+                documentType === selectedDocumentTypeLabel ? "font-gilroy-bold underline" : "font-gilroy-medium";
+              const cssAlign = documentType === DocumentType.TRANSFERABLE_RECORD ? "lg:mr-5" : "hidden lg:inline"; // design decision to not show this button on on mobile
+
+              return (
+                <h5
+                  key={index}
+                  className={`text-xl text-cerulean-300 cursor-pointer hover:text-cerulean-500 ${cssState} ${cssAlign}`}
+                  onClick={() => selectDocumentType(documentType)}
+                  data-testid={`document-type-${index}`}
+                >
+                  {documentType}
+                </h5>
+              );
+            })}
           </div>
         </div>
-        <DocumentTypeDetails documentTypeContent={selectedDocumentTypeContent} />
-
+        <DocumentTypeDetails {...selectedDocumentTypeContent} />
         <div className="flex flex-col h-96 justify-center">
           <div className="bg-wave-lines-light bg-cover flex w-full h-64 mx-auto bg-cerulean-500 rounded-xl text-white text-center justify-center items-center">
             <h2 className="leading-[44px] lg:mx-72">Ready to learn how TradeTrust can benefit your business?</h2>
