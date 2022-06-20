@@ -24,7 +24,7 @@ const DraggableDemoCertificate: FunctionComponent<DraggableDemoCertificateProps>
         <div className="w-2/3 lg:w-1/2 xl:w-64 mr-auto px-4 inline-block box-content">
           <div className="aspect-w-1 aspect-h-1">
             <div className="rounded-full w-full h-full bg-cerulean-500 flex ">
-              <p className="text-base px-5 text-center text-white font-bold absolute top-1/2">
+              <p className="text-base px-5 text-center text-white font-gilroy-bold absolute top-1/2">
                 {roundInstructionsText}
               </p>
             </div>

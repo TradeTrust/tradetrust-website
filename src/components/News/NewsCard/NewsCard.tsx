@@ -5,7 +5,7 @@ import { NewsSingle } from "../types";
 import { TagBorderedSm } from "../../UI/Tag";
 
 const NewsSingleTitle: FunctionComponent<{ title: string }> = ({ title }) => {
-  return <h5 className="mt-8 mb-2">{title}</h5>;
+  return <h4 className="mt-8 mb-2">{title}</h4>;
 };
 
 export const NewsCard: FunctionComponent<{ news: NewsSingle }> = ({ news }) => {

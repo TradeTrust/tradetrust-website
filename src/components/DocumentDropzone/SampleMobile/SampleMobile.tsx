@@ -16,9 +16,9 @@ export const SampleMobile: FunctionComponent<{ currentChainId: ChainId | undefin
   const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
   return currentChainId ? (
     <div className="md:hidden flex flex-col">
-      <p className="font-bold text-xl mb-4">{topMessage}</p>
+      <p className="font-gilroy-bold text-xl mb-4">{topMessage}</p>
       <button
-        className="bg-tangerine-500 text-white hover:bg-tangerine-800 rounded-xl font-bold py-2 px-3 mx-auto"
+        className="bg-tangerine-500 text-white hover:bg-tangerine-800 rounded-xl font-gilroy-bold py-2 px-3 mx-auto"
         draggable={false}
         onClick={(e: React.SyntheticEvent) => {
           e.stopPropagation();
@@ -28,7 +28,7 @@ export const SampleMobile: FunctionComponent<{ currentChainId: ChainId | undefin
       >
         {btnMessage}
       </button>
-      <p className="font-bold text-xl mt-4">{bottomMessage}</p>
+      <p className="font-gilroy-bold text-xl mt-4">{bottomMessage}</p>
     </div>
   ) : (
     <div>You are currently on an unsupported network.</div>

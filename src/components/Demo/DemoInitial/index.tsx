@@ -48,8 +48,8 @@ export const DemoInitial: FunctionComponent = () => {
             To start using the demo, please key in your email address to create a free temporary cryptocurrency wallet.
           </p>
           <p>
-            Please take note that <span className="font-bold">all documents</span> created from this demo{" "}
-            <span className="font-bold"> can only be recognise via this demo</span>
+            Please take note that <span className="font-gilroy-bold">all documents</span> created from this demo{" "}
+            <span className="font-gilroy-bold"> can only be recognised via this demo</span>
           </p>
         </div>
       </div>

@@ -59,7 +59,7 @@ const SectionMap = () => {
           <div className="w-full">
             <Link to="/demo">
               <Button className="bg-tangerine-500 text-white hover:bg-tangerine-800 rounded-xl text-2xl px-4">
-                Try Our Demo Now
+                <h3 className="font-bold">Try Our Demo Now</h3>
               </Button>
             </Link>
           </div>
@@ -128,8 +128,8 @@ const SectionWhyBl = () => {
                 </li>
                 <li className="mb-8">
                   <p>
-                    <b>US$4 billion</b> estimated savings a year if 50% of the container shipping industry adopts eBLs,
-                    according to Digital Container Shipping Association
+                    <span className="font-gilroy-bold">US$4 billion</span> estimated savings a year if 50% of the
+                    container shipping industry adopts eBLs, according to Digital Container Shipping Association
                   </p>
                 </li>
                 <li>
@@ -164,10 +164,10 @@ const SectionWhatBl = () => {
       <div className="container">
         <div className="max-w-3xl mx-auto mb-8">
           <h1>What Is The Bill of Lading?</h1>
-          <h5>
+          <h4>
             A Bill of Lading is a transport document and a document of title over goods in transit, it is also a key
             document for international trade
-          </h5>
+          </h4>
         </div>
         <div className="flex flex-wrap -mx-4 mb-8">
           <WhatBl
@@ -201,19 +201,19 @@ const SectionWhatEta = () => {
           <div className="w-full lg:w-2/5 mx-auto">
             <div className="py-4 lg:py-8">
               <img className="mx-auto" src="/static/images/eta/ecommerce.svg" alt="" />
-              <h5>
+              <h4>
                 The Electronic Transactions Act (ETA) facilitates the use of e-commerce and e-transactions by giving
                 e-contracts and e-signatures the same status as written contracts and signatures
-              </h5>
+              </h4>
             </div>
           </div>
           <div className="w-full lg:w-2/5 mx-auto">
             <div className="py-4 lg:py-8">
               <img className="mx-auto" src="/static/images/eta/document.svg" alt="" />
-              <h5>
+              <h4>
                 Recent ETA amendments enable the creation and use of Electronic Transferable Records (ETRs), such as
                 electrotonic Bills of Lading (eBLs)
-              </h5>
+              </h4>
             </div>
           </div>
         </div>
