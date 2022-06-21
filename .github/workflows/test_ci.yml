@@ -41,7 +41,7 @@ jobs:
         id: testcafe
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run integration:headless
-      - name: 'Upload Artifact'
+      - name: "Upload Artifact"
         if: ${{ failure() && steps.testcafe.outcome == 'failure' }}
         uses: actions/upload-artifact@v3
         with:
@@ -80,6 +80,8 @@ jobs:
 
       - name: Integration - Synpress
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
-        run: npm run integration:headful
+        run: npm run integration:headful:ci
         env:
+          CYPRESS_PROJECT_ID: "trkg83"
+          CYPRESS_RECORD_KEY: "5fd3babb-9ca9-4743-a9c5-1e8164dbf9ef"
           CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
