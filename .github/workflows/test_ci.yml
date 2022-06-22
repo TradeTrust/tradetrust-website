@@ -6,7 +6,6 @@ jobs:
   test:
     name: Lint & Test
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,11 +23,13 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Cypress install
-        uses: cypress-io/github-action@v4
-        with:
-          # Disable running of tests within install job
-          runTests: false
+      - name: Install Packages
+        # there's a problem with ganache-core using a very old version of ethereumjs-abi which fails on git checkout with ssh reasons
+        run: |
+          git config --global url."https://".insteadOf git://
+          git config --global url."https://".insteadOf git+https://
+          git config --global url."https://".insteadOf ssh://git
+          npm ci
 
       - name: Check Lint
         run: npm run lint
@@ -57,7 +58,6 @@ jobs:
   synpress-e2e:
     name: Synpress e2e test
     runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
     strategy:
       fail-fast: false
       matrix:
@@ -66,21 +66,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress install
-        uses: cypress-io/github-action@v4
-        with:
-          # Disable running of tests within install job
-          runTests: false
+      - name: Install Packages
+        run: npm ci
+        env:
+          CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
 
       - name: Integration - Synpress
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         uses: cypress-io/github-action@v4
-        with:
-          install: false
-          start: npm run integration:headful:ci
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
-          browser: chrome
+        run: npm run integration:headful:ci
         env:
           CYPRESS_PROJECT_ID: "trkg83"
           CYPRESS_RECORD_KEY: "5fd3babb-9ca9-4743-a9c5-1e8164dbf9ef"
