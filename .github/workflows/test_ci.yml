@@ -15,14 +15,16 @@ jobs:
         with:
           # Disable running of tests within install job
           runTests: false
-          build: npm run build:test
+
+      - name: Build
+        run: npm run build:test
 
       - name: Save build folder
         uses: actions/upload-artifact@v3
         with:
           name: build
           if-no-files-found: error
-          path: ${{ github.workspace }}/build
+          path: build
   lint:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.19.0-chrome100-ff99-edge
@@ -94,9 +96,6 @@ jobs:
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
           browser: chrome
-          record: true
-          parallel: true
-          spec: tests/e2e/specs/*
         env:
           CYPRESS_PROJECT_ID: "trkg83"
           CYPRESS_RECORD_KEY: "5fd3babb-9ca9-4743-a9c5-1e8164dbf9ef"
