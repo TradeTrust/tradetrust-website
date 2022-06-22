@@ -2,9 +2,11 @@ import { useState, useCallback, useEffect } from "react";
 import { ContractFunctionState } from "@govtechsg/ethers-contract-hook";
 import { getLogger } from "../../utils/logger";
 import { TradeTrustERC721 } from "@govtechsg/token-registry";
-import { TitleEscrowCloneableFactory } from "@govtechsg/token-registry";
+import { TradeTrustERC721 as V2TradeTrustERC721 } from "@govtechsg/token-registry-v2/dist/ts/contracts";
 import { ContractReceipt, ContractTransaction, providers, Signer } from "ethers";
 import { UnsupportedNetworkError } from "../errors";
+import { TradeTrustVersion } from "../utils/connectTokenRegistry";
+import { getConnectedTitleEscrow } from "../utils/connectTitleEscrow";
 
 const { error: errorLogger } = getLogger("services:userestoretoken");
 
@@ -13,9 +15,10 @@ const validateRestoredEntities = async (
   address: string,
   previousBeneficiary: string,
   previousHolder: string,
-  transactionDetails: ContractReceipt
+  transactionDetails: ContractReceipt,
+  version: TradeTrustVersion
 ): Promise<void> => {
-  const newTitleEscrow = await TitleEscrowCloneableFactory.connect(address, provider);
+  const { titleEscrowContract: newTitleEscrow } = await getConnectedTitleEscrow(address, provider, version);
   const beneficiaryDeferred = newTitleEscrow.beneficiary();
   const holderDeferred = newTitleEscrow.holder();
   const [beneficiary, holder] = await Promise.all([beneficiaryDeferred, holderDeferred]);
@@ -28,7 +31,8 @@ const processRestoreTransaction = async (
   previousBeneficiary: string,
   previousHolder: string,
   provider: providers.Provider | Signer,
-  contractTransaction: ContractTransaction
+  contractTransaction: ContractTransaction,
+  version: TradeTrustVersion
 ): Promise<void> => {
   const contractTransactionTx = await contractTransaction.wait();
   const sendTokenArgs = contractTransactionTx.events?.find((event) => event.event === "TitleEscrowDeployed")?.args;
@@ -40,7 +44,8 @@ const processRestoreTransaction = async (
       newTitleEscrowAddress,
       previousBeneficiary,
       previousHolder,
-      contractTransactionTx
+      contractTransactionTx,
+      version
     );
   }
   if (reject) throw new Error(`Token was not successfully restored. Tx: ${JSON.stringify(contractTransactionTx)}`);
@@ -57,8 +62,9 @@ const processRestoreTransaction = async (
  */
 export const useRestoreToken = (
   provider: providers.Provider | Signer | undefined,
-  contractInstance?: TradeTrustERC721,
-  tokenId?: string
+  contractInstance?: TradeTrustERC721 | V2TradeTrustERC721,
+  tokenId?: string,
+  version?: TradeTrustVersion
 ): {
   restoreToken: (previousBeneficiary: string, previousHolder: string) => Promise<void>;
   state: ContractFunctionState;
@@ -73,10 +79,11 @@ export const useRestoreToken = (
       if (!provider) throw new UnsupportedNetworkError();
       if (!tokenId) throw new Error("Ownership data is not provided");
       if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
+      if (!version) throw new Error("Token Registry Version not specified");
 
       setState("PENDING_CONFIRMATION");
       const transaction = await contractInstance.restoreTitle(previousBeneficiary, previousHolder, tokenId);
-      processRestoreTransaction(previousBeneficiary, previousHolder, provider, transaction);
+      processRestoreTransaction(previousBeneficiary, previousHolder, provider, transaction, version);
       setState("CONFIRMED");
     } catch (error) {
       if (error instanceof Error) {

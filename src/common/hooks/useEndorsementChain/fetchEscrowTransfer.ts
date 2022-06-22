@@ -1,12 +1,17 @@
 import { providers } from "ethers";
-import { TitleEscrowCloneableFactory } from "@govtechsg/token-registry";
 import { TitleEscrowEvent, TradeTrustErc721Event, TradeTrustErc721EventType } from "../../../types";
+import { getConnectedTitleEscrow } from "../../utils/connectTitleEscrow";
+import { TradeTrustVersion } from "../../utils/connectTokenRegistry";
 
 export const fetchEscrowTransfers = async (
   address: string,
-  provider: providers.Provider
+  provider: providers.Provider,
+  version?: TradeTrustVersion
 ): Promise<TitleEscrowEvent> => {
-  const titleEscrowContract = TitleEscrowCloneableFactory.connect(address, provider);
+  if (version === undefined) {
+    version = TradeTrustVersion.V2;
+  }
+  const { titleEscrowContract } = await getConnectedTitleEscrow(address, provider, version);
   const isTitleEscrow = await titleEscrowContract.supportsInterface("0xdcce2211");
   if (!isTitleEscrow) throw new Error(`Contract ${address} is not a title escrow contract`);
   const holderChangeFilter = titleEscrowContract.filters.HolderChanged(null, null);
@@ -58,13 +63,14 @@ export const fetchEventInfo = async (
 export const fetchEvents = async (
   address: string,
   blockNumber: number,
-  provider: providers.Provider
+  provider: providers.Provider,
+  version?: TradeTrustVersion
 ): Promise<TradeTrustErc721Event> => {
   const code = await provider.getCode(address);
   const isContractDeployed = code === "0x";
   if (isContractDeployed) {
     return await fetchEventInfo(address, blockNumber, "Transfer to Wallet", provider);
   } else {
-    return await fetchEscrowTransfers(address, provider);
+    return await fetchEscrowTransfers(address, provider, version);
   }
 };

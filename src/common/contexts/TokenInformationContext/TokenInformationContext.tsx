@@ -1,12 +1,15 @@
 import { ContractFunctionState, useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { TitleEscrowCloneable } from "@govtechsg/token-registry";
 import React, { createContext, useContext, useEffect, useState, useCallback, FunctionComponent } from "react";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { TradeTrustERC721 } from "@govtechsg/token-registry";
+import { TitleEscrowCloneable } from "@govtechsg/token-registry";
+import { TradeTrustERC721 as V2TradeTrustERC721 } from "@govtechsg/token-registry-v2/dist/ts/contracts";
+import { TitleEscrow as V2TitleEscrowCloneable } from "@govtechsg/token-registry-v2/types/TitleEscrow";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
+// import { TradeTrustVersion } from "../../utils/connectTokenRegistry";
 
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
@@ -16,15 +19,18 @@ interface TokenInformationContext {
   documentOwner?: string;
   approvedBeneficiary?: string;
   approvedHolder?: string;
-  changeHolder: TitleEscrowCloneable["changeHolder"];
+  changeHolder: TitleEscrowCloneable["changeHolder"] | V2TitleEscrowCloneable["changeHolder"];
   changeHolderState: ContractFunctionState;
-  surrender: TitleEscrowCloneable["surrender"];
+  // TODO Compatibility for surrender and transferTo
+  surrender: TitleEscrowCloneable["surrender"]; //| V2TitleEscrowCloneable["transferTo"];
   surrenderState: ContractFunctionState;
-  endorseBeneficiary: TitleEscrowCloneable["approveNewTransferTargets"];
+  endorseBeneficiary: TitleEscrowCloneable["approveNewTransferTargets"] | V2TitleEscrowCloneable["endorseBeneficiary"];
   endorseBeneficiaryState: ContractFunctionState;
-  approveNewTransferTargets: TitleEscrowCloneable["approveNewTransferTargets"];
+  approveNewTransferTargets:
+    | TitleEscrowCloneable["approveNewTransferTargets"]
+    | V2TitleEscrowCloneable["approveNewTransferTargets"];
   approveNewTransferTargetsState: ContractFunctionState;
-  transferToNewEscrow: TitleEscrowCloneable["transferToNewEscrow"];
+  transferToNewEscrow: TitleEscrowCloneable["transferToNewEscrow"] | V2TitleEscrowCloneable["transferToNewEscrow"];
   transferToNewEscrowState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
@@ -33,7 +39,7 @@ interface TokenInformationContext {
   resetStates: () => void;
   destroyToken: TradeTrustERC721["destroyToken"];
   destroyTokenState: ContractFunctionState;
-  restoreToken: typeof restoreTokenStub;
+  restoreToken: typeof restoreTokenStub | V2TradeTrustERC721["restoreToken"];
   restoreTokenState: ContractFunctionState;
 }
 
@@ -79,8 +85,13 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
   const { getTransactor } = useProviderContext();
   const transactor = getTransactor();
-  const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, transactor);
-  const { titleEscrow, updateTitleEscrow, documentOwner } = useTitleEscrowContract(transactor, tokenRegistry, tokenId);
+  const { tokenRegistry, tokenRegistryVersion } = useTokenRegistryContract(tokenRegistryAddress, transactor);
+  const { titleEscrow, updateTitleEscrow, documentOwner } = useTitleEscrowContract(
+    transactor,
+    tokenRegistry,
+    tokenId,
+    tokenRegistryVersion
+  );
   const isSurrendered = documentOwner === tokenRegistryAddress;
   const isTokenBurnt = documentOwner === "0x000000000000000000000000000000000000dEaD"; // check if the token belongs to burn address.
 
@@ -102,20 +113,89 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     reset: resetDestroyingTokenState,
   } = useContractFunctionHook(tokenRegistry, "destroyToken");
 
-  const { restoreToken, state: restoreTokenState } = useRestoreToken(transactor, tokenRegistry, tokenId);
+  const { restoreToken, state: restoreTokenState } = useRestoreToken(
+    transactor,
+    tokenRegistry,
+    tokenId,
+    tokenRegistryVersion
+  );
 
   // Contract Write Functions (available only after provider has been upgraded)
+  // if(titleEscrow !== undefined){
+
+  // }
+
+  // if (tokenRegistryVersion == TradeTrustVersion.V3) {
+
+  //   functionToUse = V3TitleEscrow["surrender"];
+  // } else if (tokenRegistryVersion == TradeTrustVersion.V2) {
+
+  //   functionToUse = V2TitleEscrow["transferTo"];
+  // }
+
+  // const V2TitleEscrow: V2TitleEscrowCloneable | undefined = titleEscrow as V2TitleEscrowCloneable;
+  // const V3TitleEscrow: TitleEscrowCloneable | undefined = titleEscrow as TitleEscrowCloneable;
+
+  // const SayNoToJS = {
+  //   transferTo: 'transferTo',
+  //   surrender: 'surrender',
+  //   changeHolder: "changeHolder",
+  // } as const;
+
+  // const V2FunctionToUse: keyof V2TitleEscrowCloneable  = SayNoToJS.transferTo;
+  // const V3FunctionToUse: keyof TitleEscrowCloneable = SayNoToJS.surrender;
+  // const V4FunctionToUse: keyof TitleEscrowCloneable = "changeHolder"
+
+  // let functionToUse: keyof TitleEscrowCloneable | keyof V2TitleEscrowCloneable = SayNoToJS.changeHolder;// = tokenRegistryVersion === TradeTrustVersion.V3 ? V3FunctionToUse : V2FunctionToUse;
+  // let titleEscrowToUse: TitleEscrowCloneable | V2TitleEscrowCloneable | undefined = titleEscrow;// = tokenRegistryVersion === TradeTrustVersion.V3 ? V3TitleEscrow : V2TitleEscrow;
+
+  // if(tokenRegistryVersion === undefined){
+  //   // functionToUse = "changeHolder";
+  //   titleEscrowToUse = undefined;
+  // }else if(tokenRegistryVersion === TradeTrustVersion.V3){
+  //   functionToUse = V3FunctionToUse;
+  //   titleEscrowToUse = V3TitleEscrow;
+  // }else if(tokenRegistryVersion === TradeTrustVersion.V2){
+  //   functionToUse = SayNoToJS.transferTo;
+  //   titleEscrowToUse = V2TitleEscrow;
+  // }
+
+  // const {
+  // send: transferTo,
+  // state: surrenderState,
+  // reset: resetSurrender,
+  // } = useContractFunctionHook(titleEscrowToUse, V4FunctionToUse); //tokenRegistryVersion === TradeTrustVersion.V3 ? V3functionToUse :
+
+  // let surrender;
+
+  // if (tokenRegistryVersion == TradeTrustVersion.V3) {
+  //   surrender = transferTo;
+  // } else if (tokenRegistryVersion == TradeTrustVersion.V2) {
+  //   surrender = () => {
+  //     const tokenRegistryAddressString = tokenRegistryAddress as string;
+  //     return transferTo(tokenRegistryAddressString);
+  //   };
+  // }
+
+  // const surrenderState = "UNINITIALIZED";
+  // const resetSurrender = () => {};
+
   const {
-    send: surrender,
+    // send: surrender,
     state: surrenderState,
     reset: resetSurrender,
-  } = useContractFunctionHook(titleEscrow, "surrender");
+  } = useContractFunctionHook(titleEscrow, "transferToNewEscrow");
 
   const {
     send: changeHolder,
     state: changeHolderState,
     reset: resetChangeHolder,
   } = useContractFunctionHook(titleEscrow, "changeHolder");
+
+  const surrender = () => {
+    return changeHolder("");
+  };
+
   const {
     send: endorseBeneficiary,
     state: endorseBeneficiaryState,

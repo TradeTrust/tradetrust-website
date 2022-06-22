@@ -50,6 +50,7 @@
     "@govtechsg/open-attestation": "^6.5.0",
     "@govtechsg/open-attestation-cli": "^1.49.0",
     "@govtechsg/token-registry": "^3.2.0",
+    "@govtechsg/token-registry-v2": "npm:@govtechsg/token-registry@^2.5.3",
     "@govtechsg/tradetrust-ui-components": "^2.18.7",
     "@govtechsg/tradetrust-utils": "^1.2.1",
     "@reduxjs/toolkit": "^1.6.1",

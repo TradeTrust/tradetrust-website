@@ -17,7 +17,7 @@ export const useEndorsementChain = (
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [endorsementChain, setEndorsementChain] = useState<TradeTrustErc721Event[]>();
-  const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
+  const { tokenRegistry, tokenRegistryVersion } = useTokenRegistryContract(tokenRegistryAddress, provider);
 
   const fetchEndorsementChain = useCallback(async () => {
     if (!tokenRegistry || !provider) return;
@@ -46,7 +46,7 @@ export const useEndorsementChain = (
             case "0x000000000000000000000000000000000000dEaD":
               return fetchEventInfo(log.to, log.blockNumber, "Burnt", provider);
             default:
-              return fetchEvents(log.to, log.blockNumber, provider);
+              return fetchEvents(log.to, log.blockNumber, provider, tokenRegistryVersion);
           }
         })
       );
@@ -58,7 +58,7 @@ export const useEndorsementChain = (
       }
     }
     setPending(false);
-  }, [provider, tokenId, tokenRegistry, tokenRegistryAddress]);
+  }, [provider, tokenId, tokenRegistry, tokenRegistryAddress, tokenRegistryVersion]);
 
   useEffect(() => {
     fetchEndorsementChain();
