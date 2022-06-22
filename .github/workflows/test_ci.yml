@@ -24,7 +24,8 @@ jobs:
         with:
           name: build
           if-no-files-found: error
-          path: build
+          path: ./build
+
   lint:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.19.0-chrome100-ff99-edge
