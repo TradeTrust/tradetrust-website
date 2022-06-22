@@ -10,13 +10,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Save build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          if-no-files-found: error
-          path: ${{ github.workspace }}/build
-
       - name: Cypress install
         uses: cypress-io/github-action@v4
         with:
@@ -24,6 +17,12 @@ jobs:
           runTests: false
           build: npm run build:test
 
+      - name: Save build folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          if-no-files-found: error
+          path: build
   lint:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.19.0-chrome100-ff99-edge
@@ -51,7 +50,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: ${{ github.workspace }}/build
+          path: build
 
       - name: Integration - testcafe
         id: testcafe
@@ -84,7 +83,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: ${{ github.workspace }}/build
+          path: build
 
       - name: Integration - Synpress
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
