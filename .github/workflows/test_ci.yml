@@ -3,7 +3,8 @@ name: CI
 on: [push]
 
 jobs:
-  install:
+  test:
+    name: Lint & Test
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.19.0-chrome100-ff99-edge
     steps:
@@ -29,44 +30,15 @@ jobs:
           # Disable running of tests within install job
           runTests: false
 
-      - name: Build
-        run: npm run build:test
-
-      - name: Save build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          if-no-files-found: error
-          path: ~/build
-
-  lint:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
-    needs: install
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Check Lint
         run: npm run lint
-
-  tests:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
-    needs: lint
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
       - name: Test
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run test
 
-      - name: Download the build folders
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: build
+      - name: Build
+        run: npm run build:test
 
       - name: Integration - testcafe
         id: testcafe
@@ -86,7 +58,7 @@ jobs:
     name: Synpress e2e test
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.18.3-chrome87-ff82
-    needs: tests
+    needs: test
     strategy:
       fail-fast: false
       matrix:
@@ -94,12 +66,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Download the build folders
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: build
 
       - name: Integration - Synpress
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
