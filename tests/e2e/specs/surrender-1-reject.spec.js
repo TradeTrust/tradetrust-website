@@ -23,7 +23,7 @@ describe(
         cy.get("input[type=file]").attachFile("ebl-surrender.json");
         cy.get("[data-testid='asset-title-owner']").should("be.visible");
         cy.get("[data-testid='asset-title-holder']").should("be.visible");
-        cy.clickConnectAndManageAssetButton();
+        cy.checkAcceptMetamaskAccess();
         cy.get("[data-testid='surrenderDropdown']").click();
         cy.get("[data-testid='surrenderBtn']").click();
         cy.confirmMetamaskTransaction();

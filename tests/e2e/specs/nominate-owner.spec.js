@@ -23,7 +23,7 @@ describe(
         cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
         cy.get("[data-testid='asset-title-owner']").should("be.visible");
         cy.get("[data-testid='asset-title-holder']").should("be.visible");
-        cy.clickConnectAndManageAssetButton();
+        cy.checkAcceptMetamaskAccess();
         cy.get("[data-testid='nominateBeneficiaryHolderDropdown']").click();
         cy.get("[data-testid='editable-input-owner']").type(ACCOUNT_2);
         cy.get("[data-testid='nominationBtn']").click();
