@@ -5,12 +5,8 @@ Cypress.Commands.add("clickConnectAndManageAssetButton", () => {
     cy.wait(2000);
     if ($transferPanel.find("[data-testid='connectToWallet']").length) {
       cy.get("[data-testid='connectToWallet']").click();
-      // cy.isCypressWindowActive((isActive) => {
-      //   if (!isActive) {
       cy.acceptMetamaskAccess(true).should("be.true");
       cy.wait(2000);
-      //   }
-      // });
     }
   });
   cy.get("[data-testid='manageAssetDropdown']").click();

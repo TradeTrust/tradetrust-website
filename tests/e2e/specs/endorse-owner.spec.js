@@ -15,9 +15,7 @@ describe(
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
 
-      // START - approve application once after connect to wallet, subsequent tests no longer need
       cy.checkAcceptMetamaskAccess();
-      // END - approve application once after connect to wallet, subsequent tests no longer need
 
       cy.get("[data-testid='endorseBeneficiaryDropdown']").click();
       cy.get("[data-testid='editable-input-owner']").type(ACCOUNT_3);
