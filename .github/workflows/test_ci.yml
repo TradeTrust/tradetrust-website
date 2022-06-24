@@ -127,7 +127,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Packages
-        if: steps.install.outputs.cache-hit !== 'true'
+        if: steps.install.outputs.cache-hit != 'true'
         run: npm ci
         env:
           CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
