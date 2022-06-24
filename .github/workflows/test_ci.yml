@@ -28,7 +28,6 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Packages
-        if: ${{ steps.cache-npm.outputs.cache-hit == 'false' }}
         # there's a problem with ganache-core using a very old version of ethereumjs-abi which fails on git checkout with ssh reasons
         run: |
           git config --global url."https://".insteadOf git://
