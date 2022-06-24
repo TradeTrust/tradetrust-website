@@ -64,7 +64,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Packages
-        if: ${{ steps.cache.outputs.cache-hit == 'false' }}
+        if: steps.cache.outputs.cache-hit != 'true'
         # there's a problem with ganache-core using a very old version of ethereumjs-abi which fails on git checkout with ssh reasons
         run: |
           git config --global url."https://".insteadOf git://
@@ -127,7 +127,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Packages
-        if: ${{ steps.install.outputs.cache-hit == 'false' }}
+        if: steps.install.outputs.cache-hit !== 'true'
         run: npm ci
         env:
           CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
