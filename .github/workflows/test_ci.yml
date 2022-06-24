@@ -5,7 +5,7 @@ on: [push]
 jobs:
   install:
     name: Npm Install
-    id: install
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,6 +15,7 @@ jobs:
           node-version: "14"
 
       - name: Cache Node Modules
+        id: cache
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -49,6 +50,7 @@ jobs:
           node-version: "14"
 
       - name: Cache Node Modules
+        id: cache
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -62,7 +64,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Packages
-        if: ${{ steps.install.outputs.cache-hit == 'false' }}
+        if: ${{ steps.cache.outputs.cache-hit == 'false' }}
         # there's a problem with ganache-core using a very old version of ethereumjs-abi which fails on git checkout with ssh reasons
         run: |
           git config --global url."https://".insteadOf git://
@@ -111,6 +113,7 @@ jobs:
           node-version: "14"
 
       - name: Cache Node Modules
+        id: cache
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
