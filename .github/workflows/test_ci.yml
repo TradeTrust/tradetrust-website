@@ -58,7 +58,6 @@ jobs:
   synpress-e2e:
     name: Synpress e2e test
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
     strategy:
       fail-fast: false
       matrix:
@@ -68,13 +67,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install
+      - name: Install Packages
         run: npm ci
+        env:
+          CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
 
       - name: Integration - Synpress
-        uses: cypress-io/github-action@v4
-        with:
-          start: npm run integration:headful:ci
+        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
+        run: npm run integration:headful:ci
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
