@@ -15,7 +15,7 @@ jobs:
           node-version: "14"
 
       - name: Cache Node Modules
-        id: cache
+        id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -23,10 +23,11 @@ jobs:
           # npm cache files are stored in `~/.npm` on Linux/macOS
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            
+        - if: ${{ steps.cache-npm.outputs.cache-hit == 'false' }}
+          name: List the state of node modules
+          continue-on-error: true
+          run: npm list
 
       - name: Install Packages
         # there's a problem with ganache-core using a very old version of ethereumjs-abi which fails on git checkout with ssh reasons
@@ -50,7 +51,7 @@ jobs:
           node-version: "14"
 
       - name: Cache Node Modules
-        id: cache
+        id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -64,7 +65,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Packages
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: ${{ steps.cache-npm.outputs.cache-hit == 'false' }}
         # there's a problem with ganache-core using a very old version of ethereumjs-abi which fails on git checkout with ssh reasons
         run: |
           git config --global url."https://".insteadOf git://
@@ -113,7 +114,7 @@ jobs:
           node-version: "14"
 
       - name: Cache Node Modules
-        id: cache
+        id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -127,7 +128,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Packages
-        if: steps.install.outputs.cache-hit != 'true'
+        if: ${{ steps.cache-npm.outputs.cache-hit == 'false' }}
         run: npm ci
         env:
           CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
