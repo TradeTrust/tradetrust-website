@@ -55,24 +55,10 @@ jobs:
           if-no-files-found: ignore
           retention-days: 5
 
-  install:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Cypress install
-        uses: cypress-io/github-action@v4
-        with:
-          # Disable running of tests within install job
-          runTests: false
-
   synpress-e2e:
     name: Synpress e2e test
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.19.0-chrome100-ff99-edge
-    needs: install
     strategy:
       fail-fast: false
       matrix:
@@ -85,7 +71,7 @@ jobs:
       - name: Integration - Synpress
         uses: cypress-io/github-action@v4
         with:
-          install: false
+          install: true
           start: npm run integration:headful:ci
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
