@@ -75,6 +75,6 @@ jobs:
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run integration:headful:ci
         env:
-          CYPRESS_PROJECT_ID: "trkg83"
-          CYPRESS_RECORD_KEY: "5fd3babb-9ca9-4743-a9c5-1e8164dbf9ef"
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache/Cypress
