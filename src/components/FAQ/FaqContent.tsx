@@ -34,7 +34,7 @@ export const FaqContent: FunctionComponent = () => {
           </AccordionItem>
         ))}
       </div>
-      <div className="mx-auto my-8 w-1/2 lg:w-1/3">
+      <div className="mx-auto my-8 w-1/2 lg:w-1/3  hidden lg:block">
         <img src="/static/images/faq/faq-person.png" alt="FAQ person" />
       </div>
     </div>
