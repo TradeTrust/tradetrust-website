@@ -37,7 +37,7 @@ export const HowItWorksSection: FunctionComponent = () => {
     <section id="how-it-works" className="text-cloud-800 py-16">
       <div className="container">
         <div className="w-5/5 text-center">
-          <h1 className="leading-none text-4xl lg:text-5xl">How It Works</h1>
+          <h1 className="leading-none text-4xl lg:text-6xl">How It Works</h1>
           <div className="flex m-auto mt-6 justify-center">
             {documentTypes.map((documentType, index) => {
               const cssState =
