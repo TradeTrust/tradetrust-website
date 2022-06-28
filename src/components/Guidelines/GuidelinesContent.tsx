@@ -40,7 +40,7 @@ export const GuidelinesContent: FunctionComponent = () => {
           </AccordionItem>
         ))}
       </div>
-      <div className="my-12 lg:my-8 w-full lg:w-1/3">
+      <div className="my-12 lg:my-8 w-full lg:w-1/3 hidden lg:block">
         <img className="mx-auto" src="/static/images/guidelines/Guidelines.png" alt="Guidelines person" />
       </div>
     </div>

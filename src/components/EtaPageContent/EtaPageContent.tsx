@@ -59,7 +59,7 @@ const SectionMap = () => {
           <div className="w-full">
             <Link to="/demo">
               <Button className="bg-tangerine-500 text-white hover:bg-tangerine-800 rounded-xl text-2xl px-4">
-                <h3 className="font-bold">Try Our Demo Now</h3>
+                <h3>Try Our Demo Now</h3>
               </Button>
             </Link>
           </div>
