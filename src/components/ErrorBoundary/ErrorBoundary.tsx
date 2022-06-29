@@ -58,12 +58,16 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
    */
   recover = (): void => {
     const { onRecover } = this.props;
-    onRecover();
 
-    this.setState({
-      hasError: false,
-      error: undefined,
-    });
+    this.setState(
+      {
+        hasError: false,
+        error: undefined,
+      },
+      () => {
+        onRecover();
+      }
+    );
   };
 
   render(): ReactNode {
