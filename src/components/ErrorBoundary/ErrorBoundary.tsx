@@ -3,23 +3,23 @@ import { getLogger } from "../../utils/logger";
 
 const { stack } = getLogger("component:errorBoundary");
 
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error?: Error;
-}
-
-export interface ErrorBoundaryRendererProps {
+export interface FallbackComponentProps {
   error?: Error;
   recover: () => void;
 }
 
+export type FallbackComponentType = FunctionComponent<FallbackComponentProps>;
+
 export interface ErrorBoundaryProps {
-  renderer: ErrorBoundaryRenderer;
-  onError?: (error: Error) => void;
-  onRecover?: () => void;
+  children?: React.ReactNode;
+  FallbackComponent: FallbackComponentType;
+  onRecover: () => void;
 }
 
-export type ErrorBoundaryRenderer = FunctionComponent<ErrorBoundaryRendererProps>;
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -33,8 +33,6 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error): void {
     stack(error);
-    const { onError } = this.props;
-    if (onError) onError(error);
   }
 
   componentDidMount(): void {
@@ -45,37 +43,42 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     window.removeEventListener("unhandledrejection", this.onUnhandledRejection);
   }
 
+  /**
+   * Global promise unhandled promise rejection to trigger error boundary
+   */
   onUnhandledRejection = (event: PromiseRejectionEvent): void => {
-    const { onError } = this.props;
     event.preventDefault();
     event.promise.catch(async (error) => {
-      stack(error);
-      this.setState(ErrorBoundary.getDerivedStateFromError(error), () => {
-        if (onError) onError(error);
-      });
+      this.setState(ErrorBoundary.getDerivedStateFromError(error));
     });
   };
 
+  /**
+   * Attempts to recover from error.
+   */
   recover = (): void => {
     const { onRecover } = this.props;
+
     this.setState(
       {
         hasError: false,
         error: undefined,
       },
       () => {
-        if (onRecover) onRecover();
+        onRecover();
       }
     );
   };
 
   render(): ReactNode {
-    const error = this.state.error;
-    const {
-      recover,
-      props: { renderer: ErrorRenderer },
-    } = this;
+    const { recover } = this;
+    const { hasError, error } = this.state;
+    const { children, FallbackComponent } = this.props;
 
-    return this.state.hasError ? <ErrorRenderer error={error} recover={recover} /> : this.props.children;
+    if (hasError) {
+      return <FallbackComponent error={error} recover={recover} />;
+    }
+
+    return children;
   }
 }

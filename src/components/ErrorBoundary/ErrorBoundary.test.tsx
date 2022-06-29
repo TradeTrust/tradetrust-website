@@ -1,8 +1,8 @@
-import { render } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import React from "react";
 import { Router } from "react-router-dom";
-import { ErrorBoundary, ErrorBoundaryRenderer } from "./ErrorBoundary";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const ProblemChild = () => {
   throw new Error("Error thrown from problem child");
@@ -18,21 +18,47 @@ const pauseErrorLogging = (codeToRun: () => void) => {
   console.error = logger;
 };
 
+const MockFallbackComponent = ({ recover }: { recover: () => void }) => (
+  <>
+    <div>Fallback component</div>
+    <button onClick={recover}>Retry</button>
+  </>
+);
+
 describe("<ErrorBoundary />", () => {
   it("should catch errors with componentDidCatch", () => {
     const history = createMemoryHistory();
-    const MockRenderer: ErrorBoundaryRenderer = () => <div>Error Renderer</div>;
 
     pauseErrorLogging(() => {
       jest.spyOn(ErrorBoundary.prototype, "componentDidCatch");
       render(
         <Router history={history}>
-          <ErrorBoundary renderer={MockRenderer}>
+          <ErrorBoundary FallbackComponent={MockFallbackComponent} onRecover={() => {}}>
             <ProblemChild />
           </ErrorBoundary>
         </Router>
       );
       expect(ErrorBoundary.prototype.componentDidCatch).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it("should show FallbackComponent", () => {
+    render(
+      <ErrorBoundary FallbackComponent={MockFallbackComponent} onRecover={() => {}}>
+        <ProblemChild />
+      </ErrorBoundary>
+    );
+    expect(screen.getByText("Fallback component")).toBeInTheDocument();
+  });
+
+  it("should call recover", () => {
+    const onRecoverMock = jest.fn();
+    render(
+      <ErrorBoundary FallbackComponent={MockFallbackComponent} onRecover={onRecoverMock}>
+        <ProblemChild />
+      </ErrorBoundary>
+    );
+    fireEvent.click(screen.getByText("Retry"));
+    expect(onRecoverMock).toHaveBeenCalledTimes(1);
   });
 });

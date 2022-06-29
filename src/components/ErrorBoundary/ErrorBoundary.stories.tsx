@@ -1,7 +1,7 @@
 import { createBrowserHistory } from "history";
 import React, { FunctionComponent } from "react";
 import { Router } from "react-router-dom";
-import { ErrorBoundary, ErrorBoundaryRenderer } from "./ErrorBoundary";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const history = createBrowserHistory();
 
@@ -19,12 +19,12 @@ const ErrorComponent: FunctionComponent = () => {
   );
 };
 
-const MockRenderer: ErrorBoundaryRenderer = () => <div>Error Renderer</div>;
+const MockFallbackComponent = () => <div>Fallback component</div>;
 
 export const Default = () => {
   return (
     <Router history={history}>
-      <ErrorBoundary renderer={MockRenderer}>
+      <ErrorBoundary FallbackComponent={MockFallbackComponent} onRecover={() => {}}>
         <ErrorComponent />
       </ErrorBoundary>
     </Router>
