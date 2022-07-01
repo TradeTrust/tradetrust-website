@@ -45,6 +45,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
   const onDrop = useCallback(
     (acceptedFiles: Blob[]) => {
+      console.log("FILES: ", acceptedFiles);
       acceptedFiles.forEach((file: Blob) => {
         const reader = new FileReader();
 
