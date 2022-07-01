@@ -45,9 +45,8 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
   const onDrop = useCallback(
     (acceptedFiles: Blob[]) => {
-      console.log("FILES: ", acceptedFiles);
       acceptedFiles.forEach((file: any) => {
-        if (file && file.path === "certificate.svg") return;
+        if (file && file.path === "certificate.svg") return; // to skip reading the image file for the demo certificate
 
         const reader = new FileReader();
 
@@ -55,7 +54,6 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.onerror = () => console.log("file reading has failed");
         reader.onload = async () => {
           try {
-            console.log("result: ", reader.result);
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
             if (chainId && currentChainId !== chainId) {
