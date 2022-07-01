@@ -66,7 +66,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
             console.error(e);
           }
         };
-        reader.readAsText(file);
+        reader.readAsDataURL(file);
       });
     },
     [changeNetwork, currentChainId, dispatch]
