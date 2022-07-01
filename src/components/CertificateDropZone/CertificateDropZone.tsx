@@ -46,7 +46,9 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
   const onDrop = useCallback(
     (acceptedFiles: Blob[]) => {
       console.log("FILES: ", acceptedFiles);
-      acceptedFiles.forEach((file: Blob) => {
+      acceptedFiles.forEach((file: any) => {
+        if (file && file.path === "certificate.svg") return;
+
         const reader = new FileReader();
 
         reader.onabort = () => console.log("file reading was aborted");
