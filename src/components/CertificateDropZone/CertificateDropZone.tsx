@@ -52,6 +52,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.onerror = () => console.log("file reading has failed");
         reader.onload = async () => {
           try {
+            console.log("result: ", reader.result);
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
             if (chainId && currentChainId !== chainId) {
@@ -66,7 +67,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
             console.error(e);
           }
         };
-        reader.readAsDataURL(file);
+        reader.readAsText(file);
       });
     },
     [changeNetwork, currentChainId, dispatch]
