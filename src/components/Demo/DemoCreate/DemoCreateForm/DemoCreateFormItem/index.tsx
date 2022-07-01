@@ -61,7 +61,9 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
     const { getRootProps, getInputProps, open } = useDropzone({
       onDrop,
       multiple: false,
-      accept: "image/jpeg, image/png",
+      accept: {
+        "image/*": [".jpeg", ".jpg", ".png"],
+      },
     });
 
     return (
