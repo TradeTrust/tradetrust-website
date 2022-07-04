@@ -2,7 +2,6 @@
 title: Mandatory properties of a blockchain
 date: 2020-01-04T16:00:00.000Z
 ---
-
 One of the most frequently asked questions posted to the team is whether TradeTrust is able to use alternative blockchains in addition to the Ethereum blockchain. This article seeks to provide a set of guidelines on the properties and features that an alternative blockchain must have in order to align to the TradeTrust framework.
 
 **Here is a list of mandatory properties:**
@@ -30,18 +29,18 @@ For additional flexibility, it would be ideal for the blockchain to support smar
 An example of how smart contracts are used:
 In the case of ETR issuers such as shipping lines, they should be able to deploy smart contracts to maintain a single global record for the following purposes:
 
-- Keeping records of the statuses of ETRs issued by the issuer
-- Keeping records of the current owners of the different ETR
-- Defining the function and preconditions for issuing a new ETR
-- Defining the function and preconditions for transferring an ETR
-- Other functions required by the users or the issuer of the ETR
+* Keeping records of the statuses of ETRs issued by the issuer
+* Keeping records of the current owners of the different ETR
+* Defining the function and preconditions for issuing a new ETR
+* Defining the function and preconditions for transferring an ETR
+* Other functions required by the users or the issuer of the ETR
 
 Example of how preconditions are set for a transfer action:
 An entity may only transfer its ownership of an ETR from itself to another entity only if the following pre-conditions are met:
 
-- The ETR has been issued by the ETR issuer
-- The Entity is currently in control
-- The transaction has been signed by the entity proposing the transactions
+* The ETR has been issued by the ETR issuer
+* The Entity is currently in control
+* The transaction has been signed by the entity proposing the transactions
 
 **4. Accessibility of blockchain state**
 
@@ -71,3 +70,5 @@ The guidelines offer insights into what the TradeTrust framework and reference i
 1. **Singularity:** The ETR document can be represented by an unique Document ID which cannot collide with another document and the association of the ID to a single `owner` property in a smart contract ensures that there is only one owner of the ETR at any point in time.
 2. **Exclusive Control:** The implementation of the ETR smart contract can be implemented such that the listed owner of the ETR will have exclusive control over the ETR. This means that only the owner of the ETR can invoke the transfer function of the ETR and the signature of the transfer transaction is being checked to assert the constraints.
 3. **Integrity:** Integrity of an ETR can be verified through an unique Document ID that is the hash of the content of the document. Any attempt to modify the contents of the document will result in the document hash to change thus giving recipients of the ETR, assurance as to the integrity of the document.
+
+Testing
