@@ -58,13 +58,15 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
 
   const { currentChainId } = useProviderContext();
 
-  /* Update the certificate when network is changed unless it is Magic Demo as the network does not change for it (fixed at Ropsten).
+  /*  Update the certificate when network is changed UNLESS:
+  - it is Magic Demo certificate, as the network does not change for it (fixed at Ropsten).
+  - it is Sample certificate, as it is already updated when user changed network from network selector dropdown provided by website UI (not the metamask extension network selector)
    */
   useEffect(() => {
-    if (isMagicDemo) return;
+    if (isMagicDemo || isSampleDocument) return;
     resetCertificateData();
     dispatch(updateCertificate(certificateDoc));
-  }, [certificateDoc, currentChainId, dispatch, resetCertificateData, isMagicDemo]);
+  }, [certificateDoc, currentChainId, dispatch, resetCertificateData, isMagicDemo, isSampleDocument]);
 
   /*
   initialise the meta token information context when new tokenId
