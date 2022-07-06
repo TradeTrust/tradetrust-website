@@ -9,7 +9,6 @@ import { TitleEscrowCloneable } from "@govtechsg/token-registry";
 import { TradeTrustERC721 as V2TradeTrustERC721 } from "@govtechsg/token-registry-v2/dist/ts/contracts";
 import { TitleEscrow as V2TitleEscrowCloneable } from "@govtechsg/token-registry-v2/types/TitleEscrow";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
-// import { TradeTrustVersion } from "../../utils/connectTokenRegistry";
 
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
@@ -121,80 +120,21 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   );
 
   // Contract Write Functions (available only after provider has been upgraded)
-  // if(titleEscrow !== undefined){
-
-  // }
-
-  // if (tokenRegistryVersion == TradeTrustVersion.V3) {
-
-  //   functionToUse = V3TitleEscrow["surrender"];
-  // } else if (tokenRegistryVersion == TradeTrustVersion.V2) {
-
-  //   functionToUse = V2TitleEscrow["transferTo"];
-  // }
-
-  // const V2TitleEscrow: V2TitleEscrowCloneable | undefined = titleEscrow as V2TitleEscrowCloneable;
-  // const V3TitleEscrow: TitleEscrowCloneable | undefined = titleEscrow as TitleEscrowCloneable;
-
-  // const SayNoToJS = {
-  //   transferTo: 'transferTo',
-  //   surrender: 'surrender',
-  //   changeHolder: "changeHolder",
-  // } as const;
-
-  // const V2FunctionToUse: keyof V2TitleEscrowCloneable  = SayNoToJS.transferTo;
-  // const V3FunctionToUse: keyof TitleEscrowCloneable = SayNoToJS.surrender;
-  // const V4FunctionToUse: keyof TitleEscrowCloneable = "changeHolder"
-
-  // let functionToUse: keyof TitleEscrowCloneable | keyof V2TitleEscrowCloneable = SayNoToJS.changeHolder;// = tokenRegistryVersion === TradeTrustVersion.V3 ? V3FunctionToUse : V2FunctionToUse;
-  // let titleEscrowToUse: TitleEscrowCloneable | V2TitleEscrowCloneable | undefined = titleEscrow;// = tokenRegistryVersion === TradeTrustVersion.V3 ? V3TitleEscrow : V2TitleEscrow;
-
-  // if(tokenRegistryVersion === undefined){
-  //   // functionToUse = "changeHolder";
-  //   titleEscrowToUse = undefined;
-  // }else if(tokenRegistryVersion === TradeTrustVersion.V3){
-  //   functionToUse = V3FunctionToUse;
-  //   titleEscrowToUse = V3TitleEscrow;
-  // }else if(tokenRegistryVersion === TradeTrustVersion.V2){
-  //   functionToUse = SayNoToJS.transferTo;
-  //   titleEscrowToUse = V2TitleEscrow;
-  // }
-
-  // const {
-  // send: transferTo,
-  // state: surrenderState,
-  // reset: resetSurrender,
-  // } = useContractFunctionHook(titleEscrowToUse, V4FunctionToUse); //tokenRegistryVersion === TradeTrustVersion.V3 ? V3functionToUse :
-
-  // let surrender;
-
-  // if (tokenRegistryVersion == TradeTrustVersion.V3) {
-  //   surrender = transferTo;
-  // } else if (tokenRegistryVersion == TradeTrustVersion.V2) {
-  //   surrender = () => {
-  //     const tokenRegistryAddressString = tokenRegistryAddress as string;
-  //     return transferTo(tokenRegistryAddressString);
-  //   };
-  // }
-
-  // const surrenderState = "UNINITIALIZED";
-  // const resetSurrender = () => {};
-
   const {
     // send: surrender,
     state: surrenderState,
     reset: resetSurrender,
   } = useContractFunctionHook(titleEscrow, "transferToNewEscrow");
 
+  const surrender = () => {
+    return changeHolder("");
+  };
+
   const {
     send: changeHolder,
     state: changeHolderState,
     reset: resetChangeHolder,
   } = useContractFunctionHook(titleEscrow, "changeHolder");
-
-  const surrender = () => {
-    return changeHolder("");
-  };
 
   const {
     send: endorseBeneficiary,
