@@ -8,6 +8,14 @@ const localConfig = {
     "./node_modules/@govtechsg/tradetrust-ui-components/src/**/*.{ts,tsx,js,jsx}",
   ],
   theme: {
+    screens: {
+      xs: "460px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
     backgroundImage: {
       "single-wave": "url('/static/images/home/mainBenefits/single-wave.png')",
       "wave-lines-light": "url('/static/images/common/wave-lines-light.png')",
