@@ -1,16 +1,8 @@
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownProps,
-  OverlayContext,
-  showDocumentTransferMessage,
-  IconError,
-} from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useContext } from "react";
+import { Dropdown, DropdownItem, DropdownProps, IconError } from "@govtechsg/tradetrust-ui-components";
+import React, { FunctionComponent } from "react";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { getChainInfo } from "../../../common/utils/chain-utils";
-import { LoadingModal } from "../../UI/Overlay";
 
 interface NetworkSelectViewProps {
   onChange: (network: ChainInfoObject) => void;
@@ -122,24 +114,9 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
 
 export const NetworkSelect: FunctionComponent = () => {
   const { changeNetwork, supportedChainInfoObjects, currentChainId } = useProviderContext();
-  const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
-  const closeOverlay = () => {
-    showOverlay(undefined);
-    setOverlayVisible(false);
-  };
 
   const changeHandler = async (network: ChainInfoObject) => {
-    try {
-      showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
-      await changeNetwork(network.chainId);
-      closeOverlay();
-    } catch (e: any) {
-      showOverlay(
-        showDocumentTransferMessage("You've cancelled changing network.", {
-          isSuccess: false,
-        })
-      );
-    }
+    await changeNetwork(network.chainId);
   };
 
   return (
