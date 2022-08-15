@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { FaqContent } from "../components/FAQ/FaqContent";
 import { Page } from "../components/Layout/Page";
+import { FaqSelect } from "../components/FAQ/FaqSelect";
 
 export const FaqPage: FunctionComponent = () => (
   <>
@@ -19,7 +19,7 @@ export const FaqPage: FunctionComponent = () => (
       <title>TradeTrust - Frequently Asked Questions</title>
     </Helmet>
     <Page title="Frequently Asked Questions">
-      <FaqContent />
+      <FaqSelect />
     </Page>
   </>
 );

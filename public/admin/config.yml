@@ -27,6 +27,7 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Type", name: "type", widget: "select", options: ["General", "Product"], hint: "Type of FAQ" }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "guidelines"
     label: "Guidelines"
