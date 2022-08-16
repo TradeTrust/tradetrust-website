@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { ChevronLeft } from "react-feather";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -8,13 +8,14 @@ import { FaqContent } from "../components/FAQ/FaqContent";
 
 export const FaqPageDetail: FunctionComponent = () => {
   const location = useLocation();
+  const [faqType, setFaqType] = useState<FaqType>(FaqType.GENERAL);
 
   const getFaqType = (pathname: string) => {
     switch (pathname) {
-      case "/faq/generalfaq":
+      case "/faq/general-faq":
         return FaqType.GENERAL;
 
-      case "/faq/productfaq":
+      case "/faq/product-faq":
         return FaqType.PRODUCT;
 
       default:
@@ -22,7 +23,9 @@ export const FaqPageDetail: FunctionComponent = () => {
     }
   };
 
-  const faqType = getFaqType(location.pathname);
+  useEffect(() => {
+    setFaqType(getFaqType(location.pathname));
+  }, [location.pathname]);
 
   return (
     <>

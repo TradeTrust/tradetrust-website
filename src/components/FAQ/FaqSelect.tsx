@@ -11,13 +11,13 @@ export const FaqSelect: FunctionComponent = () => {
           blockchain traffic. Navigating out of the demo midway will cause an error on the issuing process.
         </p>
         <div className="flex flex-col md:flex-row">
-          <Link to="/faq/generalfaq">
+          <Link to="/faq/general-faq">
             <div className={`${boxStyle}`}>
               <img src="/static/images/faq/generalFaq.png" alt="general FAQs" />
               <h5 className="pt-3 text-cloud-800">General FAQs</h5>
             </div>
           </Link>
-          <Link to="/faq/productfaq">
+          <Link to="/faq/product-faq">
             <div className={`${boxStyle}`}>
               <img src="/static/images/faq/productFaq.png" alt="general FAQs" />
               <h5 className="pt-3 text-cloud-800">Product FAQs</h5>
