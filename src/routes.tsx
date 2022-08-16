@@ -2,6 +2,7 @@ import React from "react";
 import { EmailSuccessPage } from "./pages/emailSuccess";
 import { EmailErrorPage } from "./pages/emailError";
 import { FaqPage } from "./pages/faq";
+import { FaqPageDetail } from "./pages/faqDetail";
 import { EtaPage } from "./pages/eta";
 import VerifyPage from "./pages/verify";
 import { HomePage } from "./pages/home";
@@ -42,6 +43,8 @@ export const routes: RouteInterface[] = [
     privateRoute: true,
   },
   { path: "/faq", exact: true, component: FaqPage },
+  { path: "/faq/general-faq", exact: true, component: FaqPageDetail },
+  { path: "/faq/product-faq", exact: true, component: FaqPageDetail },
   { path: "/eta", exact: true, component: EtaPage },
   { path: "/settings", exact: true, component: SettingsPage },
   { path: "/settings/address-resolver", exact: true, component: SettingsAddressResolverPage },

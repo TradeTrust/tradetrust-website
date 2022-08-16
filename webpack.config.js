@@ -29,10 +29,12 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: [
           { loader: "style-loader" },
-          { loader: "css-loader", options: { url: false } }],
+          { loader: "css-loader", options: { url: false } },
+          { loader: "postcss-loader" },
+        ],
       },
       {
         test: /\.md$/,
@@ -62,17 +64,17 @@ module.exports = {
     }),
     ...(!IS_DEV_SERVER
       ? [
-        new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
-        new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
-        new CopyWebpackPlugin({
-          patterns: [
-            { from: "public/static/images", to: "static/images" },
-            { from: "public/static/demo", to: "static/demo" },
-            { from: "public/static/uploads", to: "static/uploads" },
-            { from: "public/admin", to: "admin" },
-          ],
-        }),
-      ]
+          new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
+          new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
+          new CopyWebpackPlugin({
+            patterns: [
+              { from: "public/static/images", to: "static/images" },
+              { from: "public/static/demo", to: "static/demo" },
+              { from: "public/static/uploads", to: "static/uploads" },
+              { from: "public/admin", to: "admin" },
+            ],
+          }),
+        ]
       : []),
   ],
   optimization: {
