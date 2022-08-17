@@ -2,6 +2,7 @@ import { Dropdown, DropdownItem, DropdownProps, IconError } from "@govtechsg/tra
 import React, { FunctionComponent } from "react";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { useProviderContext } from "../../../common/contexts/provider";
+import { useNetworkContext } from "../../../common/contexts/network";
 import { getChainInfo } from "../../../common/utils/chain-utils";
 
 interface NetworkSelectViewProps {
@@ -113,10 +114,11 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
 };
 
 export const NetworkSelect: FunctionComponent = () => {
-  const { changeNetwork, supportedChainInfoObjects, currentChainId } = useProviderContext();
+  const { supportedChainInfoObjects, currentChainId } = useProviderContext();
+  const { changeUserNetwork } = useNetworkContext();
 
   const changeHandler = async (network: ChainInfoObject) => {
-    await changeNetwork(network.chainId);
+    await changeUserNetwork(network.chainId);
   };
 
   return (

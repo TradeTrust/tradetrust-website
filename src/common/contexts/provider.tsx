@@ -7,8 +7,6 @@ import { ChainId, ChainInfoObject } from "../../constants/chain-info";
 import { UnsupportedNetworkError } from "../errors";
 import { getChainInfo, getChainInfoFromNetworkName, walletSwitchChain } from "../utils/chain-utils";
 import { NETWORK_NAME } from "../../config";
-import { OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
-import { LoadingModal } from "../../components/UI/Overlay";
 
 export enum SIGNER_TYPE {
   IDENTITY = "Identity",
@@ -101,25 +99,9 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   );
   const [provider, setProvider] = useState<providers.Provider | undefined>(defaultProvider.current);
 
-  const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
-  const closeOverlay = () => {
-    showOverlay(undefined);
-    setOverlayVisible(false);
-  };
-
   const changeNetwork = async (chainId: ChainId) => {
-    try {
-      showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
-      await walletSwitchChain(chainId);
-      setCurrentChainId(chainId);
-      closeOverlay();
-    } catch (e: any) {
-      showOverlay(
-        showDocumentTransferMessage("You've cancelled changing network.", {
-          isSuccess: false,
-        })
-      );
-    }
+    await walletSwitchChain(chainId);
+    setCurrentChainId(chainId);
   };
 
   const updateProvider = useCallback(async () => {

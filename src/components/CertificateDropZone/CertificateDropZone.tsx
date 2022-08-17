@@ -13,6 +13,7 @@ import { getDropzoneBoxUi } from "../../common/utils/getDropzoneBoxUi";
 import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "../DocumentDropzone/Views";
 import { isValid } from "@govtechsg/oa-verify";
 import { useProviderContext } from "../../common/contexts/provider";
+import { useNetworkContext } from "../../common/contexts/network";
 import { getChainId } from "../../utils/shared";
 import { CONSTANTS } from "@govtechsg/tradetrust-utils";
 
@@ -41,7 +42,8 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     dispatch(resetCertificateState());
   }, [dispatch]);
 
-  const { currentChainId, changeNetwork } = useProviderContext();
+  const { currentChainId } = useProviderContext();
+  const { changeUserNetwork } = useNetworkContext();
 
   const onDrop = useCallback(
     (acceptedFiles: Blob[]) => {
@@ -55,7 +57,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
             if (chainId && currentChainId !== chainId) {
-              await changeNetwork(chainId);
+              await changeUserNetwork(chainId);
             }
             dispatch(updateCertificate(json));
           } catch (e) {
@@ -69,7 +71,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [changeNetwork, currentChainId, dispatch]
+    [changeUserNetwork, currentChainId, dispatch]
   );
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
