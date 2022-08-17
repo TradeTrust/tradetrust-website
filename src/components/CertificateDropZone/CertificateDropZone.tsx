@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useMemo } from "react";
+import React, { FunctionComponent, useCallback, useMemo, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
@@ -13,9 +13,10 @@ import { getDropzoneBoxUi } from "../../common/utils/getDropzoneBoxUi";
 import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "../DocumentDropzone/Views";
 import { isValid } from "@govtechsg/oa-verify";
 import { useProviderContext } from "../../common/contexts/provider";
-import { useNetworkContext } from "../../common/contexts/network";
 import { getChainId } from "../../utils/shared";
 import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+import { OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
+import { LoadingModal } from "../UI/Overlay";
 
 const { TYPES } = CONSTANTS;
 
@@ -42,11 +43,16 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     dispatch(resetCertificateState());
   }, [dispatch]);
 
-  const { currentChainId } = useProviderContext();
-  const { changeUserNetwork } = useNetworkContext();
+  const { changeNetwork, currentChainId } = useProviderContext();
+  const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
 
   const onDrop = useCallback(
     (acceptedFiles: Blob[]) => {
+      const closeOverlay = () => {
+        showOverlay(undefined);
+        setOverlayVisible(false);
+      };
+
       acceptedFiles.forEach((file: Blob) => {
         const reader = new FileReader();
 
@@ -57,7 +63,19 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
             if (chainId && currentChainId !== chainId) {
-              await changeUserNetwork(chainId);
+              try {
+                showOverlay(
+                  <LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />
+                );
+                await changeNetwork(chainId);
+                closeOverlay();
+              } catch (e: any) {
+                showOverlay(
+                  showDocumentTransferMessage("You've cancelled changing network.", {
+                    isSuccess: false,
+                  })
+                );
+              }
             }
             dispatch(updateCertificate(json));
           } catch (e) {
@@ -71,7 +89,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [changeUserNetwork, currentChainId, dispatch]
+    [changeNetwork, currentChainId, dispatch, setOverlayVisible, showOverlay]
   );
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({

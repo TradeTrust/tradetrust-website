@@ -3,7 +3,6 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { NetworkSelect } from "./NetworkSelect";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { ProviderContextProvider } from "../../../common/contexts/provider";
-import { NetworkContextProvider } from "../../../common/contexts/network";
 import { getChainInfo } from "../../../common/utils/chain-utils";
 
 const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Goerli), getChainInfo(ChainId.PolygonMumbai)];
@@ -12,9 +11,7 @@ describe("NetworkSelect", () => {
   it("should render unsupported network", () => {
     render(
       <ProviderContextProvider defaultChainId={ChainId.Kovan} networks={mockNetworks}>
-        <NetworkContextProvider>
-          <NetworkSelect />
-        </NetworkContextProvider>
+        <NetworkSelect />
       </ProviderContextProvider>
     );
 
@@ -24,9 +21,7 @@ describe("NetworkSelect", () => {
   it("should render the default network as selected", async () => {
     render(
       <ProviderContextProvider defaultChainId={ChainId.PolygonMumbai} networks={mockNetworks}>
-        <NetworkContextProvider>
-          <NetworkSelect />
-        </NetworkContextProvider>
+        <NetworkSelect />
       </ProviderContextProvider>
     );
 
@@ -37,9 +32,7 @@ describe("NetworkSelect", () => {
   it("should render the select caption", async () => {
     render(
       <ProviderContextProvider defaultChainId={ChainId.PolygonMumbai} networks={mockNetworks}>
-        <NetworkContextProvider>
-          <NetworkSelect />
-        </NetworkContextProvider>
+        <NetworkSelect />
       </ProviderContextProvider>
     );
 
@@ -52,9 +45,7 @@ describe("NetworkSelect", () => {
   it("should render the list of networks when clicked", async () => {
     render(
       <ProviderContextProvider defaultChainId={ChainId.PolygonMumbai} networks={mockNetworks}>
-        <NetworkContextProvider>
-          <NetworkSelect />
-        </NetworkContextProvider>
+        <NetworkSelect />
       </ProviderContextProvider>
     );
 
@@ -70,9 +61,7 @@ describe("NetworkSelect", () => {
   it("should render the selected network name when user switches network", async () => {
     render(
       <ProviderContextProvider defaultChainId={ChainId.Goerli} networks={mockNetworks}>
-        <NetworkContextProvider>
-          <NetworkSelect />
-        </NetworkContextProvider>
+        <NetworkSelect />
       </ProviderContextProvider>
     );
 
