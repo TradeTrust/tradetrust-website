@@ -7,8 +7,8 @@ export const FaqSelect: FunctionComponent = () => {
     <div className="flex flex-wrap">
       <div className="w-full lg:w-2/3">
         <p className="my-9 max-w-[766px]">
-          Try clearing your cache and try again. Take note that issuing process might take a while depending on the
-          blockchain traffic. Navigating out of the demo midway will cause an error on the issuing process.
+          Below are some of the answers to the most common questions. If you still cannot find the answer you are
+          looking for, feel free to <Link to="/contact">contact us</Link>.
         </p>
         <div className="flex flex-col md:flex-row">
           <Link to="/faq/general-faq">
