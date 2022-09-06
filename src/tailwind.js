@@ -1,6 +1,7 @@
 const merge = require("lodash/merge");
 const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwind"); //eslint-disable-line @typescript-eslint/no-var-requires
 const plugin = require("tailwindcss/plugin");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 const localConfig = {
   content: [
@@ -8,6 +9,10 @@ const localConfig = {
     "./node_modules/@govtechsg/tradetrust-ui-components/src/**/*.{ts,tsx,js,jsx}",
   ],
   theme: {
+    screens: {
+      xs: "475px",
+      ...defaultTheme.screens,
+    },
     backgroundImage: {
       "single-wave": "url('/static/images/home/mainBenefits/single-wave.png')",
       "wave-lines-light": "url('/static/images/common/wave-lines-light.png')",
