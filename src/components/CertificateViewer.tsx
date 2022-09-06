@@ -22,6 +22,25 @@ import { useProviderContext } from "../common/contexts/provider";
 
 const { trace } = getLogger("component: certificateviewer");
 
+const renderBanner = (isSample: boolean, isMagic: boolean | undefined) => {
+  const props = isSample
+    ? {
+        to: "/demo",
+        buttonText: "Try our demo now",
+        title: "Want to try creating a verifiable document? You will be surprised how easy it is.",
+      }
+    : {
+        to: "/contact",
+        buttonText: "Contact us now",
+        title: "Ready to learn how TradeTrust can benefit your business?",
+      };
+  if (isSample || isMagic) {
+    return <Banner className="mt-8" {...props} />;
+  } else {
+    return null;
+  }
+};
+
 interface CertificateViewerProps {
   isMagicDemo?: boolean;
   document: WrappedOrSignedOpenAttestationDocument;
@@ -120,18 +139,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
     <>
       <div className="no-print">
         {!isTransferableDocument && <DocumentStatus isMagicDemo={isMagicDemo} />}
-        {(isSampleDocument || isMagicDemo) && (
-          <Banner
-            to="/contact"
-            buttonText="Contact us now"
-            className="mt-8"
-            title={
-              isMagicDemo
-                ? "Ready to learn how TradeTrust can benefit your business?"
-                : "Want to try creating a verifiable document? You will be surprised how easy it is."
-            }
-          />
-        )}
+        {renderBanner(isSampleDocument, isMagicDemo)}
         <ObfuscatedMessage document={document} />
         {isTransferableDocument && (
           <AssetManagementApplication
