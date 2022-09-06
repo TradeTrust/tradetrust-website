@@ -4,7 +4,7 @@ import { ContentType, StepDetail, StepsProps } from "./types";
 const Step: FunctionComponent<StepDetail> = (props) => {
   const { icon, title, description } = props;
   return (
-    <div className={`flex flex-row flex-none w-full xs:w-6/12 lg:w-auto mt-8 justify-center  ${icon ? "" : "lg:ml-6"}`}>
+    <div className={`flex flex-row flex-none w-full xs:w-1/2 lg:w-auto mt-8 justify-center  ${icon ? "" : "lg:ml-6"}`}>
       <div className="flex flex-col max-w-[11.5rem] min-w-[11.5rem] justify-center">
         {icon && (
           <div className="flex justify-center">
