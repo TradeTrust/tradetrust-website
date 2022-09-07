@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { providers, Signer } from "ethers";
-import { TitleEscrowFactory } from "@govtechsg/token-registry";
-import { TitleEscrow } from "@govtechsg/token-registry/types/TitleEscrow";
-import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
+import { TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
+import { TitleEscrow } from "@govtechsg/token-registry/contracts";
+import { TradeTrustERC721 } from "@govtechsg/token-registry/contracts";
 
 interface useTitleEscrowContractProps {
   titleEscrow?: TitleEscrow;
@@ -12,7 +12,7 @@ interface useTitleEscrowContractProps {
 
 export const useTitleEscrowContract = (
   provider: providers.Provider | Signer | undefined,
-  tokenRegistry?: TradeTrustErc721,
+  tokenRegistry?: TradeTrustERC721,
   tokenId?: string
 ): useTitleEscrowContractProps => {
   const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
@@ -22,7 +22,7 @@ export const useTitleEscrowContract = (
     if (!tokenRegistry || !tokenId || !provider) return;
     const titleEscrowAddress = await tokenRegistry.ownerOf(tokenId);
     setDocumentOwner(titleEscrowAddress);
-    const instance = TitleEscrowFactory.connect(titleEscrowAddress, provider);
+    const instance = TitleEscrow__factory.connect(titleEscrowAddress, provider);
     setTitleEscrow(instance);
   }, [provider, tokenId, tokenRegistry]);
 

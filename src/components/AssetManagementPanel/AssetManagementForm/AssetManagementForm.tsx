@@ -23,9 +23,9 @@ interface AssetManagementFormProps {
   onConnectToWallet: () => void;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   onTransferHolder: (nextHolder: string) => void;
-  onEndorseBeneficiary: (newBeneficiary: string, newHolder: string) => void;
-  onApproveNewTransferTargets: (newBeneficiary: string, newHolder: string) => void;
-  onTransferToNewEscrow: (approvedBeneficiary: string, approvedHolder: string) => void;
+  onEndorseBeneficiary: (nominee: string) => void;
+  onApproveNewTransferTargets: (nominee: string) => void;
+  transferOwners: (approvedBeneficiary: string, approvedHolder: string) => void;
   onSurrender: () => void;
   onDestroyToken: () => void;
   surrenderingState: string;
@@ -38,7 +38,7 @@ interface AssetManagementFormProps {
   transferToNewEscrowState: string;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
-  onRestoreToken: (lastBeneficiary?: string, lastHolder?: string) => void;
+  onRestoreToken: (tokenId: string) => void;
   restoreTokenState: string;
   tokenId: string;
 }
@@ -67,7 +67,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   isTokenBurnt,
   onApproveNewTransferTargets,
   approveNewTransferTargetsState,
-  onTransferToNewEscrow,
+  transferOwners,
   transferToNewEscrowState,
   setShowEndorsementChain,
   isTitleEscrow,
@@ -200,7 +200,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           tokenRegistryAddress={tokenRegistryAddress}
           approvedBeneficiary={approvedBeneficiary}
           approvedHolder={approvedHolder}
-          handleEndorseTransfer={onTransferToNewEscrow}
+          handleEndorseTransfer={transferOwners}
           transferToNewEscrowState={transferToNewEscrowState}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}

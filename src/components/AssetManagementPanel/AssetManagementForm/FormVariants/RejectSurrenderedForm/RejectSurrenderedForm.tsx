@@ -22,7 +22,7 @@ interface RejectSurrenderedFormProps {
   holder?: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
-  handleRestoreToken: (lastBeneficiary?: string, lastHolder?: string) => void;
+  handleRestoreToken: (tokenId: string) => void;
   restoreTokenState: string;
 }
 
@@ -55,7 +55,7 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
         beneficiaryAddress: lastBeneficiary || "Loading...",
         holderAddress: lastHolder || "Loading...",
         isConfirmationMessage: true,
-        onConfirmationAction: () => handleRestoreToken(lastBeneficiary, lastHolder),
+        onConfirmationAction: () => handleRestoreToken(tokenId),
       })
     );
   };

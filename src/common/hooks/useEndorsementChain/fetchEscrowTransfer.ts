@@ -1,15 +1,15 @@
 import { providers } from "ethers";
-import { TitleEscrowFactory } from "@govtechsg/token-registry";
+import { TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
 import { TitleEscrowEvent, TradeTrustErc721Event, TradeTrustErc721EventType } from "../../../types";
 
 export const fetchEscrowTransfers = async (
   address: string,
   provider: providers.Provider
 ): Promise<TitleEscrowEvent> => {
-  const titleEscrowContract = TitleEscrowFactory.connect(address, provider);
+  const titleEscrowContract = TitleEscrow__factory.connect(address, provider);
   const isTitleEscrow = await titleEscrowContract.supportsInterface("0xdcce2211");
   if (!isTitleEscrow) throw new Error(`Contract ${address} is not a title escrow contract`);
-  const holderChangeFilter = titleEscrowContract.filters.HolderChanged(null, null);
+  const holderChangeFilter = titleEscrowContract.filters.HolderTransfer(null, null);
   const holderChangeLogsDeferred = provider.getLogs({ ...holderChangeFilter, fromBlock: 0 });
 
   const beneficiaryDeferred = titleEscrowContract.beneficiary();
