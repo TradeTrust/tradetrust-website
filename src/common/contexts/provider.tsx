@@ -1,9 +1,9 @@
 import { ethers, providers } from "ethers";
 import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { INFURA_API_KEY } from "../../config";
-import { utils } from "@govtechsg/oa-verify";
+import { ProviderDetails, utils } from "@govtechsg/oa-verify";
 import { magic } from "./helpers";
-import { ChainId, ChainInfoObject } from "../../constants/chain-info";
+import { ChainId, ChainInfo, ChainInfoObject } from "../../constants/chain-info";
 import { UnsupportedNetworkError } from "../errors";
 import { getChainInfo, getChainInfoFromNetworkName, walletSwitchChain } from "../utils/chain-utils";
 import { NETWORK_NAME } from "../../config";
@@ -14,14 +14,17 @@ export enum SIGNER_TYPE {
   MAGIC = "Magic",
 }
 
-const createProvider = (chainId: ChainId) =>
-  chainId === ChainId.Local
-    ? new providers.JsonRpcProvider()
-    : utils.generateProvider({
+const createProvider = (chainId: ChainId) => {
+  const url = ChainInfo[chainId].rpcUrl;
+  const opts: ProviderDetails = url
+    ? { url }
+    : {
         network: getChainInfo(chainId).networkName,
         providerType: "infura",
         apiKey: INFURA_API_KEY,
-      });
+      };
+  return chainId === ChainId.Local ? new providers.JsonRpcProvider() : utils.generateProvider(opts);
+};
 
 // Utility function for use in non-react components that cannot get through hooks
 let currentProvider: providers.Provider | undefined = createProvider(getChainInfoFromNetworkName(NETWORK_NAME).chainId);
