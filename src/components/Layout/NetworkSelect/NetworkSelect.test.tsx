@@ -10,7 +10,7 @@ const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Goerli), getChainI
 describe("NetworkSelect", () => {
   it("should render unsupported network", () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.Kovan} networks={mockNetworks}>
+      <ProviderContextProvider defaultChainId={ChainId.Ropsten} networks={mockNetworks}>
         <NetworkSelect />
       </ProviderContextProvider>
     );
