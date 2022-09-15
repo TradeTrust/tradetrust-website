@@ -1,9 +1,8 @@
+import { OverlayContent, useOverlayContext } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
 import { Link } from "react-router-dom";
-import { useOverlayContext, OverlayContent } from "@govtechsg/tradetrust-ui-components";
-import { PersonaProps } from "./types";
 import { Steps } from "./Steps";
-import { ContentType } from "./types";
+import { ContentType, PersonaProps } from "./types";
 
 const ProcessLegends = () => {
   return (
@@ -84,7 +83,7 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, pe
             onClick={handleCloseOverlay}
             data-testid={`get-in-touch-${personaIndex}`}
           >
-            <h3 className="font-normal text-2xl">Try Our Demo Now</h3>
+            <h3 className="font-normal text-2xl text-center">Try Our Demo Now</h3>
           </Link>
         </div>
       </OverlayContent>
