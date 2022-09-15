@@ -26,7 +26,6 @@ export enum ChainId {
   Ropsten = 3,
   Rinkeby = 4,
   Goerli = 5,
-  Kovan = 42,
 
   // Polygon
   Polygon = 137,
@@ -73,14 +72,6 @@ export const ChainInfo: ChainInfo = {
     networkName: "goerli",
     networkLabel: "Goerli",
     explorerUrl: "https://goerli.etherscan.io",
-  },
-  [ChainId.Kovan]: {
-    label: "Kovan",
-    chainId: ChainId.Kovan,
-    iconImage: "/static/images/networks/ethereum.gif",
-    networkName: "kovan",
-    networkLabel: "Kovan",
-    explorerUrl: "https://kovan.etherscan.io",
   },
   [ChainId.Polygon]: {
     label: "Polygon (Beta)",
