@@ -15,21 +15,14 @@ import { MainBenefitsSection } from "./MainBenefitsSection";
 import { HowItWorksSection } from "./HowItWorksSection";
 import { useNetworkSelect } from "../../common/hooks/useNetworkSelect";
 import { ChainId } from "../../constants/chain-info";
+import { ActionType, ActionPayload } from "../../types";
 
 const { error } = getLogger("component:mainpage");
 const { TYPES, MESSAGES } = CONSTANTS;
 
-interface Payload {
-  uri: string;
-  permittedActions: string[];
-  redirect: string;
-  key?: string;
-  chainId?: ChainId;
-}
-
 interface Action {
-  type: "DOCUMENT";
-  payload: Payload;
+  type: ActionType;
+  payload: ActionPayload;
 }
 
 export const HomePageContainer = (): React.ReactElement => {
@@ -44,13 +37,13 @@ export const HomePageContainer = (): React.ReactElement => {
     const params = new URLSearchParams(search);
     const query = params.get("q");
 
-    const setProviderNetworkToMatch = async (chainId: ChainId, payload: Payload, anchor: string) => {
+    const setProviderNetworkToMatch = async (chainId: ChainId, payload: ActionPayload, anchor: string) => {
       await switchNetwork(chainId);
       dispatch(retrieveCertificateByAction(payload, anchor));
     };
 
     if (query) {
-      const action: Action = JSON.parse(query);
+      const action = JSON.parse(query) as Action;
       const { type, payload } = action;
       const { chainId } = payload;
 
