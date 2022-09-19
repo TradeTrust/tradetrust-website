@@ -53,7 +53,7 @@ jobs:
     name: Synpress e2e test
     runs-on: ubuntu-latest
     container:
-      image: synthetixio/docker-e2e:16.17-ubuntu
+      image: synthetixio/docker-e2e:14.20-ubuntu
 
     steps:
       - name: Checkout
