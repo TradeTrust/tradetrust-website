@@ -91,7 +91,7 @@ Try running `npm rebuild`
 
 ### Generating CREDITS.md
 
-Run `npx @opengovsg/credits-generator`
+`npm run credits`
 
 ### Running single integration test (testcafe)
 
@@ -99,7 +99,7 @@ Run `npx @opengovsg/credits-generator`
 
  ### Running single integration test (synpress)
  - Go to package.json
- - Under scripts `integration:synpress`, add a `-s <path>`, for the path should look something like: i.e.`tests/e2e/spec/test.spec.js` 
+ - Under scripts `integration:synpress`, add a `-s <path>`, for the path should look something like: i.e.`tests/e2e/spec/test.spec.js`
  - then add this code to initialise the metamask with account 2:
  ```
  it("should import account 2 and connect all metamask wallets to dapp", () => {
