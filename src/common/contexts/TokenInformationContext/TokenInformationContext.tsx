@@ -7,7 +7,6 @@ import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { TradeTrustERC721 } from "@govtechsg/token-registry/contracts";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
-import { BigNumberish } from "ethers";
 
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
