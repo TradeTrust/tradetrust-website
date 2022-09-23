@@ -26,7 +26,7 @@ export enum ChainId {
   Ropsten = 3,
   Rinkeby = 4,
   Goerli = 5,
-  Kovan = 42,
+  Sepolia = 11155111,
 
   // Polygon
   Polygon = 137,
@@ -74,13 +74,19 @@ export const ChainInfo: ChainInfo = {
     networkLabel: "Goerli",
     explorerUrl: "https://goerli.etherscan.io",
   },
-  [ChainId.Kovan]: {
-    label: "Kovan",
-    chainId: ChainId.Kovan,
+  [ChainId.Sepolia]: {
+    label: "Sepolia",
+    chainId: ChainId.Sepolia,
     iconImage: "/static/images/networks/ethereum.gif",
-    networkName: "kovan",
-    networkLabel: "Kovan",
-    explorerUrl: "https://kovan.etherscan.io",
+    networkName: "sepolia",
+    networkLabel: "Sepolia",
+    explorerUrl: "https://sepolia.etherscan.io",
+    rpcUrl: "https://rpc.sepolia.org",
+    nativeCurrency: {
+      name: "ETH",
+      symbol: "sepETH",
+      decimals: 18,
+    },
   },
   [ChainId.Polygon]: {
     label: "Polygon (Beta)",

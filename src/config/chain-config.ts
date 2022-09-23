@@ -15,5 +15,6 @@ export const TEST_NETWORKS = [
   ChainId.Ropsten, //
   ChainId.Rinkeby,
   ChainId.Goerli,
+  ChainId.Sepolia,
   ChainId.PolygonMumbai,
 ];
