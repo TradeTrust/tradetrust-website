@@ -18,6 +18,6 @@ slides:
       TradeTrust deals with verifiable documents!
     buttonDownload:
       label: Download Now
-      file: /static/uploads/imdatradetrust_newsletter_issue-06.pdf
+      file: /static/uploads/white-paper-verifiable-credentials-CBT.pdf
     backgroundImage: /static/uploads/home-whitepaper.png
 ---
