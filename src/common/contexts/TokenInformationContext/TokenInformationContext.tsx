@@ -33,7 +33,7 @@ interface TokenInformationContext {
   resetStates: () => void;
   destroyToken: TradeTrustERC721["burn"];
   destroyTokenState: ContractFunctionState;
-  restoreToken: (tokenId: BigNumberish) => Promise<void>;
+  restoreToken: () => Promise<void>;
   restoreTokenState: ContractFunctionState;
 }
 
@@ -85,7 +85,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const isTokenBurnt = documentOwner === "0x000000000000000000000000000000000000dEaD"; // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
-  const { isInterfaceType: isTitleEscrow } = useSupportsInterface(titleEscrow, "0xdcce2211"); // 0xdcce2211 is from TitleEscrow's ERC165 https://github.com/Open-Attestation/token-registry/blob/5cdc6d2ccda4fbbfcbd429ca90c3049e72bc1e56/contracts/TitleEscrow.sol#L56
+  const { isInterfaceType: isTitleEscrow } = useSupportsInterface(titleEscrow, "0x079dff60");
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -98,8 +98,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     reset: resetDestroyingTokenState,
   } = useContractFunctionHook(tokenRegistry, "burn");
 
-  // const { restoreToken, state: restoreTokenState } = useRestoreToken(providerOrSigner, tokenRegistry, tokenId);
-  const { restoreToken, state: restoreTokenState } = useRestoreToken(providerOrSigner, tokenRegistry);
+  const { restoreToken, state: restoreTokenState } = useRestoreToken(providerOrSigner, tokenRegistry, tokenId);
 
   // Contract Write Functions (available only after provider has been upgraded)
   const {

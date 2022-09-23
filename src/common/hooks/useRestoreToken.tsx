@@ -2,24 +2,24 @@ import { useState, useCallback, useEffect } from "react";
 import { ContractFunctionState } from "@govtechsg/ethers-contract-hook";
 import { getLogger } from "../../utils/logger";
 import { TradeTrustERC721 } from "@govtechsg/token-registry/contracts";
-import { BigNumberish, providers, Signer } from "ethers";
+import { providers, Signer } from "ethers";
 import { UnsupportedNetworkError } from "../errors";
 
 const { error: errorLogger } = getLogger("services:userestoretoken");
 
 export const useRestoreToken = (
   provider: providers.Provider | Signer | undefined,
-  contractInstance?: TradeTrustERC721
-  // tokenId?: string
+  contractInstance?: TradeTrustERC721,
+  tokenId?: string
 ): {
-  restoreToken: (tokenId: BigNumberish) => Promise<void>;
+  restoreToken: () => Promise<void>;
   state: ContractFunctionState;
   errorMessage?: string;
 } => {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [state, setState] = useState<ContractFunctionState>("UNINITIALIZED");
 
-  const restoreToken = async (tokenId: BigNumberish): Promise<void> => {
+  const restoreToken = async (): Promise<void> => {
     setState("INITIALIZED");
     try {
       if (!provider) throw new UnsupportedNetworkError();
@@ -44,8 +44,7 @@ export const useRestoreToken = (
   }, []);
 
   // If any of the dependency is updated, should reset function
-  // useEffect(() => () => reset(), [contractInstance, provider, reset, tokenId]);
-  useEffect(() => () => reset(), [contractInstance, provider, reset]);
+  useEffect(() => () => reset(), [contractInstance, provider, reset, tokenId]);
 
   return { restoreToken, state, errorMessage };
 };

@@ -7,7 +7,7 @@ export const fetchEscrowTransfers = async (
   provider: providers.Provider
 ): Promise<TitleEscrowEvent> => {
   const titleEscrowContract = TitleEscrow__factory.connect(address, provider);
-  const isTitleEscrow = await titleEscrowContract.supportsInterface("0xdcce2211");
+  const isTitleEscrow = await titleEscrowContract.supportsInterface("0x079dff60");
   if (!isTitleEscrow) throw new Error(`Contract ${address} is not a title escrow contract`);
   const holderChangeFilter = titleEscrowContract.filters.HolderTransfer(null, null);
   const holderChangeLogsDeferred = provider.getLogs({ ...holderChangeFilter, fromBlock: 0 });
