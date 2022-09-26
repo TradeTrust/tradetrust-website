@@ -106,7 +106,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             onApproveNewTransferTargets={nominate}
             approveNewTransferTargetsState={nominateState}
             transferOwners={transferOwners}
-            transferToNewEscrowState={transferOwnersState}
+            transferOwnersState={transferOwnersState}
             setShowEndorsementChain={setShowEndorsementChain}
             isTitleEscrow={isTitleEscrow}
             isMinter={hasRole?.[0]}

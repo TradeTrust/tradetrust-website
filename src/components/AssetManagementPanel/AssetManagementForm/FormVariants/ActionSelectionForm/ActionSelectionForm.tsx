@@ -19,7 +19,7 @@ interface ActionSelectionFormProps {
   canEndorseBeneficiary: boolean;
   isSurrendered: boolean;
   isTokenBurnt: boolean;
-  canNominateBeneficiaryHolder: boolean;
+  canNominateBeneficiary: boolean;
   canEndorseTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
@@ -38,7 +38,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canEndorseBeneficiary,
   isSurrendered,
   isTokenBurnt,
-  canNominateBeneficiaryHolder,
+  canNominateBeneficiary,
   canEndorseTransfer,
   setShowEndorsementChain,
   isTitleEscrow,
@@ -48,7 +48,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     canSurrender ||
     canChangeHolder ||
     canEndorseBeneficiary ||
-    canNominateBeneficiaryHolder ||
+    canNominateBeneficiary ||
     canEndorseTransfer;
 
   const { showOverlay } = useContext(OverlayContext);
@@ -125,7 +125,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                     canSurrender={canSurrender}
                     canChangeHolder={canChangeHolder}
                     canEndorseBeneficiary={canEndorseBeneficiary}
-                    canNominateBeneficiaryHolder={canNominateBeneficiaryHolder}
+                    canNominateBeneficiary={canNominateBeneficiary}
                     canEndorseTransfer={canEndorseTransfer}
                     canHandleSurrender={canHandleSurrender}
                   />

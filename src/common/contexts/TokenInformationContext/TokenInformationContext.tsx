@@ -171,6 +171,10 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     if (changeHolderState === "CONFIRMED") getHolder();
   }, [changeHolderState, getHolder]);
 
+  useEffect(() => {
+    if (nominateState === "CONFIRMED") getApprovedBeneficiary();
+  }, [nominateState, getApprovedBeneficiary]);
+
   // Update entire title escrow whenever endorse is successful
   useEffect(() => {
     if (endorseBeneficiaryState === "CONFIRMED") updateTitleEscrow();
