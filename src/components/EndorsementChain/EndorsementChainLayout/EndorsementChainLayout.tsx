@@ -24,6 +24,7 @@ enum EventType {
 
 enum ActionType {
   INITIAL = "Document has been issued",
+  NEW_OWNERS = "Change Owners",
   ENDORSE = "Endorse change of ownership",
   TRANSFER = "Transfer holdership",
   SURRENDERED = "Document surrendered to issuer",
@@ -40,6 +41,7 @@ interface HistoryChain {
   beneficiary?: string;
   holder?: string;
   timestamp?: number;
+  hash?: string;
 }
 
 interface AddressResolvedNameProps {
@@ -78,45 +80,60 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
     switch (chain.eventType) {
       case EventType.TRANSFER:
         chain.holderChangeEvents.forEach((holderEvent) => {
-          const holder = holderEvent.holder;
+          const transactionHash = holderEvent.transactionHash;
+          const timelineHolder = holderEvent.holder || previousHolder;
+          const timelineBeneficiary = holderEvent.beneficiary || previousBeneficiary || beneficiary;
           const holderEventTimestamp = holderEvent.timestamp;
-          const isNewBeneficiary = beneficiary !== previousBeneficiary;
-          const isNewHolder = holder !== previousHolder;
+          const isNewBeneficiary = timelineBeneficiary !== previousBeneficiary;
+          const isNewHolder = timelineHolder !== previousHolder;
 
-          if (previousBeneficiary === beneficiary && previousHolder === holder) {
+          if (!isNewBeneficiary && !isNewHolder) {
             historyChain.push({
               action: ActionType.SURRENDER_REJECTED,
               isNewBeneficiary,
               isNewHolder,
               documentOwner,
-              beneficiary,
-              holder,
+              beneficiary: timelineBeneficiary,
+              holder: timelineHolder,
               timestamp: holderEventTimestamp,
+              hash: transactionHash,
             });
-          } else if (previousBeneficiary != beneficiary) {
+          } else if (isNewBeneficiary && isNewHolder) {
+            historyChain.push({
+              action: ActionType.NEW_OWNERS,
+              isNewBeneficiary,
+              isNewHolder,
+              documentOwner,
+              beneficiary: timelineBeneficiary,
+              holder: timelineHolder,
+              timestamp: holderEventTimestamp,
+              hash: transactionHash,
+            });
+          } else if (isNewBeneficiary) {
             historyChain.push({
               action: ActionType.ENDORSE,
               isNewBeneficiary,
               isNewHolder,
               documentOwner,
-              beneficiary,
-              holder,
+              beneficiary: timelineBeneficiary,
+              holder: timelineHolder,
               timestamp: holderEventTimestamp,
+              hash: transactionHash,
             });
-          } else if (previousHolder !== holder) {
+          } else if (isNewHolder) {
             historyChain.push({
               action: ActionType.TRANSFER,
               isNewBeneficiary,
               isNewHolder,
               documentOwner,
-              beneficiary,
-              holder,
+              beneficiary: timelineBeneficiary,
+              holder: timelineHolder,
               timestamp: holderEventTimestamp,
+              hash: transactionHash,
             });
           }
-
-          previousHolder = holder;
-          previousBeneficiary = beneficiary;
+          previousHolder = timelineHolder;
+          previousBeneficiary = timelineBeneficiary;
         });
         break;
       case EventType.SURRENDER:

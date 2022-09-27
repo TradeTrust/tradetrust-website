@@ -13,13 +13,17 @@ export interface TradeTrustErc721Event {
   eventTimestamp?: number;
 }
 
+export interface HolderChangeEvents {
+  blockNumber: number;
+  holder: string | null;
+  beneficiary: string | null;
+  timestamp: number;
+  transactionHash: string;
+}
+
 export interface TitleEscrowEvent extends TradeTrustErc721Event {
   beneficiary: string;
-  holderChangeEvents: {
-    blockNumber: number;
-    holder: string;
-    timestamp: number;
-  }[];
+  holderChangeEvents: HolderChangeEvents[];
 }
 
 export type EndorsementChain = (TradeTrustErc721Event | TitleEscrowEvent)[];

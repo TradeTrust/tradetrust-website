@@ -42,8 +42,6 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
     ?.filter(({ eventType }) => eventType === "Transfer")
     .reverse()[0] as TitleEscrowEvent;
   const lastBeneficiary = lastTransferEvent?.beneficiary;
-  const lastHolderEvent = lastTransferEvent?.holderChangeEvents.reverse()[0];
-  const lastHolder = lastHolderEvent?.holder;
 
   const isRestoreTokenPendingConfirmation = restoreTokenState === FormState.PENDING_CONFIRMATION;
   const isRestoreTokenConfirmed = restoreTokenState === FormState.CONFIRMED;
@@ -53,7 +51,7 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
       showDocumentTransferMessage(MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT, {
         isSuccess: true,
         beneficiaryAddress: lastBeneficiary || "Loading...",
-        holderAddress: lastHolder || "Loading...",
+        holderAddress: lastBeneficiary || "Loading...",
         isConfirmationMessage: true,
         onConfirmationAction: () => handleRestoreToken(),
       })
