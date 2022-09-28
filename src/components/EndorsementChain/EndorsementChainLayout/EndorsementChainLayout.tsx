@@ -2,9 +2,7 @@ import { BackArrow } from "@govtechsg/tradetrust-ui-components";
 import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
-import { Info } from "react-feather";
 import { EndorsementChain, TitleEscrowEvent } from "../../../types";
-import { TooltipIcon } from "../../UI/SvgIcon";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
 
@@ -19,8 +17,11 @@ enum EventType {
   TRANSFER = "Transfer",
   SURRENDER = "Surrender",
   BURNT = "Burnt",
-  TRANSFER_TO_WALLET = "Transfer to Wallet",
+  SURRENDER_REJECTED = "Surrender Rejected",
+  INITIAL = "Document Issued",
 }
+
+export type TradeTrustErc721EventType = "Transfer" | "Surrender" | "Burnt" | "Surrender Rejected" | "Document Issued";
 
 enum ActionType {
   INITIAL = "Document has been issued",
@@ -76,65 +77,59 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
     const documentOwner = chain.documentOwner;
     const beneficiary = chain.beneficiary;
     const chainEventTimestamp = chain.eventTimestamp;
+    const hash = chain.transactionHash;
+
+    // TRANSFER = "Transfer",
+    // SURRENDER = "Surrender",
+    // BURNT = "Burnt",
+    // SURRENDER_REJECTED = "Surrender Rejected",
+    // INITIAL = "Document Issued"
 
     switch (chain.eventType) {
       case EventType.TRANSFER:
-        chain.holderChangeEvents.forEach((holderEvent) => {
-          const transactionHash = holderEvent.transactionHash;
-          const timelineHolder = holderEvent.holder || previousHolder;
-          const timelineBeneficiary = holderEvent.beneficiary || previousBeneficiary || beneficiary;
-          const holderEventTimestamp = holderEvent.timestamp;
-          const isNewBeneficiary = timelineBeneficiary !== previousBeneficiary;
-          const isNewHolder = timelineHolder !== previousHolder;
+        const timelineHolder = chain.holder || previousHolder;
+        const timelineBeneficiary = chain.beneficiary || previousBeneficiary || beneficiary;
+        const timestamp = chain.timestamp;
+        const isNewBeneficiary = timelineBeneficiary !== previousBeneficiary;
+        const isNewHolder = timelineHolder !== previousHolder;
 
-          if (!isNewBeneficiary && !isNewHolder) {
-            historyChain.push({
-              action: ActionType.SURRENDER_REJECTED,
-              isNewBeneficiary,
-              isNewHolder,
-              documentOwner,
-              beneficiary: timelineBeneficiary,
-              holder: timelineHolder,
-              timestamp: holderEventTimestamp,
-              hash: transactionHash,
-            });
-          } else if (isNewBeneficiary && isNewHolder) {
-            historyChain.push({
-              action: ActionType.NEW_OWNERS,
-              isNewBeneficiary,
-              isNewHolder,
-              documentOwner,
-              beneficiary: timelineBeneficiary,
-              holder: timelineHolder,
-              timestamp: holderEventTimestamp,
-              hash: transactionHash,
-            });
-          } else if (isNewBeneficiary) {
-            historyChain.push({
-              action: ActionType.ENDORSE,
-              isNewBeneficiary,
-              isNewHolder,
-              documentOwner,
-              beneficiary: timelineBeneficiary,
-              holder: timelineHolder,
-              timestamp: holderEventTimestamp,
-              hash: transactionHash,
-            });
-          } else if (isNewHolder) {
-            historyChain.push({
-              action: ActionType.TRANSFER,
-              isNewBeneficiary,
-              isNewHolder,
-              documentOwner,
-              beneficiary: timelineBeneficiary,
-              holder: timelineHolder,
-              timestamp: holderEventTimestamp,
-              hash: transactionHash,
-            });
-          }
-          previousHolder = timelineHolder;
-          previousBeneficiary = timelineBeneficiary;
-        });
+        if (isNewBeneficiary && isNewHolder) {
+          historyChain.push({
+            action: ActionType.NEW_OWNERS,
+            isNewBeneficiary,
+            isNewHolder,
+            documentOwner,
+            beneficiary: timelineBeneficiary,
+            holder: timelineHolder,
+            timestamp: timestamp,
+            hash,
+          });
+        } else if (isNewBeneficiary) {
+          historyChain.push({
+            action: ActionType.ENDORSE,
+            isNewBeneficiary,
+            isNewHolder,
+            documentOwner,
+            beneficiary: timelineBeneficiary,
+            holder: timelineHolder,
+            timestamp: timestamp,
+            hash,
+          });
+        } else if (isNewHolder) {
+          historyChain.push({
+            action: ActionType.TRANSFER,
+            isNewBeneficiary,
+            isNewHolder,
+            documentOwner,
+            beneficiary: timelineBeneficiary,
+            holder: timelineHolder,
+            timestamp: timestamp,
+            hash,
+          });
+        }
+        previousHolder = timelineHolder;
+        previousBeneficiary = timelineBeneficiary || "";
+
         break;
       case EventType.SURRENDER:
         historyChain.push({
@@ -155,18 +150,34 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
         previousHolder = "";
         previousBeneficiary = "";
         break;
-      case EventType.TRANSFER_TO_WALLET:
+      case EventType.SURRENDER_REJECTED:
+        console.log("TRANSFER_TO_WALLET");
         historyChain.push({
-          action: ActionType.TRANSFER_TO_WALLET,
+          action: ActionType.SURRENDER_REJECTED,
           isNewBeneficiary: true,
-          isNewHolder: false,
+          isNewHolder: true,
           timestamp: chainEventTimestamp,
           documentOwner,
-          beneficiary,
+          beneficiary: documentOwner,
+          holder: documentOwner,
+          hash,
         });
-        previousHolder = "";
-        previousBeneficiary = beneficiary;
+        previousHolder = previousHolder;
+        previousBeneficiary = previousBeneficiary;
         break;
+      case EventType.INITIAL:
+        historyChain.push({
+          action: ActionType.NEW_OWNERS,
+          isNewBeneficiary: true,
+          isNewHolder: true,
+          documentOwner,
+          beneficiary: beneficiary,
+          holder: documentOwner,
+          timestamp: chainEventTimestamp,
+          hash,
+        });
+        break;
+
       default:
         throw Error("eventType not matched");
     }
@@ -175,14 +186,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
   return historyChain;
 };
 
-const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, address, documentOwner }) => {
-  const tooltipContent = (
-    <div className="relative flex flex-col">
-      <div className="text-white font-gilroy-bold text-base">Title Escrow:</div>
-      <div className="text-white text-base">{documentOwner}</div>
-    </div>
-  );
-
+const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, address }) => {
   return (
     <div className="w-full lg:w-1/3" data-testid={`row-event-${title}`}>
       <div className="flex flex-nowrap pr-8">
@@ -193,18 +197,9 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
         </div>
         <div className="pb-4 lg:pb-0">
           <h5 className="text-cloud-800 mr-2 lg:hidden">{title}</h5>
-          <div className="flex flex-wrap items-center">
-            <div className="w-auto">
-              <AddressResolvedName address={address} />
-            </div>
-            <div className="w-auto">
-              <TooltipIcon className="h-5 w-5 block" content={tooltipContent} placement="top">
-                <Info />
-              </TooltipIcon>
-            </div>
-          </div>
           <h6 className="text-cerulean-500 break-all" data-testid="address-entity">
             {address}
+            <AddressResolvedName address={address} />
           </h6>
         </div>
       </div>

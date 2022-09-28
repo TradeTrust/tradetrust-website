@@ -1,74 +1,90 @@
 import { providers } from "ethers";
 import { TitleEscrow, TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
-import { HolderChangeEvents, TitleEscrowEvent, TradeTrustErc721Event, TradeTrustErc721EventType } from "../../../types";
+import { TitleEscrowEvent } from "../../../types";
 
 export const fetchEscrowTransfers = async (
   address: string,
   provider: providers.Provider
-): Promise<TitleEscrowEvent> => {
+): Promise<TitleEscrowEvent[]> => {
   const titleEscrowContract = TitleEscrow__factory.connect(address, provider);
   const isTitleEscrow = await titleEscrowContract.supportsInterface("0x079dff60");
   if (!isTitleEscrow) throw new Error(`Contract ${address} is not a title escrow contract`);
-  const beneficiaryDeferred = await titleEscrowContract.beneficiary();
   // https://ethereum.stackexchange.com/questions/109326/combine-multiple-event-filters-in-ethersjs
   const holderChangeLogsDeferred = fetchHolderTransfers(titleEscrowContract, provider);
   const ownerChangeLogsDeferred = fetchOwnerTransfers(titleEscrowContract, provider);
-  const [beneficiary, holderChangeLogs, ownerChangeLogs] = await Promise.all([
-    beneficiaryDeferred,
-    holderChangeLogsDeferred,
-    ownerChangeLogsDeferred,
-  ]);
+  const [holderChangeLogs, ownerChangeLogs] = await Promise.all([holderChangeLogsDeferred, ownerChangeLogsDeferred]);
 
   const transferEvents = [...holderChangeLogs, ...ownerChangeLogs];
-  transferEvents.sort(
-    (a, b) =>
-      parseFloat(`${a.blockNumber}.${a.transactionIndex}`) - parseFloat(`${b.blockNumber}.${b.transactionIndex}`)
-  );
   mergeChangeOwnersTransfers(transferEvents);
 
-  return {
-    eventType: "Transfer",
-    documentOwner: address,
-    beneficiary,
-    holderChangeEvents: transferEvents,
-  };
+  return transferEvents;
+  // {
+  //   eventType: "Transfer",
+  //   documentOwner: address,
+  //   beneficiary,
+  //   holderChangeEvents: transferEvents,
+  // };
 };
 
-interface HolderChangeEventsInfo extends HolderChangeEvents {
-  transactionIndex: number;
-}
-
-const mergeChangeOwnersTransfers = (transferEvents: HolderChangeEventsInfo[]): HolderChangeEventsInfo[] => {
-  const removal = [];
-  let previousTransactionHash = "";
+const mergeChangeOwnersTransfers = (transferEvents: TitleEscrowEvent[]): TitleEscrowEvent[] => {
+  const hashList: Record<string, number[]> = {};
+  const repeatedHash = [];
   for (let i = 0; i < transferEvents.length; i++) {
-    const transactionHash = transferEvents[i].transactionHash;
-    const sameHash = transactionHash === previousTransactionHash;
-    if (sameHash) {
-      removal.push(i);
+    const transactionHash: string = transferEvents[i].transactionHash;
+    if (hashList[transactionHash] === undefined) {
+      hashList[transactionHash] = [i];
+    } else {
+      hashList[transactionHash].push(i);
+      repeatedHash.push(transactionHash);
     }
-    previousTransactionHash = transactionHash;
   }
-  let count = 0;
-  removal.forEach((index) => {
-    index = index - count;
-    const newIndex = index - 1;
-    const beneficiary = transferEvents[newIndex].beneficiary || transferEvents[index].beneficiary;
-    const holder = transferEvents[newIndex].holder || transferEvents[index].holder;
-    transferEvents.splice(newIndex, 2, {
-      ...transferEvents[newIndex],
+  let removalIndexes: number[] = [];
+  repeatedHash.forEach((index) => {
+    const indexValues = hashList[index];
+    if (indexValues.length !== 2) {
+      throw new Error(`Bad Index Value ${indexValues}`);
+    }
+    const index1 = indexValues[0];
+    const index2 = indexValues[1];
+    const beneficiary = transferEvents[index1].beneficiary || transferEvents[index2].beneficiary;
+    const holder = transferEvents[index1].holder || transferEvents[index2].holder;
+
+    transferEvents.push({
+      ...transferEvents[index1],
       beneficiary: beneficiary,
       holder: holder,
     });
-    count++;
+    removalIndexes = [...removalIndexes, ...indexValues];
   });
+
+  removalIndexes.sort();
+  removalIndexes.reverse();
+
+  removalIndexes.forEach((index) => {
+    transferEvents.splice(index, 1);
+  });
+
   return transferEvents;
 };
+
+// export interface TradeTrustErc721Event {
+//   eventType: TradeTrustErc721EventType;
+//   documentOwner: string;
+//   eventTimestamp?: number;
+// }
+
+// export interface TitleEscrowEvent extends TradeTrustErc721Event {
+//   blockNumber: number;
+//   holder: string | null;
+//   beneficiary: string | null;
+//   timestamp: number;
+//   transactionHash: string;
+// }
 
 export const fetchOwnerTransfers = async (
   titleEscrowContract: TitleEscrow,
   provider: providers.Provider
-): Promise<HolderChangeEventsInfo[]> => {
+): Promise<TitleEscrowEvent[]> => {
   const ownerChangeFilter = titleEscrowContract.filters.BeneficiaryTransfer(null, null);
   const ownerChangeLogs = await provider.getLogs({ ...ownerChangeFilter, fromBlock: 0 });
 
@@ -84,11 +100,13 @@ export const fetchOwnerTransfers = async (
   });
   const blockTimes = await Promise.all(
     ownerChangeLogsParsed.map(async (event) => {
-      return (await (await provider.getBlock(event.blockNumber)).timestamp) * 1000;
+      return await fetchEventTime(event.blockNumber, provider);
     })
   );
 
   return ownerChangeLogsParsed.map((event, index) => ({
+    eventType: "Transfer",
+    documentOwner: event.args["toBeneficiary"] as string,
     blockNumber: event.blockNumber,
     beneficiary: event.args["toBeneficiary"] as string,
     holder: null,
@@ -101,7 +119,7 @@ export const fetchOwnerTransfers = async (
 export const fetchHolderTransfers = async (
   titleEscrowContract: TitleEscrow,
   provider: providers.Provider
-): Promise<HolderChangeEventsInfo[]> => {
+): Promise<TitleEscrowEvent[]> => {
   const holderChangeFilter = titleEscrowContract.filters.HolderTransfer(null, null);
   const holderChangeLogs = await provider.getLogs({ ...holderChangeFilter, fromBlock: 0 });
 
@@ -117,11 +135,13 @@ export const fetchHolderTransfers = async (
   });
   const blockTimes = await Promise.all(
     holderChangeLogsParsed.map(async (event) => {
-      return (await (await provider.getBlock(event.blockNumber)).timestamp) * 1000;
+      return await fetchEventTime(event.blockNumber, provider);
     })
   );
 
   return holderChangeLogsParsed.map((event, index) => ({
+    eventType: "Transfer",
+    documentOwner: "",
     blockNumber: event.blockNumber,
     holder: event.args["toHolder"] as string,
     beneficiary: null,
@@ -131,30 +151,7 @@ export const fetchHolderTransfers = async (
   }));
 };
 
-export const fetchEventInfo = async (
-  address: string,
-  blockNumber: number,
-  eventType: TradeTrustErc721EventType,
-  provider: providers.Provider
-): Promise<TradeTrustErc721Event> => {
+export const fetchEventTime = async (blockNumber: number, provider: providers.Provider): Promise<number> => {
   const eventTimestamp = (await (await provider.getBlock(blockNumber)).timestamp) * 1000;
-  return {
-    eventType,
-    documentOwner: address,
-    eventTimestamp,
-  };
-};
-
-export const fetchEvents = async (
-  address: string,
-  blockNumber: number,
-  provider: providers.Provider
-): Promise<TradeTrustErc721Event> => {
-  const code = await provider.getCode(address);
-  const isContractDeployed = code === "0x";
-  if (isContractDeployed) {
-    return await fetchEventInfo(address, blockNumber, "Transfer to Wallet", provider);
-  } else {
-    return await fetchEscrowTransfers(address, provider);
-  }
+  return eventTimestamp;
 };

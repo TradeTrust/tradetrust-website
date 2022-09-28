@@ -5,7 +5,7 @@ export interface TemplateProps {
   type: string;
 }
 
-export type TradeTrustErc721EventType = "Transfer" | "Transfer to Wallet" | "Surrender" | "Burnt";
+export type TradeTrustErc721EventType = "Transfer" | "Surrender" | "Burnt" | "Surrender Rejected" | "Document Issued";
 
 export interface TradeTrustErc721Event {
   eventType: TradeTrustErc721EventType;
@@ -13,17 +13,12 @@ export interface TradeTrustErc721Event {
   eventTimestamp?: number;
 }
 
-export interface HolderChangeEvents {
+export interface TitleEscrowEvent extends TradeTrustErc721Event {
   blockNumber: number;
-  holder: string | null;
-  beneficiary: string | null;
+  holder: string | undefined;
+  beneficiary: string | undefined;
   timestamp: number;
   transactionHash: string;
-}
-
-export interface TitleEscrowEvent extends TradeTrustErc721Event {
-  beneficiary: string;
-  holderChangeEvents: HolderChangeEvents[];
 }
 
 export type EndorsementChain = (TradeTrustErc721Event | TitleEscrowEvent)[];
