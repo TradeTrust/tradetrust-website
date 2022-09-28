@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { Autoplay, Pagination } from "swiper";
 import { Youtube, Button, ButtonSize } from "@govtechsg/tradetrust-ui-components";
 import { ButtonVideo } from "../ButtonVideo";
 
@@ -35,12 +35,15 @@ interface CarouselProps {
 export const Carousel: FunctionComponent<CarouselProps> = ({ slides }) => {
   return (
     <Swiper
+      autoplay={{
+        delay: 5000,
+        disableOnInteraction: true,
+      }}
       pagination={{
         clickable: true,
-        bulletActiveClass: "bg-cloud-800",
-        bulletClass: `swiper-pagination-bullet opacity-100 bg-cloud-200`,
+        bulletActiveClass: "opacity-100 bg-cloud-800",
       }}
-      modules={[Pagination]}
+      modules={[Autoplay, Pagination]}
       autoHeight={true}
     >
       {slides.map((slide: HomeCarouselSlide, index: number) => {
