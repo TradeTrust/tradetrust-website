@@ -1,6 +1,7 @@
 import React from "react";
 import { FunctionComponent } from "react";
-import { ErrorBoundary, FallbackComponentType } from "../ErrorBoundary";
+import { FallbackComponentType } from "../ErrorBoundary";
+import { SentryErrorBoundary } from "../SentryErrorBoundary";
 import { getCurrentProvider, useProviderContext } from "../../common/contexts/provider";
 import { ErrorPage, ErrorPageProps } from "@govtechsg/tradetrust-ui-components";
 import { Link } from "react-router-dom";
@@ -143,7 +144,7 @@ export const getErrorPageProps = ({ errorType }: { errorType: CERTIFICATE_VIEWER
 /**
  * Fallback component to show when ErrorBoundary is triggered
  */
-const ErrorComponent: FallbackComponentType = (props) => {
+export const ErrorComponent: FallbackComponentType = (props) => {
   const { error, recover } = props;
 
   const errorType = getErrorType(error);
@@ -164,9 +165,5 @@ export const CertificateViewerErrorBoundary: FunctionComponent = (props) => {
     await reloadNetwork();
   }; // TODO: depending on error type, should recover accordingly. currently only reloads network for all error cases other then CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC
 
-  return (
-    <ErrorBoundary FallbackComponent={ErrorComponent} onRecover={recoverHandler}>
-      {children}
-    </ErrorBoundary>
-  );
+  return <SentryErrorBoundary onRecover={recoverHandler}>{children}</SentryErrorBoundary>;
 };

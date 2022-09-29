@@ -54,6 +54,8 @@
     "@govtechsg/tradetrust-ui-components": "^2.18.11",
     "@govtechsg/tradetrust-utils": "^1.2.1",
     "@reduxjs/toolkit": "^1.6.1",
+    "@sentry/react": "^7.8.0",
+    "@sentry/tracing": "^7.8.0",
     "@synthetixio/synpress": "^1.2.0",
     "@types/gtag.js": "0.0.8",
     "cross-env": "^7.0.3",

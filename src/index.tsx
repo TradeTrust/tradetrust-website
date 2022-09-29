@@ -1,3 +1,5 @@
+import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
 import { OverlayContextProvider } from "@govtechsg/tradetrust-ui-components";
 import { gaPageView } from "@govtechsg/tradetrust-utils";
 import React from "react";
@@ -19,6 +21,13 @@ const store = configureStore();
 
 history.listen(() => {
   gaPageView({ action: "page_view" }, GA_MEASUREMENT_ID);
+});
+
+Sentry.init({
+  dsn: "https://641696c17e944497896db0490392800a@o1286537.ingest.sentry.io/6500498",
+  integrations: [new BrowserTracing()],
+  tracesSampleRate: 1.0, // process.env.NODE_ENV === "production" ? 0.1 : 1.0,
+  enabled: false,
 });
 
 const App = () => {
