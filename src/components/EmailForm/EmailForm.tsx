@@ -30,8 +30,7 @@ export const EmailForm: FunctionComponent = () => {
       .then(() => {
         history.push("/email/success");
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         history.push("/email/error");
       });
 

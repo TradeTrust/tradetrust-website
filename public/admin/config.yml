@@ -153,3 +153,72 @@ collections:
       - { label: "Video Link", name: "videoLink", widget: "string", required: false }
       - { label: "Slides", name: "slides", widget: "file", required: false, hint: "Presentation slides." }
       - { label: "Register Link", name: "registerLink", widget: "string", required: false }
+  - name: "carousel"
+    label: "Carousel"
+    files:
+      - label: "Home Carousel"
+        name: "home-carousel"
+        file: "cms/carousel/home-carousel.md"
+        editor:
+          preview: false
+        fields:
+          - label: "Slides"
+            name: "slides"
+            widget: "list"
+            fields:
+              - label: "Title"
+                name: "title"
+                widget: "string"
+              - label: "Subheader"
+                name: "subheader"
+                widget: "string"
+                required: false
+              - label: "Description"
+                name: "description"
+                widget: "text"
+              - label: "Background image"
+                name: "backgroundImage"
+                widget: "file"
+                required: false
+              - label: "Button youtube"
+                name: "buttonYoutube"
+                widget: "object"
+                hint: "Button - Shows overlay with Youtube video."
+                required: false # https://github.com/netlify/netlify-cms/issues/2103
+                fields:
+                  - label: "Title"
+                    name: "title"
+                    widget: "string"
+                    required: false
+                  - label: "Youtube ID"
+                    name: "youtubeId"
+                    widget: "string"
+                    required: false
+              - label: "Button page"
+                name: "buttonPage"
+                widget: "object"
+                hint: "Button - Direct to page URL route."
+                required: false
+                fields:
+                  - label: "Label"
+                    name: "label"
+                    widget: "string"
+                    required: false
+                  - label: "Route"
+                    name: "route"
+                    widget: "string"
+                    required: false
+              - label: "Button download"
+                name: "buttonDownload"
+                widget: "object"
+                hint: "Button - File download of asset."
+                required: false
+                fields:
+                  - label: "Label"
+                    name: "label"
+                    widget: "string"
+                    required: false
+                  - label: "File"
+                    name: "file"
+                    widget: "file"
+                    required: false
