@@ -16,7 +16,7 @@
     "build:css": "postcss src/tailwind.css -o src/index.css",
     "build:app": "webpack --progress --mode production",
     "check-types": "tsc --sourceMap false --noEmit",
-    "credits": "npx @opengovsg/credits-generator && npx mdpdf ./CREDITS.md ./public/static/credits.pdf",
+    "credits": "npx @opengovsg/credits-generator && npx mdpdf ./CREDITS.md ./public/static/common/credits.pdf",
     "dev": "run-p dev:*",
     "dev:css": "npx tailwindcss -i ./src/tailwind.css -o ./src/index.css --watch",
     "dev:serve": "sleep 2 && cross-env NODE_ENV=development webpack-dev-server",
