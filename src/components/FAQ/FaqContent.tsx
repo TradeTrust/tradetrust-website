@@ -43,7 +43,7 @@ export const FaqContent: FunctionComponent<FAQ> = ({ faqType }) => {
             accordionIndex={index}
             setOpenIndex={setOpenIndex}
           >
-            <ReactMarkdown components={{ p: ({ ...props }) => <p className={"mb-4 break-all"} {...props} /> }}>
+            <ReactMarkdown components={{ p: ({ ...props }) => <p className={"mb-4 break-word"} {...props} /> }}>
               {faq.body}
             </ReactMarkdown>
           </AccordionItem>
