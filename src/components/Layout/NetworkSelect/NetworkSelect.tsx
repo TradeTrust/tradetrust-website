@@ -1,19 +1,12 @@
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownProps,
-  OverlayContext,
-  showDocumentTransferMessage,
-  IconError,
-} from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useContext } from "react";
+import { Dropdown, DropdownItem, DropdownProps, IconError } from "@govtechsg/tradetrust-ui-components";
+import React, { FunctionComponent } from "react";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { getChainInfo } from "../../../common/utils/chain-utils";
-import { LoadingModal } from "../../UI/Overlay";
+import { useNetworkSelect } from "../../../common/hooks/useNetworkSelect";
 
 interface NetworkSelectViewProps {
-  onChange: (network: ChainInfoObject) => void;
+  onChange: (chainId: ChainId) => void;
   currentChainId: ChainId | undefined;
   networks: ChainInfoObject[];
 }
@@ -86,7 +79,7 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
         network={network}
         active={network.chainId === currentChainId}
         onClick={() => {
-          if (onChange) onChange(network);
+          if (onChange) onChange(network.chainId);
         }}
       />
     );
@@ -121,25 +114,11 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
 };
 
 export const NetworkSelect: FunctionComponent = () => {
-  const { changeNetwork, supportedChainInfoObjects, currentChainId } = useProviderContext();
-  const { showOverlay, setOverlayVisible } = useContext(OverlayContext);
-  const closeOverlay = () => {
-    showOverlay(undefined);
-    setOverlayVisible(false);
-  };
+  const { supportedChainInfoObjects, currentChainId } = useProviderContext();
+  const { switchNetwork } = useNetworkSelect();
 
-  const changeHandler = async (network: ChainInfoObject) => {
-    try {
-      showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
-      await changeNetwork(network.chainId);
-      closeOverlay();
-    } catch (e: any) {
-      showOverlay(
-        showDocumentTransferMessage("You've cancelled changing network.", {
-          isSuccess: false,
-        })
-      );
-    }
+  const changeHandler = async (chainId: ChainId) => {
+    await switchNetwork(chainId);
   };
 
   return (

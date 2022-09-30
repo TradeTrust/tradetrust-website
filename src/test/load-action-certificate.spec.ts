@@ -13,6 +13,7 @@ test("Load document from action should work when url is valid", async (t) => {
       uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-ropsten.tt`,
       permittedActions: ["VIEW"],
       redirect: "https://dev.tradetrust.io",
+      chainId: 3,
     },
   };
   await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
@@ -27,6 +28,7 @@ test("Load document from action should fail when url is invalid", async (t) => {
     payload: {
       uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/123.tt`,
       redirect: "https://dev.tradetrust.io",
+      chainId: 3,
     },
   };
 
@@ -37,5 +39,24 @@ test("Load document from action should fail when url is invalid", async (t) => {
     "This document is not valid",
     "Unable to load certificate with the provided parameters",
     "Unable to load the certificate from https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/123.tt",
+  ]);
+});
+
+test("Load document from action should fail when chainId not exists", async (t) => {
+  const action = {
+    type: "DOCUMENT",
+    payload: {
+      uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-ropsten.tt`,
+      redirect: "https://dev.tradetrust.io",
+    },
+  };
+
+  await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
+
+  await DocumentStatus.with({ visibilityCheck: false })();
+  await validateTextContent(t, CertificateDropzone, [
+    "This document is not valid",
+    "Unable to load certificate with the provided parameters",
+    "This document has an invalid network field. Please contact your issuing authority for help or re-issue the document with a valid network field before trying again.",
   ]);
 });
