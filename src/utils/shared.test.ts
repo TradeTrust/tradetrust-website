@@ -1,8 +1,8 @@
 import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
 import invoiceV2 from "../test/fixture/goerli/v2/invoice.json";
-import invoiceV3 from "../test/fixture/v3/invoice-ropsten.json";
+import invoiceV3 from "../test/fixture/goerli/v3/invoice.json";
 import v2DID from "../test/fixture/did/dns-did-verified.json";
-import v3DID from "../test/fixture/v3/dns-did-signed.json";
+import v3DID from "../test/fixture/did/dns-did-signed.json";
 
 describe("getChainId", () => {
   it("should return the correct chainId for v2 document", () => {
@@ -53,7 +53,12 @@ describe("getChainId", () => {
   });
 
   it("should return 'undefined' when there is not network for v3 document", () => {
-    expect(getChainId(invoiceV3 as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(undefined);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { network, ...documentWithoutNetwork } = invoiceV3;
+
+    expect(getChainId(documentWithoutNetwork as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(
+      undefined
+    );
   });
 
   it("should throw an error when the chainId is not in the network object for v3 document", () => {
