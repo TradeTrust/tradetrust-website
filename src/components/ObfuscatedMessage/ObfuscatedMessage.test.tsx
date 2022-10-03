@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
-import OfuscatedDocument from "../../test/fixture/obfuscated-document.json";
-import UnobfuscatedDocument from "../../test/fixture/unobfuscated-document.json";
+import OfuscatedDocument from "../../test/fixture/goerli/v2/invoice-obfuscated-document.json";
+import UnobfuscatedDocument from "../../test/fixture/goerli/v2/invoice.json";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
 describe("ObfuscatedMessage", () => {

@@ -1,7 +1,7 @@
 import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
 import ebl from "../test/fixture/ebl.json";
 import invoice from "../test/fixture/v3/invoice-ropsten.json";
-import v2DID from "../test/fixture/sample-dns-did-verified.json";
+import v2DID from "../test/fixture/did/dns-did-verified.json";
 import v3DID from "../test/fixture/v3/dns-did-signed.json";
 
 describe("getChainId", () => {

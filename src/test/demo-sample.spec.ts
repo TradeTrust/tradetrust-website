@@ -9,6 +9,6 @@ test("demo sample document is rendered correctly when dragged", async (t) => {
   await t
     .expect(Selector("[data-testid='banner-title']").withText("Want to try creating a verifiable document?").exists)
     .ok();
-  await validateIssuerTexts(["EXAMPLE.OPENATTESTATION.COM"]);
+  await validateIssuerTexts(["DEMO.TRADETRUST.IO"]);
   await validateIframeTexts(["Name & Address of Shipping Agent/Freight Forwarder"]);
 });

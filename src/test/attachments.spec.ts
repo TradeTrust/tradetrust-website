@@ -26,10 +26,10 @@ const Pdf2Span = Selector("span").withText("Dumm");
 
 test("Attachment Tab and Panel rendered correctly", async (t) => {
   await navigateToVerify();
-  await uploadDocument("./fixture/attachments.json");
+  await uploadDocument("./fixture/goerli/v2/invoice-attachments.json");
 
   // default document pdf content should render
-  await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
+  await validateIframeTexts(["INVOICE"]);
 
   // tabs number should tally
   await TabDefault.with({ visibilityCheck: true })();
