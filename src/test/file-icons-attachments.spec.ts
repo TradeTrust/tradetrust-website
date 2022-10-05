@@ -19,7 +19,7 @@ const AttachmentLink = Selector("[data-testid='attachment-download-link']");
 
 test("Attachment Tab and Panel rendered correctly", async (t) => {
   await navigateToVerify();
-  await uploadDocument("./fixture/file-with-attachments.json");
+  await uploadDocument("./fixture/goerli/v2/invoice-attachments-dummy.json");
 
   // default document pdf content should render
   await validateIframeTexts(["Documents Bundle"]);

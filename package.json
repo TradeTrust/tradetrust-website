@@ -11,7 +11,7 @@
     "blockchain:contracts": "node --experimental-modules ./tests/e2e/setup-contracts.mjs",
     "build": "run-s check-types build:css build:app",
     "build:dev": "cross-env NODE_ENV=development npm run build",
-    "build:test": "cross-env NODE_ENV=test NET=ropsten npm run build",
+    "build:test": "cross-env NODE_ENV=test NET=goerli npm run build",
     "build:prod": "cross-env NODE_ENV=production NET=mainnet npm run build",
     "build:css": "postcss src/tailwind.css -o src/index.css",
     "build:app": "webpack --progress --mode production",

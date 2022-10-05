@@ -4,7 +4,7 @@ fixture("DNS DID Certificate Rendering").page`${location}`;
 
 test("sample document is rendered correctly when dns did is verified", async () => {
   await navigateToVerify();
-  await uploadDocument("./fixture/sample-dns-did-verified.json");
+  await uploadDocument("./fixture/did/dns-did-verified.json");
   await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
 
   await validateIframeTexts([
