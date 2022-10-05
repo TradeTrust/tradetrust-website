@@ -5,7 +5,7 @@ fixture("v3 Transferable Record").page`${location}`;
 
 test("should render correctly when verified", async (t) => {
   await navigateToVerify();
-  await uploadDocument("./fixture/v3/ebl-ropsten.json");
+  await uploadDocument("./fixture/goerli/v3/ebl.json");
 
   await t.expect(Selector("h5").withText("View NFT Registry").exists).ok();
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
