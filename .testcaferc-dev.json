@@ -2,7 +2,5 @@
   "appCommand": "npm run serve-static",
   "src": ["src/**/*.spec.ts"],
   "browsers": ["chrome:headless"],
-  "concurrency": 4,
-  "selectorTimeout": 9000,
-  "assertionTimeout": 9000
+  "concurrency": 4
 }
