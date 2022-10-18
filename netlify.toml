@@ -25,3 +25,4 @@
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
+    Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"
