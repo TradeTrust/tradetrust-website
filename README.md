@@ -97,25 +97,22 @@ Try running `npm rebuild`
 
 `npm run integration:single <path>`, for the path, you can copy paste relative path via text editor.
 
-### Running single integration test (synpress)
+ ### Running single integration test (synpress)
+ - Go to package.json
+ - Under scripts `integration:synpress`, add a `-s <path>`, for the path should look something like: i.e.`tests/e2e/spec/test.spec.js`
+ - then add this code to initialise the metamask with account 2:
+ ```
+ it("should import account 2 and connect all metamask wallets to dapp", () => {
+    cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879").should("be.true");
+    cy.switchMetamaskAccount(1).should("be.true");
 
-- Go to package.json
-- Under scripts `integration:synpress`, add a `-s <path>`, for the path should look something like: i.e.`tests/e2e/spec/test.spec.js`
-- then add this code to initialise the metamask with account 2:
+    cy.connectWallet();
+    cy.acceptMetamaskAccess(true).should("be.true");
+  });
+ ```
+ - Run `npm run integration:headful`
 
-```
-it("should import account 2 and connect all metamask wallets to dapp", () => {
-   cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879").should("be.true");
-   cy.switchMetamaskAccount(1).should("be.true");
-
-   cy.connectWallet();
-   cy.acceptMetamaskAccess(true).should("be.true");
- });
-```
-
-- Run `npm run integration:headful`
-
-_remove step 2 and 3 once test is done, and check all test cases passes before pushing to github_
+*remove step 2 and 3 once test is done, and check all test cases passes before pushing to github*
 
 ### Managing Netlify CMS
 
