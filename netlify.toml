@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/admin"
-  to = "/admin/index.html"
+  from = "/imda"
+  to = "/imda/index.html"
   status = 200
 
 [[redirects]]
