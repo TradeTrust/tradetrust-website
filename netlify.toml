@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/imda"
-  to = "/imda/index.html"
+  from = "/imd@"
+  to = "/imd@/index.html"
   status = 200
 
 [[redirects]]
@@ -25,4 +25,4 @@
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
-    X-XSS-Protection = "1; mode=block" 
+    X-XSS-Protection = "1; mode=block"
