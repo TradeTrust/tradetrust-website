@@ -1,16 +1,17 @@
-import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { NetworkSelect } from "./NetworkSelect";
-import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
+import React from "react";
 import { ProviderContextProvider } from "../../../common/contexts/provider";
 import { getChainInfo } from "../../../common/utils/chain-utils";
+import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
+import { NetworkSelect } from "./NetworkSelect";
 
 const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Goerli), getChainInfo(ChainId.PolygonMumbai)];
+const mockUnsupportedNetwork: ChainInfoObject[] = [getChainInfo(ChainId.PolygonMumbai)];
 
 describe("NetworkSelect", () => {
   it("should render unsupported network", () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.Ropsten} networks={mockNetworks}>
+      <ProviderContextProvider defaultChainId={ChainId.Goerli} networks={mockUnsupportedNetwork}>
         <NetworkSelect />
       </ProviderContextProvider>
     );

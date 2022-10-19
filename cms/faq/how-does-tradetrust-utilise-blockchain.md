@@ -4,8 +4,8 @@ date: 2020-01-01T16:00:00.000Z
 type: Product
 ---
 
-TradeTrust utilises the Ethereum blockchain and polygon (beta) blockchain. TradeTrust caters to the following blockchain networks. 
+TradeTrust utilises the Ethereum blockchain and polygon (beta) blockchain. TradeTrust caters to the following blockchain networks.
+
 1. **Mainnet**: <https://www.tradetrust.io>. In the mainnet it supports the Ethereum and Polygon (beta) network.
 
-2. **Testnet**: <https://dev.tradetrust.io>. In the testnet environment, it utilises the ropsten, rinkerby, goerli and Polygon Mumbai network. Please note ropsten, rinkerby and goerli are Ethereum test network. The Polygon Mumbai is the test network for Polygon (beta). 
-_Please note ropsten and rinkerby test network will be deprecated by end 2022 and end 2023 respectively._
+2. **Testnet**: <https://dev.tradetrust.io>. In the testnet environment, it utilises the goerli, sepolia and Polygon Mumbai network. Please note sepolia and goerli are Ethereum test network. The Polygon Mumbai is the test network for Polygon (beta).
