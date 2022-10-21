@@ -75,11 +75,7 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle
-            role="Nominee"
-            value={nominee}
-            isEditable={false}
-          />
+          <EditableAssetTitle role="Nominee" value={nominee} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Holder" value={holder} isEditable={false} />

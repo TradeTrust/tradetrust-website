@@ -5,25 +5,47 @@ export interface TemplateProps {
   type: string;
 }
 
-// export type TradeTrustErc721EventType = "Transfer" | "Surrender" | "Burnt" | "Surrender Rejected" | "Document Issued";
-// order: Issued, Transfer, 
+export type TradeTrustErc721EventType =
+  | "INITIAL"
+  | "NEW_OWNERS"
+  | "ENDORSE"
+  | "TRANSFER"
+  | "SURRENDERED"
+  | "SURRENDER_REJECTED"
+  | "SURRENDER_ACCEPTED"
+  | "TRANSFER_TO_WALLET"
+  | "INVALID";
 
-export type TradeTrustErc721EventType = "INITIAL" | "NEW_OWNERS" | "ENDORSE" | "TRANSFER" | "SURRENDERED" | "SURRENDER_REJECTED" | "SURRENDER_ACCEPTED" | "TRANSFER_TO_WALLET" | "INVALID"
-
-export interface TradeTrustErc721Event {
-  eventType: TradeTrustErc721EventType;
-  documentOwner: string;
-  timestamp?: number;
-}
-
-export interface TitleEscrowEvent extends TradeTrustErc721Event {
-  blockNumber: number;
-  holder: string | undefined;
-  beneficiary: string | undefined;
+export type TransferEventType = TokenTransferEventType | TitleEscrowTransferEventType;
+export interface TransferBaseEvent {
+  type: TransferEventType;
+  transactionIndex: number;
+  holder?: string;
+  owner?: string;
   transactionHash: string;
+  blockNumber: number;
 }
 
-export type EndorsementChain = (TradeTrustErc721Event | TitleEscrowEvent)[];
+export type TokenTransferEventType = "INITIAL" | "SURRENDERED" | "SURRENDER_REJECTED" | "SURRENDER_ACCEPTED";
+export interface TitleEscrowTransferEvent extends TransferBaseEvent {
+  type: TitleEscrowTransferEventType;
+}
+
+export type TitleEscrowTransferEventType = "TRANSFER_BENEFICIARY" | "TRANSFER_HOLDER" | "TRANSFER_OWNERS";
+
+export interface TokenTransferEvent extends TransferBaseEvent {
+  type: TokenTransferEventType;
+  from: string;
+  to: string;
+}
+
+export interface TransferEvent extends TransferBaseEvent {
+  timestamp: number;
+  holder: string;
+  owner: string;
+}
+
+export type EndorsementChain = TransferEvent[];
 
 export type Resource = {
   title: string;

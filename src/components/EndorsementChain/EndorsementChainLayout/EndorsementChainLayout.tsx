@@ -2,7 +2,7 @@ import { BackArrow } from "@govtechsg/tradetrust-ui-components";
 import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
-import { EndorsementChain, TitleEscrowEvent } from "../../../types";
+import { EndorsementChain } from "../../../types";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
 
@@ -20,7 +20,6 @@ enum EventType {
   SURRENDER_REJECTED = "Surrender Rejected",
   INITIAL = "Document Issued",
 }
-
 
 enum ActionType {
   INITIAL = "Document has been issued",
@@ -61,22 +60,23 @@ interface DetailsEntityProps {
 
 const getHistoryChain = (endorsementChain?: EndorsementChain) => {
   const historyChain: HistoryChain[] = [
-    {
-      action: ActionType.INITIAL,
-      isNewBeneficiary: true,
-      isNewHolder: false,
-    },
+    // {
+    //   action: ActionType.INITIAL,
+    //   isNewBeneficiary: true,
+    //   isNewHolder: false,
+    // },
   ];
 
-  let previousBeneficiary = "";
-  let previousHolder = "";
+  // let previousBeneficiary = "";
+  // let previousHolder = "";
 
   endorsementChain?.forEach((endorsementChainEvent) => {
-    const chain = endorsementChainEvent as TitleEscrowEvent;
-    const documentOwner = chain.documentOwner;
-    const beneficiary = chain.beneficiary;
-    const chainEventTimestamp = chain.timestamp;
-    const hash = chain.transactionHash;
+    // const chain = endorsementChainEvent as TitleEscrowEvent;
+    const documentOwner = endorsementChainEvent.owner;
+    const beneficiary = endorsementChainEvent.owner;
+    const holder = endorsementChainEvent.holder;
+    const timestamp = endorsementChainEvent.timestamp;
+    const hash = endorsementChainEvent.transactionHash;
 
     // TRANSFER = "Transfer",
     // SURRENDER = "Surrender",
@@ -84,97 +84,99 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
     // SURRENDER_REJECTED = "Surrender Rejected",
     // INITIAL = "Document Issued"
 
-    switch (chain.eventType) {
-      case EventType.TRANSFER:
-        const timelineHolder = chain.holder || previousHolder;
-        const timelineBeneficiary = chain.beneficiary || previousBeneficiary || beneficiary;
-        const timestamp = chain.timestamp;
-        const isNewBeneficiary = timelineBeneficiary !== previousBeneficiary;
-        const isNewHolder = timelineHolder !== previousHolder;
+    switch (endorsementChainEvent.type) {
+      // case EventType.TRANSFER:
+      //   const timelineHolder = chain.holder || previousHolder;
+      //   const timelineBeneficiary = chain.beneficiary || previousBeneficiary || beneficiary;
+      //   const timestamp = chain.timestamp;
+      //   const isNewBeneficiary = timelineBeneficiary !== previousBeneficiary;
+      //   const isNewHolder = timelineHolder !== previousHolder;
 
-        if (isNewBeneficiary && isNewHolder) {
-          historyChain.push({
-            action: ActionType.NEW_OWNERS,
-            isNewBeneficiary,
-            isNewHolder,
-            documentOwner,
-            beneficiary: timelineBeneficiary,
-            holder: timelineHolder,
-            timestamp: timestamp,
-            hash,
-          });
-        } else if (isNewBeneficiary) {
-          historyChain.push({
-            action: ActionType.ENDORSE,
-            isNewBeneficiary,
-            isNewHolder,
-            documentOwner,
-            beneficiary: timelineBeneficiary,
-            holder: timelineHolder,
-            timestamp: timestamp,
-            hash,
-          });
-        } else if (isNewHolder) {
-          historyChain.push({
-            action: ActionType.TRANSFER,
-            isNewBeneficiary,
-            isNewHolder,
-            documentOwner,
-            beneficiary: timelineBeneficiary,
-            holder: timelineHolder,
-            timestamp: timestamp,
-            hash,
-          });
-        }
-        previousHolder = timelineHolder;
-        previousBeneficiary = timelineBeneficiary || "";
-
+      // if (isNewBeneficiary && isNewHolder) {
+      case "TRANSFER_OWNERS":
+        historyChain.push({
+          action: ActionType.NEW_OWNERS,
+          isNewBeneficiary: true,
+          isNewHolder: true,
+          documentOwner,
+          beneficiary,
+          holder,
+          timestamp,
+          hash,
+        });
         break;
-      case EventType.SURRENDER:
+      // } else if (isNewBeneficiary) {
+      case "TRANSFER_BENEFICIARY":
+        historyChain.push({
+          action: ActionType.ENDORSE,
+          isNewBeneficiary: true,
+          isNewHolder: false,
+          documentOwner,
+          beneficiary,
+          holder,
+          timestamp,
+          hash,
+        });
+        break;
+      // } else if (isNewHolder) {
+      case "TRANSFER_HOLDER":
+        historyChain.push({
+          action: ActionType.TRANSFER,
+          isNewBeneficiary: false,
+          isNewHolder: true,
+          documentOwner,
+          beneficiary,
+          holder,
+          timestamp,
+          hash,
+        });
+        break;
+      // }
+      // previousHolder = timelineHolder;
+      // previousBeneficiary = timelineBeneficiary || "";
+
+      case "SURRENDERED":
         historyChain.push({
           action: ActionType.SURRENDERED,
           isNewBeneficiary: true,
           isNewHolder: false,
-          timestamp: chainEventTimestamp,
+          timestamp,
         });
         // not reassigning previousBeneficiary and previousHolder so that it takes the addresses from the point just before it was surrendered
         break;
-      case EventType.BURNT:
+      case "SURRENDER_ACCEPTED":
         historyChain.push({
           action: ActionType.SURRENDER_ACCEPTED,
           isNewBeneficiary: true,
           isNewHolder: false,
-          timestamp: chainEventTimestamp,
+          timestamp,
         });
-        previousHolder = "";
-        previousBeneficiary = "";
         break;
-      case EventType.SURRENDER_REJECTED:
-        console.log("TRANSFER_TO_WALLET");
+      case "SURRENDER_REJECTED":
         historyChain.push({
           action: ActionType.SURRENDER_REJECTED,
           isNewBeneficiary: true,
           isNewHolder: true,
-          timestamp: chainEventTimestamp,
+          timestamp,
           documentOwner,
           beneficiary: documentOwner,
           holder: documentOwner,
           hash,
         });
-        previousHolder = previousHolder;
-        previousBeneficiary = previousBeneficiary;
+        // previousHolder = previousHolder;
+        // previousBeneficiary = previousBeneficiary;
         break;
-      case EventType.INITIAL:
-        // historyChain.push({
-        //   action: ActionType.NEW_OWNERS,
-        //   isNewBeneficiary: true,
-        //   isNewHolder: true,
-        //   documentOwner,
-        //   beneficiary: beneficiary,
-        //   holder: documentOwner,
-        //   timestamp: chainEventTimestamp,
-        //   hash,
-        // });
+      case "INITIAL":
+        historyChain.push({
+          action: ActionType.INITIAL,
+          isNewBeneficiary: true,
+          isNewHolder: true,
+          documentOwner,
+          beneficiary,
+          holder,
+          timestamp,
+          hash,
+        });
         break;
 
       default:

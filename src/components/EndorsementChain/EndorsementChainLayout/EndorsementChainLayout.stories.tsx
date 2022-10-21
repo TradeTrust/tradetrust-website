@@ -9,7 +9,7 @@ export default {
 
 const transferHolderEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -29,7 +29,7 @@ const transferHolderEndorsementChain: EndorsementChain = [
 
 const endorseBeneficiaryEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -41,7 +41,7 @@ const endorseBeneficiaryEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
     beneficiary: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
     holderChangeEvents: [
@@ -56,7 +56,7 @@ const endorseBeneficiaryEndorsementChain: EndorsementChain = [
 
 const transferToWalletEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -68,7 +68,7 @@ const transferToWalletEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0xBee0875Ba8069ed5c48E6A670118EF1C6B1E7fC0",
+    owner: "0xBee0875Ba8069ed5c48E6A670118EF1C6B1E7fC0",
     eventType: "Transfer to Wallet",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     eventTimestamp: 1594609205000,
@@ -77,7 +77,7 @@ const transferToWalletEndorsementChain: EndorsementChain = [
 
 const surrenderEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -89,7 +89,7 @@ const surrenderEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Surrender",
     eventTimestamp: 1594609205000,
   },
@@ -97,7 +97,7 @@ const surrenderEndorsementChain: EndorsementChain = [
 
 const rejectSurrenderedEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -109,12 +109,12 @@ const rejectSurrenderedEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Surrender",
     eventTimestamp: 1594609205000,
   },
   {
-    documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
+    owner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -129,7 +129,7 @@ const rejectSurrenderedEndorsementChain: EndorsementChain = [
 
 const acceptSurrenderedEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -141,12 +141,12 @@ const acceptSurrenderedEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Surrender",
     eventTimestamp: 1594609205000,
   },
   {
-    documentOwner: "0x000000000000000000000000000000000000dEaD",
+    owner: "0x000000000000000000000000000000000000dEaD",
     eventType: "Burnt",
     eventTimestamp: 1594609405000,
   },
@@ -154,7 +154,7 @@ const acceptSurrenderedEndorsementChain: EndorsementChain = [
 
 const sampleSuccessEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
+    owner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -171,7 +171,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
+    owner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
     eventType: "Transfer",
     beneficiary: "0x32507B8838562c0fc881dA6Ce00162B184a34955",
     holderChangeEvents: [
@@ -183,7 +183,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
+    owner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
     eventType: "Transfer",
     beneficiary: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
     holderChangeEvents: [
@@ -195,13 +195,13 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0xBee0875Ba8069ed5c48E6A670118EF1C6B1E7fC0",
+    owner: "0xBee0875Ba8069ed5c48E6A670118EF1C6B1E7fC0",
     eventType: "Transfer to Wallet",
     beneficiary: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
     eventTimestamp: 1594609205000,
   },
   {
-    documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
+    owner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -213,12 +213,12 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
+    owner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
     eventType: "Surrender",
     eventTimestamp: 1594609402000,
   },
   {
-    documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
+    owner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
     eventType: "Transfer",
     beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
     holderChangeEvents: [
@@ -230,7 +230,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
+    owner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
     eventType: "Transfer",
     beneficiary: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
     holderChangeEvents: [
@@ -242,12 +242,12 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     ],
   },
   {
-    documentOwner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
+    owner: "0xe23e0E06DF75279Fb9A4471adCbeb9c240E5C4F3",
     eventType: "Surrender",
     eventTimestamp: 1594609708000,
   },
   {
-    documentOwner: "0x000000000000000000000000000000000000dEaD",
+    owner: "0x000000000000000000000000000000000000dEaD",
     eventType: "Burnt",
     eventTimestamp: 1594609808000,
   },
