@@ -79,13 +79,17 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
             role="Nominee"
             value={nominee}
             isEditable={false}
-            error={beneficiaryEndorseState === FormState.ERROR}
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
         </div>
       </div>
+      {beneficiaryEndorseState === FormState.ERROR && (
+        <div className="text-scarlet-500 my-2" data-testid="error-msg">
+          Unidentified address. Please check and input again.
+        </div>
+      )}
       <div className="flex flex-wrap pb-4">
         <div className="w-auto lg:ml-auto">
           <div className="flex flex-wrap">

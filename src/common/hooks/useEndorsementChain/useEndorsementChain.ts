@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
-import { TitleEscrowEvent, TradeTrustErc721Event } from "../../../types";
+import { TitleEscrowEvent, TradeTrustErc721Event, TradeTrustErc721EventType } from "../../../types";
 import { fetchEventTime, fetchEscrowTransfers } from "./fetchEscrowTransfer";
 import { useProviderContext } from "../../contexts/provider";
 import { TradeTrustERC721 } from "@govtechsg/token-registry/contracts";
@@ -76,10 +76,140 @@ const fetchTransfers = async (
   );
   const escrowTransfers = await fetchEscrowTransfers(titleEscrowAddress, provider);
   const transferEvents = [...escrowTransfers, ...tokenTransfers];
-  // transferEvents.sort((a, b) => a.eventTimestamp! - b.eventTimestamp!);
+  transferEvents.sort((a, b) => {
+    return a.timestamp! - b.timestamp!
+  });
+  console.log(JSON.stringify(transferEvents))
   // Promise<(TradeTrustErc721Event | TitleEscrowEvent)[]>
   return transferEvents;
   // return fetchTokenTransfers(provider, tokenRegistry, tokenId);
+};
+
+
+const getHistoryChain = (endorsementChain?: EndorsementChain) => {
+  const historyChain: HistoryChain[] = [
+    {
+      action: ActionType.INITIAL,
+      isNewBeneficiary: true,
+      isNewHolder: false,
+    },
+  ];
+
+  let previousBeneficiary = "";
+  let previousHolder = "";
+
+  endorsementChain?.forEach((endorsementChainEvent) => {
+    const chain = endorsementChainEvent as TitleEscrowEvent;
+    const documentOwner = chain.documentOwner;
+    const beneficiary = chain.beneficiary;
+    const chainEventTimestamp = chain.timestamp;
+    const hash = chain.transactionHash;
+
+    // TRANSFER = "Transfer",
+    // SURRENDER = "Surrender",
+    // BURNT = "Burnt",
+    // SURRENDER_REJECTED = "Surrender Rejected",
+    // INITIAL = "Document Issued"
+
+    switch (chain.eventType) {
+      case EventType.TRANSFER:
+        const timelineHolder = chain.holder || previousHolder;
+        const timelineBeneficiary = chain.beneficiary || previousBeneficiary || beneficiary;
+        const timestamp = chain.timestamp;
+        const isNewBeneficiary = timelineBeneficiary !== previousBeneficiary;
+        const isNewHolder = timelineHolder !== previousHolder;
+
+        if (isNewBeneficiary && isNewHolder) {
+          historyChain.push({
+            action: ActionType.NEW_OWNERS,
+            isNewBeneficiary,
+            isNewHolder,
+            documentOwner,
+            beneficiary: timelineBeneficiary,
+            holder: timelineHolder,
+            timestamp: timestamp,
+            hash,
+          });
+        } else if (isNewBeneficiary) {
+          historyChain.push({
+            action: ActionType.ENDORSE,
+            isNewBeneficiary,
+            isNewHolder,
+            documentOwner,
+            beneficiary: timelineBeneficiary,
+            holder: timelineHolder,
+            timestamp: timestamp,
+            hash,
+          });
+        } else if (isNewHolder) {
+          historyChain.push({
+            action: ActionType.TRANSFER,
+            isNewBeneficiary,
+            isNewHolder,
+            documentOwner,
+            beneficiary: timelineBeneficiary,
+            holder: timelineHolder,
+            timestamp: timestamp,
+            hash,
+          });
+        }
+        previousHolder = timelineHolder;
+        previousBeneficiary = timelineBeneficiary || "";
+
+        break;
+      case EventType.SURRENDER:
+        historyChain.push({
+          action: ActionType.SURRENDERED,
+          isNewBeneficiary: true,
+          isNewHolder: false,
+          timestamp: chainEventTimestamp,
+        });
+        // not reassigning previousBeneficiary and previousHolder so that it takes the addresses from the point just before it was surrendered
+        break;
+      case EventType.BURNT:
+        historyChain.push({
+          action: ActionType.SURRENDER_ACCEPTED,
+          isNewBeneficiary: true,
+          isNewHolder: false,
+          timestamp: chainEventTimestamp,
+        });
+        previousHolder = "";
+        previousBeneficiary = "";
+        break;
+      case EventType.SURRENDER_REJECTED:
+        console.log("TRANSFER_TO_WALLET");
+        historyChain.push({
+          action: ActionType.SURRENDER_REJECTED,
+          isNewBeneficiary: true,
+          isNewHolder: true,
+          timestamp: chainEventTimestamp,
+          documentOwner,
+          beneficiary: documentOwner,
+          holder: documentOwner,
+          hash,
+        });
+        previousHolder = previousHolder;
+        previousBeneficiary = previousBeneficiary;
+        break;
+      case EventType.INITIAL:
+        // historyChain.push({
+        //   action: ActionType.NEW_OWNERS,
+        //   isNewBeneficiary: true,
+        //   isNewHolder: true,
+        //   documentOwner,
+        //   beneficiary: beneficiary,
+        //   holder: documentOwner,
+        //   timestamp: chainEventTimestamp,
+        //   hash,
+        // });
+        break;
+
+      default:
+        throw Error("eventType not matched");
+    }
+  });
+
+  return historyChain;
 };
 
 const fetchTokenTransfers = async (
@@ -110,22 +240,24 @@ const fetchTokenTransfers = async (
 
   const titleEscrowLogs: TradeTrustErc721Event[] = await Promise.all(
     formattedLogs.map(async (log) => {
-      let eventType = "INVALID";
+      let eventType: TradeTrustErc721EventType = "INVALID";
       const documentOwner = log.to;
-      const eventTimestamp = await fetchEventTime(log.blockNumber, provider);
+      const timestamp = await fetchEventTime(log.blockNumber, provider);
       const transactionHash = log.transactionHash;
       switch (log.to) {
         case tokenRegistryAddress:
-          eventType = "Surrender";
+          eventType = "SURRENDERED";
+          break;
         case "0x000000000000000000000000000000000000dEaD":
-          eventType = "Burnt";
+          eventType = "SURRENDER_ACCEPTED";
+          break;
       }
       switch (log.from) {
         case tokenRegistryAddress:
-          eventType = "Surrender Rejected";
+          eventType = "SURRENDER_REJECTED";
           break;
         case "0x0000000000000000000000000000000000000000":
-          eventType = "Document Issued";
+          eventType = "INITIAL";
           titleEscrowAddress = log.to;
           break;
       }
@@ -135,7 +267,7 @@ const fetchTokenTransfers = async (
       return {
         eventType,
         documentOwner,
-        eventTimestamp,
+        timestamp,
         transactionHash,
       } as TradeTrustErc721Event;
     })

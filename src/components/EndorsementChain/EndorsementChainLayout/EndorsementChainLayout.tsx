@@ -21,7 +21,6 @@ enum EventType {
   INITIAL = "Document Issued",
 }
 
-export type TradeTrustErc721EventType = "Transfer" | "Surrender" | "Burnt" | "Surrender Rejected" | "Document Issued";
 
 enum ActionType {
   INITIAL = "Document has been issued",
@@ -76,7 +75,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
     const chain = endorsementChainEvent as TitleEscrowEvent;
     const documentOwner = chain.documentOwner;
     const beneficiary = chain.beneficiary;
-    const chainEventTimestamp = chain.eventTimestamp;
+    const chainEventTimestamp = chain.timestamp;
     const hash = chain.transactionHash;
 
     // TRANSFER = "Transfer",
@@ -166,16 +165,16 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
         previousBeneficiary = previousBeneficiary;
         break;
       case EventType.INITIAL:
-        historyChain.push({
-          action: ActionType.NEW_OWNERS,
-          isNewBeneficiary: true,
-          isNewHolder: true,
-          documentOwner,
-          beneficiary: beneficiary,
-          holder: documentOwner,
-          timestamp: chainEventTimestamp,
-          hash,
-        });
+        // historyChain.push({
+        //   action: ActionType.NEW_OWNERS,
+        //   isNewBeneficiary: true,
+        //   isNewHolder: true,
+        //   documentOwner,
+        //   beneficiary: beneficiary,
+        //   holder: documentOwner,
+        //   timestamp: chainEventTimestamp,
+        //   hash,
+        // });
         break;
 
       default:

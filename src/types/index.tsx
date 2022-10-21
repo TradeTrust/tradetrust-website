@@ -5,19 +5,21 @@ export interface TemplateProps {
   type: string;
 }
 
-export type TradeTrustErc721EventType = "Transfer" | "Surrender" | "Burnt" | "Surrender Rejected" | "Document Issued";
+// export type TradeTrustErc721EventType = "Transfer" | "Surrender" | "Burnt" | "Surrender Rejected" | "Document Issued";
+// order: Issued, Transfer, 
+
+export type TradeTrustErc721EventType = "INITIAL" | "NEW_OWNERS" | "ENDORSE" | "TRANSFER" | "SURRENDERED" | "SURRENDER_REJECTED" | "SURRENDER_ACCEPTED" | "TRANSFER_TO_WALLET" | "INVALID"
 
 export interface TradeTrustErc721Event {
   eventType: TradeTrustErc721EventType;
   documentOwner: string;
-  eventTimestamp?: number;
+  timestamp?: number;
 }
 
 export interface TitleEscrowEvent extends TradeTrustErc721Event {
   blockNumber: number;
   holder: string | undefined;
   beneficiary: string | undefined;
-  timestamp: number;
   transactionHash: string;
 }
 

@@ -57,6 +57,7 @@ const mergeChangeOwnersTransfers = (transferEvents: TitleEscrowEvent[]): TitleEs
     removalIndexes = [...removalIndexes, ...indexValues];
   });
 
+  console.log(removalIndexes)
   removalIndexes.sort();
   removalIndexes.reverse();
 
@@ -109,7 +110,7 @@ export const fetchOwnerTransfers = async (
     documentOwner: event.args["toBeneficiary"] as string,
     blockNumber: event.blockNumber,
     beneficiary: event.args["toBeneficiary"] as string,
-    holder: null,
+    holder: undefined,
     timestamp: blockTimes[index],
     transactionHash: event.transactionHash,
     transactionIndex: event.transactionIndex,
@@ -144,7 +145,7 @@ export const fetchHolderTransfers = async (
     documentOwner: "",
     blockNumber: event.blockNumber,
     holder: event.args["toHolder"] as string,
-    beneficiary: null,
+    beneficiary: undefined,
     timestamp: blockTimes[index],
     transactionHash: event.transactionHash,
     transactionIndex: event.transactionIndex,
