@@ -50,7 +50,7 @@ module.exports = {
       // need to define variables here, so later can be overwritten at netlify env var end
       // TODO: use dotenv instead
       NODE_ENV: "development",
-      NET: "ropsten",
+      NET: "goerli",
       INFURA_API_KEY: "bb46da3f80e040e8ab73c0a9ff365d18",
       ETHEREUM_PROVIDER: "notcloudflare", // temporary fix that wont be needed after oa-verify > 6
       MAGIC_API_KEY: "",
@@ -68,10 +68,11 @@ module.exports = {
           new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
           new CopyWebpackPlugin({
             patterns: [
+              { from: "public/static/common", to: "static/common" },
               { from: "public/static/images", to: "static/images" },
               { from: "public/static/demo", to: "static/demo" },
               { from: "public/static/uploads", to: "static/uploads" },
-              { from: "public/admin", to: "admin" },
+              { from: "public/imd@", to: "imd@" },
             ],
           }),
         ]

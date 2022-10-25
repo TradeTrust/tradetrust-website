@@ -1,4 +1,6 @@
 import { HostActions } from "@govtechsg/decentralized-renderer-react-components";
+import { ChainId } from "./../constants/chain-info";
+
 export interface TemplateProps {
   id: string;
   label: string;
@@ -66,3 +68,13 @@ export enum GaAction {
 export enum GaCategory {
   MAGIC_DEMO = "magic_demo",
 }
+
+export interface ActionPayload {
+  uri: string;
+  permittedActions: string[];
+  redirect: string;
+  key?: string;
+  chainId?: ChainId;
+}
+
+export type ActionType = "DOCUMENT";

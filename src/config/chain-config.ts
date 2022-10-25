@@ -12,9 +12,9 @@ export const MAIN_NETWORKS = [
  * Supported networks in development environment
  */
 export const TEST_NETWORKS = [
-  ChainId.Ropsten, //
-  ChainId.Rinkeby,
-  ChainId.Goerli,
+  ChainId.Goerli, //
   ChainId.Sepolia,
   ChainId.PolygonMumbai,
+  ChainId.Rinkeby,
+  ChainId.Ropsten,
 ];

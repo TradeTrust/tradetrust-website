@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/admin"
-  to = "/admin/index.html"
+  from = "/imd@"
+  to = "/imd@/index.html"
   status = 200
 
 [[redirects]]
@@ -20,3 +20,9 @@
 [context.deploy-preview]
   [context.deploy-preview.environment]
     INFURA_API_KEY = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
