@@ -8,7 +8,8 @@ import {
 import React, { FunctionComponent, useContext, useEffect } from "react";
 import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { FormState } from "../../../../../constants/FormState";
-import { TitleEscrowEvent } from "../../../../../types";
+import { TransferEvent } from "../../../../../types";
+// import { TitleEscrowEvent } from "../../../../../types";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -38,10 +39,8 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
   const { showOverlay } = useContext(OverlayContext);
   const { endorsementChain, pending } = useEndorsementChain(tokenRegistryAddress, tokenId);
 
-  const lastTransferEvent = endorsementChain
-    ?.filter(({ eventType }) => eventType === "Transfer")
-    .reverse()[0] as TitleEscrowEvent;
-  const lastBeneficiary = lastTransferEvent?.beneficiary;
+  const lastTransferEvent = endorsementChain?.reverse()[0] as TransferEvent;
+  const lastBeneficiary = lastTransferEvent?.owner;
 
   const isRestoreTokenPendingConfirmation = restoreTokenState === FormState.PENDING_CONFIRMATION;
   const isRestoreTokenConfirmed = restoreTokenState === FormState.CONFIRMED;

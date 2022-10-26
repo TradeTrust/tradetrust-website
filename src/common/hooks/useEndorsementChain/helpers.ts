@@ -1,18 +1,22 @@
-import { TradeTrustERC721 } from "@govtechsg/token-registry/dist/contracts";
 import { Provider } from "@ethersproject/abstract-provider";
 import {
   EndorsementChain,
   TransferBaseEvent,
   TransferEvent,
-  TokenTransferEventType,
-  TitleEscrowTransferEventType,
-  TitleEscrowTransferEvent,
   TransferEventType,
+  TokenTransferEvent,
 } from "../../../types";
 
-export const fetchEscrowAddress = async (tokenRegistry: TradeTrustERC721, tokenId: string): Promise<string> => {
-  const titleEscrowAddress = tokenRegistry.ownerOf(tokenId);
-  return await titleEscrowAddress;
+export const extractEscrowAddress = (tokenLogs: TokenTransferEvent[]): string => {
+  if (tokenLogs.length === 0) {
+    throw new Error("Unminted Title Escrow");
+  }
+  sortLogChain(tokenLogs);
+  const escrowAddress = tokenLogs.at(0)?.to || "";
+  if (!escrowAddress) {
+    throw new Error("Unable to retrieve Title Escrow Address");
+  }
+  return escrowAddress;
 };
 
 export const fetchEventTime = async (blockNumber: number, provider: Provider): Promise<number> => {
@@ -35,7 +39,6 @@ export const mergeTransferTransactions = (repeatedTransferEvents: TransferBaseEv
 };
 
 export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBaseEvent[] => {
-  console.log(transferEvents);
   const hashList: Record<string, number[]> = {};
   const repeatedHash: Set<string> = new Set();
   for (let i = 0; i < transferEvents.length; i++) {
@@ -50,12 +53,11 @@ export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBas
 
   const mergedEscrowTransfers: TransferBaseEvent[] = [];
 
-  for (const hash in Array.from(repeatedHash)) {
-    console.log(hash);
+  for (const hash of Array.from(repeatedHash)) {
     const length = hashList[hash].length;
     const repeatedTransfers: TransferBaseEvent[] = [];
     for (const index in hashList[hash]) {
-      repeatedTransfers.push(transferEvents[index]);
+      repeatedTransfers.push(transferEvents[hashList[hash][index]]);
     }
     let type: TransferEventType = "INITIAL";
     switch (length) {
@@ -63,7 +65,11 @@ export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBas
         type = "TRANSFER_OWNERS";
         break;
       case 3:
-        type = "INITIAL";
+        for (let i = 0; i < length; i++) {
+          if (repeatedTransfers[i].type === "INITIAL" || repeatedTransfers[i].type === "SURRENDER_ACCEPTED") {
+            type = repeatedTransfers[i].type;
+          }
+        }
         break;
       case 0:
       case 1:
@@ -75,17 +81,8 @@ export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBas
       ...mergedTransaction,
       type,
     } as TransferBaseEvent);
-    console.log({
-      ...mergedTransaction,
-      type,
-    } as TransferBaseEvent);
   }
-
   transferEvents = transferEvents.filter((x) => !repeatedHash.has(x.transactionHash));
-
-  console.log(transferEvents);
-  console.log(mergedEscrowTransfers);
-
   return [...transferEvents, ...mergedEscrowTransfers];
 };
 
@@ -109,7 +106,12 @@ export const getEndorsementChain = async (
       timestamp: timestamp,
     } as TransferEvent;
 
-    if (log.type === "TRANSFER_OWNERS" || log.type === "TRANSFER_BENEFICIARY" || log.type === "TRANSFER_HOLDER") {
+    if (
+      log.type === "TRANSFER_OWNERS" ||
+      log.type === "TRANSFER_BENEFICIARY" ||
+      log.type === "TRANSFER_HOLDER" ||
+      log.type === "INITIAL"
+    ) {
       historyChain.push(transactionDetails);
       previousHolder = transactionDetails.holder;
       previousBeneficiary = transactionDetails.owner;
@@ -117,17 +119,17 @@ export const getEndorsementChain = async (
       previousHolder = "";
       previousBeneficiary = "";
       historyChain.push(transactionDetails);
-    } else if (log.type === "SURRENDER_REJECTED") {
-    } else if (log.type === "SURRENDERED" || log.type === "INITIAL") {
+    } else if (log.type === "SURRENDERED" || log.type === "SURRENDER_REJECTED") {
+      historyChain.push(transactionDetails);
+    } else {
       historyChain.push(transactionDetails);
     }
-    historyChain.push(transactionDetails);
   }
   return historyChain;
 };
 
 const sortLogChain = (logChain: TransferBaseEvent[]): TransferBaseEvent[] => {
   return logChain.sort((a, b) => {
-    return a.blockNumber! - b.blockNumber!;
+    return a.blockNumber - b.blockNumber;
   });
 };

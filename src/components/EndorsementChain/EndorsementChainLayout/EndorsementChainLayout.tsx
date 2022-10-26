@@ -13,14 +13,6 @@ interface EndorsementChainLayout {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
-enum EventType {
-  TRANSFER = "Transfer",
-  SURRENDER = "Surrender",
-  BURNT = "Burnt",
-  SURRENDER_REJECTED = "Surrender Rejected",
-  INITIAL = "Document Issued",
-}
-
 enum ActionType {
   INITIAL = "Document has been issued",
   NEW_OWNERS = "Change Owners",
@@ -36,7 +28,7 @@ interface HistoryChain {
   action: ActionType;
   isNewBeneficiary: boolean;
   isNewHolder: boolean;
-  documentOwner?: string;
+  // documentOwner?: string;
   beneficiary?: string;
   holder?: string;
   timestamp?: number;
@@ -55,7 +47,7 @@ const AddressResolvedName: React.FunctionComponent<AddressResolvedNameProps> = (
 interface DetailsEntityProps {
   title: string;
   address: string;
-  documentOwner: string;
+  // documentOwner: string;
 }
 
 const getHistoryChain = (endorsementChain?: EndorsementChain) => {
@@ -72,7 +64,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
 
   endorsementChain?.forEach((endorsementChainEvent) => {
     // const chain = endorsementChainEvent as TitleEscrowEvent;
-    const documentOwner = endorsementChainEvent.owner;
+    // const documentOwner = endorsementChainEvent.owner;
     const beneficiary = endorsementChainEvent.owner;
     const holder = endorsementChainEvent.holder;
     const timestamp = endorsementChainEvent.timestamp;
@@ -98,7 +90,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
           action: ActionType.NEW_OWNERS,
           isNewBeneficiary: true,
           isNewHolder: true,
-          documentOwner,
+          // documentOwner,
           beneficiary,
           holder,
           timestamp,
@@ -111,7 +103,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
           action: ActionType.ENDORSE,
           isNewBeneficiary: true,
           isNewHolder: false,
-          documentOwner,
+          // documentOwner,
           beneficiary,
           holder,
           timestamp,
@@ -124,7 +116,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
           action: ActionType.TRANSFER,
           isNewBeneficiary: false,
           isNewHolder: true,
-          documentOwner,
+          // documentOwner,
           beneficiary,
           holder,
           timestamp,
@@ -147,7 +139,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
       case "SURRENDER_ACCEPTED":
         historyChain.push({
           action: ActionType.SURRENDER_ACCEPTED,
-          isNewBeneficiary: true,
+          isNewBeneficiary: false,
           isNewHolder: false,
           timestamp,
         });
@@ -158,9 +150,9 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
           isNewBeneficiary: true,
           isNewHolder: true,
           timestamp,
-          documentOwner,
-          beneficiary: documentOwner,
-          holder: documentOwner,
+          // documentOwner,
+          beneficiary,
+          holder: beneficiary,
           hash,
         });
         // previousHolder = previousHolder;
@@ -171,7 +163,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
           action: ActionType.INITIAL,
           isNewBeneficiary: true,
           isNewHolder: true,
-          documentOwner,
+          // documentOwner,
           beneficiary,
           holder,
           timestamp,
@@ -231,10 +223,8 @@ const EndorsementChainData: React.FunctionComponent<any> = ({ index, data }) => 
           </div>
         </div>
       </div>
-      {data.beneficiary && (
-        <DetailsEntity title="Owner" address={data.beneficiary} documentOwner={data.documentOwner} />
-      )}
-      {data.holder && <DetailsEntity title="Holder" address={data.holder} documentOwner={data.documentOwner} />}
+      <DetailsEntity title="Owner" address={data.isNewBeneficiary ? data.beneficiary : ""} />
+      <DetailsEntity title="Holder" address={data.isNewHolder ? data.holder : ""} />
     </div>
   );
 };
@@ -246,6 +236,8 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   pending,
 }) => {
   const historyChain = getHistoryChain(endorsementChain);
+
+  // console.log(historyChain);
 
   return (
     <div className="container my-8">

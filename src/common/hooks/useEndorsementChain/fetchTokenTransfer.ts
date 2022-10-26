@@ -1,4 +1,6 @@
 import { TradeTrustERC721 } from "@govtechsg/token-registry/contracts";
+import { TypedEvent } from "@govtechsg/token-registry/dist/contracts/common";
+import { LogDescription } from "ethers/lib/utils";
 import { TokenTransferEvent, TokenTransferEventType } from "../../../types";
 
 export const fetchTokenTransfers = async (
@@ -34,7 +36,7 @@ export const fetchTokenTransfers = async (
 };
 
 export const identifyTokenTransferEventsFunction = (tokenRegistryAddress: string) => {
-  return (log: any): TokenTransferEventType => {
+  return (log: TypedEvent | LogDescription): TokenTransferEventType => {
     const to = log.args.to as string;
     const from = log.args.from as string;
     switch (to) {

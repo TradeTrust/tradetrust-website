@@ -1,7 +1,6 @@
 import { providers } from "ethers";
 import { TitleEscrow, TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
 import { TitleEscrowTransferEvent } from "../../../types";
-import { mergeChangeOwnersTransfers } from "./helpers";
 
 export const fetchEscrowTransfers = async (
   provider: providers.Provider,
@@ -32,7 +31,7 @@ export const fetchOwnerTransfers = async (
     };
   });
 
-  return ownerChangeLogsParsed.map((event, index) => ({
+  return ownerChangeLogsParsed.map((event) => ({
     type: "TRANSFER_BENEFICIARY",
     owner: event.args.toBeneficiary,
     blockNumber: event.blockNumber,
