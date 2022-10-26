@@ -13,9 +13,6 @@ module.exports = {
       "<rootDir>/_mocks_/fileMock.js",
     "\\.(css|sass|scss)$": "identity-obj-proxy",
   },
-  transformIgnorePatterns: [
-    "<rootDir>/node_modules/@govtechsg/(?!(token-registry)/)"
-  ],
   testEnvironment: "jest-environment-jsdom",
   setupFiles: ["<rootDir>/jest.setup.ts"],
   setupFilesAfterEnv: ["<rootDir>/jest.dom.setup.ts"],

@@ -12,7 +12,7 @@ export const extractEscrowAddress = (tokenLogs: TokenTransferEvent[]): string =>
     throw new Error("Unminted Title Escrow");
   }
   sortLogChain(tokenLogs);
-  const escrowAddress = tokenLogs.at(0)?.to || "";
+  const escrowAddress = tokenLogs[0]?.to || "";
   if (!escrowAddress) {
     throw new Error("Unable to retrieve Title Escrow Address");
   }
@@ -101,6 +101,7 @@ export const getEndorsementChain = async (
       type: log.type,
       transactionHash: log.transactionHash,
       transactionIndex: log.transactionIndex,
+      blockNumber: log.blockNumber,
       owner: log.owner || previousBeneficiary || "",
       holder: log.holder || previousHolder || "",
       timestamp: timestamp,

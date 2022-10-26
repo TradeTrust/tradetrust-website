@@ -28,7 +28,6 @@ interface HistoryChain {
   action: ActionType;
   isNewBeneficiary: boolean;
   isNewHolder: boolean;
-  // documentOwner?: string;
   beneficiary?: string;
   holder?: string;
   timestamp?: number;
@@ -47,86 +46,50 @@ const AddressResolvedName: React.FunctionComponent<AddressResolvedNameProps> = (
 interface DetailsEntityProps {
   title: string;
   address: string;
-  // documentOwner: string;
 }
 
 const getHistoryChain = (endorsementChain?: EndorsementChain) => {
-  const historyChain: HistoryChain[] = [
-    // {
-    //   action: ActionType.INITIAL,
-    //   isNewBeneficiary: true,
-    //   isNewHolder: false,
-    // },
-  ];
-
-  // let previousBeneficiary = "";
-  // let previousHolder = "";
+  const historyChain: HistoryChain[] = [];
 
   endorsementChain?.forEach((endorsementChainEvent) => {
-    // const chain = endorsementChainEvent as TitleEscrowEvent;
-    // const documentOwner = endorsementChainEvent.owner;
     const beneficiary = endorsementChainEvent.owner;
     const holder = endorsementChainEvent.holder;
     const timestamp = endorsementChainEvent.timestamp;
     const hash = endorsementChainEvent.transactionHash;
-
-    // TRANSFER = "Transfer",
-    // SURRENDER = "Surrender",
-    // BURNT = "Burnt",
-    // SURRENDER_REJECTED = "Surrender Rejected",
-    // INITIAL = "Document Issued"
-
     switch (endorsementChainEvent.type) {
-      // case EventType.TRANSFER:
-      //   const timelineHolder = chain.holder || previousHolder;
-      //   const timelineBeneficiary = chain.beneficiary || previousBeneficiary || beneficiary;
-      //   const timestamp = chain.timestamp;
-      //   const isNewBeneficiary = timelineBeneficiary !== previousBeneficiary;
-      //   const isNewHolder = timelineHolder !== previousHolder;
-
-      // if (isNewBeneficiary && isNewHolder) {
       case "TRANSFER_OWNERS":
         historyChain.push({
           action: ActionType.NEW_OWNERS,
           isNewBeneficiary: true,
           isNewHolder: true,
-          // documentOwner,
           beneficiary,
           holder,
           timestamp,
           hash,
         });
         break;
-      // } else if (isNewBeneficiary) {
       case "TRANSFER_BENEFICIARY":
         historyChain.push({
           action: ActionType.ENDORSE,
           isNewBeneficiary: true,
           isNewHolder: false,
-          // documentOwner,
           beneficiary,
           holder,
           timestamp,
           hash,
         });
         break;
-      // } else if (isNewHolder) {
       case "TRANSFER_HOLDER":
         historyChain.push({
           action: ActionType.TRANSFER,
           isNewBeneficiary: false,
           isNewHolder: true,
-          // documentOwner,
           beneficiary,
           holder,
           timestamp,
           hash,
         });
         break;
-      // }
-      // previousHolder = timelineHolder;
-      // previousBeneficiary = timelineBeneficiary || "";
-
       case "SURRENDERED":
         historyChain.push({
           action: ActionType.SURRENDERED,
@@ -134,7 +97,6 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
           isNewHolder: false,
           timestamp,
         });
-        // not reassigning previousBeneficiary and previousHolder so that it takes the addresses from the point just before it was surrendered
         break;
       case "SURRENDER_ACCEPTED":
         historyChain.push({
@@ -150,20 +112,16 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
           isNewBeneficiary: true,
           isNewHolder: true,
           timestamp,
-          // documentOwner,
           beneficiary,
           holder: beneficiary,
           hash,
         });
-        // previousHolder = previousHolder;
-        // previousBeneficiary = previousBeneficiary;
         break;
       case "INITIAL":
         historyChain.push({
           action: ActionType.INITIAL,
           isNewBeneficiary: true,
           isNewHolder: true,
-          // documentOwner,
           beneficiary,
           holder,
           timestamp,
@@ -236,8 +194,6 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   pending,
 }) => {
   const historyChain = getHistoryChain(endorsementChain);
-
-  // console.log(historyChain);
 
   return (
     <div className="container my-8">

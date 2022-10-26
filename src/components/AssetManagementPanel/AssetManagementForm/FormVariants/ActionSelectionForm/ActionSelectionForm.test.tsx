@@ -18,7 +18,7 @@ const defaultProps = {
   onConnectToWallet: () => alert("Login to Metamask"),
   canChangeHolder: false,
   canEndorseBeneficiary: false,
-  canNominateBeneficiaryHolder: false,
+  canNominateBeneficiary: false,
   isSurrendered: false,
   canEndorseTransfer: false,
   isTitleEscrow: true,

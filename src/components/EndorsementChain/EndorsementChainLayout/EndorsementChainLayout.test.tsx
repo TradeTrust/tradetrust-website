@@ -10,161 +10,103 @@ const mockUseIdentifierResolver = useIdentifierResolver as jest.Mock;
 
 const initialEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Transfer",
-    beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    holderChangeEvents: [
-      {
-        blockNumber: 8282976,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594608110000,
-      },
-    ],
+    type: "INITIAL",
+    transactionHash: "0x1144cd45c4b9deae74a885d38bececeb1a3e194dbbcc3ef6f8c180f911ac0bb0",
+    transactionIndex: 104,
+    blockNumber: 7831157,
+    owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    timestamp: 1666694532000,
   },
 ];
 
 const transferHolderEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Transfer",
-    beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    holderChangeEvents: [
-      {
-        blockNumber: 8282976,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594608110000,
-      },
-      {
-        blockNumber: 8283034,
-        holder: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
-        timestamp: 1594608809000,
-      },
-    ],
+    type: "TRANSFER_HOLDER",
+    transactionHash: "0xe8621e14bb5237a741e716f01990e6b9e856020afa49cd600e4ec586a81b5765",
+    transactionIndex: 24,
+    blockNumber: 7835503,
+    owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    timestamp: 1666759236000,
   },
 ];
 
 const endorseBeneficiaryEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Transfer",
-    beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    holderChangeEvents: [
-      {
-        blockNumber: 8282976,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594608110000,
-      },
-    ],
-  },
-  {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Transfer",
-    beneficiary: "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e",
-    holderChangeEvents: [
-      {
-        blockNumber: 8282976,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594608809000,
-      },
-    ],
+    type: "TRANSFER_BENEFICIARY",
+    transactionHash: "0xaf4418d8acee750ac10fec640a3d3c1e3104c25400687483f5df534dbc420cc2",
+    transactionIndex: 30,
+    blockNumber: 7835628,
+    owner: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
+    holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    timestamp: 1666761060000,
   },
 ];
 
-const transferToWalletEndorsementChain: EndorsementChain = [
+const changeOwnersEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Transfer",
-    beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    holderChangeEvents: [
-      {
-        blockNumber: 8282976,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594608110000,
-      },
-    ],
-  },
-  {
-    documentOwner: "0xBee0875Ba8069ed5c48E6A670118EF1C6B1E7fC0",
-    eventType: "Transfer to Wallet",
-    beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    eventTimestamp: 1594609205000,
+    type: "TRANSFER_OWNERS",
+    transactionHash: "0x80da1fd7ae5c6e0a01155ad13097a531d74167aa5a04a47b9a38844146b4682f",
+    transactionIndex: 20,
+    blockNumber: 7835693,
+    owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    timestamp: 1666761996000,
   },
 ];
 
 const surrenderEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Transfer",
-    beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    holderChangeEvents: [
-      {
-        blockNumber: 8282976,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594608110000,
-      },
-    ],
-  },
-  {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Surrender",
-    eventTimestamp: 1594609205000,
+    type: "SURRENDERED",
+    transactionHash: "0x6782d845fe298cd79584a25466d1e2d9a3ff8d14591b4b424922709b7605f58e",
+    transactionIndex: 86,
+    blockNumber: 7835738,
+    owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    timestamp: 1666762656000,
   },
 ];
 
 const rejectSurrenderedEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Transfer",
-    beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    holderChangeEvents: [
-      {
-        blockNumber: 8282976,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594608110000,
-      },
-    ],
+    type: "SURRENDERED",
+    transactionHash: "0x6782d845fe298cd79584a25466d1e2d9a3ff8d14591b4b424922709b7605f58e",
+    transactionIndex: 86,
+    blockNumber: 7835738,
+    owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    timestamp: 1666762656000,
   },
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Surrender",
-    eventTimestamp: 1594609205000,
-  },
-  {
-    documentOwner: "0xd413cF518B7aE838fbd994a653Af350AF6f72379",
-    eventType: "Transfer",
-    beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    holderChangeEvents: [
-      {
-        blockNumber: 8283052,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594609306000,
-      },
-    ],
+    type: "SURRENDER_REJECTED",
+    transactionHash: "0x4668970e883841dab512dc53c63f05c7c7452e9876086c2838710cfd42286726",
+    transactionIndex: 59,
+    blockNumber: 7836089,
+    owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    timestamp: 1666767792000,
   },
 ];
 
 const acceptSurrenderedEndorsementChain: EndorsementChain = [
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Transfer",
-    beneficiary: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-    holderChangeEvents: [
-      {
-        blockNumber: 8282976,
-        holder: "0x6FFeD6E6591b808130a9b248fEA32101b5220eca",
-        timestamp: 1594608110000,
-      },
-    ],
+    type: "SURRENDERED",
+    transactionHash: "0xb30c0a48f5ebe6748b31f7f5f370b605eece7a093f950d7715f54ede2474fee7",
+    transactionIndex: 59,
+    blockNumber: 7836273,
+    owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
+    timestamp: 1666770456000,
   },
   {
-    documentOwner: "0x748938d2DEc5511A50F836ede82e2831cC4A7f80",
-    eventType: "Surrender",
-    eventTimestamp: 1594609205000,
-  },
-  {
-    documentOwner: "0x000000000000000000000000000000000000dEaD",
-    eventType: "Burnt",
-    eventTimestamp: 1594609405000,
+    type: "SURRENDER_ACCEPTED",
+    transactionHash: "0x497395d2d58837a3fe686a883eaaaa2675b3d8ad10479abec2184349f7d38cb4",
+    transactionIndex: 18,
+    blockNumber: 7836281,
+    owner: "0x0000000000000000000000000000000000000000",
+    holder: "0x0000000000000000000000000000000000000000",
+    timestamp: 1666770564000,
   },
 ];
 
@@ -182,7 +124,7 @@ describe("EndorsementChainLayout", () => {
     expect(screen.getAllByTestId("loader-skeleton")).toHaveLength(9);
   });
 
-  it("should render 'Endorse change of ownership' in initial endorsement chain after 'Document has been issued'", () => {
+  it("should render 'Document has been issued'", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
@@ -193,7 +135,12 @@ describe("EndorsementChainLayout", () => {
       />
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document has been issued");
-    expect(screen.getByTestId("row-event-1")).toHaveTextContent("Endorse change of ownership");
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent(
+      "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
+    );
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Owner")).toHaveTextContent(
+      "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
+    );
   });
 
   it("should render 'Transfer holdership' and new address of new holder when there is a change in holdership from previous holder", () => {
@@ -206,13 +153,13 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-2")).toHaveTextContent("Transfer holdership");
-    expect(within(screen.getByTestId("row-event-2")).getByTestId("row-event-Holder")).toHaveTextContent(
-      "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e"
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Transfer holdership");
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent(
+      "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
     );
   });
 
-  it("should render 'Endorse change of ownership' and new address of new beneficiary when there is a change in ownership from previous beneficiary (new title escrow created)", () => {
+  it("should render 'Endorse change of ownership' and new address of new beneficiary when there is a change in ownership from previous beneficiary", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
@@ -222,25 +169,28 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-2")).toHaveTextContent("Endorse change of ownership");
-    expect(within(screen.getByTestId("row-event-2")).getByTestId("row-event-Owner")).toHaveTextContent(
-      "0x8e87c7cEc2D4464119C937bfef3398ebb1d9452e"
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Endorse change of ownership");
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Owner")).toHaveTextContent(
+      "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7"
     );
   });
 
-  it("should render 'Transferred to wallet' and address of beneficiary when there is a change in ownership to the beneficiary's address", () => {
+  it("should render 'Change Owners' and address of beneficiary and Holder", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
         error={""}
         pending={false}
-        endorsementChain={transferToWalletEndorsementChain}
+        endorsementChain={changeOwnersEndorsementChain}
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-2")).toHaveTextContent("Transferred to wallet");
-    expect(within(screen.getByTestId("row-event-2")).getByTestId("row-event-Owner")).toHaveTextContent(
-      "0x6FFeD6E6591b808130a9b248fEA32101b5220eca"
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Change Owners");
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent(
+      "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
+    );
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Owner")).toHaveTextContent(
+      "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
     );
   });
 
@@ -254,7 +204,7 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-2")).toHaveTextContent("Document surrendered to issuer");
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document surrendered to issuer");
   });
 
   it("should render 'Surrender of document rejected' and addresses of previous beneficiary and holder when surrendered document is rejected by token registry", () => {
@@ -267,12 +217,13 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-3")).toHaveTextContent("Surrender of document rejected");
-    expect(within(screen.getByTestId("row-event-3")).getByTestId("row-event-Owner")).toHaveTextContent(
-      "0x6FFeD6E6591b808130a9b248fEA32101b5220eca"
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document surrendered to issuer");
+    expect(screen.getByTestId("row-event-1")).toHaveTextContent("Surrender of document rejected");
+    expect(within(screen.getByTestId("row-event-1")).getByTestId("row-event-Owner")).toHaveTextContent(
+      "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
     );
-    expect(within(screen.getByTestId("row-event-3")).getByTestId("row-event-Holder")).toHaveTextContent(
-      "0x6FFeD6E6591b808130a9b248fEA32101b5220eca"
+    expect(within(screen.getByTestId("row-event-1")).getByTestId("row-event-Holder")).toHaveTextContent(
+      "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
     );
   });
 
@@ -286,7 +237,8 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-3")).toHaveTextContent("Surrender of document accepted");
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document surrendered to issuer");
+    expect(screen.getByTestId("row-event-1")).toHaveTextContent("Surrender of document accepted");
   });
 
   it("should fire setShowEndorsementChain when back button is clicked", async () => {
