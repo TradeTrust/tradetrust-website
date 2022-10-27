@@ -78,12 +78,12 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, pe
             <h4 className="text-center mt-8">{endMessage}</h4>
           </div>
           <Link
-            to="/demo"
+            to="/contact"
             className="px-4 py-2 mx-auto mt-8 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-cloud-100"
             onClick={handleCloseOverlay}
             data-testid={`get-in-touch-${personaIndex}`}
           >
-            <h3 className="font-normal text-2xl text-center">Try Our Demo Now</h3>
+            <h3 className="font-normal text-2xl text-center">Contact Us Now</h3>
           </Link>
         </div>
       </OverlayContent>

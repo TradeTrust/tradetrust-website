@@ -24,10 +24,9 @@ import { Guidelines } from "./pages/guidelines";
 
 const renderViewer = (): React.ReactElement => <ViewerPage />;
 const renderMagicViewer = (): React.ReactElement => <ViewerPage isMagicDemo />;
-export const routes: RouteInterface[] = [
-  { path: "/", exact: true, component: HomePage },
-  { path: "/verify", exact: true, component: VerifyPage },
-  { path: "/viewer", exact: true, render: renderViewer },
+// HOT FIX (Temp removal of magic demo until we might decide to kill it)
+// eslint-disable-next-line
+const demoRoutes = [
   { path: "/demo", exact: true, component: DemoPage },
   {
     path: "/demo/create",
@@ -42,6 +41,11 @@ export const routes: RouteInterface[] = [
     render: renderMagicViewer,
     privateRoute: true,
   },
+];
+export const routes: RouteInterface[] = [
+  { path: "/", exact: true, component: HomePage },
+  { path: "/verify", exact: true, component: VerifyPage },
+  { path: "/viewer", exact: true, render: renderViewer },
   { path: "/faq", exact: true, component: FaqPage },
   { path: "/faq/general-faq", exact: true, component: FaqPageDetail },
   { path: "/faq/product-faq", exact: true, component: FaqPageDetail },
