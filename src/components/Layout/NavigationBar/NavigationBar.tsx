@@ -13,17 +13,18 @@ import { URLS } from "../../../constants";
 const sharedStyles = "block w-full px-4 py-3 text-cloud-500";
 
 export const leftNavItems: NavigationItem[] = [
-  {
-    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
-    id: "demo",
-    label: "Demo",
-    path: "/demo",
-    customLink: (
-      <NavLink activeClassName="text-cerulean-500" className="block w-full text-current" to={"/demo"}>
-        Demo
-      </NavLink>
-    ),
-  },
+  // HOT FIX (remove magic demo until a more concrete business decision can be made)
+  // {
+  //   schema: NAVIGATION_ITEM_TYPE.NavigationLink,
+  //   id: "demo",
+  //   label: "Demo",
+  //   path: "/demo",
+  //   customLink: (
+  //     <NavLink activeClassName="text-cerulean-500" className="block w-full text-current" to={"/demo"}>
+  //       Demo
+  //     </NavLink>
+  //   ),
+  // },
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationDropDownList,
     id: "resources",

@@ -22,8 +22,10 @@ import { useProviderContext } from "../common/contexts/provider";
 
 const { trace } = getLogger("component: certificateviewer");
 
-const renderBanner = (isSample: boolean, isMagic: boolean | undefined) => {
-  const props = isSample
+// HOT FIX remove magic demo temporarily until a decision is made to kill it or continue it
+// eslint-disable-next-line
+const getTempProps = (isSample: boolean) => {
+  return isSample
     ? {
         to: "/demo",
         buttonText: "Try our demo now",
@@ -34,6 +36,14 @@ const renderBanner = (isSample: boolean, isMagic: boolean | undefined) => {
         buttonText: "Contact us now",
         title: "Ready to learn how TradeTrust can benefit your business?",
       };
+};
+
+const renderBanner = (isSample: boolean, isMagic: boolean | undefined) => {
+  const props = {
+    to: "/contact",
+    buttonText: "Contact us now",
+    title: "Ready to learn how TradeTrust can benefit your business?",
+  };
   if (isSample || isMagic) {
     return <Banner className="mt-8" {...props} />;
   } else {

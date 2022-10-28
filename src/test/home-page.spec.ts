@@ -97,8 +97,9 @@ test("Render home page", async (t) => {
   await t.click(OverlayCloseButton);
 
   // display Get In Touch button and test for Try our Demo
+  // Change to Contact temporarily due to disabling magic demo
   await t.expect(GetInTouchButton.count).eql(1);
   await t.click(GetInTouchButton);
   const element = await Selector("[data-testid='page-title']");
-  await t.expect(element.textContent).contains("Demo");
+  await t.expect(element.textContent).contains("Contact");
 });

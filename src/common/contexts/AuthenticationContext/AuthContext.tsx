@@ -36,19 +36,20 @@ export const AuthProvider: any = ({ children }: { children: ReactChildren }) => 
     setIsLoggedIn(false);
   };
 
-  React.useLayoutEffect(() => {
-    // eagerly check if user is already logged in
-    const execute = async () => {
-      // needs error handling here
-      const status = await magic.user.isLoggedIn();
-      if (status) {
-        // if logged in, then immediate upgrade to magic signer.
-        await upgradeToMagicSigner();
-      }
-      setIsLoggedIn(status);
-    };
-    execute();
-  }, [upgradeToMagicSigner]);
+  // HOT FIX (removal of magic demo until we make a decision whether to kill it or not)
+  // React.useLayoutEffect(() => {
+  //   // eagerly check if user is already logged in
+  //   const execute = async () => {
+  //     // needs error handling here
+  //     const status = await magic.user.isLoggedIn();
+  //     if (status) {
+  //       // if logged in, then immediate upgrade to magic signer.
+  //       await upgradeToMagicSigner();
+  //     }
+  //     setIsLoggedIn(status);
+  //   };
+  //   execute();
+  // }, [upgradeToMagicSigner]);
 
   return <AuthContext.Provider value={{ isLoggedIn, login, logout }}>{children}</AuthContext.Provider>;
 };
