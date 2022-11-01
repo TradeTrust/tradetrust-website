@@ -19,5 +19,6 @@ slides:
     buttonDownload:
       label: Download Now
       file: /static/uploads/white-paper-verifiable-credentials-CBT.pdf
+      filename: white-paper-verifiable-credentials-CBT.pdf
     backgroundImage: /static/uploads/home-whitepaper.png
 ---
