@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper";
 import { Youtube, Button, ButtonSize } from "@govtechsg/tradetrust-ui-components";
+import ReactMarkdown from "react-markdown";
 import { ButtonVideo } from "../ButtonVideo";
 
 import "swiper/swiper.min.css";
@@ -65,7 +66,12 @@ export const Carousel: FunctionComponent<CarouselProps> = ({ slides }) => {
                     <h1 className="my-2 font-ubuntu text-6xl leading-none">{title}</h1>
                     <div className="md:w-[85%]">
                       {subheader && <h3 className="my-4">{subheader}</h3>}
-                      <p className="my-4 text-base leading-5">{description}</p>
+                      <ReactMarkdown
+                        className="my-4 text-base leading-5"
+                        components={{ p: ({ ...props }) => <p className={"mb-2 break-word"} {...props} /> }}
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   </div>
                   {hasCta && (
