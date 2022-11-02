@@ -24,19 +24,18 @@ const ChangeOwnershipAction = Selector("[data-testid='action-title']").withText(
 const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("Document surrendered to issuer");
 const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("Surrender of document accepted");
 
-  // history chain of events for ebl-endorsement-chain.json are:
-  // 1. issued
-  // 2. nominate beneficiary + change owners
-  // 3. nominate beneficiary + change beneficiary
-  // 4. transfer holder
-  // 5. nominate beneficiary + change owners
-  // 6. surrender
-  // 7. accept surrender
+// history chain of events for ebl-endorsement-chain.json are:
+// 1. issued
+// 2. nominate beneficiary + change owners
+// 3. nominate beneficiary + change beneficiary
+// 4. transfer holder
+// 5. nominate beneficiary + change owners
+// 6. surrender
+// 7. accept surrender
 
 test("Endorsement chain title and actions are rendered correctly", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/goerli/v4/ebl-endorsement-chain.json");
-  
 
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
   await t.wait(3000);
@@ -53,7 +52,7 @@ test("Endorsement chain title and actions are rendered correctly", async (t) => 
   await t.expect(EndorsementChainAddress2.count).eql(2);
 
   await t.expect(DocumentIssuedAction.count).eql(1);
-  
+
   await t.expect(EndorseNomineeAction.count).eql(1);
   await t.expect(ChangeOwnershipAction.count).eql(2);
   await t.expect(TransferHoldershipAction.count).eql(1);
