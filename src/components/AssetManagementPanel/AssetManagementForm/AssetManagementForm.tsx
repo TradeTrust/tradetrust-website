@@ -77,10 +77,10 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   const isBeneficiary = isTitleEscrow && account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
   /*
-    In order for surrender we need to check 3 conditions
+    In order to surrender we need to check 3 conditions
     - document is surrendered
     - documentOwner is the tokenRegistry
-    -  currentUser === tokenRegistryMinter
+    - currentUser === tokenRegistryMinter
   */
   const canHandleSurrender =
     isSurrendered && isTitleEscrow === false && documentOwner === tokenRegistryAddress && isMinter;
@@ -92,13 +92,13 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   // function transferHolder(address newHolder) external;
   // onlyHolder, current holder not new holder
 
-  // function transferOwners(address beneficiaryNominee, address newHolder) external;
-  // onlyHolder
-  // transferBeneficiary
-
   // canNominateBeneficiary
   // function nominate(address beneficiaryNominee) external;
-  // Must be beneficiary, current beneficiary cannot dominate self
+  // Must be beneficiary, current beneficiary cannot nominate self
+
+  // function transferOwners(address beneficiaryNominee, address newHolder) external;
+  // transferHolder
+  // transferBeneficiary
 
   const canNominateBeneficiary = isTitleEscrow && isBeneficiary; // Must be beneficiary, current beneficiary cannot nominate self
   const hasNominee = !!approvedBeneficiary && approvedBeneficiary !== "0x0000000000000000000000000000000000000000";
