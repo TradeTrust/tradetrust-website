@@ -1,12 +1,16 @@
 import { utils } from "@govtechsg/open-attestation";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useProviderContext } from "../common/contexts/provider";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
-import { resetCertificateState, updateCertificate } from "../reducers/certificate";
 import { RootState } from "../reducers";
-import { getLogger } from "../utils/logger";
+import { resetCertificateState, updateCertificate } from "../reducers/certificate";
+import { resetDemoState } from "../reducers/demo-verify";
 import { TemplateProps } from "../types";
+import { getLogger } from "../utils/logger";
+import { getAttachments, getTokenRegistryAddress, WrappedOrSignedOpenAttestationDocument } from "../utils/shared";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
+import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentStatus } from "./DocumentStatus";
@@ -15,10 +19,6 @@ import { EndorsementChainContainer } from "./EndorsementChain";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
-import { WrappedOrSignedOpenAttestationDocument, getAttachments, getTokenRegistryAddress } from "../utils/shared";
-import { resetDemoState } from "../reducers/demo-verify";
-import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
-import { useProviderContext } from "../common/contexts/provider";
 
 const { trace } = getLogger("component: certificateviewer");
 
@@ -88,7 +88,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const { currentChainId } = useProviderContext();
 
   /*  Update the certificate when network is changed UNLESS:
-  - it is Magic Demo certificate, as the network does not change for it (fixed at Ropsten).
+  - it is Magic Demo certificate, as the network does not change for it (fixed at Goerli).
   - it is Sample certificate, as it is already updated when user changed network from network selector dropdown provided by website UI (not the metamask extension network selector)
    */
   useEffect(() => {

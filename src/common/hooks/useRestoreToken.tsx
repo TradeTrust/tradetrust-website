@@ -1,11 +1,11 @@
-import { useState, useCallback, useEffect } from "react";
 import { ContractFunctionState } from "@govtechsg/ethers-contract-hook";
-import { getLogger } from "../../utils/logger";
-import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
+import { getTitleEscrowCreatorAddress, TitleEscrowCreatorFactory, TitleEscrowFactory } from "@govtechsg/token-registry";
 import { TitleEscrowCreator } from "@govtechsg/token-registry/dist/ts/contracts/TitleEscrowCreator";
-import { TitleEscrowCreatorFactory, getTitleEscrowCreatorAddress, TitleEscrowFactory } from "@govtechsg/token-registry";
+import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
 import { ContractReceipt, providers, Signer } from "ethers";
+import { useCallback, useEffect, useState } from "react";
 import { NETWORK } from "../../config";
+import { getLogger } from "../../utils/logger";
 import { UnsupportedNetworkError } from "../errors";
 
 const { error: errorLogger } = getLogger("services:userestoretoken");
@@ -14,12 +14,10 @@ const { error: errorLogger } = getLogger("services:userestoretoken");
 export const getTitleEscrowCreator = async (provider: providers.Provider): Promise<TitleEscrowCreator> => {
   let creatorContractAddress;
   switch (NETWORK) {
-    case "ropsten":
-      creatorContractAddress = getTitleEscrowCreatorAddress(3);
+    case "goerli":
+      creatorContractAddress = "0x3906daFc722089A8eb3D07D833CDE3C84629FF52";
       break;
-    case "rinkeby":
-      creatorContractAddress = getTitleEscrowCreatorAddress(4);
-      break;
+
     default:
       creatorContractAddress = getTitleEscrowCreatorAddress(1);
       break;
