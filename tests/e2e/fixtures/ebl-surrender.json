@@ -1,31 +1,61 @@
 {
-  "version": "https://schema.openattestation.com/2.0/schema.json",
-  "data": {
-    "shipper": { "address": {} },
-    "consignee": {},
-    "notifyParty": {},
-    "$template": {
-      "type": "8be6804f-a1f7-47d6-a5cf-b7075cdc3913:string:EMBEDDED_RENDERER",
-      "name": "143a69d0-3f1f-4d67-875b-975ee00042ad:string:BILL_OF_LADING",
-      "url": "fad44103-cdcf-4554-aabe-14a86213d007:string:https://demo-cnm.openattestation.com"
+    "version": "https://schema.openattestation.com/3.0/schema.json",
+    "network": {
+        "chain": "ETH",
+        "chainId": "1337"
     },
-    "issuers": [
-      {
-        "identityProof": {
-          "type": "720dc855-be70-4557-ad6a-1c7fc834ad08:string:DNS-TXT",
-          "location": "7668866a-a395-4ed1-b6d0-f287c9eb7f49:string:demo-tradetrust.openattestation.com"
+    "credentialSubject": {
+        "shipper": {
+            "address": {}
         },
-        "name": "4725e080-e247-4250-803c-038eeae99a7e:string:DEMO STORE",
-        "tokenRegistry": "afee4c8b-095f-47fa-b168-9dd1eece3f6a:string:0x9Eb613a88534E2939518f4ffBFE65F5969b491FF"
-      }
+        "consignee": {},
+        "notifyParty": {},
+        "blNumber": "112",
+        "scac": "SGSG"
+    },
+    "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json",
+        "https://schemata.openattestation.com/io/tradetrust/bill-of-lading/1.0/bill-of-lading-context.json"
     ],
-    "name": "c931aafa-d066-47ed-8b47-f8c488cc61d8:string:Maersk Bill of Lading",
-    "blNumber": "fcb0545d-9533-46ca-9b4f-5fb3bc41fc23:string:111"
-  },
-  "signature": {
-    "type": "SHA3MerkleProof",
-    "targetHash": "877a638bdd8d09f415efc2ce1fc1adc41e979e50739145939f0be2a478a340b9",
-    "proof": [],
-    "merkleRoot": "877a638bdd8d09f415efc2ce1fc1adc41e979e50739145939f0be2a478a340b9"
-  }
+    "type": [
+        "VerifiableCredential",
+        "OpenAttestationCredential"
+    ],
+    "issuanceDate": "2010-01-01T19:23:24Z",
+    "openAttestationMetadata": {
+        "template": {
+            "type": "EMBEDDED_RENDERER",
+            "name": "BILL_OF_LADING",
+            "url": "https://generic-templates.tradetrust.io"
+        },
+        "proof": {
+            "type": "OpenAttestationProofMethod",
+            "method": "TOKEN_REGISTRY",
+            "value": "0x9E1b69b5ceA6bD860b55dBE3adbF6CDEfcF5DDb1",
+            "revocation": {
+                "type": "NONE"
+            }
+        },
+        "identityProof": {
+            "type": "DNS-TXT",
+            "identifier": "demo-tradetrust.openattestation.com"
+        }
+    },
+    "issuer": {
+        "id": "https://example.com",
+        "name": "DEMO TOKEN REGISTRY",
+        "type": "OpenAttestationIssuer"
+    },
+    "proof": {
+        "type": "OpenAttestationMerkleProofSignature2018",
+        "proofPurpose": "assertionMethod",
+        "targetHash": "ec7e1e3bc099266d73f421b6c97892e380ac052affce0dc1e9ceca08e756864a",
+        "proofs": [],
+        "merkleRoot": "ec7e1e3bc099266d73f421b6c97892e380ac052affce0dc1e9ceca08e756864a",
+        "salts": "W3sidmFsdWUiOiJkNzNiM2M3Mzg2YzIwMjgyYjMyMWRhODZkMmJiZWM2YmZhMTY4OTM5YmFiZGIwYWRkYTgyN2Y3ZGM3MDVjZjI1IiwicGF0aCI6InZlcnNpb24ifSx7InZhbHVlIjoiMTk3MTkwZDMwZWMxMTc5YjE2N2I5MTU4N2ZmOGNlMDE3ODFjYzRjNGRhMzI2NTcxOWIwYjFkNTY0ODI4ZDI2MCIsInBhdGgiOiJuZXR3b3JrLmNoYWluIn0seyJ2YWx1ZSI6Ijk3ODc2M2JkYjE1YTEyYWQ3YjIxMzJhOTczOTUxZDYwNzQ1M2IyZGM1NWNiNDcxMjdiODA4YzYzOTZiMGIyOTQiLCJwYXRoIjoibmV0d29yay5jaGFpbklkIn0seyJ2YWx1ZSI6ImY2MDgzMTdiMDU0YzVlOGJmYzIwNTMzYTVjZmEyYmQ4YWIzYmNmNDFhYmVhNWFmZjBkZDY0YjM4ZmViMTgyZmQiLCJwYXRoIjoiY3JlZGVudGlhbFN1YmplY3QuYmxOdW1iZXIifSx7InZhbHVlIjoiODUzZDM3OTE3ODhhMmE4YzYxODBmNzg3NGFjY2RhY2Y2MzI5MGY2NTFhOWVmNDE4MmM2YTM2NmJiMmUwMzBkZCIsInBhdGgiOiJjcmVkZW50aWFsU3ViamVjdC5zY2FjIn0seyJ2YWx1ZSI6IjBhOWM2ZDg5M2QwMzA0MWZlZGQ4MjRmZmFiNjBkZmE2ODRmOTQxZTk2MTE3MGRmOTQzZWI3OTIyZDExZjBkMDIiLCJwYXRoIjoiQGNvbnRleHRbMF0ifSx7InZhbHVlIjoiMmNiOTcxYzExNGVhZjNlOGQ2NGRjNTE5NmY3OTc1NWU3MzE4NDIyNzFmNmU1NjNjOWRiYjgwYTJlMWRkM2YxYiIsInBhdGgiOiJAY29udGV4dFsxXSJ9LHsidmFsdWUiOiI1YzkxMWVjODQzN2Y2OWQ0MTZhMDNiNTk4OGI4MmU4YWMxZmRjNzg4MmVmMjlmNzU4MzVlYmUyY2JlMmRlODZiIiwicGF0aCI6IkBjb250ZXh0WzJdIn0seyJ2YWx1ZSI6IjkwYzAwMGFmMzM3MjBjOTJhMjNkZGJhOTIwMzJiNTQ3MDVhZWJkYjc3ZDFjNmM5OTZjZjgyMTI5ZjZkYTg2MjIiLCJwYXRoIjoidHlwZVswXSJ9LHsidmFsdWUiOiI5MjEzMTRmMTUxMWI5OTQ2MjExM2RlOTM4YmQxOGVhZWRkNmE2NzlhNTM2MDJlMjcyZWY4NTU4MjVhNmI0YTUyIiwicGF0aCI6InR5cGVbMV0ifSx7InZhbHVlIjoiYTkwNjZjZmZlMjg2NzllMTc3OTNhZWU0ZWZjZTBlNmMyODVmZDUwYzI2OTgzZTVlNDkwYTJhNzRlOGEyZmRkNCIsInBhdGgiOiJpc3N1YW5jZURhdGUifSx7InZhbHVlIjoiMGY1ZWYwNWVlMDM4NmFhNzFmZjhiMjhmZTIzZWRmZmMxNTFjYTIyZGU5NzdhZDJlNmJkZGIxZmQwMWNkZDdlYiIsInBhdGgiOiJvcGVuQXR0ZXN0YXRpb25NZXRhZGF0YS50ZW1wbGF0ZS50eXBlIn0seyJ2YWx1ZSI6IjkxY2Y4OGRkNGU4NGJhODhjNWRmNDg2NTU1YjM4YjNkNjIwMGVlYTY2MDFlOTgxODczMzczMmZlNjI1YWQwZGUiLCJwYXRoIjoib3BlbkF0dGVzdGF0aW9uTWV0YWRhdGEudGVtcGxhdGUubmFtZSJ9LHsidmFsdWUiOiIwZDBjYTBjYmRlZmYyZDc2ZDc2ZWZlN2I2NTM4ZmUxYTcyMGEwNDI5YWUxODlhZGJhZGQxY2M0Y2M2MWE5ODljIiwicGF0aCI6Im9wZW5BdHRlc3RhdGlvbk1ldGFkYXRhLnRlbXBsYXRlLnVybCJ9LHsidmFsdWUiOiIwMjI2Yzg3ODU3MDk2ZDFjYTIwYmMyZGVkZjkxODNiMThjZGM2ZjA3ZTcyZTRlNWQ4YmY5YTc2NzhmOTMzYzQ2IiwicGF0aCI6Im9wZW5BdHRlc3RhdGlvbk1ldGFkYXRhLnByb29mLnR5cGUifSx7InZhbHVlIjoiODc3ZTk3Mzk5NjRiMTUxMGIzODkxMjI5ZWI0MjNkZTUzNmJlMzVlNmQzN2ZkOGZmOGIyMDRiYTA1M2NlMDhhOSIsInBhdGgiOiJvcGVuQXR0ZXN0YXRpb25NZXRhZGF0YS5wcm9vZi5tZXRob2QifSx7InZhbHVlIjoiMjJmMGZjZWY4ZDQyYWU5N2UwMmExYzM0ODUyMTQ5ZWNkNmI0YTZjYTBkYjBlMzM1OGU0MjQ4MjA1NjU2YTNkNSIsInBhdGgiOiJvcGVuQXR0ZXN0YXRpb25NZXRhZGF0YS5wcm9vZi52YWx1ZSJ9LHsidmFsdWUiOiI4N2U3YWZhMmVlZTU5MDQ4MDU4ZTg4MTA4N2E4ZWI5ZjkzYzQ2ODFkNmRlODliNjM4YWU5N2U5ZDgxYzZhZjY1IiwicGF0aCI6Im9wZW5BdHRlc3RhdGlvbk1ldGFkYXRhLnByb29mLnJldm9jYXRpb24udHlwZSJ9LHsidmFsdWUiOiIzMWJhNmU1ODhmZTY3ZTM3NTg1YjQ5ZDY3MTFhNDZjNzE3YTdjM2VkZWYxZDc3MDBkMDFlZWZmNzg2MzQ5ODcxIiwicGF0aCI6Im9wZW5BdHRlc3RhdGlvbk1ldGFkYXRhLmlkZW50aXR5UHJvb2YudHlwZSJ9LHsidmFsdWUiOiJjNmIyMjZhNTNmNGNkNDgzNTdkNWQ1YTYyNmU5ODI4ZTIzYTRkODczMjQ2NDRiYmY2MWJlOWEzZjZiM2M0NzVkIiwicGF0aCI6Im9wZW5BdHRlc3RhdGlvbk1ldGFkYXRhLmlkZW50aXR5UHJvb2YuaWRlbnRpZmllciJ9LHsidmFsdWUiOiI0M2M2YWFmY2E4NWJjN2JiYjRlZTdmM2Y5ZjEwYTMwNWMwNTA5ZDY2NDljYTQxOGE2MGEyMzUyOTkzYTMyNmMwIiwicGF0aCI6Imlzc3Vlci5pZCJ9LHsidmFsdWUiOiJkMzcwNWI4NWZkOWNhNjQzOWViYzE1MmRmYmUzNmViMzY2MjkzYzI1MDI1M2I1NWM3ZjNkMzAzM2I5NDYyZGMyIiwicGF0aCI6Imlzc3Vlci5uYW1lIn0seyJ2YWx1ZSI6ImI0ZjllMjcyNDkzMGE5OTVhNWZkZGJlNmRhMDA1YjVmOGI1NjliMzI2NDI3MDdhNDBkNjdkY2I3ZGYzZWUyNDEiLCJwYXRoIjoiaXNzdWVyLnR5cGUifV0=",
+        "privacy": {
+            "obfuscated": []
+        }
+    }
 }
