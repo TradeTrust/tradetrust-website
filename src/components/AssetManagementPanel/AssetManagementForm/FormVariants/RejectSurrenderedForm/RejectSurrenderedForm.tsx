@@ -37,10 +37,15 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
   restoreTokenState,
 }) => {
   const { showOverlay } = useContext(OverlayContext);
-  const { endorsementChain, pending } = useEndorsementChain(tokenRegistryAddress, tokenId);
+  let lastBeneficiary = "Loading...";
 
-  const lastTransferEvent = endorsementChain?.reverse()[0] as TransferEvent;
-  const lastBeneficiary = lastTransferEvent?.owner;
+  const { endorsementChain, pending } = useEndorsementChain(tokenRegistryAddress, tokenId);
+  try {
+    const lastTransferEvent = endorsementChain?.reverse()[0] as TransferEvent;
+    lastBeneficiary = lastTransferEvent?.owner;
+  } catch (e) {
+    console.error(e);
+  }
 
   const isRestoreTokenPendingConfirmation = restoreTokenState === FormState.PENDING_CONFIRMATION;
   const isRestoreTokenConfirmed = restoreTokenState === FormState.CONFIRMED;
@@ -49,8 +54,8 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
     showOverlay(
       showDocumentTransferMessage(MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT, {
         isSuccess: true,
-        beneficiaryAddress: lastBeneficiary || "Loading...",
-        holderAddress: lastBeneficiary || "Loading...",
+        beneficiaryAddress: lastBeneficiary,
+        holderAddress: lastBeneficiary,
         isConfirmationMessage: true,
         onConfirmationAction: () => handleRestoreToken(),
       })
