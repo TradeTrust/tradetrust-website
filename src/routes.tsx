@@ -1,26 +1,28 @@
 import React from "react";
-import { EmailSuccessPage } from "./pages/emailSuccess";
-import { EmailErrorPage } from "./pages/emailError";
-import { FaqPage } from "./pages/faq";
-import { FaqPageDetail } from "./pages/faqDetail";
-import { EtaPage } from "./pages/eta";
-import VerifyPage from "./pages/verify";
-import { HomePage } from "./pages/home";
-import { NewsPage } from "./pages/news";
-import { NewsPageDetail } from "./pages/newsDetail";
-import { LearnPage } from "./pages/learn";
-import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
-import { ViewerPage } from "./pages/viewer";
+import { Route, Switch } from "react-router-dom";
+import { PrivateRoute } from "./components/PrivateRoute";
 import { ContactPage } from "./pages/contact";
+import { DemoPage } from "./pages/demo";
+import { DemoCreatePage } from "./pages/demoCreate";
+import { DemoVerifyPage } from "./pages/demoVerify";
+import { EmailErrorPage } from "./pages/emailError";
+import { EmailSuccessPage } from "./pages/emailSuccess";
+import { EtaPage } from "./pages/eta";
 import { EventPage } from "./pages/event";
 import { EventPageDetail } from "./pages/event/eventDetail";
-import { PrivateRoute } from "./components/PrivateRoute";
-import { Route, Switch } from "react-router-dom";
-import { DemoPage } from "./pages/demo";
-import { DemoVerifyPage } from "./pages/demoVerify";
-import { DemoCreatePage } from "./pages/demoCreate";
-import { PageNotFound } from "./pages/pageNotFound";
+import { FaqPage } from "./pages/faq";
+import { FaqPageDetail } from "./pages/faqDetail";
 import { Guidelines } from "./pages/guidelines";
+import { HomePage } from "./pages/home";
+import { LearnPage } from "./pages/learn";
+import { NewsPage } from "./pages/news";
+import { NewsPageDetail } from "./pages/newsDetail";
+import { PageNotFound } from "./pages/pageNotFound";
+import { PrivacyPolicyPage } from "./pages/privacyPolicy";
+import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
+import { TermsOfUsePage } from "./pages/termsOfUse";
+import VerifyPage from "./pages/verify";
+import { ViewerPage } from "./pages/viewer";
 
 const renderViewer = (): React.ReactElement => <ViewerPage />;
 const renderMagicViewer = (): React.ReactElement => <ViewerPage isMagicDemo />;
@@ -62,6 +64,8 @@ export const routes: RouteInterface[] = [
   { path: "/event/:slug", exact: true, component: EventPageDetail },
   { path: "/contact", exact: true, component: ContactPage },
   { path: "/guidelines", exact: true, component: Guidelines },
+  { path: "/privacy-policy", exact: true, component: PrivacyPolicyPage },
+  { path: "/terms-of-use", exact: true, component: TermsOfUsePage },
   { path: "*", component: PageNotFound },
 ];
 export interface RouteInterface {
