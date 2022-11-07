@@ -1,7 +1,7 @@
 import { AddressBook, BackArrow } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 export const SettingsAddressBookPage: FunctionComponent = () => (
   <>
@@ -20,7 +20,7 @@ export const SettingsAddressBookPage: FunctionComponent = () => (
         <h2 className="text-cloud-800">Address Book</h2>
         <p className="mb-5 text-cloud-800">Please select an address book to view. </p>
       </div>
-      <AddressBook className="py-6" network="ropsten" />
+      <AddressBook className="py-6" network="goerli" />
     </div>
   </>
 );

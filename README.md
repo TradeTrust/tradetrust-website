@@ -30,9 +30,9 @@ npm run dev
 
 ### Environmental Variables
 
-`NET` is used for setting the default network, setting it to `mainnet` uses the public Ethereum network. If it is not set it defaults to Ropsten testnet.
-It can also take any network names that Ethers.JS supports, such as `rinkeby`, `kovan`, etc.
-However do note that there are only drag & drop demo files provided for main net and ropsten.
+`NET` is used for setting the default network, setting it to `mainnet` uses the public Ethereum network. If it is not set it defaults to Goerli testnet.
+It can also take any network names that Ethers.JS supports, such as `sepolia`, `maticmum`, etc.
+However do note that there are only drag & drop demo files provided for main net, goerli, sepolia and polygon mumbai.
 
 E.g:
 
@@ -43,7 +43,7 @@ NET=mainnet npm run dev
 or
 
 ```bash
-NET=rinkeby npm run dev
+NET=goerli npm run dev
 ```
 
 ### Troubleshooting
@@ -97,22 +97,25 @@ Try running `npm rebuild`
 
 `npm run integration:single <path>`, for the path, you can copy paste relative path via text editor.
 
- ### Running single integration test (synpress)
- - Go to package.json
- - Under scripts `integration:synpress`, add a `-s <path>`, for the path should look something like: i.e.`tests/e2e/spec/test.spec.js`
- - then add this code to initialise the metamask with account 2:
- ```
- it("should import account 2 and connect all metamask wallets to dapp", () => {
-    cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879").should("be.true");
-    cy.switchMetamaskAccount(1).should("be.true");
+### Running single integration test (synpress)
 
-    cy.connectWallet();
-    cy.acceptMetamaskAccess(true).should("be.true");
-  });
- ```
- - Run `npm run integration:headful`
+- Go to package.json
+- Under scripts `integration:synpress`, add a `-s <path>`, for the path should look something like: i.e.`tests/e2e/spec/test.spec.js`
+- then add this code to initialise the metamask with account 2:
 
-*remove step 2 and 3 once test is done, and check all test cases passes before pushing to github*
+```
+it("should import account 2 and connect all metamask wallets to dapp", () => {
+   cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879").should("be.true");
+   cy.switchMetamaskAccount(1).should("be.true");
+
+   cy.connectWallet();
+   cy.acceptMetamaskAccess(true).should("be.true");
+ });
+```
+
+- Run `npm run integration:headful`
+
+_remove step 2 and 3 once test is done, and check all test cases passes before pushing to github_
 
 ### Managing Netlify CMS
 
