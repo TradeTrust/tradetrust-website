@@ -1,13 +1,13 @@
 import {
-  verificationBuilder,
-  openAttestationVerifiers,
-  openAttestationDidIdentityProof,
-  VerificationFragment,
   DocumentsToVerify,
+  openAttestationDidIdentityProof,
+  openAttestationVerifiers,
+  verificationBuilder,
+  VerificationFragment,
 } from "@govtechsg/oa-verify";
 import { providers } from "ethers";
-import { NETWORK_NAME } from "../../config";
 import { getCurrentProvider } from "../../common/contexts/provider";
+import { NETWORK_NAME } from "../../config";
 
 export enum VerifierType {
   DEMO = "demo",
@@ -24,7 +24,7 @@ const customVerifier = (provider: providers.Provider | undefined) =>
   verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof], verificationOption(provider));
 
 const demoVerifier = verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof], {
-  network: "ropsten",
+  network: "goerli",
 });
 
 export const verifyDocument = async (

@@ -23,8 +23,6 @@ export enum ChainId {
   Ethereum = 1,
 
   // Ethereum Testnet
-  Ropsten = 3,
-  Rinkeby = 4,
   Goerli = 5,
   Sepolia = 11155111,
 
@@ -49,23 +47,6 @@ export const ChainInfo: ChainInfo = {
     networkName: "homestead",
     networkLabel: "Ethereum",
     explorerUrl: "https://etherscan.io",
-  },
-  [ChainId.Ropsten]: {
-    label: "Ropsten",
-    chainId: ChainId.Ropsten,
-    iconImage: "/static/images/networks/ethereum.gif",
-    networkName: "ropsten",
-    networkLabel: "Ropsten",
-    explorerUrl: "https://ropsten.etherscan.io",
-  },
-  [ChainId.Rinkeby]: {
-    label: "Rinkeby",
-    chainId: ChainId.Rinkeby,
-    iconImage: "/static/images/networks/ethereum.gif",
-    networkName: "rinkeby",
-    networkLabel: "Rinkeby",
-    explorerUrl: "https://rinkeby.etherscan.io",
-    rpcUrl: "https://eth-rinkeby-rpc.gateway.pokt.network",
   },
   [ChainId.Goerli]: {
     label: "Goerli",

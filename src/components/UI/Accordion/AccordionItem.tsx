@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { addClassNameIfExist } from "../../../utils";
 
-type headingTag = "h3" | "h5";
+type headingTag = "h3" | "h4";
 
 interface AccordionItemProps {
   classNameContainer?: string;
@@ -20,7 +20,7 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
   classNameContainer,
   classNameCollapse,
   classNameContent,
-  headingTag = "h5",
+  headingTag = "h4",
   heading,
   divider = false,
   openIndex,
@@ -38,7 +38,7 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
         onClick={() => setOpenIndex(isOpen ? -1 : accordionIndex)}
       >
         {headingTag === "h3" && <h3>{heading}</h3>}
-        {headingTag === "h5" && <h5>{heading}</h5>}
+        {headingTag === "h4" && <h4>{heading}</h4>}
         <svg
           data-testid="accordion-icon"
           className={`transition-transform duration-200 ${
