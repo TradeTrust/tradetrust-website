@@ -61,24 +61,6 @@ collections:
       - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
       - { label: "File", name: "file", widget: "file", hint: "File download of newsletter." }
-  - name: "privacy-policy"
-    label: "Privacy Policy"
-    folder: "cms/privacy-policy"
-    create: true
-    editor:
-      preview: false
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of privacy policy page." }
-  - name: "terms-of-use"
-    label: "Terms of Use"
-    folder: "cms/terms-of-use"
-    create: true
-    editor:
-      preview: false
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of terms of use page." }
   - name: "partner-news"
     label: "Partner News"
     folder: "cms/partner-news"
