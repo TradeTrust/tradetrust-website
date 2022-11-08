@@ -75,7 +75,7 @@ const legalData = {
   copyright: "Copyright \u00A9 2021 TradeTrust",
   items: [
     { label: "Privacy Policy", to: "/privacy-policy", render: renderBottomNavLink },
-    { label: "Terms of use", to: "/terms-of-use", render: renderBottomNavLink },
+    { label: "Terms of Use", to: "/terms-of-use", render: renderBottomNavLink },
   ],
 };
 
