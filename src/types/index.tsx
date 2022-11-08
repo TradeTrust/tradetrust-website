@@ -45,7 +45,7 @@ export enum GaAction {
 
 export enum GaCategory {
   MAGIC_DEMO = "magic_demo",
-  FILE_DOWNLOAD = "file_downloaded",
+  FILE_DOWNLOAD = "file_download",
 }
 
 export interface ActionPayload {

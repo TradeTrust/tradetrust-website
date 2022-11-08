@@ -26,7 +26,6 @@ interface HomeCarouselSlide {
     route: string;
   };
   buttonDownload?: {
-    filename: string;
     label: string;
     file: string;
   };
