@@ -59,11 +59,11 @@ export const Carousel: FunctionComponent<CarouselProps> = ({ slides }) => {
             return;
           }
           gaEvent({
-            action: GaAction.WHITE_PAPER_DOWNLOAD,
             category: GaCategory.FILE_DOWNLOAD,
+            action: GaAction.CAROUSEL_DOWNLOAD,
             label: buttonDownload.file,
           });
-          saveAs(buttonDownload.file, buttonDownload.filename);
+          window.open(buttonDownload.file, "_blank", "noopener,noreferrer");
         };
 
         return (
@@ -103,7 +103,7 @@ export const Carousel: FunctionComponent<CarouselProps> = ({ slides }) => {
                         </Link>
                       )}
                       {buttonDownload && (
-                        <a href="#" onClick={downloadDocument} target="_blank" download>
+                        <a onClick={downloadDocument} download>
                           <Button size={ButtonSize.LG} className="text-white bg-cerulean-500 hover:bg-cerulean-800">
                             {buttonDownload.label}
                           </Button>
