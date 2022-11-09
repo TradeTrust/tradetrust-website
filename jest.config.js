@@ -19,5 +19,4 @@ module.exports = {
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)test.[jt]s?(x)"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/tests/"],
   transformIgnorePatterns: [],
-  // transformIgnorePatterns: ["node_modules/(?!swiper|ssr-window|dom7).*/"], // https://stackoverflow.com/questions/72141568/swiper-8-and-jest
 };

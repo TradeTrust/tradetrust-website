@@ -97,5 +97,3 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
     </Dropdown>
   );
 };
-
-// Transfer/Change of Ownership ? What's the diff ? canEndorseTransfer, canEndorseBeneficiary
