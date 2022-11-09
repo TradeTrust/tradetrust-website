@@ -77,7 +77,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   const isBeneficiary = isTitleEscrow && account === beneficiary;
   const canSurrender = isBeneficiary && isHolder;
   /*
-    In order to surrender we need to check 3 conditions
+    In order to shred we need to check 3 conditions
     - document is surrendered
     - documentOwner is the tokenRegistry
     - currentUser === tokenRegistryMinter

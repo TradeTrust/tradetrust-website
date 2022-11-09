@@ -42,7 +42,6 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           className="active:bg-cloud-200 active:text-white"
           data-testid={"endorseBeneficiaryDropdown"}
           onClick={() => {
-            console.log("ran");
             onSetFormAction(AssetManagementActions.EndorseBeneficiary);
           }}
         >

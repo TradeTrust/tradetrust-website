@@ -78,7 +78,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="owner" value={approvedBeneficiary} isEditable={false} />
+          <EditableAssetTitle role="Nominee" value={approvedBeneficiary} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
