@@ -98,6 +98,30 @@
     margin: 16 0;
     padding: 0 0 0 40;
   }
+
+  .legal h4 {
+    display: inline-block;
+  }
+
+  .legal ol {
+    counter-reset: section;
+    list-style-type: none;
+  }
+
+  .legal ol li {
+    @apply mb-2;
+  }
+
+  .legal ol li::before {
+    counter-increment: section;
+    content: counters(section, ".") " ";
+  }
+
+  .legal > ol > li::before {
+    @apply font-bold;
+    font-size: 20px;
+    content: counters(section, ".") ".";
+  }
 }
 
 @tailwind components;
