@@ -16,7 +16,10 @@ export const TermsOfUsePage: FunctionComponent = () => {
       </Helmet>
       <Page title="Terms Of Use">
         <div className="bg-white drop-shadow-lg rounded-xl h-full w-full px-6 py-4 mt-4">
-          <ReactMarkdown components={{ p: ({ ...props }) => <p className={"mb-4 break-word"} {...props} /> }}>
+          <ReactMarkdown
+            className="legal"
+            components={{ p: ({ ...props }) => <p className={"mb-4 break-word"} {...props} /> }}
+          >
             {termsOfUse.body}
           </ReactMarkdown>
         </div>
