@@ -25,7 +25,7 @@ describe("Endorse Transfer to nominated beneficiary and holder", () => {
         />
       );
 
-      const beneficiaryField = container.getByTestId("non-editable-input-owner");
+      const beneficiaryField = container.getByTestId("non-editable-input-nominee");
       const holderField = container.getByTestId("editable-input-holder");
       expect(beneficiaryField).toHaveTextContent("0xc0F28621Ca5454B66E51786003c798154FeBc6EB");
       expect(holderField).toHaveValue("0xFC6e365B926166d0D69bF336d03164FB301D6C41");
