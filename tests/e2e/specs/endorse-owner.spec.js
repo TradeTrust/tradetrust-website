@@ -27,7 +27,7 @@ describe(
       cy.get("[data-testid='endorseBeneficiaryDropdown']").click();
       cy.get("[data-testid='endorseBtn']").click();
       cy.confirmMetamaskTransaction();
-      cy.get("[data-testid='non-editable-input-nominee']").should("have.text", ACCOUNT_3);
+      cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_3);
       cy.get("[data-testid='overlay-title']").should("have.text", "Change Owner Success");
     });
   }
