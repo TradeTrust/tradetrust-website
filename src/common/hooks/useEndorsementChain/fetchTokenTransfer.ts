@@ -35,19 +35,28 @@ export const fetchTokenTransfers = async (
   );
 };
 
+/*
+  Used to distinguish the nature of the transfer events
+  Current interactions between Title Escrow and Token Transfer are:
+  SURRENDER, SURRENDER_REJECTED, SURRENDER_ACCEPTED (SHRED), INITIAL (Minting)
+*/
 export const identifyTokenTransferEventsFunction = (tokenRegistryAddress: string) => {
   return (log: TypedEvent | LogDescription): TokenTransferEventType => {
     const to = log.args.to as string;
     const from = log.args.from as string;
     switch (to) {
+      // Title Escrow surrender transfers document owner back to token registry
       case tokenRegistryAddress:
         return "SURRENDERED" as TokenTransferEventType;
+      // Title Escrow shredded transfers document owner to 0xdead (ETH Burner Address)
       case "0x000000000000000000000000000000000000dEaD":
         return "SURRENDER_ACCEPTED" as TokenTransferEventType;
     }
     switch (from) {
+      // Title Escrow reject surrender transfers document owner back to owner
       case tokenRegistryAddress:
         return "SURRENDER_REJECTED" as TokenTransferEventType;
+      // Title Escrow mint from thin air - 0x0 (Burn Address)
       case "0x0000000000000000000000000000000000000000":
         return "INITIAL" as TokenTransferEventType;
     }

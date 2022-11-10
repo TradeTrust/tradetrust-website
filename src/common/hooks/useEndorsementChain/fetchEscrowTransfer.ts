@@ -16,6 +16,9 @@ export const fetchEscrowTransfers = async (
   return [...holderChangeLogs, ...ownerChangeLogs];
 };
 
+/*
+  Retrieve all events that emits BENEFICIARY_TRANSFER 
+*/
 export const fetchOwnerTransfers = async (
   titleEscrowContract: TitleEscrow,
   provider: providers.Provider
@@ -40,6 +43,9 @@ export const fetchOwnerTransfers = async (
   }));
 };
 
+/*
+  Retrieve all events that emits HOLDER_TRANSFER 
+*/
 export const fetchHolderTransfers = async (
   titleEscrowContract: TitleEscrow,
   provider: providers.Provider

@@ -20,7 +20,10 @@ export const useEndorsementChain = (
   const [error, setError] = useState("");
   const [endorsementChain, setEndorsementChain] = useState<EndorsementChain>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
-
+  /*
+    retrieve transactions from token registry and title escrow events
+    merge, sort and provide history of events
+  */
   const fetchEndorsementChain = useCallback(async () => {
     if (!tokenRegistry || !provider || !providerOrSigner) return;
     setEndorsementChain(undefined);
