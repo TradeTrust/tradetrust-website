@@ -1,1 +1,1 @@
-export * from "./NominateBeneficiaryHolder";
+export * from "./NominateBeneficiary";

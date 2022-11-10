@@ -11,7 +11,7 @@ import { isEthereumAddress } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
-import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { EditableAssetTitle } from "../EditableAssetTitle";
 
 interface NominateBeneficiaryFormProps {
   formAction: AssetManagementActions;

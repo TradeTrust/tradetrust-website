@@ -3,7 +3,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
-import { NominateBeneficiaryForm } from "./NominateBeneficiaryHolder";
+import { NominateBeneficiaryForm } from "./NominateBeneficiary";
 
 describe("Nominate Owner", () => {
   it("should display the editable beneficiary & static holder when the app is in NominateBeneficiaryHolder state", async () => {

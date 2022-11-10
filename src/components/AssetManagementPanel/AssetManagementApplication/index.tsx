@@ -49,7 +49,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   const { upgradeToMetaMaskSigner, provider, account } = useProviderContext();
 
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
-  // Check if direct owner is minter, useContractFunctionHook value returns {0: boolean}
+  // Check if direct has role, useContractFunctionHook value returns {0: boolean}
   const { call: checkRole, value: hasRole } = useContractFunctionHook(tokenRegistry, "hasRole");
 
   useEffect(() => {

@@ -9,7 +9,6 @@ import React, { FunctionComponent, useContext, useEffect } from "react";
 import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { FormState } from "../../../../../constants/FormState";
 import { TransferEvent } from "../../../../../types";
-// import { TitleEscrowEvent } from "../../../../../types";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
