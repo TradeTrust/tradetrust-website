@@ -1,7 +1,7 @@
 import shell from "shelljs";
 
 const ACCOUNT_KEY = "0xe82294532bcfcd8e0763ee5cef194f36f00396be59b94fb418f5f8d83140d9a7";
-const TOKEN_REGISTRY_ADDRESS = "0xA3f6D9c8601d3D3c0A0E1fE0424c36cA41c2Dfa8";
+const TOKEN_REGISTRY_ADDRESS = "0x9Eb613a88534E2939518f4ffBFE65F5969b491FF";
 const DOCUMENT_STORE_ADDRESS = "0x63A223E025256790E88778a01f480eBA77731D04"
 const ADDRESS_EXAMPLE_1 = "0xe0a71284ef59483795053266cb796b65e48b5124";
 const ADDRESS_EXAMPLE_2 = "0xcdfacbb428dd30ddf6d99875dcad04cbefcd6e60";
@@ -42,7 +42,6 @@ const merkleRootToMint = {
 }
 
 shell.exec(`${oaCLI_PATH} deploy document-store "My Document Store" -n local -k ${ACCOUNT_KEY}`);  
-shell.exec(`${oaCLI_PATH} deploy token-registry "My Token Registry" MTR -n local -k ${ACCOUNT_KEY} --factory-address ${contractAddress.TitleEscrowFactory} --token-implementation-address ${contractAddress.TokenImplementation} --deployer-address ${contractAddress.Deployer}`);
 
 merkleRootToMint.tokenRegistry.forEach(element => {
   shell.exec(
