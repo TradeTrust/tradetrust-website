@@ -24,19 +24,19 @@ const defaultToken = {
 const merkleRootToMint = {
   tokenRegistry: [{
     // Endorse Owner
-    merkleRoot: "0xaf81307bb0c895c2c2d274f7e5d029c94a0d07450bc46182571e2329eef46cda",
+    merkleRoot: "0x9bed1f7290278e725712dec6c0a8ccca3dc4473453d676dfbb13ad58150f0f90",
     ...defaultToken,
   },{
     // Nominate Owner
-    merkleRoot: "0xe104b77c5b20bb76d59a2b04c4af96ed61f2599b23e6eef69d3aab1326aed09e",
+    merkleRoot: "0x605ab7ddb8934d96c112c56a8d91701ed65d9c7307e623cbaa826bee97e2df51",
     ...defaultToken,
   },{
     // Surrender
-    merkleRoot: "0xe7a6ff6c1ba177af0f8e8ce2060a7776521e98676e0243394bbae30e3070a70a",
+    merkleRoot: "0xac0f48dc242d107090d6e6893d92d1affacf51dee49508a60612c7f5ffcf3525",
     ...defaultToken,
   },{
     // Transfer Holder
-    merkleRoot: "0xc6cd2084b73712759dd0a41e0ade43ead7dad4f43c5a193d33b46aad1c4e8104",
+    merkleRoot: "0xb4b8b541ae7afb976da5ff4f1eb82d9a5769196146093344b9264cb9a96c3b6f",
     ...defaultToken,
   },],
 }
@@ -50,5 +50,5 @@ merkleRootToMint.tokenRegistry.forEach(element => {
 });
 
 shell.exec(
-  `${oaCLI_PATH} title-escrow nominate-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_3} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${"0xaf81307bb0c895c2c2d274f7e5d029c94a0d07450bc46182571e2329eef46cda"} -n local -k ${ACCOUNT_KEY}`
+  `${oaCLI_PATH} title-escrow nominate-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_3} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${"0x9bed1f7290278e725712dec6c0a8ccca3dc4473453d676dfbb13ad58150f0f90"} -n local -k ${ACCOUNT_KEY}`
 );
