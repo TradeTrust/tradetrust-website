@@ -18,5 +18,5 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/jest.dom.setup.ts"],
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)test.[jt]s?(x)"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/tests/"],
-  transformIgnorePatterns: [],
+  transformIgnorePatterns: ["node_modules/(?!swiper|ssr-window|dom|@govtechsg).*/"],
 };
