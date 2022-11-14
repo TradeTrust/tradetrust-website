@@ -9,7 +9,6 @@ module.exports = defineConfig({
     runMode: 2,
     openMode: 0,
   },
-  supportFile,
   fixturesFolder: "tests/e2e/fixtures",
   chromeWebSecurity: true,
   viewportWidth: 1920,
