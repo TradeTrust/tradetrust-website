@@ -3,6 +3,7 @@ const pluginsPath = "@synthetixio/synpress/plugins/index";
 const supportFile = "tests/e2e/support.js";
 const setupNodeEvents = require(pluginsPath);
 
+// https://github.com/Synthetixio/synpress/blob/267bf33a5de7c7357f558499a0e308cb071fb5de/synpress.config.js#L14-L43
 module.exports = defineConfig({
   userAgent: "synpress",
   retries: {
