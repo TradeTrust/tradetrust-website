@@ -8,12 +8,10 @@ describe("Endorse Owner", () => {
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
 
     // START - approve application once after connect to wallet, subsequent tests no longer need
-    cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879").should("be.true");
-    cy.switchMetamaskAccount(1)
-      .should("be.true")
-      .then(() => {
-        cy.clickConnectAndManageAssetButton(true);
-      });
+    cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879");
+    cy.switchMetamaskAccount(1).then(() => {
+      cy.clickConnectAndManageAssetButton(true);
+    });
     // END - approve application once after connect to wallet, subsequent tests no longer need
 
     cy.get("[data-testid='endorseBeneficiaryDropdown']").click();
