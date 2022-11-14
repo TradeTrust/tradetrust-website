@@ -1,7 +1,6 @@
 import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@govtechsg/open-attestation";
 import { ChainId } from "../constants/chain-info";
-import { IS_DEVELOPMENT } from "../config";
-import { MAIN_NETWORKS, TEST_NETWORKS } from "../config/chain-config";
+import { getSupportedChainIds } from "../common/utils/chain-utils";
 
 export type WrappedOrSignedOpenAttestationDocument = WrappedDocument<OpenAttestationDocument>;
 // note that the return type for getting attachments will normalise the structure into v2.Attachment
@@ -50,12 +49,11 @@ export const getChainId = (rawDocument: WrappedOrSignedOpenAttestationDocument):
     throw new Error("Invalid Document, please use a valid document.");
   };
 
-  const networks = IS_DEVELOPMENT ? [...TEST_NETWORKS] : [...MAIN_NETWORKS];
-
   const processChainId = (document: OpenAttestationDocument): number | undefined => {
     if (document.network) {
       // Check for current bc, "ETH", and chainId, if need cater for other bc and network, update this accordingly. (V2)
       if (document.network.chain === "ETH" && document.network.chainId) {
+        const networks: ChainId[] = getSupportedChainIds();
         const chainIdNumber = parseInt(document.network.chainId);
         const isChainIdInListedNetwork = networks.includes(chainIdNumber);
         if (!chainIdNumber || !isChainIdInListedNetwork) throwError();
