@@ -19,7 +19,7 @@ describe("Nominate Owner", () => {
       cy.get("[data-testid='nominateBeneficiaryHolderDropdown']").click();
       cy.get("[data-testid='editable-input-owner']").type(ACCOUNT_2);
       cy.get("[data-testid='nominationBtn']").click();
-      cy.confirmMetamaskTransaction();
+      cy.confirmMetamaskPermissionToSpend();
       cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_1);
       cy.get("[data-testid='overlay-title']").should("have.text", "Nomination Success");
     });
@@ -35,7 +35,7 @@ describe("Nominate Owner", () => {
       cy.clickConnectAndManageAssetButton();
       cy.get("[data-testid='endorseTransferDropdown']").click();
       cy.get("[data-testid='endorseTransferBtn']").click();
-      cy.confirmMetamaskTransaction();
+      cy.confirmMetamaskPermissionToSpend();
       cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_2);
       cy.get("[data-testid='non-editable-input-holder']").should("have.text", ACCOUNT_2);
       cy.get("[data-testid='overlay-title']").should("have.text", "Endorse Ownership/Holdership Success");

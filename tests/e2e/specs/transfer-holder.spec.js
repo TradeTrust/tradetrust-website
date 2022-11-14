@@ -18,7 +18,7 @@ describe("Transfer Holder", () => {
     cy.get("[data-testid='transferHolderDropdown']").click();
     cy.get("[data-testid='editable-input-holder']").type(ACCOUNT_2);
     cy.get("[data-testid='transferBtn']").click();
-    cy.confirmMetamaskTransaction();
+    cy.confirmMetamaskPermissionToSpend();
     cy.get("[data-testid='non-editable-input-holder']").should("have.text", ACCOUNT_2);
     cy.get("[data-testid='overlay-title']").should("have.text", "Transfer Holder Success");
   });

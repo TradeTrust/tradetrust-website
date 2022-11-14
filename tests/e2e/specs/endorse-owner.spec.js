@@ -20,7 +20,7 @@ describe("Endorse Owner", () => {
     cy.get("[data-testid='editable-input-owner']").type(ACCOUNT_3);
     cy.get("[data-testid='editable-input-holder']").type(ACCOUNT_2);
     cy.get("[data-testid='endorseBtn']").click();
-    cy.confirmMetamaskTransaction();
+    cy.confirmMetamaskPermissionToSpend();
     cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_3);
     cy.get("[data-testid='overlay-title']").should("have.text", "Change Owner Success");
   });
