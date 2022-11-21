@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@govtechsg/tradetrust-ui-components";
+import { FormSgContactLink } from "../../routes";
 
 const SectionMap = () => {
   return (
@@ -57,11 +57,11 @@ const SectionMap = () => {
             <h4>Ready to learn how TradeTrust can benefit your business?</h4>
           </div>
           <div className="w-full">
-            <Link to="/contact">
+            <FormSgContactLink>
               <Button className="bg-tangerine-500 text-white hover:bg-tangerine-800 rounded-xl text-2xl px-4">
                 <h3>Contact Us Now</h3>
               </Button>
-            </Link>
+            </FormSgContactLink>
           </div>
         </div>
       </div>
