@@ -8,6 +8,10 @@
   to = "/learn"
 
 [[redirects]]
+  from = "/contact"
+  to = "https://www.form.gov.sg/635f32c5001b2d0011fff09b"
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
