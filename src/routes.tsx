@@ -1,12 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "./components/PrivateRoute";
-import { ContactPage } from "./pages/contact";
 import { DemoPage } from "./pages/demo";
 import { DemoCreatePage } from "./pages/demoCreate";
 import { DemoVerifyPage } from "./pages/demoVerify";
-import { EmailErrorPage } from "./pages/emailError";
-import { EmailSuccessPage } from "./pages/emailSuccess";
 import { EtaPage } from "./pages/eta";
 import { EventPage } from "./pages/event";
 import { EventPageDetail } from "./pages/event/eventDetail";
@@ -23,6 +20,8 @@ import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } fr
 import { TermsOfUsePage } from "./pages/termsOfUse";
 import VerifyPage from "./pages/verify";
 import { ViewerPage } from "./pages/viewer";
+
+export const FORM_SG_URL = "https://www.form.gov.sg/635f32c5001b2d0011fff09b";
 
 const renderViewer = (): React.ReactElement => <ViewerPage />;
 const renderMagicViewer = (): React.ReactElement => <ViewerPage isMagicDemo />;
@@ -55,14 +54,11 @@ export const routes: RouteInterface[] = [
   { path: "/settings", exact: true, component: SettingsPage },
   { path: "/settings/address-resolver", exact: true, component: SettingsAddressResolverPage },
   { path: "/settings/address-book", exact: true, component: SettingsAddressBookPage },
-  { path: "/email/success", exact: true, component: EmailSuccessPage },
-  { path: "/email/error", exact: true, component: EmailErrorPage },
   { path: "/news", exact: true, component: NewsPage },
   { path: "/news/:slug", exact: true, component: NewsPageDetail },
   { path: "/learn", exact: true, component: LearnPage },
   { path: "/event", exact: true, component: EventPage },
   { path: "/event/:slug", exact: true, component: EventPageDetail },
-  { path: "/contact", exact: true, component: ContactPage },
   { path: "/guidelines", exact: true, component: Guidelines },
   { path: "/privacy-policy", exact: true, component: PrivacyPolicyPage },
   { path: "/terms-of-use", exact: true, component: TermsOfUsePage },
@@ -86,4 +82,12 @@ const routeMapper = (route: RouteInterface, id: number) => {
 
 export const Routes = ({ routes: routeItems }: RouteProps): React.ReactElement => {
   return <Switch>{routeItems.map(routeMapper)}</Switch>;
+};
+
+export const FormSgContactLink: React.FunctionComponent<React.HTMLProps<HTMLAnchorElement>> = (props) => {
+  return (
+    <a href={FORM_SG_URL} target="_blank" rel="noopener noreferrer" {...props}>
+      {props.children}
+    </a>
+  );
 };

@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
+import { FormSgContactLink } from "../../routes";
 
 export const FaqSelect: FunctionComponent = () => {
   const boxStyle = "flex flex-col items-center rounded px-12 py-6 bg-white shadow-md mr-5 mb-6";
@@ -8,7 +9,7 @@ export const FaqSelect: FunctionComponent = () => {
       <div className="w-full lg:w-2/3">
         <p className="my-9 max-w-[766px]">
           Below are some of the answers to the most common questions. If you still cannot find the answer you are
-          looking for, feel free to <Link to="/contact">contact us</Link>.
+          looking for, feel free to <FormSgContactLink>contact us</FormSgContactLink>.
         </p>
         <div className="flex flex-col md:flex-row">
           <Link to="/faq/general-faq">

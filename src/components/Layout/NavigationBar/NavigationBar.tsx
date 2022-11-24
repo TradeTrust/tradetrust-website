@@ -9,6 +9,7 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
+import { FormSgContactLink } from "../../../routes";
 
 const sharedStyles = "block w-full px-4 py-3 text-cloud-500";
 
@@ -106,11 +107,7 @@ export const leftNavItems: NavigationItem[] = [
     id: "contact",
     label: "Contact",
     path: "/contact",
-    customLink: (
-      <NavLink activeClassName="text-cerulean-500" className="block w-full text-current" to={"/contact"}>
-        Contact
-      </NavLink>
-    ),
+    customLink: <FormSgContactLink className="block w-full text-current">Contact</FormSgContactLink>,
   },
 ];
 
