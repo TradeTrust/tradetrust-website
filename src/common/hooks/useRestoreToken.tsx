@@ -1,5 +1,5 @@
 import { ContractFunctionState } from "@govtechsg/ethers-contract-hook";
-import { TradeTrustERC721 } from "@govtechsg/token-registry/contracts";
+import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
 import { providers, Signer } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 import { getLogger } from "../../utils/logger";
@@ -9,7 +9,7 @@ const { error: errorLogger } = getLogger("services:userestoretoken");
 
 export const useRestoreToken = (
   provider: providers.Provider | Signer | undefined,
-  contractInstance?: TradeTrustERC721,
+  contractInstance?: TradeTrustToken,
   tokenId?: string
 ): {
   restoreToken: () => Promise<void>;

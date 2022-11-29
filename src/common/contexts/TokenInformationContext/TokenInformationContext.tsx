@@ -5,7 +5,7 @@ import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
-import { TradeTrustERC721 } from "@govtechsg/token-registry/contracts";
+import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
 
 interface TokenInformationContext {
@@ -30,7 +30,7 @@ interface TokenInformationContext {
   isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
   resetStates: () => void;
-  destroyToken: TradeTrustERC721["burn"];
+  destroyToken: TradeTrustToken["burn"];
   destroyTokenState: ContractFunctionState;
   restoreToken: () => Promise<void>;
   restoreTokenState: ContractFunctionState;

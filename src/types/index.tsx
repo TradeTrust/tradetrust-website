@@ -7,7 +7,7 @@ export interface TemplateProps {
   type: string;
 }
 
-export type TradeTrustErc721EventType =
+export type TradeTrustTokenEventType =
   | "INITIAL"
   | "NEW_OWNERS"
   | "ENDORSE"

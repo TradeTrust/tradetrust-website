@@ -1,10 +1,10 @@
-import { TradeTrustERC721 } from "@govtechsg/token-registry/contracts";
+import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
 import { TypedEvent } from "@govtechsg/token-registry/dist/contracts/common";
 import { LogDescription } from "ethers/lib/utils";
 import { TokenTransferEvent, TokenTransferEventType } from "../../../types";
 
 export const fetchTokenTransfers = async (
-  tokenRegistry: TradeTrustERC721,
+  tokenRegistry: TradeTrustToken,
   tokenId: string
 ): Promise<TokenTransferEvent[]> => {
   // Fetch transfer logs from token registry

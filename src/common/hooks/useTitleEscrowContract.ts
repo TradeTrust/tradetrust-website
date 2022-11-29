@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { providers, Signer } from "ethers";
 import { TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
 import { TitleEscrow } from "@govtechsg/token-registry/contracts";
-import { TradeTrustERC721 } from "@govtechsg/token-registry/contracts";
+import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
 
 interface useTitleEscrowContractProps {
   titleEscrow?: TitleEscrow;
@@ -12,7 +12,7 @@ interface useTitleEscrowContractProps {
 
 export const useTitleEscrowContract = (
   provider: providers.Provider | Signer | undefined,
-  tokenRegistry?: TradeTrustERC721,
+  tokenRegistry?: TradeTrustToken,
   tokenId?: string
 ): useTitleEscrowContractProps => {
   const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
