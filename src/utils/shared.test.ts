@@ -1,8 +1,8 @@
-import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
+import v3DID from "../test/fixture/did/dns-did-signed.json";
+import v2DID from "../test/fixture/did/dns-did-verified.json";
 import invoiceV2 from "../test/fixture/goerli/v2/invoice.json";
 import invoiceV3 from "../test/fixture/goerli/v3/invoice.json";
-import v2DID from "../test/fixture/did/dns-did-verified.json";
-import v3DID from "../test/fixture/did/dns-did-signed.json";
+import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
 
 describe("getChainId for v2 document", () => {
   it("should return the correct chainId for goerli", () => {
@@ -11,6 +11,22 @@ describe("getChainId for v2 document", () => {
       data: { ...invoiceV2.data, network: { chain: "ETH", chainId: "5" } },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(getChainId(document)).toStrictEqual(5);
+  });
+
+  it("should return the correct chainId for polygon mumbai network", () => {
+    const document = {
+      ...invoiceV2,
+      data: { ...invoiceV2.data, network: { chain: "MATIC", chainId: "80001" } },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(80001);
+  });
+
+  it("should throw an error when there is a network object in the document but the value is not valid", () => {
+    const document = {
+      ...invoiceV2,
+      data: { ...invoiceV2.data, network: { chain: "MATICMUM", chainId: "80001" } },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
   });
 
   it("should return 'undefined' when there is no network", () => {
@@ -52,6 +68,22 @@ describe("getChainId for v3 document", () => {
       network: { chain: "ETH", chainId: "5" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(getChainId(document)).toStrictEqual(5);
+  });
+
+  it("should return the correct chainId for polygon mumbai network", () => {
+    const document = {
+      ...invoiceV3,
+      network: { chain: "MATIC", chainId: "80001" },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(80001);
+  });
+
+  it("should throw an error when there is a network object in the document but the value is not valid", () => {
+    const document = {
+      ...invoiceV3,
+      network: { chain: "MATICMUM", chainId: "80001" },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
   });
 
   it("should return 'undefined' when there is no network", () => {
