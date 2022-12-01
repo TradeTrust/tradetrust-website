@@ -18,7 +18,10 @@ export const TermsOfUsePage: FunctionComponent = () => {
         <div className="bg-white drop-shadow-lg rounded-xl h-full w-full px-6 py-4 mt-4">
           <ReactMarkdown
             className="legal"
-            components={{ p: ({ ...props }) => <p className={"mb-4 break-word"} {...props} /> }}
+            components={{
+              p: ({ ...props }) => <p className={"mb-4 break-word"} {...props} />,
+              a: ({ ...props }) => <a target={"_blank"} rel={"noopener noreferrer"} {...props} />,
+            }}
           >
             {termsOfUse.body}
           </ReactMarkdown>

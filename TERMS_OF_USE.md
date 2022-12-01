@@ -73,8 +73,7 @@ title: Terms of Use
     4. Please note that separate terms (and not these Terms of Use) may govern the relationship between you and the document issuer/verifier/presenter, or any person accessing or providing a copy of the relevant document. For the avoidance of doubt, IMDA is not responsible for the contents of the document or the legal acceptability of the document. IMDA makes no representations or warranties concerning the powers or authority of the document issuer/verifier/presenter.
 14. #### Third party software/services
     1. [Google Analytics](https://policies.google.com/technologies/partner-sites)
-    2. WoGAA
-    3. [Netlify](https://www.netlify.com/legal/terms-of-use/)
-    4. [List of open source software](/static/common/credits.pdf)
+    2. [Netlify](https://www.netlify.com/legal/terms-of-use/)
+    3. [List of open source software](/static/common/credits.pdf)
 
 This version of the Terms of Use is dated **06-Sep-2022**.
