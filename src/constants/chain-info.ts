@@ -13,6 +13,8 @@ export interface ChainInfoObject {
   };
 }
 
+export const AvailableBlockChains = ["ETH", "MATIC"];
+
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
 export enum ChainId {
