@@ -32,7 +32,7 @@ export enum ChainId {
 
   // XDC Network
   XDC = 50,
-  APOTHEM = 51,
+  XDCApothem = 51,
 }
 
 export const ChainInfo: ChainInfo = {
@@ -116,9 +116,9 @@ export const ChainInfo: ChainInfo = {
       decimals: 18,
     },
   },
-  [ChainId.APOTHEM]: {
+  [ChainId.XDCApothem]: {
     label: "XDC Testnet Apothem",
-    chainId: ChainId.APOTHEM,
+    chainId: ChainId.XDCApothem,
     iconImage: "/static/images/networks/xdc.png",
     networkName: "XDC Testnet Apothem",
     networkLabel: "XDC Testnet Apothem",
