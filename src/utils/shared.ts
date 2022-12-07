@@ -1,7 +1,5 @@
 import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@govtechsg/open-attestation";
 import { getSupportedChainIds } from "../common/utils/chain-utils";
-import { IS_DEVELOPMENT } from "../config";
-import { MAIN_NETWORKS, TEST_NETWORKS } from "../config/chain-config";
 import { AvailableBlockChains, ChainId } from "../constants/chain-info";
 
 export type WrappedOrSignedOpenAttestationDocument = WrappedDocument<OpenAttestationDocument>;
