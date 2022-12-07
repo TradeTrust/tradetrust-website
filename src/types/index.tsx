@@ -63,10 +63,12 @@ export enum GaAction {
   MAGIC_DOWNLOADED = "magic_demo_downloaded",
   MAGIC_FILE_DROP = "magic_demo_file_drop",
   MAGIC_DROP_OFF = "magic_demo_drop_off",
+  CAROUSEL_DOWNLOAD = "carousel_file_download",
 }
 
 export enum GaCategory {
   MAGIC_DEMO = "magic_demo",
+  FILE_DOWNLOAD = "file_download",
 }
 
 export interface ActionPayload {

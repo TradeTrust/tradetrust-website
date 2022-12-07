@@ -1,8 +1,8 @@
 import { OverlayContent, useOverlayContext } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
-import { Link } from "react-router-dom";
 import { Steps } from "./Steps";
 import { ContentType, PersonaProps } from "./types";
+import { FormSgContactLink } from "../../../routes";
 
 const ProcessLegends = () => {
   return (
@@ -77,14 +77,13 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, pe
             {benefits && <Steps contentType={ContentType.BENEFIT} stepsDetails={benefits} />}
             <h4 className="text-center mt-8">{endMessage}</h4>
           </div>
-          <Link
-            to="/contact"
+          <FormSgContactLink
             className="px-4 py-2 mx-auto mt-8 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-cloud-100"
             onClick={handleCloseOverlay}
             data-testid={`get-in-touch-${personaIndex}`}
           >
             <h3 className="font-normal text-2xl text-center">Contact Us Now</h3>
-          </Link>
+          </FormSgContactLink>
         </div>
       </OverlayContent>
     </section>

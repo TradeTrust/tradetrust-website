@@ -9,6 +9,8 @@ import { ButtonVideo } from "../ButtonVideo";
 import "swiper/swiper.min.css";
 import "swiper/modules/pagination/pagination.min.css";
 import "./swiper-custom.css";
+import { GaAction, GaCategory } from "../../types";
+import { gaEvent } from "@govtechsg/tradetrust-utils";
 
 interface HomeCarouselSlide {
   title: string;
@@ -51,6 +53,13 @@ export const Carousel: FunctionComponent<CarouselProps> = ({ slides }) => {
         const { title, subheader, description, backgroundImage, buttonYoutube, buttonPage, buttonDownload } = slide;
         const hasCta = buttonYoutube || buttonPage || buttonDownload;
         const styleSlide = backgroundImage ? { backgroundImage: `url("${backgroundImage}")` } : {};
+        const downloadDocument = () => {
+          gaEvent({
+            category: GaCategory.FILE_DOWNLOAD,
+            action: GaAction.CAROUSEL_DOWNLOAD,
+            label: buttonDownload?.file,
+          });
+        };
 
         return (
           <SwiperSlide
@@ -89,7 +98,7 @@ export const Carousel: FunctionComponent<CarouselProps> = ({ slides }) => {
                         </Link>
                       )}
                       {buttonDownload && (
-                        <a href={buttonDownload.file} download>
+                        <a href={buttonDownload.file} onClick={downloadDocument} download>
                           <Button size={ButtonSize.LG} className="text-white bg-cerulean-500 hover:bg-cerulean-800">
                             {buttonDownload.label}
                           </Button>

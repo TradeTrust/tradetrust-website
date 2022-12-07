@@ -13,6 +13,8 @@ export interface ChainInfoObject {
   };
 }
 
+export const AvailableBlockChains = ["ETH", "MATIC"];
+
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
 export enum ChainId {
@@ -91,7 +93,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "maticmum",
     networkLabel: "Polygon Mumbai",
     explorerUrl: "https://mumbai.polygonscan.com",
-    rpcUrl: "https://rpc-mumbai.matic.today",
+    rpcUrl: "https://rpc-mumbai.maticvigil.com",
     nativeCurrency: {
       name: "MATIC",
       symbol: "mMATIC",

@@ -3,6 +3,7 @@ import React from "react";
 import { ExternalLink } from "react-feather";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../constants";
+import { FORM_SG_URL } from "../../routes";
 
 const sharedStyles = `font-medium text-sm text-cloud-500 hover:text-cerulean-500`;
 const renderNavLink = ({ label, to }: FooterColumnItemProps) => {
@@ -58,7 +59,7 @@ const data = [
     items: [
       { label: "Github", to: URLS.GITHUB, render: renderExternalLink },
       { label: "Documentation", to: URLS.DOCS, render: renderExternalLink },
-      { label: "Contact", to: "/contact", render: renderNavLink },
+      { label: "Contact", to: FORM_SG_URL, render: renderExternalLink },
       { label: "FAQ", to: "/faq", render: renderNavLink },
     ],
   },

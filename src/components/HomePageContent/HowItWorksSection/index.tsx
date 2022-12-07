@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useState } from "react";
-import { Link } from "react-router-dom";
 import { DocumentContent } from "./DocumentContent";
 import { DocumentType, DocumentTypeContent, Persona } from "./types";
 import { PersonaCard } from "./PersonaCard";
+import { FormSgContactLink } from "../../../routes";
 
 const DocumentTypeDetails: FunctionComponent<DocumentTypeContent> = (props) => {
   const { text, personas } = props;
@@ -62,13 +62,12 @@ export const HowItWorksSection: FunctionComponent = () => {
           <div className="bg-wave-lines-light bg-cover flex w-full h-64 mx-auto bg-cerulean-500 rounded-xl text-white text-center justify-center items-center">
             <h2 className="leading-[44px] lg:mx-72">Ready to learn how TradeTrust can benefit your business?</h2>
           </div>
-          <Link
-            to="/contact"
+          <FormSgContactLink
             className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-cloud-100"
             data-testid="get-in-touch"
           >
             <h3 className="font-normal text-2xl">Contact Us Now</h3>
-          </Link>
+          </FormSgContactLink>
         </div>
       </div>
     </section>
