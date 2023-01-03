@@ -1,6 +1,7 @@
 ---
 title: Singapore Enterprise Blockchain Summit 2022
 date: 2022-09-30T05:30:13.445Z
+thumbnail: /static/uploads/c4ffe4dc4f5ac536c288730ad368018a.jpeg
 blurb: >
   In partnership with BSN, GFT and Arkadia Global, The Singapore Enterprise
   Blockchain Summit will feature enterprise blockchain keynotes, discussions,
