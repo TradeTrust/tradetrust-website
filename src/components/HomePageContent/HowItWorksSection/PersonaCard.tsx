@@ -13,7 +13,7 @@ export const PersonaCard: React.FunctionComponent<PersonaProps> = ({ personaInde
   return (
     <div className="flex flex-col m-4 lg:w-6/12 lg:m-0 lg:mb-8" data-testid="persona-card">
       <div className="min-h-220 lg:flex lg:items-center">
-        <img className="mx-auto min-w-[220px]" src={image} />
+        <img className="mx-auto min-w-[220px]" src={image} alt={jobTitle} />
         <div className="flex flex-col items-center lg:items-start lg:justify-start">
           <h5 className="mb-2">{jobTitle}</h5>
           <p className="text-base text-center mx-5 lg:mx-0 lg:text-left lg:min-h-90">{description}</p>
