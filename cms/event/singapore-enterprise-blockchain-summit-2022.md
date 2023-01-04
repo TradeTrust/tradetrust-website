@@ -14,7 +14,7 @@ eventDetails: >-
   During this event, we will introduce BSN's newly launched initiative, the
   Spartan Network, a public infrastructure network based on the lightweight BSN
   Spartan data center software, which is open source, accessible, and can be
-  downloaded and installed anonymously. We will focus on enterprise blockchain,
+  downloaded and installed anonymously. We will focus on enterprise blockchain
   and discuss how it can shape the business market in Singapore.
 
 
