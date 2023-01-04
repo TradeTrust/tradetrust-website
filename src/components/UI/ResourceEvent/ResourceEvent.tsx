@@ -31,7 +31,11 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ slug, attributes 
     <Link to={`event/${eventLink}`}>
       <div className="flex flex-wrap rounded-xl shadow-xl mb-4">
         {thumbnail && (
-          <img className="object-cover rounded-t-xl md:w-4/12 md:rounded-none md:rounded-l-xl" src={thumbnail} />
+          <img
+            className="object-cover rounded-t-xl md:w-4/12 md:rounded-none md:rounded-l-xl"
+            src={thumbnail}
+            alt={`${title} Thumbnail`}
+          />
         )}
 
         <div

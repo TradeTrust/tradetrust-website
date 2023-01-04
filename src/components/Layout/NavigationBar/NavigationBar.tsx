@@ -119,7 +119,12 @@ export const rightNavItems: NavigationItem[] = [
     path: "/settings",
     icon: Settings,
     customLink: (
-      <NavLink activeClassName="text-cerulean-500" className="block w-full py-2 text-current" to={"/settings"}>
+      <NavLink
+        activeClassName="text-cerulean-500"
+        className="block w-full py-2 text-current"
+        to={"/settings"}
+        aria-label="Settings"
+      >
         <Settings className="stroke-current" />
       </NavLink>
     ),
@@ -155,7 +160,7 @@ export const rightNavItems: NavigationItem[] = [
 const NavLogo = () => {
   return (
     <NavLink to={"/"} data-testid="nav-logo-home">
-      <img src="/static/images/tradetrust_logo.svg" />
+      <img src="/static/images/tradetrust_logo.svg" alt="TradeTrust Logo" />
     </NavLink>
   );
 };
