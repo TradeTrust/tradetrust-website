@@ -24,7 +24,7 @@ slides:
       label: Download Now
       file: /static/uploads/white-paper-verifiable-credentials-CBT.pdf
     backgroundImage: /static/uploads/home-whitepaper.png
-  - title: World Summit on the Information Society 2023
+  - title: World Summit on the Information Society Prizes 2023
     subheader: "Vote for TradeTrust "
     description: >-
       1. Register for a WSIS account
