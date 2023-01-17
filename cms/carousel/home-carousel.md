@@ -41,4 +41,5 @@ slides:
     buttonPage:
       route: https://www.itu.int/net4/wsis/stocktaking/prizes/2023
       label: VOTE HERE
+    backgroundImage: /static/uploads/home-whitepaper.png
 ---
