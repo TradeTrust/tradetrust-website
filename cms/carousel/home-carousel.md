@@ -24,26 +24,21 @@ slides:
       label: Download Now
       file: /static/uploads/white-paper-verifiable-credentials-CBT.pdf
     backgroundImage: /static/uploads/home-whitepaper.png
-  - title: "Vote for TradeTrust "
-    subheader: World Summit on the Information Society 2023
-    description: >
-      Visit https://www.itu.int/net4/wsis/stocktaking/prizes/2023/.
-
-      Or you may simply Google Search WSIS 2023 Prizes to vote! 
-       
+  - title: World Summit on the Information Society 2023
+    subheader: "Vote for TradeTrust "
+    description: >-
       1. Register for a WSIS account
 
-      2. Verify your account via earlier provided email during registration
-
-      3. Click on the link provided and once verified, Login to your WSIS account
+      2. Verify your account and login to your WSIS account
 
       4. Click Voting Form
 
-      5. From the drop down menu, search for TradeTrust found under "Category 8: AL C7 ICT applications: benefits in all aspects of life - E-Business" 
+      5. From the drop-down menu, search for TradeTrust under "Category 8: AL C7 ICT applications: benefits in all aspects of life: E-Business" 
 
       6. Click "Vote for this project" 
     buttonDownload:
       file: ""
     buttonPage:
-      route: https://www.itu.int/net4/wsis/stocktaking/prizes/2023/
+      route: https://www.itu.int/net4/wsis/stocktaking/prizes/2023
+      label: VOTE HERE
 ---
