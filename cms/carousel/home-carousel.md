@@ -37,7 +37,7 @@ slides:
 
       6. Click "Vote for this project" 
     buttonDownload:
-      file: https://www.itu.int/net4/wsis/stocktaking/prizes/2023
+      file: https://www.itu.int/net4/wsis/stocktaking/prizes/2023/
       label: VOTE HERE
     buttonPage:
       route: ""
