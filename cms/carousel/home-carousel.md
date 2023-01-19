@@ -14,10 +14,30 @@ slides:
     backgroundImage: /static/uploads/home-map.png
   - title: White Paper
     subheader: UN/CEFACT White Paper eDATA Verifiable Credentials for Cross Border Trade
-    description: Learn more about this technology method that underpins how
-      TradeTrust deals with verifiable documents!
+    description: >
+      Learn more about this technology method that underpins how TradeTrust
+      deals with verifiable documents!
     buttonDownload:
       label: Download Now
       file: /static/uploads/white-paper-verifiable-credentials-CBT.pdf
     backgroundImage: /static/uploads/home-whitepaper.png
+  - title: World Summit on the Information Society Prizes 2023
+    subheader: "Vote for TradeTrust "
+    description: >-
+      1. Register for a WSIS account
+
+      2. Verify your account and login to your WSIS account
+
+      4. Click Voting Form
+
+      5. From the drop-down menu, search for TradeTrust under "Category 8: AL C7 ICT applications: benefits in all aspects of life: E-Business" 
+
+      6. Click "Vote for this project" 
+    buttonDownload:
+      file: https://www.itu.int/net4/wsis/stocktaking/prizes/2023/
+      label: VOTE HERE
+    buttonPage:
+      route: ""
+      label: ""
+    backgroundImage: /static/uploads/home-map.png
 ---
