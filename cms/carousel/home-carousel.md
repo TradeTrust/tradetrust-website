@@ -17,9 +17,6 @@ slides:
     description: >
       Learn more about this technology method that underpins how TradeTrust
       deals with verifiable documents!
-
-
-      *also available on the website of United Nations Economic Commission for Europe (UNECE)
     buttonDownload:
       label: Download Now
       file: /static/uploads/white-paper-verifiable-credentials-CBT.pdf
