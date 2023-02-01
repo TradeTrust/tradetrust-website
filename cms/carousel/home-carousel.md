@@ -14,8 +14,9 @@ slides:
     backgroundImage: /static/uploads/home-map.png
   - title: White Paper
     subheader: UN/CEFACT White Paper eDATA Verifiable Credentials for Cross Border Trade
-    description: Learn more about this technology method that underpins how
-      TradeTrust deals with verifiable documents!
+    description: >
+      Learn more about this technology method that underpins how TradeTrust
+      deals with verifiable documents!
     buttonDownload:
       label: Download Now
       file: /static/uploads/white-paper-verifiable-credentials-CBT.pdf
