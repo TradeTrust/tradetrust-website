@@ -1,32 +1,23 @@
 import { Provider } from "@ethersproject/abstract-provider";
-import {
-  EndorsementChain,
-  TransferBaseEvent,
-  TransferEvent,
-  TransferEventType,
-  TokenTransferEvent,
-} from "../../../types";
-
-/*
-  Get Title Escrow address based on minting transaction
-  minting transaction will be the first transaction
-  token will be issued to the title escrow address
-*/
-export const extractEscrowAddress = (tokenLogs: TokenTransferEvent[]): string => {
-  if (tokenLogs.length === 0) {
-    throw new Error("Unminted Title Escrow");
-  }
-  sortLogChain(tokenLogs);
-  const escrowAddress = tokenLogs[0]?.to || "";
-  if (!escrowAddress) {
-    throw new Error("Unable to retrieve Title Escrow Address");
-  }
-  return escrowAddress;
-};
+import { TitleEscrowFactory__factory, TradeTrustToken } from "@govtechsg/token-registry/dist/contracts";
+import { Signer } from "ethers";
+import { EndorsementChain, TransferBaseEvent, TransferEvent, TransferEventType } from "../../../types";
 
 export const fetchEventTime = async (blockNumber: number, provider: Provider): Promise<number> => {
   const eventTimestamp = (await (await provider.getBlock(blockNumber)).timestamp) * 1000;
   return eventTimestamp;
+};
+
+export const extractEscrowAddress = async (
+  tokenRegistry: TradeTrustToken,
+  tokenId: string,
+  signer: Provider | Signer
+): Promise<string> => {
+  const titleEscrowFactoryAddress = await tokenRegistry.titleEscrowFactory();
+  const tokenRegistryAddress = await tokenRegistry.address;
+  const titleEscrowFactory = TitleEscrowFactory__factory.connect(titleEscrowFactoryAddress, signer);
+  const titleEscrowAddress = await titleEscrowFactory.getAddress(tokenRegistryAddress, tokenId);
+  return titleEscrowAddress;
 };
 
 /*
@@ -168,7 +159,7 @@ export const getEndorsementChain = async (
 /*
   Sort based on blockNumber
 */
-const sortLogChain = (logChain: TransferBaseEvent[]): TransferBaseEvent[] => {
+export const sortLogChain = (logChain: TransferBaseEvent[]): TransferBaseEvent[] => {
   return logChain.sort((a, b) => {
     return a.blockNumber - b.blockNumber;
   });

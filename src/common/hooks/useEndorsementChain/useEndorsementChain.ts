@@ -38,7 +38,7 @@ export const useEndorsementChain = (
         return;
       }
       const tokenLogs = await fetchTokenTransfers(tokenRegistry, tokenId);
-      const escrowAddress = extractEscrowAddress(tokenLogs);
+      const escrowAddress = await extractEscrowAddress(tokenRegistry, tokenId, providerOrSigner);
       const titleEscrowLogs = await fetchEscrowTransfers(provider, escrowAddress);
       const transferEvents = mergeTransfers([...titleEscrowLogs, ...tokenLogs]);
       const retrievedEndorsementChain = await getEndorsementChain(provider, transferEvents);

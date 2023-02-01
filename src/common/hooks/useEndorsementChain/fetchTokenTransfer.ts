@@ -2,6 +2,7 @@ import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
 import { TypedEvent } from "@govtechsg/token-registry/dist/contracts/common";
 import { LogDescription } from "ethers/lib/utils";
 import { TokenTransferEvent, TokenTransferEventType } from "../../../types";
+import { sortLogChain } from "./helpers";
 
 export const fetchTokenTransfers = async (
   tokenRegistry: TradeTrustToken,
@@ -12,6 +13,9 @@ export const fetchTokenTransfers = async (
   const identifyTokenTransferEvents = identifyTokenTransferEventsFunction(tokenRegistryAddress);
   const transferLogFilter = tokenRegistry.filters.Transfer(null, null, tokenId);
   const logs = await tokenRegistry.queryFilter(transferLogFilter, 0);
+  if (logs.length === 0) {
+    throw new Error("Unminted Title Escrow");
+  }
   const formattedLogs = logs.map((log) => {
     if (!log.args) throw new Error(`Transfer log malformed: ${log}`);
     if (!log.blockNumber) throw new Error("Block number not present");
@@ -21,8 +25,7 @@ export const fetchTokenTransfers = async (
       ...tokenRegistry.interface.parseLog(log),
     };
   });
-
-  return formattedLogs.map(
+  const reformattedLogs = formattedLogs.map(
     (event) =>
       ({
         type: identifyTokenTransferEvents(event),
@@ -33,6 +36,8 @@ export const fetchTokenTransfers = async (
         transactionIndex: event.transactionIndex,
       } as TokenTransferEvent)
   );
+  sortLogChain(reformattedLogs);
+  return reformattedLogs;
 };
 
 /*
