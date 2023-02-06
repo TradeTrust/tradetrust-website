@@ -10,9 +10,6 @@ services:
       - display
     entrypoint: []
     working_dir: /app
-    volumes:
-      - ./docker/videos:/app/tests/e2e/videos
-      - ./docker/screenshots:/app/tests/e2e/screenshots
     command: >
       bash -c 'echo -n "======> local noVNC URL:
       http://localhost:8080/vnc.html?autoconnect=true " && npx wait-on
