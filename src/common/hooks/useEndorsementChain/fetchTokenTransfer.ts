@@ -52,18 +52,18 @@ export const identifyTokenTransferEventsFunction = (tokenRegistryAddress: string
     switch (to) {
       // Title Escrow surrender transfers document owner back to token registry
       case tokenRegistryAddress:
-        return "SURRENDERED" as TokenTransferEventType;
+        return "SURRENDERED";
       // Title Escrow shredded transfers document owner to 0xdead (ETH Burner Address)
       case "0x000000000000000000000000000000000000dEaD":
-        return "SURRENDER_ACCEPTED" as TokenTransferEventType;
+        return "SURRENDER_ACCEPTED";
     }
     switch (from) {
       // Title Escrow reject surrender transfers document owner back to owner
       case tokenRegistryAddress:
-        return "SURRENDER_REJECTED" as TokenTransferEventType;
+        return "SURRENDER_REJECTED";
       // Title Escrow mint from thin air - 0x0 (Burn Address)
       case "0x0000000000000000000000000000000000000000":
-        return "INITIAL" as TokenTransferEventType;
+        return "INITIAL";
     }
     throw new Error("Unidentified transfer event");
   };

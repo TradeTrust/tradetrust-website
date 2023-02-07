@@ -7,7 +7,7 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
-import { isEthereumAddress } from "../../../../../utils";
+import { isValidHolderTransfer } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
@@ -41,14 +41,6 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
     transferOwnersState !== FormState.PENDING_CONFIRMATION && transferOwnersState !== FormState.CONFIRMED;
 
   const { showOverlay } = useContext(OverlayContext);
-
-  const isValidTransfer = () => {
-    if (!newHolder) return false;
-    if (newHolder === holder) return false;
-    if (!isEthereumAddress(newHolder)) return false;
-
-    return true;
-  };
 
   useEffect(() => {
     if (isConfirmed) {
@@ -87,7 +79,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
             newValue={newHolder}
             isEditable={isEditable}
             onSetNewValue={setNewHolder}
-            error={transferOwnersState === FormState.ERROR}
+            isError={transferOwnersState === FormState.ERROR}
           />
         </div>
       </div>
@@ -106,7 +98,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
             <div className="w-auto ml-2">
               <Button
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
-                disabled={!isValidTransfer() || isPendingConfirmation}
+                disabled={!isValidHolderTransfer(holder, newHolder) || isPendingConfirmation}
                 onClick={() => {
                   handleEndorseTransfer(approvedBeneficiary || "", newHolder || "");
                 }}

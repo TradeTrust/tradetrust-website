@@ -1,6 +1,7 @@
 import { providers } from "ethers";
 import { TitleEscrow, TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
 import { TitleEscrowTransferEvent } from "../../../types";
+import { EventFragment, Result } from "ethers/lib/utils";
 
 export const fetchEscrowTransfers = async (
   provider: providers.Provider,
@@ -26,14 +27,7 @@ export const fetchOwnerTransfers = async (
   const ownerChangeFilter = titleEscrowContract.filters.BeneficiaryTransfer(null, null);
   const ownerChangeLogs = await provider.getLogs({ ...ownerChangeFilter, fromBlock: 0 });
 
-  const ownerChangeLogsParsed = ownerChangeLogs.map((log) => {
-    if (!log.blockNumber) throw new Error("Block number not present");
-    return {
-      ...log,
-      ...titleEscrowContract.interface.parseLog(log),
-    };
-  });
-
+  const ownerChangeLogsParsed = getParsedLogs(ownerChangeLogs, titleEscrowContract);
   return ownerChangeLogsParsed.map((event) => ({
     type: "TRANSFER_BENEFICIARY",
     owner: event.args.toBeneficiary,
@@ -41,6 +35,32 @@ export const fetchOwnerTransfers = async (
     transactionHash: event.transactionHash,
     transactionIndex: event.transactionIndex,
   }));
+};
+
+interface ParsedLog {
+  eventFragment: EventFragment;
+  name: string;
+  signature: string;
+  topic: string;
+  args: Result;
+  blockNumber: number;
+  blockHash: string;
+  transactionIndex: number;
+  removed: boolean;
+  logIndex: number;
+  transactionHash: string;
+  address: string;
+  data: string;
+}
+
+export const getParsedLogs = (logs: providers.Log[], titleEscrow: TitleEscrow): ParsedLog[] => {
+  return logs.map((log) => {
+    if (!log.blockNumber) throw new Error("Block number not present");
+    return {
+      ...log,
+      ...titleEscrow.interface.parseLog(log),
+    };
+  });
 };
 
 /*
@@ -52,15 +72,7 @@ export const fetchHolderTransfers = async (
 ): Promise<TitleEscrowTransferEvent[]> => {
   const holderChangeFilter = titleEscrowContract.filters.HolderTransfer(null, null);
   const holderChangeLogs = await provider.getLogs({ ...holderChangeFilter, fromBlock: 0 });
-
-  const holderChangeLogsParsed = holderChangeLogs.map((log) => {
-    if (!log.blockNumber) throw new Error("Block number not present");
-    return {
-      ...log,
-      ...titleEscrowContract.interface.parseLog(log),
-    };
-  });
-
+  const holderChangeLogsParsed = getParsedLogs(holderChangeLogs, titleEscrowContract);
   return holderChangeLogsParsed.map((event) => ({
     type: "TRANSFER_HOLDER",
     blockNumber: event.blockNumber,

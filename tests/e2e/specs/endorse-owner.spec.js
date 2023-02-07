@@ -11,12 +11,11 @@ describe("Endorse Owner", () => {
     cy.get("input[type=file]").attachFile("ebl-endorse-owner.json");
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
-
-      cy.get("[data-testid='endorseBeneficiaryDropdown']").click();
-      cy.get("[data-testid='endorseBtn']").click();
-      cy.confirmMetamaskTransaction();
-      cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_3);
-      cy.get("[data-testid='overlay-title']").should("have.text", "Change Owner Success");
-    });
-  }
-);
+    cy.clickConnectAndManageAssetButton(true);
+    cy.get("[data-testid='endorseBeneficiaryDropdown']").click();
+    cy.get("[data-testid='endorseBtn']").click();
+    cy.confirmMetamaskTransaction();
+    cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_3);
+    cy.get("[data-testid='overlay-title']").should("have.text", "Change Owner Success");
+  });
+});

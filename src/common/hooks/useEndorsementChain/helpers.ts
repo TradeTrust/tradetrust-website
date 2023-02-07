@@ -1,14 +1,15 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { TitleEscrowFactory__factory, TradeTrustToken } from "@govtechsg/token-registry/dist/contracts";
 import { Signer } from "ethers";
-import { EndorsementChain, TransferBaseEvent, TransferEvent, TransferEventType } from "../../../types";
+import { TransferBaseEvent, TransferEventType } from "../../../types";
 
 export const fetchEventTime = async (blockNumber: number, provider: Provider): Promise<number> => {
-  const eventTimestamp = (await (await provider.getBlock(blockNumber)).timestamp) * 1000;
+  const msecToSec = 1000;
+  const eventTimestamp = (await (await provider.getBlock(blockNumber)).timestamp) * msecToSec;
   return eventTimestamp;
 };
 
-export const extractEscrowAddress = async (
+export const extractTitleEscrowAddress = async (
   tokenRegistry: TradeTrustToken,
   tokenId: string,
   signer: Provider | Signer
@@ -23,7 +24,7 @@ export const extractEscrowAddress = async (
 /*
   Get available owner/holder from list of events
 */
-export const mergeTransferTransactions = (repeatedTransferEvents: TransferBaseEvent[]): TransferBaseEvent => {
+export const mergeDuplicatedTransactions = (repeatedTransferEvents: TransferBaseEvent[]): TransferBaseEvent => {
   let owner = "";
   let holder = "";
   for (const event of repeatedTransferEvents) {
@@ -32,8 +33,8 @@ export const mergeTransferTransactions = (repeatedTransferEvents: TransferBaseEv
   }
   return {
     ...repeatedTransferEvents[0],
-    owner: owner,
-    holder: holder,
+    owner,
+    holder,
   };
 };
 
@@ -70,12 +71,12 @@ export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBas
     for (const index in hashList[hash]) {
       repeatedTransfers.push(transferEvents[hashList[hash][index]]);
     }
-    let type: TransferEventType = "INITIAL";
+    let eventType: TransferEventType = "INITIAL";
     switch (length) {
       case 2:
         // 2 Repeated Transaction - Same Transaction Hash, Transaction Index && Block Number
         // TitleEscrow: change_owner, change_holder
-        type = "TRANSFER_OWNERS";
+        eventType = "TRANSFER_OWNERS";
         break;
       case 3:
         // 3 Repeated Transaction - Same Transaction Hash, Transaction Index && Block Number
@@ -87,7 +88,7 @@ export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBas
         // TitleEscrow: change_owner to 0x0, change_holder to 0x0
         for (let i = 0; i < length; i++) {
           if (repeatedTransfers[i].type === "INITIAL" || repeatedTransfers[i].type === "SURRENDER_ACCEPTED") {
-            type = repeatedTransfers[i].type;
+            eventType = repeatedTransfers[i].type;
           }
         }
         break;
@@ -96,65 +97,14 @@ export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBas
       default:
         throw new Error("Invalid repeated hash, update your configuration");
     }
-    const mergedTransaction = mergeTransferTransactions(repeatedTransfers);
+    const mergedTransaction = mergeDuplicatedTransactions(repeatedTransfers);
     mergedEscrowTransfers.push({
       ...mergedTransaction,
-      type,
+      type: eventType,
     } as TransferBaseEvent);
   }
   transferEvents = transferEvents.filter((x) => !repeatedHash.has(x.transactionHash));
   return [...transferEvents, ...mergedEscrowTransfers];
-};
-
-/*
-  Adds details of previous records (Previous Beneficiary/Holder)
-  to current events history
-*/
-export const getEndorsementChain = async (
-  provider: Provider,
-  logChain: TransferBaseEvent[]
-): Promise<EndorsementChain> => {
-  const historyChain: EndorsementChain = [];
-  sortLogChain(logChain);
-  let previousBeneficiary = "";
-  let previousHolder = "";
-
-  for (const log of logChain) {
-    const timestamp = await fetchEventTime(log.blockNumber, provider);
-    const transactionDetails = {
-      type: log.type,
-      transactionHash: log.transactionHash,
-      transactionIndex: log.transactionIndex,
-      blockNumber: log.blockNumber,
-      owner: log.owner || previousBeneficiary || "",
-      holder: log.holder || previousHolder || "",
-      timestamp: timestamp,
-    } as TransferEvent;
-
-    if (
-      log.type === "TRANSFER_OWNERS" ||
-      log.type === "TRANSFER_BENEFICIARY" ||
-      log.type === "TRANSFER_HOLDER" ||
-      log.type === "INITIAL"
-    ) {
-      // Owner/Holder change
-      historyChain.push(transactionDetails);
-      previousHolder = transactionDetails.holder;
-      previousBeneficiary = transactionDetails.owner;
-    } else if (log.type === "SURRENDER_ACCEPTED") {
-      // Title Escrow Voided
-      previousHolder = "";
-      previousBeneficiary = "";
-      historyChain.push(transactionDetails);
-    } else if (log.type === "SURRENDERED" || log.type === "SURRENDER_REJECTED") {
-      // No state changes, except document owner
-      historyChain.push(transactionDetails);
-    } else {
-      // No state changes
-      historyChain.push(transactionDetails);
-    }
-  }
-  return historyChain;
 };
 /*
   Sort based on blockNumber

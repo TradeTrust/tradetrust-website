@@ -10,7 +10,7 @@ describe("Transfer Holder", () => {
     cy.get("input[type=file]").attachFile("ebl-transfer-holder.json");
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
-    cy.clickConnectAndManageAssetButton();
+    cy.clickConnectAndManageAssetButton(true);
     cy.get("[data-testid='transferHolderDropdown']").click();
     cy.get("[data-testid='editable-input-holder']").type(ACCOUNT_2);
     cy.get("[data-testid='transferBtn']").click();

@@ -75,7 +75,7 @@ export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormP
             newValue={newBeneficiary}
             isEditable={isEditable}
             onSetNewValue={setNewBeneficiary}
-            error={nominationState === FormState.ERROR}
+            isError={nominationState === FormState.ERROR}
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">

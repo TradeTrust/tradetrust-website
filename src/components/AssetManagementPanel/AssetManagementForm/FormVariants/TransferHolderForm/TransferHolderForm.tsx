@@ -82,7 +82,7 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
             newValue={newHolder}
             isEditable={isEditable}
             onSetNewValue={setNewHolder}
-            error={holderTransferringState === FormState.ERROR}
+            isError={holderTransferringState === FormState.ERROR}
           />
         </div>
       </div>
