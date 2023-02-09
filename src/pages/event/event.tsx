@@ -36,11 +36,15 @@ export const EventPage: FunctionComponent = () => {
   return (
     <>
       <Helmet>
-        <meta property="description" content="These are media events which TradeTrust has been involved in." />
-        <meta property="og:description" content="These are media events which TradeTrust has been involved in." />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
+        <meta property="description" content="Check out TradeTrust's upcoming and past events." />
+        <meta property="og:description" content="Check out TradeTrust's upcoming and past events." />
+        <meta property="og:title" content="TradeTrust - Events" />
         <meta property="og:url" content={`${window.location.origin}/media`} />
         <title>TradeTrust - Events</title>
+        <meta
+          name="keywords"
+          content="Blockchain, NFT, Ethereum, Electronic Trade Document, Verifiable Document, Transferable Documents, Digital Trade Document, SWIFT Community Event, World CIO 200 APAC Singapore, TC307-Plenary, SWIFT at Sibos"
+        />
       </Helmet>
       <Page title="Event">
         <div className="mt-2 mb-1">

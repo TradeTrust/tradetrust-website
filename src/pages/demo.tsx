@@ -37,15 +37,19 @@ export const DemoPage: FunctionComponent = () => (
     <Helmet>
       <meta
         property="description"
-        content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
+        content="Take the demo user journey and have a hands-on experience with how easy it is to create a digital document via blockchain and streamline your operations using TradeTrust."
       />
       <meta
         property="og:description"
-        content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
+        content="Take the demo user journey and have a hands-on experience with how easy it is to create a digital document via blockchain and streamline your operations using TradeTrust."
       />
-      <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
+      <meta property="og:title" content="TradeTrust - Certificate of Origin Demo" />
       <meta property="og:url" content={`${window.location.origin}/demo`} />
-      <title>TradeTrust - Demo</title>
+      <title>TradeTrust - Certificate of Origin Demo</title>
+      <meta
+        name="keywords"
+        content="Blockchain, NFT, Ethereum, Electronic Trade Document, Digital Trade Document, Demo, Verifiable Document, Transferable Documents, Certificate of Origin"
+      />
     </Helmet>
     <Page title="Demo">
       <DemoLayout>

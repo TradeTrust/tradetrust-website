@@ -11,15 +11,19 @@ export const ViewerPage = (props: ViewerPageInterface): React.ReactElement => {
       <Helmet>
         <meta
           property="description"
-          content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
+          content="TradeTrust lets you verify documents from any issuer. All in one place."
         />
         <meta
           property="og:description"
-          content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
+          content="TradeTrust lets you verify documents from any issuer. All in one place."
         />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
+        <meta property="og:title" content="TradeTrust - Viewer" />
         <meta property="og:url" content={`${window.location.origin}/viewer`} />
         <title>TradeTrust - Viewer</title>
+        <meta
+          name="keywords"
+          content="Blockchain, NFT, Ethereum, Electronic Trade Document, Digital Trade Document, Transferable Documents, Electronic Bill of Lading, Bill of Lading, Verifiable Document, Certificate of Origin"
+        />
       </Helmet>
       <ViewerPageContainer {...props} />
     </>
