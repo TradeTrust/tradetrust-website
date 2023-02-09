@@ -30,11 +30,21 @@ export const FaqPageDetail: FunctionComponent = () => {
   return (
     <>
       <Helmet>
-        <meta property="description" content="Frequently Asked Questions" />
-        <meta property="og:description" content="Frequently Asked Questions" />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
+        <meta
+          property="description"
+          content="Here are some of the answers to the most frequently asked questions regarding TradeTrust."
+        />
+        <meta
+          property="og:description"
+          content="Here are some of the answers to the most frequently asked questions regarding TradeTrust."
+        />
+        <meta property="og:title" content="TradeTrust - Frequently Asked Questions" />
         <meta property="og:url" content={`${window.location.origin}${location.pathname}`} />
         <title>TradeTrust - Frequently Asked Questions</title>
+        <meta
+          name="keywords"
+          content="Blockchain, NFT, Ethereum, Electronic Trade Document, Verifiable Document, Digital Trade Document, Transferable Documents, Demo, Wallet ID, API, Gas Fee, Cryptocurrency, Crypto"
+        />
       </Helmet>
       <div className="container py-12">
         <div className="flex">

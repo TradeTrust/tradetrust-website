@@ -12,15 +12,19 @@ const VerifyPage = (): React.ReactElement => {
       <Helmet>
         <meta
           property="description"
-          content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
+          content="TradeTrust lets you verify documents from any issuer. All in one place."
         />
         <meta
           property="og:description"
-          content="TradeTrust lets you verify the documents you have of anyone from any issuer. All in one place."
+          content="TradeTrust lets you verify documents from any issuer. All in one place."
         />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
+        <meta property="og:title" content="TradeTrust - Verify Your Document" />
         <meta property="og:url" content={`${window.location.origin}/verify`} />
-        <title>TradeTrust - Verify</title>
+        <title>TradeTrust - Verify Your Document</title>
+        <meta
+          name="keywords"
+          content="Blockchain, NFT, Ethereum, Electronic Trade Document, Verifiable Document, Digital Trade Document, Transferable Documents, Verify Document"
+        />
       </Helmet>
 
       <Page title="Verify Documents">
