@@ -3,10 +3,11 @@ import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { EndorsementChain } from "../../../types";
 import { fetchEscrowTransfers } from "./fetchEscrowTransfer";
 import { useProviderContext } from "../../contexts/provider";
-import { extractTitleEscrowAddress, mergeTransfers } from "./helpers";
+import { mergeTransfers } from "./helpers";
 import { fetchTokenTransfers } from "./fetchTokenTransfer";
 import { ChainId } from "../../../constants/chain-info";
 import { getEndorsementChain } from "./retrieveEndorsementChain";
+import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
 
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
@@ -39,7 +40,7 @@ export const useEndorsementChain = (
         return;
       }
       const tokenLogs = await fetchTokenTransfers(tokenRegistry, tokenId);
-      const escrowAddress = await extractTitleEscrowAddress(tokenRegistry, tokenId, providerOrSigner);
+      const escrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, providerOrSigner);
       const titleEscrowLogs = await fetchEscrowTransfers(provider, escrowAddress);
       const transferEvents = mergeTransfers([...titleEscrowLogs, ...tokenLogs]);
       const retrievedEndorsementChain = await getEndorsementChain(provider, transferEvents);

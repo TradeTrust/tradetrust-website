@@ -53,10 +53,10 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   const { call: checkRole, value: hasRole } = useContractFunctionHook(tokenRegistry, "hasRole");
 
   useEffect(() => {
-    if (isTitleEscrow === false && account) {
-      checkRole(constants.roleHash.MinterRole, account);
+    if (isTitleEscrow && isSurrendered && account) {
+      checkRole(constants.roleHash.AccepterRole, account);
     }
-  }, [account, checkRole, isTitleEscrow]);
+  }, [account, checkRole, isTitleEscrow, isSurrendered]);
 
   const onDestroyToken = () => {
     destroyToken(tokenId);
@@ -103,7 +103,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             beneficiaryEndorseState={endorseBeneficiaryState}
             isSurrendered={isSurrendered}
             isTokenBurnt={isTokenBurnt}
-            onApproveNewTransferTargets={nominate}
+            nominateBeneficiary={nominate}
             approveNewTransferTargetsState={nominateState}
             transferOwners={transferOwners}
             transferOwnersState={transferOwnersState}

@@ -4,29 +4,8 @@ import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AcceptSurrenderedForm } from "./AcceptSurrenderedForm";
 import { act } from "react-dom/test-utils";
-import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
-
-jest.mock("../../../../../common/hooks/useEndorsementChain");
-
-const mockUseFeatureFlagOverride = useEndorsementChain as jest.Mock;
-const sampleEndorsementChain = [
-  {
-    eventType: "Transfer",
-    documentOwner: "0x07117cCE985E750D1709191BC2a345AbA85b6993",
-    beneficiary: "0x1245e5B64D785b25057f7438F715f4aA5D965733",
-    holderChangeEvents: [
-      { blockNumber: 8829273, holder: "0x1245e5B64D785b25057f7438F715f4aA5D965733", timestamp: 1602050689000 },
-    ],
-  },
-];
 
 describe("AcceptSurrenderedForm", () => {
-  beforeEach(() => {
-    jest.resetModules(); // this is important - it clears the cache
-    mockUseFeatureFlagOverride.mockReturnValue({
-      endorsementChain: sampleEndorsementChain,
-    });
-  });
   it("should have the accept surrender button and cancel button", async () => {
     await act(async () => {
       const container = render(

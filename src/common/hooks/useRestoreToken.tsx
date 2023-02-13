@@ -44,7 +44,7 @@ export const useRestoreToken = (
   }, []);
 
   // If any of the dependency is updated, should reset function
-  useEffect(() => () => reset(), [contractInstance, provider, reset, tokenId]);
+  useEffect(() => reset(), [contractInstance, provider, reset, tokenId]);
 
   return { restoreToken, state, errorMessage };
 };

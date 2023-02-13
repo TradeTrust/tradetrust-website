@@ -4,7 +4,7 @@ import { AssetManagementActions } from "../AssetManagementActions";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
 import { EndorseBeneficiaryForm } from "./FormVariants/EndorseBeneficiary";
 import { EndorseTransferForm } from "./FormVariants/EndorseTransferForm";
-import { NominateBeneficiaryForm } from "./FormVariants/NominateBeneficiaryHolder";
+import { NominateBeneficiaryForm } from "./FormVariants/NominateBeneficiary";
 import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
 import { AcceptSurrenderedForm } from "./FormVariants/AcceptSurrenderedForm";
@@ -23,8 +23,8 @@ interface AssetManagementFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   onTransferHolder: (nextHolder: string) => void;
   onEndorseBeneficiary: (nominee: string) => void;
-  onApproveNewTransferTargets: (nominee: string) => void;
-  transferOwners: (approvedBeneficiary: string, approvedHolder: string) => void;
+  nominateBeneficiary: (nominee: string) => void;
+  transferOwners: (nextBeneficiary: string, nextHolder: string) => void;
   onSurrender: () => void;
   onDestroyToken: () => void;
   surrenderingState: string;
@@ -63,7 +63,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   beneficiaryEndorseState,
   isSurrendered,
   isTokenBurnt,
-  onApproveNewTransferTargets,
+  nominateBeneficiary,
   approveNewTransferTargetsState,
   transferOwners,
   transferOwnersState,
@@ -73,17 +73,17 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   restoreTokenState,
   tokenId,
 }) => {
+  const isActiveTitleEscrow = isTitleEscrow && !isSurrendered;
   const isHolder = isTitleEscrow && account === holder;
   const isBeneficiary = isTitleEscrow && account === beneficiary;
-  const canSurrender = isBeneficiary && isHolder;
+  const canSurrender = isBeneficiary && isHolder && !isSurrendered;
   /*
     In order to shred we need to check 3 conditions
     - document is surrendered
     - documentOwner is the tokenRegistry
     - currentUser === tokenRegistryMinter
   */
-  const canHandleSurrender =
-    isSurrendered && isTitleEscrow === false && documentOwner === tokenRegistryAddress && isMinter;
+  const canHandleSurrender = isTitleEscrow && isMinter && isSurrendered && documentOwner === tokenRegistryAddress;
 
   // canEndorseBeneficiary
   // function transferBeneficiary(address beneficiaryNominee) external;
@@ -100,10 +100,10 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   // transferHolder
   // transferBeneficiary
 
-  const canNominateBeneficiary = isTitleEscrow && isBeneficiary; // Must be beneficiary, current beneficiary cannot nominate self
+  const canNominateBeneficiary = isActiveTitleEscrow && isBeneficiary; // Must be beneficiary, current beneficiary cannot nominate sel)f
   const hasNominee = !!approvedBeneficiary && approvedBeneficiary !== "0x0000000000000000000000000000000000000000";
-  const canTransferBeneficiary = isTitleEscrow && isBeneficiary && isHolder && hasNominee; // Only if isHolder and isBeneficiary: function transferBeneficiary(address _nominee)
-  const canTransferHolder = isTitleEscrow && isHolder;
+  const canTransferBeneficiary = isActiveTitleEscrow && isBeneficiary && isHolder && hasNominee; // Only if isHolder and isBeneficiary: function transferBeneficiary(address _nominee)
+  const canTransferHolder = isActiveTitleEscrow && isHolder;
   const canTransferOwners = canTransferBeneficiary && canTransferHolder;
 
   const setFormActionNone = () => {
@@ -168,7 +168,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
-          handleNomination={onApproveNewTransferTargets}
+          handleNomination={nominateBeneficiary}
           nominationState={approveNewTransferTargetsState}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}
@@ -195,6 +195,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
         <TransferHolderForm
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
+          beneficiary={beneficiary}
           holder={holder}
           handleTransfer={onTransferHolder}
           holderTransferringState={holderTransferringState}

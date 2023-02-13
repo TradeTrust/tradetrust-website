@@ -2,14 +2,9 @@ import { ethers } from "ethers";
 import { useProviderContext } from "../../contexts/provider";
 import { INFURA_API_KEY } from "../../../config";
 import { TradeTrustToken__factory } from "@govtechsg/token-registry/dist/contracts";
-import {
-  extractTitleEscrowAddress,
-  fetchEventTime,
-  mergeDuplicatedTransactions,
-  mergeTransfers,
-  sortLogChain,
-} from "./helpers";
+import { fetchEventTime, mergeDuplicatedTransactions, mergeTransfers, sortLogChain } from "./helpers";
 import { TransferBaseEvent } from "../../../types";
+import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
 
 jest.mock("../../contexts/provider");
 
@@ -273,7 +268,7 @@ describe("Test all endorsement chain helpers", () => {
       "0x2B1B777614f8a90F9Cc29eC6Db521581c068a749",
       goerliProvider
     );
-    const result = await extractTitleEscrowAddress(
+    const result = await retrieveTitleEscrowAddressOnFactory(
       tokenRegistry,
       "0xc38268c2b0248d6d9ba5b2dc35d19c99a7688f3221935457713d6621edc300c3",
       goerliProvider

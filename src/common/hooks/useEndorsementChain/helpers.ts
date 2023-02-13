@@ -1,24 +1,10 @@
 import { Provider } from "@ethersproject/abstract-provider";
-import { TitleEscrowFactory__factory, TradeTrustToken } from "@govtechsg/token-registry/dist/contracts";
-import { Signer } from "ethers";
 import { TransferBaseEvent, TransferEventType } from "../../../types";
 
 export const fetchEventTime = async (blockNumber: number, provider: Provider): Promise<number> => {
   const msecToSec = 1000;
   const eventTimestamp = (await (await provider.getBlock(blockNumber)).timestamp) * msecToSec;
   return eventTimestamp;
-};
-
-export const extractTitleEscrowAddress = async (
-  tokenRegistry: TradeTrustToken,
-  tokenId: string,
-  signer: Provider | Signer
-): Promise<string> => {
-  const titleEscrowFactoryAddress = await tokenRegistry.titleEscrowFactory();
-  const tokenRegistryAddress = await tokenRegistry.address;
-  const titleEscrowFactory = TitleEscrowFactory__factory.connect(titleEscrowFactoryAddress, signer);
-  const titleEscrowAddress = await titleEscrowFactory.getAddress(tokenRegistryAddress, tokenId);
-  return titleEscrowAddress;
 };
 
 /*
