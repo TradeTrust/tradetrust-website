@@ -15,8 +15,8 @@ import { AssetManagementTitle } from "../../AssetManagementTitle";
 interface RejectSurrenderedFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
-  beneficiary: string;
-  holder: string;
+  beneficiary?: string;
+  holder?: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
   handleRestoreToken: () => void;

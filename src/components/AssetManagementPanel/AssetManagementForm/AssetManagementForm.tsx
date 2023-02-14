@@ -39,7 +39,6 @@ interface AssetManagementFormProps {
   isTitleEscrow: boolean;
   onRestoreToken: () => void;
   restoreTokenState: string;
-  tokenId: string;
 }
 
 export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = ({
@@ -71,7 +70,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   isTitleEscrow,
   onRestoreToken,
   restoreTokenState,
-  tokenId,
 }) => {
   const isActiveTitleEscrow = isTitleEscrow && !isSurrendered;
   const isHolder = isTitleEscrow && account === holder;
@@ -149,7 +147,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     case AssetManagementActions.RejectSurrendered:
       return (
         <RejectSurrenderedForm
-          tokenId={tokenId}
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}

@@ -16,8 +16,8 @@ import { EditableAssetTitle } from "../EditableAssetTitle";
 interface NominateBeneficiaryFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
-  beneficiary: string;
-  holder: string;
+  beneficiary?: string;
+  holder?: string;
   handleNomination: (nominee: string) => void;
   nominationState: string;
   setFormActionNone: () => void;

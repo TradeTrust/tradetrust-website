@@ -113,7 +113,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             onDestroyToken={onDestroyToken}
             onRestoreToken={restoreToken}
             restoreTokenState={restoreTokenState}
-            tokenId={tokenId}
           />
         )}
       </div>
