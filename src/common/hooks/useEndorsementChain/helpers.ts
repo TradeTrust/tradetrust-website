@@ -1,4 +1,5 @@
 import { Provider } from "@ethersproject/abstract-provider";
+import { Dictionary, groupBy } from "lodash";
 import { TransferBaseEvent, TransferEventType } from "../../../types";
 
 export const fetchEventTime = async (blockNumber: number, provider: Provider): Promise<number> => {
@@ -24,73 +25,67 @@ export const mergeDuplicatedTransactions = (repeatedTransferEvents: TransferBase
   };
 };
 
+export const getHolderOwner = (events: TransferBaseEvent[]): { owner: string; holder: string } => {
+  let owner = "";
+  let holder = "";
+  for (const event of events) {
+    owner = event.owner || owner;
+    holder = event.owner || holder;
+  }
+  return { owner, holder };
+};
+
 /*
     Merge Transactions with the same transaction hash
-    E.g. 
-    TRANSFER_OWNERS that emits: both 
-    HOLDER_TRANSFER and OWNER_TRANSFER (on Title Escrow)
+
+    TRANSFER_OWNERS that emits:
+    - Title Escrow
+      * HOLDER_TRANSFER
+      * OWNER_TRANSFER
     
-    INITIAL (Minting) that emits: 
-    (TRANSFER_OWNERS as above) and INITIAL (on Token Registry)
+    INITIAL (Minting) that emits:
+    - Title Escrow
+      * HOLDER_TRANSFER
+      * OWNER_TRANSFER
+    - Token Registry
+      * INITIAL
     
-    SURRENDER_ACCEPTED (Shred) that emits: 
-    (TRANSFER_OWNERS as above) and SURRENDER_ACCEPTED (on Token Registry)
+
+    SURRENDER_ACCEPTED (Shred) that emits:
+    - Title Escrow
+      * HOLDER_TRANSFER
+      * OWNER_TRANSFER
+    - Token Registry
+      * SURRENDER_ACCEPTED
 */
 export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBaseEvent[] => {
-  const hashList: Record<string, number[]> = {};
-  const repeatedHash: Set<string> = new Set();
-  for (let i = 0; i < transferEvents.length; i++) {
-    const transactionHash: string = transferEvents[i].transactionHash;
-    if (hashList[transactionHash] === undefined) {
-      hashList[transactionHash] = [i];
-    } else {
-      hashList[transactionHash].push(i);
-      repeatedHash.add(transactionHash);
+  const groupedEventsDict: Dictionary<TransferBaseEvent[]> = groupBy(transferEvents, "transactionHash");
+  const transactionHashValues = Object.values(groupedEventsDict);
+  const mergedTransaction = transactionHashValues.flatMap((groupedEvents) => {
+    if (groupedEvents.length === 1) return groupedEvents;
+    if (groupedEvents.length === 2) {
+      // 2 Transaction with the same transactionHash, (transactionIndex and blockNumber)
+      // Merging HOLDER_TRANSFER and OWNER_TRANSFER transactions
+      const type: TransferEventType = "TRANSFER_OWNERS";
+      const base: TransferBaseEvent = groupedEvents[0];
+      const { owner, holder } = getHolderOwner(groupedEvents);
+      return [{ ...base, type, owner, holder }];
     }
-  }
-
-  const mergedEscrowTransfers: TransferBaseEvent[] = [];
-
-  for (const hash of Array.from(repeatedHash)) {
-    const length = hashList[hash].length;
-    const repeatedTransfers: TransferBaseEvent[] = [];
-    for (const index in hashList[hash]) {
-      repeatedTransfers.push(transferEvents[hashList[hash][index]]);
+    if (groupedEvents.length === 3) {
+      // 3 Transaction with the same transactionHash, (transactionIndex and blockNumber)
+      // Merging HOLDER_TRANSFER, OWNER_TRANSFER and INITIAL/SURRENDER_ACCEPTED transactions
+      // SURRENDER_ACCPTED: changes owner and holder to 0x0
+      const base = groupedEvents[0];
+      const type: TransferEventType = "INITIAL";
+      const { owner, holder } = getHolderOwner(groupedEvents);
+      const found = groupedEvents.find((x) => {
+        return x.type === "INITIAL" || x.type === "SURRENDER_ACCEPTED";
+      });
+      return [{ ...base, owner, holder, type: found?.type || type }];
     }
-    let eventType: TransferEventType = "INITIAL";
-    switch (length) {
-      case 2:
-        // 2 Repeated Transaction - Same Transaction Hash, Transaction Index && Block Number
-        // TitleEscrow: change_owner, change_holder
-        eventType = "TRANSFER_OWNERS";
-        break;
-      case 3:
-        // 3 Repeated Transaction - Same Transaction Hash, Transaction Index && Block Number
-        // Token-Registry: Initial
-        // TitleEscrow: change_owner, change_holder
-
-        // 3 Repeated Transaction - Same Transaction Hash, Transaction Index && Block Number
-        // Token-Registry: surrender_accepted - shred
-        // TitleEscrow: change_owner to 0x0, change_holder to 0x0
-        for (let i = 0; i < length; i++) {
-          if (repeatedTransfers[i].type === "INITIAL" || repeatedTransfers[i].type === "SURRENDER_ACCEPTED") {
-            eventType = repeatedTransfers[i].type;
-          }
-        }
-        break;
-      case 0:
-      case 1:
-      default:
-        throw new Error("Invalid repeated hash, update your configuration");
-    }
-    const mergedTransaction = mergeDuplicatedTransactions(repeatedTransfers);
-    mergedEscrowTransfers.push({
-      ...mergedTransaction,
-      type: eventType,
-    } as TransferBaseEvent);
-  }
-  transferEvents = transferEvents.filter((x) => !repeatedHash.has(x.transactionHash));
-  return [...transferEvents, ...mergedEscrowTransfers];
+    throw new Error("Invalid hash, update your configuration");
+  });
+  return mergedTransaction;
 };
 /*
   Sort based on blockNumber
