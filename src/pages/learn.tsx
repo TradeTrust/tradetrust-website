@@ -317,15 +317,19 @@ export const LearnPage: FunctionComponent = () => {
       <Helmet>
         <meta
           property="description"
-          content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
+          content="Here is where you can find technical webinars to learn how to create and verify a TradeTrust document!"
         />
         <meta
           property="og:description"
-          content="This series of tech talks is organised by the Infocomm Media Development Authority of Singapore (IMDA) and GovTech Singapore. It comprises six webinars and aims to provide professionals with knowledge on TradeTrust as a digital utility for cross border trade."
+          content="Here is where you can find technical webinars to learn how to create and verify a TradeTrust document!"
         />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
+        <meta property="og:title" content="TradeTrust - Learn" />
         <meta property="og:url" content={`${window.location.origin}/learn`} />
         <title>TradeTrust - Learn</title>
+        <meta
+          name="keywords"
+          content="Blockchain, Ethereum, NFT, Electronic Trade Document, Verifiable Document, Digital Trade Document, Webinars, Creation of Verifiable Documents, Transferable Documents"
+        />
       </Helmet>
 
       <div className="container py-12">

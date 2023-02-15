@@ -1,0 +1,31 @@
+# https://github.com/drptbl/synpress-setup-example/blob/1d980157ef343de54f786e1115e1da590f1ba1d1/docker-compose.yml#L22-L25
+version: "3.9"
+services:
+  synpress:
+    container_name: synpress
+    build: .
+    environment:
+      - DISPLAY=display:0.0
+    depends_on:
+      - display
+    entrypoint: []
+    working_dir: /app
+    command: >
+      bash -c 'echo -n "======> local noVNC URL:
+      http://localhost:8080/vnc.html?autoconnect=true " && npx wait-on
+      http://display:8080 && npm ci && npm run integration:headful'
+    networks:
+      - x11
+  display:
+    container_name: display
+    image: synthetixio/display:b2643097e891906524e52e7ee956260b20fa01fb-base
+    environment:
+      - RUN_XTERM=no
+      - DISPLAY_WIDTH=1920
+      - DISPLAY_HEIGHT=1080
+    ports:
+      - "8080:8080"
+    networks:
+      - x11
+networks:
+  x11:

@@ -28,7 +28,7 @@ export const SettingsPage: FunctionComponent = () => (
     <Helmet>
       <meta property="description" content="TradeTrust settings page." />
       <meta property="og:description" content="TradeTrust settings page." />
-      <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
+      <meta property="og:title" content="TradeTrust - Settings" />
       <meta property="og:url" content={`${window.location.origin}/settings`} />
       <title>TradeTrust - Settings</title>
     </Helmet>

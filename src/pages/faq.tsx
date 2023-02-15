@@ -8,15 +8,19 @@ export const FaqPage: FunctionComponent = () => (
     <Helmet>
       <meta
         name="description"
-        content="Have some questions in mind? Here are a list of collated questions and answers that might answer your questions."
+        content="Here are some of the answers to the most frequently asked questions regarding TradeTrust."
       />
       <meta
         property="og:description"
-        content="Have some questions in mind? Here are a list of collated questions and answers that might answer your questions."
+        content="Here are some of the answers to the most frequently asked questions regarding TradeTrust."
       />
       <meta property="og:title" content="TradeTrust - Frequently Asked Questions" />
       <meta property="og:url" content={`${window.location.origin}/faq`} />
       <title>TradeTrust - Frequently Asked Questions</title>
+      <meta
+        name="keywords"
+        content="Blockchain, NFT, Ethereum, Electronic Trade Document, Verifiable Document, Digital Trade Document, Transferable Documents, Demo, Wallet ID, API, Gas Fee, Cryptocurrency, Crypto"
+      />
     </Helmet>
     <Page title="Frequently Asked Questions">
       <FaqSelect />
