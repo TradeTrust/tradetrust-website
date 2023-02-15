@@ -16,7 +16,9 @@
       "url": ["http://localhost:3000/", "http://localhost:3000/verify"],
       "staticDistDir": "./dist",
       "isSinglePageApplication": true,
-      "psiStrategy": "desktop"
+      "settings": {
+        "preset": "desktop"
+      }
     }
   }
 }
