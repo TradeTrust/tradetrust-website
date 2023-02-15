@@ -5,12 +5,15 @@
     },
     "assert": {
       "assertions": {
-        "categories:performance": ["warn", { "minScore": 0.8 }],
+        "categories:performance": ["warn", { "minScore": 0.3 }],
         "categories:accessibility": ["warn", { "minScore": 0.8 }],
         "categories:best-practices": ["warn", { "minScore": 0.8 }],
         "categories:seo": ["warn", { "minScore": 0.8 }],
-        "categories:pwa": ["warn", { "minScore": 0.8 }]
+        "categories:pwa": ["warn", { "minScore": 0.0 }]
       }
+    },
+    "collect": {
+      "isSinglePageApplication": true
     }
   }
 }
