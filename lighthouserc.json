@@ -15,7 +15,8 @@
     "collect": {
       "url": ["http://localhost:3000/", "http://localhost:3000/verify"],
       "staticDistDir": "./dist",
-      "isSinglePageApplication": true
+      "isSinglePageApplication": true,
+      "psiStrategy": "desktop"
     }
   }
 }
