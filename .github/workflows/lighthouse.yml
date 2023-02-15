@@ -1,0 +1,19 @@
+name: Lighthouse Report
+
+on: [push]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Test with Lighthouse
+        uses: treosh/lighthouse-action@v1.3.1
+        with:
+          urls: "http://localhost:3000"
+          budgetPath: "./lighthouse-budgets.json"
+          outputDir: "./reports"
