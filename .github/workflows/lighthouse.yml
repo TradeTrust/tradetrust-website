@@ -24,4 +24,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Lighthouse reports
-          path: ${{ env.GITHUB_WORKSPACE }}
+          path: ${{ github.workspace }}
+          if-no-files-found: ignore
+          retention-days: 5
