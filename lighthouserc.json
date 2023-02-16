@@ -1,6 +1,7 @@
 {
   "ci": {
     "upload": {
+      "outputDir": "./lighthouseReport",
       "target": "filesystem"
     },
     "assert": {
