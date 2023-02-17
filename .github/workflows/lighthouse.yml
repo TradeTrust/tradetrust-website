@@ -25,5 +25,4 @@ jobs:
         with:
           name: Lighthouse reports
           path: ${{ github.workspace }}/lighthouseReport
-          if-no-files-found: ignore
-          retention-days: 5
+          retention-days: 1
