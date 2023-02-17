@@ -7,7 +7,7 @@
   },
   "license": "ISC",
   "scripts": {
-    "blockchain": "rm -Rf tests/e2e/fixtures/ganache-db && unzip tests/e2e/fixtures/ganache-db.zip -d tests/e2e/fixtures/ && ganache --wallet.mnemonic \"indicate swing place chair flight used hammer soon photo region volume shuffle\" -i 1337 --database.dbPath \"tests/e2e/fixtures/ganache-db\"",
+    "blockchain": "ganache --wallet.mnemonic \"indicate swing place chair flight used hammer soon photo region volume shuffle\" -i 1337 --fork.network goerli --fork.blockNumber 8506655 --logging.quiet=true",
     "blockchain:contracts": "node --experimental-modules ./tests/e2e/setup-contracts.mjs",
     "blockchain:testrun": "concurrently -k -s first \"npm:blockchain\" \"npm:blockchain:contracts\"",
     "build": "run-s check-types build:css build:app",
