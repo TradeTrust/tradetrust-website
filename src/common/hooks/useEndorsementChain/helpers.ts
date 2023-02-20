@@ -11,20 +11,6 @@ export const fetchEventTime = async (blockNumber: number, provider: Provider): P
 /*
   Get available owner/holder from list of events
 */
-export const mergeDuplicatedTransactions = (repeatedTransferEvents: TransferBaseEvent[]): TransferBaseEvent => {
-  let owner = "";
-  let holder = "";
-  for (const event of repeatedTransferEvents) {
-    owner = event.owner || owner;
-    holder = event.owner || holder;
-  }
-  return {
-    ...repeatedTransferEvents[0],
-    owner,
-    holder,
-  };
-};
-
 export const getHolderOwner = (events: TransferBaseEvent[]): { owner: string; holder: string } => {
   let owner = "";
   let holder = "";
