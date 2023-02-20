@@ -65,8 +65,8 @@ describe("Test all endorsement chain helpers", () => {
     });
   });
 
-  describe("mergeTransactions merges all transactions", () => {
-    it("Merge Transactions with duplicates", () => {
+  describe("mergeTransactions", () => {
+    it("should merges all transactions with the same transaction hash", () => {
       const duplicatedTransactions = [
         {
           type: "INITIAL",
