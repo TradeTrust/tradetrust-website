@@ -27,5 +27,5 @@ slides:
       achievement of Sustainable Development Goals (SDGs). TradeTrust is proud
       to be a finalist for the WSIS Prize 2023.
     title: WSIS Prizes 2023
-    backgroundImage: /static/uploads/wsis-finalist.jpeg
+    backgroundImage: /static/uploads/wsis.png
 ---
