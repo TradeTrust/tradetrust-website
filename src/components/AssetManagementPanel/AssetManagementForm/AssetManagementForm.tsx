@@ -9,6 +9,7 @@ import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
 import { AcceptSurrenderedForm } from "./FormVariants/AcceptSurrenderedForm";
 import { RejectSurrenderedForm } from "./FormVariants/RejectSurrenderedForm";
+import { InitialAddress } from "../../../constants/chain-info";
 
 interface AssetManagementFormProps {
   beneficiary?: string;
@@ -99,7 +100,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   // transferBeneficiary
 
   const canNominateBeneficiary = isActiveTitleEscrow && isBeneficiary; // Must be beneficiary, current beneficiary cannot nominate sel)f
-  const hasNominee = !!approvedBeneficiary && approvedBeneficiary !== "0x0000000000000000000000000000000000000000";
+  const hasNominee = !!approvedBeneficiary && approvedBeneficiary !== InitialAddress;
   const canTransferBeneficiary = isActiveTitleEscrow && isBeneficiary && isHolder && hasNominee; // Only if isHolder and isBeneficiary: function transferBeneficiary(address _nominee)
   const canTransferHolder = isActiveTitleEscrow && isHolder;
   const canTransferOwners = canTransferBeneficiary && canTransferHolder;

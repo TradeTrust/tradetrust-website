@@ -4,7 +4,7 @@ import { TransferBaseEvent, TransferEventType } from "../../../types";
 
 export const fetchEventTime = async (blockNumber: number, provider: Provider): Promise<number> => {
   const msecToSec = 1000;
-  const eventTimestamp = (await (await provider.getBlock(blockNumber)).timestamp) * msecToSec;
+  const eventTimestamp = (await provider.getBlock(blockNumber)).timestamp * msecToSec;
   return eventTimestamp;
 };
 

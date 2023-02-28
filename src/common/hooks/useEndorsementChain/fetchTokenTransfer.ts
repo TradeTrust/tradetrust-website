@@ -1,6 +1,7 @@
 import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
 import { TypedEvent } from "@govtechsg/token-registry/dist/contracts/common";
 import { LogDescription } from "ethers/lib/utils";
+import { BurnAddress, InitialAddress } from "../../../constants/chain-info";
 import { TokenTransferEvent, TokenTransferEventType } from "../../../types";
 import { sortLogChain } from "./helpers";
 
@@ -54,7 +55,7 @@ export const identifyTokenTransferEventsFunction = (tokenRegistryAddress: string
       case tokenRegistryAddress:
         return "SURRENDERED";
       // Title Escrow shredded transfers document owner to 0xdead (ETH Burner Address)
-      case "0x000000000000000000000000000000000000dEaD":
+      case BurnAddress:
         return "SURRENDER_ACCEPTED";
     }
     switch (from) {
@@ -62,7 +63,7 @@ export const identifyTokenTransferEventsFunction = (tokenRegistryAddress: string
       case tokenRegistryAddress:
         return "SURRENDER_REJECTED";
       // Title Escrow mint from thin air - 0x0 (Burn Address)
-      case "0x0000000000000000000000000000000000000000":
+      case InitialAddress:
         return "INITIAL";
     }
     throw new Error("Unidentified transfer event");

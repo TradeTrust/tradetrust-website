@@ -17,13 +17,13 @@ describe("Test all endorsement chain helpers", () => {
     mockUseProviderContext.mockReturnValue({ provider: goerliProvider, providerOrSigner: goerliProvider });
   });
 
-  describe("test that fetchEventTime block time is as expected", () => {
-    it("test that fetchEventTime block 0 is as expected", async () => {
+  describe("fetchEventTime", () => {
+    it("should return correct formatted timestamp in milliseconds for block 0 with goerli provider", async () => {
       const timeOfFirstBlock = await fetchEventTime(0, goerliProvider);
       expect(timeOfFirstBlock).toBe(1548854791000);
     });
 
-    it("test that fetchEventTime block 1 is as expected", async () => {
+    it("should return correct formatted timestamp in milliseconds for block 1 with goerli provider", async () => {
       const timeOfFirstBlock = await fetchEventTime(1, goerliProvider);
       expect(timeOfFirstBlock).toBe(1548947453000);
     });

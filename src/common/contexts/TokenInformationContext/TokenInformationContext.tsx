@@ -7,6 +7,7 @@ import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
+import { BurnAddress } from "../../../constants/chain-info";
 
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
@@ -81,7 +82,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     tokenId
   );
   const isSurrendered = documentOwner === tokenRegistryAddress;
-  const isTokenBurnt = documentOwner === "0x000000000000000000000000000000000000dEaD"; // check if the token belongs to burn address.
+  const isTokenBurnt = documentOwner === BurnAddress; // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
   const { isInterfaceType: isTitleEscrow } = useSupportsInterface(titleEscrow, "0x079dff60");

@@ -3,14 +3,13 @@ import { providers, Signer } from "ethers";
 import { TitleEscrowFactory__factory, TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
 import { TitleEscrow } from "@govtechsg/token-registry/contracts";
 import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
+import { BurnAddress } from "../../constants/chain-info";
 
 interface useTitleEscrowContractProps {
   titleEscrow?: TitleEscrow;
   documentOwner?: string;
   updateTitleEscrow: () => Promise<void>;
 }
-
-const burnAddress = "0x000000000000000000000000000000000000dEaD";
 
 export const useTitleEscrowContract = (
   provider: providers.Provider | Signer | undefined,
@@ -68,7 +67,7 @@ export const connectToTitleEscrow = async ({
 }: ConnectToTitleEscrowArgs): Promise<TitleEscrow> => {
   const tokenRegistryAddress = tokenRegistry.address;
   const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
-  const inactiveEscrow = [burnAddress, tokenRegistryAddress].includes(titleEscrowOwner);
+  const inactiveEscrow = [BurnAddress, tokenRegistryAddress].includes(titleEscrowOwner);
   let titleEscrowAddress = titleEscrowOwner;
   if (inactiveEscrow) {
     titleEscrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, provider);
