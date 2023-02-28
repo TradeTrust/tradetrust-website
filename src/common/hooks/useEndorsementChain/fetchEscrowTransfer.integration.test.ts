@@ -248,7 +248,6 @@ describe("Fetch Escrow Transfers", () => {
   describe("fetch from title escrow holder transfers", () => {
     it("should return parsed transfer logs in valid format", async () => {
       const titleEscrow = TitleEscrow__factory.connect("0xAAb472d3706E0E7F8Fb4354EADe34F2c43dDb279", goerliProvider);
-      if (!titleEscrow) throw new Error("Unable to connect to token registry: Test Failed");
       const holderTransfers = await fetchHolderTransfers(titleEscrow, goerliProvider);
       expect(holderTransfers).toEqual([
         {
