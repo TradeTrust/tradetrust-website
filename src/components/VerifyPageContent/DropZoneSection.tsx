@@ -20,6 +20,7 @@ const DraggableDemoCertificate: FunctionComponent<DraggableDemoCertificateProps>
           src="/static/images/dropzone/drop_arrow.svg"
           className="absolute -left-28 lg:-left-24 xl:-left-32 top-1/4"
           style={{ width: "135px" }}
+          alt="Arrow icon"
         />
         <div className="flex justify-center items-center w-full h-full">
           <div className="w-2/3 lg:w-1/2 xl:w-64 mr-auto px-4 inline-block box-content">
@@ -44,6 +45,7 @@ const DraggableDemoCertificate: FunctionComponent<DraggableDemoCertificateProps>
                     draggable="false"
                     className="top-[-40%] absolute cursor-grab active:cursor-grabbing"
                     src="/static/images/dropzone/certificate.svg"
+                    alt="Certificate icon"
                   />
                 </a>
               </div>

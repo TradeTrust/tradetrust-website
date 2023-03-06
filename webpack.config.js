@@ -72,6 +72,7 @@ module.exports = {
               { from: "public/static/images", to: "static/images" },
               { from: "public/static/demo", to: "static/demo" },
               { from: "public/static/uploads", to: "static/uploads" },
+              { from: "public/static/robots.txt", to: "robots.txt" },
               { from: "public/imd@", to: "imd@" },
             ],
           }),
