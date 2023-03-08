@@ -1,7 +1,7 @@
 ---
 title: TradeTrust Community Event 2023
 date: 2023-03-30T02:00:10.208Z
-thumbnail: /static/uploads/icc-imda-social-post-3-.png
+thumbnail: /static/uploads/icc-imda-banner.png
 blurb: Join us for our first TradeTrust Community Event as we share recent
   happenings and insights from various speakers. Stay tuned for more updates!
 link: https://www.gevme.com/icc-future-trade-forum-2023-90116271
