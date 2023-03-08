@@ -17,13 +17,13 @@ export const PersonaCard: React.FunctionComponent<PersonaProps> = ({ personaInde
         <div className="flex flex-col items-center lg:items-start lg:justify-start">
           <h5 className="mb-2">{jobTitle}</h5>
           <p className="text-base text-center mx-5 lg:mx-0 lg:text-left lg:min-h-90">{description}</p>
-          <a
+          <p
             className="block pt-3 text-cerulean-300 text-base font-gilroy-bold cursor-pointer"
             onClick={() => onOverlayHandler(persona)}
             data-testid={`persona-details-${personaIndex}`}
           >
             Click to find out more
-          </a>
+          </p>
         </div>
       </div>
     </div>
