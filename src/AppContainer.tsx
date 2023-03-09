@@ -27,7 +27,7 @@ const AppContainer = (): React.ReactElement => {
         rightItems={rightNavItems}
       />
       <main
-        className="bg-cerulean-50 flex-1 bg-cover"
+        className="bg-cerulean-50 bg-cover"
         style={{ backgroundImage: "url('/static/images/common/wave-lines.png')" }}
       >
         <Routes routes={routes} />
