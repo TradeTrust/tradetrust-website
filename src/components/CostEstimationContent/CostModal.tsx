@@ -27,16 +27,16 @@ export const CostModal: FunctionComponent<CostModalProps> = ({ costData }) => {
                       src={contractCost.contractIcon}
                       alt={`cost-info-${contractCost.contractTitle}`}
                     />
-                    <h4 className="mt-4">{contractCost.contractTitle}</h4>
+                    <h4 className="mt-4 text-center">{contractCost.contractTitle}</h4>
                     <div className="flex">
                       Ethereum:
-                      <h5 className="ml-2">
+                      <h5 className="ml-2 text-center">
                         US<FiatLabel>{contractCost.contractPriceInEthereum}</FiatLabel>*
                       </h5>
                     </div>
                     <div className="flex">
                       Polygon:
-                      <h5 className="ml-2">
+                      <h5 className="ml-2 text-center">
                         US<FiatLabel>{contractCost.contractPriceInPolygon}</FiatLabel>*
                       </h5>
                     </div>

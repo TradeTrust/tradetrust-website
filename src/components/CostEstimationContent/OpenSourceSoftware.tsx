@@ -12,7 +12,7 @@ export const OpenSourceSoftware: FunctionComponent = () => {
       >
         <div className="container">
           <div className="text-center">
-            <h2 className="leading-none text-5xl md:text-4xl">Open-Source Software</h2>
+            <h2>Open-Source Software</h2>
             <img className="mx-auto my-12" src="static/images/cost/open-source-icon.svg" alt="openSourceIcon" />
             <div className="px-2 md:px-16 lg:px-36 pb-2 md:pb-16 xl:pb-24">
               TradeTrust’s open-source code can be downloaded for free from{" "}

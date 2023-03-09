@@ -142,21 +142,25 @@ export const CostOperation: FunctionComponent = () => {
     <section id="cost-operation" className="py-16">
       <div className="container">
         <div className="text-center">
-          <h2 className="leading-none text-5xl md:text-4xl">Cost of Operation - Transferable Documents</h2>
+          <h2>Cost of Operation - Transferable Documents</h2>
           <h4 className="mt-3">
             The cost varies with the role you are in the supply chain, trade document type and blockchain network.
             <br />
             Click on the persona to see how much it cost for each transaction.
           </h4>
-          <div className="flex flex-col lg:flex-row items-center lg:justify-center">
+          <div className="flex flex-col lg:flex-row items-center lg:justify-center mb-4">
             {costData.map((persona, index) => {
               return (
                 <div
                   key={`${index}-cost-persona`}
-                  className="flex flex-col justify-between cursor-pointer mb-4 text-cerulean-300 hover:text-cerulean-500"
+                  className="flex flex-col justify-between cursor-pointer text-cerulean-300 hover:text-cerulean-500"
                   onClick={() => handleDisplayModal(persona)}
                 >
-                  <img className="mx-auto min-w-[220px]" src={persona.icon} alt={`${persona.jobTitle} Icon`} />
+                  <img
+                    className="mx-auto min-w-[220px] min-h-[253px] max-h-[253px]"
+                    src={persona.icon}
+                    alt={`${persona.jobTitle} Icon`}
+                  />
                   <h4 className="text-inherit">{persona.jobTitle}</h4>
                 </div>
               );

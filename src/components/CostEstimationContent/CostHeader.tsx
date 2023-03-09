@@ -13,23 +13,21 @@ export const CostHeader: FunctionComponent = () => {
   const EthereumPrice = defaultGasLimit * priceFactor;
   const PolygonPrice = defaultGasLimit * maticPriceFactor;
 
-  console.log("Polygon: ", PolygonPrice);
+  const lowestPrice = Math.min(EthereumPrice, PolygonPrice);
+
   return (
     <section id="cost-header" className="bg-cerulean-50  py-16">
       <div className="container">
         <div
           style={{ backgroundImage: `url("/static/images/cost/cost-bg.png")` }}
-          className="bg-no-repeat bg-[length:100%] md:bg-[length:50%] lg:bg-[length:40%] bg-bottom md:bg-right py-16 md:py-32 2xl:py-48"
+          className="bg-no-repeat bg-[length:100%] md:bg-[length:50%] lg:bg-[length:40%] bg-bottom md:bg-right pt-20 md:pt-32 pb-16 md:py-8"
         >
-          <div className="text-center md:text-left w-full md:w-1/2 mt-24 mb-32 md:my-0">
-            <h2 className="leading-none text-5xl">Costing</h2>
-            <h3 className="font-gilroy-medium mt-4 leading-6 text-xl lg:text-xl">
-              TradeTrust is free! Just pay for gas fees for as low as <FiatLabel>{`${EthereumPrice}`}</FiatLabel> per
+          <div className="text-center md:text-left w-full md:w-1/2 mt-4 lg:mt-24 mb-32 md:my-0 relative -top-20 md:-top-12 lg:-top-24">
+            <h1>Costing</h1>
+            <h3 className="mt-4 leading-6">
+              TradeTrust is free! Just pay for gas fees for as low as <FiatLabel>{`${lowestPrice}`}</FiatLabel> per
               transaction.
             </h3>
-            <h6>
-              (<FiatLabel>{`${EthereumPrice}`}</FiatLabel> = lowest gas fee real time of the blockchain we support.)
-            </h6>
           </div>
         </div>
       </div>
