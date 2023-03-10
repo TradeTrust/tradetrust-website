@@ -44,7 +44,7 @@ export const CostModal: FunctionComponent<CostModalProps> = ({ costData }) => {
                 );
               })}
             </div>
-            <div className="text-center my-4">{costInformation.description}</div>
+            <div className="text-center my-4 max-w-5xl">{costInformation.description}</div>
             <div>
               <a
                 href="https://www.openattestation.com/docs/docs-section/appendix/contract-costs"

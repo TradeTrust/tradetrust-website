@@ -46,8 +46,8 @@ export const CostOperation: FunctionComponent = () => {
             }`,
           },
         ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei and ETH price at USD
-          $${price}
+        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei, ETH price at USD
+          $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
          as at ${currentDtStr}.`,
       },
     },
@@ -76,9 +76,9 @@ export const CostOperation: FunctionComponent = () => {
             contractPriceInPolygon: `${issueDocGas * maticPriceFactor + burnDocGas * maticPriceFactor}`,
           },
         ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei and ETH price at USD
-          $${price}
-         as at ${currentDtStr}.`,
+        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei, ETH price at USD
+        $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
+       as at ${currentDtStr}.`,
       },
     },
     {
@@ -94,8 +94,8 @@ export const CostOperation: FunctionComponent = () => {
             contractPriceInPolygon: `${surrenderDocGas * maticPriceFactor}`,
           },
         ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei and ETH price at USD
-        $${price}
+        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei, ETH price at USD
+        $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
        as at ${currentDtStr}.`,
       },
     },
@@ -126,9 +126,9 @@ export const CostOperation: FunctionComponent = () => {
             }`,
           },
         ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei and ETH price at USD
-          $${price}
-         as at ${currentDtStr}.`,
+        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei, ETH price at USD
+        $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
+       as at ${currentDtStr}.`,
       },
     },
   ];
@@ -146,7 +146,7 @@ export const CostOperation: FunctionComponent = () => {
           <h4 className="mt-3">
             The cost varies with the role you are in the supply chain, trade document type and blockchain network.
             <br />
-            Click on the persona to see how much it cost for each transaction.
+            Click on the persona to see how much it cost for each transaction based on blank-endorsed BL document flow.
           </h4>
           <div className="flex flex-col lg:flex-row items-center lg:justify-center mb-4">
             {costData.map((persona, index) => {
