@@ -46,7 +46,7 @@ export const CostOperation: FunctionComponent = () => {
             }`,
           },
         ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei, ETH price at USD
+        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
           $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
          as at ${currentDtStr}.`,
       },
@@ -76,7 +76,7 @@ export const CostOperation: FunctionComponent = () => {
             contractPriceInPolygon: `${issueDocGas * maticPriceFactor + burnDocGas * maticPriceFactor}`,
           },
         ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei, ETH price at USD
+        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
         $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
        as at ${currentDtStr}.`,
       },
@@ -94,7 +94,7 @@ export const CostOperation: FunctionComponent = () => {
             contractPriceInPolygon: `${surrenderDocGas * maticPriceFactor}`,
           },
         ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei, ETH price at USD
+        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
         $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
        as at ${currentDtStr}.`,
       },
@@ -126,7 +126,7 @@ export const CostOperation: FunctionComponent = () => {
             }`,
           },
         ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei, ETH price at USD
+        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
         $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
        as at ${currentDtStr}.`,
       },
