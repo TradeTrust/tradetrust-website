@@ -16,7 +16,7 @@ export const CostPage: FunctionComponent = () => {
         />
         <meta property="og:title" content="TradeTrust - Costing" />
         <meta property="og:url" content={`${window.location.origin}`} />
-        <title>TradeTrust - Cost Estimation</title>
+        <title>TradeTrust - Costing</title>
         <meta
           name="keywords"
           content="Blockchain, NFT, Ethereum, Electronic Trade Document, Digital Trade Document, Transferable Documents, Electronic Bill of Lading, Bill of Lading, Verifiable Document, Certificate of Origin, Cost"

@@ -26,7 +26,7 @@ export const OpenSourceSoftware: FunctionComponent = () => {
               exchange, verify electronic documents and enable the digitalisation of transferable documents into
               Electronic Transferable Records that have the legal ability^ to effect title transfer across different
               digital platforms seamlessly. A blockchain transaction fee, also known as gas fee, is incurred to execute
-              a transaction on the blockchain and is paid to miners.
+              a transaction on the blockchain and is paid to validators.
             </div>
             <h6 className="px-2 md:px-16 lg:px-36 pb-2 md:pb-16 xl:pb-24">
               ^Singapore&apos;s 2021 amendment of its Electronic Transactions Act (one of the first few internationally,
