@@ -54,7 +54,7 @@ export const CostModal: FunctionComponent<CostModalProps> = ({ costData }) => {
               >
                 Click here
               </a>{" "}
-              for other contract cost.
+              for the list of costs for other transactions.
             </div>{" "}
           </div>
         </div>

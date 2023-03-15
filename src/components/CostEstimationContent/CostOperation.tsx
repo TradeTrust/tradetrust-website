@@ -1,22 +1,26 @@
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext, useState, useEffect } from "react";
 import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import { useFetchGasCost } from "../../common/hooks/useFetchGasPrice";
 import { CostData } from "./types";
 import { CostModal } from "./CostModal";
+import { currentDateStr } from "../../utils";
 
 export const CostOperation: FunctionComponent = () => {
+  const [dateTime, setDateTime] = useState(currentDateStr());
   const { price, gwei } = useFetchGasCost("ethereum", 30000);
   const { price: maticPrice, gwei: maticGwei } = useFetchGasCost("polygon", 30000);
   const priceFactor = gwei * 0.000000001 * price;
   const maticPriceFactor = maticGwei * 0.000000001 * maticPrice;
-
-  const currentDtStr = new Date().toLocaleString("en-SG", { hour12: true, timeZoneName: "short" });
 
   const transferHoldershipGas = 43634;
   const transferOwnershipGas = 324688;
   const issueDocGas = 239523;
   const burnDocGas = 56532;
   const surrenderDocGas = 93435;
+
+  useEffect(() => {
+    setDateTime(currentDateStr());
+  }, [gwei]);
 
   const costData: CostData[] = [
     {
@@ -48,7 +52,7 @@ export const CostOperation: FunctionComponent = () => {
         ],
         description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
           $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-         as at ${currentDtStr}.`,
+         as at ${dateTime}.`,
       },
     },
     {
@@ -78,7 +82,7 @@ export const CostOperation: FunctionComponent = () => {
         ],
         description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
         $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-       as at ${currentDtStr}.`,
+       as at ${dateTime}.`,
       },
     },
     {
@@ -96,7 +100,7 @@ export const CostOperation: FunctionComponent = () => {
         ],
         description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
         $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-       as at ${currentDtStr}.`,
+       as at ${dateTime}.`,
       },
     },
     {
@@ -128,7 +132,7 @@ export const CostOperation: FunctionComponent = () => {
         ],
         description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
         $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-       as at ${currentDtStr}.`,
+       as at ${dateTime}.`,
       },
     },
   ];
@@ -144,7 +148,7 @@ export const CostOperation: FunctionComponent = () => {
         <div className="text-center">
           <h2>Cost of Operation - Transferable Documents</h2>
           <h4 className="mt-3">
-            The cost varies with the role you are in the supply chain, trade document type and blockchain network.
+            The gas fee varies with the role you are in the supply chain, trade document type and blockchain network.
             <br />
             Click on the persona to see how much it cost for each transaction based on blank-endorsed BL document flow.
           </h4>
@@ -174,7 +178,7 @@ export const CostOperation: FunctionComponent = () => {
             >
               Click here
             </a>{" "}
-            for the full table of other contract cost.
+            for the list of costs for other transactions.
           </div>
         </div>
       </div>

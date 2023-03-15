@@ -1,8 +1,10 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useFetchGasCost } from "../../common/hooks/useFetchGasPrice";
 import { FiatLabel } from "../FiatLabel/FiatLabel";
+import { currentDateStr } from "../../utils";
 
 export const CostHeader: FunctionComponent = () => {
+  const [dateTime, setDateTime] = useState(currentDateStr());
   const { price, gwei } = useFetchGasCost("ethereum", 30000);
   const { price: maticPrice, gwei: maticGwei } = useFetchGasCost("polygon", 30000);
   const priceFactor = gwei * 0.000000001 * price;
@@ -15,6 +17,10 @@ export const CostHeader: FunctionComponent = () => {
 
   const lowestPrice = Math.min(EthereumPrice, PolygonPrice);
 
+  useEffect(() => {
+    setDateTime(currentDateStr());
+  }, [lowestPrice]);
+
   return (
     <section id="cost-header" className="bg-cerulean-50  py-16">
       <div className="container">
@@ -24,10 +30,11 @@ export const CostHeader: FunctionComponent = () => {
         >
           <div className="text-center md:text-left w-full md:w-1/2 mt-4 lg:mt-24 mb-32 md:my-0 relative -top-20 md:-top-12 lg:-top-24">
             <h1>Costing</h1>
-            <h3 className="mt-4 leading-6">
-              TradeTrust is free! Just pay for gas fees for as low as <FiatLabel>{`${lowestPrice}`}</FiatLabel> per
-              transaction.
+            <h3 className="mt-4">
+              TradeTrust is free to use for all, and anyone can implement using TradeTrust source code! Just pay for gas
+              fees from as low as <FiatLabel>{`${lowestPrice}`}</FiatLabel> per transaction* to use the blockchain.
             </h3>
+            <h6>*Transaction with the lowest gas fee as at {dateTime}: Cost to transfer holdership (Polygon)</h6>
           </div>
         </div>
       </div>

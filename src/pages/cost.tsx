@@ -14,7 +14,7 @@ export const CostPage: FunctionComponent = () => {
           property="og:description"
           content="TradeTrust is a digital utility that comprises a set of globally-accepted standards and frameworks that connects governments and businesses to a public blockchain to enable trusted interoperability and exchanges of electronic trade documents across digital platforms."
         />
-        <meta property="og:title" content="TradeTrust - Cost Estimation" />
+        <meta property="og:title" content="TradeTrust - Costing" />
         <meta property="og:url" content={`${window.location.origin}`} />
         <title>TradeTrust - Cost Estimation</title>
         <meta
