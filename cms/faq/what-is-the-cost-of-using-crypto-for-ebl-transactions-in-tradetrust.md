@@ -18,3 +18,5 @@ Do note that the cost estimated above involves the whole chain of endorsements (
 Information on cost for can be found [here](< https://www.openattestation.com/docs/docs-section/appendix/contract-costs/>). 
 
 For cost comparison between Ethereum and polygon, please refer [here](https://www.openattestation.com/docs/docs-section/appendix/savings-comparisons).
+
+![]()
