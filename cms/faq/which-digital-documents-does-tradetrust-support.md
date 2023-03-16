@@ -3,9 +3,10 @@ title: Which digital documents does TradeTrust support?
 date: 2020-02-01T16:00:00.000Z
 type: General
 ---
+TradeTrust can support **all** digital documents. 
 
-TradeTrust can support **all** digital documents. For trade documents, it supports the following 2 categories of documents:
+TradeTrust can be utilised to digitalise two categories of documents used in cross-border trade: 
 
-1.  **Transferable documents:** Trade documents that entitle the holder to claim the performance of an obligation or ownership (e.g. bills of lading, bills of exchange, etc.) and the selected blockchain needs to be able to track and transfer ownership of the trade document. 
+**Normal documents/Verifiable documents** such as the Certificate of Origin where the provenance and authenticity of the e-document can be easily verified by any party; 
 
-2.  **Normal documents/Verifiable documents:** Other non-transferable trade documents that do not confer ownership (e.g. invoices, packing list, certificate of origin, etc.). These trade documents can be verified for its authenticity, integrity and provenance.
+**Transferable Documents** such as Bill of Lading where the e-document’s title ownership can be transferred from one party to another.
