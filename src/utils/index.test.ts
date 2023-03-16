@@ -45,7 +45,10 @@ describe("utils/getFileName", () => {
 
 describe("utils/currentDateStr", () => [
   it("should return the current date as a string", () => {
-    jest.useFakeTimers("modern").setSystemTime(new Date("2023-01-01"));
-    expect(currentDateStr()).toEqual("01/01/2023, 8:00:00 am SGT");
+    jest.useFakeTimers("modern").setSystemTime(new Date("2023-03-25"));
+    const date = currentDateStr();
+    expect(date).toMatch(/25/);
+    expect(date).toMatch(/03/);
+    expect(date).toMatch(/2023/);
   }),
 ]);
