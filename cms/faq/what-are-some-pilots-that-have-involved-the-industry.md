@@ -12,6 +12,6 @@ c. Decentralise the transactions for an eBL by allowing pilot participants to us
 
 Below is an illustration of the pilot scope for documentary trade financing arrangements such as Letter of Credit (L/C), Documents against Acceptance (D/A) and Documents against Payment (D/P) where an eBL is issued, sent, verified and endorsed to the next party in the financing value chain. 
 
-
+![](/static/uploads/faq-.jpeg)
 
 Potential benefits of such pilots include raising efficiency of the process, reducing the overall financing lead time and lowering risk of frauds involved for all parties. Local banks such as UOB and DBS were participants of these pilots.
