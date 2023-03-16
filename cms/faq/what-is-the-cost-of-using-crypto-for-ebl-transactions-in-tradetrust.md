@@ -19,4 +19,4 @@ Information on cost for can be found [here](< https://www.openattestation.com/do
 
 For cost comparison between Ethereum and polygon, please refer [here](https://www.openattestation.com/docs/docs-section/appendix/savings-comparisons).
 
-![]()
+![](/static/uploads/faq_cost.png)
