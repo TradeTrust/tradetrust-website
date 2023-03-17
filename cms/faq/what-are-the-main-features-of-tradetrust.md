@@ -1,5 +1,5 @@
 ---
-title: What are the main features of TradeTrust?
+title: What are the features of TradeTrust?
 date: 2020-05-01T16:00:00.000Z
 type: General
 ---
