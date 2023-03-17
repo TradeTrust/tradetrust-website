@@ -15,7 +15,7 @@ Below are the estimated fees (USD) computed as at 2 Feb 2023 for a typical serie
 
 Do note that the cost estimated above involves the whole chain of endorsements (NFT transactions) for a Transferable document like eBL. This cost is expected to be shared across multiple transaction parties in the eBL value chain.  
 
-Information on cost for can be found [here](< https://www.openattestation.com/docs/docs-section/appendix/contract-costs/>). 
+Information on cost for can be found [here](< https://www.openattestation.com/docs/docs-section/appendix/contract-costs>). 
 
 For cost comparison between Ethereum and polygon, please refer [here](https://www.openattestation.com/docs/docs-section/appendix/savings-comparisons).
 
