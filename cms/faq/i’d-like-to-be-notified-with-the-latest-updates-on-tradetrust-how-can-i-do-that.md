@@ -1,7 +1,7 @@
 ---
 title: I’d like to be notified with the latest updates on TradeTrust. How can I
   do that?
-date: 2020-06-01T16:00:00.000Z
+date: 2023-03-16T16:00:00.000Z
 type: General
 ---
 
