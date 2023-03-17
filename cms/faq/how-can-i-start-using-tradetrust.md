@@ -1,6 +1,6 @@
 ---
 title: How can I start using TradeTrust?
-date: 2020-03-01T16:00:00.000Z
+date: 2023-03-16T15:00:00.000Z
 type: General
 ---
 
