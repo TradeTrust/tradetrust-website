@@ -25,6 +25,8 @@ In order to fulfil the requirement of asset ownership capability, it must be abl
 2. Singularly keep ownership records of instances of digital assets
 3. Allow an owner to prove control over the digital asset
 
+
+
 For additional flexibility, it would be ideal for the blockchain to support smart contracts that allow actors to define a valid set of state transitioning transactions, their preconditions and post-conditions. This is needed for programs like the DocumentStore, TokenRegistry or TitleEscrow to store information about the states of documents and ownership structure.
 An example of how smart contracts are used:
 In the case of ETR issuers such as shipping lines, they should be able to deploy smart contracts to maintain a single global record for the following purposes:
@@ -34,6 +36,8 @@ In the case of ETR issuers such as shipping lines, they should be able to deploy
 * Defining the function and preconditions for issuing a new ETR
 * Defining the function and preconditions for transferring an ETR
 * Other functions required by the users or the issuer of the ETR
+
+
 
 Example of how preconditions are set for a transfer action:
 An entity may only transfer its ownership of an ETR from itself to another entity only if the following pre-conditions are met:
