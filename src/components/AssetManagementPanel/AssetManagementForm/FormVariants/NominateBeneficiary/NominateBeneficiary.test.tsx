@@ -3,15 +3,15 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetManagementActions } from "../../../AssetManagementActions";
-import { NominateBeneficiaryHolderForm } from "./NominateBeneficiaryHolder";
+import { NominateBeneficiaryForm } from "./NominateBeneficiary";
 
 describe("Nominate Owner", () => {
-  it("should display the editable beneficiary & static holder when the app is in NominateBeneficiaryHolder state", async () => {
+  it("should display the editable nominee & static holder when the app is in NominateBeneficiary state", async () => {
     await act(async () => {
       const container = render(
-        <NominateBeneficiaryHolderForm
+        <NominateBeneficiaryForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.NominateBeneficiaryHolder}
+          formAction={AssetManagementActions.NominateBeneficiary}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -32,9 +32,9 @@ describe("Nominate Owner", () => {
   it("should have the nominate button and cancel button", async () => {
     await act(async () => {
       const container = render(
-        <NominateBeneficiaryHolderForm
+        <NominateBeneficiaryForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.NominateBeneficiaryHolder}
+          formAction={AssetManagementActions.NominateBeneficiary}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -54,9 +54,9 @@ describe("Nominate Owner", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <NominateBeneficiaryHolderForm
+        <NominateBeneficiaryForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.NominateBeneficiaryHolder}
+          formAction={AssetManagementActions.NominateBeneficiary}
           setFormActionNone={mockOnSetFormAction}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -71,34 +71,12 @@ describe("Nominate Owner", () => {
     });
   });
 
-  it("should disable nominate button when holder is empty", async () => {
-    await act(async () => {
-      const mockHandleNominate = jest.fn();
-
-      const container = render(
-        <NominateBeneficiaryHolderForm
-          setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.NominateBeneficiaryHolder}
-          setFormActionNone={() => {}}
-          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-          holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleNomination={mockHandleNominate}
-          nominationState={FormState.UNINITIALIZED}
-        />
-      );
-
-      fireEvent.click(container.getByTestId("nominationBtn"));
-      expect(mockHandleNominate).not.toHaveBeenCalled();
-    });
-  });
-
-  it("should show error when nominateBeneficiaryHolder return error nominationState", async () => {
+  it("should show error when nominateBeneficiary return error nominationState", async () => {
     await act(async () => {
       const { getAllByText } = render(
-        <NominateBeneficiaryHolderForm
+        <NominateBeneficiaryForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.NominateBeneficiaryHolder}
+          formAction={AssetManagementActions.NominateBeneficiary}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"

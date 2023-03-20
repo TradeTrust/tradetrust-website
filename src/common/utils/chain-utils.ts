@@ -26,15 +26,20 @@ export const getChainInfoFromNetworkName = (networkName: string): ChainInfoObjec
   return res;
 };
 
+export const getSupportedChainIds = (): ChainId[] => {
+  const isLocal = window.location.host.indexOf("localhost") > -1;
+  const isTestEnv = process.env.NODE_ENV === "test";
+  const networks = IS_DEVELOPMENT ? [...TEST_NETWORKS] : [...MAIN_NETWORKS];
+  if (isTestEnv || isLocal) networks.push(ChainId.Local);
+  return networks;
+};
+
 /**
  * Returns an array of supported chain info based on the environment type.
  * Will include local chain if site is running under test or localhost environment.
  */
 export const getSupportedChainInfo = (): ChainInfoObject[] => {
-  const isLocal = window.location.host.indexOf("localhost") > -1;
-  const isTestEnv = process.env.NODE_ENV === "test";
-  const networks = IS_DEVELOPMENT ? [...TEST_NETWORKS] : [...MAIN_NETWORKS];
-  if (isTestEnv || isLocal) networks.push(ChainId.Local);
+  const networks = getSupportedChainIds();
   return networks.map((chainId) => getChainInfo(chainId));
 };
 

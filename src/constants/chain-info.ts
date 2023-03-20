@@ -13,6 +13,9 @@ export interface ChainInfoObject {
   };
 }
 
+export const InitialAddress = "0x0000000000000000000000000000000000000000";
+export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
+
 export const AvailableBlockChains = ["ETH", "MATIC"];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;

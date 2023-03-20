@@ -6,7 +6,7 @@ import { EndorseBeneficiaryForm } from "./EndorseBeneficiary";
 import { act } from "react-dom/test-utils";
 
 describe("Endorse Owner", () => {
-  it("should display the editable beneficiary & static holder when the app is in EndorseBeneficiary state", async () => {
+  it("should display the static nominee & static holder when the app is in EndorseBeneficiary state", async () => {
     await act(async () => {
       const container = render(
         <EndorseBeneficiaryForm
@@ -14,17 +14,17 @@ describe("Endorse Owner", () => {
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={() => {}}
+          handleBeneficiaryTransfer={() => {}}
           beneficiaryEndorseState={FormState.UNINITIALIZED}
         />
       );
 
-      const beneficiaryComponent = container.getByTestId("editable-input-owner");
-      const holderComponent = container.getByTestId("editable-input-holder");
+      const nomineeComponent = container.getByTestId("non-editable-input-nominee");
+      const holderComponent = container.getByTestId("non-editable-input-holder");
 
-      expect(beneficiaryComponent).not.toBeNull();
+      expect(nomineeComponent).not.toBeNull();
       expect(holderComponent).not.toBeNull();
     });
   });
@@ -37,9 +37,9 @@ describe("Endorse Owner", () => {
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={() => {}}
+          handleBeneficiaryTransfer={() => {}}
           beneficiaryEndorseState={FormState.UNINITIALIZED}
         />
       );
@@ -59,9 +59,9 @@ describe("Endorse Owner", () => {
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={mockOnSetFormAction}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={() => {}}
+          handleBeneficiaryTransfer={() => {}}
           beneficiaryEndorseState={FormState.UNINITIALIZED}
         />
       );
@@ -71,7 +71,7 @@ describe("Endorse Owner", () => {
     });
   });
 
-  it("should disable endorse button when holder is empty", async () => {
+  it("should disable endorse button when nominee is empty", async () => {
     await act(async () => {
       const mockHandleEndorse = jest.fn();
 
@@ -81,9 +81,9 @@ describe("Endorse Owner", () => {
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          nominee=""
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={mockHandleEndorse}
+          handleBeneficiaryTransfer={mockHandleEndorse}
           beneficiaryEndorseState={FormState.UNINITIALIZED}
         />
       );
@@ -101,9 +101,9 @@ describe("Endorse Owner", () => {
           formAction={AssetManagementActions.EndorseBeneficiary}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
-          beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+          nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          handleTransfer={() => {}}
+          handleBeneficiaryTransfer={() => {}}
           beneficiaryEndorseState={FormState.ERROR}
         />
       );

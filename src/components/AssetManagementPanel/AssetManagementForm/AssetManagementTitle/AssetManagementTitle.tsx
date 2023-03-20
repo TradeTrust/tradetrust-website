@@ -27,7 +27,7 @@ export const AssetManagementTitle: FunctionComponent<AssetManagementTitleProps> 
           {formAction === AssetManagementActions.RejectSurrendered && <>Reject Surrender of Document</>}
           {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
           {formAction === AssetManagementActions.EndorseBeneficiary && <>Endorse Change of Ownership</>}
-          {formAction === AssetManagementActions.NominateBeneficiaryHolder && <>Nominate Change of Ownership</>}
+          {formAction === AssetManagementActions.NominateBeneficiary && <>Nominate Change of Ownership</>}
           {formAction === AssetManagementActions.EndorseTransfer && <>Endorse Transfer of Ownership</>}
         </h3>
       </div>

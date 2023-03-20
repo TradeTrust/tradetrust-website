@@ -5,8 +5,9 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
+import { isValidHolderTransfer } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
@@ -16,9 +17,9 @@ interface EndorseTransferFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   approvedBeneficiary?: string;
-  approvedHolder?: string;
+  holder?: string;
   handleEndorseTransfer: (approvedBeneficiary: string, approvedHolder: string) => void;
-  transferToNewEscrowState: string;
+  transferOwnersState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
 }
@@ -27,14 +28,17 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
   formAction,
   tokenRegistryAddress,
   approvedBeneficiary,
-  approvedHolder,
+  holder,
   handleEndorseTransfer,
-  transferToNewEscrowState,
+  transferOwnersState,
   setFormActionNone,
   setShowEndorsementChain,
 }) => {
-  const isPendingConfirmation = transferToNewEscrowState === FormState.PENDING_CONFIRMATION;
-  const isConfirmed = transferToNewEscrowState === FormState.CONFIRMED;
+  const [newHolder, setNewHolder] = useState(holder || "");
+  const isPendingConfirmation = transferOwnersState === FormState.PENDING_CONFIRMATION;
+  const isConfirmed = transferOwnersState === FormState.CONFIRMED;
+  const isEditable =
+    transferOwnersState !== FormState.PENDING_CONFIRMATION && transferOwnersState !== FormState.CONFIRMED;
 
   const { showOverlay } = useContext(OverlayContext);
 
@@ -44,12 +48,12 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
         showDocumentTransferMessage(MessageTitle.ENDORSE_TRANSFER_SUCCESS, {
           isSuccess: true,
           beneficiaryAddress: approvedBeneficiary,
-          holderAddress: approvedHolder,
+          holderAddress: newHolder,
         })
       );
       setFormActionNone();
     }
-  }, [isConfirmed, approvedHolder, approvedBeneficiary, showOverlay, setFormActionNone]);
+  }, [isConfirmed, holder, approvedBeneficiary, newHolder, showOverlay, setFormActionNone]);
 
   return (
     <>
@@ -66,10 +70,17 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Owner" value={approvedBeneficiary} isEditable={false} />
+          <EditableAssetTitle role="Nominee" value={approvedBeneficiary} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Holder" value={approvedHolder} isEditable={false} />
+          <EditableAssetTitle
+            role="holder"
+            value={holder}
+            newValue={newHolder}
+            isEditable={isEditable}
+            onSetNewValue={setNewHolder}
+            isError={transferOwnersState === FormState.ERROR}
+          />
         </div>
       </div>
       <div className="flex flex-wrap pb-4">
@@ -87,8 +98,10 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
             <div className="w-auto ml-2">
               <Button
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
-                onClick={() => handleEndorseTransfer(approvedBeneficiary || "", approvedHolder || "")}
-                disabled={isPendingConfirmation}
+                disabled={!isValidHolderTransfer(holder, newHolder) || isPendingConfirmation}
+                onClick={() => {
+                  handleEndorseTransfer(approvedBeneficiary || "", newHolder || "");
+                }}
                 data-testid={"endorseTransferBtn"}
               >
                 {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse Transfer</>}

@@ -7,6 +7,7 @@ import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "../AssetManagementForm";
 import { AssetManagementTags } from "../AssetManagementTags";
 import { DocumentStatus } from "../../DocumentStatus";
+import { constants } from "@govtechsg/token-registry";
 
 interface AssetManagementApplicationProps {
   isMagicDemo?: boolean;
@@ -22,7 +23,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   setShowEndorsementChain,
 }) => {
   const {
-    approvedHolder,
     holder,
     approvedBeneficiary,
     beneficiary,
@@ -30,17 +30,17 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     changeHolderState,
     endorseBeneficiary,
     endorseBeneficiaryState,
-    transferTo,
-    transferToState,
+    surrender,
+    surrenderState,
     destroyTokenState,
     destroyToken,
     isSurrendered,
     isTokenBurnt,
     isTitleEscrow,
-    approveNewTransferTargets,
-    approveNewTransferTargetsState,
-    transferToNewEscrow,
-    transferToNewEscrowState,
+    nominate,
+    nominateState,
+    transferOwners,
+    transferOwnersState,
     documentOwner,
     restoreToken,
     restoreTokenState,
@@ -49,26 +49,17 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   const { upgradeToMetaMaskSigner, provider, account } = useProviderContext();
 
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
-  // Check if direct owner is minter, useContractFunctionHook value returns {0: boolean}
-  const { call: checkIsMinter, value: isMinter } = useContractFunctionHook(tokenRegistry, "isMinter");
+  // Check if direct has role, useContractFunctionHook value returns {0: boolean}
+  const { call: checkRole, value: hasRole } = useContractFunctionHook(tokenRegistry, "hasRole");
 
   useEffect(() => {
-    if (isTitleEscrow === false && account) {
-      checkIsMinter(account);
+    if (isTitleEscrow && isSurrendered && account) {
+      checkRole(constants.roleHash.AccepterRole, account);
     }
-  }, [account, checkIsMinter, isTitleEscrow]);
-  const onSurrender = () => {
-    // Change to surrendered state
-    transferTo(tokenRegistryAddress);
-  };
+  }, [account, checkRole, isTitleEscrow, isSurrendered]);
 
   const onDestroyToken = () => {
     destroyToken(tokenId);
-  };
-
-  const onRestoreToken = (lastBeneficiary?: string, lastHolder?: string) => {
-    if (!lastBeneficiary || !lastHolder) throw new Error("Ownership data is not found");
-    restoreToken(lastBeneficiary, lastHolder);
   };
 
   const onSetFormAction = useCallback(
@@ -99,31 +90,29 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             beneficiary={beneficiary}
             approvedBeneficiary={approvedBeneficiary}
             holder={holder}
-            approvedHolder={approvedHolder}
             documentOwner={documentOwner}
             formAction={assetManagementAction}
             tokenRegistryAddress={tokenRegistryAddress}
             onSetFormAction={onSetFormAction}
-            surrenderingState={transferToState}
+            surrenderingState={surrenderState}
             destroyTokenState={destroyTokenState}
-            onSurrender={onSurrender}
+            onSurrender={surrender}
             onTransferHolder={changeHolder}
             holderTransferringState={changeHolderState}
             onEndorseBeneficiary={endorseBeneficiary}
             beneficiaryEndorseState={endorseBeneficiaryState}
             isSurrendered={isSurrendered}
             isTokenBurnt={isTokenBurnt}
-            onApproveNewTransferTargets={approveNewTransferTargets}
-            approveNewTransferTargetsState={approveNewTransferTargetsState}
-            onTransferToNewEscrow={transferToNewEscrow}
-            transferToNewEscrowState={transferToNewEscrowState}
+            nominateBeneficiary={nominate}
+            approveNewTransferTargetsState={nominateState}
+            transferOwners={transferOwners}
+            transferOwnersState={transferOwnersState}
             setShowEndorsementChain={setShowEndorsementChain}
             isTitleEscrow={isTitleEscrow}
-            isMinter={isMinter?.[0]}
+            isMinter={hasRole?.[0]}
             onDestroyToken={onDestroyToken}
-            onRestoreToken={onRestoreToken}
+            onRestoreToken={restoreToken}
             restoreTokenState={restoreTokenState}
-            tokenId={tokenId}
           />
         )}
       </div>

@@ -6,45 +6,34 @@ import {
   LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect } from "react";
-import { useEndorsementChain } from "../../../../../common/hooks/useEndorsementChain";
 import { FormState } from "../../../../../constants/FormState";
-import { TitleEscrowEvent } from "../../../../../types";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 
 interface RejectSurrenderedFormProps {
-  tokenId: string;
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
-  handleRestoreToken: (lastBeneficiary?: string, lastHolder?: string) => void;
+  handleRestoreToken: () => void;
   restoreTokenState: string;
 }
 
 export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps> = ({
-  tokenId,
   formAction,
   tokenRegistryAddress,
+  beneficiary,
+  holder,
   setFormActionNone,
   setShowEndorsementChain,
   handleRestoreToken,
   restoreTokenState,
 }) => {
   const { showOverlay } = useContext(OverlayContext);
-  const { endorsementChain, pending } = useEndorsementChain(tokenRegistryAddress, tokenId);
-
-  const lastTransferEvent = endorsementChain
-    ?.filter(({ eventType }) => eventType === "Transfer")
-    .reverse()[0] as TitleEscrowEvent;
-  const lastBeneficiary = lastTransferEvent?.beneficiary;
-  const lastHolderEvent = lastTransferEvent?.holderChangeEvents.reverse()[0];
-  const lastHolder = lastHolderEvent?.holder;
-
   const isRestoreTokenPendingConfirmation = restoreTokenState === FormState.PENDING_CONFIRMATION;
   const isRestoreTokenConfirmed = restoreTokenState === FormState.CONFIRMED;
 
@@ -52,10 +41,10 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
     showOverlay(
       showDocumentTransferMessage(MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT, {
         isSuccess: true,
-        beneficiaryAddress: lastBeneficiary || "Loading...",
-        holderAddress: lastHolder || "Loading...",
+        beneficiaryAddress: beneficiary,
+        holderAddress: holder,
         isConfirmationMessage: true,
-        onConfirmationAction: () => handleRestoreToken(lastBeneficiary, lastHolder),
+        onConfirmationAction: () => handleRestoreToken(),
       })
     );
   };
@@ -107,10 +96,10 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
                 <Button
                   className="bg-scarlet-500 text-white rounded-xl text-lg py-2 px-3 shadow-none hover:bg-scarlet-400"
                   onClick={onClickRejectSurrender}
-                  disabled={isRestoreTokenPendingConfirmation || pending}
+                  disabled={isRestoreTokenPendingConfirmation}
                   data-testid={"rejectSurrenderBtn"}
                 >
-                  {isRestoreTokenPendingConfirmation || pending ? (
+                  {isRestoreTokenPendingConfirmation ? (
                     <LoaderSpinner data-testid={"reject-loader"} />
                   ) : (
                     <>Reject Document</>

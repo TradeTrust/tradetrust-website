@@ -9,6 +9,14 @@ export const makeEtherscanAddressURL = (address: string, chainId: ChainId): stri
   return new URL(`/address/${address}`, baseUrl).href;
 };
 
+export const isValidHolderTransfer = (holder?: string, newHolder?: string): boolean => {
+  if (!newHolder) return false;
+  if (newHolder === holder) return false;
+  if (!isEthereumAddress(newHolder)) return false;
+
+  return true;
+};
+
 export const isEthereumAddress = (address: string): boolean | undefined => {
   try {
     if (utils.getAddress(address)) {

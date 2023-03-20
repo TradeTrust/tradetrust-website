@@ -12,7 +12,7 @@ interface EditableAssetTitleProps {
   isEditable: boolean;
   newValue?: string;
   onSetNewValue?: (newValue: string) => void;
-  error?: boolean;
+  isError?: boolean;
 }
 
 export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
@@ -21,7 +21,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   newValue,
   isEditable,
   onSetNewValue,
-  error,
+  isError: error,
 }) => {
   const { showOverlay } = useOverlayContext();
 

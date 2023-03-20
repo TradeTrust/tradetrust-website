@@ -1,75 +1,54 @@
 import shell from "shelljs";
 
 const ACCOUNT_KEY = "0xe82294532bcfcd8e0763ee5cef194f36f00396be59b94fb418f5f8d83140d9a7";
-const TOKEN_REGISTRY_ADDRESS = "0x9eb613a88534e2939518f4ffbfe65f5969b491ff";
-const TITLE_ESCROW_CREATOR = "0x4bf7e4777a8d1b6edd5f2d9b8582e2817f0b0953";
+const TOKEN_REGISTRY_ADDRESS = "0xf18CD26780B6D3589371fb0b3fE8E2a513D6Fdc6"; // Pre-deployed on goerli using token-registry or oa-cli 
+const DOCUMENT_STORE_ADDRESS = "0x63A223E025256790E88778a01f480eBA77731D04"
 const ADDRESS_EXAMPLE_1 = "0xe0a71284ef59483795053266cb796b65e48b5124";
 const ADDRESS_EXAMPLE_2 = "0xcdfacbb428dd30ddf6d99875dcad04cbefcd6e60";
+const ADDRESS_EXAMPLE_3 = "0x391aFf3942857a10958425FebF1fC1938D9F5AE7";
 
-// ------------------------------
-// Setup
-// ------------------------------
+const oaCLI_PATH = "open-attestation"
+export const contractAddress = {
+  TitleEscrowFactory: "0x878A327daA390Bc602Ae259D3A374610356b6485",
+  Deployer: "0x9eBC30E7506E6Ce36eAc5507FCF0121BaF7AeA57",
+  TokenImplementation: "0xE5C75026d5f636C89cc77583B6BCe7C99F512763",
+};
 
-// Deploy document store to 0x63A223E025256790E88778a01f480eBA77731D04
-shell.exec(`oa deploy document-store "My Document Store" -n local -k ${ACCOUNT_KEY}`);
+const defaultToken = {
+  accountKey: ACCOUNT_KEY,
+  tokenRegistryAddress: TOKEN_REGISTRY_ADDRESS,
+  owner: ADDRESS_EXAMPLE_1,
+  holder: ADDRESS_EXAMPLE_1,
+}
 
-// Deploy token registry to 0x9Eb613a88534E2939518f4ffBFE65F5969b491FF
-shell.exec(`oa deploy token-registry "My Token Registry" MTR -n local -k ${ACCOUNT_KEY}`);
+const merkleRootToMint = {
+  tokenRegistry: [{
+    // Endorse Owner
+    merkleRoot: "0xf82cf3c92462175888eda124a5227e0a46344ba09650e4ef85015d97e342251a",
+    ...defaultToken,
+  },{
+    // Nominate Owner
+    merkleRoot: "0x764fb454298834edfdb2d169f8397d7a6e4c4b997f872e6a0808e4a2e2bdb00e",
+    ...defaultToken,
+  },{
+    // Surrender
+    merkleRoot: "0xfb4a84f4b9e8e28c552eab1d94f5d4a831584082478f9fa83a2e8aac61e07c4a",
+    ...defaultToken,
+  },{
+    // Transfer Holder
+    merkleRoot: "0x1c92119b530b5028e8cb45e74624a5f52a1ae84d68e1c165776813a84722807a",
+    ...defaultToken,
+  },],
+}
 
-// Deploy title escrow creator to 0x4Bf7E4777a8D1b6EdD5F2d9b8582e2817F0B0953
-shell.exec(`oa deploy title-escrow-creator "test" -n local -k ${ACCOUNT_KEY}`);
+shell.exec(`${oaCLI_PATH} deploy document-store "My Document Store" -n local -k ${ACCOUNT_KEY}`);  
 
-// ------------------------------
-// For transfer holder case
-// ------------------------------
-
-// Deploy title escrow to 0xfE442b75786c67E1e7a7146DAeD8943F0f2c23d2
-shell.exec(
-  `oa deploy title-escrow -b ${ADDRESS_EXAMPLE_1} -h ${ADDRESS_EXAMPLE_1} -r ${TOKEN_REGISTRY_ADDRESS} -c ${TITLE_ESCROW_CREATOR} -n local -k ${ACCOUNT_KEY}`
-);
-
-shell.exec(
-  `oa token-registry issue -a ${TOKEN_REGISTRY_ADDRESS} --tokenId 0x3c4b6dada4856e82f9c1e931079f261311c72ef6092c51a4ab1dc1085c46b380 --to 0xfE442b75786c67E1e7a7146DAeD8943F0f2c23d2 -n local -k ${ACCOUNT_KEY}`
-);
-
-// ------------------------------
-// For endorse owner case
-// ------------------------------
-
-// Deploy title escrow to 0x547Ca63C8fB3Ccb856DEb7040D327dBfe4e7d20F
-shell.exec(
-  `oa deploy title-escrow -b ${ADDRESS_EXAMPLE_1} -h ${ADDRESS_EXAMPLE_1} -r ${TOKEN_REGISTRY_ADDRESS} -c ${TITLE_ESCROW_CREATOR} -n local -k ${ACCOUNT_KEY}
-    `
-);
-
-shell.exec(
-  `oa token-registry issue -a ${TOKEN_REGISTRY_ADDRESS} --tokenId 0xeda903b58689a72247350961bb62fc3a1d5f98caf6633ecbc75208ebb3eb273f --to 0x547Ca63C8fB3Ccb856DEb7040D327dBfe4e7d20F -n local -k ${ACCOUNT_KEY}`
-);
-
-// ------------------------------
-// For nominate owner + accept nomination case
-// ------------------------------
-
-// Deploy title escrow to 0xe42668c14DCd9b0494F64ED528DC3789C69bF9b6
-shell.exec(
-  `oa deploy title-escrow -b ${ADDRESS_EXAMPLE_1} -h ${ADDRESS_EXAMPLE_2} -r ${TOKEN_REGISTRY_ADDRESS} -c ${TITLE_ESCROW_CREATOR} -n local -k ${ACCOUNT_KEY}
-    `
-);
+merkleRootToMint.tokenRegistry.forEach(element => {
+  shell.exec(
+    `${oaCLI_PATH} token-registry issue --beneficiary ${element.owner} --holder ${element.holder} --address ${element.tokenRegistryAddress} --tokenId ${element.merkleRoot} -n local -k ${element.accountKey}`
+  );
+});
 
 shell.exec(
-  `oa token-registry issue -a ${TOKEN_REGISTRY_ADDRESS} --tokenId 0x3e7418c37f878fd8585950210aca250a11002bb121d5624ef985a43a31381302 --to 0xe42668c14DCd9b0494F64ED528DC3789C69bF9b6 -n local -k ${ACCOUNT_KEY}`
-);
-
-// ------------------------------
-// For surrender case
-// ------------------------------
-
-// Deploy title escrow to 0x82524C1C34F52a2c42eA41daF08B27cB7711c9EE
-shell.exec(
-  `oa deploy title-escrow -b ${ADDRESS_EXAMPLE_1} -h ${ADDRESS_EXAMPLE_1} -r ${TOKEN_REGISTRY_ADDRESS} -c ${TITLE_ESCROW_CREATOR} -n local -k ${ACCOUNT_KEY}
-    `
-);
-
-shell.exec(
-  `oa token-registry issue -a ${TOKEN_REGISTRY_ADDRESS} --tokenId 0x877a638bdd8d09f415efc2ce1fc1adc41e979e50739145939f0be2a478a340b9 --to 0x82524C1C34F52a2c42eA41daF08B27cB7711c9EE -n local -k ${ACCOUNT_KEY}`
+  `${oaCLI_PATH} title-escrow nominate-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_3} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${"0xf82cf3c92462175888eda124a5227e0a46344ba09650e4ef85015d97e342251a"} -n local -k ${ACCOUNT_KEY}`
 );

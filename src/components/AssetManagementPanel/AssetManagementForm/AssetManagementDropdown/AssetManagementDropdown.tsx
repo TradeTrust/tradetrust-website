@@ -8,7 +8,7 @@ interface AssetManagementDropdownProps {
   canHandleSurrender?: boolean;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
-  canNominateBeneficiaryHolder: boolean;
+  canNominateBeneficiary: boolean;
   canEndorseTransfer: boolean;
 }
 
@@ -18,7 +18,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
   canHandleSurrender,
   canChangeHolder,
   canEndorseBeneficiary,
-  canNominateBeneficiaryHolder,
+  canNominateBeneficiary,
   canEndorseTransfer,
 }) => {
   return (
@@ -34,25 +34,27 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"transferHolderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.TransferHolder)}
         >
-          Transfer holdership
+          Transfer Holdership
         </DropdownItem>
       )}
       {canEndorseBeneficiary && (
         <DropdownItem
           className="active:bg-cloud-200 active:text-white"
           data-testid={"endorseBeneficiaryDropdown"}
-          onClick={() => onSetFormAction(AssetManagementActions.EndorseBeneficiary)}
+          onClick={() => {
+            onSetFormAction(AssetManagementActions.EndorseBeneficiary);
+          }}
         >
-          Endorse change of ownership
+          Endorse Change of Ownership
         </DropdownItem>
       )}
-      {canNominateBeneficiaryHolder && (
+      {canNominateBeneficiary && (
         <DropdownItem
           className="active:bg-cloud-200 active:text-white"
           data-testid={"nominateBeneficiaryHolderDropdown"}
-          onClick={() => onSetFormAction(AssetManagementActions.NominateBeneficiaryHolder)}
+          onClick={() => onSetFormAction(AssetManagementActions.NominateBeneficiary)}
         >
-          Nominate change of ownership
+          Nominate Change of Ownership
         </DropdownItem>
       )}
       {canSurrender && (
@@ -61,7 +63,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"surrenderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.Surrender)}
         >
-          Surrender document
+          Surrender Document
         </DropdownItem>
       )}
       {canHandleSurrender && (
@@ -71,14 +73,14 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
             data-testid={"acceptSurrenderDropdown"}
             onClick={() => onSetFormAction(AssetManagementActions.AcceptSurrendered)}
           >
-            Accept surrender of document
+            Accept Surrender of Document
           </DropdownItem>
           <DropdownItem
             className="active:bg-cloud-200 active:text-white"
             data-testid={"rejectSurrenderDropdown"}
             onClick={() => onSetFormAction(AssetManagementActions.RejectSurrendered)}
           >
-            Reject surrender of document
+            Reject Surrender of Document
           </DropdownItem>
         </>
       )}
@@ -89,7 +91,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"endorseTransferDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.EndorseTransfer)}
         >
-          Endorse Transfer of ownership
+          Endorse Transfer of Ownership
         </DropdownItem>
       )}
     </Dropdown>

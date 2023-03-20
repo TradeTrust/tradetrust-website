@@ -5,7 +5,7 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useContext, useEffect, useState } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { isEthereumAddress } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -18,7 +18,8 @@ interface EndorseBeneficiaryProps {
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleTransfer: (newBeneficiary: string, newHolder: string) => void;
+  nominee?: string;
+  handleBeneficiaryTransfer: (newBeneficiary: string) => void;
   beneficiaryEndorseState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -29,17 +30,14 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
   tokenRegistryAddress,
   beneficiary,
   holder,
-  handleTransfer,
+  nominee,
+  handleBeneficiaryTransfer,
   beneficiaryEndorseState,
   setFormActionNone,
   setShowEndorsementChain,
 }) => {
-  const [newBeneficiary, setNewBeneficiary] = useState("");
-  const [newHolder, setNewHolder] = useState("");
   const isPendingConfirmation = beneficiaryEndorseState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = beneficiaryEndorseState === FormState.CONFIRMED;
-  const isEditable =
-    beneficiaryEndorseState !== FormState.PENDING_CONFIRMATION && beneficiaryEndorseState !== FormState.CONFIRMED;
   const { showOverlay } = useContext(OverlayContext);
 
   useEffect(() => {
@@ -47,17 +45,17 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
       showOverlay(
         showDocumentTransferMessage(MessageTitle.CHANGE_BENEFICIARY_SUCCESS, {
           isSuccess: true,
-          beneficiaryAddress: newBeneficiary,
+          beneficiaryAddress: nominee,
         })
       );
       setFormActionNone();
     }
-  }, [isConfirmed, newBeneficiary, showOverlay, setFormActionNone]);
+  }, [isConfirmed, nominee, showOverlay, setFormActionNone]);
 
   const isValidEndorse = () => {
-    if (!newBeneficiary || !newHolder) return false;
-    if (newBeneficiary === beneficiary && newHolder === holder) return false;
-    if (!isEthereumAddress(newBeneficiary) || !isEthereumAddress(newHolder)) return false;
+    if (!nominee) return false;
+    if (nominee === beneficiary) return false;
+    if (!isEthereumAddress(nominee)) return false;
 
     return true;
   };
@@ -77,26 +75,17 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle
-            role="Owner"
-            value={beneficiary}
-            newValue={newBeneficiary}
-            isEditable={isEditable}
-            onSetNewValue={setNewBeneficiary}
-            error={beneficiaryEndorseState === FormState.ERROR}
-          />
+          <EditableAssetTitle role="Nominee" value={nominee} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle
-            role="Holder"
-            value={holder}
-            newValue={newHolder}
-            isEditable={isEditable}
-            onSetNewValue={setNewHolder}
-            error={beneficiaryEndorseState === FormState.ERROR}
-          />
+          <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
         </div>
       </div>
+      {beneficiaryEndorseState === FormState.ERROR && (
+        <div className="text-scarlet-500 my-2" data-testid="error-msg">
+          Unidentified address. Please check and input again.
+        </div>
+      )}
       <div className="flex flex-wrap pb-4">
         <div className="w-auto lg:ml-auto">
           <div className="flex flex-wrap">
@@ -114,7 +103,7 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
               <Button
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={!isValidEndorse() || isPendingConfirmation}
-                onClick={() => handleTransfer(newBeneficiary, newHolder)}
+                onClick={() => handleBeneficiaryTransfer(nominee || "")}
                 data-testid={"endorseBtn"}
               >
                 {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}

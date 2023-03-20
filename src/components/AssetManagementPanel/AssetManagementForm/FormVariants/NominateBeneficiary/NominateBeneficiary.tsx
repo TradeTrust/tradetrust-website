@@ -11,20 +11,20 @@ import { isEthereumAddress } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
-import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { EditableAssetTitle } from "../EditableAssetTitle";
 
-interface NominateBeneficiaryHolderFormProps {
+interface NominateBeneficiaryFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleNomination: (newBeneficiary: string, newHolder: string) => void;
+  handleNomination: (nominee: string) => void;
   nominationState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const NominateBeneficiaryHolderForm: FunctionComponent<NominateBeneficiaryHolderFormProps> = ({
+export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormProps> = ({
   formAction,
   tokenRegistryAddress,
   beneficiary,
@@ -75,7 +75,7 @@ export const NominateBeneficiaryHolderForm: FunctionComponent<NominateBeneficiar
             newValue={newBeneficiary}
             isEditable={isEditable}
             onSetNewValue={setNewBeneficiary}
-            error={nominationState === FormState.ERROR}
+            isError={nominationState === FormState.ERROR}
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
@@ -100,9 +100,7 @@ export const NominateBeneficiaryHolderForm: FunctionComponent<NominateBeneficiar
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={isInvalidNomination || isPendingConfirmation}
                 onClick={() => {
-                  if (holder === undefined) return;
-                  // holder is used instead of 'NewHolder' because we do not want to change the value on the UI when nominating beneficiary.
-                  handleNomination(newBeneficiary, holder);
+                  handleNomination(newBeneficiary);
                 }}
                 data-testid={"nominationBtn"}
               >

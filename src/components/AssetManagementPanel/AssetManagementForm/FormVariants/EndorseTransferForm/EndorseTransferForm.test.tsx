@@ -6,7 +6,7 @@ import { AssetManagementActions } from "../../../AssetManagementActions";
 import { EndorseTransferForm } from "./EndorseTransferForm";
 
 describe("Endorse Transfer to nominated beneficiary and holder", () => {
-  it("should display the approvedBeneficiary and approvedHolder address as non editable fields", async () => {
+  it("should display the static nominee and editable holder address when in EndorseTransfer State", async () => {
     await act(async () => {
       const mockHandleEndorseTransfer = jest.fn();
 
@@ -16,19 +16,42 @@ describe("Endorse Transfer to nominated beneficiary and holder", () => {
           formAction={AssetManagementActions.EndorseTransfer}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           approvedBeneficiary="0xc0F28621Ca5454B66E51786003c798154FeBc6EB"
-          approvedHolder="0xFC6e365B926166d0D69bF336d03164FB301D6C41"
+          holder="0xFC6e365B926166d0D69bF336d03164FB301D6C41"
           handleEndorseTransfer={mockHandleEndorseTransfer}
-          transferToNewEscrowState={FormState.UNINITIALIZED}
+          transferOwnersState={FormState.UNINITIALIZED}
           setFormActionNone={() => {}}
         />
       );
 
-      const beneficiaryField = container.getByTestId("non-editable-input-owner");
-      const holderField = container.getByTestId("non-editable-input-holder");
+      const beneficiaryField = container.getByTestId("non-editable-input-nominee");
+      const holderField = container.getByTestId("editable-input-holder");
       expect(beneficiaryField).toHaveTextContent("0xc0F28621Ca5454B66E51786003c798154FeBc6EB");
-      expect(holderField).toHaveTextContent("0xFC6e365B926166d0D69bF336d03164FB301D6C41");
+      expect(holderField).toHaveValue("0xFC6e365B926166d0D69bF336d03164FB301D6C41");
     });
   });
+
+  it("should disable nominate button when holder is empty", async () => {
+    await act(async () => {
+      const mockHandleEndorseTransfer = jest.fn();
+
+      const container = render(
+        <EndorseTransferForm
+          setShowEndorsementChain={() => {}}
+          formAction={AssetManagementActions.EndorseTransfer}
+          tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+          approvedBeneficiary="0xc0F28621Ca5454B66E51786003c798154FeBc6EB"
+          holder=""
+          handleEndorseTransfer={mockHandleEndorseTransfer}
+          transferOwnersState={FormState.UNINITIALIZED}
+          setFormActionNone={() => {}}
+        />
+      );
+
+      fireEvent.click(container.getByTestId("endorseTransferBtn"));
+      expect(mockHandleEndorseTransfer).not.toHaveBeenCalled();
+    });
+  });
+
   it("should fire the function to handle endorse transfer when 'endorse' button is clicked", async () => {
     await act(async () => {
       const mockHandleEndorseTransfer = jest.fn();
@@ -39,14 +62,23 @@ describe("Endorse Transfer to nominated beneficiary and holder", () => {
           formAction={AssetManagementActions.EndorseTransfer}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           approvedBeneficiary="0xc0F28621Ca5454B66E51786003c798154FeBc6EB"
-          approvedHolder="0xFC6e365B926166d0D69bF336d03164FB301D6C41"
+          holder="0xFC6e365B926166d0D69bF336d03164FB301D6C41"
           handleEndorseTransfer={mockHandleEndorseTransfer}
-          transferToNewEscrowState={FormState.UNINITIALIZED}
+          transferOwnersState={FormState.UNINITIALIZED}
           setFormActionNone={() => {}}
         />
       );
+
+      const holderField = container.getByTestId("editable-input-holder");
+      expect(holderField).toHaveValue("0xFC6e365B926166d0D69bF336d03164FB301D6C41");
+      await fireEvent.change(holderField, { target: { value: "0xc0F28621Ca5454B66E51786003c798154FeBc6EB" } });
+      expect(holderField).toHaveValue("0xc0F28621Ca5454B66E51786003c798154FeBc6EB");
       fireEvent.click(container.getByTestId("endorseTransferBtn"));
       expect(mockHandleEndorseTransfer).toBeCalled();
+      expect(mockHandleEndorseTransfer).toHaveBeenCalledWith(
+        "0xc0F28621Ca5454B66E51786003c798154FeBc6EB",
+        "0xc0F28621Ca5454B66E51786003c798154FeBc6EB"
+      );
     });
   });
 });

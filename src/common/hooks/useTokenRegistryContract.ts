@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
-import { TradeTrustErc721Factory } from "@govtechsg/token-registry";
-import { TradeTrustErc721 } from "@govtechsg/token-registry/types/TradeTrustErc721";
+import { TradeTrustToken__factory } from "@govtechsg/token-registry/contracts";
+import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
 import { providers, Signer } from "ethers";
 
 export const useTokenRegistryContract = (
   address?: string,
   provider?: providers.Provider | Signer
 ): {
-  tokenRegistry?: TradeTrustErc721;
+  tokenRegistry?: TradeTrustToken;
 } => {
-  const [tokenRegistry, setTokenRegistry] = useState<TradeTrustErc721>();
+  const [tokenRegistry, setTokenRegistry] = useState<TradeTrustToken>();
 
   useEffect(() => {
     if (!address || !provider) return;
-    const instance = TradeTrustErc721Factory.connect(address, provider);
+    const instance = TradeTrustToken__factory.connect(address, provider);
     setTokenRegistry(instance);
     return () => {
       setTokenRegistry(undefined);
