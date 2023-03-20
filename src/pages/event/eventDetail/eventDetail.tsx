@@ -60,7 +60,7 @@ export const EventPageDetail: FunctionComponent = () => {
         <div className="w-full lg:w-9/12">
           <div className="bg-white text-cloud-800 drop-shadow-xl rounded-xl p-8">
             <h2 className="mb-6 lg:mb-10">{title}</h2>
-            {thumbnail && <img className="object-cover w-full h-96 mb-10" src={thumbnail} />}
+            {thumbnail && <img className=" mb-10" src={thumbnail} />}
             <div className="flex flex-col-reverse lg:flex-row">
               <div className="border-r border-cloud-200 border-solid w-full lg:w-2/6 mt-4 lg:mt-0">
                 <h5>Event Date and Time</h5>

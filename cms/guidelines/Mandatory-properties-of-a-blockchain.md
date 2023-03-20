@@ -2,7 +2,6 @@
 title: Mandatory properties of a blockchain
 date: 2020-01-04T16:00:00.000Z
 ---
-
 One of the most frequently asked questions posted to the team is whether TradeTrust is able to use alternative blockchains in addition to the Ethereum blockchain. This article seeks to provide a set of guidelines on the properties and features that an alternative blockchain must have in order to align to the TradeTrust framework.
 
 **Here is a list of mandatory properties:**
@@ -26,22 +25,28 @@ In order to fulfil the requirement of asset ownership capability, it must be abl
 2. Singularly keep ownership records of instances of digital assets
 3. Allow an owner to prove control over the digital asset
 
+
+
 For additional flexibility, it would be ideal for the blockchain to support smart contracts that allow actors to define a valid set of state transitioning transactions, their preconditions and post-conditions. This is needed for programs like the DocumentStore, TokenRegistry or TitleEscrow to store information about the states of documents and ownership structure.
 An example of how smart contracts are used:
 In the case of ETR issuers such as shipping lines, they should be able to deploy smart contracts to maintain a single global record for the following purposes:
 
-- Keeping records of the statuses of ETRs issued by the issuer
-- Keeping records of the current owners of the different ETR
-- Defining the function and preconditions for issuing a new ETR
-- Defining the function and preconditions for transferring an ETR
-- Other functions required by the users or the issuer of the ETR
+* Keeping records of the statuses of ETRs issued by the issuer
+* Keeping records of the current owners of the different ETR
+* Defining the function and preconditions for issuing a new ETR
+* Defining the function and preconditions for transferring an ETR
+* Other functions required by the users or the issuer of the ETR
+
+
 
 Example of how preconditions are set for a transfer action:
 An entity may only transfer its ownership of an ETR from itself to another entity only if the following pre-conditions are met:
 
-- The ETR has been issued by the ETR issuer
-- The Entity is currently in control
-- The transaction has been signed by the entity proposing the transactions
+* The ETR has been issued by the ETR issuer
+* The Entity is currently in control
+* The transaction has been signed by the entity proposing the transactions
+
+
 
 **4. Accessibility of blockchain state**
 
@@ -50,6 +55,8 @@ TradeTrust requires the blockchain to satisfy the accessibility criteria below:
 1. **availability:** any party can download and verify the current head state meaning it is censorship-resistant
 2. **safety/validity:** must not have invalid state transition
 3. **liveness:** any party can submit transactions to advance the head state
+
+
 
 **5.Impartial Security Model**
 

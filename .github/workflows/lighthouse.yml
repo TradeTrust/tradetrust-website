@@ -1,9 +1,10 @@
 name: Lighthouse Report
 
-on: [pull_request]
+on: [push]
 
 jobs:
   lhci:
+    if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
     name: Lighthouse
     runs-on: ubuntu-latest
     steps:
@@ -21,6 +22,7 @@ jobs:
           npm install -g @lhci/cli@0.10.x
           lhci autorun
       - name: upload artifacts
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: Lighthouse reports

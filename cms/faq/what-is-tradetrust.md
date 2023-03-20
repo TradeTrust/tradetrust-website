@@ -5,6 +5,6 @@ type: General
 ---
 Developed and pioneered by the Infocomm Media Development Authority (IMDA), TradeTrust was designed to address the challenges of paper-based international trade. 
 
-TradeTrust is a set of international standards and frameworks supported by open-source software that utilises blockchain-powered technology to digitalise the end-to-end processing of trade documents to ensure that documents issued can be verified in terms of their source and authenticity. 
+TradeTrust, which is built upon OpenAttestation , comprises globally accepted standards and frameworks that allow governments and businesses to endorse, exchange and verify documents and effect title transfer across different digital platforms seamlessly.
 
-Through a holistic framework made of four key components – legal harmonisation, accreditation structure, standards development and open-source software – TradeTrust seeks to make digitalized trade robust, legally recognisable, and inclusive for all stakeholders in the ecosystem, resulting in faster, simpler and more secure trade processes.
+D﻿eveloped by GovTech, OpenAttestation is an open-sourced framework to endorse and verify documents using the blockchain. Documents issued this way are cryptographically trustworthy and can be verified independently.
