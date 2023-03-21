@@ -43,13 +43,11 @@ export const FaqContent: FunctionComponent<FAQ> = ({ faqType }) => {
             accordionIndex={index}
             setOpenIndex={setOpenIndex}
           >
-            <ReactMarkdown components={{ p: ({ ...props }) => <p className={"mb-4 break-word"} {...props} /> }}>
-              {faq.body}
-            </ReactMarkdown>
+            <ReactMarkdown className="wysiwyg">{faq.body}</ReactMarkdown>
           </AccordionItem>
         ))}
       </div>
-      <div className="mx-auto w-1/2 lg:w-1/3  hidden lg:block">
+      <div className="w-1/3 hidden lg:block">
         <img src="/static/images/faq/faq-person.png" alt="FAQ person" />
       </div>
     </div>

@@ -227,15 +227,20 @@
 
   .wysiwyg p,
   .wysiwyg h3 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    @apply my-4;
     @apply text-cloud-800;
+    @apply break-words;
   }
 
   .wysiwyg a {
-    word-break: break-word;
+    @apply break-words;
     @apply text-cerulean-300;
     @apply hover:text-cerulean-500;
+  }
+
+  .wysiwyg ol,
+  .wysiwyg ul {
+    @apply pl-8;
   }
 
   @media print {
