@@ -1,12 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useFetchGasCost } from "../../common/hooks/useFetchGasPrice";
-import { FiatLabel } from "../FiatLabel/FiatLabel";
+import { useFetchGasPrice, FiatLabel } from "@govtechsg/open-attestation-utils";
 import { currentDateStr } from "../../utils";
 
 export const CostHeader: FunctionComponent = () => {
   const [dateTime, setDateTime] = useState(currentDateStr());
-  const { price, gwei } = useFetchGasCost("ethereum", 30000);
-  const { price: maticPrice, gwei: maticGwei } = useFetchGasCost("polygon", 30000);
+  const { price, gwei } = useFetchGasPrice("ethereum", 30000);
+  const { price: maticPrice, gwei: maticGwei } = useFetchGasPrice("polygon", 30000);
   const priceFactor = gwei * 0.000000001 * price;
   const maticPriceFactor = maticGwei * 0.000000001 * maticPrice;
 

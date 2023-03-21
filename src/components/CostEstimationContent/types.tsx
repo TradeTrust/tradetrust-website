@@ -1,3 +1,7 @@
+export interface CostDataFn {
+  (): CostData[];
+}
+
 export type CostData = {
   jobTitle: string;
   icon: string;

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { OverlayContent } from "@govtechsg/tradetrust-ui-components";
 import { CostData } from "./types";
-import { FiatLabel } from "../FiatLabel/FiatLabel";
+import { FiatLabel } from "@govtechsg/open-attestation-utils";
 
 interface CostModalProps {
   costData: CostData;
@@ -11,7 +11,7 @@ export const CostModal: FunctionComponent<CostModalProps> = ({ costData }) => {
   const { jobTitle, costInformation } = costData;
   return (
     <section id="cost-modal">
-      <OverlayContent title="" className="max-h-[90vh] text-white bg-cerulean-500 rounded-xl" crossStyle="text-white">
+      <OverlayContent title="" className="max-h-[90vh] text-white !bg-cerulean-500 rounded-xl" crossStyle="text-white">
         <div
           className="mx-5 my-0 bg-cover relative flex flex-col text-white p-5 overflow-auto h-auto"
           style={{ backgroundImage: "url('/static/images/common/wave-lines-light-2.png')" }}

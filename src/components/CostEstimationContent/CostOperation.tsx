@@ -1,14 +1,14 @@
-import React, { FunctionComponent, useContext, useState, useEffect } from "react";
+import React, { FunctionComponent, useContext, useState, useEffect, useCallback } from "react";
 import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
-import { useFetchGasCost } from "../../common/hooks/useFetchGasPrice";
-import { CostData } from "./types";
+import { useFetchGasPrice } from "@govtechsg/open-attestation-utils";
+import { CostData, CostDataFn } from "./types";
 import { CostModal } from "./CostModal";
 import { currentDateStr } from "../../utils";
 
 export const CostOperation: FunctionComponent = () => {
   const [dateTime, setDateTime] = useState(currentDateStr());
-  const { price, gwei } = useFetchGasCost("ethereum", 30000);
-  const { price: maticPrice, gwei: maticGwei } = useFetchGasCost("polygon", 30000);
+  const { price, gwei } = useFetchGasPrice("ethereum", 30000);
+  const { price: maticPrice, gwei: maticGwei } = useFetchGasPrice("polygon", 30000);
   const priceFactor = gwei * 0.000000001 * price;
   const maticPriceFactor = maticGwei * 0.000000001 * maticPrice;
 
@@ -22,120 +22,124 @@ export const CostOperation: FunctionComponent = () => {
     setDateTime(currentDateStr());
   }, [gwei]);
 
-  const costData: CostData[] = [
-    {
-      jobTitle: "The Exporter",
-      icon: "/static/images/home/howItWorks/persona/persona1.png",
-      costInformation: {
-        costTitle: "Cost for The Exporter",
-        contractCost: [
-          {
-            contractIcon: "/static/images/cost/exporter/transfer-holdership-icon.png",
-            contractTitle: "Cost to transfer holdership",
-            contractPriceInEthereum: `${transferHoldershipGas * priceFactor}`,
-            contractPriceInPolygon: `${transferHoldershipGas * maticPriceFactor}`,
-          },
-          {
-            contractIcon: "/static/images/cost/exporter/transfer-ownership-icon.png",
-            contractTitle: "Cost to transfer ownership",
-            contractPriceInEthereum: `${transferOwnershipGas * priceFactor}`,
-            contractPriceInPolygon: `${transferOwnershipGas * maticPriceFactor}`,
-          },
-          {
-            contractIcon: "/static/images/cost/total-cost-icon.png",
-            contractTitle: "Total Cost",
-            contractPriceInEthereum: `${transferOwnershipGas * priceFactor + transferHoldershipGas * priceFactor}`,
-            contractPriceInPolygon: `${
-              transferOwnershipGas * maticPriceFactor + transferHoldershipGas * maticPriceFactor
-            }`,
-          },
-        ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
+  const costData: CostDataFn = useCallback(() => {
+    return [
+      {
+        jobTitle: "The Exporter",
+        icon: "/static/images/home/howItWorks/persona/persona1.png",
+        costInformation: {
+          costTitle: "Cost for The Exporter",
+          contractCost: [
+            {
+              contractIcon: "/static/images/cost/exporter/transfer-holdership-icon.png",
+              contractTitle: "Cost to transfer holdership",
+              contractPriceInEthereum: `${transferHoldershipGas * priceFactor}`,
+              contractPriceInPolygon: `${transferHoldershipGas * maticPriceFactor}`,
+            },
+            {
+              contractIcon: "/static/images/cost/exporter/transfer-ownership-icon.png",
+              contractTitle: "Cost to transfer ownership",
+              contractPriceInEthereum: `${transferOwnershipGas * priceFactor}`,
+              contractPriceInPolygon: `${transferOwnershipGas * maticPriceFactor}`,
+            },
+            {
+              contractIcon: "/static/images/cost/total-cost-icon.png",
+              contractTitle: "Total Cost",
+              contractPriceInEthereum: `${transferOwnershipGas * priceFactor + transferHoldershipGas * priceFactor}`,
+              contractPriceInPolygon: `${
+                transferOwnershipGas * maticPriceFactor + transferHoldershipGas * maticPriceFactor
+              }`,
+            },
+          ],
+          description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
+            $${price} for Ethereum and ${Math.ceil(
+            maticGwei
+          )} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
+           as at ${dateTime}.`,
+        },
+      },
+      {
+        jobTitle: "The Carrier",
+        icon: "/static/images/home/howItWorks/persona/persona2.png",
+        costInformation: {
+          costTitle: "Cost for The Exporter",
+          contractCost: [
+            {
+              contractIcon: "/static/images/cost/carrier/issue-ebl-icon.png",
+              contractTitle: "Cost to Issue eBL",
+              contractPriceInEthereum: `${issueDocGas * priceFactor}`,
+              contractPriceInPolygon: `${issueDocGas * maticPriceFactor}`,
+            },
+            {
+              contractIcon: "/static/images/cost/carrier/burn-ebl-icon.png",
+              contractTitle: "Cost to Burn eBL",
+              contractPriceInEthereum: `${burnDocGas * priceFactor}`,
+              contractPriceInPolygon: `${burnDocGas * maticPriceFactor}`,
+            },
+            {
+              contractIcon: "/static/images/cost/total-cost-icon.png",
+              contractTitle: "Total Cost",
+              contractPriceInEthereum: `${issueDocGas * priceFactor + burnDocGas * priceFactor}`,
+              contractPriceInPolygon: `${issueDocGas * maticPriceFactor + burnDocGas * maticPriceFactor}`,
+            },
+          ],
+          description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
           $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
          as at ${dateTime}.`,
+        },
       },
-    },
-    {
-      jobTitle: "The Carrier",
-      icon: "/static/images/home/howItWorks/persona/persona2.png",
-      costInformation: {
-        costTitle: "Cost for The Exporter",
-        contractCost: [
-          {
-            contractIcon: "/static/images/cost/carrier/issue-ebl-icon.png",
-            contractTitle: "Cost to Issue eBL",
-            contractPriceInEthereum: `${issueDocGas * priceFactor}`,
-            contractPriceInPolygon: `${issueDocGas * maticPriceFactor}`,
-          },
-          {
-            contractIcon: "/static/images/cost/carrier/burn-ebl-icon.png",
-            contractTitle: "Cost to Burn eBL",
-            contractPriceInEthereum: `${burnDocGas * priceFactor}`,
-            contractPriceInPolygon: `${burnDocGas * maticPriceFactor}`,
-          },
-          {
-            contractIcon: "/static/images/cost/total-cost-icon.png",
-            contractTitle: "Total Cost",
-            contractPriceInEthereum: `${issueDocGas * priceFactor + burnDocGas * priceFactor}`,
-            contractPriceInPolygon: `${issueDocGas * maticPriceFactor + burnDocGas * maticPriceFactor}`,
-          },
-        ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
-        $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-       as at ${dateTime}.`,
+      {
+        jobTitle: "The Importer",
+        icon: "/static/images/home/howItWorks/persona/persona3.png",
+        costInformation: {
+          costTitle: "Cost for The Exporter",
+          contractCost: [
+            {
+              contractIcon: "/static/images/cost/importer/surrender-ebl-icon.png",
+              contractTitle: "Surrender eBL",
+              contractPriceInEthereum: `${surrenderDocGas * priceFactor}`,
+              contractPriceInPolygon: `${surrenderDocGas * maticPriceFactor}`,
+            },
+          ],
+          description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
+          $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
+         as at ${dateTime}.`,
+        },
       },
-    },
-    {
-      jobTitle: "The Importer",
-      icon: "/static/images/home/howItWorks/persona/persona3.png",
-      costInformation: {
-        costTitle: "Cost for The Exporter",
-        contractCost: [
-          {
-            contractIcon: "/static/images/cost/importer/surrender-ebl-icon.png",
-            contractTitle: "Surrender eBL",
-            contractPriceInEthereum: `${surrenderDocGas * priceFactor}`,
-            contractPriceInPolygon: `${surrenderDocGas * maticPriceFactor}`,
-          },
-        ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
-        $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-       as at ${dateTime}.`,
+      {
+        jobTitle: "The Banker",
+        icon: "/static/images/home/howItWorks/persona/persona4.png",
+        costInformation: {
+          costTitle: "Cost for The Exporter",
+          contractCost: [
+            {
+              contractIcon: "/static/images/cost/exporter/transfer-holdership-icon.png",
+              contractTitle: "Cost to transfer holdership",
+              contractPriceInEthereum: `${transferHoldershipGas * priceFactor}`,
+              contractPriceInPolygon: `${transferHoldershipGas * maticPriceFactor}`,
+            },
+            {
+              contractIcon: "/static/images/cost/exporter/transfer-ownership-icon.png",
+              contractTitle: "Cost to transfer ownership",
+              contractPriceInEthereum: `${transferOwnershipGas * priceFactor}`,
+              contractPriceInPolygon: `${transferOwnershipGas * maticPriceFactor}`,
+            },
+            {
+              contractIcon: "/static/images/cost/total-cost-icon.png",
+              contractTitle: "Total Cost",
+              contractPriceInEthereum: `${transferOwnershipGas * priceFactor + transferHoldershipGas * priceFactor}`,
+              contractPriceInPolygon: `${
+                transferOwnershipGas * maticPriceFactor + transferHoldershipGas * maticPriceFactor
+              }`,
+            },
+          ],
+          description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
+          $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
+         as at ${dateTime}.`,
+        },
       },
-    },
-    {
-      jobTitle: "The Banker",
-      icon: "/static/images/home/howItWorks/persona/persona4.png",
-      costInformation: {
-        costTitle: "Cost for The Exporter",
-        contractCost: [
-          {
-            contractIcon: "/static/images/cost/exporter/transfer-holdership-icon.png",
-            contractTitle: "Cost to transfer holdership",
-            contractPriceInEthereum: `${transferHoldershipGas * priceFactor}`,
-            contractPriceInPolygon: `${transferHoldershipGas * maticPriceFactor}`,
-          },
-          {
-            contractIcon: "/static/images/cost/exporter/transfer-ownership-icon.png",
-            contractTitle: "Cost to transfer ownership",
-            contractPriceInEthereum: `${transferOwnershipGas * priceFactor}`,
-            contractPriceInPolygon: `${transferOwnershipGas * maticPriceFactor}`,
-          },
-          {
-            contractIcon: "/static/images/cost/total-cost-icon.png",
-            contractTitle: "Total Cost",
-            contractPriceInEthereum: `${transferOwnershipGas * priceFactor + transferHoldershipGas * priceFactor}`,
-            contractPriceInPolygon: `${
-              transferOwnershipGas * maticPriceFactor + transferHoldershipGas * maticPriceFactor
-            }`,
-          },
-        ],
-        description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
-        $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-       as at ${dateTime}.`,
-      },
-    },
-  ];
+    ];
+  }, [dateTime, gwei, maticGwei, maticPrice, maticPriceFactor, price, priceFactor]);
 
   const { showOverlay } = useContext(OverlayContext);
   const handleDisplayModal = (persona: CostData) => {
@@ -153,7 +157,7 @@ export const CostOperation: FunctionComponent = () => {
             Click on the persona to see how much it cost for each transaction based on blank-endorsed BL document flow.
           </h4>
           <div className="flex flex-col lg:flex-row items-center lg:justify-center mb-4">
-            {costData.map((persona, index) => {
+            {costData().map((persona, index) => {
               return (
                 <div
                   key={`${index}-cost-persona`}
