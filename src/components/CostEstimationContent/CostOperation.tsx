@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext, useState, useEffect, useCallback } from "react";
 import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
-import { useFetchGasPrice } from "@govtechsg/open-attestation-utils";
+import { useFetchGasPrice } from "../../common/hooks/useFetchGasPrice";
 import { CostData, CostDataFn } from "./types";
 import { CostModal } from "./CostModal";
 import { currentDateStr } from "../../utils";

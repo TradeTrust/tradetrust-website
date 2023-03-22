@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useFetchGasPrice, FiatLabel } from "@govtechsg/open-attestation-utils";
+import { FiatLabel } from "@govtechsg/open-attestation-utils";
+import { useFetchGasPrice } from "../../common/hooks/useFetchGasPrice";
 import { currentDateStr } from "../../utils";
 
 export const CostHeader: FunctionComponent = () => {
