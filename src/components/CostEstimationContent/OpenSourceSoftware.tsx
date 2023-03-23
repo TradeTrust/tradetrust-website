@@ -21,14 +21,17 @@ export const OpenSourceSoftware: FunctionComponent = () => {
               </a>{" "}
               under the open-source licensing terms. It can be easily integrated into any existing system of businesses
               and service providers to automate the document validation process and provide new service offerings to
-              support viable use cases. Leveraging on the immutability and security of cutting-edge technologies like
-              Blockchain, Smart Contracts and Non-Fungible Tokens (NFTs), governments and businesses can endorse,
-              exchange, verify electronic documents and enable the digitalisation of transferable documents into
-              Electronic Transferable Records that have the legal ability^ to effect title transfer across different
-              digital platforms seamlessly. A blockchain transaction fee, also known as gas fee, is incurred to execute
-              a transaction on the blockchain and is paid to validators.
+              support viable use cases.
             </div>
-            <h6 className="px-2 md:px-16 lg:px-36 pb-2 md:pb-16 xl:pb-24">
+            <div className="-mt-6">
+              Leveraging on the immutability and security of cutting-edge technologies like Blockchain, Smart Contracts
+              and Non-Fungible Tokens (NFTs), governments and businesses can endorse, exchange, verify electronic
+              documents and enable the digitalisation of transferable documents into Electronic Transferable Records
+              that have the legal ability^ to effect title transfer across different digital platforms seamlessly. A
+              blockchain transaction fee, also known as gas fee, is incurred to execute a transaction on the blockchain
+              and is paid to validators.
+            </div>
+            <h6 className="px-2 md:px-16 lg:px-36 pb-2 md:pb-16 xl:pb-24 mt-2 text-cloud-400">
               ^Singapore&apos;s 2021 amendment of its Electronic Transactions Act (one of the first few internationally,
               enables the creation and use of ETRs such as electronic Bills of Lading) empowering practitioners to reap
               the benefits of digitalisation more easily.
