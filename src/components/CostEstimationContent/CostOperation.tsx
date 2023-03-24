@@ -4,23 +4,26 @@ import { useFetchGasPrice } from "../../common/hooks/useFetchGasPrice";
 import { CostData, CostDataFn } from "./types";
 import { CostModal } from "./CostModal";
 import { currentDateStr } from "../../utils";
+import {
+  transferHoldershipGas,
+  transferOwnershipGas,
+  issueDocGas,
+  burnDocGas,
+  surrenderDocGas,
+  gweiFactor,
+  refreshRate,
+} from "../../constants/cost-estimation";
 
 export const CostOperation: FunctionComponent = () => {
   const [dateTime, setDateTime] = useState(currentDateStr());
-  const { price, gwei } = useFetchGasPrice("ethereum", 30000);
-  const { price: maticPrice, gwei: maticGwei } = useFetchGasPrice("polygon", 30000);
-  const priceFactor = gwei * 0.000000001 * price;
-  const maticPriceFactor = maticGwei * 0.000000001 * maticPrice;
-
-  const transferHoldershipGas = 43634;
-  const transferOwnershipGas = 324688;
-  const issueDocGas = 239523;
-  const burnDocGas = 56532;
-  const surrenderDocGas = 93435;
+  const { price, gwei } = useFetchGasPrice("ethereum", refreshRate);
+  const { price: maticPrice, gwei: maticGwei } = useFetchGasPrice("polygon", refreshRate);
+  const priceFactor = gwei * gweiFactor * price;
+  const maticPriceFactor = maticGwei * gweiFactor * maticPrice;
 
   useEffect(() => {
     setDateTime(currentDateStr());
-  }, [gwei]);
+  }, [gwei, maticGwei]);
 
   const costData: CostDataFn = useCallback(() => {
     return [
@@ -139,7 +142,8 @@ export const CostOperation: FunctionComponent = () => {
         },
       },
     ];
-  }, [dateTime, gwei, maticGwei, maticPrice, maticPriceFactor, price, priceFactor]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gwei, maticGwei]);
 
   const { showOverlay } = useContext(OverlayContext);
   const handleDisplayModal = (persona: CostData) => {
