@@ -1,5 +1,5 @@
 export interface CostDataFn {
-  (eprice: number, mPrice: number, dateTime: string): CostData[];
+  (ePrice: number, mPrice: number, dateTime: string, eGwei: number, mGwei: number): CostData[];
 }
 
 export interface CostData {
@@ -8,7 +8,7 @@ export interface CostData {
   costInformation: CostInformation;
 }
 
-interface CostInformation {
+export interface CostInformation {
   costTitle: string;
   contractCost: ContractCost[];
   description: string;
@@ -19,16 +19,4 @@ export interface ContractCost {
   contractTitle: string;
   contractPriceInEthereum: string;
   contractPriceInPolygon: string;
-}
-
-export class Persona {
-  jobTitle: string;
-  icon: string;
-  costInformation: CostInformation;
-
-  constructor(data: CostData) {
-    this.jobTitle = data.jobTitle;
-    this.icon = data.icon;
-    this.costInformation = data.costInformation;
-  }
 }
