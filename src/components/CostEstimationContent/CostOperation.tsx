@@ -1,33 +1,40 @@
 import React, { FunctionComponent, useContext, useState, useEffect, useCallback } from "react";
 import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import { useFetchGasPrice } from "../../common/hooks/useFetchGasPrice";
-import { CostData, CostDataFn } from "./types";
+import { CostData, CostDataFn, Persona } from "./types";
 import { CostModal } from "./CostModal";
 import { currentDateStr } from "../../utils";
 import {
-  transferHoldershipGas,
-  transferOwnershipGas,
-  issueDocGas,
-  burnDocGas,
-  surrenderDocGas,
-  gweiFactor,
-  refreshRate,
+  TRANSFER_HOLDERSHIP_GAS,
+  TRANSFER_OWNERSHIP_GAS,
+  ISSUE_DOC_GAS,
+  BURN_DOC_GAS,
+  SURRENDER_DOC_GAS,
+  GWEI_FACTOR,
+  REFRESH_RATE,
 } from "../../constants/cost-estimation";
 
 export const CostOperation: FunctionComponent = () => {
   const [dateTime, setDateTime] = useState(currentDateStr());
-  const { price, gwei } = useFetchGasPrice("ethereum", refreshRate);
-  const { price: maticPrice, gwei: maticGwei } = useFetchGasPrice("polygon", refreshRate);
-  const priceFactor = gwei * gweiFactor * price;
-  const maticPriceFactor = maticGwei * gweiFactor * maticPrice;
+  const { price: ePrice, gwei: eGwei } = useFetchGasPrice("ethereum", REFRESH_RATE);
+  const { price: mPrice, gwei: mGwei } = useFetchGasPrice("polygon", REFRESH_RATE);
 
   useEffect(() => {
     setDateTime(currentDateStr());
-  }, [gwei, maticGwei]);
+  }, [eGwei, mGwei]);
 
-  const costData: CostDataFn = useCallback(() => {
-    return [
-      {
+  const costData: CostDataFn = useCallback(
+    (price, maticPrice, dateTimeString) => {
+      const priceFactor = eGwei * GWEI_FACTOR * price;
+      const maticPriceFactor = mGwei * GWEI_FACTOR * maticPrice;
+
+      const description = `*Estimations based on the current gas average at ${Math.ceil(
+        eGwei
+      )} gwei (ETH), ETH price at USD
+      $${price} for Ethereum and ${Math.ceil(mGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
+     as at ${dateTimeString}.`;
+
+      const Exporter = new Persona({
         jobTitle: "The Exporter",
         icon: "/static/images/home/howItWorks/persona/persona1.png",
         costInformation: {
@@ -36,32 +43,31 @@ export const CostOperation: FunctionComponent = () => {
             {
               contractIcon: "/static/images/cost/exporter/transfer-holdership-icon.png",
               contractTitle: "Cost to transfer holdership",
-              contractPriceInEthereum: `${transferHoldershipGas * priceFactor}`,
-              contractPriceInPolygon: `${transferHoldershipGas * maticPriceFactor}`,
+              contractPriceInEthereum: `${TRANSFER_HOLDERSHIP_GAS * priceFactor}`,
+              contractPriceInPolygon: `${TRANSFER_HOLDERSHIP_GAS * maticPriceFactor}`,
             },
             {
               contractIcon: "/static/images/cost/exporter/transfer-ownership-icon.png",
               contractTitle: "Cost to transfer ownership",
-              contractPriceInEthereum: `${transferOwnershipGas * priceFactor}`,
-              contractPriceInPolygon: `${transferOwnershipGas * maticPriceFactor}`,
+              contractPriceInEthereum: `${TRANSFER_OWNERSHIP_GAS * priceFactor}`,
+              contractPriceInPolygon: `${TRANSFER_OWNERSHIP_GAS * maticPriceFactor}`,
             },
             {
               contractIcon: "/static/images/cost/total-cost-icon.png",
               contractTitle: "Total Cost",
-              contractPriceInEthereum: `${transferOwnershipGas * priceFactor + transferHoldershipGas * priceFactor}`,
+              contractPriceInEthereum: `${
+                TRANSFER_OWNERSHIP_GAS * priceFactor + TRANSFER_HOLDERSHIP_GAS * priceFactor
+              }`,
               contractPriceInPolygon: `${
-                transferOwnershipGas * maticPriceFactor + transferHoldershipGas * maticPriceFactor
+                TRANSFER_OWNERSHIP_GAS * maticPriceFactor + TRANSFER_HOLDERSHIP_GAS * maticPriceFactor
               }`,
             },
           ],
-          description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
-            $${price} for Ethereum and ${Math.ceil(
-            maticGwei
-          )} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-           as at ${dateTime}.`,
+          description: description,
         },
-      },
-      {
+      });
+
+      const Carrier = new Persona({
         jobTitle: "The Carrier",
         icon: "/static/images/home/howItWorks/persona/persona2.png",
         costInformation: {
@@ -70,28 +76,27 @@ export const CostOperation: FunctionComponent = () => {
             {
               contractIcon: "/static/images/cost/carrier/issue-ebl-icon.png",
               contractTitle: "Cost to Issue eBL",
-              contractPriceInEthereum: `${issueDocGas * priceFactor}`,
-              contractPriceInPolygon: `${issueDocGas * maticPriceFactor}`,
+              contractPriceInEthereum: `${ISSUE_DOC_GAS * priceFactor}`,
+              contractPriceInPolygon: `${ISSUE_DOC_GAS * maticPriceFactor}`,
             },
             {
               contractIcon: "/static/images/cost/carrier/burn-ebl-icon.png",
               contractTitle: "Cost to Burn eBL",
-              contractPriceInEthereum: `${burnDocGas * priceFactor}`,
-              contractPriceInPolygon: `${burnDocGas * maticPriceFactor}`,
+              contractPriceInEthereum: `${BURN_DOC_GAS * priceFactor}`,
+              contractPriceInPolygon: `${BURN_DOC_GAS * maticPriceFactor}`,
             },
             {
               contractIcon: "/static/images/cost/total-cost-icon.png",
               contractTitle: "Total Cost",
-              contractPriceInEthereum: `${issueDocGas * priceFactor + burnDocGas * priceFactor}`,
-              contractPriceInPolygon: `${issueDocGas * maticPriceFactor + burnDocGas * maticPriceFactor}`,
+              contractPriceInEthereum: `${ISSUE_DOC_GAS * priceFactor + BURN_DOC_GAS * priceFactor}`,
+              contractPriceInPolygon: `${ISSUE_DOC_GAS * maticPriceFactor + BURN_DOC_GAS * maticPriceFactor}`,
             },
           ],
-          description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
-          $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-         as at ${dateTime}.`,
+          description: description,
         },
-      },
-      {
+      });
+
+      const Importer = new Persona({
         jobTitle: "The Importer",
         icon: "/static/images/home/howItWorks/persona/persona3.png",
         costInformation: {
@@ -100,16 +105,15 @@ export const CostOperation: FunctionComponent = () => {
             {
               contractIcon: "/static/images/cost/importer/surrender-ebl-icon.png",
               contractTitle: "Surrender eBL",
-              contractPriceInEthereum: `${surrenderDocGas * priceFactor}`,
-              contractPriceInPolygon: `${surrenderDocGas * maticPriceFactor}`,
+              contractPriceInEthereum: `${SURRENDER_DOC_GAS * priceFactor}`,
+              contractPriceInPolygon: `${SURRENDER_DOC_GAS * maticPriceFactor}`,
             },
           ],
-          description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
-          $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-         as at ${dateTime}.`,
+          description: description,
         },
-      },
-      {
+      });
+
+      const Banker = new Persona({
         jobTitle: "The Banker",
         icon: "/static/images/home/howItWorks/persona/persona4.png",
         costInformation: {
@@ -118,32 +122,34 @@ export const CostOperation: FunctionComponent = () => {
             {
               contractIcon: "/static/images/cost/exporter/transfer-holdership-icon.png",
               contractTitle: "Cost to transfer holdership",
-              contractPriceInEthereum: `${transferHoldershipGas * priceFactor}`,
-              contractPriceInPolygon: `${transferHoldershipGas * maticPriceFactor}`,
+              contractPriceInEthereum: `${TRANSFER_HOLDERSHIP_GAS * priceFactor}`,
+              contractPriceInPolygon: `${TRANSFER_HOLDERSHIP_GAS * maticPriceFactor}`,
             },
             {
               contractIcon: "/static/images/cost/exporter/transfer-ownership-icon.png",
               contractTitle: "Cost to transfer ownership",
-              contractPriceInEthereum: `${transferOwnershipGas * priceFactor}`,
-              contractPriceInPolygon: `${transferOwnershipGas * maticPriceFactor}`,
+              contractPriceInEthereum: `${TRANSFER_OWNERSHIP_GAS * priceFactor}`,
+              contractPriceInPolygon: `${TRANSFER_OWNERSHIP_GAS * maticPriceFactor}`,
             },
             {
               contractIcon: "/static/images/cost/total-cost-icon.png",
               contractTitle: "Total Cost",
-              contractPriceInEthereum: `${transferOwnershipGas * priceFactor + transferHoldershipGas * priceFactor}`,
+              contractPriceInEthereum: `${
+                TRANSFER_OWNERSHIP_GAS * priceFactor + TRANSFER_HOLDERSHIP_GAS * priceFactor
+              }`,
               contractPriceInPolygon: `${
-                transferOwnershipGas * maticPriceFactor + transferHoldershipGas * maticPriceFactor
+                TRANSFER_OWNERSHIP_GAS * maticPriceFactor + TRANSFER_HOLDERSHIP_GAS * maticPriceFactor
               }`,
             },
           ],
-          description: `*Estimations based on the current gas average at ${Math.ceil(gwei)} gwei (ETH), ETH price at USD
-          $${price} for Ethereum and ${Math.ceil(maticGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-         as at ${dateTime}.`,
+          description: description,
         },
-      },
-    ];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gwei, maticGwei]);
+      });
+
+      return [Exporter, Carrier, Importer, Banker];
+    },
+    [eGwei, mGwei]
+  );
 
   const { showOverlay } = useContext(OverlayContext);
   const handleDisplayModal = (persona: CostData) => {
@@ -161,7 +167,7 @@ export const CostOperation: FunctionComponent = () => {
             Click on the persona to see how much it cost for each transaction based on blank-endorsed BL document flow.
           </h4>
           <div className="flex flex-col lg:flex-row items-center lg:justify-center mb-4">
-            {costData().map((persona, index) => {
+            {costData(ePrice, mPrice, dateTime).map((persona, index) => {
               return (
                 <div
                   key={`${index}-cost-persona`}

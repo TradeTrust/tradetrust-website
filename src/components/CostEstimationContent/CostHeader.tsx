@@ -2,18 +2,18 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { FiatLabel } from "@govtechsg/open-attestation-utils";
 import { useFetchGasPrice } from "../../common/hooks/useFetchGasPrice";
 import { currentDateStr } from "../../utils";
-import { transferHoldershipGas, refreshRate, gweiFactor } from "../../constants/cost-estimation";
+import { TRANSFER_HOLDERSHIP_GAS, REFRESH_RATE, GWEI_FACTOR } from "../../constants/cost-estimation";
 
 export const CostHeader: FunctionComponent = () => {
   const [dateTime, setDateTime] = useState(currentDateStr());
-  const { price, gwei } = useFetchGasPrice("ethereum", refreshRate);
-  const { price: maticPrice, gwei: maticGwei } = useFetchGasPrice("polygon", refreshRate);
-  const priceFactor = gwei * gweiFactor * price;
-  const maticPriceFactor = maticGwei * gweiFactor * maticPrice;
+  const { price, gwei } = useFetchGasPrice("ethereum", REFRESH_RATE);
+  const { price: maticPrice, gwei: maticGwei } = useFetchGasPrice("polygon", REFRESH_RATE);
+  const priceFactor = gwei * GWEI_FACTOR * price;
+  const maticPriceFactor = maticGwei * GWEI_FACTOR * maticPrice;
 
   // We use transferHoldershipGas as it is the lowest gas price based on the estimated averaged gas price we have.
-  const EthereumPrice = transferHoldershipGas * priceFactor;
-  const PolygonPrice = transferHoldershipGas * maticPriceFactor;
+  const EthereumPrice = TRANSFER_HOLDERSHIP_GAS * priceFactor;
+  const PolygonPrice = TRANSFER_HOLDERSHIP_GAS * maticPriceFactor;
 
   const lowestPrice = Math.min(EthereumPrice, PolygonPrice);
 
