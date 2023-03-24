@@ -1,7 +1,7 @@
 import React from "react";
-import { CostHeader } from "./CostHeader";
-import { CostOperation } from "./CostOperation";
-import { OpenSourceSoftware } from "./OpenSourceSoftware";
+import { CostHeader } from "../CostHeader";
+import { CostOperation } from "../CostOperation";
+import { OpenSourceSoftware } from "../OpenSourceSoftware";
 import { render, screen } from "@testing-library/react";
 
 describe("CostHeader", () => {

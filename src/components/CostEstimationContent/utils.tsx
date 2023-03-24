@@ -8,7 +8,7 @@ import {
 import { CostData } from "./types";
 import { PersonaContractCost, PersonaCostInformation, Persona } from "../../models/CostPersona";
 
-const getGasPrice = (gas: number, priceFactor: number): number => gas * priceFactor;
+export const getGasPrice = (gas: number, priceFactor: number): number => gas * priceFactor;
 
 export const makeExporter = (priceFactor: number, maticPriceFactor: number, description: string): CostData => {
   const transferHoldershipContractCost = new PersonaContractCost(
