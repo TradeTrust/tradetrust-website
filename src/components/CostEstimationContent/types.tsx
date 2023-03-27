@@ -1,22 +1,24 @@
-export interface CostDataFn {
-  (ePrice: number, mPrice: number, dateTime: string, eGwei: number, mGwei: number): CostData[];
-}
-
 export interface CostData {
-  jobTitle: string;
+  title: string;
   icon: string;
-  costInformation: CostInformation;
-}
-
-export interface CostInformation {
-  costTitle: string;
-  contractCost: ContractCost[];
-  description: string;
+  costs: ContractCost[];
 }
 
 export interface ContractCost {
-  contractIcon: string;
-  contractTitle: string;
-  contractPriceInEthereum: string;
-  contractPriceInPolygon: string;
+  icon: string;
+  title: string;
+  ethPrice: string;
+  maticPrice: string;
+}
+
+interface Price {
+  eth: string;
+  matic: string;
+}
+export interface PriceTable {
+  xferOwner: Price;
+  xferHolder: Price;
+  issue: Price;
+  burn: Price;
+  surrender: Price;
 }

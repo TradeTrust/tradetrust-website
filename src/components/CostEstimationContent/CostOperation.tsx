@@ -1,46 +1,117 @@
-import React, { FunctionComponent, useContext, useState, useEffect, useCallback } from "react";
+import React, { FunctionComponent, useContext, useCallback } from "react";
 import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
 import { useFetchGasPrice } from "../../common/hooks/useFetchGasPrice";
-import { CostData, CostDataFn } from "./types";
+import { CostData, PriceTable } from "./types";
 import { CostModal } from "./CostModal";
-import { currentDateStr } from "../../utils";
 import { GWEI_FACTOR, REFRESH_RATE } from "../../constants/cost-estimation";
-import { makeExporter, makeCarrier, makeImporter, makeBanker } from "./utils";
+import {
+  TRANSFER_OWNERSHIP_GAS,
+  TRANSFER_HOLDERSHIP_GAS,
+  ISSUE_DOC_GAS,
+  BURN_DOC_GAS,
+  SURRENDER_DOC_GAS,
+} from "../../constants/cost-estimation";
 
 export const CostOperation: FunctionComponent = () => {
-  const [dateTime, setDateTime] = useState(currentDateStr());
   const { price: ePrice, gwei: eGwei } = useFetchGasPrice("ethereum", REFRESH_RATE);
   const { price: mPrice, gwei: mGwei } = useFetchGasPrice("polygon", REFRESH_RATE);
 
-  useEffect(() => {
-    setDateTime(currentDateStr());
-  }, [eGwei, mGwei]);
+  const makePrices = useCallback(() => {
+    const priceFactor = eGwei * GWEI_FACTOR * ePrice;
+    const maticPriceFactor = mGwei * GWEI_FACTOR * mPrice;
+    const gasEstimates = [
+      TRANSFER_OWNERSHIP_GAS,
+      TRANSFER_HOLDERSHIP_GAS,
+      ISSUE_DOC_GAS,
+      BURN_DOC_GAS,
+      SURRENDER_DOC_GAS,
+    ];
+    const operationKeys = ["xferOwner", "xferHolder", "issue", "burn", "surrender"];
+    // [] -> [] -> {}
+    const tree = gasEstimates.map((estimate, i) => {
+      return [operationKeys[i], { eth: estimate * priceFactor, matic: estimate * maticPriceFactor }];
+    });
+    return Object.fromEntries(tree);
+  }, [ePrice, mPrice, eGwei, mGwei]);
 
-  const generateDescription = useCallback(
-    (dateTimeString, price, maticPrice) => {
-      return `*Estimations based on the current gas average at ${Math.ceil(eGwei)} gwei (ETH), ETH price at USD
-      $${price} for Ethereum and ${Math.ceil(mGwei)} gwei (MATIC), MATIC price at USD $${maticPrice} for Polygon
-     as at ${dateTimeString}.`;
-    },
-    [eGwei, mGwei]
-  );
+  const makeCostData = useCallback(() => {
+    const table: PriceTable = makePrices();
 
-  const costData: CostDataFn = useCallback(
-    (price, maticPrice, dateTimeString, ethGwei, maticGwei) => {
-      const priceFactor = ethGwei * GWEI_FACTOR * price;
-      const maticPriceFactor = maticGwei * GWEI_FACTOR * maticPrice;
+    const sharedCosts = [
+      {
+        icon: "/static/images/cost/exporter/transfer-holdership-icon.png",
+        title: "Cost to transfer holdership",
+        ethPrice: table.xferHolder.eth,
+        maticPrice: table.xferHolder.matic,
+      },
+      {
+        icon: "/static/images/cost/exporter/transfer-ownership-icon.png",
+        title: "Cost to transfer ownership",
+        ethPrice: table.xferOwner.eth,
+        maticPrice: table.xferOwner.matic,
+      },
+      {
+        icon: "/static/images/cost/total-cost-icon.png",
+        title: "Total Cost",
+        ethPrice: table.xferHolder.eth + table.xferOwner.eth,
+        maticPrice: table.xferHolder.matic + table.xferOwner.matic,
+      },
+    ];
 
-      const description = generateDescription(dateTimeString, price, maticPrice);
+    const exporter = {
+      title: "The Exporter",
+      icon: "/static/images/home/howItWorks/persona/persona1.png",
+      costs: sharedCosts,
+    };
 
-      return [
-        makeExporter(priceFactor, maticPriceFactor, description),
-        makeCarrier(priceFactor, maticPriceFactor, description),
-        makeImporter(priceFactor, maticPriceFactor, description),
-        makeBanker(priceFactor, maticPriceFactor, description),
-      ];
-    },
-    [generateDescription]
-  );
+    const carrier = {
+      title: "The Carrier",
+      icon: "/static/images/home/howItWorks/persona/persona2.png",
+      costs: [
+        {
+          icon: "/static/images/cost/carrier/issue-ebl-icon.png",
+          title: "Cost to Issue eBL",
+          ethPrice: table.issue.eth,
+          maticPrice: table.issue.matic,
+        },
+        {
+          icon: "/static/images/cost/carrier/burn-ebl-icon.png",
+          title: "Cost to Burn eBL",
+          ethPrice: table.burn.eth,
+          maticPrice: table.burn.matic,
+        },
+        {
+          icon: "/static/images/cost/total-cost-icon.png",
+          title: "Total Cost",
+          ethPrice: table.issue.eth + table.burn.eth,
+          maticPrice: table.issue.matic + table.burn.matic,
+        },
+      ],
+    };
+
+    const importer = {
+      title: "The Importer",
+      icon: "/static/images/home/howItWorks/persona/persona3.png",
+      costs: [
+        {
+          icon: "/static/images/cost/importer/surrender-ebl-icon.png",
+          title: "Surrender eBL",
+          ethPrice: table.surrender.eth + table.surrender.eth,
+          maticPrice: table.surrender.matic + table.surrender.matic,
+        },
+      ],
+    };
+
+    const banker = {
+      title: "The Banker",
+      icon: "/static/images/home/howItWorks/persona/persona4.png",
+      costs: sharedCosts,
+    };
+
+    return [exporter, carrier, importer, banker];
+  }, [makePrices]);
+
+  const costData = makeCostData();
 
   const { showOverlay } = useContext(OverlayContext);
   const handleDisplayModal = (persona: CostData) => {
@@ -58,7 +129,7 @@ export const CostOperation: FunctionComponent = () => {
             Click on the persona to see how much it cost for each transaction based on blank-endorsed BL document flow.
           </h4>
           <div className="flex flex-col lg:flex-row items-center lg:justify-center mb-4">
-            {costData(ePrice, mPrice, dateTime, eGwei, mGwei).map((persona, index) => {
+            {costData.map((persona, index) => {
               return (
                 <div
                   key={`${index}-cost-persona`}
@@ -68,9 +139,9 @@ export const CostOperation: FunctionComponent = () => {
                   <img
                     className="mx-auto min-w-[220px] min-h-[253px] max-h-[253px]"
                     src={persona.icon}
-                    alt={`${persona.jobTitle} Icon`}
+                    alt={`${persona.title} Icon`}
                   />
-                  <h4 className="text-inherit">{persona.jobTitle}</h4>
+                  <h4 className="text-inherit">{persona.title}</h4>
                 </div>
               );
             })}
