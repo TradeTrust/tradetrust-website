@@ -75,6 +75,12 @@ export const leftNavItems: NavigationItem[] = [
     ],
   },
   {
+    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
+    id: "cost",
+    label: "Cost",
+    path: "/cost",
+  },
+  {
     schema: NAVIGATION_ITEM_TYPE.NavigationDropDownList,
     id: "news-events",
     label: "News & Events",

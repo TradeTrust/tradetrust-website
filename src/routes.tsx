@@ -20,6 +20,7 @@ import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } fr
 import { TermsOfUsePage } from "./pages/termsOfUse";
 import VerifyPage from "./pages/verify";
 import { ViewerPage } from "./pages/viewer";
+import { CostPage } from "./pages/cost";
 
 export const FORM_SG_URL = "https://www.form.gov.sg/635f32c5001b2d0011fff09b";
 
@@ -62,6 +63,7 @@ export const routes: RouteInterface[] = [
   { path: "/guidelines", exact: true, component: Guidelines },
   { path: "/privacy-policy", exact: true, component: PrivacyPolicyPage },
   { path: "/terms-of-use", exact: true, component: TermsOfUsePage },
+  { path: "/cost", exact: true, component: CostPage },
   { path: "*", component: PageNotFound },
 ];
 export interface RouteInterface {

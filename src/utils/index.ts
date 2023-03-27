@@ -102,3 +102,7 @@ export const getFileName = (filePath: string): string => {
     filePath
   );
 };
+
+export const currentDateStr = (): string => {
+  return new Date().toLocaleString("en-SG", { hour12: true, timeZoneName: "short" });
+};
