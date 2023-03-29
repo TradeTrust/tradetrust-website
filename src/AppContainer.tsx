@@ -19,8 +19,11 @@ const AppContainer = (): React.ReactElement => {
   return (
     <div className="flex flex-col min-h-full" data-location={location.pathname}>
       <NetworkBar network="true">
-        Token Registry V2 is no longer supported, visit <a href={V2_URL}>{V2_URL}</a> to verify V2 transferable
-        documents
+        Token Registry V2 is no longer supported, visit{" "}
+        <a className="hover:text-cerulean-50" href={V2_URL}>
+          {V2_URL}
+        </a>{" "}
+        to verify V2 transferable documents
       </NetworkBar>
       <NavigationBar
         toggleNavBar={toggleNavBar}
