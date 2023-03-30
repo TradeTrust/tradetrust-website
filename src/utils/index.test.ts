@@ -1,4 +1,4 @@
-import { addClassNameIfExist, convertSecondsToMinAndSec, isEthereumAddress, getFileName } from "./";
+import { addClassNameIfExist, convertSecondsToMinAndSec, isEthereumAddress, getFileName, currentDateStr } from "./";
 
 describe("utils/isEthereumAddress", () => {
   it("should work", () => {
@@ -42,3 +42,13 @@ describe("utils/getFileName", () => {
     expect(getFileName(filePath)).toEqual("file");
   });
 });
+
+describe("utils/currentDateStr", () => [
+  it("should return the current date as a string", () => {
+    jest.useFakeTimers("modern").setSystemTime(new Date("2023-03-25"));
+    const date = currentDateStr();
+    expect(date).toMatch(/25/);
+    expect(date).toMatch(/03/);
+    expect(date).toMatch(/2023/);
+  }),
+]);
