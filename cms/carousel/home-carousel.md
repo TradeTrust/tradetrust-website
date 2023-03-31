@@ -11,7 +11,7 @@ slides:
     buttonPage:
       label: Verify Documents
       route: /verify
-    backgroundImage: /static/uploads/home-map.png
+    backgroundImage: /static/uploads/slide-1-map-2x.png
   - title: White Paper
     subheader: UN/CEFACT White Paper eDATA Verifiable Credentials for Cross Border Trade
     description: >
@@ -20,12 +20,12 @@ slides:
     buttonDownload:
       label: Download Now
       file: /static/uploads/white-paper-verifiable-credentials-CBT.pdf
-    backgroundImage: /static/uploads/home-whitepaper.png
+    backgroundImage: /static/uploads/slide-2-white-paper-2x.png
   - description: The WSIS Prizes 2023 is an exceptional international recognition of
       WSIS stakeholders as winners and champions for their excellence in
       supporting the implementation of WSIS outcomes, WSIS Action Lines, and the
       achievement of Sustainable Development Goals (SDGs). TradeTrust is proud
       to be a finalist for the WSIS Prize 2023.
     title: WSIS Prizes 2023
-    backgroundImage: /static/uploads/wsis.png
+    backgroundImage: /static/uploads/slide-3-wsis-2x.png
 ---
