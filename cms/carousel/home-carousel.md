@@ -28,4 +28,17 @@ slides:
       to be a finalist for the WSIS Prize 2023.
     title: WSIS Prizes 2023
     backgroundImage: /static/uploads/slide-3-wsis-2x.png
+  - title: Token Registry V4
+    description: We are happy to announce that the Token Registry V4 is out! We
+      encourage implementers of TradeTrust for transferable documents to upgrade
+      from V2 to V4 so as to enjoy massive cost savings when deploying the
+      contracts. Moving on, we will no longer support Token Registry V2. In the
+      interim until Jun 2023, you can verify V2 transferable documents by
+      clicking on the button below.
+    backgroundImage: /static/uploads/token-registry.png
+    buttonDownload:
+      label: ""
+    buttonPage:
+      label: Verify V2 Documents
+      route: https://v2.tradetrust.io/
 ---
