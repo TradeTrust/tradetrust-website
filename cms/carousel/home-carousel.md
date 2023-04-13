@@ -33,7 +33,7 @@ slides:
       encourage implementers of TradeTrust for transferable documents to upgrade
       from V2 to V4 soon. Moving on, we will no longer support Token Registry
       V2. In the interim until June 2023, you can verify V2 transferable
-      docuents by clicking on the button below.
+      documents by clicking on the button below.
     backgroundImage: /static/uploads/token-registry.png
     buttonPage:
       label: Verify V2 Documents
