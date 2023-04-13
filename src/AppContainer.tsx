@@ -1,4 +1,4 @@
-import { Overlay } from "@govtechsg/tradetrust-ui-components";
+import { NetworkBar, Overlay } from "@govtechsg/tradetrust-ui-components";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
@@ -16,6 +16,7 @@ const AppContainer = (): React.ReactElement => {
 
   return (
     <div className="flex flex-col min-h-full" data-location={location.pathname}>
+      <NetworkBar network="true">You are currently on the deprecated Token Registry V2 website</NetworkBar>
       <NavigationBar
         toggleNavBar={toggleNavBar}
         setToggleNavBar={setToggleNavBar}
