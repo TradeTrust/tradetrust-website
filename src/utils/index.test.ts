@@ -1,4 +1,11 @@
-import { addClassNameIfExist, convertSecondsToMinAndSec, isEthereumAddress, getFileName, currentDateStr } from "./";
+import {
+  addClassNameIfExist,
+  convertSecondsToMinAndSec,
+  isEthereumAddress,
+  getFileName,
+  currentDateStr,
+  isExternalLink,
+} from "./";
 
 describe("utils/isEthereumAddress", () => {
   it("should work", () => {
@@ -52,3 +59,13 @@ describe("utils/currentDateStr", () => [
     expect(date).toMatch(/2023/);
   }),
 ]);
+
+describe("isExternalLink", () => {
+  it("should return true for external link", () => {
+    expect(isExternalLink("https://v2.tradetrust.io/")).toBe(true);
+  });
+
+  it("should return false for internal link", () => {
+    expect(isExternalLink("/verify")).toBe(false);
+  });
+});

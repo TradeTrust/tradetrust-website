@@ -8,7 +8,7 @@ const MainBenefitsSection = Selector("[id='main-benefits']");
 const HowItWorksSection = Selector("[id='how-it-works']");
 
 const PlayButton = Selector("[data-testid='play-button']");
-const VerifyButton = Selector("[data-testid='verify-button']");
+const LinkButton = Selector("[data-testid='link-button']");
 
 const YoutubeTitle = Selector("[data-testid='overlay-title']").withText("Digitalising Trust for Cross-Border Trade");
 
@@ -37,7 +37,7 @@ test("Render home page", async (t) => {
 
   // display components in welcome and test for video overlay
   await t.expect(PlayButton.count).eql(1);
-  await t.expect(VerifyButton.count).eql(1);
+  await t.expect(LinkButton.count).eql(1);
   await t.click(PlayButton);
   await t.expect(YoutubeTitle.count).eql(1);
   await t.click(OverlayCloseButton);

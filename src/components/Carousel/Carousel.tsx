@@ -11,6 +11,12 @@ import "swiper/modules/pagination/pagination.min.css";
 import "./swiper-custom.css";
 import { GaAction, GaCategory } from "../../types";
 import { gaEvent } from "@govtechsg/tradetrust-utils";
+import { isExternalLink } from "../../utils";
+
+interface PageLink {
+  label: string;
+  route: string;
+}
 
 interface HomeCarouselSlide {
   title: string;
@@ -21,15 +27,36 @@ interface HomeCarouselSlide {
     title: string;
     youtubeId: string;
   };
-  buttonPage?: {
-    label: string;
-    route: string;
-  };
+  buttonPage?: PageLink;
   buttonDownload?: {
     label: string;
     file: string;
   };
 }
+
+const StyledButton: FunctionComponent = ({ children }) => (
+  <Button size={ButtonSize.LG} className="text-white bg-cerulean-500 hover:bg-cerulean-800">
+    <h4>{children}</h4>
+  </Button>
+);
+
+const ButtonLink: FunctionComponent<{ data: PageLink }> = ({ data }) => {
+  const { route, label } = data;
+
+  if (isExternalLink(route)) {
+    return (
+      <a href={route} target="_blank" rel="noopener noreferrer">
+        <StyledButton>{label}</StyledButton>
+      </a>
+    );
+  } else {
+    return (
+      <Link to={route} data-testid="link-button">
+        <StyledButton>{label}</StyledButton>
+      </Link>
+    );
+  }
+};
 
 interface CarouselProps {
   slides: HomeCarouselSlide[];
@@ -93,18 +120,10 @@ export const Carousel: FunctionComponent<CarouselProps> = ({ slides }) => {
                           <Youtube title={buttonYoutube.title} youtubeId={buttonYoutube.youtubeId} />
                         </ButtonVideo>
                       )}
-                      {hasButtonButtonPage && (
-                        <Link to={buttonPage.route} data-testid="verify-button">
-                          <Button size={ButtonSize.LG} className="text-white bg-cerulean-500 hover:bg-cerulean-800">
-                            <h4>{buttonPage.label}</h4>
-                          </Button>
-                        </Link>
-                      )}
+                      {hasButtonButtonPage && <ButtonLink data={buttonPage} />}
                       {hasButtonDownload && (
                         <a href={buttonDownload.file} onClick={downloadDocument} download>
-                          <Button size={ButtonSize.LG} className="text-white bg-cerulean-500 hover:bg-cerulean-800">
-                            {buttonDownload.label}
-                          </Button>
+                          <StyledButton>{buttonDownload.label}</StyledButton>
                         </a>
                       )}
                     </div>

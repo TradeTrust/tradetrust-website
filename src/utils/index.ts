@@ -106,3 +106,13 @@ export const getFileName = (filePath: string): string => {
 export const currentDateStr = (): string => {
   return new Date().toLocaleString("en-SG", { hour12: true, timeZoneName: "short" });
 };
+
+export const isExternalLink = (url: string): boolean => {
+  try {
+    const currentHostname = location.hostname;
+    const urlHostname = new URL(url).hostname;
+    return currentHostname !== urlHostname;
+  } catch (error) {
+    return false;
+  }
+};
