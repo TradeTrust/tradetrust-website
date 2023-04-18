@@ -32,7 +32,7 @@
       src="https://www.googletagmanager.com/gtag/js?id=<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>"
     ></script>
     <script>
-      var option = JSON.parse("<%= JSON.stringify(htmlWebpackPlugin.options.GA_CONFIG_OPTION) %>");
+      var option = JSON.parse(`<%= JSON.stringify(htmlWebpackPlugin.options.GA_CONFIG_OPTION) %>`);
 
       window.dataLayer = window.dataLayer || [];
       function gtag() {
