@@ -7,7 +7,7 @@
   },
   "license": "ISC",
   "scripts": {
-    "blockchain": "ganache --wallet.mnemonic \"indicate swing place chair flight used hammer soon photo region volume shuffle\" -i 1337 --fork.network goerli --fork.blockNumber 8506655 --logging.quiet=true",
+    "blockchain": "ganache --wallet.mnemonic \"indicate swing place chair flight used hammer soon photo region volume shuffle\" -i 1337 --fork.network goerli --fork.blockNumber 8506655",
     "blockchain:contracts": "node --experimental-modules ./tests/e2e/setup-contracts.mjs",
     "blockchain:testrun": "concurrently -k -s first \"npm:blockchain\" \"npm:blockchain:contracts\"",
     "build": "run-s check-types build:css build:app",
@@ -57,7 +57,7 @@
     "@govtechsg/tradetrust-ui-components": "^2.18.16",
     "@govtechsg/tradetrust-utils": "^1.4.3",
     "@reduxjs/toolkit": "^1.6.1",
-    "@synthetixio/synpress": "^3.0.5",
+    "@synthetixio/synpress": "^3.5.1",
     "@types/gtag.js": "0.0.8",
     "cross-env": "^7.0.3",
     "date-fns": "^2.22.1",
