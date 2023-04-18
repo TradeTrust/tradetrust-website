@@ -27,7 +27,7 @@
       "value": "0x4Bf7E4777a8D1b6EdD5F2d9b8582e2817F0B0953",
       "revocation": { "type": "NONE" }
     },
-    "identityProof": { "type": "DNS-TXT", "identifier": "demo-tradetrust.openattestation.com" }
+    "identityProof": { "type": "DNS-TXT", "identifier": "isolated-lavender-marmot.sandbox.openattestation.com" }
   },
   "issuer": { "id": "https://example.com", "name": "DEMO TOKEN REGISTRY", "type": "OpenAttestationIssuer" }
 }

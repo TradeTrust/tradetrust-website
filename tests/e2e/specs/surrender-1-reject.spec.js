@@ -9,8 +9,8 @@ describe("Surrender-Reject", () => {
       cy.get("[data-testid='surrenderDropdown']").click(); // Surrender Document
       cy.get("[data-testid='surrenderBtn']").click();
       cy.confirmMetamaskTransaction();
-      cy.get("#surrender-sign").should("have.text", "Surrendered To Issuer");
       cy.get("[data-testid='overlay-title']").should("have.text", "Surrender Document Success");
+      cy.get("#surrender-sign").should("have.text", "Surrendered To Issuer");
     });
   });
 
