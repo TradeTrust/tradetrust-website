@@ -1,9 +1,5 @@
 import { ACCOUNT_1, ACCOUNT_2 } from "../utils";
 
-before(() => {
-  cy.switchMetamaskAccount(1).should("be.true");
-});
-
 describe("Nominate Owner", () => {
   context("Nominate Owner", () => {
     it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", () => {

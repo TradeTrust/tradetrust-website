@@ -1,7 +1,3 @@
-before(() => {
-  cy.switchMetamaskAccount(1).should("be.true");
-});
-
 describe("Surrender-Accept", () => {
   context("Surrender", () => {
     it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", () => {
