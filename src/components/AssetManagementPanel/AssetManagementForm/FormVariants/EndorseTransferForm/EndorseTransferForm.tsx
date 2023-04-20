@@ -71,7 +71,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
             role="owner"
-            value={newOwner}
+            value={holder}
             newValue={newOwner}
             isEditable={isEditable}
             onSetNewValue={setNewOwner}
@@ -81,7 +81,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
             role="holder"
-            value={newHolder}
+            value={holder}
             newValue={newHolder}
             isEditable={isEditable}
             onSetNewValue={setNewHolder}
