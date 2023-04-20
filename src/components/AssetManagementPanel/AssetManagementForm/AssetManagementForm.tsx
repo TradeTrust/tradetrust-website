@@ -86,10 +86,10 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
 
   // canEndorseBeneficiary
   // function transferBeneficiary(address beneficiaryNominee) external;
-  // Only if isHolder and isBeneficiary, nominee is previously nominated
+  // Only if (isHolder and isBeneficiary) or (nominee is previously nominated and isHolder)
 
   // function transferHolder(address newHolder) external;
-  // onlyHolder, current holder not new holder
+  // onlyHolder, current holder !== new holder
 
   // canNominateBeneficiary
   // function nominate(address beneficiaryNominee) external;
@@ -100,10 +100,10 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   // transferHolder
   // transferBeneficiary
 
-  const canNominateBeneficiary = isActiveTitleEscrow && isBeneficiary && !isHolder; // Must be beneficiary, current beneficiary cannot nominate self)
+  const canNominateBeneficiary = isActiveTitleEscrow && isBeneficiary && !isHolder;
 
   const hasNominee = !!approvedBeneficiary && approvedBeneficiary !== InitialAddress;
-  const canTransferBeneficiary = isActiveTitleEscrow && isHolder && hasNominee; // Only if isHolder and isBeneficiary: function transferBeneficiary(address _nominee)
+  const canTransferBeneficiary = isActiveTitleEscrow && isHolder && hasNominee;
   const canTransferHolder = isActiveTitleEscrow && isHolder;
   const canTransferOwners = isActiveTitleEscrow && isHolder && isBeneficiary;
 

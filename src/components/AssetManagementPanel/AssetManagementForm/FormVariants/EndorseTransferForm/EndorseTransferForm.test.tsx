@@ -72,7 +72,7 @@ describe("Endorse Transfer to nominated beneficiary and holder", () => {
       expect(ownerField).toHaveValue("0xFC6e365B926166d0D69bF336d03164FB301D6C41");
       await fireEvent.change(holderField, { target: { value: "0xc0F28621Ca5454B66E51786003c798154FeBc6EB" } });
       await fireEvent.change(ownerField, { target: { value: "0xc0F28621Ca5454B66E51786003c798154FeBc6EB" } });
-      expect(ownerField).toHaveValue("0xc0F28621Ca5454B66E51786003c798154FeBc6EB");
+      expect(holderField).toHaveValue("0xc0F28621Ca5454B66E51786003c798154FeBc6EB");
       expect(ownerField).toHaveValue("0xc0F28621Ca5454B66E51786003c798154FeBc6EB");
       fireEvent.click(container.getByTestId("endorseTransferBtn"));
       expect(mockHandleEndorseTransfer).toBeCalled();
