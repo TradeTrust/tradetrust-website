@@ -94,16 +94,18 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   // canNominateBeneficiary
   // function nominate(address beneficiaryNominee) external;
   // Must be beneficiary, current beneficiary cannot nominate self
+  // user requirements: onlyHolder
 
   // function transferOwners(address beneficiaryNominee, address newHolder) external;
   // transferHolder
   // transferBeneficiary
 
-  const canNominateBeneficiary = isActiveTitleEscrow && isBeneficiary; // Must be beneficiary, current beneficiary cannot nominate sel)f
+  const canNominateBeneficiary = isActiveTitleEscrow && isBeneficiary && !isHolder; // Must be beneficiary, current beneficiary cannot nominate self)
+
   const hasNominee = !!approvedBeneficiary && approvedBeneficiary !== InitialAddress;
-  const canTransferBeneficiary = isActiveTitleEscrow && isBeneficiary && isHolder && hasNominee; // Only if isHolder and isBeneficiary: function transferBeneficiary(address _nominee)
+  const canTransferBeneficiary = isActiveTitleEscrow && isHolder && hasNominee; // Only if isHolder and isBeneficiary: function transferBeneficiary(address _nominee)
   const canTransferHolder = isActiveTitleEscrow && isHolder;
-  const canTransferOwners = canTransferBeneficiary && canTransferHolder;
+  const canTransferOwners = isActiveTitleEscrow && isHolder && isBeneficiary;
 
   const setFormActionNone = () => {
     if (
@@ -207,7 +209,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
         <EndorseTransferForm
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
-          approvedBeneficiary={approvedBeneficiary}
           holder={holder}
           handleEndorseTransfer={transferOwners}
           transferOwnersState={transferOwnersState}
