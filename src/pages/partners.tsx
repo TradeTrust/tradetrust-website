@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { Page } from "../components/Layout/Page";
 import { Button, ButtonSize } from "@govtechsg/tradetrust-ui-components";
-import { PartnersContent } from "../components/PartnersContent";
+import { Partners } from "../components/PartnersContent";
 
 export const PartnersPage: FunctionComponent = () => {
   return (
@@ -30,7 +30,7 @@ export const PartnersPage: FunctionComponent = () => {
             Be a Partner
           </Button>
         </a>
-        <PartnersContent />
+        <Partners />
       </Page>
     </>
   );
