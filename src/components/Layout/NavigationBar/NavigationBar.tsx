@@ -110,6 +110,12 @@ export const leftNavItems: NavigationItem[] = [
   },
   {
     schema: NAVIGATION_ITEM_TYPE.NavigationLink,
+    id: "partners",
+    label: "Partners",
+    path: "/partners",
+  },
+  {
+    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
     id: "contact",
     label: "Contact",
     path: "/contact",

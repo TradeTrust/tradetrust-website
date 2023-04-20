@@ -45,6 +45,7 @@ const data = [
       { label: "Learn", to: "/learn", render: renderNavLink },
       { label: "FAQ", to: "/faq", render: renderNavLink },
       { label: "ETA", to: "/eta", render: renderNavLink },
+      { label: "Partners", to: "/partners", render: renderNavLink },
     ],
   },
   {

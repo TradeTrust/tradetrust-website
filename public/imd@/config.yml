@@ -72,6 +72,29 @@ collections:
       - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
       - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+  - name: "partners"
+    label: "Partners"
+    folder: "cms/partners"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Company Name", name: "companyName", widget: "string" }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "text",
+          pattern: [".{0, 200}", "Must not have more than 200 characters"],
+        }
+      - { label: "Website Link", name: "websiteLink", widget: "string" }
+      - { label: "Logo", name: "logo", widget: "image" }
+      - {
+          label: "Type of Partner",
+          name: "typeOfPartner",
+          widget: "select",
+          options: ["Platform", "Partners"],
+          hint: "Type of partner, i.e. platform provider, partners",
+        }
   - name: "press-release"
     label: "Press Release"
     folder: "cms/press-release"
