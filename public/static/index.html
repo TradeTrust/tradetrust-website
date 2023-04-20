@@ -22,9 +22,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet" />
 
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script src="https://kit.fontawesome.com/491fca5fd9.js" crossorigin="anonymous"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
@@ -32,7 +32,7 @@
       src="https://www.googletagmanager.com/gtag/js?id=<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>"
     ></script>
     <script>
-      var option = JSON.parse('<%= JSON.stringify(htmlWebpackPlugin.options.GA_CONFIG_OPTION) %>');
+      var option = JSON.parse(`<%= JSON.stringify(htmlWebpackPlugin.options.GA_CONFIG_OPTION) %>`);
 
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -46,7 +46,7 @@
     <div id="root"></div>
     <script>
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
+        window.netlifyIdentity.on("init", (user) => {
           if (!user) {
             window.netlifyIdentity.on("login", () => {
               document.location.href = "/imd@/";
