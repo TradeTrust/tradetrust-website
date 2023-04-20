@@ -8,7 +8,7 @@ export const PartnersTile: FunctionComponent<PartnersTileProps> = ({ data }) => 
     <div className="max-w-[380px] min-w-[380px] bg-white rounded-xl shadow-md p-5 mb-10 mr-8">
       <p className="text-2xl">{companyName}</p>
       <div className="max-h-[148px] min-h-[148px] flex justify-center">
-        <img src={logo} className="mx-auto" />
+        <img src={logo} className="mx-auto" data-testid={`partner-logo-${companyName}`} />
       </div>
       <div className="mb-12 max-h-[152px] min-h-[152px] break-words">{description}</div>
       <div className="flex justify-center">
