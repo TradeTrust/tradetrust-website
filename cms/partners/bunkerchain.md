@@ -5,5 +5,4 @@ description: Co-founder of Marine Vessel Pass, Digital Identities for Ships in
   first Smart Contract eBDN.
 websiteLink: https://bunkerchain.io
 logo: /static/uploads/bunkerchain-logo.svg
-typeOfPartner: Platform
 ---

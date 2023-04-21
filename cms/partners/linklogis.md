@@ -5,5 +5,4 @@ description: "Linklogis is a market leader in providing Supply Chain Financing
   provide financing support to SMEs along the supply chain. "
 websiteLink: https://www.linklogis.com.hk/
 logo: /static/uploads/linklogis-logo.svg
-typeOfPartner: Platform
 ---

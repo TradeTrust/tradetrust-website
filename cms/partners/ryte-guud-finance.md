@@ -5,5 +5,4 @@ description: Empowering businesses with financing solutions such as RYTE TFAP, a
   banks.
 websiteLink: "https://rytefinance.com/ "
 logo: /static/uploads/ryte-logo.svg
-typeOfPartner: Platform
 ---

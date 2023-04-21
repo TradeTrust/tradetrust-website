@@ -5,5 +5,4 @@ description: Tracking and trace food and arts using patented dual QR tags,
   TradeTrust.
 websiteLink: http://www.veritag.com
 logo: /static/uploads/veritag-logo.svg
-typeOfPartner: Platform
 ---
