@@ -7,7 +7,7 @@ import {
 } from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
-import { isValidHolderTransfer } from "../../../../../utils";
+import { isValidEndorseTransfer } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
@@ -16,7 +16,6 @@ import { EditableAssetTitle } from "./../EditableAssetTitle";
 interface EndorseTransferFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
-  approvedBeneficiary?: string;
   holder?: string;
   handleEndorseTransfer: (approvedBeneficiary: string, approvedHolder: string) => void;
   transferOwnersState: string;
@@ -27,7 +26,6 @@ interface EndorseTransferFormProps {
 export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = ({
   formAction,
   tokenRegistryAddress,
-  approvedBeneficiary,
   holder,
   handleEndorseTransfer,
   transferOwnersState,
@@ -35,6 +33,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
   setShowEndorsementChain,
 }) => {
   const [newHolder, setNewHolder] = useState(holder || "");
+  const [newOwner, setNewOwner] = useState(holder || ""); // Can only use this when owner is holder
   const isPendingConfirmation = transferOwnersState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = transferOwnersState === FormState.CONFIRMED;
   const isEditable =
@@ -47,13 +46,13 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
       showOverlay(
         showDocumentTransferMessage(MessageTitle.ENDORSE_TRANSFER_SUCCESS, {
           isSuccess: true,
-          beneficiaryAddress: approvedBeneficiary,
+          beneficiaryAddress: newOwner,
           holderAddress: newHolder,
         })
       );
       setFormActionNone();
     }
-  }, [isConfirmed, holder, approvedBeneficiary, newHolder, showOverlay, setFormActionNone]);
+  }, [isConfirmed, newOwner, newHolder, showOverlay, setFormActionNone]);
 
   return (
     <>
@@ -70,7 +69,14 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Nominee" value={approvedBeneficiary} isEditable={false} />
+          <EditableAssetTitle
+            role="owner"
+            value={holder}
+            newValue={newOwner}
+            isEditable={isEditable}
+            onSetNewValue={setNewOwner}
+            isError={transferOwnersState === FormState.ERROR}
+          />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
@@ -98,9 +104,9 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
             <div className="w-auto ml-2">
               <Button
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
-                disabled={!isValidHolderTransfer(holder, newHolder) || isPendingConfirmation}
+                disabled={!isValidEndorseTransfer(holder, newHolder, newOwner) || isPendingConfirmation}
                 onClick={() => {
-                  handleEndorseTransfer(approvedBeneficiary || "", newHolder || "");
+                  handleEndorseTransfer(newOwner || "", newHolder || "");
                 }}
                 data-testid={"endorseTransferBtn"}
               >

@@ -3,7 +3,7 @@ import shell from "shelljs";
 const ACCOUNT_KEY = "0xe82294532bcfcd8e0763ee5cef194f36f00396be59b94fb418f5f8d83140d9a7";
 const TOKEN_REGISTRY_ADDRESS = "0xf18CD26780B6D3589371fb0b3fE8E2a513D6Fdc6"; // Pre-deployed on goerli using token-registry or oa-cli
 const ADDRESS_EXAMPLE_1 = "0xe0a71284ef59483795053266cb796b65e48b5124";
-const ADDRESS_EXAMPLE_3 = "0x391aFf3942857a10958425FebF1fC1938D9F5AE7";
+const ADDRESS_EXAMPLE_2 = "0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60";
 
 const oaCLI_PATH = "open-attestation";
 
@@ -25,6 +25,7 @@ const merkleRootToMint = {
       // Nominate Owner
       merkleRoot: "0x764fb454298834edfdb2d169f8397d7a6e4c4b997f872e6a0808e4a2e2bdb00e",
       ...defaultToken,
+      holder: ADDRESS_EXAMPLE_2,
     },
     {
       // Surrender
@@ -45,6 +46,3 @@ merkleRootToMint.tokenRegistry.forEach((element) => {
   );
 });
 
-shell.exec(
-  `${oaCLI_PATH} title-escrow nominate-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_3} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${"0xf82cf3c92462175888eda124a5227e0a46344ba09650e4ef85015d97e342251a"} -n local -k ${ACCOUNT_KEY}`
-);
