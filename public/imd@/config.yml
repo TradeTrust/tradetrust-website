@@ -89,13 +89,6 @@ collections:
         }
       - { label: "Website Link", name: "websiteLink", widget: "string" }
       - { label: "Logo", name: "logo", widget: "image" }
-      - {
-          label: "Type of Partner",
-          name: "typeOfPartner",
-          widget: "select",
-          options: ["Platform", "Partners"],
-          hint: "Type of partner, i.e. platform provider, partners",
-        }
   - name: "press-release"
     label: "Press Release"
     folder: "cms/press-release"
