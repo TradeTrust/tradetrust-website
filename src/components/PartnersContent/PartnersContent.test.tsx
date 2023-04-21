@@ -54,7 +54,6 @@ describe("PartnersContent", () => {
   it("should render the page correctly, given the partners' data", () => {
     render(<PartnersContent partnersData={mockData} />);
 
-    expect(screen.getByTestId("platform-selector")).not.toBeUndefined();
     expect(screen.getByTestId("partner-logo-a")).not.toBeUndefined();
     expect(screen.getByTestId("partner-logo-b")).not.toBeUndefined();
     expect(screen.queryByTestId("partner-logo-c")).not.toBeUndefined();

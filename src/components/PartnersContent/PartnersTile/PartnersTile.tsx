@@ -12,7 +12,9 @@ export const PartnersTile: FunctionComponent<PartnersTileProps> = ({ data }) => 
         <div className="max-h-[148px] min-h-[148px] flex justify-center">
           <img src={logo} className="mx-auto" data-testid={`partner-logo-${slug}`} />
         </div>
-        <div className="mb-12 max-h-[152px] min-h-[152px] break-words">{description}</div>
+        <div className="mb-12 max-h-[152px] min-h-[152px] 2xl:max-h-[120px] 2xl:min-h-[120px] break-words">
+          {description}
+        </div>
         <div className="flex justify-center">
           <a href={websiteLink} target="_blank" rel="noopener noreferrer" data-testid={`partner-website-link-${slug}`}>
             <Button className="bg-white text-cerulean-500 hover:bg-cloud-100" size={ButtonSize.SM}>

@@ -27,14 +27,6 @@ export const PartnersContent: FunctionComponent<PartnersDataProps> = ({ partners
 
   return (
     <>
-      <div className="flex justify-center">
-        <div className="flex justify-around text-cerulean-300 text-2xl w-[260px]">
-          <div className={"font-bold underline"} data-testid="platform-selector">
-            Platform
-          </div>
-        </div>
-      </div>
-
       <div className="flex flex-wrap justify-center md:justify-start mt-6">
         {pageData.map((data, i) => (
           <PartnersTile data={data} key={`partners-tile-${i}`} />
