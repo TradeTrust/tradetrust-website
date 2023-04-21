@@ -6,8 +6,8 @@ before(() => {
   cy.switchMetamaskAccount(1);
 });
 
-describe("Endorse Owners", () => {
-  it("should endorse owners successfully", () => {
+describe("Endorse Transfer of Ownership/Holdership", () => {
+  it("should endorse transfer of both owner and holder successfully", () => {
     cy.visit("/verify");
     cy.get("input[type=file]").attachFile("ebl-endorse-owner.json");
     cy.get("[data-testid='asset-title-owner']").should("be.visible");

@@ -25,7 +25,7 @@ describe("Transfer Owner", () => {
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
       cy.get("[data-testid='asset-title-holder']").should("be.visible");
       cy.clickConnectAndManageAssetButton();
-      cy.get("[data-testid='endorseBeneficiaryDropdown']").click(); // Endorse Transfer of Ownership
+      cy.get("[data-testid='endorseBeneficiaryDropdown']").click(); // Endorse Change of Ownership
       cy.get("[data-testid='non-editable-input-nominee']").should("have.text", ACCOUNT_3);
       cy.get("[data-testid='endorseBtn']").click();
       cy.confirmMetamaskTransaction();
