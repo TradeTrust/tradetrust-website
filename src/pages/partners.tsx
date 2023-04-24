@@ -8,11 +8,11 @@ export const PartnersPage: FunctionComponent = () => {
   return (
     <>
       <Helmet>
-        <meta name="terms of use" content="Terms Of Use" />
-        <meta property="og:terms of use" content="Terms Of Use" />
-        <meta property="og:title" content="TradeTrust - Terms Of Use" />
-        <meta property="og:url" content={`${window.location.origin}/terms-of-use`} />
-        <title>TradeTrust - Terms Of Use</title>
+        <meta name="partners" content="Partners" />
+        <meta property="og:partners" content="Partners" />
+        <meta property="og:title" content="TradeTrust - Partners" />
+        <meta property="og:url" content={`${window.location.origin}/partners`} />
+        <title>TradeTrust - Partners</title>
       </Helmet>
       <Page title="Partners">
         <p className="font-medium mb-5">

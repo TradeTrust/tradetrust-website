@@ -17,5 +17,5 @@ export type PartnerDataSingle = {
 };
 
 export interface PartnersDataProps {
-  partnersData: PartnerDataSingle[];
+  sortedPartnersData: PartnerDataSingle[];
 }

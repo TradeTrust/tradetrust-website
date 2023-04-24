@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { PartnersContent, sortPartnersData } from "./PartnersContent";
+import { PartnersContent } from "./PartnersContent";
+import { sortPartnersData } from "./Partners";
 
 const mockData = [
   {
@@ -52,7 +53,7 @@ const mockData = [
 
 describe("PartnersContent", () => {
   it("should render the page correctly, given the partners' data", () => {
-    render(<PartnersContent partnersData={mockData} />);
+    render(<PartnersContent sortedPartnersData={mockData} />);
 
     expect(screen.getByTestId("partner-logo-a")).not.toBeUndefined();
     expect(screen.getByTestId("partner-logo-b")).not.toBeUndefined();
@@ -61,7 +62,7 @@ describe("PartnersContent", () => {
 });
 
 describe("getPartnersData", () => {
-  it("should return the correct data that is sorted properly", () => {
+  it("should return the correct data that is sorted alphabetically by companyName", () => {
     expect(sortPartnersData(mockData)).toEqual([
       {
         slug: "a",
