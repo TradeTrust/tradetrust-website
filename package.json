@@ -54,7 +54,7 @@
     "@govtechsg/open-attestation-cli": "^2.0.0",
     "@govtechsg/open-attestation-utils": "^1.0.9",
     "@govtechsg/token-registry": "^4.1.2",
-    "@govtechsg/tradetrust-ui-components": "^2.18.16",
+    "@govtechsg/tradetrust-ui-components": "^2.19.1",
     "@govtechsg/tradetrust-utils": "^1.4.3",
     "@reduxjs/toolkit": "^1.6.1",
     "@synthetixio/synpress": "^3.5.1",
