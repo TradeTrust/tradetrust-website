@@ -29,7 +29,7 @@ export const CostModal: FunctionComponent<CostModalProps> = ({ costData }) => {
   const { title, costs } = costData;
   return (
     <section id="cost-modal">
-      <OverlayContent title="" className="max-h-[90vh] text-white !bg-cerulean-500 rounded-xl" crossStyle="text-white">
+      <OverlayContent title="" className="max-h-[90vh] text-white bg-cerulean-500 rounded-xl" crossStyle="text-white">
         <div
           className="mx-5 my-0 bg-cover relative flex flex-col text-white p-5 overflow-auto h-auto"
           style={{ backgroundImage: "url('/static/images/common/wave-lines-light-2.png')" }}
