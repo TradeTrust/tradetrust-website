@@ -20,7 +20,7 @@ export const ModalNavigateOut: FunctionComponent<ModalNavigateOutProps> = ({
   }, [setOnNavigateOut]);
 
   return (
-    <OverlayContent title="" className="max-w-md px-6 pb-12 text-center">
+    <OverlayContent title="" className="bg-white max-w-md px-6 pb-12 text-center">
       <svg
         className="mx-auto mb-4"
         width="57"
