@@ -25,7 +25,7 @@ export const PartnersContent: FunctionComponent<PartnersDataProps> = ({ sortedPa
 
   return (
     <>
-      <div className="flex flex-wrap justify-center md:justify-start mt-6">
+      <div className="flex flex-wrap justify-center md:justify-start mt-6 -mx-4">
         {pageData.map((data, i) => (
           <PartnersTile data={data} key={`partners-tile-${i}`} />
         ))}
