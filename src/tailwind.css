@@ -242,6 +242,10 @@
     @apply text-cerulean-300;
     @apply hover:text-cerulean-500;
   }
+  
+  .pilot-faq li {
+    @apply list-[lower-alpha];
+  }
 
   @media print {
     .no-print {

@@ -32,20 +32,27 @@ export const FaqContent: FunctionComponent<FAQ> = ({ faqType }) => {
   return (
     <div className="flex flex-wrap mt-4">
       <div className="w-full lg:w-2/3">
-        {filteredFaqs.map((faq, index) => (
-          <AccordionItem
-            key={`faq-${index}`}
-            classNameContainer="bg-white mb-2"
-            classNameCollapse="rounded p-4"
-            classNameContent="pl-4 pr-16 pb-4"
-            heading={faq.attributes.title}
-            openIndex={openIndex}
-            accordionIndex={index}
-            setOpenIndex={setOpenIndex}
-          >
-            <ReactMarkdown className="wysiwyg">{faq.body}</ReactMarkdown>
-          </AccordionItem>
-        ))}
+        {filteredFaqs.map((faq, index) => {
+          const isPilotFaq = faq.attributes.title.includes("pilots");
+          return (
+            <AccordionItem
+              key={`faq-${index}`}
+              classNameContainer="bg-white mb-2"
+              classNameCollapse="rounded p-4"
+              classNameContent="pl-4 pr-16 pb-4"
+              heading={faq.attributes.title}
+              openIndex={openIndex}
+              accordionIndex={index}
+              setOpenIndex={setOpenIndex}
+            >
+              {isPilotFaq ? (
+                <ReactMarkdown className="wysiwyg pilot-faq">{faq.body}</ReactMarkdown>
+              ) : (
+                <ReactMarkdown className="wysiwyg">{faq.body}</ReactMarkdown>
+              )}
+            </AccordionItem>
+          );
+        })}
       </div>
       <div className="w-1/3 hidden lg:block">
         <img src="/static/images/faq/faq-person.png" alt="FAQ person" />
