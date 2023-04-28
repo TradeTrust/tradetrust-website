@@ -618,7 +618,6 @@ export const SurrenderedNotMinter = () => {
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       approvedBeneficiary=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      // documentOwner=""
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -642,7 +641,8 @@ export const SurrenderedNotMinter = () => {
       isTokenBurnt={false}
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
-      isMinter={false}
+      isAcceptor={false}
+      isRestorer={false}
     />
   );
 };
@@ -681,7 +681,8 @@ export const SurrenderedIsMinter = () => {
       isTokenBurnt={false}
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
-      isMinter={true}
+      isRestorer={true}
+      isAcceptor={true}
     />
   );
 };
@@ -720,7 +721,8 @@ export const SurrenderedAcceptForm = () => {
       isTokenBurnt={false}
       onRestoreToken={() => alert("Reject document surrender")}
       restoreTokenState={FormState.UNINITIALIZED}
-      isMinter={true}
+      isAcceptor={true}
+      isRestorer={false}
     />
   );
 };
@@ -761,7 +763,8 @@ export const SurrenderedRejectForm = () => {
         isTokenBurnt={false}
         onRestoreToken={() => alert("Reject document surrender")}
         restoreTokenState={FormState.UNINITIALIZED}
-        isMinter={true}
+        isRestorer={true}
+        isAcceptor={false}
       />
     </OverlayContextProvider>
   );
