@@ -13,7 +13,8 @@ interface ActionSelectionFormProps {
   holder?: string;
   account?: string;
   canSurrender: boolean;
-  canHandleSurrender?: boolean;
+  canHandleShred?: boolean;
+  canHandleRestore?: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
@@ -32,7 +33,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   holder,
   account,
   canSurrender,
-  canHandleSurrender,
+  canHandleShred,
+  canHandleRestore,
   onConnectToWallet,
   canChangeHolder,
   canEndorseBeneficiary,
@@ -44,7 +46,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   isTitleEscrow,
 }) => {
   const canManage =
-    canHandleSurrender ||
+    canHandleShred ||
+    canHandleRestore ||
     canSurrender ||
     canChangeHolder ||
     canEndorseBeneficiary ||
@@ -127,7 +130,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                     canEndorseBeneficiary={canEndorseBeneficiary}
                     canNominateBeneficiary={canNominateBeneficiary}
                     canEndorseTransfer={canEndorseTransfer}
-                    canHandleSurrender={canHandleSurrender}
+                    canHandleRestore={canHandleRestore}
+                    canHandleShred={canHandleShred}
                   />
                 ) : (
                   <Button

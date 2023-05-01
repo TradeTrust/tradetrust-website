@@ -16,7 +16,8 @@ interface AssetManagementFormProps {
   holder?: string;
   approvedBeneficiary?: string;
   documentOwner?: string;
-  isMinter?: boolean;
+  isRestorer?: boolean;
+  isAcceptor?: boolean;
   tokenRegistryAddress: string;
   account?: string;
   formAction: AssetManagementActions;
@@ -56,7 +57,8 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   onSurrender,
   onDestroyToken,
   documentOwner,
-  isMinter,
+  isRestorer,
+  isAcceptor,
   onTransferHolder,
   holderTransferringState,
   onEndorseBeneficiary,
@@ -82,7 +84,8 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     - documentOwner is the tokenRegistry
     - currentUser === tokenRegistryMinter
   */
-  const canHandleSurrender = isTitleEscrow && isMinter && isSurrendered && documentOwner === tokenRegistryAddress;
+  const canHandleRestore = isTitleEscrow && isRestorer && isSurrendered && documentOwner === tokenRegistryAddress;
+  const canHandleShred = isTitleEscrow && isAcceptor && isSurrendered && documentOwner === tokenRegistryAddress;
 
   // canEndorseBeneficiary
   // function transferBeneficiary(address beneficiaryNominee) external;
@@ -226,7 +229,8 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           holder={holder}
           account={account}
           canSurrender={canSurrender}
-          canHandleSurrender={canHandleSurrender}
+          canHandleRestore={canHandleRestore}
+          canHandleShred={canHandleShred}
           onConnectToWallet={onConnectToWallet}
           canChangeHolder={canTransferHolder}
           canEndorseBeneficiary={canTransferBeneficiary}

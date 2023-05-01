@@ -186,7 +186,7 @@ describe("ActionSelectionForm", () => {
         {...defaultProps}
         onSetFormAction={mockOnSetFormAction}
         isTitleEscrow={false}
-        canHandleSurrender={true}
+        canHandleShred={true}
       />
     );
 
@@ -209,7 +209,7 @@ describe("ActionSelectionForm", () => {
         {...defaultProps}
         onSetFormAction={mockOnSetFormAction}
         isTitleEscrow={false}
-        canHandleSurrender={true}
+        canHandleRestore={true}
       />
     );
 

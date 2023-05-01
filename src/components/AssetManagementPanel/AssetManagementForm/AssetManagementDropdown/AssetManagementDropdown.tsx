@@ -5,7 +5,8 @@ import { AssetManagementActions } from "./../../AssetManagementActions";
 interface AssetManagementDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   canSurrender: boolean;
-  canHandleSurrender?: boolean;
+  canHandleShred?: boolean;
+  canHandleRestore?: boolean;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
   canNominateBeneficiary: boolean;
@@ -15,7 +16,8 @@ interface AssetManagementDropdownProps {
 export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownProps> = ({
   onSetFormAction,
   canSurrender,
-  canHandleSurrender,
+  canHandleShred,
+  canHandleRestore,
   canChangeHolder,
   canEndorseBeneficiary,
   canNominateBeneficiary,
@@ -66,23 +68,23 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           Surrender Document
         </DropdownItem>
       )}
-      {canHandleSurrender && (
-        <>
-          <DropdownItem
-            className="active:bg-cloud-200 active:text-white"
-            data-testid={"acceptSurrenderDropdown"}
-            onClick={() => onSetFormAction(AssetManagementActions.AcceptSurrendered)}
-          >
-            Accept Surrender of Document
-          </DropdownItem>
-          <DropdownItem
-            className="active:bg-cloud-200 active:text-white"
-            data-testid={"rejectSurrenderDropdown"}
-            onClick={() => onSetFormAction(AssetManagementActions.RejectSurrendered)}
-          >
-            Reject Surrender of Document
-          </DropdownItem>
-        </>
+      {canHandleShred && (
+        <DropdownItem
+          className="active:bg-cloud-200 active:text-white"
+          data-testid={"acceptSurrenderDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.AcceptSurrendered)}
+        >
+          Accept Surrender of Document
+        </DropdownItem>
+      )}
+      {canHandleRestore && (
+        <DropdownItem
+          className="active:bg-cloud-200 active:text-white"
+          data-testid={"rejectSurrenderDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.RejectSurrendered)}
+        >
+          Reject Surrender of Document
+        </DropdownItem>
       )}
 
       {canEndorseTransfer && (

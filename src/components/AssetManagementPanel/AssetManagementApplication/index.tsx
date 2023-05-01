@@ -1,4 +1,3 @@
-import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
@@ -8,6 +7,7 @@ import { AssetManagementForm } from "../AssetManagementForm";
 import { AssetManagementTags } from "../AssetManagementTags";
 import { DocumentStatus } from "../../DocumentStatus";
 import { constants } from "@govtechsg/token-registry";
+import { useTokenRegistryRole } from "../../../common/hooks/useTokenRegistryRole";
 
 interface AssetManagementApplicationProps {
   isMagicDemo?: boolean;
@@ -47,16 +47,17 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeToMetaMaskSigner, provider, account } = useProviderContext();
-
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
-  // Check if direct has role, useContractFunctionHook value returns {0: boolean}
-  const { call: checkRole, value: hasRole } = useContractFunctionHook(tokenRegistry, "hasRole");
-
-  useEffect(() => {
-    if (isTitleEscrow && isSurrendered && account) {
-      checkRole(constants.roleHash.AccepterRole, account);
-    }
-  }, [account, checkRole, isTitleEscrow, isSurrendered]);
+  const { hasRole: hasAccepterRole } = useTokenRegistryRole({
+    tokenRegistry,
+    account,
+    role: constants.roleHash.AccepterRole,
+  });
+  const { hasRole: hasRestorerRole } = useTokenRegistryRole({
+    tokenRegistry,
+    account,
+    role: constants.roleHash.RestorerRole,
+  });
 
   const onDestroyToken = () => {
     destroyToken(tokenId);
@@ -109,7 +110,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             transferOwnersState={transferOwnersState}
             setShowEndorsementChain={setShowEndorsementChain}
             isTitleEscrow={isTitleEscrow}
-            isMinter={hasRole?.[0]}
+            isAcceptor={hasAccepterRole}
+            isRestorer={hasRestorerRole}
             onDestroyToken={onDestroyToken}
             onRestoreToken={restoreToken}
             restoreTokenState={restoreTokenState}
