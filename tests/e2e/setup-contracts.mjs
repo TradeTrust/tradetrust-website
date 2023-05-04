@@ -40,7 +40,7 @@ const requestDnsSandbox = async () => {
   }
 };
 
-const replaceDns = async (error, data, writePath) => {
+const updateDocument = async (error, data, writePath) => {
   if (error) throw error;
   const dns = await requestDnsSandbox();
   const jsonData = JSON.parse(data);
@@ -48,42 +48,50 @@ const replaceDns = async (error, data, writePath) => {
 
   const updatedJsonData = JSON.stringify(jsonData);
 
+  if (!fs.existsSync("./tests/e2e/fixtures/unwrapped")) {
+    fs.mkdirSync("./tests/e2e/fixtures/unwrapped");
+  }
+
   fs.writeFile(writePath, updatedJsonData, "utf-8", (error) => {
     if (error) throw error;
   });
 };
 
 // update unwrapped ebl-endorse-owner with new dns that is created by oa-cli dns sandbox
-const eblEndorseOwnerPath = "./tests/e2e/fixtures/unwrapped/ebl-endorse-owner.json";
-fs.readFile(eblEndorseOwnerPath, "utf-8", (error, data) => {
-  replaceDns(error, data, eblEndorseOwnerPath);
+const eblEndorseOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-endorse-owner.json";
+const eblEndorseOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-endorse-owner.json";
+fs.readFile(eblEndorseOwnerTemplatePath, "utf-8", async (error, data) => {
+  await updateDocument(error, data, eblEndorseOwnerUnwrappedPath);
 });
 
 // update unwrapped ebl-nominate-owner with new dns that is created by oa-cli dns sandbox
-const eblNominateOwnerPath = "./tests/e2e/fixtures/unwrapped/ebl-nominate-owner.json";
-fs.readFile(eblNominateOwnerPath, "utf-8", (error, data) => {
-  replaceDns(error, data, eblNominateOwnerPath);
+const eblNominateOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-nominate-owner.json";
+const eblNominateOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-nominate-owner.json";
+fs.readFile(eblNominateOwnerTemplatePath, "utf-8", async (error, data) => {
+  await updateDocument(error, data, eblNominateOwnerUnwrappedPath);
 });
 
 // update unwrapped ebl-surrender with new dns that is created by oa-cli dns sandbox
-const eblSurrenderPath = "./tests/e2e/fixtures/unwrapped/ebl-surrender.json";
-fs.readFile(eblSurrenderPath, "utf-8", (error, data) => {
-  replaceDns(error, data, eblSurrenderPath);
+const eblSurrenderTemplatePath = "./tests/e2e/fixtures/template/ebl-surrender.json";
+const eblSurrenderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-surrender.json";
+fs.readFile(eblSurrenderTemplatePath, "utf-8", async (error, data) => {
+  await updateDocument(error, data, eblSurrenderUnwrappedPath);
 });
 
 // update unwrapped ebl-transfer-holder with new dns that is created by oa-cli dns sandbox
-const eblTransferHolderPath = "./tests/e2e/fixtures/unwrapped/ebl-transfer-holder.json";
-fs.readFile(eblTransferHolderPath, "utf-8", (error, data) => {
-  replaceDns(error, data, eblTransferHolderPath);
+const eblTransferHolderTemplatePath = "./tests/e2e/fixtures/template/ebl-transfer-holder.json";
+const eblTransferHolderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-transfer-holder.json";
+fs.readFile(eblTransferHolderTemplatePath, "utf-8", async (error, data) => {
+  await updateDocument(error, data, eblTransferHolderUnwrappedPath);
 });
 
 const oaCLI_PATH = "open-attestation";
 
 // wrap documents 1 by 1, cannot batch as there is something wrong with the merkleRoot when batch.
-shell.exec(`${oaCLI_PATH} wrap ${eblEndorseOwnerPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
-shell.exec(`${oaCLI_PATH} wrap ${eblNominateOwnerPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
-shell.exec(`${oaCLI_PATH} wrap ${eblSurrenderPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
-shell.exec(`${oaCLI_PATH} wrap ${eblTransferHolderPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+shell.exec(`${oaCLI_PATH} wrap ${eblEndorseOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+shell.exec(`${oaCLI_PATH} wrap ${eblNominateOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+shell.exec(`${oaCLI_PATH} wrap ${eblSurrenderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+shell.exec(`${oaCLI_PATH} wrap ${eblTransferHolderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
 
 export const contractAddress = {
   TitleEscrowFactory: "0x9Eb613a88534E2939518f4ffBFE65F5969b491FF",
