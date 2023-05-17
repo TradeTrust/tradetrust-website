@@ -48,50 +48,83 @@ const updateDocument = async (error, data, writePath) => {
 
   const updatedJsonData = JSON.stringify(jsonData);
 
-  if (!fs.existsSync("./tests/e2e/fixtures/unwrapped")) {
-    fs.mkdirSync("./tests/e2e/fixtures/unwrapped");
-  }
-
-  fs.writeFile(writePath, updatedJsonData, "utf-8", (error) => {
+  console.log("writing");
+  await fs.promises.writeFile(writePath, updatedJsonData, "utf-8", (error) => {
     if (error) throw error;
   });
+
+  await shell.exec(`${oaCLI_PATH} wrap ${writePath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
 };
 
-// update unwrapped ebl-endorse-owner with new dns that is created by oa-cli dns sandbox
-const eblEndorseOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-endorse-owner.json";
-const eblEndorseOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-endorse-owner.json";
-fs.readFile(eblEndorseOwnerTemplatePath, "utf-8", async (error, data) => {
-  await updateDocument(error, data, eblEndorseOwnerUnwrappedPath);
-});
+// const eblEndorseOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-endorse-owner.json";
+// const eblEndorseOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-endorse-owner.json";
+// const eblNominateOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-nominate-owner.json";
+// const eblNominateOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-nominate-owner.json";
+// const eblSurrenderTemplatePath = "./tests/e2e/fixtures/template/ebl-surrender.json";
+// const eblSurrenderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-surrender.json";
+// const eblTransferHolderTemplatePath = "./tests/e2e/fixtures/template/ebl-transfer-holder.json";
+// const eblTransferHolderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-transfer-holder.json";
 
-// update unwrapped ebl-nominate-owner with new dns that is created by oa-cli dns sandbox
-const eblNominateOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-nominate-owner.json";
-const eblNominateOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-nominate-owner.json";
-fs.readFile(eblNominateOwnerTemplatePath, "utf-8", async (error, data) => {
-  await updateDocument(error, data, eblNominateOwnerUnwrappedPath);
-});
+// const readUnwrappedFilesPromise = [
+//   new Promise((resolve, reject) => {
+//     fs.readFile(eblEndorseOwnerTemplatePath, "utf-8", async (error, data) => {
+//       await updateDocument(error, data, eblEndorseOwnerUnwrappedPath);
+//       if (error) reject(error);
+//       else resolve(eblEndorseOwnerUnwrappedPath);
+//     });
+//   }),
+//   new Promise((resolve, reject) => {
+//     fs.readFile(eblNominateOwnerTemplatePath, "utf-8", async (error, data) => {
+//       await updateDocument(error, data, eblNominateOwnerUnwrappedPath);
+//       if (error) reject(error);
+//       else resolve(eblNominateOwnerUnwrappedPath);
+//     });
+//   }),
+//   new Promise((resolve, reject) => {
+//     fs.readFile(eblSurrenderTemplatePath, "utf-8", async (error, data) => {
+//       await updateDocument(error, data, eblSurrenderUnwrappedPath);
+//       if (error) reject(error);
+//       else resolve(eblSurrenderUnwrappedPath);
+//     });
+//   }),
+//   new Promise((resolve, reject) => {
+//     fs.readFile(eblTransferHolderTemplatePath, "utf-8", async (error, data) => {
+//       await updateDocument(error, data, eblTransferHolderUnwrappedPath);
+//       if (error) reject(error);
+//       else resolve(eblTransferHolderUnwrappedPath);
+//     });
+//   }),
+// ];
 
-// update unwrapped ebl-surrender with new dns that is created by oa-cli dns sandbox
-const eblSurrenderTemplatePath = "./tests/e2e/fixtures/template/ebl-surrender.json";
-const eblSurrenderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-surrender.json";
-fs.readFile(eblSurrenderTemplatePath, "utf-8", async (error, data) => {
-  await updateDocument(error, data, eblSurrenderUnwrappedPath);
-});
+// // update unwrapped ebl-endorse-owner with new dns that is created by oa-cli dns sandbox
+// const eblEndorseOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-endorse-owner.json";
+// const eblEndorseOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-endorse-owner.json";
+// fs.readFile(eblEndorseOwnerTemplatePath, "utf-8", async (error, data) => {
+//   await updateDocument(error, data, eblEndorseOwnerUnwrappedPath);
+// });
 
-// update unwrapped ebl-transfer-holder with new dns that is created by oa-cli dns sandbox
-const eblTransferHolderTemplatePath = "./tests/e2e/fixtures/template/ebl-transfer-holder.json";
-const eblTransferHolderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-transfer-holder.json";
-fs.readFile(eblTransferHolderTemplatePath, "utf-8", async (error, data) => {
-  await updateDocument(error, data, eblTransferHolderUnwrappedPath);
-});
+// // update unwrapped ebl-nominate-owner with new dns that is created by oa-cli dns sandbox
+// const eblNominateOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-nominate-owner.json";
+// const eblNominateOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-nominate-owner.json";
+// fs.readFile(eblNominateOwnerTemplatePath, "utf-8", async (error, data) => {
+//   await updateDocument(error, data, eblNominateOwnerUnwrappedPath);
+// });
+
+// // update unwrapped ebl-surrender with new dns that is created by oa-cli dns sandbox
+// const eblSurrenderTemplatePath = "./tests/e2e/fixtures/template/ebl-surrender.json";
+// const eblSurrenderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-surrender.json";
+// fs.readFile(eblSurrenderTemplatePath, "utf-8", async (error, data) => {
+//   await updateDocument(error, data, eblSurrenderUnwrappedPath);
+// });
+
+// // update unwrapped ebl-transfer-holder with new dns that is created by oa-cli dns sandbox
+// const eblTransferHolderTemplatePath = "./tests/e2e/fixtures/template/ebl-transfer-holder.json";
+// const eblTransferHolderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-transfer-holder.json";
+// fs.readFile(eblTransferHolderTemplatePath, "utf-8", async (error, data) => {
+//   await updateDocument(error, data, eblTransferHolderUnwrappedPath);
+// });
 
 const oaCLI_PATH = "open-attestation";
-
-// wrap documents 1 by 1, cannot batch as there is something wrong with the merkleRoot when batch.
-shell.exec(`${oaCLI_PATH} wrap ${eblEndorseOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
-shell.exec(`${oaCLI_PATH} wrap ${eblNominateOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
-shell.exec(`${oaCLI_PATH} wrap ${eblSurrenderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
-shell.exec(`${oaCLI_PATH} wrap ${eblTransferHolderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
 
 export const contractAddress = {
   TitleEscrowFactory: "0x9Eb613a88534E2939518f4ffBFE65F5969b491FF",
@@ -106,90 +139,285 @@ const defaultToken = {
   holder: ADDRESS_EXAMPLE_1,
 };
 
-// Read all the files in fixtures to get the merkleRoot
-const readFilesPromise = [
-  new Promise((resolve, reject) => {
-    fs.readFile("./tests/e2e/fixtures/wrapped/ebl-endorse-owner.json", "utf-8", async (error, data) => {
-      if (error) reject(error);
-      else resolve(data);
-    });
-  }),
-  new Promise((resolve, reject) => {
-    fs.readFile("./tests/e2e/fixtures/wrapped/ebl-nominate-owner.json", "utf-8", async (error, data) => {
-      if (error) reject(error);
-      else resolve(data);
-    });
-  }),
-  new Promise((resolve, reject) => {
-    fs.readFile("./tests/e2e/fixtures/wrapped/ebl-surrender.json", "utf-8", async (error, data) => {
-      if (error) reject(error);
-      else resolve(data);
-    });
-  }),
-  new Promise((resolve, reject) => {
-    fs.readFile("./tests/e2e/fixtures/wrapped/ebl-transfer-holder.json", "utf-8", async (error, data) => {
-      if (error) reject(error);
-      else resolve(data);
-    });
-  }),
-];
-
 const getMerkleRoot = (data) => {
   const jsonData = JSON.parse(data);
   return jsonData.proof.merkleRoot;
 };
 
-Promise.all(readFilesPromise)
-  .then(([eblEndorseOwner, eblNominateOwner, eblSurrender, eblTransferHolder]) => {
-    // eblNominateOwner, eblSurrender, eblTransferHolder]) => {
-    const eblEndorseOwnerMerkleRoot = getMerkleRoot(eblEndorseOwner);
-    const eblNominateOwnerMerkleRoot = getMerkleRoot(eblNominateOwner);
-    const eblSurrenderMerkleRoot = getMerkleRoot(eblSurrender);
-    const eblTransferHolderMerkleRoot = getMerkleRoot(eblTransferHolder);
+// Promise.all(readUnwrappedFilesPromise)
+//   .then(() => {
+//     // wrap documents 1 by 1, cannot batch as there is something wrong with the merkleRoot when batch.
+//     shell.exec(`${oaCLI_PATH} wrap ${eblEndorseOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+//     shell.exec(`${oaCLI_PATH} wrap ${eblNominateOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+//     shell.exec(`${oaCLI_PATH} wrap ${eblSurrenderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+//     shell.exec(`${oaCLI_PATH} wrap ${eblTransferHolderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+//   })
+// .then(() => {
+//   // return Promise.all(readFilesPromise);
+//   const eblEndorseOwnerFile = JSON.parse(
+//     fs.readFileSync("./tests/e2e/fixtures/wrapped/ebl-endorse-owner.json", {
+//       encoding: "utf8",
+//     })
+//   );
+//   const eblNominateOwnerFile = JSON.parse(
+//     fs.readFileSync("./tests/e2e/fixtures/wrapped/ebl-nominate-owner.json", {
+//       encoding: "utf8",
+//     })
+//   );
+//   const eblSurrenderFile = JSON.parse(
+//     fs.readFileSync("./tests/e2e/fixtures/wrapped/ebl-surrender.json", {
+//       encoding: "utf8",
+//     })
+//   );
+//   const eblTransferHolderFile = JSON.parse(
+//     fs.readFileSync("./tests/e2e/fixtures/wrapped/ebl-transfer-holder.json", {
+//       encoding: "utf8",
+//     })
+//   );
+//   return [eblEndorseOwnerFile, eblNominateOwnerFile, eblSurrenderFile, eblTransferHolderFile];
+// })
+// .then(([eblEndorseOwner, eblNominateOwner, eblSurrender, eblTransferHolder]) => {
+//   // eblNominateOwner, eblSurrender, eblTransferHolder]) => {
+//   const eblEndorseOwnerMerkleRoot = getMerkleRoot(eblEndorseOwner);
+//   const eblNominateOwnerMerkleRoot = getMerkleRoot(eblNominateOwner);
+//   const eblSurrenderMerkleRoot = getMerkleRoot(eblSurrender);
+//   const eblTransferHolderMerkleRoot = getMerkleRoot(eblTransferHolder);
 
-    const merkleRootToMint = {
-      tokenRegistry: [
-        {
-          // Endorse Owner
-          merkleRoot: `0x${eblEndorseOwnerMerkleRoot}`,
-          ...defaultToken,
-        },
-        {
-          // Nominate Owner
-          merkleRoot: `0x${eblNominateOwnerMerkleRoot}`,
-          ...defaultToken,
-        },
-        {
-          // Surrender
-          merkleRoot: `0x${eblSurrenderMerkleRoot}`,
-          ...defaultToken,
-        },
-        {
-          // Transfer Holder
-          merkleRoot: `0x${eblTransferHolderMerkleRoot}`,
-          ...defaultToken,
-        },
-      ],
-    };
+//   const merkleRootToMint = {
+//     tokenRegistry: [
+//       {
+//         // Endorse Owner
+//         merkleRoot: `0x${eblEndorseOwnerMerkleRoot}`,
+//         ...defaultToken,
+//       },
+//       {
+//         // Nominate Owner
+//         merkleRoot: `0x${eblNominateOwnerMerkleRoot}`,
+//         ...defaultToken,
+//       },
+//       {
+//         // Surrender
+//         merkleRoot: `0x${eblSurrenderMerkleRoot}`,
+//         ...defaultToken,
+//       },
+//       {
+//         // Transfer Holder
+//         merkleRoot: `0x${eblTransferHolderMerkleRoot}`,
+//         ...defaultToken,
+//       },
+//     ],
+//   };
 
-    shell.exec(`${oaCLI_PATH} deploy document-store "My Document Store" -n local -k ${ACCOUNT_KEY}`);
+//   shell.exec(`${oaCLI_PATH} deploy document-store "My Document Store" -n local -k ${ACCOUNT_KEY}`);
 
-    shell.exec(`${oaCLI_PATH} deploy title-escrow-factory -n local -k ${ACCOUNT_KEY}`);
+//   shell.exec(`${oaCLI_PATH} deploy title-escrow-factory -n local -k ${ACCOUNT_KEY}`);
 
-    shell.exec(
-      `${oaCLI_PATH} deploy token-registry "DEMO TOKEN REGISTRY" DTR -n local -k ${ACCOUNT_KEY} --factory-address ${contractAddress.TitleEscrowFactory} --standalone`
-    );
+//   shell.exec(
+//     `${oaCLI_PATH} deploy token-registry "DEMO TOKEN REGISTRY" DTR -n local -k ${ACCOUNT_KEY} --factory-address ${contractAddress.TitleEscrowFactory} --standalone`
+//   );
 
-    merkleRootToMint.tokenRegistry.forEach((element) => {
-      shell.exec(
-        `${oaCLI_PATH} token-registry issue --beneficiary ${element.owner} --holder ${element.holder} --address ${element.tokenRegistryAddress} --tokenId ${element.merkleRoot} -n local -k ${element.accountKey}`
+//   merkleRootToMint.tokenRegistry.forEach((element) => {
+//     shell.exec(
+//       `${oaCLI_PATH} token-registry issue --beneficiary ${element.owner} --holder ${element.holder} --address ${element.tokenRegistryAddress} --tokenId ${element.merkleRoot} -n local -k ${element.accountKey}`
+//     );
+//   });
+
+//   shell.exec(
+//     `${oaCLI_PATH} title-escrow nominate-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_3} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId 0x${eblEndorseOwnerMerkleRoot} -n local -k ${ACCOUNT_KEY}`
+//   );
+// })
+// .catch((error) => {
+//   console.error(error);
+// });
+
+const initSetUp = async () => {
+  // create unwrapped folder if the folder is not there
+  if (!fs.existsSync("./tests/e2e/fixtures/unwrapped")) {
+    fs.mkdirSync("./tests/e2e/fixtures/unwrapped");
+  }
+  // create wrapped folder if the folder is not there
+  // if (!fs.existsSync("./tests/e2e/fixtures/wrapped")) {
+  //   fs.mkdirSync("./tests/e2e/fixtures/wrapped");
+  // }
+
+  // update unwrapped ebl-endorse-owner with new dns that is created by oa-cli dns sandbox
+  const eblEndorseOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-endorse-owner.json";
+  const eblEndorseOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-endorse-owner.json";
+  // await fs.readFile(eblEndorseOwnerTemplatePath, "utf-8", async (error, data) => {
+  //   await updateDocument(error, data, eblEndorseOwnerUnwrappedPath);
+  //   // await shell.exec(
+  //   //   `${oaCLI_PATH} wrap ${eblEndorseOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`
+  //   // );
+  // });
+
+  // update unwrapped ebl-nominate-owner with new dns that is created by oa-cli dns sandbox
+  const eblNominateOwnerTemplatePath = "./tests/e2e/fixtures/template/ebl-nominate-owner.json";
+  const eblNominateOwnerUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-nominate-owner.json";
+  // await fs.readFile(eblNominateOwnerTemplatePath, "utf-8", async (error, data) => {
+  //   await updateDocument(error, data, eblNominateOwnerUnwrappedPath);
+  //   // await shell.exec(
+  //   //   `${oaCLI_PATH} wrap ${eblNominateOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`
+  //   // );
+  // });
+
+  // update unwrapped ebl-surrender with new dns that is created by oa-cli dns sandbox
+  const eblSurrenderTemplatePath = "./tests/e2e/fixtures/template/ebl-surrender.json";
+  const eblSurrenderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-surrender.json";
+  // await fs.readFile(eblSurrenderTemplatePath, "utf-8", async (error, data) => {
+  //   await updateDocument(error, data, eblSurrenderUnwrappedPath);
+  //   // await shell.exec(
+  //   //   `${oaCLI_PATH} wrap ${eblSurrenderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`
+  //   // );
+  // });
+
+  // update unwrapped ebl-transfer-holder with new dns that is created by oa-cli dns sandbox
+  const eblTransferHolderTemplatePath = "./tests/e2e/fixtures/template/ebl-transfer-holder.json";
+  const eblTransferHolderUnwrappedPath = "./tests/e2e/fixtures/unwrapped/ebl-transfer-holder.json";
+  // await fs.readFile(eblTransferHolderTemplatePath, "utf-8", async (error, data) => {
+  //   await updateDocument(error, data, eblTransferHolderUnwrappedPath);
+  //   // await shell.exec(
+  //   //   `${oaCLI_PATH} wrap ${eblTransferHolderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`
+  //   // );
+  // });
+
+  const readUnwrappedFilesPromise = [
+    new Promise((resolve, reject) => {
+      fs.readFile(eblEndorseOwnerTemplatePath, "utf-8", async (error, data) => {
+        await updateDocument(error, data, eblEndorseOwnerUnwrappedPath);
+        if (error) reject(error);
+        else resolve(eblEndorseOwnerUnwrappedPath);
+      });
+    }),
+    new Promise((resolve, reject) => {
+      fs.readFile(eblNominateOwnerTemplatePath, "utf-8", async (error, data) => {
+        await updateDocument(error, data, eblNominateOwnerUnwrappedPath);
+        if (error) reject(error);
+        else resolve(eblNominateOwnerUnwrappedPath);
+      });
+    }),
+    new Promise((resolve, reject) => {
+      fs.readFile(eblSurrenderTemplatePath, "utf-8", async (error, data) => {
+        await updateDocument(error, data, eblSurrenderUnwrappedPath);
+        if (error) reject(error);
+        else resolve(eblSurrenderUnwrappedPath);
+      });
+    }),
+    new Promise((resolve, reject) => {
+      fs.readFile(eblTransferHolderTemplatePath, "utf-8", async (error, data) => {
+        await updateDocument(error, data, eblTransferHolderUnwrappedPath);
+        if (error) reject(error);
+        else resolve(eblTransferHolderUnwrappedPath);
+      });
+    }),
+  ];
+
+  // Promise.all(readUnwrappedFilesPromise).then(() => {
+  // shell.exec(`${oaCLI_PATH} wrap ${eblEndorseOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+  // shell.exec(`${oaCLI_PATH} wrap ${eblNominateOwnerUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+  // shell.exec(`${oaCLI_PATH} wrap ${eblSurrenderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+  // shell.exec(`${oaCLI_PATH} wrap ${eblTransferHolderUnwrappedPath} --output-dir ./tests/e2e/fixtures/wrapped --oav3`);
+  // });
+
+  // Read all the files in fixtures/wrapped to get the merkleRoot
+  // const readFilesPromise = [
+  //   new Promise((resolve, reject) => {
+  //     console.log("READING WRAPPED FILES");
+  //     fs.readFile("./tests/e2e/fixtures/wrapped/ebl-endorse-owner.json", "utf-8", async (error, data) => {
+  //       if (error) reject(error);
+  //       else resolve(data);
+  //     });
+  //   }),
+  //   new Promise((resolve, reject) => {
+  //     fs.readFile("./tests/e2e/fixtures/wrapped/ebl-nominate-owner.json", "utf-8", async (error, data) => {
+  //       if (error) reject(error);
+  //       else resolve(data);
+  //     });
+  //   }),
+  //   new Promise((resolve, reject) => {
+  //     fs.readFile("./tests/e2e/fixtures/wrapped/ebl-surrender.json", "utf-8", async (error, data) => {
+  //       if (error) reject(error);
+  //       else resolve(data);
+  //     });
+  //   }),
+  //   new Promise((resolve, reject) => {
+  //     fs.readFile("./tests/e2e/fixtures/wrapped/ebl-transfer-holder.json", "utf-8", async (error, data) => {
+  //       if (error) reject(error);
+  //       else resolve(data);
+  //     });
+  //   }),
+  // ];
+
+  Promise.all(readUnwrappedFilesPromise)
+    .then(async () => {
+      console.log("FINISH UPDATING FILES!");
+      // Promise.all(readFilesPromise)
+      const eblEndorseOwner = await fs.promises.readFile(
+        "./tests/e2e/fixtures/wrapped/ebl-endorse-owner.json",
+        "utf-8"
       );
-    });
+      const eblNominateOwner = await fs.promises.readFile(
+        "./tests/e2e/fixtures/wrapped/ebl-nominate-owner.json",
+        "utf-8"
+      );
+      const eblSurrender = await fs.promises.readFile("./tests/e2e/fixtures/wrapped/ebl-surrender.json", "utf-8");
+      const eblTransferHolder = await fs.promises.readFile(
+        "./tests/e2e/fixtures/wrapped/ebl-transfer-holder.json",
+        "utf-8"
+      );
 
-    shell.exec(
-      `${oaCLI_PATH} title-escrow nominate-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_3} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId 0x${eblEndorseOwnerMerkleRoot} -n local -k ${ACCOUNT_KEY}`
-    );
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+      // .then(([eblEndorseOwner, eblNominateOwner, eblSurrender, eblTransferHolder]) => {
+      const eblEndorseOwnerMerkleRoot = getMerkleRoot(eblEndorseOwner);
+      const eblNominateOwnerMerkleRoot = getMerkleRoot(eblNominateOwner);
+      const eblSurrenderMerkleRoot = getMerkleRoot(eblSurrender);
+      const eblTransferHolderMerkleRoot = getMerkleRoot(eblTransferHolder);
+
+      const merkleRootToMint = {
+        tokenRegistry: [
+          {
+            // Endorse Owner
+            merkleRoot: `0x${eblEndorseOwnerMerkleRoot}`,
+            ...defaultToken,
+          },
+          {
+            // Nominate Owner
+            merkleRoot: `0x${eblNominateOwnerMerkleRoot}`,
+            ...defaultToken,
+          },
+          {
+            // Surrender
+            merkleRoot: `0x${eblSurrenderMerkleRoot}`,
+            ...defaultToken,
+          },
+          {
+            // Transfer Holder
+            merkleRoot: `0x${eblTransferHolderMerkleRoot}`,
+            ...defaultToken,
+          },
+        ],
+      };
+
+      shell.exec(`${oaCLI_PATH} deploy document-store "My Document Store" -n local -k ${ACCOUNT_KEY}`);
+
+      shell.exec(`${oaCLI_PATH} deploy title-escrow-factory -n local -k ${ACCOUNT_KEY}`);
+
+      shell.exec(
+        `${oaCLI_PATH} deploy token-registry "DEMO TOKEN REGISTRY" DTR -n local -k ${ACCOUNT_KEY} --factory-address ${contractAddress.TitleEscrowFactory} --standalone`
+      );
+
+      merkleRootToMint.tokenRegistry.forEach((element) => {
+        shell.exec(
+          `${oaCLI_PATH} token-registry issue --beneficiary ${element.owner} --holder ${element.holder} --address ${element.tokenRegistryAddress} --tokenId ${element.merkleRoot} -n local -k ${element.accountKey}`
+        );
+      });
+
+      shell.exec(
+        `${oaCLI_PATH} title-escrow nominate-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_3} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId 0x${eblEndorseOwnerMerkleRoot} -n local -k ${ACCOUNT_KEY}`
+      );
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  // });
+};
+
+initSetUp();
