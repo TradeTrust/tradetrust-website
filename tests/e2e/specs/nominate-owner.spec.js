@@ -19,7 +19,7 @@ describe("Transfer Owner", () => {
 
   context("Accept Nominated Owner", () => {
     it("should go to verify page, upload a file, connect a wallet and endorse nominated owner successfully", () => {
-      cy.switchMetamaskAccount(2); // swtich to account 2 (holder)
+      cy.switchMetamaskAccount(2); // switch to account 2 (holder)
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");
