@@ -72,6 +72,23 @@ collections:
       - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
       - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+  - name: "partners"
+    identifier_field: companyName
+    label: "Partners"
+    folder: "cms/partners"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Company Name", name: "companyName", widget: "string" }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "text",
+          pattern: ["^.{10,230}$", "Must not have more than 230 characters"],
+        }
+      - { label: "Website Link", name: "websiteLink", widget: "string" }
+      - { label: "Logo", name: "logo", widget: "image" }
   - name: "press-release"
     label: "Press Release"
     folder: "cms/press-release"
