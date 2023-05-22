@@ -15,7 +15,5 @@ yarn.lock
 /artifacts
 /tests/e2e/screenshots
 /tests/e2e/videos
-/tests/e2e/fixtures/wrapped
-/tests/e2e/fixtures/unwrapped
 .lighthouseci
 lighthouseReport
