@@ -46,7 +46,6 @@ const localConfig = {
     },
   },
   plugins: [
-    require("@tailwindcss/aspect-ratio"),
     plugin(function ({ addUtilities }) {
       addUtilities({
         ".backface-visible": {
