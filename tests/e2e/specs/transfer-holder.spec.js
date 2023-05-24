@@ -1,7 +1,7 @@
 import { ACCOUNT_2 } from "../utils";
 
 before(() => {
-  cy.switchMetamaskAccount(1);
+  cy.switchMetamaskAccount(1); // need to switch to or make sure it is at account 1 as sometimes it will fail when not in account 1
 });
 
 describe("Transfer Holder", () => {
