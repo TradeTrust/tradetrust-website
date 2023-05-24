@@ -22,18 +22,6 @@ module.exports = {
     reactDocgen: "react-docgen", // once react-docgen-typescript v2 in included in storybook, remove this config
   },
   webpackFinal: (config) => {
-    return {
-      ...config,
-      // https://github.com/storybookjs/storybook/issues/13277#issuecomment-751747964
-      resolve: {
-        ...config.resolve,
-        alias: {
-          ...config.resolve.alias,
-          "@emotion/core": toPath("node_modules/@emotion/react"),
-          "@emotion/styled": toPath("node_modules/@emotion/styled"),
-          "emotion-theming": toPath("node_modules/@emotion/react"),
-        },
-      },
-    };
+    return config;
   },
 };
