@@ -32,7 +32,6 @@ describe("Transfer Owner", () => {
       cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_3);
       cy.get("[data-testid='non-editable-input-holder']").should("have.text", ACCOUNT_2);
       cy.get("[data-testid='overlay-title']").should("have.text", "Change Owner Success");
-      cy.switchMetamaskAccount(1);
     });
   });
 });
