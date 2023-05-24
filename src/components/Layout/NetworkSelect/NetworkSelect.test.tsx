@@ -5,13 +5,21 @@ import { getChainInfo } from "../../../common/utils/chain-utils";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { NetworkSelect } from "./NetworkSelect";
 
-const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Goerli), getChainInfo(ChainId.PolygonMumbai)];
-const mockUnsupportedNetwork: ChainInfoObject[] = [getChainInfo(ChainId.PolygonMumbai)];
+const mockNetworks: ChainInfoObject[] = [
+  getChainInfo(ChainId.Goerli),
+  getChainInfo(ChainId.PolygonMumbai),
+];
+const mockUnsupportedNetwork: ChainInfoObject[] = [
+  getChainInfo(ChainId.PolygonMumbai),
+];
 
 describe("NetworkSelect", () => {
   it("should render unsupported network", () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.Goerli} networks={mockUnsupportedNetwork}>
+      <ProviderContextProvider
+        defaultChainId={ChainId.Goerli}
+        networks={mockUnsupportedNetwork}
+      >
         <NetworkSelect />
       </ProviderContextProvider>
     );
@@ -21,18 +29,26 @@ describe("NetworkSelect", () => {
 
   it("should render the default network as selected", async () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.PolygonMumbai} networks={mockNetworks}>
+      <ProviderContextProvider
+        defaultChainId={ChainId.PolygonMumbai}
+        networks={mockNetworks}
+      >
         <NetworkSelect />
       </ProviderContextProvider>
     );
 
-    const selectedLabel = await screen.findByText(getChainInfo(ChainId.PolygonMumbai).label);
+    const selectedLabel = await screen.findByText(
+      getChainInfo(ChainId.PolygonMumbai).label
+    );
     expect(selectedLabel).toBeInTheDocument();
   });
 
   it("should render the select caption", async () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.PolygonMumbai} networks={mockNetworks}>
+      <ProviderContextProvider
+        defaultChainId={ChainId.PolygonMumbai}
+        networks={mockNetworks}
+      >
         <NetworkSelect />
       </ProviderContextProvider>
     );
@@ -45,7 +61,10 @@ describe("NetworkSelect", () => {
 
   it("should render the list of networks when clicked", async () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.PolygonMumbai} networks={mockNetworks}>
+      <ProviderContextProvider
+        defaultChainId={ChainId.PolygonMumbai}
+        networks={mockNetworks}
+      >
         <NetworkSelect />
       </ProviderContextProvider>
     );
@@ -53,15 +72,22 @@ describe("NetworkSelect", () => {
     const dropdownButton = screen.getByRole("button");
     fireEvent.click(dropdownButton);
 
-    const polygonLabels = await screen.findAllByText(getChainInfo(ChainId.PolygonMumbai).label);
-    const goerliLabels = await screen.findAllByText(getChainInfo(ChainId.Goerli).label);
+    const polygonLabels = await screen.findAllByText(
+      getChainInfo(ChainId.PolygonMumbai).label
+    );
+    const goerliLabels = await screen.findAllByText(
+      getChainInfo(ChainId.Goerli).label
+    );
     expect(polygonLabels).toHaveLength(2);
     expect(goerliLabels).toHaveLength(1);
   });
 
   it("should render the selected network name when user switches network", async () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.Goerli} networks={mockNetworks}>
+      <ProviderContextProvider
+        defaultChainId={ChainId.Goerli}
+        networks={mockNetworks}
+      >
         <NetworkSelect />
       </ProviderContextProvider>
     );
@@ -69,7 +95,9 @@ describe("NetworkSelect", () => {
     const dropdownButton = screen.getByRole("button");
     fireEvent.click(dropdownButton);
 
-    const polygonItem = screen.getByTestId(`network-select-dropdown-label-${ChainId.PolygonMumbai}`);
+    const polygonItem = screen.getByTestId(
+      `network-select-dropdown-label-${ChainId.PolygonMumbai}`
+    );
     fireEvent.click(polygonItem);
     await waitFor(() => {
       expect(screen.getAllByText("Polygon Mumbai")).toHaveLength(1);

@@ -30,7 +30,11 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
 }) => {
   const isOpen = openIndex === accordionIndex;
   return (
-    <div className={`transition-color duration-200${addClassNameIfExist(` ${classNameContainer}`)}`}>
+    <div
+      className={`transition-color duration-200${addClassNameIfExist(
+        ` ${classNameContainer}`
+      )}`}
+    >
       <div
         className={`flex justify-between items-center transition-colors duration-200 cursor-pointer hover:text-cerulean-500 ${
           isOpen ? " text-cerulean-500" : ""
@@ -66,8 +70,12 @@ export const AccordionItem: FunctionComponent<AccordionItemProps> = ({
           />
         </svg>
       </div>
-      {isOpen && <div className={addClassNameIfExist(classNameContent)}>{children}</div>}
-      {divider && <div className="border-b border-cloud-300 border-solid mx-4" />}
+      {isOpen && (
+        <div className={addClassNameIfExist(classNameContent)}>{children}</div>
+      )}
+      {divider && (
+        <div className="border-b border-cloud-300 border-solid mx-4" />
+      )}
     </div>
   );
 };

@@ -8,7 +8,8 @@ export const DocumentContent: DocumentTypeContent[] = [
         "Transferable Records are trade documents that entitle the holder to claim the performance of an obligation or ownership.",
       examples:
         "Examples of transferable records typically include bills of lading, bills of exchange, promissory notes, and warehouse receipts.",
-      message: "See how things change from the use of TradeTrust-enabled solutions when dealing with eBL ",
+      message:
+        "See how things change from the use of TradeTrust-enabled solutions when dealing with eBL ",
     },
     personas: [
       {
@@ -27,17 +28,20 @@ export const DocumentContent: DocumentTypeContent[] = [
             {
               title: "Step 2",
               icon: "/static/images/home/howItWorks/icons/paperCheck.svg",
-              description: "Exporter checks the details of BL including entire endorsement chain",
+              description:
+                "Exporter checks the details of BL including entire endorsement chain",
             },
             {
               title: "Step 3",
               icon: "/static/images/home/howItWorks/icons/paperEndorse.svg",
-              description: "Exporter inserts BL into document pack and arranges courier pickup",
+              description:
+                "Exporter inserts BL into document pack and arranges courier pickup",
             },
             {
               title: "Step 4",
               icon: "/static/images/home/howItWorks/icons/paperDispatch.svg",
-              description: "Exporter endorses and dispatches the BL to Negotiating Bank (via courier)",
+              description:
+                "Exporter endorses and dispatches the BL to Negotiating Bank (via courier)",
             },
           ],
           nowSteps: [
@@ -49,7 +53,8 @@ export const DocumentContent: DocumentTypeContent[] = [
             {
               title: "Step 2",
               icon: "/static/images/home/howItWorks/icons/eCheck.svg",
-              description: "Exporter checks for authenticity and provenance including endorsement entry",
+              description:
+                "Exporter checks for authenticity and provenance including endorsement entry",
             },
             {
               title: "Step 3",
@@ -73,11 +78,13 @@ export const DocumentContent: DocumentTypeContent[] = [
           benefits: [
             {
               icon: "/static/images/home/howItWorks/icons/customerExperience.svg",
-              description: "Improved customer experience with fast, transparent and trusted eBL",
+              description:
+                "Improved customer experience with fast, transparent and trusted eBL",
             },
             {
               icon: "/static/images/home/howItWorks/icons/signUp.svg",
-              description: "Remove the need to subscribe to multiple eBL solutions",
+              description:
+                "Remove the need to subscribe to multiple eBL solutions",
             },
             {
               icon: "/static/images/home/howItWorks/icons/paperRisk.svg",
@@ -85,10 +92,12 @@ export const DocumentContent: DocumentTypeContent[] = [
             },
             {
               icon: "/static/images/home/howItWorks/icons/paperAuthenticity.svg",
-              description: "Legal certainty as TradeTrust is designed to align to MLETR",
+              description:
+                "Legal certainty as TradeTrust is designed to align to MLETR",
             },
           ],
-          endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
+          endMessage:
+            "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
         },
       },
       {
@@ -117,7 +126,8 @@ export const DocumentContent: DocumentTypeContent[] = [
               description: "Simplify the checking of entire endorsement chain",
             },
           ],
-          endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
+          endMessage:
+            "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
         },
       },
       {
@@ -137,7 +147,8 @@ export const DocumentContent: DocumentTypeContent[] = [
             {
               title: "Step 2",
               icon: "/static/images/home/howItWorks/icons/paperEndorse.svg",
-              description: "Negotiating Bank endorses BL and dispatches BL to Issuing Bank (via courier)",
+              description:
+                "Negotiating Bank endorses BL and dispatches BL to Issuing Bank (via courier)",
             },
             {
               title: "Step 3",
@@ -160,7 +171,8 @@ export const DocumentContent: DocumentTypeContent[] = [
             {
               title: "Step 2",
               icon: "/static/images/home/howItWorks/icons/eEndorse.svg",
-              description: "Negotiating Bank performs endorsement and sends to the Issuing Bank (via email)",
+              description:
+                "Negotiating Bank performs endorsement and sends to the Issuing Bank (via email)",
             },
             {
               title: "Step 3",
@@ -173,7 +185,8 @@ export const DocumentContent: DocumentTypeContent[] = [
               description: "Less Than 1 day",
             },
           ],
-          endMessage: "TradeTrust is more than a tool to prevent fraud. Get in touch to find out more!",
+          endMessage:
+            "TradeTrust is more than a tool to prevent fraud. Get in touch to find out more!",
         },
       },
     ],
@@ -181,10 +194,12 @@ export const DocumentContent: DocumentTypeContent[] = [
   {
     type: DocumentType.VERIFIABLE_DOCUMENT,
     text: {
-      description: "Verifiable Documents are other non-transferable trade documents that do not confer ownership.",
+      description:
+        "Verifiable Documents are other non-transferable trade documents that do not confer ownership.",
       examples:
         "Examples of verifiable documents typically include Certificate of Origin (CoO), Invoices and promissory notes.",
-      message: "See how each persona has benefited from using TradeTrust when dealing with Certificate of Origin.",
+      message:
+        "See how each persona has benefited from using TradeTrust when dealing with Certificate of Origin.",
     },
     personas: [
       {
@@ -198,7 +213,8 @@ export const DocumentContent: DocumentTypeContent[] = [
             {
               title: "Step 1",
               icon: "/static/images/home/howItWorks/icons/paperReceive.svg",
-              description: "Exporter receives CoO from Exporting Country's Cert Issuing Authority (via courier)",
+              description:
+                "Exporter receives CoO from Exporting Country's Cert Issuing Authority (via courier)",
             },
             {
               title: "Step 2",
@@ -219,7 +235,8 @@ export const DocumentContent: DocumentTypeContent[] = [
             {
               title: "Step 1",
               icon: "/static/images/home/howItWorks/icons/eReceive.svg",
-              description: "Exporter receives eCoO from Exporting Country's Cert Issuing Authority (via email)",
+              description:
+                "Exporter receives eCoO from Exporting Country's Cert Issuing Authority (via email)",
             },
             {
               title: "Step 2",
@@ -251,34 +268,40 @@ export const DocumentContent: DocumentTypeContent[] = [
             {
               title: "Step 1",
               icon: "/static/images/home/howItWorks/icons/paperDispatch.svg",
-              description: "Exporting Country's Cert Issuing Authority issues and dispatches CoO to Exporter's courier",
+              description:
+                "Exporting Country's Cert Issuing Authority issues and dispatches CoO to Exporter's courier",
             },
             {
               title: "Step 2",
               icon: "/static/images/home/howItWorks/icons/paperTick.svg",
-              description: "Exporter uses CoO for various process including sending to Importer for verification",
+              description:
+                "Exporter uses CoO for various process including sending to Importer for verification",
             },
             {
               title: "Step 3",
               icon: "/static/images/home/howItWorks/icons/paperReceive.svg",
-              description: "Importing Country's Cert Checking Authority receives CoO from Importer (via courier)",
+              description:
+                "Importing Country's Cert Checking Authority receives CoO from Importer (via courier)",
             },
             {
               title: "Step 4",
               icon: "/static/images/home/howItWorks/icons/paperCheck.svg",
-              description: "Importing Country's Cert Checking Authority checks the details of CoO Manually",
+              description:
+                "Importing Country's Cert Checking Authority checks the details of CoO Manually",
             },
           ],
           nowSteps: [
             {
               title: "Step 1",
               icon: "/static/images/home/howItWorks/icons/eDispatch.svg",
-              description: "Exporting Country's Cert Issuing Authority issues and send eCoO to Exporter via email",
+              description:
+                "Exporting Country's Cert Issuing Authority issues and send eCoO to Exporter via email",
             },
             {
               title: "Step 2",
               icon: "/static/images/home/howItWorks/icons/eDistribute.svg",
-              description: "Exporter uses eCoO for various process including sending to Importer for verification",
+              description:
+                "Exporter uses eCoO for various process including sending to Importer for verification",
             },
             {
               title: "Step 3",
@@ -318,7 +341,8 @@ export const DocumentContent: DocumentTypeContent[] = [
                 "Need not subscribe to expensive solutions as eCoO can be verified for free via the TradeTrust website",
             },
           ],
-          endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
+          endMessage:
+            "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
         },
       },
       {
@@ -336,7 +360,8 @@ export const DocumentContent: DocumentTypeContent[] = [
             },
             {
               icon: "/static/images/home/howItWorks/icons/paperAuthenticity.svg",
-              description: "Lower risk of fraud as eCoO can be verified for its authenticity and provenance",
+              description:
+                "Lower risk of fraud as eCoO can be verified for its authenticity and provenance",
             },
             {
               icon: "/static/images/home/howItWorks/icons/paperRisk.svg",
@@ -344,10 +369,12 @@ export const DocumentContent: DocumentTypeContent[] = [
             },
             {
               icon: "/static/images/home/howItWorks/icons/paperMoney.svg",
-              description: "May be able to offer better trade financing terms to customers due to reduced risk",
+              description:
+                "May be able to offer better trade financing terms to customers due to reduced risk",
             },
           ],
-          endMessage: "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
+          endMessage:
+            "These TradeTrust benefits are just the tip of the iceberg. Get in touch to find out more!",
         },
       },
     ],

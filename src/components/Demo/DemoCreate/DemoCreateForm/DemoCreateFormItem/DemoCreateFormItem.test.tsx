@@ -29,9 +29,9 @@ describe("DemoCreateFormItem", () => {
 
   it("should render form item upload image src correctly", () => {
     render(<FormItemUploadWithSignature />);
-    expect(screen.getByAltText("First Signatory Authentication").getAttribute("src")).toContain(
-      data.firstSignatoryAuthentication.signature
-    );
+    expect(
+      screen.getByAltText("First Signatory Authentication").getAttribute("src")
+    ).toContain(data.firstSignatoryAuthentication.signature);
   });
 
   it("should render form item upload (with default signature)", () => {

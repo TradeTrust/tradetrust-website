@@ -14,17 +14,29 @@ export const SolidForest = () => {
 };
 
 export const BorderedWhite = () => {
-  return <TagBordered className="text-white border-white">BorderedWhite</TagBordered>;
+  return (
+    <TagBordered className="text-white border-white">BorderedWhite</TagBordered>
+  );
 };
 
 export const BorderedScarlet = () => {
-  return <TagBordered className="text-scarlet-500 border-scarlet-500">TagBorderedScarlet</TagBordered>;
+  return (
+    <TagBordered className="text-scarlet-500 border-scarlet-500">
+      TagBorderedScarlet
+    </TagBordered>
+  );
 };
 
 export const BorderedCloudSmall = () => {
-  return <TagBorderedSm className="text-cloud-800">BorderedCloudSmall</TagBorderedSm>;
+  return (
+    <TagBorderedSm className="text-cloud-800">BorderedCloudSmall</TagBorderedSm>
+  );
 };
 
 export const BorderedScarletLarge = () => {
-  return <TagBorderedLg className="text-scarlet-500 border-scarlet-500">BorderedScarletLarge</TagBorderedLg>;
+  return (
+    <TagBorderedLg className="text-scarlet-500 border-scarlet-500">
+      BorderedScarletLarge
+    </TagBorderedLg>
+  );
 };

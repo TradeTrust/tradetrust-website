@@ -6,7 +6,8 @@ export default {
   title: "UI/SvgIcon",
   component: SvgIcon,
   parameters: {
-    componentSubtitle: "Custom types of icons, or those with Tooltip functionality.",
+    componentSubtitle:
+      "Custom types of icons, or those with Tooltip functionality.",
   },
 };
 

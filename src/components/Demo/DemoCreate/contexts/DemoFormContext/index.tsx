@@ -10,7 +10,11 @@ export const DemoFormContext = createContext<DemoFormContextProps>({
   setFormValues: () => null,
 });
 
-export const DemoFormProvider: any = ({ children }: { children: ReactChildren }) => {
+export const DemoFormProvider: any = ({
+  children,
+}: {
+  children: ReactChildren;
+}) => {
   const [formValues, setFormValues] = useState({
     ...data,
     exporterDetails: {
@@ -33,5 +37,9 @@ export const DemoFormProvider: any = ({ children }: { children: ReactChildren })
     },
   });
 
-  return <DemoFormContext.Provider value={{ formValues, setFormValues }}>{children}</DemoFormContext.Provider>;
+  return (
+    <DemoFormContext.Provider value={{ formValues, setFormValues }}>
+      {children}
+    </DemoFormContext.Provider>
+  );
 };

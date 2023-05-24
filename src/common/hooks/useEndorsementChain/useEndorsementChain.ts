@@ -21,7 +21,10 @@ export const useEndorsementChain = (
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [endorsementChain, setEndorsementChain] = useState<EndorsementChain>();
-  const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
+  const { tokenRegistry } = useTokenRegistryContract(
+    tokenRegistryAddress,
+    providerOrSigner
+  );
   /*
     retrieve transactions from token registry and title escrow events
     merge, sort and provide history of events
@@ -40,10 +43,20 @@ export const useEndorsementChain = (
         return;
       }
       const tokenLogs = await fetchTokenTransfers(tokenRegistry, tokenId);
-      const escrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, providerOrSigner);
-      const titleEscrowLogs = await fetchEscrowTransfers(provider, escrowAddress);
+      const escrowAddress = await retrieveTitleEscrowAddressOnFactory(
+        tokenRegistry,
+        tokenId,
+        providerOrSigner
+      );
+      const titleEscrowLogs = await fetchEscrowTransfers(
+        provider,
+        escrowAddress
+      );
       const transferEvents = mergeTransfers([...titleEscrowLogs, ...tokenLogs]);
-      const retrievedEndorsementChain = await getEndorsementChain(provider, transferEvents);
+      const retrievedEndorsementChain = await getEndorsementChain(
+        provider,
+        transferEvents
+      );
       setEndorsementChain(retrievedEndorsementChain);
     } catch (e) {
       if (e instanceof Error) {

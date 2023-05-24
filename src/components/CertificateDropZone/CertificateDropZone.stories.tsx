@@ -72,31 +72,46 @@ export const Verifying = () => (
 );
 
 export const AllVerificationErrors = () => (
-  <RenderWithStore verificationStatus={whenDocumentHashInvalidAndNotIssued} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenDocumentHashInvalidAndNotIssued}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const InvalidHash = () => (
-  <RenderWithStore verificationStatus={whenDocumentHashInvalid} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenDocumentHashInvalid}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const NotIssued = () => (
-  <RenderWithStore verificationStatus={whenDocumentNotIssued} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenDocumentNotIssued}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const IssuerIdentityInvalid = () => (
-  <RenderWithStore verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const Revoked = () => (
-  <RenderWithStore verificationStatus={whenDocumentRevoked} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenDocumentRevoked}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
@@ -111,43 +126,64 @@ export const ActionError = () => (
 );
 
 export const InvalidDocument = () => (
-  <RenderWithStore verificationStatus={whenDocumentInvalid} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenDocumentInvalid}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const AddressInvalidError = () => (
-  <RenderWithStore verificationStatus={whenDocumentAddressInvalid} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenDocumentAddressInvalid}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const ContractNotFoundError = () => (
-  <RenderWithStore verificationStatus={whenDocumentNotFound} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenDocumentNotFound}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const InvalidArgumentError = () => (
-  <RenderWithStore verificationStatus={whenInvalidCallArgument} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenInvalidCallArgument}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const ServerError = () => (
-  <RenderWithStore verificationStatus={whenServerError} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenServerError}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const UnhandledError = () => (
-  <RenderWithStore verificationStatus={whenUnhandledError} verificationError={null}>
+  <RenderWithStore
+    verificationStatus={whenUnhandledError}
+    verificationError={null}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );
 
 export const ClientNetworkError = () => (
-  <RenderWithStore verificationStatus={whenDocumentValidAndIssuedByDns} verificationError={TYPES.CLIENT_NETWORK_ERROR}>
+  <RenderWithStore
+    verificationStatus={whenDocumentValidAndIssuedByDns}
+    verificationError={TYPES.CLIENT_NETWORK_ERROR}
+  >
     <CertificateDropZone />
   </RenderWithStore>
 );

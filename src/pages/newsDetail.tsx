@@ -12,7 +12,9 @@ export const NewsPageDetail: FunctionComponent = () => {
   const location = useLocation();
   const params: { slug: string } = useParams();
   const detail: NewsSingle = allNews.find((news) => news.slug === params.slug);
-  const newsletters: NewsSingle[] = allNews.filter((news) => news.type === NewsTag.NEWSLETTER);
+  const newsletters: NewsSingle[] = allNews.filter(
+    (news) => news.type === NewsTag.NEWSLETTER
+  );
 
   return (
     <>
@@ -25,8 +27,14 @@ export const NewsPageDetail: FunctionComponent = () => {
           property="og:description"
           content="Check out TradeTrust latest events, news, official statements and browse through our quarterly issued Newsletters."
         />
-        <meta property="og:title" content={`TradeTrust - ${detail.attributes.title}`} />
-        <meta property="og:url" content={`${window.location.origin}${location.pathname}`} />
+        <meta
+          property="og:title"
+          content={`TradeTrust - ${detail.attributes.title}`}
+        />
+        <meta
+          property="og:url"
+          content={`${window.location.origin}${location.pathname}`}
+        />
         <title>TradeTrust - {detail.attributes.title}</title>
         <meta
           name="keywords"
@@ -36,7 +44,10 @@ export const NewsPageDetail: FunctionComponent = () => {
       <div className="container py-12">
         <div className="flex">
           <div className="w-auto">
-            <Link to="/news" className="text-cloud-800 flex flex-nowrap items-center">
+            <Link
+              to="/news"
+              className="text-cloud-800 flex flex-nowrap items-center"
+            >
               <ChevronLeft />
               <h5>Back</h5>
             </Link>

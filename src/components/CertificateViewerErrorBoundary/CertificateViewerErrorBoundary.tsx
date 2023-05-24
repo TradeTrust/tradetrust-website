@@ -1,7 +1,10 @@
 import React from "react";
 import { FunctionComponent } from "react";
 import { ErrorBoundary, FallbackComponentType } from "../ErrorBoundary";
-import { getCurrentProvider, useProviderContext } from "../../common/contexts/provider";
+import {
+  getCurrentProvider,
+  useProviderContext,
+} from "../../common/contexts/provider";
 import { ErrorPage, ErrorPageProps } from "@govtechsg/tradetrust-ui-components";
 import { Link } from "react-router-dom";
 import { UnsupportedNetworkError } from "../../common/errors";
@@ -107,34 +110,74 @@ export const getRetryLink = ({
  * Get prepared props to be passed to ErrorPage component from tt-ui.
  * @param errorType Error type guessed from Error object
  */
-export const getErrorPageProps = ({ errorType }: { errorType: CERTIFICATE_VIEWER_ERROR_TYPE }): ErrorPageProps => {
+export const getErrorPageProps = ({
+  errorType,
+}: {
+  errorType: CERTIFICATE_VIEWER_ERROR_TYPE;
+}): ErrorPageProps => {
   switch (errorType) {
     case CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK:
       return {
-        pageTitle: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK].title,
-        header: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK].heading,
-        description: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK].description,
+        pageTitle:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK
+          ].title,
+        header:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK
+          ].heading,
+        description:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK
+          ].description,
         image: "/static/images/errorpage/error-boundary.png",
       };
     case CERTIFICATE_VIEWER_ERROR_TYPE.CONTRACT_REVERT:
       return {
-        pageTitle: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.CONTRACT_REVERT].title,
-        header: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.CONTRACT_REVERT].heading,
-        description: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.CONTRACT_REVERT].description,
+        pageTitle:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.CONTRACT_REVERT
+          ].title,
+        header:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.CONTRACT_REVERT
+          ].heading,
+        description:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.CONTRACT_REVERT
+          ].description,
         image: "/static/images/errorpage/error-boundary.png",
       };
     case CERTIFICATE_VIEWER_ERROR_TYPE.RPC_CALL_EXCEPTION:
       return {
-        pageTitle: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.RPC_CALL_EXCEPTION].title,
-        header: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.RPC_CALL_EXCEPTION].heading,
-        description: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.RPC_CALL_EXCEPTION].description,
+        pageTitle:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.RPC_CALL_EXCEPTION
+          ].title,
+        header:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.RPC_CALL_EXCEPTION
+          ].heading,
+        description:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.RPC_CALL_EXCEPTION
+          ].description,
         image: "/static/images/errorpage/error-boundary.png",
       };
     default:
       return {
-        pageTitle: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC].title,
-        header: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC].heading,
-        description: CERTIFICATE_VIEWER_ERROR_MESSAGES[CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC].description,
+        pageTitle:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC
+          ].title,
+        header:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC
+          ].heading,
+        description:
+          CERTIFICATE_VIEWER_ERROR_MESSAGES[
+            CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC
+          ].description,
         image: "/static/images/errorpage/error-boundary.png", // TODO: should make optional in tt-ui, defaults to this image
       };
   }
@@ -165,7 +208,10 @@ export const CertificateViewerErrorBoundary: FunctionComponent = (props) => {
   }; // TODO: depending on error type, should recover accordingly. currently only reloads network for all error cases other then CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorComponent} onRecover={recoverHandler}>
+    <ErrorBoundary
+      FallbackComponent={ErrorComponent}
+      onRecover={recoverHandler}
+    >
       {children}
     </ErrorBoundary>
   );

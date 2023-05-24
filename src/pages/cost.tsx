@@ -1,6 +1,10 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import { CostHeader, OpenSourceSoftware, CostOperation } from "../components/CostEstimationContent";
+import {
+  CostHeader,
+  OpenSourceSoftware,
+  CostOperation,
+} from "../components/CostEstimationContent";
 
 export const CostPage: FunctionComponent = () => {
   return (

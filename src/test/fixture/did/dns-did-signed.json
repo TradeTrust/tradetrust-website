@@ -14,7 +14,11 @@
     "id": "https://example.com",
     "name": "DEMO STORE"
   },
-  "type": ["VerifiableCredential", "DrivingLicenceCredential", "OpenAttestationCredential"],
+  "type": [
+    "VerifiableCredential",
+    "DrivingLicenceCredential",
+    "OpenAttestationCredential"
+  ],
   "credentialSubject": {
     "id": "did:example:JOHN_DOE_DID",
     "name": "John Doe",

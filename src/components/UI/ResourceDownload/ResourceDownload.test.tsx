@@ -20,8 +20,8 @@ describe("ResourceDownload", () => {
   it("should render download link correctly", () => {
     render(<ResourceDownload title={`Foobar`} resources={mockResources} />);
 
-    expect(screen.getByText("TradeTrust Newsletter Issue 1").getAttribute("href")).toContain(
-      "tradetrust-newsletter-issue-1.pdf"
-    );
+    expect(
+      screen.getByText("TradeTrust Newsletter Issue 1").getAttribute("href")
+    ).toContain("tradetrust-newsletter-issue-1.pdf");
   });
 });

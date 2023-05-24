@@ -22,7 +22,9 @@ export const FaqContent: FunctionComponent<FAQ> = ({ faqType }) => {
   const [filteredFaqs, setFilteredFaqs] = useState<FAQS[]>([]);
 
   useEffect(() => {
-    const allFaqs = importAll(require.context("../../../cms/faq/", false, /\.md$/)) as FAQS[];
+    const allFaqs = importAll(
+      require.context("../../../cms/faq/", false, /\.md$/)
+    ) as FAQS[];
     const faqs = allFaqs.filter((faq) => {
       return faq.attributes.type === faqType;
     });

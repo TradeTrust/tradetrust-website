@@ -1,4 +1,9 @@
-import { Dropdown, DropdownItem, DropdownProps, IconError } from "@govtechsg/tradetrust-ui-components";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownProps,
+  IconError,
+} from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { useProviderContext } from "../../../common/contexts/provider";
@@ -42,13 +47,26 @@ const WrappedDropdown = (props: DropdownProps) => {
 /**
  * Label for the items of the dropdown list
  */
-const DropdownItemLabel: FunctionComponent<DropdownItemLabelProps> = ({ className, active, network }) => {
+const DropdownItemLabel: FunctionComponent<DropdownItemLabelProps> = ({
+  className,
+  active,
+  network,
+}) => {
   return (
     <div className={className}>
-      <div className="flex items-center" data-testid={`network-select-dropdown-label-${network.chainId}`}>
-        <img className="mr-2 w-5 h-5 rounded-full" src={network.iconImage} alt={network.label} />
+      <div
+        className="flex items-center"
+        data-testid={`network-select-dropdown-label-${network.chainId}`}
+      >
+        <img
+          className="mr-2 w-5 h-5 rounded-full"
+          src={network.iconImage}
+          alt={network.label}
+        />
         <span className="w-full">{network.label}</span>
-        {active ? <span className="m-1 p-1 bg-forest-500 rounded-lg justify-self-end" /> : null}
+        {active ? (
+          <span className="m-1 p-1 bg-forest-500 rounded-lg justify-self-end" />
+        ) : null}
       </div>
     </div>
   );
@@ -71,7 +89,11 @@ const NetworkSelectDropdownItem = (props: NetworkSelectDropdownItemProps) => {
 /**
  * Network Selection dropdown component
  */
-const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange, networks, currentChainId }) => {
+const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({
+  onChange,
+  networks,
+  currentChainId,
+}) => {
   const itemsList = networks.map((network, i) => {
     return (
       <NetworkSelectDropdownItem
@@ -93,7 +115,9 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   );
   try {
     if (currentChainId) {
-      selectedLabel = <DropdownItemLabel network={getChainInfo(currentChainId)} />;
+      selectedLabel = (
+        <DropdownItemLabel network={getChainInfo(currentChainId)} />
+      );
     }
   } catch (e: any) {
     console.log(e.message);
@@ -106,7 +130,9 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
       classNameShared="w-full max-w-xs"
     >
       <div>
-        <span className="text-cloud-500 p-3 pr-8 cursor-default">Select a Network</span>
+        <span className="text-cloud-500 p-3 pr-8 cursor-default">
+          Select a Network
+        </span>
         {itemsList}
       </div>
     </WrappedDropdown>
@@ -122,6 +148,10 @@ export const NetworkSelect: FunctionComponent = () => {
   };
 
   return (
-    <NetworkSelectView currentChainId={currentChainId} onChange={changeHandler} networks={supportedChainInfoObjects} />
+    <NetworkSelectView
+      currentChainId={currentChainId}
+      onChange={changeHandler}
+      networks={supportedChainInfoObjects}
+    />
   );
 };

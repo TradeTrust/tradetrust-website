@@ -14,7 +14,10 @@ export const NewsPage: FunctionComponent = () => (
         property="og:description"
         content="Check out TradeTrust latest events, news, official statements and browse through our quarterly issued Newsletters."
       />
-      <meta property="og:title" content="TradeTrust - Press Release, Newsletter and Articles" />
+      <meta
+        property="og:title"
+        content="TradeTrust - Press Release, Newsletter and Articles"
+      />
       <meta property="og:url" content={`${window.location.origin}/news`} />
       <title>TradeTrust - Press Release, Newsletter and Articles</title>
       <meta
@@ -23,7 +26,10 @@ export const NewsPage: FunctionComponent = () => (
       />
     </Helmet>
     <Page title="News">
-      <p className="mt-2 mb-12">Check out our events and browse through our latest news and official statements.</p>
+      <p className="mt-2 mb-12">
+        Check out our events and browse through our latest news and official
+        statements.
+      </p>
       <News />
     </Page>
   </>

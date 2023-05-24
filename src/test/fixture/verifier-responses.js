@@ -20,7 +20,8 @@ export const whenDocumentHashInvalidAndNotIssued = [
           reason: {
             code: 2,
             codeString: "CONTRACT_ADDRESS_INVALID",
-            message: "Contract address 0x20bc9C354A18C8178A713B9BcCFFaC2152b53991 is invalid",
+            message:
+              "Contract address 0x20bc9C354A18C8178A713B9BcCFFaC2152b53991 is invalid",
           },
           issued: false,
         },
@@ -30,7 +31,8 @@ export const whenDocumentHashInvalidAndNotIssued = [
     reason: {
       code: 2,
       codeString: "CONTRACT_ADDRESS_INVALID",
-      message: "Contract address 0x20bc9C354A18C8178A713B9BcCFFaC2152b53991 is invalid",
+      message:
+        "Contract address 0x20bc9C354A18C8178A713B9BcCFFaC2152b53991 is invalid",
     },
     status: "INVALID",
     name: "OpenAttestationEthereumDocumentStoreIssued",
@@ -40,7 +42,8 @@ export const whenDocumentHashInvalidAndNotIssued = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",
@@ -141,7 +144,8 @@ export const whenDocumentNotIssued = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",
@@ -195,7 +199,8 @@ export const whenDocumentValidAndIssuedByDns = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",
@@ -240,7 +245,8 @@ export const whenDocumentValidAndIssuedByDid = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",
@@ -274,7 +280,9 @@ export const whenDocumentValidAndIssuedByDid = [
 ];
 
 export const whenDocumentHashInvalid = [
-  ...whenDocumentValidAndIssuedByDns.filter((fragment) => fragment.type !== "DOCUMENT_INTEGRITY"),
+  ...whenDocumentValidAndIssuedByDns.filter(
+    (fragment) => fragment.type !== "DOCUMENT_INTEGRITY"
+  ),
   {
     data: false,
     reason: {
@@ -302,7 +310,8 @@ export const whenDocumentRevoked = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
   },
   {
@@ -379,7 +388,8 @@ export const whenDocumentRevoked = [
     reason: {
       code: 0,
       codeString: "SKIPPED",
-      message: "Document is not using DID as top level identifier or has not been wrapped",
+      message:
+        "Document is not using DID as top level identifier or has not been wrapped",
     },
   },
 ];
@@ -409,7 +419,8 @@ export const whenDocumentIssuerIdentityInvalidDnsTxt = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",
@@ -466,7 +477,8 @@ export const whenDocumentIssuerIdentityInvalidDid = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",
@@ -499,7 +511,12 @@ export const whenDocumentIssuerIdentityInvalidDid = [
 ];
 
 export const whenTransferableDocumentVerified = [
-  { type: "DOCUMENT_INTEGRITY", name: "OpenAttestationHash", data: true, status: "VALID" },
+  {
+    type: "DOCUMENT_INTEGRITY",
+    name: "OpenAttestationHash",
+    data: true,
+    status: "VALID",
+  },
   {
     status: "SKIPPED",
     type: "DOCUMENT_STATUS",
@@ -507,13 +524,19 @@ export const whenTransferableDocumentVerified = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "documentStore" or "certificateStore" property or DOCUMENT_STORE method',
+      message:
+        'Document issuers doesn\'t have "documentStore" or "certificateStore" property or DOCUMENT_STORE method',
     },
   },
   {
     name: "OpenAttestationEthereumTokenRegistryMinted",
     type: "DOCUMENT_STATUS",
-    data: { mintedOnAll: true, details: [{ minted: true, address: "0xc3E9eBc6aDA9BA4B4Ce65D71901Cb2307e9670cE" }] },
+    data: {
+      mintedOnAll: true,
+      details: [
+        { minted: true, address: "0xc3E9eBc6aDA9BA4B4Ce65D71901Cb2307e9670cE" },
+      ],
+    },
     status: "VALID",
   },
   {
@@ -523,7 +546,8 @@ export const whenTransferableDocumentVerified = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "documentStore" or "certificateStore" property or DOCUMENT_STORE method',
+      message:
+        'Document issuers doesn\'t have "documentStore" or "certificateStore" property or DOCUMENT_STORE method',
     },
   },
   {
@@ -558,7 +582,8 @@ export const whenDocumentInvalid = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
   },
   {
@@ -568,7 +593,8 @@ export const whenDocumentInvalid = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "documentStore" or "certificateStore" property or DOCUMENT_STORE method',
+      message:
+        'Document issuers doesn\'t have "documentStore" or "certificateStore" property or DOCUMENT_STORE method',
     },
   },
   {
@@ -588,7 +614,8 @@ export const whenDocumentInvalid = [
     reason: {
       code: 2,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "documentStore" / "tokenRegistry" property or doesn\'t use DNS-TXT type',
+      message:
+        'Document issuers doesn\'t have "documentStore" / "tokenRegistry" property or doesn\'t use DNS-TXT type',
     },
   },
   {
@@ -608,7 +635,8 @@ export const whenDocumentInvalid = [
     reason: {
       code: 0,
       codeString: "SKIPPED",
-      message: "Document is not using DID as top level identifier or has not been wrapped",
+      message:
+        "Document is not using DID as top level identifier or has not been wrapped",
     },
   },
 ];
@@ -627,7 +655,8 @@ export const whenDocumentAddressInvalid = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
   },
   {
@@ -702,7 +731,8 @@ export const whenDocumentAddressInvalid = [
     reason: {
       code: 0,
       codeString: "SKIPPED",
-      message: "Document is not using DID as top level identifier or has not been wrapped",
+      message:
+        "Document is not using DID as top level identifier or has not been wrapped",
     },
   },
 ];
@@ -718,7 +748,8 @@ export const whenDocumentNotFound = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",
@@ -768,7 +799,8 @@ export const whenInvalidCallArgument = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",
@@ -818,7 +850,8 @@ export const whenServerError = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",
@@ -868,7 +901,8 @@ export const whenUnhandledError = [
     reason: {
       code: 4,
       codeString: "SKIPPED",
-      message: 'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
+      message:
+        'Document issuers doesn\'t have "tokenRegistry" property or TOKEN_REGISTRY method',
     },
     name: "OpenAttestationEthereumTokenRegistryMinted",
     status: "SKIPPED",

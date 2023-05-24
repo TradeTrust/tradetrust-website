@@ -14,7 +14,11 @@ export const DemoLayout: FunctionComponent = ({ children }) => {
       </div>
       <div className="w-56 mx-auto my-8">
         <div className="px-4">
-          <img className="max-h-96 hidden lg:block" src="/static/images/faq/faq-man.png" alt="FAQ person" />
+          <img
+            className="max-h-96 hidden lg:block"
+            src="/static/images/faq/faq-man.png"
+            alt="FAQ person"
+          />
         </div>
       </div>
     </div>
@@ -43,7 +47,10 @@ export const DemoPage: FunctionComponent = () => (
         property="og:description"
         content="Take the demo user journey and have a hands-on experience with how easy it is to create a digital document via blockchain and streamline your operations using TradeTrust."
       />
-      <meta property="og:title" content="TradeTrust - Certificate of Origin Demo" />
+      <meta
+        property="og:title"
+        content="TradeTrust - Certificate of Origin Demo"
+      />
       <meta property="og:url" content={`${window.location.origin}/demo`} />
       <title>TradeTrust - Certificate of Origin Demo</title>
       <meta

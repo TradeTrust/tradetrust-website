@@ -8,12 +8,22 @@ interface AssetTitleProps {
   children?: React.ReactNode;
 }
 
-export const AssetTitle: FunctionComponent<AssetTitleProps> = ({ role, address, children }) => {
-  const { identityName, identityResolvedBy, identitySource } = useIdentifierResolver(address);
+export const AssetTitle: FunctionComponent<AssetTitleProps> = ({
+  role,
+  address,
+  children,
+}) => {
+  const { identityName, identityResolvedBy, identitySource } =
+    useIdentifierResolver(address);
 
   return (
     <div data-testid={`asset-title-${role.toLowerCase()}`} className="py-4">
-      <AddressInfo title={role} name={identityName} resolvedBy={identityResolvedBy} source={identitySource || ""}>
+      <AddressInfo
+        title={role}
+        name={identityName}
+        resolvedBy={identityResolvedBy}
+        source={identitySource || ""}
+      >
         {children}
       </AddressInfo>
     </div>

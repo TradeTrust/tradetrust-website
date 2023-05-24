@@ -2,7 +2,12 @@
   "compilerOptions": {
     "allowJs": true,
     "baseUrl": "../../node_modules",
-    "types": ["cypress", "@synthetixio/synpress/support", "cypress-wait-until", "@testing-library/cypress"],
+    "types": [
+      "cypress",
+      "@synthetixio/synpress/support",
+      "cypress-wait-until",
+      "@testing-library/cypress"
+    ],
     "outDir": "./output"
   },
   "include": ["**/*.*"]

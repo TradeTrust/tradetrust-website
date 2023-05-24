@@ -19,10 +19,16 @@ interface FeatureJson {
   [key: string]: EnvironmentToggle;
 }
 
-export const FeatureFlag: FunctionComponent<FeatureFlag> = ({ name, children, fallback }) => {
+export const FeatureFlag: FunctionComponent<FeatureFlag> = ({
+  name,
+  children,
+  fallback,
+}) => {
   const { getFeatureFlagOverride } = useFeatureFlagOverride();
   const override = getFeatureFlagOverride(name);
-  const environment: Environment = IS_DEVELOPMENT ? "development" : "production";
+  const environment: Environment = IS_DEVELOPMENT
+    ? "development"
+    : "production";
   const features = Features as FeatureJson;
   const featureFlag: boolean = features?.[name]?.[environment];
 
@@ -48,7 +54,9 @@ export const FeatureFlag: FunctionComponent<FeatureFlag> = ({ name, children, fa
 export const useFeatureFlag = (name: string): boolean => {
   const { getFeatureFlagOverride } = useFeatureFlagOverride();
   const override = getFeatureFlagOverride(name);
-  const environment: Environment = IS_DEVELOPMENT ? "development" : "production";
+  const environment: Environment = IS_DEVELOPMENT
+    ? "development"
+    : "production";
   const features = Features as FeatureJson;
   const featureFlag: boolean = features?.[name]?.[environment];
 

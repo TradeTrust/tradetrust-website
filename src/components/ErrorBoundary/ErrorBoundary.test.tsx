@@ -33,18 +33,26 @@ describe("<ErrorBoundary />", () => {
       jest.spyOn(ErrorBoundary.prototype, "componentDidCatch");
       render(
         <Router history={history}>
-          <ErrorBoundary FallbackComponent={MockFallbackComponent} onRecover={() => {}}>
+          <ErrorBoundary
+            FallbackComponent={MockFallbackComponent}
+            onRecover={() => {}}
+          >
             <ProblemChild />
           </ErrorBoundary>
         </Router>
       );
-      expect(ErrorBoundary.prototype.componentDidCatch).toHaveBeenCalledTimes(1);
+      expect(ErrorBoundary.prototype.componentDidCatch).toHaveBeenCalledTimes(
+        1
+      );
     });
   });
 
   it("should show FallbackComponent", () => {
     render(
-      <ErrorBoundary FallbackComponent={MockFallbackComponent} onRecover={() => {}}>
+      <ErrorBoundary
+        FallbackComponent={MockFallbackComponent}
+        onRecover={() => {}}
+      >
         <ProblemChild />
       </ErrorBoundary>
     );
@@ -54,7 +62,10 @@ describe("<ErrorBoundary />", () => {
   it("should call recover", () => {
     const onRecoverMock = jest.fn();
     render(
-      <ErrorBoundary FallbackComponent={MockFallbackComponent} onRecover={onRecoverMock}>
+      <ErrorBoundary
+        FallbackComponent={MockFallbackComponent}
+        onRecover={onRecoverMock}
+      >
         <ProblemChild />
       </ErrorBoundary>
     );

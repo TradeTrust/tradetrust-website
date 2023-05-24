@@ -1,4 +1,7 @@
-import { Footer as BaseFooter, FooterColumnItemProps } from "@govtechsg/tradetrust-ui-components";
+import {
+  Footer as BaseFooter,
+  FooterColumnItemProps,
+} from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { ExternalLink } from "react-feather";
 import { NavLink } from "react-router-dom";
@@ -15,7 +18,12 @@ const renderNavLink = ({ label, to }: FooterColumnItemProps) => {
 };
 const renderExternalLink = ({ label, to }: FooterColumnItemProps) => {
   return (
-    <a className="flex items-center" href={to} target={"_blank"} rel="noopener noreferrer">
+    <a
+      className="flex items-center"
+      href={to}
+      target={"_blank"}
+      rel="noopener noreferrer"
+    >
       <p className={`${sharedStyles} mr-1`}>{label}</p>
       <div className={`w-auto`}>
         <ExternalLink size={12} color={"#89969F"} />
@@ -36,7 +44,11 @@ const data = [
     category: "Utilities",
     items: [
       { label: "Verify Documents", to: "/verify", render: renderNavLink },
-      { label: "Create Documents", to: URLS.CREATOR, render: renderExternalLink },
+      {
+        label: "Create Documents",
+        to: URLS.CREATOR,
+        render: renderExternalLink,
+      },
     ],
   },
   {
@@ -67,8 +79,16 @@ const data = [
   {
     category: "Settings",
     items: [
-      { label: "Address Book", to: "/settings/address-book", render: renderNavLink },
-      { label: "Address Book Resolver", to: "/settings/address-resolver", render: renderNavLink },
+      {
+        label: "Address Book",
+        to: "/settings/address-book",
+        render: renderNavLink,
+      },
+      {
+        label: "Address Book Resolver",
+        to: "/settings/address-resolver",
+        render: renderNavLink,
+      },
     ],
   },
 ];
@@ -76,7 +96,11 @@ const data = [
 const legalData = {
   copyright: "Copyright \u00A9 2021 TradeTrust",
   items: [
-    { label: "Privacy Policy", to: "/privacy-policy", render: renderBottomNavLink },
+    {
+      label: "Privacy Policy",
+      to: "/privacy-policy",
+      render: renderBottomNavLink,
+    },
     { label: "Terms of Use", to: "/terms-of-use", render: renderBottomNavLink },
   ],
 };

@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { isValid } from "@govtechsg/oa-verify";
-import { Button, ButtonSize, LoaderSpinner } from "@govtechsg/tradetrust-ui-components";
+import {
+  Button,
+  ButtonSize,
+  LoaderSpinner,
+} from "@govtechsg/tradetrust-ui-components";
 import { gaEvent } from "@govtechsg/tradetrust-utils";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reducers";
@@ -18,14 +22,25 @@ interface MagicDropzoneViewProps {
   resetDocument: () => void;
 }
 
-const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPending, isError, resetDocument }) => {
-  const { verificationStatus, verificationError } = useSelector((state: RootState) => state.demoVerify);
+const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({
+  isPending,
+  isError,
+  resetDocument,
+}) => {
+  const { verificationStatus, verificationError } = useSelector(
+    (state: RootState) => state.demoVerify
+  );
 
   switch (true) {
     case isPending:
       return (
         <div>
-          <LoaderSpinner data-testid={"loader-spinner"} className="mx-auto" width="50px" primary="#0099cc" />
+          <LoaderSpinner
+            data-testid={"loader-spinner"}
+            className="mx-auto"
+            width="50px"
+            primary="#0099cc"
+          />
           <p className="m-4 text-2xl">Verifying Document...</p>
         </div>
       );
@@ -34,13 +49,19 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
         <div>
           <div className="flex justify-center items-center my-4">
             <div className="w-auto mr-2">
-              <img src="/static/images/dropzone/invalid.svg" alt="Document invalid" />
+              <img
+                src="/static/images/dropzone/invalid.svg"
+                alt="Document invalid"
+              />
             </div>
             <div className="w-auto">
               <p className="text-2xl">This document is not valid</p>
             </div>
           </div>
-          <DetailedErrors verificationStatus={verificationStatus} verificationError={verificationError} />
+          <DetailedErrors
+            verificationStatus={verificationStatus}
+            verificationError={verificationError}
+          />
           <Link
             to="/faq"
             onClick={(e) => {
@@ -77,7 +98,10 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
           />
           <h4>Drop your TradeTrust demo document to view its content</h4>
           <p className="my-6">Or</p>
-          <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800" size={ButtonSize.SM}>
+          <Button
+            className="bg-cerulean-500 text-white hover:bg-cerulean-800"
+            size={ButtonSize.SM}
+          >
             Select Demo Document
           </Button>
         </div>
@@ -87,10 +111,13 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
 
 export const MagicDropzone: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const { verificationPending, verificationStatus } = useSelector((state: RootState) => state.demoVerify);
+  const { verificationPending, verificationStatus } = useSelector(
+    (state: RootState) => state.demoVerify
+  );
 
   const isVerificationPending = verificationPending;
-  const isVerificationError = verificationStatus && !isValid(verificationStatus);
+  const isVerificationError =
+    verificationStatus && !isValid(verificationStatus);
 
   const onDrop = useCallback(
     (acceptedFiles: Blob[]) => {
@@ -117,7 +144,13 @@ export const MagicDropzone: FunctionComponent = () => {
     [dispatch]
   );
 
-  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragAccept,
+    isDragReject,
+  } = useDropzone({
     onDrop,
     multiple: false,
     // accept: "application/json", // TODO: https://react-dropzone.js.org/#!/Accepting%20specific%20file%20types
@@ -131,7 +164,13 @@ export const MagicDropzone: FunctionComponent = () => {
       isVerificationPending,
       isVerificationError,
     });
-  }, [isDragReject, isDragActive, isDragAccept, isVerificationPending, isVerificationError]);
+  }, [
+    isDragReject,
+    isDragActive,
+    isDragAccept,
+    isVerificationPending,
+    isVerificationError,
+  ]);
 
   return (
     <div {...getRootProps()}>

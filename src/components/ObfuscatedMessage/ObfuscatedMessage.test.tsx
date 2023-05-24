@@ -8,15 +8,29 @@ import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 describe("ObfuscatedMessage", () => {
   it("should display obfuscated message if the obfuscatedData is present", () => {
     const container = render(
-      <ObfuscatedMessage document={OfuscatedDocument as WrappedOrSignedOpenAttestationDocument} />
+      <ObfuscatedMessage
+        document={OfuscatedDocument as WrappedOrSignedOpenAttestationDocument}
+      />
     );
-    expect(container.queryByText("Note: There are fields/data obfuscated in this document.")).not.toBeNull();
+    expect(
+      container.queryByText(
+        "Note: There are fields/data obfuscated in this document."
+      )
+    ).not.toBeNull();
   });
 
   it("should not display obfuscated message if the obfuscatedData is not present", () => {
     const container = render(
-      <ObfuscatedMessage document={UnobfuscatedDocument as WrappedOrSignedOpenAttestationDocument} />
+      <ObfuscatedMessage
+        document={
+          UnobfuscatedDocument as WrappedOrSignedOpenAttestationDocument
+        }
+      />
     );
-    expect(container.queryByText("Note: There are fields/data obfuscated in this document.")).toBeNull();
+    expect(
+      container.queryByText(
+        "Note: There are fields/data obfuscated in this document."
+      )
+    ).toBeNull();
   });
 });

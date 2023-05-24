@@ -69,7 +69,10 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
     return (
       <>
         <h4 className="mb-2">Upload First Signatory Authentication</h4>
-        <Button onClick={open} className="bg-white text-cerulean-500 hover:bg-cloud-100 mb-4">
+        <Button
+          onClick={open}
+          className="bg-white text-cerulean-500 hover:bg-cloud-100 mb-4"
+        >
           <div className="flex items-center mx-0">
             <div className="col-auto mr-2">
               <Upload />
@@ -84,7 +87,11 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
             className="p-2 cursor-pointer flex justify-center border-dashed border-2 rounded-xl border-cloud-100"
           >
             {value ? (
-              <img className="max-h-60" src={value} alt="First Signatory Authentication" />
+              <img
+                className="max-h-60"
+                src={value}
+                alt="First Signatory Authentication"
+              />
             ) : (
               <div className="uppercase">Upload</div>
             )}
@@ -109,7 +116,9 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
             onChange(e.target.name, e.target.value);
           }}
           name={formItemName}
-          placeholder={formItem.uiType === "withoutLabel" ? formItem.title : undefined}
+          placeholder={
+            formItem.uiType === "withoutLabel" ? formItem.title : undefined
+          }
         />
       );
     }
@@ -129,7 +138,9 @@ export const DemoCreateFormItem: FunctionComponent<DemoCreateFormItemProps> = ({
             onChange(e.target.name, e.target.value);
           }}
           name={formItemName}
-          placeholder={formItem.uiType === "withoutLabel" ? formItem.title : undefined}
+          placeholder={
+            formItem.uiType === "withoutLabel" ? formItem.title : undefined
+          }
         />
       );
     }

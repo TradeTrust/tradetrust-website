@@ -10,7 +10,8 @@ jest.mock("../../../utils", () => {
       {
         slug: "test",
         attributes: {
-          title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
+          title:
+            "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
           blurb:
             "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
           link: "https://www.baft.org/baft-education/e-learning/past-webinars",
@@ -19,7 +20,8 @@ jest.mock("../../../utils", () => {
           timeEnd: "2021-03-19T14:00:00.000Z",
           videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
           slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
-          downloadableMediaContent1: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+          downloadableMediaContent1:
+            "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
           eventDetails: "",
         },
       },
@@ -45,7 +47,9 @@ describe("EventPageDetail", () => {
     );
 
     expect(
-      screen.getByText("The Journey to Paperless Trade: Industry Initiatives for Interoperability")
+      screen.getByText(
+        "The Journey to Paperless Trade: Industry Initiatives for Interoperability"
+      )
     ).not.toBeNull();
   });
 
@@ -72,7 +76,9 @@ describe("EventPageDetail", () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByTestId("watch-link").getAttribute("href")).toContain("iRmaQV9HERw");
+    expect(screen.getByTestId("watch-link").getAttribute("href")).toContain(
+      "iRmaQV9HERw"
+    );
   });
 
   it("should render event slides correctly", () => {

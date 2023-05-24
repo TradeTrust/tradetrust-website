@@ -7,8 +7,11 @@ interface StatusChecksProps {
   verificationStatus: VerificationFragment[];
 }
 
-export const StatusChecks: FunctionComponent<StatusChecksProps> = ({ verificationStatus }) => {
-  const { hashValid, issuedValid, identityValid } = interpretFragments(verificationStatus);
+export const StatusChecks: FunctionComponent<StatusChecksProps> = ({
+  verificationStatus,
+}) => {
+  const { hashValid, issuedValid, identityValid } =
+    interpretFragments(verificationStatus);
   const { MESSAGES, TYPES } = CONSTANTS;
 
   return (
@@ -17,7 +20,10 @@ export const StatusChecks: FunctionComponent<StatusChecksProps> = ({ verificatio
         <StatusCheck valid={issuedValid} messageSet={MESSAGES[TYPES.ISSUED]} />
       </div>
       <div className="w-auto mx-0 lg:mr-4 mb-2 lg:mb-0">
-        <StatusCheck valid={identityValid} messageSet={MESSAGES[TYPES.IDENTITY]} />
+        <StatusCheck
+          valid={identityValid}
+          messageSet={MESSAGES[TYPES.IDENTITY]}
+        />
       </div>
       <div className="w-auto mx-0 mb-2 lg:mb-0">
         <StatusCheck valid={hashValid} messageSet={MESSAGES[TYPES.HASH]} />

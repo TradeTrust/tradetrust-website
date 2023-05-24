@@ -64,7 +64,11 @@ export const MagicDemo = () => {
 
 export const MagicDemoVerifying = () => {
   return (
-    <RenderWithStore document={sampleDocument} fragments={null} isPending={true}>
+    <RenderWithStore
+      document={sampleDocument}
+      fragments={null}
+      isPending={true}
+    >
       <MagicDropzone />
     </RenderWithStore>
   );
@@ -84,7 +88,11 @@ export const MagicDemoVerificationErrorsAll = () => {
 
 export const MagicDemoVerificationErrorHash = () => {
   return (
-    <RenderWithStore document={sampleDocument} fragments={whenDocumentHashInvalid} error={[TYPES.HASH]}>
+    <RenderWithStore
+      document={sampleDocument}
+      fragments={whenDocumentHashInvalid}
+      error={[TYPES.HASH]}
+    >
       <MagicDropzone />
     </RenderWithStore>
   );
@@ -92,7 +100,11 @@ export const MagicDemoVerificationErrorHash = () => {
 
 export const MagicDemoVerificationErrorIssue = () => {
   return (
-    <RenderWithStore document={sampleDocument} fragments={whenDocumentNotIssued} error={[TYPES.ISSUED]}>
+    <RenderWithStore
+      document={sampleDocument}
+      fragments={whenDocumentNotIssued}
+      error={[TYPES.ISSUED]}
+    >
       <MagicDropzone />
     </RenderWithStore>
   );
@@ -112,7 +124,11 @@ export const MagicDemoVerificationErrorIdentity = () => {
 
 export const MagicDemoVerificationErrorRevoked = () => {
   return (
-    <RenderWithStore document={sampleDocument} fragments={whenDocumentRevoked} error={[TYPES.REVOKED]}>
+    <RenderWithStore
+      document={sampleDocument}
+      fragments={whenDocumentRevoked}
+      error={[TYPES.REVOKED]}
+    >
       <MagicDropzone />
     </RenderWithStore>
   );

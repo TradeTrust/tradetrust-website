@@ -6,7 +6,10 @@ interface ButtonVideoProps {
   children: React.ReactElement;
 }
 
-export const ButtonVideo: FunctionComponent<ButtonVideoProps> = ({ className, children }) => {
+export const ButtonVideo: FunctionComponent<ButtonVideoProps> = ({
+  className,
+  children,
+}) => {
   const { showOverlay } = useContext(OverlayContext);
   const onOverlayHandler = () => {
     showOverlay(children);

@@ -5,7 +5,8 @@ export default {
   title: "Viewer/DocumentUtility",
   component: DocumentUtility,
   parameters: {
-    componentSubtitle: "Utility functions relating to document, Display QR Code, Print, Download.",
+    componentSubtitle:
+      "Utility functions relating to document, Display QR Code, Print, Download.",
   },
 };
 
@@ -27,8 +28,12 @@ const documentWithQr = {
 };
 
 export const PrintAndDownload = () => {
-  return <DocumentUtility document={documentWithoutQr as any} onPrint={() => {}} />;
+  return (
+    <DocumentUtility document={documentWithoutQr as any} onPrint={() => {}} />
+  );
 };
 export const QRPrintAndDownload = () => {
-  return <DocumentUtility document={documentWithQr as any} onPrint={() => {}} />;
+  return (
+    <DocumentUtility document={documentWithQr as any} onPrint={() => {}} />
+  );
 };

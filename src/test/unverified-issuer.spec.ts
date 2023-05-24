@@ -1,5 +1,10 @@
 import { Selector } from "testcafe";
-import { location, navigateToVerify, uploadDocument, validateTextContent } from "./helper";
+import {
+  location,
+  navigateToVerify,
+  uploadDocument,
+  validateTextContent,
+} from "./helper";
 
 fixture("Unverified Document Rendering").page`${location}`;
 

@@ -1,7 +1,10 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { ButtonVideo } from "./ButtonVideo";
-import { OverlayContextProvider, Overlay } from "@govtechsg/tradetrust-ui-components";
+import {
+  OverlayContextProvider,
+  Overlay,
+} from "@govtechsg/tradetrust-ui-components";
 
 const RenderWithOverlay = ({ children }: any) => {
   return (
@@ -21,7 +24,12 @@ describe("ButtonVideo", () => {
         </ButtonVideo>
       </RenderWithOverlay>
     );
-    expect(screen.getByTestId("play-button").querySelector("i")?.classList.contains("fa-play")).toBe(true);
+    expect(
+      screen
+        .getByTestId("play-button")
+        .querySelector("i")
+        ?.classList.contains("fa-play")
+    ).toBe(true);
     expect(screen.queryByTestId("foo")).not.toBeInTheDocument();
   });
 

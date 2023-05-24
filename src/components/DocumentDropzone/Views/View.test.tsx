@@ -42,6 +42,8 @@ describe("View", () => {
       </RenderWithStore>
     );
 
-    expect(screen.getByText("Drop your TradeTrust file to view its contents")).toBeInTheDocument();
+    expect(
+      screen.getByText("Drop your TradeTrust file to view its contents")
+    ).toBeInTheDocument();
   });
 });

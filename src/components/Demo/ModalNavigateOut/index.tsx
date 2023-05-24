@@ -20,7 +20,10 @@ export const ModalNavigateOut: FunctionComponent<ModalNavigateOutProps> = ({
   }, [setOnNavigateOut]);
 
   return (
-    <OverlayContent title="" className="bg-white max-w-md px-6 pb-12 text-center">
+    <OverlayContent
+      title=""
+      className="bg-white max-w-md px-6 pb-12 text-center"
+    >
       <svg
         className="mx-auto mb-4"
         width="57"
@@ -49,12 +52,19 @@ export const ModalNavigateOut: FunctionComponent<ModalNavigateOutProps> = ({
         <circle cx="30" cy="42.5" r="1.5" fill="#F57A29" />
       </svg>
       <h5 className="mb-8">
-        You are about to navigate away from this demo, navigating away will result in the loss of input information
+        You are about to navigate away from this demo, navigating away will
+        result in the loss of input information
       </h5>
-      <Button onClick={closeModal} className="bg-white text-cerulean-500 hover:bg-cloud-100 lg:mr-2">
+      <Button
+        onClick={closeModal}
+        className="bg-white text-cerulean-500 hover:bg-cloud-100 lg:mr-2"
+      >
         Back to demo
       </Button>
-      <Button onClick={closeModalAndNavigate} className="bg-cerulean-500 text-white hover:bg-cerulean-800">
+      <Button
+        onClick={closeModalAndNavigate}
+        className="bg-cerulean-500 text-white hover:bg-cerulean-800"
+      >
         Navigate away
       </Button>
     </OverlayContent>

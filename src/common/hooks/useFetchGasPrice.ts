@@ -31,8 +31,14 @@ type chainType = "ethereum" | "polygon";
 
 const fetchGasCostData = async (chain: chainType) => {
   try {
-    const [ethReq, gweiReq] = await Promise.all([fetch(priceApi[chain]), fetch(gasApi[chain], gasApiOptions())]);
-    const [ethRes, gweiRes] = await Promise.all([ethReq.json(), gweiReq.json()]);
+    const [ethReq, gweiReq] = await Promise.all([
+      fetch(priceApi[chain]),
+      fetch(gasApi[chain], gasApiOptions()),
+    ]);
+    const [ethRes, gweiRes] = await Promise.all([
+      ethReq.json(),
+      gweiReq.json(),
+    ]);
 
     return {
       price: ethRes.USD,
@@ -52,7 +58,10 @@ const fetchGasCostData = async (chain: chainType) => {
  * @param interval - number in milliseconds to set the interval of the refresh
  * @returns Price and gwei for the selected chain
  */
-export const useFetchGasPrice = (chain: chainType, interval = 0): { price: number; gwei: number } => {
+export const useFetchGasPrice = (
+  chain: chainType,
+  interval = 0
+): { price: number; gwei: number } => {
   const [price, setPrice] = useState(0);
   const [gwei, setGwei] = useState(0);
   const tick = useRefresh(interval);

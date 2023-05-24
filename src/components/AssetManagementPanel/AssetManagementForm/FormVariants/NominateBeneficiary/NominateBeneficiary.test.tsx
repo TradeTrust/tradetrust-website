@@ -21,8 +21,12 @@ describe("Nominate Owner", () => {
         />
       );
 
-      const beneficiaryComponent = container.getByTestId("editable-input-owner");
-      const holderComponent = container.getByTestId("non-editable-input-holder");
+      const beneficiaryComponent = container.getByTestId(
+        "editable-input-owner"
+      );
+      const holderComponent = container.getByTestId(
+        "non-editable-input-holder"
+      );
 
       expect(beneficiaryComponent).not.toBeNull();
       expect(holderComponent).not.toBeNull();
@@ -86,7 +90,11 @@ describe("Nominate Owner", () => {
         />
       );
 
-      expect(getAllByText("Unidentified address. Please check and input again.", { exact: false })).not.toBeNull();
+      expect(
+        getAllByText("Unidentified address. Please check and input again.", {
+          exact: false,
+        })
+      ).not.toBeNull();
     });
   });
 });

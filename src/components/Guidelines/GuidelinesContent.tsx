@@ -11,7 +11,9 @@ export type Guidelines = {
   };
 };
 
-let guidelines = importAll(require.context("../../../cms/guidelines/", false, /\.md$/)) as Guidelines[];
+let guidelines = importAll(
+  require.context("../../../cms/guidelines/", false, /\.md$/)
+) as Guidelines[];
 guidelines = getSortedByDateAsc(guidelines);
 
 export const GuidelinesContent: FunctionComponent = () => {
@@ -36,7 +38,11 @@ export const GuidelinesContent: FunctionComponent = () => {
         ))}
       </div>
       <div className="w-1/3 hidden lg:block">
-        <img className="mx-auto" src="/static/images/guidelines/Guidelines.png" alt="Guidelines person" />
+        <img
+          className="mx-auto"
+          src="/static/images/guidelines/Guidelines.png"
+          alt="Guidelines person"
+        />
       </div>
     </div>
   );

@@ -74,7 +74,11 @@ export const SvgIconQRCode: FunctionComponent = () => {
   );
 };
 
-export const SvgIcon: FunctionComponent<SvgIconProps> = ({ tooltipId, children, ...props }) => {
+export const SvgIcon: FunctionComponent<SvgIconProps> = ({
+  tooltipId,
+  children,
+  ...props
+}) => {
   const tooltipProps = tooltipId
     ? {
         "data-tip": "",

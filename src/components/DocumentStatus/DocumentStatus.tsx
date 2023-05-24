@@ -1,9 +1,17 @@
-import { VerificationFragment, VerificationFragmentWithData, utils } from "@govtechsg/oa-verify";
+import {
+  VerificationFragment,
+  VerificationFragmentWithData,
+  utils,
+} from "@govtechsg/oa-verify";
 import React, { FunctionComponent } from "react";
 import { NETWORK_NAME } from "../../config";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
-import { utils as oaUtils, WrappedDocument, v3 } from "@govtechsg/open-attestation";
+import {
+  utils as oaUtils,
+  WrappedDocument,
+  v3,
+} from "@govtechsg/open-attestation";
 import { RootState } from "../../reducers";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
@@ -13,40 +21,53 @@ interface VerificationFragmentData {
   status: string;
 }
 
-const getV2FormattedDomainNames = (verificationStatus: VerificationFragment[]) => {
+const getV2FormattedDomainNames = (
+  verificationStatus: VerificationFragment[]
+) => {
   const joinIssuers = (issuers: string[] | undefined): string => {
     if (!issuers) return "Unknown";
     const issuerNames = issuers.join(", ");
     return issuerNames?.replace(/,(?=[^,]*$)/, " and"); // regex to find last comma, replace with and
   };
 
-  const formatIdentifier = (fragment: VerificationFragmentWithData<VerificationFragmentData[]>): string | undefined => {
+  const formatIdentifier = (
+    fragment: VerificationFragmentWithData<VerificationFragmentData[]>
+  ): string | undefined => {
     switch (fragment.name) {
       case "OpenAttestationDnsTxtIdentityProof":
       // using fall through to get both cases
       case "OpenAttestationDnsDidIdentityProof":
-        return joinIssuers(fragment.data?.map((issuer) => issuer.location.toUpperCase()));
+        return joinIssuers(
+          fragment.data?.map((issuer) => issuer.location.toUpperCase())
+        );
       case "OpenAttestationDidIdentityProof":
-        return joinIssuers(fragment.data?.map((issuer) => issuer.did.toUpperCase()));
+        return joinIssuers(
+          fragment.data?.map((issuer) => issuer.did.toUpperCase())
+        );
       default:
         return "Unknown";
     }
   };
   const identityProofFragment = utils
     .getIssuerIdentityFragments(verificationStatus)
-    .find((fragment) => utils.isValidFragment(fragment)) as VerificationFragmentWithData;
+    .find((fragment) =>
+      utils.isValidFragment(fragment)
+    ) as VerificationFragmentWithData;
 
   const dataFragment = identityProofFragment?.data;
   const fragmentValidity =
     dataFragment?.length > 0 &&
     dataFragment?.every(
-      (issuer: { status: string; verified: boolean }) => issuer.status === "VALID" || issuer.verified === true
+      (issuer: { status: string; verified: boolean }) =>
+        issuer.status === "VALID" || issuer.verified === true
     ); // every will return true even though dataFragment is empty, hence the additional check for length
 
   return fragmentValidity ? formatIdentifier(identityProofFragment) : "Unknown";
 };
 
-export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenAttestationDocument>): string => {
+export const getV3IdentityVerificationText = (
+  document: WrappedDocument<v3.OpenAttestationDocument>
+): string => {
   return document.openAttestationMetadata.identityProof.identifier.toUpperCase();
 };
 
@@ -56,14 +77,20 @@ interface IssuedByProps {
   document: WrappedOrSignedOpenAttestationDocument;
 }
 
-export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by", verificationStatus, document }) => {
+export const IssuedBy: FunctionComponent<IssuedByProps> = ({
+  title = "Issued by",
+  verificationStatus,
+  document,
+}) => {
   const formattedDomainNames = oaUtils.isWrappedV2Document(document)
     ? getV2FormattedDomainNames(verificationStatus)
     : getV3IdentityVerificationText(document);
   return (
     <h2 id="issuedby" className="break-words leading-tight">
       <span className="mr-2 inline-block break-all">{title}</span>
-      <span className="text-cerulean-500 inline-block">{formattedDomainNames}</span>
+      <span className="text-cerulean-500 inline-block">
+        {formattedDomainNames}
+      </span>
     </h2>
   );
 };
@@ -72,9 +99,13 @@ interface DocumentStatusProps {
   isMagicDemo?: boolean;
 }
 
-export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ isMagicDemo }) => {
+export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({
+  isMagicDemo,
+}) => {
   const rootState = useSelector((state: RootState) => state);
-  const document = isMagicDemo ? rootState.demoVerify.rawModifiedDocument : rootState.certificate.rawModified;
+  const document = isMagicDemo
+    ? rootState.demoVerify.rawModifiedDocument
+    : rootState.certificate.rawModified;
   const verificationStatus = isMagicDemo
     ? rootState.demoVerify.verificationStatus
     : rootState.certificate.verificationStatus;

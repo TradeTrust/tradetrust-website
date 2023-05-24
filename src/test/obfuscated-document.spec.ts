@@ -1,5 +1,10 @@
 import { t, Selector } from "testcafe";
-import { location, navigateToVerify, uploadDocument, validateIssuerTexts } from "./helper";
+import {
+  location,
+  navigateToVerify,
+  uploadDocument,
+  validateIssuerTexts,
+} from "./helper";
 
 fixture("Obfuscated Document Rendering").page`${location}`;
 
@@ -9,5 +14,11 @@ test("Obfuscated document shows obfuscated message correctly", async () => {
   await navigateToVerify();
   await uploadDocument("./fixture/goerli/v2/invoice-obfuscated-document.json");
   await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
-  await t.expect(ObfuscationInfo.withText("Note: There are fields/data obfuscated in this document.").exists).ok();
+  await t
+    .expect(
+      ObfuscationInfo.withText(
+        "Note: There are fields/data obfuscated in this document."
+      ).exists
+    )
+    .ok();
 });

@@ -16,7 +16,11 @@ import { NewsPage } from "./pages/news";
 import { NewsPageDetail } from "./pages/newsDetail";
 import { PageNotFound } from "./pages/pageNotFound";
 import { PrivacyPolicyPage } from "./pages/privacyPolicy";
-import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
+import {
+  SettingsAddressBookPage,
+  SettingsAddressResolverPage,
+  SettingsPage,
+} from "./pages/settings";
 import { TermsOfUsePage } from "./pages/termsOfUse";
 import VerifyPage from "./pages/verify";
 import { ViewerPage } from "./pages/viewer";
@@ -37,7 +41,12 @@ const demoRoutes = [
     component: DemoCreatePage,
     privateRoute: true,
   },
-  { path: "/demo/verify", exact: true, component: DemoVerifyPage, privateRoute: true },
+  {
+    path: "/demo/verify",
+    exact: true,
+    component: DemoVerifyPage,
+    privateRoute: true,
+  },
   {
     path: "/demo/viewer",
     exact: true,
@@ -54,8 +63,16 @@ export const routes: RouteInterface[] = [
   { path: "/faq/product-faq", exact: true, component: FaqPageDetail },
   { path: "/eta", exact: true, component: EtaPage },
   { path: "/settings", exact: true, component: SettingsPage },
-  { path: "/settings/address-resolver", exact: true, component: SettingsAddressResolverPage },
-  { path: "/settings/address-book", exact: true, component: SettingsAddressBookPage },
+  {
+    path: "/settings/address-resolver",
+    exact: true,
+    component: SettingsAddressResolverPage,
+  },
+  {
+    path: "/settings/address-book",
+    exact: true,
+    component: SettingsAddressBookPage,
+  },
   { path: "/news", exact: true, component: NewsPage },
   { path: "/news/:slug", exact: true, component: NewsPageDetail },
   { path: "/learn", exact: true, component: LearnPage },
@@ -81,14 +98,22 @@ interface RouteProps {
 
 const routeMapper = (route: RouteInterface, id: number) => {
   const { privateRoute } = route;
-  return privateRoute ? <PrivateRoute key={id} {...route} /> : <Route key={id} {...route} />;
+  return privateRoute ? (
+    <PrivateRoute key={id} {...route} />
+  ) : (
+    <Route key={id} {...route} />
+  );
 };
 
-export const Routes = ({ routes: routeItems }: RouteProps): React.ReactElement => {
+export const Routes = ({
+  routes: routeItems,
+}: RouteProps): React.ReactElement => {
   return <Switch>{routeItems.map(routeMapper)}</Switch>;
 };
 
-export const FormSgContactLink: React.FunctionComponent<React.HTMLProps<HTMLAnchorElement>> = (props) => {
+export const FormSgContactLink: React.FunctionComponent<
+  React.HTMLProps<HTMLAnchorElement>
+> = (props) => {
   return (
     <a href={FORM_SG_URL} target="_blank" rel="noopener noreferrer" {...props}>
       {props.children}

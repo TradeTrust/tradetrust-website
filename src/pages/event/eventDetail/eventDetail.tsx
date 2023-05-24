@@ -15,7 +15,9 @@ import { getFileName } from "../../../utils";
 export const EventPageDetail: FunctionComponent = () => {
   const locationPath = useLocation();
   const params: { slug: string } = useParams();
-  const detail: EventProps = events.find((eventDetail) => eventDetail.slug === params.slug);
+  const detail: EventProps = events.find(
+    (eventDetail) => eventDetail.slug === params.slug
+  );
 
   const {
     title,
@@ -44,14 +46,23 @@ export const EventPageDetail: FunctionComponent = () => {
           property="og:description"
           content="Check out our events and browse through our latest news and official statements."
         />
-        <meta property="og:title" content="TradeTrust - An easy way to check and verify your documents" />
-        <meta property="og:url" content={`${window.location.origin}${locationPath.pathname}`} />
+        <meta
+          property="og:title"
+          content="TradeTrust - An easy way to check and verify your documents"
+        />
+        <meta
+          property="og:url"
+          content={`${window.location.origin}${locationPath.pathname}`}
+        />
         <title>TradeTrust - {title}</title>
       </Helmet>
       <Page>
         <div className="flex my-4">
           <div className="w-auto">
-            <Link to="/event" className="text-cloud-800 flex flex-nowrap items-center">
+            <Link
+              to="/event"
+              className="text-cloud-800 flex flex-nowrap items-center"
+            >
               <ChevronLeft />
               <h5>Back</h5>
             </Link>
@@ -67,7 +78,9 @@ export const EventPageDetail: FunctionComponent = () => {
                 <div>{format(new Date(date), "d MMM yyyy")}</div>
                 {timeStart && timeEnd && (
                   <span>
-                    {formatTime(timeStart, "HH:mm")} - {formatTime(timeEnd, "HH:mm")} ({formatTime(timeStart, "zzz")})
+                    {formatTime(timeStart, "HH:mm")} -{" "}
+                    {formatTime(timeEnd, "HH:mm")} (
+                    {formatTime(timeStart, "zzz")})
                   </span>
                 )}
                 {location && (
@@ -131,28 +144,33 @@ export const EventPageDetail: FunctionComponent = () => {
                     </div>
                   )}
                   {downloadableMediaContent !== undefined &&
-                    downloadableMediaContent.map((downloadableContent, index) => {
-                      if (!downloadableContent) return null;
-                      const fileName = getFileName(downloadableContent);
+                    downloadableMediaContent.map(
+                      (downloadableContent, index) => {
+                        if (!downloadableContent) return null;
+                        const fileName = getFileName(downloadableContent);
 
-                      return (
-                        <div key={`downloadableContent-${index}`} className="w-full sm:w-auto mb-2 sm:mb-0 mt-4">
-                          <a
-                            className="text-lg text-cerulean-300 font-medium hover:text-cerulean-500 inline-block pr-4 cursor-pointer"
-                            href={downloadableContent}
-                            download
-                            data-testid={`downloadableContent-${index}`}
+                        return (
+                          <div
+                            key={`downloadableContent-${index}`}
+                            className="w-full sm:w-auto mb-2 sm:mb-0 mt-4"
                           >
-                            <div className="flex">
-                              <div className="w-auto">
-                                <Download />
+                            <a
+                              className="text-lg text-cerulean-300 font-medium hover:text-cerulean-500 inline-block pr-4 cursor-pointer"
+                              href={downloadableContent}
+                              download
+                              data-testid={`downloadableContent-${index}`}
+                            >
+                              <div className="flex">
+                                <div className="w-auto">
+                                  <Download />
+                                </div>
+                                <h5 className="flex-grow px-2">{fileName}</h5>
                               </div>
-                              <h5 className="flex-grow px-2">{fileName}</h5>
-                            </div>
-                          </a>
-                        </div>
-                      );
-                    })}
+                            </a>
+                          </div>
+                        );
+                      }
+                    )}
                 </div>
                 {isFuture(new Date(date)) && registerLink && (
                   <LinkButton
@@ -167,7 +185,11 @@ export const EventPageDetail: FunctionComponent = () => {
               <div className="w-full lg:w-4/6 lg:pl-14 mb-4">
                 <h3>About this event</h3>
                 <div className="mt-2 mb-4">{blurb}</div>
-                {eventDetails && <ReactMarkdown className="wysiwyg">{eventDetails}</ReactMarkdown>}
+                {eventDetails && (
+                  <ReactMarkdown className="wysiwyg">
+                    {eventDetails}
+                  </ReactMarkdown>
+                )}
               </div>
             </div>
           </div>

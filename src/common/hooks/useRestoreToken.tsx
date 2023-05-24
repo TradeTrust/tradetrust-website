@@ -24,7 +24,8 @@ export const useRestoreToken = (
     try {
       if (!provider) throw new UnsupportedNetworkError();
       if (!tokenId) throw new Error("Ownership data is not provided");
-      if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
+      if (!contractInstance?.address)
+        throw new Error("Token Registry Instance should have address");
 
       setState("PENDING_CONFIRMATION");
       await contractInstance.restore(tokenId);

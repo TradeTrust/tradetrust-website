@@ -1,4 +1,7 @@
-import { OverlayContent, useOverlayContext } from "@govtechsg/tradetrust-ui-components";
+import {
+  OverlayContent,
+  useOverlayContext,
+} from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
 import { Steps } from "./Steps";
 import { ContentType, PersonaProps } from "./types";
@@ -19,35 +22,53 @@ const ProcessLegends = () => {
   );
 };
 
-export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, persona }) => {
+export const PersonaModal: FunctionComponent<PersonaProps> = ({
+  personaIndex,
+  persona,
+}) => {
   const { setOverlayVisible, showOverlay } = useOverlayContext();
-  const [selectedContentType, setSelectedContentType] = useState<ContentType>(ContentType.THEN);
+  const [selectedContentType, setSelectedContentType] = useState<ContentType>(
+    ContentType.THEN
+  );
   const contentType: ContentType[] = [ContentType.THEN, ContentType.NOW]; // ContentType.BENEFIT omitted here, but manually rendered later?
   const handleCloseOverlay = (): void => {
     setOverlayVisible(false);
     showOverlay(undefined);
   };
 
-  const { title, thenSteps, nowSteps, startMessage, benefits, endMessage } = persona.learnMore;
+  const { title, thenSteps, nowSteps, startMessage, benefits, endMessage } =
+    persona.learnMore;
 
   return (
     <section id="persona-modal">
-      <OverlayContent title="" className="max-h-[90vh] text-white bg-cerulean-500 rounded-xl" crossStyle="text-white">
+      <OverlayContent
+        title=""
+        className="max-h-[90vh] text-white bg-cerulean-500 rounded-xl"
+        crossStyle="text-white"
+      >
         <div
           className="mx-5 my-0 bg-cover relative flex flex-col text-white p-5 overflow-auto h-auto"
-          style={{ backgroundImage: "url('/static/images/common/wave-lines-light-2.png')" }}
+          style={{
+            backgroundImage:
+              "url('/static/images/common/wave-lines-light-2.png')",
+          }}
         >
           <div className="flex flex-col justify-center">
             <div className="relative flex justify-center w-full">
               <h3 className="text-center">{title}</h3>
             </div>
-            {startMessage && <h4 className="text-center mt-8">{startMessage}</h4>}
+            {startMessage && (
+              <h4 className="text-center mt-8">{startMessage}</h4>
+            )}
             {thenSteps && nowSteps && (
               <>
                 <ProcessLegends />
                 <div className="flex flex-row justify-center lg:hidden">
                   {contentType.map((content, index) => {
-                    const cssState = content === selectedContentType ? "font-gilroy-bold underline" : "font-normal";
+                    const cssState =
+                      content === selectedContentType
+                        ? "font-gilroy-bold underline"
+                        : "font-normal";
                     const cssAlign = content === ContentType.THEN ? "mr-5" : "";
                     return (
                       <h3
@@ -63,10 +84,16 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, pe
                 <>
                   {contentType.map((content, index) => (
                     <div key={index} className="flex flex-col justify-center">
-                      <div className={`lg:inline ${content === selectedContentType ? "inline" : "hidden"}`}>
+                      <div
+                        className={`lg:inline ${
+                          content === selectedContentType ? "inline" : "hidden"
+                        }`}
+                      >
                         <Steps
                           contentType={content}
-                          stepsDetails={content === ContentType.THEN ? thenSteps : nowSteps}
+                          stepsDetails={
+                            content === ContentType.THEN ? thenSteps : nowSteps
+                          }
                         />
                       </div>
                     </div>
@@ -74,7 +101,12 @@ export const PersonaModal: FunctionComponent<PersonaProps> = ({ personaIndex, pe
                 </>
               </>
             )}
-            {benefits && <Steps contentType={ContentType.BENEFIT} stepsDetails={benefits} />}
+            {benefits && (
+              <Steps
+                contentType={ContentType.BENEFIT}
+                stepsDetails={benefits}
+              />
+            )}
             <h4 className="text-center mt-8">{endMessage}</h4>
           </div>
           <FormSgContactLink

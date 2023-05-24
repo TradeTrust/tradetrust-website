@@ -12,15 +12,29 @@ import {
   getWrappedDocument as getDemoWrappedDocument,
   issueDocumentFailure,
 } from "../reducers/demo-create";
-import { createTempDns, deployDocumentStore, getWrappedDocument, publishDocument } from "../services/create";
+import {
+  createTempDns,
+  deployDocumentStore,
+  getWrappedDocument,
+  publishDocument,
+} from "../services/create";
 import { Signer } from "ethers";
 import { OpenAttestationDocument, v2 } from "@govtechsg/open-attestation";
 
-export function* deployDemoDocStore({ payload }: { payload: Signer; type: string }): any {
+export function* deployDemoDocStore({
+  payload,
+}: {
+  payload: Signer;
+  type: string;
+}): any {
   try {
     const signer = payload;
 
-    const documentStoreAddress = yield call(deployDocumentStore, signer, "DEMO_STORE");
+    const documentStoreAddress = yield call(
+      deployDocumentStore,
+      signer,
+      "DEMO_STORE"
+    );
     yield put(deployDocStoreSuccess(documentStoreAddress));
   } catch (e) {
     if (e instanceof Error) {
@@ -45,11 +59,19 @@ export function* createDemoTempDns(): any {
   }
 }
 
-export function* wrapDemoDocument({ payload }: { payload: OpenAttestationDocument; type: string }): any {
+export function* wrapDemoDocument({
+  payload,
+}: {
+  payload: OpenAttestationDocument;
+  type: string;
+}): any {
   try {
     const rawDocument = payload;
 
-    const wrappedDocument = yield call(getWrappedDocument, rawDocument as v2.OpenAttestationDocument);
+    const wrappedDocument = yield call(
+      getWrappedDocument,
+      rawDocument as v2.OpenAttestationDocument
+    );
 
     yield put(wrapDocumentSuccess(wrappedDocument));
   } catch (e) {
@@ -59,7 +81,12 @@ export function* wrapDemoDocument({ payload }: { payload: OpenAttestationDocumen
   }
 }
 
-export function* issueDemoDocument({ payload }: { payload: Signer; type: string }): any {
+export function* issueDemoDocument({
+  payload,
+}: {
+  payload: Signer;
+  type: string;
+}): any {
   try {
     const documentStoreAddress = yield select(getDocumentStoreAddress);
     const wrappedDocument = yield select(getDemoWrappedDocument);

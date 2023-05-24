@@ -1,5 +1,9 @@
 import React, { useState, useCallback, useRef, FunctionComponent } from "react";
-import { FrameConnector, renderDocument, FrameActions } from "@govtechsg/decentralized-renderer-react-components";
+import {
+  FrameConnector,
+  renderDocument,
+  FrameActions,
+} from "@govtechsg/decentralized-renderer-react-components";
 import { OpenAttestationDocument, utils } from "@govtechsg/open-attestation";
 import { Dispatch } from "../../../../types";
 
@@ -7,7 +11,9 @@ interface DocumentPreviewProps {
   document: OpenAttestationDocument;
 }
 
-export const DocumentPreview: FunctionComponent<DocumentPreviewProps> = ({ document }) => {
+export const DocumentPreview: FunctionComponent<DocumentPreviewProps> = ({
+  document,
+}) => {
   const toFrame = useRef<Dispatch>();
   const [height, setHeight] = useState(0);
   const rendererUrl = utils.getTemplateURL(document);

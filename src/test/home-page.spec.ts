@@ -10,7 +10,9 @@ const HowItWorksSection = Selector("[id='how-it-works']");
 const PlayButton = Selector("[data-testid='play-button']");
 const LinkButton = Selector("[data-testid='link-button']");
 
-const YoutubeTitle = Selector("[data-testid='overlay-title']").withText("Digitalising Trust for Cross-Border Trade");
+const YoutubeTitle = Selector("[data-testid='overlay-title']").withText(
+  "Digitalising Trust for Cross-Border Trade"
+);
 
 const ReducedCostTitle = Selector("[data-testid='benefit-title']").withText(
   "Legal certainty for electronic Transferable Documents"
@@ -18,10 +20,16 @@ const ReducedCostTitle = Selector("[data-testid='benefit-title']").withText(
 const EfficiencyTitle = Selector("[data-testid='benefit-title']").withText(
   "Increase efficiency, lower cost and lower risk of fraud"
 );
-const SupportTitle = Selector("[data-testid='benefit-title']").withText("Support innovative service offerings");
+const SupportTitle = Selector("[data-testid='benefit-title']").withText(
+  "Support innovative service offerings"
+);
 
-const TransferableRecordsTitle = Selector("[data-testid='document-type-0']").withText("Transferable Records");
-const VerifiableDocumentsTitle = Selector("[data-testid='document-type-1']").withText("Verifiable Documents");
+const TransferableRecordsTitle = Selector(
+  "[data-testid='document-type-0']"
+).withText("Transferable Records");
+const VerifiableDocumentsTitle = Selector(
+  "[data-testid='document-type-1']"
+).withText("Verifiable Documents");
 
 const Personas = Selector("[data-testid='persona-card']");
 
@@ -54,22 +62,42 @@ test("Render home page", async (t) => {
   // display persona modals for transferable record
   await t.expect(Personas.count).eql(4);
   await t.click(Selector("[data-testid='persona-details-0']"));
-  await t.expect(Selector("[id='persona-modal']").withText("Electronic Bill of Lading").count).eql(1);
+  await t
+    .expect(
+      Selector("[id='persona-modal']").withText("Electronic Bill of Lading")
+        .count
+    )
+    .eql(1);
   await t.expect(Selector("[data-testid='get-in-touch-0']").count).eql(1);
   await t.click(OverlayCloseButton);
 
   await t.click(Selector("[data-testid='persona-details-1']"));
-  await t.expect(Selector("[id='persona-modal']").withText("Electronic Bill of Lading").count).eql(1);
+  await t
+    .expect(
+      Selector("[id='persona-modal']").withText("Electronic Bill of Lading")
+        .count
+    )
+    .eql(1);
   await t.expect(Selector("[data-testid='get-in-touch-1']").count).eql(1);
   await t.click(OverlayCloseButton);
 
   await t.click(Selector("[data-testid='persona-details-2']"));
-  await t.expect(Selector("[id='persona-modal']").withText("Electronic Bill of Lading").count).eql(1);
+  await t
+    .expect(
+      Selector("[id='persona-modal']").withText("Electronic Bill of Lading")
+        .count
+    )
+    .eql(1);
   await t.expect(Selector("[data-testid='get-in-touch-2']").count).eql(1);
   await t.click(OverlayCloseButton);
 
   await t.click(Selector("[data-testid='persona-details-3']"));
-  await t.expect(Selector("[id='persona-modal']").withText("Electronic Bill of Lading").count).eql(1);
+  await t
+    .expect(
+      Selector("[id='persona-modal']").withText("Electronic Bill of Lading")
+        .count
+    )
+    .eql(1);
   await t.expect(Selector("[data-testid='get-in-touch-3']").count).eql(1);
   await t.click(OverlayCloseButton);
 
@@ -77,22 +105,46 @@ test("Render home page", async (t) => {
   await t.click(VerifiableDocumentsTitle);
   await t.expect(Personas.count).eql(4);
   await t.click(Selector("[data-testid='persona-details-0']"));
-  await t.expect(Selector("[id='persona-modal']").withText("Electronic Certificate of Origin").count).eql(1);
+  await t
+    .expect(
+      Selector("[id='persona-modal']").withText(
+        "Electronic Certificate of Origin"
+      ).count
+    )
+    .eql(1);
   await t.expect(Selector("[data-testid='get-in-touch-0']").count).eql(1);
   await t.click(OverlayCloseButton);
 
   await t.click(Selector("[data-testid='persona-details-1']"));
-  await t.expect(Selector("[id='persona-modal']").withText("Electronic Certificate of Origin").count).eql(1);
+  await t
+    .expect(
+      Selector("[id='persona-modal']").withText(
+        "Electronic Certificate of Origin"
+      ).count
+    )
+    .eql(1);
   await t.expect(Selector("[data-testid='get-in-touch-1']").count).eql(1);
   await t.click(OverlayCloseButton);
 
   await t.click(Selector("[data-testid='persona-details-2']"));
-  await t.expect(Selector("[id='persona-modal']").withText("Electronic Certificate of Origin").count).eql(1);
+  await t
+    .expect(
+      Selector("[id='persona-modal']").withText(
+        "Electronic Certificate of Origin"
+      ).count
+    )
+    .eql(1);
   await t.expect(Selector("[data-testid='get-in-touch-2']").count).eql(1);
   await t.click(OverlayCloseButton);
 
   await t.click(Selector("[data-testid='persona-details-3']"));
-  await t.expect(Selector("[id='persona-modal']").withText("Electronic Certificate of Origin").count).eql(1);
+  await t
+    .expect(
+      Selector("[id='persona-modal']").withText(
+        "Electronic Certificate of Origin"
+      ).count
+    )
+    .eql(1);
   await t.expect(Selector("[data-testid='get-in-touch-3']").count).eql(1);
   await t.click(OverlayCloseButton);
 

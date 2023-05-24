@@ -342,7 +342,11 @@ export const LearnPage: FunctionComponent = () => {
           <div className="w-full lg:w-4/12 lg:order-2 lg:pl-3">
             <div className="lg:sticky lg:top-3">
               <ResourceLink title="Documentation" resources={documentations} />
-              <ResourceLink title="Source code" resources={sourceCodes} icon="/static/images/Github_Octocat.png" />
+              <ResourceLink
+                title="Source code"
+                resources={sourceCodes}
+                icon="/static/images/Github_Octocat.png"
+              />
             </div>
           </div>
           <div className="w-full lg:w-8/12 lg:order-1 lg:pr-3">

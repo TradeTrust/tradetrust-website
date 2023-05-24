@@ -39,7 +39,12 @@ export function* verifyCertificate(): any {
   }
 }
 
-export function* handleQrScanned({ payload: qrCode }: { type: string; payload: any }): any {
+export function* handleQrScanned({
+  payload: qrCode,
+}: {
+  type: string;
+  payload: any;
+}): any {
   try {
     const { payload, anchor } = yield processQrCode(qrCode);
 
@@ -59,7 +64,10 @@ interface RetrieveCertificateByAction {
   anchor: { key: string };
 }
 
-export function* retrieveCertificateByAction({ payload, anchor }: RetrieveCertificateByAction): any {
+export function* retrieveCertificateByAction({
+  payload,
+  anchor,
+}: RetrieveCertificateByAction): any {
   try {
     yield put({
       type: types.RETRIEVE_CERTIFICATE_BY_ACTION_PENDING,
@@ -94,7 +102,9 @@ export function* retrieveCertificateByAction({ payload, anchor }: RetrieveCertif
         });
         certificate = JSON.parse(decryptedCertificate);
       } else {
-        throw new Error(`Unable to decrypt certificate with key=${key} and type=${certificate.type}`);
+        throw new Error(
+          `Unable to decrypt certificate with key=${key} and type=${certificate.type}`
+        );
       }
     }
 

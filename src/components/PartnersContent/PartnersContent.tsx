@@ -1,11 +1,17 @@
 import React, { FunctionComponent, useState } from "react";
 import { PartnersTile } from "./PartnersTile";
-import { Pagination, getPaginatedPagesTotal, getPaginatedPosts } from "@govtechsg/tradetrust-ui-components";
+import {
+  Pagination,
+  getPaginatedPagesTotal,
+  getPaginatedPosts,
+} from "@govtechsg/tradetrust-ui-components";
 import { PartnersDataProps } from "./types";
 
 const MAX_PARTNER_TILES_TO_DISPLAY = 9;
 
-export const PartnersContent: FunctionComponent<PartnersDataProps> = ({ sortedPartnersData }) => {
+export const PartnersContent: FunctionComponent<PartnersDataProps> = ({
+  sortedPartnersData,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageData = getPaginatedPosts({
     posts: sortedPartnersData,
@@ -24,7 +30,11 @@ export const PartnersContent: FunctionComponent<PartnersDataProps> = ({ sortedPa
           <PartnersTile data={data} key={`partners-tile-${i}`} />
         ))}
       </div>
-      <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <Pagination
+        totalNoOfPages={totalNoOfPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };

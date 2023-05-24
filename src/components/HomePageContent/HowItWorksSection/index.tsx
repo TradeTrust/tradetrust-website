@@ -20,10 +20,12 @@ const DocumentTypeDetails: FunctionComponent<DocumentTypeContent> = (props) => {
 };
 
 export const HowItWorksSection: FunctionComponent = () => {
-  const [selectedDocumentTypeLabel, setSelectedDocumentTypeLabel] = useState<DocumentType>(
-    DocumentType.TRANSFERABLE_RECORD
-  );
-  const documentTypes: DocumentType[] = [DocumentType.TRANSFERABLE_RECORD, DocumentType.VERIFIABLE_DOCUMENT]; // manual set array here, but we could map the enums direct also
+  const [selectedDocumentTypeLabel, setSelectedDocumentTypeLabel] =
+    useState<DocumentType>(DocumentType.TRANSFERABLE_RECORD);
+  const documentTypes: DocumentType[] = [
+    DocumentType.TRANSFERABLE_RECORD,
+    DocumentType.VERIFIABLE_DOCUMENT,
+  ]; // manual set array here, but we could map the enums direct also
 
   const selectedDocumentTypeContent = DocumentContent.find((content) => {
     return content.type === selectedDocumentTypeLabel;
@@ -41,8 +43,13 @@ export const HowItWorksSection: FunctionComponent = () => {
           <div className="flex m-auto mt-6 justify-center">
             {documentTypes.map((documentType, index) => {
               const cssState =
-                documentType === selectedDocumentTypeLabel ? "font-gilroy-bold underline" : "font-gilroy-medium";
-              const cssAlign = documentType === DocumentType.TRANSFERABLE_RECORD ? "lg:mr-5" : "hidden lg:inline"; // design decision to not show this button on on mobile
+                documentType === selectedDocumentTypeLabel
+                  ? "font-gilroy-bold underline"
+                  : "font-gilroy-medium";
+              const cssAlign =
+                documentType === DocumentType.TRANSFERABLE_RECORD
+                  ? "lg:mr-5"
+                  : "hidden lg:inline"; // design decision to not show this button on on mobile
 
               return (
                 <h5
@@ -60,7 +67,9 @@ export const HowItWorksSection: FunctionComponent = () => {
         <DocumentTypeDetails {...selectedDocumentTypeContent} />
         <div className="flex flex-col h-96 justify-center">
           <div className="bg-wave-lines-light bg-cover flex w-full h-64 mx-auto bg-cerulean-500 rounded-xl text-white text-center justify-center items-center">
-            <h2 className="leading-[44px] lg:mx-72">Ready to learn how TradeTrust can benefit your business?</h2>
+            <h2 className="leading-[44px] lg:mx-72">
+              Ready to learn how TradeTrust can benefit your business?
+            </h2>
           </div>
           <FormSgContactLink
             className="px-4 py-2 mx-auto -mt-4 rounded-xl text-white bg-tangerine-500 hover:bg-tangerine-800 hover:text-cloud-100"

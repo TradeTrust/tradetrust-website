@@ -26,8 +26,19 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
-      - { label: "Type", name: "type", widget: "select", options: ["General", "Product"], hint: "Type of FAQ" }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          hint: "Publish date.",
+        }
+      - {
+          label: "Type",
+          name: "type",
+          widget: "select",
+          options: ["General", "Product"],
+          hint: "Type of FAQ",
+        }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "guidelines"
     label: "Guidelines"
@@ -37,7 +48,12 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          hint: "Publish date.",
+        }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "article"
     label: "Article"
@@ -47,8 +63,18 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          hint: "Publish date.",
+        }
+      - {
+          label: "Thumbnail",
+          name: "thumbnail",
+          widget: "image",
+          required: false,
+        }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "newsletter"
     label: "Newsletter"
@@ -58,9 +84,24 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
-      - { label: "File", name: "file", widget: "file", hint: "File download of newsletter." }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          hint: "Publish date.",
+        }
+      - {
+          label: "Thumbnail",
+          name: "thumbnail",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "File",
+          name: "file",
+          widget: "file",
+          hint: "File download of newsletter.",
+        }
   - name: "partner-news"
     label: "Partner News"
     folder: "cms/partner-news"
@@ -69,9 +110,24 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
-      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          hint: "Publish date.",
+        }
+      - {
+          label: "Thumbnail",
+          name: "thumbnail",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Body",
+          name: "body",
+          widget: "markdown",
+          hint: "Body text of detail page.",
+        }
   - name: "partners"
     identifier_field: companyName
     label: "Partners"
@@ -97,9 +153,24 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
-      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          hint: "Publish date.",
+        }
+      - {
+          label: "Thumbnail",
+          name: "thumbnail",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Body",
+          name: "body",
+          widget: "markdown",
+          hint: "Body text of detail page.",
+        }
   - name: "speech"
     label: "Speech"
     folder: "cms/speech"
@@ -108,9 +179,24 @@ collections:
       preview: false
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
-      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          hint: "Publish date.",
+        }
+      - {
+          label: "Thumbnail",
+          name: "thumbnail",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Body",
+          name: "body",
+          widget: "markdown",
+          hint: "Body text of detail page.",
+        }
   - name: "event"
     label: "Event"
     folder: "cms/event"
@@ -120,8 +206,18 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
-      - { label: "Blurb", name: "blurb", widget: "text", hint: "Event Description" }
+      - {
+          label: "Thumbnail",
+          name: "thumbnail",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Blurb",
+          name: "blurb",
+          widget: "text",
+          hint: "Event Description",
+        }
       - { label: "Link", name: "link", widget: "string", hint: "Direct link." }
       - {
           label: "Time Start",
@@ -167,9 +263,25 @@ collections:
           field: { label: Media, name: media, widget: file },
           hint: "Upload media contents/materials for user to download",
         }
-      - { label: "Video Link", name: "videoLink", widget: "string", required: false }
-      - { label: "Slides", name: "slides", widget: "file", required: false, hint: "Presentation slides." }
-      - { label: "Register Link", name: "registerLink", widget: "string", required: false }
+      - {
+          label: "Video Link",
+          name: "videoLink",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Slides",
+          name: "slides",
+          widget: "file",
+          required: false,
+          hint: "Presentation slides.",
+        }
+      - {
+          label: "Register Link",
+          name: "registerLink",
+          widget: "string",
+          required: false,
+        }
   - name: "carousel"
     label: "Carousel"
     files:

@@ -16,15 +16,15 @@ describe("NewsCard", () => {
 
   it("should render generic thumbnail when there is no thumbnail", () => {
     render(<NewsCard news={mockNewsDefault} />);
-    expect(screen.getByTestId("news-item-thumbnail").getAttribute("style")).toBe(
-      "background-image: url(/static/images/news/news-generic.png);"
-    );
+    expect(
+      screen.getByTestId("news-item-thumbnail").getAttribute("style")
+    ).toBe("background-image: url(/static/images/news/news-generic.png);");
   });
 
   it("should render thumbnail when there is thumbnail", () => {
     render(<NewsCard news={mockNewsThumbnail} />);
-    expect(screen.getByTestId("news-item-thumbnail").getAttribute("style")).toBe(
-      "background-image: url(/static/uploads/news-01.jpg);"
-    );
+    expect(
+      screen.getByTestId("news-item-thumbnail").getAttribute("style")
+    ).toBe("background-image: url(/static/uploads/news-01.jpg);");
   });
 });

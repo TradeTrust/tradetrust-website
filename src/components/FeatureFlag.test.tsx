@@ -20,7 +20,9 @@ jest.mock("../common/hooks/useFeatureFlagOverride");
 describe("featureFlag", () => {
   beforeEach(() => {
     jest.resetModules(); // this is important - it clears the cache
-    mockUseFeatureFlagOverride.mockReturnValue({ getFeatureFlagOverride: mockGetFeature });
+    mockUseFeatureFlagOverride.mockReturnValue({
+      getFeatureFlagOverride: mockGetFeature,
+    });
     mockGetFeature.mockReturnValue(undefined);
   });
 
@@ -144,7 +146,9 @@ const RenderWithHook = ({ name, text }: { name: string; text: string }) => {
 describe("useFeatureFlag", () => {
   beforeEach(() => {
     jest.resetModules(); // this is important - it clears the cache
-    mockUseFeatureFlagOverride.mockReturnValue({ getFeatureFlagOverride: mockGetFeature });
+    mockUseFeatureFlagOverride.mockReturnValue({
+      getFeatureFlagOverride: mockGetFeature,
+    });
     mockGetFeature.mockReturnValue(undefined);
   });
 

@@ -12,8 +12,16 @@ export const DemoCreateContext = createContext<DemoCreateContextProps>({
   setActiveStep: () => null,
 });
 
-export const DemoCreateProvider: any = ({ children }: { children: ReactChildren }) => {
+export const DemoCreateProvider: any = ({
+  children,
+}: {
+  children: ReactChildren;
+}) => {
   const [activeStep, setActiveStep] = useState<ActiveStep>("start");
 
-  return <DemoCreateContext.Provider value={{ activeStep, setActiveStep }}>{children}</DemoCreateContext.Provider>;
+  return (
+    <DemoCreateContext.Provider value={{ activeStep, setActiveStep }}>
+      {children}
+    </DemoCreateContext.Provider>
+  );
 };

@@ -1,4 +1,8 @@
-import { Button, Input, OverlayContext } from "@govtechsg/tradetrust-ui-components";
+import {
+  Button,
+  Input,
+  OverlayContext,
+} from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useState } from "react";
 import { Checkbox } from "../../UI/Checkbox";
 import { useHistory } from "react-router-dom";
@@ -22,7 +26,9 @@ export const DemoInitial: FunctionComponent = () => {
     }
   }, [isLoggedIn, history]);
 
-  const handleInputOrTextareaChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputOrTextareaChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
@@ -45,21 +51,35 @@ export const DemoInitial: FunctionComponent = () => {
         <DemoCreateHeader />
         <div className="mt-8">
           <p className="mb-2">
-            To start using the demo, please key in your email address to create a free temporary cryptocurrency wallet.
+            To start using the demo, please key in your email address to create
+            a free temporary cryptocurrency wallet.
           </p>
           <p>
-            Please take note that <span className="font-gilroy-bold">all documents</span> created from this demo{" "}
-            <span className="font-gilroy-bold"> can only be recognised via this demo</span>
+            Please take note that{" "}
+            <span className="font-gilroy-bold">all documents</span> created from
+            this demo{" "}
+            <span className="font-gilroy-bold">
+              {" "}
+              can only be recognised via this demo
+            </span>
           </p>
         </div>
       </div>
-      <Input name="email" className="w-full" placeholder="Email address" onChange={handleInputOrTextareaChange} />
+      <Input
+        name="email"
+        className="w-full"
+        placeholder="Email address"
+        onChange={handleInputOrTextareaChange}
+      />
       <div className="mt-8">
         <p>You can unsubscribe from these communications at any time.</p>
         <Checkbox name="Personal Data" required>
           <p>
             * I agree to allow TradeTrust to{" "}
-            <span className="underline cursor-pointer" onClick={onOverlayHandler}>
+            <span
+              className="underline cursor-pointer"
+              onClick={onOverlayHandler}
+            >
               store and process my personal data
             </span>
             .

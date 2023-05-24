@@ -24,14 +24,19 @@ export const useFeatureFlagOverride = (): {
   getFeatureFlagOverride: (flag: string) => boolean | undefined;
 } => {
   const defaultOverride: FeatureFlagOverride = {};
-  const [featureFlagOverride, setFeatureFlagOverride] = createPersistedState("FEATURE_FLAG")(defaultOverride);
+  const [featureFlagOverride, setFeatureFlagOverride] =
+    createPersistedState("FEATURE_FLAG")(defaultOverride);
   const getFeatureFlagOverride = (flag: string) =>
-    typeof featureFlagOverride.ALL === "boolean" ? featureFlagOverride.ALL : featureFlagOverride[flag];
+    typeof featureFlagOverride.ALL === "boolean"
+      ? featureFlagOverride.ALL
+      : featureFlagOverride[flag];
 
   // listen to the local storages changes, and update the flag accordingly
   useEffect(() => {
     const localStorageInsertedHandler = () => {
-      const localStorageObject = JSON.parse(window.localStorage.getItem("FEATURE_FLAG") ?? "{}");
+      const localStorageObject = JSON.parse(
+        window.localStorage.getItem("FEATURE_FLAG") ?? "{}"
+      );
       const changed = Object.keys(localStorageObject).find((key) => {
         return localStorageObject[key] !== featureFlagOverride[key];
       });
@@ -43,8 +48,16 @@ export const useFeatureFlagOverride = (): {
 
     document.addEventListener(EVENT_NAME, localStorageInsertedHandler, false);
     return () => {
-      document.removeEventListener(EVENT_NAME, localStorageInsertedHandler, false);
+      document.removeEventListener(
+        EVENT_NAME,
+        localStorageInsertedHandler,
+        false
+      );
     };
   }, [featureFlagOverride, setFeatureFlagOverride]);
-  return { featureFlagOverride, setFeatureFlagOverride, getFeatureFlagOverride };
+  return {
+    featureFlagOverride,
+    setFeatureFlagOverride,
+    getFeatureFlagOverride,
+  };
 };

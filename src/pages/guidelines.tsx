@@ -14,8 +14,14 @@ export const Guidelines: FunctionComponent = () => (
         property="og:description"
         content="We also welcome developers who wish to work on non-Ethereum blockchains using TradeTrust. Here is a set of guidelines for easier alignment and integration with the TradeTrust framework."
       />
-      <meta property="og:title" content="TradeTrust - Guidelines For Non-Ethereum" />
-      <meta property="og:url" content={`${window.location.origin}/guidelines`} />
+      <meta
+        property="og:title"
+        content="TradeTrust - Guidelines For Non-Ethereum"
+      />
+      <meta
+        property="og:url"
+        content={`${window.location.origin}/guidelines`}
+      />
       <title>TradeTrust - Guidelines For Non-Ethereum</title>
       <meta
         name="keywords"

@@ -13,7 +13,10 @@ export interface ResourceMediaProps {
   medias: Media[];
 }
 
-export const ResourceMedia: FunctionComponent<ResourceMediaProps> = ({ title, medias }) => {
+export const ResourceMedia: FunctionComponent<ResourceMediaProps> = ({
+  title,
+  medias,
+}) => {
   return (
     <div className="bg-white shadow-md mb-4 pt-2 px-3 pb-3">
       <div className="flex">

@@ -5,7 +5,8 @@ import { ResourceEvent, EventProps } from "./ResourceEvent";
 const mockEventDefault: EventProps = {
   slug: "",
   attributes: {
-    title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
+    title:
+      "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
     blurb:
       "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
     link: "https://www.baft.org/baft-education/e-learning/past-webinars",
@@ -15,7 +16,9 @@ const mockEventDefault: EventProps = {
     videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
     slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
     registerLink: "https://zoom.us/webinar/register/WN_9Z2Jg3INT0aYUC7SpY5q3g",
-    downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
+    downloadableMediaContent: [
+      "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+    ],
     eventDetails: "",
   },
 };
@@ -48,7 +51,10 @@ export default {
 export const Default = () => {
   return (
     <MemoryRouter>
-      <ResourceEvent slug={mockEventDefault.slug} attributes={mockEventDefault.attributes} />
+      <ResourceEvent
+        slug={mockEventDefault.slug}
+        attributes={mockEventDefault.attributes}
+      />
     </MemoryRouter>
   );
 };
@@ -56,7 +62,10 @@ export const Default = () => {
 export const Future = () => {
   return (
     <MemoryRouter>
-      <ResourceEvent slug={mockEventFuture.slug} attributes={mockEventFuture.attributes} />
+      <ResourceEvent
+        slug={mockEventFuture.slug}
+        attributes={mockEventFuture.attributes}
+      />
     </MemoryRouter>
   );
 };
@@ -64,7 +73,10 @@ export const Future = () => {
 export const Thumbnail = () => {
   return (
     <MemoryRouter>
-      <ResourceEvent slug={mockEventThumbnail.slug} attributes={mockEventThumbnail.attributes} />
+      <ResourceEvent
+        slug={mockEventThumbnail.slug}
+        attributes={mockEventThumbnail.attributes}
+      />
     </MemoryRouter>
   );
 };

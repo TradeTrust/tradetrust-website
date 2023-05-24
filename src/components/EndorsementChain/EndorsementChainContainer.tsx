@@ -8,11 +8,13 @@ interface EndorsementChainContainer {
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
-export const EndorsementChainContainer: FunctionComponent<EndorsementChainContainer> = ({
-  tokenRegistry,
-  tokenId,
-  setShowEndorsementChain,
-}) => {
-  const endorsementChainProps = useEndorsementChain(tokenRegistry, tokenId);
-  return <EndorsementChainLayout {...endorsementChainProps} setShowEndorsementChain={setShowEndorsementChain} />;
-};
+export const EndorsementChainContainer: FunctionComponent<EndorsementChainContainer> =
+  ({ tokenRegistry, tokenId, setShowEndorsementChain }) => {
+    const endorsementChainProps = useEndorsementChain(tokenRegistry, tokenId);
+    return (
+      <EndorsementChainLayout
+        {...endorsementChainProps}
+        setShowEndorsementChain={setShowEndorsementChain}
+      />
+    );
+  };

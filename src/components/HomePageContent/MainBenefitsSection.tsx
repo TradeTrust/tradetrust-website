@@ -41,7 +41,10 @@ const mainBenefits: MainBenefits[] = [
   },
 ];
 
-const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ details, id }) => {
+const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({
+  details,
+  id,
+}) => {
   const offsetAlignment = (): string => {
     switch (id) {
       case 0:
@@ -56,7 +59,9 @@ const MainBenefitsElement: React.FunctionComponent<MainBenefitsProps> = ({ detai
   };
 
   return (
-    <div className={`px-0 lg:px-8 xl:px-12 2xl:px-24 lg:w-4/12 mt-12 ${offsetAlignment()}`}>
+    <div
+      className={`px-0 lg:px-8 xl:px-12 2xl:px-24 lg:w-4/12 mt-12 ${offsetAlignment()}`}
+    >
       <img className="mx-auto" src={details.image} alt="mainBenefitsIcon" />
       <h3 className="text-center lg:text-left mb-8" data-testid="benefit-title">
         {details.title}
@@ -80,7 +85,8 @@ export const MainBenefitsSection: FunctionComponent = () => {
           <div className="text-center">
             <h1 className="leading-none text-4xl lg:text-6xl">Main Benefits</h1>
             <h2 className="font-gilroy-medium mt-4 leading-6 text-xl lg:text-xl">
-              TradeTrust can bring benefits to the trade, finance and logistics community:
+              TradeTrust can bring benefits to the trade, finance and logistics
+              community:
             </h2>
           </div>
           <div className="flex flex-wrap lg:justify-around">

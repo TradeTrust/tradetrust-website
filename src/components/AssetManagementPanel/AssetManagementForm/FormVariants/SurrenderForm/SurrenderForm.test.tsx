@@ -21,9 +21,13 @@ describe("Surrender", () => {
         />
       );
       const beneficiaryComponent = container.getByTestId("asset-title-owner");
-      const beneficiaryText = container.getByText("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C");
+      const beneficiaryText = container.getByText(
+        "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+      );
       const holderComponent = container.getByTestId("asset-title-holder");
-      const holderText = container.getByText("0xa61B056dA0084a5f391EC137583073096880C2e3");
+      const holderText = container.getByText(
+        "0xa61B056dA0084a5f391EC137583073096880C2e3"
+      );
 
       expect(beneficiaryComponent).not.toBeNull();
       expect(beneficiaryText).not.toBeNull();

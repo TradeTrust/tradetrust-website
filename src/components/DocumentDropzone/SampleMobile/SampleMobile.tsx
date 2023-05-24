@@ -9,11 +9,14 @@ const topMessage = "To verify a demo document";
 const btnMessage = "Click Here";
 const bottomMessage = "or";
 
-export const SampleMobile: FunctionComponent<{ currentChainId: ChainId | undefined }> = ({
-  currentChainId,
-}): React.ReactElement => {
+export const SampleMobile: FunctionComponent<{
+  currentChainId: ChainId | undefined;
+}> = ({ currentChainId }): React.ReactElement => {
   const dispatch = useDispatch();
-  const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
+  const loadCertificate = React.useCallback(
+    (payload: any) => dispatch(updateCertificate(payload)),
+    [dispatch]
+  );
   return currentChainId ? (
     <div className="md:hidden flex flex-col">
       <p className="font-gilroy-bold text-xl mb-4">{topMessage}</p>

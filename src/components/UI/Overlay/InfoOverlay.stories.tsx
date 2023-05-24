@@ -1,4 +1,7 @@
-import { OverlayContextProvider, Textual } from "@govtechsg/tradetrust-ui-components";
+import {
+  OverlayContextProvider,
+  Textual,
+} from "@govtechsg/tradetrust-ui-components";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { InfoOverlay } from "./InfoOverlay";

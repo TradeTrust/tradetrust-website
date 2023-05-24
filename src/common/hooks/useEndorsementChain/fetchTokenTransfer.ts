@@ -11,7 +11,8 @@ export const fetchTokenTransfers = async (
 ): Promise<TokenTransferEvent[]> => {
   // Fetch transfer logs from token registry
   const tokenRegistryAddress = tokenRegistry.address;
-  const identifyTokenTransferEvents = identifyTokenTransferEventsFunction(tokenRegistryAddress);
+  const identifyTokenTransferEvents =
+    identifyTokenTransferEventsFunction(tokenRegistryAddress);
   const transferLogFilter = tokenRegistry.filters.Transfer(null, null, tokenId);
   const logs = await tokenRegistry.queryFilter(transferLogFilter, 0);
   if (logs.length === 0) {
@@ -46,7 +47,9 @@ export const fetchTokenTransfers = async (
   Current interactions between Title Escrow and Token Transfer are:
   SURRENDER, SURRENDER_REJECTED, SURRENDER_ACCEPTED (SHRED), INITIAL (Minting)
 */
-export const identifyTokenTransferEventsFunction = (tokenRegistryAddress: string) => {
+export const identifyTokenTransferEventsFunction = (
+  tokenRegistryAddress: string
+) => {
   return (log: TypedEvent | LogDescription): TokenTransferEventType => {
     const to = log.args.to as string;
     const from = log.args.from as string;

@@ -28,9 +28,13 @@ describe("DocumentUtility", () => {
       },
     });
     await act(async () => {
-      const container = render(<DocumentUtility document={document} onPrint={() => {}} />);
+      const container = render(
+        <DocumentUtility document={document} onPrint={() => {}} />
+      );
 
-      const qrbuttonComponent = container.getByRole("button", { name: "document-utility-qr-button" });
+      const qrbuttonComponent = container.getByRole("button", {
+        name: "document-utility-qr-button",
+      });
 
       expect(qrbuttonComponent).toBeVisible();
     });
@@ -42,9 +46,13 @@ describe("DocumentUtility", () => {
       name: "bah bah black sheep",
     });
     await act(async () => {
-      const container = render(<DocumentUtility document={document as any} onPrint={() => {}} />);
+      const container = render(
+        <DocumentUtility document={document as any} onPrint={() => {}} />
+      );
 
-      const qrbuttonComponent = container.queryByRole("button", { name: "document-utility-qr-button" });
+      const qrbuttonComponent = container.queryByRole("button", {
+        name: "document-utility-qr-button",
+      });
 
       expect(qrbuttonComponent).toBeNull();
     });
@@ -56,10 +64,9 @@ describe("DocumentUtility", () => {
       name: "bah bah black sheep",
     });
     render(<DocumentUtility document={document} onPrint={() => {}} />);
-    expect(screen.queryByRole("button", { name: "document-utility-download" })).toHaveAttribute(
-      "download",
-      "bah bah black sheep.tt"
-    );
+    expect(
+      screen.queryByRole("button", { name: "document-utility-download" })
+    ).toHaveAttribute("download", "bah bah black sheep.tt");
   });
 
   it("should show Untitled file name if not exists", () => {
@@ -67,9 +74,8 @@ describe("DocumentUtility", () => {
       issuers,
     });
     render(<DocumentUtility document={document} onPrint={() => {}} />);
-    expect(screen.queryByRole("button", { name: "document-utility-download" })).toHaveAttribute(
-      "download",
-      "Untitled.tt"
-    );
+    expect(
+      screen.queryByRole("button", { name: "document-utility-download" })
+    ).toHaveAttribute("download", "Untitled.tt");
   });
 });

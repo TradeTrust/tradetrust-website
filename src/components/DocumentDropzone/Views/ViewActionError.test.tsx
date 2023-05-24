@@ -47,9 +47,15 @@ describe("ViewActionError", () => {
       </RenderWithStore>
     );
 
-    expect(screen.getByText("Unable to load certificate with the provided parameters")).toBeInTheDocument();
     expect(
-      screen.getByText("Unable to decrypt certificate with key=undefined and type=OPEN-ATTESTATION-TYPE-1")
+      screen.getByText(
+        "Unable to load certificate with the provided parameters"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Unable to decrypt certificate with key=undefined and type=OPEN-ATTESTATION-TYPE-1"
+      )
     ).toBeInTheDocument();
   });
 

@@ -12,7 +12,10 @@ import { configureStore } from "./store";
 import { Router } from "react-router-dom";
 import { history } from "./history";
 import { NETWORK_NAME } from "./config";
-import { getChainInfoFromNetworkName, getSupportedChainInfo } from "./common/utils/chain-utils";
+import {
+  getChainInfoFromNetworkName,
+  getSupportedChainInfo,
+} from "./common/utils/chain-utils";
 import { GA_MEASUREMENT_ID } from "./config";
 
 const store = configureStore();

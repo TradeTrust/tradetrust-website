@@ -15,15 +15,25 @@ export const publishDocument = async (
   const {
     signature: { targetHash },
   } = wrappedDocument;
-  const documentStore = DocumentStoreFactory.connect(documentStoreAddress, signer);
-  const contractTransaction: ContractTransaction = await documentStore.issue(`0x${targetHash}`);
+  const documentStore = DocumentStoreFactory.connect(
+    documentStoreAddress,
+    signer
+  );
+  const contractTransaction: ContractTransaction = await documentStore.issue(
+    `0x${targetHash}`
+  );
   const contractReceipt: ContractReceipt = await contractTransaction.wait();
 
   if (!contractReceipt.transactionHash)
-    throw new Error(`contractReceipt hash not available: ${JSON.stringify(contractReceipt)}`);
+    throw new Error(
+      `contractReceipt hash not available: ${JSON.stringify(contractReceipt)}`
+    );
 };
 
-export const deployDocumentStore = async (signer: Signer, documentStoreName: string): Promise<string> => {
+export const deployDocumentStore = async (
+  signer: Signer,
+  documentStoreName: string
+): Promise<string> => {
   try {
     const factory = new DocumentStoreFactory(signer);
     const documentStore = await factory.deploy(documentStoreName);
@@ -36,11 +46,15 @@ export const deployDocumentStore = async (signer: Signer, documentStoreName: str
   }
 };
 
-export const getWrappedDocument = async (rawDocument: v2.OpenAttestationDocument): Promise<WrappedDocument<any>> => {
+export const getWrappedDocument = async (
+  rawDocument: v2.OpenAttestationDocument
+): Promise<WrappedDocument<any>> => {
   return await wrapDocument(rawDocument);
 };
 
-export const createTempDns = async (documentStoreAddress: string): Promise<string> => {
+export const createTempDns = async (
+  documentStoreAddress: string
+): Promise<string> => {
   const sandboxEndpoint = `https://sandbox.fyntech.io`;
 
   try {

@@ -10,7 +10,9 @@ const NewsSingleTitle: FunctionComponent<{ title: string }> = ({ title }) => {
 
 export const NewsCard: FunctionComponent<{ news: NewsSingle }> = ({ news }) => {
   const isThumbnail = !!news.attributes.thumbnail;
-  const image = isThumbnail ? news.attributes.thumbnail : "/static/images/news/news-generic.png";
+  const image = isThumbnail
+    ? news.attributes.thumbnail
+    : "/static/images/news/news-generic.png";
   const isDownloadFile = !!news.attributes.file;
 
   return (
@@ -28,7 +30,9 @@ export const NewsCard: FunctionComponent<{ news: NewsSingle }> = ({ news }) => {
       <div className="relative z-10 flex flex-col h-full">
         <div className="flex-1">
           <div className="flex flex-wrap">
-            <TagBorderedSm className="flex items-center border border-white mr-2 h-8">{news.type}</TagBorderedSm>
+            <TagBorderedSm className="flex items-center border border-white mr-2 h-8">
+              {news.type}
+            </TagBorderedSm>
             {isDownloadFile && (
               <div className="flex items-center w-8 h-8 border border-white rounded-lg text-white">
                 <Download width="20" height="20" className="m-auto" />

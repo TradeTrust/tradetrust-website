@@ -12,7 +12,8 @@ const mockAllEvents: EventProps[] = [
   {
     slug: "",
     attributes: {
-      title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
+      title:
+        "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
       blurb:
         "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
       link: "https://www.baft.org/baft-education/e-learning/past-webinars",
@@ -21,14 +22,17 @@ const mockAllEvents: EventProps[] = [
       timeEnd: "2021-03-19T14:00:00.000Z",
       videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
       slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
-      downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
+      downloadableMediaContent: [
+        "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+      ],
       eventDetails: "",
     },
   },
   {
     slug: "",
     attributes: {
-      title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
+      title:
+        "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
       blurb:
         "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
       link: "https://www.baft.org/baft-education/e-learning/past-webinars",
@@ -37,14 +41,17 @@ const mockAllEvents: EventProps[] = [
       timeEnd: "2021-03-19T14:00:00.000Z",
       videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
       slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
-      downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
+      downloadableMediaContent: [
+        "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+      ],
       eventDetails: "",
     },
   },
   {
     slug: "",
     attributes: {
-      title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
+      title:
+        "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
       blurb:
         "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
       link: "https://www.baft.org/baft-education/e-learning/past-webinars",
@@ -53,7 +60,9 @@ const mockAllEvents: EventProps[] = [
       timeEnd: "2021-03-19T14:00:00.000Z",
       videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
       slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
-      downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
+      downloadableMediaContent: [
+        "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+      ],
       eventDetails: "",
     },
   },
@@ -80,7 +89,9 @@ describe("Event", () => {
   });
 
   it("should filter event in 'Past Event' category correctly", () => {
-    mockFilterByCategory.mockReturnValueOnce(mockAllEvents.filter((event) => isPast(new Date(event.attributes.date))));
+    mockFilterByCategory.mockReturnValueOnce(
+      mockAllEvents.filter((event) => isPast(new Date(event.attributes.date)))
+    );
     const filteredEvents = filterByCategory("Past Event", mockAllEvents);
     expect(filteredEvents.length).toEqual(2);
   });

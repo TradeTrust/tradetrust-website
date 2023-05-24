@@ -6,27 +6,46 @@ const sampleData = `eyJ2ZXJzaW9uIjoiaHR0cHM6Ly9zY2hlbWEub3BlbmF0dGVzdGF0aW9uLmNv
 
 describe("AttachmentLink", () => {
   it("should render filename correctly", () => {
-    const container = render(<AttachmentLink filename="TradeTrust Tech Webinar 2.pdf" data={sampleData} />);
+    const container = render(
+      <AttachmentLink
+        filename="TradeTrust Tech Webinar 2.pdf"
+        data={sampleData}
+      />
+    );
     expect(container.getByText("TradeTrust Tech Webinar 2.pdf")).not.toBeNull();
   });
 
   it("should render download link with base64 correctly", () => {
     const container = render(
-      <AttachmentLink filename="TradeTrust Tech Webinar 2.pdf" data={`123`} type="application/pdf" />
+      <AttachmentLink
+        filename="TradeTrust Tech Webinar 2.pdf"
+        data={`123`}
+        type="application/pdf"
+      />
     );
     expect(container.getByText("Download")).not.toBeNull();
   });
 
   it("should render open link with base64 correctly if tt file", () => {
     const container = render(
-      <AttachmentLink filename="document.tt" data={sampleData} type="application/octet-stream" />
+      <AttachmentLink
+        filename="document.tt"
+        data={sampleData}
+        type="application/octet-stream"
+      />
     );
     expect(container.getByText("Download")).not.toBeNull();
     expect(container.getByText("Open")).not.toBeNull();
   });
 
   it("should render a uploaded pdf file correctly", () => {
-    const container = render(<AttachmentLink filename="asdfdfs.pdf" data="asdfasdf" type="application/pdf" />);
+    const container = render(
+      <AttachmentLink
+        filename="asdfdfs.pdf"
+        data="asdfasdf"
+        type="application/pdf"
+      />
+    );
     expect(container.queryByText("asdfdfs.pdf")).not.toBeNull();
     expect(container.queryByText("(6 B)")).not.toBeNull();
     expect(container.getByText("Download")).not.toBeNull();
@@ -35,24 +54,56 @@ describe("AttachmentLink", () => {
   it("should render a uploaded file icons correctly", () => {
     const container = render(
       <>
-        <AttachmentLink filename="asdfdfs.pdf" data="asdfasdf" type="application/pdf" />
-        <AttachmentLink filename="asdfdfs.csv" data="asdfasdf" type="text/csv" />
-        <AttachmentLink filename="asdfdfs.xls" data="asdfasdf" type="application/vnd.ms-excel" />
+        <AttachmentLink
+          filename="asdfdfs.pdf"
+          data="asdfasdf"
+          type="application/pdf"
+        />
+        <AttachmentLink
+          filename="asdfdfs.csv"
+          data="asdfasdf"
+          type="text/csv"
+        />
+        <AttachmentLink
+          filename="asdfdfs.xls"
+          data="asdfasdf"
+          type="application/vnd.ms-excel"
+        />
         <AttachmentLink
           filename="asdfdfs.xlsx"
           data="asdfasdf"
           type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         />
-        <AttachmentLink filename="asdfdfs.txt" data="asdfasdf" type="text/plain" />
+        <AttachmentLink
+          filename="asdfdfs.txt"
+          data="asdfasdf"
+          type="text/plain"
+        />
         <AttachmentLink
           filename="asdfdfs.docx"
           data="asdfasdf"
           type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         />
-        <AttachmentLink filename="asdfdfs.doc" data="asdfasdf" type="application/msword" />
-        <AttachmentLink filename="asdfdfs.jpg" data="asdfasdf" type="image/jpeg" />
-        <AttachmentLink filename="asdfdfs.png" data="asdfasdf" type="image/png" />
-        <AttachmentLink filename="asdfdfs.json" data="asdfasdf" type="application/json" />
+        <AttachmentLink
+          filename="asdfdfs.doc"
+          data="asdfasdf"
+          type="application/msword"
+        />
+        <AttachmentLink
+          filename="asdfdfs.jpg"
+          data="asdfasdf"
+          type="image/jpeg"
+        />
+        <AttachmentLink
+          filename="asdfdfs.png"
+          data="asdfasdf"
+          type="image/png"
+        />
+        <AttachmentLink
+          filename="asdfdfs.json"
+          data="asdfasdf"
+          type="application/json"
+        />
       </>
     );
     expect(container.queryByTestId("attachment-icon-pdf")).not.toBeNull();

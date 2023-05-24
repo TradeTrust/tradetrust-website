@@ -33,7 +33,12 @@ const document = wrapDocument({
 });
 
 const DocumentStatusWithStore = ({ verificationStatus }: any) => {
-  const store = configureStore({ certificate: { rawModified: document, verificationStatus: verificationStatus } });
+  const store = configureStore({
+    certificate: {
+      rawModified: document,
+      verificationStatus: verificationStatus,
+    },
+  });
   return (
     <Provider store={store}>
       <DocumentStatus />
@@ -50,15 +55,25 @@ export default {
 };
 
 export const DocumentValid = () => {
-  return <DocumentStatusWithStore verificationStatus={whenDocumentValidAndIssuedByDns} />;
+  return (
+    <DocumentStatusWithStore
+      verificationStatus={whenDocumentValidAndIssuedByDns}
+    />
+  );
 };
 
 export const DocumentValidTransferable = () => {
-  return <DocumentStatusWithStore verificationStatus={whenTransferableDocumentVerified} />;
+  return (
+    <DocumentStatusWithStore
+      verificationStatus={whenTransferableDocumentVerified}
+    />
+  );
 };
 
 export const DocumentTampered = () => {
-  return <DocumentStatusWithStore verificationStatus={whenDocumentHashInvalid} />;
+  return (
+    <DocumentStatusWithStore verificationStatus={whenDocumentHashInvalid} />
+  );
 };
 
 export const DocumentNotIssued = () => {
@@ -70,9 +85,17 @@ export const DocumentRevoked = () => {
 };
 
 export const DocumentIssuerIdentityInvalid = () => {
-  return <DocumentStatusWithStore verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt} />;
+  return (
+    <DocumentStatusWithStore
+      verificationStatus={whenDocumentIssuerIdentityInvalidDnsTxt}
+    />
+  );
 };
 
 export const DocumentAllVerificationFail = () => {
-  return <DocumentStatusWithStore verificationStatus={whenDocumentHashInvalidAndNotIssued} />;
+  return (
+    <DocumentStatusWithStore
+      verificationStatus={whenDocumentHashInvalidAndNotIssued}
+    />
+  );
 };

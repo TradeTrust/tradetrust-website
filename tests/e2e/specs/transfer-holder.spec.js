@@ -15,7 +15,13 @@ describe("Transfer Holder", () => {
     cy.get("[data-testid='editable-input-holder']").type(ACCOUNT_2);
     cy.get("[data-testid='transferBtn']").click();
     cy.confirmMetamaskTransaction();
-    cy.get("[data-testid='non-editable-input-holder']").should("have.text", ACCOUNT_2);
-    cy.get("[data-testid='overlay-title']").should("have.text", "Transfer Holder Success");
+    cy.get("[data-testid='non-editable-input-holder']").should(
+      "have.text",
+      ACCOUNT_2
+    );
+    cy.get("[data-testid='overlay-title']").should(
+      "have.text",
+      "Transfer Holder Success"
+    );
   });
 });

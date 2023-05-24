@@ -1,10 +1,17 @@
 import { Selector } from "testcafe";
-import { location, navigateToVerify, uploadDocument, validateIframeTexts } from "./helper";
+import {
+  location,
+  navigateToVerify,
+  uploadDocument,
+  validateIframeTexts,
+} from "./helper";
 
 fixture("Nested documents").page`${location}`;
 
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
-const AttachmentOpen0 = Selector("[data-testid='attachment-tile-0']").find("[data-testid='attachment-open-link']");
+const AttachmentOpen0 = Selector("[data-testid='attachment-tile-0']").find(
+  "[data-testid='attachment-open-link']"
+);
 
 test("Document with nested document in attachments should open in new tab correctly", async (t) => {
   await navigateToVerify();

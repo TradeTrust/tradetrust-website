@@ -9,7 +9,12 @@ interface BannerProps extends InputHTMLAttributes<HTMLInputElement> {
   to: string;
 }
 
-export const Banner: FunctionComponent<BannerProps> = ({ className, title, buttonText, to }: BannerProps) => {
+export const Banner: FunctionComponent<BannerProps> = ({
+  className,
+  title,
+  buttonText,
+  to,
+}: BannerProps) => {
   return (
     <div className={`${className ? className : ""}`}>
       <div className="container">
@@ -20,7 +25,10 @@ export const Banner: FunctionComponent<BannerProps> = ({ className, title, butto
             </div>
             <div className="px-2 w-auto lg:ml-auto">
               <NavLink to={to}>
-                <Button className="bg-tangerine-500 text-white hover:bg-tangerine-800 border-none" size={ButtonSize.LG}>
+                <Button
+                  className="bg-tangerine-500 text-white hover:bg-tangerine-800 border-none"
+                  size={ButtonSize.LG}
+                >
                   <h4>{buttonText}</h4>
                 </Button>
               </NavLink>

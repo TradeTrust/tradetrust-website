@@ -38,8 +38,14 @@ export const FaqPageDetail: FunctionComponent = () => {
           property="og:description"
           content="Here are some of the answers to the most frequently asked questions regarding TradeTrust."
         />
-        <meta property="og:title" content="TradeTrust - Frequently Asked Questions" />
-        <meta property="og:url" content={`${window.location.origin}${location.pathname}`} />
+        <meta
+          property="og:title"
+          content="TradeTrust - Frequently Asked Questions"
+        />
+        <meta
+          property="og:url"
+          content={`${window.location.origin}${location.pathname}`}
+        />
         <title>TradeTrust - Frequently Asked Questions</title>
         <meta
           name="keywords"
@@ -49,7 +55,10 @@ export const FaqPageDetail: FunctionComponent = () => {
       <div className="container py-12">
         <div className="flex">
           <div className="w-auto">
-            <Link to="/faq" className="text-cloud-800 flex flex-nowrap items-center">
+            <Link
+              to="/faq"
+              className="text-cloud-800 flex flex-nowrap items-center"
+            >
               <ChevronLeft />
               <h5>Back</h5>
             </Link>

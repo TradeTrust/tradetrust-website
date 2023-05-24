@@ -42,7 +42,12 @@ export const useSupportsInterface = (
       setErrorMessage(undefined);
       resetSupportsInterface();
     };
-  }, [interfaceId, supportsInterface, contractInstance, resetSupportsInterface]);
+  }, [
+    interfaceId,
+    supportsInterface,
+    contractInstance,
+    resetSupportsInterface,
+  ]);
 
   // On result return, infer the types
   useEffect(() => {
@@ -50,7 +55,9 @@ export const useSupportsInterface = (
       error(supportsInterfaceErrorMessage);
       if (supportsInterfaceErrorMessage?.includes("contract not deployed")) {
         setIsInterfaceType(false);
-      } else if (supportsInterfaceErrorMessage?.includes("call revert exception")) {
+      } else if (
+        supportsInterfaceErrorMessage?.includes("call revert exception")
+      ) {
         // ethers@5.x updated error message type
         // error for method doesnt exist (can infer that contract does not inherit from Erc165)
         setIsInterfaceType(false);

@@ -6,7 +6,10 @@ export interface ResourceDownloadProps {
   resources: NewsSingle[];
 }
 
-export const ResourceDownload: FunctionComponent<ResourceDownloadProps> = ({ title, resources }) => {
+export const ResourceDownload: FunctionComponent<ResourceDownloadProps> = ({
+  title,
+  resources,
+}) => {
   return (
     <>
       <div className="text-cloud-800 text-xl font-medium mb-2">{title}</div>

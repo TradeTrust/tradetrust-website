@@ -5,6 +5,11 @@ interface LoaderProps {
   width?: string;
 }
 
-export const LoaderSkeleton: React.FunctionComponent<LoaderProps> = ({ className, ...props }: LoaderProps) => {
-  return <div className={`skeleton-loading skeleton ${className}`} {...props} />;
+export const LoaderSkeleton: React.FunctionComponent<LoaderProps> = ({
+  className,
+  ...props
+}: LoaderProps) => {
+  return (
+    <div className={`skeleton-loading skeleton ${className}`} {...props} />
+  );
 };

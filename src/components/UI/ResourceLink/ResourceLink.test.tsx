@@ -26,7 +26,13 @@ describe("ResourceLink", () => {
   });
 
   it("should render icon if there are any icon", () => {
-    render(<ResourceLink title={mockTitle} resources={mockResources} icon={mockIcon} />);
+    render(
+      <ResourceLink
+        title={mockTitle}
+        resources={mockResources}
+        icon={mockIcon}
+      />
+    );
 
     expect(screen.getByTestId("link-icon")).not.toBeNull();
   });

@@ -8,7 +8,9 @@ describe("CostHeader", () => {
   it("should render CostHeader component correctly", () => {
     render(<CostHeader />);
 
-    expect(screen.getByText(/TradeTrust is free to use for all,/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/TradeTrust is free to use for all,/)
+    ).toBeInTheDocument();
   });
 });
 
@@ -17,8 +19,16 @@ describe("OpenSourceSoftware", () => {
     render(<OpenSourceSoftware />);
 
     expect(screen.getByText(/Open-Source Software/)).toBeInTheDocument();
-    expect(screen.getByText(/TradeTrust's open-source code can be downloaded for free from/)).toBeInTheDocument();
-    expect(screen.getByText(/Singapore's 2021 amendment of its Electronic Transactions Act/)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /TradeTrust's open-source code can be downloaded for free from/
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Singapore's 2021 amendment of its Electronic Transactions Act/
+      )
+    ).toBeInTheDocument();
   });
 });
 
@@ -26,6 +36,8 @@ describe("CostOperation", () => {
   it("should render CostOperation component correctly", () => {
     render(<CostOperation />);
 
-    expect(screen.getByText(/Cost of Operation - Transferable Documents/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Cost of Operation - Transferable Documents/)
+    ).toBeInTheDocument();
   });
 });

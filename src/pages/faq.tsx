@@ -14,7 +14,10 @@ export const FaqPage: FunctionComponent = () => (
         property="og:description"
         content="Here are some of the answers to the most frequently asked questions regarding TradeTrust."
       />
-      <meta property="og:title" content="TradeTrust - Frequently Asked Questions" />
+      <meta
+        property="og:title"
+        content="TradeTrust - Frequently Asked Questions"
+      />
       <meta property="og:url" content={`${window.location.origin}/faq`} />
       <title>TradeTrust - Frequently Asked Questions</title>
       <meta

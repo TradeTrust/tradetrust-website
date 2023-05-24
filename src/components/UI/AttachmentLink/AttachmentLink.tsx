@@ -25,19 +25,51 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
   switch (true) {
     case mimeType === "text/csv" ||
       mimeType === "application/vnd.ms-excel" ||
-      mimeType === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-      return <ExtensionIcon src="/static/images/fileicons/csv.svg" data-testid="attachment-icon-csv" />;
-    case mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+      mimeType ===
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+      return (
+        <ExtensionIcon
+          src="/static/images/fileicons/csv.svg"
+          data-testid="attachment-icon-csv"
+        />
+      );
+    case mimeType ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
       mimeType === "application/msword":
-      return <ExtensionIcon src="/static/images/fileicons/doc.svg" data-testid="attachment-icon-doc" />;
+      return (
+        <ExtensionIcon
+          src="/static/images/fileicons/doc.svg"
+          data-testid="attachment-icon-doc"
+        />
+      );
     case mimeType === "image/jpeg":
-      return <ExtensionIcon src="/static/images/fileicons/jpg.svg" data-testid="attachment-icon-jpg" />;
+      return (
+        <ExtensionIcon
+          src="/static/images/fileicons/jpg.svg"
+          data-testid="attachment-icon-jpg"
+        />
+      );
     case mimeType === "image/png":
-      return <ExtensionIcon src="/static/images/fileicons/png.svg" data-testid="attachment-icon-png" />;
+      return (
+        <ExtensionIcon
+          src="/static/images/fileicons/png.svg"
+          data-testid="attachment-icon-png"
+        />
+      );
     case mimeType === "application/pdf":
-      return <ExtensionIcon src="/static/images/fileicons/pdf.svg" data-testid="attachment-icon-pdf" />;
+      return (
+        <ExtensionIcon
+          src="/static/images/fileicons/pdf.svg"
+          data-testid="attachment-icon-pdf"
+        />
+      );
     case mimeType === "text/plain":
-      return <ExtensionIcon src="/static/images/fileicons/txt.svg" data-testid="attachment-icon-txt" />;
+      return (
+        <ExtensionIcon
+          src="/static/images/fileicons/txt.svg"
+          data-testid="attachment-icon-txt"
+        />
+      );
     default:
       return (
         <div
@@ -77,7 +109,12 @@ const isOpenAttestationFile = (decodedData: string) => {
   }
 };
 
-export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filename, data, type, path }) => {
+export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({
+  filename,
+  data,
+  type,
+  path,
+}) => {
   let filesize = "0";
   let canOpenFile = false;
   const hasBase64 = !!(data && type);
@@ -95,7 +132,11 @@ export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filenam
             <span className="transition duration-300 ease-out leading-5 text-cloud-500 break-words font-gilroy-bold mr-1">
               {filename}
             </span>
-            {hasBase64 && <span className="font-normal text-cloud-500 text-sm">({filesize})</span>}
+            {hasBase64 && (
+              <span className="font-normal text-cloud-500 text-sm">
+                ({filesize})
+              </span>
+            )}
           </p>
           <div className="flex">
             <div className="w-auto mr-2">

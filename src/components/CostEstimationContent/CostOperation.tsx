@@ -13,8 +13,14 @@ import {
 } from "../../constants/cost-estimation";
 
 export const CostOperation: FunctionComponent = () => {
-  const { price: ePrice, gwei: eGwei } = useFetchGasPrice("ethereum", REFRESH_RATE);
-  const { price: mPrice, gwei: mGwei } = useFetchGasPrice("polygon", REFRESH_RATE);
+  const { price: ePrice, gwei: eGwei } = useFetchGasPrice(
+    "ethereum",
+    REFRESH_RATE
+  );
+  const { price: mPrice, gwei: mGwei } = useFetchGasPrice(
+    "polygon",
+    REFRESH_RATE
+  );
 
   const makePrices = useCallback(() => {
     const priceFactor = eGwei * GWEI_FACTOR * ePrice;
@@ -26,10 +32,19 @@ export const CostOperation: FunctionComponent = () => {
       BURN_DOC_GAS,
       SURRENDER_DOC_GAS,
     ];
-    const operationKeys = ["xferOwner", "xferHolder", "issue", "burn", "surrender"];
+    const operationKeys = [
+      "xferOwner",
+      "xferHolder",
+      "issue",
+      "burn",
+      "surrender",
+    ];
     // [] -> [] -> {}
     const tree = gasEstimates.map((estimate, i) => {
-      return [operationKeys[i], { eth: estimate * priceFactor, matic: estimate * maticPriceFactor }];
+      return [
+        operationKeys[i],
+        { eth: estimate * priceFactor, matic: estimate * maticPriceFactor },
+      ];
     });
     return Object.fromEntries(tree);
   }, [ePrice, mPrice, eGwei, mGwei]);
@@ -124,9 +139,11 @@ export const CostOperation: FunctionComponent = () => {
         <div className="text-center">
           <h2>Cost of Operation - Transferable Documents</h2>
           <h4 className="mt-3">
-            The gas fee varies with the role you are in the supply chain, trade document type and blockchain network.
+            The gas fee varies with the role you are in the supply chain, trade
+            document type and blockchain network.
             <br />
-            Click on the persona to see how much it cost for each transaction based on blank-endorsed BL document flow.
+            Click on the persona to see how much it cost for each transaction
+            based on blank-endorsed BL document flow.
           </h4>
           <div className="flex flex-col lg:flex-row items-center lg:justify-center mb-4">
             {costData.map((persona, index) => {

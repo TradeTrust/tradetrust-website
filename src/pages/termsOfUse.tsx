@@ -11,7 +11,10 @@ export const TermsOfUsePage: FunctionComponent = () => {
         <meta name="terms of use" content="Terms Of Use" />
         <meta property="og:terms of use" content="Terms Of Use" />
         <meta property="og:title" content="TradeTrust - Terms Of Use" />
-        <meta property="og:url" content={`${window.location.origin}/terms-of-use`} />
+        <meta
+          property="og:url"
+          content={`${window.location.origin}/terms-of-use`}
+        />
         <title>TradeTrust - Terms Of Use</title>
       </Helmet>
       <Page title="Terms Of Use">
@@ -19,8 +22,12 @@ export const TermsOfUsePage: FunctionComponent = () => {
           <ReactMarkdown
             className="legal"
             components={{
-              p: ({ ...props }) => <p className={"mb-4 break-word"} {...props} />,
-              a: ({ ...props }) => <a target={"_blank"} rel={"noopener noreferrer"} {...props} />,
+              p: ({ ...props }) => (
+                <p className={"mb-4 break-word"} {...props} />
+              ),
+              a: ({ ...props }) => (
+                <a target={"_blank"} rel={"noopener noreferrer"} {...props} />
+              ),
             }}
           >
             {termsOfUse.body}

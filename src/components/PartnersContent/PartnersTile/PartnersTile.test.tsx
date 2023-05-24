@@ -18,7 +18,12 @@ describe("PartnersTile", () => {
 
     expect(screen.getByText("ABC Company")).not.toBeNull();
     expect(screen.getByText("Some Company description")).not.toBeNull();
-    expect(screen.getByTestId("partner-logo-abc-company")).toHaveAttribute("src", "/logo");
-    expect(screen.getByTestId("partner-website-link-abc-company")).toHaveAttribute("href", "website.com");
+    expect(screen.getByTestId("partner-logo-abc-company")).toHaveAttribute(
+      "src",
+      "/logo"
+    );
+    expect(
+      screen.getByTestId("partner-website-link-abc-company")
+    ).toHaveAttribute("href", "website.com");
   });
 });

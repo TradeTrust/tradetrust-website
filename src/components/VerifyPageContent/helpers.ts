@@ -12,7 +12,10 @@ export const getDemoCert = (chainId: ChainId): string => {
   return `/static/demo/${networkName}.tt`;
 };
 
-export const loadDemoCertificate = (loadCertificate: LoadCertificate, chainId: ChainId): void => {
+export const loadDemoCertificate = (
+  loadCertificate: LoadCertificate,
+  chainId: ChainId
+): void => {
   window
     .fetch(getDemoCert(chainId))
     .then((res) => res.json())

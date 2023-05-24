@@ -1,16 +1,29 @@
 import React, { FunctionComponent, useState, useCallback } from "react";
 import { compareAsc, compareDesc } from "date-fns";
-import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@govtechsg/tradetrust-ui-components";
+import {
+  Pagination,
+  getPaginatedPosts,
+  getPaginatedPagesTotal,
+} from "@govtechsg/tradetrust-ui-components";
 import { NewsTag, NewsSort, NewsSingle } from "./../types";
 import { NewsLink } from "./../NewsLink";
 import { NewsFilter } from "./../NewsFilter";
 
 export const newsPerPage = 12;
 
-const PaginatedNews: FunctionComponent<{ filteredNews: NewsSingle[] }> = ({ filteredNews }) => {
+const PaginatedNews: FunctionComponent<{ filteredNews: NewsSingle[] }> = ({
+  filteredNews,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const paginatedPosts = getPaginatedPosts({ posts: filteredNews, postsPerPage: newsPerPage, currentPage });
-  const totalNoOfPages = getPaginatedPagesTotal({ posts: filteredNews, postsPerPage: newsPerPage });
+  const paginatedPosts = getPaginatedPosts({
+    posts: filteredNews,
+    postsPerPage: newsPerPage,
+    currentPage,
+  });
+  const totalNoOfPages = getPaginatedPagesTotal({
+    posts: filteredNews,
+    postsPerPage: newsPerPage,
+  });
 
   return (
     <>
@@ -23,18 +36,25 @@ const PaginatedNews: FunctionComponent<{ filteredNews: NewsSingle[] }> = ({ filt
           );
         })}
       </div>
-      <Pagination totalNoOfPages={totalNoOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <Pagination
+        totalNoOfPages={totalNoOfPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };
 
-export const NewsContent: FunctionComponent<{ allNews: NewsSingle[] }> = ({ allNews }) => {
+export const NewsContent: FunctionComponent<{ allNews: NewsSingle[] }> = ({
+  allNews,
+}) => {
   const [searchStr, setSearchStr] = useState<string>("");
   const [dropdownFilter, setDropdownFilter] = useState<NewsTag>();
   const [dropdownSort, setDropdownSort] = useState<NewsSort>();
 
   const filterBySearchStr = useCallback(
-    (news: NewsSingle) => news.attributes.title.toLowerCase().includes(searchStr.toLowerCase()),
+    (news: NewsSingle) =>
+      news.attributes.title.toLowerCase().includes(searchStr.toLowerCase()),
     [searchStr]
   );
 
@@ -53,9 +73,15 @@ export const NewsContent: FunctionComponent<{ allNews: NewsSingle[] }> = ({ allN
     (a, b) => {
       switch (dropdownSort) {
         case NewsSort.ASC:
-          return compareAsc(new Date(a.attributes.date), new Date(b.attributes.date));
+          return compareAsc(
+            new Date(a.attributes.date),
+            new Date(b.attributes.date)
+          );
         case NewsSort.DESC:
-          return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
+          return compareDesc(
+            new Date(a.attributes.date),
+            new Date(b.attributes.date)
+          );
         default:
           return 0;
       }
@@ -63,7 +89,10 @@ export const NewsContent: FunctionComponent<{ allNews: NewsSingle[] }> = ({ allN
     [dropdownSort]
   );
 
-  const filteredNews = allNews.filter(filterBySearchStr).filter(filterByTag).sort(sortByDate);
+  const filteredNews = allNews
+    .filter(filterBySearchStr)
+    .filter(filterByTag)
+    .sort(sortByDate);
 
   return (
     <>

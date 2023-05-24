@@ -2,7 +2,10 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
 import { Page } from "../components/Layout/Page";
-import { OverlayContent, OverlayContextProvider } from "@govtechsg/tradetrust-ui-components";
+import {
+  OverlayContent,
+  OverlayContextProvider,
+} from "@govtechsg/tradetrust-ui-components";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
 import { InfoOverlay } from "../components/UI/Overlay";
 
@@ -35,8 +38,12 @@ const VerifyPage = (): React.ReactElement => {
           <NetworkSelect />
           <OverlayContextProvider>
             <InfoOverlay className="p-0 ml-3 cursor-pointer focus:outline-none">
-              <OverlayContent className="bg-white max-w-sm lg:max-w-md" title="Network Selector">
-                A document can only be successfully verified on the same network where the document was created in.
+              <OverlayContent
+                className="bg-white max-w-sm lg:max-w-md"
+                title="Network Selector"
+              >
+                A document can only be successfully verified on the same network
+                where the document was created in.
                 <br />
                 If unsure, do check with the document issuer.
               </OverlayContent>

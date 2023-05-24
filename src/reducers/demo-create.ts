@@ -122,21 +122,31 @@ export const getIssuedDocumentStatus = (store: RootState): Status => {
   return store.demoCreate.issueDocumentStatus;
 };
 
-export const getDocumentPrepared = (store: RootState): { prepared: boolean; error: boolean } => {
+export const getDocumentPrepared = (
+  store: RootState
+): { prepared: boolean; error: boolean } => {
   const { createTempDnsStatus, deploymentDocStoreStatus } = store.demoCreate;
 
   return {
-    prepared: createTempDnsStatus === "success" && deploymentDocStoreStatus === "success",
-    error: createTempDnsStatus === "failure" || deploymentDocStoreStatus === "failure",
+    prepared:
+      createTempDnsStatus === "success" &&
+      deploymentDocStoreStatus === "success",
+    error:
+      createTempDnsStatus === "failure" ||
+      deploymentDocStoreStatus === "failure",
   };
 };
 
-export const getDocumentIssued = (store: RootState): { issued: boolean; error: boolean } => {
+export const getDocumentIssued = (
+  store: RootState
+): { issued: boolean; error: boolean } => {
   const { wrapDocumentStatus, issueDocumentStatus } = store.demoCreate;
 
   return {
-    issued: wrapDocumentStatus === "success" && issueDocumentStatus === "success",
-    error: wrapDocumentStatus === "failure" || issueDocumentStatus === "failure",
+    issued:
+      wrapDocumentStatus === "success" && issueDocumentStatus === "success",
+    error:
+      wrapDocumentStatus === "failure" || issueDocumentStatus === "failure",
   };
 };
 

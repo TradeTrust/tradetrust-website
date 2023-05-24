@@ -1,5 +1,10 @@
 import { Selector } from "testcafe";
-import { location, navigateToVerify, uploadDocument, validateIframeTexts } from "./helper";
+import {
+  location,
+  navigateToVerify,
+  uploadDocument,
+  validateIframeTexts,
+} from "./helper";
 
 fixture("Document with 8 Attachments Rendering File Icons").page`${location}`;
 

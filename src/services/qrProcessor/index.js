@@ -20,7 +20,9 @@ export const processQrCode = async (qrCode) => {
   try {
     const { action, anchor } = decodeQrCode(qrCode);
     if (action.type !== "DOCUMENT")
-      throw new Error(`The type ${action.type} provided from the action is not supported`);
+      throw new Error(
+        `The type ${action.type} provided from the action is not supported`
+      );
     return { payload: action.payload, anchor };
   } catch (e) {
     error(e.message);

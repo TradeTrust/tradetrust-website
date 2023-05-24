@@ -2,16 +2,22 @@ import { Provider } from "@ethersproject/abstract-provider";
 import { Dictionary, groupBy } from "lodash";
 import { TransferBaseEvent, TransferEventType } from "../../../types";
 
-export const fetchEventTime = async (blockNumber: number, provider: Provider): Promise<number> => {
+export const fetchEventTime = async (
+  blockNumber: number,
+  provider: Provider
+): Promise<number> => {
   const msecToSec = 1000;
-  const eventTimestamp = (await provider.getBlock(blockNumber)).timestamp * msecToSec;
+  const eventTimestamp =
+    (await provider.getBlock(blockNumber)).timestamp * msecToSec;
   return eventTimestamp;
 };
 
 /*
   Get available owner/holder from list of events
 */
-export const getHolderOwner = (events: TransferBaseEvent[]): { owner: string; holder: string } => {
+export const getHolderOwner = (
+  events: TransferBaseEvent[]
+): { owner: string; holder: string } => {
   let owner = "";
   let holder = "";
   for (const event of events) {
@@ -44,8 +50,13 @@ export const getHolderOwner = (events: TransferBaseEvent[]): { owner: string; ho
     - Token Registry
       * SURRENDER_ACCEPTED
 */
-export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBaseEvent[] => {
-  const groupedEventsDict: Dictionary<TransferBaseEvent[]> = groupBy(transferEvents, "transactionHash");
+export const mergeTransfers = (
+  transferEvents: TransferBaseEvent[]
+): TransferBaseEvent[] => {
+  const groupedEventsDict: Dictionary<TransferBaseEvent[]> = groupBy(
+    transferEvents,
+    "transactionHash"
+  );
   const transactionHashValues = Object.values(groupedEventsDict);
   const mergedTransaction = transactionHashValues.flatMap((groupedEvents) => {
     if (groupedEvents.length === 1) return groupedEvents;
@@ -76,7 +87,9 @@ export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBas
 /*
   Sort based on blockNumber
 */
-export const sortLogChain = (logChain: TransferBaseEvent[]): TransferBaseEvent[] => {
+export const sortLogChain = (
+  logChain: TransferBaseEvent[]
+): TransferBaseEvent[] => {
   return logChain.sort((a, b) => {
     return a.blockNumber - b.blockNumber;
   });

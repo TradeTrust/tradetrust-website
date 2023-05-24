@@ -51,7 +51,10 @@ describe("demo", () => {
       verificationStatus: "completed",
       verificationError: null,
     };
-    const state = demoVerify(initialState, verifyDemoDocumentCompleted("completed"));
+    const state = demoVerify(
+      initialState,
+      verifyDemoDocumentCompleted("completed")
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -68,9 +71,15 @@ describe("demo", () => {
   });
 
   it("should reset the state when resetDemoDocument is called", () => {
-    const action1 = demoVerify(initialState, updateDemoDocument("demoDocument"));
+    const action1 = demoVerify(
+      initialState,
+      updateDemoDocument("demoDocument")
+    );
     const action2 = demoVerify(action1, verifyingDemoDocument());
-    const action3 = demoVerify(action2, verifyDemoDocumentCompleted("completed"));
+    const action3 = demoVerify(
+      action2,
+      verifyDemoDocumentCompleted("completed")
+    );
     const action4 = demoVerify(action3, verifyDemoDocumentFailure("failed"));
     const resetState = demoVerify(action4, resetDemoState());
     expect(resetState).toStrictEqual(initialState);

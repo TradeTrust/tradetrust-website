@@ -27,7 +27,10 @@ describe("demo", () => {
       deploymentDocStoreStatus: "pending",
     };
 
-    const state = demoCreate(initialState, deployingDocStore({ signer: "SIGNER" }));
+    const state = demoCreate(
+      initialState,
+      deployingDocStore({ signer: "SIGNER" })
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -38,7 +41,10 @@ describe("demo", () => {
       deploymentDocStoreStatus: "success",
     };
 
-    const state = demoCreate(initialState, deployDocStoreSuccess("0xfbb61b8b98a59fbc4bd79c23212addbefaeb289f"));
+    const state = demoCreate(
+      initialState,
+      deployDocStoreSuccess("0xfbb61b8b98a59fbc4bd79c23212addbefaeb289f")
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -49,7 +55,10 @@ describe("demo", () => {
       deploymentDocStoreStatus: "failure",
     };
 
-    const state = demoCreate(initialState, deployDocStoreFailure("Error: some error message"));
+    const state = demoCreate(
+      initialState,
+      deployDocStoreFailure("Error: some error message")
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -70,7 +79,10 @@ describe("demo", () => {
       createTempDnsStatus: "success",
     };
 
-    const state = demoCreate(initialState, createTempDnsSuccess("cool-pink-rabbit"));
+    const state = demoCreate(
+      initialState,
+      createTempDnsSuccess("cool-pink-rabbit")
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -81,7 +93,10 @@ describe("demo", () => {
       createTempDnsStatus: "failure",
     };
 
-    const state = demoCreate(initialState, createTempDnsFailure("Error: some error message"));
+    const state = demoCreate(
+      initialState,
+      createTempDnsFailure("Error: some error message")
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -91,7 +106,10 @@ describe("demo", () => {
       wrapDocumentStatus: "pending",
     };
 
-    const state = demoCreate(initialState, wrappingDocument({ documentName: "DOCUMENT_NAME" }));
+    const state = demoCreate(
+      initialState,
+      wrappingDocument({ documentName: "DOCUMENT_NAME" })
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -102,7 +120,10 @@ describe("demo", () => {
       wrapDocumentStatus: "success",
     };
 
-    const state = demoCreate(initialState, wrapDocumentSuccess({ name: "WRAPPED_DOCUMENT" }));
+    const state = demoCreate(
+      initialState,
+      wrapDocumentSuccess({ name: "WRAPPED_DOCUMENT" })
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -113,7 +134,10 @@ describe("demo", () => {
       wrapDocumentStatus: "failure",
     };
 
-    const state = demoCreate(initialState, wrapDocumentFailure("Error: some error message"));
+    const state = demoCreate(
+      initialState,
+      wrapDocumentFailure("Error: some error message")
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -123,7 +147,10 @@ describe("demo", () => {
       issueDocumentStatus: "pending",
     };
 
-    const state = demoCreate(initialState, issuingDocument({ signer: "SIGNER" }));
+    const state = demoCreate(
+      initialState,
+      issuingDocument({ signer: "SIGNER" })
+    );
     expect(state).toStrictEqual(finalState);
   });
 
@@ -144,7 +171,10 @@ describe("demo", () => {
       issueDocumentStatus: "failure",
     };
 
-    const state = demoCreate(initialState, issueDocumentFailure("Error: some error message"));
+    const state = demoCreate(
+      initialState,
+      issueDocumentFailure("Error: some error message")
+    );
     expect(state).toStrictEqual(finalState);
   });
 });

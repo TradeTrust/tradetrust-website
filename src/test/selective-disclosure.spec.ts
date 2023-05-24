@@ -1,5 +1,10 @@
 import { Selector } from "testcafe";
-import { location, navigateToVerify, uploadDocument, validateIssuerTexts } from "./helper";
+import {
+  location,
+  navigateToVerify,
+  uploadDocument,
+  validateIssuerTexts,
+} from "./helper";
 
 fixture("Selective Disclosure").page`${location}`;
 
@@ -7,7 +12,9 @@ const IframeBlock = Selector("#iframe");
 
 const PrivacyFilterButton = Selector("#privacySwitch");
 const CertificateSection = Selector("#rendered-certificate");
-const ExporterObfuscationButton = Selector(".rounded-full.cursor-pointer").nth(0); // selected div is from template renderer itself
+const ExporterObfuscationButton = Selector(".rounded-full.cursor-pointer").nth(
+  0
+); // selected div is from template renderer itself
 
 test("Fields on a document can be hidden", async (t) => {
   await navigateToVerify();
@@ -17,7 +24,9 @@ test("Fields on a document can be hidden", async (t) => {
   await t.switchToIframe(IframeBlock);
 
   // Check that all text elements exist
-  await t.expect(CertificateSection.textContent).contains("TREASURY WINE ESTATES VINTNERS LIMITED");
+  await t
+    .expect(CertificateSection.textContent)
+    .contains("TREASURY WINE ESTATES VINTNERS LIMITED");
   await t.expect(CertificateSection.textContent).contains("Penfolds wine");
 
   // Obfuscate the exporters
@@ -25,6 +34,8 @@ test("Fields on a document can be hidden", async (t) => {
   await t.click(ExporterObfuscationButton);
 
   // Check that only the exporter is removed
-  await t.expect(CertificateSection.textContent).notContains("TREASURY WINE ESTATES VINTNERS LIMITED");
+  await t
+    .expect(CertificateSection.textContent)
+    .notContains("TREASURY WINE ESTATES VINTNERS LIMITED");
   await t.expect(CertificateSection.textContent).contains("Penfolds wine");
 });

@@ -5,7 +5,11 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   children: React.ReactNode;
 }
 
-export const Checkbox: FunctionComponent<CheckboxProps> = ({ className, children, ...props }: CheckboxProps) => {
+export const Checkbox: FunctionComponent<CheckboxProps> = ({
+  className,
+  children,
+  ...props
+}: CheckboxProps) => {
   return (
     <label className={className}>
       <div className="flex items-center">

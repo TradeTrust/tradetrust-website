@@ -40,7 +40,10 @@ export const DemoCreateForm: FunctionComponent = () => {
       <ProgressBar totalSteps={3} step={1} />
       <div className="my-4">
         <h3 className="my-3">Fill in Details of CoO</h3>
-        <p>The form is already pre-filled for your convenience, feel free to make changes if needed. </p>
+        <p>
+          The form is already pre-filled for your convenience, feel free to make
+          changes if needed.{" "}
+        </p>
       </div>
       <div>
         {Object.entries(schema).map(([formItemName, formItem], index) => {

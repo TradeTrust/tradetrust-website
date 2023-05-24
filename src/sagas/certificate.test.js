@@ -33,10 +33,14 @@ describe("verifyCertificate", () => {
     const initialAction = { type: certificate.types.UPDATE_CERTIFICATE };
     const getCertificate = jest
       .spyOn(certificate, "getCertificate")
-      .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+      .mockImplementation(() =>
+        Promise.resolve(whenDocumentValidAndIssuedByDns)
+      );
     const verifyDocument = jest
       .spyOn(verify, "verifyDocument")
-      .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+      .mockImplementation(() =>
+        Promise.resolve(whenDocumentValidAndIssuedByDns)
+      );
     const dispatched = await recordSaga(verifyCertificate, initialAction);
 
     expect(getCertificate).toHaveBeenCalledTimes(1);
@@ -51,10 +55,14 @@ describe("verifyCertificate", () => {
     const initialAction = { type: certificate.types.UPDATE_CERTIFICATE };
     const getCertificate = jest
       .spyOn(certificate, "getCertificate")
-      .mockImplementation(() => Promise.resolve(whenDocumentHashInvalidAndNotIssued));
+      .mockImplementation(() =>
+        Promise.resolve(whenDocumentHashInvalidAndNotIssued)
+      );
     const verifyDocument = jest
       .spyOn(verify, "verifyDocument")
-      .mockImplementation(() => Promise.reject(new Error("Failed to verify document")));
+      .mockImplementation(() =>
+        Promise.reject(new Error("Failed to verify document"))
+      );
     const dispatched = await recordSaga(verifyCertificate, initialAction);
 
     expect(getCertificate).toHaveBeenCalledTimes(1);

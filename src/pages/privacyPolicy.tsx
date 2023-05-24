@@ -11,12 +11,21 @@ export const PrivacyPolicyPage: FunctionComponent = () => {
         <meta name="privacy policy" content="Privacy Policy" />
         <meta property="og:privacy policy" content="Privacy Policy" />
         <meta property="og:title" content="TradeTrust - Privacy Policy" />
-        <meta property="og:url" content={`${window.location.origin}/privacy-policy`} />
+        <meta
+          property="og:url"
+          content={`${window.location.origin}/privacy-policy`}
+        />
         <title>TradeTrust - Privacy Policy</title>
       </Helmet>
       <Page title="Privacy Policy">
         <div className="bg-white drop-shadow-lg rounded-xl h-full w-full px-6 py-4 mt-4">
-          <ReactMarkdown components={{ p: ({ ...props }) => <p className={"mb-4 break-word"} {...props} /> }}>
+          <ReactMarkdown
+            components={{
+              p: ({ ...props }) => (
+                <p className={"mb-4 break-word"} {...props} />
+              ),
+            }}
+          >
             {privacyPolicy.body}
           </ReactMarkdown>
         </div>

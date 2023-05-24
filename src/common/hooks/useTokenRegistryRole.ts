@@ -15,7 +15,11 @@ export const useTokenRegistryRole = ({
   hasRole?: boolean;
 } => {
   const [hasRoleState, setHasRoleState] = useState<boolean>();
-  const { call: checkRole, value: hasRole, reset: resetCheckRole } = useContractFunctionHook(tokenRegistry, "hasRole");
+  const {
+    call: checkRole,
+    value: hasRole,
+    reset: resetCheckRole,
+  } = useContractFunctionHook(tokenRegistry, "hasRole");
 
   useEffect(() => {
     if (account) {

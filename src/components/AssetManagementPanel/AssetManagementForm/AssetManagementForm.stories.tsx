@@ -1,4 +1,7 @@
-import { Overlay, OverlayContextProvider } from "@govtechsg/tradetrust-ui-components";
+import {
+  Overlay,
+  OverlayContextProvider,
+} from "@govtechsg/tradetrust-ui-components";
 import React, { useState } from "react";
 import { FormState } from "../../../constants/FormState";
 import { AssetManagementActions } from "../AssetManagementActions";
@@ -13,7 +16,9 @@ export default {
 };
 
 export const NotLoggedIn = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.None
+  );
 
   return (
     <AssetManagementForm
@@ -31,12 +36,18 @@ export const NotLoggedIn = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -50,7 +61,9 @@ export const NotLoggedIn = () => {
 };
 
 export const NoMatch = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.None
+  );
 
   return (
     <OverlayContextProvider>
@@ -68,14 +81,22 @@ export const NoMatch = () => {
         isSurrendered={false}
         onSurrender={() => alert("Surrender document")}
         surrenderingState={FormState.UNINITIALIZED}
-        onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+        onTransferHolder={(newHolder) =>
+          alert(`Transfer holder to ${newHolder}`)
+        }
         holderTransferringState={FormState.UNINITIALIZED}
-        onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+        onEndorseBeneficiary={(newBeneficiary) =>
+          alert(`Change Beneficiary: ${newBeneficiary}`)
+        }
         beneficiaryEndorseState={FormState.UNINITIALIZED}
-        nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+        nominateBeneficiary={(newBeneficiary) =>
+          alert(`Nominate Owner: ${newBeneficiary}`)
+        }
         approveNewTransferTargetsState={FormState.UNINITIALIZED}
         transferOwners={(approvedBeneficiary, approvedHolder) =>
-          alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          alert(
+            `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+          )
         }
         transferOwnersState={FormState.UNINITIALIZED}
         isTitleEscrow={true}
@@ -90,7 +111,9 @@ export const NoMatch = () => {
 };
 
 export const BeneficiaryAndHolder = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.None
+  );
 
   return (
     <AssetManagementForm
@@ -108,12 +131,18 @@ export const BeneficiaryAndHolder = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -127,7 +156,9 @@ export const BeneficiaryAndHolder = () => {
 };
 
 export const Beneficiary = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.None
+  );
 
   return (
     <AssetManagementForm
@@ -145,12 +176,18 @@ export const Beneficiary = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -164,7 +201,9 @@ export const Beneficiary = () => {
 };
 
 export const Holder = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.None
+  );
 
   return (
     <AssetManagementForm
@@ -182,12 +221,18 @@ export const Holder = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -201,7 +246,9 @@ export const Holder = () => {
 };
 
 export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.None
+  );
 
   return (
     <AssetManagementForm
@@ -219,12 +266,18 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -238,7 +291,9 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
 };
 
 export const TransferHolderError = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.TransferHolder);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.TransferHolder
+  );
 
   return (
     <AssetManagementForm
@@ -256,12 +311,18 @@ export const TransferHolderError = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.ERROR}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -275,7 +336,9 @@ export const TransferHolderError = () => {
 };
 
 export const TransferHolderPending = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.TransferHolder);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.TransferHolder
+  );
 
   return (
     <AssetManagementForm
@@ -293,12 +356,18 @@ export const TransferHolderPending = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.PENDING_CONFIRMATION}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -312,7 +381,9 @@ export const TransferHolderPending = () => {
 };
 
 export const EndorseChangeBeneficiaryError = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseBeneficiary);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.EndorseBeneficiary
+  );
 
   return (
     <AssetManagementForm
@@ -330,12 +401,18 @@ export const EndorseChangeBeneficiaryError = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.PENDING_CONFIRMATION}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.ERROR}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -349,7 +426,9 @@ export const EndorseChangeBeneficiaryError = () => {
 };
 
 export const EndorseChangeBeneficiaryPending = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseBeneficiary);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.EndorseBeneficiary
+  );
 
   return (
     <AssetManagementForm
@@ -367,12 +446,18 @@ export const EndorseChangeBeneficiaryPending = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.PENDING_CONFIRMATION}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.PENDING_CONFIRMATION}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -386,7 +471,9 @@ export const EndorseChangeBeneficiaryPending = () => {
 };
 
 export const NominateBeneficiaryAndHolderError = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.NominateBeneficiary);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.NominateBeneficiary
+  );
 
   return (
     <AssetManagementForm
@@ -404,12 +491,18 @@ export const NominateBeneficiaryAndHolderError = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.ERROR}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -423,7 +516,9 @@ export const NominateBeneficiaryAndHolderError = () => {
 };
 
 export const NominateBeneficiaryAndHolderPending = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.NominateBeneficiary);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.NominateBeneficiary
+  );
 
   return (
     <AssetManagementForm
@@ -441,12 +536,18 @@ export const NominateBeneficiaryAndHolderPending = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.PENDING_CONFIRMATION}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -460,7 +561,9 @@ export const NominateBeneficiaryAndHolderPending = () => {
 };
 
 export const EndorseTransferHolderBeneficiary = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseTransfer);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.EndorseTransfer
+  );
 
   return (
     <AssetManagementForm
@@ -478,12 +581,18 @@ export const EndorseTransferHolderBeneficiary = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -497,7 +606,9 @@ export const EndorseTransferHolderBeneficiary = () => {
 };
 
 export const EndorseTransferHolderBeneficiaryPending = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseTransfer);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.EndorseTransfer
+  );
 
   return (
     <AssetManagementForm
@@ -515,12 +626,18 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.PENDING_CONFIRMATION}
       isTitleEscrow={true}
@@ -534,7 +651,9 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
 };
 
 export const SurrenderDocument = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.Surrender
+  );
 
   return (
     <AssetManagementForm
@@ -552,12 +671,18 @@ export const SurrenderDocument = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -571,7 +696,9 @@ export const SurrenderDocument = () => {
 };
 
 export const SurrenderPending = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.Surrender
+  );
 
   return (
     <AssetManagementForm
@@ -589,12 +716,18 @@ export const SurrenderPending = () => {
       surrenderingState={FormState.PENDING_CONFIRMATION}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}
@@ -608,7 +741,9 @@ export const SurrenderPending = () => {
 };
 
 export const SurrenderedNotMinter = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.None
+  );
 
   return (
     <AssetManagementForm
@@ -627,12 +762,18 @@ export const SurrenderedNotMinter = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={false}
@@ -648,7 +789,9 @@ export const SurrenderedNotMinter = () => {
 };
 
 export const SurrenderedIsMinter = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.None
+  );
 
   return (
     <AssetManagementForm
@@ -667,12 +810,18 @@ export const SurrenderedIsMinter = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={false}
@@ -688,7 +837,9 @@ export const SurrenderedIsMinter = () => {
 };
 
 export const SurrenderedAcceptForm = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.AcceptSurrendered);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.AcceptSurrendered
+  );
 
   return (
     <AssetManagementForm
@@ -707,12 +858,18 @@ export const SurrenderedAcceptForm = () => {
       surrenderingState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={false}
@@ -728,7 +885,9 @@ export const SurrenderedAcceptForm = () => {
 };
 
 export const SurrenderedRejectForm = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.RejectSurrendered);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.RejectSurrendered
+  );
 
   return (
     <OverlayContextProvider>
@@ -747,14 +906,22 @@ export const SurrenderedRejectForm = () => {
         isSurrendered={true}
         onSurrender={() => alert("Surrender document")}
         surrenderingState={FormState.UNINITIALIZED}
-        onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+        onTransferHolder={(newHolder) =>
+          alert(`Transfer holder to ${newHolder}`)
+        }
         holderTransferringState={FormState.UNINITIALIZED}
-        onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+        onEndorseBeneficiary={(newBeneficiary) =>
+          alert(`Change Beneficiary: ${newBeneficiary}`)
+        }
         beneficiaryEndorseState={FormState.UNINITIALIZED}
-        nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+        nominateBeneficiary={(newBeneficiary) =>
+          alert(`Nominate Owner: ${newBeneficiary}`)
+        }
         approveNewTransferTargetsState={FormState.UNINITIALIZED}
         transferOwners={(approvedBeneficiary, approvedHolder) =>
-          alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+          alert(
+            `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+          )
         }
         transferOwnersState={FormState.UNINITIALIZED}
         isTitleEscrow={false}
@@ -771,7 +938,9 @@ export const SurrenderedRejectForm = () => {
 };
 
 export const SurrenderedDocument = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+  const [assetManagementAction, setAssetManagementAction] = useState(
+    AssetManagementActions.None
+  );
 
   return (
     <AssetManagementForm
@@ -789,12 +958,18 @@ export const SurrenderedDocument = () => {
       surrenderingState={FormState.PENDING_CONFIRMATION}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
-      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      onEndorseBeneficiary={(newBeneficiary) =>
+        alert(`Change Beneficiary: ${newBeneficiary}`)
+      }
       beneficiaryEndorseState={FormState.UNINITIALIZED}
-      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiary={(newBeneficiary) =>
+        alert(`Nominate Owner: ${newBeneficiary}`)
+      }
       approveNewTransferTargetsState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
-        alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
+        alert(
+          `Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`
+        )
       }
       transferOwnersState={FormState.UNINITIALIZED}
       isTitleEscrow={true}

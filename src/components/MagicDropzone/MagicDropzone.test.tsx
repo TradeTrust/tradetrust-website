@@ -5,9 +5,9 @@ import { render, screen } from "@testing-library/react";
 describe("MagicDropZone", () => {
   it("should display demo watermark", () => {
     render(<MagicDemo />);
-    expect(screen.getByAltText("Magic Dropzone TradeTrust").getAttribute("src")).toContain(
-      "/static/images/dropzone/dropzone_illustration.svg"
-    );
+    expect(
+      screen.getByAltText("Magic Dropzone TradeTrust").getAttribute("src")
+    ).toContain("/static/images/dropzone/dropzone_illustration.svg");
   });
 
   it("should display spinning loader and pending message", () => {

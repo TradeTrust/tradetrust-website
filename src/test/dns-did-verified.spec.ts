@@ -1,4 +1,10 @@
-import { location, navigateToVerify, uploadDocument, validateIframeTexts, validateIssuerTexts } from "./helper";
+import {
+  location,
+  navigateToVerify,
+  uploadDocument,
+  validateIframeTexts,
+  validateIssuerTexts,
+} from "./helper";
 
 fixture("DNS DID Certificate Rendering").page`${location}`;
 

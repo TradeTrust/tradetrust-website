@@ -11,7 +11,10 @@ describe("Surrender-Accept", () => {
       cy.get("[data-testid='surrenderBtn']").click();
       cy.confirmMetamaskTransaction();
       cy.get("#surrender-sign").should("have.text", "Surrendered To Issuer");
-      cy.get("[data-testid='overlay-title']").should("have.text", "Surrender Document Success");
+      cy.get("[data-testid='overlay-title']").should(
+        "have.text",
+        "Surrender Document Success"
+      );
     });
   });
 
@@ -24,7 +27,10 @@ describe("Surrender-Accept", () => {
       cy.get("[data-testid='acceptSurrenderDropdown']").click(); // Accept Surrender
       cy.get("[data-testid='acceptSurrenderBtn']").click();
       cy.confirmMetamaskTransaction();
-      cy.get("[data-testid='overlay-title']").should("have.text", "Surrender Accepted");
+      cy.get("[data-testid='overlay-title']").should(
+        "have.text",
+        "Surrender Accepted"
+      );
     });
   });
 });

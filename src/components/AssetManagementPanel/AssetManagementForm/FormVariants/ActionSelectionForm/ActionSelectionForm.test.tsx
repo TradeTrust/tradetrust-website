@@ -32,9 +32,13 @@ describe("ActionSelectionForm", () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} />);
       const beneficiaryComponent = container.getByTestId("asset-title-owner");
-      const beneficiaryText = container.getByText("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C");
+      const beneficiaryText = container.getByText(
+        "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+      );
       const holderComponent = container.getByTestId("asset-title-holder");
-      const holderText = container.getByText("0xa61B056dA0084a5f391EC137583073096880C2e3");
+      const holderText = container.getByText(
+        "0xa61B056dA0084a5f391EC137583073096880C2e3"
+      );
 
       expect(beneficiaryComponent).not.toBeNull();
       expect(beneficiaryText).not.toBeNull();
@@ -48,7 +52,11 @@ describe("ActionSelectionForm", () => {
       const mockOnConnectToWallet = jest.fn();
 
       const container = render(
-        <ActionSelectionForm {...defaultProps} account="" onConnectToWallet={mockOnConnectToWallet} />
+        <ActionSelectionForm
+          {...defaultProps}
+          account=""
+          onConnectToWallet={mockOnConnectToWallet}
+        />
       );
 
       fireEvent.click(container.getByTestId("connectToWallet"));
@@ -58,7 +66,9 @@ describe("ActionSelectionForm", () => {
 
   it("should display the Manage Assets dropdown if user is logged in", async () => {
     await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} canChangeHolder={true} />);
+      const container = render(
+        <ActionSelectionForm {...defaultProps} canChangeHolder={true} />
+      );
 
       const manageAssetsDropdown = container.getByTestId("manageAssetDropdown");
       expect(manageAssetsDropdown).not.toBeNull();
@@ -67,7 +77,9 @@ describe("ActionSelectionForm", () => {
 
   it("should allow the selection of Surrender if user can surrender", async () => {
     await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} canSurrender={true} />);
+      const container = render(
+        <ActionSelectionForm {...defaultProps} canSurrender={true} />
+      );
 
       await act(async () => {
         fireEvent.click(container.getByTestId("manageAssetDropdown"));
@@ -79,7 +91,9 @@ describe("ActionSelectionForm", () => {
 
   it("should not display the selection of Surrender if user cannot surrender", async () => {
     await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} canSurrender={false} />);
+      const container = render(
+        <ActionSelectionForm {...defaultProps} canSurrender={false} />
+      );
 
       expect(container.queryByTestId("SurrenderDropdown")).toBeNull();
     });
@@ -87,7 +101,9 @@ describe("ActionSelectionForm", () => {
 
   it("should display the Surrender to issuer tag if document is owned by token registry", async () => {
     await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} isSurrendered={true} />);
+      const container = render(
+        <ActionSelectionForm {...defaultProps} isSurrendered={true} />
+      );
 
       expect(container.queryByText("Surrendered To Issuer")).not.toBeNull();
     });
@@ -95,7 +111,9 @@ describe("ActionSelectionForm", () => {
 
   it("should display the Surrender tag if document is surrendered", async () => {
     await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} isTokenBurnt={true} />);
+      const container = render(
+        <ActionSelectionForm {...defaultProps} isTokenBurnt={true} />
+      );
 
       expect(container.queryByText("Surrendered")).not.toBeNull();
     });
@@ -106,7 +124,11 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canChangeHolder={true} />
+        <ActionSelectionForm
+          {...defaultProps}
+          onSetFormAction={mockOnSetFormAction}
+          canChangeHolder={true}
+        />
       );
 
       await act(async () => {
@@ -126,7 +148,11 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canEndorseBeneficiary={true} />
+        <ActionSelectionForm
+          {...defaultProps}
+          onSetFormAction={mockOnSetFormAction}
+          canEndorseBeneficiary={true}
+        />
       );
 
       await act(async () => {
@@ -146,14 +172,20 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canEndorseTransfer={true} />
+        <ActionSelectionForm
+          {...defaultProps}
+          onSetFormAction={mockOnSetFormAction}
+          canEndorseTransfer={true}
+        />
       );
 
       await act(async () => {
         fireEvent.click(container.getByTestId("manageAssetDropdown"));
       });
 
-      const endorseTransferDropdown = container.getByTestId("endorseTransferDropdown");
+      const endorseTransferDropdown = container.getByTestId(
+        "endorseTransferDropdown"
+      );
       expect(endorseTransferDropdown).not.toBeNull();
     });
   });
@@ -163,7 +195,11 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canEndorseTransfer={true} />
+        <ActionSelectionForm
+          {...defaultProps}
+          onSetFormAction={mockOnSetFormAction}
+          canEndorseTransfer={true}
+        />
       );
 
       await act(async () => {

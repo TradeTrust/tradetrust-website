@@ -1,4 +1,9 @@
-import { OverlayAddressBook, ButtonIcon, useOverlayContext, Input } from "@govtechsg/tradetrust-ui-components";
+import {
+  OverlayAddressBook,
+  ButtonIcon,
+  useOverlayContext,
+  Input,
+} from "@govtechsg/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Book } from "react-feather";
 import { NETWORK_NAME } from "../../../../../config";
@@ -26,7 +31,13 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   const { showOverlay } = useOverlayContext();
 
   const onOverlayHandler = () => {
-    showOverlay(<OverlayAddressBook onAddressSelected={onSetNewValue} network={NETWORK_NAME} title="Address Book" />);
+    showOverlay(
+      <OverlayAddressBook
+        onAddressSelected={onSetNewValue}
+        network={NETWORK_NAME}
+        title="Address Book"
+      />
+    );
   };
 
   if (!value) return <SkeletonPlaceholder />;
@@ -63,7 +74,10 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
           )}
         </div>
         <div className="w-auto">
-          <ButtonIcon className="bg-white rounded-xl border-cloud-100 hover:bg-cloud-100" onClick={onOverlayHandler}>
+          <ButtonIcon
+            className="bg-white rounded-xl border-cloud-100 hover:bg-cloud-100"
+            onClick={onOverlayHandler}
+          >
             <Book className="text-cerulean-500" />
           </ButtonIcon>
         </div>

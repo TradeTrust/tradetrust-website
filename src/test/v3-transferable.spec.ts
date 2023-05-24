@@ -1,5 +1,11 @@
 import { Selector } from "testcafe";
-import { uploadDocument, validateIframeTexts, validateIssuerTexts, location, navigateToVerify } from "./helper";
+import {
+  uploadDocument,
+  validateIframeTexts,
+  validateIssuerTexts,
+  location,
+  navigateToVerify,
+} from "./helper";
 
 fixture("v3 Transferable Record").page`${location}`;
 

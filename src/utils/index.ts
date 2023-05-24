@@ -4,15 +4,23 @@ import { ChainId } from "../constants/chain-info";
 import { getChainInfo } from "../common/utils/chain-utils";
 import { NewsTag } from "../components/News/types";
 
-export const makeEtherscanAddressURL = (address: string, chainId: ChainId): string => {
+export const makeEtherscanAddressURL = (
+  address: string,
+  chainId: ChainId
+): string => {
   const baseUrl = getChainInfo(chainId).explorerUrl;
   return new URL(`/address/${address}`, baseUrl).href;
 };
 
-export const isValidEndorseTransfer = (holder?: string, newHolder?: string, newOwner?: string): boolean => {
+export const isValidEndorseTransfer = (
+  holder?: string,
+  newHolder?: string,
+  newOwner?: string
+): boolean => {
   if (!newHolder || !newOwner) return false;
   if (newHolder === holder) return false;
-  if (!isEthereumAddress(newHolder) || !isEthereumAddress(newOwner)) return false;
+  if (!isEthereumAddress(newHolder) || !isEthereumAddress(newOwner))
+    return false;
 
   return true;
 };
@@ -36,7 +44,10 @@ export const convertSecondsToMinAndSec = (seconds: number): string => {
 
 export const getSortedByDateDesc = (items: any[]): any[] => {
   items.sort((a, b): number => {
-    return compareDesc(new Date(a.attributes.date), new Date(b.attributes.date));
+    return compareDesc(
+      new Date(a.attributes.date),
+      new Date(b.attributes.date)
+    );
   });
 
   return items;
@@ -51,7 +62,9 @@ export const getSortedByDateAsc = (items: any[]): any[] => {
 };
 
 // https://docs.netlify.com/forms/setup/#submit-javascript-rendered-forms-with-ajax
-export const encode: any = (data: { [x: string]: string | number | boolean }) => {
+export const encode: any = (data: {
+  [x: string]: string | number | boolean;
+}) => {
   return Object.keys(data)
     .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
     .join("&");
@@ -73,7 +86,10 @@ export const addClassNameIfExist = (className?: string): string => {
  * @param type     this applies for news content only. It is the type of news article. (other CMS content will be undefined)
  * @returns array of CMS contents
  */
-export const getCmsContentWithSlug = (context: __WebpackModuleApi.RequireContext, type?: NewsTag): any[] => {
+export const getCmsContentWithSlug = (
+  context: __WebpackModuleApi.RequireContext,
+  type?: NewsTag
+): any[] => {
   const cmsContent: any[] = [];
 
   context.keys().forEach((filename: string) => {
@@ -104,7 +120,10 @@ export const getFileName = (filePath: string): string => {
 };
 
 export const currentDateStr = (): string => {
-  return new Date().toLocaleString("en-SG", { hour12: true, timeZoneName: "short" });
+  return new Date().toLocaleString("en-SG", {
+    hour12: true,
+    timeZoneName: "short",
+  });
 };
 
 export const isExternalLink = (url: string): boolean => {

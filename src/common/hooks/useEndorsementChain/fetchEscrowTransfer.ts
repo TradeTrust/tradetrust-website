@@ -1,5 +1,8 @@
 import { providers } from "ethers";
-import { TitleEscrow, TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
+import {
+  TitleEscrow,
+  TitleEscrow__factory,
+} from "@govtechsg/token-registry/contracts";
 import { TitleEscrowTransferEvent } from "../../../types";
 import { EventFragment, Result } from "ethers/lib/utils";
 
@@ -8,12 +11,24 @@ export const fetchEscrowTransfers = async (
   address: string
 ): Promise<TitleEscrowTransferEvent[]> => {
   const titleEscrowContract = TitleEscrow__factory.connect(address, provider);
-  const isTitleEscrow = await titleEscrowContract.supportsInterface("0x079dff60");
-  if (!isTitleEscrow) throw new Error(`Contract ${address} is not a title escrow contract`);
+  const isTitleEscrow = await titleEscrowContract.supportsInterface(
+    "0x079dff60"
+  );
+  if (!isTitleEscrow)
+    throw new Error(`Contract ${address} is not a title escrow contract`);
   // https://ethereum.stackexchange.com/questions/109326/combine-multiple-event-filters-in-ethersjs
-  const holderChangeLogsDeferred = await fetchHolderTransfers(titleEscrowContract, provider);
-  const ownerChangeLogsDeferred = await fetchOwnerTransfers(titleEscrowContract, provider);
-  const [holderChangeLogs, ownerChangeLogs] = await Promise.all([holderChangeLogsDeferred, ownerChangeLogsDeferred]);
+  const holderChangeLogsDeferred = await fetchHolderTransfers(
+    titleEscrowContract,
+    provider
+  );
+  const ownerChangeLogsDeferred = await fetchOwnerTransfers(
+    titleEscrowContract,
+    provider
+  );
+  const [holderChangeLogs, ownerChangeLogs] = await Promise.all([
+    holderChangeLogsDeferred,
+    ownerChangeLogsDeferred,
+  ]);
   return [...holderChangeLogs, ...ownerChangeLogs];
 };
 
@@ -24,10 +39,19 @@ export const fetchOwnerTransfers = async (
   titleEscrowContract: TitleEscrow,
   provider: providers.Provider
 ): Promise<TitleEscrowTransferEvent[]> => {
-  const ownerChangeFilter = titleEscrowContract.filters.BeneficiaryTransfer(null, null);
-  const ownerChangeLogs = await provider.getLogs({ ...ownerChangeFilter, fromBlock: 0 });
+  const ownerChangeFilter = titleEscrowContract.filters.BeneficiaryTransfer(
+    null,
+    null
+  );
+  const ownerChangeLogs = await provider.getLogs({
+    ...ownerChangeFilter,
+    fromBlock: 0,
+  });
 
-  const ownerChangeLogsParsed = getParsedLogs(ownerChangeLogs, titleEscrowContract);
+  const ownerChangeLogsParsed = getParsedLogs(
+    ownerChangeLogs,
+    titleEscrowContract
+  );
   return ownerChangeLogsParsed.map((event) => ({
     type: "TRANSFER_BENEFICIARY",
     owner: event.args.toBeneficiary,
@@ -53,7 +77,10 @@ interface ParsedLog {
   data: string;
 }
 
-export const getParsedLogs = (logs: providers.Log[], titleEscrow: TitleEscrow): ParsedLog[] => {
+export const getParsedLogs = (
+  logs: providers.Log[],
+  titleEscrow: TitleEscrow
+): ParsedLog[] => {
   return logs.map((log) => {
     if (!log.blockNumber) throw new Error("Block number not present");
     return {
@@ -70,9 +97,18 @@ export const fetchHolderTransfers = async (
   titleEscrowContract: TitleEscrow,
   provider: providers.Provider
 ): Promise<TitleEscrowTransferEvent[]> => {
-  const holderChangeFilter = titleEscrowContract.filters.HolderTransfer(null, null);
-  const holderChangeLogs = await provider.getLogs({ ...holderChangeFilter, fromBlock: 0 });
-  const holderChangeLogsParsed = getParsedLogs(holderChangeLogs, titleEscrowContract);
+  const holderChangeFilter = titleEscrowContract.filters.HolderTransfer(
+    null,
+    null
+  );
+  const holderChangeLogs = await provider.getLogs({
+    ...holderChangeFilter,
+    fromBlock: 0,
+  });
+  const holderChangeLogsParsed = getParsedLogs(
+    holderChangeLogs,
+    titleEscrowContract
+  );
   return holderChangeLogsParsed.map((event) => ({
     type: "TRANSFER_HOLDER",
     blockNumber: event.blockNumber,

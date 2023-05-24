@@ -7,9 +7,17 @@ import { RootState } from "../reducers";
 interface ViewerPageContainerProps {
   isMagicDemo?: boolean;
 }
-export const ViewerPageContainer = ({ isMagicDemo }: ViewerPageContainerProps): React.ReactElement => {
+export const ViewerPageContainer = ({
+  isMagicDemo,
+}: ViewerPageContainerProps): React.ReactElement => {
   const rootState = useSelector((state: RootState) => state);
-  const document = isMagicDemo ? rootState.demoVerify.rawModifiedDocument : rootState.certificate.rawModified;
+  const document = isMagicDemo
+    ? rootState.demoVerify.rawModifiedDocument
+    : rootState.certificate.rawModified;
 
-  return document ? <CertificateViewer isMagicDemo={isMagicDemo} document={document} /> : <Redirect to="/" />;
+  return document ? (
+    <CertificateViewer isMagicDemo={isMagicDemo} document={document} />
+  ) : (
+    <Redirect to="/" />
+  );
 };

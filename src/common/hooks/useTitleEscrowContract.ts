@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { providers, Signer } from "ethers";
-import { TitleEscrowFactory__factory, TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
+import {
+  TitleEscrowFactory__factory,
+  TitleEscrow__factory,
+} from "@govtechsg/token-registry/contracts";
 import { TitleEscrow } from "@govtechsg/token-registry/contracts";
 import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
 import { BurnAddress } from "../../constants/chain-info";
@@ -49,8 +52,14 @@ export const retrieveTitleEscrowAddressOnFactory = async (
 ): Promise<string> => {
   const titleEscrowFactoryAddress = await tokenRegistry.titleEscrowFactory();
   const tokenRegistryAddress = await tokenRegistry.address;
-  const titleEscrowFactory = TitleEscrowFactory__factory.connect(titleEscrowFactoryAddress, signer);
-  const titleEscrowAddress = await titleEscrowFactory.getAddress(tokenRegistryAddress, tokenId);
+  const titleEscrowFactory = TitleEscrowFactory__factory.connect(
+    titleEscrowFactoryAddress,
+    signer
+  );
+  const titleEscrowAddress = await titleEscrowFactory.getAddress(
+    tokenRegistryAddress,
+    tokenId
+  );
   return titleEscrowAddress;
 };
 
@@ -67,10 +76,16 @@ export const connectToTitleEscrow = async ({
 }: ConnectToTitleEscrowArgs): Promise<TitleEscrow> => {
   const tokenRegistryAddress = tokenRegistry.address;
   const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
-  const inactiveEscrow = [BurnAddress, tokenRegistryAddress].includes(titleEscrowOwner);
+  const inactiveEscrow = [BurnAddress, tokenRegistryAddress].includes(
+    titleEscrowOwner
+  );
   let titleEscrowAddress = titleEscrowOwner;
   if (inactiveEscrow) {
-    titleEscrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, provider);
+    titleEscrowAddress = await retrieveTitleEscrowAddressOnFactory(
+      tokenRegistry,
+      tokenId,
+      provider
+    );
   }
   return TitleEscrow__factory.connect(titleEscrowAddress, provider);
 };

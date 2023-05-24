@@ -13,7 +13,9 @@ async function recordSaga(saga, initialAction) {
 
   await runSaga(
     {
-      getState: () => ({ demo: { rawModifiedDocument: "DEMO_DOCUMENT_OBJECT" } }),
+      getState: () => ({
+        demo: { rawModifiedDocument: "DEMO_DOCUMENT_OBJECT" },
+      }),
       dispatch: (action) => dispatched.push(action),
     },
     saga,
@@ -34,10 +36,14 @@ describe("verifyDemoDocument", () => {
     const initialAction = { type: "demo-verify/updateDemoDocument" };
     const getDemoDocument = jest
       .spyOn(demoVerify, "getDemoDocument")
-      .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+      .mockImplementation(() =>
+        Promise.resolve(whenDocumentValidAndIssuedByDns)
+      );
     const verifyDocument = jest
       .spyOn(verify, "verifyDocument")
-      .mockImplementation(() => Promise.resolve(whenDocumentValidAndIssuedByDns));
+      .mockImplementation(() =>
+        Promise.resolve(whenDocumentValidAndIssuedByDns)
+      );
     const dispatched = await recordSaga(verifyDemoDocument, initialAction);
 
     expect(getDemoDocument).toHaveBeenCalledTimes(1);
@@ -54,10 +60,14 @@ describe("verifyDemoDocument", () => {
     const initialAction = { type: "demo-verify/updateDemoDocument" };
     const getDemoDocument = jest
       .spyOn(demoVerify, "getDemoDocument")
-      .mockImplementation(() => Promise.resolve(whenDocumentHashInvalidAndNotIssued));
+      .mockImplementation(() =>
+        Promise.resolve(whenDocumentHashInvalidAndNotIssued)
+      );
     const verifyDocument = jest
       .spyOn(verify, "verifyDocument")
-      .mockImplementation(() => Promise.reject(new Error("Failed to verify document")));
+      .mockImplementation(() =>
+        Promise.reject(new Error("Failed to verify document"))
+      );
     const dispatched = await recordSaga(verifyDemoDocument, initialAction);
 
     expect(getDemoDocument).toHaveBeenCalledTimes(1);

@@ -37,7 +37,11 @@ export const leftNavItems: NavigationItem[] = [
         label: "Learn",
         path: "/learn",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/learn"}>
+          <NavLink
+            activeClassName="text-cerulean-500"
+            className={sharedStyles}
+            to={"/learn"}
+          >
             Learn
           </NavLink>
         ),
@@ -47,7 +51,11 @@ export const leftNavItems: NavigationItem[] = [
         label: "FAQ",
         path: "/faq",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/faq"}>
+          <NavLink
+            activeClassName="text-cerulean-500"
+            className={sharedStyles}
+            to={"/faq"}
+          >
             FAQ
           </NavLink>
         ),
@@ -57,7 +65,11 @@ export const leftNavItems: NavigationItem[] = [
         label: "ETA",
         path: "/eta",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/eta"}>
+          <NavLink
+            activeClassName="text-cerulean-500"
+            className={sharedStyles}
+            to={"/eta"}
+          >
             ETA
           </NavLink>
         ),
@@ -67,7 +79,11 @@ export const leftNavItems: NavigationItem[] = [
         label: "Guidelines (Non-Ethereum)",
         path: "/guidelines",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/guidelines"}>
+          <NavLink
+            activeClassName="text-cerulean-500"
+            className={sharedStyles}
+            to={"/guidelines"}
+          >
             Guidelines (Non-Ethereum)
           </NavLink>
         ),
@@ -91,7 +107,11 @@ export const leftNavItems: NavigationItem[] = [
         label: "News",
         path: "/news",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/news"}>
+          <NavLink
+            activeClassName="text-cerulean-500"
+            className={sharedStyles}
+            to={"/news"}
+          >
             News
           </NavLink>
         ),
@@ -101,7 +121,11 @@ export const leftNavItems: NavigationItem[] = [
         label: "Event",
         path: "/event",
         customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/event"}>
+          <NavLink
+            activeClassName="text-cerulean-500"
+            className={sharedStyles}
+            to={"/event"}
+          >
             Event
           </NavLink>
         ),
@@ -119,7 +143,11 @@ export const leftNavItems: NavigationItem[] = [
     id: "contact",
     label: "Contact",
     path: "/contact",
-    customLink: <FormSgContactLink className="block w-full text-current">Contact</FormSgContactLink>,
+    customLink: (
+      <FormSgContactLink className="block w-full text-current">
+        Contact
+      </FormSgContactLink>
+    ),
   },
 ];
 
@@ -148,7 +176,10 @@ export const rightNavItems: NavigationItem[] = [
     path: URLS.CREATOR,
     customLink: (
       <a href={URLS.CREATOR}>
-        <Button className="bg-white text-cerulean-500 hover:bg-cloud-100" size={ButtonSize.SM}>
+        <Button
+          className="bg-white text-cerulean-500 hover:bg-cloud-100"
+          size={ButtonSize.SM}
+        >
           Create Doc
         </Button>
       </a>
@@ -161,7 +192,10 @@ export const rightNavItems: NavigationItem[] = [
     path: "/verify",
     customLink: (
       <NavLink to={"/verify"}>
-        <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800" size={ButtonSize.SM}>
+        <Button
+          className="bg-cerulean-500 text-white hover:bg-cerulean-800"
+          size={ButtonSize.SM}
+        >
           Verify Doc
         </Button>
       </NavLink>

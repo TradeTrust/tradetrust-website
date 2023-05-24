@@ -1,5 +1,9 @@
 import { Provider } from "@ethersproject/abstract-provider";
-import { EndorsementChain, TransferBaseEvent, TransferEvent } from "../../../types";
+import {
+  EndorsementChain,
+  TransferBaseEvent,
+  TransferEvent,
+} from "../../../types";
 import { sortLogChain, fetchEventTime } from "./helpers";
 
 /*
@@ -42,7 +46,10 @@ export const getEndorsementChain = async (
       previousHolder = "";
       previousBeneficiary = "";
       historyChain.push(transactionDetails);
-    } else if (log.type === "SURRENDERED" || log.type === "SURRENDER_REJECTED") {
+    } else if (
+      log.type === "SURRENDERED" ||
+      log.type === "SURRENDER_REJECTED"
+    ) {
       // No state changes, except document owner
       historyChain.push(transactionDetails);
     } else {

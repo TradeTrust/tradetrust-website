@@ -1,4 +1,9 @@
-import { location, navigateToVerify, uploadDocument, validateIframeTexts } from "./helper";
+import {
+  location,
+  navigateToVerify,
+  uploadDocument,
+  validateIframeTexts,
+} from "./helper";
 
 fixture("Default fallback renderer").page`${location}`;
 

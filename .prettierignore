@@ -1,0 +1,12 @@
+.lighthouseci
+
+artifacts
+coverage
+dist
+docs
+lighthouseReport
+node_modules
+
+CREDITS.md
+cms
+src/index.css

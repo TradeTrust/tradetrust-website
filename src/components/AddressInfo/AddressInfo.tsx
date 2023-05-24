@@ -22,7 +22,9 @@ export const AddressInfo: FunctionComponent<AddressInfoProps> = ({
           <h5 className="text-cloud-800 mb-1">{name}</h5>
         </div>
       )}
-      <div className="inline-block break-all w-full font-semibold text-cloud-500">{children}</div>
+      <div className="inline-block break-all w-full font-semibold text-cloud-500">
+        {children}
+      </div>
       {resolvedBy && (
         <div className="flex">
           <h6 className="text-cloud-300">

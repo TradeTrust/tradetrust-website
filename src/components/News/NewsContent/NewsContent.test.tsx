@@ -8,7 +8,8 @@ const mock: NewsSingle[] = [
     slug: "r3-partners-with-tramés-and-imda-to-develop-new-solutions-to-bridge-r3-corda-ebl-and-tradetrust",
     type: NewsTag.PARTNER_NEWS,
     attributes: {
-      title: "R3 partners with Tramés and IMDA to develop new solutions to bridge R3 Corda eBL and TradeTrust",
+      title:
+        "R3 partners with Tramés and IMDA to develop new solutions to bridge R3 Corda eBL and TradeTrust",
       thumbnail: "/static/uploads/news-02.jpg",
       date: "19 Apr 2021",
     },
@@ -18,7 +19,8 @@ const mock: NewsSingle[] = [
     slug: "adoption-of-uncitral-model-law-heralds-a-quiet-revolution-in-digital-trade",
     type: NewsTag.ARTICLE,
     attributes: {
-      title: "Adoption of UNCITRAL model law heralds a quiet revolution in digital trade",
+      title:
+        "Adoption of UNCITRAL model law heralds a quiet revolution in digital trade",
       thumbnail: "/static/uploads/news-01.jpg",
       date: "3 Feb 2021",
     },
@@ -58,7 +60,8 @@ const mock: NewsSingle[] = [
     slug: "swift-and-singapores-imda-join-forces-to-drive-global-trade-digitalisation",
     type: NewsTag.PRESS_RELEASE,
     attributes: {
-      title: "SWIFT and Singapore's IMDA Join Forces to Drive Global Trade Digitalisation",
+      title:
+        "SWIFT and Singapore's IMDA Join Forces to Drive Global Trade Digitalisation",
       date: "5 Oct 2020",
     },
     body: "",
@@ -106,7 +109,8 @@ const mock: NewsSingle[] = [
     slug: "singapore-chile-and-new-zealand-sign-digital-economy-partnership-agreement-electronically",
     type: NewsTag.PRESS_RELEASE,
     attributes: {
-      title: "Singapore, Chile and New Zealand Sign Digital Economy Partnership Agreement Electronically",
+      title:
+        "Singapore, Chile and New Zealand Sign Digital Economy Partnership Agreement Electronically",
       date: "12 Jun 2020",
     },
     body: "",
@@ -162,7 +166,9 @@ describe("NewsContent", () => {
   it("should filter to 1 item when searched r3", () => {
     render(<NewsContent allNews={mock} />);
 
-    fireEvent.change(screen.getByPlaceholderText("Search"), { target: { value: "r3" } });
+    fireEvent.change(screen.getByPlaceholderText("Search"), {
+      target: { value: "r3" },
+    });
     expect(screen.getAllByTestId("news-item-link").length).toBe(1);
   });
 
@@ -188,7 +194,9 @@ describe("NewsContent", () => {
 
     fireEvent.click(screen.getByTestId("dropdown-button-sort"));
     fireEvent.click(screen.getByTestId(NewsSort.ASC));
-    expect(screen.getAllByTestId("news-item-link")[0].innerHTML).toContain("4 Mar 2019");
+    expect(screen.getAllByTestId("news-item-link")[0].innerHTML).toContain(
+      "4 Mar 2019"
+    );
   });
 
   it("should sort by desc date, first item to be latest", () => {
@@ -199,6 +207,8 @@ describe("NewsContent", () => {
 
     fireEvent.click(screen.getByTestId("dropdown-button-sort"));
     fireEvent.click(screen.getByTestId(NewsSort.DESC));
-    expect(screen.getAllByTestId("news-item-link")[0].innerHTML).toContain("19 Apr 2021");
+    expect(screen.getAllByTestId("news-item-link")[0].innerHTML).toContain(
+      "19 Apr 2021"
+    );
   });
 });

@@ -1,7 +1,14 @@
 import { OpenAttestationDocument } from "@govtechsg/open-attestation";
 import { ProgressBar, ToggleSwitch } from "@govtechsg/tradetrust-ui-components";
 import { gaEvent } from "@govtechsg/tradetrust-utils";
-import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../../../../common/contexts/provider";
 import {
@@ -40,7 +47,14 @@ const DemoCreateReviewItem = ({
         {Object.entries(properties).map(([itemName, item]) => {
           const _name = `${name}.${itemName}`;
 
-          return <DemoCreateReviewItem key={_name} name={_name} title={item.title} properties={item.properties} />;
+          return (
+            <DemoCreateReviewItem
+              key={_name}
+              name={_name}
+              title={item.title}
+              properties={item.properties}
+            />
+          );
         })}
       </>
     );
@@ -69,7 +83,12 @@ const DefaultReview = (data: Record<string, FormItemSchema>) => {
         const _item = item as FormItemSchema;
 
         return (
-          <DemoCreateReviewItem key={itemName} name={itemName} title={_item.title} properties={_item.properties} />
+          <DemoCreateReviewItem
+            key={itemName}
+            name={itemName}
+            title={_item.title}
+            properties={_item.properties}
+          />
         );
       })}
     </div>
@@ -117,7 +136,10 @@ export const DemoCreateReview: FunctionComponent = () => {
     }
   }, [issueDocumentStatus, setActiveStep]);
 
-  const toggleHandler = useCallback(() => setIsPreviewMode(!isPreviewMode), [setIsPreviewMode, isPreviewMode]);
+  const toggleHandler = useCallback(
+    () => setIsPreviewMode(!isPreviewMode),
+    [setIsPreviewMode, isPreviewMode]
+  );
 
   return (
     <>
@@ -141,7 +163,11 @@ export const DemoCreateReview: FunctionComponent = () => {
           <ToggleSwitch isOn={isPreviewMode} handleToggle={toggleHandler} />
         </div>
       </div>
-      {isPreviewMode ? <DocumentPreview document={rawDocument} /> : DefaultReview(schema)}
+      {isPreviewMode ? (
+        <DocumentPreview document={rawDocument} />
+      ) : (
+        DefaultReview(schema)
+      )}
       <div className="border-t border-cloud-300">
         <DemoCreateButtonRow onBack={handleBack} onNext={handleNext} />
       </div>

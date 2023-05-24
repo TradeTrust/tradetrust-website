@@ -5,7 +5,12 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@govtechsg/tradetrust-ui-components";
-import React, { FunctionComponent, useContext, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { isEthereumAddress } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
@@ -35,16 +40,21 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
   setShowEndorsementChain,
 }) => {
   const [newHolder, setNewHolder] = useState("");
-  const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
+  const isPendingConfirmation =
+    holderTransferringState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = holderTransferringState === FormState.CONFIRMED;
   const isEditable =
-    holderTransferringState !== FormState.PENDING_CONFIRMATION && holderTransferringState !== FormState.CONFIRMED;
+    holderTransferringState !== FormState.PENDING_CONFIRMATION &&
+    holderTransferringState !== FormState.CONFIRMED;
   const { showOverlay } = useContext(OverlayContext);
 
   useEffect(() => {
     if (isConfirmed) {
       showOverlay(
-        showDocumentTransferMessage(MessageTitle.TRANSFER_HOLDER_SUCCESS, { isSuccess: true, holderAddress: newHolder })
+        showDocumentTransferMessage(MessageTitle.TRANSFER_HOLDER_SUCCESS, {
+          isSuccess: true,
+          holderAddress: newHolder,
+        })
       );
       setFormActionNone();
     }
@@ -73,7 +83,11 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
+          <EditableAssetTitle
+            role="Owner"
+            value={beneficiary}
+            isEditable={false}
+          />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
@@ -106,7 +120,11 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
                 onClick={() => handleTransfer(newHolder)}
                 data-testid={"transferBtn"}
               >
-                {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}
+                {isPendingConfirmation ? (
+                  <LoaderSpinner data-testid={"loader"} />
+                ) : (
+                  <>Transfer</>
+                )}
               </Button>
             </div>
           </div>

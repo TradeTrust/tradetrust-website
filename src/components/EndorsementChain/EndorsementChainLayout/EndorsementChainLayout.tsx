@@ -38,10 +38,11 @@ interface AddressResolvedNameProps {
   address: string;
 }
 
-const AddressResolvedName: React.FunctionComponent<AddressResolvedNameProps> = ({ address }) => {
-  const { identityName } = useIdentifierResolver(address);
-  return <>{identityName && <div className="mr-2">{identityName}</div>}</>;
-};
+const AddressResolvedName: React.FunctionComponent<AddressResolvedNameProps> =
+  ({ address }) => {
+    const { identityName } = useIdentifierResolver(address);
+    return <>{identityName && <div className="mr-2">{identityName}</div>}</>;
+  };
 
 interface DetailsEntityProps {
   title: string;
@@ -137,7 +138,10 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
   return historyChain;
 };
 
-const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, address }) => {
+const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({
+  title,
+  address,
+}) => {
   return (
     <div className="w-full lg:w-1/3" data-testid={`row-event-${title}`}>
       <div className="flex flex-nowrap pr-8">
@@ -148,7 +152,10 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
         </div>
         <div className="pb-4 lg:pb-0">
           <h5 className="text-cloud-800 mr-2 lg:hidden">{title}</h5>
-          <h6 className="text-cerulean-500 break-all" data-testid="address-entity">
+          <h6
+            className="text-cerulean-500 break-all"
+            data-testid="address-entity"
+          >
             {address}
             <AddressResolvedName address={address} />
           </h6>
@@ -158,12 +165,21 @@ const DetailsEntity: React.FunctionComponent<DetailsEntityProps> = ({ title, add
   );
 };
 
-const EndorsementChainData: React.FunctionComponent<any> = ({ index, data }) => {
+const EndorsementChainData: React.FunctionComponent<any> = ({
+  index,
+  data,
+}) => {
   return (
-    <div className="flex flex-wrap items-center" data-testid={`row-event-${index}`}>
+    <div
+      className="flex flex-wrap items-center"
+      data-testid={`row-event-${index}`}
+    >
       <div className="w-full lg:w-1/3">
         <div className="flex flex-nowrap">
-          <div className="relative shrink-0 lg:order-2" style={{ width: "40px" }}>
+          <div
+            className="relative shrink-0 lg:order-2"
+            style={{ width: "40px" }}
+          >
             <div className="absolute left-0 right-0 mx-auto h-full">
               <div className="absolute left-1/2 h-full border-l border-dashed border-cerulean-500 dot-path" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cerulean-500 h-3 w-3" />
@@ -175,54 +191,69 @@ const EndorsementChainData: React.FunctionComponent<any> = ({ index, data }) => 
                 {data.action}
               </h4>
               {data.timestamp && (
-                <h6 className="text-cloud-800">{format(new Date(data.timestamp ?? 0), "do MMM yyyy, hh:mm aa")}</h6>
+                <h6 className="text-cloud-800">
+                  {format(
+                    new Date(data.timestamp ?? 0),
+                    "do MMM yyyy, hh:mm aa"
+                  )}
+                </h6>
               )}
             </div>
           </div>
         </div>
       </div>
-      <DetailsEntity title="Owner" address={data.isNewBeneficiary ? data.beneficiary : ""} />
-      <DetailsEntity title="Holder" address={data.isNewHolder ? data.holder : ""} />
+      <DetailsEntity
+        title="Owner"
+        address={data.isNewBeneficiary ? data.beneficiary : ""}
+      />
+      <DetailsEntity
+        title="Holder"
+        address={data.isNewHolder ? data.holder : ""}
+      />
     </div>
   );
 };
 
-export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> = ({
-  endorsementChain,
-  setShowEndorsementChain,
-  error,
-  pending,
-}) => {
-  const historyChain = getHistoryChain(endorsementChain);
+export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
+  ({ endorsementChain, setShowEndorsementChain, error, pending }) => {
+    const historyChain = getHistoryChain(endorsementChain);
 
-  return (
-    <div className="container my-8">
-      <div className="cursor-pointer" onClick={() => setShowEndorsementChain(false)} data-testid="back-button">
-        <BackArrow />
-      </div>
-      <div className="my-4" data-testid="endorsement-chain-title">
-        <h3>Endorsement Chain</h3>
-      </div>
-      <div className="bg-white rounded-xl shadow-xl px-3 py-8 lg:px-8">
-        <div className="hidden lg:block mb-8">
-          <div className="flex text-cloud-800">
-            <h5 className="w-1/3">Action/Date</h5>
-            <h5 className="w-1/3">Owner</h5>
-            <h5 className="w-1/3">Holder</h5>
-          </div>
-          <div className="border-t" />
+    return (
+      <div className="container my-8">
+        <div
+          className="cursor-pointer"
+          onClick={() => setShowEndorsementChain(false)}
+          data-testid="back-button"
+        >
+          <BackArrow />
         </div>
-
-        {pending && !endorsementChain && !error && <EndorsementChainLoading />}
-        {!pending && endorsementChain && !error && (
-          <div className="endorsement-chain">
-            {historyChain.map((item, key) => (
-              <EndorsementChainData index={key} data={item} key={key} />
-            ))}
+        <div className="my-4" data-testid="endorsement-chain-title">
+          <h3>Endorsement Chain</h3>
+        </div>
+        <div className="bg-white rounded-xl shadow-xl px-3 py-8 lg:px-8">
+          <div className="hidden lg:block mb-8">
+            <div className="flex text-cloud-800">
+              <h5 className="w-1/3">Action/Date</h5>
+              <h5 className="w-1/3">Owner</h5>
+              <h5 className="w-1/3">Holder</h5>
+            </div>
+            <div className="border-t" />
           </div>
-        )}
-        {!pending && !endorsementChain && error && <EndorsementChainError error={error} />}
+
+          {pending && !endorsementChain && !error && (
+            <EndorsementChainLoading />
+          )}
+          {!pending && endorsementChain && !error && (
+            <div className="endorsement-chain">
+              {historyChain.map((item, key) => (
+                <EndorsementChainData index={key} data={item} key={key} />
+              ))}
+            </div>
+          )}
+          {!pending && !endorsementChain && error && (
+            <EndorsementChainError error={error} />
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };

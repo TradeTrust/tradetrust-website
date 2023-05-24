@@ -6,7 +6,8 @@ import { MemoryRouter } from "react-router-dom";
 const mockEventMedia: EventProps = {
   slug: "test",
   attributes: {
-    title: "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
+    title:
+      "The Journey to Paperless Trade: Industry Initiatives for Interoperability",
     blurb:
       "This event by BAFT and R3 explored different blockchain-based digital trade solutions and how global trade participants can use these solutions towards challenges in the global trade ecosystem.",
     link: "https://www.baft.org/baft-education/e-learning/past-webinars",
@@ -15,7 +16,9 @@ const mockEventMedia: EventProps = {
     timeEnd: "2021-03-19T14:00:00.000Z",
     videoLink: "https://www.youtube.com/watch?v=iRmaQV9HERw",
     slides: "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
-    downloadableMediaContent: ["/static/uploads/webinar-the-journey-to-paperless-trade.pdf"],
+    downloadableMediaContent: [
+      "/static/uploads/webinar-the-journey-to-paperless-trade.pdf",
+    ],
     eventDetails: "",
   },
 };
@@ -24,19 +27,27 @@ describe("ResourceEvent", () => {
   it("should render title correctly", () => {
     render(
       <MemoryRouter>
-        <ResourceEvent slug={mockEventMedia.slug} attributes={mockEventMedia.attributes} />
+        <ResourceEvent
+          slug={mockEventMedia.slug}
+          attributes={mockEventMedia.attributes}
+        />
       </MemoryRouter>
     );
 
     expect(
-      screen.getByText("The Journey to Paperless Trade: Industry Initiatives for Interoperability")
+      screen.getByText(
+        "The Journey to Paperless Trade: Industry Initiatives for Interoperability"
+      )
     ).not.toBeNull();
   });
 
   it("should render the blurb correctly", () => {
     render(
       <MemoryRouter>
-        <ResourceEvent slug={mockEventMedia.slug} attributes={mockEventMedia.attributes} />
+        <ResourceEvent
+          slug={mockEventMedia.slug}
+          attributes={mockEventMedia.attributes}
+        />
       </MemoryRouter>
     );
 
@@ -50,7 +61,10 @@ describe("ResourceEvent", () => {
   it("should render date correctly", () => {
     render(
       <MemoryRouter>
-        <ResourceEvent slug={mockEventMedia.slug} attributes={mockEventMedia.attributes} />
+        <ResourceEvent
+          slug={mockEventMedia.slug}
+          attributes={mockEventMedia.attributes}
+        />
       </MemoryRouter>
     );
 
@@ -60,7 +74,10 @@ describe("ResourceEvent", () => {
   it("should render time correctly", () => {
     render(
       <MemoryRouter>
-        <ResourceEvent slug={mockEventMedia.slug} attributes={mockEventMedia.attributes} />
+        <ResourceEvent
+          slug={mockEventMedia.slug}
+          attributes={mockEventMedia.attributes}
+        />
       </MemoryRouter>
     );
 

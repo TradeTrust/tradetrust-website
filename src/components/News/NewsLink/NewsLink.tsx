@@ -20,7 +20,11 @@ export const NewsLink: FunctionComponent<{ news: NewsSingle }> = ({ news }) => {
   return (
     <>
       {isNavLink && link ? (
-        <NavLink data-testid="news-item-link" to={link} className={`${sharedStylesLink}`}>
+        <NavLink
+          data-testid="news-item-link"
+          to={link}
+          className={`${sharedStylesLink}`}
+        >
           <NewsCard news={news} />
         </NavLink>
       ) : (

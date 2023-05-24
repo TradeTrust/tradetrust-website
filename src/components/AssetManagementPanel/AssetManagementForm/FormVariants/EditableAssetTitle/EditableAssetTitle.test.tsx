@@ -5,11 +5,17 @@ import { EditableAssetTitle } from "./EditableAssetTitle";
 it("should display both the role and the value when not in editable format", async () => {
   await act(async () => {
     const container = render(
-      <EditableAssetTitle role="Owner" value="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C" isEditable={false} />
+      <EditableAssetTitle
+        role="Owner"
+        value="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+        isEditable={false}
+      />
     );
 
     const beneficiaryLabel = container.getByText("Owner:");
-    const beneficiaryText = container.getByText("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C");
+    const beneficiaryText = container.getByText(
+      "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+    );
 
     expect(beneficiaryLabel).not.toBeNull();
     expect(beneficiaryText).not.toBeNull();
@@ -47,7 +53,9 @@ it("should display placeholder when no value given", async () => {
     />
   );
 
-  const loadingContainer = container.getByTestId("loading-skeleton-placeholder");
+  const loadingContainer = container.getByTestId(
+    "loading-skeleton-placeholder"
+  );
 
   expect(loadingContainer).not.toBeNull();
 });

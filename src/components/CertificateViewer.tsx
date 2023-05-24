@@ -1,14 +1,26 @@
 import { utils } from "@govtechsg/open-attestation";
-import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../common/contexts/provider";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { RootState } from "../reducers";
-import { resetCertificateState, updateCertificate } from "../reducers/certificate";
+import {
+  resetCertificateState,
+  updateCertificate,
+} from "../reducers/certificate";
 import { resetDemoState } from "../reducers/demo-verify";
 import { TemplateProps } from "../types";
 import { getLogger } from "../utils/logger";
-import { getAttachments, getTokenRegistryAddress, WrappedOrSignedOpenAttestationDocument } from "../utils/shared";
+import {
+  getAttachments,
+  getTokenRegistryAddress,
+  WrappedOrSignedOpenAttestationDocument,
+} from "../utils/shared";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
@@ -29,7 +41,8 @@ const getTempProps = (isSample: boolean) => {
     ? {
         to: "/demo",
         buttonText: "Try our demo now",
-        title: "Want to try creating a verifiable document? You will be surprised how easy it is.",
+        title:
+          "Want to try creating a verifiable document? You will be surprised how easy it is.",
       }
     : {
         to: "/contact",
@@ -56,7 +69,10 @@ interface CertificateViewerProps {
   document: WrappedOrSignedOpenAttestationDocument;
 }
 
-export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document }) => {
+export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({
+  isMagicDemo,
+  document,
+}) => {
   const isTransferableAsset = utils.isTransferableAsset(document);
   let tokenId = "";
   if (isTransferableAsset) {
@@ -67,18 +83,25 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
     }
   }
 
-  const tokenRegistryAddress = isTransferableAsset ? getTokenRegistryAddress(document) : "";
+  const tokenRegistryAddress = isTransferableAsset
+    ? getTokenRegistryAddress(document)
+    : "";
   const isTransferableDocument = !!tokenRegistryAddress;
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
   const attachments = getAttachments(document);
   const hasAttachments = attachments ? attachments.length > 0 : false;
-  const { initialize, resetStates: resetTokenInformationState } = useTokenInformationContext();
+  const { initialize, resetStates: resetTokenInformationState } =
+    useTokenInformationContext();
   const dispatch = useDispatch();
 
-  const isSampleDocument = useSelector((state: RootState) => state.sample.isSampleDocument);
-  const certificateDoc = useSelector((state: RootState) => state.certificate.rawModified);
+  const isSampleDocument = useSelector(
+    (state: RootState) => state.sample.isSampleDocument
+  );
+  const certificateDoc = useSelector(
+    (state: RootState) => state.certificate.rawModified
+  );
 
   const resetCertificateData = useCallback(() => {
     dispatch(resetCertificateState());
@@ -95,7 +118,14 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
     if (isMagicDemo || isSampleDocument) return;
     resetCertificateData();
     dispatch(updateCertificate(certificateDoc));
-  }, [certificateDoc, currentChainId, dispatch, resetCertificateData, isMagicDemo, isSampleDocument]);
+  }, [
+    certificateDoc,
+    currentChainId,
+    dispatch,
+    resetCertificateData,
+    isMagicDemo,
+    isSampleDocument,
+  ]);
 
   /*
   initialise the meta token information context when new tokenId
@@ -111,14 +141,24 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
       resetTokenInformationState();
       resetCertificateData();
     };
-  }, [tokenId, tokenRegistryAddress, initialize, resetTokenInformationState, resetCertificateData]);
+  }, [
+    tokenId,
+    tokenRegistryAddress,
+    initialize,
+    resetTokenInformationState,
+    resetCertificateData,
+  ]);
 
   const childRef = React.useRef<{ print: () => void }>();
 
   const updateTemplates = useCallback((templateList: TemplateProps[]) => {
     // filter all templates that are renderable currently
     const templatesModified = templateList.filter((item) => {
-      return item.type === "custom-template" || item.type === "application/pdf" || !item.type; // !item.type caters to renderers that still has decentralized-renderer-react-components dependency at <2.3.0, where type does not exists
+      return (
+        item.type === "custom-template" ||
+        item.type === "application/pdf" ||
+        !item.type
+      ); // !item.type caters to renderers that still has decentralized-renderer-react-components dependency at <2.3.0, where type does not exists
     });
 
     // set modified templates
@@ -148,7 +188,9 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const renderedCertificateViewer = (
     <>
       <div className="no-print">
-        {!isTransferableDocument && <DocumentStatus isMagicDemo={isMagicDemo} />}
+        {!isTransferableDocument && (
+          <DocumentStatus isMagicDemo={isMagicDemo} />
+        )}
         {renderBanner(isSampleDocument, isMagicDemo)}
         <ObfuscatedMessage document={document} />
         {isTransferableDocument && (
@@ -172,12 +214,22 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
       </div>
       <div className="bg-white py-6">
         {attachments && (
-          <div className={`${selectedTemplate !== "attachmentTab" ? "hidden" : "block"}`}>
+          <div
+            className={`${
+              selectedTemplate !== "attachmentTab" ? "hidden" : "block"
+            }`}
+          >
             <TabPaneAttachments attachments={attachments} />
           </div>
         )}
-        <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-          {templates.length > 0 && <DocumentUtility document={document} onPrint={onPrint} />}
+        <div
+          className={`${
+            selectedTemplate === "attachmentTab" ? "hidden" : "block"
+          }`}
+        >
+          {templates.length > 0 && (
+            <DocumentUtility document={document} onPrint={onPrint} />
+          )}
           <DecentralisedRendererContainer
             rawDocument={document}
             updateTemplates={updateTemplates}
@@ -191,7 +243,9 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
 
   return (
     <CertificateViewerErrorBoundary>
-      {showEndorsementChain ? renderedEndorsementChain : renderedCertificateViewer}
+      {showEndorsementChain
+        ? renderedEndorsementChain
+        : renderedCertificateViewer}
     </CertificateViewerErrorBoundary>
   );
 };

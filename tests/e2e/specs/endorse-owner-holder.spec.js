@@ -2,7 +2,9 @@ import { ACCOUNT_3 } from "../utils";
 
 before(() => {
   // Import Account 2 0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60
-  cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879");
+  cy.importMetamaskAccount(
+    "0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879"
+  );
   cy.switchMetamaskAccount(1);
 });
 
@@ -20,8 +22,17 @@ describe("Endorse Transfer of Ownership/Holdership", () => {
     cy.get("[data-testid='editable-input-holder']").type(ACCOUNT_3);
     cy.get("[data-testid='endorseTransferBtn']").click();
     cy.confirmMetamaskTransaction();
-    cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_3);
-    cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_3);
-    cy.get("[data-testid='overlay-title']").should("have.text", "Endorse Ownership/Holdership Success");
+    cy.get("[data-testid='non-editable-input-owner']").should(
+      "have.text",
+      ACCOUNT_3
+    );
+    cy.get("[data-testid='non-editable-input-owner']").should(
+      "have.text",
+      ACCOUNT_3
+    );
+    cy.get("[data-testid='overlay-title']").should(
+      "have.text",
+      "Endorse Ownership/Holdership Success"
+    );
   });
 });

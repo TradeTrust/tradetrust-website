@@ -1,10 +1,18 @@
 import { Button } from "@govtechsg/tradetrust-ui-components";
 import { gaEvent } from "@govtechsg/tradetrust-utils";
-import React, { FunctionComponent, useContext, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { ethers } from "ethers";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../../../../common/contexts/provider";
-import { deployingDocStore, getDocumentPrepared } from "../../../../reducers/demo-create";
+import {
+  deployingDocStore,
+  getDocumentPrepared,
+} from "../../../../reducers/demo-create";
 import { getFunds } from "../../../../services/create";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
 import { LoadingModal } from "../../../UI/Overlay";
@@ -88,7 +96,11 @@ export const DemoCreateStart: FunctionComponent = () => {
         {features.map(({ img, title }) => {
           return (
             <div key={img} className="w-1/3 px-3">
-              <img alt={title} className="mx-auto h-32" src={`/static/images/demo/${img}`} />
+              <img
+                alt={title}
+                className="mx-auto h-32"
+                src={`/static/images/demo/${img}`}
+              />
               <p className="text-cerulean-500 text-center">{title}</p>
             </div>
           );
@@ -97,11 +109,15 @@ export const DemoCreateStart: FunctionComponent = () => {
       {error || getFundsError ? (
         <div className="mt-12">
           <h3 className="text-center">
-            There maybe something wrong with the underlying network, please try again later.
+            There maybe something wrong with the underlying network, please try
+            again later.
           </h3>
         </div>
       ) : (
-        <Button onClick={handleStart} className="flex mx-auto bg-cerulean-500 text-white mt-8 hover:bg-cerulean-800">
+        <Button
+          onClick={handleStart}
+          className="flex mx-auto bg-cerulean-500 text-white mt-8 hover:bg-cerulean-800"
+        >
           Start Now
         </Button>
       )}

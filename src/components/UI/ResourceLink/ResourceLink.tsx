@@ -7,7 +7,11 @@ export interface ResourceLinkProps {
   icon?: string;
 }
 
-export const ResourceLink: FunctionComponent<ResourceLinkProps> = ({ title, resources, icon }) => {
+export const ResourceLink: FunctionComponent<ResourceLinkProps> = ({
+  title,
+  resources,
+  icon,
+}) => {
   return (
     <div className="bg-white shadow-md rounded-lg mb-4 py-2 px-4">
       <div className="flex">
@@ -32,7 +36,14 @@ export const ResourceLink: FunctionComponent<ResourceLinkProps> = ({ title, reso
             </div>
           ))}
         </div>
-        {icon && <img src={icon} alt="link icon" className="object-contain" data-testid="link-icon" />}
+        {icon && (
+          <img
+            src={icon}
+            alt="link icon"
+            className="object-contain"
+            data-testid="link-icon"
+          />
+        )}
       </div>
     </div>
   );

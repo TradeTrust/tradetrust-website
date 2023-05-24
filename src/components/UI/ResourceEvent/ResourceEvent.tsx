@@ -23,7 +23,10 @@ interface EventAttribute {
   eventDetails?: string;
 }
 
-export const ResourceEvent: FunctionComponent<EventProps> = ({ slug, attributes }) => {
+export const ResourceEvent: FunctionComponent<EventProps> = ({
+  slug,
+  attributes,
+}) => {
   const { title, thumbnail, blurb, date, timeStart, timeEnd } = attributes;
   const eventLink = slug;
 
@@ -40,7 +43,9 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ slug, attributes 
 
         <div
           className={`w-full bg-white px-5 pt-3 pb-5 ${
-            thumbnail ? "rounded-b-xl md:w-8/12 md:rounded-none md:rounded-r-xl" : "rounded-xl"
+            thumbnail
+              ? "rounded-b-xl md:w-8/12 md:rounded-none md:rounded-r-xl"
+              : "rounded-xl"
           }`}
         >
           <h4 className="mb-2 text-cloud-800">{title}</h4>
@@ -50,13 +55,17 @@ export const ResourceEvent: FunctionComponent<EventProps> = ({ slug, attributes 
               <>
                 <span className="mx-1">|</span>
                 <span>
-                  {formatTime(timeStart, "HH:mm")} to {formatTime(timeEnd, "HH:mm")} ({formatTime(timeStart, "zzz")})
+                  {formatTime(timeStart, "HH:mm")} to{" "}
+                  {formatTime(timeEnd, "HH:mm")} ({formatTime(timeStart, "zzz")}
+                  )
                 </span>
               </>
             )}
           </div>
           <p className="text-cloud-800 font-normal mb-4">{blurb}</p>
-          <h5 className="text-cerulean-300 hover:text-cerulean-500">Click to find out more</h5>
+          <h5 className="text-cerulean-300 hover:text-cerulean-500">
+            Click to find out more
+          </h5>
         </div>
       </div>
     </Link>

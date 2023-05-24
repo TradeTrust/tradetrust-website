@@ -9,14 +9,21 @@ interface ViewActionErrorProps {
   resetData: () => void;
 }
 
-export const ViewActionError: FunctionComponent<ViewActionErrorProps> = ({ resetData }) => {
-  const { retrieveCertificateByActionError } = useSelector((state: RootState) => state.certificate);
+export const ViewActionError: FunctionComponent<ViewActionErrorProps> = ({
+  resetData,
+}) => {
+  const { retrieveCertificateByActionError } = useSelector(
+    (state: RootState) => state.certificate
+  );
 
   return (
     <div>
       <div className="flex justify-center items-center my-4">
         <div className="w-auto mr-2">
-          <img src="/static/images/dropzone/invalid.svg" alt="Document invalid" />
+          <img
+            src="/static/images/dropzone/invalid.svg"
+            alt="Document invalid"
+          />
         </div>
         <div className="w-auto">
           <p className="text-2xl">This document is not valid</p>

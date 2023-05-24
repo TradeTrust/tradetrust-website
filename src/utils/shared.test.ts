@@ -16,7 +16,10 @@ describe("getChainId for v2 document", () => {
   it("should return the correct chainId for polygon mumbai network", () => {
     const document = {
       ...invoiceV2,
-      data: { ...invoiceV2.data, network: { chain: "MATIC", chainId: "80001" } },
+      data: {
+        ...invoiceV2.data,
+        network: { chain: "MATIC", chainId: "80001" },
+      },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(getChainId(document)).toStrictEqual(80001);
   });
@@ -24,9 +27,14 @@ describe("getChainId for v2 document", () => {
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
     const document = {
       ...invoiceV2,
-      data: { ...invoiceV2.data, network: { chain: "MATICMUM", chainId: "80001" } },
+      data: {
+        ...invoiceV2.data,
+        network: { chain: "MATICMUM", chainId: "80001" },
+      },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
+    expect(() => getChainId(document)).toThrow(
+      "Invalid Document, please use a valid document."
+    );
   });
 
   it("should return 'undefined' when there is no network", () => {
@@ -45,7 +53,9 @@ describe("getChainId for v2 document", () => {
       ...invoiceV2,
       data: { ...invoiceV2.data, network: { chain: "ETH" } },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
+    expect(() => getChainId(document)).toThrow(
+      "Invalid Document, please use a valid document."
+    );
   });
 
   it("should throw an error when the chainId is not in the list of networks", () => {
@@ -53,11 +63,15 @@ describe("getChainId for v2 document", () => {
       ...invoiceV2,
       data: { ...invoiceV2.data, network: { chain: "ETH", chainId: "8" } },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
+    expect(() => getChainId(document)).toThrow(
+      "Invalid Document, please use a valid document."
+    );
   });
 
   it("should return 'undefined' when did document is being dropped", () => {
-    expect(getChainId(v2DID as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(undefined);
+    expect(
+      getChainId(v2DID as unknown as WrappedOrSignedOpenAttestationDocument)
+    ).toStrictEqual(undefined);
   });
 });
 
@@ -83,16 +97,20 @@ describe("getChainId for v3 document", () => {
       ...invoiceV3,
       network: { chain: "MATICMUM", chainId: "80001" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
+    expect(() => getChainId(document)).toThrow(
+      "Invalid Document, please use a valid document."
+    );
   });
 
   it("should return 'undefined' when there is no network", () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { network, ...documentWithoutNetwork } = invoiceV3;
 
-    expect(getChainId(documentWithoutNetwork as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(
-      undefined
-    );
+    expect(
+      getChainId(
+        documentWithoutNetwork as unknown as WrappedOrSignedOpenAttestationDocument
+      )
+    ).toStrictEqual(undefined);
   });
 
   it("should throw an error when the chainId is not in the network object", () => {
@@ -100,7 +118,9 @@ describe("getChainId for v3 document", () => {
       ...invoiceV3,
       network: { chain: "ETH" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
+    expect(() => getChainId(document)).toThrow(
+      "Invalid Document, please use a valid document."
+    );
   });
 
   it("should throw an error when the chainId is not in the list of networks", () => {
@@ -108,10 +128,14 @@ describe("getChainId for v3 document", () => {
       ...invoiceV3,
       network: { chain: "ETH", chainId: "8" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
+    expect(() => getChainId(document)).toThrow(
+      "Invalid Document, please use a valid document."
+    );
   });
 
   it("should return 'undefined' when did document is being dropped", () => {
-    expect(getChainId(v3DID as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(undefined);
+    expect(
+      getChainId(v3DID as unknown as WrappedOrSignedOpenAttestationDocument)
+    ).toStrictEqual(undefined);
   });
 });

@@ -29,20 +29,34 @@ export const mockResourceWebinar: Webinar = {
 
 describe("ResourceWebinar", () => {
   it("should render title correctly", () => {
-    render(<ResourceWebinar title="TradeTrust Overview" description="" resource={mockResourceWebinar} />);
+    render(
+      <ResourceWebinar
+        title="TradeTrust Overview"
+        description=""
+        resource={mockResourceWebinar}
+      />
+    );
 
     expect(screen.getByText("TradeTrust Overview")).not.toBeNull();
   });
 
   it("should render youtube correctly", () => {
-    render(<ResourceWebinar title="" description="" resource={mockResourceWebinar} />);
+    render(
+      <ResourceWebinar title="" description="" resource={mockResourceWebinar} />
+    );
 
-    expect(screen.getByTestId("youtubeEmbed-iframe").getAttribute("src")).toContain("NcR1M9NJ-PE");
-    expect(screen.getByTestId("youtubeEmbed-title-link").getAttribute("href")).toContain("NcR1M9NJ-PE");
+    expect(
+      screen.getByTestId("youtubeEmbed-iframe").getAttribute("src")
+    ).toContain("NcR1M9NJ-PE");
+    expect(
+      screen.getByTestId("youtubeEmbed-title-link").getAttribute("href")
+    ).toContain("NcR1M9NJ-PE");
   });
 
   it("should render quick video link dropdown", () => {
-    render(<ResourceWebinar title="" description="" resource={mockResourceWebinar} />);
+    render(
+      <ResourceWebinar title="" description="" resource={mockResourceWebinar} />
+    );
 
     expect(screen.getByTestId("quick-video-links-dropdown")).not.toBeNull();
     fireEvent.click(screen.getByTestId("quick-video-links-dropdown"));
@@ -50,7 +64,9 @@ describe("ResourceWebinar", () => {
   });
 
   it("should render download links correctly", () => {
-    render(<ResourceWebinar title="" description="" resource={mockResourceWebinar} />);
+    render(
+      <ResourceWebinar title="" description="" resource={mockResourceWebinar} />
+    );
 
     expect(screen.getAllByTestId("download-link")).toHaveLength(2);
   });

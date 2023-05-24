@@ -22,7 +22,11 @@ interface ResourceWebinarProps {
   resource: Webinar;
 }
 
-export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title, description, resource }) => {
+export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({
+  title,
+  description,
+  resource,
+}) => {
   const { youtubeEmbedCode, tag, downloads, videoChapters } = resource;
   const [currentTimeStamp, setCurrentTimeStamp] = useState(0);
 
@@ -34,7 +38,9 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
             <iframe
               className="xl:absolute top-0 left-0 w-full h-full aspect-video rounded-tl-lg xl:rounded-bl-lg rounded-tr-lg xl:rounded-tr-none"
               src={`https://www.youtube.com/embed/${youtubeEmbedCode}${
-                currentTimeStamp ? `?autoplay=1&rel=0&start=${currentTimeStamp}` : "?rel=0"
+                currentTimeStamp
+                  ? `?autoplay=1&rel=0&start=${currentTimeStamp}`
+                  : "?rel=0"
               }`}
               title={title}
               frameBorder="0"
@@ -70,11 +76,14 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
                 return (
                   <DropdownItem
                     key={i}
-                    className={"break-words text-clip whitespace-normal text-cloud-800 "}
+                    className={
+                      "break-words text-clip whitespace-normal text-cloud-800 "
+                    }
                     data-testid="video-chapters-dropdown"
                     onClick={() => setCurrentTimeStamp(videoChapter.timeStamp)}
                   >
-                    {videoChapter.title} [{convertSecondsToMinAndSec(videoChapter.timeStamp)}]
+                    {videoChapter.title} [
+                    {convertSecondsToMinAndSec(videoChapter.timeStamp)}]
                   </DropdownItem>
                 );
               })}

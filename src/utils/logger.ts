@@ -14,7 +14,11 @@ export const stack =
 
 export const getLogger = (
   namespace: string
-): { trace: debug.Debugger; error: debug.Debugger; stack: (error: Error) => void } => ({
+): {
+  trace: debug.Debugger;
+  error: debug.Debugger;
+  stack: (error: Error) => void;
+} => ({
   trace: trace.extend(namespace),
   error: error.extend(namespace),
   stack: stack(namespace),

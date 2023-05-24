@@ -1,22 +1,30 @@
 @font-face {
   font-family: "Gilroy-Light";
-  src: url("https://ui.tradetrust.io/static/fonts/GilroyLight/font.woff2") format("woff2"),
-    url("https://ui.tradetrust.io/static/fonts/GilroyLight/font.woff") format("woff");
+  src: url("https://ui.tradetrust.io/static/fonts/GilroyLight/font.woff2")
+      format("woff2"),
+    url("https://ui.tradetrust.io/static/fonts/GilroyLight/font.woff")
+      format("woff");
 }
 @font-face {
   font-family: "Gilroy-Medium";
-  src: url("https://ui.tradetrust.io/static/fonts/GilroyMedium/font.woff2") format("woff2"),
-    url("https://ui.tradetrust.io/static/fonts/GilroyMedium/font.woff") format("woff");
+  src: url("https://ui.tradetrust.io/static/fonts/GilroyMedium/font.woff2")
+      format("woff2"),
+    url("https://ui.tradetrust.io/static/fonts/GilroyMedium/font.woff")
+      format("woff");
 }
 @font-face {
   font-family: "Gilroy-Bold";
-  src: url("https://ui.tradetrust.io/static/fonts/GilroyBold/font.woff2") format("woff2"),
-    url("https://ui.tradetrust.io/static/fonts/GilroyBold/font.woff") format("woff");
+  src: url("https://ui.tradetrust.io/static/fonts/GilroyBold/font.woff2")
+      format("woff2"),
+    url("https://ui.tradetrust.io/static/fonts/GilroyBold/font.woff")
+      format("woff");
 }
 @font-face {
   font-family: "Gilroy-ExtraBold";
-  src: url("https://ui.tradetrust.io/static/fonts/GilroyExtraBold/font.woff2") format("woff2"),
-    url("https://ui.tradetrust.io/static/fonts/GilroyExtraBold/font.woff") format("woff");
+  src: url("https://ui.tradetrust.io/static/fonts/GilroyExtraBold/font.woff2")
+      format("woff2"),
+    url("https://ui.tradetrust.io/static/fonts/GilroyExtraBold/font.woff")
+      format("woff");
 }
 
 @tailwind base;
@@ -171,7 +179,12 @@
     @apply bg-no-repeat;
     content: "";
     background-color: #e5e5e5;
-    background-image: linear-gradient(to left, #e5e5e5 0%, #f5f5f5 50%, #e5e5e5 100%);
+    background-image: linear-gradient(
+      to left,
+      #e5e5e5 0%,
+      #f5f5f5 50%,
+      #e5e5e5 100%
+    );
     background-size: 50% 100%;
     height: 24px;
     border-radius: 2px;

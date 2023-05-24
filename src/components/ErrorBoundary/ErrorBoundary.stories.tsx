@@ -24,7 +24,10 @@ const MockFallbackComponent = () => <div>Fallback component</div>;
 export const Default = () => {
   return (
     <Router history={history}>
-      <ErrorBoundary FallbackComponent={MockFallbackComponent} onRecover={() => {}}>
+      <ErrorBoundary
+        FallbackComponent={MockFallbackComponent}
+        onRecover={() => {}}
+      >
         <ErrorComponent />
       </ErrorBoundary>
     </Router>

@@ -18,7 +18,9 @@ export type TradeTrustTokenEventType =
   | "TRANSFER_TO_WALLET"
   | "INVALID";
 
-export type TransferEventType = TokenTransferEventType | TitleEscrowTransferEventType;
+export type TransferEventType =
+  | TokenTransferEventType
+  | TitleEscrowTransferEventType;
 export interface TransferBaseEvent {
   type: TransferEventType;
   transactionIndex: number;
@@ -28,12 +30,19 @@ export interface TransferBaseEvent {
   blockNumber: number;
 }
 
-export type TokenTransferEventType = "INITIAL" | "SURRENDERED" | "SURRENDER_REJECTED" | "SURRENDER_ACCEPTED";
+export type TokenTransferEventType =
+  | "INITIAL"
+  | "SURRENDERED"
+  | "SURRENDER_REJECTED"
+  | "SURRENDER_ACCEPTED";
 export interface TitleEscrowTransferEvent extends TransferBaseEvent {
   type: TitleEscrowTransferEventType;
 }
 
-export type TitleEscrowTransferEventType = "TRANSFER_BENEFICIARY" | "TRANSFER_HOLDER" | "TRANSFER_OWNERS";
+export type TitleEscrowTransferEventType =
+  | "TRANSFER_BENEFICIARY"
+  | "TRANSFER_HOLDER"
+  | "TRANSFER_OWNERS";
 
 export interface TokenTransferEvent extends TransferBaseEvent {
   type: TokenTransferEventType;

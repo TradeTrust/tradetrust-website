@@ -5,7 +5,8 @@ export default {
   title: "TitleTransfer/EditableAssetTitle",
   component: EditableAssetTitle,
   parameters: {
-    componentSubtitle: "When respective address becomes editable, upon corresponding setFormAction.",
+    componentSubtitle:
+      "When respective address becomes editable, upon corresponding setFormAction.",
   },
 };
 

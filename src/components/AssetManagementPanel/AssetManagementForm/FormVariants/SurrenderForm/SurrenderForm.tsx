@@ -33,14 +33,19 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
   setFormActionNone,
   setShowEndorsementChain,
 }) => {
-  const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
+  const isPendingConfirmation =
+    surrenderingState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = surrenderingState === FormState.CONFIRMED;
 
   const { showOverlay } = useContext(OverlayContext);
 
   useEffect(() => {
     if (isConfirmed) {
-      showOverlay(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
+      showOverlay(
+        showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, {
+          isSuccess: true,
+        })
+      );
       setFormActionNone();
     }
   }, [isConfirmed, showOverlay, setFormActionNone]);
@@ -60,7 +65,11 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
           />
         </div>
         <div className="w-full px-4 lg:w-1/3">
-          <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
+          <EditableAssetTitle
+            role="Owner"
+            value={beneficiary}
+            isEditable={false}
+          />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
@@ -86,7 +95,11 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
                 disabled={isPendingConfirmation}
                 data-testid={"surrenderBtn"}
               >
-                {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Surrender Document</>}
+                {isPendingConfirmation ? (
+                  <LoaderSpinner data-testid={"loader"} />
+                ) : (
+                  <>Surrender Document</>
+                )}
               </Button>
             </div>
           </div>

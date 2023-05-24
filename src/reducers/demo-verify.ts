@@ -51,7 +51,9 @@ const demoVerifySlice = createSlice({
 });
 
 // Selectors
-export const getDemoDocument = (store: { demoVerify: { rawModifiedDocument: string } }): string => {
+export const getDemoDocument = (store: {
+  demoVerify: { rawModifiedDocument: string };
+}): string => {
   return store.demoVerify.rawModifiedDocument;
 };
 

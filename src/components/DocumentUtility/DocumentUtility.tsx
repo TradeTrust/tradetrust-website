@@ -4,7 +4,10 @@ import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
 import { Download, Printer } from "react-feather";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
-import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData } from "../../utils/shared";
+import {
+  WrappedOrSignedOpenAttestationDocument,
+  getOpenAttestationData,
+} from "../../utils/shared";
 interface DocumentUtilityProps {
   document: WrappedOrSignedOpenAttestationDocument;
   onPrint: () => void;
@@ -19,9 +22,14 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
   };
 }
 
-export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint }) => {
+export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
+  document,
+  onPrint,
+}) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
-  const documentWithMetadata = getOpenAttestationData(document) as DocumentWithAdditionalMetadata; // Extending document data to account for undefined metadata in OA schema
+  const documentWithMetadata = getOpenAttestationData(
+    document
+  ) as DocumentWithAdditionalMetadata; // Extending document data to account for undefined metadata in OA schema
   const { name, links } = utils.isRawV3Document(documentWithMetadata)
     ? documentWithMetadata.credentialSubject
     : documentWithMetadata;
@@ -51,7 +59,11 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
                 aria-label="document-utility-qr-button"
                 style={{ width: "auto", height: "auto" }}
               >
-                <SvgIcon className="text-cerulean-500" strokeWidth="0.5" fill="currentColor">
+                <SvgIcon
+                  className="text-cerulean-500"
+                  strokeWidth="0.5"
+                  fill="currentColor"
+                >
                   <SvgIconQRCode />
                 </SvgIcon>
               </ButtonIcon>
@@ -87,7 +99,9 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
           <a
             download={`${fileName}.tt`}
             target="_black"
-            href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
+            href={`data:text/json;,${encodeURIComponent(
+              JSON.stringify(document, null, 2)
+            )}`}
             role="button"
             aria-label="document-utility-download"
           >

@@ -21,8 +21,12 @@ describe("Endorse Owner", () => {
         />
       );
 
-      const nomineeComponent = container.getByTestId("non-editable-input-nominee");
-      const holderComponent = container.getByTestId("non-editable-input-holder");
+      const nomineeComponent = container.getByTestId(
+        "non-editable-input-nominee"
+      );
+      const holderComponent = container.getByTestId(
+        "non-editable-input-holder"
+      );
 
       expect(nomineeComponent).not.toBeNull();
       expect(holderComponent).not.toBeNull();
@@ -108,7 +112,11 @@ describe("Endorse Owner", () => {
         />
       );
 
-      expect(getAllByText("Unidentified address. Please check and input again.", { exact: false })).not.toBeNull();
+      expect(
+        getAllByText("Unidentified address. Please check and input again.", {
+          exact: false,
+        })
+      ).not.toBeNull();
     });
   });
 });

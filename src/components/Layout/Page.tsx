@@ -1,6 +1,9 @@
 import React from "react";
 
-export const Page: React.FunctionComponent<{ title?: string; subtitle?: string }> = ({ title, subtitle, children }) => {
+export const Page: React.FunctionComponent<{
+  title?: string;
+  subtitle?: string;
+}> = ({ title, subtitle, children }) => {
   return (
     <div className="container py-12">
       {title && (

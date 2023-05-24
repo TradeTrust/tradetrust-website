@@ -1,10 +1,13 @@
 import { decodeQrCode, processQrCode } from "./index";
 
-const encodeQrCode = (payload) => `https://action.openattestation.com?q=${encodeURIComponent(JSON.stringify(payload))}`;
-const encodeQrCodeWithAnchor = (payload, anchor) =>
-  `https://action.openattestation.com?q=${encodeURIComponent(JSON.stringify(payload))}#${encodeURIComponent(
-    JSON.stringify(anchor)
+const encodeQrCode = (payload) =>
+  `https://action.openattestation.com?q=${encodeURIComponent(
+    JSON.stringify(payload)
   )}`;
+const encodeQrCodeWithAnchor = (payload, anchor) =>
+  `https://action.openattestation.com?q=${encodeURIComponent(
+    JSON.stringify(payload)
+  )}#${encodeURIComponent(JSON.stringify(anchor))}`;
 
 describe("decodeQrCode", () => {
   it("decodes an action correctly", () => {
@@ -23,14 +26,19 @@ describe("decodeQrCode", () => {
     };
     const sampleAnchor = { key: "secret" };
 
-    const { action, anchor } = decodeQrCode(encodeQrCodeWithAnchor(sampleAction, sampleAnchor));
+    const { action, anchor } = decodeQrCode(
+      encodeQrCodeWithAnchor(sampleAction, sampleAnchor)
+    );
     expect(action).toStrictEqual(sampleAction);
     expect(anchor).toStrictEqual(sampleAnchor);
   });
 
   it("throws error when qr code is malformed", () => {
-    const encodedQrCode = "http://%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
-    expect(() => decodeQrCode(encodedQrCode)).toThrow(`Invalid URL: ${encodedQrCode}`);
+    const encodedQrCode =
+      "http://%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
+    expect(() => decodeQrCode(encodedQrCode)).toThrow(
+      `Invalid URL: ${encodedQrCode}`
+    );
   });
 });
 
@@ -58,7 +66,9 @@ describe("processQrCode", () => {
     const sampleAction = { payload: document, type: "DOCUMENT" };
     const sampleAnchor = { key: "secret" };
 
-    const results = await processQrCode(`${encodeQrCodeWithAnchor(sampleAction, sampleAnchor)}`);
+    const results = await processQrCode(
+      `${encodeQrCodeWithAnchor(sampleAction, sampleAnchor)}`
+    );
     expect(results).toStrictEqual({ payload: document, anchor: sampleAnchor });
   });
 });
