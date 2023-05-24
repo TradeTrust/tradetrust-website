@@ -7,7 +7,7 @@ const ADDRESS_EXAMPLE_2 = "0xcdfacbb428dd30ddf6d99875dcad04cbefcd6e60";
 
 const oaCLI_PATH = "open-attestation";
 
-const TitleEscrowFactory = "0x63A223E025256790E88778a01f480eBA77731D04";
+const TITLE_ESCROW_FACTORY_ADDRESS = "0x63A223E025256790E88778a01f480eBA77731D04";
 
 const defaultToken = {
   accountKey: ACCOUNT_KEY,
@@ -45,7 +45,7 @@ const merkleRootToMint = {
 shell.exec(`${oaCLI_PATH} deploy title-escrow-factory -n local -k ${ACCOUNT_KEY}`);
 
 shell.exec(
-  `${oaCLI_PATH} deploy token-registry "DEMO TOKEN REGISTRY" DTR -n local -k ${ACCOUNT_KEY} --factory-address ${TitleEscrowFactory} --standalone`
+  `${oaCLI_PATH} deploy token-registry "DEMO TOKEN REGISTRY" DTR -n local -k ${ACCOUNT_KEY} --factory-address ${TITLE_ESCROW_FACTORY_ADDRESS} --standalone`
 );
 
 merkleRootToMint.tokenRegistry.forEach((element) => {
