@@ -30,9 +30,9 @@ export const ResourceWebinar: FunctionComponent<ResourceWebinarProps> = ({ title
     <div className="bg-white shadow-lg rounded-lg mb-8">
       <div className="flex flex-wrap">
         <div className="w-full xl:w-1/2">
-          <div className="aspect-16-9 h-full">
+          <div className="relative h-full">
             <iframe
-              className="absolute top-0 left-0 w-full h-full rounded-t-lg"
+              className="xl:absolute top-0 left-0 w-full h-full aspect-video rounded-tl-lg xl:rounded-bl-lg rounded-tr-lg xl:rounded-tr-none"
               src={`https://www.youtube.com/embed/${youtubeEmbedCode}${
                 currentTimeStamp ? `?autoplay=1&rel=0&start=${currentTimeStamp}` : "?rel=0"
               }`}

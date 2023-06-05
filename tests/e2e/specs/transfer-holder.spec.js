@@ -1,5 +1,9 @@
 import { ACCOUNT_2 } from "../utils";
 
+before(() => {
+  cy.switchMetamaskAccount(1); // need to switch to or make sure it is at account 1 as sometimes it will fail when not in account 1
+});
+
 describe("Transfer Holder", () => {
   it("should go to verify page, upload a file, connect to wallet and transfer holder successfully", () => {
     cy.visit("/verify");

@@ -21,6 +21,7 @@ import { TermsOfUsePage } from "./pages/termsOfUse";
 import VerifyPage from "./pages/verify";
 import { ViewerPage } from "./pages/viewer";
 import { CostPage } from "./pages/cost";
+import { PartnersPage } from "./pages/partners";
 
 export const FORM_SG_URL = "https://www.form.gov.sg/635f32c5001b2d0011fff09b";
 
@@ -64,6 +65,7 @@ export const routes: RouteInterface[] = [
   { path: "/privacy-policy", exact: true, component: PrivacyPolicyPage },
   { path: "/terms-of-use", exact: true, component: TermsOfUsePage },
   { path: "/cost", exact: true, component: CostPage },
+  { path: "/partners", exact: true, component: PartnersPage },
   { path: "*", component: PageNotFound },
 ];
 export interface RouteInterface {

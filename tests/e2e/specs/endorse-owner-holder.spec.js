@@ -2,7 +2,7 @@ import { ACCOUNT_3 } from "../utils";
 
 before(() => {
   // Import Account 2 0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60
-  cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879"); 
+  cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879");
   cy.switchMetamaskAccount(1);
 });
 
@@ -12,7 +12,7 @@ describe("Endorse Transfer of Ownership/Holdership", () => {
     cy.get("input[type=file]").attachFile("ebl-endorse-owner.json");
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
-    cy.clickConnectAndManageAssetButton(true); // approve all acccounts to application once after connect to wallet, subsequent tests no longer need `true`
+    cy.clickConnectAndManageAssetButton(true); // approve all accounts to application once after connect to wallet, subsequent tests no longer need `true`
     cy.get("[data-testid='endorseTransferDropdown']").click(); // Endorse Transfer of Ownership/Holdership
     cy.get("[data-testid='editable-input-owner']").clear();
     cy.get("[data-testid='editable-input-holder']").clear();
