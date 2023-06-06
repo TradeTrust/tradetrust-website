@@ -96,7 +96,6 @@ export const ChainInfo: ChainInfo = {
     networkName: "maticmum",
     networkLabel: "Polygon Mumbai",
     explorerUrl: "https://mumbai.polygonscan.com",
-    // https://chainlist.org/?search=Mumbai&testnets=true
     rpcUrl: "https://polygon-mumbai-bor.publicnode.com",
     nativeCurrency: {
       name: "MATIC",
