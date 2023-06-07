@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { location, navigateToVerify, validateIframeTexts, validateIssuerTexts } from "./helper";
+import { location, navigateToVerify, validateIframeTexts } from "./helper";
 
 fixture("Demo Sample Certificate Rendering").page`${location}`;
 

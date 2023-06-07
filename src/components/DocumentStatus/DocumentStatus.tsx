@@ -1,6 +1,6 @@
 import { VerificationFragment, VerificationFragmentWithData, utils } from "@govtechsg/oa-verify";
 import React, { FunctionComponent } from "react";
-import { NETWORK_NAME } from "../../config";
+// import { NETWORK_NAME } from "../../config";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
 import { utils as oaUtils, WrappedDocument, v3 } from "@govtechsg/open-attestation";
