@@ -23,7 +23,9 @@ const createProvider = (chainId: ChainId) => {
         providerType: "infura",
         apiKey: INFURA_API_KEY,
       };
-  return chainId === ChainId.Local ? new providers.JsonRpcProvider() : utils.generateProvider(opts);
+  return chainId === ChainId.Local
+    ? new providers.JsonRpcProvider("http://localhost:8545")
+    : utils.generateProvider(opts);
 };
 
 // Utility function for use in non-react components that cannot get through hooks

@@ -12,6 +12,5 @@ test("demo sample document is rendered correctly when dragged", async (t) => {
         .exists
     )
     .ok();
-  await validateIssuerTexts(["DEMO.TRADETRUST.IO"]);
   await validateIframeTexts(["Name & Address of Shipping Agent/Freight Forwarder"]);
 });

@@ -9,10 +9,11 @@
   "scripts": {
     "blockchain": "ganache --wallet.mnemonic \"indicate swing place chair flight used hammer soon photo region volume shuffle\" -i 1337",
     "blockchain:contracts": "node --experimental-modules ./tests/e2e/setup-contracts.mjs",
-    "blockchain:testrun": "concurrently -k -s first \"npm:blockchain\" \"npm:blockchain:contracts\"",
+    "blockchain:contracts:testcafe": "node --experimental-modules ./src/test/setup-contracts-testcafe.mjs",
+    "blockchain:testrun": "concurrently -k -s first \"npm:blockchain\" \"npm:blockchain:contracts:testcafe\"",
     "build": "run-s check-types build:css build:app",
     "build:dev": "cross-env NODE_ENV=development npm run build",
-    "build:test": "cross-env NODE_ENV=test NET=goerli npm run build",
+    "build:test": "cross-env NET=local npm run build",
     "build:prod": "cross-env NODE_ENV=production NET=mainnet npm run build",
     "build:css": "postcss src/tailwind.css -o src/index.css",
     "build:app": "webpack --progress --mode production",

@@ -86,13 +86,11 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ isMagic
       <div id="document-status" className="py-4">
         <div className="flex flex-col">
           <div className="flex-grow">
-            {NETWORK_NAME !== "local" && (
-              <IssuedBy
-                title={isMagicDemo ? "Demo issued by" : "Issued by"}
-                verificationStatus={verificationStatus}
-                document={document}
-              />
-            )}
+            <IssuedBy
+              title={isMagicDemo ? "Demo issued by" : "Issued by"}
+              verificationStatus={verificationStatus}
+              document={document}
+            />
           </div>
           <StatusChecks verificationStatus={verificationStatus} />
         </div>
