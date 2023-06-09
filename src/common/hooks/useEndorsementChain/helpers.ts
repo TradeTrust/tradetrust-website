@@ -16,7 +16,7 @@ export const getHolderOwner = (events: TransferBaseEvent[]): { owner: string; ho
   let holder = "";
   for (const event of events) {
     owner = event.owner || owner;
-    holder = event.owner || holder;
+    holder = event.holder || holder;
   }
   return { owner, holder };
 };
