@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { location, navigateToVerify, validateIframeTexts } from "./helper";
+import { location, navigateToVerify, validateIframeTexts, validateIssuerTexts } from "./helper";
 
 fixture("Demo Sample Certificate Rendering").page`${location}`;
 
@@ -12,5 +12,6 @@ test("demo sample document is rendered correctly when dragged", async (t) => {
         .exists
     )
     .ok();
+  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
   await validateIframeTexts(["Name & Address of Shipping Agent/Freight Forwarder"]);
 });

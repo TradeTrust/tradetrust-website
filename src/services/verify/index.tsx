@@ -15,9 +15,9 @@ export enum VerifierType {
 }
 
 const verificationOption = (provider: providers.Provider | undefined) => {
+  if (provider) return { provider };
   if (NETWORK_NAME === "local")
     return { provider: new providers.JsonRpcProvider("http://localhost:8545"), network: NETWORK_NAME };
-  if (provider) return { provider };
   return { network: NETWORK_NAME };
 };
 

@@ -10,7 +10,6 @@ import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { isValid } from "@govtechsg/oa-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
-import { NETWORK_NAME } from "../config";
 import { history } from "../history";
 import { CONSTANTS } from "@govtechsg/tradetrust-utils";
 import { ActionPayload } from "./../types";
@@ -31,7 +30,7 @@ export function* verifyCertificate(): any {
 
     // Instead of success/failure, report completeness
     yield put(verifyingCertificateCompleted(verificationStatus));
-    if (NETWORK_NAME === "local" ? true : isValid(verificationStatus)) {
+    if (isValid(verificationStatus)) {
       yield history.push("/viewer");
     }
   } catch (e) {
