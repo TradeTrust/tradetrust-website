@@ -50,7 +50,7 @@ module.exports = {
       // need to define variables here, so later can be overwritten at netlify env var end
       // TODO: use dotenv instead
       NODE_ENV: "development",
-      NET: "goerli",
+      NET: "sepolia",
       INFURA_API_KEY: "bb46da3f80e040e8ab73c0a9ff365d18",
       ETHEREUM_PROVIDER: "notcloudflare", // temporary fix that wont be needed after oa-verify > 6
       MAGIC_API_KEY: "",
