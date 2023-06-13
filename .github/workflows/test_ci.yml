@@ -23,7 +23,7 @@ jobs:
       - name: Integration - testcafe
         id: testcafe
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
-        run: npm run integration:headless:prod
+        run: npm run integration:testcafe:ci
       - name: Upload Artifact
         if: ${{ failure() && steps.testcafe.outcome == 'failure' }}
         uses: actions/upload-artifact@v3
