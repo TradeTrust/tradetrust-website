@@ -18,6 +18,7 @@ module.exports = {
   },
   INFURA_API_KEY: process.env.INFURA_API_KEY || "bb46da3f80e040e8ab73c0a9ff365d18",
   INFURA_PROJECT_ID: "1f1ff2b3fca04f8d99f67d465c59e4ef",
+  ALCHEMY_API_KEY: "pV9JmoYcDFFBihXlJWt6FSDxzNAVWxdT",
   IS_DEVELOPMENT,
   IS_MAINNET,
   MAGIC_API_KEY: process.env.MAGIC_API_KEY || process.env.MAGIC_API_KEY_FALLBACK || "pk_test_AB1F885AF848182E", // dlt gmail fallback
