@@ -14,8 +14,7 @@
     "billFrom": {
       "name": "0d7cb63a-5ec8-44cc-a51d-0b7e3bd19c59:string:ABC Company",
       "streetAddress": "eee8aaa9-8921-4bfe-8976-838326d5a84c:string:Level 1, Industry Offices",
-      "city": "d1e62a09-d21d-43f5-801e-93c38d914538:string:Singapore",
-      "postalCode": "bd3eb5d8-7e75-4fc5-ad85-40f2800148e1:string:123456"
+      "city": "d1e62a09-d21d-43f5-801e-93c38d914538:string:Singapore"
     },
     "billTo": {
       "company": {
