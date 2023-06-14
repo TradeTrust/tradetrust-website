@@ -2,6 +2,7 @@
 title: World’s first live electronic transferable record (ETR) cross-border
   trade through TradeTrust
 date: 2023-03-31T06:20:08.483Z
+thumbnail: /static/uploads/official-em-image.jpeg
 ---
 **Singapore – 30th March 2023** Singapore pushes the boundaries of digitalisation for global trade as the Infocomm Media Development Authority (IMDA) partnered industry players and successfully executed a live shipment from Singapore to Thailand during Q1 2023. This fully paperless, live cross-border trade involved the use of an ETR, that is functionally equivalent to a paper Bill of Lading (BL) using Singapore’s TradeTrust framework.
 
