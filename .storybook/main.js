@@ -21,7 +21,18 @@ module.exports = {
   typescript: {
     reactDocgen: "react-docgen", // once react-docgen-typescript v2 in included in storybook, remove this config
   },
-  webpackFinal: (config) => {
+  webpackFinal: async (config) => {
+    // need to include this web-did-resolver module into babel-loader to convert it from using esm to commonjs
+    const directoryPath = path.resolve(__dirname).replace(".storybook", "");
+
+    config.module.rules.push({
+      test: /\.(ts|js)x?$/,
+      include: [directoryPath, directoryPath.concat("node_modules/web-did-resolver")],
+      use: {
+        loader: "babel-loader",
+      },
+    });
+
     return config;
   },
 };
