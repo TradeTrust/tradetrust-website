@@ -1,7 +1,6 @@
 import { ACCOUNT_3 } from "../utils";
 
 before(() => {
-  // Import Account 2 0xcDFAcbb428DD30ddf6d99875dcad04CbEFcd6E60
   cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879");
   cy.switchMetamaskAccount(1);
 });
