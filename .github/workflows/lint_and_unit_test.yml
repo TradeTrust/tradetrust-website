@@ -1,10 +1,10 @@
-name: Lint & Unit Test
+name: Lint & Test
 
 on: [push]
 
 jobs:
   test:
-    name: Lint & Unit Test
+    name: Lint & Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
