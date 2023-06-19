@@ -96,7 +96,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "maticmum",
     networkLabel: "Polygon Mumbai",
     explorerUrl: "https://mumbai.polygonscan.com",
-    rpcUrl: "https://polygon-mumbai.g.alchemy.com/v2/NruXPPIejxKGJhNOEsYgMOcdtcmUlddr",
+    rpcUrl: "https://polygon-mumbai-bor.publicnode.com",
     nativeCurrency: {
       name: "MATIC",
       symbol: "mMATIC",
