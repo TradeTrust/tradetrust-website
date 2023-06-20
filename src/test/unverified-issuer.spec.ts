@@ -8,7 +8,7 @@ const InvalidMessage = Selector(".invalid");
 
 test("should render error texts when document issuers are unverified", async (t) => {
   await navigateToVerify();
-  await uploadDocument("./fixture/goerli/v2/invoice-unverified-issuer.json");
+  await uploadDocument("./fixture/local/v2/invoice-unverified-issuer.json");
 
   await InvalidMessage.with({ visibilityCheck: true })();
   await validateTextContent(t, RenderedDocument, [

@@ -26,7 +26,7 @@ const Pdf2Span = Selector("span").withText("Dumm");
 
 test("Attachment Tab and Panel rendered correctly", async (t) => {
   await navigateToVerify();
-  await uploadDocument("./fixture/goerli/v2/invoice-attachments.json");
+  await uploadDocument("./fixture/local/v2/invoice-attachments.json");
 
   // default document pdf content should render
   await validateIframeTexts(["INVOICE"]);

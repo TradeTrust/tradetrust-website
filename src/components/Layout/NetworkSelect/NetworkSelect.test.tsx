@@ -5,13 +5,13 @@ import { getChainInfo } from "../../../common/utils/chain-utils";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { NetworkSelect } from "./NetworkSelect";
 
-const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Goerli), getChainInfo(ChainId.PolygonMumbai)];
+const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Sepolia), getChainInfo(ChainId.PolygonMumbai)];
 const mockUnsupportedNetwork: ChainInfoObject[] = [getChainInfo(ChainId.PolygonMumbai)];
 
 describe("NetworkSelect", () => {
   it("should render unsupported network", () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.Goerli} networks={mockUnsupportedNetwork}>
+      <ProviderContextProvider defaultChainId={ChainId.Sepolia} networks={mockUnsupportedNetwork}>
         <NetworkSelect />
       </ProviderContextProvider>
     );
@@ -54,14 +54,14 @@ describe("NetworkSelect", () => {
     fireEvent.click(dropdownButton);
 
     const polygonLabels = await screen.findAllByText(getChainInfo(ChainId.PolygonMumbai).label);
-    const goerliLabels = await screen.findAllByText(getChainInfo(ChainId.Goerli).label);
+    const sepoliaLabels = await screen.findAllByText(getChainInfo(ChainId.Sepolia).label);
     expect(polygonLabels).toHaveLength(2);
-    expect(goerliLabels).toHaveLength(1);
+    expect(sepoliaLabels).toHaveLength(1);
   });
 
   it("should render the selected network name when user switches network", async () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.Goerli} networks={mockNetworks}>
+      <ProviderContextProvider defaultChainId={ChainId.Sepolia} networks={mockNetworks}>
         <NetworkSelect />
       </ProviderContextProvider>
     );

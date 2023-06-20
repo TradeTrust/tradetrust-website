@@ -1,6 +1,5 @@
 import { VerificationFragment, VerificationFragmentWithData, utils } from "@govtechsg/oa-verify";
 import React, { FunctionComponent } from "react";
-import { NETWORK_NAME } from "../../config";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
 import { utils as oaUtils, WrappedDocument, v3 } from "@govtechsg/open-attestation";
@@ -86,13 +85,11 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ isMagic
       <div id="document-status" className="py-4">
         <div className="flex flex-col">
           <div className="flex-grow">
-            {NETWORK_NAME !== "local" && (
-              <IssuedBy
-                title={isMagicDemo ? "Demo issued by" : "Issued by"}
-                verificationStatus={verificationStatus}
-                document={document}
-              />
-            )}
+            <IssuedBy
+              title={isMagicDemo ? "Demo issued by" : "Issued by"}
+              verificationStatus={verificationStatus}
+              document={document}
+            />
           </div>
           <StatusChecks verificationStatus={verificationStatus} />
         </div>

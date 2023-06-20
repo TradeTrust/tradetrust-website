@@ -1,10 +1,10 @@
-name: CI
+name: Testcafe
 
 on: [push]
 
 jobs:
   test:
-    name: Lint & Test
+    name: Testcafe e2e Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,17 +13,12 @@ jobs:
           node-version: "14"
       - name: Install Packages
         run: npm ci
-      - name: Check Lint
-        run: npm run lint
-      - name: Test
-        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
-        run: npm run test
       - name: Build
         run: npm run build:test
       - name: Integration - testcafe
         id: testcafe
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
-        run: npm run integration:headless:prod
+        run: npm run integration:testcafe:ci
       - name: Upload Artifact
         if: ${{ failure() && steps.testcafe.outcome == 'failure' }}
         uses: actions/upload-artifact@v3

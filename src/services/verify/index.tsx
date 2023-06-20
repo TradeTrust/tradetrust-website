@@ -8,6 +8,8 @@ import {
 import { providers } from "ethers";
 import { getCurrentProvider } from "../../common/contexts/provider";
 import { NETWORK_NAME } from "../../config";
+import { getChainInfoFromNetworkName } from "../../common/utils/chain-utils";
+import { ChainInfo } from "../../constants/chain-info";
 
 export enum VerifierType {
   DEMO = "demo",
@@ -16,7 +18,11 @@ export enum VerifierType {
 
 const verificationOption = (provider: providers.Provider | undefined) => {
   if (provider) return { provider };
-  if (NETWORK_NAME === "local") return { provider: new providers.JsonRpcProvider(), network: NETWORK_NAME };
+  if (NETWORK_NAME === "local") {
+    const chainId = getChainInfoFromNetworkName(NETWORK_NAME).chainId;
+    const url = ChainInfo[chainId].rpcUrl;
+    return { provider: new providers.JsonRpcProvider(url), network: NETWORK_NAME };
+  }
   return { network: NETWORK_NAME };
 };
 

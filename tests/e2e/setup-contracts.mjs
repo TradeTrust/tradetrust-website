@@ -20,23 +20,23 @@ const merkleRootToMint = {
   tokenRegistry: [
     {
       // Endorse Owner
-      merkleRoot: "0x80d8454e62cf2a68158f590b05d058b6c8f495bdecd7393bb64fa95f647c4d73",
+      merkleRoot: "0x69f86e95549d3bd5768fb6bbbea5ed7232856a43fe8ae96df4d000d1a5125637",
       ...defaultToken,
     },
     {
       // Nominate Owner
       ...defaultToken,
-      merkleRoot: "0x31f63da7bbdb1fe5af64e2302e0e0fe0e3e118d4176845f2ce30240ac58ce6ef",
+      merkleRoot: "0xd352ab5e4a8a736ecce02d37842ff45721e138b08789e5231cca1e1b6794b3f4",
       holder: ADDRESS_EXAMPLE_2,
     },
     {
       // Surrender
-      merkleRoot: "0xe4f6e95c6b3a7ea69b04b4e2771debbb884db69e07fc788749d4fe433dd54ded",
+      merkleRoot: "0x84be0d43bb6e6e36c3dff96b0619737e18b116bf2a9ed229ba266057516c3bfa",
       ...defaultToken,
     },
     {
       // Transfer Holder
-      merkleRoot: "0x32e4fdcccd92061b4df9e5de1393cbb5f2219abb1f632304aea102fcefa619d4",
+      merkleRoot: "0x55f73a6a83243410b45929e53cc84327c2d24cb78f96200748590d3ec54fa099",
       ...defaultToken,
     },
   ],
