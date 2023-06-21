@@ -9,8 +9,8 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps>({
   isLoggedIn: false,
-  login: async () => new Promise((resolve) => resolve()),
-  logout: async () => new Promise((resolve) => resolve()),
+  login: async () => new Promise<void>((resolve) => resolve()),
+  logout: async () => new Promise<void>((resolve) => resolve()),
 });
 
 /**
