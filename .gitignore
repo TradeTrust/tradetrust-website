@@ -17,4 +17,4 @@ yarn.lock
 /tests/e2e/videos
 .lighthouseci
 lighthouseReport
-/public/sitemap.xml
+/public/static/sitemap.xml
