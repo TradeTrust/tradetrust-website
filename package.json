@@ -13,7 +13,7 @@
     "build": "run-s build:sitemap check-types build:css build:app",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:test": "cross-env NODE_ENV=test NET=local npm run build",
-    "build:prod": "cross-env NODE_ENV=production NET=mainnet npm run build && npm run build:sitemap",
+    "build:prod": "cross-env NODE_ENV=production NET=mainnet npm run build",
     "build:css": "postcss src/tailwind.css -o src/index.css",
     "build:app": "webpack --progress --mode production",
     "build:sitemap": "npx ts-node --compiler-options '{\"module\":\"commonjs\"}' sitemap.ts",
