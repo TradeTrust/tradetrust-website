@@ -3,10 +3,10 @@ name: Synpress
 on: [push]
 
 jobs:
-  e2e:
+  synpress:
     if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
     # https://github.com/drptbl/synpress-setup-example/blob/1d980157ef343de54f786e1115e1da590f1ba1d1/.github/workflows/e2e.yml#L49-L102
-    name: Synpress Tests
+    name: Synpress e2e Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,4 +24,3 @@ jobs:
             ${{ runner.os }}-buildx-
       - name: Run e2e tests
         run: docker-compose up --build --exit-code-from synpress
-

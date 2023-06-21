@@ -3,7 +3,7 @@ name: Testcafe
 on: [push]
 
 jobs:
-  test:
+  testcafe:
     name: Testcafe e2e Test
     runs-on: ubuntu-latest
     steps:
@@ -12,12 +12,14 @@ jobs:
         with:
           node-version: "14"
       - name: Install Packages
+        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm ci
       - name: Build
+        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run build:test
       - name: Integration - testcafe
-        id: testcafe
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
+        id: testcafe
         run: npm run integration:testcafe:ci
       - name: Upload Artifact
         if: ${{ failure() && steps.testcafe.outcome == 'failure' }}

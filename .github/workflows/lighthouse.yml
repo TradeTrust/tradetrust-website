@@ -1,11 +1,11 @@
-name: Lighthouse Report
+name: Lighthouse
 
 on: [push]
 
 jobs:
   lhci:
     if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
-    name: Lighthouse
+    name: Lighthouse Desktop
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

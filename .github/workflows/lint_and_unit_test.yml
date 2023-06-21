@@ -1,4 +1,4 @@
-name: Lint & Test
+name: Test
 
 on: [push]
 
@@ -18,3 +18,5 @@ jobs:
       - name: Test
         if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run test
+      - name: Build
+        run: npm run build:prod # this MUST be run to ensure production site will be built without errors
