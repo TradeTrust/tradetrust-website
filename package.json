@@ -10,7 +10,7 @@
     "blockchain": "ganache --wallet.mnemonic \"indicate swing place chair flight used hammer soon photo region volume shuffle\" -i 1337",
     "blockchain:contracts:synpress": "node --experimental-modules ./tests/e2e/setup-contracts.mjs",
     "blockchain:contracts:testcafe": "node --experimental-modules ./src/test/setup-contracts-testcafe.mjs",
-    "build": "run-s check-types build:css build:app",
+    "build": "run-s build:sitemap check-types build:css build:app",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:test": "cross-env NODE_ENV=test NET=local npm run build",
     "build:prod": "cross-env NODE_ENV=production NET=mainnet npm run build && npm run build:sitemap",
