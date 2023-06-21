@@ -3,8 +3,9 @@ name: Testcafe
 on: [push]
 
 jobs:
-  test:
-    name: Testcafe e2e Test
+  testcafe:
+    if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
+    name: Testcafe e2e Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,7 +18,6 @@ jobs:
         run: npm run build:test
       - name: Integration - testcafe
         id: testcafe
-        if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
         run: npm run integration:testcafe:ci
       - name: Upload Artifact
         if: ${{ failure() && steps.testcafe.outcome == 'failure' }}
