@@ -7,8 +7,8 @@ const logo = qrcode.child("img");
 
 test("UI renders QR code with logo correctly when present in the document", async (t) => {
   await navigateToVerify();
-  await uploadDocument("./fixture/goerli/v2/invoice-qrcode.json");
-  await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
+  await uploadDocument("./fixture/local/v2/invoice-qrcode.json");
+  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
   await validateIframeTexts(["INVOICE"]);
 
   const qrcodeButtonElement = await Selector("button").withAttribute("aria-label", "document-utility-qr-button");

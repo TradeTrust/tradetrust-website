@@ -11,8 +11,8 @@ const ExporterObfuscationButton = Selector(".rounded-full.cursor-pointer").nth(0
 
 test("Fields on a document can be hidden", async (t) => {
   await navigateToVerify();
-  await uploadDocument("./fixture/goerli/v2/coo-selective-disclosure.json");
-  await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
+  await uploadDocument("./fixture/local/v2/coo-selective-disclosure.json");
+  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
 
   await t.switchToIframe(IframeBlock);
 

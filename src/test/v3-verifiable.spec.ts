@@ -4,8 +4,8 @@ fixture("v3 Verifiable Document").page`${location}`;
 
 test("should render correctly when verified", async () => {
   await navigateToVerify();
-  await uploadDocument("./fixture/goerli/v3/invoice.json");
+  await uploadDocument("./fixture/local/v3/invoice.json");
 
-  await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
+  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
   await validateIframeTexts(["INVOICE"]);
 });

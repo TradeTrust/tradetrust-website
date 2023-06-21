@@ -20,7 +20,7 @@ export const SettingsAddressBookPage: FunctionComponent = () => (
         <h2 className="text-cloud-800">Address Book</h2>
         <p className="mb-5 text-cloud-800">Please select an address book to view. </p>
       </div>
-      <AddressBook className="py-6" network="goerli" />
+      <AddressBook className="py-6" network="sepolia" />
     </div>
   </>
 );

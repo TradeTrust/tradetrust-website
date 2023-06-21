@@ -3,6 +3,7 @@ import { ACCOUNT_1, ACCOUNT_2, ACCOUNT_3 } from "../utils";
 describe("Transfer Owner", () => {
   context("Nominate Owner", () => {
     it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", () => {
+      cy.switchMetamaskAccount(1);
       cy.visit("/verify");
       cy.get("input[type=file]").attachFile("ebl-nominate-owner.json");
       cy.get("[data-testid='asset-title-owner']").should("be.visible");

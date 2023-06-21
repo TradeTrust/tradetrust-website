@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
 import { useProviderContext } from "../../contexts/provider";
-import { INFURA_API_KEY } from "../../../config";
+import { ALCHEMY_API_KEY } from "../../../config";
 import { TransferBaseEvent } from "../../../types";
 import { getEndorsementChain } from "./retrieveEndorsementChain";
 
 jest.mock("../../contexts/provider");
 
-const goerliProvider = new ethers.providers.InfuraProvider("goerli", INFURA_API_KEY);
+const mumbaiProvider = new ethers.providers.AlchemyProvider("maticmum", ALCHEMY_API_KEY);
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
 
@@ -14,7 +14,7 @@ describe("Fetch Endorsement Transfers", () => {
   jest.setTimeout(45000);
 
   beforeAll(() => {
-    mockUseProviderContext.mockReturnValue({ provider: goerliProvider, providerOrSigner: goerliProvider });
+    mockUseProviderContext.mockReturnValue({ provider: mumbaiProvider, providerOrSigner: mumbaiProvider });
   });
 
   it("should format endorsement chain for display", async () => {
@@ -143,7 +143,7 @@ describe("Fetch Endorsement Transfers", () => {
       },
     ] as TransferBaseEvent[];
 
-    const results = await getEndorsementChain(goerliProvider, logChain);
+    const results = await getEndorsementChain(mumbaiProvider, logChain);
     expect(results).toEqual([
       {
         type: "INITIAL",
@@ -152,7 +152,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7831157,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666694532000,
+        timestamp: 1607504532000,
       },
       {
         type: "TRANSFER_HOLDER",
@@ -161,7 +161,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835445,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
-        timestamp: 1666758444000,
+        timestamp: 1607513376000,
       },
       {
         type: "TRANSFER_HOLDER",
@@ -170,7 +170,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835503,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666759236000,
+        timestamp: 1607513496000,
       },
       {
         type: "TRANSFER_BENEFICIARY",
@@ -179,7 +179,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835628,
         owner: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666761060000,
+        timestamp: 1607513754000,
       },
       {
         type: "TRANSFER_HOLDER",
@@ -188,7 +188,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835673,
         owner: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
         holder: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
-        timestamp: 1666761744000,
+        timestamp: 1607513848000,
       },
       {
         type: "TRANSFER_OWNERS",
@@ -197,7 +197,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835693,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666761996000,
+        timestamp: 1607513888000,
       },
       {
         type: "SURRENDERED",
@@ -206,7 +206,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835698,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666762068000,
+        timestamp: 1607513898000,
       },
       {
         type: "SURRENDER_REJECTED",
@@ -215,7 +215,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835703,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666762128000,
+        timestamp: 1607513908000,
       },
       {
         type: "TRANSFER_HOLDER",
@@ -224,7 +224,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835716,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
-        timestamp: 1666762356000,
+        timestamp: 1607513938000,
       },
       {
         type: "TRANSFER_HOLDER",
@@ -233,7 +233,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835735,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666762608000,
+        timestamp: 1607513976000,
       },
       {
         type: "SURRENDERED",
@@ -242,7 +242,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7835738,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666762656000,
+        timestamp: 1607513982000,
       },
       {
         type: "SURRENDER_REJECTED",
@@ -251,7 +251,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7836089,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666767792000,
+        timestamp: 1607514704000,
       },
       {
         type: "SURRENDERED",
@@ -260,7 +260,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7836139,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666768512000,
+        timestamp: 1607514808000,
       },
       {
         type: "SURRENDER_REJECTED",
@@ -269,7 +269,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7836270,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666770420000,
+        timestamp: 1607515078000,
       },
       {
         type: "SURRENDERED",
@@ -278,7 +278,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7836273,
         owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
-        timestamp: 1666770456000,
+        timestamp: 1607515084000,
       },
       {
         type: "SURRENDER_ACCEPTED",
@@ -287,7 +287,7 @@ describe("Fetch Endorsement Transfers", () => {
         blockNumber: 7836281,
         owner: "0x0000000000000000000000000000000000000000",
         holder: "0x0000000000000000000000000000000000000000",
-        timestamp: 1666770564000,
+        timestamp: 1607515100000,
       },
     ]);
   });

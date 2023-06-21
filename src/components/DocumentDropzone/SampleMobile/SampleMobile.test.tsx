@@ -10,7 +10,7 @@ const store = configureStore();
 const renderWithStore = () => {
   return render(
     <Provider store={store}>
-      <SampleMobile currentChainId={ChainId.Goerli} />
+      <SampleMobile currentChainId={ChainId.Sepolia} />
     </Provider>
   );
 };

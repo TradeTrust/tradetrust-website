@@ -1,0 +1,84 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "name": "2505e413-471a-4129-87c7-620cf51f39f4:string:TradeTrust Invoice v2",
+    "$template": {
+      "name": "d9461349-4b04-4ffc-958b-0b21c0fbfc78:string:INVOICE",
+      "type": "21aa2112-f395-499b-af84-2495e6d9dce9:string:EMBEDDED_RENDERER",
+      "url": "b3d72e2d-bd01-4a01-beeb-0bcb539f5ff7:string:https://generic-templates.tradetrust.io"
+    },
+    "id": "43df8a55-db81-4884-a562-446912a0810d:string:1111",
+    "date": "0935cffd-48ed-441e-8115-0587c4ce3d6e:string:2018-02-21",
+    "customerId": "3921d1e1-29d8-44cf-a72e-3879228d0276:string:564",
+    "terms": "ebbe38e1-b7cf-454b-a077-87fcedef7e09:string:Due Upon Receipt",
+    "billFrom": {
+      "name": "95665bf9-37d2-4908-a1f8-be82edc77a42:string:ABC Company",
+      "streetAddress": "2fe838eb-01b5-4a65-bb55-31ebc8c0827a:string:Level 1, Industry Offices",
+      "city": "3ce39f82-6194-4ae5-8e73-afff1efe1838:string:Singapore",
+      "postalCode": "e8ea0015-e401-45c7-9a5a-a91529494619:string:123456",
+      "phoneNumber": "09296faa-5002-42d4-8e4c-a00e0c377b03:string:60305029"
+    },
+    "billTo": {
+      "company": {
+        "name": "a630d10c-43b6-406c-be4d-c8a7a8fe1a4b:string:DEF Company",
+        "streetAddress": "e84498cc-9a87-44f9-80ba-e0b59f5a9176:string:Level 2, Industry Offices",
+        "city": "fcfa5111-b972-44b8-8dc7-22818ea041c4:string:Singapore",
+        "postalCode": "57b24511-69dc-4907-9981-d90b662613de:string:612345",
+        "phoneNumber": "160f88bc-9180-4f8f-9656-9fc2c4d61831:string:61204028"
+      },
+      "name": "29f2289b-352d-4ba1-810e-90263b28dc33:string:James Lee",
+      "email": "615cfc0e-c60e-4cee-8cb3-53991205b8c8:string:def@company.com"
+    },
+    "billableItems": [
+      {
+        "description": "a1d22317-f442-464b-83db-4f62faf0a1c8:string:Service Fee",
+        "quantity": "0e60e70f-82b9-4f84-aaef-e814221b2ec7:number:1",
+        "unitPrice": "d0209e26-d783-479c-99be-7d477c4a06b1:number:200",
+        "amount": "3b9881f1-7924-43a4-b1bd-6f9322a88de2:number:200"
+      },
+      {
+        "description": "730323f3-2682-4c2f-9c51-2b8b3fc3ea97:string:Labor: 5 hours at $75/hr",
+        "quantity": "70525c76-d7d1-4f06-938e-99772ce790c5:number:5",
+        "unitPrice": "4407f91a-5ba2-4926-8786-078249d7b82c:number:75",
+        "amount": "b5b52093-c458-4db7-95ea-bd0c3d75a11a:number:375"
+      },
+      {
+        "description": "4a2636e3-1cfd-4323-bd3d-3ee626351b8d:string:New client discount",
+        "quantity": "730bf373-b55c-4127-b341-bda006be5d75:number:1",
+        "unitPrice": "61f37c31-75bc-490f-aad2-38143bc60941:number:50",
+        "amount": "5b0135bc-cf4c-4d14-b6f9-9bfcb1ea39e5:number:50"
+      }
+    ],
+    "subtotal": "71a7e504-f4a1-43f1-9329-09e08cbaa238:number:625",
+    "tax": "0de1e09a-2cf6-4993-b165-470562e2a6f8:number:0",
+    "taxTotal": "aaecf6fe-90ad-4a11-ae4f-949cfe39158f:number:0",
+    "total": "7493e83d-e740-452d-a8e6-49c4487d3bff:number:625",
+    "issuers": [
+      {
+        "name": "7242e597-45b2-455e-8d28-4f1c71e4f339:string:TradeTrust document store Local",
+        "documentStore": "9474d8b6-fe01-45c5-b28b-cd55b863d4e2:string:0x4Bf7E4777a8D1b6EdD5F2d9b8582e2817F0B0953",
+        "identityProof": {
+          "type": "a5eb4a1a-4eb1-47da-baef-b34b3ba2f76f:string:DNS-TXT",
+          "location": "9db17c72-ef3f-45cf-bfb3-6329f8e5c2c3:string:example.tradetrust.io"
+        }
+      }
+    ],
+    "network": {
+      "chain": "c3d0b95a-ae83-49a5-9e21-1ae6a28f9aa8:string:ETH",
+      "chainId": "c57d288d-e5f2-4483-9b9b-e1eb0aa475b6:string:1337"
+    },
+    "attachments": [
+      {
+        "data": "f73dc71b-bae8-41d3-803a-9e3322db6bbb:string:ewogICJ2ZXJzaW9uIjogImh0dHBzOi8vc2NoZW1hLm9wZW5hdHRlc3RhdGlvbi5jb20vMi4wL3NjaGVtYS5qc29uIiwKICAiZGF0YSI6IHsKICAgICJpZCI6ICJlMTkxN2NmZS03MGZhLTQxODctYWM2ZC1jY2M1N2MwZDQ2NDU6c3RyaW5nOlNHQ05NMjE1NjYzMjUiLAogICAgIiR0ZW1wbGF0ZSI6IHsKICAgICAgIm5hbWUiOiAiOTViMzk3NzktZjMwMC00M2I3LTkwMTAtMWViOTZlYWZjNmI1OnN0cmluZzpDRVJUSUZJQ0FURV9PRl9OT05fTUFOSVBVTEFUSU9OIiwKICAgICAgInR5cGUiOiAiNDNlOWYxOWQtMWViZC00ODVkLThjYmYtMjcyNmMxZjdjNzU1OnN0cmluZzpFTUJFRERFRF9SRU5ERVJFUiIsCiAgICAgICJ1cmwiOiAiN2IwNjAyYjAtNWU1NS00MmRlLTgxM2EtMjdjNGYyYjU0ZDIwOnN0cmluZzpodHRwczovL2RlbW8tY25tLm9wZW5hdHRlc3RhdGlvbi5jb20iCiAgICB9LAogICAgImlzc3VlcnMiOiBbCiAgICAgIHsKICAgICAgICAiaWQiOiAiNjAwMmQ0YWItZDFhNi00NDdlLTlmODYtOTQ1ZWUyMjBmZWRiOnN0cmluZzpkaWQ6ZXRocjoweEU3MTI4NzhmNkU4ZDVkNEY5ZTg3RTEwREE2MDRGOWNCNTY0QzlhODkiLAogICAgICAgICJuYW1lIjogImY0NmEwYjY5LTk4M2ItNGI1ZS04M2Y2LWFlYmUxNDYyNTgxMDpzdHJpbmc6REVNTyBTVE9SRSIsCiAgICAgICAgInJldm9jYXRpb24iOiB7CiAgICAgICAgICAidHlwZSI6ICJiY2Q5ZmU2NC0xYjhhLTQxZDMtYTE3Ni01ZDc1MGI0YTZjZWY6c3RyaW5nOk5PTkUiCiAgICAgICAgfSwKICAgICAgICAiaWRlbnRpdHlQcm9vZiI6IHsKICAgICAgICAgICJ0eXBlIjogImMyOTkwZjMzLTgxNGMtNGM3Zi1hMTRjLThjZWY0YjFhYThhZDpzdHJpbmc6RElEIiwKICAgICAgICAgICJrZXkiOiAiNGVmMjY1M2YtN2ZiNS00MDliLWFjYzEtYTc2MzQ0ZmYyZGUwOnN0cmluZzpkaWQ6ZXRocjoweEU3MTI4NzhmNkU4ZDVkNEY5ZTg3RTEwREE2MDRGOWNCNTY0QzlhODkjY29udHJvbGxlciIKICAgICAgICB9CiAgICAgIH0KICAgIF0sCiAgICAicmVjaXBpZW50IjogewogICAgICAibmFtZSI6ICJhNWJjZjA0NC05NGU0LTQyMWUtYTBkNi05NjA1NDZkYzNiNDE6c3RyaW5nOlNHIEZSRUlHSFQiLAogICAgICAiYWRkcmVzcyI6IHsKICAgICAgICAic3RyZWV0IjogIjFiOGRjMDExLTA1ZTAtNDA1ZS1hNjg3LTRiMjI5MmE5NDU1YTpzdHJpbmc6MTAxIE9SQ0hBUkQgUk9BRCIsCiAgICAgICAgImNvdW50cnkiOiAiMzlmMDUwOGMtNjM3Yy00MDdmLTkwODctYzBkMTIzOWM5NDA3OnN0cmluZzpTSU5HQVBPUkUiCiAgICAgIH0KICAgIH0sCiAgICAiY29uc2lnbm1lbnQiOiB7CiAgICAgICJkZXNjcmlwdGlvbiI6ICI2ODE5YWQ0Yi1mZmIyLTQyN2MtYWM1YS02YjgxMmNiZWZmZjk6c3RyaW5nOjE2NjY3IENBUlRPTlMgT0YgUkVEIFdJTkUiLAogICAgICAicXVhbnRpdHkiOiB7CiAgICAgICAgInZhbHVlIjogImZiNTdlMTZmLWQyZjQtNGNhYS04YzM3LTg2NTE0Njk1YTNhYzpudW1iZXI6NTAwMCIsCiAgICAgICAgInVuaXQiOiAiYjQyNTk2OTQtNjI4ZC00ZGMwLWJjZTEtZjdkMzRiYWI4YTc1OnN0cmluZzpMSVRSRVMiCiAgICAgIH0sCiAgICAgICJjb3VudHJ5T2ZPcmlnaW4iOiAiNjhjNGIzYmYtNmVjZi00YjU1LTg5NGItM2RlZjhjMjg3YzZmOnN0cmluZzpBVVNUUkFMSUEiLAogICAgICAib3V0d2FyZEJpbGxObyI6ICIyZjViNGFiZi00N2Q4LTQ1MzAtOGUxMy0wZjc4Njg4NjM3ZTU6c3RyaW5nOkFRU0lRMTcwOTIzMTMwIiwKICAgICAgImRhdGVPZkRpc2NoYXJnZSI6ICI1ZGRlNDZkYS0yNWNiLTQ3MjEtOTZjOC1hOGY3ZmVlNDc4OWE6c3RyaW5nOjIwMTgtMDEtMjYiLAogICAgICAiZGF0ZU9mRGVwYXJ0dXJlIjogIjZjYzRkNGJkLTUyYTQtNDk5OC05Y2Y3LWMzMmE4NmU3OGZiMDpzdHJpbmc6MjAxOC0wMS0zMCIsCiAgICAgICJjb3VudHJ5T2ZGaW5hbERlc3RpbmF0aW9uIjogIjA1NGVhMWE1LTM3YWUtNDYyNS1iOGJmLWQyYWM0M2RkZmNmMjpzdHJpbmc6Q0hJTkEiLAogICAgICAib3V0Z29pbmdWZWhpY2xlTm8iOiAiMTFhYzdmNWItMjgzOS00ZDI3LWI0ZmItN2FjNzdhY2IzNmM3OnN0cmluZzpDT1NDTyBKQVBBTiAwNzRFLzMwLUpBTiIKICAgIH0sCiAgICAiZGVjbGFyYXRpb24iOiB7CiAgICAgICJuYW1lIjogIjE5NTRmMDUxLTFmZGUtNDI4OC04NDY4LTUwMjBkY2M4ODNhNjpzdHJpbmc6UEVURVIgTEVFIiwKICAgICAgImRlc2lnbmF0aW9uIjogIjA3ZmY2ZDVjLTQwZTUtNDk2ZC04NmZkLTcwNDg2NmRjOGUwNjpzdHJpbmc6U0hJUFBJTkcgTUFOQUdFUiIsCiAgICAgICJkYXRlIjogIjM4NzNmZjUwLTIyM2YtNDFkMC1iMzdjLTY1NzIzMjg1OTRhZTpzdHJpbmc6MjAxOC0wMS0yOCIKICAgIH0KICB9LAogICJzaWduYXR1cmUiOiB7CiAgICAidHlwZSI6ICJTSEEzTWVya2xlUHJvb2YiLAogICAgInRhcmdldEhhc2giOiAiY2NlN2JkMzNiZDgwYjc0NmI3MWU5NDNlMjNkZGM4OGZjYjk5YzkwMTFiZWNkZDFiNGQ4YjdhYjk1NjdkMmFkYiIsCiAgICAicHJvb2YiOiBbXSwKICAgICJtZXJrbGVSb290IjogImNjZTdiZDMzYmQ4MGI3NDZiNzFlOTQzZTIzZGRjODhmY2I5OWM5MDExYmVjZGQxYjRkOGI3YWI5NTY3ZDJhZGIiCiAgfSwKICAicHJvb2YiOiBbCiAgICB7CiAgICAgICJjcmVhdGVkIjogIjIwMjEtMDMtMjVUMDc6NTI6MzEuMjkxWiIsCiAgICAgICJ0eXBlIjogIk9wZW5BdHRlc3RhdGlvblNpZ25hdHVyZTIwMTgiLAogICAgICAicHJvb2ZQdXJwb3NlIjogImFzc2VydGlvbk1ldGhvZCIsCiAgICAgICJ2ZXJpZmljYXRpb25NZXRob2QiOiAiZGlkOmV0aHI6MHhFNzEyODc4ZjZFOGQ1ZDRGOWU4N0UxMERBNjA0RjljQjU2NEM5YTg5I2NvbnRyb2xsZXIiLAogICAgICAic2lnbmF0dXJlIjogIjB4ZmYwMjI3Y2U4NDAwYTE3YTJkODAwNzNhOTVmZDg5NWY0ZmVkMDAxMTk1NGM5MGVlZjM4OWJjNjE4MDg3YTRiMzZlZDk1ODc3NTQyMGQxMjJlOWE2NzY0YzZmZmU5ZDMzMDJkNGY0NWZiMDY1ZDVlOTYyYzM1NzJkMzg3MmYzMWExYiIKICAgIH0KICBdCn0K",
+        "filename": "5fe47859-df7d-4ce9-a19c-196f8014a055:string:invoice.json",
+        "type": "eb3f2e62-3f82-4053-aec7-2f8cd056fbba:string:application/octet-stream"
+      }
+    ]
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "d3c3d143a5ab4b0f07e88ba71ed384107c170688e7bfaab5e0a06761a2d2bc2c",
+    "proof": [],
+    "merkleRoot": "d3c3d143a5ab4b0f07e88ba71ed384107c170688e7bfaab5e0a06761a2d2bc2c"
+  }
+}

@@ -1,14 +1,14 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
-import OfuscatedDocument from "../../test/fixture/goerli/v2/invoice-obfuscated-document.json";
-import UnobfuscatedDocument from "../../test/fixture/goerli/v2/invoice.json";
+import ObfuscatedDocument from "../../test/fixture/local/v2/invoice-obfuscated-document.json";
+import UnobfuscatedDocument from "../../test/fixture/local/v2/invoice.json";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
 describe("ObfuscatedMessage", () => {
   it("should display obfuscated message if the obfuscatedData is present", () => {
     const container = render(
-      <ObfuscatedMessage document={OfuscatedDocument as WrappedOrSignedOpenAttestationDocument} />
+      <ObfuscatedMessage document={ObfuscatedDocument as WrappedOrSignedOpenAttestationDocument} />
     );
     expect(container.queryByText("Note: There are fields/data obfuscated in this document.")).not.toBeNull();
   });

@@ -1,16 +1,16 @@
 import v3DID from "../test/fixture/did/dns-did-signed.json";
 import v2DID from "../test/fixture/did/dns-did-verified.json";
-import invoiceV2 from "../test/fixture/goerli/v2/invoice.json";
-import invoiceV3 from "../test/fixture/goerli/v3/invoice.json";
+import invoiceV2 from "../test/fixture/local/v2/invoice.json";
+import invoiceV3 from "../test/fixture/local/v3/invoice.json";
 import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
 
 describe("getChainId for v2 document", () => {
-  it("should return the correct chainId for goerli", () => {
+  it("should return the correct chainId for sepolia", () => {
     const document = {
       ...invoiceV2,
-      data: { ...invoiceV2.data, network: { chain: "ETH", chainId: "5" } },
+      data: { ...invoiceV2.data, network: { chain: "ETH", chainId: "11155111" } },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(getChainId(document)).toStrictEqual(5);
+    expect(getChainId(document)).toStrictEqual(11155111);
   });
 
   it("should return the correct chainId for polygon mumbai network", () => {
@@ -62,12 +62,12 @@ describe("getChainId for v2 document", () => {
 });
 
 describe("getChainId for v3 document", () => {
-  it("should return the correct chainId for goerli", () => {
+  it("should return the correct chainId for local", () => {
     const document = {
       ...invoiceV3,
-      network: { chain: "ETH", chainId: "5" },
+      network: { chain: "ETH", chainId: "11155111" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(getChainId(document)).toStrictEqual(5);
+    expect(getChainId(document)).toStrictEqual(11155111);
   });
 
   it("should return the correct chainId for polygon mumbai network", () => {

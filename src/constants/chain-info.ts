@@ -43,6 +43,7 @@ export const ChainInfo: ChainInfo = {
     iconImage: "/static/images/networks/ethereum.gif",
     networkName: "local",
     networkLabel: "Local",
+    rpcUrl: "http://localhost:8545",
     explorerUrl: "https://localhost/explorer",
   },
   [ChainId.Ethereum]: {

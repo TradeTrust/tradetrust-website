@@ -10,15 +10,15 @@ test("Load document from action should work when url is valid", async (t) => {
   const action = {
     type: "DOCUMENT",
     payload: {
-      uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-goerli.json`,
+      uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-mumbai.json`,
       permittedActions: ["VIEW"],
       redirect: "https://dev.tradetrust.io",
-      chainId: 5,
+      chainId: 80001,
     },
   };
   await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
 
-  await validateIssuerTexts(["DEMO-TRADETRUST.OPENATTESTATION.COM"]);
+  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
   validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 });
 
@@ -28,7 +28,7 @@ test("Load document from action should fail when url is invalid", async (t) => {
     payload: {
       uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/123.tt`,
       redirect: "https://dev.tradetrust.io",
-      chainId: 5,
+      chainId: 80001,
     },
   };
 
@@ -46,7 +46,7 @@ test("Load document from action should fail when chainId not exists", async (t) 
   const action = {
     type: "DOCUMENT",
     payload: {
-      uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-goerli.json`,
+      uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-mumbai.json`,
       redirect: "https://dev.tradetrust.io",
     },
   };

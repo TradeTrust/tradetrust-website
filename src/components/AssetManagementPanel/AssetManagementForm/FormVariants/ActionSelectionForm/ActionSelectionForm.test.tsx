@@ -1,4 +1,4 @@
-import * as obfuscatedDocument from "../../../../../test/fixture/goerli/v2/invoice-obfuscated-document.json";
+import * as obfuscatedDocument from "../../../../../test/fixture/local/v2/invoice-obfuscated-document.json";
 import { act, fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { whenDocumentValidAndIssuedByDns } from "../../../../../test/fixture/verifier-responses";
