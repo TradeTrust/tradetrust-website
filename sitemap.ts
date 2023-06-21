@@ -46,7 +46,7 @@ populateCmsPages("/event/", `${__dirname}/cms/event`);
 const allPages = [...mainPages, ...cmsDetailPages];
 
 const sitemap = new SitemapStream({ hostname: "https://www.tradetrust.io" });
-const writeStream = fs.createWriteStream(`public/static/sitemap.xml`);
+const writeStream = fs.createWriteStream(`dist/sitemap.xml`);
 
 sitemap.pipe(writeStream);
 allPages.forEach((page) => {
