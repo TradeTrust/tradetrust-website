@@ -3,7 +3,15 @@ name: Testcafe
 on: [push]
 
 jobs:
+  exit:
+    if: ${{ contains(github.event.head_commit.message, '[skip test]') }}
+    name: Exit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit with Success
+        run: exit 0 # to pass required branch check
   testcafe:
+    if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
     name: Testcafe e2e Test
     runs-on: ubuntu-latest
     steps:
@@ -11,9 +19,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "14"
-      - name: Exit with success
-        if: ${{ contains(github.event.head_commit.message, '[skip test]') }}
-        run: exit 0
       - name: Install Packages
         run: npm ci
       - name: Build
