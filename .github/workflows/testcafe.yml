@@ -4,10 +4,17 @@ on: [push]
 
 jobs:
   testcafe:
-    if: ${{ !contains(github.event.head_commit.message, '[skip test]') }}
     name: Testcafe e2e Test
     runs-on: ubuntu-latest
     steps:
+      - name: Check skip condition
+        run: |
+          if [[ ${{ contains(github.event.head_commit.message, '[skip test]') }} ]]; then
+            echo "Condition met. Exit 0 early with success."
+            exit 0
+          else
+            echo "Condition not met. Continue with test."
+          fi
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
