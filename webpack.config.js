@@ -46,6 +46,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.IgnorePlugin(/magic-sdk$/), // HOT FIX (Temp removal of magic demo until we might decide to kill it)
     new webpack.EnvironmentPlugin({
       // need to define variables here, so later can be overwritten at netlify env var end
       // TODO: use dotenv instead
