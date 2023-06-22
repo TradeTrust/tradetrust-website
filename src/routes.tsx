@@ -22,6 +22,7 @@ import VerifyPage from "./pages/verify";
 import { ViewerPage } from "./pages/viewer";
 import { CostPage } from "./pages/cost";
 import { PartnersPage } from "./pages/partners";
+import { paths } from "./config/routes-config";
 
 export const FORM_SG_URL = "https://www.form.gov.sg/635f32c5001b2d0011fff09b";
 
@@ -45,29 +46,45 @@ const demoRoutes = [
     privateRoute: true,
   },
 ];
-export const routes: RouteInterface[] = [
-  { path: "/", exact: true, component: HomePage },
-  { path: "/verify", exact: true, component: VerifyPage },
-  { path: "/viewer", exact: true, render: renderViewer },
-  { path: "/faq", exact: true, component: FaqPage },
-  { path: "/faq/general-faq", exact: true, component: FaqPageDetail },
-  { path: "/faq/product-faq", exact: true, component: FaqPageDetail },
-  { path: "/eta", exact: true, component: EtaPage },
-  { path: "/settings", exact: true, component: SettingsPage },
-  { path: "/settings/address-resolver", exact: true, component: SettingsAddressResolverPage },
-  { path: "/settings/address-book", exact: true, component: SettingsAddressBookPage },
-  { path: "/news", exact: true, component: NewsPage },
-  { path: "/news/:slug", exact: true, component: NewsPageDetail },
-  { path: "/learn", exact: true, component: LearnPage },
-  { path: "/event", exact: true, component: EventPage },
-  { path: "/event/:slug", exact: true, component: EventPageDetail },
-  { path: "/guidelines", exact: true, component: Guidelines },
-  { path: "/privacy-policy", exact: true, component: PrivacyPolicyPage },
-  { path: "/terms-of-use", exact: true, component: TermsOfUsePage },
-  { path: "/cost", exact: true, component: CostPage },
-  { path: "/partners", exact: true, component: PartnersPage },
-  { path: "*", component: PageNotFound },
-];
+
+type RouteComponents = Record<string, Omit<RouteInterface, "path">>;
+
+const routeComponents: RouteComponents = {
+  home: { exact: true, component: HomePage },
+  verify: { exact: true, component: VerifyPage },
+  viewer: { exact: true, render: renderViewer },
+  faq: { exact: true, component: FaqPage },
+  generalFaq: { exact: true, component: FaqPageDetail },
+  productFaq: { exact: true, component: FaqPageDetail },
+  eta: { exact: true, component: EtaPage },
+  settings: { exact: true, component: SettingsPage },
+  addressResolver: { exact: true, component: SettingsAddressResolverPage },
+  addressBook: { exact: true, component: SettingsAddressBookPage },
+  news: { exact: true, component: NewsPage },
+  newsDetail: { exact: true, component: NewsPageDetail },
+  learn: { exact: true, component: LearnPage },
+  event: { exact: true, component: EventPage },
+  eventDetail: { exact: true, component: EventPageDetail },
+  guidelines: { exact: true, component: Guidelines },
+  privacyPolicy: { exact: true, component: PrivacyPolicyPage },
+  termsOfUse: { exact: true, component: TermsOfUsePage },
+  cost: { exact: true, component: CostPage },
+  partners: { exact: true, component: PartnersPage },
+  notFound: { component: PageNotFound },
+};
+
+const pathKeys = Object.keys(paths);
+const componentKeys = Object.keys(routeComponents);
+
+if (pathKeys.length !== componentKeys.length || !pathKeys.every((key) => componentKeys.includes(key))) {
+  throw new Error("Path and component keys do not match. Check your route configuration.");
+}
+
+export const routes: RouteInterface[] = pathKeys.map((key) => ({
+  path: paths[key],
+  ...routeComponents[key],
+}));
+
 export interface RouteInterface {
   path: string;
   exact?: boolean;
@@ -79,7 +96,7 @@ interface RouteProps {
   routes: RouteInterface[];
 }
 
-const routeMapper = (route: RouteInterface, id: number) => {
+const routeMapper = (route: RouteInterface, id: number): React.ReactElement => {
   const { privateRoute } = route;
   return privateRoute ? <PrivateRoute key={id} {...route} /> : <Route key={id} {...route} />;
 };
