@@ -1,5 +1,5 @@
 ---
-companyName: Angsana Technology
+companyName: Angsana Technolog
 description: Our digital bunkering solution provides verifiable and secure
   document generation, multi-platform functionality, and multi-stakeholder
   collaboration, with network-independent operations for uninterrupted
