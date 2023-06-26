@@ -5,5 +5,5 @@ description: Docklab develops breakthrough emerging technology solutions to
   viable ventures. TradeTrust is our “go-to” toolkit for transfer of electronic
   records.
 websiteLink: https://www.docklab.nl/
-logo: /static/uploads/docklab_digital_black-png.png
+logo: /static/uploads/docklab.png
 ---
