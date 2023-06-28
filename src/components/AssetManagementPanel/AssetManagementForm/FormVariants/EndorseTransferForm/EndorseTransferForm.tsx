@@ -70,7 +70,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
-            role="owner"
+            role="Owner"
             value={holder}
             newValue={newOwner}
             isEditable={isEditable}
@@ -80,7 +80,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
-            role="holder"
+            role="Holder"
             value={holder}
             newValue={newHolder}
             isEditable={isEditable}
