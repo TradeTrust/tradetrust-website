@@ -1,7 +1,7 @@
 import "cypress-file-upload";
 
-const METAMASK_WAIT = process.env.METAMASK_WAIT || 3000;
-const RENDERER_WAIT = process.env.RENDERER_WAIT || 3000;
+const METAMASK_WAIT = 5000;
+const RENDERER_WAIT = 5000;
 
 Cypress.Commands.add("waitAndUploadFile", (file) => {
   cy.get("input[type=file]").attachFile(file);

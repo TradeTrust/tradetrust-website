@@ -29,7 +29,7 @@
     "integration:testcafe": "run-s blockchain:contracts:testcafe integration:testcafe:prod",
     "integration:testcafe:ci": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:testcafe\"",
     "integration:metamask": "run-s wait blockchain:contracts:synpress integration:synpress",
-    "integration:synpress": "cross-env SECRET_WORDS='indicate swing place chair flight used hammer soon photo region volume shuffle' NETWORK_NAME='localhost' synpress run --config supportFile='tests/e2e/support/index.js',fixturesFolder='tests/e2e/fixtures',video=false,screenshotOnRunFailure=false,retries=1",
+    "integration:synpress": "cross-env CYPRESS_RESOURCES_WAIT=1 STABLE_MODE=true SECRET_WORDS='indicate swing place chair flight used hammer soon photo region volume shuffle' NETWORK_NAME='localhost' synpress run --config supportFile='tests/e2e/support/index.js',fixturesFolder='tests/e2e/fixtures',video=false,screenshotOnRunFailure=false,retries=1",
     "integration:local": "cross-env NET=local npm run dev",
     "integration:headful": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:local\" \"npm:integration:metamask\"",
     "lint": "eslint ./src --ext .js,.ts,.tsx --max-warnings 0",

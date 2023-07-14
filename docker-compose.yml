@@ -13,7 +13,7 @@ services:
     command: >
       bash -c 'echo -n "======> local noVNC URL:
       http://localhost:8080/vnc.html?autoconnect=true " && npx wait-on
-      http://display:8080 && npm ci && METAMASK_WAIT=6000 RENDERER_WAIT=6000 CYPRESS_RESOURCES_WAIT=1 STABLE_MODE=true SLOW_MODE=true npm run integration:headful'
+      http://display:8080 && npm ci && npm run integration:headful'
     networks:
       - x11
   display:
