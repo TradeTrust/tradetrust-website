@@ -59,7 +59,7 @@
     "@govtechsg/tradetrust-ui-components": "^2.19.2",
     "@govtechsg/tradetrust-utils": "^1.5.0",
     "@reduxjs/toolkit": "^1.6.1",
-    "@synthetixio/synpress": "^3.7.1",
+    "@synthetixio/synpress": "^3.5.1",
     "@types/gtag.js": "0.0.8",
     "cross-env": "^7.0.3",
     "date-fns": "^2.22.1",
