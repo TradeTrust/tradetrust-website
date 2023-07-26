@@ -69,7 +69,6 @@ export const ChainInfo: ChainInfo = {
     networkName: "sepolia",
     networkLabel: "Sepolia",
     explorerUrl: "https://sepolia.etherscan.io",
-    rpcUrl: "https://rpc.sepolia.org",
     nativeCurrency: {
       name: "ETH",
       symbol: "sepETH",
