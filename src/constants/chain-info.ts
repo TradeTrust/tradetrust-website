@@ -18,7 +18,7 @@ export interface ChainInfoObject {
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export const AvailableBlockChains = ["ETH", "MATIC"];
+export const AvailableBlockChains = ["ETH", "MATIC", "XDC"];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
@@ -36,6 +36,10 @@ export enum ChainId {
   // Polygon
   Polygon = 137,
   PolygonMumbai = 80001,
+
+  // XDC Network
+  XDC = 50,
+  APOTHEM = 51,
 }
 
 export const ChainInfo: ChainInfo = {
@@ -103,6 +107,34 @@ export const ChainInfo: ChainInfo = {
     nativeCurrency: {
       name: "MATIC",
       symbol: "mMATIC",
+      decimals: 18,
+    },
+  },
+  [ChainId.XDC]: {
+    label: "XDC Network Mainnet",
+    chainId: ChainId.XDC,
+    iconImage: "/static/images/networks/xdc.png",
+    networkName: "XDC Network",
+    networkLabel: "XDC Network",
+    explorerUrl: "https://xdcscan.io",
+    rpcUrl: "https://erpc.xinfin.network",
+    nativeCurrency: {
+      name: "XDC",
+      symbol: "XDC",
+      decimals: 18,
+    },
+  },
+  [ChainId.APOTHEM]: {
+    label: "XDC Testnet Apothem",
+    chainId: ChainId.APOTHEM,
+    iconImage: "/static/images/networks/xdc.png",
+    networkName: "XDC Testnet Apothem",
+    networkLabel: "XDC Testnet Apothem",
+    explorerUrl: "https://apothem.xdcscan.io",
+    rpcUrl: "https://apothem.xdcrpc.com",
+    nativeCurrency: {
+      name: "XDCt",
+      symbol: "XDCt",
       decimals: 18,
     },
   },
