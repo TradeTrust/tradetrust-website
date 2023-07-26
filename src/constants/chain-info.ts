@@ -1,3 +1,5 @@
+import { INFURA_API_KEY } from "../config";
+
 export interface ChainInfoObject {
   label: string;
   iconImage: string;
@@ -69,6 +71,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "sepolia",
     networkLabel: "Sepolia",
     explorerUrl: "https://sepolia.etherscan.io",
+    rpcUrl: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
     nativeCurrency: {
       name: "ETH",
       symbol: "sepETH",
