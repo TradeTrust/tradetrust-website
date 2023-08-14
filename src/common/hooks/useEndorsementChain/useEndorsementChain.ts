@@ -36,11 +36,8 @@ export const useEndorsementChain = (
       const transferEvents = mergeTransfers([...titleEscrowLogs, ...tokenLogs]);
       const retrievedEndorsementChain = await getEndorsementChain(provider, transferEvents);
       setEndorsementChain(retrievedEndorsementChain);
-    } catch (e) {
-      if (e instanceof Error) {
-        console.error(e);
-        setError(e.message);
-      }
+    } catch (e: any) {
+      setError(e?.message);
     }
     setPending(false);
   }, [provider, providerOrSigner, tokenId, tokenRegistry]);

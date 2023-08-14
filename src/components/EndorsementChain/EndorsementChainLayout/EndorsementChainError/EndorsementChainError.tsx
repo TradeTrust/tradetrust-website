@@ -9,7 +9,7 @@ export const EndorsementChainError: FunctionComponent<EndorsementChainErrorProps
   return (
     <div className="text-center">
       <AlertTriangle className="text-scarlet-500" />
-      <h4>{error} has occurred, please try again later.</h4>
+      <h4 className="break-words">{error} has occurred, please try again later.</h4>
     </div>
   );
 };

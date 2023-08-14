@@ -80,6 +80,7 @@
     "react-markdown": "^6.0.2",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
+    "react-timer-hook": "^3.0.7",
     "react-tooltip": "^4.2.21",
     "redux": "^4.1.0",
     "redux-saga": "^1.1.3",
