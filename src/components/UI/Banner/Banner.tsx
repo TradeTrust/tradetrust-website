@@ -7,9 +7,21 @@ interface BannerProps extends InputHTMLAttributes<HTMLInputElement> {
   title: string;
   buttonText: string;
   to: string;
+  absolute?: boolean;
 }
 
-export const Banner: FunctionComponent<BannerProps> = ({ className, title, buttonText, to }: BannerProps) => {
+export const Banner: FunctionComponent<BannerProps> = ({
+  className,
+  title,
+  buttonText,
+  to,
+  absolute = false,
+}: BannerProps) => {
+  const button = (
+    <Button className="bg-tangerine-500 text-white hover:bg-tangerine-800 border-none" size={ButtonSize.LG}>
+      <h4>{buttonText}</h4>
+    </Button>
+  );
   return (
     <div className={`${className ? className : ""}`}>
       <div className="container">
@@ -19,11 +31,13 @@ export const Banner: FunctionComponent<BannerProps> = ({ className, title, butto
               <h3 data-testid="banner-title">{title}</h3>
             </div>
             <div className="px-2 w-auto lg:ml-auto">
-              <NavLink to={to}>
-                <Button className="bg-tangerine-500 text-white hover:bg-tangerine-800 border-none" size={ButtonSize.LG}>
-                  <h4>{buttonText}</h4>
-                </Button>
-              </NavLink>
+              {absolute ? (
+                <a href={to} target="_blank" rel="noopener noreferrer">
+                  {button}
+                </a>
+              ) : (
+                <NavLink to={to}>{button}</NavLink>
+              )}
             </div>
           </div>
         </div>

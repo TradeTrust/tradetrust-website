@@ -19,6 +19,7 @@ import { EndorsementChainContainer } from "./EndorsementChain";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
+import { FORM_SG_URL } from "../routes";
 
 const { trace } = getLogger("component: certificateviewer");
 
@@ -40,9 +41,10 @@ const getTempProps = (isSample: boolean) => {
 
 const renderBanner = (isSample: boolean, isMagic: boolean | undefined) => {
   const props = {
-    to: "/contact",
+    to: FORM_SG_URL,
     buttonText: "Contact us now",
     title: "Ready to learn how TradeTrust can benefit your business?",
+    absolute: true,
   };
   if (isSample || isMagic) {
     return <Banner className="mt-8" {...props} />;
