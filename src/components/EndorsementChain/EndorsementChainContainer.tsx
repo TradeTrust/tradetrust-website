@@ -1,13 +1,11 @@
 import React, { FunctionComponent, useContext, useEffect } from "react";
 import { useEndorsementChain } from "../../common/hooks/useEndorsementChain";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
-import {
-  MessageTitle,
-  OverlayContext,
-  OverlayContextProvider,
-  showDocumentTransferMessage,
-} from "@govtechsg/tradetrust-ui-components";
+import { OverlayContext, OverlayContextProvider, ProviderTimeoutMessage } from "@govtechsg/tradetrust-ui-components";
 import { useTimer } from "react-timer-hook";
+
+const ProviderDocumentationURL = "https://docs.tradetrust.io/docs/advanced/add-polygon-networks-to-metamask-wallet/";
+const timeout = 60;
 
 interface EndorsementChainContainer {
   tokenRegistry: string;
@@ -23,12 +21,15 @@ export const EndorsementChainContainer: FunctionComponent<EndorsementChainContai
   const endorsementChainProps = useEndorsementChain(tokenRegistry, tokenId);
   const expiryTimestamp = new Date();
   const { showOverlay } = useContext(OverlayContext);
-  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 1);
+  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + timeout);
+
+  const handleProviderTimeout = () => {
+    showOverlay(<ProviderTimeoutMessage address={ProviderDocumentationURL} />);
+  };
 
   const { start, pause } = useTimer({
     expiryTimestamp,
-    onExpire: () =>
-      showOverlay(showDocumentTransferMessage(MessageTitle.ACCEPT_SURRENDER_DOCUMENT, { isSuccess: true })),
+    onExpire: handleProviderTimeout,
   });
 
   const { error, pending } = endorsementChainProps;

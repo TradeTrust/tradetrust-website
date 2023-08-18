@@ -103,7 +103,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "maticmum",
     networkLabel: "Polygon Mumbai",
     explorerUrl: "https://mumbai.polygonscan.com",
-    rpcUrl: "https://polygon-mumbai-bor.publicnode.com",
+    rpcUrl: `https://polygon-mumbai.infura.io/v3/${INFURA_API_KEY}`,
     nativeCurrency: {
       name: "MATIC",
       symbol: "mMATIC",

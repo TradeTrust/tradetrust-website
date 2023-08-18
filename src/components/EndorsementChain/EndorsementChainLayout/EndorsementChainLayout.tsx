@@ -206,10 +206,10 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
       </div>
       {!!error && (
         <div className="py-3 bg-red-100" data-testid="endorsement-chain-error">
-          <h5 className="text-cloud-800 text-center">
+          <p className="text-cloud-800 text-center">
             There might be some issue with your Remote Procedure Call (RPC). Click <a href={changeRPCUrl}>here</a> to
             learn how to change your RPC Provider.
-          </h5>
+          </p>
         </div>
       )}
       <div className="bg-white rounded-xl shadow-xl px-3 py-8 lg:px-8">
