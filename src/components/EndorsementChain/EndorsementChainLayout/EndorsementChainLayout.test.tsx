@@ -120,7 +120,14 @@ const acceptSurrenderedEndorsementChain: EndorsementChain = [
 describe("EndorsementChainLayout", () => {
   it("should render the loading component when pending is true", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
-    render(<EndorsementChainLayout error={""} pending={true} setShowEndorsementChain={() => {}} />);
+    render(
+      <EndorsementChainLayout
+        providerDocumentationURL={""}
+        error={""}
+        pending={true}
+        setShowEndorsementChain={() => {}}
+      />
+    );
     expect(screen.getAllByTestId("loader-skeleton")).toHaveLength(9);
   });
 
@@ -128,6 +135,7 @@ describe("EndorsementChainLayout", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
+        providerDocumentationURL={""}
         error={""}
         pending={false}
         endorsementChain={initialEndorsementChain}
@@ -147,6 +155,7 @@ describe("EndorsementChainLayout", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
+        providerDocumentationURL={""}
         error={""}
         pending={false}
         endorsementChain={transferHolderEndorsementChain}
@@ -163,6 +172,7 @@ describe("EndorsementChainLayout", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
+        providerDocumentationURL={""}
         error={""}
         pending={false}
         endorsementChain={endorseBeneficiaryEndorsementChain}
@@ -179,6 +189,7 @@ describe("EndorsementChainLayout", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
+        providerDocumentationURL={""}
         error={""}
         pending={false}
         endorsementChain={changeOwnersEndorsementChain}
@@ -198,6 +209,7 @@ describe("EndorsementChainLayout", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
+        providerDocumentationURL={""}
         error={""}
         pending={false}
         endorsementChain={surrenderEndorsementChain}
@@ -211,6 +223,7 @@ describe("EndorsementChainLayout", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
+        providerDocumentationURL={""}
         error={""}
         pending={false}
         endorsementChain={rejectSurrenderedEndorsementChain}
@@ -231,6 +244,7 @@ describe("EndorsementChainLayout", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
+        providerDocumentationURL={""}
         error={""}
         pending={false}
         endorsementChain={acceptSurrenderedEndorsementChain}
@@ -248,6 +262,7 @@ describe("EndorsementChainLayout", () => {
       <EndorsementChainLayout
         endorsementChain={transferHolderEndorsementChain}
         setShowEndorsementChain={mockSetShowEndorsementChain}
+        providerDocumentationURL={""}
         error={""}
         pending={false}
       />

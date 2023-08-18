@@ -11,8 +11,8 @@ interface EndorsementChainLayout {
   error?: string;
   pending: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
+  providerDocumentationURL: string;
 }
-const changeRPCUrl = "https://docs.tradetrust.io/docs/advanced/add-polygon-networks-to-metamask-wallet/";
 
 enum ActionType {
   INITIAL = "Document has been issued",
@@ -193,6 +193,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   setShowEndorsementChain,
   error,
   pending,
+  providerDocumentationURL,
 }) => {
   const historyChain = getHistoryChain(endorsementChain);
 
@@ -207,8 +208,8 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
       {!!error && (
         <div className="py-3 bg-red-100" data-testid="endorsement-chain-error">
           <p className="text-cloud-800 text-center">
-            There might be some issue with your Remote Procedure Call (RPC). Click <a href={changeRPCUrl}>here</a> to
-            learn how to change your RPC Provider.
+            There might be some issue with your Remote Procedure Call (RPC). Click{" "}
+            <a href={providerDocumentationURL}>here</a> to learn how to change your RPC Provider.
           </p>
         </div>
       )}

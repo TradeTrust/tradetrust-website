@@ -49,7 +49,11 @@ export const EndorsementChainContainer: FunctionComponent<EndorsementChainContai
 
   return (
     <OverlayContextProvider>
-      <EndorsementChainLayout {...endorsementChainProps} setShowEndorsementChain={setShowEndorsementChain} />
+      <EndorsementChainLayout
+        {...endorsementChainProps}
+        setShowEndorsementChain={setShowEndorsementChain}
+        providerDocumentationURL={ProviderDocumentationURL}
+      />
     </OverlayContextProvider>
   );
 };

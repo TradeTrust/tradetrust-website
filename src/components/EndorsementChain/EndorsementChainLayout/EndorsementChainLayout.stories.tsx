@@ -245,16 +245,24 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
 ];
 
 export const Loading = () => {
-  return <EndorsementChainLayout pending={true} setShowEndorsementChain={() => {}} />;
+  return <EndorsementChainLayout providerDocumentationURL={""} pending={true} setShowEndorsementChain={() => {}} />;
 };
 
 export const Error = () => {
-  return <EndorsementChainLayout error="UNKNOWN" pending={false} setShowEndorsementChain={() => {}} />;
+  return (
+    <EndorsementChainLayout
+      providerDocumentationURL={""}
+      error="UNKNOWN"
+      pending={false}
+      setShowEndorsementChain={() => {}}
+    />
+  );
 };
 
 export const TransferHolder = () => {
   return (
     <EndorsementChainLayout
+      providerDocumentationURL={""}
       endorsementChain={transferHolderEndorsementChain}
       pending={false}
       setShowEndorsementChain={() => {}}
@@ -265,6 +273,7 @@ export const TransferHolder = () => {
 export const EndorseBeneficiary = () => {
   return (
     <EndorsementChainLayout
+      providerDocumentationURL={""}
       endorsementChain={endorseBeneficiaryEndorsementChain}
       pending={false}
       setShowEndorsementChain={() => {}}
@@ -275,6 +284,7 @@ export const EndorseBeneficiary = () => {
 export const ChangeOwners = () => {
   return (
     <EndorsementChainLayout
+      providerDocumentationURL={""}
       endorsementChain={changeOwnersEndorsementChain}
       pending={false}
       setShowEndorsementChain={() => {}}
@@ -285,6 +295,7 @@ export const ChangeOwners = () => {
 export const Surrender = () => {
   return (
     <EndorsementChainLayout
+      providerDocumentationURL={""}
       endorsementChain={surrenderEndorsementChain}
       pending={false}
       setShowEndorsementChain={() => {}}
@@ -295,6 +306,7 @@ export const Surrender = () => {
 export const RejectSurrendered = () => {
   return (
     <EndorsementChainLayout
+      providerDocumentationURL={""}
       endorsementChain={rejectSurrenderedEndorsementChain}
       pending={false}
       setShowEndorsementChain={() => {}}
@@ -305,6 +317,7 @@ export const RejectSurrendered = () => {
 export const AcceptSurrendered = () => {
   return (
     <EndorsementChainLayout
+      providerDocumentationURL={""}
       endorsementChain={acceptSurrenderedEndorsementChain}
       pending={false}
       setShowEndorsementChain={() => {}}
@@ -315,6 +328,7 @@ export const AcceptSurrendered = () => {
 export const SampleSuccessFlow = () => {
   return (
     <EndorsementChainLayout
+      providerDocumentationURL={""}
       endorsementChain={sampleSuccessEndorsementChain}
       pending={false}
       setShowEndorsementChain={() => {}}
