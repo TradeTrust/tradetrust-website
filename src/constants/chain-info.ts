@@ -89,7 +89,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "matic",
     networkLabel: "Polygon",
     explorerUrl: "https://polygonscan.com",
-    rpcUrl: "https://polygon-rpc.com",
+    rpcUrl: `https://polygon-mainnet.infura.io/v3/${INFURA_API_KEY}`,
     nativeCurrency: {
       name: "MATIC",
       symbol: "MATIC",
