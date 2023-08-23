@@ -7,7 +7,7 @@ import { mergeTransfers } from "./helpers";
 import { fetchTokenTransfers } from "./fetchTokenTransfer";
 import { getEndorsementChain } from "./retrieveEndorsementChain";
 import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
-import { getErrorMessage } from "../../utils/errorParsing";
+import { getErrorMessage } from "../../utils/errorHandling";
 
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
