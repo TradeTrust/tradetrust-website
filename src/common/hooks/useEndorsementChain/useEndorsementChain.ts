@@ -7,6 +7,7 @@ import { mergeTransfers } from "./helpers";
 import { fetchTokenTransfers } from "./fetchTokenTransfer";
 import { getEndorsementChain } from "./retrieveEndorsementChain";
 import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
+import { getErrorMessage } from "../../utils/errorHandling";
 
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
@@ -36,11 +37,8 @@ export const useEndorsementChain = (
       const transferEvents = mergeTransfers([...titleEscrowLogs, ...tokenLogs]);
       const retrievedEndorsementChain = await getEndorsementChain(provider, transferEvents);
       setEndorsementChain(retrievedEndorsementChain);
-    } catch (e) {
-      if (e instanceof Error) {
-        console.error(e);
-        setError(e.message);
-      }
+    } catch (e: unknown) {
+      setError(getErrorMessage(e));
     }
     setPending(false);
   }, [provider, providerOrSigner, tokenId, tokenRegistry]);
