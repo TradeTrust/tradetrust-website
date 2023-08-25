@@ -46,7 +46,7 @@
     "wait": "wait-on -l -i 1000 tcp:8545 http-get://localhost:3000"
   },
   "dependencies": {
-    "@govtechsg/address-identity-resolver": "^1.4.1",
+    "@govtechsg/address-identity-resolver": "^1.5.0",
     "@govtechsg/decentralized-renderer-react-components": "^3.8.0",
     "@govtechsg/document-store": "^2.6.1",
     "@govtechsg/ethers-contract-hook": "^2.2.0",
