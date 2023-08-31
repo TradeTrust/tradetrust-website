@@ -115,7 +115,7 @@ const SectionWhyBl = () => {
                 <EblFeature title="Cost Saving" src="/static/images/eta/cost.svg" />
               </div>
               <div className="w-1/2">
-                <EblFeature title="Faster Processing" src="/static/images/eta/idea.svg" />
+                <EblFeature title="Innovative Business Model" src="/static/images/eta/idea.svg" />
               </div>
             </div>
             <div className="flex flex-wrap">
