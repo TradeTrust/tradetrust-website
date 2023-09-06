@@ -60,9 +60,9 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by"
     ? getV2FormattedDomainNames(verificationStatus)
     : getV3IdentityVerificationText(document);
   return (
-    <h2 id="issuedby" className="break-words leading-tight">
-      <span className="mr-2 inline-block break-all">{title}</span>
-      <span className="text-cerulean-500 inline-block">{formattedDomainNames}</span>
+    <h2 id="issuedby" className="my-2 leading-none">
+      <span className="mr-2 break-all">{title}</span>
+      <span className="text-cerulean-500 break-words">{formattedDomainNames}</span>
     </h2>
   );
 };
