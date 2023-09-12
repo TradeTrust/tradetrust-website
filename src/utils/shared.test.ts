@@ -1,8 +1,9 @@
 import v3DID from "../test/fixture/did/dns-did-signed.json";
 import v2DID from "../test/fixture/did/dns-did-verified.json";
+import v4DID from "../test/fixture/did/v4/did-signed.json";
 import invoiceV2 from "../test/fixture/local/v2/invoice.json";
 import invoiceV3 from "../test/fixture/local/v3/invoice.json";
-import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
+import { getAttachments, getChainId, getTemplateUrl, WrappedOrSignedOpenAttestationDocument } from "./shared";
 
 describe("getChainId for v2 document", () => {
   it("should return the correct chainId for sepolia", () => {
@@ -114,4 +115,14 @@ describe("getChainId for v3 document", () => {
   it("should return 'undefined' when did document is being dropped", () => {
     expect(getChainId(v3DID as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(undefined);
   });
+});
+
+describe("getTemplateUrl for v4", () => {
+  expect(getTemplateUrl(v4DID as WrappedOrSignedOpenAttestationDocument)).toBe(
+    "https://demo-renderer.openattestation.com"
+  );
+});
+
+describe("getAttachments for v4", () => {
+  expect(getAttachments(v4DID as WrappedOrSignedOpenAttestationDocument)).toStrictEqual([]);
 });
