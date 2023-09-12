@@ -50,7 +50,7 @@ export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenA
 };
 
 export const getV4IdentityVerificationText = (document: WrappedDocument<v4.OpenAttestationDocument>): string => {
-  return document.issuer.id.toUpperCase();
+  return document.issuer.identityProof.identifier.toUpperCase();
 };
 
 interface IssuedByProps {
