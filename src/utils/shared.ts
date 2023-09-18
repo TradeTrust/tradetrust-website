@@ -14,8 +14,10 @@ export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocume
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);
     return typeof documentData.$template === "object" ? documentData.$template.url : undefined;
-  } else {
+  } else if (utils.isWrappedV3Document(rawDocument)) {
     return rawDocument.openAttestationMetadata.template?.url;
+  } else {
+    return rawDocument.renderMethod?.url;
   }
 };
 
@@ -23,7 +25,7 @@ export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocume
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);
     return documentData.attachments;
-  } else {
+  } else if (utils.isWrappedV3Document(rawDocument)) {
     return rawDocument.attachments?.map((attachment: v3.Attachment) => {
       return {
         data: attachment.data,
@@ -31,6 +33,9 @@ export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocume
         type: attachment.mimeType,
       };
     });
+  } else {
+    // attachments not included in v4 schema for now.
+    return [];
   }
 };
 
@@ -44,7 +49,7 @@ export const getChainId = (rawDocument: WrappedOrSignedOpenAttestationDocument):
     throw new Error("Invalid Document, please use a valid document.");
   };
 
-  const processChainId = (document: OpenAttestationDocument): number | undefined => {
+  function processChainId(document: v2.OpenAttestationDocument | v3.OpenAttestationDocument): number | undefined {
     if (document.network) {
       // Check for current blockchain, "ETH" or "MATIC", and chainId, if need cater for other blockchain and network, update this accordingly.
       if (AvailableBlockChains.includes(document.network.chain) && document.network.chainId) {
@@ -60,7 +65,7 @@ export const getChainId = (rawDocument: WrappedOrSignedOpenAttestationDocument):
       "You are using an older version of Open-Attestation Document, to use the auto network feature, please use an updated version. Otherwise, please make sure that you select the correct network."
     );
     return undefined;
-  };
+  }
 
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);
@@ -73,5 +78,8 @@ export const getChainId = (rawDocument: WrappedOrSignedOpenAttestationDocument):
     const identityProofType = rawDocument.openAttestationMetadata.identityProof.type;
     if (identityProofType === "DNS-DID" || identityProofType === "DID") return undefined;
     return processChainId(rawDocument);
+  } else {
+    // for now v4 is only DID method so ignore chainID
+    return undefined;
   }
 };
