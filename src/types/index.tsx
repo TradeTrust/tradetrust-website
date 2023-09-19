@@ -64,7 +64,7 @@ export enum GaAction {
   MAGIC_FILE_DROP = "magic_demo_file_drop",
   MAGIC_DROP_OFF = "magic_demo_drop_off",
   CAROUSEL_DOWNLOAD = "carousel_file_download",
-  LEGAL_ARTICLE_DOWNLOAD = "download_legal_article",
+  LEGAL_ARTICLE_DOWNLOAD = "legal_article_download",
 }
 
 export enum GaCategory {
