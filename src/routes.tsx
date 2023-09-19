@@ -5,6 +5,7 @@ import { DemoPage } from "./pages/demo";
 import { DemoCreatePage } from "./pages/demoCreate";
 import { DemoVerifyPage } from "./pages/demoVerify";
 import { EtaPage } from "./pages/eta";
+import { LegalityPage } from "./pages/legality";
 import { EventPage } from "./pages/event";
 import { EventPageDetail } from "./pages/event/eventDetail";
 import { FaqPage } from "./pages/faq";
@@ -57,6 +58,7 @@ const routeComponents: RouteComponents = {
   generalFaq: { exact: true, component: FaqPageDetail },
   productFaq: { exact: true, component: FaqPageDetail },
   eta: { exact: true, component: EtaPage },
+  legality: { exact: true, component: LegalityPage },
   settings: { exact: true, component: SettingsPage },
   addressResolver: { exact: true, component: SettingsAddressResolverPage },
   addressBook: { exact: true, component: SettingsAddressBookPage },

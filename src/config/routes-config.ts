@@ -6,6 +6,7 @@ export const paths: Record<string, string> = {
   generalFaq: "/faq/general-faq",
   productFaq: "/faq/product-faq",
   eta: "/eta",
+  legality: "/legality",
   settings: "/settings",
   addressResolver: "/settings/address-resolver",
   addressBook: "/settings/address-book",
@@ -20,4 +21,4 @@ export const paths: Record<string, string> = {
   cost: "/cost",
   partners: "/partners",
   notFound: "*",
-};
+}; // note that this is being used to generate sitemap
