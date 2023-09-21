@@ -63,6 +63,16 @@ export const leftNavItems: NavigationItem[] = [
         ),
       },
       {
+        id: "legality",
+        label: "Legality",
+        path: "/legality",
+        customLink: (
+          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/legality"}>
+            Legality
+          </NavLink>
+        ),
+      },
+      {
         id: "guidelines(non-ethereum)",
         label: "Guidelines (Non-Ethereum)",
         path: "/guidelines",
