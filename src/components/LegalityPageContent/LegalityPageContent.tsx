@@ -25,7 +25,7 @@ const Section = ({
     src: string;
     alt: string;
   };
-  children: React.ReactElement;
+  children: React.ReactNode;
   className?: string;
 }) => {
   return (
@@ -92,7 +92,9 @@ const SectionGuide = () => {
           </a>
         </div>
         <div className="w-full text-center my-8">
-          <p>Brought to you jointly by IMDA and Stephenson Harwood LLP, with input on US aspects from Blank Rome LLP</p>
+          <p className="text-cloud-400">
+            Brought to you jointly by IMDA and Stephenson Harwood LLP, with input on US aspects from Blank Rome LLP
+          </p>
         </div>
         <div className="flex flex-wrap py-8 justify-center -mx-4">
           <div className="w-full lg:w-[240px] px-8 mb-8">
@@ -137,10 +139,12 @@ const SectionWhatMletr = () => {
         The Model Law on Electronic Transferable Records (MLETR), published by the United Nations Commission on
         International Trade Law (UNCITRAL) in 2017, aims to enable the legal use of electronic transferable records both
         domestically and across borders. 7 jurisdictions, including Singapore have adopted MLETR. United Kingdom’s
-        Electronic Trade Documents Act will come into effect on 20th September 2023. TradeTrust (TT), a framework and
-        digital utility that enables trusted interoperability of electronic trade documents across digital platforms,
-        enables adopters to easily implement ETRs like eBLs that comply with the requirements as laid out in the MLETR
-        and hence are legally valid across multiple platforms and systems.
+        Electronic Trade Documents Act will come into effect on 20th September 2023.
+      </p>
+      <p>
+        TradeTrust (TT), a framework and digital utility that enables trusted interoperability of electronic trade
+        documents across digital platforms, enables adopters to easily implement ETRs like eBLs that comply with the
+        requirements as laid out in the MLETR and hence are legally valid across multiple platforms and systems.
       </p>
     </Section>
   );
