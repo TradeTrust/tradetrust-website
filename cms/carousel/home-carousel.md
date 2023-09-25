@@ -38,4 +38,10 @@ slides:
     buttonPage:
       label: Verify V2 Documents
       route: https://v2.tradetrust.io/
+  - title: TradeTrust Legality
+    description: A framework that was designed to achieve legal interoperability
+    buttonPage:
+      label: Read More
+      route: https://www.tradetrust.io/legality
+    backgroundImage: /static/uploads/legality-main-image.png
 ---
