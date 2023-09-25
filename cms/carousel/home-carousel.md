@@ -42,6 +42,6 @@ slides:
     description: A framework that was designed to achieve legal interoperability
     buttonPage:
       label: Read More
-      route: https://www.tradetrust.io/legality
+      route: /legality
     backgroundImage: /static/uploads/legality-main-image.png
 ---
