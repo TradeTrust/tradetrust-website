@@ -140,7 +140,7 @@ const SectionWhatMletr = () => {
         The Model Law on Electronic Transferable Records (MLETR), published by the United Nations Commission on
         International Trade Law (UNCITRAL) in 2017, aims to enable the legal use of electronic transferable records both
         domestically and across borders. 7 jurisdictions, including Singapore have adopted MLETR. United Kingdom’s
-        Electronic Trade Documents Act will come into effect on 20th September 2023.
+        Electronic Trade Documents Act came into effect on 20th September 2023.
       </p>
       <p>
         TradeTrust (TT), a framework and digital utility that enables trusted interoperability of electronic trade
