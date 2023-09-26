@@ -93,7 +93,8 @@ const SectionGuide = () => {
         </div>
         <div className="w-full text-center my-8">
           <p className="text-cloud-400">
-            Brought to you jointly by IMDA and Stephenson Harwood LLP, with input on US aspects from Blank Rome LLP
+            Brought to you jointly by IMDA and Stephenson Harwood LLP (in alliance with Virtus Law LLP), with input on
+            US aspects from Blank Rome LLP
           </p>
         </div>
         <div className="flex flex-wrap py-8 justify-center -mx-4">
