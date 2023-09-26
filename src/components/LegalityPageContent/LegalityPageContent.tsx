@@ -83,7 +83,7 @@ const SectionGuide = () => {
         <div className="w-full text-center my-8">
           <a
             download={TRADETRUST_LEGAL_ARTICLE_TITLE}
-            href="/static/images/legality/tradetrust-legal-article.pdf"
+            href="/static/images/legality/Stephenson_Harwood_Article_on_TradeTrust_eBLs.pdf"
             onClick={downloadArticle}
           >
             <Button className="bg-tangerine-500 text-white hover:bg-tangerine-800 rounded-xl text-2xl px-4">
