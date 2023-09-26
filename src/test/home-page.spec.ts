@@ -37,7 +37,7 @@ test("Render home page", async (t) => {
 
   // display components in welcome and test for video overlay
   await t.expect(PlayButton.count).eql(1);
-  await t.expect(LinkButton.count).eql(1);
+  await t.expect(LinkButton.count).eql(2);
   await t.click(PlayButton);
   await t.expect(YoutubeTitle.count).eql(1);
   await t.click(OverlayCloseButton);
