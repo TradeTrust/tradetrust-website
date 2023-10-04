@@ -30,7 +30,7 @@ const customVerifier = (provider: providers.Provider | undefined) =>
   verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof], verificationOption(provider));
 
 const demoVerifier = verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof], {
-  network: "goerli",
+  network: "sepolia",
 });
 
 export const verifyDocument = async (
