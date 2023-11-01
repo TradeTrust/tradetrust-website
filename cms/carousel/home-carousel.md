@@ -13,13 +13,14 @@ slides:
       route: /verify
     backgroundImage: /static/uploads/slide-1-map-2x.png
   - title: White Paper
-    subheader: UN/CEFACT White Paper eDATA Verifiable Credentials for Cross Border Trade
+    subheader: "UN/CEFACT White Paper Transfer of Model Law on Electronic
+      Transferable Records - Compliant Titles "
     description: >
-      Learn more about this technology method that underpins how TradeTrust
-      deals with verifiable documents!
+      Find out more about how TradeTrust is compliant to the requirements laid
+      out in the UNCITRAL Model Law on Electronic Transferable Records.
     buttonDownload:
       label: Download Now
-      file: /static/uploads/white-paper-verifiable-credentials-CBT.pdf
+      file: ""
     backgroundImage: /static/uploads/slide-2-white-paper-2x.png
   - description: The WSIS Prizes 2023 is an exceptional international recognition of
       WSIS stakeholders as winners and champions for their excellence in
