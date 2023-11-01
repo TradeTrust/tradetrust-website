@@ -7,7 +7,7 @@ slides:
       electronic trade documents across digital platforms.
     buttonYoutube:
       title: Digitalising Trust for Cross-Border Trade
-      youtubeId: udvPQyuqEug
+      youtubeId: -YD21elPXxs
     buttonPage:
       label: Verify Documents
       route: /verify
