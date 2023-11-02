@@ -20,7 +20,7 @@ slides:
       out in the UNCITRAL Model Law on Electronic Transferable Records.
     buttonDownload:
       label: Download Now
-      file: ""
+      file: /static/uploads/whitepaper_transfer-mletr.pdf
     backgroundImage: /static/uploads/slide-2-white-paper-2x.png
   - description: The WSIS Prizes 2023 is an exceptional international recognition of
       WSIS stakeholders as winners and champions for their excellence in
