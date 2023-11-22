@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
-import { isValid } from "@govtechsg/oa-verify";
+import { isValid } from "@tradetrust-tt/tt-verify";
 import { Button, ButtonSize, LoaderSpinner } from "@govtechsg/tradetrust-ui-components";
 import { gaEvent } from "@govtechsg/tradetrust-utils";
 import { useSelector } from "react-redux";

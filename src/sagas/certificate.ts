@@ -8,7 +8,7 @@ import {
 } from "../reducers/certificate";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
-import { isValid } from "@govtechsg/oa-verify";
+import { isValid } from "@tradetrust-tt/tt-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
 import { history } from "../history";
 import { CONSTANTS } from "@govtechsg/tradetrust-utils";

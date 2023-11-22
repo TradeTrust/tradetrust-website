@@ -11,7 +11,7 @@ import {
 } from "../../reducers/certificate";
 import { getDropzoneBoxUi } from "../../common/utils/getDropzoneBoxUi";
 import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "../DocumentDropzone/Views";
-import { isValid } from "@govtechsg/oa-verify";
+import { isValid } from "@tradetrust-tt/tt-verify";
 import { useProviderContext } from "../../common/contexts/provider";
 import { getChainId } from "../../utils/shared";
 import { CONSTANTS } from "@govtechsg/tradetrust-utils";
