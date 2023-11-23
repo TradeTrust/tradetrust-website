@@ -1,4 +1,4 @@
-import { OpenAttestationDocument } from "@govtechsg/open-attestation";
+import { OpenAttestationDocument } from "@tradetrust-tt/tradetrust";
 import { ProgressBar, ToggleSwitch } from "@govtechsg/tradetrust-ui-components";
 import { gaEvent } from "@govtechsg/tradetrust-utils";
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";

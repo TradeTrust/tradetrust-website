@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { WrappedDocument } from "@govtechsg/open-attestation/dist/types/3.0/types";
+import { WrappedDocument } from "@tradetrust-tt/tradetrust/dist/types/3.0/types";
 import { RootState } from "./";
 
 type Status = "failure" | "success" | "pending";

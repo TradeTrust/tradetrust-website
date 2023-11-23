@@ -1,8 +1,8 @@
-import { VerificationFragment, VerificationFragmentWithData, utils } from "@govtechsg/oa-verify";
+import { VerificationFragment, VerificationFragmentWithData, utils } from "@tradetrust-tt/tt-verify";
 import React, { FunctionComponent } from "react";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
-import { utils as oaUtils, WrappedDocument, v3, v4 } from "@govtechsg/open-attestation";
+import { utils as oaUtils, WrappedDocument, v3, OAv4 } from "@tradetrust-tt/tradetrust";
 import { RootState } from "../../reducers";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
@@ -49,7 +49,7 @@ export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenA
   return document.openAttestationMetadata.identityProof.identifier.toUpperCase();
 };
 
-export const getV4IdentityVerificationText = (document: WrappedDocument<v4.OpenAttestationDocument>): string => {
+export const getV4IdentityVerificationText = (document: WrappedDocument<OAv4.OpenAttestationDocument>): string => {
   return document.issuer.identityProof.identifier.toUpperCase();
 };
 
@@ -65,7 +65,7 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by"
     formattedDomainNames = getV2FormattedDomainNames(verificationStatus);
   } else if (oaUtils.isWrappedV3Document(document)) {
     formattedDomainNames = getV3IdentityVerificationText(document);
-  } else {
+  } else if (oaUtils.isWrappedOAV4Document(document)) {
     formattedDomainNames = getV4IdentityVerificationText(document);
   }
   return (

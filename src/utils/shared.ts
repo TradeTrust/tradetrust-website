@@ -1,4 +1,4 @@
-import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@tradetrust-tt/tradetrust";
 import { getSupportedChainIds } from "../common/utils/chain-utils";
 import { AvailableBlockChains, ChainId } from "../constants/chain-info";
 
