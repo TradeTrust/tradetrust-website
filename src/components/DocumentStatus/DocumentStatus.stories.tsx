@@ -11,7 +11,7 @@ import {
 import { DocumentStatus } from "./DocumentStatus";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
-import { v2, wrapDocument } from "@govtechsg/open-attestation";
+import { v2, wrapDocument } from "@tradetrust-tt/tradetrust";
 
 const document = wrapDocument({
   issuers: [

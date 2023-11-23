@@ -2,8 +2,8 @@ import { Signer, ContractTransaction, ContractReceipt } from "ethers";
 import { deployAndWait, connect } from "@govtechsg/document-store";
 import { getLogger } from "../../utils/logger";
 import { IS_DEVELOPMENT } from "../../config";
-import { WrappedDocument } from "@govtechsg/open-attestation/dist/types/2.0/types";
-import { wrapDocument, v2 } from "@govtechsg/open-attestation";
+import { WrappedDocument } from "@tradetrust-tt/tradetrust/dist/types/2.0/types";
+import { wrapDocument, v2 } from "@tradetrust-tt/tradetrust";
 
 const { error } = getLogger("services:create");
 

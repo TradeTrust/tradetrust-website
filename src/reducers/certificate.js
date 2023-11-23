@@ -1,4 +1,4 @@
-import { obfuscateDocument } from "@govtechsg/open-attestation";
+import { obfuscateDocument } from "@tradetrust-tt/tradetrust";
 
 export const states = {
   INITIAL: "INITIAL",

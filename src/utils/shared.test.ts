@@ -1,9 +1,9 @@
 import v3DID from "../test/fixture/did/dns-did-signed.json";
 import v2DID from "../test/fixture/did/dns-did-verified.json";
-import v4DID from "../test/fixture/did/v4/did-signed.json";
+// import v4DID from "../test/fixture/did/v4/did-signed.json";
 import invoiceV2 from "../test/fixture/local/v2/invoice.json";
 import invoiceV3 from "../test/fixture/local/v3/invoice.json";
-import { getAttachments, getChainId, getTemplateUrl, WrappedOrSignedOpenAttestationDocument } from "./shared";
+import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
 
 describe("getChainId for v2 document", () => {
   it("should return the correct chainId for sepolia", () => {
@@ -117,12 +117,13 @@ describe("getChainId for v3 document", () => {
   });
 });
 
-describe("getTemplateUrl for v4", () => {
-  expect(getTemplateUrl(v4DID as WrappedOrSignedOpenAttestationDocument)).toBe(
-    "https://demo-renderer.openattestation.com"
-  );
-});
+// skip v4 tests for the time being
+// describe("getTemplateUrl for v4", () => {
+//   expect(getTemplateUrl(v4DID as WrappedOrSignedOpenAttestationDocument)).toBe(
+//     "https://demo-renderer.openattestation.com"
+//   );
+// });
 
-describe("getAttachments for v4", () => {
-  expect(getAttachments(v4DID as WrappedOrSignedOpenAttestationDocument)).toStrictEqual([]);
-});
+// describe("getAttachments for v4", () => {
+//   expect(getAttachments(v4DID as WrappedOrSignedOpenAttestationDocument)).toStrictEqual([]);
+// });

@@ -1,4 +1,4 @@
-import { HostActions } from "@govtechsg/decentralized-renderer-react-components";
+import { HostActions } from "@tradetrust-tt/decentralized-renderer-react-components";
 import { ChainId } from "./../constants/chain-info";
 
 export interface TemplateProps {

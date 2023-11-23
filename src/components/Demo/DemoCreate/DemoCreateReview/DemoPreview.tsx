@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, FunctionComponent } from "react";
-import { FrameConnector, renderDocument, FrameActions } from "@govtechsg/decentralized-renderer-react-components";
-import { OpenAttestationDocument, utils } from "@govtechsg/open-attestation";
+import { FrameConnector, renderDocument, FrameActions } from "@tradetrust-tt/decentralized-renderer-react-components";
+import { OpenAttestationDocument, utils } from "@tradetrust-tt/tradetrust";
 import { Dispatch } from "../../../../types";
 
 interface DocumentPreviewProps {

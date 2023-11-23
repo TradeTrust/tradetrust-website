@@ -1,4 +1,4 @@
-import { v2, wrapDocument } from "@govtechsg/open-attestation";
+import { v2, wrapDocument } from "@tradetrust-tt/tradetrust";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { act } from "react-dom/test-utils";

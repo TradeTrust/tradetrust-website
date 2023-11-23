@@ -16,7 +16,7 @@ import {
   renderDocument,
   selectTemplate,
   print,
-} from "@govtechsg/decentralized-renderer-react-components";
+} from "@tradetrust-tt/decentralized-renderer-react-components";
 import { TemplateProps } from "./../../types";
 import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
 import { Dispatch } from "../../types";
