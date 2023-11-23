@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { DetailedErrors } from "./DetailedErrors";
 import { CONSTANTS } from "@govtechsg/tradetrust-utils";
-import { VerificationFragment } from "@govtechsg/oa-verify";
+import { VerificationFragment } from "@tradetrust-tt/tt-verify";
 import {
   whenDocumentHashInvalidAndNotIssued,
   whenDocumentHashInvalid,

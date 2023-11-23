@@ -1,7 +1,7 @@
 import { ethers, providers } from "ethers";
 import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { INFURA_API_KEY } from "../../config";
-import { ProviderDetails, utils } from "@govtechsg/oa-verify";
+import { ProviderDetails, utils } from "@tradetrust-tt/tt-verify";
 import { magic } from "./helpers";
 import { ChainId, ChainInfo, ChainInfoObject } from "../../constants/chain-info";
 import { UnsupportedNetworkError } from "../errors";
