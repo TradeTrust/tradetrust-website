@@ -1,4 +1,4 @@
-import { utils } from "@govtechsg/open-attestation";
+import { utils } from "@tradetrust-tt/tradetrust";
 import React, { FunctionComponent } from "react";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 

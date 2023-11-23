@@ -1,9 +1,5 @@
-import { v2 } from "@govtechsg/open-attestation";
-import {
-  IdentityProofType,
-  Issuer,
-  TemplateType,
-} from "@govtechsg/open-attestation/dist/types/__generated__/schema.2.0";
+import { v2 } from "@tradetrust-tt/tradetrust";
+import { IdentityProofType, Issuer, TemplateType } from "@tradetrust-tt/tradetrust/dist/types/__generated__/schema.2.0";
 
 export const makeRawDocument = (
   documentStoreAddress: string,

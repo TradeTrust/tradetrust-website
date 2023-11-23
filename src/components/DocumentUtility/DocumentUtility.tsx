@@ -1,4 +1,4 @@
-import { v2, utils } from "@govtechsg/open-attestation";
+import { v2, utils } from "@tradetrust-tt/tradetrust";
 import { ButtonIcon } from "@govtechsg/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";

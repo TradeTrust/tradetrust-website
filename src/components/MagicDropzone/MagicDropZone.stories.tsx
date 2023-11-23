@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { MemoryRouter as Router } from "react-router-dom";
-import { v2, wrapDocument } from "@govtechsg/open-attestation";
+import { v2, wrapDocument } from "@tradetrust-tt/tradetrust";
 import { MagicDropzone } from "./MagicDropzone";
 import { configureStore } from "../../store";
 import {

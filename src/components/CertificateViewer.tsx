@@ -1,4 +1,4 @@
-import { utils } from "@govtechsg/open-attestation";
+import { utils } from "@tradetrust-tt/tradetrust";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../common/contexts/provider";

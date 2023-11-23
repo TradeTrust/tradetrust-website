@@ -1,4 +1,4 @@
-import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@govtechsg/open-attestation";
+import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@tradetrust-tt/tradetrust";
 import { getSupportedChainIds } from "../common/utils/chain-utils";
 import { AvailableBlockChains, ChainId } from "../constants/chain-info";
 
@@ -16,9 +16,11 @@ export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocume
     return typeof documentData.$template === "object" ? documentData.$template.url : undefined;
   } else if (utils.isWrappedV3Document(rawDocument)) {
     return rawDocument.openAttestationMetadata.template?.url;
-  } else {
-    return rawDocument.renderMethod?.url;
   }
+  // disable v4 verification for the time being
+  // else {
+  //   return rawDocument.renderMethod?.url;
+  // }
 };
 
 export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocument): v2.Attachment[] | undefined => {
