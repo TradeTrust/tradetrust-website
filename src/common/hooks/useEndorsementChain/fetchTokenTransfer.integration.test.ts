@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { useProviderContext } from "../../contexts/provider";
 import { ALCHEMY_API_KEY } from "../../../config";
 import { fetchTokenTransfers, identifyTokenTransferEventsFunction } from "./fetchTokenTransfer";
-import { TradeTrustToken__factory } from "@govtechsg/token-registry/dist/contracts";
+import { TradeTrustToken__factory } from "@tradetrust-tt/token-registry/dist/contracts";
 import { LogDescription, Result } from "ethers/lib/utils";
 
 jest.mock("../../contexts/provider");

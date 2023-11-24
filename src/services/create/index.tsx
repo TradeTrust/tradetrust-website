@@ -1,5 +1,5 @@
 import { Signer, ContractTransaction, ContractReceipt } from "ethers";
-import { deployAndWait, connect } from "@govtechsg/document-store";
+import { deployAndWait, connect } from "@tradetrust-tt/document-store";
 import { getLogger } from "../../utils/logger";
 import { IS_DEVELOPMENT } from "../../config";
 import { WrappedDocument } from "@tradetrust-tt/tradetrust/dist/types/2.0/types";

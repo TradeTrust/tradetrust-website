@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { TradeTrustToken } from "@govtechsg/token-registry/dist/contracts";
+import { TradeTrustToken } from "@tradetrust-tt/token-registry/dist/contracts";
 import { BytesLike } from "ethers";
 
 export const useTokenRegistryRole = ({
