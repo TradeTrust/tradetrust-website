@@ -1,11 +1,11 @@
 import { ContractFunctionState, useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { TitleEscrow } from "@govtechsg/token-registry/contracts";
+import { TitleEscrow } from "@tradetrust-tt/token-registry/contracts";
 import React, { createContext, useContext, useEffect, useState, useCallback, FunctionComponent } from "react";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useProviderContext } from "../provider";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
-import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
+import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
 import { BurnAddress } from "../../../constants/chain-info";
 

@@ -1,5 +1,5 @@
 import { ContractFunctionState } from "@govtechsg/ethers-contract-hook";
-import { TradeTrustToken } from "@govtechsg/token-registry/contracts";
+import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
 import { providers, Signer } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 import { getLogger } from "../../utils/logger";

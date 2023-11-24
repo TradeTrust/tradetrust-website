@@ -1,7 +1,7 @@
 import { ethers, providers } from "ethers";
 import { useProviderContext } from "../../contexts/provider";
 import { ALCHEMY_API_KEY } from "../../../config";
-import { TitleEscrow__factory } from "@govtechsg/token-registry/dist/contracts";
+import { TitleEscrow__factory } from "@tradetrust-tt/token-registry/dist/contracts";
 import { fetchEscrowTransfers, fetchHolderTransfers, fetchOwnerTransfers, getParsedLogs } from "./fetchEscrowTransfer";
 
 jest.mock("../../contexts/provider");

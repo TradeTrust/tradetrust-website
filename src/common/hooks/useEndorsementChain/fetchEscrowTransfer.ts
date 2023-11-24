@@ -1,5 +1,5 @@
 import { providers } from "ethers";
-import { TitleEscrow, TitleEscrow__factory } from "@govtechsg/token-registry/contracts";
+import { TitleEscrow, TitleEscrow__factory } from "@tradetrust-tt/token-registry/contracts";
 import { TitleEscrowTransferEvent } from "../../../types";
 import { EventFragment, Result } from "ethers/lib/utils";
 
