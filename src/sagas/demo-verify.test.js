@@ -6,7 +6,7 @@ import {
   whenDocumentHashInvalidAndNotIssued,
 } from "../test/fixture/verifier-responses";
 import { runSaga } from "redux-saga";
-import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
 
 async function recordSaga(saga, initialAction) {
   const dispatched = [];

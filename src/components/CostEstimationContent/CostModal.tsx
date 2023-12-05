@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState, useEffect, useCallback } from "react";
-import { OverlayContent } from "@govtechsg/tradetrust-ui-components";
+import { OverlayContent } from "@tradetrust-tt/tradetrust-ui-components";
 import { CostData } from "./types";
 import { FiatLabel } from "@govtechsg/open-attestation-utils";
 import { currentDateStr } from "../../utils";

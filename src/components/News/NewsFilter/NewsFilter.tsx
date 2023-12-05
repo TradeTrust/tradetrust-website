@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Input, Dropdown, DropdownItem } from "@govtechsg/tradetrust-ui-components";
+import { Input, Dropdown, DropdownItem } from "@tradetrust-tt/tradetrust-ui-components";
 import { Search } from "react-feather";
 import { NewsTag, NewsSort } from "./../types";
 

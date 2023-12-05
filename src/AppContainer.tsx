@@ -1,4 +1,4 @@
-import { NetworkBar, Overlay } from "@govtechsg/tradetrust-ui-components";
+import { NetworkBar, Overlay } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
+import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
 import { Persona, PersonaProps } from "./types";
 import { PersonaModal } from "./PersonaModal";
 

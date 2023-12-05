@@ -1,7 +1,11 @@
 import React, { FunctionComponent, useContext, useEffect } from "react";
 import { useEndorsementChain } from "../../common/hooks/useEndorsementChain";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
-import { OverlayContext, OverlayContextProvider, ProviderTimeoutMessage } from "@govtechsg/tradetrust-ui-components";
+import {
+  OverlayContext,
+  OverlayContextProvider,
+  ProviderTimeoutMessage,
+} from "@tradetrust-tt/tradetrust-ui-components";
 import { useTimer } from "react-timer-hook";
 
 const ProviderDocumentationURL = "https://docs.tradetrust.io/docs/advanced/add-polygon-networks-to-metamask-wallet/";

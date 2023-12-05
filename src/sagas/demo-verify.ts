@@ -5,7 +5,7 @@ import { verifyDocument, VerifierType } from "../services/verify";
 import { isValid } from "@tradetrust-tt/tt-verify";
 import { NETWORK_NAME } from "../config";
 import { history } from "../history";
-import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
 
 const { trace } = getLogger("saga:demo");
 

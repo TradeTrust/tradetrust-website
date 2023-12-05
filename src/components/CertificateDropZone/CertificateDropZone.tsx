@@ -14,7 +14,7 @@ import { View, ViewVerificationError, ViewActionError, ViewVerificationPending }
 import { isValid } from "@tradetrust-tt/tt-verify";
 import { useProviderContext } from "../../common/contexts/provider";
 import { getChainId } from "../../utils/shared";
-import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
 import { useNetworkSelect } from "./../../common/hooks/useNetworkSelect";
 
 const { TYPES } = CONSTANTS;
