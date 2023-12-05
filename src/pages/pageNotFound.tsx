@@ -1,4 +1,4 @@
-import { ErrorPage } from "@govtechsg/tradetrust-ui-components";
+import { ErrorPage } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 

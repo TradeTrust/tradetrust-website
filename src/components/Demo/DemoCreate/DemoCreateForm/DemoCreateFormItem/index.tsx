@@ -1,4 +1,4 @@
-import { Input, Button } from "@govtechsg/tradetrust-ui-components";
+import { Input, Button } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Upload } from "react-feather";

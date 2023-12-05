@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useCallback } from "react";
 import { compareAsc, compareDesc } from "date-fns";
-import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@govtechsg/tradetrust-ui-components";
+import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@tradetrust-tt/tradetrust-ui-components";
 import { NewsTag, NewsSort, NewsSingle } from "./../types";
 import { NewsLink } from "./../NewsLink";
 import { NewsFilter } from "./../NewsFilter";

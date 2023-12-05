@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useCallback, useContext, useEffect } from "react";
 import { saveAs } from "file-saver";
-import { Button, ProgressBar } from "@govtechsg/tradetrust-ui-components";
-import { gaEvent } from "@govtechsg/tradetrust-utils";
+import { Button, ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
+import { gaEvent } from "@tradetrust-tt/tradetrust-utils";
 import { CheckCircle, XCircle } from "react-feather";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";

@@ -1,12 +1,12 @@
 const merge = require("lodash/merge");
-const commonUiConfig = require("@govtechsg/tradetrust-ui-components/build/tailwind"); //eslint-disable-line @typescript-eslint/no-var-requires
+const commonUiConfig = require("@tradetrust-tt/tradetrust-ui-components/build/tailwind"); //eslint-disable-line @typescript-eslint/no-var-requires
 const plugin = require("tailwindcss/plugin");
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 const localConfig = {
   content: [
     `./src/**/*.{ts,tsx,js,jsx}`,
-    "./node_modules/@govtechsg/tradetrust-ui-components/src/**/*.{ts,tsx,js,jsx}",
+    "./node_modules/@tradetrust-tt/tradetrust-ui-components/src/**/*.{ts,tsx,js,jsx}",
   ],
   theme: {
     screens: {

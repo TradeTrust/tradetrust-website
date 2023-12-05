@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import { isFuture, isPast } from "date-fns";
 import { Helmet } from "react-helmet";
 import { ResourceEvent, EventProps } from "../../components/UI/ResourceEvent";
-import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@govtechsg/tradetrust-ui-components";
+import { Pagination, getPaginatedPosts, getPaginatedPagesTotal } from "@tradetrust-tt/tradetrust-ui-components";
 import { Page } from "../../components/Layout/Page";
 import { events } from ".";
 

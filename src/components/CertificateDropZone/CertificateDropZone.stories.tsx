@@ -4,7 +4,7 @@ import { CertificateDropZone } from "./CertificateDropZone";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
 import { states } from "../../reducers/certificate";
-import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
 import {
   whenDocumentHashInvalidAndNotIssued,
   whenDocumentHashInvalid,

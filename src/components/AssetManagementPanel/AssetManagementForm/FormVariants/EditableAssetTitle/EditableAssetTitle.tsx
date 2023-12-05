@@ -1,4 +1,4 @@
-import { OverlayAddressBook, ButtonIcon, useOverlayContext, Input } from "@govtechsg/tradetrust-ui-components";
+import { OverlayAddressBook, ButtonIcon, useOverlayContext, Input } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Book } from "react-feather";
 import { NETWORK_NAME } from "../../../../../config";

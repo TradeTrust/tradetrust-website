@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { BackArrow } from "@govtechsg/tradetrust-ui-components";
+import { BackArrow } from "@tradetrust-tt/tradetrust-ui-components";
 import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementTitleProps {

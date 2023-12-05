@@ -1,4 +1,4 @@
-import { Button, Input, OverlayContext } from "@govtechsg/tradetrust-ui-components";
+import { Button, Input, OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useState } from "react";
 import { Checkbox } from "../../UI/Checkbox";
 import { useHistory } from "react-router-dom";

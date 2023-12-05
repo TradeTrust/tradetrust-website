@@ -4,7 +4,7 @@ import {
   MessageTitle,
   OverlayContext,
   showDocumentTransferMessage,
-} from "@govtechsg/tradetrust-ui-components";
+} from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";

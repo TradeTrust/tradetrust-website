@@ -11,7 +11,7 @@ import { verifyDocument } from "../services/verify";
 import { isValid } from "@tradetrust-tt/tt-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
 import { history } from "../history";
-import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
 import { ActionPayload } from "./../types";
 
 const { trace } = getLogger("saga:certificate");

@@ -1,4 +1,4 @@
-import { getPaginatedPagesTotal, getPaginatedPosts, Pagination } from "@govtechsg/tradetrust-ui-components";
+import { getPaginatedPagesTotal, getPaginatedPosts, Pagination } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
 import { FunctionComponent, useState } from "react";
 import { ResourceWebinar } from "../UI/ResourceWebinar";

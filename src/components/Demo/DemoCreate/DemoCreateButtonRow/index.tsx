@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Button } from "@govtechsg/tradetrust-ui-components";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 
 interface DemoCreateButtonRowProps {
   onBack?: () => void;

@@ -1,4 +1,4 @@
-import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
+import { ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { LoaderSpinner } from "@govtechsg/tradetrust-ui-components";
+import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 
 export const ViewVerificationPending: FunctionComponent = () => {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { ButtonVideo } from "./ButtonVideo";
-import { OverlayContextProvider, Overlay } from "@govtechsg/tradetrust-ui-components";
+import { OverlayContextProvider, Overlay } from "@tradetrust-tt/tradetrust-ui-components";
 
 const RenderWithOverlay = ({ children }: any) => {
   return (
