@@ -2,7 +2,7 @@ import { VerificationFragment, VerificationFragmentWithData, utils } from "@trad
 import React, { FunctionComponent } from "react";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
-import { utils as oaUtils, WrappedDocument, v3 } from "@tradetrust-tt/tradetrust";
+import { utils as oaUtils, WrappedDocument, v3, OAv4, TTv4 } from "@tradetrust-tt/tradetrust";
 import { RootState } from "../../reducers";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
@@ -49,10 +49,11 @@ export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenA
   return document.openAttestationMetadata.identityProof.identifier.toUpperCase();
 };
 
-// disabled until alpha is promoted to master
-// export const getV4IdentityVerificationText = (document: WrappedDocument<v4.OpenAttestationDocument>): string => {
-//   return document.issuer.identityProof.identifier.toUpperCase();
-// };
+export const getV4IdentityVerificationText = (
+  document: WrappedDocument<OAv4.OpenAttestationDocument | TTv4.TradeTrustDocument>
+): string => {
+  return document.issuer.identityProof.identifier.toUpperCase();
+};
 
 interface IssuedByProps {
   title?: string;
@@ -66,6 +67,10 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by"
     formattedDomainNames = getV2FormattedDomainNames(verificationStatus);
   } else if (oaUtils.isWrappedV3Document(document)) {
     formattedDomainNames = getV3IdentityVerificationText(document);
+  } else if (oaUtils.isWrappedOAV4Document(document)) {
+    formattedDomainNames = getV4IdentityVerificationText(document);
+  } else if (oaUtils.isWrappedTTV4Document(document)) {
+    formattedDomainNames = getV4IdentityVerificationText(document);
   }
   // disabled until alpha tradetrust-tt packages are promoted to master
   // else {

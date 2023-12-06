@@ -2,6 +2,7 @@ import {
   DocumentsToVerify,
   openAttestationDidIdentityProof,
   openAttestationVerifiers,
+  tradeTrustIDVCIdentityProof,
   verificationBuilder,
   VerificationFragment,
 } from "@tradetrust-tt/tt-verify";
@@ -25,9 +26,11 @@ const verificationOption = (provider: providers.Provider | undefined) => {
   }
   return { network: NETWORK_NAME };
 };
-
 const customVerifier = (provider: providers.Provider | undefined) =>
-  verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof], verificationOption(provider));
+  verificationBuilder(
+    [...openAttestationVerifiers, openAttestationDidIdentityProof, tradeTrustIDVCIdentityProof],
+    verificationOption(provider)
+  );
 
 const demoVerifier = verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof], {
   network: "sepolia",
