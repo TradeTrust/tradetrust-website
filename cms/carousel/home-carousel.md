@@ -35,4 +35,11 @@ slides:
       label: Read More
       route: /legality
     backgroundImage: /static/uploads/legality-main-image.png
+  - title: "SDG Digital GameChangers Award "
+    description: "The SDG Digital GameChangers Awards honours Individuals and
+      organisations utilising digital technologies towards rescuing the
+      Sustainable Development Goals (SDGs) - the 17 \"Global Goals\" set out by
+      the United Nations to address the world's most urgent environmental and
+      socio-economic challenges. TradeTrust is proud to receive the SDG
+      GameChangers Runner up Award.  "
 ---
