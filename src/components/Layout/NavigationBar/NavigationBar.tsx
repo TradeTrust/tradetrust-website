@@ -6,7 +6,7 @@ import {
   NavigationItem,
   NAVIGATION_ITEM_TYPE,
   ButtonSize,
-} from "@govtechsg/tradetrust-ui-components";
+} from "@tradetrust-tt/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
 import { FormSgContactLink } from "../../../routes";

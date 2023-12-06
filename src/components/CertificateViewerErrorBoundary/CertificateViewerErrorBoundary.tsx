@@ -2,7 +2,7 @@ import React from "react";
 import { FunctionComponent } from "react";
 import { ErrorBoundary, FallbackComponentType } from "../ErrorBoundary";
 import { getCurrentProvider, useProviderContext } from "../../common/contexts/provider";
-import { ErrorPage, ErrorPageProps } from "@govtechsg/tradetrust-ui-components";
+import { ErrorPage, ErrorPageProps } from "@tradetrust-tt/tradetrust-ui-components";
 import { Link } from "react-router-dom";
 import { UnsupportedNetworkError } from "../../common/errors";
 

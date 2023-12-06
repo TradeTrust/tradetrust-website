@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from "react";
 import { useProviderContext } from "../contexts/provider";
-import { OverlayContext, showDocumentTransferMessage } from "@govtechsg/tradetrust-ui-components";
+import { OverlayContext, showDocumentTransferMessage } from "@tradetrust-tt/tradetrust-ui-components";
 import { LoadingModal } from "../../components/UI/Overlay";
 import { ChainId } from "../../constants/chain-info";
 

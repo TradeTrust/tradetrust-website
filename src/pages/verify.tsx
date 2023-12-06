@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
 import { Page } from "../components/Layout/Page";
-import { OverlayContent, OverlayContextProvider } from "@govtechsg/tradetrust-ui-components";
+import { OverlayContent, OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
 import { InfoOverlay } from "../components/UI/Overlay";
 

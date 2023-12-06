@@ -1,4 +1,4 @@
-import { Dropdown, DropdownItem, DropdownProps, IconError } from "@govtechsg/tradetrust-ui-components";
+import { Dropdown, DropdownItem, DropdownProps, IconError } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { useProviderContext } from "../../../common/contexts/provider";

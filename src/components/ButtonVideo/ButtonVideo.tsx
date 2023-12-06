@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from "react";
-import { OverlayContext } from "@govtechsg/tradetrust-ui-components";
+import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
 
 interface ButtonVideoProps {
   className?: string;

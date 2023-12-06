@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper";
-import { Youtube, Button, ButtonSize } from "@govtechsg/tradetrust-ui-components";
+import { Youtube, Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
 import ReactMarkdown from "react-markdown";
 import { ButtonVideo } from "../ButtonVideo";
 
@@ -10,7 +10,7 @@ import "swiper/swiper.min.css";
 import "swiper/modules/pagination/pagination.min.css";
 import "./swiper-custom.css";
 import { GaAction, GaCategory } from "../../types";
-import { gaEvent } from "@govtechsg/tradetrust-utils";
+import { gaEvent } from "@tradetrust-tt/tradetrust-utils";
 import { isExternalLink } from "../../utils";
 
 interface PageLink {

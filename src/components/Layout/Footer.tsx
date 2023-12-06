@@ -1,4 +1,4 @@
-import { Footer as BaseFooter, FooterColumnItemProps } from "@govtechsg/tradetrust-ui-components";
+import { Footer as BaseFooter, FooterColumnItemProps } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
 import { ExternalLink } from "react-feather";
 import { NavLink } from "react-router-dom";

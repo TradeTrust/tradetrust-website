@@ -1,4 +1,4 @@
-import { OverlayContent, useOverlayContext } from "@govtechsg/tradetrust-ui-components";
+import { OverlayContent, useOverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
 import { Steps } from "./Steps";
 import { ContentType, PersonaProps } from "./types";

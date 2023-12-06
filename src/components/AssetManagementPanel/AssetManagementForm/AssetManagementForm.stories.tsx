@@ -1,4 +1,4 @@
-import { Overlay, OverlayContextProvider } from "@govtechsg/tradetrust-ui-components";
+import { Overlay, OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useState } from "react";
 import { FormState } from "../../../constants/FormState";
 import { AssetManagementActions } from "../AssetManagementActions";

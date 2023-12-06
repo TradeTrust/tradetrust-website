@@ -1,4 +1,4 @@
-import { Textual } from "@govtechsg/tradetrust-ui-components";
+import { Textual } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 
 export const contentPdpa: FunctionComponent<React.ReactNode> = () => {

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@govtechsg/tradetrust-ui-components";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
 import { DetailedError } from "../../DocumentDropzone/DetailedErrors";

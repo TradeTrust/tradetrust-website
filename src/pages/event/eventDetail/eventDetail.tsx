@@ -8,7 +8,7 @@ import { ChevronLeft, ExternalLink, PlayCircle, Download } from "react-feather";
 import { Page } from "../../../components/Layout/Page";
 import { isFuture, format } from "date-fns";
 import { formatTime } from "../../../common/utils/dateTime";
-import { LinkButton } from "@govtechsg/tradetrust-ui-components";
+import { LinkButton } from "@tradetrust-tt/tradetrust-ui-components";
 import ReactMarkdown from "react-markdown";
 import { getFileName } from "../../../utils";
 

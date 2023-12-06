@@ -11,7 +11,7 @@ import {
   whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentRevoked,
 } from "../../test/fixture/verifier-responses";
-import { CONSTANTS } from "@govtechsg/tradetrust-utils";
+import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
 
 const { TYPES } = CONSTANTS;
 

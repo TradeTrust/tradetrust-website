@@ -1,4 +1,4 @@
-import { AddressResolver, BackArrow } from "@govtechsg/tradetrust-ui-components";
+import { AddressResolver, BackArrow } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";

@@ -1,4 +1,4 @@
-import { Overlay, OverlayContext } from "@govtechsg/tradetrust-ui-components";
+import { Overlay, OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
 import { FunctionComponent, useContext } from "react";
 

@@ -1,5 +1,5 @@
-import { Button } from "@govtechsg/tradetrust-ui-components";
-import { gaEvent } from "@govtechsg/tradetrust-utils";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { gaEvent } from "@tradetrust-tt/tradetrust-utils";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useDispatch, useSelector } from "react-redux";

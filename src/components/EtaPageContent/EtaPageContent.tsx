@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Button } from "@govtechsg/tradetrust-ui-components";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import { FormSgContactLink } from "../../routes";
 
 const SectionMap = () => {

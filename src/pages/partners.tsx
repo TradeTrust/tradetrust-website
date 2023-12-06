@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import { Page } from "../components/Layout/Page";
-import { Button, ButtonSize } from "@govtechsg/tradetrust-ui-components";
+import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
 import { Partners } from "../components/PartnersContent";
 
 export const PartnersPage: FunctionComponent = () => {

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { Button } from "@govtechsg/tradetrust-ui-components";
-import { gaEvent } from "@govtechsg/tradetrust-utils";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { gaEvent } from "@tradetrust-tt/tradetrust-utils";
 import { GaAction, GaCategory } from "../../types";
 
 const TRADETRUST_LEGAL_ARTICLE_TITLE = "Tradetrust Legal Analysis Article";

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { PartnersTile } from "./PartnersTile";
-import { Pagination, getPaginatedPagesTotal, getPaginatedPosts } from "@govtechsg/tradetrust-ui-components";
+import { Pagination, getPaginatedPagesTotal, getPaginatedPosts } from "@tradetrust-tt/tradetrust-ui-components";
 import { PartnersDataProps } from "./types";
 
 const MAX_PARTNER_TILES_TO_DISPLAY = 9;
