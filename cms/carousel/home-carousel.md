@@ -42,4 +42,5 @@ slides:
       the United Nations to address the world's most urgent environmental and
       socio-economic challenges. TradeTrust is proud to receive the SDG
       GameChangers Runner up Award.  "
+    backgroundImage: /static/uploads/generic-banner-2.png
 ---
