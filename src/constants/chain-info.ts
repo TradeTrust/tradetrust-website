@@ -39,7 +39,7 @@ export enum ChainId {
   // XDC Network
   XDC = 50,
   APOTHEM = 51,
-  
+
   //Hedera Network
   HederaMainnet = 295,
   HederaTestnet = 296,
