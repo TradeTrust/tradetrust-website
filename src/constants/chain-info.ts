@@ -135,7 +135,7 @@ export const ChainInfo: ChainInfo = {
   [ChainId.StabilityTestnet]: {
     label: "Stability Testnet",
     chainId: ChainId.StabilityTestnet,
-    iconImage: "/static/images/networks/xdc.png",
+    iconImage: "/static/images/networks/stability.png",
     networkName: "stabilitytestnet",
     networkLabel: "Stability Testnet",
     explorerUrl: "https://stability-testnet.blockscout.com/",
