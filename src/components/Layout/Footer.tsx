@@ -35,7 +35,7 @@ const data = [
   {
     category: "Utilities",
     items: [
-      { label: "Verify Documents", to: "/verify", render: renderNavLink },
+      { label: "Verify Documents", to: "/", render: renderNavLink },
       { label: "Create Documents", to: URLS.CREATOR, render: renderExternalLink },
     ],
   },
