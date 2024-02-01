@@ -168,9 +168,9 @@ export const rightNavItems: NavigationItem[] = [
     schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
     id: "verify",
     label: "Verify Doc",
-    path: "/verify",
+    path: "/",
     customLink: (
-      <NavLink to={"/verify"}>
+      <NavLink to={"/"}>
         <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800" size={ButtonSize.SM}>
           Verify Doc
         </Button>

@@ -5,7 +5,7 @@ export const SampleTemplate = Selector("#root");
 const CertificateDropzone = Selector("[data-testid='certificate-dropzone']");
 const DocumentStatus = Selector("#document-status");
 const IssuedByDomainName = Selector("#issuedby");
-const VerifyPage = Selector("a[href='/verify']");
+const VerifyPage = Selector("a[href='/']");
 
 export const validateTextContent = async (testcafe, component, texts) =>
   texts.reduce(

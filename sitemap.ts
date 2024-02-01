@@ -24,24 +24,6 @@ Object.values(pathArray).reduce((accumulator, currentPath) => {
 }, mainPages);
 
 const cmsDetailPages: SitemapRecord[] = [];
-const populateCmsPages = (prefix: string, srcDirectory: string) => {
-  fs.readdirSync(srcDirectory).forEach((file: string) => {
-    const name = path.parse(file).name;
-    if (name !== ".DS_Store") {
-      cmsDetailPages.push({
-        url: `${prefix}${name}`,
-        changefreq: "monthly",
-        priority: 0.5,
-      });
-    }
-  });
-};
-populateCmsPages("/news/", `${__dirname}/cms/article`);
-populateCmsPages("/news/", `${__dirname}/cms/newsletter`);
-populateCmsPages("/news/", `${__dirname}/cms/partner-news`);
-populateCmsPages("/news/", `${__dirname}/cms/press-release`);
-populateCmsPages("/news/", `${__dirname}/cms/speech`);
-populateCmsPages("/event/", `${__dirname}/cms/event`);
 
 const allPages = [...mainPages, ...cmsDetailPages];
 
