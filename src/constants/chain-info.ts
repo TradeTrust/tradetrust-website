@@ -108,7 +108,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "xdc",
     networkLabel: "XDC Network",
     explorerUrl: "https://xdcscan.io",
-    rpcUrl: "https://erpc.xinfin.network",
+    rpcUrl: "https://rpc.ankr.com/xdc",
     nativeCurrency: {
       name: "XDC",
       symbol: "XDC",
@@ -122,7 +122,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "xdcapothem",
     networkLabel: "XDC Testnet Apothem",
     explorerUrl: "https://apothem.xdcscan.io",
-    rpcUrl: "https://apothem.xdcrpc.com",
+    rpcUrl: "https://rpc.ankr.com/xdc_testnet",
     nativeCurrency: {
       name: "XDCt",
       symbol: "XDCt",
