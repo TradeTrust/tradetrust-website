@@ -39,6 +39,9 @@ export enum ChainId {
   // XDC Network
   XDC = 50,
   APOTHEM = 51,
+
+  // Stability
+  StabilityTestnet = 20180427,
 }
 
 export const ChainInfo: ChainInfo = {
@@ -126,6 +129,20 @@ export const ChainInfo: ChainInfo = {
     nativeCurrency: {
       name: "XDCt",
       symbol: "XDCt",
+      decimals: 18,
+    },
+  },
+  [ChainId.StabilityTestnet]: {
+    label: "Stability Testnet",
+    chainId: ChainId.StabilityTestnet,
+    iconImage: "/static/images/networks/stability.png",
+    networkName: "stabilitytestnet",
+    networkLabel: "Stability Testnet",
+    explorerUrl: "https://stability-testnet.blockscout.com/",
+    rpcUrl: "https://free.testnet.stabilityprotocol.com",
+    nativeCurrency: {
+      name: "FREE",
+      symbol: "FREE",
       decimals: 18,
     },
   },
