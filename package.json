@@ -57,7 +57,7 @@
     "@tradetrust-tt/tradetrust": "^6.9.0",
     "@tradetrust-tt/tradetrust-ui-components": "^2.21.0",
     "@tradetrust-tt/tradetrust-utils": "^1.10.0",
-    "@tradetrust-tt/tt-verify": "^8.6.0",
+    "@tradetrust-tt/tt-verify": "^8.7.0",
     "@types/gtag.js": "0.0.8",
     "cross-env": "^7.0.3",
     "date-fns": "^2.22.1",
