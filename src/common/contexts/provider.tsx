@@ -146,6 +146,9 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     await web3Provider.send("eth_requestAccounts", []);
     const chainInfo = getChainInfo(currentChainId ?? defaultChainId);
     await walletSwitchChain(chainInfo.chainId);
+    const signer = web3Provider.getSigner();
+    const address = await signer.getAddress();
+    setAccount(address);
 
     setProviderType(SIGNER_TYPE.METAMASK);
   };
