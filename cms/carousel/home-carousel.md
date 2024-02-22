@@ -53,5 +53,5 @@ slides:
       proud to have been selected as a winner in the Business and Commerce
       Category showcasing its innovative service in the international trade
       ecosystem.
-    backgroundImage: /static/uploads/world-summit-awards-wsa-.png
+    backgroundImage: /static/uploads/generic-banner-3.png
 ---
