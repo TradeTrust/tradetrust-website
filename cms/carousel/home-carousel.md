@@ -54,4 +54,7 @@ slides:
       Category showcasing its innovative service in the international trade
       ecosystem.
     backgroundImage: /static/uploads/generic-banner-3.png
+    buttonPage:
+      route: https://wsa-global.org/2024/02/07/announcing-wsas-winners-of-2023/
+      label: WSA Global
 ---
