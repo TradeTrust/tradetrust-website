@@ -43,4 +43,18 @@ slides:
       socio-economic challenges. TradeTrust is proud to receive the SDG
       GameChangers Runner up Award.  "
     backgroundImage: /static/uploads/generic-banner-2.png
+  - title: World Summit Award
+    subheader: Winner of 2023
+    description: The World Summit Awards (WSA) rewards Information and
+      Communications Technologies projects that have a positive impact on
+      society at the local level. The awards recognises examples that contribute
+      to both the agenda of the UN WSIS and the UN Sustainable Development Goals
+      (SDGs) by showcasing creative use of digital innovation. TradeTrust is
+      proud to have been selected as a winner in the Business and Commerce
+      Category showcasing its innovative service in the international trade
+      ecosystem.
+    backgroundImage: /static/uploads/generic-banner-3.png
+    buttonPage:
+      route: https://wsa-global.org/2024/02/07/announcing-wsas-winners-of-2023/
+      label: WSA Global
 ---
