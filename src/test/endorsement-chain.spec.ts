@@ -54,3 +54,31 @@ test("Endorsement chain title and actions are rendered correctly", async (t) => 
   await t.expect(SurrenderToIssuerAction.count).eql(1);
   await t.expect(SurrenderAcceptedAction.count).eql(1);
 });
+
+test("Endorsement chain title and actions are rendered correctly for hederatestnet", async (t) => {
+  await navigateToVerify();
+  await uploadDocument("./fixture/hederatestnet/v3/ebl-endorsement-chain.json");
+
+  await validateIssuerTexts(["trustlv.org"]);
+  await t.wait(3000);
+  await t.expect(ViewEndorsementChainButton.count).eql(1);
+  await t.click(ViewEndorsementChainButton);
+
+  // add wait 3000 due to endorsement chain component having a little latency because getting endorsement data
+  await t.wait(5000);
+
+  await t.expect(EndorsementChainTitle.count).eql(1);
+
+  await t.expect(EndorsementChainAddressMinter.count).eql(4);
+  await t.expect(EndorsementChainAddress1.count).eql(4);
+  await t.expect(EndorsementChainAddress2.count).eql(2);
+
+  await t.expect(DocumentIssuedAction.count).eql(1);
+
+  await t.expect(EndorseNomineeAction.count).eql(1);
+  await t.expect(ChangeOwnershipAction.count).eql(1);
+  await t.expect(TransferHoldershipAction.count).eql(1);
+
+  await t.expect(SurrenderToIssuerAction.count).eql(1);
+  await t.expect(SurrenderAcceptedAction.count).eql(1);
+});
