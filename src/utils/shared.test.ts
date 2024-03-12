@@ -14,18 +14,18 @@ describe("getChainId for v2 document", () => {
     expect(getChainId(document)).toStrictEqual(11155111);
   });
 
-  it("should return the correct chainId for polygon mumbai network", () => {
+  it("should return the correct chainId for polygon amoy network", () => {
     const document = {
       ...invoiceV2,
-      data: { ...invoiceV2.data, network: { chain: "MATIC", chainId: "80001" } },
+      data: { ...invoiceV2.data, network: { chain: "MATIC", chainId: "80002" } },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(getChainId(document)).toStrictEqual(80001);
+    expect(getChainId(document)).toStrictEqual(80002);
   });
 
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
     const document = {
       ...invoiceV2,
-      data: { ...invoiceV2.data, network: { chain: "MATICMUM", chainId: "80001" } },
+      data: { ...invoiceV2.data, network: { chain: "MATICMUM123", chainId: "80002" } },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
   });
@@ -66,17 +66,17 @@ describe("getChainId for v3 document", () => {
   it("should return the correct chainId for local", () => {
     const document = {
       ...invoiceV3,
-      network: { chain: "ETH", chainId: "11155111" },
+      network: { chain: "ETH", chainId: "1337" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(getChainId(document)).toStrictEqual(11155111);
+    expect(getChainId(document)).toStrictEqual(1337);
   });
 
-  it("should return the correct chainId for polygon mumbai network", () => {
+  it("should return the correct chainId for polygon amoy network", () => {
     const document = {
       ...invoiceV3,
-      network: { chain: "MATIC", chainId: "80001" },
+      network: { chain: "MATIC", chainId: "80002" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(getChainId(document)).toStrictEqual(80001);
+    expect(getChainId(document)).toStrictEqual(80002);
   });
 
   it("should throw an error when there is a network object in the document but the value is not valid", () => {

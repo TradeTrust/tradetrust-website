@@ -35,6 +35,7 @@ export enum ChainId {
   // Polygon
   Polygon = 137,
   PolygonMumbai = 80001,
+  PolygonAmoy = 80002,
 
   // XDC Network
   XDC = 50,
@@ -81,7 +82,7 @@ export const ChainInfo: ChainInfo = {
     },
   },
   [ChainId.Polygon]: {
-    label: "Polygon (Beta)",
+    label: "Polygon",
     chainId: ChainId.Polygon,
     iconImage: "/static/images/networks/polygon.gif",
     networkName: "matic",
@@ -108,8 +109,22 @@ export const ChainInfo: ChainInfo = {
       decimals: 18,
     },
   },
+  [ChainId.PolygonAmoy]: {
+    label: "Polygon Amoy",
+    chainId: ChainId.PolygonAmoy,
+    iconImage: "/static/images/networks/polygon.gif",
+    networkName: "amoy",
+    networkLabel: "Polygon Amoy",
+    explorerUrl: "https://www.oklink.com/amoy",
+    rpcUrl: `https://polygon-amoy.infura.io/v3/${INFURA_API_KEY}`,
+    nativeCurrency: {
+      name: "MATIC",
+      symbol: "aMATIC",
+      decimals: 18,
+    },
+  },
   [ChainId.XDC]: {
-    label: "XDC Network Mainnet",
+    label: "XDC Network",
     chainId: ChainId.XDC,
     iconImage: "/static/images/networks/xdc.png",
     networkName: "xdc",
@@ -123,7 +138,7 @@ export const ChainInfo: ChainInfo = {
     },
   },
   [ChainId.APOTHEM]: {
-    label: "XDC Testnet Apothem",
+    label: "Apothem",
     chainId: ChainId.APOTHEM,
     iconImage: "/static/images/networks/xdc.png",
     networkName: "xdcapothem",
