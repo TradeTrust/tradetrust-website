@@ -16,6 +16,7 @@ module.exports = {
     allow_ad_personalization_signals: false,
     debug_mode: IS_DEVELOPMENT,
   },
+  STABILITY_API_KEY: process.env.STABILITY_API_KEY || "test",
   INFURA_API_KEY: process.env.INFURA_API_KEY || "bb46da3f80e040e8ab73c0a9ff365d18",
   INFURA_PROJECT_ID: "1f1ff2b3fca04f8d99f67d465c59e4ef",
   ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY || "pV9JmoYcDFFBihXlJWt6FSDxzNAVWxdT",
