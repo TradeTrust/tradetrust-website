@@ -13,5 +13,5 @@ test("sample document is rendered correctly when DNS TXT is verified for hederat
   await navigateToVerify();
   await uploadDocument("./fixture/hederatestnet/v2/invoice.json");
   await validateIssuerTexts(["TRUSTLV.ORG"]);
-  await validateIframeTexts(["INVOICE"]);
+  await validateIframeTexts(["CERTIFICATE_OF_NON_MANIPULATION"]);
 });
