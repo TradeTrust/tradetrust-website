@@ -11,7 +11,7 @@ test("sample document is rendered correctly when DNS TXT is verified", async () 
 
 test("sample document is rendered correctly when DNS TXT is verified for hederatestnet", async () => {
   await navigateToVerify();
-  await uploadDocument("./fixture/hederatest/v2/invoice.json");
+  await uploadDocument("./fixture/hederatestnet/v2/invoice.json");
   await validateIssuerTexts(["trsutlv.org"]);
   await validateIframeTexts(["INVOICE"]);
 });

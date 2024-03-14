@@ -59,7 +59,7 @@ test("Endorsement chain title and actions are rendered correctly for hederatestn
   await navigateToVerify();
   await uploadDocument("./fixture/hederatestnet/v3/ebl-endorsement-chain.json");
 
-  await validateIssuerTexts(["trustlv.org"]);
+  await validateIssuerTexts(["TRUSTLV.ORG"]);
   await t.wait(3000);
   await t.expect(ViewEndorsementChainButton.count).eql(1);
   await t.click(ViewEndorsementChainButton);
