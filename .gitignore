@@ -18,3 +18,4 @@ yarn.lock
 .lighthouseci
 lighthouseReport
 /public/static/sitemap.xml
+.env
