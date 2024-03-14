@@ -129,7 +129,7 @@ describe("getChainId for v3 document", () => {
       ...invoiceHederaTestnetV3,
       network: { chain: "HBAR", chainId: "296" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(getChainId(document)).toStrictEqual(80001);
+    expect(getChainId(document)).toStrictEqual(296);
   });
 
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
@@ -143,7 +143,7 @@ describe("getChainId for v3 document", () => {
   it("should throw an error when there is a network object in the document but the value is not valid for hederatestnet", () => {
     const document = {
       ...invoiceHederaTestnetV3,
-      network: { chain: "HBAR", chainId: "296" },
+      network: { chain: "HBARH", chainId: "296" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
   });
@@ -193,7 +193,7 @@ describe("getChainId for v3 document", () => {
   it("should throw an error when the chainId is not in the list of networks for hederatestnet", () => {
     const document = {
       ...invoiceHederaTestnetV3,
-      network: { chain: "HBAR", chainId: "296" },
+      network: { chain: "HBAR", chainId: "29" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
   });
