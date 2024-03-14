@@ -16,6 +16,7 @@ export const MAIN_NETWORKS = [
 export const TEST_NETWORKS = [
   ChainId.Sepolia,
   ChainId.PolygonMumbai,
+  ChainId.Amoy,
   ChainId.APOTHEM,
   ChainId.StabilityTestnet,
   ChainId.HederaTestnet,
