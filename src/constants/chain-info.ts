@@ -1,4 +1,4 @@
-import { INFURA_API_KEY } from "../config";
+import { INFURA_API_KEY, STABILITY_API_KEY } from "../config";
 
 export interface ChainInfoObject {
   label: string;
@@ -40,6 +40,7 @@ export enum ChainId {
   APOTHEM = 51,
 
   // Stability
+  Stability = 101010,
   StabilityTestnet = 20180427,
 
   // Hedera Network
@@ -146,6 +147,20 @@ export const ChainInfo: ChainInfo = {
     nativeCurrency: {
       name: "XDCt",
       symbol: "XDCt",
+      decimals: 18,
+    },
+  },
+  [ChainId.Stability]: {
+    label: "Stability (Beta)",
+    chainId: ChainId.Stability,
+    iconImage: "/static/images/networks/stability.png",
+    networkName: "stability",
+    networkLabel: "Stability",
+    explorerUrl: "https://stability.blockscout.com",
+    rpcUrl: `https://gtn.stabilityprotocol.com/zgt/${STABILITY_API_KEY}`,
+    nativeCurrency: {
+      name: "FREE",
+      symbol: "FREE",
       decimals: 18,
     },
   },
