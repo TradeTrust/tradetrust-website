@@ -60,12 +60,12 @@ test("Endorsement chain title and actions are rendered correctly for hederatestn
   await uploadDocument("./fixture/hederatestnet/v3/ebl-endorsement-chain.json");
 
   await validateIssuerTexts(["TRUSTLV.ORG"]);
-  await t.wait(1000);
+  await t.wait(3000);
   await t.expect(ViewEndorsementChainButton.count).eql(1);
   await t.click(ViewEndorsementChainButton);
 
   // add wait 3000 due to endorsement chain component having a little latency because getting endorsement data
-  await t.wait(3000);
+  await t.wait(5000);
 
   await t.expect(EndorsementChainTitle.count).eql(1);
 
