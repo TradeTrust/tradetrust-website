@@ -66,7 +66,6 @@ test("Endorsement chain title and actions are rendered correctly for hederatestn
 
   // add wait 3000 due to endorsement chain component having a little latency because getting endorsement data
   await t.wait(5000);
-
   await t.expect(EndorsementChainTitle.count).eql(1);
 
   await t.expect(EndorsementChainAddressMinter.count).eql(4);
