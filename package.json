@@ -91,9 +91,9 @@
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.23.3",
     "@govtechsg/open-attestation-cli": "^2.5.0",
-    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/react": "^6.4.19",
+    "@storybook/react": "^8.0.4",
     "@synthetixio/synpress": "^3.7.1",
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
@@ -155,7 +155,7 @@
     "wait-on": "^5.3.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.2",
+    "webpack-dev-server": "^5.0.4",
     "webpack-env": "^0.8.0"
   },
   "engines": {
