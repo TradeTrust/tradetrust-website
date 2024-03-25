@@ -159,7 +159,7 @@
     "webpack-env": "^0.8.0"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": "18.x"
   },
   "overrides": {
     "ethereumjs-abi": "https://registry.npmjs.org/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz"
