@@ -68,16 +68,15 @@ test("Endorsement chain title and actions are rendered correctly for hederatestn
   await t.wait(5000);
   await t.expect(EndorsementChainTitle.count).eql(1);
 
-  // await t.expect(EndorsementChainAddressMinter.count).eql(4);
-  // await t.expect(EndorsementChainAddress1.count).eql(4);
-  // await t.expect(EndorsementChainAddress2.count).eql(2);
-  //
-  // await t.expect(DocumentIssuedAction.count).eql(1);
-  //
-  // await t.expect(EndorseNomineeAction.count).eql(1);
-  // await t.expect(ChangeOwnershipAction.count).eql(1);
-  // await t.expect(TransferHoldershipAction.count).eql(1);
-  //
-  // await t.expect(SurrenderToIssuerAction.count).eql(1);
-  // await t.expect(SurrenderAcceptedAction.count).eql(1);
+  await t.expect(EndorsementChainAddressMinter.count).eql(4);
+  await t.expect(EndorsementChainAddress1.count).eql(4);
+  await t.expect(EndorsementChainAddress2.count).eql(2);
+
+  await t.expect(DocumentIssuedAction.count).eql(1);
+  await t.expect(EndorseNomineeAction.count).eql(1);
+  await t.expect(ChangeOwnershipAction.count).eql(1);
+  await t.expect(TransferHoldershipAction.count).eql(1);
+
+  await t.expect(SurrenderToIssuerAction.count).eql(1);
+  await t.expect(SurrenderAcceptedAction.count).eql(1);
 });
