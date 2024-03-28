@@ -7,6 +7,7 @@ const toPath = (_path) => path.join(process.cwd(), _path);
 
 module.exports = {
   stories: ["../src/**/*.stories.@(tsx)"],
+
   addons: [
     "@storybook/addon-essentials",
     {
@@ -17,10 +18,13 @@ module.exports = {
         },
       },
     },
+    "@storybook/addon-webpack5-compiler-babel",
   ],
+
   typescript: {
     reactDocgen: "react-docgen", // once react-docgen-typescript v2 in included in storybook, remove this config
   },
+
   webpackFinal: async (config) => {
     // need to include this web-did-resolver module into babel-loader to convert it from using esm to commonjs
     const directoryPath = path.resolve(__dirname).replace(".storybook", "");
@@ -32,7 +36,22 @@ module.exports = {
         loader: "babel-loader",
       },
     });
-
+    config.resolve.fallback = {
+      os: require.resolve("os-browserify/browser"),
+      crypto: require.resolve("crypto-browserify"),
+      stream: require.resolve("stream-browserify"),
+      vm: require.resolve("vm-browserify"),
+      path: require.resolve("path-browserify"),
+    };
     return config;
+  },
+
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
+  },
+
+  docs: {
+    autodocs: true,
   },
 };

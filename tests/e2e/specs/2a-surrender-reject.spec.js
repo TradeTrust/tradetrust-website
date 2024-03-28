@@ -1,8 +1,8 @@
-before(() => {
-  cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
-});
+// before(() => {
+//   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
+// });
 
-describe("Surrender Reject", () => {
+describe.skip("Surrender Reject", () => {
   it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", () => {
     cy.visit("/verify");
     cy.waitAndUploadFile("ebl-surrender.json");

@@ -1,0 +1,34 @@
+console.log("###### #########");
+console.log("###### #########");
+console.log("root babel config");
+console.log("###### #########");
+console.log("###### #########");
+
+let config = {
+  presets: [
+    [
+      "@babel/preset-env",
+      {
+        targets: {
+          node: "current",
+        },
+      },
+    ],
+    "@babel/preset-typescript",
+    "@babel/preset-react",
+  ],
+  plugins: [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-private-methods",
+    "@babel/plugin-proposal-nullish-coalescing-operator",
+    "@babel/plugin-proposal-optional-chaining",
+    "macros",
+  ],
+  env: {
+    test: {
+      plugins: ["transform-require-context"],
+    },
+  },
+};
+
+module.exports = config;

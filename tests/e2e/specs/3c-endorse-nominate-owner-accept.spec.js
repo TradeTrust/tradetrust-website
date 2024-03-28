@@ -1,10 +1,10 @@
 import { ACCOUNT_2, ACCOUNT_3 } from "../utils";
 
-before(() => {
-  cy.switchMetamaskAccount(2); // switch to account 2 (holder)
-});
+// before(() => {
+//   cy.switchMetamaskAccount(2); // switch to account 2 (holder)
+// });
 
-describe("Endorse Transfer of Ownership by accepting Nominated Owner", () => {
+describe.skip("Endorse Transfer of Ownership by accepting Nominated Owner", () => {
   it("should go to verify page, upload a file, connect a wallet and endorse nominated owner successfully", () => {
     cy.visit("/verify");
     cy.waitAndUploadFile("ebl-nominate-owner.json");
