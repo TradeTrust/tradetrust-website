@@ -1,12 +1,11 @@
 const webpackPreprocessor = require("@cypress/webpack-preprocessor");
-console.log("#### #### ####");
-console.log("plugin file for synpress");
-console.log("#### #### ####");
+const { defineConfig } = require("cypress");
+
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       const options = {
-        webpackOptions: require("../../webpack.config"),
+        webpackOptions: require("../webpack.config"),
         watchOptions: {},
       };
 
@@ -16,7 +15,7 @@ module.exports = defineConfig({
   component: {
     setupNodeEvents(on, config) {
       const options = {
-        webpackOptions: require("../../webpack.config"),
+        webpackOptions: require("../webpack.config"),
         watchOptions: {},
       };
 

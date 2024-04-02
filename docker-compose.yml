@@ -20,6 +20,7 @@ services:
     container_name: display
     image: synthetixio/display:b2643097e891906524e52e7ee956260b20fa01fb-base
     environment:
+      - NET=local
       - RUN_XTERM=no
       - DISPLAY_WIDTH=1920
       - DISPLAY_HEIGHT=1080

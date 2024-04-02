@@ -1,9 +1,3 @@
-console.log("###### #########");
-console.log("###### #########");
-console.log("root babel config");
-console.log("###### #########");
-console.log("###### #########");
-
 let config = {
   presets: [
     [

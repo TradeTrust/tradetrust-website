@@ -7,7 +7,7 @@ const toPath = (_path) => path.join(process.cwd(), _path);
 
 module.exports = {
   stories: ["../src/**/*.stories.@(tsx)"],
-
+  staticDirs: ["../public"],
   addons: [
     "@storybook/addon-essentials",
     {

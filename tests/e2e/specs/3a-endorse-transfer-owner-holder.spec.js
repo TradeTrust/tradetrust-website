@@ -1,10 +1,10 @@
 import { ACCOUNT_3 } from "../utils";
 
-// before(() => {
-//   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
-// });
+before(() => {
+  cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
+});
 
-describe.skip("Endorse Transfer of Ownership/Holdership", () => {
+describe("Endorse Transfer of Ownership/Holdership", () => {
   it("should endorse transfer of both owner and holder successfully", () => {
     cy.visit("/verify");
     cy.waitAndUploadFile("ebl-endorse-owner.json");
