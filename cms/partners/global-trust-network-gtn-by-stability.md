@@ -5,5 +5,5 @@ description: STABILITY's GTN is the first public blockchain network without
   and interoperability of electronic documentation with the TradeTrust
   framework.
 websiteLink: https://stabilityprotocol.com/
-logo: /static/uploads/stabilitylogo_vertical_whitebg.png
+logo: /static/uploads/stability_logo.png
 ---
