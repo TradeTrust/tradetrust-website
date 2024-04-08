@@ -53,7 +53,7 @@ export const walletSwitchChain = async (chainId: ChainId): Promise<void> => {
   try {
     await ethereum.request({
       method: "wallet_switchEthereumChain",
-      params: [{ chainId: `0x${chainId.toString(16)}` }],
+      params: [{ chainId: `0x${(+chainId).toString(16)}` }],
     });
   } catch (e: any) {
     if (e.code === -32601) {
@@ -83,7 +83,7 @@ export const walletAddChain = async (chainId: ChainId): Promise<void> => {
       method: "wallet_addEthereumChain",
       params: [
         {
-          chainId: `0x${chainId.toString(16)}`,
+          chainId: `0x${(+chainId).toString(16)}`,
           chainName: chainInfo.networkLabel,
           nativeCurrency: chainInfo.nativeCurrency,
           blockExplorerUrls: [chainInfo.explorerUrl],
