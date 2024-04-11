@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+
 enum DropzoneBoxUiState {
   DRAG_REJECT = "border-scarlet-400 bg-scarlet-100",
   DRAG_ACTIVE = "border-forest-200 bg-emerald-50",
