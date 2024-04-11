@@ -11,7 +11,7 @@ export const PageNotFound: FunctionComponent = () => {
       image="/static/images/errorpage/404.png"
     >
       <h3 className="font-normal my-2 sm:my-4 text-lg sm:text-2xl">
-        Go to
+        {"Go to "}
         <Link className="text-cerulean-300" to="/">
           {" "}
           Homepage
