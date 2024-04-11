@@ -24,7 +24,8 @@ export const useFeatureFlagOverride = (): {
   getFeatureFlagOverride: (flag: string) => boolean | undefined;
 } => {
   const defaultOverride: FeatureFlagOverride = {};
-  const [featureFlagOverride, setFeatureFlagOverride] = createPersistedState("FEATURE_FLAG")(defaultOverride);
+  const [featureFlagOverride, setFeatureFlagOverride] =
+    createPersistedState<FeatureFlagOverride>("FEATURE_FLAG")(defaultOverride);
   const getFeatureFlagOverride = (flag: string) =>
     typeof featureFlagOverride.ALL === "boolean" ? featureFlagOverride.ALL : featureFlagOverride[flag];
 

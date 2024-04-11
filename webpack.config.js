@@ -1,13 +1,31 @@
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const BrotliPlugin = require("brotli-webpack-plugin");
-const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
 const { IS_DEVELOPMENT, IS_TEST_ENV, IS_DEV_SERVER, GA_MEASUREMENT_ID, GA_CONFIG_OPTION } = require("./src/config");
 
 module.exports = {
+  resolve: {
+    alias: {
+      process: "process/browser",
+    },
+    fallback: {
+      vm: require.resolve("vm-browserify"),
+      stream: require.resolve("stream-browserify"),
+      os: require.resolve("os-browserify/browser"),
+      crypto: require.resolve("crypto-browserify"),
+      path: require.resolve("path-browserify"),
+      buffer: require.resolve("buffer"),
+    },
+    extensions: [".js", ".ts", ".tsx"],
+    modules: ["node_modules", path.resolve(__dirname, "src")],
+    alias: {
+      react: path.resolve("./node_modules/react"),
+    },
+  },
   entry: {
     app: ["./src/index.tsx"],
   },
@@ -21,6 +39,19 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
+      {
+        test: /\.js$/,
+        include: [path.resolve(__dirname, "tests")], // Specify the directory where your test files reside
+        use: {
+          loader: "babel-loader",
+        },
+      },
       {
         test: /\.(ts|js)x?$/,
         include: [path.resolve(__dirname, "src"), path.resolve(__dirname, "node_modules/web-did-resolver")],
@@ -45,8 +76,20 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
-    new webpack.IgnorePlugin(/magic-sdk$/), // HOT FIX (Temp removal of magic demo until we might decide to kill it)
+    new webpack.ProvidePlugin({
+      Buffer: ["buffer", "Buffer"],
+    }),
+    new webpack.ProvidePlugin({
+      os: "os-browserify/browser",
+    }),
+    new webpack.ProvidePlugin({
+      process: "process/browser",
+    }),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /magic-sdk$/, // Adjust the regular expression as needed
+    }), // HOT FIX (Temp removal of magic demo until we might decide to kill it)
     new webpack.EnvironmentPlugin({
       // need to define variables here, so later can be overwritten at netlify env var end
       // TODO: use dotenv instead
@@ -81,7 +124,7 @@ module.exports = {
   optimization: {
     splitChunks: {
       cacheGroups: {
-        vendors: {
+        defaultVendors: {
           test: /\/node_modules\//,
           name: "vendor",
           chunks: "all",
@@ -96,24 +139,15 @@ module.exports = {
 
   devServer: {
     compress: true,
-    contentBase: path.join(__dirname, "public"),
-    disableHostCheck: true,
+    static: {
+      directory: path.join(__dirname, "public"),
+    },
     historyApiFallback: true,
     hot: true,
-    inline: true,
     port: 3000,
-    stats: {
-      colors: true,
-      progress: true,
-    },
   },
-
-  resolve: {
-    extensions: [".js", ".ts", ".tsx"],
-    modules: ["node_modules", path.resolve(__dirname, "src")],
-    alias: {
-      react: path.resolve("./node_modules/react"),
-    },
+  stats: {
+    colors: true,
   },
   bail: true,
 };

@@ -3,4 +3,11 @@ const synpressPath = path.join(process.cwd(), "/node_modules/@synthetixio/synpre
 
 module.exports = {
   extends: `${synpressPath}/.eslintrc.js`,
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
 };

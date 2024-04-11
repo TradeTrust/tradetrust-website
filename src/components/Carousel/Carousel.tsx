@@ -6,9 +6,9 @@ import { Youtube, Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-compon
 import ReactMarkdown from "react-markdown";
 import { ButtonVideo } from "../ButtonVideo";
 
-import "swiper/swiper.min.css";
-import "swiper/modules/pagination/pagination.min.css";
-import "./swiper-custom.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { GaAction, GaCategory } from "../../types";
 import { gaEvent } from "@tradetrust-tt/tradetrust-utils";
 import { isExternalLink } from "../../utils";
