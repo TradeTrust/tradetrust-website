@@ -8,7 +8,7 @@ const supportFile = "tests/e2e/support/index.mjs";
 
 module.exports = defineConfig({
   userAgent: "synpress",
-  retries: 1,
+  retries: 2,
   fixturesFolder,
   e2e: {
     testIsolation: false,
