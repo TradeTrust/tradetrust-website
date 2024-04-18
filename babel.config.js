@@ -1,26 +1,28 @@
-{
-  "presets": [
+let config = {
+  presets: [
     [
       "@babel/preset-env",
       {
-        "targets": {
-          "node": "current"
-        }
-      }
+        targets: {
+          node: "current",
+        },
+      },
     ],
     "@babel/preset-typescript",
-    "@babel/preset-react"
+    "@babel/preset-react",
   ],
-  "plugins": [
+  plugins: [
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-private-methods",
     "@babel/plugin-proposal-nullish-coalescing-operator",
     "@babel/plugin-proposal-optional-chaining",
-    "macros"
+    "macros",
   ],
-  "env": {
-    "test": {
-      "plugins": ["transform-require-context"]
-    }
-  }
-}
+  env: {
+    test: {
+      plugins: ["transform-require-context"],
+    },
+  },
+};
+
+module.exports = config;
