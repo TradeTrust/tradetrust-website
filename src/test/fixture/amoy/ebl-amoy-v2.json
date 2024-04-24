@@ -1,0 +1,54 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "version": "6d7b6b83-da7a-4062-8e19-96732c26e2be:string:https://schema.openattestation.com/2.0/schema.json",
+    "$template": {
+      "type": "1bb274e0-cade-4061-980a-0b43f188ae05:string:EMBEDDED_RENDERER",
+      "name": "8ce53110-fad1-47d2-972a-0a371a825663:string:BILL_OF_LADING",
+      "url": "41a35772-6cfc-4b8b-a52c-0928a6b6c040:string:https://generic-templates.tradetrust.io"
+    },
+    "data": {
+      "name": "8dfd1763-9b6c-48ab-9b90-61ad83796a2b:string:TradeTrust Bill of Lading v2",
+      "shipper": {
+        "address": {
+          "street": "988b5bfc-5365-44e8-9519-c080facd1342:string:One North",
+          "country": "2baa7d2e-d3b6-4490-804f-75cc320ce10c:string:Singapore"
+        },
+        "name": "26408e48-f6fa-491a-b854-a3a820e45e8d:string:Demo Shipper"
+      },
+      "consignee": {
+        "name": "cbabc901-c7fb-4b74-bc62-ae8ad7fdc296:string:Demo Consignee"
+      },
+      "notifyParty": {
+        "name": "e2814e9a-68a1-4a00-a910-9ef767f96803:string:Demo Notify"
+      },
+      "blNumber": "4b10c086-1ea3-4cf5-8ddf-b3b0d4d5578b:string:123",
+      "vessel": "0ba24718-e82f-4bb7-b679-83dc349db548:string:1",
+      "voyageNo": "8360cd4f-73e8-44db-b45e-86341f68e384:string:100",
+      "portOfLoading": "4744b031-8baf-4f29-97d3-474b33540c8e:string:Singapore Port",
+      "portOfDischarge": "ad889c93-6abb-4672-a252-efe9205b0b09:string:China Port",
+      "placeOfReceipt": "60ca4c8e-52b6-4499-bd91-864ed3c2e528:string:Beijing",
+      "placeOfDelivery": "f8e0d840-fba0-4cbf-8ec1-dc9fd3073a9f:string:Singapore"
+    },
+    "issuers": [
+      {
+        "identityProof": {
+          "type": "b722bc06-027f-4214-a4ff-672cb68ce571:string:DNS-TXT",
+          "location": "b1fe4dc1-1d43-4d9a-bdad-cf8f44538c03:string:example.tradetrust.io"
+        },
+        "name": "871e2fd2-7848-48c2-980d-44a6ea8a8d4b:string:Demo token registry",
+        "tokenRegistry": "653cd442-43fb-4717-ac28-f9a4cd8428b6:string:0x71D28767662cB233F887aD2Bb65d048d760bA694"
+      }
+    ],
+    "network": {
+      "chain": "62d6d408-9d4f-496b-a01c-feb331d4aa29:string:MATIC",
+      "chainId": "6afc4107-eb8f-46e2-a5fa-d99e4c2826c8:string:80002"
+    }
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "0d7b9de7812a4aceb9acd88abf40feaa8b2d3b63f1b739c16c92fb8a37dd0831",
+    "proof": [],
+    "merkleRoot": "0d7b9de7812a4aceb9acd88abf40feaa8b2d3b63f1b739c16c92fb8a37dd0831"
+  }
+}
