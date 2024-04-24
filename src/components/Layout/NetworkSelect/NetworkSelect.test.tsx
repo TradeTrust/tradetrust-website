@@ -5,8 +5,8 @@ import { getChainInfo } from "../../../common/utils/chain-utils";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { NetworkSelect } from "./NetworkSelect";
 
-const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Sepolia), getChainInfo(ChainId.PolygonMumbai)];
-const mockUnsupportedNetwork: ChainInfoObject[] = [getChainInfo(ChainId.PolygonMumbai)];
+const mockNetworks: ChainInfoObject[] = [getChainInfo(ChainId.Sepolia), getChainInfo(ChainId.Amoy)];
+const mockUnsupportedNetwork: ChainInfoObject[] = [getChainInfo(ChainId.Amoy)];
 
 describe("NetworkSelect", () => {
   it("should render unsupported network", () => {
@@ -21,18 +21,18 @@ describe("NetworkSelect", () => {
 
   it("should render the default network as selected", async () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.PolygonMumbai} networks={mockNetworks}>
+      <ProviderContextProvider defaultChainId={ChainId.Amoy} networks={mockNetworks}>
         <NetworkSelect />
       </ProviderContextProvider>
     );
 
-    const selectedLabel = await screen.findByText(getChainInfo(ChainId.PolygonMumbai).label);
+    const selectedLabel = await screen.findByText(getChainInfo(ChainId.Amoy).label);
     expect(selectedLabel).toBeInTheDocument();
   });
 
   it("should render the select caption", async () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.PolygonMumbai} networks={mockNetworks}>
+      <ProviderContextProvider defaultChainId={ChainId.Amoy} networks={mockNetworks}>
         <NetworkSelect />
       </ProviderContextProvider>
     );
@@ -45,7 +45,7 @@ describe("NetworkSelect", () => {
 
   it("should render the list of networks when clicked", async () => {
     render(
-      <ProviderContextProvider defaultChainId={ChainId.PolygonMumbai} networks={mockNetworks}>
+      <ProviderContextProvider defaultChainId={ChainId.Amoy} networks={mockNetworks}>
         <NetworkSelect />
       </ProviderContextProvider>
     );
@@ -53,7 +53,7 @@ describe("NetworkSelect", () => {
     const dropdownButton = screen.getByRole("button");
     fireEvent.click(dropdownButton);
 
-    const polygonLabels = await screen.findAllByText(getChainInfo(ChainId.PolygonMumbai).label);
+    const polygonLabels = await screen.findAllByText(getChainInfo(ChainId.Amoy).label);
     const sepoliaLabels = await screen.findAllByText(getChainInfo(ChainId.Sepolia).label);
     expect(polygonLabels).toHaveLength(2);
     expect(sepoliaLabels).toHaveLength(1);
@@ -69,10 +69,10 @@ describe("NetworkSelect", () => {
     const dropdownButton = screen.getByRole("button");
     fireEvent.click(dropdownButton);
 
-    const polygonItem = screen.getByTestId(`network-select-dropdown-label-${ChainId.PolygonMumbai}`);
+    const polygonItem = screen.getByTestId(`network-select-dropdown-label-${ChainId.Amoy}`);
     fireEvent.click(polygonItem);
     await waitFor(() => {
-      expect(screen.getAllByText("Polygon Mumbai")).toHaveLength(1);
+      expect(screen.getAllByText("Amoy")).toHaveLength(1);
     });
   });
 });
