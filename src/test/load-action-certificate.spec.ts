@@ -10,7 +10,7 @@ test("Load document from action should work when url is valid", async (t) => {
   const action = {
     type: "DOCUMENT",
     payload: {
-      uri: `https://raw.githubusercontent.com/TradeTrust/tradetrust-website/test/tt-105-update-fixtures-amoy/src/test/fixture/amoy/ebl-amoy-v2.json`,
+      uri: `https://raw.githubusercontent.com/TradeTrust/tradetrust-website/fix/tt-105-ploygon-mumbai-deprecation/src/test/fixture/amoy/ebl-amoy.json`,
       permittedActions: ["VIEW"],
       redirect: "https://dev.tradetrust.io",
       chainId: 80002,
