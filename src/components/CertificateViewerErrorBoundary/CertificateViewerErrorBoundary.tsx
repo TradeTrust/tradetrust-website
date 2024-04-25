@@ -48,7 +48,6 @@ const getErrorType = (error?: Error): CERTIFICATE_VIEWER_ERROR_TYPE => {
   if (!errorMessage) {
     return CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC;
   }
-  console.error(errorMessage);
   switch (true) {
     case !provider || error instanceof UnsupportedNetworkError:
       return CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK;
