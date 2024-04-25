@@ -1,4 +1,4 @@
-import { VerificationFragment, VerificationFragmentWithData, utils } from "@tradetrust-tt/tt-verify";
+import { VerificationFragment, VerificationFragmentWithData, utils, renderedErrorMessageForIDVC } from "@tradetrust-tt/tt-verify";
 import React, { FunctionComponent } from "react";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
@@ -55,6 +55,42 @@ export const getV4IdentityVerificationText = (
   return document.issuer.identityProof.identifier.toUpperCase();
 };
 
+export const getIDVCEntityName = (
+  document: WrappedDocument<TTv4.TradeTrustDocument>
+): string => {
+  return document.issuer.identityProof?.identityVC?.data?.credentialSubject?.entityName;
+};
+
+export const getIDVCID = (
+  document: WrappedDocument<TTv4.TradeTrustDocument>
+): string => {
+  return document.issuer.identityProof?.identityVC?.data?.credentialSubject?.id ?? "";
+};
+
+export const getIDVCLei = (
+  document: WrappedDocument<TTv4.TradeTrustDocument>
+): string => {
+  return document.issuer.identityProof?.identityVC?.data?.credentialSubject?.lei;
+};
+
+export const getIDVCIssuanceDate = (
+  document: WrappedDocument<TTv4.TradeTrustDocument>
+): string => {
+  return document.issuer.identityProof?.identityVC?.data?.issuanceDate;
+};
+
+export const getIDVCExpirationDate = (
+  document: WrappedDocument<TTv4.TradeTrustDocument>
+): string => {
+  return document.issuer.identityProof?.identityVC?.data?.expirationDate;
+};
+
+export const getIDVCIssuer = (
+  document: WrappedDocument<TTv4.TradeTrustDocument>
+): string => {
+  return document.issuer.identityProof?.identityVC?.data.issuer.toString() ?? "";
+};
+
 interface IssuedByProps {
   title?: string;
   verificationStatus: VerificationFragment[];
@@ -84,6 +120,55 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by"
   );
 };
 
+interface IDVCRenderedErrorMessageProps {
+  verificationStatus: VerificationFragment[];
+  document: WrappedOrSignedOpenAttestationDocument;
+}
+
+export const IDVCRenderedErrorMessage: FunctionComponent<IDVCRenderedErrorMessageProps> = ({ verificationStatus, document }) => {
+  if (oaUtils.isWrappedTTV4Document(document)) {
+    let errorMessage = renderedErrorMessageForIDVC(verificationStatus);
+    return (
+      <div className="flex justify-start items-center">
+        <div className="flex-grow">
+          <p className="pl-2 mt-2 text-sm leading-5 font-bold text-red-500">{errorMessage}</p>
+        </div>
+      </div>
+    );
+  }
+  return <></>;
+};
+
+
+interface IDVCIssuedByProps {
+  document: WrappedOrSignedOpenAttestationDocument;
+}
+
+export const IDVCIssuedBy: FunctionComponent<IDVCIssuedByProps> = ({ document }) => {
+  if (oaUtils.isWrappedTTV4Document(document)) {
+    let IDVCEntityName = getIDVCEntityName(document);
+    let IDVCID = getIDVCID(document);
+    let IDVCLei = getIDVCLei(document);
+    let IDVCIssuanceDate = getIDVCIssuanceDate(document);
+    let IDVCExpirationDate = getIDVCExpirationDate(document);
+    let IDVCIssuer = getIDVCIssuer(document);
+    return (
+      <div className="flex justify-start items-center">
+        <div className="flex-grow">
+          <p className="pl-2 mt-2 text-sm leading-5 font-bold ">Identity VC Information:</p>
+          <p className="pl-2 mb-0 text-sm leading-5">1. Issuer: {IDVCIssuer}</p>
+          <p className="pl-2 mb-0 text-sm leading-5">2. Entity Name: {IDVCEntityName}</p>
+          <p className="pl-2 mb-0 text-sm leading-5">3. Id: {IDVCID}</p>
+          <p className="pl-2 mb-0 text-sm leading-5">4. Lei: {IDVCLei}</p>
+          <p className="pl-2 mb-0 text-sm leading-5">5. Issuance Date: {IDVCIssuanceDate}</p>
+          <p className="pl-2 mb-0 text-sm leading-5">6. Expiration Date: {IDVCExpirationDate}</p>
+        </div>
+      </div>
+    );
+  }
+  return <></>;
+};
+
 interface DocumentStatusProps {
   isMagicDemo?: boolean;
 }
@@ -109,6 +194,8 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ isMagic
             />
           </div>
           <StatusChecks verificationStatus={verificationStatus} />
+          <IDVCRenderedErrorMessage verificationStatus={verificationStatus} document={document} />
+          <IDVCIssuedBy document={document} />
         </div>
       </div>
     </div>
