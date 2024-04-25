@@ -8,7 +8,7 @@ import {
 } from "../reducers/certificate";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
-import { isValid } from "@tradetrust-tt/tt-verify";
+import { isRendered } from "@tradetrust-tt/tt-verify";
 import { decryptString } from "@govtechsg/oa-encryption";
 import { history } from "../history";
 import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
@@ -30,9 +30,9 @@ export function* verifyCertificate(): any {
 
     // Instead of success/failure, report completeness
     yield put(verifyingCertificateCompleted(verificationStatus));
-    if (isValid(verificationStatus)) {
-      yield history.push("/viewer");
-    }
+     if (isRendered(verificationStatus)) {
+       yield history.push("/viewer");
+     }
   } catch (e) {
     yield put(verifyingCertificateFailure(TYPES.CLIENT_NETWORK_ERROR));
   }
