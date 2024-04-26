@@ -148,7 +148,7 @@ export const CostOperation: FunctionComponent = () => {
           </div>
           <div className="mt-4">
             <a
-              href="https://www.openattestation.com/docs/docs-section/appendix/contract-costs"
+              href="https://docs.tradetrust.io/docs/topics/introduction/estimated-cost-for-transactions"
               target="_blank"
               rel="noopener noreferrer"
             >
