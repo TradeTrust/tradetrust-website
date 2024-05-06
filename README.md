@@ -31,8 +31,8 @@ npm run dev
 ### Environmental Variables
 
 `NET` is used for setting the default network, setting it to `mainnet` uses the public Ethereum network. If it is not set it defaults to Sepolia testnet.
-It can also take any network names that Ethers.JS supports, such as `sepolia`, `maticmum`, etc.
-However do note that there are only drag & drop demo files provided for main net, sepolia and polygon mumbai.
+It can also take any network names that Ethers.JS supports, such as `sepolia`, `amoy`, etc.
+However do note that there are only drag & drop demo files provided for main net and sepolia.
 
 E.g:
 

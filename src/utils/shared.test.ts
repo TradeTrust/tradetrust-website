@@ -25,7 +25,7 @@ describe("getChainId for v2 document", () => {
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
     const document = {
       ...invoiceV2,
-      data: { ...invoiceV2.data, network: { chain: "MATICMUM123", chainId: "80002" } },
+      data: { ...invoiceV2.data, network: { chain: "Amoy123", chainId: "80002" } },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
   });
@@ -82,7 +82,7 @@ describe("getChainId for v3 document", () => {
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
     const document = {
       ...invoiceV3,
-      network: { chain: "MATICMUM123", chainId: "80002" },
+      network: { chain: "AMOY123", chainId: "80002" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
   });

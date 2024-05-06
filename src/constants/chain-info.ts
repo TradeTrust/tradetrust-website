@@ -32,7 +32,6 @@ export enum ChainId {
 
   // Polygon
   Polygon = 137,
-  PolygonMumbai = 80001,
   Amoy = 80002,
 
   // XDC Network
@@ -91,20 +90,6 @@ export const ChainInfo: ChainInfo = {
     nativeCurrency: {
       name: "MATIC",
       symbol: "MATIC",
-      decimals: 18,
-    },
-  },
-  [ChainId.PolygonMumbai]: {
-    label: "Polygon Mumbai",
-    chainId: ChainId.PolygonMumbai,
-    iconImage: "/static/images/networks/polygon.gif",
-    networkName: "maticmum",
-    networkLabel: "Polygon Mumbai",
-    explorerUrl: "https://mumbai.polygonscan.com",
-    rpcUrl: `https://polygon-mumbai.infura.io/v3/${INFURA_API_KEY}`,
-    nativeCurrency: {
-      name: "MATIC",
-      symbol: "mMATIC",
       decimals: 18,
     },
   },

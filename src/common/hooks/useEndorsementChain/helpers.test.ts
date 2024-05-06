@@ -1,31 +1,31 @@
-import { ethers } from "ethers";
+import { providers } from "ethers";
 import { useProviderContext } from "../../contexts/provider";
-import { ALCHEMY_API_KEY } from "../../../config";
 import { TradeTrustToken__factory } from "@tradetrust-tt/token-registry/dist/contracts";
 import { fetchEventTime, getHolderOwner, mergeTransfers, sortLogChain } from "./helpers";
 import { TransferBaseEvent } from "../../../types";
 import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
+import { ChainId, ChainInfo } from "../../../constants/chain-info";
 
 jest.mock("../../contexts/provider");
 
-const mumbaiProvider = new ethers.providers.AlchemyProvider("maticmum", ALCHEMY_API_KEY);
+const amoyProvider = new providers.JsonRpcProvider(ChainInfo[ChainId.Amoy].rpcUrl);
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
 
 describe("Test all endorsement chain helpers", () => {
   beforeAll(() => {
-    mockUseProviderContext.mockReturnValue({ provider: mumbaiProvider, providerOrSigner: mumbaiProvider });
+    mockUseProviderContext.mockReturnValue({ provider: amoyProvider, providerOrSigner: amoyProvider });
   });
 
   describe("fetchEventTime", () => {
-    it("should return correct formatted timestamp in milliseconds for block 0 with mumbai provider", async () => {
-      const timeOfFirstBlock = await fetchEventTime(0, mumbaiProvider);
-      expect(timeOfFirstBlock).toBe(1558348305000);
+    it("should return correct formatted timestamp in milliseconds for block 0 with amoy provider", async () => {
+      const timeOfBlockZero = await fetchEventTime(0, amoyProvider);
+      expect(timeOfBlockZero).toBe(1700225065000);
     });
 
-    it("should return correct formatted timestamp in milliseconds for block 1 with mumbai provider", async () => {
-      const timeOfFirstBlock = await fetchEventTime(1, mumbaiProvider);
-      expect(timeOfFirstBlock).toBe(1591320769000);
+    it("should return correct formatted timestamp in milliseconds for block 1 with amoy provider", async () => {
+      const timeOfBlockOne = await fetchEventTime(1, amoyProvider);
+      expect(timeOfBlockOne).toBe(1700395859000);
     });
   });
 
@@ -194,15 +194,12 @@ describe("Test all endorsement chain helpers", () => {
   });
 
   it("extract title escrow address on surrendered/burn title escrow", async () => {
-    const tokenRegistry = TradeTrustToken__factory.connect(
-      "0x072FB36B73a7f52A23ea53162583f78ba3Bc6DEa",
-      mumbaiProvider
-    );
+    const tokenRegistry = TradeTrustToken__factory.connect("0x71D28767662cB233F887aD2Bb65d048d760bA694", amoyProvider);
     const result = await retrieveTitleEscrowAddressOnFactory(
       tokenRegistry,
-      "0x4c3e71fe22cc3a5fea77244fb974e148694437fe48c776719a3a2c9e1af3586e",
-      mumbaiProvider
+      "0x780e38c6345dac12cedb7aacc69492ff31cc5236cd60da46261aa1c27691141e",
+      amoyProvider
     );
-    expect(result).toBe("0xF9F8Cf68F297D60743B1E43991EC5E47526c0f9E");
+    expect(result).toBe("0x1F6D8888Fc6B75E10b1840620E8229C3C487a925");
   });
 });
