@@ -12,8 +12,8 @@ test("Load document from action should work when url is valid", async (t) => {
     payload: {
       uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-stability.json`,
       permittedActions: ["VIEW"],
-      redirect: "https://dev.tradetrust.io",
-      chainId: 80002,
+      redirect: "https://tradetrust.io",
+      chainId: 101010,
     },
   };
   await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
@@ -27,8 +27,8 @@ test("Load document from action should fail when url is invalid", async (t) => {
     type: "DOCUMENT",
     payload: {
       uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-stability-invalid.json`,
-      redirect: "https://dev.tradetrust.io",
-      chainId: 80002,
+      redirect: "https://tradetrust.io",
+      chainId: 101010,
     },
   };
 
@@ -38,7 +38,7 @@ test("Load document from action should fail when url is invalid", async (t) => {
   await validateTextContent(t, CertificateDropzone, [
     "This document is not valid",
     "Unable to load certificate with the provided parameters",
-    "Unable to load the certificate from https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/123.tt",
+    "Unable to load the certificate from https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-stability-invalid.json",
   ]);
 });
 
