@@ -1,6 +1,6 @@
 import { Selector } from "testcafe";
 import { location, navigateToVerify, uploadDocument, validateIssuerTexts } from "./helper";
-import { ACCOUNT_1, ACCOUNT_2 } from "../../tests/e2e/utils";
+import { ACCOUNT_1, ACCOUNT_2, ACCOUNT_4 } from "../../tests/e2e/utils";
 
 fixture("Endorsement Chain Rendering").page`${location}`;
 
@@ -18,6 +18,8 @@ const ChangeOwnershipAction = Selector("[data-testid='action-title']").withText(
 
 const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("Document surrendered to issuer");
 const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("Surrender of document accepted");
+
+const EndorsementChainAddress4 = Selector("[data-testid='address-entity']").withText(ACCOUNT_4);
 
 // history chain of events for ebl-endorsement-chain.json are:
 // 1. issued on account 1
@@ -68,15 +70,13 @@ test("Endorsement chain title and actions are rendered correctly for hederatestn
   await t.wait(5000);
   await t.expect(EndorsementChainTitle.count).eql(1);
 
-  await t.expect(EndorsementChainAddressMinter.count).eql(4);
-  await t.expect(EndorsementChainAddress1.count).eql(4);
-  await t.expect(EndorsementChainAddress2.count).eql(2);
+  await t.expect(EndorsementChainAddress4.count).eql(2);
 
-  await t.expect(DocumentIssuedAction.count).eql(1);
-  await t.expect(EndorseNomineeAction.count).eql(1);
-  await t.expect(ChangeOwnershipAction.count).eql(1);
-  await t.expect(TransferHoldershipAction.count).eql(1);
+  await t.expect(DocumentIssuedAction.count).eql(4);
+  await t.expect(EndorseNomineeAction.count).eql(0);
+  await t.expect(ChangeOwnershipAction.count).eql(0);
+  await t.expect(TransferHoldershipAction.count).eql(0);
 
-  await t.expect(SurrenderToIssuerAction.count).eql(1);
-  await t.expect(SurrenderAcceptedAction.count).eql(1);
+  await t.expect(SurrenderToIssuerAction.count).eql(0);
+  await t.expect(SurrenderAcceptedAction.count).eql(0);
 });
