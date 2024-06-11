@@ -40,28 +40,11 @@ const data = [
     ],
   },
   {
-    category: "Resources",
-    items: [
-      { label: "Learn", to: "/learn", render: renderNavLink },
-      { label: "FAQ", to: "/faq", render: renderNavLink },
-      { label: "ETA", to: "/eta", render: renderNavLink },
-      { label: "Partners", to: "/partners", render: renderNavLink },
-    ],
-  },
-  {
-    category: "News & Event",
-    items: [
-      { label: "News", to: "/news", render: renderNavLink },
-      { label: "Events", to: "/event", render: renderNavLink },
-    ],
-  },
-  {
     category: "Support",
     items: [
       { label: "Github", to: URLS.GITHUB, render: renderExternalLink },
       { label: "Documentation", to: URLS.DOCS, render: renderExternalLink },
       { label: "Contact", to: FORM_SG_URL, render: renderExternalLink },
-      { label: "FAQ", to: "/faq", render: renderNavLink },
     ],
   },
   {
