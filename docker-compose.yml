@@ -13,13 +13,14 @@ services:
     command: >
       bash -c 'echo -n "======> local noVNC URL:
       http://localhost:8080/vnc.html?autoconnect=true " && npx wait-on
-      http://display:8080 && npm ci && npm run integration:headful'
+      http://display:8080 && npm ci && npm run build:sitemap && npm run integration:headful'
     networks:
       - x11
   display:
     container_name: display
     image: synthetixio/display:b2643097e891906524e52e7ee956260b20fa01fb-base
     environment:
+      - NET=local
       - RUN_XTERM=no
       - DISPLAY_WIDTH=1920
       - DISPLAY_HEIGHT=1080

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "target": "es5",
     "baseUrl": "../../node_modules",
     "types": ["cypress", "@synthetixio/synpress/support", "cypress-wait-until", "@testing-library/cypress"],
     "outDir": "./output"

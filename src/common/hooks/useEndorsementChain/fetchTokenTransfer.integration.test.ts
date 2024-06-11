@@ -1,56 +1,56 @@
-import { ethers } from "ethers";
+import { providers } from "ethers";
 import { useProviderContext } from "../../contexts/provider";
-import { ALCHEMY_API_KEY } from "../../../config";
 import { fetchTokenTransfers, identifyTokenTransferEventsFunction } from "./fetchTokenTransfer";
 import { TradeTrustToken__factory } from "@tradetrust-tt/token-registry/dist/contracts";
 import { LogDescription, Result } from "ethers/lib/utils";
+import { ChainId, ChainInfo } from "../../../constants/chain-info";
 
 jest.mock("../../contexts/provider");
 
-const mumbaiProvider = new ethers.providers.AlchemyProvider("maticmum", ALCHEMY_API_KEY);
+const amoyProvider = new providers.JsonRpcProvider(ChainInfo[ChainId.Amoy].rpcUrl);
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
 
 describe("Fetch Token Transfers", () => {
   beforeAll(() => {
-    mockUseProviderContext.mockReturnValue({ provider: mumbaiProvider, providerOrSigner: mumbaiProvider });
+    mockUseProviderContext.mockReturnValue({ provider: amoyProvider, providerOrSigner: amoyProvider });
   });
 
   describe("fetch from token registry with token id", () => {
     it("should return parsed transfer logs in valid format", async () => {
       const tokenRegistry = TradeTrustToken__factory.connect(
-        "0x072FB36B73a7f52A23ea53162583f78ba3Bc6DEa",
-        mumbaiProvider
+        "0x71D28767662cB233F887aD2Bb65d048d760bA694",
+        amoyProvider
       );
       if (!tokenRegistry) throw new Error("Unable to connect to token registry: Test Failed");
       const tokenTransfers = await fetchTokenTransfers(
         tokenRegistry,
-        "0x4c3e71fe22cc3a5fea77244fb974e148694437fe48c776719a3a2c9e1af3586e"
+        "0xe8b9fb84485cbf9dd59eabe1dcddf44d9e3ff820aedb7d02a138ef4a116f0ec9"
       );
       expect(tokenTransfers).toEqual([
         {
           type: "INITIAL",
           from: "0x0000000000000000000000000000000000000000",
-          to: "0xF9F8Cf68F297D60743B1E43991EC5E47526c0f9E",
-          blockNumber: 36546402,
-          transactionHash: "0x8b3dcd4586c25b8f3efe4f0e2b792e6f2e3afc4be3df90cbd4235fc1099bb8e6",
-          transactionIndex: 13,
+          to: "0x85b6A38870eea302ee220A98cF492209CFed96ff",
+          blockNumber: 6203293,
+          transactionHash: "0x5e25cf43dee3027b1aa3fb8222d1f0dcd9d5b206a4264db2147eb3264f6a29d0",
+          transactionIndex: 3,
         },
         {
           type: "SURRENDERED",
-          from: "0xF9F8Cf68F297D60743B1E43991EC5E47526c0f9E",
-          to: "0x072FB36B73a7f52A23ea53162583f78ba3Bc6DEa",
-          blockNumber: 36792124,
-          transactionHash: "0xf779b4bac0e578190470c89147e400059c56cfed9546e14133b6c4b109ff00c6",
-          transactionIndex: 35,
+          from: "0x85b6A38870eea302ee220A98cF492209CFed96ff",
+          to: "0x71D28767662cB233F887aD2Bb65d048d760bA694",
+          blockNumber: 6203554,
+          transactionHash: "0x3929b5a343ec5cebe8a08f60580fdd5a417dc7beafa5f2dd45f38640875e6b22",
+          transactionIndex: 0,
         },
         {
           type: "SURRENDER_REJECTED",
-          from: "0x072FB36B73a7f52A23ea53162583f78ba3Bc6DEa",
-          to: "0xF9F8Cf68F297D60743B1E43991EC5E47526c0f9E",
-          blockNumber: 36792132,
-          transactionHash: "0x6ee28c3e41b72c2487c0e3598bb91e3abcccc095bbeb40d03eb4dc7665955287",
-          transactionIndex: 37,
+          from: "0x71D28767662cB233F887aD2Bb65d048d760bA694",
+          to: "0x85b6A38870eea302ee220A98cF492209CFed96ff",
+          blockNumber: 6203580,
+          transactionHash: "0xef671a870dce0069628cba2c30abee03627df9dca1c9436defc837e593e29871",
+          transactionIndex: 1,
         },
       ]);
     });

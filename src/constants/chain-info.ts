@@ -1,4 +1,4 @@
-import { INFURA_API_KEY } from "../config";
+import { INFURA_API_KEY, STABILITY_API_KEY } from "../config";
 
 export interface ChainInfoObject {
   label: string;
@@ -18,7 +18,7 @@ export interface ChainInfoObject {
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export const AvailableBlockChains = ["ETH", "MATIC", "XDC"];
+export const AvailableBlockChains = ["ETH", "MATIC", "XDC", "HBAR", "FREE"];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
@@ -26,19 +26,25 @@ export enum ChainId {
   // Localhost
   Local = 1337,
 
-  // Ethereum Mainnet
+  // Ethereum
   Ethereum = 1,
-
-  // Ethereum Testnet
   Sepolia = 11155111,
 
   // Polygon
   Polygon = 137,
-  PolygonMumbai = 80001,
+  Amoy = 80002,
 
   // XDC Network
   XDC = 50,
   APOTHEM = 51,
+
+  // Stability
+  Stability = 101010,
+  StabilityTestnet = 20180427,
+
+  // Hedera Network
+  HederaMainnet = 295,
+  HederaTestnet = 296,
 }
 
 export const ChainInfo: ChainInfo = {
@@ -74,7 +80,7 @@ export const ChainInfo: ChainInfo = {
     },
   },
   [ChainId.Polygon]: {
-    label: "Polygon (Beta)",
+    label: "Polygon",
     chainId: ChainId.Polygon,
     iconImage: "/static/images/networks/polygon.gif",
     networkName: "matic",
@@ -87,28 +93,28 @@ export const ChainInfo: ChainInfo = {
       decimals: 18,
     },
   },
-  [ChainId.PolygonMumbai]: {
-    label: "Polygon Mumbai",
-    chainId: ChainId.PolygonMumbai,
+  [ChainId.Amoy]: {
+    label: "Amoy",
+    chainId: ChainId.Amoy,
     iconImage: "/static/images/networks/polygon.gif",
-    networkName: "maticmum",
-    networkLabel: "Polygon Mumbai",
-    explorerUrl: "https://mumbai.polygonscan.com",
-    rpcUrl: `https://polygon-mumbai.infura.io/v3/${INFURA_API_KEY}`,
+    networkName: "amoy",
+    networkLabel: "Polygon Amoy",
+    explorerUrl: "https://www.oklink.com/amoy",
+    rpcUrl: `https://polygon-amoy.infura.io/v3/${INFURA_API_KEY}`,
     nativeCurrency: {
       name: "MATIC",
-      symbol: "mMATIC",
+      symbol: "aMATIC",
       decimals: 18,
     },
   },
   [ChainId.XDC]: {
-    label: "XDC Network Mainnet",
+    label: "XDC Network",
     chainId: ChainId.XDC,
     iconImage: "/static/images/networks/xdc.png",
     networkName: "xdc",
     networkLabel: "XDC Network",
     explorerUrl: "https://xdcscan.io",
-    rpcUrl: "https://erpc.xinfin.network",
+    rpcUrl: "https://rpc.ankr.com/xdc",
     nativeCurrency: {
       name: "XDC",
       symbol: "XDC",
@@ -116,16 +122,72 @@ export const ChainInfo: ChainInfo = {
     },
   },
   [ChainId.APOTHEM]: {
-    label: "XDC Testnet Apothem",
+    label: "Apothem",
     chainId: ChainId.APOTHEM,
     iconImage: "/static/images/networks/xdc.png",
     networkName: "xdcapothem",
     networkLabel: "XDC Testnet Apothem",
     explorerUrl: "https://apothem.xdcscan.io",
-    rpcUrl: "https://apothem.xdcrpc.com",
+    rpcUrl: "https://rpc.ankr.com/xdc_testnet",
     nativeCurrency: {
       name: "XDCt",
       symbol: "XDCt",
+      decimals: 18,
+    },
+  },
+  [ChainId.Stability]: {
+    label: "Stability (Beta)",
+    chainId: ChainId.Stability,
+    iconImage: "/static/images/networks/stability.png",
+    networkName: "stability",
+    networkLabel: "Stability",
+    explorerUrl: "https://stability.blockscout.com",
+    rpcUrl: `https://gtn.stabilityprotocol.com/zgt/${STABILITY_API_KEY}`,
+    nativeCurrency: {
+      name: "FREE",
+      symbol: "FREE",
+      decimals: 18,
+    },
+  },
+  [ChainId.StabilityTestnet]: {
+    label: "Stability Testnet",
+    chainId: ChainId.StabilityTestnet,
+    iconImage: "/static/images/networks/stability.png",
+    networkName: "stabilitytestnet",
+    networkLabel: "Stability Testnet",
+    explorerUrl: "https://stability-testnet.blockscout.com/",
+    rpcUrl: "https://free.testnet.stabilityprotocol.com",
+    nativeCurrency: {
+      name: "FREE",
+      symbol: "FREE",
+      decimals: 18,
+    },
+  },
+  [ChainId.HederaMainnet]: {
+    label: "Hedera Mainnet",
+    chainId: ChainId.HederaMainnet,
+    iconImage: "/static/images/networks/hedera.png",
+    networkName: "hederamainnet",
+    networkLabel: "Hedera Mainnet",
+    explorerUrl: "https://hashscan.io/mainnet",
+    rpcUrl: "https://mainnet.hashio.io/api",
+    nativeCurrency: {
+      name: "HBAR",
+      symbol: "HBAR",
+      decimals: 18,
+    },
+  },
+  [ChainId.HederaTestnet]: {
+    label: "Hedera Testnet",
+    chainId: ChainId.HederaTestnet,
+    iconImage: "/static/images/networks/hedera.png",
+    networkName: "hederatestnet",
+    networkLabel: "Hedera Testnet",
+    explorerUrl: "https://hashscan.io/testnet",
+    rpcUrl: "https://testnet.hashio.io/api",
+    nativeCurrency: {
+      name: "HBAR",
+      symbol: "HBAR",
       decimals: 18,
     },
   },

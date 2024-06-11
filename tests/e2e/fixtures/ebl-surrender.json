@@ -18,10 +18,7 @@
     "https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json",
     "https://schemata.openattestation.com/io/tradetrust/bill-of-lading/1.0/bill-of-lading-context.json"
   ],
-  "type": [
-    "VerifiableCredential",
-    "OpenAttestationCredential"
-  ],
+  "type": ["VerifiableCredential", "OpenAttestationCredential"],
   "issuanceDate": "2010-01-01T19:23:24Z",
   "openAttestationMetadata": {
     "template": {

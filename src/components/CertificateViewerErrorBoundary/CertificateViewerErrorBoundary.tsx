@@ -48,7 +48,6 @@ const getErrorType = (error?: Error): CERTIFICATE_VIEWER_ERROR_TYPE => {
   if (!errorMessage) {
     return CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC;
   }
-
   switch (true) {
     case !provider || error instanceof UnsupportedNetworkError:
       return CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK;
@@ -75,7 +74,7 @@ export const getRetryLink = ({
 }): React.ReactNode => {
   const linkHome = (
     <h3 className="font-normal my-2 sm:my-4 text-lg sm:text-2xl">
-      Go to
+      {"Go to "}
       <Link className="text-cerulean-300" to="/">
         Homepage
       </Link>

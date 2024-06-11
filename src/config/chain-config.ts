@@ -7,9 +7,17 @@ export const MAIN_NETWORKS = [
   ChainId.Ethereum, //
   ChainId.Polygon,
   ChainId.XDC,
+  ChainId.HederaMainnet,
+  ChainId.Stability,
 ];
 
 /**
  * Supported networks in development environment
  */
-export const TEST_NETWORKS = [ChainId.Sepolia, ChainId.PolygonMumbai, ChainId.APOTHEM];
+export const TEST_NETWORKS = [
+  ChainId.Sepolia,
+  ChainId.Amoy,
+  ChainId.APOTHEM,
+  ChainId.StabilityTestnet,
+  ChainId.HederaTestnet,
+];

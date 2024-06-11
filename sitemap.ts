@@ -28,7 +28,9 @@ const cmsDetailPages: SitemapRecord[] = [];
 const allPages = [...mainPages, ...cmsDetailPages];
 
 const sitemap = new SitemapStream({ hostname: "https://www.tradetrust.io" });
-const writeStream = fs.createWriteStream(`public/static/sitemap.xml`);
+const sitemapPath = path.join(__dirname, "public", "static");
+fs.mkdirSync(sitemapPath, { recursive: true });
+const writeStream = fs.createWriteStream(path.join(sitemapPath, "sitemap.xml"));
 
 sitemap.pipe(writeStream);
 allPages.forEach((page) => {
