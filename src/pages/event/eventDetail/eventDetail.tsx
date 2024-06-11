@@ -158,6 +158,7 @@ export const EventPageDetail: FunctionComponent = () => {
                   <LinkButton
                     href={registerLink}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-cerulean-300 rounded-xl text-white hover:bg-cerulean-500 hover:text-white inline-block mb-2 mt-4"
                   >
                     Register
