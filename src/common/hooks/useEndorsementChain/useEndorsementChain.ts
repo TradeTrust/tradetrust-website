@@ -31,7 +31,7 @@ export const useEndorsementChain = (
     setEndorsementChain(undefined);
     setPending(true);
     try {
-      const tokenLogs = await fetchTokenTransfers(tokenRegistry, tokenId);
+      const tokenLogs = await fetchTokenTransfers(provider,tokenRegistry, tokenId);
       const escrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, providerOrSigner);
       const titleEscrowLogs = await fetchEscrowTransfers(provider, escrowAddress);
       const transferEvents = mergeTransfers([...titleEscrowLogs, ...tokenLogs]);

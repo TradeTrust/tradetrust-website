@@ -24,6 +24,7 @@ describe("Fetch Token Transfers", () => {
       );
       if (!tokenRegistry) throw new Error("Unable to connect to token registry: Test Failed");
       const tokenTransfers = await fetchTokenTransfers(
+        amoyProvider,
         tokenRegistry,
         "0xe8b9fb84485cbf9dd59eabe1dcddf44d9e3ff820aedb7d02a138ef4a116f0ec9"
       );
