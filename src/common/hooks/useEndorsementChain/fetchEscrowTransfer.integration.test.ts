@@ -12,7 +12,6 @@ const mockUseProviderContext = useProviderContext as jest.Mock;
 
 describe("Fetch Escrow Transfers", () => {
   jest.setTimeout(15000);
-  
   beforeAll(() => {
     mockUseProviderContext.mockReturnValue({ provider: amoyProvider, providerOrSigner: amoyProvider });
   });
@@ -20,7 +19,11 @@ describe("Fetch Escrow Transfers", () => {
   describe("fetch from title escrow transfers", () => {
     it("should return parsed transfer logs in valid format", async () => {
       const blockNo = 6000000;
-      const escrowTransfers = await fetchEscrowTransfers(amoyProvider, "0x1F6D8888Fc6B75E10b1840620E8229C3C487a925",blockNo);
+      const escrowTransfers = await fetchEscrowTransfers(
+        amoyProvider,
+        "0x1F6D8888Fc6B75E10b1840620E8229C3C487a925",
+        blockNo
+      );
       expect(escrowTransfers).toEqual([
         {
           type: "TRANSFER_HOLDER",
@@ -213,7 +216,7 @@ describe("Fetch Escrow Transfers", () => {
     it("should return parsed transfer logs for beneficiary in valid format", async () => {
       const titleEscrow = TitleEscrow__factory.connect("0x1F6D8888Fc6B75E10b1840620E8229C3C487a925", amoyProvider);
       const blockNo = 6000000;
-      const ownerTransfers = await fetchOwnerTransfers(titleEscrow, amoyProvider,blockNo);
+      const ownerTransfers = await fetchOwnerTransfers(titleEscrow, amoyProvider, blockNo);
       expect(ownerTransfers).toEqual([
         {
           type: "TRANSFER_BENEFICIARY",
@@ -251,7 +254,7 @@ describe("Fetch Escrow Transfers", () => {
     it("should return parsed transfer logs for holder in valid format", async () => {
       const titleEscrow = TitleEscrow__factory.connect("0x1F6D8888Fc6B75E10b1840620E8229C3C487a925", amoyProvider);
       const blockNo = 6000000;
-      const holderTransfers = await fetchHolderTransfers(titleEscrow, amoyProvider,blockNo);
+      const holderTransfers = await fetchHolderTransfers(titleEscrow, amoyProvider, blockNo);
       expect(holderTransfers).toEqual([
         {
           type: "TRANSFER_HOLDER",
