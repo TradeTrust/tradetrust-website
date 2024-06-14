@@ -1,7 +1,7 @@
 import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
 import { TypedEvent } from "@tradetrust-tt/token-registry/dist/contracts/common";
 import { LogDescription } from "ethers/lib/utils";
-import { ChainId, ChainInfo, BurnAddress, InitialAddress } from "../../../constants/chain-info";
+import { BurnAddress, InitialAddress } from "../../../constants/chain-info";
 import { TokenTransferEvent, TokenTransferEventType } from "../../../types";
 import { sortLogChain } from "./helpers";
 import { providers } from "ethers";
@@ -16,8 +16,6 @@ export const fetchTokenTransfers = async (
   const tokenRegistryAddress = tokenRegistry.address;
   const identifyTokenTransferEvents = identifyTokenTransferEventsFunction(tokenRegistryAddress);
   const transferLogFilter = tokenRegistry.filters.Transfer(null, null, tokenId);
-  // const chainId: ChainId = (await provider.getNetwork()).chainId;
-  // const fromBlockNumber = ChainInfo[chainId]?.blockNumber ?? 0;
   const logs = await tokenRegistry.queryFilter(transferLogFilter, fromBlockNumber);
   if (logs.length === 0) {
     throw new Error("Unminted Title Escrow");

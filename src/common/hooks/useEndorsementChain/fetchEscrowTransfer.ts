@@ -2,7 +2,6 @@ import { providers } from "ethers";
 import { TitleEscrow, TitleEscrow__factory } from "@tradetrust-tt/token-registry/contracts";
 import { TitleEscrowTransferEvent } from "../../../types";
 import { EventFragment, Result } from "ethers/lib/utils";
-import { ChainId, ChainInfo } from "../../../constants/chain-info";
 
 export const fetchEscrowTransfers = async (
   provider: providers.Provider,
@@ -27,8 +26,6 @@ export const fetchOwnerTransfers = async (
   provider: providers.Provider,
   fromBlockNumber: number
 ): Promise<TitleEscrowTransferEvent[]> => {
-  // const chainId: ChainId = (await provider.getNetwork()).chainId;
-  // const fromBlockNumber = ChainInfo[chainId]?.blockNumber ?? 0;
   const ownerChangeFilter = titleEscrowContract.filters.BeneficiaryTransfer(null, null);
   const ownerChangeLogs = await provider.getLogs({ ...ownerChangeFilter, fromBlock: fromBlockNumber });
   const ownerChangeLogsParsed = getParsedLogs(ownerChangeLogs, titleEscrowContract);
@@ -76,8 +73,6 @@ export const fetchHolderTransfers = async (
   fromBlockNumber: number
 ): Promise<TitleEscrowTransferEvent[]> => {
   const holderChangeFilter = titleEscrowContract.filters.HolderTransfer(null, null);
-  // const chainId: ChainId = (await provider.getNetwork()).chainId;
-  // const fromBlockNumber = ChainInfo[chainId]?.blockNumber ?? 0;
   const holderChangeLogs = await provider.getLogs({ ...holderChangeFilter, fromBlock: fromBlockNumber });
   const holderChangeLogsParsed = getParsedLogs(holderChangeLogs, titleEscrowContract);
   return holderChangeLogsParsed.map((event) => ({
