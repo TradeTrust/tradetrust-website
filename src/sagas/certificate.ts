@@ -30,9 +30,9 @@ export function* verifyCertificate(): any {
 
     // Instead of success/failure, report completeness
     yield put(verifyingCertificateCompleted(verificationStatus));
-     if (isRendered(verificationStatus)) {
-       yield history.push("/viewer");
-     }
+    if (isRendered(verificationStatus)) {
+      yield history.push("/viewer");
+    }
   } catch (e) {
     yield put(verifyingCertificateFailure(TYPES.CLIENT_NETWORK_ERROR));
   }

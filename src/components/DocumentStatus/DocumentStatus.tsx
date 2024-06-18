@@ -1,4 +1,9 @@
-import { VerificationFragment, VerificationFragmentWithData, utils, renderedErrorMessageForIDVC } from "@tradetrust-tt/tt-verify";
+import {
+  VerificationFragment,
+  VerificationFragmentWithData,
+  utils,
+  renderedErrorMessageForIDVC,
+} from "@tradetrust-tt/tt-verify";
 import React, { FunctionComponent } from "react";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
@@ -55,39 +60,27 @@ export const getV4IdentityVerificationText = (
   return document.issuer.identityProof.identifier.toUpperCase();
 };
 
-export const getIDVCEntityName = (
-  document: WrappedDocument<TTv4.TradeTrustDocument>
-): string => {
+export const getIDVCEntityName = (document: WrappedDocument<TTv4.TradeTrustDocument>): string => {
   return document.issuer.identityProof?.identityVC?.data?.credentialSubject?.entityName;
 };
 
-export const getIDVCID = (
-  document: WrappedDocument<TTv4.TradeTrustDocument>
-): string => {
+export const getIDVCID = (document: WrappedDocument<TTv4.TradeTrustDocument>): string => {
   return document.issuer.identityProof?.identityVC?.data?.credentialSubject?.id ?? "";
 };
 
-export const getIDVCLei = (
-  document: WrappedDocument<TTv4.TradeTrustDocument>
-): string => {
+export const getIDVCLei = (document: WrappedDocument<TTv4.TradeTrustDocument>): string => {
   return document.issuer.identityProof?.identityVC?.data?.credentialSubject?.lei;
 };
 
-export const getIDVCIssuanceDate = (
-  document: WrappedDocument<TTv4.TradeTrustDocument>
-): string => {
+export const getIDVCIssuanceDate = (document: WrappedDocument<TTv4.TradeTrustDocument>): string => {
   return document.issuer.identityProof?.identityVC?.data?.issuanceDate;
 };
 
-export const getIDVCExpirationDate = (
-  document: WrappedDocument<TTv4.TradeTrustDocument>
-): string => {
+export const getIDVCExpirationDate = (document: WrappedDocument<TTv4.TradeTrustDocument>): string => {
   return document.issuer.identityProof?.identityVC?.data?.expirationDate;
 };
 
-export const getIDVCIssuer = (
-  document: WrappedDocument<TTv4.TradeTrustDocument>
-): string => {
+export const getIDVCIssuer = (document: WrappedDocument<TTv4.TradeTrustDocument>): string => {
   return document.issuer.identityProof?.identityVC?.data.issuer.toString() ?? "";
 };
 
@@ -125,9 +118,12 @@ interface IDVCRenderedErrorMessageProps {
   document: WrappedOrSignedOpenAttestationDocument;
 }
 
-export const IDVCRenderedErrorMessage: FunctionComponent<IDVCRenderedErrorMessageProps> = ({ verificationStatus, document }) => {
-  if (oaUtils.isWrappedTTV4Document(document)) {
-    let errorMessage = renderedErrorMessageForIDVC(verificationStatus);
+export const IDVCRenderedErrorMessage: FunctionComponent<IDVCRenderedErrorMessageProps> = ({
+  verificationStatus,
+  document,
+}) => {
+  if (oaUtils.isWrappedTTV4Document(document) && document.issuer.identityProof.identityProofType === "IDVC") {
+    const errorMessage = renderedErrorMessageForIDVC(verificationStatus);
     return (
       <div className="flex justify-start items-center">
         <div className="flex-grow">
@@ -139,19 +135,18 @@ export const IDVCRenderedErrorMessage: FunctionComponent<IDVCRenderedErrorMessag
   return <></>;
 };
 
-
 interface IDVCIssuedByProps {
   document: WrappedOrSignedOpenAttestationDocument;
 }
 
 export const IDVCIssuedBy: FunctionComponent<IDVCIssuedByProps> = ({ document }) => {
-  if (oaUtils.isWrappedTTV4Document(document)) {
-    let IDVCEntityName = getIDVCEntityName(document);
-    let IDVCID = getIDVCID(document);
-    let IDVCLei = getIDVCLei(document);
-    let IDVCIssuanceDate = getIDVCIssuanceDate(document);
-    let IDVCExpirationDate = getIDVCExpirationDate(document);
-    let IDVCIssuer = getIDVCIssuer(document);
+  if (oaUtils.isWrappedTTV4Document(document) && document.issuer.identityProof.identityProofType === "IDVC") {
+    const IDVCEntityName = getIDVCEntityName(document);
+    const IDVCID = getIDVCID(document);
+    const IDVCLei = getIDVCLei(document);
+    const IDVCIssuanceDate = getIDVCIssuanceDate(document);
+    const IDVCExpirationDate = getIDVCExpirationDate(document);
+    const IDVCIssuer = getIDVCIssuer(document);
     return (
       <div className="flex justify-start items-center">
         <div className="flex-grow">

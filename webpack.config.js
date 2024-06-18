@@ -90,6 +90,7 @@ module.exports = {
     new webpack.IgnorePlugin({
       resourceRegExp: /magic-sdk$/, // Adjust the regular expression as needed
     }), // HOT FIX (Temp removal of magic demo until we might decide to kill it)
+    new webpack.ContextReplacementPlugin(/@mattrglobal/),
     new webpack.EnvironmentPlugin({
       // need to define variables here, so later can be overwritten at netlify env var end
       // TODO: use dotenv instead

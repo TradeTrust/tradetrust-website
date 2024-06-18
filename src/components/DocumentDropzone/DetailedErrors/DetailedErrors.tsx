@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { VerificationFragment } from "@tradetrust-tt/tt-verify";
+import { VerificationFragment, VerificationFragmentWithData } from "@tradetrust-tt/tt-verify";
 import { CONSTANTS, errorMessageHandling } from "@tradetrust-tt/tradetrust-utils";
 
 export const DetailedError: FunctionComponent<{ title: string; message: string }> = ({ title, message }) => {
@@ -17,18 +17,29 @@ export const DetailedErrors: FunctionComponent<{
 }> = ({ verificationStatus, verificationError }) => {
   if (!verificationStatus) return null;
   const { MESSAGES } = CONSTANTS;
-  const errors = errorMessageHandling(verificationStatus);
-  if (verificationError) errors.push(verificationError);
+  const idvcFragment = verificationStatus.filter(
+    (fragment) => fragment.name === "TradeTrustIDVCIdentityProof" && fragment.status === "ERROR"
+  ) as VerificationFragmentWithData[];
+  if (idvcFragment.length > 0) {
+    return (
+      <div className="mb-8">
+        <DetailedError title={"Document is invalid"} message={idvcFragment[0].data.message} />
+      </div>
+    );
+  } else {
+    const errors = errorMessageHandling(verificationStatus);
+    if (verificationError) errors.push(verificationError);
 
-  return (
-    <div className="mb-8">
-      {errors.map((errorType, index) => (
-        <DetailedError
-          key={index}
-          title={MESSAGES[errorType].failureTitle}
-          message={MESSAGES[errorType].failureMessage}
-        />
-      ))}
-    </div>
-  );
+    return (
+      <div className="mb-8">
+        {errors.map((errorType, index) => (
+          <DetailedError
+            key={index}
+            title={MESSAGES[errorType].failureTitle}
+            message={MESSAGES[errorType].failureMessage}
+          />
+        ))}
+      </div>
+    );
+  }
 };

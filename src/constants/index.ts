@@ -1,7 +1,7 @@
 export enum URLS {
-  INFO = "https://tradetrust.io",
+  INFO = "https://beta.tradetrust.io",
   REF = "https://ref.tradetrust.io",
-  CREATOR = "https://creator.tradetrust.io/",
+  CREATOR = "https://beta-creator.tradetrust.io/",
   GITHUB = "https://github.com/TradeTrust/tradetrust-website",
   DOCS = "https://docs.tradetrust.io/",
 }

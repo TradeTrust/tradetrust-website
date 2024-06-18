@@ -1,10 +1,10 @@
 import { utils } from "@tradetrust-tt/tradetrust";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useProviderContext } from "../common/contexts/provider";
+//import { useProviderContext } from "../common/contexts/provider";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { RootState } from "../reducers";
-import { resetCertificateState, updateCertificate } from "../reducers/certificate";
+import { resetCertificateState /*, updateCertificate*/ } from "../reducers/certificate";
 import { resetDemoState } from "../reducers/demo-verify";
 import { TemplateProps } from "../types";
 import { getLogger } from "../utils/logger";
@@ -80,24 +80,24 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const dispatch = useDispatch();
 
   const isSampleDocument = useSelector((state: RootState) => state.sample.isSampleDocument);
-  const certificateDoc = useSelector((state: RootState) => state.certificate.rawModified);
+  // const certificateDoc = useSelector((state: RootState) => state.certificate.rawModified);
 
   const resetCertificateData = useCallback(() => {
     dispatch(resetCertificateState());
     dispatch(resetDemoState());
   }, [dispatch]);
 
-  const { currentChainId } = useProviderContext();
+  // const { currentChainId } = useProviderContext();
 
   /*  Update the certificate when network is changed UNLESS:
   - it is Magic Demo certificate, as the network does not change for it (fixed at Sepolia).
   - it is Sample certificate, as it is already updated when user changed network from network selector dropdown provided by website UI (not the metamask extension network selector)
    */
-  useEffect(() => {
-    if (isMagicDemo || isSampleDocument) return;
-    resetCertificateData();
-    dispatch(updateCertificate(certificateDoc));
-  }, [certificateDoc, currentChainId, dispatch, resetCertificateData, isMagicDemo, isSampleDocument]);
+  // useEffect(() => {
+  //   if (isMagicDemo || isSampleDocument) return;
+  //   resetCertificateData();
+  //   dispatch(updateCertificate(certificateDoc));
+  // }, [certificateDoc, currentChainId, dispatch, resetCertificateData, isMagicDemo, isSampleDocument]);
 
   /*
   initialise the meta token information context when new tokenId

@@ -32,8 +32,8 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
   const isVerificationPending = verificationPending;
   const isVerificationError = useMemo(() => {
-    console.log(`verificationStatus: ${JSON.stringify(verificationStatus)}`);
-    console.log(`verificationError: ${verificationError}`);
+    // console.log(`verificationStatus: ${JSON.stringify(verificationStatus)}`);
+    // console.log(`verificationError: ${verificationError}`);
     if (verificationError) return true;
     if (verificationStatus && !isValid(verificationStatus)) return true;
     return false;
