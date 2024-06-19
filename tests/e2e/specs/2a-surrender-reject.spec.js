@@ -6,7 +6,6 @@ describe("Surrender Reject", () => {
   it("should go to verify page, upload a file, connect to wallet and surrender a document successfully", () => {
     cy.visit("/verify");
     cy.waitAndUploadFile("ebl-surrender.json");
-    cy.wait(10000);
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
@@ -20,7 +19,6 @@ describe("Surrender Reject", () => {
   it("should go to verify page, upload a file, connect to wallet and reject the surrendered document successfully", () => {
     cy.visit("/verify");
     cy.waitAndUploadFile("ebl-surrender.json");
-    cy.wait(10000);
     cy.get("[data-testid='surrenderToIssuer']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='rejectSurrenderDropdown']").click(); // Reject Surrender
