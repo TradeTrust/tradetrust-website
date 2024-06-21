@@ -1,4 +1,4 @@
-import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@tradetrust-tt/tradetrust";
+import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument, TTv4 } from "@tradetrust-tt/tradetrust";
 import { getSupportedChainIds } from "../common/utils/chain-utils";
 import { AvailableBlockChains, ChainId } from "../constants/chain-info";
 
@@ -51,7 +51,9 @@ export const getChainId = (rawDocument: WrappedOrSignedOpenAttestationDocument):
     throw new Error("Invalid Document, please use a valid document.");
   };
 
-  function processChainId(document: v2.OpenAttestationDocument | v3.OpenAttestationDocument): number | undefined {
+  function processChainId(
+    document: v2.OpenAttestationDocument | v3.OpenAttestationDocument | TTv4.TradeTrustDocument
+  ): number | undefined {
     if (document.network) {
       // Check for current blockchain, "ETH" or "MATIC", and chainId, if need cater for other blockchain and network, update this accordingly.
       if (AvailableBlockChains.includes(document.network.chain) && document.network.chainId) {
@@ -80,8 +82,10 @@ export const getChainId = (rawDocument: WrappedOrSignedOpenAttestationDocument):
     const identityProofType = rawDocument.openAttestationMetadata.identityProof.type;
     if (identityProofType === "DNS-DID" || identityProofType === "DID") return undefined;
     return processChainId(rawDocument);
+  } else if (utils.isWrappedTTV4Document(rawDocument)) {
+    const identityProofType = rawDocument.credentialStatus.credentialStatusType === "TOKEN_REGISTRY";
+    if (identityProofType) return processChainId(rawDocument);
   } else {
-    // for now v4 is only DID method so ignore chainID
-    return undefined;
+    // for now OAv4 is only DID method so ignore chainID
   }
 };

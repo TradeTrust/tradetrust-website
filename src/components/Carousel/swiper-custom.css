@@ -1,6 +1,0 @@
-/* looks like there are no other options to overwrite swiper-pagination from their docs */
-.swiper-horizontal > .swiper-pagination-bullets,
-.swiper-pagination-bullets.swiper-pagination-horizontal,
-.swiper-pagination-custom, .swiper-pagination-fraction {
-  bottom: 40px;
-}
