@@ -1,8 +1,0 @@
----
-title: What are the features of TradeTrust?
-date: 2020-05-01T16:00:00.000Z
-type: General
----
-For Transferable documents, TradeTrust has been developed to meet the requirements of the United Nations Commission on International Trade Law(UNCITRAL) Model Law on Electronic Transferable Records(MLETR) which has been adopted into [Singapore’s legislation](https://www.imda.gov.sg/Content-and-News/Press-Releases-and-Speeches/Press-Releases/2021/Electronic-Transactions-Act-Amended-To-Facilitate-Electronic-Transactions-Providing-Convenience-And-Strengthening-Singapores-Trade-Competitiveness) in 2021. TradeTrust’s open-source code is freely available and can be easily integrated into any existing system of businesses and solution providers to create and verify documents in support of viable use cases. 
-
-TradeTrust has partnered with authoritative International Organisations such as [UN/CEFACT](https://unece.org/sites/default/files/2022-06/010_Verifiable-Credentials-CBT.pdf) and [ISO](https://www.singaporestandardseshop.sg/Product/SSPdtDetail/c0a50e27-fc18-bba7-b34e-3a073d8558b6) to ensure that TradeTrust technical methods are compatible with existing standards and where appropriate, drive their acceptance as an international standard through the organisations’ respective open and neutral standards development processes. In addition, TradeTrust is advocated as the key interoperability mechanism for trade in several notable publications by [World Trade Organisation(WTO) ](https://www.wto.org/english/res_e/publications_e/tradtechpolicyharddigit0422_e.htm)and [International Chamber of Commerce(ICC)](https://iccwbo.org/publication/standards-toolkit-for-cross-border-paperless-trade).

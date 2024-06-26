@@ -10,9 +10,6 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { NestedDocumentState } from "../../constants/NestedDocumentState";
 import { getLogger } from "../../utils/logger";
-import { WelcomeSection } from "./WelcomeSection";
-import { MainBenefitsSection } from "./MainBenefitsSection";
-import { HowItWorksSection } from "./HowItWorksSection";
 import { useNetworkSelect } from "../../common/hooks/useNetworkSelect";
 import { ChainId } from "../../constants/chain-info";
 import { ActionType, ActionPayload } from "../../types";
@@ -58,7 +55,7 @@ export const HomePageContainer = (): React.ReactElement => {
         setProviderNetworkToMatch(chainId, payload, anchor);
       }
 
-      history.push("/verify");
+      history.push("/");
     }
   }, [dispatch, history, location, switchNetwork]);
 
@@ -68,18 +65,12 @@ export const HomePageContainer = (): React.ReactElement => {
       try {
         const doc = atob(event.data.payload);
         loadCertificate(JSON.parse(doc));
-        history.push("/verify");
+        history.push("/");
       } catch (e) {
         error("decode data not json: " + e);
       }
     }
   });
 
-  return (
-    <div className="text-lg">
-      <WelcomeSection />
-      <MainBenefitsSection />
-      <HowItWorksSection />
-    </div>
-  );
+  return <></>;
 };

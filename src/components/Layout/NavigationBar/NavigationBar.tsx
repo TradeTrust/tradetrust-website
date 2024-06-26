@@ -9,129 +9,6 @@ import {
 } from "@tradetrust-tt/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
-import { FormSgContactLink } from "../../../routes";
-
-const sharedStyles = "block w-full px-4 py-3 text-cloud-500";
-
-export const leftNavItems: NavigationItem[] = [
-  // HOT FIX (remove magic demo until a more concrete business decision can be made)
-  // {
-  //   schema: NAVIGATION_ITEM_TYPE.NavigationLink,
-  //   id: "demo",
-  //   label: "Demo",
-  //   path: "/demo",
-  //   customLink: (
-  //     <NavLink activeClassName="text-cerulean-500" className="block w-full text-current" to={"/demo"}>
-  //       Demo
-  //     </NavLink>
-  //   ),
-  // },
-  {
-    schema: NAVIGATION_ITEM_TYPE.NavigationDropDownList,
-    id: "resources",
-    label: "Resources",
-    path: "",
-    dropdownItems: [
-      {
-        id: "learn",
-        label: "Learn",
-        path: "/learn",
-        customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/learn"}>
-            Learn
-          </NavLink>
-        ),
-      },
-      {
-        id: "faq",
-        label: "FAQ",
-        path: "/faq",
-        customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/faq"}>
-            FAQ
-          </NavLink>
-        ),
-      },
-      {
-        id: "eta",
-        label: "ETA",
-        path: "/eta",
-        customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/eta"}>
-            ETA
-          </NavLink>
-        ),
-      },
-      {
-        id: "legality",
-        label: "Legality",
-        path: "/legality",
-        customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/legality"}>
-            Legality
-          </NavLink>
-        ),
-      },
-      {
-        id: "guidelines(non-ethereum)",
-        label: "Guidelines (Non-Ethereum)",
-        path: "/guidelines",
-        customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/guidelines"}>
-            Guidelines (Non-Ethereum)
-          </NavLink>
-        ),
-      },
-    ],
-  },
-  {
-    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
-    id: "cost",
-    label: "Cost",
-    path: "/cost",
-  },
-  {
-    schema: NAVIGATION_ITEM_TYPE.NavigationDropDownList,
-    id: "news-events",
-    label: "News & Events",
-    path: "",
-    dropdownItems: [
-      {
-        id: "news",
-        label: "News",
-        path: "/news",
-        customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/news"}>
-            News
-          </NavLink>
-        ),
-      },
-      {
-        id: "event",
-        label: "Event",
-        path: "/event",
-        customLink: (
-          <NavLink activeClassName="text-cerulean-500" className={sharedStyles} to={"/event"}>
-            Event
-          </NavLink>
-        ),
-      },
-    ],
-  },
-  {
-    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
-    id: "partners",
-    label: "Partners",
-    path: "/partners",
-  },
-  {
-    schema: NAVIGATION_ITEM_TYPE.NavigationLink,
-    id: "contact",
-    label: "Contact",
-    path: "/contact",
-    customLink: <FormSgContactLink className="block w-full text-current">Contact</FormSgContactLink>,
-  },
-];
 
 export const rightNavItems: NavigationItem[] = [
   {
@@ -168,9 +45,9 @@ export const rightNavItems: NavigationItem[] = [
     schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
     id: "verify",
     label: "Verify Doc",
-    path: "/verify",
+    path: "/",
     customLink: (
-      <NavLink to={"/verify"}>
+      <NavLink to={"/"}>
         <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800" size={ButtonSize.SM}>
           Verify Doc
         </Button>
@@ -181,9 +58,9 @@ export const rightNavItems: NavigationItem[] = [
 
 const NavLogo = () => {
   return (
-    <NavLink to={"/"} data-testid="nav-logo-home">
+    <a href={`${URLS.INFO}`} data-testid="nav-logo-home">
       <img src="/static/images/tradetrust_logo.svg" alt="TradeTrust Logo" />
-    </NavLink>
+    </a>
   );
 };
 

@@ -2,7 +2,7 @@ import { Overlay } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
-import { NavigationBar, leftNavItems, rightNavItems } from "./components/Layout/NavigationBar";
+import { NavigationBar, rightNavItems } from "./components/Layout/NavigationBar";
 import { Routes, routes } from "./routes";
 
 const AppContainer = (): React.ReactElement => {
@@ -19,7 +19,7 @@ const AppContainer = (): React.ReactElement => {
       <NavigationBar
         toggleNavBar={toggleNavBar}
         setToggleNavBar={setToggleNavBar}
-        leftItems={leftNavItems}
+        leftItems={[]}
         rightItems={rightNavItems}
       />
       <main

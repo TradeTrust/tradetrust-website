@@ -35,24 +35,8 @@ const data = [
   {
     category: "Utilities",
     items: [
-      { label: "Verify Documents", to: "/verify", render: renderNavLink },
+      { label: "Verify Documents", to: "/", render: renderNavLink },
       { label: "Create Documents", to: URLS.CREATOR, render: renderExternalLink },
-    ],
-  },
-  {
-    category: "Resources",
-    items: [
-      { label: "Learn", to: "/learn", render: renderNavLink },
-      { label: "FAQ", to: "/faq", render: renderNavLink },
-      { label: "ETA", to: "/eta", render: renderNavLink },
-      { label: "Partners", to: "/partners", render: renderNavLink },
-    ],
-  },
-  {
-    category: "News & Event",
-    items: [
-      { label: "News", to: "/news", render: renderNavLink },
-      { label: "Events", to: "/event", render: renderNavLink },
     ],
   },
   {
@@ -61,7 +45,6 @@ const data = [
       { label: "Github", to: URLS.GITHUB, render: renderExternalLink },
       { label: "Documentation", to: URLS.DOCS, render: renderExternalLink },
       { label: "Contact", to: FORM_SG_URL, render: renderExternalLink },
-      { label: "FAQ", to: "/faq", render: renderNavLink },
     ],
   },
   {

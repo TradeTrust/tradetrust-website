@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { HomePageContainer } from "../components/HomePageContent";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
 import { Page } from "../components/Layout/Page";
 import { OverlayContent, OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
@@ -19,7 +20,7 @@ const VerifyPage = (): React.ReactElement => {
           content="TradeTrust lets you verify documents from any issuer. All in one place."
         />
         <meta property="og:title" content="TradeTrust - Verify Your Document" />
-        <meta property="og:url" content={`${window.location.origin}/verify`} />
+        <meta property="og:url" content={`${window.location.origin}`} />
         <title>TradeTrust - Verify Your Document</title>
         <meta
           name="keywords"
@@ -44,6 +45,7 @@ const VerifyPage = (): React.ReactElement => {
           </OverlayContextProvider>
         </div>
         <DropZoneSectionContainer />
+        <HomePageContainer />
       </Page>
     </>
   );
