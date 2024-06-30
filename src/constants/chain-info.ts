@@ -170,7 +170,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "hederamainnet",
     networkLabel: "Hedera Mainnet",
     explorerUrl: "https://hashscan.io/mainnet",
-    rpcUrl: "https://mainnet.hashio.io/api",
+    rpcUrl: "https://hedera-mainnet-json-rpc.krypc.com/",
     nativeCurrency: {
       name: "HBAR",
       symbol: "HBAR",
@@ -184,7 +184,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "hederatestnet",
     networkLabel: "Hedera Testnet",
     explorerUrl: "https://hashscan.io/testnet",
-    rpcUrl: "https://testnet.hashio.io/api",
+    rpcUrl: "https://hedera-testnet-json-rpc.krypc.com/",
     nativeCurrency: {
       name: "HBAR",
       symbol: "HBAR",
