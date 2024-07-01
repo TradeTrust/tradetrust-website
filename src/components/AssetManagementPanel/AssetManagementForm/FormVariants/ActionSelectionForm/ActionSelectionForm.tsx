@@ -4,12 +4,13 @@ import {
   OverlayContext,
   showDocumentTransferMessage,
 } from "@tradetrust-tt/tradetrust-ui-components";
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext, useRef, useState } from "react";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import ReactTooltip from "react-tooltip";
 
 interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
@@ -50,6 +51,9 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   setShowEndorsementChain,
   isTitleEscrow,
 }) => {
+  const [tooltipMessage, setTooltipMessage] = useState("Copy");
+  const tooltipRef = useRef(null);
+
   const canManage =
     canHandleShred ||
     canHandleRestore ||
@@ -74,25 +78,18 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     ); // there is 2 type of errors that will be handled here, 1st = NO_METAMASK (error thrown from provider.tsx), 2nd = NO_USER_AUTHORIZATION (error from metamask extension itself).
   };
 
-  const handleWalletInfoClick = async () => {
-    const { ethereum } = window as any;
-    if (ethereum) {
+  const handleActiveWalletClicked = async () => {
+    if (account) {
       try {
-        await ethereum.request({ method: "eth_requestAccounts" });
-
-        await ethereum.request({
-          method: "wallet_requestPermissions",
-          params: [
-            {
-              eth_accounts: {},
-            },
-          ],
-        });
-      } catch (error) {
-        console.error("User rejected the request or an error occurred", error);
+        await navigator.clipboard.writeText(account);
+        setTooltipMessage("Copied!");
+        ReactTooltip.hide(tooltipRef.current!);
+        setTimeout(() => {
+          ReactTooltip.show(tooltipRef.current!);
+        }, 0);
+      } catch (err) {
+        console.error("Failed to copy: ", err);
       }
-    } else {
-      console.error("MetaMask is not installed");
     }
   };
 
@@ -104,6 +101,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
       handleMetamaskError(error.message, error.code);
     }
   };
+
   return (
     <>
       <div className="flex flex-wrap justify-between pb-4 -mx-4">
@@ -148,17 +146,26 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
         <div className="flex flex-col items-stretch pb-4 ">
           <div className="gap-y-4 lg:ml-auto w-44 flex flex-col">
             {account ? (
-              <div
-                onClick={handleWalletInfoClick}
-                data-testid="activeWallet"
-                className="w-44 p-4 ml-auto flex items-center bg-gray-100 text-gray-800 rounded-lg shadow cursor-pointer hover:bg-gray-200 transition duration-300 ease-in-out select-none"
-              >
-                <img src={"/static/images/wallet.png"} alt="Wallet Icon" className="w-6 h-6 mr-4" />
-                <div className="flex flex-col overflow-hidden">
-                  <p className="text-sm">Active Wallet</p>
-                  <h5 className="text-cerulean-300 text-sm font-bold block overflow-hidden text-ellipsis whitespace-nowrap">{`${account}`}</h5>
+              <>
+                <div
+                  onMouseLeave={() => setTooltipMessage("Copy")}
+                  ref={tooltipRef}
+                  data-tip={tooltipMessage}
+                  data-for="active-wallet-tooltip"
+                  onClick={handleActiveWalletClicked}
+                  data-testid="activeWallet"
+                  className="w-44 px-4 py-1 ml-auto flex items-center bg-gray-100 text-gray-800 rounded-lg shadow cursor-pointer hover:bg-gray-200 transition duration-300 ease-in-out select-none"
+                >
+                  <img src={"/static/images/wallet.png"} alt="Wallet Icon" className="w-6 h-6 mr-4" />
+                  <div className="flex flex-col overflow-hidden">
+                    <p className="text-sm">Active Wallet</p>
+                    <h5 className="text-cerulean-300 text-sm font-bold block whitespace-nowrap">{`${account.slice(
+                      0,
+                      6
+                    )}...${account.slice(-4)}`}</h5>
+                  </div>
                 </div>
-              </div>
+              </>
             ) : (
               <></>
             )}
@@ -198,6 +205,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
           </div>
         </div>
       )}
+      <ReactTooltip type="light" id="active-wallet-tooltip" effect="solid" getContent={() => tooltipMessage} />
     </>
   );
 };

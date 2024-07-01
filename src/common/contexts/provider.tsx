@@ -158,8 +158,6 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       throw new Error("Oops! Seems like MetaMask is not installed in your browser");
     }
 
-    console.log("initialize metamask signer");
-    console.log(provider instanceof ethers.providers.Web3Provider);
     const web3Provider = provider as ethers.providers.Web3Provider;
     await web3Provider.send("eth_requestAccounts", []);
     const chainInfo = getChainInfo(currentChainId ?? defaultChainId);
