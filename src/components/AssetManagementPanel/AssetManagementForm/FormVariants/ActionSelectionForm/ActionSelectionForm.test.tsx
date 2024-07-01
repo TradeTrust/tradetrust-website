@@ -28,11 +28,11 @@ const defaultProps = {
 };
 
 describe("ActionSelectionForm", () => {
-  it("should display the non-editable beneficiary & holder", async () => {
+  it("should display the account number for active wallet", async () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} />);
       const activeWalletComponent = container.getByTestId("activeWallet");
-      const holderText = within(activeWalletComponent).getByText("0xa61B056dA0084a5f391EC137583073096880C2e3");
+      const holderText = within(activeWalletComponent).getByText("0xa61B...C2e3");
       expect(activeWalletComponent).not.toBeNull();
       expect(holderText).not.toBeNull();
     });
