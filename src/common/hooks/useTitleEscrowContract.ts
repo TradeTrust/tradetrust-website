@@ -22,11 +22,7 @@ export const useTitleEscrowContract = (
   const updateTitleEscrow = useCallback(async () => {
     if (!tokenRegistry || !tokenId || !provider) return;
     try {
-      console.log("before tokenRegistry.ownerOf");
-      console.log({ tokenRegistry, tokenId, provider });
       const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
-      console.log("after tokenRegistry.ownerOf");
-      console.log({ titleEscrowOwner });
       setDocumentOwner(titleEscrowOwner);
       const instance = await connectToTitleEscrow({
         provider,
@@ -36,7 +32,6 @@ export const useTitleEscrowContract = (
       setTitleEscrow(instance);
     } catch (error) {
       setTitleEscrow(undefined);
-      // throw error;
     }
   }, [provider, tokenId, tokenRegistry]);
 
@@ -59,9 +54,7 @@ export const retrieveTitleEscrowAddressOnFactory = async (
   const titleEscrowFactoryAddress = await tokenRegistry.titleEscrowFactory();
   const tokenRegistryAddress = await tokenRegistry.address;
   const titleEscrowFactory = TitleEscrowFactory__factory.connect(titleEscrowFactoryAddress, signer);
-  console.log("before title escrow address");
   const titleEscrowAddress = await titleEscrowFactory.getAddress(tokenRegistryAddress, tokenId);
-  console.log("after title escrow address", titleEscrowAddress);
   return titleEscrowAddress;
 };
 

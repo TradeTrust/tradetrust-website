@@ -66,7 +66,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
 
   const handleMetamaskError = (errorMesssage: string, errorCode: number) => {
     const isUserDeniedAccountAuthorization = errorCode === 4001;
-
     showOverlay(
       showDocumentTransferMessage(errorMesssage, {
         isSuccess: false,
@@ -75,10 +74,34 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     ); // there is 2 type of errors that will be handled here, 1st = NO_METAMASK (error thrown from provider.tsx), 2nd = NO_USER_AUTHORIZATION (error from metamask extension itself).
   };
 
+  const handleWalletInfoClick = async () => {
+    const { ethereum } = window as any;
+    if (ethereum) {
+      try {
+        await ethereum.request({ method: "eth_requestAccounts" });
+
+        await ethereum.request({
+          method: "wallet_requestPermissions",
+          params: [
+            {
+              eth_accounts: {},
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("User rejected the request or an error occurred", error);
+      }
+    } else {
+      console.error("MetaMask is not installed");
+    }
+  };
+
   const handleConnectWallet = async () => {
     try {
+      console.log("before connect to wallet 123");
       await onConnectToWallet();
     } catch (error: any) {
+      console.log("handle connect wallet error catch");
       handleMetamaskError(error.message, error.code);
     }
   };
@@ -123,39 +146,55 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
         )}
       </div>
       {!isTokenBurnt && (
-        <div className="flex flex-wrap pb-4">
-          <div className="w-auto lg:ml-auto">
+        <div className="flex flex-col items-stretch pb-4 ">
+          <div className="gap-y-4 lg:ml-auto w-44 flex flex-col">
             {account ? (
-              <>
-                {canManage ? (
-                  <AssetManagementDropdown
-                    onSetFormAction={onSetFormAction}
-                    canSurrender={canSurrender}
-                    canChangeHolder={canChangeHolder}
-                    canEndorseBeneficiary={canEndorseBeneficiary}
-                    canNominateBeneficiary={canNominateBeneficiary}
-                    canEndorseTransfer={canEndorseTransfer}
-                    canHandleRestore={canHandleRestore}
-                    canHandleShred={canHandleShred}
-                  />
-                ) : (
-                  <Button
-                    className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-800"
-                    onClick={handleNoAccess}
-                  >
-                    No Access
-                  </Button>
-                )}
-              </>
-            ) : (
-              <Button
-                className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-800"
-                data-testid={"connectToWallet"}
-                onClick={handleConnectWallet}
+              <div
+                onClick={handleWalletInfoClick}
+                className="w-44 p-4 ml-auto flex items-center bg-gray-100 text-gray-800 rounded-lg shadow cursor-pointer hover:bg-gray-200 transition duration-300 ease-in-out select-none"
               >
-                Connect Wallet
-              </Button>
+                <img src={"/static/images/wallet.png"} alt="Wallet Icon" className="w-6 h-6 mr-4" />
+                <div className="flex flex-col overflow-hidden">
+                  <p className="text-sm">Active Wallet</p>
+                  <h5 className="text-cerulean-300 text-sm font-bold block overflow-hidden text-ellipsis whitespace-nowrap">{`${account}`}</h5>
+                </div>
+              </div>
+            ) : (
+              <></>
             )}
+            <>
+              {account ? (
+                <>
+                  {canManage ? (
+                    <AssetManagementDropdown
+                      onSetFormAction={onSetFormAction}
+                      canSurrender={canSurrender}
+                      canChangeHolder={canChangeHolder}
+                      canEndorseBeneficiary={canEndorseBeneficiary}
+                      canNominateBeneficiary={canNominateBeneficiary}
+                      canEndorseTransfer={canEndorseTransfer}
+                      canHandleRestore={canHandleRestore}
+                      canHandleShred={canHandleShred}
+                    />
+                  ) : (
+                    <Button
+                      className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 min-w-6 hover:bg-cerulean-800"
+                      onClick={handleNoAccess}
+                    >
+                      No Access
+                    </Button>
+                  )}
+                </>
+              ) : (
+                <Button
+                  className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-800"
+                  data-testid={"connectToWallet"}
+                  onClick={handleConnectWallet}
+                >
+                  Connect Wallet
+                </Button>
+              )}
+            </>
           </div>
         </div>
       )}

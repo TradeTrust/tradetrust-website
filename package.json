@@ -21,7 +21,7 @@
     "credits": "npx @opengovsg/credits-generator && npx mdpdf ./CREDITS.md ./public/static/common/credits.pdf",
     "dev": "run-p dev:*",
     "dev:css": "npx tailwindcss -i ./src/tailwind.css -o ./src/index.css --watch",
-    "dev:serve": "sleep 2 && cross-env NODE_ENV=development webpack serve",
+    "dev:serve": "sleep 2 && cross-env NODE_ENV=production webpack serve",
     "integration": "testcafe chrome src/**/*.spec.ts",
     "integration:single": "testcafe chrome -L",
     "integration:testcafe:prod": "testcafe --config-file \".testcaferc-prod.json\"",
