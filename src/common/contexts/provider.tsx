@@ -131,56 +131,43 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
   const updateSigner = useCallback(async () => {
     if (!provider) {
-      console.log("provider is not available");
       return;
     }
     try {
       if (provider instanceof ethers.providers.Web3Provider) {
-        console.log("provider list accounts");
         const accounts = await provider.listAccounts();
-        console.log(accounts);
         if (accounts.length > 0) {
-          console.log("calling signer. get address as there is an account");
           await provider.send("eth_requestAccounts", []);
-          const signer = (provider as ethers.providers.Web3Provider).getSigner();
+          const signer = provider.getSigner();
           const address = await signer.getAddress();
-          console.log({ signer, address });
           setAccount(address);
           setProviderOrSigner(signer);
-        } else {
-          console.log("no accounts found in metamask");
-          console.log(provider);
-          console.log("");
-          setAccount(undefined);
-          setProviderOrSigner(provider);
+          return;
         }
-      } else {
-        setAccount(undefined);
-        setProviderOrSigner(provider);
       }
+      setAccount(undefined);
+      setProviderOrSigner(provider);
     } catch (e) {
-      console.log("error thrown by update signer", e);
       setAccount(undefined);
       setProviderOrSigner(createProvider(currentChainId!));
     }
   }, [provider, currentChainId]);
 
   const initializeMetaMaskSigner = async () => {
-    try {
-      const web3Provider = provider as ethers.providers.Web3Provider;
-      await web3Provider.send("eth_requestAccounts", []);
-      const chainInfo = getChainInfo(currentChainId ?? defaultChainId);
-      await walletSwitchChain(chainInfo.chainId);
-      const signer = web3Provider.getSigner();
-      console.log("about to call getAddress() inside initializeMetaMaskSigner");
-      const address = await signer.getAddress();
-      setAccount(address);
-
-      setProviderType(SIGNER_TYPE.METAMASK);
-    } catch (e) {
-      console.log("error in initializeMetaMaskSigner");
-      console.log(e);
+    if (!(provider instanceof ethers.providers.Web3Provider)) {
+      throw new Error("Oops! Seems like MetaMask is not installed in your browser");
     }
+
+    console.log("initialize metamask signer");
+    console.log(provider instanceof ethers.providers.Web3Provider);
+    const web3Provider = provider as ethers.providers.Web3Provider;
+    await web3Provider.send("eth_requestAccounts", []);
+    const chainInfo = getChainInfo(currentChainId ?? defaultChainId);
+    await walletSwitchChain(chainInfo.chainId);
+    const signer = web3Provider.getSigner();
+    const address = await signer.getAddress();
+    setAccount(address);
+    setProviderType(SIGNER_TYPE.METAMASK);
   };
 
   const initialiseMagicSigner = async () => {
@@ -223,10 +210,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     if (!window.ethereum) return;
 
     window.ethereum
-      .on("accountsChanged", () => {
-        console.log("accountsChanged!!");
-        updateProvider();
-      })
+      .on("accountsChanged", updateProvider)
       .on("chainChanged", (chainIdHex: string) => changeNetwork(parseInt(chainIdHex, 16)));
 
     return () => {
