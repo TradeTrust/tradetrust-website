@@ -11,7 +11,7 @@
     "blockchain:contracts:synpress": "node --experimental-modules ./tests/e2e/setup-contracts.mjs",
     "blockchain:contracts:testcafe": "node --experimental-modules ./src/test/setup-contracts-testcafe.mjs",
     "build": "run-s build:sitemap check-types build:css build:app",
-    "build:dev": "cross-env NODE_ENV=development npm run build",
+    "build:dev": "cross-env NODE_ENV=production npm run build",
     "build:test": "cross-env NODE_ENV=test NET=local npm run build",
     "build:prod": "cross-env NODE_ENV=production NET=mainnet npm run build",
     "build:css": "postcss src/tailwind.css -o src/index.css",
