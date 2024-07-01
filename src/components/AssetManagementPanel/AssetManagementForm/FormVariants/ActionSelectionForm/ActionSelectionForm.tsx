@@ -98,10 +98,9 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
 
   const handleConnectWallet = async () => {
     try {
-      console.log("before connect to wallet 123");
       await onConnectToWallet();
     } catch (error: any) {
-      console.log("handle connect wallet error catch");
+      console.error(error);
       handleMetamaskError(error.message, error.code);
     }
   };
@@ -151,6 +150,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             {account ? (
               <div
                 onClick={handleWalletInfoClick}
+                data-testid="activeWallet"
                 className="w-44 p-4 ml-auto flex items-center bg-gray-100 text-gray-800 rounded-lg shadow cursor-pointer hover:bg-gray-200 transition duration-300 ease-in-out select-none"
               >
                 <img src={"/static/images/wallet.png"} alt="Wallet Icon" className="w-6 h-6 mr-4" />
