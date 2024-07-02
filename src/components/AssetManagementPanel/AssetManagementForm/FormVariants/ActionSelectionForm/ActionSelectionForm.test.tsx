@@ -1,5 +1,5 @@
 import * as obfuscatedDocument from "../../../../../test/fixture/local/v2/invoice-obfuscated-document.json";
-import { act, fireEvent, render } from "@testing-library/react";
+import { act, fireEvent, render, within } from "@testing-library/react";
 import React from "react";
 import { whenDocumentValidAndIssuedByDns } from "../../../../../test/fixture/verifier-responses";
 import { ActionSelectionForm } from "./ActionSelectionForm";
@@ -28,13 +28,23 @@ const defaultProps = {
 };
 
 describe("ActionSelectionForm", () => {
-  it("should display the non-editable beneficiary & holder", async () => {
+  it("should display the account number for active wallet", async () => {
+    await act(async () => {
+      const container = render(<ActionSelectionForm {...defaultProps} />);
+      const activeWalletComponent = container.getByTestId("activeWallet");
+      const holderText = within(activeWalletComponent).getByText("0xa61B...C2e3");
+      expect(activeWalletComponent).not.toBeNull();
+      expect(holderText).not.toBeNull();
+    });
+  });
+
+  it("should display the active wallet", async () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} />);
       const beneficiaryComponent = container.getByTestId("asset-title-owner");
       const beneficiaryText = container.getByText("0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C");
       const holderComponent = container.getByTestId("asset-title-holder");
-      const holderText = container.getByText("0xa61B056dA0084a5f391EC137583073096880C2e3");
+      const holderText = within(holderComponent).getByText("0xa61B056dA0084a5f391EC137583073096880C2e3");
 
       expect(beneficiaryComponent).not.toBeNull();
       expect(beneficiaryText).not.toBeNull();

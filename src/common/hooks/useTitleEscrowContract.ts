@@ -21,14 +21,18 @@ export const useTitleEscrowContract = (
 
   const updateTitleEscrow = useCallback(async () => {
     if (!tokenRegistry || !tokenId || !provider) return;
-    const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
-    setDocumentOwner(titleEscrowOwner);
-    const instance = await connectToTitleEscrow({
-      provider,
-      tokenRegistry,
-      tokenId,
-    });
-    setTitleEscrow(instance);
+    try {
+      const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
+      setDocumentOwner(titleEscrowOwner);
+      const instance = await connectToTitleEscrow({
+        provider,
+        tokenRegistry,
+        tokenId,
+      });
+      setTitleEscrow(instance);
+    } catch (error) {
+      setTitleEscrow(undefined);
+    }
   }, [provider, tokenId, tokenRegistry]);
 
   useEffect(() => {

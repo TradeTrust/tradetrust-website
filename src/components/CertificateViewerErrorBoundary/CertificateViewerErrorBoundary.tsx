@@ -144,7 +144,6 @@ export const getErrorPageProps = ({ errorType }: { errorType: CERTIFICATE_VIEWER
  */
 const ErrorComponent: FallbackComponentType = (props) => {
   const { error, recover } = props;
-
   const errorType = getErrorType(error);
   const errorPageProps = getErrorPageProps({ errorType });
   const retryLink = getRetryLink({ errorType, recover });
