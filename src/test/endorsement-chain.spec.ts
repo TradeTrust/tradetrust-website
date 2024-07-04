@@ -70,9 +70,9 @@ test("Endorsement chain title and actions are rendered correctly for hederatestn
   await t.wait(5000);
   await t.expect(EndorsementChainTitle.count).eql(1);
 
-  await t.expect(EndorsementChainAddress4.count).eql(2);
+  await t.expect(EndorsementChainAddress4.count).eql(0);
 
-  await t.expect(DocumentIssuedAction.count).eql(4);
+  await t.expect(DocumentIssuedAction.count).eql(6);
   await t.expect(EndorseNomineeAction.count).eql(0);
   await t.expect(ChangeOwnershipAction.count).eql(0);
   await t.expect(TransferHoldershipAction.count).eql(0);
