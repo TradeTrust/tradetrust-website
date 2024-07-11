@@ -5,13 +5,11 @@ date: 2024-05-14T14:29:54.283Z
 ---
 **Suzhou Industrial Park** (SIP) successfully piloted the **first electronic bill of lading** (eBL）based on the adaptation of **IMDA’s TradeTrust framework with AEOTradeChain**, utilising the Astron blockchain network. This milestone marks progress of the park's self-developed eBL system to the stage of practical application.
 
-![](https://mail.google.com/mail/u/0?ui=2&ik=1f3658d2dc&attid=0.1&permmsgid=msg-f:1804203344634469185&th=1909d16203825b41&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ9aWS2faW6wLvA5MGvzZENkdM_Mgutk7QzcitckSuS76p7QKrGXwnndYVUJNt91EnWRxIZEyfQLy5vArd25QcwlSU68ykq4-8k4dLryannSQ2FGp8Bcvt6ai8U&disp=emb "Landing Page of AEOTradeChain & TradeTrust e-Docs System")
-
-
+![](/static/uploads/aeotradechain.png "Landing Page of AEOTradeChain & TradeTrust e-Docs System")
 
 This trial involves Suzhou Higer Bus Company exporting buses from China to Philippines, carried by Maersk Line which is currently ranked as the world’s second-largest container carrier. The eBL was issued using a distributed eBL system，AEOTradeChain & TradeTrust e-Docs System， in compliance with the TradeTrust framework and transferred through the AEOTradeChain trusted trade collaboration network supported by Astron.
 
-![](/static/uploads/higerbus.jpg "Bus for export is loaded onto the flat rack>")
+![](/static/uploads/higerbus.jpg "Bus for export is loaded onto the flat rack")
 
 The eBL system supports the distributed circulation and verification of eBL among shipping companies, importers and exporters, freight forwarders, and other trade collaborators. Leveraging blockchain technology, it facilities functions such as process collaborative management, data deposit verification, and data privacy protection, ensuring the authenticity, uniqueness, security, and traceability of eBLs.
 
