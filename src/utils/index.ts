@@ -18,15 +18,7 @@ export const isValidEndorseTransfer = (holder?: string, newHolder?: string, newO
 };
 
 export const isEthereumAddress = (address: string): boolean | undefined => {
-  try {
-    if (utils.getAddress(address)) {
-      return true;
-    }
-  } catch (e: any) {
-    if (e.reason === "invalid address") {
-      return false;
-    } else throw e;
-  }
+  return utils.isAddress(address);
 };
 
 export const convertSecondsToMinAndSec = (seconds: number): string => {
