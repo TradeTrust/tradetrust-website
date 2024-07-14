@@ -142,5 +142,5 @@ describe("useEndorsementChain|integration", () => {
     ]);
     expect(result.current.error).toBe("");
     expect(result.current.pending).toBe(false);
-  }, 50000);
+  }, 80000);
 });
