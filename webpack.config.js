@@ -138,6 +138,12 @@ module.exports = {
   devtool: !IS_DEVELOPMENT || IS_TEST_ENV ? false : "eval-cheap-source-map",
 
   devServer: {
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
     compress: true,
     static: {
       directory: path.join(__dirname, "public"),

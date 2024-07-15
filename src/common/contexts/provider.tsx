@@ -130,18 +130,34 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   }, [currentChainId, defaultChainId, isSupportedNetwork]);
 
   const updateSigner = useCallback(async () => {
+    if (!provider) {
+      return;
+    }
     try {
-      const signer = (provider as ethers.providers.Web3Provider).getSigner();
-      const address = await signer.getAddress();
-      setAccount(address);
-      setProviderOrSigner(signer);
-    } catch (e) {
+      if (provider instanceof ethers.providers.Web3Provider) {
+        const accounts = await provider.listAccounts();
+        if (accounts.length > 0) {
+          await provider.send("eth_requestAccounts", []);
+          const signer = provider.getSigner();
+          const address = await signer.getAddress();
+          setAccount(address);
+          setProviderOrSigner(signer);
+          return;
+        }
+      }
       setAccount(undefined);
       setProviderOrSigner(provider);
+    } catch (e) {
+      setAccount(undefined);
+      setProviderOrSigner(createProvider(currentChainId!));
     }
-  }, [provider]);
+  }, [provider, currentChainId]);
 
   const initializeMetaMaskSigner = async () => {
+    if (!(provider instanceof ethers.providers.Web3Provider)) {
+      throw new Error("Oops! Seems like MetaMask is not installed in your browser");
+    }
+
     const web3Provider = provider as ethers.providers.Web3Provider;
     await web3Provider.send("eth_requestAccounts", []);
     const chainInfo = getChainInfo(currentChainId ?? defaultChainId);
@@ -149,7 +165,6 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     const signer = web3Provider.getSigner();
     const address = await signer.getAddress();
     setAccount(address);
-
     setProviderType(SIGNER_TYPE.METAMASK);
   };
 
