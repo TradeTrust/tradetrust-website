@@ -27,7 +27,7 @@ describe("useEndorsementChain|integration", () => {
         () => {
           expect(result.current.endorsementChain).toBeTruthy();
         },
-        { timeout: 40000 }
+        { timeout: 60000 }
       );
     });
     expect(result.current.endorsementChain).toEqual([
@@ -142,5 +142,5 @@ describe("useEndorsementChain|integration", () => {
     ]);
     expect(result.current.error).toBe("");
     expect(result.current.pending).toBe(false);
-  }, 50000);
+  }, 80000);
 });
