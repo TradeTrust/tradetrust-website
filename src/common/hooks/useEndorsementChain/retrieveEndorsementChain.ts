@@ -15,8 +15,11 @@ export const getEndorsementChain = async (
   let previousBeneficiary = "";
   let previousHolder = "";
 
-  for (const log of logChain) {
-    const timestamp = await fetchEventTime(log.blockNumber, provider);
+  const timestampPromises = logChain.map((log) => fetchEventTime(log.blockNumber, provider));
+  const timestamps = await Promise.all(timestampPromises);
+
+  logChain.forEach((log, index) => {
+    const timestamp = timestamps[index];
     const transactionDetails = {
       type: log.type,
       transactionHash: log.transactionHash,
@@ -49,6 +52,6 @@ export const getEndorsementChain = async (
       // No state changes
       historyChain.push(transactionDetails);
     }
-  }
+  });
   return historyChain;
 };
