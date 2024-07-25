@@ -15,3 +15,10 @@ test("sample document is rendered correctly when DNS TXT is verified for hederat
   await validateIssuerTexts(["TRUSTLV.ORG"]);
   await validateIframeTexts(["CERTIFICATE OF NON-MANIPULATION"]);
 });
+
+test("sample document is rendered correctly when DNS TXT is verified for hederamainnet", async () => {
+  await navigateToVerify();
+  await uploadDocument("./fixture/hederamainnet/v2/invoice.json");
+  await validateIssuerTexts(["TRUSTLV.ORG"]);
+  await validateIframeTexts(["CERTIFICATE OF NON-MANIPULATION"]);
+});
