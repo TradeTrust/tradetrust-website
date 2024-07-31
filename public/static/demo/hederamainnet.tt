@@ -1,0 +1,59 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "$template": {
+      "name": "cc444599-34bd-481b-b37d-ef499cc32fde:string:CERTIFICATE_OF_NON_MANIPULATION",
+      "type": "e47906b2-e699-491b-8b3f-76102c4c1ca3:string:EMBEDDED_RENDERER",
+      "url": "2bde1a46-fd8c-45fc-b7a6-3f04eef9a765:string:https://demo-cnm.openattestation.com"
+    },
+    "recipient": {
+      "name": "7e9029b7-2ed9-4e3e-98d6-8ed6ed2d55b9:string:XYZ",
+      "address": {
+        "street": "281a036a-f4a7-48a8-b9c7-d089fac96700:string:42 BRIGADE ROAD",
+        "country": "b78e20fd-97ec-4442-961f-a16bb2ef4c25:string:INDIA"
+      }
+    },
+    "issuers": [
+      {
+        "name": "6c9cfd13-329b-48d8-b7d7-d09bb62f6201:string:Demo Issuer",
+        "documentStore": "40f21e22-0120-450c-a7d4-c9500130eb32:string:0x222B69788e2e9B7FB93a3a0fE258D4604Dc7df21",
+        "identityProof": {
+          "type": "9dd1db32-e903-4051-9099-d9557bc9311a:string:DNS-TXT",
+          "location": "76f85535-a72d-4278-a1dc-ff3f03194e2c:string:trustlv.org"
+        }
+      }
+    ],
+    "consignment": {
+      "description": "cf8b93ec-b3f8-484e-a2cf-9c17fd8d0a62:string:16667 RED WINE",
+      "quantity": {
+        "value": "c32e3646-8987-41a6-ad6e-3aa4d8b39682:string:1000",
+        "unit": "e5a45861-1cd8-49ed-b9d0-1f80e6c77187:string:LITRES"
+      },
+      "countryOfOrigin": "73ef4de9-e065-4847-b885-7288a8c7d027:string:INDIA",
+      "outwardBillNo": "142e3bba-652d-4890-92f6-4073bfd17b94:string:AQSIQ170923130",
+      "dateOfDischarge": "67a3f36a-ee83-44b3-8358-468039023817:string:2024-03-01",
+      "dateOfDeparture": "39cf2cab-724d-4b7d-adef-720b4eeef37c:string:2024-03-20",
+      "countryOfFinalDestination": "baeb5efc-abda-40e9-b20f-e5c0faff654f:string:SINGAPORE",
+      "outgoingVehicleNo": "cfd1d225-e2eb-4cd8-badb-567547998af4:string:COSCO SING 074E/01-MAR"
+    },
+    "declaration": {
+      "name": "9830ce5b-3cad-4698-a6d9-1b4036888f42:string:JOHN",
+      "designation": "c87ec126-28e4-40b6-89b4-4f2c2fb73a41:string:SHIPPING MANAGER",
+      "date": "e3f7ed1a-bfd2-4794-94cb-e98372a934e7:string:2024-03-01"
+    },
+    "certification": {
+      "name": "2da26cbf-bda7-4b2e-a5b7-c29f3459ff54:string:DEMO JOHN TAN",
+      "designation": "c80535e7-8864-4c9e-af7a-075a5c1ee8fa:string:DEMO",
+      "date": "7743b1ee-2471-497f-8e3b-d69b67cb5686:string:2024-03-01",
+      "signature": "7bd21efc-ba18-4493-8cf1-75cdc491edd2:string:data:image/png;base64,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"
+    }
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "0cda0ec1754fa42a811bcec8848b4908739c1df832d0e3ca7f2ffbe251e4c975",
+    "proof": [
+      "5689504a0fc648038b9318ec5eb474c42d25a7273fa3b638df6bad0789246887"
+    ],
+    "merkleRoot": "5795603de7b07c96293a177efb5207d051c9b26d13aeb3a760c48b757bffde7a"
+  }
+}

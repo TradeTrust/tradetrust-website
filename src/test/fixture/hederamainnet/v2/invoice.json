@@ -1,0 +1,63 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "$template": {
+      "name": "3763c5e5-1c5e-49dd-bcfc-8aaa51fdc85a:string:CERTIFICATE_OF_NON_MANIPULATION",
+      "type": "b939c544-1de9-4768-ab82-6517232efb97:string:EMBEDDED_RENDERER",
+      "url": "a8332ab2-e484-4a1c-b8a4-9f2f002657bb:string:https://demo-cnm.openattestation.com"
+    },
+    "recipient": {
+      "name": "faaf525e-6115-4115-930e-1a35eeca1d71:string:XYZ",
+      "address": {
+        "street": "e0897ec4-7511-4147-8a14-65b824aa860d:string:42 BRIGADE ROAD",
+        "country": "94a3ee9f-7eaf-47d0-af2a-65826c13b6ab:string:INDIA"
+      }
+    },
+    "issuers": [
+      {
+        "name": "25f6bd9f-20b0-446d-a80f-061003c881b7:string:Demo Issuer",
+        "documentStore": "8383cb58-49d6-4fb0-be97-87f2b0b1610b:string:0x222B69788e2e9B7FB93a3a0fE258D4604Dc7df21",
+        "identityProof": {
+          "type": "123147c9-172d-4f19-bc6f-365fc4851faf:string:DNS-TXT",
+          "location": "ede8e34c-21a4-44f0-b152-6cfaa9819c6f:string:trustlv.org"
+        }
+      }
+    ],
+    "network": {
+      "chain": "cc57fe8a-bf4e-4595-8f78-aee3744a4899:string:HBAR",
+      "chainId": "1684a834-2604-4a82-8575-1f7b27f16255:string:295"
+    },
+    "consignment": {
+      "description": "59e5bc32-6932-4f4e-9cda-a3f1c7ddc3f5:string:16667 RED WINE",
+      "quantity": {
+        "value": "f726db02-dbac-4426-928a-72a3fefb1c4f:string:1000",
+        "unit": "afa04f03-47a0-4a1d-9742-78a04d8c50f9:string:LITRES"
+      },
+      "countryOfOrigin": "99c915fa-fda0-4c0a-90e7-06d344630a8d:string:INDIA",
+      "outwardBillNo": "d93e768e-a7fc-4f0f-8934-1faf8e3f7f93:string:AQSIQ170923130",
+      "dateOfDischarge": "624f0420-ae81-4755-88f7-b84549f9373d:string:2024-03-01",
+      "dateOfDeparture": "d226bc01-dc5b-4462-80e3-421133e8d5f6:string:2024-03-20",
+      "countryOfFinalDestination": "76a15669-e817-49ec-ad0f-b1dfa0a993da:string:SINGAPORE",
+      "outgoingVehicleNo": "89627e8a-cb46-4456-b936-8522786eec29:string:COSCO SING 074E/01-MAR"
+    },
+    "declaration": {
+      "name": "8cf98366-08a7-4a85-8f2b-1fdae9a615b1:string:JOHN",
+      "designation": "7ceeb5b0-0baa-4676-b890-c816594402b7:string:SHIPPING MANAGER",
+      "date": "3a71b67a-0bbb-4d06-b4be-b0b6ca9211b4:string:2024-03-01"
+    },
+    "certification": {
+      "name": "aa3b0dba-00c6-4954-a919-c24138c0e9d5:string:DEMO JOHN TAN",
+      "designation": "1864c780-107c-4afb-8235-babd33369d5a:string:DEMO",
+      "date": "1f26940b-9541-450a-ac96-91c269a367da:string:2024-03-01",
+      "signature": "e34875da-d349-47b1-9ca9-33908f0974d8:string:data:image/png;base64,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"
+    }
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "f29106db58ddb9d503b3dcc192b41ba55199bb2c2e650f382c74c25eb5a4871d",
+    "proof": [
+      "3b5bd1d45c85dc89be85953ff286c969b1f3feac240f4d8599912a67a3c36fa9"
+    ],
+    "merkleRoot": "47694d88eba9e8ff8136f56e16e7b90241520b0f65f99017275d64d46135aab3"
+  }
+}
