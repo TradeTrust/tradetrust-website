@@ -10,7 +10,7 @@ test("Load document from action should work when url is valid", async (t) => {
   const action = {
     type: "DOCUMENT",
     payload: {
-      uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-stability.json`,
+      uri: `https://gallery.openattestation.com/static/documents/tradetrust/v2/ebl-stability.json`,
       permittedActions: ["VIEW"],
       redirect: "https://tradetrust.io",
       chainId: 101010,
@@ -46,7 +46,7 @@ test("Load document from action should fail when chainId not exists", async (t) 
   const action = {
     type: "DOCUMENT",
     payload: {
-      uri: `https://raw.githubusercontent.com/TradeTrust/tradetrust-website/test/tt-105-update-fixtures-amoy/src/test/fixture/amoy/ebl-amoy-v2.json`,
+      uri: `https://raw.githubusercontent.com/TradeTrust/tradetrust-website/d24442baf8033d553824965ad8611f1558fe102f/src/test/fixture/amoy/ebl-amoy-v2.json`,
       redirect: "https://dev.tradetrust.io",
     },
   };
