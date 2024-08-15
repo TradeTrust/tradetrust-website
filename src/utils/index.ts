@@ -2,7 +2,6 @@ import { utils } from "ethers";
 import { compareDesc, compareAsc } from "date-fns";
 import { ChainId } from "../constants/chain-info";
 import { getChainInfo } from "../common/utils/chain-utils";
-import { NewsTag } from "../components/News/types";
 
 export const makeEtherscanAddressURL = (address: string, chainId: ChainId): string => {
   const baseUrl = getChainInfo(chainId).explorerUrl;
@@ -18,15 +17,7 @@ export const isValidEndorseTransfer = (holder?: string, newHolder?: string, newO
 };
 
 export const isEthereumAddress = (address: string): boolean | undefined => {
-  try {
-    if (utils.getAddress(address)) {
-      return true;
-    }
-  } catch (e: any) {
-    if (e.reason === "invalid address") {
-      return false;
-    } else throw e;
-  }
+  return utils.isAddress(address);
 };
 
 export const convertSecondsToMinAndSec = (seconds: number): string => {
@@ -63,30 +54,6 @@ export const addClassNameIfExist = (className?: string): string => {
   }
 
   return className;
-};
-
-/**
- * Fetch CMS content according to the context provided and returns an array of cms content.
- * 'context' in this case is some directory that is used as a base for resolving paths to modules.
- *
- * @param context  directory in which the contents are stored
- * @param type     this applies for news content only. It is the type of news article. (other CMS content will be undefined)
- * @returns array of CMS contents
- */
-export const getCmsContentWithSlug = (context: __WebpackModuleApi.RequireContext, type?: NewsTag): any[] => {
-  const cmsContent: any[] = [];
-
-  context.keys().forEach((filename: string) => {
-    const content = context(filename);
-    const slug = filename.replace("./", "").replace(".md", "");
-    cmsContent.push({
-      slug,
-      type,
-      ...content,
-    });
-  });
-
-  return cmsContent;
 };
 
 /**

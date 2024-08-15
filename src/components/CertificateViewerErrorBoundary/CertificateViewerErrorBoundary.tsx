@@ -48,7 +48,6 @@ const getErrorType = (error?: Error): CERTIFICATE_VIEWER_ERROR_TYPE => {
   if (!errorMessage) {
     return CERTIFICATE_VIEWER_ERROR_TYPE.GENERIC;
   }
-
   switch (true) {
     case !provider || error instanceof UnsupportedNetworkError:
       return CERTIFICATE_VIEWER_ERROR_TYPE.UNSUPPORTED_NETWORK;
@@ -145,7 +144,6 @@ export const getErrorPageProps = ({ errorType }: { errorType: CERTIFICATE_VIEWER
  */
 const ErrorComponent: FallbackComponentType = (props) => {
   const { error, recover } = props;
-
   const errorType = getErrorType(error);
   const errorPageProps = getErrorPageProps({ errorType });
   const retryLink = getRetryLink({ errorType, recover });

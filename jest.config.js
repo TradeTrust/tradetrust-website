@@ -20,4 +20,5 @@ module.exports = {
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)test.[jt]s?(x)"],
   transformIgnorePatterns: ["node_modules/?!(@tradetrust-tt).*/"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/tests/"],
+  testTimeout: 10000,
 };

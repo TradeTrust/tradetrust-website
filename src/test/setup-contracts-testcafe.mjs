@@ -80,7 +80,7 @@ const merkleRootToIssue = [
   // invoice.json
   "0x585ba3f8d694a9106486aba524a708c4c8b7a14b2b79929a9ffde64555b3279c",
   // invoice-attachments-dummy.json
-  "0xbaa213ff192cca244af07e3f1d1abcf04a0fd3be86a11d2c076bd0fbd1d28d6a",
+  "0x4a3fecc833135c185618af09f80ba78a5a3547357253488f72c80da6174961bf",
   // invoice-nested-documents.json
   "0xd3c3d143a5ab4b0f07e88ba71ed384107c170688e7bfaab5e0a06761a2d2bc2c",
   // invoice-obfuscated-document.json

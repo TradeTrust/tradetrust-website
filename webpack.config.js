@@ -112,7 +112,6 @@ module.exports = {
               { from: "public/static/common", to: "static/common" },
               { from: "public/static/images", to: "static/images" },
               { from: "public/static/demo", to: "static/demo" },
-              { from: "public/static/uploads", to: "static/uploads" },
               { from: "public/static/sitemap.xml", to: "sitemap.xml" },
               { from: "public/static/robots.txt", to: "robots.txt" },
               { from: "public/imd@", to: "imd@" },
@@ -138,6 +137,12 @@ module.exports = {
   devtool: !IS_DEVELOPMENT || IS_TEST_ENV ? false : "eval-cheap-source-map",
 
   devServer: {
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
     compress: true,
     static: {
       directory: path.join(__dirname, "public"),

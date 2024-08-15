@@ -32,7 +32,6 @@ export enum ChainId {
 
   // Polygon
   Polygon = 137,
-  PolygonMumbai = 80001,
   Amoy = 80002,
 
   // XDC Network
@@ -94,20 +93,6 @@ export const ChainInfo: ChainInfo = {
       decimals: 18,
     },
   },
-  [ChainId.PolygonMumbai]: {
-    label: "Polygon Mumbai",
-    chainId: ChainId.PolygonMumbai,
-    iconImage: "/static/images/networks/polygon.gif",
-    networkName: "maticmum",
-    networkLabel: "Polygon Mumbai",
-    explorerUrl: "https://mumbai.polygonscan.com",
-    rpcUrl: `https://polygon-mumbai.infura.io/v3/${INFURA_API_KEY}`,
-    nativeCurrency: {
-      name: "MATIC",
-      symbol: "mMATIC",
-      decimals: 18,
-    },
-  },
   [ChainId.Amoy]: {
     label: "Amoy",
     chainId: ChainId.Amoy,
@@ -129,7 +114,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "xdc",
     networkLabel: "XDC Network",
     explorerUrl: "https://xdcscan.io",
-    rpcUrl: "https://rpc.ankr.com/xdc",
+    rpcUrl: "https://tradetrustrpc.xdcrpc.com",
     nativeCurrency: {
       name: "XDC",
       symbol: "XDC",
@@ -143,7 +128,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "xdcapothem",
     networkLabel: "XDC Testnet Apothem",
     explorerUrl: "https://apothem.xdcscan.io",
-    rpcUrl: "https://rpc.ankr.com/xdc_testnet",
+    rpcUrl: "https://tradetrustarpc.xdcrpc.com",
     nativeCurrency: {
       name: "XDCt",
       symbol: "XDCt",
