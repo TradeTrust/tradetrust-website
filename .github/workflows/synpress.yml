@@ -27,4 +27,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       - name: Run e2e tests
-        run: docker-compose up --build --exit-code-from synpress
+        run: docker compose up --build --exit-code-from synpress
