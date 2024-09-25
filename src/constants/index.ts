@@ -4,6 +4,7 @@ export enum URLS {
   CREATOR = "https://creator.tradetrust.io/",
   GITHUB = "https://github.com/TradeTrust/tradetrust-website",
   DOCS = "https://docs.tradetrust.io/",
+  FAQ = "https://www.tradetrust.io/common-error-faqs/",
 }
 
 export enum FaqType {

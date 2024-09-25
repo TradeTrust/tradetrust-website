@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { isValid } from "@tradetrust-tt/tt-verify";
 import { Button, ButtonSize, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
@@ -11,6 +10,7 @@ import { DetailedErrors } from "../DocumentDropzone/DetailedErrors";
 import { updateDemoDocument, resetDemoState } from "../../reducers/demo-verify";
 import { getDropzoneBoxUi } from "./../../common/utils/getDropzoneBoxUi";
 import { GaAction, GaCategory } from "../../types";
+import { URLS } from "../../constants";
 
 interface MagicDropzoneViewProps {
   isPending: boolean;
@@ -41,8 +41,10 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
             </div>
           </div>
           <DetailedErrors verificationStatus={verificationStatus} verificationError={verificationError} />
-          <Link
-            to="/faq"
+          <a
+            href={URLS.FAQ}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={(e) => {
               e.stopPropagation();
             }}
@@ -50,7 +52,7 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
             <Button className="text-white bg-scarlet-500 border-scarlet-500 hover:bg-scarlet-400 hover:border-scarlet-400">
               What Should I do?
             </Button>
-          </Link>
+          </a>
           <br />
           <div
             data-testid="try-another"
