@@ -9,6 +9,7 @@ import { getDocumentIssued, getDocumentPrepared, getWrappedDocument } from "../.
 import { DemoFormContext } from "../contexts/DemoFormContext";
 import { Banner } from "../../../UI/Banner";
 import { GaAction, GaCategory } from "../../../../types";
+import { URLS } from "../../../../constants";
 
 export const DemoCreateIssue: FunctionComponent = () => {
   const { issued, error: issuedError } = useSelector(getDocumentIssued);
@@ -44,7 +45,12 @@ export const DemoCreateIssue: FunctionComponent = () => {
               <h3>Failed</h3>
               <p className="py-5">
                 Please check if you have internet connection,
-                <br /> alternatively, see <Link to="/faq">FAQ</Link> or <Link to="/contact">Contact us</Link>
+                <br />
+                alternatively, see{" "}
+                <a href={URLS.FAQ} target="_blank" rel="noopener noreferrer">
+                  FAQ
+                </a>{" "}
+                or <Link to="/contact">Contact us</Link>
               </p>
               <Button className="bg-cerulean-500 text-white rounded hover:bg-cerulean-800">
                 <Link className="text-white hover:text-white" to="/demo">

@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
 import { DetailedErrors } from "../DetailedErrors";
+import { URLS } from "../../../constants";
 
 interface ViewVerificationErrorProps {
   resetData: () => void;
@@ -23,8 +23,10 @@ export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps
         </div>
       </div>
       <DetailedErrors verificationStatus={verificationStatus} verificationError={verificationError} />
-      <Link
-        to="/faq"
+      <a
+        href={URLS.FAQ}
+        target="_blank"
+        rel="noopener noreferrer"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -34,7 +36,7 @@ export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps
         >
           What Should I do?
         </Button>
-      </Link>
+      </a>
       <br />
       <div
         data-testid="try-another"
