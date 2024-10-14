@@ -64,7 +64,7 @@ module.exports = {
         use: [
           { loader: "style-loader" },
           { loader: "css-loader", options: { url: false } },
-          { loader: "postcss-loader" },
+          { loader: require.resolve("postcss-loader") },
         ],
       },
       {

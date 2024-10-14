@@ -115,6 +115,8 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
     holder: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
     timestamp: 1666758444000,
+    remark:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
     type: "TRANSFER_HOLDER",
@@ -124,6 +126,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
     holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
     timestamp: 1666759236000,
+    remark: "Lorem ipsum dolor sit amet",
   },
   {
     type: "TRANSFER_BENEFICIARY",
@@ -133,6 +136,8 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     owner: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
     holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
     timestamp: 1666761060000,
+    remark:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
     type: "TRANSFER_HOLDER",
@@ -142,6 +147,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     owner: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
     holder: "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7",
     timestamp: 1666761744000,
+    remark: "Lorem ipsum dolor sit amet",
   },
   {
     type: "TRANSFER_OWNERS",
@@ -151,6 +157,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
     holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
     timestamp: 1666761996000,
+    remark: "Lorem ipsum dolor sit amet",
   },
   {
     type: "SURRENDERED",

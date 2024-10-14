@@ -9,6 +9,12 @@ import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
 import { BurnAddress } from "../../../constants/chain-info";
 
+export enum TokenRegistryVersion {
+  V2 = "V2",
+  V4 = "V4",
+  V5 = "V5",
+}
+
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
   tokenId?: string;
@@ -30,6 +36,7 @@ interface TokenInformationContext {
   isSurrendered: boolean;
   isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
+  version?: TokenRegistryVersion;
   resetStates: () => void;
   destroyToken: TradeTrustToken["burn"];
   destroyTokenState: ContractFunctionState;
@@ -85,7 +92,10 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const isTokenBurnt = documentOwner === BurnAddress; // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
-  const { isInterfaceType: isTitleEscrow } = useSupportsInterface(titleEscrow, "0x079dff60");
+  // TODO: HAN Move the constant value to token-registry repo
+  const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, "0x079dff60");
+  const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, "0xa00f1762");
+  const isTitleEscrow = isTitleEscrowV4 || isTitleEscrowV5;
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -223,6 +233,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         isSurrendered,
         isTokenBurnt,
         isTitleEscrow,
+        version: isTitleEscrowV4 ? TokenRegistryVersion.V4 : TokenRegistryVersion.V5,
         documentOwner,
         nominate,
         nominateState,
