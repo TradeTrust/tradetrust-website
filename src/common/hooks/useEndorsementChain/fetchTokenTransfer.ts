@@ -5,6 +5,7 @@ import { BurnAddress, InitialAddress } from "../../../constants/chain-info";
 import { TokenTransferEvent, TokenTransferEventType } from "../../../types";
 import { sortLogChain } from "./helpers";
 
+// TODO: HAN: Remove V5 Token Registry function
 export const fetchTokenTransfers = async (
   tokenRegistry: TradeTrustToken,
   tokenId: string

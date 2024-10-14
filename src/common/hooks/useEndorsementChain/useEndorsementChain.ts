@@ -5,7 +5,7 @@ import { TokenRegistryVersion, useTokenInformationContext } from "../../contexts
 import { getErrorMessage } from "../../utils/errorHandling";
 import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
-import { fetchEscrowTransfersV2 } from "./fetchEscrowTransfer";
+import { fetchEscrowTransfersV5 } from "./fetchEscrowTransfer";
 import { mergeTransfers } from "./helpers";
 import { getEndorsementChain } from "./retrieveEndorsementChain";
 
@@ -37,7 +37,7 @@ export const useEndorsementChain = (
 
       if (tokenRegistryVersion === TokenRegistryVersion.V5) {
         const titleEscrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, providerOrSigner);
-        const titleEscrowLogs = await fetchEscrowTransfersV2(provider, titleEscrowAddress);
+        const titleEscrowLogs = await fetchEscrowTransfersV5(provider, titleEscrowAddress);
         transferEvents = mergeTransfers(titleEscrowLogs);
       } else {
         throw new Error('"Only Token Registry V5 is supported"');

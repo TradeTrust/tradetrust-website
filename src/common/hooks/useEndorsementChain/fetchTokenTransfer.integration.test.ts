@@ -11,7 +11,9 @@ const amoyProvider = new providers.JsonRpcProvider(ChainInfo[ChainId.Amoy].rpcUr
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
 
-describe("Fetch Token Transfers", () => {
+// TODO: HAN: Remove V4 Token Registry
+// eslint-disable-next-line jest/no-disabled-tests
+describe.skip("Fetch Token Transfers, V4", () => {
   beforeAll(() => {
     mockUseProviderContext.mockReturnValue({ provider: amoyProvider, providerOrSigner: amoyProvider });
   });

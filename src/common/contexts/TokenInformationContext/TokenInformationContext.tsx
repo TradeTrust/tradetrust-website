@@ -76,6 +76,12 @@ interface TokenInformationContextProviderProps {
   children: React.ReactNode;
 }
 
+// TODO: HAN Move the constant value to token-registry repo
+export const TitleEscrowInterface = {
+  V4: "0x079dff60",
+  V5: "0xa00f1762",
+};
+
 export const TokenInformationContextProvider: FunctionComponent<TokenInformationContextProviderProps> = ({
   children,
 }) => {
@@ -92,9 +98,8 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const isTokenBurnt = documentOwner === BurnAddress; // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
-  // TODO: HAN Move the constant value to token-registry repo
-  const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, "0x079dff60");
-  const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, "0xa00f1762");
+  const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
+  const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V5);
   const isTitleEscrow = isTitleEscrowV4 || isTitleEscrowV5;
 
   // Contract Read Functions

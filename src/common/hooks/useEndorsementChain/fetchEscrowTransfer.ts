@@ -7,23 +7,24 @@ import {
   TokenTransferEventType,
   TransferBaseEvent,
 } from "../../../types";
+import { TitleEscrowInterface } from "../../contexts/TokenInformationContext";
 
-// TODO: HAN Remove V2 Token Registry function
+// TODO: HAN Remove V5 Token Registry function
 export const fetchEscrowTransfers = async (
   provider: providers.Provider,
   address: string
 ): Promise<TitleEscrowTransferEvent[]> => {
   const titleEscrowContract = TitleEscrow__factory.connect(address, provider);
-  const isTitleEscrow = await titleEscrowContract.supportsInterface("0x079dff60");
+  const isTitleEscrow = await titleEscrowContract.supportsInterface(TitleEscrowInterface.V4);
   if (!isTitleEscrow) throw new Error(`Contract ${address} is not a title escrow contract`);
   // https://ethereum.stackexchange.com/questions/109326/combine-multiple-event-filters-in-ethersjs
-  const holderChangeLogsDeferred = await fetchHolderTransfers(titleEscrowContract, provider);
-  const ownerChangeLogsDeferred = await fetchOwnerTransfers(titleEscrowContract, provider);
+  const holderChangeLogsDeferred = fetchHolderTransfers(titleEscrowContract, provider);
+  const ownerChangeLogsDeferred = fetchOwnerTransfers(titleEscrowContract, provider);
   const [holderChangeLogs, ownerChangeLogs] = await Promise.all([holderChangeLogsDeferred, ownerChangeLogsDeferred]);
   return [...holderChangeLogs, ...ownerChangeLogs];
 };
 
-export const fetchEscrowTransfersV2 = async (
+export const fetchEscrowTransfersV5 = async (
   provider: providers.Provider,
   address: string
 ): Promise<TransferBaseEvent[]> => {
@@ -98,7 +99,7 @@ export const fetchHolderTransfers = async (
 };
 
 /*
-  Retrieve all V2 events 
+  Retrieve all V5 events 
 */
 export const fetchAllTransfers = async (
   titleEscrowContract: TitleEscrow,

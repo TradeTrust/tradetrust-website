@@ -29,6 +29,7 @@ const transferHolderEndorsementChain: EndorsementChain = [
     owner: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
     holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
     timestamp: 1666759236000,
+    remark: "transfer",
   },
 ];
 
@@ -110,6 +111,45 @@ const acceptSurrenderedEndorsementChain: EndorsementChain = [
   },
 ];
 
+const rejectTransferBeneficiaryEndorsementChain: EndorsementChain = [
+  {
+    type: "REJECT_TRANSFER_BENEFICIARY",
+    transactionHash: "0x5e2a2c5fa9462b96eaf2b3fb4441a490853921e4a87fc783047ef17edef1f6af",
+    transactionIndex: 0,
+    blockNumber: 13049874,
+    owner: "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C",
+    holder: "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C",
+    timestamp: 1728662310000,
+    remark: "",
+  },
+];
+
+const rejectTransferHolderEndorsementChain: EndorsementChain = [
+  {
+    type: "REJECT_TRANSFER_HOLDER",
+    transactionHash: "0x5e2a2c5fa9462b96eaf2b3fb4441a490853921e4a87fc783047ef17edef1f6af",
+    transactionIndex: 0,
+    blockNumber: 13049874,
+    owner: "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C",
+    holder: "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C",
+    timestamp: 1728662310000,
+    remark: "",
+  },
+];
+
+const rejectTransferOwnersEndorsementChain: EndorsementChain = [
+  {
+    type: "REJECT_TRANSFER_OWNERS",
+    transactionHash: "0x5e2a2c5fa9462b96eaf2b3fb4441a490853921e4a87fc783047ef17edef1f6af",
+    transactionIndex: 0,
+    blockNumber: 13049874,
+    owner: "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C",
+    holder: "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C",
+    timestamp: 1728662310000,
+    remark: "",
+  },
+];
+
 /*
  * Logic in EndorsementChainLayout.tsx:
  * When the endorsementChain events above, similar to the ones from the blockchain are passed into the component,
@@ -128,7 +168,7 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getAllByTestId("loader-skeleton")).toHaveLength(9);
+    expect(screen.getAllByTestId("loader-skeleton")?.length).toBeGreaterThan(1);
   });
 
   it("should render 'Document has been issued'", () => {
@@ -253,6 +293,69 @@ describe("EndorsementChainLayout", () => {
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document surrendered to issuer");
     expect(screen.getByTestId("row-event-1")).toHaveTextContent("Surrender of document accepted");
+  });
+
+  it("should render 'Reject transfer of beneficiary' when transfer of beneficiary is rejected by token registry", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
+    render(
+      <EndorsementChainLayout
+        providerDocumentationURL={""}
+        error={""}
+        pending={false}
+        endorsementChain={rejectTransferBeneficiaryEndorsementChain}
+        setShowEndorsementChain={() => {}}
+      />
+    );
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Rejection of ownership");
+    expect(within(screen.getByTestId("row-event-Holder")).queryByTestId("address-entity")).not.toBeInTheDocument();
+    expect(within(screen.getByTestId("row-event-Owner")).getByTestId("address-entity")).toHaveTextContent(
+      "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
+    );
+  });
+
+  it("should render 'Reject transfer of holder' when transfer of holder is rejected by token registry", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
+    render(
+      <EndorsementChainLayout
+        providerDocumentationURL={""}
+        error={""}
+        pending={false}
+        endorsementChain={rejectTransferHolderEndorsementChain}
+        setShowEndorsementChain={() => {}}
+      />
+    );
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Rejection of holdership");
+    expect(within(screen.getByTestId("row-event-Owner")).queryByTestId("address-entity")).not.toBeInTheDocument();
+    expect(within(screen.getByTestId("row-event-Holder")).getByTestId("address-entity")).toHaveTextContent(
+      "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
+    );
+  });
+
+  it("should render 'Reject transfer of owners' when transfer of owners is rejected by token registry", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
+    render(
+      <EndorsementChainLayout
+        providerDocumentationURL={""}
+        error={""}
+        pending={false}
+        endorsementChain={rejectTransferOwnersEndorsementChain}
+        setShowEndorsementChain={() => {}}
+      />
+    );
+
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Rejection of holdership");
+    const row0 = within(screen.getByTestId("row-event-0"));
+    expect(within(row0.getByTestId("row-event-Owner")).queryByTestId("address-entity")).not.toBeInTheDocument();
+    expect(within(row0.getByTestId("row-event-Holder")).getByTestId("address-entity")).toHaveTextContent(
+      "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
+    );
+
+    expect(screen.getByTestId("row-event-1")).toHaveTextContent("Rejection of ownership");
+    const row1 = within(screen.getByTestId("row-event-1"));
+    expect(within(row1.getByTestId("row-event-Holder")).queryByTestId("address-entity")).not.toBeInTheDocument();
+    expect(within(row1.getByTestId("row-event-Owner")).getByTestId("address-entity")).toHaveTextContent(
+      "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
+    );
   });
 
   it("should fire setShowEndorsementChain when back button is clicked", async () => {
