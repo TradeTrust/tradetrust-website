@@ -17,7 +17,7 @@ interface EndorseTransferFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   holder?: string;
-  handleEndorseTransfer: (approvedBeneficiary: string, approvedHolder: string) => void;
+  handleEndorseTransfer: (approvedBeneficiary: string, approvedHolder: string, remark: string) => void;
   transferOwnersState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -106,7 +106,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={!isValidEndorseTransfer(holder, newHolder, newOwner) || isPendingConfirmation}
                 onClick={() => {
-                  handleEndorseTransfer(newOwner || "", newHolder || "");
+                  handleEndorseTransfer(newOwner || "", newHolder || "", "0x");
                 }}
                 data-testid={"endorseTransferBtn"}
               >

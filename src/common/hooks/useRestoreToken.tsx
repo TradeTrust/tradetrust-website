@@ -12,14 +12,14 @@ export const useRestoreToken = (
   contractInstance?: TradeTrustToken,
   tokenId?: string
 ): {
-  restoreToken: () => Promise<void>;
+  restoreToken: (remark: string) => Promise<void>;
   state: ContractFunctionState;
   errorMessage?: string;
 } => {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [state, setState] = useState<ContractFunctionState>("UNINITIALIZED");
 
-  const restoreToken = async (): Promise<void> => {
+  const restoreToken = async (remark: string = "0x"): Promise<void> => {
     setState("INITIALIZED");
     try {
       if (!provider) throw new UnsupportedNetworkError();
@@ -27,7 +27,7 @@ export const useRestoreToken = (
       if (!contractInstance?.address) throw new Error("Token Registry Instance should have address");
 
       setState("PENDING_CONFIRMATION");
-      await contractInstance.restore(tokenId);
+      await contractInstance.restore(tokenId, remark);
       setState("CONFIRMED");
     } catch (error) {
       if (error instanceof Error) {

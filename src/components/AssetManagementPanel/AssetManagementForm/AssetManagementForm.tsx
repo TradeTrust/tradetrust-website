@@ -39,7 +39,7 @@ interface AssetManagementFormProps {
   transferOwnersState: string;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
-  onRestoreToken: () => void;
+  onRestoreToken: (remark: string) => void;
   restoreTokenState: string;
 }
 

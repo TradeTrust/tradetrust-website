@@ -40,7 +40,7 @@ interface TokenInformationContext {
   resetStates: () => void;
   destroyToken: TradeTrustToken["burn"];
   destroyTokenState: ContractFunctionState;
-  restoreToken: () => Promise<void>;
+  restoreToken: (remark: string) => Promise<void>;
   restoreTokenState: ContractFunctionState;
 }
 
