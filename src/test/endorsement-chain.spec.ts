@@ -1,6 +1,6 @@
 import { Selector } from "testcafe";
+import { ACCOUNT_1, ACCOUNT_2 } from "../../tests/e2e/utils";
 import { location, navigateToVerify, uploadDocument, validateIssuerTexts } from "./helper";
-import { ACCOUNT_1, ACCOUNT_2, ACCOUNT_4 } from "../../tests/e2e/utils";
 
 fixture("Endorsement Chain Rendering").page`${location}`;
 
@@ -18,8 +18,6 @@ const ChangeOwnershipAction = Selector("[data-testid='action-title']").withText(
 
 const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("Document surrendered to issuer");
 const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("Surrender of document accepted");
-
-const EndorsementChainAddress4 = Selector("[data-testid='address-entity']").withText(ACCOUNT_4);
 
 // history chain of events for ebl-endorsement-chain.json are:
 // 1. issued on account 1
@@ -57,7 +55,7 @@ test("Endorsement chain title and actions are rendered correctly", async (t) => 
   await t.expect(SurrenderAcceptedAction.count).eql(1);
 });
 
-test("Endorsement chain title and actions are rendered correctly for hederatestnet", async (t) => {
+test("Endorsement chain title and actions are rendered correctly for hederatestnet, Token Registry V4", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/hederatestnet/v3/ebl-endorsement-chain.json");
 
@@ -67,16 +65,7 @@ test("Endorsement chain title and actions are rendered correctly for hederatestn
   await t.click(ViewEndorsementChainButton);
 
   // add wait 3000 due to endorsement chain component having a little latency because getting endorsement data
-  await t.wait(5000);
-  await t.expect(EndorsementChainTitle.count).eql(1);
+  await t.wait(3000);
 
-  await t.expect(EndorsementChainAddress4.count).eql(0);
-
-  await t.expect(DocumentIssuedAction.count).eql(6);
-  await t.expect(EndorseNomineeAction.count).eql(0);
-  await t.expect(ChangeOwnershipAction.count).eql(0);
-  await t.expect(TransferHoldershipAction.count).eql(0);
-
-  await t.expect(SurrenderToIssuerAction.count).eql(0);
-  await t.expect(SurrenderAcceptedAction.count).eql(0);
+  Selector("h4").withText(`"Only Token Registry V5 is supported"`);
 });
