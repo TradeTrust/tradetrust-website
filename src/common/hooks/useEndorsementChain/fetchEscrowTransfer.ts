@@ -97,7 +97,7 @@ export const fetchAllTransfers = async (
         const type = identifyTokenReceivedType(event);
         return {
           type,
-          from: type === "INITIAL" ? "0x0000000000000000000000000000000000000000" : tokenRegistryAddress, //event.args.from as string,
+          from: type === "INITIAL" ? "0x0000000000000000000000000000000000000000" : tokenRegistryAddress,
           to: titleEscrowContract.address,
           blockNumber: event.blockNumber,
           transactionHash: event.transactionHash,
