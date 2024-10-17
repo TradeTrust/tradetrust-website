@@ -15,7 +15,7 @@ import { AssetManagementTitle } from "../../AssetManagementTitle";
 interface AcceptSurrenderedFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
-  handleDestroyToken: () => void;
+  handleDestroyToken: (remark: string) => void;
   destroyTokenState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -80,7 +80,7 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
               <div className="w-auto ml-2">
                 <Button
                   className="bg-scarlet-500 text-white rounded-xl text-lg py-2 px-3 shadow-none hover:bg-scarlet-400"
-                  onClick={handleDestroyToken}
+                  onClick={() => handleDestroyToken("0x")}
                   disabled={isDestroyTokenPendingConfirmation}
                   data-testid={"acceptSurrenderBtn"}
                 >

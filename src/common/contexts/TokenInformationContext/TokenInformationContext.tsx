@@ -9,6 +9,12 @@ import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
 import { BurnAddress } from "../../../constants/chain-info";
 
+export enum TokenRegistryVersion {
+  V2 = "V2",
+  V4 = "V4",
+  V5 = "V5",
+}
+
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
   tokenId?: string;
@@ -30,10 +36,11 @@ interface TokenInformationContext {
   isSurrendered: boolean;
   isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
+  version?: TokenRegistryVersion;
   resetStates: () => void;
   destroyToken: TradeTrustToken["burn"];
   destroyTokenState: ContractFunctionState;
-  restoreToken: () => Promise<void>;
+  restoreToken: (remark: string) => Promise<void>;
   restoreTokenState: ContractFunctionState;
 }
 
@@ -69,6 +76,12 @@ interface TokenInformationContextProviderProps {
   children: React.ReactNode;
 }
 
+// TODO: HAN Move the constant value to token-registry repo
+export const TitleEscrowInterface = {
+  V4: "0x079dff60",
+  V5: "0xa00f1762",
+};
+
 export const TokenInformationContextProvider: FunctionComponent<TokenInformationContextProviderProps> = ({
   children,
 }) => {
@@ -85,7 +98,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const isTokenBurnt = documentOwner === BurnAddress; // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
-  const { isInterfaceType: isTitleEscrow } = useSupportsInterface(titleEscrow, "0x079dff60");
+  const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
+  const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V5);
+  const isTitleEscrow = isTitleEscrowV4 || isTitleEscrowV5;
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -223,6 +238,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         isSurrendered,
         isTokenBurnt,
         isTitleEscrow,
+        version: isTitleEscrowV4 ? TokenRegistryVersion.V4 : TokenRegistryVersion.V5,
         documentOwner,
         nominate,
         nominateState,

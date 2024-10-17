@@ -75,9 +75,13 @@ export const walletSwitchChain = async (chainId: ChainId): Promise<void> => {
 export const walletAddChain = async (chainId: ChainId): Promise<void> => {
   const { ethereum } = window;
   if (!ethereum || !ethereum.request) return;
+
   const chainInfo = ChainInfo[chainId];
+  if (!chainInfo) return;
+
   const rpcUrl = chainInfo.rpcUrl;
   if (!rpcUrl) return;
+
   try {
     await ethereum.request({
       method: "wallet_addEthereumChain",

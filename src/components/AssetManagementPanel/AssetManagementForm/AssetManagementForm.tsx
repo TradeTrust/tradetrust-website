@@ -23,12 +23,12 @@ interface AssetManagementFormProps {
   formAction: AssetManagementActions;
   onConnectToWallet: () => void;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
-  onTransferHolder: (nextHolder: string) => void;
-  onEndorseBeneficiary: (nominee: string) => void;
-  nominateBeneficiary: (nominee: string) => void;
-  transferOwners: (nextBeneficiary: string, nextHolder: string) => void;
-  onSurrender: () => void;
-  onDestroyToken: () => void;
+  onTransferHolder: (nextHolder: string, remark: string) => void;
+  onEndorseBeneficiary: (nominee: string, remark: string) => void;
+  nominateBeneficiary: (nominee: string, remark: string) => void;
+  transferOwners: (nextBeneficiary: string, nextHolder: string, remark: string) => void;
+  onSurrender: (remark: string) => void;
+  onDestroyToken: (remark: string) => void;
   surrenderingState: string;
   destroyTokenState: string;
   holderTransferringState: string;
@@ -39,7 +39,7 @@ interface AssetManagementFormProps {
   transferOwnersState: string;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
-  onRestoreToken: () => void;
+  onRestoreToken: (remark: string) => void;
   restoreTokenState: string;
 }
 

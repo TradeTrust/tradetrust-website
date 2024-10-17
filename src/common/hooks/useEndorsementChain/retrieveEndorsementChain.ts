@@ -28,6 +28,7 @@ export const getEndorsementChain = async (
       owner: log.owner || previousBeneficiary || "",
       holder: log.holder || previousHolder || "",
       timestamp: timestamp,
+      remark: log?.remark,
     } as TransferEvent;
 
     if (

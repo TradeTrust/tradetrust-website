@@ -59,8 +59,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     role: constants.roleHash.RestorerRole,
   });
 
-  const onDestroyToken = () => {
-    destroyToken(tokenId);
+  const onDestroyToken = (remark: string = "0x") => {
+    destroyToken(tokenId, remark);
   };
 
   const onSetFormAction = useCallback(

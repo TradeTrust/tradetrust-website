@@ -78,7 +78,8 @@ describe("Endorse Transfer to nominated beneficiary and holder", () => {
       expect(mockHandleEndorseTransfer).toBeCalled();
       expect(mockHandleEndorseTransfer).toHaveBeenCalledWith(
         "0xc0F28621Ca5454B66E51786003c798154FeBc6EB",
-        "0xc0F28621Ca5454B66E51786003c798154FeBc6EB"
+        "0xc0F28621Ca5454B66E51786003c798154FeBc6EB",
+        "0x"
       );
     });
   });
