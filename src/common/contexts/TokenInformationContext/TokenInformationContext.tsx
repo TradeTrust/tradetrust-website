@@ -20,6 +20,8 @@ interface TokenInformationContext {
   tokenId?: string;
   beneficiary?: string;
   holder?: string;
+  prevBeneficiary?: string;
+  prevHolder?: string;
   documentOwner?: string;
   approvedBeneficiary?: string;
   changeHolder: TitleEscrow["transferHolder"];
@@ -32,6 +34,14 @@ interface TokenInformationContext {
   nominateState: ContractFunctionState;
   transferOwners: TitleEscrow["transferOwners"];
   transferOwnersState: ContractFunctionState;
+  rejectTransferOwner: TitleEscrow["rejectTransferBeneficiary"];
+  rejectTransferOwnerState: ContractFunctionState;
+  rejectTransferHolder: TitleEscrow["rejectTransferHolder"];
+  rejectTransferHolderState: ContractFunctionState;
+  rejectTransferOwnerHolder: TitleEscrow["rejectTransferOwners"];
+  rejectTransferOwnerHolderError?: Error;
+  rejectTransferOwnerHolderErrorMessage?: string;
+  rejectTransferOwnerHolderState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
   isTokenBurnt: boolean;
@@ -64,6 +74,13 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   nominateState: "UNINITIALIZED",
   transferOwners: contractFunctionStub,
   transferOwnersState: "UNINITIALIZED",
+  rejectTransferOwner: contractFunctionStub,
+  rejectTransferOwnerState: "UNINITIALIZED",
+  rejectTransferOwnerHolderError: undefined,
+  rejectTransferHolder: contractFunctionStub,
+  rejectTransferHolderState: "UNINITIALIZED",
+  rejectTransferOwnerHolder: contractFunctionStub,
+  rejectTransferOwnerHolderState: "UNINITIALIZED",
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   resetStates: () => {},
   destroyToken: contractFunctionStub,
@@ -106,6 +123,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
   const { call: getApprovedBeneficiary, value: approvedBeneficiary } = useContractFunctionHook(titleEscrow, "nominee");
+  const { call: getPrevBeneficiary, value: prevBeneficiary } = useContractFunctionHook(titleEscrow, "prevBeneficiary");
+  const { call: getPrevHolder, value: prevHolder } = useContractFunctionHook(titleEscrow, "prevHolder");
+  console.log("getHolder", prevHolder, prevBeneficiary);
 
   const {
     send: destroyToken,
@@ -145,6 +165,31 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     state: transferOwnersState,
     reset: resetTransferOwners,
   } = useContractFunctionHook(titleEscrow, "transferOwners");
+  const {
+    send: rejectTransferHolder,
+    state: rejectTransferHolderState,
+    reset: resetRejectTransferHolder,
+  } = useContractFunctionHook(titleEscrow, "rejectTransferHolder");
+
+  const {
+    send: rejectTransferOwner,
+    state: rejectTransferOwnerState,
+    reset: resetRejectTransferOwner,
+  } = useContractFunctionHook(titleEscrow, "rejectTransferBeneficiary");
+
+  const {
+    send: rejectTransferOwnerHolder,
+    state: rejectTransferOwnerHolderState,
+    reset: resetRejectTransferOwnerHolder,
+    error: rejectTransferOwnerHolderError,
+    errorMessage: rejectTransferOwnerHolderErrorMessage,
+  } = useContractFunctionHook(titleEscrow, "rejectTransferOwners");
+  console.log(
+    "error error",
+    rejectTransferOwnerHolderError,
+    rejectTransferOwnerHolderErrorMessage,
+    rejectTransferOwnerHolderState
+  );
 
   const resetProviders = useCallback(() => {
     resetSurrender();
@@ -153,6 +198,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     resetEndorseBeneficiary();
     resetNominate();
     resetTransferOwners();
+    resetRejectTransferOwner();
+    resetRejectTransferHolder();
+    resetRejectTransferOwnerHolder();
   }, [
     resetDestroyingTokenState,
     resetNominate,
@@ -160,6 +208,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     resetEndorseBeneficiary,
     resetSurrender,
     resetTransferOwners,
+    resetRejectTransferOwner,
+    resetRejectTransferHolder,
+    resetRejectTransferOwnerHolder,
   ]);
 
   const resetStates = useCallback(() => {
@@ -179,8 +230,10 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
       getHolder();
       getBeneficiary();
       getApprovedBeneficiary();
+      getPrevBeneficiary();
+      getPrevHolder();
     }
-  }, [getApprovedBeneficiary, getBeneficiary, getHolder, isTitleEscrow]);
+  }, [getApprovedBeneficiary, getBeneficiary, getHolder, getPrevBeneficiary, getPrevHolder, isTitleEscrow]);
 
   // Update holder whenever holder transfer is successful
   useEffect(() => {
@@ -215,6 +268,21 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     if (transferOwnersState === "CONFIRMED") updateTitleEscrow();
   }, [transferOwnersState, updateTitleEscrow]);
 
+  // Update entire title escrow whenever reject transfer to holder is successful
+  useEffect(() => {
+    if (rejectTransferOwnerState === "CONFIRMED") updateTitleEscrow();
+  }, [rejectTransferOwnerState, updateTitleEscrow]);
+
+  // Update entire title escrow whenever reject transfer holder is successful
+  useEffect(() => {
+    if (rejectTransferHolderState === "CONFIRMED") updateTitleEscrow();
+  }, [rejectTransferHolderState, updateTitleEscrow]);
+
+  // Update entire title escrow whenever reject transfer owners is successful
+  useEffect(() => {
+    if (rejectTransferOwnerHolderState === "CONFIRMED") updateTitleEscrow();
+  }, [rejectTransferOwnerHolderState, updateTitleEscrow]);
+
   // Reset states for all write functions when provider changes to allow methods to be called again without refreshing
   useEffect(resetProviders, [resetProviders, providerOrSigner]);
 
@@ -227,6 +295,8 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         holder: holder?.[0],
         beneficiary: beneficiary?.[0],
         approvedBeneficiary: approvedBeneficiary?.[0],
+        prevBeneficiary: prevBeneficiary?.[0],
+        prevHolder: prevHolder?.[0],
         changeHolder,
         endorseBeneficiary,
         surrender,
@@ -244,6 +314,12 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         nominateState,
         transferOwners,
         transferOwnersState,
+        rejectTransferOwner,
+        rejectTransferOwnerState,
+        rejectTransferHolder,
+        rejectTransferHolderState,
+        rejectTransferOwnerHolder,
+        rejectTransferOwnerHolderState,
         resetStates,
         restoreToken,
         restoreTokenState,

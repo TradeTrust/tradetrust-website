@@ -20,6 +20,7 @@ interface ActionSelectionFormProps {
   account?: string;
   canSurrender: boolean;
   canHandleShred?: boolean;
+
   canHandleRestore?: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
@@ -28,6 +29,9 @@ interface ActionSelectionFormProps {
   isTokenBurnt: boolean;
   canNominateBeneficiary: boolean;
   canEndorseTransfer: boolean;
+  canRejectOwnerHolderTransfer: boolean;
+  canRejectHolderTransfer: boolean;
+  canRejectOwnerTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
 }
@@ -40,6 +44,9 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   account,
   canSurrender,
   canHandleShred,
+  canRejectOwnerHolderTransfer,
+  canRejectHolderTransfer,
+  canRejectOwnerTransfer,
   canHandleRestore,
   onConnectToWallet,
   canChangeHolder,
@@ -61,7 +68,10 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     canChangeHolder ||
     canEndorseBeneficiary ||
     canNominateBeneficiary ||
-    canEndorseTransfer;
+    canEndorseTransfer ||
+    canRejectOwnerHolderTransfer ||
+    canRejectHolderTransfer ||
+    canRejectOwnerTransfer;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -182,6 +192,9 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                       canEndorseTransfer={canEndorseTransfer}
                       canHandleRestore={canHandleRestore}
                       canHandleShred={canHandleShred}
+                      canRejectOwnerHolderTransfer={canRejectOwnerHolderTransfer}
+                      canRejectHolderTransfer={canRejectHolderTransfer}
+                      canRejectOwnerTransfer={canRejectOwnerTransfer}
                     />
                   ) : (
                     <Button

@@ -7,4 +7,7 @@ export enum AssetManagementActions {
   RejectSurrendered = "RejectSurrendered",
   NominateBeneficiary = "NominateBeneficiary",
   EndorseTransfer = "EndorseTransfer",
+  RejectTransferOwnerHolder = "RejectTransferOwnerHolder",
+  RejectTransferOwner = "RejectTransferOwner",
+  RejectTransferHolder = "RejectTransferHolder",
 }
