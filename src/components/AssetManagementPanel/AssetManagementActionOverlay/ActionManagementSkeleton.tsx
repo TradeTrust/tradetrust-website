@@ -76,9 +76,6 @@ export const ActionManagementSkeleton: FunctionComponent<RejectOwnerFormProps> =
                   className="absolute bottom-[-6.5px] left-[-12px] right-[-12px] top-[-6.5px] z-0"
                   style={{ backgroundImage: "url('/static/images/dropzone/attention.svg')" }}
                 />
-                <div className="bg-t-bg-line-3ellipse z-[2] flex h-3 flex-shrink-0 flex-col items-center justify-end bg-cover bg-center pr-[0.75px] pt-3">
-                  {/* <Ellipse className="h-[1.3px] w-[2.3px] flex-shrink-0" /> */}
-                </div>
               </div>
             </div>
             <div className="font-ubuntu text-[26px] leading-7">Warning - Reject {actionTitle}</div>
