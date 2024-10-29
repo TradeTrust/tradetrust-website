@@ -135,8 +135,10 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   const canTransferOwners = isActiveTitleEscrow && isHolder && isBeneficiary;
   const canRejectOwnerHolderTransfer =
     isActiveTitleEscrow && isHolder && isBeneficiary && hasPreviousHolder && hasPreviousBeneficiary;
-  const canRejectHolderTransfer = isActiveTitleEscrow && isHolder && hasPreviousHolder;
-  const canRejectOwnerTransfer = isActiveTitleEscrow && isBeneficiary && hasPreviousBeneficiary;
+  const canRejectHolderTransfer =
+    isActiveTitleEscrow && isHolder && hasPreviousHolder && !(isBeneficiary && hasPreviousBeneficiary);
+  const canRejectOwnerTransfer =
+    isActiveTitleEscrow && isBeneficiary && hasPreviousBeneficiary && !(isHolder && hasPreviousHolder);
 
   const setFormActionNone = useCallback(() => {
     if (

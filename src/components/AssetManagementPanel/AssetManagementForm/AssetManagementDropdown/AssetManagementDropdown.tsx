@@ -117,7 +117,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"rejectTransferOwnerDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.RejectTransferOwner)}
         >
-          Reject Owner
+          Reject Ownership
         </DropdownItem>
       )}
       {canRejectHolderTransfer && (
