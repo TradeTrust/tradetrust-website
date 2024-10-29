@@ -32,10 +32,10 @@ export const RejectTransferHolderOverlay: FunctionComponent<RejectHolderFormProp
   //     setFormActionNone();
   //   }
   // }, [isConfirmed, showOverlay, setFormActionNone]);
-  function handleAction() {
+  const handleAction = () => {
     const encryptedRemark = encryptRemark(remarkValue, keyId);
     handleRejectTransferHolder("0x" + encryptedRemark);
-  }
+  };
 
   return (
     <>

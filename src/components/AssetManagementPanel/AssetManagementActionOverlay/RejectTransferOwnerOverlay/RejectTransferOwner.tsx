@@ -36,6 +36,7 @@ export const RejectTransferOwnerOverlay: FunctionComponent<RejectOwnerFormProps>
   //   }, [isConfirmed, showOverlay, setFormActionNone]);
 
   function handleAction() {
+    console.log("keyid", keyId);
     const encryptedRemark = encryptRemark(remarkValue, keyId);
     console.log("inside handleaction", remarkValue, encryptedRemark);
     handleRejectTransferOwner("0x" + encryptedRemark);

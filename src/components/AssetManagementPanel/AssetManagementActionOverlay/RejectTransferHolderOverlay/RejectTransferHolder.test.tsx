@@ -1,94 +1,165 @@
-// import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
+import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
 
-// import { fireEvent, render } from "@testing-library/react";
-// import React from "react";
-// import { act } from "react-dom/test-utils";
-// import { FormState } from "../../../../constants/FormState";
-// import { AssetManagementActions } from "../../AssetManagementActions";
-// // import { RejectSurrenderedForm } from "./RejectSurrenderedForm";
-// import { RejectTransferHolderOverlay } from "./RejectTransferHolder";
+import { fireEvent, render } from "@testing-library/react";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { FormState } from "../../../../constants/FormState";
+import { RejectTransferHolderOverlay } from "./RejectTransferHolder";
 
-// describe("RejectTransferHolderOverlay", () => {
-//   it("should have the cancel button and reject holder button", async () => {
-//     await act(async () => {
-//       const container = render(
-//         <RejectTransferHolderOverlay
-//           handleRejectTransferHolder={() => {}}
-//           rejectTransferHolderState={FormState.UNINITIALIZED}
-//           keyId="123"
-//           setShowEndorsementChain={() => {}}
-//           setFormActionNone={() => {}}
-//         />
-//       );
-//       expect(container.queryByTestId("confirmRejectTransferHolderBtn")).not.toBeNull();
-//       expect(container.queryByTestId("cancelRejectTransferHolderBtn")).not.toBeNull();
-//     });
-//   });
+describe("RejectTransferHolderOverlay", () => {
+  it("should have the cancel button and reject holder button", async () => {
+    await act(async () => {
+      const mockHandleRejectTransferHolder = jest.fn();
+      const container = render(
+        <RejectTransferHolderOverlay
+          handleRejectTransferHolder={mockHandleRejectTransferHolder}
+          rejectTransferHolderState={FormState.UNINITIALIZED}
+          keyId="key123456789"
+          setShowEndorsementChain={() => {}}
+          setFormActionNone={() => {}}
+        />
+      );
+      expect(container.queryByTestId("confirmRejectHoldershipBtn")).not.toBeNull();
+      expect(container.queryByTestId("cancelRejectHoldershipBtn")).not.toBeNull();
+    });
+  });
 
-//   it("should show overlay confirmation when we clicked on reject surrender and confirm overlay", async () => {
-//     await act(async () => {
-//       const mockHandleRestoreToken = jest.fn();
+  it("should close overlay when we clicked on Cancel button", async () => {
+    await act(async () => {
+      const mockHandleDismissOverlay = jest.fn();
 
-//       const container = render(
-//         <OverlayContext.Provider
-//           value={{
-//             overlayContent: undefined,
-//             showOverlay: mockHandleRestoreToken,
-//             isOverlayVisible: false,
-//             setOverlayVisible: () => {},
-//             closeOverlay: () => {},
-//           }}
-//         >
-//           <RejectTransferHolderOverlay
-//             handleRejectTransferHolder={() => {}}
-//             rejectTransferHolderState={FormState.UNINITIALIZED}
-//             keyId="123"
-//             setShowEndorsementChain={() => {}}
-//             setFormActionNone={() => {}}
-//           />
-//         </OverlayContext.Provider>
-//       );
+      const container = render(
+        <OverlayContext.Provider
+          value={{
+            overlayContent: undefined,
+            showOverlay: () => {},
+            isOverlayVisible: false,
+            setOverlayVisible: () => {},
+            closeOverlay: mockHandleDismissOverlay,
+          }}
+        >
+          <RejectTransferHolderOverlay
+            handleRejectTransferHolder={() => {}}
+            rejectTransferHolderState={FormState.UNINITIALIZED}
+            keyId="123"
+            setShowEndorsementChain={() => {}}
+            setFormActionNone={() => {}}
+          />
+        </OverlayContext.Provider>
+      );
 
-//       fireEvent.click(container.getByTestId("rejectSurrenderBtn"));
-//       expect(mockHandleRestoreToken).toHaveBeenCalled();
-//     });
-//   });
+      fireEvent.click(container.getByTestId("cancelRejectHoldershipBtn"));
+      expect(mockHandleDismissOverlay).toHaveBeenCalled();
+    });
+  });
 
-//   it("should switch to waiting confirmation modal with dismiss button on  PENDING_CONFIRMATION", async () => {
-//     await act(async () => {
-//       const container = render(
-//         <RejectTransferHolderOverlay
-//           handleRejectTransferHolder={() => {}}
-//           rejectTransferHolderState={FormState.PENDING_CONFIRMATION}
-//           keyId="123"
-//           setShowEndorsementChain={() => {}}
-//           setFormActionNone={() => {}}
-//         />
-//       );
+  //   test('should call handleRejectTransferHolder when "Confirm" button is clicked', async () => {
+  //     await act(async () => {
+  //       const mockHandleRejectTransferHolder = jest.fn();
 
-//       expect(container.queryByTestId("dismissBtn")).not.toBeNull();
-//     });
-//   });
+  //       // Render RejectManagement with the mock function
+  //       const container = render(
+  //         <RejectTransferHolderOverlay
+  //           handleRejectTransferHolder={mockHandleRejectTransferHolder}
+  //           rejectTransferHolderState={FormState.UNINITIALIZED}
+  //           keyId="0x2d5f0d480bcb615ae590a281bb6846cebd5d54785d0da525df09f2c47490171f"
+  //           setShowEndorsementChain={() => {}}
+  //           setFormActionNone={() => {}}
+  //         />
+  //       );
+  //       const holderInput = container.getByTestId("editable-remarks-input") as HTMLInputElement;
+  //       await fireEvent.change(holderInput, { target: { value: "hi its a remark" } });
 
-//   it("should disable cancel and reject surrender button when the reject surrender state is in PENDING_CONFIRMATION", async () => {
-//     await act(async () => {
-//       const mockFormActionNone = jest.fn();
-//       const mockHandleRestoreToken = jest.fn();
+  //       // Simulate a click on the Confirm button within ActionManagementSkeleton
+  //       fireEvent.click(container.getByTestId("confirmRejectHoldershipBtn"));
 
-//       const container = render(
-//         <RejectTransferHolderOverlay
-//           handleRejectTransferHolder={() => {}}
-//           rejectTransferHolderState={FormState.UNINITIALIZED}
-//           keyId="123"
-//           setShowEndorsementChain={() => {}}
-//           setFormActionNone={() => {}}
-//         />
-//       );
+  //       // Check that the parent's handleRejectTransferHolder was called
+  //       expect(mockHandleRejectTransferHolder).toHaveBeenCalled();
+  //     });
+  //   });
 
-//       fireEvent.click(container.getByTestId("cancelSurrenderBtn"));
-//       expect(mockFormActionNone).not.toHaveBeenCalled();
-//       fireEvent.click(container.getByTestId("rejectSurrenderBtn"));
-//       expect(mockHandleRestoreToken).not.toHaveBeenCalled();
-//     });
-//   });
-// });
+  it("should update holder state when input value changes", async () => {
+    await act(async () => {
+      const container = render(
+        <RejectTransferHolderOverlay
+          handleRejectTransferHolder={() => {}}
+          rejectTransferHolderState={FormState.UNINITIALIZED}
+          keyId="123"
+          setShowEndorsementChain={() => {}}
+          setFormActionNone={() => {}}
+        />
+      );
+
+      const holderInput = container.getByTestId("editable-remarks-input") as HTMLInputElement;
+      await fireEvent.change(holderInput, { target: { value: "hi its a remark" } });
+      expect(holderInput).toHaveValue("hi its a remark");
+    });
+  });
+
+  it("should close overlay when we clicked on dismiss button", async () => {
+    await act(async () => {
+      const mockHandleDismissOverlay = jest.fn();
+
+      const container = render(
+        <OverlayContext.Provider
+          value={{
+            overlayContent: undefined,
+            showOverlay: () => {},
+            isOverlayVisible: false,
+            setOverlayVisible: () => {},
+            closeOverlay: mockHandleDismissOverlay,
+          }}
+        >
+          <RejectTransferHolderOverlay
+            handleRejectTransferHolder={() => {}}
+            rejectTransferHolderState={FormState.PENDING_CONFIRMATION}
+            keyId="123"
+            setShowEndorsementChain={() => {}}
+            setFormActionNone={() => {}}
+          />
+        </OverlayContext.Provider>
+      );
+
+      fireEvent.click(container.getByTestId("dismissBtn"));
+      expect(mockHandleDismissOverlay).toHaveBeenCalled();
+    });
+  });
+
+  it("should switch to waiting confirmation modal with dismiss button on  PENDING_CONFIRMATION", async () => {
+    await act(async () => {
+      const container = render(
+        <RejectTransferHolderOverlay
+          handleRejectTransferHolder={() => {}}
+          rejectTransferHolderState={FormState.PENDING_CONFIRMATION}
+          keyId="123"
+          setShowEndorsementChain={() => {}}
+          setFormActionNone={() => {}}
+        />
+      );
+
+      expect(container.queryByTestId("dismissBtn")).not.toBeNull();
+    });
+  });
+
+  //   it("should disable cancel and reject surrender button when the reject surrender state is in PENDING_CONFIRMATION", async () => {
+  //     await act(async () => {
+  //       const mockFormActionNone = jest.fn();
+  //       const mockHandleRestoreToken = jest.fn();
+
+  //       const container = render(
+  //         <RejectTransferHolderOverlay
+  //           handleRejectTransferHolder={() => {}}
+  //           rejectTransferHolderState={FormState.UNINITIALIZED}
+  //           keyId="123"
+  //           setShowEndorsementChain={() => {}}
+  //           setFormActionNone={() => {}}
+  //         />
+  //       );
+
+  //       fireEvent.click(container.getByTestId("cancelSurrenderBtn"));
+  //       expect(mockFormActionNone).not.toHaveBeenCalled();
+  //       fireEvent.click(container.getByTestId("rejectSurrenderBtn"));
+  //       expect(mockHandleRestoreToken).not.toHaveBeenCalled();
+  //     });
+  //   });
+});

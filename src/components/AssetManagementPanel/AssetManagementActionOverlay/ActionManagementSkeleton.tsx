@@ -40,7 +40,9 @@ export const ActionManagementSkeleton: FunctionComponent<RejectOwnerFormProps> =
               </div>
             </div>
           </div>
-          <div className="font-ubuntu text-[26px] leading-7">{actionTitle} Rejection in Progress</div>
+          <div className="font-ubuntu text-[26px] leading-7" data-testid="waiting-overlay-title">
+            {actionTitle} Rejection in Progress
+          </div>
         </div>
         <div className="pt-20 pb-4 text-center">
           <span>
@@ -98,6 +100,7 @@ export const ActionManagementSkeleton: FunctionComponent<RejectOwnerFormProps> =
                     onChange={(e) => setRemarkValue(e.target.value)}
                     placeholder="I suspect the transfer may have been a mistake"
                     className="absolute inset-0 z-0 text-zinc-800 bg-transparent border-none outline-none w-full h-full resize-none overflow-hidden"
+                    data-testid="editable-remarks-input"
                   />
                   {/* <Ticker className="z-[2] w-[0.5px] flex-shrink-0 self-stretch" /> */}
                 </div>
@@ -121,14 +124,14 @@ export const ActionManagementSkeleton: FunctionComponent<RejectOwnerFormProps> =
             <Button
               className=" transition-colors duration-200 ease-out cursor-pointer font-gilroy-bold border rounded-xl bg-white text-cerulean-500 hover:bg-cloud-100 px-[17px] py-[11px]"
               onClick={() => closeOverlay()}
-              data-testid={`confirmReject${actionTitle}Btn`}
+              data-testid={`cancelReject${actionTitle}Btn`}
             >
               Cancel
             </Button>
             <Button
               className="rounded-xl px-[18px] py-3 bg-cerulean-500 text-white hover:bg-cerulean-800"
               onClick={() => handleAction()}
-              data-testid={`cancelReject${actionTitle}Btn`}
+              data-testid={`confirmReject${actionTitle}Btn`}
             >
               Confirm
             </Button>

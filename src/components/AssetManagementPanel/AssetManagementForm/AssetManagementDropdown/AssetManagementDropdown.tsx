@@ -105,7 +105,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
       {canRejectOwnerHolderTransfer && (
         <DropdownItem
           className="active:bg-cloud-200 active:text-white"
-          data-testid={"endorseTransferDropdown"}
+          data-testid={"rejectTransferOwnerHolderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.RejectTransferOwnerHolder)}
         >
           Reject Ownership and Holdership
@@ -114,7 +114,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
       {canRejectOwnerTransfer && (
         <DropdownItem
           className="active:bg-cloud-200 active:text-white"
-          data-testid={"endorseTransferDropdown"}
+          data-testid={"rejectTransferOwnerDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.RejectTransferOwner)}
         >
           Reject Owner
@@ -123,7 +123,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
       {canRejectHolderTransfer && (
         <DropdownItem
           className="active:bg-cloud-200 active:text-white"
-          data-testid={"endorseTransferDropdown"}
+          data-testid={"rejectTransferHolderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.RejectTransferHolder)}
         >
           Reject Holdership

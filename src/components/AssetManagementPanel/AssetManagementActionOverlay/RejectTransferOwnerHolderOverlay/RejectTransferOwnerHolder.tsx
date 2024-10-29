@@ -33,7 +33,6 @@ export const RejectTransferOwnerHolderOverlay: FunctionComponent<RejectHolderFor
   // }, [isConfirmed, showOverlay, setFormActionNone]);
   function handleAction() {
     const encryptedRemark = encryptRemark(remarkValue, keyId);
-    console.log("here", remarkValue);
     handleRejectTransferOwnerHolder("0x" + encryptedRemark);
   }
 

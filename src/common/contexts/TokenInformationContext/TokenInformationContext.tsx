@@ -125,7 +125,6 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const { call: getApprovedBeneficiary, value: approvedBeneficiary } = useContractFunctionHook(titleEscrow, "nominee");
   const { call: getPrevBeneficiary, value: prevBeneficiary } = useContractFunctionHook(titleEscrow, "prevBeneficiary");
   const { call: getPrevHolder, value: prevHolder } = useContractFunctionHook(titleEscrow, "prevHolder");
-  console.log("getHolder", prevHolder, prevBeneficiary);
 
   const {
     send: destroyToken,
@@ -181,15 +180,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     send: rejectTransferOwnerHolder,
     state: rejectTransferOwnerHolderState,
     reset: resetRejectTransferOwnerHolder,
-    error: rejectTransferOwnerHolderError,
-    errorMessage: rejectTransferOwnerHolderErrorMessage,
   } = useContractFunctionHook(titleEscrow, "rejectTransferOwners");
-  console.log(
-    "error error",
-    rejectTransferOwnerHolderError,
-    rejectTransferOwnerHolderErrorMessage,
-    rejectTransferOwnerHolderState
-  );
 
   const resetProviders = useCallback(() => {
     resetSurrender();

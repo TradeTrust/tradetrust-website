@@ -24,9 +24,7 @@ export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocume
 };
 
 export const getKeyId = (wrappedDocument: WrappedDocument<OpenAttestationDocument>): string | undefined => {
-  console.log(wrappedDocument, getOpenAttestationData(wrappedDocument)?.credentialSubject);
   return getOpenAttestationData(wrappedDocument)?.credentialSubject?.blNumber;
-  // return "ajhv12345";
 };
 
 export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocument): v2.Attachment[] | undefined => {
