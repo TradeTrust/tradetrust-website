@@ -26,7 +26,7 @@ export const ActionManagementSkeleton: FunctionComponent<RejectOwnerFormProps> =
   if (actionState === FormState.PENDING_CONFIRMATION)
     return (
       <div
-        className={`font-gilroy bg-white !w-[606px] !Smax-h-[392px] flex w-full flex-col gap-y-1 rounded-xl bg-white p-6 font-medium leading-5 tracking-[0px] text-neutral-600 z-20`}
+        className={`font-gilroy bg-white !w-[606px] !Smax-h-[392px] sm:mx-8 xl:mx-16 flex w-full flex-col gap-y-1 rounded-xl bg-white p-6 font-medium leading-5 tracking-[0px] text-neutral-600 z-20 `}
       >
         <div className="flex flex-wrap items-center gap-x-[7px] gap-y-[7px] min-[596px]:flex-nowrap">
           <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center px-[11px] py-[6.5px]">
@@ -92,23 +92,20 @@ export const ActionManagementSkeleton: FunctionComponent<RejectOwnerFormProps> =
             </span>
           </div>
           <div className="flex flex-col justify-end pt-3">
-            <div className="rounded-xl border border-solid border-sky-700 pb-12 pl-[11px] pr-[7px] pt-[7px]">
-              <div className="flex flex-wrap items-center justify-between min-[596px]:flex-nowrap">
-                <div className="relative z-0 flex h-5 items-center justify-end pl-[348px]">
-                  <textarea
-                    value={remarkValue}
-                    onChange={(e) => setRemarkValue(e.target.value)}
-                    placeholder="I suspect the transfer may have been a mistake"
-                    className="absolute inset-0 z-0 text-zinc-800 bg-transparent border-none outline-none w-full h-full resize-none overflow-hidden"
-                    data-testid="editable-remarks-input"
-                  />
-                  {/* <Ticker className="z-[2] w-[0.5px] flex-shrink-0 self-stretch" /> */}
-                </div>
-                {/* <XMark
+            <div className="flex justify-end rounded-xl border border-solid border-sky-700 pb-[7px] pl-[7px] pr-[7px] pt-[7px] h-20 items-top ">
+              <textarea
+                value={remarkValue}
+                onChange={(e) => setRemarkValue(e.target.value)}
+                placeholder="I suspect the transfer may have been a mistake"
+                className="text-zinc-800 bg-transparent border-none outline-none w-full h-full resize-none overflow-hidden"
+                data-testid="editable-remarks-input"
+              />
+
+              <img
                 className="h-5 w-5 flex-shrink-0 cursor-pointer"
-                onClick={() => setValue('')}
-              /> */}
-              </div>
+                onClick={() => setRemarkValue("")}
+                src="/static/images/dropzone/x_mark.svg"
+              />
             </div>
           </div>
           <div className="flex items-start  gap-x-2 gap-y-2 ">

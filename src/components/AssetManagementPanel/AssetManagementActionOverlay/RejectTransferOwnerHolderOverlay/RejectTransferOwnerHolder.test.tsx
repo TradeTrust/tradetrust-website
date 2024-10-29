@@ -53,30 +53,30 @@ describe("RejectTransferOwnerHolderOverlay", () => {
     });
   });
 
-  //   test('should call handleRejectTransferOwnerHolder when "Confirm" button is clicked', async () => {
-  //     await act(async () => {
-  //       const mockHandleRejectTransferOwnerHolder = jest.fn();
+  test('should call handleRejectTransferOwnerHolder when "Confirm" button is clicked', async () => {
+    await act(async () => {
+      const mockHandleRejectTransferOwnerHolder = jest.fn();
 
-  //       // Render RejectManagement with the mock function
-  //       const container = render(
-  //         <RejectTransferOwnerHolderOverlay
-  //           handleRejectTransferOwnerHolder={mockHandleRejectTransferOwnerHolder}
-  //           rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-  //           keyId="0x2d5f0d480bcb615ae590a281bb6846cebd5d54785d0da525df09f2c47490171f"
-  //           setShowEndorsementChain={() => {}}
-  //           setFormActionNone={() => {}}
-  //         />
-  //       );
-  //       const ownerInput = container.getByTestId("editable-remarks-input") as HTMLInputElement;
-  //       await fireEvent.change(ownerInput, { target: { value: "hi its a remark" } });
+      // Render RejectManagement with the mock function
+      const container = render(
+        <RejectTransferOwnerHolderOverlay
+          handleRejectTransferOwnerHolder={mockHandleRejectTransferOwnerHolder}
+          rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
+          keyId="0x2d5f0d480bcb615ae590a281bb6846cebd5d54785d0da525df09f2c47490171f"
+          setShowEndorsementChain={() => {}}
+          setFormActionNone={() => {}}
+        />
+      );
+      const ownerInput = container.getByTestId("editable-remarks-input") as HTMLInputElement;
+      await fireEvent.change(ownerInput, { target: { value: "hi its a remark" } });
 
-  //       // Simulate a click on the Confirm button within ActionManagementSkeleton
-  //       fireEvent.click(container.getByTestId("confirmRejectOwnerHoldershipBtn"));
+      // Simulate a click on the Confirm button within ActionManagementSkeleton
+      fireEvent.click(container.getByTestId("confirmRejectOwnership & HoldershipBtn"));
 
-  //       // Check that the parent's handleRejectTransferOwnerHolder was called
-  //       expect(mockHandleRejectTransferOwnerHolder).toHaveBeenCalled();
-  //     });
-  //   });
+      // Check that the parent's handleRejectTransferOwnerHolder was called
+      expect(mockHandleRejectTransferOwnerHolder).toHaveBeenCalled();
+    });
+  });
 
   it("should update owner and holder state when input value changes", async () => {
     await act(async () => {

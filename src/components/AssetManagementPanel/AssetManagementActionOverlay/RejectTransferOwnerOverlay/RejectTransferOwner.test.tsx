@@ -53,30 +53,30 @@ describe("RejectTransferOwnerOverlay", () => {
     });
   });
 
-  // test('should call handleRejectTransferOwner when "Confirm" button is clicked', async () => {
-  //   await act(async () => {
-  //     const mockHandleRejectTransferOwner = jest.fn();
+  test('should call handleRejectTransferOwner when "Confirm" button is clicked', async () => {
+    await act(async () => {
+      const mockHandleRejectTransferOwner = jest.fn();
 
-  //     // Render RejectManagement with the mock function
-  //     const container = render(
-  //       <RejectTransferOwnerOverlay
-  //         handleRejectTransferOwner={mockHandleRejectTransferOwner}
-  //         rejectTransferOwnerState={FormState.UNINITIALIZED}
-  //         keyId="0a281bb6846cebd5d54785d0da525df09f2c47490171f"
-  //         setShowEndorsementChain={() => {}}
-  //         setFormActionNone={() => {}}
-  //       />
-  //     );
-  //     const ownerInput = container.getByTestId("editable-remarks-input") as HTMLInputElement;
-  //     await fireEvent.change(ownerInput, { target: { value: "hi its a remark" } });
+      // Render RejectManagement with the mock function
+      const container = render(
+        <RejectTransferOwnerOverlay
+          handleRejectTransferOwner={mockHandleRejectTransferOwner}
+          rejectTransferOwnerState={FormState.UNINITIALIZED}
+          keyId="0a281bb6846cebd5d54785d0da525df09f2c47490171f"
+          setShowEndorsementChain={() => {}}
+          setFormActionNone={() => {}}
+        />
+      );
+      const ownerInput = container.getByTestId("editable-remarks-input") as HTMLInputElement;
+      await fireEvent.change(ownerInput, { target: { value: "hi its a remark" } });
 
-  //     // Simulate a click on the Confirm button within ActionManagementSkeleton
-  //     fireEvent.click(container.getByTestId("confirmRejectOwnershipBtn"));
+      // Simulate a click on the Confirm button within ActionManagementSkeleton
+      fireEvent.click(container.getByTestId("confirmRejectOwnershipBtn"));
 
-  //     // Check that the parent's handleRejectTransferOwner was called
-  //     expect(mockHandleRejectTransferOwner).toHaveBeenCalled();
-  //   });
-  // });
+      // Check that the parent's handleRejectTransferOwner was called
+      expect(mockHandleRejectTransferOwner).toHaveBeenCalled();
+    });
+  });
 
   it("should update owner state when input value changes", async () => {
     await act(async () => {

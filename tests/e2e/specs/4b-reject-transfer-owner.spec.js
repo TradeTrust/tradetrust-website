@@ -1,7 +1,6 @@
 import { ACCOUNT_2 } from "../utils";
 
 before(() => {
-  cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879");
   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
 });
 
@@ -14,7 +13,7 @@ describe("Reject Transfer Owner", () => {
     cy.connectToMetamaskWalletAndApproveAllAccounts();
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='rejectTransferOwnerDropdown']").click(); // Reject Transfer Ownership
-    cy.get("[data-testid='editable-remarks-input']").type(ACCOUNT_2);
+    cy.get("[data-testid='editable-remarks-input']").type("Remark: Its most likely be a mistake");
     cy.get("[data-testid='confirmRejectOwnershipBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
     cy.get("[data-testid='waiting-overlay-title']").should("have.text", "Ownership Rejection in Progress");
