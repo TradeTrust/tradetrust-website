@@ -1,4 +1,5 @@
 import debug from "debug";
+// jest.setup.js
 
 // Jest swallows stderr from debug, so if process is called with DEBUG then redirect debug to console.log
 if (process.env.DEBUG) {
