@@ -13,7 +13,7 @@ services:
     command: >
       bash -c 'echo -n "======> local noVNC URL:
       http://localhost:8080/vnc.html?autoconnect=true " && npx wait-on
-      http://display:8080 && npm ci && npx cypress install --force && npm run build:sitemap && npm run integration:headful'
+      http://display:8080 && npm ci && npx cypress install --force && npm run integration:headful'
     networks:
       - x11
   display:

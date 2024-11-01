@@ -106,7 +106,9 @@ export const walletAddChain = async (chainId: ChainId): Promise<void> => {
  * encrypts the given remark with id using trustvc encryption
  * @param remark Rejection Remark
  * @param keyId Key ID
+ * @returns Encrypted remark in hex format
  */
 export const encryptRemark = (remark: string, keyId?: string): string => {
-  return encrypt(remark, keyId ?? "");
+  if (!keyId || keyId?.length === 0) return Buffer.from(remark).toString("hex");
+  return encrypt(remark, keyId);
 };

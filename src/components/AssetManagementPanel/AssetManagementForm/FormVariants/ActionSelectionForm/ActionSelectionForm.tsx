@@ -34,6 +34,7 @@ interface ActionSelectionFormProps {
   canRejectOwnerTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
+  isRejectPendingConfirmation?: boolean;
 }
 
 export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = ({
@@ -57,6 +58,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canEndorseTransfer,
   setShowEndorsementChain,
   isTitleEscrow,
+  isRejectPendingConfirmation,
 }) => {
   const [tooltipMessage, setTooltipMessage] = useState("Copy");
   const tooltipRef = useRef(null);
@@ -195,6 +197,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                       canRejectOwnerHolderTransfer={canRejectOwnerHolderTransfer}
                       canRejectHolderTransfer={canRejectHolderTransfer}
                       canRejectOwnerTransfer={canRejectOwnerTransfer}
+                      isRejectPendingConfirmation={isRejectPendingConfirmation}
                     />
                   ) : (
                     <Button

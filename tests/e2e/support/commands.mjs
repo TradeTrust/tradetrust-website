@@ -15,7 +15,12 @@ Cypress.Commands.add("connectToMetamaskWalletAndApproveAllAccounts", () => {
     .then(() => {
       cy.contains('button', 'Connect Wallet').click();
       cy.wait(METAMASK_WAIT);
-      cy.acceptMetamaskAccess({ allAccounts: true }).then((connected) => {
+      cy.acceptMetamaskAccess({
+        allAccounts: true,
+        confirmSignatureRequest: true,
+        confirmDataSignatureRequest: true,
+        switchNetwork: true,
+      }).then((connected) => {
         expect(connected).to.be.true;
       });
       cy.wait(METAMASK_WAIT);

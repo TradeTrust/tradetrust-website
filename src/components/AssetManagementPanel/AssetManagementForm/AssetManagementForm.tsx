@@ -1,19 +1,19 @@
+import { OverlayContext, showDocumentTransferMessage } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useCallback, useContext, useEffect } from "react";
+import { InitialAddress } from "../../../constants/chain-info";
 import { FormState } from "../../../constants/FormState";
+import { RejectTransferHolderOverlay } from "../AssetManagementActionOverlay/RejectTransferHolderOverlay";
+import { RejectTransferOwnerHolderOverlay } from "../AssetManagementActionOverlay/RejectTransferOwnerHolderOverlay";
+import { RejectTransferOwnerOverlay } from "../AssetManagementActionOverlay/RejectTransferOwnerOverlay";
 import { AssetManagementActions } from "../AssetManagementActions";
+import { AcceptSurrenderedForm } from "./FormVariants/AcceptSurrenderedForm";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
 import { EndorseBeneficiaryForm } from "./FormVariants/EndorseBeneficiary";
 import { EndorseTransferForm } from "./FormVariants/EndorseTransferForm";
 import { NominateBeneficiaryForm } from "./FormVariants/NominateBeneficiary";
+import { RejectSurrenderedForm } from "./FormVariants/RejectSurrenderedForm";
 import { SurrenderForm } from "./FormVariants/SurrenderForm";
 import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
-import { AcceptSurrenderedForm } from "./FormVariants/AcceptSurrenderedForm";
-import { RejectSurrenderedForm } from "./FormVariants/RejectSurrenderedForm";
-import { InitialAddress } from "../../../constants/chain-info";
-import { RejectTransferHolderOverlay } from "../AssetManagementActionOverlay/RejectTransferHolderOverlay";
-import { RejectTransferOwnerOverlay } from "../AssetManagementActionOverlay/RejectTransferOwnerOverlay";
-import { RejectTransferOwnerHolderOverlay } from "../AssetManagementActionOverlay/RejectTransferOwnerHolderOverlay";
-import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
 
 interface AssetManagementFormProps {
   beneficiary?: string;
@@ -139,6 +139,10 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     isActiveTitleEscrow && isHolder && hasPreviousHolder && !(isBeneficiary && hasPreviousBeneficiary);
   const canRejectOwnerTransfer =
     isActiveTitleEscrow && isBeneficiary && hasPreviousBeneficiary && !(isHolder && hasPreviousHolder);
+  const isRejectPendingConfirmation =
+    rejectTransferHolderState === FormState.PENDING_CONFIRMATION ||
+    rejectTransferOwnerState === FormState.PENDING_CONFIRMATION ||
+    rejectTransferOwnerHolderState === FormState.PENDING_CONFIRMATION;
 
   const setFormActionNone = useCallback(() => {
     if (
@@ -160,7 +164,9 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     transferOwnersState,
     onSetFormAction,
   ]);
-  const { showOverlay } = useContext(OverlayContext);
+
+  const { closeOverlay, showOverlay, isOverlayVisible } = useContext(OverlayContext);
+
   useEffect(() => {
     let additionalComponent;
     switch (formAction) {
@@ -169,8 +175,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           <RejectTransferOwnerOverlay
             handleRejectTransferOwner={rejectTransferOwner}
             rejectTransferOwnerState={rejectTransferOwnerState}
-            setFormActionNone={setFormActionNone}
-            setShowEndorsementChain={setShowEndorsementChain}
             keyId={keyId}
           />
         );
@@ -180,8 +184,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           <RejectTransferOwnerHolderOverlay
             handleRejectTransferOwnerHolder={rejectTransferOwnerHolder}
             rejectTransferOwnerHolderState={rejectTransferOwnerHolderState}
-            setFormActionNone={setFormActionNone}
-            setShowEndorsementChain={setShowEndorsementChain}
             keyId={keyId}
           />
         );
@@ -191,8 +193,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           <RejectTransferHolderOverlay
             handleRejectTransferHolder={rejectTransferHolder}
             rejectTransferHolderState={rejectTransferHolderState}
-            setFormActionNone={setFormActionNone}
-            setShowEndorsementChain={setShowEndorsementChain}
             keyId={keyId}
           />
         );
@@ -204,21 +204,58 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     if (additionalComponent) {
       showOverlay(additionalComponent);
     }
-  }, [
-    holder,
-    formAction,
-    rejectTransferOwnerState,
-    rejectTransferHolderState,
-    rejectTransferOwnerHolderState,
-    tokenRegistryAddress,
-    showOverlay,
-    setFormActionNone,
-    setShowEndorsementChain,
-    rejectTransferOwner,
-    rejectTransferHolder,
-    rejectTransferOwnerHolder,
-    keyId,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formAction]);
+
+  useEffect(() => {
+    if (!isOverlayVisible) {
+      switch (formAction) {
+        case AssetManagementActions.RejectTransferOwner:
+        case AssetManagementActions.RejectTransferHolder:
+        case AssetManagementActions.RejectTransferOwnerHolder:
+          setFormActionNone();
+          break;
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOverlayVisible]);
+
+  useEffect(() => {
+    if (isRejectPendingConfirmation) {
+      closeOverlay();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRejectPendingConfirmation]);
+
+  useEffect(() => {
+    if (
+      rejectTransferHolderState === FormState.CONFIRMED ||
+      rejectTransferOwnerState === FormState.CONFIRMED ||
+      rejectTransferOwnerHolderState === FormState.CONFIRMED
+    ) {
+      let state: string = "";
+      if (rejectTransferHolderState === FormState.CONFIRMED) state = "HOLDER";
+      else if (rejectTransferOwnerState === FormState.CONFIRMED) state = "OWNER";
+      else if (rejectTransferOwnerHolderState === FormState.CONFIRMED) state = "OWNER_HOLDER";
+
+      const transferMessageMap = {
+        HOLDER: ["Holdership Rejection Success", { isSuccess: true, holderAddress: prevHolder }],
+        OWNER: ["Ownership Rejection Success", { isSuccess: true, beneficiaryAddress: prevBeneficiary }],
+        OWNER_HOLDER: [
+          "Ownership & Holdership Rejection Success",
+          { isSuccess: true, beneficiaryAddress: prevBeneficiary, holderAddress: prevHolder },
+        ],
+      };
+
+      const message: [string, any] = transferMessageMap[state as keyof typeof transferMessageMap] as any;
+      if (message) {
+        showOverlay(showDocumentTransferMessage(...message));
+      }
+
+      setFormActionNone();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rejectTransferHolderState, rejectTransferOwnerState, rejectTransferOwnerHolderState]);
 
   switch (formAction) {
     case AssetManagementActions.Surrender:
@@ -342,6 +379,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
             canEndorseTransfer={canTransferOwners}
             setShowEndorsementChain={setShowEndorsementChain}
             isTitleEscrow={isTitleEscrow}
+            isRejectPendingConfirmation={isRejectPendingConfirmation}
           />
         </>
       );
