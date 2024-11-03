@@ -74,7 +74,7 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
           <div className="w-full lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-4xl">Surrendered To Issuer</h3>
+                <h3 className="text-4xl">ETR returned to issuer</h3>
               </TagBorderedLg>
             </div>
           </div>
@@ -102,7 +102,7 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
                   {isRestoreTokenPendingConfirmation ? (
                     <LoaderSpinner data-testid={"reject-loader"} />
                   ) : (
-                    <>Reject Document</>
+                    <>Reject return of ETR</>
                   )}
                 </Button>
               </div>

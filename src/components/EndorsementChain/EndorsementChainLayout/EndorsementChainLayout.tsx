@@ -21,9 +21,9 @@ enum ActionType {
   TRANSFER = "Transfer holdership",
   REJECT_TRANSFER_HOLDER = "Rejection of holdership",
   REJECT_TRANSFER_BENEFICIARY = "Rejection of ownership",
-  SURRENDERED = "Document surrendered to issuer",
-  SURRENDER_REJECTED = "Surrender of document rejected",
-  SURRENDER_ACCEPTED = "Surrender of document accepted", // burnt token
+  RETURNED_TO_ISSUER = "ETR returned to issuer",
+  RETURN_TO_ISSUER_REJECTED = "Return of ETR rejected",
+  RETURN_TO_ISSUER_ACCEPTED = "ETR taken out of circulation", // burnt token
   TRANSFER_TO_WALLET = "Transferred to wallet",
 }
 
@@ -106,27 +106,27 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
           remark,
         });
         break;
-      case "SURRENDERED":
+      case "RETURNED_TO_ISSUER":
         historyChain.push({
-          action: ActionType.SURRENDERED,
+          action: ActionType.RETURNED_TO_ISSUER,
           isNewBeneficiary: true,
           isNewHolder: false,
           timestamp,
           remark,
         });
         break;
-      case "SURRENDER_ACCEPTED":
+      case "RETURN_TO_ISSUER_ACCEPTED":
         historyChain.push({
-          action: ActionType.SURRENDER_ACCEPTED,
+          action: ActionType.RETURN_TO_ISSUER_ACCEPTED,
           isNewBeneficiary: false,
           isNewHolder: false,
           timestamp,
           remark,
         });
         break;
-      case "SURRENDER_REJECTED":
+      case "RETURN_TO_ISSUER_REJECTED":
         historyChain.push({
-          action: ActionType.SURRENDER_REJECTED,
+          action: ActionType.RETURN_TO_ISSUER_REJECTED,
           isNewBeneficiary: true,
           isNewHolder: true,
           timestamp,

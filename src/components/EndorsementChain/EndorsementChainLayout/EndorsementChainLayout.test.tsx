@@ -59,7 +59,7 @@ const changeOwnersEndorsementChain: EndorsementChain = [
 
 const surrenderEndorsementChain: EndorsementChain = [
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0x6782d845fe298cd79584a25466d1e2d9a3ff8d14591b4b424922709b7605f58e",
     transactionIndex: 86,
     blockNumber: 7835738,
@@ -71,7 +71,7 @@ const surrenderEndorsementChain: EndorsementChain = [
 
 const rejectSurrenderedEndorsementChain: EndorsementChain = [
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0x6782d845fe298cd79584a25466d1e2d9a3ff8d14591b4b424922709b7605f58e",
     transactionIndex: 86,
     blockNumber: 7835738,
@@ -80,7 +80,7 @@ const rejectSurrenderedEndorsementChain: EndorsementChain = [
     timestamp: 1666762656000,
   },
   {
-    type: "SURRENDER_REJECTED",
+    type: "RETURN_TO_ISSUER_REJECTED",
     transactionHash: "0x4668970e883841dab512dc53c63f05c7c7452e9876086c2838710cfd42286726",
     transactionIndex: 59,
     blockNumber: 7836089,
@@ -92,7 +92,7 @@ const rejectSurrenderedEndorsementChain: EndorsementChain = [
 
 const acceptSurrenderedEndorsementChain: EndorsementChain = [
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0xb30c0a48f5ebe6748b31f7f5f370b605eece7a093f950d7715f54ede2474fee7",
     transactionIndex: 59,
     blockNumber: 7836273,
@@ -101,7 +101,7 @@ const acceptSurrenderedEndorsementChain: EndorsementChain = [
     timestamp: 1666770456000,
   },
   {
-    type: "SURRENDER_ACCEPTED",
+    type: "RETURN_TO_ISSUER_ACCEPTED",
     transactionHash: "0x497395d2d58837a3fe686a883eaaaa2675b3d8ad10479abec2184349f7d38cb4",
     transactionIndex: 18,
     blockNumber: 7836281,
@@ -245,7 +245,7 @@ describe("EndorsementChainLayout", () => {
     );
   });
 
-  it("should render 'Document surrendered to issuer' when document is surrendered and sent to token registry", () => {
+  it("should render 'ETR returned to issuer' when document is surrendered and sent to token registry", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
@@ -256,10 +256,10 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document surrendered to issuer");
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("ETR returned to issuer");
   });
 
-  it("should render 'Surrender of document rejected' and addresses of previous beneficiary and holder when surrendered document is rejected by token registry", () => {
+  it("should render 'Return of ETR rejected' and addresses of previous beneficiary and holder when surrendered document is rejected by token registry", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
@@ -270,8 +270,8 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document surrendered to issuer");
-    expect(screen.getByTestId("row-event-1")).toHaveTextContent("Surrender of document rejected");
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("ETR returned to issuer");
+    expect(screen.getByTestId("row-event-1")).toHaveTextContent("Return of ETR rejected");
     expect(within(screen.getByTestId("row-event-1")).getByTestId("row-event-Owner")).toHaveTextContent(
       "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
     );
@@ -291,8 +291,8 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document surrendered to issuer");
-    expect(screen.getByTestId("row-event-1")).toHaveTextContent("Surrender of document accepted");
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("ETR returned to issuer");
+    expect(screen.getByTestId("row-event-1")).toHaveTextContent("ETR taken out of circulation");
   });
 
   it("should render 'Reject transfer of beneficiary' when transfer of beneficiary is rejected by token registry", () => {

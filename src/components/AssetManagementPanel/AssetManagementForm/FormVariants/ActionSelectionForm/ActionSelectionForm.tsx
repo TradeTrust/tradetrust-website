@@ -18,14 +18,14 @@ interface ActionSelectionFormProps {
   beneficiary?: string;
   holder?: string;
   account?: string;
-  canSurrender: boolean;
+  canReturnToIssuer: boolean;
   canHandleShred?: boolean;
 
   canHandleRestore?: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
   canEndorseBeneficiary: boolean;
-  isSurrendered: boolean;
+  isReturnedToIssuer: boolean;
   isTokenBurnt: boolean;
   canNominateBeneficiary: boolean;
   canEndorseTransfer: boolean;
@@ -43,7 +43,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   beneficiary,
   holder,
   account,
-  canSurrender,
+  canReturnToIssuer,
   canHandleShred,
   canRejectOwnerHolderTransfer,
   canRejectHolderTransfer,
@@ -52,7 +52,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   onConnectToWallet,
   canChangeHolder,
   canEndorseBeneficiary,
-  isSurrendered,
+  isReturnedToIssuer,
   isTokenBurnt,
   canNominateBeneficiary,
   canEndorseTransfer,
@@ -66,7 +66,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   const canManage =
     canHandleShred ||
     canHandleRestore ||
-    canSurrender ||
+    canReturnToIssuer ||
     canChangeHolder ||
     canEndorseBeneficiary ||
     canNominateBeneficiary ||
@@ -123,12 +123,12 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             setShowEndorsementChain={setShowEndorsementChain}
           />
         </div>
-        {isSurrendered && (
+        {isReturnedToIssuer && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
                 <h3 className="text-4xl" data-testid="surrenderToIssuer">
-                  Surrendered To Issuer
+                  ETR returned to issuer
                 </h3>
               </TagBorderedLg>
             </div>
@@ -138,12 +138,12 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrendered-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-4xl">Surrendered</h3>
+                <h3 className="text-4xl">Taken out of circulation</h3>
               </TagBorderedLg>
             </div>
           </div>
         )}
-        {!isSurrendered && !isTokenBurnt && isTitleEscrow && (
+        {!isReturnedToIssuer && !isTokenBurnt && isTitleEscrow && (
           <>
             <div className="w-full px-4 lg:w-1/3">
               <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
@@ -187,7 +187,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                   {canManage ? (
                     <AssetManagementDropdown
                       onSetFormAction={onSetFormAction}
-                      canSurrender={canSurrender}
+                      canReturnToIssuer={canReturnToIssuer}
                       canChangeHolder={canChangeHolder}
                       canEndorseBeneficiary={canEndorseBeneficiary}
                       canNominateBeneficiary={canNominateBeneficiary}

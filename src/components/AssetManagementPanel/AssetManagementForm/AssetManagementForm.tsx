@@ -39,13 +39,13 @@ interface AssetManagementFormProps {
   rejectTransferOwnerState: string;
   rejectTransferHolder: (remark: string) => void;
   rejectTransferHolderState: string;
-  onSurrender: (remark: string) => void;
+  onReturnToIssuer: (remark: string) => void;
   onDestroyToken: (remark: string) => void;
-  surrenderingState: string;
+  returnToIssuerState: string;
   destroyTokenState: string;
   holderTransferringState: string;
   beneficiaryEndorseState: string;
-  isSurrendered: boolean;
+  isReturnedToIssuer: boolean;
   isTokenBurnt: boolean;
   approveNewTransferTargetsState: string;
   transferOwnersState: string;
@@ -67,9 +67,9 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   prevBeneficiary,
   prevHolder,
   onSetFormAction,
-  surrenderingState,
+  returnToIssuerState,
   destroyTokenState,
-  onSurrender,
+  onReturnToIssuer,
   onDestroyToken,
   documentOwner,
   isRestorer,
@@ -78,7 +78,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   holderTransferringState,
   onEndorseBeneficiary,
   beneficiaryEndorseState,
-  isSurrendered,
+  isReturnedToIssuer,
   isTokenBurnt,
   nominateBeneficiary,
   approveNewTransferTargetsState,
@@ -96,18 +96,18 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   restoreTokenState,
   keyId,
 }) => {
-  const isActiveTitleEscrow = isTitleEscrow && !isSurrendered;
+  const isActiveTitleEscrow = isTitleEscrow && !isReturnedToIssuer;
   const isHolder = isTitleEscrow && account === holder;
   const isBeneficiary = isTitleEscrow && account === beneficiary;
-  const canSurrender = isBeneficiary && isHolder && !isSurrendered;
+  const canReturnToIssuer = isBeneficiary && isHolder && !isReturnedToIssuer;
   /*
     In order to shred we need to check 3 conditions
     - document is surrendered
     - documentOwner is the tokenRegistry
     - currentUser === tokenRegistryMinter
   */
-  const canHandleRestore = isTitleEscrow && isRestorer && isSurrendered && documentOwner === tokenRegistryAddress;
-  const canHandleShred = isTitleEscrow && isAcceptor && isSurrendered && documentOwner === tokenRegistryAddress;
+  const canHandleRestore = isTitleEscrow && isRestorer && isReturnedToIssuer && documentOwner === tokenRegistryAddress;
+  const canHandleShred = isTitleEscrow && isAcceptor && isReturnedToIssuer && documentOwner === tokenRegistryAddress;
 
   // canEndorseBeneficiary
   // function transferBeneficiary(address beneficiaryNominee) external;
@@ -146,7 +146,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
 
   const setFormActionNone = useCallback(() => {
     if (
-      surrenderingState === FormState.PENDING_CONFIRMATION ||
+      returnToIssuerState === FormState.PENDING_CONFIRMATION ||
       destroyTokenState === FormState.PENDING_CONFIRMATION ||
       holderTransferringState === FormState.PENDING_CONFIRMATION ||
       beneficiaryEndorseState === FormState.PENDING_CONFIRMATION ||
@@ -156,7 +156,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
       return;
     onSetFormAction(AssetManagementActions.None);
   }, [
-    surrenderingState,
+    returnToIssuerState,
     destroyTokenState,
     holderTransferringState,
     beneficiaryEndorseState,
@@ -258,21 +258,21 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   }, [rejectTransferHolderState, rejectTransferOwnerState, rejectTransferOwnerHolderState]);
 
   switch (formAction) {
-    case AssetManagementActions.Surrender:
+    case AssetManagementActions.ReturnToIssuer:
       return (
         <SurrenderForm
           formAction={formAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
-          handleSurrender={onSurrender}
-          surrenderingState={surrenderingState}
+          handleReturnToIssuer={onReturnToIssuer}
+          returnToIssuerState={returnToIssuerState}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}
         />
       );
 
-    case AssetManagementActions.AcceptSurrendered:
+    case AssetManagementActions.AcceptReturnToIssuer:
       return (
         <AcceptSurrenderedForm
           formAction={formAction}
@@ -284,7 +284,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
         />
       );
 
-    case AssetManagementActions.RejectSurrendered:
+    case AssetManagementActions.RejectReturnToIssuer:
       return (
         <RejectSurrenderedForm
           formAction={formAction}
@@ -364,7 +364,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
             beneficiary={beneficiary}
             holder={holder}
             account={account}
-            canSurrender={canSurrender}
+            canReturnToIssuer={canReturnToIssuer}
             canHandleRestore={canHandleRestore}
             canHandleShred={canHandleShred}
             canRejectOwnerHolderTransfer={canRejectOwnerHolderTransfer}
@@ -373,7 +373,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
             onConnectToWallet={onConnectToWallet}
             canChangeHolder={canTransferHolder}
             canEndorseBeneficiary={canTransferBeneficiary}
-            isSurrendered={isSurrendered}
+            isReturnedToIssuer={isReturnedToIssuer}
             isTokenBurnt={isTokenBurnt}
             canNominateBeneficiary={canNominateBeneficiary}
             canEndorseTransfer={canTransferOwners}

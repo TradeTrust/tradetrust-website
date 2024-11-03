@@ -26,8 +26,8 @@ interface TokenInformationContext {
   approvedBeneficiary?: string;
   changeHolder: TitleEscrow["transferHolder"];
   changeHolderState: ContractFunctionState;
-  surrender: TitleEscrow["surrender"];
-  surrenderState: ContractFunctionState;
+  returnToIssuer: TitleEscrow["returnToIssuer"];
+  returnToIssuerState: ContractFunctionState;
   endorseBeneficiary: TitleEscrow["transferBeneficiary"];
   endorseBeneficiaryState: ContractFunctionState;
   nominate: TitleEscrow["nominate"];
@@ -43,7 +43,7 @@ interface TokenInformationContext {
   rejectTransferOwnerHolderErrorMessage?: string;
   rejectTransferOwnerHolderState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
-  isSurrendered: boolean;
+  isReturnedToIssuer: boolean;
   isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
   version?: TokenRegistryVersion;
@@ -63,11 +63,11 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   initialize: () => {},
   changeHolder: contractFunctionStub,
   changeHolderState: "UNINITIALIZED",
-  surrender: contractFunctionStub,
-  surrenderState: "UNINITIALIZED",
+  returnToIssuer: contractFunctionStub,
+  returnToIssuerState: "UNINITIALIZED",
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
-  isSurrendered: false,
+  isReturnedToIssuer: false,
   isTokenBurnt: false,
   documentOwner: "",
   nominate: contractFunctionStub,
@@ -111,7 +111,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     tokenRegistry,
     tokenId
   );
-  const isSurrendered = documentOwner === tokenRegistryAddress;
+  const isReturnedToIssuer = documentOwner === tokenRegistryAddress;
   const isTokenBurnt = documentOwner === BurnAddress; // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
@@ -136,10 +136,10 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
 
   // Contract Write Functions (available only after provider has been upgraded)
   const {
-    send: surrender,
-    state: surrenderState,
-    reset: resetSurrender,
-  } = useContractFunctionHook(titleEscrow, "surrender");
+    send: returnToIssuer,
+    state: returnToIssuerState,
+    reset: resetReturnToIssuer,
+  } = useContractFunctionHook(titleEscrow, "returnToIssuer");
 
   const {
     send: changeHolder,
@@ -183,7 +183,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   } = useContractFunctionHook(titleEscrow, "rejectTransferOwners");
 
   const resetProviders = useCallback(() => {
-    resetSurrender();
+    resetReturnToIssuer();
     resetDestroyingTokenState();
     resetChangeHolder();
     resetEndorseBeneficiary();
@@ -197,7 +197,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     resetNominate,
     resetChangeHolder,
     resetEndorseBeneficiary,
-    resetSurrender,
+    resetReturnToIssuer,
     resetTransferOwners,
     resetRejectTransferOwner,
     resetRejectTransferHolder,
@@ -242,8 +242,8 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
 
   // Update entire title escrow whenever transferTo is successful
   useEffect(() => {
-    if (surrenderState === "CONFIRMED") updateTitleEscrow();
-  }, [surrenderState, updateTitleEscrow]);
+    if (returnToIssuerState === "CONFIRMED") updateTitleEscrow();
+  }, [returnToIssuerState, updateTitleEscrow]);
 
   // Update entire title escrow whenever token is burnt
   useEffect(() => {
@@ -290,13 +290,13 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         prevHolder: prevHolder?.[0],
         changeHolder,
         endorseBeneficiary,
-        surrender,
+        returnToIssuer,
         changeHolderState,
         endorseBeneficiaryState,
-        surrenderState,
+        returnToIssuerState,
         destroyTokenState,
         destroyToken,
-        isSurrendered,
+        isReturnedToIssuer,
         isTokenBurnt,
         isTitleEscrow,
         version: isTitleEscrowV4 ? TokenRegistryVersion.V4 : TokenRegistryVersion.V5,

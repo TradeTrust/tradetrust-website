@@ -54,7 +54,7 @@ export const fetchAllTransfers = async (
     titleEscrowContract.filters.HolderTransfer(null, null),
     titleEscrowContract.filters.BeneficiaryTransfer(null, null),
     titleEscrowContract.filters.TokenReceived(null, null, null),
-    titleEscrowContract.filters.Surrender(null, null),
+    titleEscrowContract.filters.ReturnToIssuer(null, null),
     // titleEscrowContract.filters.Nomination(null, null),
     titleEscrowContract.filters.RejectTransferOwners(null, null),
     titleEscrowContract.filters.RejectTransferBeneficiary(null, null),
@@ -104,9 +104,9 @@ export const fetchAllTransfers = async (
           transactionIndex: event.transactionIndex,
           remark: event.args?.remark,
         } as TokenTransferEvent;
-      } else if (event?.name === "Surrender") {
+      } else if (event?.name === "ReturnToIssuer") {
         return {
-          type: "SURRENDERED",
+          type: "RETURNED_TO_ISSUER",
           blockNumber: event.blockNumber,
           from: titleEscrowContract.address,
           to: tokenRegistryAddress,
@@ -143,7 +143,7 @@ export const fetchAllTransfers = async (
         } as TitleEscrowTransferEvent;
       } else if (event?.name === "Shred") {
         return {
-          type: "SURRENDER_ACCEPTED",
+          type: "RETURN_TO_ISSUER_ACCEPTED",
           blockNumber: event.blockNumber,
           from: tokenRegistryAddress,
           to: "0x00000000000000000000000000000000000dead",
@@ -162,6 +162,6 @@ export function identifyTokenReceivedType(event: ParsedLog): TokenTransferEventT
   if (event.args.isMinting) {
     return "INITIAL";
   } else {
-    return "SURRENDER_REJECTED";
+    return "RETURN_TO_ISSUER_REJECTED";
   }
 }

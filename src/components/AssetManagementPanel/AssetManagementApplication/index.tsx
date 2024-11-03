@@ -34,11 +34,11 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     changeHolderState,
     endorseBeneficiary,
     endorseBeneficiaryState,
-    surrender,
-    surrenderState,
+    returnToIssuer,
+    returnToIssuerState,
     destroyTokenState,
     destroyToken,
-    isSurrendered,
+    isReturnedToIssuer,
     isTokenBurnt,
     isTitleEscrow,
     nominate,
@@ -109,14 +109,14 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             formAction={assetManagementAction}
             tokenRegistryAddress={tokenRegistryAddress}
             onSetFormAction={onSetFormAction}
-            surrenderingState={surrenderState}
+            returnToIssuerState={returnToIssuerState}
             destroyTokenState={destroyTokenState}
-            onSurrender={surrender}
+            onReturnToIssuer={returnToIssuer}
             onTransferHolder={changeHolder}
             holderTransferringState={changeHolderState}
             onEndorseBeneficiary={endorseBeneficiary}
             beneficiaryEndorseState={endorseBeneficiaryState}
-            isSurrendered={isSurrendered}
+            isReturnedToIssuer={isReturnedToIssuer}
             isTokenBurnt={isTokenBurnt}
             nominateBeneficiary={nominate}
             approveNewTransferTargetsState={nominateState}

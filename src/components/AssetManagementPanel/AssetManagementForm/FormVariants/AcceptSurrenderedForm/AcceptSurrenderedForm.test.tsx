@@ -11,7 +11,7 @@ describe("AcceptSurrenderedForm", () => {
       const container = render(
         <AcceptSurrenderedForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           destroyTokenState={FormState.UNINITIALIZED}
@@ -30,7 +30,7 @@ describe("AcceptSurrenderedForm", () => {
       const container = render(
         <AcceptSurrenderedForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           destroyTokenState={FormState.UNINITIALIZED}
@@ -48,7 +48,7 @@ describe("AcceptSurrenderedForm", () => {
       const container = render(
         <AcceptSurrenderedForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           destroyTokenState={FormState.PENDING_CONFIRMATION}
@@ -68,7 +68,7 @@ describe("AcceptSurrenderedForm", () => {
       const container = render(
         <AcceptSurrenderedForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           destroyTokenState={FormState.PENDING_CONFIRMATION}

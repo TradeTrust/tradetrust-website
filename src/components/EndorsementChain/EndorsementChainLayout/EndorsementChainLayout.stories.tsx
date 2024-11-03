@@ -45,7 +45,7 @@ const changeOwnersEndorsementChain: EndorsementChain = [
 
 const surrenderEndorsementChain: EndorsementChain = [
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0x6782d845fe298cd79584a25466d1e2d9a3ff8d14591b4b424922709b7605f58e",
     transactionIndex: 86,
     blockNumber: 7835738,
@@ -57,7 +57,7 @@ const surrenderEndorsementChain: EndorsementChain = [
 
 const rejectSurrenderedEndorsementChain: EndorsementChain = [
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0x6782d845fe298cd79584a25466d1e2d9a3ff8d14591b4b424922709b7605f58e",
     transactionIndex: 86,
     blockNumber: 7835738,
@@ -66,7 +66,7 @@ const rejectSurrenderedEndorsementChain: EndorsementChain = [
     timestamp: 1666762656000,
   },
   {
-    type: "SURRENDER_REJECTED",
+    type: "RETURN_TO_ISSUER_REJECTED",
     transactionHash: "0x4668970e883841dab512dc53c63f05c7c7452e9876086c2838710cfd42286726",
     transactionIndex: 59,
     blockNumber: 7836089,
@@ -78,7 +78,7 @@ const rejectSurrenderedEndorsementChain: EndorsementChain = [
 
 const acceptSurrenderedEndorsementChain: EndorsementChain = [
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0xb30c0a48f5ebe6748b31f7f5f370b605eece7a093f950d7715f54ede2474fee7",
     transactionIndex: 59,
     blockNumber: 7836273,
@@ -87,7 +87,7 @@ const acceptSurrenderedEndorsementChain: EndorsementChain = [
     timestamp: 1666770456000,
   },
   {
-    type: "SURRENDER_ACCEPTED",
+    type: "RETURN_TO_ISSUER_ACCEPTED",
     transactionHash: "0x497395d2d58837a3fe686a883eaaaa2675b3d8ad10479abec2184349f7d38cb4",
     transactionIndex: 18,
     blockNumber: 7836281,
@@ -160,7 +160,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     remark: "Lorem ipsum dolor sit amet",
   },
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0xe11c49e31b47a27c13106213485cc4684f48d765b785005048ba57ea366a1639",
     transactionIndex: 62,
     blockNumber: 7835698,
@@ -169,7 +169,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     timestamp: 1666762068000,
   },
   {
-    type: "SURRENDER_REJECTED",
+    type: "RETURN_TO_ISSUER_REJECTED",
     transactionHash: "0x9f074aa153b03b5d8f4cdd51142491bb821696a1bda21d24ee2d947891ada9d0",
     transactionIndex: 17,
     blockNumber: 7835703,
@@ -196,7 +196,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     timestamp: 1666762608000,
   },
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0x6782d845fe298cd79584a25466d1e2d9a3ff8d14591b4b424922709b7605f58e",
     transactionIndex: 86,
     blockNumber: 7835738,
@@ -205,7 +205,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     timestamp: 1666762656000,
   },
   {
-    type: "SURRENDER_REJECTED",
+    type: "RETURN_TO_ISSUER_REJECTED",
     transactionHash: "0x4668970e883841dab512dc53c63f05c7c7452e9876086c2838710cfd42286726",
     transactionIndex: 59,
     blockNumber: 7836089,
@@ -214,7 +214,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     timestamp: 1666767792000,
   },
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0xf1193038431ec68ca26a2f2e52b9dfdb677411c5afa4d1048a43eade8313b3ea",
     transactionIndex: 206,
     blockNumber: 7836139,
@@ -223,7 +223,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     timestamp: 1666768512000,
   },
   {
-    type: "SURRENDER_REJECTED",
+    type: "RETURN_TO_ISSUER_REJECTED",
     transactionHash: "0x6162961170520543c6d760c166a72c934b7cc84d0fa0eaf5097745071f3af334",
     transactionIndex: 46,
     blockNumber: 7836270,
@@ -232,7 +232,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     timestamp: 1666770420000,
   },
   {
-    type: "SURRENDERED",
+    type: "RETURNED_TO_ISSUER",
     transactionHash: "0xb30c0a48f5ebe6748b31f7f5f370b605eece7a093f950d7715f54ede2474fee7",
     transactionIndex: 59,
     blockNumber: 7836273,
@@ -241,7 +241,7 @@ const sampleSuccessEndorsementChain: EndorsementChain = [
     timestamp: 1666770456000,
   },
   {
-    type: "SURRENDER_ACCEPTED",
+    type: "RETURN_TO_ISSUER_ACCEPTED",
     transactionHash: "0x497395d2d58837a3fe686a883eaaaa2675b3d8ad10479abec2184349f7d38cb4",
     transactionIndex: 18,
     blockNumber: 7836281,

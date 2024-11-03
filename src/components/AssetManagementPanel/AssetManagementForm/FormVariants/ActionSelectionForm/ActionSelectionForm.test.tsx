@@ -13,13 +13,13 @@ const defaultProps = {
   beneficiary: "0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C",
   holder: "0xa61B056dA0084a5f391EC137583073096880C2e3",
   account: "0xa61B056dA0084a5f391EC137583073096880C2e3",
-  canSurrender: false,
+  canReturnToIssuer: false,
   canHandleSurrender: false,
   onConnectToWallet: () => alert("Login to Metamask"),
   canChangeHolder: false,
   canEndorseBeneficiary: false,
   canNominateBeneficiary: false,
-  isSurrendered: false,
+  isReturnedToIssuer: false,
   canEndorseTransfer: false,
   isTitleEscrow: true,
   isTokenBurnt: false,
@@ -114,7 +114,7 @@ describe("ActionSelectionForm", () => {
   });
   it("should allow the selection of Surrender if user can surrender", async () => {
     await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} canSurrender={true} />);
+      const container = render(<ActionSelectionForm {...defaultProps} canReturnToIssuer={true} />);
 
       await act(async () => {
         fireEvent.click(container.getByTestId("manageAssetDropdown"));
@@ -126,7 +126,7 @@ describe("ActionSelectionForm", () => {
 
   it("should not display the selection of Surrender if user cannot surrender", async () => {
     await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} canSurrender={false} />);
+      const container = render(<ActionSelectionForm {...defaultProps} canReturnToIssuer={false} />);
 
       expect(container.queryByTestId("SurrenderDropdown")).toBeNull();
     });
@@ -134,9 +134,9 @@ describe("ActionSelectionForm", () => {
 
   it("should display the Surrender to issuer tag if document is owned by token registry", async () => {
     await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} isSurrendered={true} />);
+      const container = render(<ActionSelectionForm {...defaultProps} isReturnedToIssuer={true} />);
 
-      expect(container.queryByText("Surrendered To Issuer")).not.toBeNull();
+      expect(container.queryByText("ETR returned to issuer")).not.toBeNull();
     });
   });
 
@@ -144,7 +144,7 @@ describe("ActionSelectionForm", () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} isTokenBurnt={true} />);
 
-      expect(container.queryByText("Surrendered")).not.toBeNull();
+      expect(container.queryByText("Taken out of circulation")).not.toBeNull();
     });
   });
 

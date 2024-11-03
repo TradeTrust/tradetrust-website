@@ -26,9 +26,9 @@ export const NotLoggedIn = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -72,9 +72,9 @@ export const NoMatch = () => {
         formAction={assetManagementAction}
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         onSetFormAction={setAssetManagementAction}
-        isSurrendered={false}
-        onSurrender={() => alert("Surrender document")}
-        surrenderingState={FormState.UNINITIALIZED}
+        isReturnedToIssuer={false}
+        onReturnToIssuer={() => alert("Surrender document")}
+        returnToIssuerState={FormState.UNINITIALIZED}
         onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
         holderTransferringState={FormState.UNINITIALIZED}
         onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -117,9 +117,9 @@ export const BeneficiaryAndHolder = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -161,9 +161,9 @@ export const Beneficiary = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -205,9 +205,9 @@ export const Holder = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -249,9 +249,9 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -293,9 +293,9 @@ export const TransferHolderError = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.ERROR}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -337,9 +337,9 @@ export const TransferHolderPending = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.PENDING_CONFIRMATION}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -381,9 +381,9 @@ export const EndorseChangeBeneficiaryError = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.PENDING_CONFIRMATION}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -425,9 +425,9 @@ export const EndorseChangeBeneficiaryPending = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.PENDING_CONFIRMATION}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -469,9 +469,9 @@ export const NominateBeneficiaryAndHolderError = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -513,9 +513,9 @@ export const NominateBeneficiaryAndHolderPending = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -557,9 +557,9 @@ export const EndorseTransferHolderBeneficiary = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -601,9 +601,9 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -632,7 +632,7 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
 };
 
 export const SurrenderDocument = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.ReturnToIssuer);
 
   return (
     <AssetManagementForm
@@ -645,9 +645,9 @@ export const SurrenderDocument = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={true}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={true}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -676,7 +676,7 @@ export const SurrenderDocument = () => {
 };
 
 export const SurrenderPending = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.Surrender);
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.ReturnToIssuer);
 
   return (
     <AssetManagementForm
@@ -689,9 +689,9 @@ export const SurrenderPending = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.PENDING_CONFIRMATION}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.PENDING_CONFIRMATION}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -734,9 +734,9 @@ export const SurrenderedNotMinter = () => {
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={true}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={true}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -781,9 +781,9 @@ export const SurrenderedIsMinter = () => {
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={true}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={true}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -814,7 +814,7 @@ export const SurrenderedIsMinter = () => {
 };
 
 export const SurrenderedAcceptForm = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.AcceptSurrendered);
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.AcceptReturnToIssuer);
 
   return (
     <AssetManagementForm
@@ -828,9 +828,9 @@ export const SurrenderedAcceptForm = () => {
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={true}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.UNINITIALIZED}
+      isReturnedToIssuer={true}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.UNINITIALIZED}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -861,7 +861,7 @@ export const SurrenderedAcceptForm = () => {
 };
 
 export const SurrenderedRejectForm = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.RejectSurrendered);
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.RejectReturnToIssuer);
 
   return (
     <OverlayContextProvider>
@@ -877,9 +877,9 @@ export const SurrenderedRejectForm = () => {
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         documentOwner="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
         onSetFormAction={setAssetManagementAction}
-        isSurrendered={true}
-        onSurrender={() => alert("Surrender document")}
-        surrenderingState={FormState.UNINITIALIZED}
+        isReturnedToIssuer={true}
+        onReturnToIssuer={() => alert("Surrender document")}
+        returnToIssuerState={FormState.UNINITIALIZED}
         onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
         holderTransferringState={FormState.UNINITIALIZED}
         onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
@@ -924,9 +924,9 @@ export const SurrenderedDocument = () => {
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
       onSetFormAction={setAssetManagementAction}
-      isSurrendered={false}
-      onSurrender={() => alert("Surrender document")}
-      surrenderingState={FormState.PENDING_CONFIRMATION}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Surrender document")}
+      returnToIssuerState={FormState.PENDING_CONFIRMATION}
       onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
       holderTransferringState={FormState.UNINITIALIZED}
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
