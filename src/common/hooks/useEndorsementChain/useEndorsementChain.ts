@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
-import { EndorsementChain, TransferBaseEvent } from "../../../types";
-import { useProviderContext } from "../../contexts/provider";
-import { TokenRegistryVersion, useTokenInformationContext } from "../../contexts/TokenInformationContext";
-import { getErrorMessage } from "../../utils/errorHandling";
-import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
+import { useState, useEffect, useCallback } from "react";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
-import { fetchEscrowTransfersV5 } from "./fetchEscrowTransfer";
+import { EndorsementChain } from "../../../types";
+import { fetchEscrowTransfers } from "./fetchEscrowTransfer";
+import { useProviderContext } from "../../contexts/provider";
 import { mergeTransfers } from "./helpers";
+import { fetchTokenTransfers } from "./fetchTokenTransfer";
 import { getEndorsementChain } from "./retrieveEndorsementChain";
+import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
+import { getErrorMessage } from "../../utils/errorHandling";
 
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
@@ -22,8 +22,6 @@ export const useEndorsementChain = (
   const [error, setError] = useState("");
   const [endorsementChain, setEndorsementChain] = useState<EndorsementChain>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
-  const { version: tokenRegistryVersion } = useTokenInformationContext();
-
   /*
     retrieve transactions from token registry and title escrow events
     merge, sort and provide history of events
@@ -33,33 +31,17 @@ export const useEndorsementChain = (
     setEndorsementChain(undefined);
     setPending(true);
     try {
-      let transferEvents: TransferBaseEvent[] = [];
-
-      if (tokenRegistryVersion === TokenRegistryVersion.V5) {
-        const titleEscrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, providerOrSigner);
-        const titleEscrowLogs = await fetchEscrowTransfersV5(provider, titleEscrowAddress);
-        transferEvents = mergeTransfers(titleEscrowLogs);
-      } else {
-        throw new Error('"Only Token Registry V5 is supported"');
-      }
-
+      const tokenLogs = await fetchTokenTransfers(tokenRegistry, tokenId);
+      const escrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, providerOrSigner);
+      const titleEscrowLogs = await fetchEscrowTransfers(provider, escrowAddress);
+      const transferEvents = mergeTransfers([...titleEscrowLogs, ...tokenLogs]);
       const retrievedEndorsementChain = await getEndorsementChain(provider, transferEvents);
-
-      // TODO: HAN Add decrypt remark function
-      setEndorsementChain(
-        retrievedEndorsementChain.map((event) => {
-          const remark = event?.remark && Buffer.from(event?.remark.slice(2), "hex").toString();
-          return {
-            ...event,
-            remark: remark,
-          };
-        })
-      );
+      setEndorsementChain(retrievedEndorsementChain);
     } catch (e: unknown) {
       setError(getErrorMessage(e));
     }
     setPending(false);
-  }, [provider, providerOrSigner, tokenId, tokenRegistry, tokenRegistryVersion]);
+  }, [provider, providerOrSigner, tokenId, tokenRegistry]);
 
   useEffect(() => {
     fetchEndorsementChain();

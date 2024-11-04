@@ -7,16 +7,13 @@ export const EndorsementChainLoading: FunctionComponent = () => {
     <>
       {[...Array(loadingRows)].map((item, key) => (
         <div className="flex flex-wrap" key={key}>
-          <div className="w-full lg:w-1/4">
+          <div className="w-full lg:w-1/3">
             <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
           </div>
-          <div className="w-full lg:w-1/4">
+          <div className="w-full lg:w-1/3">
             <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
           </div>
-          <div className="w-full lg:w-1/4">
-            <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
-          </div>
-          <div className="w-full lg:w-1/4">
+          <div className="w-full lg:w-1/3">
             <LoaderSkeleton className="m-2" data-testid="loader-skeleton" />
           </div>
         </div>

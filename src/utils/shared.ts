@@ -23,10 +23,6 @@ export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocume
   // }
 };
 
-export const getKeyId = (wrappedDocument: WrappedDocument<OpenAttestationDocument>): string | undefined => {
-  return getOpenAttestationData(wrappedDocument)?.id;
-};
-
 export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocument): v2.Attachment[] | undefined => {
   if (utils.isWrappedV2Document(rawDocument)) {
     const documentData = getData(rawDocument);

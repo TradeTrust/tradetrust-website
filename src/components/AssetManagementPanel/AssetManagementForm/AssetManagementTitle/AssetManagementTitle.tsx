@@ -29,11 +29,6 @@ export const AssetManagementTitle: FunctionComponent<AssetManagementTitleProps> 
           {formAction === AssetManagementActions.EndorseBeneficiary && <>Endorse Change of Ownership</>}
           {formAction === AssetManagementActions.NominateBeneficiary && <>Nominate Change of Ownership</>}
           {formAction === AssetManagementActions.EndorseTransfer && <>Endorse Transfer of Ownership</>}
-          {formAction === AssetManagementActions.RejectTransferOwnerHolder && (
-            <>Reject Transfer of Ownership and Holdership</>
-          )}
-          {formAction === AssetManagementActions.RejectTransferOwner && <>Reject Transfer of Ownership</>}
-          {formAction === AssetManagementActions.RejectTransferHolder && <>Reject Transfer of Holdership</>}
         </h3>
       </div>
     </div>

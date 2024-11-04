@@ -20,7 +20,6 @@ interface ActionSelectionFormProps {
   account?: string;
   canSurrender: boolean;
   canHandleShred?: boolean;
-
   canHandleRestore?: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
@@ -29,12 +28,8 @@ interface ActionSelectionFormProps {
   isTokenBurnt: boolean;
   canNominateBeneficiary: boolean;
   canEndorseTransfer: boolean;
-  canRejectOwnerHolderTransfer: boolean;
-  canRejectHolderTransfer: boolean;
-  canRejectOwnerTransfer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
-  isRejectPendingConfirmation?: boolean;
 }
 
 export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = ({
@@ -45,9 +40,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   account,
   canSurrender,
   canHandleShred,
-  canRejectOwnerHolderTransfer,
-  canRejectHolderTransfer,
-  canRejectOwnerTransfer,
   canHandleRestore,
   onConnectToWallet,
   canChangeHolder,
@@ -58,7 +50,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canEndorseTransfer,
   setShowEndorsementChain,
   isTitleEscrow,
-  isRejectPendingConfirmation,
 }) => {
   const [tooltipMessage, setTooltipMessage] = useState("Copy");
   const tooltipRef = useRef(null);
@@ -70,10 +61,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     canChangeHolder ||
     canEndorseBeneficiary ||
     canNominateBeneficiary ||
-    canEndorseTransfer ||
-    canRejectOwnerHolderTransfer ||
-    canRejectHolderTransfer ||
-    canRejectOwnerTransfer;
+    canEndorseTransfer;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -194,10 +182,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                       canEndorseTransfer={canEndorseTransfer}
                       canHandleRestore={canHandleRestore}
                       canHandleShred={canHandleShred}
-                      canRejectOwnerHolderTransfer={canRejectOwnerHolderTransfer}
-                      canRejectHolderTransfer={canRejectHolderTransfer}
-                      canRejectOwnerTransfer={canRejectOwnerTransfer}
-                      isRejectPendingConfirmation={isRejectPendingConfirmation}
                     />
                   ) : (
                     <Button

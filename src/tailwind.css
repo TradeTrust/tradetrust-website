@@ -187,15 +187,6 @@
   .endorsement-chain > *:last-of-type .path {
     height: 0;
   }
-  .endorsement-chain > *:only-of-type .path {
-    height: 100%;
-  }
-  .endorsement-chain > *:only-of-type .divider {
-    display: none;
-  }
-  .endorsement-chain > *:last-of-type .divider {
-    display: none;
-  }
 }
 
 @tailwind utilities;

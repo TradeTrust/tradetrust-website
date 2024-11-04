@@ -17,7 +17,7 @@ interface SurrenderFormProps {
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleSurrender: (remark: string) => void;
+  handleSurrender: () => void;
   surrenderingState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -82,7 +82,7 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
             <div className="w-auto ml-2">
               <Button
                 className="bg-scarlet-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-scarlet-400"
-                onClick={() => handleSurrender("0x")}
+                onClick={() => handleSurrender()}
                 disabled={isPendingConfirmation}
                 data-testid={"surrenderBtn"}
               >

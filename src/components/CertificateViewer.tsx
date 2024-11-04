@@ -8,12 +8,7 @@ import { resetCertificateState, updateCertificate } from "../reducers/certificat
 import { resetDemoState } from "../reducers/demo-verify";
 import { TemplateProps } from "../types";
 import { getLogger } from "../utils/logger";
-import {
-  getAttachments,
-  getKeyId,
-  getTokenRegistryAddress,
-  WrappedOrSignedOpenAttestationDocument,
-} from "../utils/shared";
+import { getAttachments, getTokenRegistryAddress, WrappedOrSignedOpenAttestationDocument } from "../utils/shared";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
@@ -75,7 +70,6 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   }
 
   const tokenRegistryAddress = isTransferableAsset ? getTokenRegistryAddress(document) : "";
-  const keyId = getKeyId(document);
   const isTransferableDocument = !!tokenRegistryAddress;
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
@@ -165,7 +159,6 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
-            keyId={keyId}
           />
         )}
       </div>
