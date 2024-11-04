@@ -18,7 +18,7 @@ interface TransferHolderProps {
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleTransfer: (newHolder: string, remark: string) => void;
+  handleTransfer: (newHolder: string) => void;
   holderTransferringState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -103,7 +103,7 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
               <Button
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={!isValidTransfer() || isPendingConfirmation}
-                onClick={() => handleTransfer(newHolder, "0x")}
+                onClick={() => handleTransfer(newHolder)}
                 data-testid={"transferBtn"}
               >
                 {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}

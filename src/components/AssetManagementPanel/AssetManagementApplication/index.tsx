@@ -14,7 +14,6 @@ interface AssetManagementApplicationProps {
   tokenId: string;
   tokenRegistryAddress: string;
   setShowEndorsementChain: (payload: boolean) => void;
-  keyId?: string;
 }
 
 export const AssetManagementApplication: FunctionComponent<AssetManagementApplicationProps> = ({
@@ -22,14 +21,11 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   tokenId,
   tokenRegistryAddress,
   setShowEndorsementChain,
-  keyId,
 }) => {
   const {
     holder,
     approvedBeneficiary,
     beneficiary,
-    prevBeneficiary,
-    prevHolder,
     changeHolder,
     changeHolderState,
     endorseBeneficiary,
@@ -48,12 +44,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     documentOwner,
     restoreToken,
     restoreTokenState,
-    rejectTransferOwner,
-    rejectTransferOwnerState,
-    rejectTransferHolder,
-    rejectTransferHolderState,
-    rejectTransferOwnerHolder,
-    rejectTransferOwnerHolderState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
   const { upgradeToMetaMaskSigner, provider, account } = useProviderContext();
@@ -69,8 +59,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     role: constants.roleHash.RestorerRole,
   });
 
-  const onDestroyToken = (remark: string = "0x") => {
-    destroyToken(tokenId, remark);
+  const onDestroyToken = () => {
+    destroyToken(tokenId);
   };
 
   const onSetFormAction = useCallback(
@@ -86,9 +76,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
 
   return (
     <div id="title-transfer-panel">
-      {(assetManagementAction === AssetManagementActions.None ||
-        assetManagementAction === AssetManagementActions.RejectTransferHolder ||
-        assetManagementAction === AssetManagementActions.RejectTransferOwner) && (
+      {assetManagementAction === AssetManagementActions.None && (
         // ui design requirement, to not show DocumentStatus & AssetManagementTags when user is on other actions
         <>
           <DocumentStatus isMagicDemo={isMagicDemo} />
@@ -103,8 +91,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             beneficiary={beneficiary}
             approvedBeneficiary={approvedBeneficiary}
             holder={holder}
-            prevBeneficiary={prevBeneficiary}
-            prevHolder={prevHolder}
             documentOwner={documentOwner}
             formAction={assetManagementAction}
             tokenRegistryAddress={tokenRegistryAddress}
@@ -122,12 +108,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             approveNewTransferTargetsState={nominateState}
             transferOwners={transferOwners}
             transferOwnersState={transferOwnersState}
-            rejectTransferOwner={rejectTransferOwner}
-            rejectTransferOwnerState={rejectTransferOwnerState}
-            rejectTransferHolder={rejectTransferHolder}
-            rejectTransferHolderState={rejectTransferHolderState}
-            rejectTransferOwnerHolder={rejectTransferOwnerHolder}
-            rejectTransferOwnerHolderState={rejectTransferOwnerHolderState}
             setShowEndorsementChain={setShowEndorsementChain}
             isTitleEscrow={isTitleEscrow}
             isAcceptor={hasAccepterRole}
@@ -135,7 +115,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             onDestroyToken={onDestroyToken}
             onRestoreToken={restoreToken}
             restoreTokenState={restoreTokenState}
-            keyId={keyId}
           />
         )}
       </div>
