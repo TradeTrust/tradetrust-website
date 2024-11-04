@@ -26,6 +26,7 @@ export interface TransferBaseEvent {
   owner?: string;
   transactionHash: string;
   blockNumber: number;
+  remark?: string;
 }
 
 export type TokenTransferEventType = "INITIAL" | "SURRENDERED" | "SURRENDER_REJECTED" | "SURRENDER_ACCEPTED";
@@ -33,7 +34,13 @@ export interface TitleEscrowTransferEvent extends TransferBaseEvent {
   type: TitleEscrowTransferEventType;
 }
 
-export type TitleEscrowTransferEventType = "TRANSFER_BENEFICIARY" | "TRANSFER_HOLDER" | "TRANSFER_OWNERS";
+export type TitleEscrowTransferEventType =
+  | "TRANSFER_BENEFICIARY"
+  | "TRANSFER_HOLDER"
+  | "TRANSFER_OWNERS"
+  | "REJECT_TRANSFER_BENEFICIARY"
+  | "REJECT_TRANSFER_HOLDER"
+  | "REJECT_TRANSFER_OWNERS";
 
 export interface TokenTransferEvent extends TransferBaseEvent {
   type: TokenTransferEventType;

@@ -22,6 +22,7 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
 export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint }) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
   const documentWithMetadata = getOpenAttestationData(document) as DocumentWithAdditionalMetadata; // Extending document data to account for undefined metadata in OA schema
+
   const { name, links } = utils.isRawV3Document(documentWithMetadata)
     ? documentWithMetadata.credentialSubject
     : documentWithMetadata;

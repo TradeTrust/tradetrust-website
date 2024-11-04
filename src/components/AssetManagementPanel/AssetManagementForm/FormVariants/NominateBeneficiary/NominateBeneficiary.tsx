@@ -18,7 +18,7 @@ interface NominateBeneficiaryFormProps {
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleNomination: (nominee: string) => void;
+  handleNomination: (nominee: string, remark: string) => void;
   nominationState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -100,7 +100,7 @@ export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormP
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={isInvalidNomination || isPendingConfirmation}
                 onClick={() => {
-                  handleNomination(newBeneficiary);
+                  handleNomination(newBeneficiary, "0x");
                 }}
                 data-testid={"nominationBtn"}
               >

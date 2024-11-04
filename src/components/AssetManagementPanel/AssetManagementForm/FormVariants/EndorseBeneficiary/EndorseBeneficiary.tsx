@@ -19,7 +19,7 @@ interface EndorseBeneficiaryProps {
   beneficiary?: string;
   holder?: string;
   nominee?: string;
-  handleBeneficiaryTransfer: (newBeneficiary: string) => void;
+  handleBeneficiaryTransfer: (newBeneficiary: string, remark: string) => void;
   beneficiaryEndorseState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -103,7 +103,7 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
               <Button
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={!isValidEndorse() || isPendingConfirmation}
-                onClick={() => handleBeneficiaryTransfer(nominee || "")}
+                onClick={() => handleBeneficiaryTransfer(nominee || "", "0x")}
                 data-testid={"endorseBtn"}
               >
                 {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}

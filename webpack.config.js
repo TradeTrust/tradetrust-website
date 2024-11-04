@@ -19,6 +19,9 @@ module.exports = {
       crypto: require.resolve("crypto-browserify"),
       path: require.resolve("path-browserify"),
       buffer: require.resolve("buffer"),
+      "process/browser": require.resolve("process/browser"),
+      util: require.resolve("util/"),
+      events: require.resolve("events/"),
     },
     extensions: [".js", ".ts", ".tsx"],
     modules: ["node_modules", path.resolve(__dirname, "src")],
@@ -64,7 +67,7 @@ module.exports = {
         use: [
           { loader: "style-loader" },
           { loader: "css-loader", options: { url: false } },
-          { loader: "postcss-loader" },
+          { loader: require.resolve("postcss-loader") },
         ],
       },
       {

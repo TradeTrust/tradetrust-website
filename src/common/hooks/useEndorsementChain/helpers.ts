@@ -21,58 +21,41 @@ export const getHolderOwner = (events: TransferBaseEvent[]): { owner: string; ho
   return { owner, holder };
 };
 
-/*
-    Merge Transactions with the same transaction hash
-
-    TRANSFER_OWNERS that emits:
-    - Title Escrow
-      * HOLDER_TRANSFER
-      * OWNER_TRANSFER
-    
-    INITIAL (Minting) that emits:
-    - Title Escrow
-      * HOLDER_TRANSFER
-      * OWNER_TRANSFER
-    - Token Registry
-      * INITIAL
-    
-
-    SURRENDER_ACCEPTED (Shred) that emits:
-    - Title Escrow
-      * HOLDER_TRANSFER
-      * OWNER_TRANSFER
-    - Token Registry
-      * SURRENDER_ACCEPTED
-*/
 export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBaseEvent[] => {
   const groupedEventsDict: Dictionary<TransferBaseEvent[]> = groupBy(transferEvents, "transactionHash");
   const transactionHashValues = Object.values(groupedEventsDict);
   const mergedTransaction = transactionHashValues.flatMap((groupedEvents) => {
     if (groupedEvents.length === 1) return groupedEvents;
-    if (groupedEvents.length === 2) {
-      // 2 Transaction with the same transactionHash, (transactionIndex and blockNumber)
-      // Merging HOLDER_TRANSFER and OWNER_TRANSFER transactions
-      const type: TransferEventType = "TRANSFER_OWNERS";
-      const base: TransferBaseEvent = groupedEvents[0];
+    if (groupedEvents.length > 1) {
       const { owner, holder } = getHolderOwner(groupedEvents);
-      return [{ ...base, type, owner, holder }];
-    }
-    if (groupedEvents.length === 3) {
-      // 3 Transaction with the same transactionHash, (transactionIndex and blockNumber)
-      // Merging HOLDER_TRANSFER, OWNER_TRANSFER and INITIAL/SURRENDER_ACCEPTED transactions
-      // SURRENDER_ACCPTED: changes owner and holder to 0x0
       const base = groupedEvents[0];
-      const type: TransferEventType = "INITIAL";
-      const { owner, holder } = getHolderOwner(groupedEvents);
-      const found = groupedEvents.find((x) => {
-        return x.type === "INITIAL" || x.type === "SURRENDER_ACCEPTED";
-      });
-      return [{ ...base, owner, holder, type: found?.type || type }];
+      const type = identifyEventTypeFromLogs(groupedEvents);
+      return [{ ...base, owner, holder, type }];
     }
+
     throw new Error("Invalid hash, update your configuration");
   });
   return mergedTransaction;
 };
+
+const identifyEventTypeFromLogs = (groupedEvents: TransferBaseEvent[]): TransferEventType => {
+  const ifTransferHolder = groupedEvents.some((event) => event.type === "TRANSFER_HOLDER");
+  const isTransferOwner = groupedEvents.some((event) => event.type === "TRANSFER_BENEFICIARY");
+  let type = null;
+
+  for (const event of groupedEvents) {
+    if (event.type === "INITIAL") {
+      type = "INITIAL";
+    } else if (event.type === "SURRENDER_ACCEPTED") {
+      type = "SURRENDER_ACCEPTED";
+    } else if (event.type.includes("REJECT_")) {
+      type = event.type;
+    }
+  }
+
+  return (type ?? (ifTransferHolder && isTransferOwner && "TRANSFER_OWNERS")) as TransferEventType;
+};
+
 /*
   Sort based on blockNumber
 */

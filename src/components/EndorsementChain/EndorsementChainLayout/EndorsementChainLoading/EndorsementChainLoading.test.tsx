@@ -6,6 +6,6 @@ describe("EndorsementChainLoading", () => {
   it("should render correctly", () => {
     render(<EndorsementChainLoading />);
 
-    expect(screen.getAllByTestId("loader-skeleton")).toHaveLength(9);
+    expect(screen.getAllByTestId("loader-skeleton")).toHaveLength(12);
   });
 });

@@ -25,6 +25,9 @@ const defaultProps = {
   isTokenBurnt: false,
   document: obfuscatedDocument as WrappedOrSignedOpenAttestationDocument,
   verificationStatus: whenDocumentValidAndIssuedByDns as VerificationFragment[],
+  canRejectOwnerHolderTransfer: false,
+  canRejectHolderTransfer: false,
+  canRejectOwnerTransfer: false,
 };
 
 describe("ActionSelectionForm", () => {
@@ -75,6 +78,40 @@ describe("ActionSelectionForm", () => {
     });
   });
 
+  it("should allow the selection of Reject Holdership if user can reject holder", async () => {
+    await act(async () => {
+      const container = render(<ActionSelectionForm {...defaultProps} canRejectHolderTransfer={true} />);
+
+      await act(async () => {
+        fireEvent.click(container.getByTestId("manageAssetDropdown"));
+      });
+
+      expect(container.queryByTestId("rejectTransferHolderDropdown")).not.toBeNull();
+    });
+  });
+  it("should allow the selection of Reject Ownership if user can reject holder", async () => {
+    await act(async () => {
+      const container = render(<ActionSelectionForm {...defaultProps} canRejectOwnerTransfer={true} />);
+
+      await act(async () => {
+        fireEvent.click(container.getByTestId("manageAssetDropdown"));
+      });
+
+      expect(container.queryByTestId("rejectTransferOwnerDropdown")).not.toBeNull();
+    });
+  });
+
+  it("should allow the selection of Reject Ownership & Holdership if user can reject holder", async () => {
+    await act(async () => {
+      const container = render(<ActionSelectionForm {...defaultProps} canRejectOwnerHolderTransfer={true} />);
+
+      await act(async () => {
+        fireEvent.click(container.getByTestId("manageAssetDropdown"));
+      });
+
+      expect(container.queryByTestId("rejectTransferOwnerHolderDropdown")).not.toBeNull();
+    });
+  });
   it("should allow the selection of Surrender if user can surrender", async () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} canSurrender={true} />);
@@ -229,6 +266,61 @@ describe("ActionSelectionForm", () => {
 
     await act(async () => {
       fireEvent.click(container.getByTestId("rejectSurrenderDropdown"));
+    });
+
+    expect(mockOnSetFormAction).toHaveBeenCalled();
+  });
+  it("should change the state of the action form to 'Reject Holder' when clicked on the dropdown", async () => {
+    const mockOnSetFormAction = jest.fn();
+
+    const container = render(
+      <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canRejectHolderTransfer={true} />
+    );
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("manageAssetDropdown"));
+    });
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("rejectTransferHolderDropdown"));
+    });
+
+    expect(mockOnSetFormAction).toHaveBeenCalled();
+  });
+  it("should change the state of the action form to 'Reject Owner' when clicked on the dropdown", async () => {
+    const mockOnSetFormAction = jest.fn();
+
+    const container = render(
+      <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canRejectOwnerTransfer={true} />
+    );
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("manageAssetDropdown"));
+    });
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("rejectTransferOwnerDropdown"));
+    });
+
+    expect(mockOnSetFormAction).toHaveBeenCalled();
+  });
+  it("should change the state of the action form to 'Reject Owner & Holder' when clicked on the dropdown", async () => {
+    const mockOnSetFormAction = jest.fn();
+
+    const container = render(
+      <ActionSelectionForm
+        {...defaultProps}
+        onSetFormAction={mockOnSetFormAction}
+        canRejectOwnerHolderTransfer={true}
+      />
+    );
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("manageAssetDropdown"));
+    });
+
+    await act(async () => {
+      fireEvent.click(container.getByTestId("rejectTransferOwnerHolderDropdown"));
     });
 
     expect(mockOnSetFormAction).toHaveBeenCalled();

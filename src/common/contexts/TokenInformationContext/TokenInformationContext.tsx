@@ -9,11 +9,19 @@ import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
 import { useRestoreToken } from "../../hooks/useRestoreToken";
 import { BurnAddress } from "../../../constants/chain-info";
 
+export enum TokenRegistryVersion {
+  V2 = "V2",
+  V4 = "V4",
+  V5 = "V5",
+}
+
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
   tokenId?: string;
   beneficiary?: string;
   holder?: string;
+  prevBeneficiary?: string;
+  prevHolder?: string;
   documentOwner?: string;
   approvedBeneficiary?: string;
   changeHolder: TitleEscrow["transferHolder"];
@@ -26,14 +34,23 @@ interface TokenInformationContext {
   nominateState: ContractFunctionState;
   transferOwners: TitleEscrow["transferOwners"];
   transferOwnersState: ContractFunctionState;
+  rejectTransferOwner: TitleEscrow["rejectTransferBeneficiary"];
+  rejectTransferOwnerState: ContractFunctionState;
+  rejectTransferHolder: TitleEscrow["rejectTransferHolder"];
+  rejectTransferHolderState: ContractFunctionState;
+  rejectTransferOwnerHolder: TitleEscrow["rejectTransferOwners"];
+  rejectTransferOwnerHolderError?: Error;
+  rejectTransferOwnerHolderErrorMessage?: string;
+  rejectTransferOwnerHolderState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isSurrendered: boolean;
   isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
+  version?: TokenRegistryVersion;
   resetStates: () => void;
   destroyToken: TradeTrustToken["burn"];
   destroyTokenState: ContractFunctionState;
-  restoreToken: () => Promise<void>;
+  restoreToken: (remark: string) => Promise<void>;
   restoreTokenState: ContractFunctionState;
 }
 
@@ -57,6 +74,13 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   nominateState: "UNINITIALIZED",
   transferOwners: contractFunctionStub,
   transferOwnersState: "UNINITIALIZED",
+  rejectTransferOwner: contractFunctionStub,
+  rejectTransferOwnerState: "UNINITIALIZED",
+  rejectTransferOwnerHolderError: undefined,
+  rejectTransferHolder: contractFunctionStub,
+  rejectTransferHolderState: "UNINITIALIZED",
+  rejectTransferOwnerHolder: contractFunctionStub,
+  rejectTransferOwnerHolderState: "UNINITIALIZED",
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   resetStates: () => {},
   destroyToken: contractFunctionStub,
@@ -68,6 +92,12 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
 interface TokenInformationContextProviderProps {
   children: React.ReactNode;
 }
+
+// TODO: HAN Move the constant value to token-registry repo
+export const TitleEscrowInterface = {
+  V4: "0x079dff60",
+  V5: "0xa00f1762",
+};
 
 export const TokenInformationContextProvider: FunctionComponent<TokenInformationContextProviderProps> = ({
   children,
@@ -85,12 +115,16 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const isTokenBurnt = documentOwner === BurnAddress; // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
-  const { isInterfaceType: isTitleEscrow } = useSupportsInterface(titleEscrow, "0x079dff60");
+  const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
+  const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V5);
+  const isTitleEscrow = isTitleEscrowV4 || isTitleEscrowV5;
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
   const { call: getBeneficiary, value: beneficiary } = useContractFunctionHook(titleEscrow, "beneficiary");
   const { call: getApprovedBeneficiary, value: approvedBeneficiary } = useContractFunctionHook(titleEscrow, "nominee");
+  const { call: getPrevBeneficiary, value: prevBeneficiary } = useContractFunctionHook(titleEscrow, "prevBeneficiary");
+  const { call: getPrevHolder, value: prevHolder } = useContractFunctionHook(titleEscrow, "prevHolder");
 
   const {
     send: destroyToken,
@@ -130,6 +164,23 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     state: transferOwnersState,
     reset: resetTransferOwners,
   } = useContractFunctionHook(titleEscrow, "transferOwners");
+  const {
+    send: rejectTransferHolder,
+    state: rejectTransferHolderState,
+    reset: resetRejectTransferHolder,
+  } = useContractFunctionHook(titleEscrow, "rejectTransferHolder");
+
+  const {
+    send: rejectTransferOwner,
+    state: rejectTransferOwnerState,
+    reset: resetRejectTransferOwner,
+  } = useContractFunctionHook(titleEscrow, "rejectTransferBeneficiary");
+
+  const {
+    send: rejectTransferOwnerHolder,
+    state: rejectTransferOwnerHolderState,
+    reset: resetRejectTransferOwnerHolder,
+  } = useContractFunctionHook(titleEscrow, "rejectTransferOwners");
 
   const resetProviders = useCallback(() => {
     resetSurrender();
@@ -138,6 +189,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     resetEndorseBeneficiary();
     resetNominate();
     resetTransferOwners();
+    resetRejectTransferOwner();
+    resetRejectTransferHolder();
+    resetRejectTransferOwnerHolder();
   }, [
     resetDestroyingTokenState,
     resetNominate,
@@ -145,6 +199,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     resetEndorseBeneficiary,
     resetSurrender,
     resetTransferOwners,
+    resetRejectTransferOwner,
+    resetRejectTransferHolder,
+    resetRejectTransferOwnerHolder,
   ]);
 
   const resetStates = useCallback(() => {
@@ -164,8 +221,10 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
       getHolder();
       getBeneficiary();
       getApprovedBeneficiary();
+      getPrevBeneficiary();
+      getPrevHolder();
     }
-  }, [getApprovedBeneficiary, getBeneficiary, getHolder, isTitleEscrow]);
+  }, [getApprovedBeneficiary, getBeneficiary, getHolder, getPrevBeneficiary, getPrevHolder, isTitleEscrow]);
 
   // Update holder whenever holder transfer is successful
   useEffect(() => {
@@ -200,6 +259,21 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     if (transferOwnersState === "CONFIRMED") updateTitleEscrow();
   }, [transferOwnersState, updateTitleEscrow]);
 
+  // Update entire title escrow whenever reject transfer to holder is successful
+  useEffect(() => {
+    if (rejectTransferOwnerState === "CONFIRMED") updateTitleEscrow();
+  }, [rejectTransferOwnerState, updateTitleEscrow]);
+
+  // Update entire title escrow whenever reject transfer holder is successful
+  useEffect(() => {
+    if (rejectTransferHolderState === "CONFIRMED") updateTitleEscrow();
+  }, [rejectTransferHolderState, updateTitleEscrow]);
+
+  // Update entire title escrow whenever reject transfer owners is successful
+  useEffect(() => {
+    if (rejectTransferOwnerHolderState === "CONFIRMED") updateTitleEscrow();
+  }, [rejectTransferOwnerHolderState, updateTitleEscrow]);
+
   // Reset states for all write functions when provider changes to allow methods to be called again without refreshing
   useEffect(resetProviders, [resetProviders, providerOrSigner]);
 
@@ -212,6 +286,8 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         holder: holder?.[0],
         beneficiary: beneficiary?.[0],
         approvedBeneficiary: approvedBeneficiary?.[0],
+        prevBeneficiary: prevBeneficiary?.[0],
+        prevHolder: prevHolder?.[0],
         changeHolder,
         endorseBeneficiary,
         surrender,
@@ -223,11 +299,18 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         isSurrendered,
         isTokenBurnt,
         isTitleEscrow,
+        version: isTitleEscrowV4 ? TokenRegistryVersion.V4 : TokenRegistryVersion.V5,
         documentOwner,
         nominate,
         nominateState,
         transferOwners,
         transferOwnersState,
+        rejectTransferOwner,
+        rejectTransferOwnerState,
+        rejectTransferHolder,
+        rejectTransferHolderState,
+        rejectTransferOwnerHolder,
+        rejectTransferOwnerHolderState,
         resetStates,
         restoreToken,
         restoreTokenState,
