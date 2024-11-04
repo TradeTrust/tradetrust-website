@@ -1,4 +1,4 @@
-import { Dropdown, DropdownItem } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, Dropdown, DropdownItem, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { AssetManagementActions } from "./../../AssetManagementActions";
 
@@ -11,6 +11,10 @@ interface AssetManagementDropdownProps {
   canEndorseBeneficiary: boolean;
   canNominateBeneficiary: boolean;
   canEndorseTransfer: boolean;
+  canRejectOwnerHolderTransfer: boolean;
+  canRejectOwnerTransfer: boolean;
+  canRejectHolderTransfer: boolean;
+  isRejectPendingConfirmation?: boolean;
 }
 
 export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownProps> = ({
@@ -22,8 +26,21 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
   canEndorseBeneficiary,
   canNominateBeneficiary,
   canEndorseTransfer,
+  canRejectOwnerHolderTransfer,
+  canRejectHolderTransfer,
+  canRejectOwnerTransfer,
+  isRejectPendingConfirmation,
 }) => {
-  return (
+  return isRejectPendingConfirmation ? (
+    <Button
+      className="flex bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
+      disabled
+      data-testid={"rejectTransferBtn"}
+    >
+      <LoaderSpinner data-testid={"loader"} />
+      <div className="flex-grow">Rejecting</div>
+    </Button>
+  ) : (
     <Dropdown
       data-testid="manageAssetDropdown"
       dropdownButtonText="Manage Assets"
@@ -94,6 +111,33 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           onClick={() => onSetFormAction(AssetManagementActions.EndorseTransfer)}
         >
           Endorse Transfer of Ownership
+        </DropdownItem>
+      )}
+      {canRejectOwnerHolderTransfer && (
+        <DropdownItem
+          className="divide-y active:bg-cloud-200 active:text-white"
+          data-testid={"rejectTransferOwnerHolderDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.RejectTransferOwnerHolder)}
+        >
+          Reject Ownership and Holdership
+        </DropdownItem>
+      )}
+      {canRejectOwnerTransfer && (
+        <DropdownItem
+          className="divide-y active:bg-cloud-200 active:text-white"
+          data-testid={"rejectTransferOwnerDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.RejectTransferOwner)}
+        >
+          Reject Ownership
+        </DropdownItem>
+      )}
+      {canRejectHolderTransfer && (
+        <DropdownItem
+          className="divide-y active:bg-cloud-200 active:text-white"
+          data-testid={"rejectTransferHolderDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.RejectTransferHolder)}
+        >
+          Reject Holdership
         </DropdownItem>
       )}
     </Dropdown>
