@@ -16,8 +16,8 @@ const EndorseNomineeAction = Selector("[data-testid='action-title']").withText("
 const TransferHoldershipAction = Selector("[data-testid='action-title']").withText("Transfer holdership");
 const ChangeOwnershipAction = Selector("[data-testid='action-title']").withText("Change Owners");
 
-const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("Document surrendered to issuer");
-const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("Surrender of document accepted");
+const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("ETR returned to issuer");
+const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("ETR taken out of circulation");
 
 // history chain of events for ebl-endorsement-chain.json are:
 // 1. issued on account 1
