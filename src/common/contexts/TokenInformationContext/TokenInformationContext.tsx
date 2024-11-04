@@ -1,13 +1,12 @@
 import { ContractFunctionState, useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { TitleEscrow } from "@tradetrust-tt/token-registry/contracts";
-import React, { createContext, useContext, useEffect, useState, useCallback, FunctionComponent } from "react";
-import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
-import { useProviderContext } from "../provider";
-import { useSupportsInterface } from "../../hooks/useSupportsInterface";
-import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
-import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
-import { useRestoreToken } from "../../hooks/useRestoreToken";
+import { TitleEscrow, TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
+import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
 import { BurnAddress } from "../../../constants/chain-info";
+import { useRestoreToken } from "../../hooks/useRestoreToken";
+import { useSupportsInterface } from "../../hooks/useSupportsInterface";
+import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
+import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
+import { useProviderContext } from "../provider";
 
 export enum TokenRegistryVersion {
   V2 = "V2",
@@ -96,7 +95,7 @@ interface TokenInformationContextProviderProps {
 // TODO: HAN Move the constant value to token-registry repo
 export const TitleEscrowInterface = {
   V4: "0x079dff60",
-  V5: "0xa00f1762",
+  V5: "0x3e143f7b",
 };
 
 export const TokenInformationContextProvider: FunctionComponent<TokenInformationContextProviderProps> = ({
