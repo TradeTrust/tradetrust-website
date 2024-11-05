@@ -27,6 +27,7 @@ const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withTex
 // 6. surrender with account 1
 // 7. accept surrender with account 1
 
+// TODO: Add in test for reject transfers, after updating CLI
 test("Endorsement chain title and actions are rendered correctly", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/v3/ebl-endorsement-chain.json");
