@@ -71,7 +71,9 @@ export const connectToTitleEscrow = async ({
 }: ConnectToTitleEscrowArgs): Promise<TitleEscrow> => {
   const tokenRegistryAddress = tokenRegistry.address;
   const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
-  const inactiveEscrow = [BurnAddress, tokenRegistryAddress].includes(titleEscrowOwner);
+  const inactiveEscrow = [BurnAddress, tokenRegistryAddress]
+    .map((s) => s.toLowerCase())
+    .includes(titleEscrowOwner.toLowerCase());
   let titleEscrowAddress = titleEscrowOwner;
   if (inactiveEscrow) {
     titleEscrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, provider);

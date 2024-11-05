@@ -21,6 +21,7 @@ interface TokenInformationContext {
   holder?: string;
   prevBeneficiary?: string;
   prevHolder?: string;
+  remark?: string;
   documentOwner?: string;
   approvedBeneficiary?: string;
   changeHolder: TitleEscrow["transferHolder"];
@@ -110,8 +111,8 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     tokenRegistry,
     tokenId
   );
-  const isReturnedToIssuer = documentOwner === tokenRegistryAddress;
-  const isTokenBurnt = documentOwner === BurnAddress; // check if the token belongs to burn address.
+  const isReturnedToIssuer = documentOwner?.toLowerCase() === tokenRegistryAddress?.toLowerCase();
+  const isTokenBurnt = documentOwner?.toLowerCase() === BurnAddress?.toLowerCase(); // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
   const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
@@ -124,6 +125,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const { call: getApprovedBeneficiary, value: approvedBeneficiary } = useContractFunctionHook(titleEscrow, "nominee");
   const { call: getPrevBeneficiary, value: prevBeneficiary } = useContractFunctionHook(titleEscrow, "prevBeneficiary");
   const { call: getPrevHolder, value: prevHolder } = useContractFunctionHook(titleEscrow, "prevHolder");
+  const { call: getRemark, value: remark } = useContractFunctionHook(titleEscrow, "remark");
 
   const {
     send: destroyToken,
@@ -163,6 +165,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     state: transferOwnersState,
     reset: resetTransferOwners,
   } = useContractFunctionHook(titleEscrow, "transferOwners");
+
   const {
     send: rejectTransferHolder,
     state: rejectTransferHolderState,
@@ -222,8 +225,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
       getApprovedBeneficiary();
       getPrevBeneficiary();
       getPrevHolder();
+      getRemark();
     }
-  }, [getApprovedBeneficiary, getBeneficiary, getHolder, getPrevBeneficiary, getPrevHolder, isTitleEscrow]);
+  }, [getApprovedBeneficiary, getBeneficiary, getHolder, getPrevBeneficiary, getPrevHolder, getRemark, isTitleEscrow]);
 
   // Update holder whenever holder transfer is successful
   useEffect(() => {
@@ -287,6 +291,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         approvedBeneficiary: approvedBeneficiary?.[0],
         prevBeneficiary: prevBeneficiary?.[0],
         prevHolder: prevHolder?.[0],
+        remark: remark?.[0],
         changeHolder,
         endorseBeneficiary,
         returnToIssuer,
