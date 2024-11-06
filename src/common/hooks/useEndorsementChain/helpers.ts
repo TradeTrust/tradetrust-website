@@ -46,8 +46,8 @@ const identifyEventTypeFromLogs = (groupedEvents: TransferBaseEvent[]): Transfer
   for (const event of groupedEvents) {
     if (event.type === "INITIAL") {
       type = "INITIAL";
-    } else if (event.type === "SURRENDER_ACCEPTED") {
-      type = "SURRENDER_ACCEPTED";
+    } else if (event.type === "RETURN_TO_ISSUER_ACCEPTED") {
+      type = "RETURN_TO_ISSUER_ACCEPTED";
     } else if (event.type.includes("REJECT_")) {
       type = event.type;
     }

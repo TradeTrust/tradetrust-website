@@ -119,7 +119,7 @@ describe("Test all endorsement chain helpers", () => {
           transactionIndex: 18,
         },
         {
-          type: "SURRENDER_ACCEPTED",
+          type: "RETURN_TO_ISSUER_ACCEPTED",
           from: "0x2B1B777614f8a90F9Cc29eC6Db521581c068a749",
           to: "0x000000000000000000000000000000000000dEaD",
           blockNumber: 7836281,
@@ -148,7 +148,7 @@ describe("Test all endorsement chain helpers", () => {
           holder: "0x8d366250A96deBE81C8619459a503a0eEBE33ca6",
         },
         {
-          type: "SURRENDER_ACCEPTED",
+          type: "RETURN_TO_ISSUER_ACCEPTED",
           blockNumber: 7836281,
           holder: "0x0000000000000000000000000000000000000000",
           transactionHash: "0x497395d2d58837a3fe686a883eaaaa2675b3d8ad10479abec2184349f7d38cb4",

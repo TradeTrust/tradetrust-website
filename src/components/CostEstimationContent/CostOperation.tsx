@@ -95,7 +95,7 @@ export const CostOperation: FunctionComponent = () => {
       costs: [
         {
           icon: "/static/images/cost/importer/surrender-ebl-icon.png",
-          title: "Surrender eBL",
+          title: "Return ETR to Issuer",
           ethPrice: table.surrender.eth + table.surrender.eth,
           maticPrice: table.surrender.matic + table.surrender.matic,
         },

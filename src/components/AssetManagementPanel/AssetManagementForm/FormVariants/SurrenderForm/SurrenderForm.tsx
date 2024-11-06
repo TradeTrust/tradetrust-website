@@ -17,8 +17,8 @@ interface SurrenderFormProps {
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
-  handleSurrender: (remark: string) => void;
-  surrenderingState: string;
+  handleReturnToIssuer: (remark: string) => void;
+  returnToIssuerState: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
 }
@@ -28,13 +28,13 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
   tokenRegistryAddress,
   beneficiary,
   holder,
-  handleSurrender,
-  surrenderingState,
+  handleReturnToIssuer,
+  returnToIssuerState,
   setFormActionNone,
   setShowEndorsementChain,
 }) => {
-  const isPendingConfirmation = surrenderingState === FormState.PENDING_CONFIRMATION;
-  const isConfirmed = surrenderingState === FormState.CONFIRMED;
+  const isPendingConfirmation = returnToIssuerState === FormState.PENDING_CONFIRMATION;
+  const isConfirmed = returnToIssuerState === FormState.CONFIRMED;
 
   const { showOverlay } = useContext(OverlayContext);
 
@@ -82,11 +82,11 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
             <div className="w-auto ml-2">
               <Button
                 className="bg-scarlet-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-scarlet-400"
-                onClick={() => handleSurrender("0x")}
+                onClick={() => handleReturnToIssuer("0x")}
                 disabled={isPendingConfirmation}
                 data-testid={"surrenderBtn"}
               >
-                {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Surrender Document</>}
+                {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Return ETR</>}
               </Button>
             </div>
           </div>

@@ -39,7 +39,7 @@ describe("Fetch Endorsement Transfers", () => {
         to: "0x71D28767662cB233F887aD2Bb65d048d760bA694",
         transactionHash: "0x21b804d9bbd9953310eaa62f0d6b0cf9a2821af86913bf252ea75958f84d7b17",
         transactionIndex: 5,
-        type: "SURRENDERED",
+        type: "RETURNED_TO_ISSUER",
       },
       {
         blockNumber: 6242100,
@@ -47,7 +47,7 @@ describe("Fetch Endorsement Transfers", () => {
         to: "0x1F6D8888Fc6B75E10b1840620E8229C3C487a925",
         transactionHash: "0x611f48ddedeea93f470dd6a3ba96d2eeb9c896fc954e616c3fcb8811d92c3ea4",
         transactionIndex: 0,
-        type: "SURRENDER_REJECTED",
+        type: "RETURN_TO_ISSUER_REJECTED",
       },
       {
         blockNumber: 6242178,
@@ -99,7 +99,7 @@ describe("Fetch Endorsement Transfers", () => {
         to: "0x71D28767662cB233F887aD2Bb65d048d760bA694",
         transactionHash: "0x039f729fe72d703a799bfbe6736f51f84639ec166632da8c9ea4e1995016fa95",
         transactionIndex: 1,
-        type: "SURRENDERED",
+        type: "RETURNED_TO_ISSUER",
       },
       {
         blockNumber: 6242791,
@@ -107,7 +107,7 @@ describe("Fetch Endorsement Transfers", () => {
         owner: "0x0000000000000000000000000000000000000000",
         transactionHash: "0xcf6968ef91efe74b8ada1770fc31e811f15989f80b0d518a42e06d4ab5bac8bd",
         transactionIndex: 3,
-        type: "SURRENDER_ACCEPTED",
+        type: "RETURN_TO_ISSUER_ACCEPTED",
       },
     ] as TransferBaseEvent[];
 
@@ -165,7 +165,7 @@ describe("Fetch Endorsement Transfers", () => {
         timestamp: 1713869315000,
         transactionHash: "0x21b804d9bbd9953310eaa62f0d6b0cf9a2821af86913bf252ea75958f84d7b17",
         transactionIndex: 5,
-        type: "SURRENDERED",
+        type: "RETURNED_TO_ISSUER",
       },
       {
         blockNumber: 6242100,
@@ -174,7 +174,7 @@ describe("Fetch Endorsement Transfers", () => {
         timestamp: 1713956826000,
         transactionHash: "0x611f48ddedeea93f470dd6a3ba96d2eeb9c896fc954e616c3fcb8811d92c3ea4",
         transactionIndex: 0,
-        type: "SURRENDER_REJECTED",
+        type: "RETURN_TO_ISSUER_REJECTED",
       },
       {
         blockNumber: 6242178,
@@ -210,7 +210,7 @@ describe("Fetch Endorsement Transfers", () => {
         timestamp: 1713958374000,
         transactionHash: "0x039f729fe72d703a799bfbe6736f51f84639ec166632da8c9ea4e1995016fa95",
         transactionIndex: 1,
-        type: "SURRENDERED",
+        type: "RETURNED_TO_ISSUER",
       },
       {
         blockNumber: 6242791,
@@ -219,7 +219,7 @@ describe("Fetch Endorsement Transfers", () => {
         timestamp: 1713958422000,
         transactionHash: "0xcf6968ef91efe74b8ada1770fc31e811f15989f80b0d518a42e06d4ab5bac8bd",
         transactionIndex: 3,
-        type: "SURRENDER_ACCEPTED",
+        type: "RETURN_TO_ISSUER_ACCEPTED",
       },
     ]);
   });

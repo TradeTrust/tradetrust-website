@@ -41,12 +41,12 @@ export const getEndorsementChain = async (
       historyChain.push(transactionDetails);
       previousHolder = transactionDetails.holder;
       previousBeneficiary = transactionDetails.owner;
-    } else if (log.type === "SURRENDER_ACCEPTED") {
+    } else if (log.type === "RETURN_TO_ISSUER_ACCEPTED") {
       // Title Escrow Voided
       previousHolder = "";
       previousBeneficiary = "";
       historyChain.push(transactionDetails);
-    } else if (log.type === "SURRENDERED" || log.type === "SURRENDER_REJECTED") {
+    } else if (log.type === "RETURNED_TO_ISSUER" || log.type === "RETURN_TO_ISSUER_REJECTED") {
       // No state changes, except document owner
       historyChain.push(transactionDetails);
     } else {

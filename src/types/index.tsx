@@ -12,9 +12,9 @@ export type TradeTrustTokenEventType =
   | "NEW_OWNERS"
   | "ENDORSE"
   | "TRANSFER"
-  | "SURRENDERED"
-  | "SURRENDER_REJECTED"
-  | "SURRENDER_ACCEPTED"
+  | "RETURNED_TO_ISSUER"
+  | "RETURN_TO_ISSUER_REJECTED"
+  | "RETURN_TO_ISSUER_ACCEPTED"
   | "TRANSFER_TO_WALLET"
   | "INVALID";
 
@@ -29,7 +29,11 @@ export interface TransferBaseEvent {
   remark?: string;
 }
 
-export type TokenTransferEventType = "INITIAL" | "SURRENDERED" | "SURRENDER_REJECTED" | "SURRENDER_ACCEPTED";
+export type TokenTransferEventType =
+  | "INITIAL"
+  | "RETURNED_TO_ISSUER"
+  | "RETURN_TO_ISSUER_REJECTED"
+  | "RETURN_TO_ISSUER_ACCEPTED";
 export interface TitleEscrowTransferEvent extends TransferBaseEvent {
   type: TitleEscrowTransferEventType;
 }

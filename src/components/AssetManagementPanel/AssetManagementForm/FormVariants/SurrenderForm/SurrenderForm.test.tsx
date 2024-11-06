@@ -11,13 +11,13 @@ describe("Surrender", () => {
       const container = render(
         <SurrenderForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          surrenderingState={FormState.UNINITIALIZED}
-          handleSurrender={() => {}}
+          returnToIssuerState={FormState.UNINITIALIZED}
+          handleReturnToIssuer={() => {}}
         />
       );
       const beneficiaryComponent = container.getByTestId("asset-title-owner");
@@ -37,13 +37,13 @@ describe("Surrender", () => {
       const container = render(
         <SurrenderForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          surrenderingState={FormState.UNINITIALIZED}
-          handleSurrender={() => {}}
+          returnToIssuerState={FormState.UNINITIALIZED}
+          handleReturnToIssuer={() => {}}
         />
       );
 
@@ -59,13 +59,13 @@ describe("Surrender", () => {
       const container = render(
         <SurrenderForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          surrenderingState={FormState.UNINITIALIZED}
-          handleSurrender={mockHandleSurrender}
+          returnToIssuerState={FormState.UNINITIALIZED}
+          handleReturnToIssuer={mockHandleSurrender}
         />
       );
 
@@ -81,13 +81,13 @@ describe("Surrender", () => {
       const container = render(
         <SurrenderForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={mockOnSetFormAction}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          surrenderingState={FormState.UNINITIALIZED}
-          handleSurrender={() => {}}
+          returnToIssuerState={FormState.UNINITIALIZED}
+          handleReturnToIssuer={() => {}}
         />
       );
 
@@ -101,13 +101,13 @@ describe("Surrender", () => {
       const container = render(
         <SurrenderForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          surrenderingState={FormState.PENDING_CONFIRMATION}
-          handleSurrender={() => {}}
+          returnToIssuerState={FormState.PENDING_CONFIRMATION}
+          handleReturnToIssuer={() => {}}
         />
       );
 
@@ -122,13 +122,13 @@ describe("Surrender", () => {
       const container = render(
         <SurrenderForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
           holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
-          surrenderingState={FormState.PENDING_CONFIRMATION}
-          handleSurrender={mockHandleSurrender}
+          returnToIssuerState={FormState.PENDING_CONFIRMATION}
+          handleReturnToIssuer={mockHandleSurrender}
         />
       );
 

@@ -13,7 +13,7 @@ describe("RejectSurrenderedForm", () => {
       const container = render(
         <RejectSurrenderedForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -43,7 +43,7 @@ describe("RejectSurrenderedForm", () => {
         >
           <RejectSurrenderedForm
             setShowEndorsementChain={() => {}}
-            formAction={AssetManagementActions.Surrender}
+            formAction={AssetManagementActions.ReturnToIssuer}
             setFormActionNone={() => {}}
             tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
             beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -64,7 +64,7 @@ describe("RejectSurrenderedForm", () => {
       const container = render(
         <RejectSurrenderedForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={() => {}}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
@@ -86,7 +86,7 @@ describe("RejectSurrenderedForm", () => {
       const container = render(
         <RejectSurrenderedForm
           setShowEndorsementChain={() => {}}
-          formAction={AssetManagementActions.Surrender}
+          formAction={AssetManagementActions.ReturnToIssuer}
           setFormActionNone={mockFormActionNone}
           tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
           beneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"

@@ -1,13 +1,12 @@
 import { ContractFunctionState, useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
-import { TitleEscrow } from "@tradetrust-tt/token-registry/contracts";
-import React, { createContext, useContext, useEffect, useState, useCallback, FunctionComponent } from "react";
-import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
-import { useProviderContext } from "../provider";
-import { useSupportsInterface } from "../../hooks/useSupportsInterface";
-import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
-import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
-import { useRestoreToken } from "../../hooks/useRestoreToken";
+import { TitleEscrow, TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
+import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
 import { BurnAddress } from "../../../constants/chain-info";
+import { useRestoreToken } from "../../hooks/useRestoreToken";
+import { useSupportsInterface } from "../../hooks/useSupportsInterface";
+import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
+import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
+import { useProviderContext } from "../provider";
 
 export enum TokenRegistryVersion {
   V2 = "V2",
@@ -22,12 +21,13 @@ interface TokenInformationContext {
   holder?: string;
   prevBeneficiary?: string;
   prevHolder?: string;
+  remark?: string;
   documentOwner?: string;
   approvedBeneficiary?: string;
   changeHolder: TitleEscrow["transferHolder"];
   changeHolderState: ContractFunctionState;
-  surrender: TitleEscrow["surrender"];
-  surrenderState: ContractFunctionState;
+  returnToIssuer: TitleEscrow["returnToIssuer"];
+  returnToIssuerState: ContractFunctionState;
   endorseBeneficiary: TitleEscrow["transferBeneficiary"];
   endorseBeneficiaryState: ContractFunctionState;
   nominate: TitleEscrow["nominate"];
@@ -43,7 +43,7 @@ interface TokenInformationContext {
   rejectTransferOwnerHolderErrorMessage?: string;
   rejectTransferOwnerHolderState: ContractFunctionState;
   initialize: (tokenRegistryAddress: string, tokenId: string) => void;
-  isSurrendered: boolean;
+  isReturnedToIssuer: boolean;
   isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
   version?: TokenRegistryVersion;
@@ -63,11 +63,11 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
   initialize: () => {},
   changeHolder: contractFunctionStub,
   changeHolderState: "UNINITIALIZED",
-  surrender: contractFunctionStub,
-  surrenderState: "UNINITIALIZED",
+  returnToIssuer: contractFunctionStub,
+  returnToIssuerState: "UNINITIALIZED",
   endorseBeneficiary: contractFunctionStub,
   endorseBeneficiaryState: "UNINITIALIZED",
-  isSurrendered: false,
+  isReturnedToIssuer: false,
   isTokenBurnt: false,
   documentOwner: "",
   nominate: contractFunctionStub,
@@ -96,7 +96,7 @@ interface TokenInformationContextProviderProps {
 // TODO: HAN Move the constant value to token-registry repo
 export const TitleEscrowInterface = {
   V4: "0x079dff60",
-  V5: "0xa00f1762",
+  V5: "0x3e143f7b",
 };
 
 export const TokenInformationContextProvider: FunctionComponent<TokenInformationContextProviderProps> = ({
@@ -111,8 +111,8 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     tokenRegistry,
     tokenId
   );
-  const isSurrendered = documentOwner === tokenRegistryAddress;
-  const isTokenBurnt = documentOwner === BurnAddress; // check if the token belongs to burn address.
+  const isReturnedToIssuer = documentOwner?.toLowerCase() === tokenRegistryAddress?.toLowerCase();
+  const isTokenBurnt = documentOwner?.toLowerCase() === BurnAddress?.toLowerCase(); // check if the token belongs to burn address.
 
   // First check whether Contract is TitleEscrow
   const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
@@ -125,6 +125,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const { call: getApprovedBeneficiary, value: approvedBeneficiary } = useContractFunctionHook(titleEscrow, "nominee");
   const { call: getPrevBeneficiary, value: prevBeneficiary } = useContractFunctionHook(titleEscrow, "prevBeneficiary");
   const { call: getPrevHolder, value: prevHolder } = useContractFunctionHook(titleEscrow, "prevHolder");
+  const { call: getRemark, value: remark } = useContractFunctionHook(titleEscrow, "remark");
 
   const {
     send: destroyToken,
@@ -136,10 +137,10 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
 
   // Contract Write Functions (available only after provider has been upgraded)
   const {
-    send: surrender,
-    state: surrenderState,
-    reset: resetSurrender,
-  } = useContractFunctionHook(titleEscrow, "surrender");
+    send: returnToIssuer,
+    state: returnToIssuerState,
+    reset: resetReturnToIssuer,
+  } = useContractFunctionHook(titleEscrow, "returnToIssuer");
 
   const {
     send: changeHolder,
@@ -164,6 +165,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     state: transferOwnersState,
     reset: resetTransferOwners,
   } = useContractFunctionHook(titleEscrow, "transferOwners");
+
   const {
     send: rejectTransferHolder,
     state: rejectTransferHolderState,
@@ -183,7 +185,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   } = useContractFunctionHook(titleEscrow, "rejectTransferOwners");
 
   const resetProviders = useCallback(() => {
-    resetSurrender();
+    resetReturnToIssuer();
     resetDestroyingTokenState();
     resetChangeHolder();
     resetEndorseBeneficiary();
@@ -197,7 +199,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     resetNominate,
     resetChangeHolder,
     resetEndorseBeneficiary,
-    resetSurrender,
+    resetReturnToIssuer,
     resetTransferOwners,
     resetRejectTransferOwner,
     resetRejectTransferHolder,
@@ -223,8 +225,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
       getApprovedBeneficiary();
       getPrevBeneficiary();
       getPrevHolder();
+      getRemark();
     }
-  }, [getApprovedBeneficiary, getBeneficiary, getHolder, getPrevBeneficiary, getPrevHolder, isTitleEscrow]);
+  }, [getApprovedBeneficiary, getBeneficiary, getHolder, getPrevBeneficiary, getPrevHolder, getRemark, isTitleEscrow]);
 
   // Update holder whenever holder transfer is successful
   useEffect(() => {
@@ -242,8 +245,8 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
 
   // Update entire title escrow whenever transferTo is successful
   useEffect(() => {
-    if (surrenderState === "CONFIRMED") updateTitleEscrow();
-  }, [surrenderState, updateTitleEscrow]);
+    if (returnToIssuerState === "CONFIRMED") updateTitleEscrow();
+  }, [returnToIssuerState, updateTitleEscrow]);
 
   // Update entire title escrow whenever token is burnt
   useEffect(() => {
@@ -288,15 +291,16 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         approvedBeneficiary: approvedBeneficiary?.[0],
         prevBeneficiary: prevBeneficiary?.[0],
         prevHolder: prevHolder?.[0],
+        remark: remark?.[0],
         changeHolder,
         endorseBeneficiary,
-        surrender,
+        returnToIssuer,
         changeHolderState,
         endorseBeneficiaryState,
-        surrenderState,
+        returnToIssuerState,
         destroyTokenState,
         destroyToken,
-        isSurrendered,
+        isReturnedToIssuer,
         isTokenBurnt,
         isTitleEscrow,
         version: isTitleEscrowV4 ? TokenRegistryVersion.V4 : TokenRegistryVersion.V5,

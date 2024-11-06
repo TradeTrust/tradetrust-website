@@ -12,8 +12,8 @@ describe("Surrender Reject", () => {
     cy.get("[data-testid='surrenderDropdown']").click(); // Surrender Document
     cy.get("[data-testid='surrenderBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
-    cy.get("[data-testid='overlay-title']").should("have.text", "Surrender Document Success");
-    cy.get("#surrender-sign").should("have.text", "Surrendered To Issuer");
+    cy.get("[data-testid='overlay-title']").should("have.text", "Return of ETR successful");
+    cy.get("#surrender-sign").should("have.text", "ETR returned to issuer");
   });
 
   it("should go to verify page, upload a file, connect to wallet and reject the surrendered document successfully", () => {
@@ -25,6 +25,6 @@ describe("Surrender Reject", () => {
     cy.get("[data-testid='rejectSurrenderBtn']").click();
     cy.get("[data-testid='confirmActionBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
-    cy.get("[data-testid='overlay-title']").should("have.text", "Surrender Rejected");
+    cy.get("[data-testid='overlay-title']").should("have.text", "Return of this ETR has been rejected by the Issuer");
   });
 });

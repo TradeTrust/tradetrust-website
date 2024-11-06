@@ -16,8 +16,8 @@ const EndorseNomineeAction = Selector("[data-testid='action-title']").withText("
 const TransferHoldershipAction = Selector("[data-testid='action-title']").withText("Transfer holdership");
 const ChangeOwnershipAction = Selector("[data-testid='action-title']").withText("Change Owners");
 
-const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("Document surrendered to issuer");
-const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("Surrender of document accepted");
+const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("ETR returned to issuer");
+const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("ETR taken out of circulation");
 
 // history chain of events for ebl-endorsement-chain.json are:
 // 1. issued on account 1
@@ -27,6 +27,7 @@ const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withTex
 // 6. surrender with account 1
 // 7. accept surrender with account 1
 
+// TODO: Add in test for reject transfers, after updating CLI
 test("Endorsement chain title and actions are rendered correctly", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/v3/ebl-endorsement-chain.json");

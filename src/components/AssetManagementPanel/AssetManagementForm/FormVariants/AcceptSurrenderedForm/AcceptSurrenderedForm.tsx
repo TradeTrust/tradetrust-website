@@ -59,7 +59,7 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
           <div className="w-full lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-4xl">Surrendered To Issuer</h3>
+                <h3 className="text-4xl">ETR returned to issuer</h3>
               </TagBorderedLg>
             </div>
           </div>
@@ -87,7 +87,7 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
                   {isDestroyTokenPendingConfirmation ? (
                     <LoaderSpinner data-testid={"accept-loader"} />
                   ) : (
-                    <>Shred Document</>
+                    <>Take ETR out of circulation</>
                   )}
                 </Button>
               </div>
