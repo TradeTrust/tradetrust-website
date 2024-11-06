@@ -1,5 +1,5 @@
 {
-  "appCommand": "npm run serve-static",
+  "appCommand": "npm run integration:local:static",
   "src": ["src/**/*.spec.ts"],
   "browsers": ["chrome:headless"],
   "concurrency": 4,
