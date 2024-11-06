@@ -26,7 +26,7 @@
     "integration:single": "testcafe chrome -L",
     "integration:testcafe:prod": "testcafe --config-file \".testcaferc-prod.json\"",
     "integration:testcafe:dev": "testcafe --config-file \".testcaferc-dev.json\"",
-    "integration:testcafe": "run-s blockchain:contracts:testcafe integration:testcafe:prod",
+    "integration:testcafe": "run-s blockchain:contracts:testcafe build:prod integration:testcafe:prod",
     "integration:testcafe:ci": "concurrently -k -s first \"npm:blockchain\" \"npm:integration:testcafe\"",
     "integration:metamask": "run-s wait blockchain:contracts:synpress integration:synpress",
     "integration:synpress": "cross-env METAMASK_VERSION=11.15.6 CYPRESS_RESOURCES_WAIT=1 STABLE_MODE=true SECRET_WORDS='indicate swing place chair flight used hammer soon photo region volume shuffle' NETWORK_NAME='localhost' RPC_URL=http://localhost:8545 CHAIN_ID=1337 SYMBOL=ETH IS_TESTNET=true synpress run --configFile='./synpress.config.js'",
