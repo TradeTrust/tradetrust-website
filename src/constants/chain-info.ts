@@ -45,6 +45,9 @@ export enum ChainId {
   // Hedera Network
   HederaMainnet = 295,
   HederaTestnet = 296,
+
+  // Astron Network
+  Astron = 1338,
 }
 
 export const ChainInfo: ChainInfo = {
@@ -188,6 +191,20 @@ export const ChainInfo: ChainInfo = {
     nativeCurrency: {
       name: "HBAR",
       symbol: "HBAR",
+      decimals: 18,
+    },
+  },
+  [ChainId.Astron]: {
+    label: "Astron Network",
+    chainId: ChainId.Astron,
+    iconImage: "/static/images/networks/astron.png",
+    networkName: "astron",
+    networkLabel: "astron",
+    explorerUrl: "http://astronscanl2.bitfactory.cn/",
+    rpcUrl: "http://astronlayer2.bitfactory.cn:8545/",
+    nativeCurrency: {
+      name: "ASTRON",
+      symbol: "ASTRON",
       decimals: 18,
     },
   },
