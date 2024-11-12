@@ -1,9 +1,11 @@
-import { Overlay } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, ButtonSize, Overlay } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
 import { NavigationBar, rightNavItems } from "./components/Layout/NavigationBar";
 import { Routes, routes } from "./routes";
+import { URLS } from "./constants";
+import PopupMessage from "./components/PopupMessage";
 
 const AppContainer = (): React.ReactElement => {
   const location = useLocation();
@@ -22,6 +24,21 @@ const AppContainer = (): React.ReactElement => {
         leftItems={[]}
         rightItems={rightNavItems}
       />
+      <PopupMessage />
+      <div className="bg-cerulean-800 text-white py-2 px-0" data-testid="old-verifier-banner">
+        <div className="container">
+          <div className="flex flex-wrap">
+            <div className="col-auto flex items-center justify-between w-full">
+              <p className="mb-0">Welcome to our upgraded verifier!</p>
+              <a href={URLS.REF} target="_blank" rel="noopener noreferrer">
+                <Button className="bg-white text-cerulean-500 hover:bg-cloud-100 px-6" size={ButtonSize.MD}>
+                  Use Previous Verifier
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       <main
         className="bg-cerulean-50 bg-cover"
         style={{ backgroundImage: "url('/static/images/common/wave-lines.png')" }}
