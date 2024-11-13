@@ -200,8 +200,8 @@ export const ChainInfo: ChainInfo = {
     iconImage: "/static/images/networks/astron.png",
     networkName: "astron",
     networkLabel: "astron",
-    explorerUrl: "http://astronscanl2.bitfactory.cn/",
-    rpcUrl: "http://astronlayer2.bitfactory.cn:8545/",
+    explorerUrl: "https://astronscanl2.bitfactory.cn/",
+    rpcUrl: "https://astronlayer2.bitfactory.cn/rpc/",
     nativeCurrency: {
       name: "ASTRON",
       symbol: "ASTRON",
