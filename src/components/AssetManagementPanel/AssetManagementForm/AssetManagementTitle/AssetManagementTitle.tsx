@@ -23,8 +23,8 @@ export const AssetManagementTitle: FunctionComponent<AssetManagementTitleProps> 
         <BackArrow />
         <h3 className="font-bold text-cloud-800">
           {formAction === AssetManagementActions.ReturnToIssuer && <>Return ETR to Issuer</>}
-          {formAction === AssetManagementActions.AcceptReturnToIssuer && <>Accept return of ETR</>}
-          {formAction === AssetManagementActions.RejectReturnToIssuer && <>Reject return of ETR</>}
+          {formAction === AssetManagementActions.AcceptReturnToIssuer && <>Accept ETR Return</>}
+          {formAction === AssetManagementActions.RejectReturnToIssuer && <>Reject ETR Return</>}
           {formAction === AssetManagementActions.TransferHolder && <>Transfer Holdership</>}
           {formAction === AssetManagementActions.EndorseBeneficiary && <>Endorse Change of Ownership</>}
           {formAction === AssetManagementActions.NominateBeneficiary && <>Nominate Change of Ownership</>}

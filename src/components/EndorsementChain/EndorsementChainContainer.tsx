@@ -14,15 +14,17 @@ const timeout = 60;
 interface EndorsementChainContainer {
   tokenRegistry: string;
   tokenId: string;
+  keyId?: string;
   setShowEndorsementChain: (payload: boolean) => void;
 }
 
 export const EndorsementChainContainer: FunctionComponent<EndorsementChainContainer> = ({
   tokenRegistry,
   tokenId,
+  keyId,
   setShowEndorsementChain,
 }) => {
-  const endorsementChainProps = useEndorsementChain(tokenRegistry, tokenId);
+  const endorsementChainProps = useEndorsementChain(tokenRegistry, tokenId, keyId);
   const expiryTimestamp = new Date();
   const { showOverlay } = useContext(OverlayContext);
   expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + timeout);

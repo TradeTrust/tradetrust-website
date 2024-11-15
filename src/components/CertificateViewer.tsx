@@ -146,6 +146,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
       {isTransferableDocument && (
         <EndorsementChainContainer
           tokenId={tokenId}
+          keyId={keyId}
           tokenRegistry={tokenRegistryAddress}
           setShowEndorsementChain={setShowEndorsementChain}
         />

@@ -5,18 +5,21 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@tradetrust-tt/tradetrust-ui-components";
-import React, { FunctionComponent, useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
+import { encryptRemark } from "../../../../../common/utils/chain-utils";
+import { EditableAssetTitle } from "../EditableAssetTitle";
 
 interface RejectSurrenderedFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
+  keyId?: string;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
   handleRestoreToken: (remark: string) => void;
@@ -28,12 +31,14 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
   tokenRegistryAddress,
   beneficiary,
   holder,
+  keyId,
   setFormActionNone,
   setShowEndorsementChain,
   handleRestoreToken,
   restoreTokenState,
 }) => {
   const { showOverlay } = useContext(OverlayContext);
+  const [remark, setRemark] = useState("");
   const isRestoreTokenPendingConfirmation = restoreTokenState === FormState.PENDING_CONFIRMATION;
   const isRestoreTokenConfirmed = restoreTokenState === FormState.CONFIRMED;
 
@@ -44,7 +49,7 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
         beneficiaryAddress: beneficiary,
         holderAddress: holder,
         isConfirmationMessage: true,
-        onConfirmationAction: () => handleRestoreToken("0x"),
+        onConfirmationAction: () => handleRestoreToken("0x" + ((remark && encryptRemark(remark, keyId)) ?? "")),
       })
     );
   };
@@ -74,9 +79,21 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
           <div className="w-full lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-4xl">ETR returned to issuer</h3>
+                <h3 className="text-xl">ETR returned to issuer</h3>
               </TagBorderedLg>
             </div>
+          </div>
+        </div>
+        <div className="flex flex-wrap justify-between mb-4 -mx-4">
+          <div className="w-full px-4 lg:w-1/3 ml-auto">
+            <EditableAssetTitle
+              role="Remark"
+              value="Remark"
+              newValue={remark}
+              onSetNewValue={setRemark}
+              isEditable={true}
+              isRemark={true}
+            />
           </div>
         </div>
         <div className="flex flex-wrap pb-4">
@@ -102,7 +119,7 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
                   {isRestoreTokenPendingConfirmation ? (
                     <LoaderSpinner data-testid={"reject-loader"} />
                   ) : (
-                    <>Reject return of ETR</>
+                    <>Reject ETR Return</>
                   )}
                 </Button>
               </div>

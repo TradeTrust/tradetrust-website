@@ -5,13 +5,14 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@tradetrust-tt/tradetrust-ui-components";
-import React, { FunctionComponent, useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { isEthereumAddress } from "../../../../../utils";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { encryptRemark } from "../../../../../common/utils/chain-utils";
 
 interface EndorseBeneficiaryProps {
   formAction: AssetManagementActions;
@@ -19,6 +20,7 @@ interface EndorseBeneficiaryProps {
   beneficiary?: string;
   holder?: string;
   nominee?: string;
+  keyId?: string;
   handleBeneficiaryTransfer: (newBeneficiary: string, remark: string) => void;
   beneficiaryEndorseState: string;
   setFormActionNone: () => void;
@@ -31,6 +33,7 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
   beneficiary,
   holder,
   nominee,
+  keyId,
   handleBeneficiaryTransfer,
   beneficiaryEndorseState,
   setFormActionNone,
@@ -39,6 +42,7 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
   const isPendingConfirmation = beneficiaryEndorseState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = beneficiaryEndorseState === FormState.CONFIRMED;
   const { showOverlay } = useContext(OverlayContext);
+  const [remark, setRemark] = useState("");
 
   useEffect(() => {
     if (isConfirmed) {
@@ -74,11 +78,23 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
             tokenRegistryAddress={tokenRegistryAddress}
           />
         </div>
+      </div>
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Nominee" value={nominee} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
+        </div>
+        <div className="w-full px-4 lg:w-1/3">
+          <EditableAssetTitle
+            role="Remark"
+            value="Remark"
+            newValue={remark}
+            onSetNewValue={setRemark}
+            isEditable={true}
+            isRemark={true}
+          />
         </div>
       </div>
       {beneficiaryEndorseState === FormState.ERROR && (
@@ -103,7 +119,9 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
               <Button
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={!isValidEndorse() || isPendingConfirmation}
-                onClick={() => handleBeneficiaryTransfer(nominee || "", "0x")}
+                onClick={() =>
+                  handleBeneficiaryTransfer(nominee || "", "0x" + ((remark && encryptRemark(remark, keyId)) ?? ""))
+                }
                 data-testid={"endorseBtn"}
               >
                 {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Endorse</>}

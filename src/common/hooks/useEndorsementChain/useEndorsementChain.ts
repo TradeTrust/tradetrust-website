@@ -8,10 +8,12 @@ import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { fetchEscrowTransfersV5 } from "./fetchEscrowTransfer";
 import { mergeTransfers } from "./helpers";
 import { getEndorsementChain } from "./retrieveEndorsementChain";
+import { decryptRemark } from "../../utils/chain-utils";
 
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
-  tokenId: string
+  tokenId: string,
+  keyId?: string
 ): {
   endorsementChain?: EndorsementChain;
   pending: boolean;
@@ -45,10 +47,9 @@ export const useEndorsementChain = (
 
       const retrievedEndorsementChain = await getEndorsementChain(provider, transferEvents);
 
-      // TODO: HAN Add decrypt remark function
       setEndorsementChain(
         retrievedEndorsementChain.map((event) => {
-          const remark = event?.remark && Buffer.from(event?.remark.slice(2), "hex").toString();
+          const remark = event?.remark?.slice(2) ? decryptRemark(event.remark.slice(2), keyId) : "";
           return {
             ...event,
             remark: remark,
@@ -59,7 +60,7 @@ export const useEndorsementChain = (
       setError(getErrorMessage(e));
     }
     setPending(false);
-  }, [provider, providerOrSigner, tokenId, tokenRegistry, tokenRegistryVersion]);
+  }, [provider, providerOrSigner, tokenId, tokenRegistry, tokenRegistryVersion, keyId]);
 
   useEffect(() => {
     fetchEndorsementChain();

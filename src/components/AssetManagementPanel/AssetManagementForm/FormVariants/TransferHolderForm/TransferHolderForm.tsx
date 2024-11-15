@@ -12,12 +12,14 @@ import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { encryptRemark } from "../../../../../common/utils/chain-utils";
 
 interface TransferHolderProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
+  keyId?: string;
   handleTransfer: (newHolder: string, remark: string) => void;
   holderTransferringState: string;
   setFormActionNone: () => void;
@@ -29,12 +31,14 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
   tokenRegistryAddress,
   beneficiary,
   holder,
+  keyId,
   handleTransfer,
   holderTransferringState,
   setFormActionNone,
   setShowEndorsementChain,
 }) => {
   const [newHolder, setNewHolder] = useState("");
+  const [remark, setRemark] = useState("");
   const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = holderTransferringState === FormState.CONFIRMED;
   const isEditable =
@@ -72,6 +76,8 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
             tokenRegistryAddress={tokenRegistryAddress}
           />
         </div>
+      </div>
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
         </div>
@@ -83,6 +89,16 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
             isEditable={isEditable}
             onSetNewValue={setNewHolder}
             isError={holderTransferringState === FormState.ERROR}
+          />
+        </div>
+        <div className="w-full px-4 lg:w-1/3">
+          <EditableAssetTitle
+            role="Remark"
+            value="Remark"
+            newValue={remark}
+            onSetNewValue={setRemark}
+            isEditable={true}
+            isRemark={true}
           />
         </div>
       </div>
@@ -103,7 +119,7 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
               <Button
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={!isValidTransfer() || isPendingConfirmation}
-                onClick={() => handleTransfer(newHolder, "0x")}
+                onClick={() => handleTransfer(newHolder, "0x" + ((remark && encryptRemark(remark, keyId)) ?? ""))}
                 data-testid={"transferBtn"}
               >
                 {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}

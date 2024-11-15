@@ -5,16 +5,19 @@ import {
   showDocumentTransferMessage,
   LoaderSpinner,
 } from "@tradetrust-tt/tradetrust-ui-components";
-import React, { FunctionComponent, useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { TagBorderedLg } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
+import { EditableAssetTitle } from "../EditableAssetTitle";
+import { encryptRemark } from "../../../../../common/utils/chain-utils";
 
 interface AcceptSurrenderedFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
+  keyId?: string;
   handleDestroyToken: (remark: string) => void;
   destroyTokenState: string;
   setFormActionNone: () => void;
@@ -24,13 +27,14 @@ interface AcceptSurrenderedFormProps {
 export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps> = ({
   formAction,
   tokenRegistryAddress,
+  keyId,
   handleDestroyToken,
   destroyTokenState,
   setFormActionNone,
   setShowEndorsementChain,
 }) => {
   const { showOverlay } = useContext(OverlayContext);
-
+  const [remark, setRemark] = useState("");
   const isDestroyTokenPendingConfirmation = destroyTokenState === FormState.PENDING_CONFIRMATION;
   const isDestroyTokenConfirmed = destroyTokenState === FormState.CONFIRMED;
 
@@ -59,9 +63,21 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
           <div className="w-full lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-4xl">ETR returned to issuer</h3>
+                <h3 className="text-xl">ETR returned to issuer</h3>
               </TagBorderedLg>
             </div>
+          </div>
+        </div>
+        <div className="flex flex-wrap justify-between mb-4 -mx-4">
+          <div className="w-full px-4 lg:w-1/3 ml-auto">
+            <EditableAssetTitle
+              role="Remark"
+              value="Remark"
+              newValue={remark}
+              onSetNewValue={setRemark}
+              isEditable={true}
+              isRemark={true}
+            />
           </div>
         </div>
         <div className="flex flex-wrap pb-4">
@@ -80,14 +96,14 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
               <div className="w-auto ml-2">
                 <Button
                   className="bg-scarlet-500 text-white rounded-xl text-lg py-2 px-3 shadow-none hover:bg-scarlet-400"
-                  onClick={() => handleDestroyToken("0x")}
+                  onClick={() => handleDestroyToken("0x" + ((remark && encryptRemark(remark, keyId)) ?? ""))}
                   disabled={isDestroyTokenPendingConfirmation}
                   data-testid={"acceptSurrenderBtn"}
                 >
                   {isDestroyTokenPendingConfirmation ? (
                     <LoaderSpinner data-testid={"accept-loader"} />
                   ) : (
-                    <>Take ETR out of circulation</>
+                    <>Accept ETR Return</>
                   )}
                 </Button>
               </div>
