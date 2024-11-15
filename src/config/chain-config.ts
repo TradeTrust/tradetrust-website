@@ -9,6 +9,7 @@ export const MAIN_NETWORKS = [
   ChainId.XDC,
   ChainId.HederaMainnet,
   ChainId.Stability,
+  ChainId.Astron,
 ];
 
 /**
