@@ -1,8 +1,14 @@
 import { ACCOUNT_2 } from "../utils";
 
 before(() => {
+  cy.window().then((window) => {
+    window.localStorage.setItem('hasSeenPopup', 'true');
+  });
+  cy.wait(1000);
   cy.createMetamaskAccount();
+  cy.wait(1000);
   cy.createMetamaskAccount();
+  cy.wait(1000);
   // cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879");
   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
 });
@@ -17,6 +23,7 @@ describe("Transfer Holder", () => {
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='transferHolderDropdown']").click(); // Transfer Holdership
     cy.get("[data-testid='editable-input-holder']").type(ACCOUNT_2);
+    cy.get("[data-testid='editable-input-remark']").type("Remark: Transfer Holdership");
     cy.get("[data-testid='transferBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
     cy.get("[data-testid='non-editable-input-holder']").should("have.text", ACCOUNT_2);

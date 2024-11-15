@@ -5,18 +5,20 @@ import {
   OverlayContext,
   showDocumentTransferMessage,
 } from "@tradetrust-tt/tradetrust-ui-components";
-import React, { FunctionComponent, useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { encryptRemark } from "../../../../../common/utils/chain-utils";
 
 interface SurrenderFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
+  keyId?: string;
   handleReturnToIssuer: (remark: string) => void;
   returnToIssuerState: string;
   setFormActionNone: () => void;
@@ -28,11 +30,13 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
   tokenRegistryAddress,
   beneficiary,
   holder,
+  keyId,
   handleReturnToIssuer,
   returnToIssuerState,
   setFormActionNone,
   setShowEndorsementChain,
 }) => {
+  const [remark, setRemark] = useState("");
   const isPendingConfirmation = returnToIssuerState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = returnToIssuerState === FormState.CONFIRMED;
 
@@ -59,11 +63,23 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
             tokenRegistryAddress={tokenRegistryAddress}
           />
         </div>
+      </div>
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Owner" value={beneficiary} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
+        </div>
+        <div className="w-full px-4 lg:w-1/3">
+          <EditableAssetTitle
+            role="Remark"
+            value="Remark"
+            newValue={remark}
+            onSetNewValue={setRemark}
+            isEditable={true}
+            isRemark={true}
+          />
         </div>
       </div>
       <div className="flex flex-wrap pb-4">
@@ -82,7 +98,7 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
             <div className="w-auto ml-2">
               <Button
                 className="bg-scarlet-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-scarlet-400"
-                onClick={() => handleReturnToIssuer("0x")}
+                onClick={() => handleReturnToIssuer("0x" + ((remark && encryptRemark(remark, keyId)) ?? ""))}
                 disabled={isPendingConfirmation}
                 data-testid={"surrenderBtn"}
               >

@@ -1,6 +1,9 @@
 import { ACCOUNT_1, ACCOUNT_3 } from "../utils";
 
 before(() => {
+  cy.window().then((window) => {
+    window.localStorage.setItem('hasSeenPopup', 'true');
+  });
   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
 });
 
@@ -13,6 +16,7 @@ describe("Endorse Transfer of Ownership by nominating Owner", () => {
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='nominateBeneficiaryHolderDropdown']").click(); // Nominate Change of Ownership
     cy.get("[data-testid='editable-input-owner']").type(ACCOUNT_3);
+    cy.get("[data-testid='editable-input-remark']").type("Remark: Nominate Change");
     cy.get("[data-testid='nominationBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
     cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_1);

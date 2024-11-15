@@ -15,6 +15,12 @@ export const validateTextContent = async (testcafe, component, texts) =>
 
 export const navigateToVerify = async () => {
   await t.click(VerifyPage);
+  const button = Selector("button").withText("Dismiss");
+  if (await button.exists) {
+    await t.click(button);
+  } else {
+    console.log("Button does not exist");
+  }
 };
 
 export const uploadDocument = async (documentPath) => {

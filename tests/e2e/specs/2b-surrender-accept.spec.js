@@ -1,4 +1,7 @@
 before(() => {
+  cy.window().then((window) => {
+    window.localStorage.setItem('hasSeenPopup', 'true');
+  });
   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
 });
 
@@ -10,6 +13,7 @@ describe("Surrender Accept", () => {
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='surrenderDropdown']").click(); // Surrender Document
+    cy.get("[data-testid='editable-input-remark']").type("Remark: Surrender Document");
     cy.get("[data-testid='surrenderBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
     cy.get("[data-testid='overlay-title']").should("have.text", "Return of ETR successful");
@@ -22,6 +26,7 @@ describe("Surrender Accept", () => {
     cy.get("[data-testid='surrenderToIssuer']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='acceptSurrenderDropdown']").click(); // Accept Surrender
+    cy.get("[data-testid='editable-input-remark']").type("Remark: Accept Surrender");
     cy.get("[data-testid='acceptSurrenderBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
     cy.get("[data-testid='overlay-title']").should("have.text", "Return of ETR accepted");

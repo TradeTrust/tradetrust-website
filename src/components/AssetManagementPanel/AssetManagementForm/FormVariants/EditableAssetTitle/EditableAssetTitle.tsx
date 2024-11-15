@@ -1,10 +1,11 @@
 import { OverlayAddressBook, ButtonIcon, useOverlayContext, Input } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
-import { Book } from "react-feather";
+import { Book, Info } from "react-feather";
 import { NETWORK_NAME } from "../../../../../config";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
+import { TooltipIcon } from "../../../../UI/SvgIcon";
 
 interface EditableAssetTitleProps {
   role: string;
@@ -13,6 +14,7 @@ interface EditableAssetTitleProps {
   newValue?: string;
   onSetNewValue?: (newValue: string) => void;
   isError?: boolean;
+  isRemark?: boolean;
 }
 
 export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
@@ -22,6 +24,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   isEditable,
   onSetNewValue,
   isError: error,
+  isRemark,
 }) => {
   const { showOverlay } = useOverlayContext();
 
@@ -30,6 +33,44 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   };
 
   if (!value) return <SkeletonPlaceholder />;
+  if (isEditable && isRemark)
+    return (
+      <AssetTitle role={role} address={""}>
+        <textarea
+          className="w-full rounded-xl font-normal py-2.5 px-3 border border-cloud-100 h-24 resize-none focus:outline-none focus:ring-2 focus:ring-cerulean-500"
+          data-testid={`editable-input-${role.toLowerCase()}`}
+          maxLength={120}
+          value={newValue}
+          placeholder={`Enter remarks here (max 120 characters)`}
+          style={{
+            overflowWrap: "break-word",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+          }}
+          onChange={(event) => {
+            if (!onSetNewValue) return;
+            onSetNewValue(event.target.value);
+          }}
+        />
+        <div className="text-cloud-300 my-2 flex items-start space-x-2 w-full" data-testid="remarks-icon-text">
+          <div className="w-auto mr-2">
+            <TooltipIcon content="Any remarks provided will be accessible in the endorsement chain by any verifiers of this document.">
+              <Info />
+            </TooltipIcon>
+          </div>
+          <p
+            style={{
+              overflowWrap: "break-word",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              margin: 0,
+            }}
+          >
+            Any remarks provided will be accessible in the endorsement chain by any verifiers of this document.
+          </p>
+        </div>
+      </AssetTitle>
+    );
   if (!isEditable)
     return (
       <AssetTitle role={role} address={value}>

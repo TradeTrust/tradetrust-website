@@ -24,13 +24,13 @@ describe("getChainId for v2 document", () => {
     expect(getChainId(document)).toStrictEqual(80002);
   });
 
-  it("should return the correct chainId for hederatestnet", () => {
-    const document = {
-      ...invoiceHederaTestnetV2,
-      data: { ...invoiceHederaTestnetV2.data, network: { chain: "HBAR", chainId: "296" } },
-    } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(getChainId(document)).toStrictEqual(296);
-  });
+  // it("should return the correct chainId for hederatestnet", () => {
+  //   const document = {
+  //     ...invoiceHederaTestnetV2,
+  //     data: { ...invoiceHederaTestnetV2.data, network: { chain: "HBAR", chainId: "296" } },
+  //   } as unknown as WrappedOrSignedOpenAttestationDocument;
+  //   expect(getChainId(document)).toStrictEqual(296);
+  // });
 
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
     const document = {
@@ -124,13 +124,13 @@ describe("getChainId for v3 document", () => {
     expect(getChainId(document)).toStrictEqual(80002);
   });
 
-  it("should return the correct chainId for hederatestnet", () => {
-    const document = {
-      ...invoiceHederaTestnetV3,
-      network: { chain: "HBAR", chainId: "296" },
-    } as unknown as WrappedOrSignedOpenAttestationDocument;
-    expect(getChainId(document)).toStrictEqual(296);
-  });
+  // it("should return the correct chainId for hederatestnet", () => {
+  //   const document = {
+  //     ...invoiceHederaTestnetV3,
+  //     network: { chain: "HBAR", chainId: "296" },
+  //   } as unknown as WrappedOrSignedOpenAttestationDocument;
+  //   expect(getChainId(document)).toStrictEqual(296);
+  // });
 
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
     const document = {

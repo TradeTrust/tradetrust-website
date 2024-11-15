@@ -91,7 +91,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"acceptSurrenderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.AcceptReturnToIssuer)}
         >
-          Accept return of ETR
+          Accept ETR Return
         </DropdownItem>
       )}
       {canHandleRestore && (
@@ -100,7 +100,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"rejectSurrenderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.RejectReturnToIssuer)}
         >
-          Reject return of ETR
+          Reject ETR Return
         </DropdownItem>
       )}
 

@@ -12,12 +12,14 @@ import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "../EditableAssetTitle";
+import { encryptRemark } from "../../../../../common/utils/chain-utils";
 
 interface NominateBeneficiaryFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   beneficiary?: string;
   holder?: string;
+  keyId?: string;
   handleNomination: (nominee: string, remark: string) => void;
   nominationState: string;
   setFormActionNone: () => void;
@@ -29,12 +31,14 @@ export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormP
   tokenRegistryAddress,
   beneficiary,
   holder,
+  keyId,
   handleNomination,
   nominationState,
   setFormActionNone,
   setShowEndorsementChain,
 }) => {
   const [newBeneficiary, setNewBeneficiary] = useState("");
+  const [remark, setRemark] = useState("");
   const isPendingConfirmation = nominationState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = nominationState === FormState.CONFIRMED;
   const isEditable = nominationState !== FormState.PENDING_CONFIRMATION && nominationState !== FormState.CONFIRMED;
@@ -68,6 +72,8 @@ export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormP
             tokenRegistryAddress={tokenRegistryAddress}
           />
         </div>
+      </div>
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
             role="Owner"
@@ -80,6 +86,16 @@ export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormP
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
+        </div>
+        <div className="w-full px-4 lg:w-1/3">
+          <EditableAssetTitle
+            role="Remark"
+            value="Remark"
+            newValue={remark}
+            onSetNewValue={setRemark}
+            isEditable={true}
+            isRemark={true}
+          />
         </div>
       </div>
       <div className="flex flex-wrap pb-4">
@@ -100,7 +116,7 @@ export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormP
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={isInvalidNomination || isPendingConfirmation}
                 onClick={() => {
-                  handleNomination(newBeneficiary, "0x");
+                  handleNomination(newBeneficiary, "0x" + ((remark && encryptRemark(remark, keyId)) ?? ""));
                 }}
                 data-testid={"nominationBtn"}
               >

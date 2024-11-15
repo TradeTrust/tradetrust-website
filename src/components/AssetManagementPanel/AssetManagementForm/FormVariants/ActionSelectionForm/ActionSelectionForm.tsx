@@ -127,7 +127,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-4xl" data-testid="surrenderToIssuer">
+                <h3 className="text-xl" data-testid="surrenderToIssuer">
                   ETR returned to issuer
                 </h3>
               </TagBorderedLg>
@@ -138,7 +138,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
               <TagBorderedLg id="surrendered-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-4xl">Taken out of circulation</h3>
+                <h3 className="text-xl">Taken out of circulation</h3>
               </TagBorderedLg>
             </div>
           </div>

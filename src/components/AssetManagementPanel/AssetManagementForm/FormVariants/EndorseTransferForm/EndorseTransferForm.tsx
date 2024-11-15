@@ -12,11 +12,13 @@ import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { encryptRemark } from "../../../../../common/utils/chain-utils";
 
 interface EndorseTransferFormProps {
   formAction: AssetManagementActions;
   tokenRegistryAddress: string;
   holder?: string;
+  keyId?: string;
   handleEndorseTransfer: (approvedBeneficiary: string, approvedHolder: string, remark: string) => void;
   transferOwnersState: string;
   setFormActionNone: () => void;
@@ -27,6 +29,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
   formAction,
   tokenRegistryAddress,
   holder,
+  keyId,
   handleEndorseTransfer,
   transferOwnersState,
   setFormActionNone,
@@ -34,6 +37,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
 }) => {
   const [newHolder, setNewHolder] = useState(holder || "");
   const [newOwner, setNewOwner] = useState(holder || ""); // Can only use this when owner is holder
+  const [remark, setRemark] = useState("");
   const isPendingConfirmation = transferOwnersState === FormState.PENDING_CONFIRMATION;
   const isConfirmed = transferOwnersState === FormState.CONFIRMED;
   const isEditable =
@@ -68,6 +72,8 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
             tokenRegistryAddress={tokenRegistryAddress}
           />
         </div>
+      </div>
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
             role="Owner"
@@ -88,6 +94,16 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
             isError={transferOwnersState === FormState.ERROR}
           />
         </div>
+        <div className="w-full px-4 lg:w-1/3">
+          <EditableAssetTitle
+            role="Remark"
+            value="Remark"
+            newValue={remark}
+            onSetNewValue={setRemark}
+            isEditable={true}
+            isRemark={true}
+          />
+        </div>
       </div>
       <div className="flex flex-wrap pb-4">
         <div className="w-auto lg:ml-auto">
@@ -106,7 +122,11 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
                 className="bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
                 disabled={!isValidEndorseTransfer(holder, newHolder, newOwner) || isPendingConfirmation}
                 onClick={() => {
-                  handleEndorseTransfer(newOwner || "", newHolder || "", "0x");
+                  handleEndorseTransfer(
+                    newOwner || "",
+                    newHolder || "",
+                    "0x" + ((remark && encryptRemark(remark, keyId)) ?? "")
+                  );
                 }}
                 data-testid={"endorseTransferBtn"}
               >
