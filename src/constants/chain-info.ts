@@ -1,4 +1,5 @@
 import { INFURA_API_KEY, STABILITY_API_KEY } from "../config";
+import type { networkCurrency } from "@tradetrust-tt/tradetrust-utils/constants/network";
 
 export interface ChainInfoObject {
   label: string;
@@ -18,7 +19,7 @@ export interface ChainInfoObject {
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export const AvailableBlockChains = ["ETH", "MATIC", "XDC", "HBAR", "FREE"];
+export const AvailableBlockChains: networkCurrency[] = ["ETH", "MATIC", "XDC", "HBAR", "FREE", "ASTRON"];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
