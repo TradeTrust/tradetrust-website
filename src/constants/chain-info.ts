@@ -19,7 +19,14 @@ export interface ChainInfoObject {
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export const AvailableBlockChains: networkCurrency[] = ["ETH", "MATIC", "XDC", "HBAR", "FREE", "ASTRON"];
+export const AvailableBlockChains: string[] = [
+  "ETH",
+  "MATIC",
+  "XDC",
+  "HBAR",
+  "FREE",
+  "ASTRON",
+] satisfies networkCurrency[];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
