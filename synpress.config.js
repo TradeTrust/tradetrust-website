@@ -11,6 +11,8 @@ module.exports = defineConfig({
   retries: 1,
   fixturesFolder,
   e2e: {
+    defaultCommandTimeout: 10000,
+    pageLoadTimeout: 60000,
     testIsolation: false,
     setupNodeEvents: function (on, config) {
       const options = {

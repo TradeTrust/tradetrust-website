@@ -157,7 +157,13 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const renderedCertificateViewer = (
     <>
       <div className="no-print">
-        {!isTransferableDocument && <DocumentStatus isMagicDemo={isMagicDemo} />}
+        {!isTransferableDocument && (
+          <div className="container flex justify-between">
+            <div className="w-2/3">
+              <DocumentStatus isMagicDemo={isMagicDemo} />
+            </div>
+          </div>
+        )}
         {renderBanner(isSampleDocument, isMagicDemo)}
         <ObfuscatedMessage document={document} />
         {isTransferableDocument && (

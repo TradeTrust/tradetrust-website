@@ -136,7 +136,7 @@ describe("ActionSelectionForm", () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} isReturnedToIssuer={true} />);
 
-      expect(container.queryByText("ETR returned to issuer")).not.toBeNull();
+      expect(container.queryByText("ETR returned to Issuer")).not.toBeNull();
     });
   });
 

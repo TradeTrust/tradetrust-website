@@ -5,8 +5,7 @@ import {
   showDocumentTransferMessage,
 } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useRef, useState } from "react";
-import { TagBorderedLg } from "../../../../UI/Tag";
-import { AssetInformationPanel } from "../../../AssetInformationPanel";
+import { TagBorderedSm } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
@@ -20,7 +19,6 @@ interface ActionSelectionFormProps {
   account?: string;
   canReturnToIssuer: boolean;
   canHandleShred?: boolean;
-
   canHandleRestore?: boolean;
   onConnectToWallet: () => void;
   canChangeHolder: boolean;
@@ -39,7 +37,6 @@ interface ActionSelectionFormProps {
 
 export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = ({
   onSetFormAction,
-  tokenRegistryAddress,
   beneficiary,
   holder,
   account,
@@ -56,7 +53,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   isTokenBurnt,
   canNominateBeneficiary,
   canEndorseTransfer,
-  setShowEndorsementChain,
   isTitleEscrow,
   isRejectPendingConfirmation,
 }) => {
@@ -117,29 +113,28 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   return (
     <>
       <div className="flex flex-wrap justify-between pb-4 -mx-4">
-        <div className="w-full px-4 lg:w-1/3">
-          <AssetInformationPanel
-            tokenRegistryAddress={tokenRegistryAddress}
-            setShowEndorsementChain={setShowEndorsementChain}
-          />
-        </div>
+        {(isReturnedToIssuer || isTokenBurnt) && (
+          <div className="w-full px-4 lg:w-1/3">
+            <div className="py-4" />
+          </div>
+        )}
         {isReturnedToIssuer && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-xl" data-testid="surrenderToIssuer">
-                  ETR returned to issuer
-                </h3>
-              </TagBorderedLg>
+              <TagBorderedSm id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
+                <h5 className="font-bold" data-testid="surrenderToIssuer">
+                  ETR returned to Issuer
+                </h5>
+              </TagBorderedSm>
             </div>
           </div>
         )}
         {isTokenBurnt && (
           <div className="w-full px-4 lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrendered-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-xl">Taken out of circulation</h3>
-              </TagBorderedLg>
+              <TagBorderedSm id="surrendered-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
+                <h5 className="font-bold">Taken out of circulation</h5>
+              </TagBorderedSm>
             </div>
           </div>
         )}
@@ -151,6 +146,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             <div className="w-full px-4 lg:w-1/3">
               <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
             </div>
+            <div className="w-full px-4 lg:w-1/3" />
           </>
         )}
       </div>

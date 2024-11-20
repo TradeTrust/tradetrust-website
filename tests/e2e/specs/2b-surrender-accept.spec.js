@@ -17,7 +17,7 @@ describe("Surrender Accept", () => {
     cy.get("[data-testid='surrenderBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
     cy.get("[data-testid='overlay-title']").should("have.text", "Return of ETR successful");
-    cy.get("#surrender-sign").should("have.text", "ETR returned to issuer");
+    cy.get("#surrender-sign").should("have.text", "ETR returned to Issuer");
   });
 
   it("should go to verify page, upload a file, connect to wallet and accept the surrendered document successfully", () => {

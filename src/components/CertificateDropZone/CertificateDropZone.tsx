@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useMemo } from "react";
+import React, { FunctionComponent, useCallback, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
@@ -16,6 +16,7 @@ import { useProviderContext } from "../../common/contexts/provider";
 import { getChainId } from "../../utils/shared";
 import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
 import { useNetworkSelect } from "./../../common/hooks/useNetworkSelect";
+import { ViewTokenRegistryMismatch } from "../DocumentDropzone/Views/ViewTokenRegistryMismatch";
 
 const { TYPES } = CONSTANTS;
 
@@ -26,11 +27,16 @@ interface CertificateDropzoneProps {
 export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = (props) => {
   const { toggleQrReaderVisible } = props;
   const dispatch = useDispatch();
-  const { verificationPending, retrieveCertificateByActionState, verificationStatus, verificationError } = useSelector(
-    (state: RootState) => state.certificate
-  );
+  const {
+    verificationPending,
+    retrieveCertificateByActionState,
+    verificationStatus,
+    verificationError,
+    tokenRegistryV4,
+  } = useSelector((state: RootState) => state.certificate);
 
   const isVerificationPending = verificationPending;
+  const isTokenRegistryV4 = tokenRegistryV4;
   const isVerificationError = useMemo(() => {
     if (verificationError) return true;
     if (verificationStatus && !isValid(verificationStatus)) return true;
@@ -56,10 +62,19 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           try {
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
-            if (chainId && currentChainId !== chainId) {
-              await switchNetwork(chainId);
+
+            if (!chainId) {
+              dispatch(updateCertificate(json));
+              return;
             }
-            dispatch(updateCertificate(json));
+
+            if (currentChainId === chainId) {
+              dispatch(updateCertificate(json));
+            } else {
+              await switchNetwork(chainId);
+              setTargetChainId(chainId);
+              setPendingCertificateData(json);
+            }
           } catch (e) {
             if (e instanceof Error) {
               dispatch(verifyingCertificateCompleted([e.message]));
@@ -73,6 +88,18 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     },
     [currentChainId, dispatch, switchNetwork]
   );
+
+  const [targetChainId, setTargetChainId] = useState<number | null>(null);
+  const [pendingCertificateData, setPendingCertificateData] = useState<any | null>(null);
+
+  // Effect to dispatch once currentChainId matches targetChainId
+  useEffect(() => {
+    if (targetChainId && currentChainId === targetChainId && pendingCertificateData) {
+      dispatch(updateCertificate(pendingCertificateData));
+      setTargetChainId(null);
+      setPendingCertificateData(null);
+    }
+  }, [currentChainId, targetChainId, pendingCertificateData, dispatch]);
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
     onDrop,
@@ -88,8 +115,17 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
       isVerificationPending,
       isVerificationError,
       isActionError,
+      isTokenRegistryV4,
     });
-  }, [isDragReject, isDragActive, isDragAccept, isVerificationPending, isVerificationError, isActionError]);
+  }, [
+    isDragReject,
+    isDragActive,
+    isDragAccept,
+    isVerificationPending,
+    isVerificationError,
+    isActionError,
+    isTokenRegistryV4,
+  ]);
 
   return (
     <div data-testid="certificate-dropzone" {...getRootProps()}>
@@ -101,6 +137,8 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           switch (true) {
             case isVerificationPending:
               return <ViewVerificationPending />;
+            case isTokenRegistryV4:
+              return <ViewTokenRegistryMismatch />;
             case isVerificationError:
               return <ViewVerificationError resetData={resetData} />;
             case isActionError:

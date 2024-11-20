@@ -7,7 +7,7 @@ import {
 } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { FormState } from "../../../../../constants/FormState";
-import { TagBorderedLg } from "../../../../UI/Tag";
+import { TagBorderedSm } from "../../../../UI/Tag";
 import { AssetInformationPanel } from "../../../AssetInformationPanel";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementTitle } from "../../AssetManagementTitle";
@@ -78,9 +78,9 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
           </div>
           <div className="w-full lg:w-auto self-end">
             <div className="py-4">
-              <TagBorderedLg id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
-                <h3 className="text-xl">ETR returned to issuer</h3>
-              </TagBorderedLg>
+              <TagBorderedSm id="surrender-sign" className="bg-white rounded-xl text-scarlet-500 border-scarlet-500">
+                <h5 className="font-bold">ETR returned to Issuer</h5>
+              </TagBorderedSm>
             </div>
           </div>
         </div>
