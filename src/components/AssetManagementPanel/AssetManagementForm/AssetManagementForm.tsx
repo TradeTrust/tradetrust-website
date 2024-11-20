@@ -106,8 +106,16 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     - documentOwner is the tokenRegistry
     - currentUser === tokenRegistryMinter
   */
-  const canHandleRestore = isTitleEscrow && isRestorer && isReturnedToIssuer && documentOwner === tokenRegistryAddress;
-  const canHandleShred = isTitleEscrow && isAcceptor && isReturnedToIssuer && documentOwner === tokenRegistryAddress;
+  const canHandleRestore =
+    isTitleEscrow &&
+    isRestorer &&
+    isReturnedToIssuer &&
+    documentOwner?.toLowerCase() === tokenRegistryAddress?.toLowerCase();
+  const canHandleShred =
+    isTitleEscrow &&
+    isAcceptor &&
+    isReturnedToIssuer &&
+    documentOwner?.toLowerCase() === tokenRegistryAddress?.toLowerCase();
 
   // canEndorseBeneficiary
   // function transferBeneficiary(address beneficiaryNominee) external;

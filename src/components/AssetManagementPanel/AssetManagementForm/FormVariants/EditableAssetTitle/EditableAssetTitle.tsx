@@ -15,6 +15,7 @@ interface EditableAssetTitleProps {
   onSetNewValue?: (newValue: string) => void;
   isError?: boolean;
   isRemark?: boolean;
+  isSubmitted?: boolean;
 }
 
 export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
@@ -25,6 +26,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   onSetNewValue,
   isError: error,
   isRemark,
+  isSubmitted,
 }) => {
   const { showOverlay } = useOverlayContext();
 
@@ -42,6 +44,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
           maxLength={120}
           value={newValue}
           placeholder={`Enter remarks here (max 120 characters)`}
+          disabled={isSubmitted}
           style={{
             overflowWrap: "break-word",
             whiteSpace: "pre-wrap",
@@ -84,7 +87,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   return (
     <AssetTitle role={role} address={newValue || ""}>
       <div className="flex items-start">
-        <div className="w-72 mr-2">
+        <div className="w-full mr-2">
           <Input
             className="w-full rounded-xl font-normal py-2.5 border-cloud-100"
             data-testid={`editable-input-${role.toLowerCase()}`}

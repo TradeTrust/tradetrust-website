@@ -79,6 +79,7 @@ export const SurrenderForm: FunctionComponent<SurrenderFormProps> = ({
             onSetNewValue={setRemark}
             isEditable={true}
             isRemark={true}
+            isSubmitted={isPendingConfirmation}
           />
         </div>
       </div>

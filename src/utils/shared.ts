@@ -1,6 +1,13 @@
 import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@tradetrust-tt/tradetrust";
 import { getSupportedChainIds } from "../common/utils/chain-utils";
-import { AvailableBlockChains, ChainId } from "../constants/chain-info";
+import { AvailableBlockChains, BurnAddress, ChainId } from "../constants/chain-info";
+import {
+  TitleEscrow__factory,
+  TitleEscrowFactory__factory,
+  TradeTrustToken__factory,
+} from "@tradetrust-tt/token-registry/contracts";
+import { TitleEscrowInterface } from "../common/contexts/TokenInformationContext";
+import { getCurrentProvider } from "../common/contexts/provider";
 
 export type WrappedOrSignedOpenAttestationDocument = WrappedDocument<OpenAttestationDocument>;
 // note that the return type for getting attachments will normalise the structure into v2.Attachment
@@ -89,3 +96,34 @@ export const getChainId = (rawDocument: WrappedOrSignedOpenAttestationDocument):
     return undefined;
   }
 };
+
+export async function isTokenRegistryV4(registryAddress: string, tokenId: string): Promise<boolean> {
+  try {
+    const provider = getCurrentProvider();
+    if (!provider) {
+      return false;
+    }
+
+    const tokenRegistry = TradeTrustToken__factory.connect(registryAddress, provider);
+    const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
+
+    const inactiveEscrow = [BurnAddress, registryAddress]
+      .map((s) => s.toLowerCase())
+      .includes(titleEscrowOwner.toLowerCase());
+
+    let titleEscrowAddress = titleEscrowOwner;
+    if (inactiveEscrow) {
+      const titleEscrowFactoryAddress = await tokenRegistry.titleEscrowFactory();
+      const tokenRegistryAddress = await tokenRegistry.address;
+      const titleEscrowFactory = TitleEscrowFactory__factory.connect(titleEscrowFactoryAddress, provider);
+      titleEscrowAddress = await titleEscrowFactory.getAddress(tokenRegistryAddress, tokenId);
+    }
+
+    const titleEscrow = TitleEscrow__factory.connect(titleEscrowAddress, provider);
+    const isTitleEscrowV4 = await titleEscrow.supportsInterface(TitleEscrowInterface.V4);
+
+    return isTitleEscrowV4;
+  } catch (error) {
+    return false;
+  }
+}

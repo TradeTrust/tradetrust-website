@@ -33,7 +33,7 @@ const getV2FormattedDomainNames = (verificationStatus: VerificationFragment[]) =
   };
   const identityProofFragment = utils
     .getIssuerIdentityFragments(verificationStatus)
-    .find((fragment) => utils.isValidFragment(fragment)) as VerificationFragmentWithData;
+    .find((fragment) => utils.isValidFragment(fragment)) as unknown as VerificationFragmentWithData;
 
   const dataFragment = identityProofFragment?.data;
   const fragmentValidity =
@@ -72,10 +72,10 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by"
   //   formattedDomainNames = getV4IdentityVerificationText(document);
   // }
   return (
-    <h2 id="issuedby" className="my-2 leading-none">
+    <h4 id="issuedby" className="my-2 leading-none">
       <span className="mr-2 break-all">{title}</span>
       <span className="text-cerulean-500 break-words">{formattedDomainNames}</span>
-    </h2>
+    </h4>
   );
 };
 
@@ -93,18 +93,16 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ isMagic
   if (!document || !verificationStatus) return null;
 
   return (
-    <div className="container">
-      <div id="document-status" className="py-4">
-        <div className="flex flex-col">
-          <div className="flex-grow">
-            <IssuedBy
-              title={isMagicDemo ? "Demo issued by" : "Issued by"}
-              verificationStatus={verificationStatus}
-              document={document}
-            />
-          </div>
-          <StatusChecks verificationStatus={verificationStatus} />
+    <div id="document-status" className="py-4">
+      <div className="flex flex-col">
+        <div className="flex-grow">
+          <IssuedBy
+            title={isMagicDemo ? "Demo issued by" : "Issued by"}
+            verificationStatus={verificationStatus}
+            document={document}
+          />
         </div>
+        <StatusChecks verificationStatus={verificationStatus} />
       </div>
     </div>
   );

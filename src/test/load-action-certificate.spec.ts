@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { location, validateTextContent, validateIframeTexts, validateIssuerTexts } from "./helper";
+import { location, validateTextContent } from "./helper";
 
 fixture("Load action from plain certificate").page`${location}`;
 
@@ -18,8 +18,15 @@ test("Load document from action should work when url is valid", async (t) => {
   };
   await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
 
-  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
-  validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
+  const button = Selector("button").withText("Dismiss");
+  if (await button.exists) {
+    await t.click(button);
+  }
+
+  await validateTextContent(t, CertificateDropzone, [
+    "Document cannot be read.",
+    "Please check that you have a valid .tt or .json file",
+  ]);
 });
 
 test("Load document from action should fail when url is invalid", async (t) => {

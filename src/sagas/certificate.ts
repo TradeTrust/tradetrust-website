@@ -5,6 +5,7 @@ import {
   verifyingCertificateCompleted,
   verifyingCertificateFailure,
   getCertificate,
+  detectingTRV4Certificate,
 } from "../reducers/certificate";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
@@ -13,6 +14,8 @@ import { decryptString } from "@govtechsg/oa-encryption";
 import { history } from "../history";
 import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
 import { ActionPayload } from "./../types";
+import { utils } from "@tradetrust-tt/tradetrust";
+import { isTokenRegistryV4, getTokenRegistryAddress } from "../utils/shared";
 
 const { trace } = getLogger("saga:certificate");
 
@@ -25,6 +28,20 @@ export function* verifyCertificate(): any {
     });
 
     const certificate = yield select(getCertificate);
+    const isTransferableAsset = utils.isTransferableAsset(certificate);
+
+    if (isTransferableAsset) {
+      const registryAddress = getTokenRegistryAddress(certificate);
+      const tokenId = `0x${utils.getAssetId(certificate)}`;
+      if (registryAddress && tokenId) {
+        const tokenRegistryV4 = yield isTokenRegistryV4(registryAddress, tokenId);
+        if (tokenRegistryV4) {
+          yield put(detectingTRV4Certificate(TYPES.INVALID));
+          return;
+        }
+      }
+    }
+
     const verificationStatus = yield verifyDocument(certificate);
     trace(`Verification Status: ${JSON.stringify(verificationStatus)}`);
 

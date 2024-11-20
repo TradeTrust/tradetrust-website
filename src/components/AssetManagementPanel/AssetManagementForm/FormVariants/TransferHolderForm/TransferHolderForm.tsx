@@ -99,6 +99,7 @@ export const TransferHolderForm: FunctionComponent<TransferHolderProps> = ({
             onSetNewValue={setRemark}
             isEditable={true}
             isRemark={true}
+            isSubmitted={isPendingConfirmation}
           />
         </div>
       </div>
