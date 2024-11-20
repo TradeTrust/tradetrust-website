@@ -93,6 +93,7 @@ export const RejectSurrenderedForm: FunctionComponent<RejectSurrenderedFormProps
               onSetNewValue={setRemark}
               isEditable={true}
               isRemark={true}
+              isSubmitted={isRestoreTokenPendingConfirmation}
             />
           </div>
         </div>

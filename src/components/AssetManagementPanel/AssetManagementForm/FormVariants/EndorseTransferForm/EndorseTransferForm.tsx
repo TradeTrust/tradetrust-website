@@ -102,6 +102,7 @@ export const EndorseTransferForm: FunctionComponent<EndorseTransferFormProps> = 
             onSetNewValue={setRemark}
             isEditable={true}
             isRemark={true}
+            isSubmitted={isPendingConfirmation}
           />
         </div>
       </div>

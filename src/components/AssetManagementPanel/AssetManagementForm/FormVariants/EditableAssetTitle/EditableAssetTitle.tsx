@@ -15,6 +15,7 @@ interface EditableAssetTitleProps {
   onSetNewValue?: (newValue: string) => void;
   isError?: boolean;
   isRemark?: boolean;
+  isSubmitted?: boolean;
 }
 
 export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
@@ -25,6 +26,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   onSetNewValue,
   isError: error,
   isRemark,
+  isSubmitted,
 }) => {
   const { showOverlay } = useOverlayContext();
 
@@ -42,6 +44,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
           maxLength={120}
           value={newValue}
           placeholder={`Enter remarks here (max 120 characters)`}
+          disabled={isSubmitted}
           style={{
             overflowWrap: "break-word",
             whiteSpace: "pre-wrap",

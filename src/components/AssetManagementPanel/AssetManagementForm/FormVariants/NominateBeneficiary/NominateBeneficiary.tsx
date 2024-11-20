@@ -95,6 +95,7 @@ export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormP
             onSetNewValue={setRemark}
             isEditable={true}
             isRemark={true}
+            isSubmitted={isPendingConfirmation}
           />
         </div>
       </div>

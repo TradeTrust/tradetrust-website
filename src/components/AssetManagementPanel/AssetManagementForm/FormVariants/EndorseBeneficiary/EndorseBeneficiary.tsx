@@ -94,6 +94,7 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
             onSetNewValue={setRemark}
             isEditable={true}
             isRemark={true}
+            isSubmitted={isPendingConfirmation}
           />
         </div>
       </div>

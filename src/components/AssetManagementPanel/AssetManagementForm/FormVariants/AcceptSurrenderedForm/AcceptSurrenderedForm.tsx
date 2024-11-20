@@ -77,6 +77,7 @@ export const AcceptSurrenderedForm: FunctionComponent<AcceptSurrenderedFormProps
               onSetNewValue={setRemark}
               isEditable={true}
               isRemark={true}
+              isSubmitted={isDestroyTokenPendingConfirmation}
             />
           </div>
         </div>
