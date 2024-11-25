@@ -8,6 +8,7 @@ import { AssetManagementTags } from "../AssetManagementTags";
 import { DocumentStatus } from "../../DocumentStatus";
 import { constants } from "@tradetrust-tt/token-registry";
 import { useTokenRegistryRole } from "../../../common/hooks/useTokenRegistryRole";
+import { AssetInformationPanel } from "../AssetInformationPanel";
 
 interface AssetManagementApplicationProps {
   isMagicDemo?: boolean;
@@ -79,7 +80,17 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
       {assetManagementAction === AssetManagementActions.None && (
         // ui design requirement, to not show DocumentStatus & AssetManagementTags when user is on other actions
         <>
-          <DocumentStatus isMagicDemo={isMagicDemo} />
+          <div className="container flex justify-between">
+            <div className="w-2/3">
+              <DocumentStatus isMagicDemo={isMagicDemo} />
+            </div>
+            <div className="w-auto mt-8">
+              <AssetInformationPanel
+                setShowEndorsementChain={setShowEndorsementChain}
+                tokenRegistryAddress={tokenRegistryAddress}
+              />
+            </div>
+          </div>
           <AssetManagementTags />
         </>
       )}

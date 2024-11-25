@@ -1,6 +1,9 @@
 import { ACCOUNT_2, ACCOUNT_3 } from "../utils";
 
 before(() => {
+  cy.window().then((window) => {
+    window.localStorage.setItem('hasSeenPopup', 'true');
+  });
   cy.switchMetamaskAccount(2); // switch to account 2 (holder)
 });
 
