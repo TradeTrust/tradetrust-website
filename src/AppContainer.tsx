@@ -29,7 +29,7 @@ const AppContainer = (): React.ReactElement => {
         <div className="container">
           <div className="flex flex-wrap">
             <div className="col-auto flex items-center justify-between w-full">
-              <p className="mb-4 w-full sm:w-2/3">
+              <p className="mb-0 w-full sm:w-2/3">
                 To serve our community better, we are upgrading to a newer version that has new capabilities to your
                 transferable documents.
               </p>
