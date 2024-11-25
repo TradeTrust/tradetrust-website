@@ -7,7 +7,7 @@ export const URLS = {
       : "https://v5-token-registry.tradetrust.io",
   CREATOR: "https://creator.tradetrust.io/",
   GITHUB: "https://github.com/TradeTrust/tradetrust-website",
-  DOCS: "https://docs.tradetrust.io/",
+  DOCS: "https://docs.tradetrust.io",
   FAQ: "https://www.tradetrust.io/common-error-faqs/",
 };
 
