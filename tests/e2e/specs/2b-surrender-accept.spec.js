@@ -1,4 +1,7 @@
 before(() => {
+  cy.window().then((window) => {
+    window.localStorage.setItem('hasSeenPopup', 'true');
+  });
   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
 });
 

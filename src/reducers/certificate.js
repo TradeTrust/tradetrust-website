@@ -11,6 +11,9 @@ export const initialState = {
   raw: null,
   rawModified: null,
 
+  providerOrSigner: null,
+  tokenRegistryV5: false,
+
   verificationPending: false,
   verificationStatus: null,
   verificationError: null,
@@ -24,6 +27,8 @@ export const types = {
   RESET_CERTIFICATE: "RESET_CERTIFICATE",
 
   UPDATE_CERTIFICATE: "UPDATE_CERTIFICATE",
+
+  DETECTING_TR_V5_CERTIFICATE: "DETECTING_TR_V5_CERTIFICATE",
 
   VERIFYING_CERTIFICATE: "VERIFYING_CERTIFICATE",
 
@@ -53,6 +58,12 @@ export default function reducer(state = initialState, action) {
         ...initialState,
         raw: action.payload,
         rawModified: action.payload,
+      };
+    case types.DETECTING_TR_V5_CERTIFICATE:
+      return {
+        ...state,
+        verificationPending: false,
+        tokenRegistryV5: true,
       };
     case types.VERIFYING_CERTIFICATE:
       return {
@@ -116,6 +127,11 @@ export function updateCertificate(payload) {
     payload,
   };
 }
+
+export const detectingTRV5Certificate = (payload) => ({
+  type: types.DETECTING_TR_V5_CERTIFICATE,
+  payload,
+});
 
 export function applyPrivacyFilter(payload) {
   return {
