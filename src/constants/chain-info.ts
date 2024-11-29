@@ -7,6 +7,7 @@ export interface ChainInfoObject {
   chainId: ChainId;
   networkName: string; // network name that aligns with existing NETWORK_NAME
   networkLabel: string;
+  blockNumber?: number;
   explorerUrl: string;
   rpcUrl?: string;
   nativeCurrency?: {
@@ -124,6 +125,7 @@ export const ChainInfo: ChainInfo = {
     iconImage: "/static/images/networks/xdc.png",
     networkName: "xdc",
     networkLabel: "XDC Network",
+    blockNumber: 60000000,
     explorerUrl: "https://xdcscan.io",
     rpcUrl: "https://erpc.xinfin.network",
     nativeCurrency: {
@@ -138,6 +140,7 @@ export const ChainInfo: ChainInfo = {
     iconImage: "/static/images/networks/xdc.png",
     networkName: "xdcapothem",
     networkLabel: "XDC Testnet Apothem",
+    blockNumber: 50000000,
     explorerUrl: "https://apothem.xdcscan.io",
     rpcUrl: "https://erpc.apothem.network",
     nativeCurrency: {
