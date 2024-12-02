@@ -18,6 +18,10 @@ module.exports = {
     "node:util": "<rootDir>/node_modules/util",
     "node:events": "<rootDir>/node_modules/events",
     "node:process": "<rootDir>/node_modules/process",
+    "@tradetrust-tt/tradetrust-utils/constants/network":
+      "<rootDir>/node_modules/@tradetrust-tt/tradetrust-utils/dist/cjs/constants/network.js",
+    "@tradetrust-tt/tradetrust-utils/constants/supportedChains":
+      "<rootDir>/node_modules/@tradetrust-tt/tradetrust-utils/dist/cjs/constants/supportedChains.js",
   },
   testEnvironment: "jest-environment-jsdom",
   setupFiles: ["<rootDir>/jest.setup.ts"],
