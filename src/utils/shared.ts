@@ -1,13 +1,10 @@
 import { getData, utils, v2, v3, OpenAttestationDocument, WrappedDocument } from "@tradetrust-tt/tradetrust";
 import { getSupportedChainIds } from "../common/utils/chain-utils";
 import { AvailableBlockChains, BurnAddress, ChainId } from "../constants/chain-info";
-import {
-  TitleEscrow__factory,
-  TitleEscrowFactory__factory,
-  TradeTrustToken__factory,
-} from "@tradetrust-tt/token-registry/contracts";
+import { TitleEscrow__factory, TradeTrustToken__factory } from "@tradetrust-tt/token-registry/contracts";
 import { TitleEscrowInterface } from "../common/contexts/TokenInformationContext";
 import { getCurrentProvider } from "../common/contexts/provider";
+import { ethers } from "ethers";
 
 export type WrappedOrSignedOpenAttestationDocument = WrappedDocument<OpenAttestationDocument>;
 // note that the return type for getting attachments will normalise the structure into v2.Attachment
@@ -108,8 +105,13 @@ export async function isTokenRegistryV5(registryAddress: string, tokenId: string
     if (inactiveEscrow) {
       const titleEscrowFactoryAddress = await tokenRegistry.titleEscrowFactory();
       const tokenRegistryAddress = await tokenRegistry.address;
-      const titleEscrowFactory = TitleEscrowFactory__factory.connect(titleEscrowFactoryAddress, provider);
-      titleEscrowAddress = await titleEscrowFactory.getAddress(tokenRegistryAddress, tokenId);
+      // Resolve V% TitleEscrowFactory__factory contract function rename from getAddress to getEscrowAddress
+      const titleEscrowFactory = new ethers.Contract(
+        titleEscrowFactoryAddress,
+        `[{"inputs":[{"internalType":"address","name":"tokenRegistry","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getEscrowAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}]`,
+        provider
+      );
+      titleEscrowAddress = await titleEscrowFactory.getEscrowAddress(tokenRegistryAddress, tokenId);
     }
     const titleEscrow = TitleEscrow__factory.connect(titleEscrowAddress, provider);
     const isTitleEscrowV5 = await titleEscrow.supportsInterface(TitleEscrowInterface.V5);
