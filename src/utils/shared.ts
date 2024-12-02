@@ -105,7 +105,7 @@ export async function isTokenRegistryV5(registryAddress: string, tokenId: string
     if (inactiveEscrow) {
       const titleEscrowFactoryAddress = await tokenRegistry.titleEscrowFactory();
       const tokenRegistryAddress = await tokenRegistry.address;
-      // Resolve V% TitleEscrowFactory__factory contract function rename from getAddress to getEscrowAddress
+      // Resolve V5 TitleEscrowFactory__factory contract function rename from getAddress to getEscrowAddress
       const titleEscrowFactory = new ethers.Contract(
         titleEscrowFactoryAddress,
         `[{"inputs":[{"internalType":"address","name":"tokenRegistry","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getEscrowAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}]`,
