@@ -34,6 +34,7 @@ export const useEndorsementChain = (
     if (!tokenRegistry || !provider || !providerOrSigner) return;
     setEndorsementChain(undefined);
     setPending(true);
+    setError("");
     try {
       let transferEvents: TransferBaseEvent[] = [];
 

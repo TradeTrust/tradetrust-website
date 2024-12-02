@@ -54,7 +54,7 @@ export const retrieveTitleEscrowAddressOnFactory = async (
   const titleEscrowFactoryAddress = await tokenRegistry.titleEscrowFactory();
   const tokenRegistryAddress = await tokenRegistry.address;
   const titleEscrowFactory = TitleEscrowFactory__factory.connect(titleEscrowFactoryAddress, signer);
-  const titleEscrowAddress = await titleEscrowFactory.getAddress(tokenRegistryAddress, tokenId);
+  const titleEscrowAddress = await titleEscrowFactory.getEscrowAddress(tokenRegistryAddress, tokenId);
   return titleEscrowAddress;
 };
 

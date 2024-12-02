@@ -194,12 +194,12 @@ describe("Test all endorsement chain helpers", () => {
   });
 
   it("extract title escrow address on surrendered/burn title escrow", async () => {
-    const tokenRegistry = TradeTrustToken__factory.connect("0x71D28767662cB233F887aD2Bb65d048d760bA694", amoyProvider);
+    const tokenRegistry = TradeTrustToken__factory.connect("0x3781bd0bbd15Bf5e45c7296115821933d47362be", amoyProvider);
     const result = await retrieveTitleEscrowAddressOnFactory(
       tokenRegistry,
       "0x780e38c6345dac12cedb7aacc69492ff31cc5236cd60da46261aa1c27691141e",
       amoyProvider
     );
-    expect(result).toBe("0x1F6D8888Fc6B75E10b1840620E8229C3C487a925");
+    expect(result).toBe("0x2C394aC2b7E2D5780E88C21C6b872f69688bb6D0");
   });
 });

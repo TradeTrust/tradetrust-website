@@ -116,7 +116,7 @@ export async function isTokenRegistryV4(registryAddress: string, tokenId: string
       const titleEscrowFactoryAddress = await tokenRegistry.titleEscrowFactory();
       const tokenRegistryAddress = await tokenRegistry.address;
       const titleEscrowFactory = TitleEscrowFactory__factory.connect(titleEscrowFactoryAddress, provider);
-      titleEscrowAddress = await titleEscrowFactory.getAddress(tokenRegistryAddress, tokenId);
+      titleEscrowAddress = await titleEscrowFactory.getEscrowAddress(tokenRegistryAddress, tokenId);
     }
 
     const titleEscrow = TitleEscrow__factory.connect(titleEscrowAddress, provider);
