@@ -14,6 +14,7 @@ module.exports = {
     "\\.(css|sass|scss)$": "identity-obj-proxy",
     "^swiper/css(/.*)?$": "<rootDir>/_mocks_/fileMock.js",
     "node:stream": "<rootDir>/node_modules/stream-browserify",
+    "node:crypto": "<rootDir>/node_modules/crypto-browserify",
     "node:util": "<rootDir>/node_modules/util",
     "node:events": "<rootDir>/node_modules/events",
     "node:process": "<rootDir>/node_modules/process",

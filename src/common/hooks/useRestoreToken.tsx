@@ -1,9 +1,9 @@
-import { ContractFunctionState } from "@govtechsg/ethers-contract-hook";
 import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
 import { providers, Signer } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 import { getLogger } from "../../utils/logger";
 import { UnsupportedNetworkError } from "../errors";
+import { ContractFunctionState } from "./useContractFunctionHook";
 
 const { error: errorLogger } = getLogger("services:userestoretoken");
 

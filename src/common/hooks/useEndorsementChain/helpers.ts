@@ -39,21 +39,29 @@ export const mergeTransfers = (transferEvents: TransferBaseEvent[]): TransferBas
 };
 
 const identifyEventTypeFromLogs = (groupedEvents: TransferBaseEvent[]): TransferEventType => {
-  const ifTransferHolder = groupedEvents.some((event) => event.type === "TRANSFER_HOLDER");
-  const isTransferOwner = groupedEvents.some((event) => event.type === "TRANSFER_BENEFICIARY");
-  let type = null;
-
   for (const event of groupedEvents) {
-    if (event.type === "INITIAL") {
-      type = "INITIAL";
-    } else if (event.type === "RETURN_TO_ISSUER_ACCEPTED") {
-      type = "RETURN_TO_ISSUER_ACCEPTED";
-    } else if (event.type.includes("REJECT_")) {
-      type = event.type;
+    if (
+      ["INITIAL", "RETURNED_TO_ISSUER", "RETURN_TO_ISSUER_ACCEPTED", "RETURN_TO_ISSUER_REJECTED"].includes(
+        event.type
+      ) ||
+      event.type.startsWith("REJECT_")
+    ) {
+      return event.type;
     }
   }
 
-  return (type ?? (ifTransferHolder && isTransferOwner && "TRANSFER_OWNERS")) as TransferEventType;
+  const isTransferHolder = groupedEvents.some((event) => event.type === "TRANSFER_HOLDER");
+  const isTransferBeneficiary = groupedEvents.some((event) => event.type === "TRANSFER_BENEFICIARY");
+
+  if (isTransferHolder && isTransferBeneficiary) {
+    return "TRANSFER_OWNERS";
+  } else if (isTransferHolder) {
+    return "TRANSFER_HOLDER";
+  } else if (isTransferBeneficiary) {
+    return "TRANSFER_BENEFICIARY";
+  }
+
+  throw new Error("Unable to identify event type");
 };
 
 /*

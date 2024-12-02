@@ -55,8 +55,8 @@ describe("useEndorsementChain|integration", () => {
   it("should work correctly for a given tokenRegistryAddress + tokenId with Transfer, Surrender, Burnt events", async () => {
     const { result } = renderHook(
       () => {
-        const tokenRegistryAddress = "0x0f99945c7Ebae71a9A615c422D716fe1EeaB2B2e";
-        const tokenId = "0x8801dd1f667155f1a7c346684bf8211c97c26fd68f06d90f3c3fc51032b56f7c";
+        const tokenRegistryAddress = "0x3781bd0bbd15Bf5e45c7296115821933d47362be";
+        const tokenId = "0xe3fa2bbdbfd093d2bb4e1555dde01338af25d5cf1d6d87bd0f22d7302f133f9a";
 
         const { initialize } = useTokenInformationContext();
         useEffect(() => {
@@ -73,74 +73,143 @@ describe("useEndorsementChain|integration", () => {
       await waitFor(
         () => {
           expect(result.current.endorsementChain).toBeTruthy();
-          // console.log("result.current.endorsementChain", result.current.endorsementChain);
-          expect(result.current.endorsementChain).toEqual([
+          expect(result.current.endorsementChain).toStrictEqual([
             {
               type: "INITIAL",
-              transactionHash: "0x8b2020dafd991d59602ee10c8df24f9fa87e9f5f28ffd79ea12996f3987a920f",
+              transactionHash: "0x1a81b333253e30d992660ba9708d9deb47eab9479acaffb464dc7252eb0bcbcd",
               transactionIndex: 0,
-              blockNumber: 13991837,
+              blockNumber: 15012819,
               owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
               holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              timestamp: 1730681476000,
+              timestamp: 1732868913000,
               remark: "",
             },
             {
-              type: "TRANSFER_HOLDER",
-              transactionHash: "0x04ca4811e5ac924c8749fd8c90240cf83584dfea6683a8289cd6d1ec7aaa44b9",
-              transactionIndex: 0,
-              blockNumber: 14404069,
+              blockNumber: 15068417,
+              holder: "0xe0A71284EF59483795053266CB796B65E48B5124",
               owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              holder: "0x35C7dCd81E59A4621Ff0086f3FceAbe1b5975Fe0",
-              timestamp: 1731562448000,
-              remark: "Transfer",
-            },
-            {
-              type: "REJECT_TRANSFER_HOLDER",
-              transactionHash: "0xf6d6939cf048336cd33bda90f107d662e087428eb776df5f71ba0f5d050c0b23",
-              transactionIndex: 2,
-              blockNumber: 14404210,
-              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              timestamp: 1731562748000,
-              remark: "Reject Transfer",
-            },
-            {
-              type: "TRANSFER_OWNERS",
-              transactionHash: "0x46b4c72bac304ed0d47de6f654b73c210f923cc2ab93ee2b2ec351108d0dc76b",
-              transactionIndex: 2,
-              blockNumber: 14404408,
-              owner: "0x35C7dCd81E59A4621Ff0086f3FceAbe1b5975Fe0",
-              holder: "0x35C7dCd81E59A4621Ff0086f3FceAbe1b5975Fe0",
-              timestamp: 1731563168000,
-              remark: "Owner",
-            },
-            {
-              type: "REJECT_TRANSFER_OWNERS",
-              transactionHash: "0x09e0c00f62da3a19306e25b01bfb50f5166fdd48247aac5a8b698b8dedb53fd7",
+              remark: "Transfer Holdership",
+              timestamp: 1732987077000,
+              transactionHash: "0xd6438cbcf121295023be61b96a01d71e31b53018b03110899091cbb082cc9360",
               transactionIndex: 1,
-              blockNumber: 14404563,
-              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              timestamp: 1731563498000,
-              remark: "Reject All",
+              type: "TRANSFER_HOLDER",
             },
             {
+              blockNumber: 15068463,
+              holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
+              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
+              remark: "Reject Holdership",
+              timestamp: 1732987173000,
+              transactionHash: "0x5010bf1c17b29f6c333c170b8293feadd7ea58be1d1098a33cbe2024b4d2a95f",
+              transactionIndex: 1,
+              type: "REJECT_TRANSFER_HOLDER",
+            },
+            {
+              blockNumber: 15068525,
+              holder: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              remark: "Transfer of Ownership and Holdership",
+              timestamp: 1732987305000,
+              transactionHash: "0xedd28b262666c446354999c4f87f4b1eeaba61f5c95c6a41d80ccbf4059e51e1",
+              transactionIndex: 0,
+              type: "TRANSFER_OWNERS",
+            },
+            {
+              blockNumber: 15068663,
+              holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
+              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
+              remark: "Reject Ownership and Holdership",
+              timestamp: 1732987599000,
+              transactionHash: "0x6710fef3f921de7e3a3e4c782e0fff9222c0fd737f37d8a997b6af133086a86d",
+              transactionIndex: 1,
+              type: "REJECT_TRANSFER_OWNERS",
+            },
+            {
+              blockNumber: 15068712,
+              holder: "0xCA93690Bb57EEaB273c796a9309246BC0FB93649",
+              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              remark: "Transfer Holdership",
+              timestamp: 1732987703000,
+              transactionHash: "0xadb9231bece27ae3aac4e2483752046014e983b80d54dfc490e3459da451dbfa",
+              transactionIndex: 0,
+              type: "TRANSFER_HOLDER",
+            },
+            {
+              blockNumber: 15068740,
+              holder: "0xCA93690Bb57EEaB273c796a9309246BC0FB93649",
+              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              remark: "Endorse Ownership",
+              timestamp: 1732987763000,
+              transactionHash: "0x3982f31d4dcb46e44df176d00ead1b388de8cab7edbc75fd4424918a8e3d48ec",
+              transactionIndex: 0,
+              type: "TRANSFER_BENEFICIARY",
+            },
+            {
+              blockNumber: 15068755,
+              holder: "0xCA93690Bb57EEaB273c796a9309246BC0FB93649",
+              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
+              remark: "Reject Ownership",
+              timestamp: 1732987795000,
+              transactionHash: "0x6352647f0ebba87639e79cc9667faba8e9ea7281b7d4981a2dbe9374406d6310",
+              transactionIndex: 0,
+              type: "REJECT_TRANSFER_BENEFICIARY",
+            },
+            {
+              blockNumber: 15069476,
+              holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
+              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              remark: "Transfer Holder",
+              timestamp: 1732989327000,
+              transactionHash: "0x2d53578ffe1889dd82eecd5e923dabb06b57eb67a2d16e2c8b210e02b398c5c5",
+              transactionIndex: 0,
+              type: "TRANSFER_HOLDER",
+            },
+            {
+              blockNumber: 15069490,
+              holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
+              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              remark: "Return To Issuer",
+              timestamp: 1732989357000,
+              transactionHash: "0x8e575e2a281d3bce5d6e4b6298e1e54b9c49bad0ef135ae9e68fc9d02ccc1ba1",
+              transactionIndex: 0,
               type: "RETURNED_TO_ISSUER",
-              transactionHash: "0x26e122f57943e383120879f94319cc02bb9673f3182bea2d07f91e227ea5e127",
+            },
+            {
+              blockNumber: 15069501,
+              holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
+              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              remark: "Reject Return To Issuer",
+              timestamp: 1732989379000,
+              transactionHash: "0x3bf456d1fa29e4b7cfc3cbfc3a568f5c2c4e1dd8454d25f8822eea3b65c66956",
+              transactionIndex: 0,
+              type: "RETURN_TO_ISSUER_REJECTED",
+            },
+            {
+              blockNumber: 15069511,
+              holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
+              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              remark: "Return To Issuer",
+              timestamp: 1732989401000,
+              transactionHash: "0x99e56c4a1ddcf1a8031402a46eb41b4c41f1379f420287aaa57cad0e18ed85ce",
               transactionIndex: 2,
-              blockNumber: 14404894,
-              owner: "0x35C7dCd81E59A4621Ff0086f3FceAbe1b5975Fe0",
-              holder: "0x35C7dCd81E59A4621Ff0086f3FceAbe1b5975Fe0",
-              timestamp: 1731564200000,
-              remark: "Return",
+              type: "RETURNED_TO_ISSUER",
+            },
+            {
+              blockNumber: 15069519,
+              holder: "0x0000000000000000000000000000000000000000",
+              owner: "0x0000000000000000000000000000000000000000",
+              remark: "",
+              timestamp: 1732989417000,
+              transactionHash: "0xbc9c0a07467310b45f4099578613b0531ab20975d52d1a3485c69e16901e3cb7",
+              transactionIndex: 0,
+              type: "RETURN_TO_ISSUER_ACCEPTED",
             },
           ]);
-          expect(result.current.error).toBe("");
           expect(result.current.pending).toBe(false);
+          expect(result.current.error).toBe("");
         },
-        { timeout: 60000 }
+        { timeout: 60_000 }
       );
     });
-  }, 60000);
+  }, 60_000);
 });

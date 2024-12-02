@@ -1,5 +1,5 @@
 import { TitleEscrow, TitleEscrow__factory } from "@tradetrust-tt/token-registry/contracts";
-import { EventFilter, providers } from "ethers";
+import { providers } from "ethers";
 import { EventFragment, Result } from "ethers/lib/utils";
 import {
   TitleEscrowTransferEvent,
@@ -13,7 +13,7 @@ export const fetchEscrowTransfersV5 = async (
   address: string
 ): Promise<TransferBaseEvent[]> => {
   const titleEscrowContract = TitleEscrow__factory.connect(address, provider);
-  const holderChangeLogsDeferred = await fetchAllTransfers(titleEscrowContract, provider);
+  const holderChangeLogsDeferred = await fetchAllTransfers(titleEscrowContract);
   return holderChangeLogsDeferred;
 };
 
@@ -38,7 +38,7 @@ export const getParsedLogs = (logs: providers.Log[], titleEscrow: TitleEscrow): 
     if (!log.blockNumber) throw new Error("Block number not present");
     return {
       ...log,
-      ...titleEscrow.interface.parseLog(log),
+      ...(titleEscrow.interface as any).parseLog(log),
     };
   });
 };
@@ -47,23 +47,23 @@ export const getParsedLogs = (logs: providers.Log[], titleEscrow: TitleEscrow): 
   Retrieve all V5 events 
 */
 export const fetchAllTransfers = async (
-  titleEscrowContract: TitleEscrow,
-  provider: providers.Provider
+  titleEscrowContract: TitleEscrow
 ): Promise<(TitleEscrowTransferEvent | TokenTransferEvent)[]> => {
-  const allFilters: EventFilter[] = [
-    titleEscrowContract.filters.HolderTransfer(null, null),
-    titleEscrowContract.filters.BeneficiaryTransfer(null, null),
-    titleEscrowContract.filters.TokenReceived(null, null, null),
-    titleEscrowContract.filters.ReturnToIssuer(null, null),
-    // titleEscrowContract.filters.Nomination(null, null),
-    titleEscrowContract.filters.RejectTransferOwners(null, null),
-    titleEscrowContract.filters.RejectTransferBeneficiary(null, null),
-    titleEscrowContract.filters.RejectTransferHolder(null, null),
-    titleEscrowContract.filters.Shred(null, null),
+  const allFilters: any[] = [
+    titleEscrowContract.filters.HolderTransfer,
+    titleEscrowContract.filters.BeneficiaryTransfer,
+    titleEscrowContract.filters.TokenReceived,
+    titleEscrowContract.filters.ReturnToIssuer,
+    // titleEscrowContract.filters.Nomination,
+    titleEscrowContract.filters.RejectTransferOwners,
+    titleEscrowContract.filters.RejectTransferBeneficiary,
+    titleEscrowContract.filters.RejectTransferHolder,
+    titleEscrowContract.filters.Shred,
   ];
-  const allLogs = await Promise.all(
+  const allLogs: any = await Promise.all(
     allFilters.map(async (filter) => {
-      const logs = await provider.getLogs({ ...filter, fromBlock: 0 });
+      const logs = await titleEscrowContract.queryFilter(filter, 0, "latest");
+      // const logs = await titleEscrowContract.queryFilter(filter, 0, "latest");
       return logs;
     })
   );
@@ -114,9 +114,8 @@ export const fetchAllTransfers = async (
           transactionIndex: event.transactionIndex,
           remark: event.args?.remark,
         } as TokenTransferEvent;
-        // } else if (event?.name === "Nomination") {
-        //   return {
-        //   } as TitleEscrowTransferEvent
+      } else if (event?.name === "Nomination") {
+        return undefined;
       } else if (event?.name === "RejectTransferOwners") {
         return {
           type: "REJECT_TRANSFER_OWNERS",
@@ -153,9 +152,9 @@ export const fetchAllTransfers = async (
         } as TokenTransferEvent;
       }
 
-      return {} as TokenTransferEvent;
+      return undefined;
     })
-    .filter((event) => event !== undefined);
+    .filter((event) => event !== undefined) as (TitleEscrowTransferEvent | TokenTransferEvent)[];
 };
 
 export function identifyTokenReceivedType(event: ParsedLog): TokenTransferEventType {

@@ -80,7 +80,6 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
               dispatch(verifyingCertificateCompleted([e.message]));
               dispatch(verifyingCertificateFailure(TYPES.NETWORK_INVALID));
             }
-            console.error(e);
           }
         };
         reader.readAsText(file);

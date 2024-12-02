@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { useContractFunctionHook } from "@govtechsg/ethers-contract-hook";
+import { TitleEscrow, TradeTrustToken } from "@tradetrust-tt/token-registry/dist/contracts";
 import { Contract } from "ethers";
+import { useEffect, useState } from "react";
 import { getLogger } from "../../utils/logger";
+import { useContractFunctionHook } from "./useContractFunctionHook";
 
 const { error } = getLogger("services:usesupportsinterface");
 
@@ -17,7 +18,7 @@ interface Erc165Contract extends Contract {
  * errorMessage is populated if any other error is returned
  */
 export const useSupportsInterface = (
-  contractInstance: Erc165Contract | undefined,
+  contractInstance: TitleEscrow | TradeTrustToken | Erc165Contract | undefined,
   interfaceId: string
 ): {
   isInterfaceType?: boolean;
@@ -32,7 +33,7 @@ export const useSupportsInterface = (
     errorMessage: supportsInterfaceErrorMessage,
     state,
     reset: resetSupportsInterface,
-  } = useContractFunctionHook(contractInstance, "supportsInterface");
+  } = useContractFunctionHook(contractInstance as Contract, "supportsInterface");
 
   // Check if token is type of interface on load
   useEffect(() => {
@@ -58,7 +59,7 @@ export const useSupportsInterface = (
         setErrorMessage(supportsInterfaceErrorMessage);
       }
     } else if (state === "CONFIRMED") {
-      setIsInterfaceType(isSameInterfaceType?.[0]);
+      setIsInterfaceType(isSameInterfaceType);
     }
   }, [interfaceId, isSameInterfaceType, state, supportsInterfaceErrorMessage]);
 
