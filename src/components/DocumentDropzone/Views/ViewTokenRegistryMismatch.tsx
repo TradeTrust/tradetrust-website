@@ -20,7 +20,7 @@ export const ViewTokenRegistryMismatch: FunctionComponent = () => {
       </Button>
       <hr className="border-t-2 border-gray-300 my-4" />
       <div>
-        <TooltipIcon content="Please visit https://v5tr.tradetrust.io to verify new version of transferable documents.">
+        <TooltipIcon content={`Please visit ${URLS.REF_V5TR} to verify new version of transferable documents.`}>
           <Info className="text-orange-500" />
         </TooltipIcon>
         <span className="ml-1">
