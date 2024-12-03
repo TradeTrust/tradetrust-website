@@ -74,12 +74,15 @@ export const EndorseBeneficiaryForm: FunctionComponent<EndorseBeneficiaryProps> 
             tokenRegistryAddress={tokenRegistryAddress}
           />
         </div>
+      </div>
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Nominee" value={nominee} isEditable={false} />
         </div>
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
         </div>
+        <div className="w-full px-4 lg:w-1/3" />
       </div>
       {beneficiaryEndorseState === FormState.ERROR && (
         <div className="text-scarlet-500 my-2" data-testid="error-msg">

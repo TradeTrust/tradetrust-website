@@ -69,6 +69,11 @@ interface TokenInformationContextProviderProps {
   children: React.ReactNode;
 }
 
+export const TitleEscrowInterface = {
+  V4: "0x079dff60",
+  V5: "0x3e143f7b",
+};
+
 export const TokenInformationContextProvider: FunctionComponent<TokenInformationContextProviderProps> = ({
   children,
 }) => {
