@@ -19,14 +19,7 @@ export interface ChainInfoObject {
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export const AvailableBlockChains: string[] = [
-  "ETH",
-  "MATIC",
-  "XDC",
-  "HBAR",
-  "FREE",
-  "ASTRON",
-] satisfies networkCurrency[];
+export const AvailableBlockChains: string[] = ["ETH", "MATIC", "XDC", "FREE", "ASTRON"] satisfies networkCurrency[];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
@@ -49,10 +42,6 @@ export enum ChainId {
   // Stability
   Stability = 101010,
   StabilityTestnet = 20180427,
-
-  // Hedera Network
-  HederaMainnet = 295,
-  HederaTestnet = 296,
 
   // Astron Network
   Astron = 1338,
@@ -171,34 +160,6 @@ export const ChainInfo: ChainInfo = {
     nativeCurrency: {
       name: "FREE",
       symbol: "FREE",
-      decimals: 18,
-    },
-  },
-  [ChainId.HederaMainnet]: {
-    label: "Hedera Mainnet",
-    chainId: ChainId.HederaMainnet,
-    iconImage: "/static/images/networks/hedera.png",
-    networkName: "hederamainnet",
-    networkLabel: "Hedera Mainnet",
-    explorerUrl: "https://hashscan.io/mainnet",
-    rpcUrl: "https://hedera-mainnet-json-rpc.krypc.com/",
-    nativeCurrency: {
-      name: "HBAR",
-      symbol: "HBAR",
-      decimals: 18,
-    },
-  },
-  [ChainId.HederaTestnet]: {
-    label: "Hedera Testnet",
-    chainId: ChainId.HederaTestnet,
-    iconImage: "/static/images/networks/hedera.png",
-    networkName: "hederatestnet",
-    networkLabel: "Hedera Testnet",
-    explorerUrl: "https://hashscan.io/testnet",
-    rpcUrl: "https://hedera-testnet-json-rpc.krypc.com/",
-    nativeCurrency: {
-      name: "HBAR",
-      symbol: "HBAR",
       decimals: 18,
     },
   },
