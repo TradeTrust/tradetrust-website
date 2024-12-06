@@ -55,18 +55,3 @@ test("Endorsement chain title and actions are rendered correctly", async (t) => 
   await t.expect(SurrenderToIssuerAction.count).eql(1);
   await t.expect(SurrenderAcceptedAction.count).eql(1);
 });
-
-// test("Endorsement chain title and actions are rendered correctly for hederatestnet, Token Registry V4", async (t) => {
-//   await navigateToVerify();
-//   await uploadDocument("./fixture/hederatestnet/v3/ebl-endorsement-chain.json");
-
-//   await validateIssuerTexts(["TRUSTLV.ORG"]);
-//   await t.wait(3000);
-//   await t.expect(ViewEndorsementChainButton.count).eql(1);
-//   await t.click(ViewEndorsementChainButton);
-
-//   // add wait 3000 due to endorsement chain component having a little latency because getting endorsement data
-//   await t.wait(3000);
-
-//   Selector("h4").withText(`"Only Token Registry V5 is supported"`);
-// });
