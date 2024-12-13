@@ -13,6 +13,8 @@ const amoyProvider = new providers.JsonRpcProvider(ChainInfo[ChainId.Amoy].rpcUr
 const mockUseProviderContext = useProviderContext as jest.Mock;
 
 describe("Test all endorsement chain helpers", () => {
+  jest.setTimeout(120000);
+
   beforeAll(() => {
     mockUseProviderContext.mockReturnValue({ provider: amoyProvider, providerOrSigner: amoyProvider });
   });
