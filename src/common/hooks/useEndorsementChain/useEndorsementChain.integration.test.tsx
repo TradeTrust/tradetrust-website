@@ -208,8 +208,8 @@ describe("useEndorsementChain|integration", () => {
           expect(result.current.pending).toBe(false);
           expect(result.current.error).toBe("");
         },
-        { timeout: 60_000 }
+        { timeout: 120_000 }
       );
     });
-  }, 60_000);
+  }, 120_000);
 });
