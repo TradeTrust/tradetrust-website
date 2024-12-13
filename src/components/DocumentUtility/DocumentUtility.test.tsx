@@ -1,4 +1,4 @@
-import { v2, wrapDocument } from "@tradetrust-tt/tradetrust";
+import { wrapOADocument, v2 } from "@trustvc/trustvc";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { act } from "react-dom/test-utils";
@@ -18,7 +18,7 @@ const issuers = [
 
 describe("DocumentUtility", () => {
   it("should show QR code when document has one", async () => {
-    const document = wrapDocument({
+    const document = await wrapOADocument({
       issuers,
       name: "bah bah black sheep",
       links: {
@@ -37,12 +37,12 @@ describe("DocumentUtility", () => {
   });
 
   it("should not show QR code when document does not have one", async () => {
-    const document = wrapDocument({
+    const document = await wrapOADocument({
       issuers,
       name: "bah bah black sheep",
     });
     await act(async () => {
-      const container = render(<DocumentUtility document={document as any} onPrint={() => {}} />);
+      const container = render(<DocumentUtility document={document} onPrint={() => {}} />);
 
       const qrbuttonComponent = container.queryByRole("button", { name: "document-utility-qr-button" });
 
@@ -50,8 +50,8 @@ describe("DocumentUtility", () => {
     });
   });
 
-  it("should show correct download file name if exists", () => {
-    const document = wrapDocument({
+  it("should show correct download file name if exists", async () => {
+    const document = await wrapOADocument({
       issuers,
       name: "bah bah black sheep",
     });
@@ -62,8 +62,8 @@ describe("DocumentUtility", () => {
     );
   });
 
-  it("should show Untitled file name if not exists", () => {
-    const document = wrapDocument({
+  it("should show Untitled file name if not exists", async () => {
+    const document = await wrapOADocument({
       issuers,
     });
     render(<DocumentUtility document={document} onPrint={() => {}} />);

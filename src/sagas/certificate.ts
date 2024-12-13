@@ -9,17 +9,16 @@ import {
 } from "../reducers/certificate";
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
-import { isValid } from "@tradetrust-tt/tt-verify";
+import { isValid } from "@trustvc/trustvc";
 import { decryptString } from "@govtechsg/oa-encryption";
 import { history } from "../history";
-import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
+import { errorMessages, isTransferableAsset, getAssetId } from "@trustvc/trustvc";
 import { ActionPayload } from "./../types";
-import { utils } from "@tradetrust-tt/tradetrust";
 import { isTokenRegistryV4, getTokenRegistryAddress } from "../utils/shared";
 
 const { trace } = getLogger("saga:certificate");
 
-const { TYPES } = CONSTANTS;
+const { TYPES } = errorMessages;
 
 export function* verifyCertificate(): any {
   try {
@@ -28,11 +27,11 @@ export function* verifyCertificate(): any {
     });
 
     const certificate = yield select(getCertificate);
-    const isTransferableAsset = utils.isTransferableAsset(certificate);
+    const isTransferableAssetVal = isTransferableAsset(certificate);
 
-    if (isTransferableAsset) {
+    if (isTransferableAssetVal) {
       const registryAddress = getTokenRegistryAddress(certificate);
-      const tokenId = `0x${utils.getAssetId(certificate)}`;
+      const tokenId = `0x${getAssetId(certificate)}`;
       if (registryAddress && tokenId) {
         const tokenRegistryV4 = yield isTokenRegistryV4(registryAddress, tokenId);
         if (tokenRegistryV4) {

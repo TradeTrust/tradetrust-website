@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
+import { errorMessages } from "@trustvc/trustvc";
+
 import {
   updateCertificate,
   retrieveCertificateByAction,
@@ -15,7 +16,7 @@ import { ChainId } from "../../constants/chain-info";
 import { ActionType, ActionPayload } from "../../types";
 
 const { error } = getLogger("component:mainpage");
-const { TYPES, MESSAGES } = CONSTANTS;
+const { TYPES, MESSAGES } = errorMessages;
 
 interface Action {
   type: ActionType;

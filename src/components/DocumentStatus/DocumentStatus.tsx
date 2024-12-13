@@ -1,8 +1,14 @@
-import { VerificationFragment, VerificationFragmentWithData, utils } from "@tradetrust-tt/tt-verify";
+import {
+  VerificationFragment,
+  VerificationFragmentWithData,
+  utils,
+  WrappedDocument,
+  isWrappedV3Document,
+} from "@trustvc/trustvc";
 import React, { FunctionComponent } from "react";
 import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
-import { utils as oaUtils, WrappedDocument, v3 } from "@tradetrust-tt/tradetrust";
+import { isWrappedV2Document, v3 } from "@trustvc/trustvc";
 import { RootState } from "../../reducers";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
@@ -62,9 +68,9 @@ interface IssuedByProps {
 
 export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by", verificationStatus, document }) => {
   let formattedDomainNames;
-  if (oaUtils.isWrappedV2Document(document)) {
+  if (isWrappedV2Document(document)) {
     formattedDomainNames = getV2FormattedDomainNames(verificationStatus);
-  } else if (oaUtils.isWrappedV3Document(document)) {
+  } else if (isWrappedV3Document(document)) {
     formattedDomainNames = getV3IdentityVerificationText(document);
   }
   // disabled until alpha tradetrust-tt packages are promoted to master

@@ -1,9 +1,10 @@
 import React, { FunctionComponent, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useDropzone } from "react-dropzone";
-import { isValid } from "@tradetrust-tt/tt-verify";
+import { isValid } from "@trustvc/trustvc";
 import { Button, ButtonSize, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
-import { gaEvent } from "@tradetrust-tt/tradetrust-utils";
+import { gaEvent } from "../../common/utils/analytics";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 import { DetailedErrors } from "../DocumentDropzone/DetailedErrors";

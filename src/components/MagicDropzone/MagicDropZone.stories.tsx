@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { MemoryRouter as Router } from "react-router-dom";
-import { v2, wrapDocument } from "@tradetrust-tt/tradetrust";
+import { v2, wrapOADocument } from "@trustvc/trustvc";
 import { MagicDropzone } from "./MagicDropzone";
 import { configureStore } from "../../store";
 import {
@@ -11,11 +11,11 @@ import {
   whenDocumentIssuerIdentityInvalidDnsTxt,
   whenDocumentRevoked,
 } from "../../test/fixture/verifier-responses";
-import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
+import { errorMessages } from "@trustvc/trustvc";
 
-const { TYPES } = CONSTANTS;
+const { TYPES } = errorMessages;
 
-const sampleDocument = wrapDocument({
+const sampleDocument = wrapOADocument({
   issuers: [
     {
       name: "John Doe",

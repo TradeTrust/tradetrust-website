@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { VerificationFragment } from "@tradetrust-tt/tt-verify";
-import { CONSTANTS, errorMessageHandling } from "@tradetrust-tt/tradetrust-utils";
+import { VerificationFragment } from "@trustvc/trustvc";
+import { errorMessages, errorMessageHandling } from "@trustvc/trustvc";
 
 export const DetailedError: FunctionComponent<{ title: string; message: string }> = ({ title, message }) => {
   return (
@@ -16,7 +16,7 @@ export const DetailedErrors: FunctionComponent<{
   verificationError: string | null;
 }> = ({ verificationStatus, verificationError }) => {
   if (!verificationStatus) return null;
-  const { MESSAGES } = CONSTANTS;
+  const { MESSAGES } = errorMessages;
   const errors = errorMessageHandling(verificationStatus);
   if (verificationError) errors.push(verificationError);
 

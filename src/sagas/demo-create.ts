@@ -14,7 +14,7 @@ import {
 } from "../reducers/demo-create";
 import { createTempDns, deployDocumentStore, getWrappedDocument, publishDocument } from "../services/create";
 import { Signer } from "ethers";
-import { OpenAttestationDocument, v2 } from "@tradetrust-tt/tradetrust";
+import { OpenAttestationDocument, v2 } from "@trustvc/trustvc";
 
 export function* deployDemoDocStore({ payload }: { payload: Signer; type: string }): any {
   try {

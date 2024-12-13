@@ -3,7 +3,7 @@ import { act, fireEvent, render, within } from "@testing-library/react";
 import React from "react";
 import { whenDocumentValidAndIssuedByDns } from "../../../../../test/fixture/verifier-responses";
 import { ActionSelectionForm } from "./ActionSelectionForm";
-import { VerificationFragment } from "@tradetrust-tt/tt-verify";
+import { VerificationFragment } from "@trustvc/trustvc";
 import { WrappedOrSignedOpenAttestationDocument } from "../../../../../utils/shared";
 
 const defaultProps = {

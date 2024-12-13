@@ -68,7 +68,6 @@ describe("useEndorsementChain|integration", () => {
       },
       { wrapper }
     );
-
     await act(async () => {
       await waitFor(
         () => {

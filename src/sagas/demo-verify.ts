@@ -2,15 +2,15 @@ import { put, select, takeEvery } from "redux-saga/effects";
 import { getLogger } from "../utils/logger";
 import { verifyDemoDocumentCompleted, verifyDemoDocumentFailure, getDemoDocument } from "../reducers/demo-verify";
 import { verifyDocument, VerifierType } from "../services/verify";
-import { isValid } from "@tradetrust-tt/tt-verify";
+import { isValid } from "@trustvc/trustvc";
 import { NETWORK_NAME } from "../config";
 import { history } from "../history";
-import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
+import { errorMessages } from "@trustvc/trustvc";
 
 const { trace } = getLogger("saga:demo");
 
 export function* verifyDemoDocument(): any {
-  const { TYPES } = CONSTANTS;
+  const { TYPES } = errorMessages;
   try {
     yield put({
       type: "demo-verify/verifyingDemoDocument",

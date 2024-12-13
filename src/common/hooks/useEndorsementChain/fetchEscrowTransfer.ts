@@ -1,4 +1,4 @@
-import { TitleEscrow, TitleEscrow__factory } from "@tradetrust-tt/token-registry/contracts";
+import { v5Contracts } from "@trustvc/trustvc";
 import { providers } from "ethers";
 import { EventFragment, Result } from "ethers/lib/utils";
 import {
@@ -7,7 +7,8 @@ import {
   TokenTransferEventType,
   TransferBaseEvent,
 } from "../../../types";
-
+const { TitleEscrow__factory } = v5Contracts;
+type TitleEscrow = v5Contracts.TitleEscrow;
 export const fetchEscrowTransfersV5 = async (
   provider: providers.Provider,
   address: string

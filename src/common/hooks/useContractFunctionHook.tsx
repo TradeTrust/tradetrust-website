@@ -1,5 +1,5 @@
 import { TitleEscrow, TradeTrustToken } from "@tradetrust-tt/token-registry/dist/contracts";
-import { TypedContractMethod } from "@tradetrust-tt/token-registry/dist/contracts/common";
+import { TypedContractMethod } from "@trustvc/trustvc";
 import { BaseContract, ContractReceipt, ContractTransaction } from "ethers";
 import { useCallback, useState } from "react";
 

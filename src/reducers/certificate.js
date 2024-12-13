@@ -1,4 +1,4 @@
-import { obfuscateDocument } from "@tradetrust-tt/tradetrust";
+import { obfuscateDocument } from "@trustvc/trustvc";
 
 export const states = {
   INITIAL: "INITIAL",

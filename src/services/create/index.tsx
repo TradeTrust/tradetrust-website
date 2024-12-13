@@ -2,9 +2,7 @@ import { Signer, ContractTransaction, ContractReceipt } from "ethers";
 import { deployAndWait, connect } from "@tradetrust-tt/document-store";
 import { getLogger } from "../../utils/logger";
 import { IS_DEVELOPMENT } from "../../config";
-import { WrappedDocument } from "@tradetrust-tt/tradetrust/dist/types/2.0/types";
-import { wrapDocument, v2 } from "@tradetrust-tt/tradetrust";
-
+import { wrapOADocument, v2, WrappedDocument } from "@trustvc/trustvc";
 const { error } = getLogger("services:create");
 
 export const publishDocument = async (
@@ -35,7 +33,7 @@ export const deployDocumentStore = async (signer: Signer, documentStoreName: str
 };
 
 export const getWrappedDocument = async (rawDocument: v2.OpenAttestationDocument): Promise<WrappedDocument<any>> => {
-  return await wrapDocument(rawDocument);
+  return await wrapOADocument(rawDocument);
 };
 
 export const createTempDns = async (documentStoreAddress: string): Promise<string> => {

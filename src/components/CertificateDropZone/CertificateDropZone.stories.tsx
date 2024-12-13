@@ -4,7 +4,7 @@ import { CertificateDropZone } from "./CertificateDropZone";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
 import { states } from "../../reducers/certificate";
-import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
+import { errorMessages } from "@trustvc/trustvc";
 import {
   whenDocumentHashInvalidAndNotIssued,
   whenDocumentHashInvalid,
@@ -49,7 +49,7 @@ const RenderWithStore = ({ children, ...props }: any) => {
   );
 };
 
-const { TYPES } = CONSTANTS;
+const { TYPES } = errorMessages;
 
 export default {
   title: "Dropzone/CertificateDropZone",

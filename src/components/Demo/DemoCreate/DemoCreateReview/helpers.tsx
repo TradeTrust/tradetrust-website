@@ -1,4 +1,4 @@
-import { v2 } from "@tradetrust-tt/tradetrust";
+import { v2 } from "@trustvc/trustvc";
 import { IdentityProofType, Issuer, TemplateType } from "@tradetrust-tt/tradetrust/dist/types/__generated__/schema.2.0";
 
 export const makeRawDocument = (

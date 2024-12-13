@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { VerificationFragment } from "@tradetrust-tt/tt-verify";
+import { VerificationFragment } from "@trustvc/trustvc";
 
 // TODO: from the looks it needs this states, update once demo flow is more confirmed
 interface DemoVerifyState {

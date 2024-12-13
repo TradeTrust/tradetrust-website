@@ -6,7 +6,7 @@ import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "../AssetManagementForm";
 import { AssetManagementTags } from "../AssetManagementTags";
 import { DocumentStatus } from "../../DocumentStatus";
-import { constants } from "@tradetrust-tt/token-registry";
+import { v5RoleHash } from "@trustvc/trustvc";
 import { useTokenRegistryRole } from "../../../common/hooks/useTokenRegistryRole";
 import { AssetInformationPanel } from "../AssetInformationPanel";
 
@@ -62,12 +62,12 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   const { hasRole: hasAccepterRole } = useTokenRegistryRole({
     tokenRegistry,
     account,
-    role: constants.roleHash.AccepterRole,
+    role: v5RoleHash.AccepterRole,
   });
   const { hasRole: hasRestorerRole } = useTokenRegistryRole({
     tokenRegistry,
     account,
-    role: constants.roleHash.RestorerRole,
+    role: v5RoleHash.RestorerRole,
   });
 
   const onDestroyToken = (remark: string = "0x") => {

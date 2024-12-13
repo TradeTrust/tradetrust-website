@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, FunctionComponent } from "react";
 import { FrameConnector, renderDocument, FrameActions } from "@tradetrust-tt/decentralized-renderer-react-components";
-import { OpenAttestationDocument, utils } from "@tradetrust-tt/tradetrust";
+import { OpenAttestationDocument, getTemplateURL } from "@trustvc/trustvc";
 import { Dispatch } from "../../../../types";
 
 interface DocumentPreviewProps {
@@ -10,7 +10,7 @@ interface DocumentPreviewProps {
 export const DocumentPreview: FunctionComponent<DocumentPreviewProps> = ({ document }) => {
   const toFrame = useRef<Dispatch>();
   const [height, setHeight] = useState(0);
-  const rendererUrl = utils.getTemplateURL(document);
+  const rendererUrl = getTemplateURL(document);
 
   const onConnected = useCallback(
     (frame) => {

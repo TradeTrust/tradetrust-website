@@ -6,7 +6,7 @@ import {
   whenDocumentHashInvalidAndNotIssued,
 } from "../test/fixture/verifier-responses";
 import { runSaga } from "redux-saga";
-import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
+import { errorMessages } from "@trustvc/trustvc";
 
 async function recordSaga(saga, initialAction) {
   const dispatched = [];
@@ -22,7 +22,7 @@ async function recordSaga(saga, initialAction) {
   return dispatched;
 }
 
-const { TYPES } = CONSTANTS;
+const { TYPES } = errorMessages;
 
 describe("verifyCertificate", () => {
   beforeEach(() => {
