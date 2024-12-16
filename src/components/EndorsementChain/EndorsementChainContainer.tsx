@@ -8,7 +8,7 @@ import {
 } from "@tradetrust-tt/tradetrust-ui-components";
 import { useTimer } from "react-timer-hook";
 
-const ProviderDocumentationURL = "https://docs.tradetrust.io/docs/advanced/add-polygon-networks-to-metamask-wallet/";
+const ProviderDocumentationURL = "https://docs.tradetrust.io/docs/topics/advanced/additional-network-metamask-guide/";
 const timeout = 60;
 
 interface EndorsementChainContainer {
