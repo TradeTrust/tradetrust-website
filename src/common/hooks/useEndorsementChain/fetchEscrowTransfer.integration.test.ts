@@ -10,7 +10,7 @@ const amoyProvider = new providers.JsonRpcProvider(ChainInfo[ChainId.Amoy].rpcUr
 const mockUseProviderContext = useProviderContext as jest.Mock;
 
 describe("Fetch Escrow Transfers, V5", () => {
-  jest.setTimeout(15000);
+  jest.setTimeout(120000);
 
   beforeAll(() => {
     mockUseProviderContext.mockReturnValue({ provider: amoyProvider, providerOrSigner: amoyProvider });
@@ -1447,6 +1447,6 @@ describe("Fetch Escrow Transfers, V5", () => {
           },
         ]
       `);
-    }, 60_000);
+    }, 120_000);
   });
 });
