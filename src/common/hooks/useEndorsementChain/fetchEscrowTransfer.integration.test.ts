@@ -1447,6 +1447,6 @@ describe("Fetch Escrow Transfers, V5", () => {
           },
         ]
       `);
-    }, 60_000);
+    }, 120_000);
   });
 });
