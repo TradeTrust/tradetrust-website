@@ -17,6 +17,7 @@ let config = {
     "@babel/plugin-proposal-nullish-coalescing-operator",
     "@babel/plugin-proposal-optional-chaining",
     "macros",
+    "@babel/plugin-transform-class-static-block",
   ],
   env: {
     test: {
