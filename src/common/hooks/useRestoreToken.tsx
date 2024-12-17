@@ -1,4 +1,4 @@
-import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
+import { v5Contracts } from "@trustvc/trustvc";
 import { providers, Signer } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 import { getLogger } from "../../utils/logger";
@@ -6,7 +6,7 @@ import { UnsupportedNetworkError } from "../errors";
 import { ContractFunctionState } from "./useContractFunctionHook";
 
 const { error: errorLogger } = getLogger("services:userestoretoken");
-
+type TradeTrustToken = v5Contracts.TradeTrustToken;
 export const useRestoreToken = (
   provider: providers.Provider | Signer | undefined,
   contractInstance?: TradeTrustToken,

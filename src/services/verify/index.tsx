@@ -1,10 +1,3 @@
-// import {
-//   DocumentsToVerify,
-//   openAttestationDidIdentityProof,
-//   openAttestationVerifiers,
-//   verificationBuilder,
-//   VerificationFragment,
-// } from "@tradetrust-tt/tt-verify";
 import {
   DocumentsToVerify,
   openAttestationDidIdentityProof,

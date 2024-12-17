@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { providers, Signer } from "ethers";
 import { v5Contracts } from "@trustvc/trustvc";
-import { TitleEscrow } from "@tradetrust-tt/token-registry/contracts";
-import { TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
 import { BurnAddress } from "../../constants/chain-info";
 const { TitleEscrowFactory__factory, TitleEscrow__factory } = v5Contracts;
+type TitleEscrow = v5Contracts.TitleEscrow;
+type TradeTrustToken = v5Contracts.TradeTrustToken;
 interface useTitleEscrowContractProps {
   titleEscrow?: TitleEscrow;
   documentOwner?: string;
