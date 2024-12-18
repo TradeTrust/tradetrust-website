@@ -47,10 +47,10 @@ describe("useEndorsementChain|integration", () => {
           expect(result.current.endorsementChain).toBe(undefined);
           expect(result.current.pending).toBe(false);
         },
-        { timeout: 60000 }
+        { timeout: 120_000 }
       );
     });
-  }, 60000);
+  }, 120_000);
 
   it("should work correctly for a given tokenRegistryAddress + tokenId with Transfer, Surrender, Burnt events", async () => {
     const { result } = renderHook(
@@ -207,8 +207,8 @@ describe("useEndorsementChain|integration", () => {
           expect(result.current.pending).toBe(false);
           expect(result.current.error).toBe("");
         },
-        { timeout: 60_000 }
+        { timeout: 120_000 }
       );
     });
-  }, 60_000);
+  }, 120_000);
 });

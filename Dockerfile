@@ -2,6 +2,11 @@
 # FROM synthetixio/docker-e2e:18.16-ubuntu as base
 FROM synthetixio/docker-e2e@sha256:d46dd0c38a4a6cf44355dbf583f3bb83c60e445c5508c10d7680c5a30dc81d8a as base
 
+# Download and install Google Chrome
+ENV CHROME_VERSION=130.0.6723.116-1
+RUN wget -q https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb
+RUN apt-get install -y ./google-chrome-stable_${CHROME_VERSION}_amd64.deb
+
 RUN mkdir /app
 WORKDIR /app
 
