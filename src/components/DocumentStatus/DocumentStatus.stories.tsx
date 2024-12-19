@@ -11,9 +11,9 @@ import {
 import { DocumentStatus } from "./DocumentStatus";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
-import { v2, wrapDocument } from "@tradetrust-tt/tradetrust";
+import { v2, wrapOADocument } from "@trustvc/trustvc";
 
-const document = wrapDocument({
+const document = wrapOADocument({
   issuers: [
     {
       name: "John",

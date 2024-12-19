@@ -5,7 +5,8 @@ import { Prompt } from "react-router";
 import { useHistory } from "react-router-dom";
 import { Location } from "history";
 import { useOverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
-import { gaEvent } from "@tradetrust-tt/tradetrust-utils";
+import { gaEvent } from "../../../common/utils/analytics";
+
 import { DemoCreateForm } from "./DemoCreateForm";
 import { DemoCreateHeader } from "./DemoCreateHeader";
 import { DemoCreateIssue } from "./DemoCreateIssue";

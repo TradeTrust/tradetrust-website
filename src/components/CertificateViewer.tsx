@@ -1,4 +1,4 @@
-import { utils } from "@tradetrust-tt/tradetrust";
+import { isTransferableAsset, getAssetId } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../common/contexts/provider";
@@ -64,17 +64,17 @@ interface CertificateViewerProps {
 }
 
 export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document }) => {
-  const isTransferableAsset = utils.isTransferableAsset(document);
+  const isTransferableAssetVal = isTransferableAsset(document);
   let tokenId = "";
-  if (isTransferableAsset) {
+  if (isTransferableAssetVal) {
     try {
-      tokenId = `0x${utils.getAssetId(document)}`;
+      tokenId = `0x${getAssetId(document)}`;
     } catch (e) {
       trace(e);
     }
   }
 
-  const tokenRegistryAddress = isTransferableAsset ? getTokenRegistryAddress(document) : "";
+  const tokenRegistryAddress = isTransferableAssetVal ? getTokenRegistryAddress(document) : "";
   const keyId = getKeyId(document);
   const isTransferableDocument = !!tokenRegistryAddress;
   const [templates, setTemplates] = useState<TemplateProps[]>([]);

@@ -1,5 +1,5 @@
 import { OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
-import { gaPageView } from "@tradetrust-tt/tradetrust-utils";
+import { gaPageView } from "./common/utils/analytics";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";

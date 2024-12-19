@@ -11,14 +11,14 @@ import {
 } from "../../reducers/certificate";
 import { getDropzoneBoxUi } from "../../common/utils/getDropzoneBoxUi";
 import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "../DocumentDropzone/Views";
-import { isValid } from "@tradetrust-tt/tt-verify";
+import { isValid } from "@trustvc/trustvc";
 import { useProviderContext } from "../../common/contexts/provider";
 import { getChainId } from "../../utils/shared";
-import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
+import { errorMessages } from "@trustvc/trustvc";
 import { useNetworkSelect } from "./../../common/hooks/useNetworkSelect";
 import { ViewTokenRegistryMismatch } from "../DocumentDropzone/Views/ViewTokenRegistryMismatch";
 
-const { TYPES } = CONSTANTS;
+const { TYPES } = errorMessages;
 
 interface CertificateDropzoneProps {
   toggleQrReaderVisible?: () => void;

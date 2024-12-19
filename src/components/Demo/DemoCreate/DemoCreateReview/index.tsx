@@ -1,6 +1,7 @@
-import { OpenAttestationDocument } from "@tradetrust-tt/tradetrust";
+import { OpenAttestationDocument } from "@trustvc/trustvc";
 import { ProgressBar, ToggleSwitch } from "@tradetrust-tt/tradetrust-ui-components";
-import { gaEvent } from "@tradetrust-tt/tradetrust-utils";
+import { gaEvent } from "../../../../common/utils/analytics";
+
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../../../../common/contexts/provider";

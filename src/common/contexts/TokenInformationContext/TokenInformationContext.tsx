@@ -1,5 +1,5 @@
-import { constants } from "@tradetrust-tt/token-registry";
-import { TitleEscrow, TradeTrustToken } from "@tradetrust-tt/token-registry/contracts";
+import { v5SupportInterfaceIds } from "@trustvc/trustvc";
+import { v5Contracts } from "@trustvc/trustvc";
 import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
 import { BurnAddress } from "../../../constants/chain-info";
 import { ContractFunctionState, useContractFunctionHook } from "../../hooks/useContractFunctionHook";
@@ -8,7 +8,9 @@ import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { useProviderContext } from "../provider";
-const { contractInterfaceId } = constants;
+const contractInterfaceId = v5SupportInterfaceIds;
+type TitleEscrow = v5Contracts.TitleEscrow;
+type TradeTrustToken = v5Contracts.TradeTrustToken;
 
 export enum TokenRegistryVersion {
   V2 = "V2",
@@ -26,9 +28,9 @@ interface TokenInformationContext {
   remark?: string;
   documentOwner?: string;
   approvedBeneficiary?: string;
-  changeHolder: TitleEscrow["transferHolder"];
+  changeHolder: v5Contracts.TitleEscrow["transferHolder"];
   changeHolderState: ContractFunctionState;
-  returnToIssuer: TitleEscrow["returnToIssuer"];
+  returnToIssuer: v5Contracts.TitleEscrow["returnToIssuer"];
   returnToIssuerState: ContractFunctionState;
   endorseBeneficiary: TitleEscrow["transferBeneficiary"];
   endorseBeneficiaryState: ContractFunctionState;

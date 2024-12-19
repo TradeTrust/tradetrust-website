@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { GaAction, GaCategory } from "../../types";
-import { gaEvent } from "@tradetrust-tt/tradetrust-utils";
+import { gaEvent } from "../../common/utils/analytics";
 import { isExternalLink } from "../../utils";
 
 interface PageLink {

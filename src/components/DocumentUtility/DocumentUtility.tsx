@@ -1,4 +1,4 @@
-import { v2, utils } from "@tradetrust-tt/tradetrust";
+import { v2, isRawV3Document } from "@trustvc/trustvc";
 import { ButtonIcon } from "@tradetrust-tt/tradetrust-ui-components";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
@@ -23,7 +23,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
   const [qrCodePopover, setQrCodePopover] = useState(false);
   const documentWithMetadata = getOpenAttestationData(document) as DocumentWithAdditionalMetadata; // Extending document data to account for undefined metadata in OA schema
 
-  const { name, links } = utils.isRawV3Document(documentWithMetadata)
+  const { name, links } = (isRawV3Document(documentWithMetadata) as any)
     ? documentWithMetadata.credentialSubject
     : documentWithMetadata;
   const fileName = name ?? "Untitled";

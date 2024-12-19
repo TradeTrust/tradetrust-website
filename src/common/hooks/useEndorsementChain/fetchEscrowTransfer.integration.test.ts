@@ -1,11 +1,11 @@
 import { providers } from "ethers";
-import { ChainId, ChainInfo } from "../../../constants/chain-info";
+import { ChainId } from "../../../constants/chain-info";
 import { useProviderContext } from "../../contexts/provider";
 import { fetchEscrowTransfersV5 } from "./fetchEscrowTransfer";
 
 jest.mock("../../contexts/provider");
 
-const amoyProvider = new providers.JsonRpcProvider(ChainInfo[ChainId.Amoy].rpcUrl);
+const amoyProvider = new providers.JsonRpcProvider("https://rpc-amoy.polygon.technology", ChainId.Amoy);
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
 

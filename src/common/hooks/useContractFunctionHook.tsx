@@ -1,11 +1,12 @@
-import { TitleEscrow, TradeTrustToken } from "@tradetrust-tt/token-registry/dist/contracts";
-import { TypedContractMethod } from "@tradetrust-tt/token-registry/dist/contracts/common";
+import { v5Contracts } from "@trustvc/trustvc";
+import { TypedContractMethod } from "@trustvc/trustvc";
 import { BaseContract, ContractReceipt, ContractTransaction } from "ethers";
 import { useCallback, useState } from "react";
 
 export type ContractFunctionState = "UNINITIALIZED" | "INITIALIZED" | "PENDING_CONFIRMATION" | "CONFIRMED" | "ERROR";
 type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
-
+type TitleEscrow = v5Contracts.TitleEscrow;
+type TradeTrustToken = v5Contracts.TradeTrustToken;
 // Todo
 // Deploy
 // Deploy & Initialize

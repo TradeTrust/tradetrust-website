@@ -1,8 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { DetailedErrors } from "./DetailedErrors";
-import { CONSTANTS } from "@tradetrust-tt/tradetrust-utils";
-import { VerificationFragment } from "@tradetrust-tt/tt-verify";
+import { errorMessages } from "@trustvc/trustvc";
+import { VerificationFragment } from "@trustvc/trustvc";
 import {
   whenDocumentHashInvalidAndNotIssued,
   whenDocumentHashInvalid,
@@ -18,7 +18,7 @@ import {
   whenDocumentValidAndIssuedByDns,
 } from "../../../test/fixture/verifier-responses";
 
-const { TYPES, MESSAGES } = CONSTANTS;
+const { TYPES, MESSAGES } = errorMessages;
 
 describe("DetailedErrors", () => {
   it("should display all verification error messages", () => {

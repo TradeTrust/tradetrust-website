@@ -1,6 +1,8 @@
-import { TradeTrustToken, TradeTrustToken__factory } from "@tradetrust-tt/token-registry/contracts";
+import { v5Contracts } from "@trustvc/trustvc";
 import { providers, Signer } from "ethers";
 import { useEffect, useState } from "react";
+const { TradeTrustToken__factory } = v5Contracts;
+type TradeTrustToken = v5Contracts.TradeTrustToken;
 
 export const useTokenRegistryContract = (
   address?: string,

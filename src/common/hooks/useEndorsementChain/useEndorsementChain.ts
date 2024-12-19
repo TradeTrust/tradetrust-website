@@ -37,7 +37,6 @@ export const useEndorsementChain = (
     setError("");
     try {
       let transferEvents: TransferBaseEvent[] = [];
-
       if (tokenRegistryVersion === TokenRegistryVersion.V5) {
         const titleEscrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, providerOrSigner);
         const titleEscrowLogs = await fetchEscrowTransfersV5(provider, titleEscrowAddress);
