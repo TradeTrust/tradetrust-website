@@ -118,7 +118,6 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const isReturnedToIssuer = documentOwner?.toLowerCase() === tokenRegistryAddress?.toLowerCase();
   const isTokenBurnt = documentOwner?.toLowerCase() === BurnAddress?.toLowerCase(); // check if the token belongs to burn address.
 
-  // console.log(titleEscrow);
   // First check whether Contract is TitleEscrow
   const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
   const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V5);

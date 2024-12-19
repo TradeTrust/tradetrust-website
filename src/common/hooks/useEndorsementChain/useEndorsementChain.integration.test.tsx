@@ -1,13 +1,13 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { providers } from "ethers";
-import { ChainId, ChainInfo } from "../../../constants/chain-info";
+import { ChainId } from "../../../constants/chain-info";
 import { TokenInformationContextProvider, useTokenInformationContext } from "../../contexts/TokenInformationContext";
 import { useProviderContext } from "../../contexts/provider";
 import { useEndorsementChain } from "./useEndorsementChain";
 
 jest.mock("../../contexts/provider");
 
-const amoyProvider = new providers.JsonRpcProvider(ChainInfo[ChainId.Amoy].rpcUrl, ChainId.Amoy);
+const amoyProvider = new providers.JsonRpcProvider("https://rpc-amoy.polygon.technology", ChainId.Amoy);
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
 
@@ -71,7 +71,7 @@ describe("useEndorsementChain|integration", () => {
     await act(async () => {
       await waitFor(
         () => {
-          expect(result.current.endorsementChain).toBeTruthy();
+          // expect(result.current.endorsementChain).toBeTruthy();
           expect(result.current.endorsementChain).toStrictEqual([
             {
               type: "INITIAL",
