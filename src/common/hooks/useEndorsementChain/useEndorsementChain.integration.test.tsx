@@ -71,7 +71,7 @@ describe("useEndorsementChain|integration", () => {
     await act(async () => {
       await waitFor(
         () => {
-          // expect(result.current.endorsementChain).toBeTruthy();
+          expect(result.current.endorsementChain).toBeTruthy();
           expect(result.current.endorsementChain).toStrictEqual([
             {
               type: "INITIAL",

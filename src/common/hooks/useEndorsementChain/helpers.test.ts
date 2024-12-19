@@ -1,6 +1,5 @@
 import { providers } from "ethers";
 import { useProviderContext } from "../../contexts/provider";
-// import { TradeTrustToken__factory } from "@tradetrust-tt/token-registry/dist/contracts";
 import { v5Contracts } from "@trustvc/trustvc";
 import { fetchEventTime, getHolderOwner, mergeTransfers, sortLogChain } from "./helpers";
 import { TransferBaseEvent } from "../../../types";

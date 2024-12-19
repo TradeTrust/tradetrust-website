@@ -28,9 +28,9 @@ interface TokenInformationContext {
   remark?: string;
   documentOwner?: string;
   approvedBeneficiary?: string;
-  changeHolder: v5Contracts.TitleEscrow["transferHolder"];
+  changeHolder: TitleEscrow["transferHolder"];
   changeHolderState: ContractFunctionState;
-  returnToIssuer: v5Contracts.TitleEscrow["returnToIssuer"];
+  returnToIssuer: TitleEscrow["returnToIssuer"];
   returnToIssuerState: ContractFunctionState;
   endorseBeneficiary: TitleEscrow["transferBeneficiary"];
   endorseBeneficiaryState: ContractFunctionState;
