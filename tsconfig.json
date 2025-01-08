@@ -7,14 +7,15 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "moduleResolution": "node16",
     "resolveJsonModule": true,
     "jsx": "react",
     "sourceMap": true,
     "types": ["jest", "node", "webpack-env", "@testing-library/jest-dom", "@types/gtag.js", "cypress"],
     "allowJs": true,
     "noEmit": true,
+    "isolatedModules": true,
     "useUnknownInCatchVariables": true
   },
   "include": ["src"]
