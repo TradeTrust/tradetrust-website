@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useState, useEffect, useCallback } from "react";
 import { OverlayContent } from "@tradetrust-tt/tradetrust-ui-components";
 import { CostData } from "./types";
-import { FiatLabel } from "@govtechsg/open-attestation-utils";
 import { currentDateStr } from "../../utils";
 import { REFRESH_RATE } from "../../constants/cost-estimation";
 import { useFetchGasPrice } from "../../common/hooks/useFetchGasPrice";
+import { FiatLabel } from "../FiatLabel";
 
 interface CostModalProps {
   costData: CostData;
@@ -45,13 +45,13 @@ export const CostModal: FunctionComponent<CostModalProps> = ({ costData }) => {
                     <div className="flex">
                       Ethereum:
                       <h5 className="ml-2 text-center">
-                        US<FiatLabel>{cost.ethPrice}</FiatLabel>*
+                        US<FiatLabel>{cost.ethPrice as any}</FiatLabel>*
                       </h5>
                     </div>
                     <div className="flex">
                       Polygon:
                       <h5 className="ml-2 text-center">
-                        US<FiatLabel>{cost.maticPrice}</FiatLabel>*
+                        US<FiatLabel>{cost.maticPrice as any}</FiatLabel>*
                       </h5>
                     </div>
                   </div>

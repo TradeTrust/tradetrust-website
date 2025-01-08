@@ -1,7 +1,7 @@
-const path = require("path");
-const fs = require("fs");
-const { SitemapStream, streamToPromise } = require("sitemap");
-const { paths } = require("./src/config/routes-config");
+import path from "path";
+import fs from "fs";
+import { SitemapStream, streamToPromise } from "sitemap";
+import { paths } from "./src/config/routes-config";
 
 // https://github.com/ekalinin/sitemap.js/blob/master/api.md#sitemap-item-options
 interface SitemapRecord {
