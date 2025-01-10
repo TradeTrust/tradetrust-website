@@ -99,6 +99,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   const isActiveTitleEscrow = isTitleEscrow && !isReturnedToIssuer;
   const isHolder = isTitleEscrow && account === holder;
   const isBeneficiary = isTitleEscrow && account === beneficiary;
+  const isHolderAndBeneficiary = isHolder && isBeneficiary;
   const canReturnToIssuer = isBeneficiary && isHolder && !isReturnedToIssuer;
   /*
     In order to shred we need to check 3 conditions
@@ -144,9 +145,17 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   const canRejectOwnerHolderTransfer =
     isActiveTitleEscrow && isHolder && isBeneficiary && hasPreviousHolder && hasPreviousBeneficiary;
   const canRejectHolderTransfer =
-    isActiveTitleEscrow && isHolder && hasPreviousHolder && !(isBeneficiary && hasPreviousBeneficiary);
+    !isHolderAndBeneficiary &&
+    isActiveTitleEscrow &&
+    isHolder &&
+    hasPreviousHolder &&
+    !(isBeneficiary && hasPreviousBeneficiary);
   const canRejectOwnerTransfer =
-    isActiveTitleEscrow && isBeneficiary && hasPreviousBeneficiary && !(isHolder && hasPreviousHolder);
+    !isHolderAndBeneficiary &&
+    isActiveTitleEscrow &&
+    isBeneficiary &&
+    hasPreviousBeneficiary &&
+    !(isHolder && hasPreviousHolder);
   const isRejectPendingConfirmation =
     rejectTransferHolderState === FormState.PENDING_CONFIRMATION ||
     rejectTransferOwnerState === FormState.PENDING_CONFIRMATION ||
