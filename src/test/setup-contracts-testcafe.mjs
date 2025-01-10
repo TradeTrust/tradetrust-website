@@ -63,10 +63,10 @@ shell.exec(
   `${oaCLI_PATH} title-escrow endorse-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_1} --newHolder ${ADDRESS_EXAMPLE_1} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY_2}`
 );
 shell.exec(
-  `${oaCLI_PATH} title-escrow surrender --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY}`
+  `${oaCLI_PATH} title-escrow return-to-issuer --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY}`
 );
 shell.exec(
-  `${oaCLI_PATH} title-escrow accept-surrendered --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY}`
+  `${oaCLI_PATH} title-escrow accept-returned --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY}`
 );
 
 // prep for issuing document store
