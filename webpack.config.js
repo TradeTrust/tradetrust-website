@@ -93,13 +93,6 @@ module.exports = {
     new webpack.IgnorePlugin({
       resourceRegExp: /magic-sdk$/, // Adjust the regular expression as needed
     }), // HOT FIX (Temp removal of magic demo until we might decide to kill it)
-    new webpack.EnvironmentPlugin({
-      // need to define variables here, so later can be overwritten at netlify env var end
-      // TODO: use dotenv instead
-      NODE_ENV: "development",
-      NET: "sepolia",
-      INFURA_API_KEY: "bb46da3f80e040e8ab73c0a9ff365d18",
-    }),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: `${__dirname}/public/static/index.html`,
