@@ -1,7 +1,7 @@
 {
   "appCommand": "npm run serve-static",
-  "src": ["src/**/nested-documents.spec.ts"],
-  "browsers": ["chrome"],
+  "src": ["src/**/*.spec.ts"],
+  "browsers": ["chrome --autoplay-policy=no-user-gesture-required  --allow-insecure-localhost"],
   "concurrency": 1,
-   "disableNativeAutomation": "true"
+  "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true"
 }

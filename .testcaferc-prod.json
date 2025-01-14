@@ -4,9 +4,10 @@
     "src/**/*.spec.ts"
   ],
   "browsers": [
-    "chrome:headless"
+    "chrome:headless --autoplay-policy=no-user-gesture-required  --allow-insecure-localhost"
   ],
   "concurrency": 4,
+  "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true",
   "cache": true,
   "selectorTimeout": 45000,
   "assertionTimeout": 25000,
