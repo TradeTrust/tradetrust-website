@@ -1,6 +1,7 @@
 {
   "appCommand": "npm run serve-static",
-  "src": ["src/**/*.spec.ts"],
+  "src": ["src/**/nested-documents.spec.ts"],
   "browsers": ["chrome"],
-  "concurrency": 1
+  "concurrency": 1,
+   "disableNativeAutomation": "true"
 }

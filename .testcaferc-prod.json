@@ -1,7 +1,11 @@
 {
   "appCommand": "npm run serve-static",
-  "src": ["src/**/*.spec.ts"],
-  "browsers": ["chrome:headless"],
+  "src": [
+    "src/**/*.spec.ts"
+  ],
+  "browsers": [
+    "chrome:headless"
+  ],
   "concurrency": 4,
   "cache": true,
   "selectorTimeout": 45000,
@@ -13,6 +17,7 @@
   "testExecutionTimeout": 180000,
   "runExecutionTimeout": 1000000,
   "disableMultipleWindows": false,
+  "disableNativeAutomation": "true",
   "color": true,
   "speed": 1,
   "reporter": [
