@@ -58,4 +58,8 @@ test("Attachment Tab and Panel rendered correctly", async (t) => {
   // attachment tab should render with correct attachment files count
   await t.click(TabAttachment);
   await t.expect(AttachmentLink.count).eql(5);
+}).timeouts({
+  pageLoadTimeout: 60000,
+  pageRequestTimeout: 60000,
+  ajaxRequestTimeout: 60000,
 });

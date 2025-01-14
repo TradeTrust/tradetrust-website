@@ -33,6 +33,10 @@ const merkleRootToMint = {
       merkleRoot: MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT,
       ...defaultToken,
     },
+    ...["0xe52a60e9c1308960bcf1d6c8531c58bf480aec373e1e3442a6af151475c3f89d"].map((hash) => ({
+      merkleRoot: hash,
+      ...defaultToken,
+    })),
   ],
 };
 
