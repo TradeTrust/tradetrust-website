@@ -19,10 +19,3 @@ yarn.lock
 lighthouseReport
 /public/static/sitemap.xml
 .env
-myCA.key
-myCA.pem
-myCA.srl
-testingdomain.crt
-testingdomain.csr
-testingdomain.key
-testingdomain.pfx

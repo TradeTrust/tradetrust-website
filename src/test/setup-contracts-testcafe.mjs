@@ -106,19 +106,3 @@ merkleRootToIssue.forEach((hash) => {
     `${oaCLI_PATH} document-store issue --address ${DOCUMENT_STORE_ADDRESS} --hash ${hash} -n local -k ${ACCOUNT_KEY}`
   );
 });
-
-// Generate self sign ssl for testcafe to verify w3c document.
-// Need to run testcafe with ssl. https://stackoverflow.com/questions/74067564/how-to-get-subtlecrypto-work-with-testcafe
-shell.exec(
-  `openssl req -nodes -new -x509 -keyout src/test/ca/myCA.key -out src/test/ca/myCA.pem -subj "/C=SG/ST=SG/L=/O=/OU=/CN=www.example.com/emailAddress=dev@www.example.com"`
-);
-shell.exec(`openssl genrsa -out src/test/ca/testingdomain.key 2048`);
-shell.exec(
-  `openssl req -new -key src/test/ca/testingdomain.key -out src/test/ca/testingdomain.csr -subj "/C=SG/ST=SG/L=/O=/OU=/CN=www.example.com/emailAddress=dev@www.example.com"`
-);
-shell.exec(
-  `openssl x509 -req -in src/test/ca/testingdomain.csr -CA src/test/ca/myCA.pem -CAkey src/test/ca/myCA.key -CAcreateserial -out src/test/ca/testingdomain.crt -sha256 -extfile src/test/ca/testdomain.ext`
-);
-shell.exec(
-  `openssl pkcs12 -passout pass: -export -out src/test/ca/testingdomain.pfx -inkey src/test/ca/testingdomain.key -in src/test/ca/testingdomain.crt -certfile src/test/ca/myCA.pem`
-);
