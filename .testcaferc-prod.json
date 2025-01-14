@@ -4,7 +4,7 @@
     "src/**/*.spec.ts"
   ],
   "browsers": [
-    "chrome:headless --autoplay-policy=no-user-gesture-required  --allow-insecure-localhost"
+    "chrome:headless --autoplay-policy=no-user-gesture-required  --allow-insecure-localhost --ignore-certificate-errors"
   ],
   "concurrency": 4,
   "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true",

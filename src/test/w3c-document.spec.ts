@@ -2,7 +2,7 @@ import { uploadDocument, validateIframeTexts, validateIssuerTexts, location, nav
 
 fixture("W3C Document").page`${location}`;
 
-test("should render correctly when verified", async () => {
+test("should render correctly when w3c vc document contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER", async () => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/w3c/v1_tr_er.json");
 
