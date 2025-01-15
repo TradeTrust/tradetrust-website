@@ -12,6 +12,7 @@ import {
   v3,
   WrappedDocument,
   isTransferableAsset as isTransferableOAAsset,
+  vc,
 } from "@trustvc/trustvc";
 import { TRANSFERABLE_RECORDS_TYPE } from "@trustvc/trustvc/verify/fragments";
 import { TransferableRecordsCredentialStatus } from "@trustvc/trustvc/w3c/credential-status";
@@ -65,6 +66,12 @@ export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocume
         type: attachment.mimeType,
       };
     });
+  } else if (vc.isSignedDocument(rawDocument)) {
+    return [(rawDocument as SignedVerifiableCredential)?.credentialSubject]
+      .flat()
+      ?.map((s) => s.attachments)
+      ?.filter(Boolean)
+      ?.flat();
   } else {
     // attachments not included in v4 schema for now.
     return [];
