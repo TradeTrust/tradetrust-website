@@ -22,4 +22,4 @@ test("Document with nested document in attachments should open in new tab correc
   ]);
 
   await t.expect(AttachmentNumber.exists).notOk();
-}).skipJsErrors();
+});
