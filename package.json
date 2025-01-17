@@ -122,7 +122,6 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/react-tooltip": "^4.2.4",
     "@types/use-persisted-state": "^0.3.0",
-    "@types/webpack-env": "^1.18.4",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "autoprefixer": "^10.4.2",
@@ -181,8 +180,7 @@
     "wait-on": "^5.3.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.4",
-    "webpack-env": "^0.8.0"
+    "webpack-dev-server": "^5.0.4"
   },
   "engines": {
     "node": "18.x",
