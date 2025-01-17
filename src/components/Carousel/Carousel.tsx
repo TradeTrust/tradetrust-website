@@ -1,17 +1,18 @@
+import { Button, ButtonSize, Youtube } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper";
-import { Youtube, Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
 import ReactMarkdown from "react-markdown";
-import { ButtonVideo } from "../ButtonVideo";
-
+import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { GaAction, GaCategory } from "../../types";
 import { gaEvent } from "../../common/utils/analytics";
+import { GaAction, GaCategory } from "../../types";
 import { isExternalLink } from "../../utils";
+import { ButtonVideo } from "../ButtonVideo";
+// @ts-ignore: swiper
+import { Autoplay, Pagination } from "swiper/modules";
+// @ts-ignore: swiper
+import { Swiper, SwiperSlide } from "swiper/react";
 
 interface PageLink {
   label: string;

@@ -1,6 +1,5 @@
 import {
   DocumentsToVerify,
-  openAttestationDidIdentityProof,
   openAttestationVerifiers,
   verificationBuilder,
   VerificationFragment,
@@ -8,8 +7,8 @@ import {
 } from "@trustvc/trustvc";
 import { providers } from "ethers";
 import { getCurrentProvider } from "../../common/contexts/provider";
-import { NETWORK_NAME } from "../../config";
 import { getChainInfoFromNetworkName } from "../../common/utils/chain-utils";
+import { NETWORK_NAME } from "../../config";
 import { ChainInfo } from "../../constants/chain-info";
 
 export enum VerifierType {
@@ -17,20 +16,7 @@ export enum VerifierType {
   CUSTOM = "custom",
 }
 
-// const verificationOption = (provider: providers.Provider | undefined) => {
-//   if (provider) return { provider };
-//   if (NETWORK_NAME === "local") {
-//     const chainId = getChainInfoFromNetworkName(NETWORK_NAME).chainId;
-//     const url = ChainInfo[chainId].rpcUrl;
-//     return { provider: new providers.JsonRpcProvider(url), network: NETWORK_NAME };
-//   }
-//   return { network: NETWORK_NAME };
-// };
-
-// const customVerifier = (provider: providers.Provider | undefined) =>
-//   verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof], verificationOption(provider));
-
-const demoVerifier = verificationBuilder([...openAttestationVerifiers, openAttestationDidIdentityProof], {
+const demoVerifier = verificationBuilder(openAttestationVerifiers, {
   network: "sepolia",
 });
 
@@ -55,4 +41,3 @@ export const verifyDocument = async (
     ? demoVerifier(document)
     : verifyDoc(document, (await rpcURL(provider)) as string);
 };
-// customVerifier(getCurrentProvider())(document);

@@ -1,0 +1,50 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/bbs/v1",
+    "https://w3id.org/vc/status-list/2021/v1",
+    "https://trustvc.io/context/transferable-records-context.json",
+    "https://trustvc.io/context/render-method-context.json",
+    "https://trustvc.io/context/attachments-context.json",
+    "https://schemata.openattestation.com/io/tradetrust/bill-of-lading/1.0/bill-of-lading-context.json"
+  ],
+  "credentialStatus": {
+    "type": "TransferableRecords",
+    "tokenNetwork": {
+      "chain": "ETH",
+      "chainId": "1337"
+    },
+    "tokenRegistry": "0x9Eb613a88534E2939518f4ffBFE65F5969b491FF",
+    "tokenId": "e52a60e9c1308960bcf1d6c8531c58bf480aec373e1e3442a6af151475c3f89d"
+  },
+  "renderMethod": [
+    {
+      "id": "https://generic-templates.tradetrust.io",
+      "type": "EMBEDDED_RENDERER",
+      "templateName": "BILL_OF_LADING"
+    }
+  ],
+  "credentialSubject": {
+    "shipper": {
+      "address": {}
+    },
+    "consignee": {},
+    "notifyParty": {},
+    "blNumber": "20250107",
+    "scac": "20250107"
+  },
+  "issuanceDate": "2021-12-03T12:19:52Z",
+  "expirationDate": "2029-12-03T12:19:52Z",
+  "issuer": "did:web:trustvc.github.io:did:1",
+  "type": [
+    "VerifiableCredential"
+  ],
+  "id": "urn:bnid:_:019463bc-746e-7442-9a16-424682fccdb9",
+  "proof": {
+    "type": "BbsBlsSignature2020",
+    "created": "2025-01-14T07:34:48Z",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "sTEVvEbgqTzz8wc35WBZSRBTmuQN2LA9zsfQ6bJqnW3OTrsQGYEcVS7sHM5soBbDMfQr5bZO/hdBQRMNBDoChOJOQUpKbuQhHUWWWfYnNfwY8l0TPxOk45T01evijcnMCZA7pXueOWz9FV0iblQzYg==",
+    "verificationMethod": "did:web:trustvc.github.io:did:1#keys-1"
+  }
+}

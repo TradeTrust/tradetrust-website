@@ -1,15 +1,16 @@
 import { Selector } from "testcafe";
 import {
+  Iframe,
   location,
   navigateToVerify,
-  uploadDocument,
-  Iframe,
   SampleTemplate,
-  validateTextContent,
+  uploadDocument,
   validateIframeTexts,
+  validateIssuerTexts,
+  validateTextContent,
 } from "./helper";
 
-fixture("Document with Attachment Rendering").page`${location}`;
+fixture("W3C Document").page`${location}`;
 
 const TabsItems = Selector(".multi-tab");
 const TabDefault = Selector("[data-testid='default']");
@@ -24,12 +25,20 @@ const AttachmentLink = Selector("[data-testid='attachment-download-link']");
 const Pdf1Span = Selector("span").withText("UNCITRAL Model Law on");
 const Pdf2Span = Selector("span").withText("Dumm");
 
-test("Attachment Tab and Panel rendered correctly", async (t) => {
+test("should render correctly when w3c vc document contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER", async () => {
   await navigateToVerify();
-  await uploadDocument("./fixture/local/v2/invoice-attachments.json");
+  await uploadDocument("./fixture/local/w3c/v1_tr_er.json");
 
-  // default document pdf content should render
-  await validateIframeTexts(["INVOICE"]);
+  await validateIssuerTexts(["DID:WEB:TRUSTVC.GITHUB.IO:DID:1"]);
+  await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
+});
+
+test("should render correctly when w3c vc document contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER and attachment", async (t) => {
+  await navigateToVerify();
+  await uploadDocument("./fixture/local/w3c/v1_tr_er_attachment.json");
+
+  await validateIssuerTexts(["DID:WEB:TRUSTVC.GITHUB.IO:DID:1"]);
+  await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 
   // tabs number should tally
   await TabDefault.with({ visibilityCheck: true })();
@@ -58,8 +67,4 @@ test("Attachment Tab and Panel rendered correctly", async (t) => {
   // attachment tab should render with correct attachment files count
   await t.click(TabAttachment);
   await t.expect(AttachmentLink.count).eql(5);
-}).timeouts({
-  pageLoadTimeout: 60000,
-  pageRequestTimeout: 60000,
-  ajaxRequestTimeout: 60000,
 });
