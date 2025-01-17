@@ -83,7 +83,10 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      "process.env": JSON.stringify(envVars),
+      "process.env": JSON.stringify({
+        ...process.env,
+        ...envVars,
+      }),
     }),
     new webpack.ProvidePlugin({
       Buffer: ["buffer", "Buffer"],
@@ -105,19 +108,19 @@ module.exports = {
     }),
     ...(!IS_DEV_SERVER
       ? [
-          new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
-          new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
-          new CopyWebpackPlugin({
-            patterns: [
-              { from: "public/static/common", to: "static/common" },
-              { from: "public/static/images", to: "static/images" },
-              { from: "public/static/demo", to: "static/demo" },
-              { from: "public/static/sitemap.xml", to: "sitemap.xml" },
-              { from: "public/static/robots.txt", to: "robots.txt" },
-              { from: "public/imd@", to: "imd@" },
-            ],
-          }),
-        ]
+        new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
+        new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
+        new CopyWebpackPlugin({
+          patterns: [
+            { from: "public/static/common", to: "static/common" },
+            { from: "public/static/images", to: "static/images" },
+            { from: "public/static/demo", to: "static/demo" },
+            { from: "public/static/sitemap.xml", to: "sitemap.xml" },
+            { from: "public/static/robots.txt", to: "robots.txt" },
+            { from: "public/imd@", to: "imd@" },
+          ],
+        }),
+      ]
       : []),
   ],
   optimization: {
