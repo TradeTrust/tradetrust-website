@@ -83,10 +83,7 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      "process.env": JSON.stringify({
-        ...process.env,
-        ...envVars,
-      }),
+      "process.env": JSON.stringify(envVars),
     }),
     new webpack.ProvidePlugin({
       Buffer: ["buffer", "Buffer"],
