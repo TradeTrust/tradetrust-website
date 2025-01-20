@@ -7,6 +7,8 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
 const { IS_DEVELOPMENT, IS_TEST_ENV, IS_DEV_SERVER, GA_MEASUREMENT_ID, GA_CONFIG_OPTION } = require("./src/config");
 const envVars = require("dotenv").config().parsed || {};
+const Dotenv = require("dotenv-webpack");
+
 console.log("envVars", envVars, process.env);
 
 module.exports = {
@@ -83,14 +85,20 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.EnvironmentPlugin(["NODE_ENV", "NET"]),
-    new webpack.DefinePlugin({
-      "process.env": JSON.stringify({
-        NODE_ENV: process.env.NODE_ENV,
-        NET: process.env.NET,
-        ...envVars,
-      }),
+    // new webpack.EnvironmentPlugin(["NODE_ENV", "NET"]),
+    new Dotenv({
+      path: ".env",
+      safe: false, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+      silent: true, // hide any errors
     }),
+    // new webpack.DefinePlugin({
+    //   "process.env": JSON.stringify({
+    //     NODE_ENV: process.env.NODE_ENV,
+    //     NET: process.env.NET,
+    //     ...envVars,
+    //   }),
+    // }),
     new webpack.ProvidePlugin({
       Buffer: ["buffer", "Buffer"],
     }),
@@ -111,19 +119,19 @@ module.exports = {
     }),
     ...(!IS_DEV_SERVER
       ? [
-        new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
-        new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
-        new CopyWebpackPlugin({
-          patterns: [
-            { from: "public/static/common", to: "static/common" },
-            { from: "public/static/images", to: "static/images" },
-            { from: "public/static/demo", to: "static/demo" },
-            { from: "public/static/sitemap.xml", to: "sitemap.xml" },
-            { from: "public/static/robots.txt", to: "robots.txt" },
-            { from: "public/imd@", to: "imd@" },
-          ],
-        }),
-      ]
+          new CompressionPlugin({ test: /\.(js|css|html|svg)$/ }),
+          new BrotliPlugin({ test: /\.(js|css|html|svg)$/ }),
+          new CopyWebpackPlugin({
+            patterns: [
+              { from: "public/static/common", to: "static/common" },
+              { from: "public/static/images", to: "static/images" },
+              { from: "public/static/demo", to: "static/demo" },
+              { from: "public/static/sitemap.xml", to: "sitemap.xml" },
+              { from: "public/static/robots.txt", to: "robots.txt" },
+              { from: "public/imd@", to: "imd@" },
+            ],
+          }),
+        ]
       : []),
   ],
   optimization: {
