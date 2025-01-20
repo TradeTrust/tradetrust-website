@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
 const { IS_DEVELOPMENT, IS_TEST_ENV, IS_DEV_SERVER, GA_MEASUREMENT_ID, GA_CONFIG_OPTION } = require("./src/config");
 const envVars = require("dotenv").config().parsed || {};
-console.log("envVars", envVars);
+console.log("envVars", envVars, process.env);
 
 module.exports = {
   resolve: {
