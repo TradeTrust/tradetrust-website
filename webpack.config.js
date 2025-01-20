@@ -82,8 +82,13 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.EnvironmentPlugin(["NODE_ENV", "NET"]),
     new webpack.DefinePlugin({
-      "process.env": JSON.stringify(envVars),
+      "process.env": JSON.stringify({
+        NODE_ENV: process.env.NODE_ENV,
+        NET: process.env.NET,
+        ...envVars,
+      }),
     }),
     new webpack.ProvidePlugin({
       Buffer: ["buffer", "Buffer"],
