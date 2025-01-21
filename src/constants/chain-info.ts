@@ -64,6 +64,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "homestead",
     networkLabel: "Ethereum",
     explorerUrl: "https://etherscan.io",
+    rpcUrl: `https://mainnet.infura.io/v3/${INFURA_API_KEY}`,
   },
   [ChainId.Sepolia]: {
     label: "Sepolia",

@@ -25,7 +25,7 @@ module.exports = {
   MAGIC_API_KEY: process.env.MAGIC_API_KEY || process.env.MAGIC_API_KEY_FALLBACK, // dlt gmail fallback
   NETWORK,
   NETWORK_NAME,
-  NETWORK_ID: IS_MAINNET ? "1" : "3",
+  NETWORK_ID: IS_MAINNET ? "1" : "11155111",
   IS_TEST_ENV: process.env.NODE_ENV === "test",
   IS_DEV_SERVER: !!process.env.WEBPACK_DEV_SERVER,
 };
