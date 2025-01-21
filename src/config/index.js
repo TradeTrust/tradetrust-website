@@ -18,7 +18,6 @@ module.exports = {
   },
   STABILITY_API_KEY: process.env.STABILITY_API_KEY || "",
   INFURA_API_KEY: process.env.INFURA_API_KEY,
-  INFURA_PROJECT_ID: "1f1ff2b3fca04f8d99f67d465c59e4ef",
   ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
   IS_DEVELOPMENT,
   IS_MAINNET,
