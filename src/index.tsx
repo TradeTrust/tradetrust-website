@@ -16,7 +16,6 @@ import { getChainInfoFromNetworkName, getSupportedChainInfo } from "./common/uti
 import { GA_MEASUREMENT_ID } from "./config";
 
 const store = configureStore();
-console.log("process.env", process.env.INFURA_API_KEY, process.env.NET, process.env.NODE_ENV, NETWORK_NAME);
 
 history.listen(() => {
   gaPageView({ action: "page_view" }, GA_MEASUREMENT_ID);
