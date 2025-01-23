@@ -1,6 +1,43 @@
 import { walletAddChain } from "./chain-utils";
 import { ChainId, ChainInfo } from "../../constants/chain-info";
 
+jest.mock("../../constants/chain-info", () => ({
+  ChainId: {
+    Ethereum: 1,
+    Polygon: 137,
+  },
+  ChainInfo: {
+    1: {
+      label: "Ethereum",
+      chainId: 1,
+      iconImage: "/static/images/networks/ethereum.gif",
+      networkName: "homestead",
+      networkLabel: "Ethereum",
+      explorerUrl: "https://etherscan.io",
+      rpcUrl: undefined,
+      nativeCurrency: {
+        name: "Ether",
+        symbol: "ETH",
+        decimals: 18,
+      },
+    },
+    137: {
+      label: "Polygon",
+      chainId: 137,
+      iconImage: "/static/images/networks/polygon.gif",
+      networkName: "matic",
+      networkLabel: "Polygon",
+      explorerUrl: "https://polygonscan.com",
+      rpcUrl: "https://polygon-rpc.com",
+      nativeCurrency: {
+        name: "Matic",
+        symbol: "MATIC",
+        decimals: 18,
+      },
+    },
+  },
+}));
+
 describe("walletAddChain Tests", () => {
   beforeEach(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

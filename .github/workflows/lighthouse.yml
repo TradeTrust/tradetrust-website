@@ -20,7 +20,7 @@ jobs:
       - name: npm install, build
         run: |
           npm install
-          npm run build
+          npm run build:prod
       - name: run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.10.x

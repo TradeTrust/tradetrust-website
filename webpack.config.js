@@ -6,6 +6,7 @@ const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Mode = require("frontmatter-markdown-loader/mode");
 const { IS_DEVELOPMENT, IS_TEST_ENV, IS_DEV_SERVER, GA_MEASUREMENT_ID, GA_CONFIG_OPTION } = require("./src/config");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   resolve: {
@@ -78,6 +79,12 @@ module.exports = {
   },
 
   plugins: [
+    new Dotenv({
+      path: ".env",
+      safe: false, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+      silent: true, // hide any errors
+    }),
     new webpack.ProvidePlugin({
       Buffer: ["buffer", "Buffer"],
     }),
@@ -90,13 +97,6 @@ module.exports = {
     new webpack.IgnorePlugin({
       resourceRegExp: /magic-sdk$/, // Adjust the regular expression as needed
     }), // HOT FIX (Temp removal of magic demo until we might decide to kill it)
-    new webpack.EnvironmentPlugin({
-      // need to define variables here, so later can be overwritten at netlify env var end
-      // TODO: use dotenv instead
-      NODE_ENV: "development",
-      NET: "sepolia",
-      INFURA_API_KEY: "bb46da3f80e040e8ab73c0a9ff365d18",
-    }),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: `${__dirname}/public/static/index.html`,

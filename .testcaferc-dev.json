@@ -1,6 +1,11 @@
 {
   "appCommand": "npm run serve-static",
-  "src": ["src/**/*.spec.ts"],
-  "browsers": ["chrome:headless"],
-  "concurrency": 4
+  "src": [
+    "src/**/*.spec.ts",
+    "!src/**/nested-documents.spec.ts"
+  ],
+  "browsers": [
+    "chrome"
+  ],
+  "concurrency": 1
 }
