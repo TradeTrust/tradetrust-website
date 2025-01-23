@@ -68,6 +68,8 @@ export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormP
             tokenRegistryAddress={tokenRegistryAddress}
           />
         </div>
+      </div>
+      <div className="flex flex-wrap justify-between mb-4 -mx-4">
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle
             role="Owner"
@@ -81,6 +83,7 @@ export const NominateBeneficiaryForm: FunctionComponent<NominateBeneficiaryFormP
         <div className="w-full px-4 lg:w-1/3">
           <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
         </div>
+        <div className="w-full px-4 lg:w-1/3" />
       </div>
       <div className="flex flex-wrap pb-4">
         <div className="w-auto lg:ml-auto">

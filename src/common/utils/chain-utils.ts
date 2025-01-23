@@ -51,6 +51,7 @@ export const walletSwitchChain = async (chainId: ChainId): Promise<void> => {
   const { ethereum } = window;
   if (!ethereum || !ethereum.request) return;
   try {
+    await ethereum.request({ method: "eth_requestAccounts" });
     await ethereum.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId: `0x${(+chainId).toString(16)}` }],
