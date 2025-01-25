@@ -115,7 +115,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "xdc",
     networkLabel: "XDC Network",
     explorerUrl: "https://xdcscan.io",
-    rpcUrl: "https://erpc.xinfin.network",
+    rpcUrl: "https://tradetrustrpc.xdcrpc.com",
     nativeCurrency: {
       name: "XDC",
       symbol: "XDC",
