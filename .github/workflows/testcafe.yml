@@ -14,8 +14,8 @@ jobs:
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18.x
       - name: Install Packages
@@ -30,7 +30,7 @@ jobs:
         run: npm run integration:testcafe:ci
       - name: Upload Artifact
         if: ${{ failure() && steps.testcafe.outcome == 'failure' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: testcafe-fail-screenshots
           path: artifacts
