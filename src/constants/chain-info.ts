@@ -1,4 +1,4 @@
-import { INFURA_API_KEY, STABILITY_API_KEY } from "../config";
+import { INFURA_API_KEY, STABILITY_API_KEY, STABILITY_TESTNET_API_KEY } from "../config";
 
 export interface ChainInfoObject {
   label: string;
@@ -139,7 +139,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "stability",
     networkLabel: "Stability",
     explorerUrl: "https://stability.blockscout.com",
-    rpcUrl: `https://gtn.stabilityprotocol.com/zgt/${STABILITY_API_KEY}`,
+    rpcUrl: `https://rpc.stabilityprotocol.com/zgt/${STABILITY_API_KEY}`,
     nativeCurrency: {
       name: "FREE",
       symbol: "FREE",
@@ -153,7 +153,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "stabilitytestnet",
     networkLabel: "Stability Testnet",
     explorerUrl: "https://stability-testnet.blockscout.com/",
-    rpcUrl: "https://free.testnet.stabilityprotocol.com",
+    rpcUrl: `https://rpc.testnet.stabilityprotocol.com/zgt/${STABILITY_TESTNET_API_KEY}`,
     nativeCurrency: {
       name: "FREE",
       symbol: "FREE",
