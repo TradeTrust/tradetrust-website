@@ -1,5 +1,5 @@
 import { decryptString } from "@govtechsg/oa-encryption";
-import { errorMessages, isValid } from "@trustvc/trustvc";
+import { errorMessages, getTokenId, getTokenRegistryAddress, isTransferableRecord, isValid } from "@trustvc/trustvc";
 import { put, select, takeEvery } from "redux-saga/effects";
 import { history } from "../history";
 import {
@@ -12,7 +12,7 @@ import {
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { getLogger } from "../utils/logger";
-import { getTokenId, getTokenRegistryAddress, isTokenRegistryV4, isTransferableAsset } from "../utils/shared";
+import { isTokenRegistryV4 } from "../utils/shared";
 import { ActionPayload } from "./../types";
 
 const { trace } = getLogger("saga:certificate");
@@ -26,7 +26,7 @@ export function* verifyCertificate(): any {
     });
 
     const certificate = yield select(getCertificate);
-    const isTransferableAssetVal = isTransferableAsset(certificate);
+    const isTransferableAssetVal = isTransferableRecord(certificate);
 
     if (isTransferableAssetVal) {
       const registryAddress = getTokenRegistryAddress(certificate);

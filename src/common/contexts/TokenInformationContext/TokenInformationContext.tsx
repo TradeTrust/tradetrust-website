@@ -96,7 +96,6 @@ interface TokenInformationContextProviderProps {
   children: React.ReactNode;
 }
 
-// TODO: HAN Move the constant value to token-registry repo
 export const TitleEscrowInterface = {
   V4: v4SupportInterfaceIds.TitleEscrow,
   V5: v5SupportInterfaceIds.TitleEscrow,
