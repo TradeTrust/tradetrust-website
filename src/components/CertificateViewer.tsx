@@ -1,3 +1,4 @@
+import { getTokenId, getTokenRegistryAddress, isTransferableRecord } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../common/contexts/provider";
@@ -8,14 +9,7 @@ import { resetDemoState } from "../reducers/demo-verify";
 import { FORM_SG_URL } from "../routes";
 import { TemplateProps } from "../types";
 import { getLogger } from "../utils/logger";
-import {
-  getAttachments,
-  getKeyId,
-  getTokenId,
-  getTokenRegistryAddress,
-  isTransferableAsset,
-  WrappedOrSignedOpenAttestationDocument,
-} from "../utils/shared";
+import { getAttachments, getKeyId, WrappedOrSignedOpenAttestationDocument } from "../utils/shared";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
@@ -65,7 +59,7 @@ interface CertificateViewerProps {
 }
 
 export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document }) => {
-  const isTransferableAssetVal = isTransferableAsset(document);
+  const isTransferableAssetVal = isTransferableRecord(document);
   let tokenId = "";
   if (isTransferableAssetVal) {
     try {

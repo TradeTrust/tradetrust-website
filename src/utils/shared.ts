@@ -1,8 +1,6 @@
 import {
-  getAssetId,
   getDataV2,
   getDocumentData,
-  getIssuerAddress,
   isTitleEscrowVersion,
   isWrappedV2Document,
   isWrappedV3Document,
@@ -10,11 +8,9 @@ import {
   SignedVerifiableCredential,
   v2,
   v3,
-  WrappedDocument,
-  isTransferableAsset as isTransferableOAAsset,
   vc,
+  WrappedDocument,
 } from "@trustvc/trustvc";
-import { TRANSFERABLE_RECORDS_TYPE } from "@trustvc/trustvc/verify/fragments";
 import { TransferableRecordsCredentialStatus } from "@trustvc/trustvc/w3c/credential-status";
 import { isSignedDocument } from "@trustvc/trustvc/w3c/vc";
 import { TitleEscrowInterface } from "../common/contexts/TokenInformationContext";
@@ -84,48 +80,6 @@ export const getTransferableRecordsCredentialStatus = (document: unknown): Trans
   ].flat()?.[0] as TransferableRecordsCredentialStatus;
 };
 
-export const isTransferableAsset = (document: WrappedOrSignedOpenAttestationDocument): boolean => {
-  // TODO: HAN: Migrate isTransferableAsset to trustvc
-  let isTransferableAssetVal: boolean = false;
-  if (isSignedDocument(document)) {
-    const credentialStatus = getTransferableRecordsCredentialStatus(document);
-    isTransferableAssetVal = credentialStatus?.type === TRANSFERABLE_RECORDS_TYPE;
-  } else {
-    isTransferableAssetVal = isTransferableOAAsset(document);
-  }
-
-  return isTransferableAssetVal;
-};
-
-export const getTokenRegistryAddress = (
-  document: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential
-): string | undefined => {
-  // const issuerAddress = getIssuerAddress(document);
-  // TODO: HAN: Migrate getIssuerAddress to trustvc
-  let issuerAddress: string | string[] = "";
-  if (isSignedDocument(document)) {
-    const credentialStatus = getTransferableRecordsCredentialStatus(document);
-    issuerAddress = credentialStatus?.tokenRegistry;
-  } else {
-    issuerAddress = getIssuerAddress(document);
-  }
-  return issuerAddress instanceof Array ? issuerAddress[0] : issuerAddress;
-};
-
-export const getTokenId = (document: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential): string => {
-  // const tokenId = `0x${utils.getAssetId(certificate)}`;
-  // TODO: HAN: Migrate getAssetId to trustvc
-  let tokenId: string | undefined = "";
-  if (isSignedDocument(document)) {
-    const credentialStatus = getTransferableRecordsCredentialStatus(document);
-    tokenId = credentialStatus?.tokenId;
-  } else {
-    tokenId = getAssetId(document);
-  }
-
-  return `0x${tokenId}`;
-};
-
 export const getChainId = (
   rawDocument: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential
 ): ChainId | undefined => {
@@ -179,7 +133,12 @@ export async function isTokenRegistryV4(registryAddress: string, tokenId: string
       return false;
     }
 
-    const isTitleEscrowV4 = await isTitleEscrowVersion(TitleEscrowInterface.V4, registryAddress, tokenId, provider!);
+    const isTitleEscrowV4 = await isTitleEscrowVersion({
+      tokenRegistryAddress: registryAddress,
+      tokenId,
+      versionInterface: TitleEscrowInterface.V4,
+      provider: provider!,
+    });
     return isTitleEscrowV4;
   } catch (error) {
     return false;
