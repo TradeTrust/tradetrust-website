@@ -65,7 +65,7 @@
     "cross-env": "^7.0.3",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
-    "ethers": "^5.7.2",
+    "ethers": "^5.8.0",
     "file-saver": "^2.0.5",
     "history": "^4.10.1",
     "lodash": "^4.17.21",
@@ -189,7 +189,7 @@
     "npm": ">=8.0"
   },
   "overrides": {
-    "ethers": "^5.7.2",
+    "ethers": "^5.8.0",
     "ethereumjs-abi": "https://registry.npmjs.org/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz"
   },
   "optionalDependencies": {

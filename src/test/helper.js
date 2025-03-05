@@ -9,7 +9,7 @@ const VerifyPage = Selector("a[href='/']");
 
 export const validateTextContent = async (testcafe, component, texts) =>
   texts.reduce(
-    async (previousValue, currentValue) => testcafe.expect(component.textContent).contains(currentValue),
+    async (previousValue, currentValue) => await testcafe.expect(component.textContent).contains(currentValue),
     Promise.resolve()
   );
 
