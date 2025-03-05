@@ -1,14 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { EndorsementChain, TransferBaseEvent } from "../../../types";
 import { useProviderContext } from "../../contexts/provider";
 import { TokenRegistryVersion, useTokenInformationContext } from "../../contexts/TokenInformationContext";
 import { getErrorMessage } from "../../utils/errorHandling";
-import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
-import { fetchEscrowTransfersV5 } from "./fetchEscrowTransfer";
-import { mergeTransfers } from "./helpers";
-import { getEndorsementChain } from "./retrieveEndorsementChain";
-import { decryptRemark } from "../../utils/chain-utils";
+import { EndorsementChain, fetchEndorsementChain } from "@trustvc/trustvc";
 
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
@@ -30,41 +25,27 @@ export const useEndorsementChain = (
     retrieve transactions from token registry and title escrow events
     merge, sort and provide history of events
   */
-  const fetchEndorsementChain = useCallback(async () => {
+  const fetchEndorsementChainV5 = useCallback(async () => {
     if (!tokenRegistry || !provider || !providerOrSigner) return;
     setEndorsementChain(undefined);
     setPending(true);
     setError("");
     try {
-      let transferEvents: TransferBaseEvent[] = [];
-      if (tokenRegistryVersion === TokenRegistryVersion.V5) {
-        const titleEscrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, providerOrSigner);
-        const titleEscrowLogs = await fetchEscrowTransfersV5(provider, titleEscrowAddress);
-        transferEvents = mergeTransfers(titleEscrowLogs);
-      } else {
+      if (tokenRegistryVersion !== TokenRegistryVersion.V5) {
         throw new Error('"Only Token Registry V5 is supported"');
       }
 
-      const retrievedEndorsementChain = await getEndorsementChain(provider, transferEvents);
-
-      setEndorsementChain(
-        retrievedEndorsementChain.map((event) => {
-          const remark = event?.remark?.slice(2) ? decryptRemark(event.remark.slice(2), keyId) : "";
-          return {
-            ...event,
-            remark: remark,
-          };
-        })
-      );
+      const retrievedEndorsementChain = await fetchEndorsementChain(tokenRegistryAddress, tokenId, provider, keyId);
+      setEndorsementChain(retrievedEndorsementChain);
     } catch (e: unknown) {
       setError(getErrorMessage(e));
     }
     setPending(false);
-  }, [provider, providerOrSigner, tokenId, tokenRegistry, tokenRegistryVersion, keyId]);
+  }, [provider, providerOrSigner, tokenId, tokenRegistry, tokenRegistryAddress, tokenRegistryVersion, keyId]);
 
   useEffect(() => {
-    fetchEndorsementChain();
-  }, [fetchEndorsementChain]);
+    fetchEndorsementChainV5();
+  }, [fetchEndorsementChainV5]);
 
   return { endorsementChain, pending, error };
 };

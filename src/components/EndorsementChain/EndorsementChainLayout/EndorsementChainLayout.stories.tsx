@@ -1,6 +1,6 @@
 import React from "react";
-import { EndorsementChain } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
+import { EndorsementChain } from "@trustvc/trustvc";
 
 export default {
   title: "Viewer/EndorsementChainLayout",
