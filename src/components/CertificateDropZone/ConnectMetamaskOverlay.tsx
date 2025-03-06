@@ -1,9 +1,9 @@
-import { Button, OverlayContent, OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
-import React, { FunctionComponent, useContext } from "react";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import React, { FunctionComponent } from "react";
 
 interface ConnectMetamaskOverlayProps {
-  handleAction: () => void;
-  actionState: string;
+  handleConnection: () => void;
+  handleDispatch: () => void;
 }
 
 export const RejectActionTitle = {
@@ -13,11 +13,9 @@ export const RejectActionTitle = {
 };
 
 export const ConnectMetamaskOverlay: FunctionComponent<ConnectMetamaskOverlayProps> = ({
-  handleAction,
-  actionState,
+  handleConnection,
+  handleDispatch,
 }) => {
-  const { closeOverlay } = useContext(OverlayContext);
-
   return (
     <div
       id="overlay"
@@ -33,24 +31,27 @@ export const ConnectMetamaskOverlay: FunctionComponent<ConnectMetamaskOverlayPro
         <div className="text-center">
           <span>
             <p className="mb-3 text-center">
-              You may either connect to your Metamask wallet to perform asset management or proceed anyway for document
-              verification.
+              You may either connect to your{" "}
+              <a href="https://metamask.io/en-GB" target="_blank" rel="noreferrer">
+                Metamask
+              </a>{" "}
+              wallet to perform asset management or proceed anyway for document verification.
             </p>
           </span>
         </div>
       </div>
       <div id="footer" className="p-6 pt-4">
-        <div className="flex flex-wrap items-center justify-between gap-x-20 gap-y-6 text-center text-xl font-bold leading-6 min-[596px]:flex-nowrap">
+        <div className="flex flex-wrap items-center justify-between gap-y-6 text-center text-xl font-bold leading-6 min-[596px]:flex-nowrap">
           <Button
             className="bg-white text-cerulean-500 hover:bg-cloud-100 px-[18px] py-3 w-[292px] h-[48px] min-w-[260px] rounded-[12px] p-[12px]"
-            onClick={() => closeOverlay()}
+            onClick={() => handleConnection()}
             // data-testid={`cancelReject${actionTitle}Btn`}
           >
             Connect with Metamask
           </Button>
           <Button
             className="bg-cerulean-500 text-white hover:bg-cerulean-800 px-[18px] py-3 w-[292px] h-[48px] min-w-[260px] rounded-[12px] p-[12px]"
-            onClick={() => handleAction()}
+            onClick={() => handleDispatch()}
             // data-testid={`confirmReject${actionTitle}Btn`}
           >
             Proceed Anyway

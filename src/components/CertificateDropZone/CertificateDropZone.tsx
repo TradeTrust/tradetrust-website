@@ -37,7 +37,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     verificationError,
     tokenRegistryV4,
   } = useSelector((state: RootState) => state.certificate);
-  const { showOverlay } = useContext(OverlayContext);
+  const { showOverlay, closeOverlay } = useContext(OverlayContext);
 
   const isVerificationPending = verificationPending;
   const isTokenRegistryV4 = tokenRegistryV4;
@@ -66,9 +66,20 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           try {
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
-            if (!account) {
-              console.log("one");
-              showOverlay(<ConnectMetamaskOverlay handleAction={() => console.log("here")} actionState="rishbh" />);
+            if (chainId && !account) {
+              showOverlay(
+                <ConnectMetamaskOverlay
+                  handleConnection={async () => {
+                    await switchNetwork(chainId);
+                    setTargetChainId(chainId);
+                    setPendingCertificateData(json);
+                  }}
+                  handleDispatch={() => {
+                    dispatch(updateCertificate(json));
+                    closeOverlay();
+                  }}
+                />
+              );
               return;
             }
             if (!chainId) {
@@ -93,7 +104,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [currentChainId, account, showOverlay, dispatch, switchNetwork]
+    [currentChainId, account, showOverlay, closeOverlay, dispatch, switchNetwork]
   );
 
   const [targetChainId, setTargetChainId] = useState<number | null>(null);
