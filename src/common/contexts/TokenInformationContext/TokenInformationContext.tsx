@@ -1,5 +1,4 @@
-import { v5SupportInterfaceIds, v4SupportInterfaceIds } from "@trustvc/trustvc";
-import { v5Contracts } from "@trustvc/trustvc";
+import { v5Contracts, TitleEscrowInterface } from "@trustvc/trustvc";
 import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
 import { BurnAddress } from "../../../constants/chain-info";
 import { ContractFunctionState, useContractFunctionHook } from "../../hooks/useContractFunctionHook";
@@ -95,11 +94,6 @@ export const TokenInformationContext = createContext<TokenInformationContext>({
 interface TokenInformationContextProviderProps {
   children: React.ReactNode;
 }
-
-export const TitleEscrowInterface = {
-  V4: v4SupportInterfaceIds.TitleEscrow,
-  V5: v5SupportInterfaceIds.TitleEscrow,
-};
 
 export const TokenInformationContextProvider: FunctionComponent<TokenInformationContextProviderProps> = ({
   children,

@@ -1,8 +1,8 @@
 import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import React from "react";
-import { EndorsementChain } from "../../../types";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
+import { EndorsementChain } from "@trustvc/trustvc";
 
 jest.mock("@govtechsg/address-identity-resolver", () => ({ useIdentifierResolver: jest.fn() }));
 
