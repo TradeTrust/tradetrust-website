@@ -59,7 +59,6 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     (acceptedFiles: Blob[]) => {
       acceptedFiles.forEach((file: Blob) => {
         const reader = new FileReader();
-        console.log("file", file);
         reader.onabort = () => console.log("file reading was aborted");
         reader.onerror = () => console.log("file reading has failed");
         reader.onload = async () => {
@@ -146,31 +145,28 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
   ]);
 
   return (
-    <div data-testid="certificate-dropzone">
-      <div
-        className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
-      >
-        <div {...getRootProps()}>
-          <input {...getInputProps()} />
-          {(() => {
-            switch (true) {
-              case isVerificationPending:
-                return <ViewVerificationPending />;
-              case isTokenRegistryV4:
-                return <ViewTokenRegistryMismatch />;
-              case isVerificationError:
-                return <ViewVerificationError resetData={resetData} />;
-              case isActionError:
-                return <ViewActionError resetData={resetData} />;
-              default:
-                return <View toggleQrReaderVisible={toggleQrReaderVisible} />;
-            }
-          })()}
-        </div>
-        <div className="my-4 w-full h-[1px] bg-[#E7EAEC]" />
-        <LoadDemoCertificate currentChainId={currentChainId} />
+    <div
+      className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
+    >
+      <div data-testid="certificate-dropzone" {...getRootProps()}>
+        <input {...getInputProps()} />
+        {(() => {
+          switch (true) {
+            case isVerificationPending:
+              return <ViewVerificationPending />;
+            case isTokenRegistryV4:
+              return <ViewTokenRegistryMismatch />;
+            case isVerificationError:
+              return <ViewVerificationError resetData={resetData} />;
+            case isActionError:
+              return <ViewActionError resetData={resetData} />;
+            default:
+              return <View toggleQrReaderVisible={toggleQrReaderVisible} />;
+          }
+        })()}
       </div>
-      {/* <ConnectMetamaskOverlay handleAction={() => console.log("here")} actionState="rishbh" /> */}
+      <div className="my-4 w-full h-[1px] bg-[#E7EAEC]" />
+      <LoadDemoCertificate currentChainId={currentChainId} />
     </div>
   );
 };

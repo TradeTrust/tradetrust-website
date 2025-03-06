@@ -18,6 +18,7 @@ export const ConnectMetamaskOverlay: FunctionComponent<ConnectMetamaskOverlayPro
 }) => {
   return (
     <div
+      data-testid="connect-metamask-overlay"
       id="overlay"
       className="font-gilroy bg-white w-full max-w-[640px] min-w-[308px] h-auto max-h-[244px] flex flex-col rounded-[12px] bg-white font-medium leading-5 tracking-[0px] text-neutral-600 z-20"
     >
@@ -45,17 +46,16 @@ export const ConnectMetamaskOverlay: FunctionComponent<ConnectMetamaskOverlayPro
           <Button
             className="bg-white text-cerulean-500 hover:bg-cloud-100 px-[18px] py-3 w-[292px] h-[48px] min-w-[260px] rounded-[12px] p-[12px]"
             onClick={() => handleConnection()}
-            // data-testid={`cancelReject${actionTitle}Btn`}
+            data-testid={`overlayHandleConnectionBtn`}
           >
             Connect with Metamask
           </Button>
           <Button
             className="bg-cerulean-500 text-white hover:bg-cerulean-800 px-[18px] py-3 w-[292px] h-[48px] min-w-[260px] rounded-[12px] p-[12px]"
             onClick={() => handleDispatch()}
-            // data-testid={`confirmReject${actionTitle}Btn`}
+            data-testid={`overlayHandleDispatchBtn`}
           >
             Proceed Anyway
-            {/* {  <LoaderSpinner data-testid={"loader"} /> : <>Confirm</>} */}
           </Button>
         </div>
       </div>
