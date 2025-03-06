@@ -6,6 +6,7 @@ import {
   isWrappedV3Document,
   OpenAttestationDocument,
   SignedVerifiableCredential,
+  TitleEscrowInterface,
   v2,
   v3,
   vc,
@@ -13,7 +14,6 @@ import {
 } from "@trustvc/trustvc";
 import { TransferableRecordsCredentialStatus } from "@trustvc/trustvc/w3c/credential-status";
 import { isSignedDocument } from "@trustvc/trustvc/w3c/vc";
-import { TitleEscrowInterface } from "../common/contexts/TokenInformationContext";
 import { getCurrentProvider } from "../common/contexts/provider";
 import { getSupportedChainIds } from "../common/utils/chain-utils";
 import { AvailableBlockChains, ChainId } from "../constants/chain-info";

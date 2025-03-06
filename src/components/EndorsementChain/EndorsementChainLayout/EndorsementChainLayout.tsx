@@ -2,9 +2,9 @@ import { BackArrow } from "@tradetrust-tt/tradetrust-ui-components";
 import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import { format } from "date-fns";
 import React, { FunctionComponent } from "react";
-import { EndorsementChain } from "../../../types";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
+import { EndorsementChain } from "@trustvc/trustvc";
 
 interface EndorsementChainLayout {
   endorsementChain?: EndorsementChain;

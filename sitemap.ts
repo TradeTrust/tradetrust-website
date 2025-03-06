@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { SitemapStream, streamToPromise } from "sitemap";
+import { SitemapStream } from "sitemap";
 import { paths } from "./src/config/routes-config";
 
 // https://github.com/ekalinin/sitemap.js/blob/master/api.md#sitemap-item-options
