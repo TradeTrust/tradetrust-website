@@ -2,7 +2,7 @@ import { ACCOUNT_3 } from "../utils";
 
 before(() => {
   cy.window().then((window) => {
-    window.localStorage.setItem('hasSeenPopup', 'true');
+    window.localStorage.setItem("hasSeenPopup", "true");
   });
   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
 });
@@ -11,6 +11,7 @@ describe("Endorse Transfer of Ownership/Holdership", () => {
   it("should endorse transfer of both owner and holder successfully", () => {
     cy.visit("/");
     cy.waitAndUploadFile("ebl-endorse-owner.json");
+    cy.get("[data-testid='overlayHandleDispatchBtn']").click();
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();

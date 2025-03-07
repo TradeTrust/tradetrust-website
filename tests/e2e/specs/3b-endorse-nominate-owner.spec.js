@@ -2,7 +2,7 @@ import { ACCOUNT_1, ACCOUNT_3 } from "../utils";
 
 before(() => {
   cy.window().then((window) => {
-    window.localStorage.setItem('hasSeenPopup', 'true');
+    window.localStorage.setItem("hasSeenPopup", "true");
   });
   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
 });
@@ -11,6 +11,7 @@ describe("Endorse Transfer of Ownership by nominating Owner", () => {
   it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", () => {
     cy.visit("/");
     cy.waitAndUploadFile("ebl-nominate-owner.json");
+    cy.get("[data-testid='overlayHandleDispatchBtn']").click();
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
