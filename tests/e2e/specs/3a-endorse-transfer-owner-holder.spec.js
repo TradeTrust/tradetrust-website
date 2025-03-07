@@ -11,7 +11,6 @@ describe("Endorse Transfer of Ownership/Holdership", () => {
   it("should endorse transfer of both owner and holder successfully", () => {
     cy.visit("/");
     cy.waitAndUploadFile("ebl-endorse-owner.json");
-    cy.get("[data-testid='overlayHandleDispatchBtn']").click();
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
