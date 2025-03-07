@@ -18,7 +18,7 @@ const ChangeOwnershipAction = Selector("[data-testid='action-title']").withText(
 
 const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("ETR returned to issuer");
 const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("ETR taken out of circulation");
-
+const HandleProceedAnywayBtn = Selector("[data-testid='overlayHandleDispatchBtn']");
 // history chain of events for ebl-endorsement-chain.json are:
 // 1. issued on account 1
 // 2. nominate beneficiary + change owners to account 2
@@ -31,7 +31,7 @@ const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withTex
 test("Endorsement chain title and actions are rendered correctly", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/v3/ebl-endorsement-chain.json");
-
+  await t.click(HandleProceedAnywayBtn);
   await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
   await t.wait(3000);
   await t.expect(ViewEndorsementChainButton.count).eql(1);
