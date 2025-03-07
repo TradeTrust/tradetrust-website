@@ -1,4 +1,4 @@
-import { t, Selector } from "testcafe";
+import { Selector } from "testcafe";
 import { location, navigateToVerify, uploadDocument, validateIssuerTexts } from "./helper";
 
 fixture("Obfuscated Document Rendering").page`${location}`;
