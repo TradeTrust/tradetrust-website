@@ -4,12 +4,14 @@ before(() => {
   cy.window().then((window) => {
     window.localStorage.setItem("hasSeenPopup", "true");
   });
-  cy.wait(1000);
+  cy.ensureMetamaskIsInstalled();
+  cy.wait(10000);
   cy.createMetamaskAccount();
-  cy.wait(1000);
+  cy.wait(10000);
   cy.createMetamaskAccount();
-  cy.wait(1000);
+  // cy.wait(10000);
   // cy.importMetamaskAccount("0xc58c1ff75001afdca8cecb61b47f36964febe4188b8f7b26252286ecae5a8879");
+  cy.wait(10000);
   cy.switchMetamaskAccount(1); // ensure switch to account 1 (owner)
 });
 
