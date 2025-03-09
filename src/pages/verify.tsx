@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { HomePageContainer } from "../components/HomePageContent";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
@@ -6,8 +6,17 @@ import { Page } from "../components/Layout/Page";
 import { OverlayContent, OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
 import { InfoOverlay } from "../components/UI/Overlay";
+import { useDispatch } from "react-redux";
+import { resetCertificateState } from "../reducers/certificate";
 
 const VerifyPage = (): React.ReactElement => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetCertificateState());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Helmet>

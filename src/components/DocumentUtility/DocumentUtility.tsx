@@ -37,7 +37,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
   };
 
   return (
-    <div className="container no-print bg-white pb-8">
+    <div className="container no-print bg-white pb-4">
       <div className="flex flex-wrap">
         <div className="w-auto ml-auto">
           {qrcodeUrl && (

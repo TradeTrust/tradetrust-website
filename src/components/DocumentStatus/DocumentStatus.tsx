@@ -13,7 +13,6 @@ import React, { FunctionComponent } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
-import { StatusChecks } from "./StatusChecks";
 
 interface VerificationFragmentData {
   did: string;
@@ -84,10 +83,10 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by"
   }
 
   return (
-    <h4 id="issuedby" className="my-2 leading-none">
-      <span className="mr-2 break-all">{title}</span>
-      <span className="text-cerulean-500 break-words">{formattedDomainNames}</span>
-    </h4>
+    <div id="issuedby" className="gap-2 flex flex-col">
+      <div className="break-all text-cloud-800">{title}:</div>
+      <h4 className="text-cloud-800 leading-none break-all">{formattedDomainNames}</h4>
+    </div>
   );
 };
 
@@ -114,7 +113,6 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({ isMagic
             document={document}
           />
         </div>
-        <StatusChecks verificationStatus={verificationStatus} />
       </div>
     </div>
   );

@@ -10,6 +10,11 @@ interface ViewerPageContainerProps {
 export const ViewerPageContainer = ({ isMagicDemo }: ViewerPageContainerProps): React.ReactElement => {
   const rootState = useSelector((state: RootState) => state);
   const document = isMagicDemo ? rootState.demoVerify.rawModifiedDocument : rootState.certificate.rawModified;
+  const filename = rootState.certificate.filename;
 
-  return document ? <CertificateViewer isMagicDemo={isMagicDemo} document={document} /> : <Redirect to="/" />;
+  return document ? (
+    <CertificateViewer isMagicDemo={isMagicDemo} document={document} filename={filename} />
+  ) : (
+    <Redirect to="/" />
+  );
 };

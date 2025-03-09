@@ -10,6 +10,7 @@ export const states = {
 export const initialState = {
   raw: null,
   rawModified: null,
+  filename: "",
 
   providerOrSigner: null,
   tokenRegistryV4: false,
@@ -25,8 +26,8 @@ export const initialState = {
 // Actions
 export const types = {
   RESET_CERTIFICATE: "RESET_CERTIFICATE",
-
   UPDATE_CERTIFICATE: "UPDATE_CERTIFICATE",
+  UPDATE_FILENAME: "UPDATE_FILENAME",
 
   DETECTING_TR_V4_CERTIFICATE: "DETECTING_TR_V4_CERTIFICATE",
 
@@ -56,6 +57,7 @@ export default function reducer(state = initialState, action) {
     case types.UPDATE_CERTIFICATE:
       return {
         ...initialState,
+        filename: state.filename,
         raw: action.payload,
         rawModified: action.payload,
       };
@@ -86,6 +88,7 @@ export default function reducer(state = initialState, action) {
     case types.CERTIFICATE_OBFUSCATE_RESET:
       return {
         ...initialState,
+        filename: state.filename,
         rawModified: state.raw,
       };
     case types.CERTIFICATE_OBFUSCATE_UPDATE:
@@ -108,6 +111,11 @@ export default function reducer(state = initialState, action) {
         ...state,
         retrieveCertificateByActionState: states.FAILURE,
         retrieveCertificateByActionError: action.payload,
+      };
+    case types.UPDATE_FILENAME:
+      return {
+        ...state,
+        filename: action.payload,
       };
     default:
       return state;
@@ -170,6 +178,13 @@ export function retrieveCertificateByActionFailure(payload) {
   };
 }
 
+export function updateFilename(payload) {
+  return {
+    type: types.UPDATE_FILENAME,
+    payload,
+  };
+}
+
 // Selectors
 export function getCertificate(store) {
   return store.certificate.rawModified;
@@ -189,4 +204,8 @@ export function getVerificationStatus(store) {
 
 export function getCertificateByActionError(store) {
   return store.certificate.retrieveCertificateByActionError;
+}
+
+export function getFilename(store) {
+  return store.certificate.filename;
 }

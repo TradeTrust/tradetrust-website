@@ -21,7 +21,7 @@ export const NotLoggedIn = () => {
       account=""
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -34,7 +34,7 @@ export const NotLoggedIn = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -67,7 +67,7 @@ export const NoMatch = () => {
         account="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
         onConnectToWallet={() => alert("Login to Metamask")}
         beneficiary="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
-        approvedBeneficiary=""
+        nominee=""
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         formAction={assetManagementAction}
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -80,7 +80,7 @@ export const NoMatch = () => {
         onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
         beneficiaryEndorseState={FormState.UNINITIALIZED}
         nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-        approveNewTransferTargetsState={FormState.UNINITIALIZED}
+        nominateBeneficiaryState={FormState.UNINITIALIZED}
         transferOwners={(approvedBeneficiary, approvedHolder) =>
           alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
         }
@@ -112,7 +112,7 @@ export const BeneficiaryAndHolder = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -125,7 +125,7 @@ export const BeneficiaryAndHolder = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -156,7 +156,7 @@ export const Beneficiary = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -169,7 +169,7 @@ export const Beneficiary = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -200,7 +200,7 @@ export const Holder = () => {
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -213,7 +213,7 @@ export const Holder = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -244,7 +244,7 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+      nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -257,7 +257,7 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -288,7 +288,7 @@ export const TransferHolderError = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -301,7 +301,7 @@ export const TransferHolderError = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -332,7 +332,7 @@ export const TransferHolderPending = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -345,7 +345,7 @@ export const TransferHolderPending = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -376,7 +376,7 @@ export const EndorseChangeBeneficiaryError = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -389,7 +389,7 @@ export const EndorseChangeBeneficiaryError = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.ERROR}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -420,7 +420,7 @@ export const EndorseChangeBeneficiaryPending = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -433,7 +433,7 @@ export const EndorseChangeBeneficiaryPending = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.PENDING_CONFIRMATION}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -464,7 +464,7 @@ export const NominateBeneficiaryAndHolderError = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -477,7 +477,7 @@ export const NominateBeneficiaryAndHolderError = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.ERROR}
+      nominateBeneficiaryState={FormState.ERROR}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -508,7 +508,7 @@ export const NominateBeneficiaryAndHolderPending = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -521,7 +521,7 @@ export const NominateBeneficiaryAndHolderPending = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.PENDING_CONFIRMATION}
+      nominateBeneficiaryState={FormState.PENDING_CONFIRMATION}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -544,7 +544,7 @@ export const NominateBeneficiaryAndHolderPending = () => {
 };
 
 export const EndorseTransferHolderBeneficiary = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseTransfer);
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.TransferOwnerHolder);
 
   return (
     <AssetManagementForm
@@ -552,7 +552,7 @@ export const EndorseTransferHolderBeneficiary = () => {
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+      nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -565,7 +565,7 @@ export const EndorseTransferHolderBeneficiary = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -588,7 +588,7 @@ export const EndorseTransferHolderBeneficiary = () => {
 };
 
 export const EndorseTransferHolderBeneficiaryPending = () => {
-  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.EndorseTransfer);
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.TransferOwnerHolder);
 
   return (
     <AssetManagementForm
@@ -596,7 +596,7 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
+      nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -609,7 +609,7 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -640,7 +640,7 @@ export const SurrenderDocument = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -653,7 +653,7 @@ export const SurrenderDocument = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -684,7 +684,7 @@ export const SurrenderPending = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -697,7 +697,7 @@ export const SurrenderPending = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -728,7 +728,7 @@ export const SurrenderedNotMinter = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -742,7 +742,7 @@ export const SurrenderedNotMinter = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -775,7 +775,7 @@ export const SurrenderedIsMinter = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -789,7 +789,7 @@ export const SurrenderedIsMinter = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -822,7 +822,7 @@ export const SurrenderedAcceptForm = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -836,7 +836,7 @@ export const SurrenderedAcceptForm = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }
@@ -871,7 +871,7 @@ export const SurrenderedRejectForm = () => {
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
         onConnectToWallet={() => alert("Login to Metamask")}
         beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        approvedBeneficiary=""
+        nominee=""
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
         formAction={assetManagementAction}
         tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -885,7 +885,7 @@ export const SurrenderedRejectForm = () => {
         onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
         beneficiaryEndorseState={FormState.UNINITIALIZED}
         nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-        approveNewTransferTargetsState={FormState.UNINITIALIZED}
+        nominateBeneficiaryState={FormState.UNINITIALIZED}
         transferOwners={(approvedBeneficiary, approvedHolder) =>
           alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
         }
@@ -919,7 +919,7 @@ export const SurrenderedDocument = () => {
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
       onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      approvedBeneficiary=""
+      nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
       formAction={assetManagementAction}
       tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
@@ -932,7 +932,7 @@ export const SurrenderedDocument = () => {
       onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
       beneficiaryEndorseState={FormState.UNINITIALIZED}
       nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
-      approveNewTransferTargetsState={FormState.UNINITIALIZED}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
       transferOwners={(approvedBeneficiary, approvedHolder) =>
         alert(`Endorse Owner: ${approvedBeneficiary}, Holder: ${approvedHolder}`)
       }

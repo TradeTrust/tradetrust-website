@@ -1,20 +1,10 @@
-import React from "react";
 import { render } from "@testing-library/react";
-import { DocumentStatus, IssuedBy } from "./DocumentStatus";
-import {
-  whenDocumentHashInvalid,
-  whenDocumentNotIssued,
-  whenDocumentIssuerIdentityInvalidDnsTxt,
-  whenDocumentHashInvalidAndNotIssued,
-  whenDocumentIssuerIdentityInvalidDid,
-} from "../../test/fixture/verifier-responses";
-import { errorMessages } from "@trustvc/trustvc";
+import { v2, wrapOADocument } from "@trustvc/trustvc";
+import React from "react";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
-import { v2, wrapOADocument } from "@trustvc/trustvc";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
-
-const { MESSAGES } = errorMessages;
+import { IssuedBy } from "./DocumentStatus";
 
 describe("Document", () => {
   let document: WrappedOrSignedOpenAttestationDocument;
@@ -127,51 +117,6 @@ describe("Document", () => {
       ];
       const container = renderWithStore(fragments);
       expect(container.queryByText(sampleDidIdentity.toUpperCase())).not.toBeNull();
-    });
-  });
-
-  describe("DocumentStatus", () => {
-    const renderWithStore = (verificationStatus: any) => {
-      const store = configureStore({ certificate: { rawModified: document, verificationStatus: verificationStatus } });
-      return render(
-        <Provider store={store}>
-          <DocumentStatus />
-        </Provider>
-      );
-    };
-    it("should display hash error if the hash is invalid", () => {
-      const container = renderWithStore(whenDocumentHashInvalid);
-      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
-      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
-      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
-    });
-
-    it("displays issuing error if the document is not issued", () => {
-      const container = renderWithStore(whenDocumentNotIssued);
-      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
-      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
-      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeNull();
-    });
-
-    it("displays identity error if the dns txt identity is not verified", () => {
-      const container = renderWithStore(whenDocumentIssuerIdentityInvalidDnsTxt);
-      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
-      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
-      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
-    });
-
-    it("displays identity error if the did identity is not verified", () => {
-      const container = renderWithStore(whenDocumentIssuerIdentityInvalidDid);
-      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeNull();
-      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeNull();
-      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
-    });
-
-    it("displays error in all fields when all verification fail", () => {
-      const container = renderWithStore(whenDocumentHashInvalidAndNotIssued);
-      expect(container.queryByText(MESSAGES["HASH"]["failureTitle"])).not.toBeNull();
-      expect(container.queryByText(MESSAGES["ISSUED"]["failureTitle"])).not.toBeNull();
-      expect(container.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).not.toBeNull();
     });
   });
 });
