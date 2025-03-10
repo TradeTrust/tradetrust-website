@@ -59,12 +59,12 @@ const VerifyPage = (): React.ReactElement => {
           </div>
           <ConnectToMetamask />
         </div> */}
-        <div className="flex flex-wrap md:flex-nowrap items-start md:items-center justify-between">
+        <div className="flex flex-wrap md:flex-nowrap items-start md:items-center justify-between gap-2">
           <div className="flex flex-wrap md:flex-nowrap gap-2 w-full md:w-auto">
-            <div className="text-gray-900 whitespace-nowrap mr-3" data-testid="page-subtitle">
+            <div className="w-full xs:w-auto text-gray-900 flex items-center" data-testid="page-subtitle">
               Verify your document on
             </div>
-            <div className="flex">
+            <div className="w-full xs:w-auto flex flex-row items-center">
               <NetworkSelect />
               <OverlayContextProvider>
                 <InfoOverlay className="p-0 ml-2 cursor-pointer focus:outline-none">
@@ -77,7 +77,7 @@ const VerifyPage = (): React.ReactElement => {
               </OverlayContextProvider>
             </div>
           </div>
-          <ConnectToMetamask />
+          <ConnectToMetamask className="w-full xs:w-[18.25rem]" />
         </div>
 
         <DropZoneSectionContainer />

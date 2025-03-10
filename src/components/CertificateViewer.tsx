@@ -44,7 +44,6 @@ interface CertificateViewerProps {
 }
 
 export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document, filename }) => {
-  console.log("🚀 ~ filename:", filename);
   const isTransferableAssetVal = isTransferableRecord(document);
   let tokenId = "";
   if (isTransferableAssetVal) {
@@ -139,7 +138,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
 
   const renderedCertificateViewer = (
     <>
-      <div className="no-print">
+      <div className="no-print mt-4">
         {!isTransferableDocument && (
           <AssetManagementApplication
             isMagicDemo={isMagicDemo}

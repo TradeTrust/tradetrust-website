@@ -152,7 +152,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
   return (
     <div
-      className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
+      className={`border-y-2 xs:border-2 rounded-none xs:rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
     >
       <div data-testid="certificate-dropzone" {...getRootProps()}>
         <input {...getInputProps()} />

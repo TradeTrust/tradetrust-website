@@ -92,21 +92,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     ); // there is 2 type of errors that will be handled here, 1st = NO_METAMASK (error thrown from provider.tsx), 2nd = NO_USER_AUTHORIZATION (error from metamask extension itself).
   };
 
-  // const handleActiveWalletClicked = async () => {
-  //   if (account) {
-  //     try {
-  //       await navigator.clipboard.writeText(account);
-  //       setTooltipMessage("Copied!");
-  //       ReactTooltip.hide(tooltipRef.current!);
-  //       setTimeout(() => {
-  //         ReactTooltip.show(tooltipRef.current!);
-  //       }, 0);
-  //     } catch (err) {
-  //       console.error("Failed to copy: ", err);
-  //     }
-  //   }
-  // };
-
   const handleConnectWallet = async () => {
     try {
       await onConnectToWallet();
@@ -137,7 +122,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             <div className="col-span-1">
               <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
             </div>
-            {/* <div className="w-full xs:w-1/2 sm:w-1/3" /> */}
           </div>
         )}
         {!isTokenBurnt && (
@@ -197,7 +181,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
           </div>
         )}
       </div>
-      {/* <ReactTooltip type="light" id="active-wallet-tooltip" effect="solid" getContent={() => tooltipMessage} /> */}
     </>
   );
 };

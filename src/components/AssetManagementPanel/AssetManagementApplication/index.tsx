@@ -143,7 +143,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
         <div id="file-name" className="flex-1 justify-between">
           <div className="flex flex-row content-center h-16">
             <div id="filename" data-testid="filename" className="flex-1 flex-wrap content-center">
-              <h4>{filename}</h4>
+              <h4>{isSampleDocument ? "sample-document.tt" : filename}</h4>
             </div>
             <a id="upload-new-file" data-testid="upload-new-file" className="content-center" href={"/"}>
               <Button className="bg-white text-cerulean-500 hover:bg-cloud-100" size={ButtonSize.MD}>
