@@ -11,9 +11,9 @@ Cypress.Commands.add("waitAndUploadFile", (file) => {
 Cypress.Commands.add("connectToMetamaskWalletAndApproveAllAccounts", () => {
   cy.get("[data-testid='connectToWallet']")
     // use cypress-if package functions
-    .if('visible')
+    .if("visible")
     .then(() => {
-      cy.contains('button', 'Connect Wallet').click();
+      cy.contains("button", "Connect to Metamask").click();
       cy.wait(METAMASK_WAIT);
       cy.acceptMetamaskAccess({
         allAccounts: true,
@@ -25,7 +25,8 @@ Cypress.Commands.add("connectToMetamaskWalletAndApproveAllAccounts", () => {
       });
       cy.wait(METAMASK_WAIT);
     })
-    .else().log('Metamask wallet already connected');
+    .else()
+    .log("Metamask wallet already connected");
 });
 
 Cypress.Commands.add("waitAndConfirmMetamaskTransaction", () => {

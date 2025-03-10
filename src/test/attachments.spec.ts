@@ -14,6 +14,7 @@ fixture("Document with Attachment Rendering").page`${location}`;
 const TabsItems = Selector(".multi-tab");
 const TabDefault = Selector("[data-testid='default']");
 const TabAttachment = Selector("[data-testid='tab-attachment']");
+const HandleProceedAnywayBtn = Selector("[data-testid='overlayHandleDispatchBtn']");
 const TabWordDoc = Selector("[data-testid='attachment-0']");
 const TabExcel = Selector("[data-testid='attachment-1']");
 const TabJpeg = Selector("[data-testid='attachment-2']");
@@ -27,7 +28,7 @@ const Pdf2Span = Selector("span").withText("Dumm");
 test("Attachment Tab and Panel rendered correctly", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/v2/invoice-attachments.json");
-
+  await t.click(HandleProceedAnywayBtn);
   // default document pdf content should render
   await validateIframeTexts(["INVOICE"]);
 
