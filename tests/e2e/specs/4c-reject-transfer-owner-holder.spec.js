@@ -11,7 +11,6 @@ describe("Reject Transfer Owner & Holder", () => {
   it("should go to verify page, upload a file, connect to wallet and reject transfer owner & holder successfully", () => {
     cy.visit("/");
     cy.waitAndUploadFile("ebl-endorse-owner.json");
-    cy.get("[data-testid='overlayHandleDispatchBtn']").click();
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.connectToMetamaskWalletAndApproveAllAccounts();
