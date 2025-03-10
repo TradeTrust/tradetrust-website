@@ -210,7 +210,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                   data-testid={"connectToWallet"}
                   onClick={handleConnectWallet}
                 >
-                  Connect Wallet
+                  Connect to Metamask
                 </Button>
               )}
             </>
