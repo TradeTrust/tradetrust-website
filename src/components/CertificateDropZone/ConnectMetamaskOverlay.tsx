@@ -1,5 +1,6 @@
 import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
+import { CheckCircle } from "react-feather";
 
 interface ConnectMetamaskOverlayProps {
   handleConnection: () => void;
@@ -23,8 +24,8 @@ export const ConnectMetamaskOverlay: FunctionComponent<ConnectMetamaskOverlayPro
       className="font-gilroy bg-white w-full max-w-[640px] min-w-[308px] h-auto max-h-[244px] flex flex-col rounded-[12px] bg-white font-medium leading-5 tracking-[0px] text-neutral-600 z-20"
     >
       <div id="header" className="flex flex-wrap items-center gap-4 min-[596px]:flex-nowrap p-6 pb-4">
-        <div className="flex flex-shrink-0 items-center justify-center">
-          <div className="h-7 w-7" style={{ backgroundImage: "url('/static/images/dropzone/check_circle.svg')" }} />
+        <div className="flex flex-shrink-0 items-center">
+          <CheckCircle width="28px" height="28px" className="text-forest-500" />
         </div>
         <h3>Transferable Document Uploaded</h3>
       </div>
