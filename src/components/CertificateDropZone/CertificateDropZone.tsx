@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useEffect, useMemo, useState } from "react";
+import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
@@ -18,6 +18,9 @@ import { getChainId } from "../../utils/shared";
 import { errorMessages } from "@trustvc/trustvc";
 import { useNetworkSelect } from "./../../common/hooks/useNetworkSelect";
 import { ViewTokenRegistryMismatch } from "../DocumentDropzone/Views/ViewTokenRegistryMismatch";
+import { LoadDemoCertificate } from "./LoadDemoCertificate";
+import { ConnectMetamaskOverlay } from "./ConnectMetamaskOverlay";
+import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
 
 const { TYPES } = errorMessages;
 
@@ -35,6 +38,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     verificationError,
     tokenRegistryV4,
   } = useSelector((state: RootState) => state.certificate);
+  const { showOverlay, closeOverlay } = useContext(OverlayContext);
 
   const isVerificationPending = verificationPending;
   const isTokenRegistryV4 = tokenRegistryV4;
@@ -49,7 +53,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     dispatch(resetCertificateState());
   }, [dispatch]);
 
-  const { currentChainId } = useProviderContext();
+  const { currentChainId, account } = useProviderContext();
   const { switchNetwork } = useNetworkSelect();
 
   const onDrop = useCallback(
@@ -67,7 +71,22 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           try {
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
-
+            if (chainId && !account) {
+              showOverlay(
+                <ConnectMetamaskOverlay
+                  handleConnection={async () => {
+                    await switchNetwork(chainId);
+                    setTargetChainId(chainId);
+                    setPendingCertificateData(json);
+                  }}
+                  handleDispatch={() => {
+                    dispatch(updateCertificate(json));
+                    closeOverlay();
+                  }}
+                />
+              );
+              return;
+            }
             if (!chainId) {
               dispatch(updateCertificate(json));
               return;
@@ -90,7 +109,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [currentChainId, dispatch, switchNetwork]
+    [currentChainId, account, showOverlay, closeOverlay, dispatch, switchNetwork]
   );
 
   const [targetChainId, setTargetChainId] = useState<number | null>(null);
@@ -132,11 +151,11 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
   ]);
 
   return (
-    <div data-testid="certificate-dropzone" {...getRootProps()}>
-      <input {...getInputProps()} />
-      <div
-        className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
-      >
+    <div
+      className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
+    >
+      <div data-testid="certificate-dropzone" {...getRootProps()}>
+        <input {...getInputProps()} />
         {(() => {
           switch (true) {
             case isVerificationPending:
@@ -152,6 +171,8 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           }
         })()}
       </div>
+      <div className="my-4 w-full h-[1px] bg-[#E7EAEC]" />
+      <LoadDemoCertificate currentChainId={currentChainId} />
     </div>
   );
 };
