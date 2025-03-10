@@ -7,13 +7,7 @@ Cypress.Commands.add("waitAndUploadFile", (file) => {
   cy.get("input[type=file]").attachFile(file);
   cy.wait(RENDERER_WAIT);
 });
-Cypress.Commands.add("ensureMetamaskIsInstalled", () => {
-  cy.window().then((win) => {
-    if (!win.ethereum) {
-      throw new Error("MetaMask is not installed");
-    }
-  });
-});
+
 Cypress.Commands.add("connectToMetamaskWalletAndApproveAllAccounts", () => {
   cy.get("[data-testid='connectToWallet']")
     // use cypress-if package functions
