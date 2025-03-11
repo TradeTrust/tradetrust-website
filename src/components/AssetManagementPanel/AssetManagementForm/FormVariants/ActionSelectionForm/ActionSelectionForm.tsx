@@ -61,9 +61,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canRejectHolderTransfer,
   canRejectOwnerTransfer,
 }) => {
-  // const [tooltipMessage, setTooltipMessage] = useState("Copy");
-  // const tooltipRef = useRef(null);
-
   const canManage =
     canTransferHolder ||
     canTransferBeneficiary ||
