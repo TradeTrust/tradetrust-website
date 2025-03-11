@@ -8,14 +8,11 @@ import { useTokenInformationContext } from "../../../common/contexts/TokenInform
 import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistryContract";
 import { useTokenRegistryRole } from "../../../common/hooks/useTokenRegistryRole";
 import { RootState } from "../../../reducers";
-import { IssuedBy } from "../../DocumentStatus";
-import { StatusChecks } from "../../DocumentStatus/StatusChecks";
-import { AssetInformationPanel } from "../AssetInformationPanel";
+import { FORM_SG_URL } from "../../../routes";
+import { DocumentStatus } from "../../DocumentStatus";
+import { Banner } from "../../UI/Banner";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "../AssetManagementForm";
-import { AssetManagementTags } from "../AssetManagementTags";
-import { FORM_SG_URL } from "../../../routes";
-import { Banner } from "../../UI/Banner";
 
 interface AssetManagementIsTransferableDocumentProps {
   isMagicDemo?: boolean;
@@ -112,10 +109,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   });
 
   const rootState = useSelector((state: RootState) => state);
-  const document = isMagicDemo ? rootState.demoVerify.rawModifiedDocument : rootState.certificate.rawModified;
-  const verificationStatus = isMagicDemo
-    ? rootState.demoVerify.verificationStatus
-    : rootState.certificate.verificationStatus;
   const filename = rootState.certificate.filename;
 
   const onDestroyToken = (remark: string = "0x") => {
@@ -157,30 +150,12 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
           assetManagementAction === AssetManagementActions.RejectTransferHolder ||
           assetManagementAction === AssetManagementActions.RejectTransferOwner ||
           assetManagementAction === AssetManagementActions.RejectTransferOwnerHolder) && (
-          <div
-            id="asset_details"
-            className="flex-1 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid-flow-row gap-2 justify-between"
-          >
-            <div className="col-span-1">
-              <IssuedBy
-                title={isMagicDemo ? "Demo issued by" : "Issued by"}
-                verificationStatus={verificationStatus}
-                document={document}
-              />
-              {isTransferableDocument && <AssetManagementTags />}
-            </div>
-            <div className="col-span-1">
-              <StatusChecks verificationStatus={verificationStatus} />
-            </div>
-            {isTransferableDocument && (
-              <div className="col-span-1">
-                <AssetInformationPanel
-                  setShowEndorsementChain={setShowEndorsementChain}
-                  tokenRegistryAddress={tokenRegistryAddress!}
-                />
-              </div>
-            )}
-          </div>
+          <DocumentStatus
+            isMagicDemo={isMagicDemo}
+            isTransferableDocument={isTransferableDocument}
+            tokenRegistryAddress={tokenRegistryAddress}
+            setShowEndorsementChain={setShowEndorsementChain}
+          />
         )}
 
         <div id="divider" className="flex-1 border-t-2 my-2" />
