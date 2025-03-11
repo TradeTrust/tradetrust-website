@@ -168,7 +168,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     send: restoreToken,
     state: restoreTokenState,
     reset: resetRestoreTokenState,
-  } = useContractFunctionHook(tokenRegistry, "restore");
+  } = useContractFunctionHook<TradeTrustToken, "restore", string>(tokenRegistry, "restore");
 
   const {
     send: returnToIssuer,
@@ -318,7 +318,6 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         resetStates,
         restoreToken,
         restoreTokenState,
-        resetRestoreTokenState,
       }}
     >
       {children}

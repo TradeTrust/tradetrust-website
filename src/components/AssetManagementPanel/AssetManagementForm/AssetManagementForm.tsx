@@ -299,10 +299,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
         formAction === AssetManagementActions.NominateBeneficiary ||
         formAction === AssetManagementActions.ReturnToIssuer ||
         formAction === AssetManagementActions.AcceptReturnToIssuer ||
-        formAction === AssetManagementActions.RejectReturnToIssuer ||
-        formAction === AssetManagementActions.RejectTransferOwnerHolder ||
-        formAction === AssetManagementActions.RejectTransferOwner ||
-        formAction === AssetManagementActions.RejectTransferHolder) && (
+        formAction === AssetManagementActions.RejectReturnToIssuer) && (
         <ActionForm
           type={formAction}
           beneficiary={beneficiary!}
