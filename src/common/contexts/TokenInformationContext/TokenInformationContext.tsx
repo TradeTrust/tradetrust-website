@@ -165,7 +165,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   } = useContractFunctionHook(titleEscrow, "rejectTransferOwners");
 
   const {
-    send: restoreToken,
+    send: restoreToken, // restoreToken function does not return any value
     state: restoreTokenState,
     reset: resetRestoreTokenState,
   } = useContractFunctionHook<TradeTrustToken, "restore", string>(tokenRegistry, "restore");
