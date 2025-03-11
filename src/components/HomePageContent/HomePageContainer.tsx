@@ -62,6 +62,13 @@ export const HomePageContainer = (): React.ReactElement => {
 
   // event listener for any custom postMessage
   window.addEventListener("message", (event) => {
+    const allowedOriginRegex =
+      /^https?:\/\/(?:[\w-]+\.)*(?:tradetrust\.io|localhost(?::\d+)?|netlify\.app|netlify\.com)$/;
+
+    if (!allowedOriginRegex.test(event.origin)) {
+      console.error("Invalid origin:", event.origin);
+      return; // Exit if the origin is not allowed
+    }
     if (event.data.type === NestedDocumentState.LOAD) {
       try {
         const doc = atob(event.data.payload);

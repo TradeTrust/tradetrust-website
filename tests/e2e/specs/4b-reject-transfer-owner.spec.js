@@ -2,7 +2,7 @@ const { ACCOUNT_1 } = require("../utils");
 
 before(() => {
   cy.window().then((window) => {
-    window.localStorage.setItem('hasSeenPopup', 'true');
+    window.localStorage.setItem("hasSeenPopup", "true");
   });
   cy.switchMetamaskAccount(3); // ensure switch to account 1 (owner)
 });

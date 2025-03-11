@@ -17,15 +17,15 @@ module.exports = {
     debug_mode: IS_DEVELOPMENT,
   },
   STABILITY_API_KEY: process.env.STABILITY_API_KEY || "",
-  INFURA_API_KEY: process.env.INFURA_API_KEY || "bb46da3f80e040e8ab73c0a9ff365d18",
-  INFURA_PROJECT_ID: "1f1ff2b3fca04f8d99f67d465c59e4ef",
-  ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY || "pV9JmoYcDFFBihXlJWt6FSDxzNAVWxdT",
+  STABILITY_TESTNET_API_KEY: process.env.STABILITY_TESTNET_API_KEY || "",
+  INFURA_API_KEY: process.env.INFURA_API_KEY,
+  ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
   IS_DEVELOPMENT,
   IS_MAINNET,
-  MAGIC_API_KEY: process.env.MAGIC_API_KEY || process.env.MAGIC_API_KEY_FALLBACK || "pk_test_AB1F885AF848182E", // dlt gmail fallback
+  MAGIC_API_KEY: process.env.MAGIC_API_KEY || process.env.MAGIC_API_KEY_FALLBACK, // dlt gmail fallback
   NETWORK,
   NETWORK_NAME,
-  NETWORK_ID: IS_MAINNET ? "1" : "3",
+  NETWORK_ID: IS_MAINNET ? "1" : "11155111",
   IS_TEST_ENV: process.env.NODE_ENV === "test",
   IS_DEV_SERVER: !!process.env.WEBPACK_DEV_SERVER,
 };

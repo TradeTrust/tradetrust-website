@@ -7,59 +7,6 @@ export interface TemplateProps {
   type: string;
 }
 
-export type TradeTrustTokenEventType =
-  | "INITIAL"
-  | "NEW_OWNERS"
-  | "ENDORSE"
-  | "TRANSFER"
-  | "RETURNED_TO_ISSUER"
-  | "RETURN_TO_ISSUER_REJECTED"
-  | "RETURN_TO_ISSUER_ACCEPTED"
-  | "TRANSFER_TO_WALLET"
-  | "INVALID";
-
-export type TransferEventType = TokenTransferEventType | TitleEscrowTransferEventType;
-export interface TransferBaseEvent {
-  type: TransferEventType;
-  transactionIndex: number;
-  holder?: string;
-  owner?: string;
-  transactionHash: string;
-  blockNumber: number;
-  remark?: string;
-}
-
-export type TokenTransferEventType =
-  | "INITIAL"
-  | "RETURNED_TO_ISSUER"
-  | "RETURN_TO_ISSUER_REJECTED"
-  | "RETURN_TO_ISSUER_ACCEPTED";
-export interface TitleEscrowTransferEvent extends TransferBaseEvent {
-  type: TitleEscrowTransferEventType;
-}
-
-export type TitleEscrowTransferEventType =
-  | "TRANSFER_BENEFICIARY"
-  | "TRANSFER_HOLDER"
-  | "TRANSFER_OWNERS"
-  | "REJECT_TRANSFER_BENEFICIARY"
-  | "REJECT_TRANSFER_HOLDER"
-  | "REJECT_TRANSFER_OWNERS";
-
-export interface TokenTransferEvent extends TransferBaseEvent {
-  type: TokenTransferEventType;
-  from: string;
-  to: string;
-}
-
-export interface TransferEvent extends TransferBaseEvent {
-  timestamp: number;
-  holder: string;
-  owner: string;
-}
-
-export type EndorsementChain = TransferEvent[];
-
 export type Resource = {
   title: string;
   url: string;

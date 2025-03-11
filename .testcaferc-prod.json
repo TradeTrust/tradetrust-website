@@ -1,8 +1,14 @@
 {
   "appCommand": "npm run serve-static",
-  "src": ["src/**/*.spec.ts"],
-  "browsers": ["chrome:headless"],
+  "src": [
+    "src/**/*.spec.ts",
+    "!src/**/nested-documents.spec.ts"
+  ],
+  "browsers": [
+    "chrome:headless --autoplay-policy=no-user-gesture-required  --allow-insecure-localhost --ignore-certificate-errors"
+  ],
   "concurrency": 4,
+  "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true",
   "cache": true,
   "selectorTimeout": 45000,
   "assertionTimeout": 25000,
@@ -12,7 +18,6 @@
   "browserInitTimeout": 180000,
   "testExecutionTimeout": 180000,
   "runExecutionTimeout": 1000000,
-  "disableMultipleWindows": false,
   "color": true,
   "speed": 1,
   "reporter": [

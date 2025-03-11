@@ -1,16 +1,19 @@
 import {
+  SignedVerifiableCredential,
   VerificationFragment,
   VerificationFragmentWithData,
-  utils,
   WrappedDocument,
+  isWrappedV2Document,
   isWrappedV3Document,
+  utils,
+  v3,
+  vc,
 } from "@trustvc/trustvc";
 import React, { FunctionComponent } from "react";
-import { StatusChecks } from "./StatusChecks";
 import { useSelector } from "react-redux";
-import { isWrappedV2Document, v3 } from "@trustvc/trustvc";
 import { RootState } from "../../reducers";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
+import { StatusChecks } from "./StatusChecks";
 
 interface VerificationFragmentData {
   did: string;
@@ -55,6 +58,10 @@ export const getV3IdentityVerificationText = (document: WrappedDocument<v3.OpenA
   return document.openAttestationMetadata.identityProof.identifier.toUpperCase();
 };
 
+export const getW3CIdentityVerificationText = (document: SignedVerifiableCredential): string => {
+  return (typeof document?.issuer === "string" ? document?.issuer : document?.issuer?.id)?.toUpperCase();
+};
+
 // disabled until alpha is promoted to master
 // export const getV4IdentityVerificationText = (document: WrappedDocument<v4.OpenAttestationDocument>): string => {
 //   return document.issuer.identityProof.identifier.toUpperCase();
@@ -72,11 +79,10 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by"
     formattedDomainNames = getV2FormattedDomainNames(verificationStatus);
   } else if (isWrappedV3Document(document)) {
     formattedDomainNames = getV3IdentityVerificationText(document);
+  } else if (vc.isSignedDocument(document)) {
+    formattedDomainNames = getW3CIdentityVerificationText(document);
   }
-  // disabled until alpha tradetrust-tt packages are promoted to master
-  // else {
-  //   formattedDomainNames = getV4IdentityVerificationText(document);
-  // }
+
   return (
     <h4 id="issuedby" className="my-2 leading-none">
       <span className="mr-2 break-all">{title}</span>

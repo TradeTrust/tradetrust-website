@@ -60,6 +60,7 @@ export function useContractFunctionHook<T extends BaseContract | TitleEscrow | T
     resetState();
 
     try {
+      // @ts-ignore: check for v4 contracts support
       const contractMethod = contract?.functions?.[method as string] ?? contract[method];
       const deferredTx = contractMethod(...params);
       setState("INITIALIZED");
@@ -83,6 +84,7 @@ export function useContractFunctionHook<T extends BaseContract | TitleEscrow | T
     }
     resetState();
 
+    // @ts-ignore: check for v4 contracts support
     const contractMethod = contract?.functions?.[method as string] ?? contract[method];
     const deferredTx = contractMethod(...params);
     setState("INITIALIZED");

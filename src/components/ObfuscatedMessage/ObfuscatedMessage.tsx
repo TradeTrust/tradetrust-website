@@ -1,4 +1,5 @@
 import { utils } from "@tradetrust-tt/tradetrust";
+import { isSignedDocument } from "@trustvc/trustvc/w3c/vc";
 import React, { FunctionComponent } from "react";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
@@ -7,7 +8,7 @@ interface ObfuscatedMessageProps {
 }
 
 export const ObfuscatedMessage: FunctionComponent<ObfuscatedMessageProps> = ({ document }) => {
-  if (!utils.isObfuscated(document)) return null;
+  if (isSignedDocument(document) || !utils.isObfuscated(document)) return null;
 
   return (
     <div className="container">

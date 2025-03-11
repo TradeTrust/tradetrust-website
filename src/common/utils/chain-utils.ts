@@ -2,7 +2,7 @@ import { UnsupportedNetworkError } from "../errors";
 import { ChainId, ChainInfo, ChainInfoObject } from "../../constants/chain-info";
 import { IS_DEVELOPMENT } from "../../config";
 import { MAIN_NETWORKS, TEST_NETWORKS } from "../../config/chain-config";
-import { encrypt, decrypt } from "@trustvc/trustvc";
+import { encrypt } from "@trustvc/trustvc";
 
 /**
  * Gets the ChainInfoObject of a supported chain ID.
@@ -111,14 +111,4 @@ export const walletAddChain = async (chainId: ChainId): Promise<void> => {
  */
 export const encryptRemark = (remark: string, keyId?: string): string => {
   return encrypt(remark, keyId ?? "");
-};
-
-/**
- * decrypts the given remark with id using trustvc decryption
- * @param remark Encrypted Rejection Remark
- * @param keyId Key ID
- * @returns Decrypted remark
- */
-export const decryptRemark = (remark: string, keyId?: string): string => {
-  return decrypt(remark, keyId ?? "");
 };

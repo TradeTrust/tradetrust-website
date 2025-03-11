@@ -1,4 +1,4 @@
-import { isTransferableAsset, getAssetId } from "@trustvc/trustvc";
+import { getTokenId, getTokenRegistryAddress, isTransferableRecord } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../common/contexts/provider";
@@ -6,14 +6,10 @@ import { useTokenInformationContext } from "../common/contexts/TokenInformationC
 import { RootState } from "../reducers";
 import { resetCertificateState, updateCertificate } from "../reducers/certificate";
 import { resetDemoState } from "../reducers/demo-verify";
+import { FORM_SG_URL } from "../routes";
 import { TemplateProps } from "../types";
 import { getLogger } from "../utils/logger";
-import {
-  getAttachments,
-  getKeyId,
-  getTokenRegistryAddress,
-  WrappedOrSignedOpenAttestationDocument,
-} from "../utils/shared";
+import { getAttachments, getKeyId, WrappedOrSignedOpenAttestationDocument } from "../utils/shared";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
@@ -24,7 +20,6 @@ import { EndorsementChainContainer } from "./EndorsementChain";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import { TabPaneAttachments } from "./TabPaneAttachments";
 import { Banner } from "./UI/Banner";
-import { FORM_SG_URL } from "../routes";
 
 const { trace } = getLogger("component: certificateviewer");
 
@@ -64,11 +59,11 @@ interface CertificateViewerProps {
 }
 
 export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document }) => {
-  const isTransferableAssetVal = isTransferableAsset(document);
+  const isTransferableAssetVal = isTransferableRecord(document);
   let tokenId = "";
   if (isTransferableAssetVal) {
     try {
-      tokenId = `0x${getAssetId(document)}`;
+      tokenId = getTokenId(document);
     } catch (e) {
       trace(e);
     }

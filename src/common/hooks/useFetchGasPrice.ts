@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useRefresh } from "@govtechsg/open-attestation-utils";
+import { useRefresh } from "./useRefresh";
 
 const gasApi = {
   ethereum: "https://api.blocknative.com/gasprices/blockprices",

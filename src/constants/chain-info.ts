@@ -1,4 +1,4 @@
-import { INFURA_API_KEY, STABILITY_API_KEY } from "../config";
+import { INFURA_API_KEY, STABILITY_API_KEY, STABILITY_TESTNET_API_KEY } from "../config";
 
 export interface ChainInfoObject {
   label: string;
@@ -60,6 +60,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "homestead",
     networkLabel: "Ethereum",
     explorerUrl: "https://etherscan.io",
+    rpcUrl: `https://mainnet.infura.io/v3/${INFURA_API_KEY}`,
   },
   [ChainId.Sepolia]: {
     label: "Sepolia",
@@ -110,7 +111,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "xdc",
     networkLabel: "XDC Network",
     explorerUrl: "https://xdcscan.io",
-    rpcUrl: "https://erpc.xinfin.network",
+    rpcUrl: "https://rpc.ankr.com/xdc",
     nativeCurrency: {
       name: "XDC",
       symbol: "XDC",
@@ -124,7 +125,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "xdcapothem",
     networkLabel: "XDC Testnet Apothem",
     explorerUrl: "https://apothem.xdcscan.io",
-    rpcUrl: "https://erpc.apothem.network",
+    rpcUrl: "https://rpc.ankr.com/xdc_testnet",
     nativeCurrency: {
       name: "XDCt",
       symbol: "XDCt",
@@ -138,7 +139,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "stability",
     networkLabel: "Stability",
     explorerUrl: "https://stability.blockscout.com",
-    rpcUrl: `https://gtn.stabilityprotocol.com/zgt/${STABILITY_API_KEY}`,
+    rpcUrl: `https://rpc.stabilityprotocol.com/zgt/${STABILITY_API_KEY}`,
     nativeCurrency: {
       name: "FREE",
       symbol: "FREE",
@@ -152,7 +153,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "stabilitytestnet",
     networkLabel: "Stability Testnet",
     explorerUrl: "https://stability-testnet.blockscout.com/",
-    rpcUrl: "https://free.testnet.stabilityprotocol.com",
+    rpcUrl: `https://rpc.testnet.stabilityprotocol.com/zgt/${STABILITY_TESTNET_API_KEY}`,
     nativeCurrency: {
       name: "FREE",
       symbol: "FREE",
