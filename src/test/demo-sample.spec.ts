@@ -3,6 +3,9 @@ import { location, navigateToVerify, validateIframeTexts, validateIssuerTexts } 
 
 fixture("Demo Sample Certificate Rendering").page`${location}`;
 
+const ViewMoreBtn = Selector("[data-testid='view-more']");
+const ScrollToTopBtn = Selector("[data-testid='scroll-to-top']");
+
 // test("demo sample document is rendered correctly when dragged", async (t) => {
 //   await navigateToVerify();
 //   await t.dragToElement(Selector("[draggable='true']"), Selector("[data-testid='certificate-dropzone']"));
@@ -35,4 +38,14 @@ test("demo sample document is rendered correctly when loaded via button", async 
 
   // Validate iframe content
   await validateIframeTexts(["Name & Address of Shipping Agent/Freight Forwarder"]);
+
+  // Validate the "View More" button
+  await t.expect(ViewMoreBtn.count).eql(1);
+  await t.expect(ScrollToTopBtn.count).eql(0);
+
+  await t.click(ViewMoreBtn);
+
+  // Validate the "Scroll To Top" button
+  await t.expect(ScrollToTopBtn.count).eql(1);
+  await t.expect(ViewMoreBtn.count).eql(0);
 });
