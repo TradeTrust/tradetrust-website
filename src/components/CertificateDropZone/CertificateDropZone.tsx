@@ -8,6 +8,7 @@ import {
   states,
   verifyingCertificateFailure,
   verifyingCertificateCompleted,
+  updateFilename,
 } from "../../reducers/certificate";
 import { getDropzoneBoxUi } from "../../common/utils/getDropzoneBoxUi";
 import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "../DocumentDropzone/Views";
@@ -56,9 +57,14 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
   const { switchNetwork } = useNetworkSelect();
 
   const onDrop = useCallback(
-    (acceptedFiles: Blob[]) => {
-      acceptedFiles.forEach((file: Blob) => {
+    (acceptedFiles: File[]) => {
+      acceptedFiles.forEach((file: File) => {
         const reader = new FileReader();
+
+        if (file?.name) {
+          dispatch(updateFilename(file.name));
+        }
+
         reader.onabort = () => console.log("file reading was aborted");
         reader.onerror = () => console.log("file reading has failed");
         reader.onload = async () => {
@@ -146,7 +152,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
   return (
     <div
-      className={`border-2 border-dashed rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
+      className={`border-y-2 xs:border-2 rounded-none xs:rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
     >
       <div data-testid="certificate-dropzone" {...getRootProps()}>
         <input {...getInputProps()} />

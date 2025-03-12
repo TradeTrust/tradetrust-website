@@ -16,7 +16,7 @@ describe("Endorse Transfer of Ownership by accepting Nominated Owner", () => {
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='endorseBeneficiaryDropdown']").click(); // Endorse Change of Ownership
     cy.get("[data-testid='non-editable-input-nominee']").should("have.text", ACCOUNT_3);
-    cy.get("[data-testid='editable-input-remark']").type("Remark: Endorse Change");
+    cy.get("[data-testid='editable-input-remark']").clear().type("Remark: Endorse Change");
     cy.get("[data-testid='endorseBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
     cy.get("[data-testid='non-editable-input-owner']").should("have.text", ACCOUNT_3);

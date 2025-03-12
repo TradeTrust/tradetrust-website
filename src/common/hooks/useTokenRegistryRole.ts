@@ -26,7 +26,7 @@ export const useTokenRegistryRole = ({
   }, [role, account, checkRole, tokenRegistry, resetCheckRole]);
 
   useEffect(() => {
-    setHasRoleState(hasRole);
+    setHasRoleState(Array.isArray(hasRole) ? hasRole[0] : hasRole);
   }, [hasRole]);
 
   return { hasRole: hasRoleState };

@@ -1,8 +1,7 @@
-import { v5Contracts, TitleEscrowInterface } from "@trustvc/trustvc";
+import { TitleEscrowInterface, v5Contracts } from "@trustvc/trustvc";
 import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
 import { BurnAddress } from "../../../constants/chain-info";
 import { ContractFunctionState, useContractFunctionHook } from "../../hooks/useContractFunctionHook";
-import { useRestoreToken } from "../../hooks/useRestoreToken";
 import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
@@ -52,7 +51,7 @@ interface TokenInformationContext {
   resetStates: () => void;
   destroyToken: TradeTrustToken["burn"];
   destroyTokenState: ContractFunctionState;
-  restoreToken: (remark: string) => Promise<void>;
+  restoreToken: TradeTrustToken["restore"];
   restoreTokenState: ContractFunctionState;
 }
 
@@ -113,7 +112,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   // First check whether Contract is TitleEscrow
   const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
   const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V5);
-  const isTitleEscrow = isTitleEscrowV4 || isTitleEscrowV5;
+  const isTitleEscrow: boolean = isTitleEscrowV4 || isTitleEscrowV5;
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -124,25 +123,16 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const { call: getRemark, value: remark } = useContractFunctionHook(titleEscrow, "remark");
 
   const {
-    send: destroyToken,
-    state: destroyTokenState,
-    reset: resetDestroyingTokenState,
-  } = useContractFunctionHook(tokenRegistry, "burn");
-
-  const { restoreToken, state: restoreTokenState } = useRestoreToken(providerOrSigner, tokenRegistry, tokenId);
-
-  // Contract Write Functions (available only after provider has been upgraded)
-  const {
-    send: returnToIssuer,
-    state: returnToIssuerState,
-    reset: resetReturnToIssuer,
-  } = useContractFunctionHook(titleEscrow, "returnToIssuer");
-
-  const {
     send: changeHolder,
     state: changeHolderState,
     reset: resetChangeHolder,
   } = useContractFunctionHook(titleEscrow, "transferHolder");
+
+  const {
+    send: destroyToken,
+    state: destroyTokenState,
+    reset: resetDestroyingTokenState,
+  } = useContractFunctionHook(tokenRegistry, "burn");
 
   const {
     send: endorseBeneficiary,
@@ -155,12 +145,6 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     state: nominateState,
     reset: resetNominate,
   } = useContractFunctionHook(titleEscrow, "nominate");
-
-  const {
-    send: transferOwners,
-    state: transferOwnersState,
-    reset: resetTransferOwners,
-  } = useContractFunctionHook(titleEscrow, "transferOwners");
 
   const {
     send: rejectTransferHolder,
@@ -180,26 +164,46 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     reset: resetRejectTransferOwnerHolder,
   } = useContractFunctionHook(titleEscrow, "rejectTransferOwners");
 
+  const {
+    send: restoreToken, // restoreToken function does not return any value
+    state: restoreTokenState,
+    reset: resetRestoreTokenState,
+  } = useContractFunctionHook<TradeTrustToken, "restore", string>(tokenRegistry, "restore");
+
+  const {
+    send: returnToIssuer,
+    state: returnToIssuerState,
+    reset: resetReturnToIssuer,
+  } = useContractFunctionHook(titleEscrow, "returnToIssuer");
+
+  const {
+    send: transferOwners,
+    state: transferOwnersState,
+    reset: resetTransferOwners,
+  } = useContractFunctionHook(titleEscrow, "transferOwners");
+
   const resetProviders = useCallback(() => {
-    resetReturnToIssuer();
-    resetDestroyingTokenState();
     resetChangeHolder();
+    resetDestroyingTokenState();
     resetEndorseBeneficiary();
     resetNominate();
-    resetTransferOwners();
-    resetRejectTransferOwner();
     resetRejectTransferHolder();
+    resetRejectTransferOwner();
     resetRejectTransferOwnerHolder();
+    resetRestoreTokenState();
+    resetReturnToIssuer();
+    resetTransferOwners();
   }, [
-    resetDestroyingTokenState,
-    resetNominate,
     resetChangeHolder,
+    resetDestroyingTokenState,
     resetEndorseBeneficiary,
+    resetNominate,
+    resetRejectTransferHolder,
+    resetRejectTransferOwner,
+    resetRejectTransferOwnerHolder,
+    resetRestoreTokenState,
     resetReturnToIssuer,
     resetTransferOwners,
-    resetRejectTransferOwner,
-    resetRejectTransferHolder,
-    resetRejectTransferOwnerHolder,
   ]);
 
   const resetStates = useCallback(() => {

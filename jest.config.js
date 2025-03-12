@@ -24,6 +24,7 @@ module.exports = {
       "<rootDir>/node_modules/@tradetrust-tt/tradetrust-utils/dist/cjs/constants/supportedChains.js",
     "@tradetrust-tt/token-registry-v5/contracts":
       "<rootDir>/node_modules/@tradetrust-tt/token-registry-v5/dist/contracts",
+    "@tradetrust-tt/token-registry/contracts": "<rootDir>/node_modules/@tradetrust-tt/token-registry-v5/dist/contracts",
     "@trustvc/trustvc(/.*)": "<rootDir>/node_modules/@trustvc/trustvc/dist/cjs/$1",
   },
   testEnvironment: "jest-environment-jsdom",

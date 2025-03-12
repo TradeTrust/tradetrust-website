@@ -4,7 +4,7 @@ import { Button, OverlayContext, showDocumentTransferMessage } from "@tradetrust
 import ReactTooltip from "react-tooltip";
 import { useProviderContext } from "../../common/contexts/provider";
 
-const ConnectToMetamask = (): React.ReactElement => {
+const ConnectToMetamask = ({ className }: { className?: string }): React.ReactElement => {
   const { showOverlay } = useContext(OverlayContext);
   const { upgradeToMetaMaskSigner, account } = useProviderContext();
   const [tooltipMessage, setTooltipMessage] = useState("Copy");
@@ -31,8 +31,8 @@ const ConnectToMetamask = (): React.ReactElement => {
     if (account) {
       try {
         await navigator.clipboard.writeText(account);
-        setTooltipMessage("Copied!");
         ReactTooltip.hide(tooltipRef.current!);
+        setTooltipMessage("Copied!");
         setTimeout(() => {
           ReactTooltip.show(tooltipRef.current!);
         }, 0);
@@ -42,17 +42,29 @@ const ConnectToMetamask = (): React.ReactElement => {
     }
   };
   return (
-    <div className="mt-4 md:mt-0 self-start md:self-center">
+    <div className={`self-start md:self-center w-[18.25rem] ${className}`}>
       {account ? (
         <>
           <div
-            onMouseLeave={() => setTooltipMessage("Copy")}
+            onMouseLeave={() => {
+              setTimeout(() => {
+                ReactTooltip.hide(tooltipRef.current!);
+                setTooltipMessage("Copy");
+              }, 1_000);
+            }}
+            onMouseEnter={() => {
+              ReactTooltip.hide(tooltipRef.current!);
+              setTooltipMessage("Copy");
+              setTimeout(() => {
+                ReactTooltip.show(tooltipRef.current!);
+              }, 0);
+            }}
             ref={tooltipRef}
             data-tip={tooltipMessage}
             data-for="active-wallet-tooltip"
             onClick={handleActiveWalletClicked}
             data-testid="activeWallet"
-            className="w-[18.25rem] px-4 py-1 ml-auto flex items-center bg-gray-100 text-gray-800 rounded-lg shadow cursor-pointer hover:bg-gray-200 transition duration-300 ease-in-out select-none"
+            className="px-4 py-1 ml-auto flex items-center bg-gray-100 text-gray-800 rounded-lg shadow cursor-pointer hover:bg-gray-200 transition duration-300 ease-in-out select-none"
           >
             <img src={"/static/images/wallet.png"} alt="Wallet Icon" className="w-6 h-6 mr-4" />
             <div className="flex flex-col overflow-hidden">
@@ -66,15 +78,16 @@ const ConnectToMetamask = (): React.ReactElement => {
         </>
       ) : (
         <Button
-          className="bg-white  hover:bg-cloud-100 rounded-xl text-lg py-2 px-3 w-[18.25rem] flex items-center gap-2 text-[16px] font-bold"
+          className="w-full bg-white hover:bg-cloud-100 rounded-xl text-lg py-2 px-3 flex items-center gap-2 text-[16px] font-bold"
           data-testid={"connectToWallet"}
           onClick={handleConnectWallet}
         >
           {" "}
           <img src="/static/images/wallet.png" alt="MetaMask" className="w-6 h-6" />
-          Connect to Metamask
+          <div className="flex-1 text-center">Connect to Metamask</div>
         </Button>
       )}
+      <ReactTooltip type="light" id="active-wallet-tooltip" effect="solid" getContent={() => tooltipMessage} />
     </div>
   );
 };

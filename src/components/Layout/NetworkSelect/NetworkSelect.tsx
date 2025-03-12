@@ -102,8 +102,8 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   return (
     <WrappedDropdown
       dropdownButtonText={selectedLabel}
-      className="inline-block text-sm"
-      classNameShared="w-full max-w-xs"
+      className="flex-1 xs:flex-none inline-block text-sm"
+      classNameShared="w-full xs:max-w-xs"
     >
       <div>
         <span className="text-cloud-500 p-3 pr-8 cursor-default">Select a Network</span>

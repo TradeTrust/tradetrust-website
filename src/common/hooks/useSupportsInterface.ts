@@ -23,10 +23,10 @@ export const useSupportsInterface = (
   contractInstance: TitleEscrow | TradeTrustToken | Erc165Contract | undefined,
   interfaceId: string
 ): {
-  isInterfaceType?: boolean;
+  isInterfaceType: boolean;
   errorMessage?: string;
 } => {
-  const [isInterfaceType, setIsInterfaceType] = useState<boolean>();
+  const [isInterfaceType, setIsInterfaceType] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>();
 
   const {
@@ -41,7 +41,7 @@ export const useSupportsInterface = (
   useEffect(() => {
     supportsInterface(interfaceId);
     return () => {
-      setIsInterfaceType(undefined);
+      setIsInterfaceType(false);
       setErrorMessage(undefined);
       resetSupportsInterface();
     };
@@ -61,7 +61,7 @@ export const useSupportsInterface = (
         setErrorMessage(supportsInterfaceErrorMessage);
       }
     } else if (state === "CONFIRMED") {
-      setIsInterfaceType(isSameInterfaceType);
+      setIsInterfaceType(Array.isArray(isSameInterfaceType) ? isSameInterfaceType[0] : isSameInterfaceType);
     }
   }, [interfaceId, isSameInterfaceType, state, supportsInterfaceErrorMessage]);
 

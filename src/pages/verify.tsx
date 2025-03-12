@@ -1,12 +1,12 @@
+import { OverlayContent, OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
 import { Helmet } from "react-helmet";
-import { HomePageContainer } from "../components/HomePageContent";
-import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
-import { Page } from "../components/Layout/Page";
-import { OverlayContent, OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
-import { NetworkSelect } from "../components/Layout/NetworkSelect";
-import { InfoOverlay } from "../components/UI/Overlay";
 import ConnectToMetamask from "../components/ConnectToMetamask";
+import { HomePageContainer } from "../components/HomePageContent";
+import { NetworkSelect } from "../components/Layout/NetworkSelect";
+import { Page } from "../components/Layout/Page";
+import { InfoOverlay } from "../components/UI/Overlay";
+import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
 
 const VerifyPage = (): React.ReactElement => {
   return (
@@ -50,12 +50,12 @@ const VerifyPage = (): React.ReactElement => {
           </div>
           <ConnectToMetamask />
         </div> */}
-        <div className="flex flex-wrap md:flex-nowrap items-start md:items-center justify-between">
+        <div className="flex flex-wrap md:flex-nowrap items-start md:items-center justify-between gap-2">
           <div className="flex flex-wrap md:flex-nowrap gap-2 w-full md:w-auto">
-            <div className="text-gray-900 whitespace-nowrap mr-3" data-testid="page-subtitle">
+            <div className="w-full xs:w-auto text-gray-900 flex items-center" data-testid="page-subtitle">
               Verify your document on
             </div>
-            <div className="flex">
+            <div className="w-full xs:w-auto flex flex-row items-center">
               <NetworkSelect />
               <OverlayContextProvider>
                 <InfoOverlay className="p-0 ml-2 cursor-pointer focus:outline-none">
@@ -68,7 +68,7 @@ const VerifyPage = (): React.ReactElement => {
               </OverlayContextProvider>
             </div>
           </div>
-          <ConnectToMetamask />
+          <ConnectToMetamask className="w-full xs:w-[18.25rem]" />
         </div>
 
         <DropZoneSectionContainer />

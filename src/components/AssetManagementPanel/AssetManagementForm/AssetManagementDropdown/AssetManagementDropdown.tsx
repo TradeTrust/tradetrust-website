@@ -7,10 +7,11 @@ interface AssetManagementDropdownProps {
   canReturnToIssuer: boolean;
   canHandleShred?: boolean;
   canHandleRestore?: boolean;
-  canChangeHolder: boolean;
-  canEndorseBeneficiary: boolean;
+  canTransferHolder: boolean;
+  canTransferBeneficiary: boolean;
   canNominateBeneficiary: boolean;
-  canEndorseTransfer: boolean;
+  canEndorseBeneficiary: boolean;
+  canTransferOwners: boolean;
   canRejectOwnerHolderTransfer: boolean;
   canRejectOwnerTransfer: boolean;
   canRejectHolderTransfer: boolean;
@@ -22,10 +23,11 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
   canReturnToIssuer,
   canHandleShred,
   canHandleRestore,
-  canChangeHolder,
-  canEndorseBeneficiary,
+  canTransferHolder,
+  canTransferBeneficiary,
   canNominateBeneficiary,
-  canEndorseTransfer,
+  canEndorseBeneficiary,
+  canTransferOwners,
   canRejectOwnerHolderTransfer,
   canRejectHolderTransfer,
   canRejectOwnerTransfer,
@@ -33,7 +35,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
 }) => {
   return isRejectPendingConfirmation ? (
     <Button
-      className="flex bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800"
+      className="flex bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 w-full"
       disabled
       data-testid={"rejectTransferBtn"}
     >
@@ -44,10 +46,10 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
     <Dropdown
       data-testid="manageAssetDropdown"
       dropdownButtonText="Manage assets"
-      className="bg-cerulean-500 font-gilroy-bold text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300 w-30"
-      classNameMenu="lg:right-0"
+      className="bg-cerulean-500 font-gilroy-bold text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300 w-full"
+      classNameMenu="right-0 rounded-xl mt-2 w-full"
     >
-      {canChangeHolder && (
+      {canTransferHolder && (
         <DropdownItem
           className="active:bg-cloud-200 active:text-white"
           data-testid={"transferHolderDropdown"}
@@ -56,7 +58,27 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           Transfer holdership
         </DropdownItem>
       )}
-      {canEndorseBeneficiary && (
+      {canTransferBeneficiary && (
+        <DropdownItem
+          className="active:bg-cloud-200 active:text-white"
+          data-testid={"transferOwnerDropdown"}
+          onClick={() => {
+            onSetFormAction(AssetManagementActions.TransferOwner);
+          }}
+        >
+          Transfer ownership
+        </DropdownItem>
+      )}
+      {canNominateBeneficiary && (
+        <DropdownItem
+          className="active:bg-cloud-200 active:text-white"
+          data-testid={"nominateBeneficiaryHolderDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.NominateBeneficiary)}
+        >
+          Nominate Change of Ownership
+        </DropdownItem>
+      )}
+      {!canTransferBeneficiary && canEndorseBeneficiary && (
         <DropdownItem
           className="active:bg-cloud-200 active:text-white"
           data-testid={"endorseBeneficiaryDropdown"}
@@ -67,13 +89,13 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           Endorse Change of Ownership
         </DropdownItem>
       )}
-      {canNominateBeneficiary && (
+      {canTransferOwners && (
         <DropdownItem
-          className="active:bg-cloud-200 active:text-white"
-          data-testid={"nominateBeneficiaryHolderDropdown"}
-          onClick={() => onSetFormAction(AssetManagementActions.NominateBeneficiary)}
+          className="active:bg-cloud-200 active:text-white text-wrap"
+          data-testid={"endorseTransferDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.TransferOwnerHolder)}
         >
-          Nominate Change of Ownership
+          Transfer ownership and holdership
         </DropdownItem>
       )}
       {canReturnToIssuer && (
@@ -101,16 +123,6 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           onClick={() => onSetFormAction(AssetManagementActions.RejectReturnToIssuer)}
         >
           Reject ETR Return
-        </DropdownItem>
-      )}
-
-      {canEndorseTransfer && (
-        <DropdownItem
-          className="active:bg-cloud-200 active:text-white"
-          data-testid={"endorseTransferDropdown"}
-          onClick={() => onSetFormAction(AssetManagementActions.EndorseTransfer)}
-        >
-          Endorse transfer of ownership
         </DropdownItem>
       )}
       {canRejectOwnerHolderTransfer && (
