@@ -5,7 +5,6 @@ import { history } from "../history";
 import {
   detectingTRV4Certificate,
   getCertificate,
-  retrieveCertificateByActionFailure,
   types,
   verifyingCertificateCompleted,
   verifyingCertificateFailure,
