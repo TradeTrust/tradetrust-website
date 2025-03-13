@@ -9,3 +9,10 @@ test("Document with missing renderer url should fallback to default renderer", a
   await t.click(HandleProceedAnywayBtn);
   await validateIframeTexts(["This is the default renderer"]);
 });
+
+test("Document with incorrect renderer url should fallback to default renderer", async (t) => {
+  await navigateToVerify();
+  await uploadDocument("./fixture/local/v2/invoice-incorrect-renderer-url.json");
+  await t.click(HandleProceedAnywayBtn);
+  await validateIframeTexts(["This is the default renderer"]);
+});
