@@ -33,6 +33,24 @@ interface DecentralisedRendererProps {
 
 const SCROLLBAR_WIDTH = 20; // giving scrollbar a default width as there are no perfect ways to get it
 
+// function checkTimeout(url: string | URL | Request, timeout = 5000) {
+//   return new Promise((resolve) => {
+//     const timeoutId = setTimeout(() => {
+//       resolve(true);
+//     }, timeout);
+
+//     fetch(url)
+//       .then(() => {
+//         clearTimeout(timeoutId);
+//         resolve(false);
+//       })
+//       .catch(() => {
+//         clearTimeout(timeoutId);
+//         resolve(true);
+//       });
+//   });
+// }
+
 export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps> = ({
   rawDocument,
   updateTemplates,
@@ -45,6 +63,30 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   const [height, setHeight] = useState(250);
   const [isTimeout, setIsTimeout] = useState(false);
   const source = getTemplateUrl(rawDocument) ?? DEFAULT_RENDERER_URL;
+  // const [source, setSource] = useState<string>(DEFAULT_RENDERER_URL);
+
+  // const checkSource = async (documentToCheck: WrappedOrSignedOpenAttestationDocument): Promise<string> => {
+  //   const templateUrl = getTemplateUrl(documentToCheck);
+  //   if (templateUrl !== undefined) {
+  //     const timeoutOccurred = await checkTimeout(templateUrl);
+  //     if (timeoutOccurred) {
+  //       return DEFAULT_RENDERER_URL;
+  //     } else {
+  //       return templateUrl;
+  //     }
+  //   } else {
+  //     return DEFAULT_RENDERER_URL;
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const updateSource = async () => {
+  //     const newSource = await checkSource(rawDocument);
+  //     setSource(newSource);
+  //   };
+
+  //   updateSource();
+  // }, [rawDocument]);
 
   useImperativeHandle(forwardedRef, () => ({
     print() {
