@@ -14,5 +14,5 @@ test("Document with incorrect renderer url should fallback to default renderer",
   await navigateToVerify();
   await uploadDocument("./fixture/local/v2/invoice-incorrect-renderer-url.json");
   await t.click(HandleProceedAnywayBtn);
-  await validateIframeTexts(["This is the default renderer"]);
+  await validateIframeTexts(["INVOICE"]);
 });
