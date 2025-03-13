@@ -45,7 +45,7 @@ export function* verifyCertificate(): any {
     if (isTransferableAssetVal && registryAddress && tokenId) {
       const { tokenRegistryV4, timeout } = yield race({
         tokenRegistryV4: call(isTokenRegistryV4, registryAddress, tokenId),
-        timeout: delay(5 * 1000), // 5-second timeout
+        timeout: delay(2 * 60 * 1000),
       });
 
       if (timeout) {
