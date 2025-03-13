@@ -134,8 +134,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     <div id="title-transfer-panel" className="container justify-between">
       <div id="asset-management-box" className="flex p-4 flex-col gap-2 bg-white rounded-xl">
         <div id="file-name" className="flex-1 justify-between">
-          <div className="flex flex-row content-center h-16">
-            <div id="filename" data-testid="filename" className="flex-1 flex-wrap content-center">
+          <div className="flex flex-row content-center min-h-16 gap-2">
+            <div id="filename" data-testid="filename" className="flex-1 flex-wrap content-center break-all">
               <h4>{isSampleDocument ? "sample-document.tt" : filename}</h4>
             </div>
             <a id="upload-new-file" data-testid="upload-new-file" className="content-center" href={"/"}>
