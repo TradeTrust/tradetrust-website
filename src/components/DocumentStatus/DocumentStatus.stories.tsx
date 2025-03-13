@@ -36,7 +36,7 @@ const DocumentStatusWithStore = ({ verificationStatus }: any) => {
   const store = configureStore({ certificate: { rawModified: document, verificationStatus: verificationStatus } });
   return (
     <Provider store={store}>
-      <DocumentStatus />
+      <DocumentStatus setShowEndorsementChain={() => {}} />
     </Provider>
   );
 };

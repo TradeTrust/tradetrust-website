@@ -19,12 +19,16 @@ type TradeTrustToken = v5Contracts.TradeTrustToken;
 //   value:
 // }
 
-export function useContractFunctionHook<T extends BaseContract | TitleEscrow | TradeTrustToken, S extends keyof T>(
+export function useContractFunctionHook<
+  T extends BaseContract | TitleEscrow | TradeTrustToken,
+  S extends keyof T,
+  R = void
+>(
   contract?: T,
   method?: S
 ): {
   call: TypedContractMethod<any[], ReturnType<T[S] extends (...args: any[]) => any ? T[S] : never>, "nonpayable">;
-  send: TypedContractMethod<any[], [void], "nonpayable">;
+  send: TypedContractMethod<any[], [R], "nonpayable">;
   reset: () => void;
   state: ContractFunctionState;
   receipt?: ContractReceipt;

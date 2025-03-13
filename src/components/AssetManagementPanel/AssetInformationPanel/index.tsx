@@ -14,8 +14,8 @@ export const AssetInformationPanel: FunctionComponent<AssetInformationPanelProps
   className,
 }) => {
   return (
-    <div className={`py-4 ${className}`}>
-      <AddressInfo title="NFT information" name="" resolvedBy="" source="">
+    <div className={className}>
+      <AddressInfo title="" name="" resolvedBy="" source="">
         <ExternalLinkEtherscanAddress name="View NFT Registry" address={tokenRegistryAddress} />
         <div
           onClick={() => setShowEndorsementChain(true)}

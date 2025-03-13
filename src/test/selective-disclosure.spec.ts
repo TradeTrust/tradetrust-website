@@ -7,7 +7,7 @@ const IframeBlock = Selector("#iframe");
 
 const PrivacyFilterButton = Selector("#privacySwitch");
 const CertificateSection = Selector("#rendered-certificate");
-const ExporterObfuscationButton = Selector(".rounded-full.cursor-pointer").nth(0); // selected div is from template renderer itself
+const ExporterObfuscationButton = Selector("h5 > div > .rounded-full.cursor-pointer").nth(0); // selected div is from template renderer itself
 
 const HandleProceedAnywayBtn = Selector("[data-testid='overlayHandleDispatchBtn']");
 test("Fields on a document can be hidden", async (t) => {

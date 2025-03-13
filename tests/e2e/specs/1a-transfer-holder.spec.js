@@ -22,8 +22,8 @@ describe("Transfer Holder", () => {
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='transferHolderDropdown']").click(); // Transfer Holdership
-    cy.get("[data-testid='editable-input-holder']").type(ACCOUNT_2);
-    cy.get("[data-testid='editable-input-remark']").type("Remark: Transfer Holdership");
+    cy.get("[data-testid='editable-input-holder']").clear().type(ACCOUNT_2);
+    cy.get("[data-testid='editable-input-remark']").clear().type("Remark: Transfer Holdership");
     cy.get("[data-testid='transferBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
     cy.get("[data-testid='non-editable-input-holder']").should("have.text", ACCOUNT_2);

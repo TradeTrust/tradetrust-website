@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../common/contexts/provider";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { RootState } from "../reducers";
-import { resetCertificateState, updateCertificate } from "../reducers/certificate";
+import { resetCertificateState, updateCertificate, updateFilename } from "../reducers/certificate";
 import { resetDemoState } from "../reducers/demo-verify";
-import { FORM_SG_URL } from "../routes";
 import { TemplateProps } from "../types";
 import { getLogger } from "../utils/logger";
 import { getAttachments, getKeyId, WrappedOrSignedOpenAttestationDocument } from "../utils/shared";
@@ -14,12 +13,11 @@ import { AssetManagementApplication } from "./AssetManagementPanel/AssetManageme
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
-import { DocumentStatus } from "./DocumentStatus";
 import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
+import ScrollTip from "./ScrollTip";
 import { TabPaneAttachments } from "./TabPaneAttachments";
-import { Banner } from "./UI/Banner";
 
 const { trace } = getLogger("component: certificateviewer");
 
@@ -39,26 +37,13 @@ const getTempProps = (isSample: boolean) => {
       };
 };
 
-const renderBanner = (isSample: boolean, isMagic: boolean | undefined) => {
-  const props = {
-    to: FORM_SG_URL,
-    buttonText: "Contact us now",
-    title: "Ready to learn how TradeTrust can benefit your business?",
-    absolute: true,
-  };
-  if (isSample || isMagic) {
-    return <Banner className="mt-8" {...props} />;
-  } else {
-    return null;
-  }
-};
-
 interface CertificateViewerProps {
   isMagicDemo?: boolean;
   document: WrappedOrSignedOpenAttestationDocument;
+  filename: string;
 }
 
-export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document }) => {
+export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document, filename }) => {
   const isTransferableAssetVal = isTransferableRecord(document);
   let tokenId = "";
   if (isTransferableAssetVal) {
@@ -86,7 +71,9 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const resetCertificateData = useCallback(() => {
     dispatch(resetCertificateState());
     dispatch(resetDemoState());
-  }, [dispatch]);
+    // Bypass filename update error
+    dispatch(updateFilename(filename));
+  }, [dispatch, filename]);
 
   const { currentChainId } = useProviderContext();
 
@@ -151,15 +138,14 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
 
   const renderedCertificateViewer = (
     <>
-      <div className="no-print">
+      <div className="no-print mt-4">
         {!isTransferableDocument && (
-          <div className="container flex justify-between">
-            <div className="w-2/3">
-              <DocumentStatus isMagicDemo={isMagicDemo} />
-            </div>
-          </div>
+          <AssetManagementApplication
+            isMagicDemo={isMagicDemo}
+            isTransferableDocument={isTransferableDocument}
+            isSampleDocument={isSampleDocument}
+          />
         )}
-        {renderBanner(isSampleDocument, isMagicDemo)}
         <ObfuscatedMessage document={document} />
         {isTransferableDocument && (
           <AssetManagementApplication
@@ -168,35 +154,41 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
             keyId={keyId}
+            isTransferableDocument={isTransferableDocument}
+            isSampleDocument={isSampleDocument}
           />
         )}
       </div>
 
-      <div className="no-print mt-16">
-        <MultiTabs
-          hasAttachments={hasAttachments}
-          attachments={attachments}
-          templates={templates}
-          setSelectedTemplate={setSelectedTemplate}
-          selectedTemplate={selectedTemplate}
-        />
-      </div>
-      <div className="bg-white py-6">
-        {attachments && (
-          <div className={`${selectedTemplate !== "attachmentTab" ? "hidden" : "block"}`}>
-            <TabPaneAttachments attachments={attachments} />
-          </div>
-        )}
-        <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-          {templates.length > 0 && <DocumentUtility document={document} onPrint={onPrint} />}
-          <DecentralisedRendererContainer
-            rawDocument={document}
-            updateTemplates={updateTemplates}
+      <div>
+        <div className="no-print mt-4">
+          <MultiTabs
+            hasAttachments={hasAttachments}
+            attachments={attachments}
+            templates={templates}
+            setSelectedTemplate={setSelectedTemplate}
             selectedTemplate={selectedTemplate}
-            ref={childRef}
           />
         </div>
+        <div id="preview-block" className="bg-white py-6">
+          {attachments && (
+            <div className={`${selectedTemplate !== "attachmentTab" ? "hidden" : "block"}`}>
+              <TabPaneAttachments attachments={attachments} />
+            </div>
+          )}
+          <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
+            {templates.length > 0 && <DocumentUtility document={document} onPrint={onPrint} />}
+            <DecentralisedRendererContainer
+              rawDocument={document}
+              updateTemplates={updateTemplates}
+              selectedTemplate={selectedTemplate}
+              ref={childRef}
+            />
+          </div>
+        </div>
       </div>
+
+      <ScrollTip targetId="preview-block" />
     </>
   );
 

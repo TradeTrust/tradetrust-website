@@ -16,7 +16,9 @@ const defaultProps = {
   canReturnToIssuer: false,
   canHandleSurrender: false,
   onConnectToWallet: () => alert("Login to Metamask"),
-  canChangeHolder: false,
+  canTransferHolder: false,
+  canTransferBeneficiary: false,
+  canTransferOwners: false,
   canEndorseBeneficiary: false,
   canNominateBeneficiary: false,
   isReturnedToIssuer: false,
@@ -31,16 +33,6 @@ const defaultProps = {
 };
 
 describe("ActionSelectionForm", () => {
-  it("should display the account number for active wallet", async () => {
-    await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} />);
-      const activeWalletComponent = container.getByTestId("activeWallet");
-      const holderText = within(activeWalletComponent).getByText("0xa61B...C2e3");
-      expect(activeWalletComponent).not.toBeNull();
-      expect(holderText).not.toBeNull();
-    });
-  });
-
   it("should display the active wallet", async () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} />);
@@ -71,7 +63,7 @@ describe("ActionSelectionForm", () => {
 
   it("should display the Manage Assets dropdown if user is logged in", async () => {
     await act(async () => {
-      const container = render(<ActionSelectionForm {...defaultProps} canChangeHolder={true} />);
+      const container = render(<ActionSelectionForm {...defaultProps} canTransferHolder={true} />);
 
       const manageAssetsDropdown = container.getByTestId("manageAssetDropdown");
       expect(manageAssetsDropdown).not.toBeNull();
@@ -153,7 +145,7 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canChangeHolder={true} />
+        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canTransferHolder={true} />
       );
 
       await act(async () => {
@@ -173,7 +165,7 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canEndorseBeneficiary={true} />
+        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canTransferBeneficiary={true} />
       );
 
       await act(async () => {
@@ -181,7 +173,7 @@ describe("ActionSelectionForm", () => {
       });
 
       await act(async () => {
-        fireEvent.click(container.getByTestId("endorseBeneficiaryDropdown"));
+        fireEvent.click(container.getByTestId("transferOwnerDropdown"));
       });
 
       expect(mockOnSetFormAction).toHaveBeenCalled();
@@ -193,7 +185,7 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canEndorseTransfer={true} />
+        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canTransferOwners={true} />
       );
 
       await act(async () => {
@@ -210,7 +202,7 @@ describe("ActionSelectionForm", () => {
       const mockOnSetFormAction = jest.fn();
 
       const container = render(
-        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canEndorseTransfer={true} />
+        <ActionSelectionForm {...defaultProps} onSetFormAction={mockOnSetFormAction} canTransferOwners={true} />
       );
 
       await act(async () => {

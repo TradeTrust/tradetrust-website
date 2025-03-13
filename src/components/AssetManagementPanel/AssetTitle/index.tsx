@@ -12,7 +12,7 @@ export const AssetTitle: FunctionComponent<AssetTitleProps> = ({ role, address, 
   const { identityName, identityResolvedBy, identitySource } = useIdentifierResolver(address);
 
   return (
-    <div data-testid={`asset-title-${role.toLowerCase()}`} className="py-4">
+    <div data-testid={`asset-title-${role.toLowerCase()}`}>
       <AddressInfo title={role} name={identityName} resolvedBy={identityResolvedBy} source={identitySource || ""}>
         {children}
       </AddressInfo>

@@ -4,11 +4,15 @@ import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { getChainInfo } from "../../../common/utils/chain-utils";
 import { useNetworkSelect } from "../../../common/hooks/useNetworkSelect";
+import { isTransferableRecord } from "@trustvc/trustvc";
+import { isSignedDocument } from "@trustvc/w3c-vc";
 
 interface NetworkSelectViewProps {
   onChange: (chainId: ChainId) => void;
   currentChainId: ChainId | undefined;
   networks: ChainInfoObject[];
+  disabled?: boolean;
+  document?: any;
 }
 
 interface NetworkSelectDropdownItemProps extends DropdownItemLabelProps {
@@ -47,7 +51,7 @@ const DropdownItemLabel: FunctionComponent<DropdownItemLabelProps> = ({ classNam
     <div className={className}>
       <div className="flex items-center" data-testid={`network-select-dropdown-label-${network.chainId}`}>
         <img className="mr-2 w-5 h-5 rounded-full" src={network.iconImage} alt={network.label} />
-        <span className="w-full">{network.label}</span>
+        <span className="w-full text-left">{network.label}</span>
         {active ? <span className="m-1 p-1 bg-forest-500 rounded-lg justify-self-end" /> : null}
       </div>
     </div>
@@ -71,7 +75,13 @@ const NetworkSelectDropdownItem = (props: NetworkSelectDropdownItemProps) => {
 /**
  * Network Selection dropdown component
  */
-const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange, networks, currentChainId }) => {
+const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({
+  onChange,
+  networks,
+  currentChainId,
+  disabled = false,
+  document,
+}) => {
   const itemsList = networks.map((network, i) => {
     return (
       <NetworkSelectDropdownItem
@@ -99,11 +109,21 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
     console.log(e.message);
   }
 
-  return (
+  const transferableRecord = document ? isTransferableRecord(document) : false;
+  const signedVerifiableCredential = document ? isSignedDocument(document) : false;
+
+  return disabled ? (
+    <div
+      className="bg-[#e7e4ec] p-3 inline-block text-sm cursor-not-allowed w-full xs:max-w-xs"
+      style={{ minWidth: "12.5em" }}
+    >
+      {!transferableRecord && signedVerifiableCredential ? "-" : selectedLabel}
+    </div>
+  ) : (
     <WrappedDropdown
       dropdownButtonText={selectedLabel}
-      className="inline-block text-sm"
-      classNameShared="w-full max-w-xs"
+      className="flex-1 xs:flex-none inline-block text-sm"
+      classNameShared="w-full xs:max-w-xs"
     >
       <div>
         <span className="text-cloud-500 p-3 pr-8 cursor-default">Select a Network</span>
@@ -113,15 +133,28 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   );
 };
 
-export const NetworkSelect: FunctionComponent = () => {
+interface NetworkSelectProps {
+  disabled?: boolean;
+  document?: any;
+}
+
+export const NetworkSelect: FunctionComponent<NetworkSelectProps> = ({ disabled = false, document }) => {
   const { supportedChainInfoObjects, currentChainId } = useProviderContext();
   const { switchNetwork } = useNetworkSelect();
 
   const changeHandler = async (chainId: ChainId) => {
-    await switchNetwork(chainId);
+    if (!disabled) {
+      await switchNetwork(chainId);
+    }
   };
 
   return (
-    <NetworkSelectView currentChainId={currentChainId} onChange={changeHandler} networks={supportedChainInfoObjects} />
+    <NetworkSelectView
+      currentChainId={currentChainId}
+      onChange={changeHandler}
+      networks={supportedChainInfoObjects}
+      disabled={disabled}
+      document={document}
+    />
   );
 };

@@ -1,12 +1,9 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { HomePageContainer } from "../components/HomePageContent";
-import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
 import { Page } from "../components/Layout/Page";
-import { OverlayContent, OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
-import { NetworkSelect } from "../components/Layout/NetworkSelect";
-import { InfoOverlay } from "../components/UI/Overlay";
-import ConnectToMetamask from "../components/ConnectToMetamask";
+import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
+import { NetworkSection } from "../components/NetworkSection";
 
 const VerifyPage = (): React.ReactElement => {
   return (
@@ -50,26 +47,7 @@ const VerifyPage = (): React.ReactElement => {
           </div>
           <ConnectToMetamask />
         </div> */}
-        <div className="flex flex-wrap md:flex-nowrap items-start md:items-center justify-between">
-          <div className="flex flex-wrap md:flex-nowrap gap-2 w-full md:w-auto">
-            <div className="text-gray-900 whitespace-nowrap mr-3" data-testid="page-subtitle">
-              Verify your document on
-            </div>
-            <div className="flex">
-              <NetworkSelect />
-              <OverlayContextProvider>
-                <InfoOverlay className="p-0 ml-2 cursor-pointer focus:outline-none">
-                  <OverlayContent className="bg-white max-w-sm lg:max-w-md" title="Network Selector">
-                    A document can only be successfully verified on the same network where the document was created in.
-                    <br />
-                    If unsure, do check with the document issuer.
-                  </OverlayContent>
-                </InfoOverlay>
-              </OverlayContextProvider>
-            </div>
-          </div>
-          <ConnectToMetamask />
-        </div>
+        <NetworkSection subtitle="Verifying your document on" overlayMargin="ml-2" />
 
         <DropZoneSectionContainer />
         <HomePageContainer />

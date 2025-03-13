@@ -81,7 +81,9 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
           name={value}
           address={value}
           data-testid={`non-editable-input-${role.toLowerCase()}`}
-        />
+        >
+          <h6>{value}</h6>
+        </ExternalLinkEtherscanAddress>
       </AssetTitle>
     );
   return (

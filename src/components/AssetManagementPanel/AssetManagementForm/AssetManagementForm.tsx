@@ -6,99 +6,117 @@ import { RejectTransferHolderOverlay } from "../AssetManagementActionOverlay/Rej
 import { RejectTransferOwnerHolderOverlay } from "../AssetManagementActionOverlay/RejectTransferOwnerHolderOverlay";
 import { RejectTransferOwnerOverlay } from "../AssetManagementActionOverlay/RejectTransferOwnerOverlay";
 import { AssetManagementActions } from "../AssetManagementActions";
-import { AcceptSurrenderedForm } from "./FormVariants/AcceptSurrenderedForm";
+import { ActionForm } from "./FormVariants/ActionForm";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
-import { EndorseBeneficiaryForm } from "./FormVariants/EndorseBeneficiary";
-import { EndorseTransferForm } from "./FormVariants/EndorseTransferForm";
-import { NominateBeneficiaryForm } from "./FormVariants/NominateBeneficiary";
-import { RejectSurrenderedForm } from "./FormVariants/RejectSurrenderedForm";
-import { SurrenderForm } from "./FormVariants/SurrenderForm";
-import { TransferHolderForm } from "./FormVariants/TransferHolderForm";
 
-interface AssetManagementFormProps {
-  beneficiary?: string;
-  holder?: string;
-  prevBeneficiary?: string;
-  prevHolder?: string;
-  approvedBeneficiary?: string;
-  documentOwner?: string;
-  isRestorer?: boolean;
-  isAcceptor?: boolean;
-  tokenRegistryAddress: string;
-  account?: string;
-  formAction: AssetManagementActions;
-  onConnectToWallet: () => void;
-  onSetFormAction: (nextFormAction: AssetManagementActions) => void;
-  onTransferHolder: (nextHolder: string, remark: string) => void;
-  onEndorseBeneficiary: (nominee: string, remark: string) => void;
-  nominateBeneficiary: (nominee: string, remark: string) => void;
-  transferOwners: (nextBeneficiary: string, nextHolder: string, remark: string) => void;
+interface RejectTransferActions {
   rejectTransferOwnerHolder: (remark: string) => void;
   rejectTransferOwnerHolderState: string;
   rejectTransferOwner: (remark: string) => void;
   rejectTransferOwnerState: string;
   rejectTransferHolder: (remark: string) => void;
   rejectTransferHolderState: string;
-  onReturnToIssuer: (remark: string) => void;
-  onDestroyToken: (remark: string) => void;
-  returnToIssuerState: string;
-  destroyTokenState: string;
+}
+
+interface TransferActions {
+  onTransferHolder: (nextHolder: string, remark: string) => void;
   holderTransferringState: string;
+  onEndorseBeneficiary: (nominee: string, remark: string) => void;
   beneficiaryEndorseState: string;
-  isReturnedToIssuer: boolean;
-  isTokenBurnt: boolean;
-  approveNewTransferTargetsState: string;
+  nominateBeneficiary: (nominee: string, remark: string) => void;
+  nominateBeneficiaryState: string;
+  transferOwners: (nextBeneficiary: string, nextHolder: string, remark: string) => void;
   transferOwnersState: string;
-  setShowEndorsementChain: (payload: boolean) => void;
-  isTitleEscrow: boolean;
+}
+
+interface ReturnToIssuerActions {
+  onReturnToIssuer: (remark: string) => void;
+  returnToIssuerState: string;
+  onDestroyToken: (remark: string) => void;
+  destroyTokenState: string;
   onRestoreToken: (remark: string) => void;
   restoreTokenState: string;
+}
+
+interface ContractState {
+  beneficiary?: string;
+  holder?: string;
+  nominee?: string;
+  prevBeneficiary?: string;
+  prevHolder?: string;
+}
+
+interface AssetManagementFormProps
+  extends ContractState,
+    RejectTransferActions,
+    TransferActions,
+    ReturnToIssuerActions {
+  isRestorer?: boolean;
+  isAcceptor?: boolean;
+  isTitleEscrow: boolean;
+  isReturnedToIssuer: boolean;
+  isTokenBurnt: boolean;
+  documentOwner?: string;
+  tokenRegistryAddress: string;
+  account?: string;
   keyId?: string;
+  formAction: AssetManagementActions;
+  onConnectToWallet: () => void;
+  onSetFormAction: (nextFormAction: AssetManagementActions) => void;
+  setShowEndorsementChain: (payload: boolean) => void;
 }
 
 export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = ({
+  beneficiary,
+  holder,
+  nominee,
+  prevBeneficiary,
+  prevHolder,
+
   account,
   formAction,
   tokenRegistryAddress,
   onConnectToWallet,
-  beneficiary,
-  holder,
-  approvedBeneficiary,
-  prevBeneficiary,
-  prevHolder,
   onSetFormAction,
-  returnToIssuerState,
-  destroyTokenState,
-  onReturnToIssuer,
-  onDestroyToken,
-  documentOwner,
   isRestorer,
   isAcceptor,
+  isReturnedToIssuer,
+  isTokenBurnt,
+  setShowEndorsementChain,
+  isTitleEscrow,
+  keyId,
+
   onTransferHolder,
   holderTransferringState,
   onEndorseBeneficiary,
   beneficiaryEndorseState,
-  isReturnedToIssuer,
-  isTokenBurnt,
   nominateBeneficiary,
-  approveNewTransferTargetsState,
+  nominateBeneficiaryState,
   transferOwners,
   transferOwnersState,
+
   rejectTransferOwner,
   rejectTransferOwnerState,
   rejectTransferHolder,
   rejectTransferHolderState,
   rejectTransferOwnerHolder,
   rejectTransferOwnerHolderState,
-  setShowEndorsementChain,
-  isTitleEscrow,
+
   onRestoreToken,
   restoreTokenState,
-  keyId,
+  onReturnToIssuer,
+  returnToIssuerState,
+  onDestroyToken,
+  destroyTokenState,
 }) => {
   const isActiveTitleEscrow = isTitleEscrow && !isReturnedToIssuer;
   const isHolder = isTitleEscrow && account === holder;
   const isBeneficiary = isTitleEscrow && account === beneficiary;
+  const isHolderAndBeneficiary = isHolder && isBeneficiary;
+  const hasNominee = !!nominee && nominee !== InitialAddress;
+  const hasPreviousBeneficiary = !!prevBeneficiary && prevBeneficiary !== InitialAddress;
+  const hasPreviousHolder = !!prevHolder && prevHolder !== InitialAddress;
+
   const canReturnToIssuer = isBeneficiary && isHolder && !isReturnedToIssuer;
   /*
     In order to shred we need to check 3 conditions
@@ -106,47 +124,27 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     - documentOwner is the tokenRegistry
     - currentUser === tokenRegistryMinter
   */
-  const canHandleRestore =
-    isTitleEscrow &&
-    isRestorer &&
-    isReturnedToIssuer &&
-    documentOwner?.toLowerCase() === tokenRegistryAddress?.toLowerCase();
-  const canHandleShred =
-    isTitleEscrow &&
-    isAcceptor &&
-    isReturnedToIssuer &&
-    documentOwner?.toLowerCase() === tokenRegistryAddress?.toLowerCase();
-
-  // canEndorseBeneficiary
-  // function transferBeneficiary(address beneficiaryNominee) external;
-  // Only if (isHolder and isBeneficiary) or (nominee is previously nominated and isHolder)
-
-  // function transferHolder(address newHolder) external;
-  // onlyHolder, current holder !== new holder
-
-  // canNominateBeneficiary
-  // function nominate(address beneficiaryNominee) external;
-  // Must be beneficiary, current beneficiary cannot nominate self
-  // user requirements: onlyHolder
-
-  // function transferOwners(address beneficiaryNominee, address newHolder) external;
-  // transferHolder
-  // transferBeneficiary
-
-  const canNominateBeneficiary = isActiveTitleEscrow && isBeneficiary && !isHolder;
-
-  const hasNominee = !!approvedBeneficiary && approvedBeneficiary !== InitialAddress;
-  const hasPreviousBeneficiary = !!prevBeneficiary && prevBeneficiary !== InitialAddress;
-  const hasPreviousHolder = !!prevHolder && prevHolder !== InitialAddress;
-  const canTransferBeneficiary = isActiveTitleEscrow && isHolder && hasNominee;
+  const canHandleRestore = isTitleEscrow && isRestorer && isReturnedToIssuer;
+  const canHandleShred = isTitleEscrow && isAcceptor && isReturnedToIssuer;
   const canTransferHolder = isActiveTitleEscrow && isHolder;
+  const canTransferBeneficiary = isActiveTitleEscrow && isHolderAndBeneficiary;
   const canTransferOwners = isActiveTitleEscrow && isHolder && isBeneficiary;
+  const canNominateBeneficiary = isActiveTitleEscrow && isBeneficiary && !isHolder;
+  const canEndorseBeneficiary = isActiveTitleEscrow && isHolder && hasNominee;
   const canRejectOwnerHolderTransfer =
     isActiveTitleEscrow && isHolder && isBeneficiary && hasPreviousHolder && hasPreviousBeneficiary;
   const canRejectHolderTransfer =
-    isActiveTitleEscrow && isHolder && hasPreviousHolder && !(isBeneficiary && hasPreviousBeneficiary);
+    !isHolderAndBeneficiary &&
+    isActiveTitleEscrow &&
+    isHolder &&
+    hasPreviousHolder &&
+    !(isBeneficiary && hasPreviousBeneficiary);
   const canRejectOwnerTransfer =
-    isActiveTitleEscrow && isBeneficiary && hasPreviousBeneficiary && !(isHolder && hasPreviousHolder);
+    !isHolderAndBeneficiary &&
+    isActiveTitleEscrow &&
+    isBeneficiary &&
+    hasPreviousBeneficiary &&
+    !(isHolder && hasPreviousHolder);
   const isRejectPendingConfirmation =
     rejectTransferHolderState === FormState.PENDING_CONFIRMATION ||
     rejectTransferOwnerState === FormState.PENDING_CONFIRMATION ||
@@ -158,7 +156,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
       destroyTokenState === FormState.PENDING_CONFIRMATION ||
       holderTransferringState === FormState.PENDING_CONFIRMATION ||
       beneficiaryEndorseState === FormState.PENDING_CONFIRMATION ||
-      approveNewTransferTargetsState === FormState.PENDING_CONFIRMATION ||
+      nominateBeneficiaryState === FormState.PENDING_CONFIRMATION ||
       transferOwnersState === FormState.PENDING_CONFIRMATION
     )
       return;
@@ -168,7 +166,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     destroyTokenState,
     holderTransferringState,
     beneficiaryEndorseState,
-    approveNewTransferTargetsState,
+    nominateBeneficiaryState,
     transferOwnersState,
     onSetFormAction,
   ]);
@@ -265,138 +263,73 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rejectTransferHolderState, rejectTransferOwnerState, rejectTransferOwnerHolderState]);
 
-  switch (formAction) {
-    case AssetManagementActions.ReturnToIssuer:
-      return (
-        <SurrenderForm
-          formAction={formAction}
+  return (
+    <>
+      {formAction === AssetManagementActions.None && (
+        <ActionSelectionForm
+          onSetFormAction={onSetFormAction}
           tokenRegistryAddress={tokenRegistryAddress}
           beneficiary={beneficiary}
           holder={holder}
+          nominee={nominee}
+          account={account}
+          onConnectToWallet={onConnectToWallet}
+          canReturnToIssuer={canReturnToIssuer}
+          canHandleRestore={canHandleRestore}
+          canHandleShred={canHandleShred}
+          canRejectOwnerHolderTransfer={canRejectOwnerHolderTransfer}
+          canRejectHolderTransfer={canRejectHolderTransfer}
+          canRejectOwnerTransfer={canRejectOwnerTransfer}
+          canTransferHolder={canTransferHolder}
+          canTransferBeneficiary={canTransferBeneficiary}
+          canNominateBeneficiary={canNominateBeneficiary}
+          canEndorseBeneficiary={canEndorseBeneficiary}
+          canTransferOwners={canTransferOwners}
+          isReturnedToIssuer={isReturnedToIssuer}
+          isTokenBurnt={isTokenBurnt}
+          setShowEndorsementChain={setShowEndorsementChain}
+          isTitleEscrow={isTitleEscrow}
+          isRejectPendingConfirmation={isRejectPendingConfirmation}
+        />
+      )}
+      {(formAction === AssetManagementActions.TransferHolder ||
+        formAction === AssetManagementActions.TransferOwner ||
+        formAction === AssetManagementActions.TransferOwnerHolder ||
+        formAction === AssetManagementActions.EndorseBeneficiary ||
+        formAction === AssetManagementActions.NominateBeneficiary ||
+        formAction === AssetManagementActions.ReturnToIssuer ||
+        formAction === AssetManagementActions.AcceptReturnToIssuer ||
+        formAction === AssetManagementActions.RejectReturnToIssuer) && (
+        <ActionForm
+          type={formAction}
+          beneficiary={beneficiary!}
+          holder={holder!}
+          nominee={nominee}
           keyId={keyId}
+          setFormActionNone={setFormActionNone}
+          // nominate
+          handleNomination={nominateBeneficiary}
+          nominationState={nominateBeneficiaryState}
+          // transfer beneficiary / endorse beneficiary
+          handleBeneficiaryTransfer={onEndorseBeneficiary}
+          beneficiaryEndorseState={beneficiaryEndorseState}
+          // transfer holder
+          handleTransfer={onTransferHolder}
+          holderTransferringState={holderTransferringState}
+          // transfer owners
+          handleEndorseTransfer={transferOwners}
+          transferOwnersState={transferOwnersState}
+          // return to issuer
           handleReturnToIssuer={onReturnToIssuer}
           returnToIssuerState={returnToIssuerState}
-          setFormActionNone={setFormActionNone}
-          setShowEndorsementChain={setShowEndorsementChain}
-        />
-      );
-
-    case AssetManagementActions.AcceptReturnToIssuer:
-      return (
-        <AcceptSurrenderedForm
-          formAction={formAction}
-          tokenRegistryAddress={tokenRegistryAddress}
-          keyId={keyId}
+          // accept return to issuer
           handleDestroyToken={onDestroyToken}
           destroyTokenState={destroyTokenState}
-          setFormActionNone={setFormActionNone}
-          setShowEndorsementChain={setShowEndorsementChain}
-        />
-      );
-
-    case AssetManagementActions.RejectReturnToIssuer:
-      return (
-        <RejectSurrenderedForm
-          formAction={formAction}
-          tokenRegistryAddress={tokenRegistryAddress}
-          beneficiary={beneficiary}
-          holder={holder}
-          keyId={keyId}
-          setFormActionNone={setFormActionNone}
-          setShowEndorsementChain={setShowEndorsementChain}
+          // reject return to issuer
           handleRestoreToken={onRestoreToken}
           restoreTokenState={restoreTokenState}
         />
-      );
-
-    case AssetManagementActions.NominateBeneficiary:
-      return (
-        <NominateBeneficiaryForm
-          formAction={formAction}
-          tokenRegistryAddress={tokenRegistryAddress}
-          beneficiary={beneficiary}
-          holder={holder}
-          keyId={keyId}
-          handleNomination={nominateBeneficiary}
-          nominationState={approveNewTransferTargetsState}
-          setFormActionNone={setFormActionNone}
-          setShowEndorsementChain={setShowEndorsementChain}
-        />
-      );
-
-    case AssetManagementActions.EndorseBeneficiary:
-      return (
-        <EndorseBeneficiaryForm
-          formAction={formAction}
-          tokenRegistryAddress={tokenRegistryAddress}
-          beneficiary={beneficiary}
-          holder={holder}
-          nominee={approvedBeneficiary}
-          keyId={keyId}
-          handleBeneficiaryTransfer={onEndorseBeneficiary}
-          beneficiaryEndorseState={beneficiaryEndorseState}
-          setFormActionNone={setFormActionNone}
-          setShowEndorsementChain={setShowEndorsementChain}
-        />
-      );
-
-    case AssetManagementActions.TransferHolder:
-      return (
-        <TransferHolderForm
-          formAction={formAction}
-          tokenRegistryAddress={tokenRegistryAddress}
-          beneficiary={beneficiary}
-          holder={holder}
-          keyId={keyId}
-          handleTransfer={onTransferHolder}
-          holderTransferringState={holderTransferringState}
-          setFormActionNone={setFormActionNone}
-          setShowEndorsementChain={setShowEndorsementChain}
-        />
-      );
-
-    case AssetManagementActions.EndorseTransfer:
-      return (
-        <EndorseTransferForm
-          formAction={formAction}
-          tokenRegistryAddress={tokenRegistryAddress}
-          holder={holder}
-          keyId={keyId}
-          handleEndorseTransfer={transferOwners}
-          transferOwnersState={transferOwnersState}
-          setFormActionNone={setFormActionNone}
-          setShowEndorsementChain={setShowEndorsementChain}
-        />
-      );
-
-    default:
-      return (
-        <>
-          {/* {additionalComponent && showOverlay(additionalComponent)} */}
-          <ActionSelectionForm
-            onSetFormAction={onSetFormAction}
-            tokenRegistryAddress={tokenRegistryAddress}
-            beneficiary={beneficiary}
-            holder={holder}
-            account={account}
-            canReturnToIssuer={canReturnToIssuer}
-            canHandleRestore={canHandleRestore}
-            canHandleShred={canHandleShred}
-            canRejectOwnerHolderTransfer={canRejectOwnerHolderTransfer}
-            canRejectHolderTransfer={canRejectHolderTransfer}
-            canRejectOwnerTransfer={canRejectOwnerTransfer}
-            onConnectToWallet={onConnectToWallet}
-            canChangeHolder={canTransferHolder}
-            canEndorseBeneficiary={canTransferBeneficiary}
-            isReturnedToIssuer={isReturnedToIssuer}
-            isTokenBurnt={isTokenBurnt}
-            canNominateBeneficiary={canNominateBeneficiary}
-            canEndorseTransfer={canTransferOwners}
-            setShowEndorsementChain={setShowEndorsementChain}
-            isTitleEscrow={isTitleEscrow}
-            isRejectPendingConfirmation={isRejectPendingConfirmation}
-          />
-        </>
-      );
-  }
+      )}
+    </>
+  );
 };

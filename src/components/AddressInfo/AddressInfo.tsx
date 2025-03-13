@@ -16,7 +16,7 @@ export const AddressInfo: FunctionComponent<AddressInfoProps> = ({
 }) => {
   return (
     <div className={`${className ? className : ""}`}>
-      <h4 className="text-cloud-300 mb-2">{title}:</h4>
+      {title && <h4 className="text-cloud-400 mb-2">{title ? `${title}:` : ""}</h4>}
       {name && (
         <div className="flex">
           <h5 className="text-cloud-800 mb-1">{name}</h5>

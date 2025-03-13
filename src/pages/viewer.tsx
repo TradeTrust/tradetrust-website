@@ -1,11 +1,16 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { ViewerPageContainer } from "../components/ViewerPageContainer";
+import { NetworkSection } from "../components/NetworkSection";
+import { useSelector } from "react-redux";
+import { RootState } from "../reducers";
 
 interface ViewerPageInterface {
   isMagicDemo?: boolean;
 }
 export const ViewerPage = (props: ViewerPageInterface): React.ReactElement => {
+  const rootState = useSelector((state: RootState) => state);
+  const document = rootState.certificate.rawModified;
   return (
     <>
       <Helmet>
@@ -25,7 +30,16 @@ export const ViewerPage = (props: ViewerPageInterface): React.ReactElement => {
           content="Blockchain, NFT, Ethereum, Electronic Trade Document, Digital Trade Document, Transferable Documents, Electronic Bill of Lading, Bill of Lading, Verifiable Document, Certificate of Origin"
         />
       </Helmet>
-      <ViewerPageContainer {...props} />
+
+      <div className="flex flex-col py-12">
+        <div className="container">
+          <h2 className="text-cloud-800 max-w-3xl">Verify Documents</h2>
+        </div>
+        <div className="container">
+          <NetworkSection subtitle="Document verified on" overlayMargin="ml-3" disabled={true} document={document} />
+        </div>
+        <ViewerPageContainer {...props} />
+      </div>
     </>
   );
 };

@@ -61,7 +61,7 @@ export const DropZoneSectionContainer = (): React.ReactElement => {
   const { currentChainId } = useProviderContext();
 
   return currentChainId ? (
-    <div className="flex mt-4 -mx-4">
+    <div className="flex mt-4">
       <div className="w-full ">
         <div
           id="demoDrop"
