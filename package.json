@@ -22,7 +22,7 @@
     "dev": "run-p dev:*",
     "dev:css": "npx tailwindcss -i ./src/tailwind.css -o ./src/index.css --watch",
     "dev:serve": "sleep 2 && cross-env NODE_ENV=development NET=local webpack serve",
-    "integration": "testcafe chrome --disable-web-security --user-data-dir=/tmp/chrome src/**/*.spec.ts",
+    "integration": "testcafe chrome src/**/*.spec.ts",
     "integration:single": "testcafe chrome -L",
     "integration:testcafe:prod:1": "testcafe --config-file \".testcaferc-prod.json\"",
     "integration:testcafe:prod:2": "testcafe --config-file \".testcaferc-prod2.js\"",
