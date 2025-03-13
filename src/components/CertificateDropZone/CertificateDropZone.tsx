@@ -37,7 +37,9 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     verificationStatus,
     verificationError,
     tokenRegistryV4,
-  } = useSelector((state: RootState) => state.certificate);
+  } = useSelector((state: RootState) => {
+    return state.certificate;
+  });
   const { showOverlay, closeOverlay } = useContext(OverlayContext);
 
   const isVerificationPending = verificationPending;
@@ -102,7 +104,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           } catch (e) {
             if (e instanceof Error) {
               dispatch(verifyingCertificateCompleted([e.message]));
-              dispatch(verifyingCertificateFailure(TYPES.NETWORK_INVALID));
+              dispatch(verifyingCertificateFailure(TYPES.INVALID));
             }
           }
         };
@@ -117,6 +119,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
   // Effect to dispatch once currentChainId matches targetChainId
   useEffect(() => {
+    console.log("inside useeffect", currentChainId, targetChainId, pendingCertificateData);
     if (targetChainId && currentChainId === targetChainId && pendingCertificateData) {
       dispatch(updateCertificate(pendingCertificateData));
       setTargetChainId(null);

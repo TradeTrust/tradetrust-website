@@ -1,10 +1,11 @@
 import { decryptString } from "@govtechsg/oa-encryption";
 import { errorMessages, getTokenId, getTokenRegistryAddress, isTransferableRecord, isValid } from "@trustvc/trustvc";
-import { put, select, takeEvery } from "redux-saga/effects";
+import { race, call, put, delay, select, takeEvery } from "redux-saga/effects";
 import { history } from "../history";
 import {
   detectingTRV4Certificate,
   getCertificate,
+  retrieveCertificateByActionFailure,
   types,
   verifyingCertificateCompleted,
   verifyingCertificateFailure,
@@ -20,37 +21,60 @@ const { trace } = getLogger("saga:certificate");
 const { TYPES } = errorMessages;
 
 export function* verifyCertificate(): any {
+  let certificate;
+  let isTransferableAssetVal;
+  let registryAddress;
+  let tokenId;
+
   try {
+    certificate = yield select(getCertificate);
     yield put({
       type: types.VERIFYING_CERTIFICATE,
     });
 
-    const certificate = yield select(getCertificate);
-    const isTransferableAssetVal = isTransferableRecord(certificate);
-
+    isTransferableAssetVal = isTransferableRecord(certificate);
     if (isTransferableAssetVal) {
-      const registryAddress = getTokenRegistryAddress(certificate);
-      const tokenId = getTokenId(certificate);
+      registryAddress = getTokenRegistryAddress(certificate);
+      tokenId = getTokenId(certificate);
+    }
+  } catch (e) {
+    yield put(verifyingCertificateFailure(TYPES.VERIFICATION_ERROR));
+    return;
+  }
 
-      if (registryAddress && tokenId) {
-        const tokenRegistryV4 = yield isTokenRegistryV4(registryAddress, tokenId);
-        if (tokenRegistryV4) {
-          yield put(detectingTRV4Certificate(TYPES.INVALID));
-          return;
-        }
+  try {
+    if (isTransferableAssetVal && registryAddress && tokenId) {
+      const { tokenRegistryV4, timeout } = yield race({
+        tokenRegistryV4: call(isTokenRegistryV4, registryAddress, tokenId),
+        timeout: delay(5 * 1000), // 5-second timeout
+      });
+
+      if (timeout) {
+        yield put(verifyingCertificateFailure(TYPES.SERVER_ERROR));
+        return;
+      }
+
+      if (tokenRegistryV4) {
+        yield put(detectingTRV4Certificate(TYPES.INVALID));
+        return;
       }
     }
+  } catch (e) {
+    yield put(verifyingCertificateFailure(TYPES.SERVER_ERROR));
+    return;
+  }
 
+  try {
     const verificationStatus = yield verifyDocument(certificate);
     trace(`Verification Status: ${JSON.stringify(verificationStatus)}`);
 
-    // Instead of success/failure, report completeness
     yield put(verifyingCertificateCompleted(verificationStatus));
     if (isValid(verificationStatus)) {
       yield history.push("/viewer");
     }
   } catch (e) {
-    yield put(verifyingCertificateFailure(TYPES.CLIENT_NETWORK_ERROR));
+    yield put(verifyingCertificateFailure(TYPES.VERIFICATION_ERROR));
+    return;
   }
 }
 

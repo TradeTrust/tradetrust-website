@@ -19,6 +19,7 @@ export const useNetworkSelect = (): useNetworkSelectProps => {
         await changeNetwork(chainId);
         closeOverlay();
       } catch (e: any) {
+        console.error(e);
         showOverlay(
           showDocumentTransferMessage("You've cancelled changing network.", {
             isSuccess: false,
