@@ -100,7 +100,7 @@ export const ChainInfo: ChainInfo = {
     iconImage: "/static/images/networks/polygon.gif",
     networkName: "amoy",
     networkLabel: "Polygon Amoy",
-    explorerUrl: "https://www.oklink.com/amoy",
+    explorerUrl: "https://amoy.polygonscan.com",
     rpcUrl: `https://polygon-amoy.infura.io/v3/${INFURA_API_KEY}`,
     nativeCurrency: {
       name: "MATIC",
@@ -115,7 +115,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "xdc",
     networkLabel: "XDC Network",
     explorerUrl: "https://xdcscan.io",
-    rpcUrl: "https://erpc.xinfin.network",
+    rpcUrl: "https://rpc.ankr.com/xdc",
     nativeCurrency: {
       name: "XDC",
       symbol: "XDC",
@@ -129,7 +129,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "xdcapothem",
     networkLabel: "XDC Testnet Apothem",
     explorerUrl: "https://apothem.xdcscan.io",
-    rpcUrl: "https://erpc.apothem.network",
+    rpcUrl: "https://rpc.ankr.com/xdc_testnet",
     nativeCurrency: {
       name: "XDCt",
       symbol: "XDCt",
