@@ -141,7 +141,6 @@ export async function isTokenRegistryV4(registryAddress: string, tokenId: string
     });
     return isTitleEscrowV4;
   } catch (error) {
-    console.error(error);
     return false;
   }
 }
