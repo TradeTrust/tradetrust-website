@@ -119,7 +119,6 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
   // Effect to dispatch once currentChainId matches targetChainId
   useEffect(() => {
-    console.log("inside useeffect", currentChainId, targetChainId, pendingCertificateData);
     if (targetChainId && currentChainId === targetChainId && pendingCertificateData) {
       dispatch(updateCertificate(pendingCertificateData));
       setTargetChainId(null);
