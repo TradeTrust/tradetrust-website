@@ -44,8 +44,8 @@ describe("ViewVerificationError", () => {
         <ViewVerificationError resetData={() => {}} />
       </RenderWithStore>
     );
-
-    expect(screen.getByText("This document is not valid")).toBeInTheDocument();
+    const { MESSAGES } = errorMessages;
+    expect(screen.getByText(MESSAGES[TYPES.HASH].failureTitle)).toBeInTheDocument();
     expect(screen.getByText("What Should I do?")).toBeInTheDocument();
     expect(screen.getByText("Try another document")).toBeInTheDocument();
   });

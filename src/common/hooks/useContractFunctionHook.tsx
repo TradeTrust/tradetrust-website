@@ -5,8 +5,8 @@ import { useCallback, useState } from "react";
 
 export type ContractFunctionState = "UNINITIALIZED" | "INITIALIZED" | "PENDING_CONFIRMATION" | "CONFIRMED" | "ERROR";
 type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
-type TitleEscrow = v5Contracts.TitleEscrow;
-type TradeTrustToken = v5Contracts.TradeTrustToken;
+type TitleEscrow = typeof v5Contracts.TitleEscrow;
+type TradeTrustToken = typeof v5Contracts.TradeTrustToken;
 // Todo
 // Deploy
 // Deploy & Initialize

@@ -3,8 +3,8 @@ import { providers, Signer } from "ethers";
 import { v5Contracts } from "@trustvc/trustvc";
 import { BurnAddress } from "../../constants/chain-info";
 const { TitleEscrowFactory__factory, TitleEscrow__factory } = v5Contracts;
-type TitleEscrow = v5Contracts.TitleEscrow;
-type TradeTrustToken = v5Contracts.TradeTrustToken;
+type TitleEscrow = typeof v5Contracts.TitleEscrow;
+type TradeTrustToken = typeof v5Contracts.TradeTrustToken;
 interface useTitleEscrowContractProps {
   titleEscrow?: TitleEscrow;
   documentOwner?: string;

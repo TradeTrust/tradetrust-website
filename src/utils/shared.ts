@@ -129,10 +129,10 @@ export const getChainId = (
 export async function isTokenRegistryV4(registryAddress: string, tokenId: string): Promise<boolean> {
   try {
     const provider = getCurrentProvider();
+
     if (!provider) {
       return false;
     }
-
     const isTitleEscrowV4 = await isTitleEscrowVersion({
       tokenRegistryAddress: registryAddress,
       tokenId,

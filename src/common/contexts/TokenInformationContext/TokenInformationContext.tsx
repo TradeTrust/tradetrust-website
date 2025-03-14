@@ -6,8 +6,8 @@ import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { useProviderContext } from "../provider";
-type TitleEscrow = v5Contracts.TitleEscrow;
-type TradeTrustToken = v5Contracts.TradeTrustToken;
+type TitleEscrow = typeof v5Contracts.TitleEscrow;
+type TradeTrustToken = typeof v5Contracts.TradeTrustToken;
 
 export enum TokenRegistryVersion {
   V2 = "V2",

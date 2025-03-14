@@ -43,7 +43,7 @@ test("Load document from action should fail when url is invalid", async (t) => {
 
   await DocumentStatus.with({ visibilityCheck: false })();
   await validateTextContent(t, CertificateDropzone, [
-    "This document is not valid",
+    "Verification Failure",
     "Unable to load certificate with the provided parameters",
     "Unable to load the certificate from https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-stability-invalid.json",
   ]);
@@ -62,7 +62,7 @@ test("Load document from action should fail when chainId not exists", async (t) 
 
   await DocumentStatus.with({ visibilityCheck: false })();
   await validateTextContent(t, CertificateDropzone, [
-    "This document is not valid",
+    "Verification Failure",
     "Unable to load certificate with the provided parameters",
     "This document has an invalid network field. Please contact your issuing authority for help or re-issue the document with a valid network field before trying again.",
   ]);
