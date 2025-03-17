@@ -5,8 +5,8 @@ import { getLogger } from "../../utils/logger";
 import { useContractFunctionHook } from "./useContractFunctionHook";
 
 const { error } = getLogger("services:usesupportsinterface");
-type TitleEscrow = v5Contracts.TitleEscrow;
-type TradeTrustToken = v5Contracts.TradeTrustToken;
+type TitleEscrow = typeof v5Contracts.TitleEscrow;
+type TradeTrustToken = typeof v5Contracts.TradeTrustToken;
 
 interface Erc165Contract extends Contract {
   supportsInterface: (interfaceId: []) => Promise<boolean> | undefined;

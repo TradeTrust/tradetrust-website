@@ -19,7 +19,6 @@ export const DetailedErrors: FunctionComponent<{
   const { MESSAGES } = errorMessages;
   const errors = errorMessageHandling(verificationStatus);
   if (verificationError) errors.push(verificationError);
-
   return (
     <div className="mb-8">
       {errors.map((errorType, index) => (
