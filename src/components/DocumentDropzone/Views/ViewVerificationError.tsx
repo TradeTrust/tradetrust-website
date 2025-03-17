@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
 import { DetailedErrors } from "../DetailedErrors";
 import { URLS } from "../../../constants";
+import { errorMessages } from "@trustvc/trustvc";
 
 interface ViewVerificationErrorProps {
   resetData: () => void;
@@ -11,6 +12,7 @@ interface ViewVerificationErrorProps {
 
 export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps> = ({ resetData }) => {
   const { verificationStatus, verificationError } = useSelector((state: RootState) => state.certificate);
+  const { MESSAGES } = errorMessages;
 
   return (
     <div>
@@ -19,7 +21,11 @@ export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps
           <img src="/static/images/dropzone/invalid.svg" alt="Document invalid" />
         </div>
         <div className="w-auto">
-          <p className="text-2xl">This document is not valid</p>
+          <p className="text-2xl">
+            {verificationError
+              ? MESSAGES[Array.isArray(verificationError) ? verificationError[0] : verificationError]?.failureTitle
+              : "This document is not valid"}
+          </p>
         </div>
       </div>
       <DetailedErrors verificationStatus={verificationStatus} verificationError={verificationError} />
