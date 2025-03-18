@@ -20,11 +20,6 @@ const merkleRootToMint = {
   tokenRegistry: [
     {
       // Endorse Owner
-      merkleRoot: "0x36c2785cc242b05e60a25bedbc381a9d01395587df27b89b1c16413f2ae25858",
-      ...defaultToken,
-    },
-    {
-      // Endorse Owner
       merkleRoot: "0x69f86e95549d3bd5768fb6bbbea5ed7232856a43fe8ae96df4d000d1a5125637",
       ...defaultToken,
     },

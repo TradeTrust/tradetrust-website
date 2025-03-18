@@ -148,7 +148,6 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
   // All useEffect hooks moved outside of the switch statement
   useEffect(() => {
-    console.log("🚀 ~ useEffect ~ type:", type);
     // Handle SurrenderForm confirmation
     if (type === AssetManagementActions.ReturnToIssuer) {
       const { returnToIssuerState } = props;
@@ -245,7 +244,6 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
     if (type === AssetManagementActions.NominateBeneficiary) {
       const { nominationState } = props;
       const isConfirmed = nominationState === FormState.CONFIRMED;
-      console.log("🚀 ~ useEffect ~ nominationState:", nominationState);
 
       if (isConfirmed) {
         showOverlay(
@@ -265,7 +263,6 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
     if (type === AssetManagementActions.TransferHolder) {
       const { holderTransferringState } = props;
       const isConfirmed = holderTransferringState === FormState.CONFIRMED;
-      console.log("🚀 ~ useEffect ~ holderTransferringState:", holderTransferringState);
 
       if (isConfirmed) {
         showOverlay(
