@@ -73,8 +73,10 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         setTargetChainId(chainId);
         setPendingCertificateData(json);
       }
+
+      closeOverlay();
     },
-    [dispatch, currentChainId, switchNetwork]
+    [dispatch, currentChainId, switchNetwork, closeOverlay]
   );
 
   const onDrop = useCallback(
@@ -101,7 +103,6 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
                   }}
                   handleDispatch={async () => {
                     await processFile(json, chainId);
-                    closeOverlay();
                   }}
                 />
               );
@@ -119,7 +120,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [dispatch, account, processFile, showOverlay, closeOverlay]
+    [dispatch, account, processFile, showOverlay]
   );
 
   const [targetChainId, setTargetChainId] = useState<number | null>(null);
