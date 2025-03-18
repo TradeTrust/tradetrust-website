@@ -74,6 +74,7 @@ const baseProps = {
   holder: "0xa61B056dA0084a5f391EC137583073096880C2e3",
   setFormActionNone: jest.fn(),
   keyId: "key-id",
+  setShowEndorsementChain: jest.fn(),
 };
 
 describe("ActionForm", () => {
@@ -101,6 +102,7 @@ describe("ActionForm", () => {
             holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
             handleTransfer={() => {}}
             holderTransferringState={FormState.UNINITIALIZED}
+            setShowEndorsementChain={() => {}}
           />
         );
 
