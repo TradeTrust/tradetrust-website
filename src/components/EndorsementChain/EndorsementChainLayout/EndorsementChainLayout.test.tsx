@@ -208,7 +208,7 @@ describe("EndorsementChainLayout", () => {
     );
   });
 
-  it("should render 'Endorse change of ownership' and new address of new beneficiary when there is a change in ownership from previous beneficiary", () => {
+  it("should render 'Transfer ownership' and new address of new beneficiary when there is a change in ownership from previous beneficiary", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
@@ -219,13 +219,13 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Endorse change of ownership");
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Transfer ownership");
     expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Owner")).toHaveTextContent(
       "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7"
     );
   });
 
-  it("should render 'Change Owners' and address of beneficiary and Holder", () => {
+  it("should render 'Transfer ownership and holdership' and address of beneficiary and Holder", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
       <EndorsementChainLayout
@@ -236,7 +236,7 @@ describe("EndorsementChainLayout", () => {
         setShowEndorsementChain={() => {}}
       />
     );
-    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Change Owners");
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Transfer ownership and holdership");
     expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent(
       "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
     );

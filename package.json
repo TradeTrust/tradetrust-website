@@ -58,7 +58,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "@tradetrust-tt/decentralized-renderer-react-components": "^3.16.0",
     "@tradetrust-tt/document-store": "^4.1.1",
-    "@tradetrust-tt/tradetrust-ui-components": "^3.2.3",
+    "@tradetrust-tt/tradetrust-ui-components": "^3.2.4",
     "@trustvc/trustvc": "^1.2.10",
     "@types/gtag.js": "0.0.8",
     "buffer": "^6.0.3",

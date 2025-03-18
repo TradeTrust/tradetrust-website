@@ -11,21 +11,22 @@ const EndorsementChainAddress1 = Selector("[data-testid='address-entity']").with
 const EndorsementChainAddress2 = Selector("[data-testid='address-entity']").withText(ACCOUNT_2);
 const DocumentIssuedAction = Selector("[data-testid='action-title']").withText("Document has been issued");
 
-const EndorseNomineeAction = Selector("[data-testid='action-title']").withText("Endorse change of ownership");
-
+const TransferOwnershipAction = Selector("[data-testid='action-title']").withText("Transfer ownership");
 const TransferHoldershipAction = Selector("[data-testid='action-title']").withText("Transfer holdership");
-const ChangeOwnershipAction = Selector("[data-testid='action-title']").withText("Change Owners");
+const TransferOwnershipHoldershipAction = Selector("[data-testid='action-title']").withText(
+  "Transfer ownership and holdership"
+);
 
 const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withText("ETR returned to issuer");
 const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("ETR taken out of circulation");
 const HandleProceedAnywayBtn = Selector("[data-testid='overlayHandleDispatchBtn']");
 // history chain of events for ebl-endorsement-chain.json are:
 // 1. issued on account 1
-// 2. nominate beneficiary + change owners to account 2
+// 2. nominate beneficiary + endorse beneficiary to account 2
 // 3. transfer holder to account 2
-// 5. change owners + transfer holder to account 1
-// 6. surrender with account 1
-// 7. accept surrender with account 1
+// 4. transfer ownership and holdership to account 1
+// 5. surrender with account 1
+// 6. accept surrender with account 1
 
 // TODO: Add in test for reject transfers, after updating CLI
 test("Endorsement chain title and actions are rendered correctly", async (t) => {
@@ -48,8 +49,8 @@ test("Endorsement chain title and actions are rendered correctly", async (t) => 
 
   await t.expect(DocumentIssuedAction.count).eql(1);
 
-  await t.expect(EndorseNomineeAction.count).eql(1);
-  await t.expect(ChangeOwnershipAction.count).eql(1);
+  await t.expect(TransferOwnershipAction.count).eql(1);
+  await t.expect(TransferOwnershipHoldershipAction.count).eql(1);
   await t.expect(TransferHoldershipAction.count).eql(1);
 
   await t.expect(SurrenderToIssuerAction.count).eql(1);

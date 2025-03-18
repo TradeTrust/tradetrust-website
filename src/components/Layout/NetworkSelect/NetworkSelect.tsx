@@ -1,11 +1,11 @@
 import { Dropdown, DropdownItem, DropdownProps, IconError } from "@tradetrust-tt/tradetrust-ui-components";
-import React, { FunctionComponent } from "react";
-import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
-import { useProviderContext } from "../../../common/contexts/provider";
-import { getChainInfo } from "../../../common/utils/chain-utils";
-import { useNetworkSelect } from "../../../common/hooks/useNetworkSelect";
 import { isTransferableRecord } from "@trustvc/trustvc";
 import { isSignedDocument } from "@trustvc/w3c-vc";
+import React, { FunctionComponent } from "react";
+import { useProviderContext } from "../../../common/contexts/provider";
+import { useNetworkSelect } from "../../../common/hooks/useNetworkSelect";
+import { getChainInfo } from "../../../common/utils/chain-utils";
+import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 
 interface NetworkSelectViewProps {
   onChange: (chainId: ChainId) => void;
@@ -29,12 +29,13 @@ interface DropdownItemLabelProps {
  * Dropdown control for the network selection
  */
 const WrappedDropdown = (props: DropdownProps) => {
-  const { children, className, ...rest } = props;
+  const { children, className, disabled, ...rest } = props;
   return (
-    <div className={className} style={{ minWidth: "12.5em" }}>
+    <div className={className}>
       <Dropdown
-        className="rounded-md py-1 pl-4 p-2 border border-cloud-200 bg-white"
+        className="rounded-md py-2 pl-4 p-2 border border-cloud-200 bg-white"
         data-testid="network-selector"
+        disabled={disabled}
         {...rest}
       >
         {children}
@@ -96,34 +97,34 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({
   });
 
   let selectedLabel: React.ReactNode = (
-    <div className="bg-white">
+    <div className="bg-white flex justify-start">
       <IconError className="mr-2 w-5 h-5 rounded-full" />
       Unsupported Network
     </div>
   );
+
   try {
     if (currentChainId) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       selectedLabel = <DropdownItemLabel network={getChainInfo(currentChainId)} />;
     }
   } catch (e: any) {
     console.log(e.message);
   }
 
+  const defaultEmptyLabel: React.ReactNode = <div className="w-full flex justify-start">-</div>;
+
   const transferableRecord = document ? isTransferableRecord(document) : false;
   const signedVerifiableCredential = document ? isSignedDocument(document) : false;
 
-  return disabled ? (
-    <div
-      className="bg-[#e7e4ec] p-3 inline-block text-sm cursor-not-allowed w-full xs:max-w-xs"
-      style={{ minWidth: "12.5em" }}
-    >
-      {!transferableRecord && signedVerifiableCredential ? "-" : selectedLabel}
-    </div>
-  ) : (
+  return (
     <WrappedDropdown
-      dropdownButtonText={selectedLabel}
-      className="flex-1 xs:flex-none inline-block text-sm"
+      dropdownButtonText={
+        disabled && !transferableRecord && signedVerifiableCredential ? defaultEmptyLabel : selectedLabel
+      }
+      className="flex-1 inline-block text-sm"
       classNameShared="w-full xs:max-w-xs"
+      disabled={disabled}
     >
       <div>
         <span className="text-cloud-500 p-3 pr-8 cursor-default">Select a Network</span>

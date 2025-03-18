@@ -12,6 +12,7 @@ import { isEthereumAddress } from "../../../../../utils";
 import { TagBordered } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { FooterActionButtons } from "../../FooterActionButtons";
 
 // Base Props shared by all form variants
 export interface BaseActionFormProps {
@@ -20,6 +21,7 @@ export interface BaseActionFormProps {
   holder: string;
   keyId?: string;
   setFormActionNone: () => void;
+  setShowEndorsementChain: (payload: boolean) => void;
 }
 
 // Props for TransferHolderForm
@@ -115,9 +117,9 @@ type ActionFormProps =
   | RejectTransferHolderFormProps;
 
 export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
-  const { type, beneficiary, holder, keyId, setFormActionNone } = props;
+  const { type, beneficiary, holder, keyId, setFormActionNone, setShowEndorsementChain } = props;
   const [remark, setRemark] = useState("");
-  const { showOverlay } = useContext(OverlayContext);
+  const { closeOverlay, showOverlay } = useContext(OverlayContext);
 
   // Additional state variables for different form types
   const [newHolder, setNewHolder] = useState(holder || "");
@@ -129,26 +131,37 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
     if (type === AssetManagementActions.RejectReturnToIssuer) {
       const { handleRestoreToken } = props;
       showOverlay(
-        showDocumentTransferMessage(MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT, {
-          isSuccess: true,
-          beneficiaryAddress: beneficiary,
-          holderAddress: holder,
-          isConfirmationMessage: true,
-          onConfirmationAction: () => handleRestoreToken("0x" + ((remark && encryptRemark(remark, keyId)) ?? "")),
-        })
+        showDocumentTransferMessage(
+          MessageTitle.CONFIRM_REJECT_SURRENDER_DOCUMENT,
+          {
+            isSuccess: true,
+            beneficiaryAddress: beneficiary,
+            holderAddress: holder,
+            isConfirmationMessage: true,
+            onConfirmationAction: () => handleRestoreToken("0x" + ((remark && encryptRemark(remark, keyId)) ?? "")),
+          },
+          <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
+        )
       );
     }
   };
 
   // All useEffect hooks moved outside of the switch statement
   useEffect(() => {
+    console.log("🚀 ~ useEffect ~ type:", type);
     // Handle SurrenderForm confirmation
     if (type === AssetManagementActions.ReturnToIssuer) {
       const { returnToIssuerState } = props;
       const isConfirmed = returnToIssuerState === FormState.CONFIRMED;
 
       if (isConfirmed) {
-        showOverlay(showDocumentTransferMessage(MessageTitle.SURRENDER_DOCUMENT_SUCCESS, { isSuccess: true }));
+        showOverlay(
+          showDocumentTransferMessage(
+            MessageTitle.SURRENDER_DOCUMENT_SUCCESS,
+            { isSuccess: true },
+            <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
+          )
+        );
         setFormActionNone();
       }
     }
@@ -160,10 +173,14 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
       if (isConfirmed) {
         showOverlay(
-          showDocumentTransferMessage(MessageTitle.CHANGE_BENEFICIARY_SUCCESS, {
-            isSuccess: true,
-            beneficiaryAddress: nominee,
-          })
+          showDocumentTransferMessage(
+            MessageTitle.CHANGE_BENEFICIARY_SUCCESS,
+            {
+              isSuccess: true,
+              beneficiaryAddress: nominee,
+            },
+            <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
+          )
         );
         setFormActionNone();
       }
@@ -175,7 +192,13 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
       const isDestroyTokenConfirmed = destroyTokenState === FormState.CONFIRMED;
 
       if (isDestroyTokenConfirmed) {
-        showOverlay(showDocumentTransferMessage(MessageTitle.ACCEPT_SURRENDER_DOCUMENT, { isSuccess: true }));
+        showOverlay(
+          showDocumentTransferMessage(
+            MessageTitle.ACCEPT_SURRENDER_DOCUMENT,
+            { isSuccess: true },
+            <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
+          )
+        );
         setFormActionNone();
       }
     }
@@ -186,7 +209,13 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
       const isRestoreTokenConfirmed = restoreTokenState === FormState.CONFIRMED;
 
       if (isRestoreTokenConfirmed) {
-        showOverlay(showDocumentTransferMessage(MessageTitle.REJECT_SURRENDER_DOCUMENT, { isSuccess: true }));
+        showOverlay(
+          showDocumentTransferMessage(
+            MessageTitle.REJECT_SURRENDER_DOCUMENT,
+            { isSuccess: true },
+            <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
+          )
+        );
         setFormActionNone();
       }
     }
@@ -198,11 +227,15 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
       if (isConfirmed) {
         showOverlay(
-          showDocumentTransferMessage(MessageTitle.ENDORSE_TRANSFER_SUCCESS, {
-            isSuccess: true,
-            beneficiaryAddress: newOwner,
-            holderAddress: newHolder,
-          })
+          showDocumentTransferMessage(
+            MessageTitle.ENDORSE_TRANSFER_SUCCESS,
+            {
+              isSuccess: true,
+              beneficiaryAddress: newOwner,
+              holderAddress: newHolder,
+            },
+            <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
+          )
         );
         setFormActionNone();
       }
@@ -212,12 +245,17 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
     if (type === AssetManagementActions.NominateBeneficiary) {
       const { nominationState } = props;
       const isConfirmed = nominationState === FormState.CONFIRMED;
+      console.log("🚀 ~ useEffect ~ nominationState:", nominationState);
 
       if (isConfirmed) {
         showOverlay(
-          showDocumentTransferMessage(MessageTitle.NOMINATE_BENEFICIARY_HOLDER_SUCCESS, {
-            isSuccess: true,
-          })
+          showDocumentTransferMessage(
+            MessageTitle.NOMINATE_BENEFICIARY_HOLDER_SUCCESS,
+            {
+              isSuccess: true,
+            },
+            <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
+          )
         );
         setFormActionNone();
       }
@@ -227,17 +265,23 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
     if (type === AssetManagementActions.TransferHolder) {
       const { holderTransferringState } = props;
       const isConfirmed = holderTransferringState === FormState.CONFIRMED;
+      console.log("🚀 ~ useEffect ~ holderTransferringState:", holderTransferringState);
 
       if (isConfirmed) {
         showOverlay(
-          showDocumentTransferMessage(MessageTitle.TRANSFER_HOLDER_SUCCESS, {
-            isSuccess: true,
-            holderAddress: newHolder,
-          })
+          showDocumentTransferMessage(
+            MessageTitle.TRANSFER_HOLDER_SUCCESS,
+            {
+              isSuccess: true,
+              holderAddress: newHolder,
+            },
+            <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
+          )
         );
         setFormActionNone();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props, showOverlay, setFormActionNone, beneficiary, holder, newBeneficiary, newHolder, newOwner, remark, type]);
 
   // Switch based on form type to handle specific UI rendering

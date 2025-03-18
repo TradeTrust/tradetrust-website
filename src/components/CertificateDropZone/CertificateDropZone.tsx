@@ -154,9 +154,9 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
   return (
     <div
-      className={`border-y-2 xs:border-2 rounded-none xs:rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
+      className={`border-y-2 xs:border-2 rounded-none xs:rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle} -mx-4 xs:mx-0`}
     >
-      <div data-testid="certificate-dropzone" {...getRootProps()}>
+      <div data-testid="certificate-dropzone" className="cursor-pointer" {...getRootProps()}>
         <input {...getInputProps()} />
         {(() => {
           switch (true) {
@@ -173,7 +173,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           }
         })()}
       </div>
-      <div className="my-4 w-full h-[1px] bg-[#E7EAEC]" />
+      <div className="my-4 w-full border border-cloud-100" />
       <LoadDemoCertificate currentChainId={currentChainId} />
     </div>
   );

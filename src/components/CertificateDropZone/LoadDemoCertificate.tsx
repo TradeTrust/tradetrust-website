@@ -18,9 +18,9 @@ export const LoadDemoCertificate: FunctionComponent<LoadDemoCertificateProps> = 
       <div>
         <h4>No TradeTrust Document?</h4>
       </div>
-      <div className="flex justify-center gap-4 mt-4">
+      <div className="flex flex-col xs:flex-row justify-center gap-2 mt-4">
         <Button
-          className="bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cerulean-500 shadow-none hover:bg-cloud-200"
+          className="bg-white rounded-xl border-cloud-100 text-cerulean-500 shadow-none hover:bg-cloud-200 w-full xs:w-72"
           onClick={() => {
             if (currentChainId) {
               loadDemoCertificate(loadCertificate, currentChainId);
@@ -32,8 +32,8 @@ export const LoadDemoCertificate: FunctionComponent<LoadDemoCertificateProps> = 
         >
           Load Demo Tradetrust Document
         </Button>
-        <a href={URLS.CREATOR} target="_blank" rel="noopener noreferrer">
-          <Button className="bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cerulean-500 shadow-none hover:bg-cloud-200">
+        <a className="w-full xs:w-72" href={URLS.CREATOR} target="_blank" rel="noopener noreferrer">
+          <Button className="bg-white rounded-xl border-cloud-100 text-cerulean-500 shadow-none hover:bg-cloud-200 w-full">
             Create Tradetrust Document
           </Button>
         </a>

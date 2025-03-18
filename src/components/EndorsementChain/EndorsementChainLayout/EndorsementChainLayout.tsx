@@ -16,8 +16,8 @@ interface EndorsementChainLayout {
 
 enum ActionType {
   INITIAL = "Document has been issued",
-  NEW_OWNERS = "Change Owners",
-  ENDORSE = "Endorse change of ownership",
+  NEW_OWNERS = "Transfer ownership and holdership",
+  ENDORSE = "Transfer ownership",
   TRANSFER = "Transfer holdership",
   REJECT_TRANSFER_HOLDER = "Rejection of holdership",
   REJECT_TRANSFER_BENEFICIARY = "Rejection of ownership",

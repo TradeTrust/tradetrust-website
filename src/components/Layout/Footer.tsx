@@ -25,7 +25,7 @@ const renderExternalLink = ({ label, to }: FooterColumnItemProps) => {
 };
 const renderBottomNavLink = ({ label, to }: FooterColumnItemProps) => {
   return (
-    <NavLink className={`${sharedStyles} px-4 border-r`} to={to}>
+    <NavLink className={`${sharedStyles} px-4 flex items-center text-center`} to={to}>
       {label}
     </NavLink>
   );
@@ -57,7 +57,11 @@ const data = [
 ];
 
 const legalData = {
-  copyright: "Copyright \u00A9 2021 TradeTrust",
+  copyright: (
+    <div className="font-medium text-sm text-cloud-500 px-4 flex items-center text-center">
+      {`Copyright \u00A9 ${new Date().getFullYear()} TradeTrust`}
+    </div>
+  ),
   items: [
     { label: "Privacy Policy", to: "/privacy-policy", render: renderBottomNavLink },
     { label: "Terms of Use", to: "/terms-of-use", render: renderBottomNavLink },
