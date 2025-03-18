@@ -39,7 +39,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
     return (
       <AssetTitle role={role} address={""}>
         <textarea
-          className="w-full rounded-xl font-normal py-2.5 px-3 border border-cloud-100 h-24 resize-none focus:outline-none focus:ring-2 focus:ring-cerulean-500"
+          className="w-full rounded-xl font-normal py-2.5 px-3 border border-cloud-100 h-24 resize-none focus:outline-none focus:ring-2 focus:ring-cerulean-500 placeholder-cloud-300"
           data-testid={`editable-input-${role.toLowerCase()}`}
           maxLength={120}
           value={newValue}

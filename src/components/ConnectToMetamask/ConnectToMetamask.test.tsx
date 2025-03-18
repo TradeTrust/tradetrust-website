@@ -85,9 +85,7 @@ describe("ConnectToMetamask", () => {
 
     expect(screen.getByTestId("activeWallet")).toBeInTheDocument();
     expect(screen.getByText("Active Wallet")).toBeInTheDocument();
-    expect(
-      screen.getByText(`${mockAccount.slice(0, mockAccount.length - 20)}...${mockAccount.slice(-4)}`)
-    ).toBeInTheDocument(); // Truncated address
+    expect(screen.getByText(`...${mockAccount.slice(-4)}`)).toBeInTheDocument(); // Truncated address
   });
 
   it("calls upgradeToMetaMaskSigner when the 'Connect to Metamask' button is clicked", async () => {

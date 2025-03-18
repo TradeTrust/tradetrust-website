@@ -21,6 +21,7 @@ import { ViewTokenRegistryMismatch } from "../DocumentDropzone/Views/ViewTokenRe
 import { LoadDemoCertificate } from "./LoadDemoCertificate";
 import { ConnectMetamaskOverlay } from "./ConnectMetamaskOverlay";
 import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
+import { ChainId } from "../../constants/chain-info";
 
 const { TYPES } = errorMessages;
 
@@ -58,6 +59,26 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
   const { currentChainId, account } = useProviderContext();
   const { switchNetwork } = useNetworkSelect();
 
+  const processFile = useCallback(
+    async (json: any, chainId?: ChainId) => {
+      if (!chainId) {
+        dispatch(updateCertificate(json));
+        return;
+      }
+
+      if (currentChainId === chainId) {
+        dispatch(updateCertificate(json));
+      } else {
+        await switchNetwork(chainId);
+        setTargetChainId(chainId);
+        setPendingCertificateData(json);
+      }
+
+      closeOverlay();
+    },
+    [dispatch, currentChainId, switchNetwork, closeOverlay]
+  );
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       acceptedFiles.forEach((file: File) => {
@@ -73,34 +94,22 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           try {
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
+
             if (chainId && !account) {
               showOverlay(
                 <ConnectMetamaskOverlay
                   handleConnection={async () => {
-                    await switchNetwork(chainId);
-                    setTargetChainId(chainId);
-                    setPendingCertificateData(json);
+                    await processFile(json, chainId);
                   }}
-                  handleDispatch={() => {
-                    dispatch(updateCertificate(json));
-                    closeOverlay();
+                  handleDispatch={async () => {
+                    await processFile(json, chainId);
                   }}
                 />
               );
               return;
             }
-            if (!chainId) {
-              dispatch(updateCertificate(json));
-              return;
-            }
 
-            if (currentChainId === chainId) {
-              dispatch(updateCertificate(json));
-            } else {
-              await switchNetwork(chainId);
-              setTargetChainId(chainId);
-              setPendingCertificateData(json);
-            }
+            await processFile(json, chainId);
           } catch (e) {
             if (e instanceof Error) {
               dispatch(verifyingCertificateCompleted([e.message]));
@@ -111,7 +120,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [currentChainId, account, showOverlay, closeOverlay, dispatch, switchNetwork]
+    [dispatch, account, processFile, showOverlay]
   );
 
   const [targetChainId, setTargetChainId] = useState<number | null>(null);
@@ -154,9 +163,9 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
   return (
     <div
-      className={`border-y-2 xs:border-2 rounded-none xs:rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle}`}
+      className={`border-y-2 xs:border-2 rounded-none xs:rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle} -mx-4 xs:mx-0`}
     >
-      <div data-testid="certificate-dropzone" {...getRootProps()}>
+      <div data-testid="certificate-dropzone" className="cursor-pointer" {...getRootProps()}>
         <input {...getInputProps()} />
         {(() => {
           switch (true) {
@@ -173,7 +182,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           }
         })()}
       </div>
-      <div className="my-4 w-full h-[1px] bg-[#E7EAEC]" />
+      <div className="my-4 w-full border border-cloud-100" />
       <LoadDemoCertificate currentChainId={currentChainId} />
     </div>
   );

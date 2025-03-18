@@ -75,7 +75,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"nominateBeneficiaryHolderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.NominateBeneficiary)}
         >
-          Nominate Change of Ownership
+          Nominate transfer ownership
         </DropdownItem>
       )}
       {!canTransferBeneficiary && canEndorseBeneficiary && (
@@ -86,7 +86,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
             onSetFormAction(AssetManagementActions.EndorseBeneficiary);
           }}
         >
-          Endorse Change of Ownership
+          Endorse transfer ownership
         </DropdownItem>
       )}
       {canTransferOwners && (
@@ -104,7 +104,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"surrenderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.ReturnToIssuer)}
         >
-          Return ETR to Issuer
+          Return ETR to issuer
         </DropdownItem>
       )}
       {canHandleShred && (
@@ -113,7 +113,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"acceptSurrenderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.AcceptReturnToIssuer)}
         >
-          Accept ETR Return
+          Accept ETR return
         </DropdownItem>
       )}
       {canHandleRestore && (
@@ -122,7 +122,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"rejectSurrenderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.RejectReturnToIssuer)}
         >
-          Reject ETR Return
+          Reject ETR return
         </DropdownItem>
       )}
       {canRejectOwnerHolderTransfer && (
@@ -131,7 +131,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"rejectTransferOwnerHolderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.RejectTransferOwnerHolder)}
         >
-          Reject Ownership and Holdership
+          Reject ownership and holdership
         </DropdownItem>
       )}
       {canRejectOwnerTransfer && (
@@ -140,7 +140,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"rejectTransferOwnerDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.RejectTransferOwner)}
         >
-          Reject Ownership
+          Reject ownership
         </DropdownItem>
       )}
       {canRejectHolderTransfer && (
@@ -149,7 +149,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
           data-testid={"rejectTransferHolderDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.RejectTransferHolder)}
         >
-          Reject Holdership
+          Reject holdership
         </DropdownItem>
       )}
     </Dropdown>

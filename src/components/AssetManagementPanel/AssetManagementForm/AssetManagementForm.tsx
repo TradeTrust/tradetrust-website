@@ -8,6 +8,7 @@ import { RejectTransferOwnerOverlay } from "../AssetManagementActionOverlay/Reje
 import { AssetManagementActions } from "../AssetManagementActions";
 import { ActionForm } from "./FormVariants/ActionForm";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
+import { FooterActionButtons } from "./FooterActionButtons";
 
 interface RejectTransferActions {
   rejectTransferOwnerHolder: (remark: string) => void;
@@ -133,7 +134,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   const canEndorseBeneficiary = isActiveTitleEscrow && isHolder && hasNominee;
   const canRejectOwnerHolderTransfer =
     isActiveTitleEscrow && isHolder && isBeneficiary && hasPreviousHolder && hasPreviousBeneficiary;
-  const canRejectHolderTransfer =
+  const canRejectHolderTransfer = // Bug here, transfer holder and transfer holder back, will not be able to reject
     !isHolderAndBeneficiary &&
     isActiveTitleEscrow &&
     isHolder &&
@@ -255,7 +256,12 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
 
       const message: [string, any] = transferMessageMap[state as keyof typeof transferMessageMap] as any;
       if (message) {
-        showOverlay(showDocumentTransferMessage(...message));
+        showOverlay(
+          showDocumentTransferMessage(
+            ...message,
+            <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
+          )
+        );
       }
 
       setFormActionNone();
@@ -307,6 +313,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           nominee={nominee}
           keyId={keyId}
           setFormActionNone={setFormActionNone}
+          setShowEndorsementChain={setShowEndorsementChain}
           // nominate
           handleNomination={nominateBeneficiary}
           nominationState={nominateBeneficiaryState}
