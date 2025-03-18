@@ -21,6 +21,7 @@ import { ViewTokenRegistryMismatch } from "../DocumentDropzone/Views/ViewTokenRe
 import { LoadDemoCertificate } from "./LoadDemoCertificate";
 import { ConnectMetamaskOverlay } from "./ConnectMetamaskOverlay";
 import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
+import { ChainId } from "../../constants/chain-info";
 
 const { TYPES } = errorMessages;
 
@@ -58,6 +59,24 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
   const { currentChainId, account } = useProviderContext();
   const { switchNetwork } = useNetworkSelect();
 
+  const processFile = useCallback(
+    async (json: any, chainId?: ChainId) => {
+      if (!chainId) {
+        dispatch(updateCertificate(json));
+        return;
+      }
+
+      if (currentChainId === chainId) {
+        dispatch(updateCertificate(json));
+      } else {
+        await switchNetwork(chainId);
+        setTargetChainId(chainId);
+        setPendingCertificateData(json);
+      }
+    },
+    [dispatch, currentChainId, switchNetwork]
+  );
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       acceptedFiles.forEach((file: File) => {
@@ -73,34 +92,23 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           try {
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
-            if (chainId && !account) {
+
+            if (!account) {
               showOverlay(
                 <ConnectMetamaskOverlay
                   handleConnection={async () => {
-                    await switchNetwork(chainId);
-                    setTargetChainId(chainId);
-                    setPendingCertificateData(json);
+                    await processFile(json, chainId);
                   }}
-                  handleDispatch={() => {
-                    dispatch(updateCertificate(json));
+                  handleDispatch={async () => {
+                    await processFile(json, chainId);
                     closeOverlay();
                   }}
                 />
               );
               return;
             }
-            if (!chainId) {
-              dispatch(updateCertificate(json));
-              return;
-            }
 
-            if (currentChainId === chainId) {
-              dispatch(updateCertificate(json));
-            } else {
-              await switchNetwork(chainId);
-              setTargetChainId(chainId);
-              setPendingCertificateData(json);
-            }
+            await processFile(json, chainId);
           } catch (e) {
             if (e instanceof Error) {
               dispatch(verifyingCertificateCompleted([e.message]));
@@ -111,7 +119,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [currentChainId, account, showOverlay, closeOverlay, dispatch, switchNetwork]
+    [dispatch, account, processFile, showOverlay, closeOverlay]
   );
 
   const [targetChainId, setTargetChainId] = useState<number | null>(null);
