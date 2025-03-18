@@ -11,9 +11,9 @@ const EndorsementChainAddress1 = Selector("[data-testid='address-entity']").with
 const EndorsementChainAddress2 = Selector("[data-testid='address-entity']").withText(ACCOUNT_2);
 const DocumentIssuedAction = Selector("[data-testid='action-title']").withText("Document has been issued");
 
-const TransferOwnershipAction = Selector("[data-testid='action-title']").withText("Transfer ownership");
-const TransferHoldershipAction = Selector("[data-testid='action-title']").withText("Transfer holdership");
-const TransferOwnershipHoldershipAction = Selector("[data-testid='action-title']").withText(
+const TransferOwnershipAction = Selector("[data-testid='action-title']").withExactText("Transfer ownership");
+const TransferHoldershipAction = Selector("[data-testid='action-title']").withExactText("Transfer holdership");
+const TransferOwnershipHoldershipAction = Selector("[data-testid='action-title']").withExactText(
   "Transfer ownership and holdership"
 );
 

@@ -93,7 +93,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
 
-            if (!account) {
+            if (chainId && !account) {
               showOverlay(
                 <ConnectMetamaskOverlay
                   handleConnection={async () => {
