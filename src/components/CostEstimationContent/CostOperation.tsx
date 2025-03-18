@@ -11,6 +11,7 @@ import {
   BURN_DOC_GAS,
   SURRENDER_DOC_GAS,
 } from "../../constants/cost-estimation";
+import { URLS } from "../../constants";
 
 export const CostOperation: FunctionComponent = () => {
   const { price: ePrice, gwei: eGwei } = useFetchGasPrice("ethereum", REFRESH_RATE);
@@ -148,7 +149,7 @@ export const CostOperation: FunctionComponent = () => {
           </div>
           <div className="mt-4">
             <a
-              href="https://docs.tradetrust.io/docs/topics/introduction/estimated-cost-for-transactions"
+              href={`${URLS.DOCS}/docs/4.x/topics/introduction/estimated-cost-for-transactions`}
               target="_blank"
               rel="noopener noreferrer"
             >

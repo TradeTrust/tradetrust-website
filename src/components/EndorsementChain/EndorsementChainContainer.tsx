@@ -7,8 +7,9 @@ import {
   ProviderTimeoutMessage,
 } from "@tradetrust-tt/tradetrust-ui-components";
 import { useTimer } from "react-timer-hook";
+import { URLS } from "../../constants";
 
-const ProviderDocumentationURL = "https://docs.tradetrust.io/docs/topics/advanced/additional-network-metamask-guide/";
+const ProviderDocumentationURL = `${URLS.DOCS}/docs/4.x/topics/advanced/additional-network-metamask-guide/`;
 const timeout = 60;
 
 interface EndorsementChainContainer {
