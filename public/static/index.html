@@ -1,6 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Outdated Browser Detection -->
+    <script>
+      (function () {
+        function showUnsupportedMessage() {
+          var html = '' +
+            '<style>' +
+            '  body {' +
+            '    background: white;' +
+            '    color: black;' +
+            '    font-family: sans-serif;' +
+            '    display: flex;' +
+            '    align-items: center;' +
+            '    justify-content: center;' +
+            '    height: 100vh;' +
+            '    margin: 0;' +
+            '    text-align: center;' +
+            '  }' +
+            '  .unsupported {' +
+            '    max-width: 600px;' +
+            '    padding: 2rem;' +
+            '  }' +
+            '</style>' +
+            '<div class="unsupported">' +
+            '  <h1>Browser Not Supported</h1>' +
+            '  <p>Please use the latest version of <strong>Google Chrome</strong> for the best experience.</p>' +
+            '</div>';
+          document.body.innerHTML = html;
+        }
+    
+        var isOldBrowser = false;
+    
+        if (
+          typeof Promise === "undefined" ||
+          typeof fetch === "undefined" ||
+          typeof Symbol === "undefined" ||
+          typeof Object.assign === "undefined"
+        ) {
+          isOldBrowser = true;
+        }
+    
+        if (isOldBrowser) {
+          window.onload = showUnsupportedMessage;
+        }
+      })();
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <meta name="robots" content="index,follow" />

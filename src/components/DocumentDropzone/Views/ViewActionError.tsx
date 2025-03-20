@@ -13,14 +13,6 @@ export const ViewActionError: FunctionComponent<ViewActionErrorProps> = ({ reset
   const { retrieveCertificateByActionError } = useSelector((state: RootState) => state.certificate);
   return (
     <div>
-      <div className="flex justify-center items-center my-4">
-        <div className="w-auto mr-2">
-          <img src="/static/images/dropzone/invalid.svg" alt="Document invalid" />
-        </div>
-        <div className="w-auto">
-          <p className="text-2xl">Verification Failure</p>
-        </div>
-      </div>
       <DetailedError
         title={`Unable to load certificate with the provided parameters`}
         message={retrieveCertificateByActionError}

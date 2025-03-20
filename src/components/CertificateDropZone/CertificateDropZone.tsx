@@ -112,8 +112,12 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
             await processFile(json, chainId);
           } catch (e) {
             if (e instanceof Error) {
-              dispatch(verifyingCertificateCompleted([e.message]));
-              dispatch(verifyingCertificateFailure(TYPES.INVALID));
+              const { message } = e;
+              const isNetworkMismatch =
+                message === TYPES.NETWORK_MISMATCH_MAINNET || message === TYPES.NETWORK_MISMATCH_TESTNET;
+              const errorType = isNetworkMismatch ? (message as keyof typeof TYPES) : TYPES.INVALID;
+              dispatch(verifyingCertificateFailure(errorType));
+              dispatch(verifyingCertificateCompleted());
             }
           }
         };

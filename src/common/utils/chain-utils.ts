@@ -35,6 +35,12 @@ export const getSupportedChainIds = (): ChainId[] => {
   return networks;
 };
 
+export const getUnsupportedChainIds = (): ChainId[] => {
+  const allNetworks = new Set([...MAIN_NETWORKS, ...TEST_NETWORKS, ChainId.Local]);
+  const supported = new Set(getSupportedChainIds());
+  return Array.from(allNetworks).filter((id) => !supported.has(id));
+};
+
 /**
  * Returns an array of supported chain info based on the environment type.
  * Will include local chain if site is running under test or localhost environment.
