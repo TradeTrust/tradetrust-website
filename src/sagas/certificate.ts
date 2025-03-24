@@ -64,7 +64,16 @@ export function* verifyCertificate(): any {
   }
 
   try {
-    const verificationStatus = yield verifyDocument(certificate);
+    const { verificationStatus, timeout } = yield race({
+      verificationStatus: call(verifyDocument, certificate),
+      timeout: delay(2 * 60 * 1000),
+    });
+
+    if (timeout) {
+      yield put(verifyingCertificateFailure(TYPES.SERVER_ERROR));
+      return;
+    }
+
     trace(`Verification Status: ${JSON.stringify(verificationStatus)}`);
 
     yield put(verifyingCertificateCompleted(verificationStatus));
@@ -72,7 +81,7 @@ export function* verifyCertificate(): any {
       yield history.push("/viewer");
     }
   } catch (e) {
-    yield put(verifyingCertificateFailure(TYPES.VERIFICATION_ERROR));
+    yield put(verifyingCertificateFailure(TYPES.SERVER_ERROR));
     return;
   }
 }

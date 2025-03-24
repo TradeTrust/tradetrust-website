@@ -1,4 +1,5 @@
 import {
+  errorMessages,
   getDataV2,
   getDocumentData,
   isTitleEscrowVersion,
@@ -15,8 +16,11 @@ import {
 import { TransferableRecordsCredentialStatus } from "@trustvc/trustvc/w3c/credential-status";
 import { isSignedDocument } from "@trustvc/trustvc/w3c/vc";
 import { getCurrentProvider } from "../common/contexts/provider";
-import { getSupportedChainIds } from "../common/utils/chain-utils";
+import { getSupportedChainIds, getUnsupportedChainIds } from "../common/utils/chain-utils";
 import { AvailableBlockChains, ChainId } from "../constants/chain-info";
+import { IS_DEVELOPMENT } from "../config";
+
+const { TYPES } = errorMessages;
 
 export type WrappedOrSignedOpenAttestationDocument = WrappedDocument<OpenAttestationDocument>;
 // note that the return type for getting attachments will normalise the structure into v2.Attachment
@@ -87,28 +91,39 @@ export const getChainId = (
     throw new Error("Invalid Document, please use a valid document.");
   };
 
-  function processOAChainId(document: v2.OpenAttestationDocument | v3.OpenAttestationDocument): number | undefined {
-    if (document.network) {
+  const validateChainId = (chainId: number): number => {
+    if (!chainId) throwError();
+    const supported = getSupportedChainIds();
+    const unsupported = getUnsupportedChainIds();
+    const isSupported = supported.includes(chainId);
+    const isUnsupported = unsupported.includes(chainId);
+    if (!isSupported) {
+      if (!isUnsupported) throwError();
+      throw new Error(IS_DEVELOPMENT ? TYPES.NETWORK_MISMATCH_TESTNET : TYPES.NETWORK_MISMATCH_MAINNET);
+    }
+    return chainId;
+  };
+
+  const processOAChainId = (document: v2.OpenAttestationDocument | v3.OpenAttestationDocument): number | undefined => {
+    const network = document.network;
+    if (network) {
       // Check for current blockchain, "ETH" or "MATIC", and chainId, if need cater for other blockchain and network, update this accordingly.
-      if (AvailableBlockChains.includes(document.network.chain) && document.network.chainId) {
-        const networks: ChainId[] = getSupportedChainIds();
-        const chainIdNumber = parseInt(document.network.chainId);
-        const isChainIdInListedNetwork = networks.includes(chainIdNumber);
-        if (!chainIdNumber || !isChainIdInListedNetwork) throwError();
-        return chainIdNumber;
+      if (!AvailableBlockChains.includes(network.chain) || !network.chainId) {
+        throwError();
       }
-      throwError();
+      return validateChainId(parseInt(network.chainId!));
     }
     console.warn(
       "You are using an older version of Open-Attestation Document, to use the auto network feature, please use an updated version. Otherwise, please make sure that you select the correct network."
     );
     return undefined;
-  }
+  };
 
   // TODO: HAN: Migrate getChainId to trustvc
   if (isSignedDocument(rawDocument)) {
-    const credentialStatus = getTransferableRecordsCredentialStatus(rawDocument);
-    return credentialStatus?.tokenNetwork?.chainId as ChainId;
+    const rawChainId = getTransferableRecordsCredentialStatus(rawDocument)?.tokenNetwork?.chainId;
+    const chainId = typeof rawChainId === "string" ? parseInt(rawChainId, 10) : rawChainId;
+    return chainId ? validateChainId(chainId) : undefined;
   } else if (isWrappedV2Document(rawDocument)) {
     const documentData = getDataV2(rawDocument);
     // Check for DID, ignore chainId when its DID

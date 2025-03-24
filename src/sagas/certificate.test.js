@@ -61,7 +61,7 @@ describe("verifyCertificate", () => {
     expect(verifyDocument).toHaveBeenCalledTimes(1);
     expect(dispatched).toContainEqual({
       type: certificate.types.VERIFYING_CERTIFICATE_FAILURE,
-      payload: TYPES.VERIFICATION_ERROR,
+      payload: TYPES.SERVER_ERROR,
     });
   });
 });
