@@ -25,7 +25,7 @@ const renderExternalLink = ({ label, to }: FooterColumnItemProps) => {
 };
 const renderBottomNavLink = ({ label, to }: FooterColumnItemProps) => {
   return (
-    <NavLink className={`${sharedStyles} px-4 flex items-center text-center`} to={to}>
+    <NavLink className={`${sharedStyles} sm:px-4 flex sm:items-center sm:text-center`} to={to}>
       {label}
     </NavLink>
   );
@@ -58,7 +58,7 @@ const data = [
 
 const legalData = {
   copyright: (
-    <div className="font-medium text-sm text-cloud-500 px-4 flex items-center text-center">
+    <div className="font-medium text-sm text-cloud-500 sm:px-4 flex sm:items-center sm:text-center">
       {`Copyright \u00A9 ${new Date().getFullYear()} TradeTrust`}
     </div>
   ),
