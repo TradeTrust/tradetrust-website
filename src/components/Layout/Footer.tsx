@@ -25,7 +25,10 @@ const renderExternalLink = ({ label, to }: FooterColumnItemProps) => {
 };
 const renderBottomNavLink = ({ label, to }: FooterColumnItemProps) => {
   return (
-    <NavLink className={`${sharedStyles} px-0 sm:px-4 flex sm:items-center text-center min-h-[40px]`} to={to}>
+    <NavLink
+      className={`${sharedStyles} px-0 sm:px-4 py-2 flex sm:items-center text-center min-h-[40px] min-w-[80px]`}
+      to={to}
+    >
       {label}
     </NavLink>
   );
