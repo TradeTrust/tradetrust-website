@@ -7,7 +7,7 @@ test("Document with missing renderer url should fallback to default renderer", a
   await navigateToVerify();
   await uploadDocument("./fixture/local/v2/invoice-missing-renderer-url.json");
   await t.click(HandleProceedAnywayBtn);
-  await validateIframeTexts(["This is the default renderer"]);
+  await validateIframeTexts(["Missing Renderer"]);
 });
 
 test("Document with incorrect renderer url should fallback to default renderer", async (t) => {
