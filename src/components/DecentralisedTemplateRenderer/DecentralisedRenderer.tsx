@@ -94,12 +94,13 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   }, [selectedTemplate, toFrame]);
 
   return (
-    <div className={`${isTimeout ? "container" : ""}`}>
+    <div className={selectedTemplate == "default-template" || isTimeout ? "container" : ""}>
       <FrameConnector
         style={{ height: `${height}px`, width: "100%", border: "0px" }}
         source={source}
         dispatch={dispatch}
         onConnected={onConnected}
+        useFallbackRenderer={true}
       />
     </div>
   );
