@@ -1,6 +1,7 @@
 export const paths: Record<string, string> = {
   verify: "/(|verify)",
   viewer: "/viewer",
+  creator: "/creator",
   settings: "/settings",
   addressResolver: "/settings/address-resolver",
   addressBook: "/settings/address-book",
