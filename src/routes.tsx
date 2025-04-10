@@ -11,6 +11,7 @@ import { TermsOfUsePage } from "./pages/termsOfUse";
 import VerifyPage from "./pages/verify";
 import { ViewerPage } from "./pages/viewer";
 import { paths } from "./config/routes-config";
+import { FormSelectionContainer } from "./components/Landing";
 
 export const FORM_SG_URL = "https://www.form.gov.sg/635f32c5001b2d0011fff09b";
 
@@ -40,6 +41,7 @@ type RouteComponents = Record<string, Omit<RouteInterface, "path">>;
 const routeComponents: RouteComponents = {
   verify: { exact: true, component: VerifyPage },
   viewer: { exact: true, render: renderViewer },
+  creator: { exact: true, component: FormSelectionContainer },
   settings: { exact: true, component: SettingsPage },
   addressResolver: { exact: true, component: SettingsAddressResolverPage },
   addressBook: { exact: true, component: SettingsAddressBookPage },
