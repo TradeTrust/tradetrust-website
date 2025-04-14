@@ -121,6 +121,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
       childRef.current.print();
     }
   };
+  console.log("templates", templates);
 
   const renderedEndorsementChain = (
     <div className="bg-cerulean-50 no-print">
@@ -177,7 +178,9 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             </div>
           )}
           <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-            {templates.length > 0 && <DocumentUtility document={document} onPrint={onPrint} />}
+            {templates.length > 0 && (
+              <DocumentUtility document={document} onPrint={onPrint} selectedTemplate={selectedTemplate} />
+            )}
             <DecentralisedRendererContainer
               rawDocument={document}
               updateTemplates={updateTemplates}

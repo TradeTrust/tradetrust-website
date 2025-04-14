@@ -21,8 +21,6 @@ import { TemplateProps } from "./../../types";
 import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
 import { Dispatch } from "../../types";
 
-const DEFAULT_RENDERER_URL = `https://generic-templates.tradetrust.io`;
-
 interface DecentralisedRendererProps {
   rawDocument: WrappedOrSignedOpenAttestationDocument;
   updateTemplates: (templates: TemplateProps[]) => void;
@@ -44,7 +42,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   const document = useMemo(() => getOpenAttestationData(rawDocument), [rawDocument]);
   const [height, setHeight] = useState(250);
   const [isTimeout, setIsTimeout] = useState(false);
-  const source = getTemplateUrl(rawDocument) ?? DEFAULT_RENDERER_URL;
+  const source = getTemplateUrl(rawDocument);
 
   useImperativeHandle(forwardedRef, () => ({
     print() {
