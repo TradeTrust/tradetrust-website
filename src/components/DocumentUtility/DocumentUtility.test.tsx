@@ -28,7 +28,9 @@ describe("DocumentUtility", () => {
       },
     });
     await act(async () => {
-      const container = render(<DocumentUtility document={document} onPrint={() => {}} />);
+      const container = render(
+        <DocumentUtility document={document} onPrint={() => {}} selectedTemplate="bill-of-lading-template" />
+      );
 
       const qrbuttonComponent = container.getByRole("button", { name: "document-utility-qr-button" });
 
@@ -42,7 +44,9 @@ describe("DocumentUtility", () => {
       name: "bah bah black sheep",
     });
     await act(async () => {
-      const container = render(<DocumentUtility document={document} onPrint={() => {}} />);
+      const container = render(
+        <DocumentUtility document={document} onPrint={() => {}} selectedTemplate="bill-of-lading-template" />
+      );
 
       const qrbuttonComponent = container.queryByRole("button", { name: "document-utility-qr-button" });
 
@@ -55,7 +59,7 @@ describe("DocumentUtility", () => {
       issuers,
       name: "bah bah black sheep",
     });
-    render(<DocumentUtility document={document} onPrint={() => {}} />);
+    render(<DocumentUtility document={document} onPrint={() => {}} selectedTemplate="bill-of-lading-template" />);
     expect(screen.queryByRole("button", { name: "document-utility-download" })).toHaveAttribute(
       "download",
       "bah bah black sheep.tt"
@@ -66,7 +70,7 @@ describe("DocumentUtility", () => {
     const document = await wrapOADocument({
       issuers,
     });
-    render(<DocumentUtility document={document} onPrint={() => {}} />);
+    render(<DocumentUtility document={document} onPrint={() => {}} selectedTemplate="bill-of-lading-template" />);
     expect(screen.queryByRole("button", { name: "document-utility-download" })).toHaveAttribute(
       "download",
       "Untitled.tt"

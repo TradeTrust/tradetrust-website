@@ -27,8 +27,8 @@ const documentWithQr = {
 };
 
 export const PrintAndDownload = () => {
-  return <DocumentUtility document={documentWithoutQr as any} onPrint={() => {}} />;
+  return <DocumentUtility document={documentWithoutQr as any} onPrint={() => {}} selectedTemplate="default-template" />;
 };
 export const QRPrintAndDownload = () => {
-  return <DocumentUtility document={documentWithQr as any} onPrint={() => {}} />;
+  return <DocumentUtility document={documentWithQr as any} onPrint={() => {}} selectedTemplate="default-template" />;
 };
