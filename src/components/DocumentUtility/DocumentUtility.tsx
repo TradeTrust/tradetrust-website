@@ -91,22 +91,32 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
               </div>
             </div>
           )}
-          <ButtonIcon
-            className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-cloud-100"
-            aria-label="document-utility-print-button"
-            onClick={onPrint}
-            style={{ width: "auto", height: "auto" }}
-          >
-            <Printer />
-          </ButtonIcon>
-          <a download={`${fileName}.tt`} role="button" aria-label="document-utility-download">
+          <div className="w-auto ml-3">
             <ButtonIcon
               className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-cloud-100"
+              aria-label="document-utility-print-button"
+              onClick={() => onPrint()}
               style={{ width: "auto", height: "auto" }}
             >
-              <Download />
+              <Printer />
             </ButtonIcon>
-          </a>
+          </div>
+          <div className="w-auto ml-3">
+            <a
+              download={`${fileName}.tt`}
+              target="_black"
+              href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
+              role="button"
+              aria-label="document-utility-download"
+            >
+              <ButtonIcon
+                className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-cloud-100"
+                style={{ width: "auto", height: "auto" }}
+              >
+                <Download />
+              </ButtonIcon>
+            </a>
+          </div>
         </div>
       </div>
     </div>
