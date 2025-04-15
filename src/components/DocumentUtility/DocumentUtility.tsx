@@ -4,10 +4,11 @@ import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
 import { Download, Printer } from "react-feather";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
-import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData } from "../../utils/shared";
+import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
 interface DocumentUtilityProps {
   document: WrappedOrSignedOpenAttestationDocument;
   onPrint: () => void;
+  selectedTemplate: string;
 }
 
 interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
@@ -19,7 +20,7 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
   };
 }
 
-export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint }) => {
+export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint, selectedTemplate }) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
   const documentWithMetadata = getOpenAttestationData(document) as DocumentWithAdditionalMetadata; // Extending document data to account for undefined metadata in OA schema
 
@@ -28,7 +29,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
     : documentWithMetadata;
   const fileName = name ?? "Untitled";
   const qrcodeUrl = links?.self?.href;
-
+  const templateURL = getTemplateUrl(document);
   const imageSettings: ImageSettings = {
     src: `/static/images/logo-qrcode.png`,
     height: 50,
@@ -38,8 +39,24 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
 
   return (
     <div className="container no-print bg-white pb-4">
-      <div className="flex flex-wrap">
-        <div className="w-auto ml-auto">
+      <div className="flex flex-wrap items-start">
+        {selectedTemplate !== "default-template" && (
+          <div className="w-1/2  pr-2">
+            <h4 className="text-base font-semibold mb-1">Rendered View:</h4>
+            <h6 className="text-sm break-words">
+              {selectedTemplate.trim().toUpperCase()} rendered from{" "}
+              <a href={templateURL} className="text-blue-500 underline break-all">
+                {templateURL}
+              </a>
+            </h6>
+          </div>
+        )}
+
+        <div
+          className={`${
+            selectedTemplate !== "default-template" ? "w-1/2" : "w-full"
+          } flex justify-end items-start space-x-3 mt-4 sm:mt-0`}
+        >
           {qrcodeUrl && (
             <div
               className="relative"
@@ -73,32 +90,32 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
               </div>
             </div>
           )}
-        </div>
-        <div className="w-auto ml-3">
-          <ButtonIcon
-            className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-cloud-100"
-            aria-label="document-utility-print-button"
-            onClick={() => onPrint()}
-            style={{ width: "auto", height: "auto" }}
-          >
-            <Printer />
-          </ButtonIcon>
-        </div>
-        <div className="w-auto ml-3">
-          <a
-            download={`${fileName}.tt`}
-            target="_black"
-            href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
-            role="button"
-            aria-label="document-utility-download"
-          >
+          <div className="w-auto ml-3">
             <ButtonIcon
               className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-cloud-100"
+              aria-label="document-utility-print-button"
+              onClick={() => onPrint()}
               style={{ width: "auto", height: "auto" }}
             >
-              <Download />
+              <Printer />
             </ButtonIcon>
-          </a>
+          </div>
+          <div className="w-auto ml-3">
+            <a
+              download={`${fileName}.tt`}
+              target="_black"
+              href={`data:text/json;,${encodeURIComponent(JSON.stringify(document, null, 2))}`}
+              role="button"
+              aria-label="document-utility-download"
+            >
+              <ButtonIcon
+                className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-cloud-100"
+                style={{ width: "auto", height: "auto" }}
+              >
+                <Download />
+              </ButtonIcon>
+            </a>
+          </div>
         </div>
       </div>
     </div>
