@@ -21,7 +21,7 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
   return (
     <div className="container">
       <div className="flex overflow-x-auto items-end">
-        {templates.map(({ id }, key) => (
+        {templates.map(({ id, label }) => (
           <div
             className={`px-3 py-2 mr-2 multi-tab border-t border-r border-l rounded-t-xl border-cloud-100 ${
               id === selectedTemplate ? "bg-white text-cloud-800" : "bg-cloud-100 text-cloud-300"
@@ -35,7 +35,7 @@ export const MultiTabs: FunctionComponent<MultiTabsProps> = ({
                 setSelectedTemplate(id);
               }}
             >
-              <span>Document {key + 1}</span>
+              <span>{label}</span>
             </div>
           </div>
         ))}
