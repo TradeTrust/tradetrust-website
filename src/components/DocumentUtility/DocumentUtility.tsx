@@ -44,12 +44,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
           <div className="w-1/2  pr-2">
             <h4 className="text-base font-semibold mb-1">Rendered View:</h4>
             <h6 className="text-sm break-words">
-              {selectedTemplate
-                .replace(/-template/i, "")
-                .trim()
-                .toUpperCase()
-                .replace(/\s+/g, "_")}{" "}
-              rendered from{" "}
+              {selectedTemplate.trim().toUpperCase()} rendered from{" "}
               <a href={templateURL} className="text-blue-500 underline break-all">
                 {templateURL}
               </a>
@@ -57,7 +52,11 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
           </div>
         )}
 
-        <div className="w-1/2  flex justify-end items-start space-x-3 mt-4 sm:mt-0">
+        <div
+          className={`${
+            selectedTemplate !== "default-template" ? "w-1/2" : "w-full"
+          } flex justify-end items-start space-x-3 mt-4 sm:mt-0`}
+        >
           {qrcodeUrl && (
             <div
               className="relative"

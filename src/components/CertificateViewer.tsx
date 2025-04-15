@@ -121,8 +121,6 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
       childRef.current.print();
     }
   };
-  console.log("templates", templates);
-
   const renderedEndorsementChain = (
     <div className="bg-cerulean-50 no-print">
       <ObfuscatedMessage document={document} />
