@@ -30,7 +30,35 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
         <h3>Document Preview</h3>
       </div>
 
-      <div className="flex items-center flex-row px-6 w-full">
+      <div className="flex flex-col sm:flex-row items-center px-6 w-full gap-2">
+        <div id="name" className="w-full sm:w-1/2">
+          <p>{form.name}</p>
+        </div>
+
+        <div className="w-full sm:w-1/2 flex items-center justify-between">
+          <div className="flex items-center justify-between w-5/6 gap-1">
+            <p className="cursor-pointer hover:font-bold mb-0.3" onClick={() => setZoom(Math.max(5, zoom - 5))}>
+              -
+            </p>
+
+            <input
+              type="range"
+              min="5"
+              max="100"
+              value={zoom}
+              onChange={(e) => setZoom(parseInt(e.target.value))}
+              className="h-[3px] w-11/12 range-custom cursor-pointer"
+            />
+
+            <p className="cursor-pointer hover:font-bold mb-0.3" onClick={() => setZoom(Math.min(100, zoom + 5))}>
+              +
+            </p>
+          </div>
+          <p className="text-sm px-2 w-1/6">{zoom}%</p>
+        </div>
+      </div>
+
+      {/* <div className="flex items-center flex-row px-6 w-full">
         <div className="w-1/2">
           <p>{form.name}</p>
         </div>
@@ -56,12 +84,12 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
           </div>
           <p className="text-sm px-2">{zoom}%</p>
         </div>
-      </div>
+      </div> */}
 
       <div id="body" className="px-6 py-4">
         <div
           id="scrollbar"
-          className="w-[592px] mx-auto p-2 h-[444px] overflow-auto bg-cloud-100 rounded-[12px] border border-transparent"
+          className="mx-auto h-[444px] overflow-auto bg-cloud-100 rounded-[12px] border border-transparent"
         >
           {/* <div id="img-container" className="p-2"> */}
           <div
@@ -72,7 +100,7 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
               transformOrigin: "top left",
             }}
           >
-            <img src={form.img} alt="Expand" className="rounded-[12px]" />
+            <img src={form.img} alt="Expand" className="rounded-[12px] p-2" />
             {/* </div> */}
           </div>
         </div>
