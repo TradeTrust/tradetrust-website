@@ -20,13 +20,6 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
 }) => {
   const [zoom, setZoom] = useState(50);
 
-  useEffect(() => {
-    const range = document.querySelector(".range-custom") as HTMLInputElement;
-    if (range) {
-      range.style.setProperty("--val", `${zoom}%`);
-    }
-  }, [zoom]);
-
   return (
     <div
       data-testid="connect-metamask-overlay"
