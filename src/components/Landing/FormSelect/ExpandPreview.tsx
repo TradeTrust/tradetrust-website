@@ -1,5 +1,5 @@
 import { Button } from "@tradetrust-tt/tradetrust-ui-components";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 
 interface ConnectMetamaskOverlayProps {
   handleCreateDocument: () => void;
