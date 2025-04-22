@@ -2,7 +2,8 @@ import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useEffect, useState } from "react";
 
 interface ConnectMetamaskOverlayProps {
-  handleConnection: () => void;
+  handleCreateDocument: () => void;
+  closeOverlay: () => void;
   form: any;
 }
 
@@ -12,7 +13,11 @@ export const RejectActionTitle = {
   OWNERSHIP_AND_HOLDERSHIP: "Ownership & Holdership",
 };
 
-export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({ handleConnection, form }) => {
+export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
+  handleCreateDocument,
+  closeOverlay,
+  form,
+}) => {
   const [zoom, setZoom] = useState(50);
 
   useEffect(() => {
@@ -39,7 +44,7 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({ 
 
         <div className="w-1/2 flex items-center justify-between">
           <div className="flex items-center justify-between w-full gap-1 px-2">
-            <p className="cursor-pointer hover:font-bold mb-1" onClick={() => setZoom(Math.max(5, zoom - 5))}>
+            <p className="cursor-pointer hover:font-bold mb-0.5" onClick={() => setZoom(Math.max(5, zoom - 5))}>
               -
             </p>
 
@@ -52,7 +57,7 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({ 
               className="h-[3px] w-11/12 range-custom cursor-pointer"
             />
 
-            <p className="cursor-pointer hover:font-bold mb-1" onClick={() => setZoom(Math.min(100, zoom + 5))}>
+            <p className="cursor-pointer hover:font-bold mb-0.5" onClick={() => setZoom(Math.min(100, zoom + 5))}>
               +
             </p>
           </div>
@@ -84,14 +89,14 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({ 
         <div className="flex flex-col xs:flex-row items-center justify-between gap-2 text-center text-xl font-bold leading-6 min-[596px]:flex-nowrap">
           <Button
             className="bg-white text-cerulean-500 hover:bg-cloud-100 px-[18px] py-3 w-full xs:w-auto flex-1 min-h-12 rounded-xl p-3"
-            onClick={() => handleConnection()}
+            onClick={() => closeOverlay()}
             data-testid={`overlayHandleConnectionBtn`}
           >
             Dismiss
           </Button>
           <Button
             className="bg-cerulean-500 text-white hover:bg-cerulean-800 px-[18px] py-3 w-full xs:w-auto flex-1 min-h-12 rounded-xl p-3"
-            onClick={() => console.log("this")}
+            onClick={() => handleCreateDocument()}
             data-testid={`overlayHandleDispatchBtn`}
           >
             Create Document

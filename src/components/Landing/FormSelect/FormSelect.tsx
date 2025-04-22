@@ -9,7 +9,7 @@ interface FormSelectProps {
 }
 
 export const FormSelect: FunctionComponent<FormSelectProps> = ({ form }) => {
-  const { showOverlay } = useContext(OverlayContext);
+  const { showOverlay, closeOverlay } = useContext(OverlayContext);
   return (
     <>
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md border border-gray-200 w-11/12 p-4">
@@ -22,7 +22,13 @@ export const FormSelect: FunctionComponent<FormSelectProps> = ({ form }) => {
         <div className="relative">
           <button
             onClick={() =>
-              showOverlay(<ExpandPreview handleConnection={() => console.log("handle connection")} form={form} />)
+              showOverlay(
+                <ExpandPreview
+                  handleCreateDocument={() => console.log("handle create document")}
+                  closeOverlay={closeOverlay}
+                  form={form}
+                />
+              )
             }
             className="absolute text-white mt-3 ml-3 z-10 flex items-center text-blue-600 hover:text-blue-800 font-medium bg-cloud-500 px-3 py-1 rounded-lg m-2 flex items-center justify-center"
           >
