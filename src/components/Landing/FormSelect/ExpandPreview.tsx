@@ -18,7 +18,7 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
   closeOverlay,
   form,
 }) => {
-  const [zoom, setZoom] = useState(50);
+  const [zoom, setZoom] = useState(100);
 
   return (
     <div
@@ -43,8 +43,8 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
 
             <input
               type="range"
-              min="5"
-              max="100"
+              min="100"
+              max="200"
               value={zoom}
               onChange={(e) => setZoom(parseInt(e.target.value))}
               className="h-[3px] w-11/12 range-custom cursor-pointer"
@@ -58,50 +58,20 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
         </div>
       </div>
 
-      {/* <div className="flex items-center flex-row px-6 w-full">
-        <div className="w-1/2">
-          <p>{form.name}</p>
-        </div>
-
-        <div className="w-1/2 flex items-center justify-between">
-          <div className="flex items-center justify-between w-full gap-1 px-2">
-            <p className="cursor-pointer hover:font-bold mb-0.5" onClick={() => setZoom(Math.max(5, zoom - 5))}>
-              -
-            </p>
-
-            <input
-              type="range"
-              min="5"
-              max="100"
-              value={zoom}
-              onChange={(e) => setZoom(parseInt(e.target.value))}
-              className="h-[3px] w-11/12 range-custom cursor-pointer"
-            />
-
-            <p className="cursor-pointer hover:font-bold mb-0.5" onClick={() => setZoom(Math.min(100, zoom + 5))}>
-              +
-            </p>
-          </div>
-          <p className="text-sm px-2">{zoom}%</p>
-        </div>
-      </div> */}
-
       <div id="body" className="px-6 py-4">
         <div
           id="scrollbar"
           className="mx-auto h-[444px] overflow-auto bg-cloud-100 rounded-[12px] border border-transparent"
         >
-          {/* <div id="img-container" className="p-2"> */}
           <div
             className="rounded-[12px] "
             style={{
-              width: `${zoom * 2}%`,
-              height: `${zoom * 2}%`,
+              width: `${zoom}%`,
+              height: `${zoom}%`,
               transformOrigin: "top left",
             }}
           >
             <img src={form.img} alt="Expand" className="rounded-[12px] p-2" />
-            {/* </div> */}
           </div>
         </div>
       </div>
