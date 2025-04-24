@@ -1,8 +1,11 @@
 import React, { FunctionComponent } from "react";
-import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import { URLS } from "../../../constants";
+interface ViewActionErrorProps {
+  resetData: () => void;
+}
 
-export const ViewTokenRegistryMismatch: FunctionComponent = () => {
+export const ViewTokenRegistryMismatch: FunctionComponent<ViewActionErrorProps> = ({ resetData }) => {
   return (
     <div>
       <img
@@ -16,11 +19,33 @@ export const ViewTokenRegistryMismatch: FunctionComponent = () => {
         Please visit <span className="text-blue-500">{URLS.REF}</span> to verify older version of transferable
         documents.
       </span>
-      <h4 className="mt-4">Drop your TradeTrust Document to view its contents</h4>
-      <p className="my-6">Or</p>
-      <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800 mr-2 md:mr-0" size={ButtonSize.SM}>
-        Select Document
-      </Button>
+      <br />
+      <div className="flex flex-col xs:flex-row justify-center gap-2 mt-4">
+        <a
+          href={URLS.FAQ}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          className="w-full xs:w-72"
+        >
+          <Button className="w-full text-scarlet-500 border-scarlet-500 hover:bg-scarlet-100 hover:border-scarlet-400 px-10">
+            What Should I do?
+          </Button>
+        </a>
+
+        <Button
+          data-testid="try-another"
+          className="w-full xs:w-72 text-white bg-scarlet-500 border-scarlet-500 hover:bg-scarlet-400 hover:border-scarlet-400 px-10"
+          onClick={(e) => {
+            e.stopPropagation();
+            resetData();
+          }}
+        >
+          Try another document
+        </Button>
+      </div>
     </div>
   );
 };
