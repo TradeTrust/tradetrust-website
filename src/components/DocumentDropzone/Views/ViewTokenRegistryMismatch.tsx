@@ -21,18 +21,6 @@ export const ViewTokenRegistryMismatch: FunctionComponent = () => {
       <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800 mr-2 md:mr-0" size={ButtonSize.SM}>
         Select Document
       </Button>
-      {/* <hr className="border-t-2 border-gray-300 my-4" /> */}
-
-      {/* <div>
-        <TooltipIcon content="Please visit https://ref.tradetrust.io to verify older version of transferable documents.">
-          <Info className="text-orange-500" />
-        </TooltipIcon>
-        <span className="ml-1">
-          {" "}
-          Please visit <span className="text-blue-500">{URLS.REF}</span> to verify older version of transferable
-          documents.
-        </span>
-      </div> */}
     </div>
   );
 };
