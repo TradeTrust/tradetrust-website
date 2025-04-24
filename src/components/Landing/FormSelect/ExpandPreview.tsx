@@ -18,9 +18,9 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
   closeOverlay,
   form,
 }) => {
-  const max = 200;
-  const min = 100;
-  const [zoom, setZoom] = useState(min);
+  const MAX = 200;
+  const MIN = 100;
+  const [zoom, setZoom] = useState(MIN);
 
   return (
     <div
@@ -39,7 +39,7 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
 
         <div className="w-full sm:w-1/2 flex items-center justify-between">
           <div className="flex items-center justify-between w-5/6 gap-1">
-            <p className="cursor-pointer hover:font-bold mb-0.3" onClick={() => setZoom(Math.max(min, zoom - 5))}>
+            <p className="cursor-pointer hover:font-bold mb-0.3" onClick={() => setZoom(Math.max(MIN, zoom - 5))}>
               -
             </p>
 
@@ -52,7 +52,7 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
               className="h-[3px] w-11/12 range-custom cursor-pointer"
             />
 
-            <p className="cursor-pointer hover:font-bold mb-0.3" onClick={() => setZoom(Math.min(max, zoom + 5))}>
+            <p className="cursor-pointer hover:font-bold mb-0.3" onClick={() => setZoom(Math.min(MAX, zoom + 5))}>
               +
             </p>
           </div>
