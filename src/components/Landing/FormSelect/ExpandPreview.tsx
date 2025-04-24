@@ -45,8 +45,8 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
 
             <input
               type="range"
-              min="100"
-              max="200"
+              min={MIN}
+              max={MAX}
               value={zoom}
               onChange={(e) => setZoom(parseInt(e.target.value))}
               className="h-[3px] w-11/12 range-custom cursor-pointer"
