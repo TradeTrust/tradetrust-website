@@ -22,10 +22,13 @@ describe("Fetch Token Transfers", () => {
         "0x71D28767662cB233F887aD2Bb65d048d760bA694",
         amoyProvider
       );
+      const blockNo = 6000000;
       if (!tokenRegistry) throw new Error("Unable to connect to token registry: Test Failed");
       const tokenTransfers = await fetchTokenTransfers(
+        amoyProvider,
         tokenRegistry,
-        "0xe8b9fb84485cbf9dd59eabe1dcddf44d9e3ff820aedb7d02a138ef4a116f0ec9"
+        "0xe8b9fb84485cbf9dd59eabe1dcddf44d9e3ff820aedb7d02a138ef4a116f0ec9",
+        blockNo
       );
       expect(tokenTransfers).toEqual([
         {
