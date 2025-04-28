@@ -18,7 +18,7 @@ export interface ChainInfoObject {
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export const AvailableBlockChains = ["ETH", "MATIC", "XDC", "FREE"];
+export const AvailableBlockChains = ["ETH", "MATIC", "XDC", "FREE", "ASTRON"];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
@@ -41,6 +41,9 @@ export enum ChainId {
   // Stability
   Stability = 101010,
   StabilityTestnet = 20180427,
+
+  // Astron
+  AstronTestnet = 21002,
 }
 
 export const ChainInfo: ChainInfo = {
@@ -157,6 +160,20 @@ export const ChainInfo: ChainInfo = {
     nativeCurrency: {
       name: "FREE",
       symbol: "FREE",
+      decimals: 18,
+    },
+  },
+  [ChainId.AstronTestnet]: {
+    label: "Astron Testnet",
+    chainId: ChainId.AstronTestnet,
+    iconImage: "/static/images/networks/astron.png",
+    networkName: "astrontestnet",
+    networkLabel: "astron",
+    explorerUrl: "https://dev-astronscanl2.bitfactory.cn/",
+    rpcUrl: "https://dev-astronlayer2.bitfactory.cn/query/",
+    nativeCurrency: {
+      name: "ASTRON",
+      symbol: "ASTRON",
       decimals: 18,
     },
   },

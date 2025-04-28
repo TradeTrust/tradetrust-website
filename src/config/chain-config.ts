@@ -8,9 +8,16 @@ export const MAIN_NETWORKS = [
   ChainId.Polygon,
   ChainId.XDC,
   ChainId.Stability,
+  ChainId.AstronTestnet,
 ];
 
 /**
  * Supported networks in development environment
  */
-export const TEST_NETWORKS = [ChainId.Sepolia, ChainId.Amoy, ChainId.APOTHEM, ChainId.StabilityTestnet];
+export const TEST_NETWORKS = [
+  ChainId.Sepolia,
+  ChainId.Amoy,
+  ChainId.APOTHEM,
+  ChainId.StabilityTestnet,
+  ChainId.AstronTestnet,
+];
