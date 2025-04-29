@@ -1,7 +1,8 @@
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { OverlayContextProvider } from "../../common/contexts/OverlayContext";
+import { Overlay } from "../UI/Overlay";
 import { ButtonVideo } from "./ButtonVideo";
-import { OverlayContextProvider, Overlay } from "@tradetrust-tt/tradetrust-ui-components";
 
 const RenderWithOverlay = ({ children }: any) => {
   return (

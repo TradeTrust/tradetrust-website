@@ -21,7 +21,7 @@ export const ConnectMetamaskOverlay: FunctionComponent<ConnectMetamaskOverlayPro
     <div
       data-testid="connect-metamask-overlay"
       id="overlay"
-      className="font-gilroy bg-white w-full max-w-[640px] min-w-[308px] h-auto flex flex-col rounded-[12px] bg-white font-medium leading-5 tracking-[0px] text-neutral-600 z-20"
+      className="font-gilroy bg-white w-full max-w-[640px] min-w-[308px] h-auto flex flex-col rounded-xl bg-white font-medium leading-5 tracking-[0px] text-neutral-600 z-20"
     >
       <div id="header" className="flex flex-none items-center gap-4 min-[596px]:flex-nowrap p-6 pb-4">
         <div className="flex flex-shrink-0 items-center">

@@ -1,6 +1,7 @@
-import { Button, LoaderSpinner, OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
-import React, { FunctionComponent, useContext } from "react";
+import { Button, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
+import React, { FunctionComponent } from "react";
 import { X } from "react-feather";
+import { useOverlayContext } from "../../../common/contexts/OverlayContext";
 import { FormState } from "../../../constants/FormState";
 
 interface ActionManagementSkeletonProps {
@@ -25,7 +26,7 @@ export const ActionManagementSkeleton: FunctionComponent<ActionManagementSkeleto
   setRemarkValue,
 }) => {
   const isInitalized = actionState === FormState.INITIALIZED;
-  const { closeOverlay } = useContext(OverlayContext);
+  const { closeOverlay } = useOverlayContext();
 
   return (
     <div

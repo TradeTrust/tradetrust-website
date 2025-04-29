@@ -1,14 +1,15 @@
-import { OverlayContext, showDocumentTransferMessage } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useCallback, useContext, useEffect } from "react";
+import { OverlayContext } from "../../../common/contexts/OverlayContext";
 import { InitialAddress } from "../../../constants/chain-info";
 import { FormState } from "../../../constants/FormState";
+import { showDocumentTransferMessage } from "../../UI/Overlay/OverlayContent";
 import { RejectTransferHolderOverlay } from "../AssetManagementActionOverlay/RejectTransferHolderOverlay";
 import { RejectTransferOwnerHolderOverlay } from "../AssetManagementActionOverlay/RejectTransferOwnerHolderOverlay";
 import { RejectTransferOwnerOverlay } from "../AssetManagementActionOverlay/RejectTransferOwnerOverlay";
 import { AssetManagementActions } from "../AssetManagementActions";
+import { FooterActionButtons } from "./FooterActionButtons";
 import { ActionForm } from "./FormVariants/ActionForm";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
-import { FooterActionButtons } from "./FooterActionButtons";
 
 interface RejectTransferActions {
   rejectTransferOwnerHolder: (remark: string) => void;
