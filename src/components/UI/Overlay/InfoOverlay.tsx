@@ -1,6 +1,7 @@
-import { Overlay, OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
+import { OverlayContext } from "../../../common/contexts/OverlayContext";
 import React from "react";
 import { FunctionComponent, useContext } from "react";
+import { Overlay } from "../Overlay";
 
 export interface InfoOverlayProps {
   className?: string;
