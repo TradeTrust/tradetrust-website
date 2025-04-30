@@ -13,4 +13,10 @@ export const MAIN_NETWORKS = [
 /**
  * Supported networks in development environment
  */
-export const TEST_NETWORKS = [ChainId.Sepolia, ChainId.Amoy, ChainId.APOTHEM, ChainId.StabilityTestnet];
+export const TEST_NETWORKS = [
+  ChainId.Sepolia,
+  ChainId.Amoy,
+  ChainId.APOTHEM,
+  ChainId.StabilityTestnet,
+  ChainId.AstronTestnet,
+];
