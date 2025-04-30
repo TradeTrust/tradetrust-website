@@ -16,6 +16,7 @@ describe("StaticOverlay", () => {
     const container = render(
       <MemoryRouter>
         <OverlayContextProvider>
+          <Overlay />
           <InfoOverlay className={mockOverlayProps.className}>{mockOverlayProps.children}</InfoOverlay>
         </OverlayContextProvider>
       </MemoryRouter>
