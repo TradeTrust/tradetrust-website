@@ -25,14 +25,12 @@ const Setup: Record<DocumentSetupType, ForwardRefExoticComponent<DidWebSetupProp
 };
 
 export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types }) => {
-  const documentSetupStates = types.map(() => CreatorItemState.LOADING);
-  const refs = React.useRef<(HTMLDivElement | { onClose: () => void })[]>([]);
   const DocumentSetupStep = types.map((t) => {
     const SetupComponent = Setup[t];
-    return <SetupComponent key={t} state={documentSetupStates[t]} ref={refs[t]} />;
+    return <SetupComponent key={t} />;
   });
 
-  const { isOverlayVisible, closeOverlay } = useOverlayContext();
+  const { closeOverlay } = useOverlayContext();
   const { did, tokenRegistry } = useCreatorContext();
   const [documentSetupState, setDocumentSetupState] = React.useState<(typeof HeaderIconState)["LOADING"]>();
 
@@ -53,19 +51,11 @@ export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types }) 
     }
   }, [did, tokenRegistry, types]);
 
-  useEffect(() => {
-    if (!isOverlayVisible) {
-      refs.current.forEach((ref) => {
-        if (ref && "onClose" in ref) {
-          ref.onClose();
-        }
-      });
-    }
-  }, [isOverlayVisible]);
-
   return (
     <Model
+      data-testid="documentSetup"
       headerIconState={documentSetupState}
+      collapsible={false}
       title="Document Setup"
       footer={
         <>
@@ -90,8 +80,6 @@ export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types }) 
           </Button>
         </>
       }
-      data-testid="overlay-children"
-      collapsible={false}
     >
       {DocumentSetupStep}
     </Model>
