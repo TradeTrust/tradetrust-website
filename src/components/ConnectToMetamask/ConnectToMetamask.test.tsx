@@ -1,8 +1,8 @@
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
 import { useProviderContext } from "../../common/contexts/provider";
 import ConnectToMetamask from "./index";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
 
 // Mock ReactTooltip module
 jest.mock("react-tooltip", () => {
@@ -58,7 +58,14 @@ describe("ConnectToMetamask", () => {
   it("renders the 'Connect to Metamask' button when no account is connected", () => {
     render(
       <OverlayContext.Provider
-        value={{ ...mockOverlayContext, overlayContent: null, isOverlayVisible: false, setOverlayVisible: () => {} }}
+        value={{
+          ...mockOverlayContext,
+          overlayContent: null,
+          isOverlayVisible: false,
+          setOverlayVisible: () => {},
+          setCollapsible: () => {},
+          collapsible: false,
+        }}
       >
         <ConnectToMetamask />
       </OverlayContext.Provider>
@@ -77,7 +84,14 @@ describe("ConnectToMetamask", () => {
 
     render(
       <OverlayContext.Provider
-        value={{ ...mockOverlayContext, overlayContent: null, isOverlayVisible: false, setOverlayVisible: () => {} }}
+        value={{
+          ...mockOverlayContext,
+          overlayContent: null,
+          isOverlayVisible: false,
+          setOverlayVisible: () => {},
+          setCollapsible: () => {},
+          collapsible: false,
+        }}
       >
         <ConnectToMetamask />
       </OverlayContext.Provider>
@@ -91,7 +105,14 @@ describe("ConnectToMetamask", () => {
   it("calls upgradeToMetaMaskSigner when the 'Connect to Metamask' button is clicked", async () => {
     render(
       <OverlayContext.Provider
-        value={{ ...mockOverlayContext, overlayContent: null, isOverlayVisible: false, setOverlayVisible: () => {} }}
+        value={{
+          ...mockOverlayContext,
+          overlayContent: null,
+          isOverlayVisible: false,
+          setOverlayVisible: () => {},
+          setCollapsible: () => {},
+          collapsible: false,
+        }}
       >
         <ConnectToMetamask />
       </OverlayContext.Provider>
@@ -112,7 +133,14 @@ describe("ConnectToMetamask", () => {
 
     render(
       <OverlayContext.Provider
-        value={{ ...mockOverlayContext, overlayContent: null, isOverlayVisible: false, setOverlayVisible: () => {} }}
+        value={{
+          ...mockOverlayContext,
+          overlayContent: null,
+          isOverlayVisible: false,
+          setOverlayVisible: () => {},
+          setCollapsible: () => {},
+          collapsible: false,
+        }}
       >
         <ConnectToMetamask />
       </OverlayContext.Provider>
@@ -145,7 +173,14 @@ describe("ConnectToMetamask", () => {
 
     render(
       <OverlayContext.Provider
-        value={{ ...mockOverlayContext, overlayContent: null, isOverlayVisible: false, setOverlayVisible: () => {} }}
+        value={{
+          ...mockOverlayContext,
+          overlayContent: null,
+          isOverlayVisible: false,
+          setOverlayVisible: () => {},
+          setCollapsible: () => {},
+          collapsible: false,
+        }}
       >
         <ConnectToMetamask />
       </OverlayContext.Provider>
@@ -175,7 +210,14 @@ describe("ConnectToMetamask", () => {
 
     render(
       <OverlayContext.Provider
-        value={{ ...mockOverlayContext, overlayContent: null, isOverlayVisible: false, setOverlayVisible: () => {} }}
+        value={{
+          ...mockOverlayContext,
+          overlayContent: null,
+          isOverlayVisible: false,
+          setOverlayVisible: () => {},
+          setCollapsible: () => {},
+          collapsible: false,
+        }}
       >
         <ConnectToMetamask />
       </OverlayContext.Provider>

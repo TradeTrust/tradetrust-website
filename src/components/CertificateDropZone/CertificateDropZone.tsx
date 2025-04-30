@@ -1,27 +1,26 @@
+import { errorMessages, isValid } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
+import { useProviderContext } from "../../common/contexts/provider";
+import { getDropzoneBoxUi } from "../../common/utils/getDropzoneBoxUi";
+import { ChainId } from "../../constants/chain-info";
 import { RootState } from "../../reducers";
 import {
-  updateCertificate,
   resetCertificateState,
   states,
-  verifyingCertificateFailure,
-  verifyingCertificateCompleted,
+  updateCertificate,
   updateFilename,
+  verifyingCertificateCompleted,
+  verifyingCertificateFailure,
 } from "../../reducers/certificate";
-import { getDropzoneBoxUi } from "../../common/utils/getDropzoneBoxUi";
-import { View, ViewVerificationError, ViewActionError, ViewVerificationPending } from "../DocumentDropzone/Views";
-import { isValid } from "@trustvc/trustvc";
-import { useProviderContext } from "../../common/contexts/provider";
 import { getChainId } from "../../utils/shared";
-import { errorMessages } from "@trustvc/trustvc";
-import { useNetworkSelect } from "./../../common/hooks/useNetworkSelect";
+import { View, ViewActionError, ViewVerificationError, ViewVerificationPending } from "../DocumentDropzone/Views";
 import { ViewTokenRegistryMismatch } from "../DocumentDropzone/Views/ViewTokenRegistryMismatch";
-import { LoadDemoCertificate } from "./LoadDemoCertificate";
+import { useNetworkSelect } from "./../../common/hooks/useNetworkSelect";
 import { ConnectMetamaskOverlay } from "./ConnectMetamaskOverlay";
-import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
-import { ChainId } from "../../constants/chain-info";
+import { LoadDemoCertificate } from "./LoadDemoCertificate";
 
 const { TYPES } = errorMessages;
 

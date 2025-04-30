@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useState, useEffect, useCallback } from "react";
-import { OverlayContent } from "@tradetrust-tt/tradetrust-ui-components";
-import { CostData } from "./types";
-import { currentDateStr } from "../../utils";
-import { REFRESH_RATE } from "../../constants/cost-estimation";
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useFetchGasPrice } from "../../common/hooks/useFetchGasPrice";
+import { REFRESH_RATE } from "../../constants/cost-estimation";
+import { currentDateStr } from "../../utils";
 import { FiatLabel } from "../FiatLabel";
+import { OverlayContent } from "../UI/Overlay/OverlayContent";
+import { CostData } from "./types";
 
 interface CostModalProps {
   costData: CostData;

@@ -1,6 +1,6 @@
 import { Dropdown, DropdownItem, DropdownProps, IconError } from "@tradetrust-tt/tradetrust-ui-components";
 import { isTransferableRecord } from "@trustvc/trustvc";
-import { isSignedDocument } from "@trustvc/w3c-vc";
+import { isSignedDocument } from "@trustvc/trustvc/w3c/vc";
 import React, { FunctionComponent } from "react";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { useNetworkSelect } from "../../../common/hooks/useNetworkSelect";

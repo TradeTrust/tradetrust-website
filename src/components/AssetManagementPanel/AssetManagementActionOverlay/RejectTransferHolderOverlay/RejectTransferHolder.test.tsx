@@ -1,8 +1,7 @@
-import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
-
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { act } from "react-dom/test-utils";
+import { OverlayContext } from "../../../../common/contexts/OverlayContext";
 import { FormState } from "../../../../constants/FormState";
 import { RejectTransferHolderOverlay } from "./RejectTransferHolder";
 
@@ -31,6 +30,8 @@ describe("RejectTransferHolderOverlay", () => {
           isOverlayVisible: false,
           setOverlayVisible: () => {},
           closeOverlay: mockHandleDismissOverlay,
+          setCollapsible: () => {},
+          collapsible: false,
         }}
       >
         <RejectTransferHolderOverlay

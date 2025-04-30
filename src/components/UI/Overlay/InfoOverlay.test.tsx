@@ -4,6 +4,7 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { OverlayContextProvider } from "../../../common/contexts/OverlayContext";
 import { InfoOverlay, InfoOverlayProps } from "./InfoOverlay";
+import { Overlay } from "./Overlay";
 
 const mockOverlayProps: InfoOverlayProps = {
   children: <Textual title="Network Selector">Experimental Text</Textual>,
@@ -15,6 +16,7 @@ describe("StaticOverlay", () => {
     const container = render(
       <MemoryRouter>
         <OverlayContextProvider>
+          <Overlay />
           <InfoOverlay className={mockOverlayProps.className}>{mockOverlayProps.children}</InfoOverlay>
         </OverlayContextProvider>
       </MemoryRouter>
@@ -29,6 +31,7 @@ describe("StaticOverlay", () => {
     const container = render(
       <MemoryRouter>
         <OverlayContextProvider>
+          <Overlay />
           <InfoOverlay className={mockOverlayProps.className}>{mockOverlayProps.children}</InfoOverlay>
         </OverlayContextProvider>
       </MemoryRouter>

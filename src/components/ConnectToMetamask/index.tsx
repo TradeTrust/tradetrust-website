@@ -1,8 +1,9 @@
-import { Button, OverlayContext, showDocumentTransferMessage } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useContext, useEffect, useRef, useState } from "react";
-
 import ReactTooltip from "react-tooltip";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { useProviderContext } from "../../common/contexts/provider";
+import { showDocumentTransferMessage } from "../UI/Overlay/OverlayContent";
 
 const ConnectToMetamask = ({ className }: { className?: string }): React.ReactElement => {
   const { showOverlay } = useContext(OverlayContext);

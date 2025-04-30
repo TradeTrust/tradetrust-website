@@ -1,17 +1,18 @@
-import React, { FunctionComponent, useContext, useCallback } from "react";
-import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
+import React, { FunctionComponent, useCallback, useContext } from "react";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { useFetchGasPrice } from "../../common/hooks/useFetchGasPrice";
-import { CostData, PriceTable } from "./types";
-import { CostModal } from "./CostModal";
-import { GWEI_FACTOR, REFRESH_RATE } from "../../constants/cost-estimation";
-import {
-  TRANSFER_OWNERSHIP_GAS,
-  TRANSFER_HOLDERSHIP_GAS,
-  ISSUE_DOC_GAS,
-  BURN_DOC_GAS,
-  SURRENDER_DOC_GAS,
-} from "../../constants/cost-estimation";
 import { URLS } from "../../constants";
+import {
+  BURN_DOC_GAS,
+  GWEI_FACTOR,
+  ISSUE_DOC_GAS,
+  REFRESH_RATE,
+  SURRENDER_DOC_GAS,
+  TRANSFER_HOLDERSHIP_GAS,
+  TRANSFER_OWNERSHIP_GAS,
+} from "../../constants/cost-estimation";
+import { CostModal } from "./CostModal";
+import { CostData, PriceTable } from "./types";
 
 export const CostOperation: FunctionComponent = () => {
   const { price: ePrice, gwei: eGwei } = useFetchGasPrice("ethereum", REFRESH_RATE);

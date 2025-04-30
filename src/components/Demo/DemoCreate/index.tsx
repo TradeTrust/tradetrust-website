@@ -1,19 +1,18 @@
+import { Location } from "history";
 import React, { FunctionComponent, useContext, useState } from "react";
 import { ReactNode } from "react-markdown";
-import { DemoCreateContext } from "./contexts/DemoCreateContext";
 import { Prompt } from "react-router";
 import { useHistory } from "react-router-dom";
-import { Location } from "history";
-import { useOverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
+import { useOverlayContext } from "../../../common/contexts/OverlayContext";
 import { gaEvent } from "../../../common/utils/analytics";
-
+import { GaAction, GaCategory } from "../../../types";
+import { ModalNavigateOut } from "../ModalNavigateOut";
+import { DemoCreateContext } from "./contexts/DemoCreateContext";
 import { DemoCreateForm } from "./DemoCreateForm";
 import { DemoCreateHeader } from "./DemoCreateHeader";
 import { DemoCreateIssue } from "./DemoCreateIssue";
 import { DemoCreateReview } from "./DemoCreateReview";
 import { DemoCreateStart } from "./DemoCreateStart";
-import { ModalNavigateOut } from "../ModalNavigateOut";
-import { GaAction, GaCategory } from "../../../types";
 
 export const DemoCreate: FunctionComponent = () => {
   const history = useHistory();
