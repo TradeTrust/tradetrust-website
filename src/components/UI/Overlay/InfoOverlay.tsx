@@ -1,7 +1,5 @@
+import React, { FunctionComponent, useContext } from "react";
 import { OverlayContext } from "../../../common/contexts/OverlayContext";
-import React from "react";
-import { FunctionComponent, useContext } from "react";
-import { Overlay } from "../Overlay";
 
 export interface InfoOverlayProps {
   className?: string;
@@ -13,7 +11,6 @@ export const InfoOverlay: FunctionComponent<InfoOverlayProps> = ({ className, ch
 
   return (
     <>
-      <Overlay />
       <div className={className} onClick={() => showOverlay(children)}>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
           <title>Network Selector Info</title>
