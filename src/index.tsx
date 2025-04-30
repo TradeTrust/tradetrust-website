@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import AppContainer from "./AppContainer";
 import { AuthProvider } from "./common/contexts/AuthenticationContext";
+import { CreatorContextProvider } from "./common/contexts/CreatorContext/CreatorContext";
 import { OverlayContextProvider } from "./common/contexts/OverlayContext";
 import { ProviderContextProvider } from "./common/contexts/provider";
 import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";
@@ -28,13 +29,15 @@ const App = () => {
         networks={getSupportedChainInfo()}
       >
         <TokenInformationContextProvider>
-          <AuthProvider>
-            <Provider store={store}>
-              <Router history={history}>
-                <AppContainer />
-              </Router>
-            </Provider>
-          </AuthProvider>
+          <CreatorContextProvider>
+            <AuthProvider>
+              <Provider store={store}>
+                <Router history={history}>
+                  <AppContainer />
+                </Router>
+              </Provider>
+            </AuthProvider>
+          </CreatorContextProvider>
         </TokenInformationContextProvider>
       </ProviderContextProvider>
     </OverlayContextProvider>

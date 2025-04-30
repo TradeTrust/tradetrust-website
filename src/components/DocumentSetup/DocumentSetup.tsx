@@ -1,0 +1,99 @@
+import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
+import React, { ForwardRefExoticComponent, FunctionComponent, useEffect } from "react";
+import { CreatorItemState, useCreatorContext } from "../../common/contexts/CreatorContext";
+import { useOverlayContext } from "../../common/contexts/OverlayContext";
+import { HeaderIconState, Model } from "../UI/Overlay/OverlayContent/Model";
+import { DidWebSetup, DidWebSetupProps } from "./SetupItem/DidWebSetup";
+import { TokenRegistrySetup, TokenRegistrySetupProps } from "./SetupItem/TokenRegistrySetup";
+
+export enum DocumentSetupType {
+  DID_WEB,
+  TOKEN_REGISTRY,
+  // BITSTRING_STATUSLIST,
+}
+
+export interface DocumentSetupProps {
+  types: DocumentSetupType[];
+}
+
+const Setup: Record<DocumentSetupType, ForwardRefExoticComponent<DidWebSetupProps | TokenRegistrySetupProps>> = {
+  [DocumentSetupType.DID_WEB]: DidWebSetup,
+  [DocumentSetupType.TOKEN_REGISTRY]: TokenRegistrySetup,
+  // [DocumentSetupType.BITSTRING_STATUSLIST]: () => {
+  //   throw new Error("Function not implemented.");
+  // },
+};
+
+export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types }) => {
+  const documentSetupStates = types.map(() => CreatorItemState.LOADING);
+  const refs = React.useRef<(HTMLDivElement | { onClose: () => void })[]>([]);
+  const DocumentSetupStep = types.map((t) => {
+    const SetupComponent = Setup[t];
+    return <SetupComponent key={t} state={documentSetupStates[t]} ref={refs[t]} />;
+  });
+
+  const { isOverlayVisible, closeOverlay } = useOverlayContext();
+  const { did, tokenRegistry } = useCreatorContext();
+  const [documentSetupState, setDocumentSetupState] = React.useState<(typeof HeaderIconState)["LOADING"]>();
+
+  useEffect(() => {
+    const documentSetupContexts = [did, tokenRegistry];
+    const isLoading = types.some((t) => documentSetupContexts[t]?.state === CreatorItemState.LOADING);
+    const isError = types.some((t) => documentSetupContexts[t]?.state === CreatorItemState.ERROR);
+    const isSuccess = types.every((t) => documentSetupContexts[t]?.state === CreatorItemState.SUCCESS);
+
+    if (isLoading) {
+      setDocumentSetupState(HeaderIconState.LOADING);
+    } else if (isError) {
+      setDocumentSetupState(HeaderIconState.ERROR);
+    } else if (isSuccess) {
+      setDocumentSetupState(HeaderIconState.SUCCESS);
+    } else {
+      setDocumentSetupState(HeaderIconState.LOADING);
+    }
+  }, [did, tokenRegistry, types]);
+
+  useEffect(() => {
+    if (!isOverlayVisible) {
+      refs.current.forEach((ref) => {
+        if (ref && "onClose" in ref) {
+          ref.onClose();
+        }
+      });
+    }
+  }, [isOverlayVisible]);
+
+  return (
+    <Model
+      headerIconState={documentSetupState}
+      title="Document Setup"
+      footer={
+        <>
+          <Button
+            className="flex-1 bg-white text-cerulean-500 hover:bg-cloud-100 w-full xs:w-auto flex-1 h-12"
+            size={ButtonSize.LG}
+            onClick={() => closeOverlay()}
+            data-testid={`documentSetupCancel`}
+          >
+            Cancel
+          </Button>
+          <Button
+            className={`flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800 w-full xs:w-auto flex-1 h-12 disabled:cursor-not-allowed`}
+            size={ButtonSize.LG}
+            disabled={documentSetupState !== HeaderIconState.SUCCESS}
+            onClick={() => {
+              console.log("Continue");
+            }}
+            data-testid={`documentSetupContinue`}
+          >
+            Continue
+          </Button>
+        </>
+      }
+      data-testid="overlay-children"
+      collapsible={false}
+    >
+      {DocumentSetupStep}
+    </Model>
+  );
+};
