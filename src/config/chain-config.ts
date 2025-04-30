@@ -8,7 +8,6 @@ export const MAIN_NETWORKS = [
   ChainId.Polygon,
   ChainId.XDC,
   ChainId.Stability,
-  ChainId.AstronTestnet,
 ];
 
 /**
