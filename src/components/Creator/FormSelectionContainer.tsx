@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { FormSelection } from "./FormSelection";
+import { FormTypes } from "./types";
 
 const forms = [
   {
@@ -28,15 +29,10 @@ const forms = [
     img: "./static/creator/invoice.png",
   },
 ];
-const formTypes = ["Transferable", "Non-Transferable"];
+export const formTypes: FormTypes[] = ["Transferable", "Non-Transferable"];
 export const FormSelectionContainer: FunctionComponent = () => {
   return (
     <>
-      <div>
-        <h1 data-testid="form-selection-title" className="p-8">
-          Create Document
-        </h1>
-      </div>
       <FormSelection forms={forms} formTypes={formTypes} />
     </>
   );

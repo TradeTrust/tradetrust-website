@@ -237,6 +237,11 @@
       display: none;
     }
   }
+
+  .break-words {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
 }
 
 @keyframes pulse {
