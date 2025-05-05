@@ -29,7 +29,7 @@ export type OpenAttestationAttachment = v2.Attachment;
 export const getOpenAttestationData = (
   wrappedDocument: WrappedDocument<OpenAttestationDocument>
 ): OpenAttestationDocument => {
-  if (isSignedDocument(wrappedDocument)) {
+  if (isSignedDocument(wrappedDocument) || vc.isRawDocument(wrappedDocument)) {
     return wrappedDocument as any;
   }
   return getDocumentData(wrappedDocument);
@@ -49,6 +49,27 @@ export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocume
   //   return rawDocument.renderMethod?.url;
   // }
 };
+export const isV2Document = (document: any): document is v2.OpenAttestationDocument => {
+  return !!document.$template;
+};
+
+export const isV3Document = (document: any): document is v3.OpenAttestationDocument => {
+  return !!document["@context"] && !!document["openAttestationMetadata"];
+};
+export const getTemplateUrlFromUnsignedDocument = (
+  rawDocument: WrappedOrSignedOpenAttestationDocument
+): string | undefined => {
+  if (isV2Document(rawDocument) && typeof rawDocument.$template === "object") {
+    return rawDocument.$template.name;
+  }
+  if (isV3Document(rawDocument) && rawDocument.openAttestationMetadata.template) {
+    return rawDocument.openAttestationMetadata.template.name;
+  }
+  if (vc.isRawDocument(rawDocument)) {
+    return [rawDocument.renderMethod]?.flat()?.[0]?.id;
+  }
+  return "";
+}; // complete this function
 
 export const getKeyId = (wrappedDocument: WrappedDocument<OpenAttestationDocument>): string | undefined => {
   return getOpenAttestationData(wrappedDocument)?.id;
