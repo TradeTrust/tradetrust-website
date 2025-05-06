@@ -13,7 +13,6 @@ import { ToolTip } from "../../UI/ToolTip";
 import { StyledDropZone } from "../../UI/StyledDropZone";
 import { validateData, getDataToValidate } from "../../../common/utils/dataHelpers";
 import { FormErrors } from "./../../../types";
-import { betterAjvErrors } from "@apideck/better-ajv-errors";
 
 const { stack } = getLogger("DataFileButton");
 
@@ -77,8 +76,7 @@ export const DataFileButton: FunctionComponent<DataFileButton> = ({ onDataFile, 
       const { isValid, ajvErrors } = validateData(schema, dataToValidate);
 
       if (!isValid) {
-        const betterErrors = betterAjvErrors({ schema, data: dataToValidate, errors: ajvErrors });
-        setFormErrors(betterErrors);
+        setFormErrors(ajvErrors);
         return;
       }
 

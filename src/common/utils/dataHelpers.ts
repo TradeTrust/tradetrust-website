@@ -1,7 +1,8 @@
-import Ajv, { ErrorObject } from "ajv";
+import Ajv from "ajv";
 import { saveAs } from "file-saver";
 import converter, { csv2jsonAsync } from "json-2-csv";
 import { JsonSchema } from "json-schema-library";
+import { FormErrors } from "../../types";
 
 export function readFileAsJson<T>(file: File): Promise<T> {
   return new Promise((resolve, reject) => {
@@ -129,10 +130,7 @@ export const getDataToValidate: any = (data: any) => {
   }
 };
 
-export const validateData = (
-  schema: JsonSchema,
-  data: unknown
-): { isValid: boolean; ajvErrors: ErrorObject[] | null | undefined } => {
+export const validateData = (schema: JsonSchema, data: unknown): { isValid: boolean; ajvErrors: FormErrors } => {
   const ajv = new Ajv({ allErrors: true });
   const isValid = ajv.validate(schema, data);
 

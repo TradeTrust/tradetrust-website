@@ -1,7 +1,7 @@
-import { ValidationError } from "@apideck/better-ajv-errors";
 import { HostActions } from "@tradetrust-tt/decentralized-renderer-react-components";
-import { Accept } from "react-dropzone";
 import { ChainId } from "./../constants/chain-info";
+import { ErrorObject } from "ajv";
+import { Accept } from "react-dropzone";
 
 export interface TemplateProps {
   id: string;
@@ -42,7 +42,7 @@ export interface ActionPayload {
 
 export type ActionType = "DOCUMENT";
 
-export type FormErrors = ValidationError[] | null | undefined;
+export type FormErrors = ErrorObject[] | null | undefined;
 
 type ProcessedFilesV2 = {
   data: string;

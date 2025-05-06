@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
 import { Redirect, useHistory } from "react-router";
-import { betterAjvErrors } from "@apideck/better-ajv-errors";
 import { Card } from "../../UI/Card";
 import { DynamicForm } from "../DynamicForm";
 import { DynamicFormHeader } from "../DynamicFormHeader";
@@ -28,7 +27,8 @@ export const DynamicFormLayout: FunctionComponent = () => {
 
   if (!currentForm) return <Redirect to="/creator" />;
   if (!currentFormTemplate) return <Redirect to="/creator" />;
-  if (isSubmitted) return <Redirect to="/forms-preview" />;
+  if (isSubmitted) {
+  }
 
   const { schema: formSchema, uiSchema, fileName } = currentFormTemplate;
   const attachmentAccepted = !!currentFormTemplate.attachments?.allow;
@@ -37,23 +37,12 @@ export const DynamicFormLayout: FunctionComponent = () => {
   const validateCurrentForm = (): boolean => {
     const dataToValidate = getDataToValidate(currentForm.data.formData);
     const { isValid, ajvErrors } = validateData(currentForm.data.schema, dataToValidate);
-
-    if (!isValid) {
-      const betterErrors = betterAjvErrors({
-        schema: currentForm.data.schema,
-        data: dataToValidate,
-        errors: ajvErrors,
-      });
-      setFormErrors(betterErrors);
-    }
+    setFormErrors(ajvErrors);
     return isValid;
   };
 
   const onFormSubmit = (): void => {
-    if (validateCurrentForm()) {
-      alert("Form is correct");
-      setIsSubmitted(true);
-    }
+    if (validateCurrentForm()) setIsSubmitted(true);
   };
 
   const onBackToFormSelection = (): void => {
