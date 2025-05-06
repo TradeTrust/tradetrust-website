@@ -5,7 +5,6 @@ import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import { loadDemoCertificate } from "../VerifyPageContent/helpers";
 import { reset, setActive } from "../../reducers/sample";
 import { ChainId } from "../../constants/chain-info";
-import { NavLink } from "react-router-dom";
 interface LoadDemoCertificateProps {
   currentChainId: ChainId | undefined;
 }
@@ -32,11 +31,11 @@ export const LoadDemoCertificate: FunctionComponent<LoadDemoCertificateProps> = 
         >
           Load Demo Tradetrust Document
         </Button>
-        <NavLink to="/creator" className="w-full xs:w-72">
+        <a className="w-full xs:w-72" href={"/creator"} target="_blank" rel="noopener noreferrer">
           <Button className="bg-white rounded-xl border-cloud-100 text-cerulean-500 shadow-none hover:bg-cloud-200 w-full">
             Create Tradetrust Document
           </Button>
-        </NavLink>
+        </a>
       </div>
     </div>
   );
