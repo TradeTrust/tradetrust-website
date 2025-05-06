@@ -59,12 +59,14 @@ export const isV3Document = (document: any): document is v3.OpenAttestationDocum
 export const getTemplateUrlFromUnsignedDocument = (
   rawDocument: WrappedOrSignedOpenAttestationDocument
 ): string | undefined => {
-  if (isV2Document(rawDocument) && typeof rawDocument.$template === "object") {
-    return rawDocument.$template.name;
-  }
   if (isV3Document(rawDocument) && rawDocument.openAttestationMetadata.template) {
     return rawDocument.openAttestationMetadata.template.name;
   }
+
+  if (isV2Document(rawDocument) && typeof rawDocument.$template === "object") {
+    return rawDocument.$template.name;
+  }
+
   if (vc.isRawDocument(rawDocument)) {
     return [(rawDocument as unknown as SignedVerifiableCredential).renderMethod]?.flat()?.[0]?.id;
   }
@@ -87,7 +89,7 @@ export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocume
         type: attachment.mimeType,
       };
     });
-  } else if (vc.isSignedDocument(rawDocument)) {
+  } else if (vc.isSignedDocument(rawDocument) || vc.isRawDocument(rawDocument)) {
     return [(rawDocument as SignedVerifiableCredential)?.credentialSubject]
       .flat()
       ?.map((s) => s.attachments)
