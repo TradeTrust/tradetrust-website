@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import ConnectToMetamask from "../../ConnectToMetamask";
-import { AssetInformationPanel } from "./assetInformationPanel";
+import { AssetInformationPanel } from "./AssetInformationPanel";
 import { ProgressPanel } from "./ProgressPanel";
 import { FormPreviewComponent } from "./FormPreviewComponent";
 
