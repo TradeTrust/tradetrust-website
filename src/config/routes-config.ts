@@ -3,6 +3,7 @@ export const paths: Record<string, string> = {
   viewer: "/viewer",
   creator: "/creator",
   form: "/creator/form",
+  formPreview: "/form-preview",
   settings: "/settings",
   addressResolver: "/settings/address-resolver",
   addressBook: "/settings/address-book",
