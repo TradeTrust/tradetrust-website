@@ -59,6 +59,10 @@ export const isV3Document = (document: any): document is v3.OpenAttestationDocum
 export const getTemplateUrlFromUnsignedDocument = (
   rawDocument: WrappedOrSignedOpenAttestationDocument
 ): string | undefined => {
+  if (vc.isRawDocument(rawDocument)) {
+    return [(rawDocument as unknown as SignedVerifiableCredential).renderMethod]?.flat()?.[0]?.id;
+  }
+
   if (isV3Document(rawDocument) && rawDocument.openAttestationMetadata.template) {
     return rawDocument.openAttestationMetadata.template.name;
   }
@@ -67,9 +71,6 @@ export const getTemplateUrlFromUnsignedDocument = (
     return rawDocument.$template.name;
   }
 
-  if (vc.isRawDocument(rawDocument)) {
-    return [(rawDocument as unknown as SignedVerifiableCredential).renderMethod]?.flat()?.[0]?.id;
-  }
   return "";
 };
 
