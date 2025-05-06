@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Page } from "../components/Layout/Page";
-import { FormPreview } from "../components/Creator/FormPreview";
+import { FormPreviewLanding } from "../components/Creator/FormPreview";
 
 const FormPreviewPage = (): React.ReactElement => {
   return (
@@ -18,9 +17,7 @@ const FormPreviewPage = (): React.ReactElement => {
         />
       </Helmet>
 
-      <Page title="Preview Document">
-        <FormPreview />
-      </Page>
+      <FormPreviewLanding />
     </>
   );
 };
