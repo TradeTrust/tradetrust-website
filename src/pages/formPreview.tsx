@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Page } from "../components/Layout/Page";
-import { FormPreview } from "../components/Landing/FormPreview";
+import { FormPreview } from "../components/Creator/FormPreview";
 
 const FormPreviewPage = (): React.ReactElement => {
   return (
