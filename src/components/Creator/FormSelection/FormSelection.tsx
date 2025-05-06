@@ -21,13 +21,14 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
     }));
   };
 
-  const onCreateDocumentClick = (type: FormTypes) => {
-    console.log("create document", type);
+  const onCreateDocumentClick = (type: FormTypes, formName: string) => {
     let overlay;
     if (type === "Transferable") {
-      overlay = <DocumentSetup types={[DocumentSetupType.DID_WEB, DocumentSetupType.TOKEN_REGISTRY]} />;
+      overlay = (
+        <DocumentSetup types={[DocumentSetupType.DID_WEB, DocumentSetupType.TOKEN_REGISTRY]} formName={formName} />
+      );
     } else if (type === "Non-Transferable") {
-      overlay = <DocumentSetup types={[DocumentSetupType.DID_WEB]} />;
+      overlay = <DocumentSetup types={[DocumentSetupType.DID_WEB]} formName={formName} />;
     }
 
     showOverlay(overlay);
@@ -40,8 +41,8 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
       </div>
       <hr className="m-4" />
       {formTypes.map((type: FormTypes, id: number) => (
-        <>
-          <div key={id}>
+        <React.Fragment key={`form-type-${type}-${id}`}>
+          <div>
             <div id="forms-header" className="flex items-center gap-4 py-4 px-3">
               <div
                 onClick={() => toggleExpand(id)}
@@ -69,7 +70,7 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
                       <FormSelect
                         id={`form-select-${index}`}
                         form={form}
-                        onCreateDocumentClick={() => onCreateDocumentClick(form.type)}
+                        onCreateDocumentClick={() => onCreateDocumentClick(form.type, form.name)}
                       />
                     </div>
                   ))}
@@ -77,7 +78,7 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
             </div>
           </div>
           {formTypes.length > id + 1 && <hr className="m-4" />}
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

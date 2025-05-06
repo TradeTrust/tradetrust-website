@@ -4,6 +4,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { DemoPage } from "./pages/demo";
 import { DemoCreatePage } from "./pages/demoCreate";
 import { DemoVerifyPage } from "./pages/demoVerify";
+import { DynamicFormPage } from "./pages/dynamicFormPage";
 import { PageNotFound } from "./pages/pageNotFound";
 import { PrivacyPolicyPage } from "./pages/privacyPolicy";
 import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
@@ -42,6 +43,7 @@ const routeComponents: RouteComponents = {
   verify: { exact: true, component: VerifyPage },
   viewer: { exact: true, render: renderViewer },
   creator: { exact: true, component: CreatorPage },
+  form: { exact: true, component: DynamicFormPage },
   settings: { exact: true, component: SettingsPage },
   addressResolver: { exact: true, component: SettingsAddressResolverPage },
   addressBook: { exact: true, component: SettingsAddressBookPage },

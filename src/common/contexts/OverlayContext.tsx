@@ -77,9 +77,15 @@ export interface useOverlayContextProps {
  * @returns The overlay context
  */
 export const useOverlayContext = (props?: useOverlayContextProps): OverlayContextProps => {
-  const { collapsible } = props ?? {};
   const context = useContext(OverlayContext);
+  const { collapsible } = props ?? {};
 
-  context.setCollapsible(collapsible ?? true);
+  useEffect(() => {
+    // Only update collapsible if it's defined
+    if (typeof collapsible !== "undefined") {
+      context.setCollapsible(collapsible);
+    }
+  }, [collapsible, context]);
+
   return context;
 };

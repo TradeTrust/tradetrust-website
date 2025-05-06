@@ -1,0 +1,155 @@
+{
+  "name": "Warehouse Receipt",
+  "type": "TRANSFERABLE_RECORD",
+  "defaults": {
+    "$template": {
+      "type": "EMBEDDED_RENDERER",
+      "name": "WAREHOUSE_RECEIPT",
+      "url": "https://generic-templates.tradetrust.io"
+    }
+  },
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "logo": {
+        "type": "string",
+        "title": "Company logo"
+      },
+      "spl": {
+        "type": "string",
+        "title": "SPL Number"
+      },
+      "warehouseReceiptDetails": {
+        "type": "object",
+        "title": "Warehouse Receipt Details",
+        "properties": {
+          "warehouseReceipt": {
+            "type": "string",
+            "title": "Warehouse Receipt Number"
+          },
+          "issuanceDate": {
+            "type": "string",
+            "title": "Issuance Date"
+          },
+          "ourRef": {
+            "type": "string",
+            "title": "Our Ref"
+          },
+          "rentStartDate": {
+            "type": "string",
+            "title": "Rent Start Date"
+          },
+          "yourRef": {
+            "type": "string",
+            "title": "Your Ref(s)"
+          },
+          "commodity": {
+            "type": "string",
+            "title": "Commodity"
+          },
+          "documentType": {
+            "type": "string",
+            "title": "Document Type"
+          },
+          "order": {
+            "type": "string",
+            "title": "TO THE ORDER OF"
+          },
+          "account": {
+            "type": "string",
+            "title": "FOR THE ACCOUNT OF"
+          }
+        }
+      },
+      "goods": {
+        "type": "array",
+        "title": "Goods",
+        "items": {
+          "type": "object",
+          "properties": {
+            "brand": {
+              "type": "string",
+              "title": "Brand / Shape"
+            },
+            "piles": {
+              "type": "string",
+              "title": "Piles"
+            },
+            "bundles": {
+              "type": "string",
+              "title": "Bundles"
+            },
+            "pieces": {
+              "type": "string",
+              "title": "Pieces"
+            },
+            "netWeight": {
+              "type": "string",
+              "title": "Net Weight (MT)"
+            },
+            "grossWeight": {
+              "type": "string",
+              "title": "Gross Weight (MT)"
+            }
+          }
+        }
+      },
+      "totalNetWeight": {
+        "type": "string",
+        "title": "Total Net Weight (MTs)"
+      },
+      "warehouseAddress": {
+        "type": "string",
+        "title": "Warehouse Address"
+      },
+      "markings": {
+        "type": "string",
+        "title": "Markings / Remarks"
+      },
+      "storageAndServicesTerms": {
+        "type": "string",
+        "title": "Storage And Services Terms"
+      },
+      "signature": {
+        "type": "string",
+        "title": "Issuer Signature"
+      },
+      "termsAndConditions": {
+        "type": "string",
+        "title": "Terms And Conditions"
+      }
+    }
+  },
+  "uiSchema": {
+    "logo": {
+      "ui:widget": "file",
+      "ui:options": {
+        "text": "Upload Company Logo",
+        "accept": ".png, .jpeg, .jpg"
+      }
+    },
+    "warehouseReceiptDetails": {
+      "issuanceDate": {
+        "ui:widget": "date"
+      },
+      "rentStartDate": {
+        "ui:widget": "date"
+      }
+    },
+    "storageAndServicesTerms": {
+      "ui:widget": "textarea"
+    },
+    "signature": {
+      "ui:widget": "file",
+      "ui:options": {
+        "text": "Upload Issuer Signature",
+        "accept": ".png, .jpeg, .jpg"
+      }
+    },
+    "termsAndConditions": {
+      "ui:widget": "textarea"
+    }
+  },
+  "extension": "tt"
+}

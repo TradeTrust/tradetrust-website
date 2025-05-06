@@ -1,0 +1,166 @@
+{
+  "name": "Electronic Promissory Note",
+  "type": "TRANSFERABLE_RECORD",
+  "defaults": {
+    "$template": {
+      "type": "EMBEDDED_RENDERER",
+      "name": "PROMISSORY_NOTE",
+      "url": "https://generic-templates.tradetrust.io"
+    }
+  },
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "logo": {
+        "type": "string",
+        "title": "Company logo"
+      },
+      "backgroundImage": {
+        "type": "string",
+        "title": "Background image"
+      },
+      "pNoteId": {
+        "type": "string",
+        "title": "Promissory Note Id"
+      },
+      "commitmentDate": {
+        "type": "string",
+        "title": "Commitment Date"
+      },
+      "drawerDetails": {
+        "type": "object",
+        "title": "Drawer Details",
+        "properties": {
+          "drawerCompanyName": {
+            "type": "string",
+            "title": "Company Name"
+          },
+          "drawerCompanyNo": {
+            "type": "string",
+            "title": "Company No"
+          },
+          "drawerJurisdiction": {
+            "type": "string",
+            "title": "Jurisdiction"
+          },
+          "drawerEmail": {
+            "type": "string",
+            "title": "Email"
+          },
+          "drawerWalletAddress": {
+            "type": "string",
+            "title": "Wallet Address"
+          },
+          "drawerPlaceOfIssue": {
+            "type": "string",
+            "title": "Place Of Issue"
+          }
+        }
+      },
+      "draweeDetails": {
+        "type": "object",
+        "title": "Drawee Details",
+        "properties": {
+          "draweeCompanyName": {
+            "type": "string",
+            "title": "Company Name"
+          },
+          "draweeCompanyNo": {
+            "type": "string",
+            "title": "Company No"
+          },
+          "draweeJurisdiction": {
+            "type": "string",
+            "title": "Jurisdiction"
+          },
+          "draweeEmail": {
+            "type": "string",
+            "title": "Email"
+          },
+          "draweeWalletAddress": {
+            "type": "string",
+            "title": "Wallet Address"
+          }
+        }
+      },
+      "paymentDetails": {
+        "type": "object",
+        "title": "Payment Details",
+        "properties": {
+          "dueDate": {
+            "type": "string",
+            "title": "Due Date"
+          },
+          "currency": {
+            "type": "string",
+            "title": "Currency"
+          },
+          "amount": {
+            "type": "string",
+            "title": "Amount"
+          },
+          "clause": {
+            "type": "string",
+            "title": "Clause"
+          }
+        }
+      },
+      "signerDetails": {
+        "type": "object",
+        "title": "Signer Details",
+        "properties": {
+          "signerName": {
+            "type": "string",
+            "title": "Name"
+          },
+          "signerPosition": {
+            "type": "string",
+            "title": "Position"
+          },
+          "signerEmail": {
+            "type": "string",
+            "title": "Email"
+          },
+          "signerTimeStamp": {
+            "type": "string",
+            "title": "Time Stamp"
+          }
+        }
+      }
+    }
+  },
+  "uiSchema": {
+    "logo": {
+      "ui:widget": "file",
+      "ui:options": {
+        "text": "Upload Company Logo",
+        "accept": ".png, .jpeg, .jpg"
+      }
+    },
+    "backgroundImage": {
+      "ui:widget": "file",
+      "ui:options": {
+        "text": "Upload Background Image",
+        "accept": ".png, .jpeg, .jpg"
+      }
+    },
+    "commitmentDate": {
+      "ui:widget": "date"
+    },
+    "paymentDetails": {
+      "dueDate": {
+        "ui:widget": "date"
+      }
+    },
+    "signerDetails": {
+      "signerTimeStamp": {
+        "ui:widget": "date"
+      }
+    },
+    "clause": {
+      "ui:widget": "textarea"
+    }
+  },
+  "extension": "tt"
+}
