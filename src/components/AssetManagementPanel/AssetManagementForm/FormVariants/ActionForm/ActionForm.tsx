@@ -1,18 +1,14 @@
-import {
-  Button,
-  LoaderSpinner,
-  MessageTitle,
-  OverlayContext,
-  showDocumentTransferMessage,
-} from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
+import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
 import { encryptRemark } from "../../../../../common/utils/chain-utils";
 import { FormState } from "../../../../../constants/FormState";
 import { isEthereumAddress } from "../../../../../utils";
+import { MessageTitle, showDocumentTransferMessage } from "../../../../UI/Overlay/OverlayContent";
 import { TagBordered } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
-import { EditableAssetTitle } from "./../EditableAssetTitle";
 import { FooterActionButtons } from "../../FooterActionButtons";
+import { EditableAssetTitle } from "./../EditableAssetTitle";
 
 // Base Props shared by all form variants
 export interface BaseActionFormProps {

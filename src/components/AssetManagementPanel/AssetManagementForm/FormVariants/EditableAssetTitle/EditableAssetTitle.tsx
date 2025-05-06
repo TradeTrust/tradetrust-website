@@ -1,11 +1,12 @@
-import { OverlayAddressBook, ButtonIcon, useOverlayContext, Input } from "@tradetrust-tt/tradetrust-ui-components";
+import { ButtonIcon, Input, OverlayAddressBook } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Book, Info } from "react-feather";
+import { useOverlayContext } from "../../../../../common/contexts/OverlayContext";
 import { NETWORK_NAME } from "../../../../../config";
 import { ExternalLinkEtherscanAddress } from "../../../../UI/ExternalLink";
+import { TooltipIcon } from "../../../../UI/SvgIcon";
 import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
-import { TooltipIcon } from "../../../../UI/SvgIcon";
 
 interface EditableAssetTitleProps {
   role: string;

@@ -1,9 +1,9 @@
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
+import { useOverlayContext } from "../../../common/contexts/OverlayContext";
 
-interface ConnectMetamaskOverlayProps {
+interface ExpandPreviewProps {
   handleCreateDocument: () => void;
-  closeOverlay: () => void;
   form: any;
 }
 
@@ -13,20 +13,18 @@ export const RejectActionTitle = {
   OWNERSHIP_AND_HOLDERSHIP: "Ownership & Holdership",
 };
 
-export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
-  handleCreateDocument,
-  closeOverlay,
-  form,
-}) => {
+export const ExpandPreview: FunctionComponent<ExpandPreviewProps> = ({ handleCreateDocument, form }) => {
   const MAX = 200;
   const MIN = 100;
   const [zoom, setZoom] = useState(MIN);
 
+  const { closeOverlay } = useOverlayContext({ collapsible: false });
+
   return (
     <div
-      data-testid="connect-metamask-overlay"
+      data-testid="expand-preview"
       id="overlay"
-      className="font-gilroy bg-white w-full max-w-[640px] min-w-[308px] h-auto flex flex-col rounded-[12px] font-medium leading-5 tracking-[0px] text-neutral-600 z-20"
+      className="bg-white w-full max-w-[640px] min-w-[308px] h-auto flex flex-col rounded-xl text-neutral-600 z-20"
     >
       <div id="header" className="flex flex-none items-center gap-4 min-[596px]:flex-nowrap p-6 pb-4">
         <h3>Document Preview</h3>
@@ -63,34 +61,36 @@ export const ExpandPreview: FunctionComponent<ConnectMetamaskOverlayProps> = ({
       <div id="body" className="px-6 py-4">
         <div
           id="scrollbar"
-          className="mx-auto h-[444px] overflow-auto bg-cloud-100 rounded-[12px] border border-transparent"
+          className="mx-auto h-[444px] overflow-auto bg-cloud-100 rounded-xl border border-transparent"
         >
           <div
-            className="rounded-[12px] "
+            className="rounded-xl "
             style={{
               width: `${zoom}%`,
               height: `${zoom}%`,
               transformOrigin: "top left",
             }}
           >
-            <img src={form.img} alt="Expand" className="rounded-[12px] p-2" />
+            <img src={form.img} alt="Expand" className="rounded-xl p-2" />
           </div>
         </div>
       </div>
 
-      <div id="footer" className="p-6 pt-4">
-        <div className="flex flex-col xs:flex-row items-center justify-between gap-2 text-center text-xl font-bold leading-6 min-[596px]:flex-nowrap">
+      <div id="footer" className="p-6 pt-0">
+        <div className="flex flex-col xs:flex-row items-center justify-between gap-2">
           <Button
-            className="bg-white text-cerulean-500 hover:bg-cloud-100 px-[18px] py-3 w-full xs:w-auto flex-1 min-h-12 rounded-xl p-3"
+            className="bg-white text-cerulean-500 hover:bg-cloud-100 w-full xs:w-auto flex-1 h-12"
+            size={ButtonSize.LG}
             onClick={() => closeOverlay()}
-            data-testid={`overlayHandleConnectionBtn`}
+            data-testid={`expandPreviewDismiss`}
           >
             Dismiss
           </Button>
           <Button
-            className="bg-cerulean-500 text-white hover:bg-cerulean-800 px-[18px] py-3 w-full xs:w-auto flex-1 min-h-12 rounded-xl p-3"
+            className="bg-cerulean-500 text-white hover:bg-cerulean-800 w-full xs:w-auto flex-1 h-12"
+            size={ButtonSize.LG}
             onClick={() => handleCreateDocument()}
-            data-testid={`overlayHandleDispatchBtn`}
+            data-testid={`expandPreviewCreateDocument`}
           >
             Create Document
           </Button>

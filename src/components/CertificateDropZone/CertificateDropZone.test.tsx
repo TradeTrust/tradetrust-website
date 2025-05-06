@@ -1,12 +1,12 @@
-import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
-import { CertificateDropZone } from "./CertificateDropZone";
+import React from "react";
 import { Provider } from "react-redux";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { configureStore } from "../../store";
-import { OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
-import { ConnectMetamaskOverlay } from "./ConnectMetamaskOverlay";
 import fileContent from "./../../test/fixture/local/w3c/v1_tr_er.json";
+import { CertificateDropZone } from "./CertificateDropZone";
+import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
+import { ConnectMetamaskOverlay } from "./ConnectMetamaskOverlay";
 jest.mock("qr-scanner");
 
 const store = configureStore();
@@ -33,6 +33,8 @@ const OverlayProvider: React.FC = ({ children }) => {
         overlayContent: null,
         isOverlayVisible: false,
         setOverlayVisible: () => {},
+        setCollapsible: () => {},
+        collapsible: false,
       }}
     >
       {children}

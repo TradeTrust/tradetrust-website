@@ -1,8 +1,10 @@
 import { fireEvent, render } from "@testing-library/react";
+import { Textual } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
-import { InfoOverlay, InfoOverlayProps } from "./InfoOverlay";
 import { MemoryRouter } from "react-router-dom";
-import { OverlayContextProvider, Textual } from "@tradetrust-tt/tradetrust-ui-components";
+import { OverlayContextProvider } from "../../../common/contexts/OverlayContext";
+import { InfoOverlay, InfoOverlayProps } from "./InfoOverlay";
+import { Overlay } from "./Overlay";
 
 const mockOverlayProps: InfoOverlayProps = {
   children: <Textual title="Network Selector">Experimental Text</Textual>,
@@ -14,6 +16,7 @@ describe("StaticOverlay", () => {
     const container = render(
       <MemoryRouter>
         <OverlayContextProvider>
+          <Overlay />
           <InfoOverlay className={mockOverlayProps.className}>{mockOverlayProps.children}</InfoOverlay>
         </OverlayContextProvider>
       </MemoryRouter>
@@ -28,6 +31,7 @@ describe("StaticOverlay", () => {
     const container = render(
       <MemoryRouter>
         <OverlayContextProvider>
+          <Overlay />
           <InfoOverlay className={mockOverlayProps.className}>{mockOverlayProps.children}</InfoOverlay>
         </OverlayContextProvider>
       </MemoryRouter>

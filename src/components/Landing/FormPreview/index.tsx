@@ -52,12 +52,10 @@ export const FormPreview: FunctionComponent = () => {
     const templatesModified = templateList.filter((item) => {
       return item.type === "custom-template" || item.type === "application/pdf" || !item.type; // !item.type caters to renderers that still has decentralized-renderer-react-components dependency at <2.3.0, where type does not exists
     });
-    console.log("3");
     // set modified templates
     setTemplates(templatesModified);
     setSelectedTemplate(templatesModified[0].id);
   }, []);
-  console.log("4");
   return (
     <div className="p-6 gap-2">
       <div className="p-2">
