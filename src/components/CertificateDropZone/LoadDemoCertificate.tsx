@@ -4,8 +4,8 @@ import { updateCertificate } from "../../reducers/certificate";
 import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import { loadDemoCertificate } from "../VerifyPageContent/helpers";
 import { reset, setActive } from "../../reducers/sample";
-import { URLS } from "../../constants";
 import { ChainId } from "../../constants/chain-info";
+import { NavLink } from "react-router-dom";
 interface LoadDemoCertificateProps {
   currentChainId: ChainId | undefined;
 }
@@ -32,11 +32,11 @@ export const LoadDemoCertificate: FunctionComponent<LoadDemoCertificateProps> = 
         >
           Load Demo Tradetrust Document
         </Button>
-        <a className="w-full xs:w-72" href={URLS.CREATOR} target="_blank" rel="noopener noreferrer">
+        <NavLink to="/creator" className="w-full xs:w-72">
           <Button className="bg-white rounded-xl border-cloud-100 text-cerulean-500 shadow-none hover:bg-cloud-200 w-full">
             Create Tradetrust Document
           </Button>
-        </a>
+        </NavLink>
       </div>
     </div>
   );

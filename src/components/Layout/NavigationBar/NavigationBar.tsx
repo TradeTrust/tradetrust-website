@@ -32,13 +32,13 @@ export const rightNavItems: NavigationItem[] = [
     schema: NAVIGATION_ITEM_TYPE.NavigationLabelButton,
     id: "create-documents",
     label: "Create Doc",
-    path: URLS.CREATOR,
+    path: "/creator",
     customLink: (
-      <a href={URLS.CREATOR}>
+      <NavLink to={"/creator"}>
         <Button className="bg-white text-cerulean-500 hover:bg-cloud-100" size={ButtonSize.SM}>
           Create Doc
         </Button>
-      </a>
+      </NavLink>
     ),
   },
   {
