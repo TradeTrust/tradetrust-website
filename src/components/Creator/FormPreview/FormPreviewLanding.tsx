@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import ConnectToMetamask from "../../ConnectToMetamask";
 import { ProgressPanel } from "./ProgressPanel";
 import { FormPreviewComponent } from "./FormPreviewComponent";
-import { AssetInformationPanel } from "./AssetInfoPanel";
+import { AssetInformationPanel } from "./AssetInformationPanel";
 
 const document: any = {
   "@context": [
