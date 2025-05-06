@@ -97,7 +97,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "amoy",
     networkLabel: "Polygon Amoy",
     explorerUrl: "https://amoy.polygonscan.com",
-    rpcUrl: `https://rpc-amoy.polygon.technology/`,
+    rpcUrl: `https://polygon-amoy.infura.io/v3/${INFURA_API_KEY}`,
     nativeCurrency: {
       name: "MATIC",
       symbol: "aMATIC",

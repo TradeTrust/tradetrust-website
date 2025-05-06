@@ -7,7 +7,7 @@ import { Page } from "../components/Layout/Page";
 export const DynamicFormPage: FunctionComponent = () => {
   const { config } = useConfigContext();
   if (!config) {
-    return <Redirect to="/" />;
+    return <Redirect to="/creator" />;
   }
 
   return (
