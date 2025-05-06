@@ -5,9 +5,9 @@ import ConnectToMetamask from "../../ConnectToMetamask";
 import { MultiTabs } from "../../DecentralisedTemplateRenderer/MultiTabs";
 import { TabPaneAttachments } from "../../TabPaneAttachments";
 import { DecentralisedRendererContainer } from "../../DecentralisedTemplateRenderer/DecentralisedRenderer";
-import { TemplateProps } from "@tradetrust-tt/decentralized-renderer-react-components";
 import { getAttachments } from "../../../utils/shared";
 import { CertificateViewerErrorBoundary } from "../../CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
+import { TemplateProps } from "../../../types";
 
 const document: any = {
   "@context": [
@@ -21,7 +21,7 @@ const document: any = {
   ],
   renderMethod: [
     {
-      id: "http://localhost:3000",
+      id: "https://generic-templates.tradetrust.io",
       type: "EMBEDDED_RENDERER",
       templateName: "BILL_OF_LADING",
     },

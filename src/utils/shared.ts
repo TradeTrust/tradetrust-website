@@ -66,10 +66,10 @@ export const getTemplateUrlFromUnsignedDocument = (
     return rawDocument.openAttestationMetadata.template.name;
   }
   if (vc.isRawDocument(rawDocument)) {
-    return [rawDocument.renderMethod]?.flat()?.[0]?.id;
+    return [(rawDocument as unknown as SignedVerifiableCredential).renderMethod]?.flat()?.[0]?.id;
   }
   return "";
-}; // complete this function
+};
 
 export const getKeyId = (wrappedDocument: WrappedDocument<OpenAttestationDocument>): string | undefined => {
   return getOpenAttestationData(wrappedDocument)?.id;
