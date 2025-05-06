@@ -37,7 +37,8 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
   return (
     <div className="-mx-4 rounded-none xs:rounded-lg shadow-md bg-white p-4 mt-4">
       <div className="p-4">
-        <h4 data-testid="form-selection-title">Select Document to preview or create</h4>
+        <h4 data-testid="form-selection-title">Select documents to preview or create.</h4>
+        <p> Purely for testing; no real-world validity or enforceability. These documents are void after 30 days.</p>
       </div>
       <hr className="m-4" />
       {formTypes.map((type: FormTypes, id: number) => (

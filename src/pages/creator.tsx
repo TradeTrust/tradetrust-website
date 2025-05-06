@@ -18,7 +18,7 @@ const CreatorPage = (): React.ReactElement => {
         />
       </Helmet>
 
-      <Page title="Create Documents">
+      <Page title="Create Document">
         <FormSelectionContainer />
       </Page>
     </>

@@ -1,7 +1,7 @@
 import React, { createContext, FunctionComponent, useContext, useEffect, useState } from "react";
 import { useKeyPress } from "../hooks/useKeyPress";
 
-interface OverlayContextProps {
+export interface OverlayContextProps {
   overlayContent: React.ReactNode;
   showOverlay: (overlayContent: React.ReactNode) => void;
   closeOverlay: () => void;
