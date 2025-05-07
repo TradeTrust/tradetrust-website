@@ -134,6 +134,9 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       } else {
         setProvider(newProvider);
         setCurrentChainId(network.chainId);
+        if (injectedWeb3.isMetaMask) {
+          setProviderType(SIGNER_TYPE.METAMASK);
+        }
       }
     }
   }, [currentChainId, defaultChainId, isSupportedNetwork]);
