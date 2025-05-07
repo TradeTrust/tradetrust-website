@@ -1,5 +1,5 @@
 import { Button } from "@tradetrust-tt/tradetrust-ui-components";
-import React from "react";
+import React, { useEffect } from "react";
 import { NetworkSelect } from "../Layout/NetworkSelect";
 import { Model } from "../UI/Overlay/OverlayContent/Model";
 import { HelpCircle } from "react-feather";
@@ -13,7 +13,13 @@ interface NetworkSectionModelProps {
 
 const NetworkSectionModel: React.FC<NetworkSectionModelProps> = ({ collapsible = false, nextStep }) => {
   const { closeOverlay, showOverlay } = useOverlayContext();
-  const { currentChainId, networkChangeLoading } = useProviderContext();
+  const { currentChainId, networkChangeLoading, setNetworkChangeLoading } = useProviderContext();
+
+  useEffect(() => {
+    setNetworkChangeLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Model
       title="Network Selector"
