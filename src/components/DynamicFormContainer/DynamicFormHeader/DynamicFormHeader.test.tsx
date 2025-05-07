@@ -108,11 +108,11 @@ describe("DynamicFormHeader", () => {
           onFormSubmit={() => {}}
           formErrors={[
             {
-              instancePath: "/foo",
-              message: "Foo is required",
-              keyword: "required",
-              params: { missingProperty: "foo" },
-              schemaPath: "#/required",
+              message: "Form must have required property 'foo'",
+              path: ".foo",
+              context: {
+                errorType: "required",
+              },
             },
           ]}
           formErrorTitle="Form Error"
@@ -121,7 +121,6 @@ describe("DynamicFormHeader", () => {
     );
 
     expect(screen.getByText("Form Error")).toBeInTheDocument();
-    const listItem = screen.getByRole("listitem");
-    expect(listItem).toHaveTextContent("missingProperty: foo");
+    expect(screen.getByTestId("form-error-banner")).toHaveTextContent("Form must have required property 'foo'");
   });
 });

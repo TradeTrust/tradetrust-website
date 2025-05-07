@@ -56,6 +56,7 @@
     "wait": "wait-on -l -i 1000 tcp:8545 http-get://localhost:3000"
   },
   "dependencies": {
+    "@apideck/better-ajv-errors": "^0.3.6",
     "@ethersproject/abstract-provider": "^5.8.0",
     "@govtechsg/address-identity-resolver": "^1.5.0",
     "@govtechsg/oa-encryption": "^1.3.5",

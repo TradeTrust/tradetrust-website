@@ -1,21 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { FormErrorBanner } from "./FormErrorBanner";
+import { ValidationError } from "@apideck/better-ajv-errors";
 
-const errors = [
+const errors: ValidationError[] = [
   {
-    keyword: "required",
-    instancePath: "",
-    schemaPath: "#/required",
-    params: { missingProperty: "blNumber" },
-    message: "should have required property 'blNumber'",
+    message: "Form must have required property 'blNumber'",
+    path: ".blNumber",
+    context: {
+      errorType: "required",
+      missingProperty: "blNumber",
+    },
   },
 ];
 
 describe("formErrorBanner", () => {
   it("should show errors when there are any", () => {
     render(<FormErrorBanner formErrorTitle="" formErrors={errors} />);
-    expect(screen.getByTestId("form-error-banner")).toHaveTextContent("missingProperty: blNumber");
+    expect(screen.getByTestId("form-error-banner")).toHaveTextContent("Form must have required property 'blNumber'");
   });
 
   it("should not display when there are no errors", () => {

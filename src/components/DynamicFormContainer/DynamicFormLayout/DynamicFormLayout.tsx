@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { Redirect, useHistory } from "react-router";
+import { betterAjvErrors, ValidationError } from "@apideck/better-ajv-errors";
 import { Card } from "../../UI/Card";
 import { DynamicForm } from "../DynamicForm";
 import { DynamicFormHeader } from "../DynamicFormHeader";
@@ -9,6 +10,8 @@ import { OnCloseGuard } from "../../OnCloseGuard";
 import { useFormsContext } from "../../../common/contexts/FormsContext";
 import { useConfigContext } from "../../../common/contexts/ConfigContext";
 import { getDataToValidate, validateData } from "../../../common/utils/dataHelpers";
+import { isEthereumAddress } from "../../../utils";
+import ConnectToMetamask from "../../ConnectToMetamask";
 
 export const DynamicFormLayout: FunctionComponent = () => {
   const {
@@ -36,9 +39,59 @@ export const DynamicFormLayout: FunctionComponent = () => {
 
   const validateCurrentForm = (): boolean => {
     const dataToValidate = getDataToValidate(currentForm.data.formData);
-    const { isValid, ajvErrors } = validateData(currentForm.data.schema, dataToValidate);
-    setFormErrors(ajvErrors);
-    return isValid;
+    const { ajvErrors } = validateData(currentForm.data.schema, dataToValidate);
+    const { beneficiaryAddress, holderAddress } = currentForm.ownership;
+
+    const customErrors = getAddressErrors(currentFormTemplate.type, {
+      beneficiaryAddress,
+      holderAddress,
+    });
+
+    const ajvFormattedErrors =
+      betterAjvErrors({
+        schema: currentForm.data.schema,
+        data: dataToValidate,
+        errors: ajvErrors || [],
+        basePath: "Form",
+      }) || [];
+
+    const allFormattedErrors = [...ajvFormattedErrors, ...customErrors];
+    setFormErrors(allFormattedErrors);
+
+    return allFormattedErrors.length === 0;
+  };
+
+  const getAddressErrors = (
+    type: string,
+    addresses: { beneficiaryAddress: string; holderAddress: string }
+  ): ValidationError[] => {
+    const errors: ValidationError[] = [];
+
+    if (type === "TRANSFERABLE_RECORD") {
+      if (!isEthereumAddress(addresses.beneficiaryAddress)) {
+        errors.push({
+          message: "Invalid Ethereum address for 'owner wallet address'",
+          path: "ownerWalletAddress",
+          context: {
+            errorType: "format",
+            invalidProperty: "owner wallet address",
+          },
+        });
+      }
+
+      if (!isEthereumAddress(addresses.holderAddress)) {
+        errors.push({
+          message: "Invalid Ethereum address for 'holder wallet address'",
+          path: "holderWalletAddress",
+          context: {
+            errorType: "format",
+            invalidProperty: "holder wallet address",
+          },
+        });
+      }
+    }
+
+    return errors;
   };
 
   const onFormSubmit = (): void => {
@@ -53,6 +106,17 @@ export const DynamicFormLayout: FunctionComponent = () => {
 
   return (
     <OnCloseGuard active={true}>
+      {currentFormTemplate.type === "TRANSFERABLE_RECORD" && (
+        <Card>
+          <div className="flex flex-col flex-start md:flex-row md:justify-between md:items-center">
+            <div>
+              <h6>Selected Network:</h6>
+              <p>Mainnet Network</p>
+            </div>
+            <ConnectToMetamask />
+          </div>
+        </Card>
+      )}
       <DynamicFormHeader
         onBackToFormSelection={onBackToFormSelection}
         onFormSubmit={onFormSubmit}
