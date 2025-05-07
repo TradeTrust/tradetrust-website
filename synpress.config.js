@@ -10,6 +10,8 @@ module.exports = defineConfig({
   userAgent: "synpress",
   retries: 1,
   fixturesFolder,
+  viewportWidth: 1440,
+  viewportHeight: 900,
   e2e: {
     defaultCommandTimeout: 10000,
     pageLoadTimeout: 60000,
