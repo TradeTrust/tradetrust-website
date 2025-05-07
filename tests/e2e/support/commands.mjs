@@ -18,12 +18,10 @@ Cypress.Commands.add("connectToMetamaskWalletAndApproveAllAccounts", () => {
       cy.get("[data-testid='activeWallet']")
         .if("visible")
         .log("Metamask accounts already connected")
-        .else(() => {
+        .else()
+        .then(() => {
           cy.acceptMetamaskAccess({
             allAccounts: true,
-            confirmSignatureRequest: true,
-            confirmDataSignatureRequest: true,
-            switchNetwork: true,
           }).then((connected) => {
             expect(connected).to.be.true;
           });
