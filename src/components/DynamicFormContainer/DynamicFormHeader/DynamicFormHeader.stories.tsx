@@ -16,11 +16,20 @@ export const Default: FunctionComponent = () => (
     formErrorTitle="There are some issues with the form submission."
     formErrors={[
       {
-        instancePath: "/credentialSubject/email",
-        keyword: "format",
-        message: 'must match format "email"',
-        params: { format: "email" },
-        schemaPath: "#/properties/credentialSubject/properties/email/format",
+        message: "Form must have required property 'issuer'",
+        path: ".issuer",
+        context: {
+          errorType: "required",
+          missingProperty: "issuer",
+        },
+      },
+      {
+        message: "'supplyChainConsignment' property is not expected to be here",
+        path: ".supplyChainConsignment",
+        context: {
+          errorType: "additionalProperties",
+          additionalProperty: "supplyChainConsignment",
+        },
       },
     ]}
   />
