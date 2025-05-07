@@ -212,18 +212,15 @@
     .btn[type="submit"] {
       @apply hidden; /* https://github.com/rjsf-team/react-jsonschema-form/issues/1602 */
     }
-
     /* Target only <ul> and <ol> inside .form-custom */
     ul, ol {
       @apply list-none p-0;
     }
-
     /* :not([type="color"]) is used to exclude custom style for template with custom color input widget e.g. cover letter template */
     input:not([type="color"]) {
       @apply custom-input;
     }
   }
-
   /* purgecss end ignore */
 }
 
