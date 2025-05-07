@@ -13,6 +13,7 @@ export interface ModelProps {
   maxHeight?: number;
   collapsible?: boolean;
   footer?: React.ReactNode;
+  footerClassName?: string;
   showDivider?: boolean;
 }
 
@@ -33,6 +34,7 @@ export const Model: FunctionComponent<ModelProps> = ({
   maxHeight,
   collapsible,
   footer,
+  footerClassName,
   showDivider = true,
   ...props
 }) => {
@@ -51,13 +53,13 @@ export const Model: FunctionComponent<ModelProps> = ({
           {...props}
           style={style}
         >
-          <div id="header" className="flex flex-nowrap justify-start items-center p-6 pb-4">
+          <div id="header" className="flex flex-nowrap gap-4 justify-start items-center p-6 pb-4">
             {headerIconState !== undefined ? (
               <div className="flex w-8 items-center justify-center">{headerIconState}</div>
             ) : (
               headerIcon ?? <></>
             )}
-            <h3 className="flex-1 w-auto leading-7 p-2" data-testid="model-title">
+            <h3 className="flex-1 w-auto leading-7" data-testid="model-title">
               {title}
             </h3>
             {collapsible && (
@@ -79,7 +81,7 @@ export const Model: FunctionComponent<ModelProps> = ({
 
               <div
                 id="footer"
-                className="flex flex-col flex-wrap xs:flex-nowrap xs:flex-row gap-2 content-center items-start p-6 pt-4"
+                className={`flex flex-col flex-wrap xs:flex-nowrap xs:flex-row gap-2 content-center items-start p-6 pt-4 ${footerClassName}`}
               >
                 {footer}
               </div>

@@ -12,6 +12,7 @@ export enum SIGNER_TYPE {
   IDENTITY = "Identity",
   METAMASK = "Metamask",
   MAGIC = "Magic",
+  NONE = "None",
 }
 
 const createProvider = (chainId: ChainId) => {
@@ -30,7 +31,7 @@ const createProvider = (chainId: ChainId) => {
 let currentProvider: providers.Provider | undefined = createProvider(getChainInfoFromNetworkName(NETWORK_NAME).chainId);
 export const getCurrentProvider = (): providers.Provider | undefined => currentProvider;
 
-interface ProviderContextProps {
+export interface ProviderContextProps {
   providerType: SIGNER_TYPE;
   upgradeToMetaMaskSigner: () => Promise<void>;
   upgradeToMagicSigner: () => Promise<void>;
@@ -41,10 +42,13 @@ interface ProviderContextProps {
   provider: providers.Provider | undefined;
   providerOrSigner: providers.Provider | ethers.Signer | undefined;
   account: string | undefined;
+  networkChangeLoading: boolean;
+  setNetworkChangeLoading: (loading: boolean) => void;
+  disconnectWallet: () => void;
 }
 
 export const ProviderContext = createContext<ProviderContextProps>({
-  providerType: SIGNER_TYPE.IDENTITY,
+  providerType: SIGNER_TYPE.NONE,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   upgradeToMetaMaskSigner: async () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -58,6 +62,9 @@ export const ProviderContext = createContext<ProviderContextProps>({
   provider: currentProvider,
   providerOrSigner: currentProvider,
   account: undefined,
+  networkChangeLoading: false,
+  setNetworkChangeLoading: () => {},
+  disconnectWallet: () => {},
 });
 
 interface Ethereum extends providers.ExternalProvider, providers.BaseProvider {
@@ -92,7 +99,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     [supportedChainInfoObjects]
   );
 
-  const [providerType, setProviderType] = useState<SIGNER_TYPE>(SIGNER_TYPE.IDENTITY);
+  const [providerType, setProviderType] = useState<SIGNER_TYPE>(SIGNER_TYPE.NONE);
   const [currentChainId, setCurrentChainId] = useState<ChainId | undefined>(
     isSupportedNetwork(defaultChainId) ? defaultChainId : undefined
   );
@@ -101,6 +108,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     defaultProvider.current
   );
   const [provider, setProvider] = useState<providers.Provider | undefined>(defaultProvider.current);
+
+  const [networkChangeLoading, setNetworkChangeLoading] = useState<boolean>(false);
 
   const changeNetwork = async (chainId: ChainId) => {
     await walletSwitchChain(chainId);
@@ -125,6 +134,9 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       } else {
         setProvider(newProvider);
         setCurrentChainId(network.chainId);
+        if (injectedWeb3.isMetaMask) {
+          setProviderType(SIGNER_TYPE.METAMASK);
+        }
       }
     }
   }, [currentChainId, defaultChainId, isSupportedNetwork]);
@@ -192,6 +204,16 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     await changeNetwork(chainId);
   };
 
+  const disconnectWallet = useCallback(() => {
+    setProviderType(SIGNER_TYPE.NONE);
+    setAccount(undefined);
+    setProviderOrSigner(provider);
+    // Remove ethereum event listeners
+    if (window.ethereum) {
+      window.ethereum.removeAllListeners();
+    }
+  }, [provider]);
+
   useEffect(() => {
     updateProvider();
   }, [updateProvider]);
@@ -231,6 +253,9 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
         provider,
         providerOrSigner,
         account,
+        networkChangeLoading,
+        setNetworkChangeLoading,
+        disconnectWallet,
       }}
     >
       {children}
