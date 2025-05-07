@@ -73,7 +73,6 @@ const DropdownItemLabel: FunctionComponent<DropdownItemLabelProps> = ({
   network,
   networkChangeLoading,
 }) => {
-  console.log("🚀 ~ DropdownItemLabel ~ networkChangeLoading:", networkChangeLoading);
   return (
     <div className={className}>
       <div className="flex items-center" data-testid={`network-select-dropdown-label-${network.chainId}`}>

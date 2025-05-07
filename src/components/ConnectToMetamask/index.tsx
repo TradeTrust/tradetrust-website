@@ -16,7 +16,6 @@ export const ConnectToMetamaskModelComponent = ({
   nextStep,
 }: ConnectToMetamaskModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
-  console.log("🚀 ~ providerType, account:", providerType, account);
   const { showOverlay } = useOverlayContext();
 
   const handleDisconnect = () => {
