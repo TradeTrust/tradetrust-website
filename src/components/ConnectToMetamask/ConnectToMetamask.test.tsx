@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { useProviderContext } from "../../common/contexts/provider";
+import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
 import ConnectToMetamask from "./index";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 
@@ -23,9 +23,13 @@ jest.mock("react-tooltip", () => {
 });
 
 // Mock the useProviderContext hook
-jest.mock("../../common/contexts/provider", () => ({
-  useProviderContext: jest.fn(),
-}));
+jest.mock("../../common/contexts/provider", () => {
+  const originalModule = jest.requireActual("../../common/contexts/provider");
+  return {
+    ...originalModule,
+    useProviderContext: jest.fn(),
+  };
+});
 
 // Mock the navigator.clipboard object
 Object.assign(navigator, {
@@ -52,6 +56,7 @@ describe("ConnectToMetamask", () => {
     (useProviderContext as jest.Mock).mockReturnValue({
       upgradeToMetaMaskSigner: mockUpgradeToMetaMaskSigner,
       account: null, // Default to no account connected
+      providerType: SIGNER_TYPE.METAMASK,
     });
   });
 
@@ -80,6 +85,7 @@ describe("ConnectToMetamask", () => {
     (useProviderContext as jest.Mock).mockReturnValue({
       upgradeToMetaMaskSigner: mockUpgradeToMetaMaskSigner,
       account: mockAccount,
+      providerType: SIGNER_TYPE.METAMASK,
     });
 
     render(
@@ -166,6 +172,7 @@ describe("ConnectToMetamask", () => {
     (useProviderContext as jest.Mock).mockReturnValue({
       upgradeToMetaMaskSigner: mockUpgradeToMetaMaskSigner,
       account: mockAccount,
+      providerType: SIGNER_TYPE.METAMASK,
     });
 
     // Mock successful clipboard write
@@ -200,6 +207,7 @@ describe("ConnectToMetamask", () => {
     (useProviderContext as jest.Mock).mockReturnValue({
       upgradeToMetaMaskSigner: mockUpgradeToMetaMaskSigner,
       account: mockAccount,
+      providerType: SIGNER_TYPE.METAMASK,
     });
 
     // Mock the clipboard.writeText to throw an error
