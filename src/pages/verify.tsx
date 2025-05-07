@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { HomePageContainer } from "../components/HomePageContent";
 import { Page } from "../components/Layout/Page";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
-import { NetworkSection } from "../components/NetworkSection";
+import { NetworkSectionWithMetamask } from "../components/NetworkSection/NetworkSectionWithMetamask";
 
 const VerifyPage = (): React.ReactElement => {
   return (
@@ -27,7 +27,7 @@ const VerifyPage = (): React.ReactElement => {
       </Helmet>
 
       <Page title="Verify Documents">
-        <NetworkSection subtitle="Verifying your document on" overlayMargin="ml-2" />
+        <NetworkSectionWithMetamask subtitle="Verifying your document on" overlayMargin="ml-2" />
 
         <DropZoneSectionContainer />
         <HomePageContainer />

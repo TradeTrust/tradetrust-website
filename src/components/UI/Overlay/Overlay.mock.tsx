@@ -1,15 +1,22 @@
-import React, { FunctionComponent } from "react";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import React, { FunctionComponent, useEffect } from "react";
 import { useOverlayContext } from "../../../common/contexts/OverlayContext";
 import { Overlay } from "./Overlay";
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 
 export interface OverlayDemoProps {
   buttonText: string;
   children: React.ReactNode;
+  defaultOpen?: boolean;
 }
 
-export const OverlayDemo: FunctionComponent<OverlayDemoProps> = ({ buttonText, children }) => {
+export const OverlayDemo: FunctionComponent<OverlayDemoProps> = ({ buttonText, children, defaultOpen }) => {
   const { showOverlay } = useOverlayContext();
+
+  useEffect(() => {
+    if (defaultOpen) {
+      showOverlay(children);
+    }
+  }, [defaultOpen, showOverlay, children]);
 
   return (
     <>

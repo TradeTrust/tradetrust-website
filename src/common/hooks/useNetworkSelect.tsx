@@ -6,19 +6,33 @@ import { OverlayContext } from "../contexts/OverlayContext";
 import { useProviderContext } from "../contexts/provider";
 
 interface useNetworkSelectProps {
+  inPlaceLoading?: boolean;
+}
+
+interface NetworkSelectReturnType {
   switchNetwork: (chainId: ChainId) => void;
 }
 
-export const useNetworkSelect = (): useNetworkSelectProps => {
-  const { changeNetwork } = useProviderContext();
+export const useNetworkSelect = ({ inPlaceLoading = false }: useNetworkSelectProps = {}): NetworkSelectReturnType => {
+  const { changeNetwork, setNetworkChangeLoading } = useProviderContext();
   const { showOverlay, closeOverlay } = useContext(OverlayContext);
 
   const switchNetwork = useCallback(
     async (chainId: ChainId) => {
       try {
-        showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
+        if (!inPlaceLoading) {
+          showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
+        } else {
+          setNetworkChangeLoading(true);
+        }
+
         await changeNetwork(chainId);
-        closeOverlay();
+
+        if (!inPlaceLoading) {
+          closeOverlay();
+        } else {
+          setNetworkChangeLoading(false);
+        }
       } catch (e: any) {
         showOverlay(
           showDocumentTransferMessage("You've cancelled changing network.", {
@@ -27,7 +41,7 @@ export const useNetworkSelect = (): useNetworkSelectProps => {
         );
       }
     },
-    [changeNetwork, closeOverlay, showOverlay]
+    [changeNetwork, closeOverlay, inPlaceLoading, setNetworkChangeLoading, showOverlay]
   );
 
   return { switchNetwork };

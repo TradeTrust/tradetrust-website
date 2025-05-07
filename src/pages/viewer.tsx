@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { ViewerPageContainer } from "../components/ViewerPageContainer";
-import { NetworkSection } from "../components/NetworkSection";
+import { NetworkSectionWithMetamask } from "../components/NetworkSection/NetworkSectionWithMetamask";
 import { useSelector } from "react-redux";
 import { RootState } from "../reducers";
 
@@ -36,7 +36,12 @@ export const ViewerPage = (props: ViewerPageInterface): React.ReactElement => {
           <h2 className="text-cloud-800 max-w-3xl">Verify Documents</h2>
         </div>
         <div className="container">
-          <NetworkSection subtitle="Document verified on" overlayMargin="ml-3" disabled={true} document={document} />
+          <NetworkSectionWithMetamask
+            subtitle="Document verified on"
+            overlayMargin="ml-3"
+            disabled={true}
+            document={document}
+          />
         </div>
         <ViewerPageContainer {...props} />
       </div>
