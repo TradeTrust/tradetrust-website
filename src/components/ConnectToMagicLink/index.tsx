@@ -43,7 +43,7 @@ const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({
           {showOnDisconnectWarningMessage && account && (
             <div className="flex items-center gap-2 border rounded-lg px-4 py-3 bg-lemon-100 mt-4">
               <IconWarning className="h-5 w-5" />
-              <p className="text-sm text-gray-500">You’ll be logged out of MagicLink if you login with Metamask</p>
+              <p className="text-sm text-gray-500">You’ll be logged out of Metamask if you login with MagicLink</p>
             </div>
           )}
         </>

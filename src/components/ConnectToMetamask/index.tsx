@@ -17,19 +17,19 @@ export const ConnectToMetamaskModelComponent = ({
 }: ConnectToMetamaskModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
   console.log("🚀 ~ providerType, account:", providerType, account);
-  const { showOverlay, closeOverlay } = useOverlayContext();
+  const { showOverlay } = useOverlayContext();
 
   const handleDisconnect = () => {
     disconnectWallet();
-    closeOverlay();
   };
+
   const handleContinue = () => {
     showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
   };
 
   return (
     <div className="flex flex-col gap-4">
-      {account && <span>Connected as: </span>}
+      {providerType === SIGNER_TYPE.METAMASK && account && <span>Connected as: </span>}
       <ConnectToMetamask className="w-full" />
       {showOnNewConnectWarningMessage &&
         providerType !== SIGNER_TYPE.METAMASK &&
