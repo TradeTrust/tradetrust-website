@@ -14,6 +14,9 @@ services:
       bash -c 'echo -n "======> local noVNC URL:
       http://localhost:8080/vnc.html?autoconnect=true " && npx wait-on
       http://display:8080 && npm ci && npx cypress install --force && npm run integration:headful'
+    volumes:
+      - ./tests/e2e/videos:/app/tests/e2e/videos
+      - ./tests/e2e/screenshots:/app/tests/e2e/screenshots
     networks:
       - x11
   display:

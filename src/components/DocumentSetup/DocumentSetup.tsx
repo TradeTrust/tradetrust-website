@@ -5,6 +5,11 @@ import { useOverlayContext } from "../../common/contexts/OverlayContext";
 import { HeaderIconState, Model } from "../UI/Overlay/OverlayContent/Model";
 import { DidWebSetup, DidWebSetupProps } from "./SetupItem/DidWebSetup";
 import { TokenRegistrySetup, TokenRegistrySetupProps } from "./SetupItem/TokenRegistrySetup";
+import { getFormConfigByName } from "../../common/utils/form-config";
+import { useConfigContext } from "../../common/contexts/ConfigContext";
+import { Config, FormTemplate } from "../../types";
+import { useHistory } from "react-router-dom";
+import { useFormsContext } from "../../common/contexts/FormsContext";
 
 export enum DocumentSetupType {
   DID_WEB,
@@ -14,6 +19,7 @@ export enum DocumentSetupType {
 
 export interface DocumentSetupProps {
   types: DocumentSetupType[];
+  formName: string;
 }
 
 const Setup: Record<DocumentSetupType, ForwardRefExoticComponent<DidWebSetupProps | TokenRegistrySetupProps>> = {
@@ -24,7 +30,7 @@ const Setup: Record<DocumentSetupType, ForwardRefExoticComponent<DidWebSetupProp
   // },
 };
 
-export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types }) => {
+export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types, formName }) => {
   const DocumentSetupStep = types.map((t) => {
     const SetupComponent = Setup[t];
     return <SetupComponent key={t} />;
@@ -33,6 +39,9 @@ export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types }) 
   const { closeOverlay } = useOverlayContext();
   const { did, tokenRegistry } = useCreatorContext();
   const [documentSetupState, setDocumentSetupState] = React.useState<(typeof HeaderIconState)["LOADING"]>();
+  const { setConfig } = useConfigContext();
+  const { newForm } = useFormsContext();
+  const history = useHistory();
 
   useEffect(() => {
     const documentSetupContexts = [did, tokenRegistry];
@@ -72,7 +81,12 @@ export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types }) 
             size={ButtonSize.LG}
             disabled={documentSetupState !== HeaderIconState.SUCCESS}
             onClick={() => {
-              console.log("Continue");
+              closeOverlay();
+              const selectedConfig = getFormConfigByName(formName);
+              const newConfig: Config = { forms: selectedConfig as FormTemplate };
+              setConfig(newConfig);
+              newForm(newConfig);
+              history.push("/creator/form");
             }}
             data-testid={`documentSetupContinue`}
           >

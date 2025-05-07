@@ -1,0 +1,225 @@
+{
+  "name": "Electronic Bill of Lading (Carrier)",
+  "type": "TRANSFERABLE_RECORD",
+  "defaults": {
+    "$template": {
+      "type": "EMBEDDED_RENDERER",
+      "name": "BILL_OF_LADING_CARRIER",
+      "url": "https://generic-templates.tradetrust.io"
+    }
+  },
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "blNumber",
+      "scac"
+    ],
+    "properties": {
+      "blNumber": {
+        "type": "string",
+        "title": "BL Number"
+      },
+      "scac": {
+        "type": "string",
+        "title": "Standard Carrier Alpha Code (SCAC)"
+      },
+      "carrierName": {
+        "title": "Signed for the Carrier",
+        "type": "string"
+      },
+      "logo": {
+        "type": "string",
+        "title": "Company Logo"
+      },
+      "shipper": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "street": {
+                "type": "string",
+                "title": "Street"
+              },
+              "country": {
+                "type": "string",
+                "title": "Country"
+              }
+            }
+          }
+        }
+      },
+      "onwardInlandRouting": {
+        "type": "string",
+        "title": "Onward Inland Routing"
+      },
+      "consignee": {
+        "type": "object",
+        "properties": {
+          "toOrderOfText": {
+            "title": "Is consigned to (e.g. TO ORDER OF, TO ORDER, etc..)",
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        }
+      },
+      "notifyParty": {
+        "title": "Notify Party",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        }
+      },
+      "vessel": {
+        "title": "Vessel",
+        "type": "string"
+      },
+      "voyageNo": {
+        "title": "Voyage No.",
+        "type": "string"
+      },
+      "portOfLoading": {
+        "title": "Port of Loading",
+        "type": "string"
+      },
+      "portOfDischarge": {
+        "title": "Port of Discharge",
+        "type": "string"
+      },
+      "placeOfReceipt": {
+        "title": "Place of Receipt",
+        "type": "string"
+      },
+      "placeOfDelivery": {
+        "title": "Place of Delivery",
+        "type": "string"
+      },
+      "packages": {
+        "type": "array",
+        "title": "Packages",
+        "items": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string",
+              "title": "Description"
+            },
+            "measurement": {
+              "type": "string",
+              "title": "Measurement"
+            },
+            "weight": {
+              "type": "string",
+              "title": "Weight"
+            }
+          }
+        }
+      },
+      "carrierReceipt": {
+        "title": "Carrier's Receipt",
+        "type": "string"
+      },
+      "placeOfIssueBL": {
+        "title": "Place of Issue of B/L",
+        "type": "string"
+      },
+      "numberOfOriginalBL": {
+        "title": "Number of original B/L",
+        "type": "string"
+      },
+      "dateOfIssueBL": {
+        "title": "Date of Issue of B/L",
+        "type": "string"
+      },
+      "shippedOnBoardDate": {
+        "title": "Shipped on Board Date",
+        "type": "string"
+      },
+      "signForTermsAndCondition": {
+        "title": "Signed for Terms and Conditions",
+        "type": "string"
+      },
+      "signedForCarrierText": {
+        "title": "Text for signed for carrier",
+        "type": "string"
+      },
+      "carrierSignature": {
+        "type": "string",
+        "title": "Carrier Signature"
+      },
+      "termsOfCarriage": {
+        "type": "string",
+        "title": "Terms Of Carriage"
+      }
+    }
+  },
+  "uiSchema": {
+    "logo": {
+      "ui:widget": "file",
+      "ui:options": {
+        "text": "Upload Company Logo",
+        "accept": ".png, .jpeg, .jpg"
+      }
+    },
+    "notifyParty": {
+      "name": {
+        "ui:widget": "textarea"
+      }
+    },
+    "packages": {
+      "items": {
+        "description": {
+          "ui:widget": "textarea"
+        }
+      }
+    },
+    "carrierReceipt": {
+      "ui:widget": "textarea"
+    },
+    "placeOfIssueBL": {
+      "ui:widget": "textarea"
+    },
+    "numberOfOriginalBL": {
+      "ui:widget": "textarea"
+    },
+    "dateOfIssueBL": {
+      "ui:widget": "date"
+    },
+    "shippedOnBoardDate": {
+      "ui:widget": "date"
+    },
+    "signForTermsAndCondition": {
+      "ui:widget": "textarea"
+    },
+    "carrierSignature": {
+      "ui:widget": "file",
+      "ui:options": {
+        "text": "Upload Carrier Signature",
+        "accept": ".png, .jpeg, .jpg"
+      }
+    },
+    "termsOfCarriage": {
+      "ui:widget": "textarea"
+    }
+  },
+  "attachments": {
+    "allow": true,
+    "accept": {
+      "application/pdf": [".pdf"],
+      "application/json": [".json"]
+    }
+  },
+  "extension": "tt",
+  "fileName": "bill-<%= blNumber %>"
+}
