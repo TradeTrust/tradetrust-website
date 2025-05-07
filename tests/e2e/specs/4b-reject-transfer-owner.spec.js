@@ -15,7 +15,7 @@ describe("Reject Transfer Owner", () => {
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.connectToMetamaskWalletAndApproveAllAccounts();
     cy.get("[data-testid='manageAssetDropdown']").click();
-    cy.get("[data-testid='rejectTransferOwnerDropdown']").click(); // Reject Transfer Ownership
+    cy.get("[data-testid='rejectTransferOwnerDropdown']").click({ force: true }); // Reject Transfer Ownership
     cy.get("[data-testid='editable-remarks-input']").clear().type("Remark: Its most likely be a mistake");
     cy.get("[data-testid='confirmRejectOwnershipBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
