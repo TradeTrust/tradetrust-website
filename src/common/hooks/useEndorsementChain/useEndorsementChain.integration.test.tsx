@@ -197,7 +197,7 @@ describe("useEndorsementChain|integration", () => {
               blockNumber: 15069519,
               holder: "0x0000000000000000000000000000000000000000",
               owner: "0x0000000000000000000000000000000000000000",
-              remark: "",
+              remark: "Accept Return To Issuer",
               timestamp: 1732989417000,
               transactionHash: "0xbc9c0a07467310b45f4099578613b0531ab20975d52d1a3485c69e16901e3cb7",
               transactionIndex: 0,

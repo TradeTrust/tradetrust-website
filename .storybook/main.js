@@ -1,5 +1,5 @@
 const path = require("path");
-const toPath = (_path) => path.join(process.cwd(), _path);
+const webpack = require("webpack");
 
 // typescript config issues for storybook
 // https://github.com/styleguidist/react-docgen-typescript/issues/356
@@ -37,12 +37,25 @@ module.exports = {
       },
     });
     config.resolve.fallback = {
+      vm: require.resolve("vm-browserify"),
+      stream: require.resolve("stream-browserify"),
       os: require.resolve("os-browserify/browser"),
       crypto: require.resolve("crypto-browserify"),
-      stream: require.resolve("stream-browserify"),
-      vm: require.resolve("vm-browserify"),
       path: require.resolve("path-browserify"),
+      buffer: require.resolve("buffer"),
+      "process/browser": require.resolve("process/browser"),
+      util: require.resolve("util/"),
+      events: require.resolve("events/"),
     };
+
+    if (!config.plugins) {
+      config.plugins = [];
+    }
+
+    config.plugins.push(new webpack.ProvidePlugin({
+      Buffer: ["buffer", "Buffer"],
+    }));
+
     return config;
   },
 

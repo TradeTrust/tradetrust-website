@@ -1,9 +1,10 @@
-import { Button, Input, OverlayContext } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, Input } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useState } from "react";
-import { Checkbox } from "../../UI/Checkbox";
 import { useHistory } from "react-router-dom";
-import { contentPdpa } from "../../../common/utils/overlay";
 import { useAuthContext } from "../../../common/contexts/AuthenticationContext";
+import { OverlayContext } from "../../../common/contexts/OverlayContext";
+import { contentPdpa } from "../../../common/utils/overlay";
+import { Checkbox } from "../../UI/Checkbox";
 import { DemoCreateHeader } from "../DemoCreate/DemoCreateHeader";
 
 export const DemoInitial: FunctionComponent = () => {

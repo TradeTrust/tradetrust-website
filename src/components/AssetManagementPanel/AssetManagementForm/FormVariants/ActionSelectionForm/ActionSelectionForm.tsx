@@ -1,10 +1,7 @@
-import {
-  Button,
-  MessageTitle,
-  OverlayContext,
-  showDocumentTransferMessage,
-} from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
+import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
+import { MessageTitle, showDocumentTransferMessage } from "../../../../UI/Overlay/OverlayContent";
 import { TagBordered, TagBorderedSm } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";

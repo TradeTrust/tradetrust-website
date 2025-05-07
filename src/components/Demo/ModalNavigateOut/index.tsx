@@ -1,5 +1,6 @@
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useEffect } from "react";
-import { OverlayContent, Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { OverlayContent } from "../../UI/Overlay/OverlayContent";
 
 interface ModalNavigateOutProps {
   closeModal: () => void;

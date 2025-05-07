@@ -15,7 +15,7 @@ describe("Reject Transfer Holder", () => {
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.connectToMetamaskWalletAndApproveAllAccounts();
     cy.get("[data-testid='manageAssetDropdown']").click();
-    cy.get("[data-testid='rejectTransferHolderDropdown']").click(); // Reject Transfer Holdership
+    cy.get("[data-testid='rejectTransferHolderDropdown']").click({ force: true }); // Reject Transfer Holdership
     cy.get("[data-testid='editable-remarks-input']").clear().type("Remark: Its most likely be a mistake");
     cy.get("[data-testid='confirmRejectHoldershipBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();

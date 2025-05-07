@@ -1,0 +1,433 @@
+{
+  "name": "Certificate of Origin",
+  "type": "VERIFIABLE_DOCUMENT",
+  "defaults": {
+    "$template": {
+      "type": "EMBEDDED_RENDERER",
+      "name": "CHAFTA_COO",
+      "url": "https://generic-templates.tradetrust.io"
+    }
+  },
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "iD": {
+        "type": "string",
+        "title": "COO ID"
+      },
+      "issueDateTime": {
+        "type": "string",
+        "title": "Issued Date & Time"
+      },
+      "firstSignatoryAuthentication": {
+        "title": "Signatory Authentication",
+        "type": "object",
+        "properties": {
+          "signature": {
+            "type": "string",
+            "title": "First Signatory"
+          }
+        }
+      },
+      "supplyChainConsignment": {
+        "title": "Supply Chain Consignment",
+        "type": "object",
+        "properties": {
+          "iD": {
+            "type": "string",
+            "title": "ID"
+          },
+          "information": {
+            "type": "string",
+            "title": "Consignment Information"
+          },
+          "exportCountry": {
+            "title": "Export Country",
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "title": "Country Code"
+              }
+            }
+          },
+          "exporter": {
+            "title": "Exporter",
+            "type": "object",
+            "properties": {
+              "iD": {
+                "title": "ID",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "postalAddress": {
+                "title": "",
+                "type": "object",
+                "properties": {
+                  "line1": {
+                    "type": "string",
+                    "title": "Address Line 1"
+                  },
+                  "line2": {
+                    "type": "string",
+                    "title": "Address Line 2"
+                  },
+                  "cityName": {
+                    "type": "string",
+                    "title": "City"
+                  },
+                  "postcode": {
+                    "type": "string",
+                    "title": "Postal Code"
+                  },
+                  "countrySubDivisionName": {
+                    "type": "string",
+                    "title": "Country Sub Division Name"
+                  },
+                  "countryCode": {
+                    "type": "string",
+                    "title": "Country Code"
+                  }
+                }
+              }
+            }
+          },
+          "importCountry": {
+            "type": "object",
+            "title": "Import Country",
+            "properties": {
+              "code": {
+                "type": "string",
+                "title": "Country Code"
+              }
+            }
+          },
+          "importer": {
+            "title": "Importer's Details (if known)",
+            "type": "object",
+            "properties": {
+              "iD": {
+                "title": "Importer ID",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "postalAddress": {
+                "title": "",
+                "type": "object",
+                "properties": {
+                  "line1": {
+                    "type": "string",
+                    "title": "Address Line 1"
+                  },
+                  "line2": {
+                    "type": "string",
+                    "title": "Address Line 2"
+                  },
+                  "cityName": {
+                    "type": "string",
+                    "title": "City"
+                  },
+                  "postcode": {
+                    "type": "string",
+                    "title": "Postal Code"
+                  },
+                  "countrySubDivisionName": {
+                    "type": "string",
+                    "title": "Country Sub Division Name"
+                  },
+                  "countryCode": {
+                    "type": "string",
+                    "title": "Country Code"
+                  }
+                }
+              }
+            }
+          },
+          "includedConsignmentItems": {
+            "type": "array",
+            "title": "Included Consignment Items",
+            "items": {
+              "type": "object",
+              "properties": {
+                "iD": {
+                  "type": "string",
+                  "title": "ID"
+                },
+                "information": {
+                  "type": "string",
+                  "title": "Information"
+                },
+                "crossBorderRegulatoryProcedure": {
+                  "type": "object",
+                  "title": "",
+                  "properties": {
+                    "originCriteriaText": {
+                      "type": "string",
+                      "title": "Origin Criteria Text"
+                    }
+                  }
+                },
+                "manufacturer": {
+                  "type": "object",
+                  "title": "Manufacturer",
+                  "properties": {
+                    "iD": {
+                      "type": "string",
+                      "title": "ID"
+                    },
+                    "name": {
+                      "type": "string",
+                      "title": "Name"
+                    },
+                    "postalAddress": {
+                      "title": "",
+                      "type": "object",
+                      "properties": {
+                        "line1": {
+                          "type": "string",
+                          "title": "Address Line 1"
+                        },
+                        "line2": {
+                          "type": "string",
+                          "title": "Address Line 2"
+                        },
+                        "cityName": {
+                          "type": "string",
+                          "title": "City"
+                        },
+                        "postcode": {
+                          "type": "string",
+                          "title": "Postal Code"
+                        },
+                        "countrySubDivisionName": {
+                          "type": "string",
+                          "title": "Country Sub Division Name"
+                        },
+                        "countryCode": {
+                          "type": "string",
+                          "title": "Country Code"
+                        }
+                      }
+                    }
+                  }
+                },
+                "tradeLineItems": {
+                  "type": "array",
+                  "title": "Trade line Items",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "sequenceNumber": {
+                        "type": "integer",
+                        "title": "Sequence Number"
+                      },
+                      "invoiceReference": {
+                        "type": "object",
+                        "title": "Invoice Reference",
+                        "properties": {
+                          "iD": {
+                            "type": "string",
+                            "title": "ID"
+                          },
+                          "formattedIssueDateTime": {
+                            "type": "string",
+                            "title": "Formatted Issue Date & Time"
+                          },
+                          "attachedBinaryFile": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "uRI": {
+                                "type": "string",
+                                "title": "Attached Binary File URI"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "tradeProduct": {
+                        "type": "object",
+                        "title": "Trade Product",
+                        "properties": {
+                          "iD": {
+                            "type": "string",
+                            "title": "ID"
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          },
+                          "harmonisedTariffCode": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "classCode": {
+                                "type": "string",
+                                "title": "Harmonised Tariff Class Code"
+                              },
+                              "className": {
+                                "type": "string",
+                                "title": "Harmonised Tariff Class Name"
+                              }
+                            }
+                          },
+                          "originCountry": {
+                            "type": "object",
+                            "title": "Origin Country",
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "title": "Code"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "transportPackages": {
+                        "type": "array",
+                        "title": "Transport Packages",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "iD": {
+                              "type": "string",
+                              "title": "ID"
+                            },
+                            "grossVolume": {
+                              "type": "string",
+                              "title": "Gross Volume"
+                            },
+                            "grossWeight": {
+                              "type": "string",
+                              "title": "Gross Weight"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "loadingBaseportLocation": {
+            "type": "object",
+            "title": "Loading Baseport Location",
+            "properties": {
+              "iD": {
+                "type": "string",
+                "title": "ID"
+              },
+              "name": {
+                "type": "string",
+                "title": "Name"
+              }
+            }
+          },
+          "mainCarriageTransportMovement": {
+            "title": "Main Carriage Transport Movement",
+            "type": "object",
+            "properties": {
+              "iD": {
+                "type": "string",
+                "title": "ID"
+              },
+              "information": {
+                "type": "string",
+                "title": "Information"
+              },
+              "usedTransportMeans": {
+                "title": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Used Transport"
+                  },
+                  "iD": {
+                    "type": "string",
+                    "title": "Used Transport ID"
+                  }
+                }
+              },
+              "departureEvent": {
+                "title": "",
+                "type": "object",
+                "properties": {
+                  "departureDateTime": {
+                    "type": "string",
+                    "title": "Departure Date and Time"
+                  }
+                }
+              }
+            }
+          },
+          "unloadingBaseportLocation": {
+            "type": "object",
+            "title": "Unloading Baseport Location",
+            "properties": {
+              "iD": {
+                "type": "string",
+                "title": "ID"
+              },
+              "name": {
+                "type": "string",
+                "title": "Name"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "uiSchema": {
+    "issueDateTime": {
+      "ui:widget": "datetime"
+    },
+    "firstSignatoryAuthentication": {
+      "signature": {
+        "ui:widget": "file",
+        "ui:options": {
+          "text": "Upload Signature",
+          "accept": ".png, .jpeg, .jpg"
+        }
+      }
+    },
+    "supplyChainConsignment": {
+      "includedConsignmentItems": {
+        "items": {
+          "tradeLineItems": {
+            "items": {
+              "invoiceReference": {
+                "formattedIssueDateTime": {
+                  "ui:widget": "datetime"
+                }
+              }
+            }
+          }
+        }
+      },
+      "mainCarriageTransportMovement": {
+        "departureEvent": {
+          "departureDateTime": {
+            "ui:widget": "datetime"
+          }
+        }
+      }
+    }
+  },
+  "attachments": {
+    "allow": true,
+    "accept": {
+      "application/pdf": [".pdf"]
+    }
+  },
+  "extension": "tt"
+}

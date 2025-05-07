@@ -18,7 +18,12 @@ import {
   print,
 } from "@tradetrust-tt/decentralized-renderer-react-components";
 import { TemplateProps } from "./../../types";
-import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
+import {
+  WrappedOrSignedOpenAttestationDocument,
+  getOpenAttestationData,
+  getTemplateUrl,
+  getTemplateUrlFromUnsignedDocument,
+} from "../../utils/shared";
 import { Dispatch } from "../../types";
 
 interface DecentralisedRendererProps {
@@ -27,6 +32,7 @@ interface DecentralisedRendererProps {
   selectedTemplate: string;
   setPrivacyFilter: (doc: any) => void;
   forwardedRef: Ref<{ print: () => void } | undefined>;
+  isFormPreview?: boolean;
 }
 
 const SCROLLBAR_WIDTH = 20; // giving scrollbar a default width as there are no perfect ways to get it
@@ -37,12 +43,13 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   selectedTemplate,
   setPrivacyFilter,
   forwardedRef,
+  isFormPreview,
 }) => {
   const toFrame = useRef<Dispatch>();
   const document = useMemo(() => getOpenAttestationData(rawDocument), [rawDocument]);
   const [height, setHeight] = useState(250);
   const [isTimeout, setIsTimeout] = useState(false);
-  const source = getTemplateUrl(rawDocument);
+  const source = isFormPreview ? getTemplateUrlFromUnsignedDocument(rawDocument) : getTemplateUrl(rawDocument);
 
   useImperativeHandle(forwardedRef, () => ({
     print() {
@@ -116,6 +123,7 @@ const ForwardedRefDecentralisedRenderer = React.forwardRef<
     updateTemplates: (templates: TemplateProps[]) => void;
     setPrivacyFilter: (doc: any) => void;
     selectedTemplate: string;
+    isFormPreview?: boolean;
   }
 >((props, ref) => <DecentralisedRenderer {...props} forwardedRef={ref} />);
 

@@ -31,3 +31,15 @@ jobs:
             ${{ runner.os }}-buildx-
       - name: Run e2e tests
         run: docker compose up --build --exit-code-from synpress
+      - name: Upload Cypress Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: tests/e2e/videos
+      - name: Upload Cypress Screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: tests/e2e/screenshots

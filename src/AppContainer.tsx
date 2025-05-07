@@ -1,4 +1,4 @@
-import { Button, ButtonSize, Overlay } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
@@ -6,6 +6,7 @@ import { NavigationBar, rightNavItems } from "./components/Layout/NavigationBar"
 import { Routes, routes } from "./routes";
 import { URLS } from "./constants";
 import PopupMessage from "./components/PopupMessage";
+import { Overlay } from "./components/UI/Overlay";
 
 const AppContainer = (): React.ReactElement => {
   const location = useLocation();

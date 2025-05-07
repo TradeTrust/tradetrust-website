@@ -1,13 +1,10 @@
+import { ProviderTimeoutMessage } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect } from "react";
-import { useEndorsementChain } from "../../common/hooks/useEndorsementChain";
-import { EndorsementChainLayout } from "./EndorsementChainLayout";
-import {
-  OverlayContext,
-  OverlayContextProvider,
-  ProviderTimeoutMessage,
-} from "@tradetrust-tt/tradetrust-ui-components";
 import { useTimer } from "react-timer-hook";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
+import { useEndorsementChain } from "../../common/hooks/useEndorsementChain";
 import { URLS } from "../../constants";
+import { EndorsementChainLayout } from "./EndorsementChainLayout";
 
 const ProviderDocumentationURL = `${URLS.DOCS}/docs/how-tos/advanced/additional-network-metamask-guide/`;
 const timeout = 60;
@@ -55,12 +52,10 @@ export const EndorsementChainContainer: FunctionComponent<EndorsementChainContai
   }, [error, pause]);
 
   return (
-    <OverlayContextProvider>
-      <EndorsementChainLayout
-        {...endorsementChainProps}
-        setShowEndorsementChain={setShowEndorsementChain}
-        providerDocumentationURL={ProviderDocumentationURL}
-      />
-    </OverlayContextProvider>
+    <EndorsementChainLayout
+      {...endorsementChainProps}
+      setShowEndorsementChain={setShowEndorsementChain}
+      providerDocumentationURL={ProviderDocumentationURL}
+    />
   );
 };

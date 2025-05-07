@@ -60,7 +60,7 @@ jest.mock("react", () => {
   const originalReact = jest.requireActual("react");
   return {
     ...originalReact,
-    useContext: () => ({ showOverlay: mockShowOverlay }),
+    useContext: () => ({ showOverlay: mockShowOverlay, setCollapsible: jest.fn() }),
   };
 });
 

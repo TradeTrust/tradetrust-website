@@ -1,10 +1,10 @@
-import { v2, isRawV3Document } from "@trustvc/trustvc";
 import { ButtonIcon } from "@tradetrust-tt/tradetrust-ui-components";
+import { isRawV3Document, v2 } from "@trustvc/trustvc";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
 import { Download, Printer } from "react-feather";
-import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
 import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
+import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
 interface DocumentUtilityProps {
   document: WrappedOrSignedOpenAttestationDocument;
   onPrint: () => void;

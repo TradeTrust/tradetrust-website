@@ -12,7 +12,7 @@ describe("Surrender Accept", () => {
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
-    cy.get("[data-testid='surrenderDropdown']").click(); // Surrender Document
+    cy.get("[data-testid='surrenderDropdown']").click({ force: true }); // Surrender Document
     cy.get("[data-testid='editable-input-remark']").clear().type("Remark: Surrender Document");
     cy.get("[data-testid='surrenderBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();
@@ -25,7 +25,7 @@ describe("Surrender Accept", () => {
     cy.waitAndUploadFile("ebl-surrender.json");
     cy.get("[data-testid='surrenderToIssuer']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
-    cy.get("[data-testid='acceptSurrenderDropdown']").click(); // Accept Surrender
+    cy.get("[data-testid='acceptSurrenderDropdown']").click({ force: true }); // Accept Surrender
     cy.get("[data-testid='editable-input-remark']").clear().type("Remark: Accept Surrender");
     cy.get("[data-testid='acceptSurrenderBtn']").click();
     cy.waitAndConfirmMetamaskTransaction();

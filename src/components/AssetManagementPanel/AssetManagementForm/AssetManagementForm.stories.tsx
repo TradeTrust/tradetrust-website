@@ -1,6 +1,7 @@
-import { Overlay, OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useState } from "react";
+import { OverlayContextProvider } from "../../../common/contexts/OverlayContext";
 import { FormState } from "../../../constants/FormState";
+import { Overlay } from "../../UI/Overlay";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "./AssetManagementForm";
 

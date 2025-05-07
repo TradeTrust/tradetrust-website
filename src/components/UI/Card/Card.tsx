@@ -7,9 +7,9 @@ interface CardProps {
 
 export const Card: React.FunctionComponent<CardProps> = ({ title, children }: CardProps) => {
   return (
-    <div className="p-8">
+    <div className="-mx-4 rounded-none xs:rounded-lg shadow-md bg-white p-4 mt-4 mb-8">
       {title && <div className="mb-4">{title}</div>}
-      <div className="rounded-lg shadow-md bg-white p-6">{children}</div>
+      <div className="m-4">{children}</div>
     </div>
   );
 };

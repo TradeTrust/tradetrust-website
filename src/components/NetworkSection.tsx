@@ -1,8 +1,8 @@
 import React from "react";
-import { NetworkSelect } from "./Layout/NetworkSelect";
-import { OverlayContent, OverlayContextProvider } from "@tradetrust-tt/tradetrust-ui-components";
-import { InfoOverlay } from "./UI/Overlay";
 import ConnectToMetamask from "./ConnectToMetamask";
+import { NetworkSelect } from "./Layout/NetworkSelect";
+import { InfoOverlay } from "./UI/Overlay";
+import { OverlayContent } from "./UI/Overlay/OverlayContent";
 
 interface NetworkSectionProps {
   subtitle: string;
@@ -27,15 +27,13 @@ export const NetworkSection = ({
         </div>
         <div className="w-full xs:w-auto min-w-72 flex flex-row items-center">
           <NetworkSelect disabled={disabled} document={document} />
-          <OverlayContextProvider>
-            <InfoOverlay className={`p-0 ${overlayMargin} cursor-pointer focus:outline-none`}>
-              <OverlayContent className="bg-white max-w-sm lg:max-w-lg" title="Network Selector">
-                A document can only be successfully verified on the same network where the document was created in.
-                <br />
-                If unsure, do check with the document issuer.
-              </OverlayContent>
-            </InfoOverlay>
-          </OverlayContextProvider>
+          <InfoOverlay className={`p-0 ${overlayMargin} cursor-pointer focus:outline-none`}>
+            <OverlayContent className="bg-white max-w-sm lg:max-w-lg" title="Network Selector">
+              A document can only be successfully verified on the same network where the document was created in.
+              <br />
+              If unsure, do check with the document issuer.
+            </OverlayContent>
+          </InfoOverlay>
         </div>
       </div>
       <ConnectToMetamask className="w-full xs:w-72" />

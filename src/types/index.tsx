@@ -1,5 +1,7 @@
 import { HostActions } from "@tradetrust-tt/decentralized-renderer-react-components";
 import { ChainId } from "./../constants/chain-info";
+import { Accept } from "react-dropzone";
+import { ValidationError } from "@apideck/better-ajv-errors";
 
 export interface TemplateProps {
   id: string;
@@ -39,3 +41,75 @@ export interface ActionPayload {
 }
 
 export type ActionType = "DOCUMENT";
+
+export type FormErrors = ValidationError[] | null | undefined;
+
+type ProcessedFilesV2 = {
+  data: string;
+  filename: string;
+  type: string;
+};
+
+type ProcessedFilesV3 = {
+  data: string;
+  fileName: string;
+  mimeType: string;
+};
+
+export type ProcessedFiles = ProcessedFilesV3 | ProcessedFilesV2;
+
+// FormData is used by json-schema-forms internally to track state of a single form
+export interface FormData {
+  schema?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  uiSchema?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  idSchema?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  formData: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  edit?: boolean;
+  errors?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  errorSchema?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+}
+
+export interface Ownership {
+  beneficiaryAddress: string;
+  holderAddress: string;
+}
+
+// FormEntry is used to store a form's inputs (from FromData) & metadata
+export interface FormEntry {
+  fileName: string;
+  data: FormData;
+  ownership: Ownership;
+  remarks: string;
+  extension: string;
+}
+
+export type FormType = "TRANSFERABLE_RECORD" | "VERIFIABLE_DOCUMENT";
+
+// FormTemplate is defined in configuration file
+export interface FormTemplate {
+  name: string;
+  type: FormType;
+  defaults: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  schema: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  attachments?: Attachments;
+  headers?: string[];
+  uiSchema?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  extension?: string;
+  fileName?: string;
+}
+
+interface Attachments {
+  allow: boolean;
+  accept?: Accept;
+}
+
+export interface SetFormParams {
+  data?: FormData;
+  updatedOwnership?: Ownership;
+  updatedRemarks?: string;
+  fileName?: string;
+}
+
+export interface Config {
+  forms: FormTemplate;
+}
