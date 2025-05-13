@@ -1,4 +1,4 @@
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../../Button";
 import React, { FunctionComponent, useEffect } from "react";
 import { OverlayContent } from "../../UI/Overlay/OverlayContent";
 

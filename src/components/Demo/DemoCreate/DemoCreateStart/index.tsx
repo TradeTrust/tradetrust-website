@@ -1,4 +1,4 @@
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../../../Button";
 import { gaEvent } from "../../../../common/utils/analytics";
 
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";

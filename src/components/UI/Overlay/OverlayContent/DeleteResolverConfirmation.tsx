@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { useOverlayContext } from "../../../../common/contexts/OverlayContext";
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../../../Button";
 import { OverlayContentProps } from "./index";
 import { ConfirmationContent, MESSAGE_TYPE } from "./ConfirmationContent";
 

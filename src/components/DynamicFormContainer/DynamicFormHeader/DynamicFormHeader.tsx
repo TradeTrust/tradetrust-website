@@ -1,9 +1,10 @@
-import { Button, ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
+import { ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useState } from "react";
 import { Card } from "../../UI/Card";
 import { FormErrors } from "../../../types";
 import { FormErrorBanner } from "../FormErrorBanner";
 import { BackModal } from "../BackModal";
+import { Button } from "../../Button";
 
 interface DynamicFormHeaderProps {
   onBackToFormSelection: () => void;

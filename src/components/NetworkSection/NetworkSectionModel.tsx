@@ -1,4 +1,4 @@
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../Button";
 import React, { useEffect } from "react";
 import { NetworkSelect } from "../Layout/NetworkSelect";
 import { Model } from "../UI/Overlay/OverlayContent/Model";

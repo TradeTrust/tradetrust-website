@@ -1,5 +1,6 @@
-import { Button, ButtonClose } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
+import { Button } from "../../Button";
+import { ButtonClose } from "../../UI/Overlay/OverlayContent";
 
 export const FooterActionButtons = ({
   setShowEndorsementChain,

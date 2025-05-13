@@ -1,4 +1,4 @@
-import { Button, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
+import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
 import { encryptRemark } from "../../../../../common/utils/chain-utils";
@@ -9,6 +9,7 @@ import { TagBordered } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { FooterActionButtons } from "../../FooterActionButtons";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import { Button } from "../../../../Button";
 
 // Base Props shared by all form variants
 export interface BaseActionFormProps {

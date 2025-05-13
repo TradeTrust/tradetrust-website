@@ -1,10 +1,4 @@
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownProps,
-  IconError,
-  LoaderSpinner,
-} from "@tradetrust-tt/tradetrust-ui-components";
+import { IconError, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import { isTransferableRecord } from "@trustvc/trustvc";
 import { isSignedDocument } from "@trustvc/trustvc/w3c/vc";
 import React, { FunctionComponent, useEffect, useState } from "react";
@@ -13,6 +7,7 @@ import { SIGNER_TYPE, useProviderContext } from "../../../common/contexts/provid
 import { useNetworkSelect } from "../../../common/hooks/useNetworkSelect";
 import { getChainInfo } from "../../../common/utils/chain-utils";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
+import { Dropdown, DropdownItem, DropdownProps } from "../../Dropdown";
 
 interface NetworkSelectViewProps {
   onChange: (chainId: ChainId) => Promise<void>;

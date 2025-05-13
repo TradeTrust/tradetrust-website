@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode } from "react";
 import { useOverlayContext } from "../../../../common/contexts/OverlayContext";
-import { Button, LinkButton } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, LinkButton } from "../../../Button";
 import { OverlayContent, OverlayContentProps } from "./index";
 import { MessageAddressResolver } from "./MessageAddressResolver";
 

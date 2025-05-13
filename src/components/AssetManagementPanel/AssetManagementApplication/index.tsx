@@ -1,4 +1,4 @@
-import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, ButtonSize } from "../../Button";
 import { v5RoleHash } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { Upload } from "react-feather";

@@ -1,4 +1,4 @@
-import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, ButtonSize } from "./components/Button";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";

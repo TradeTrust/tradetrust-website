@@ -1,5 +1,6 @@
-import { Button, ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
+import { ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
+import { Button } from "../../Button";
 
 export const ProgressPanel: FunctionComponent = () => {
   return (

@@ -1,4 +1,5 @@
-import { Button, ButtonSize, Youtube } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, ButtonSize } from "../Button";
+import { Youtube } from "../UI/Overlay/OverlayContent";
 import React, { FunctionComponent } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";

@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import { isValid } from "@trustvc/trustvc";
-import { Button, ButtonSize, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
+import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import { gaEvent } from "../../common/utils/analytics";
 
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import { updateDemoDocument, resetDemoState } from "../../reducers/demo-verify";
 import { getDropzoneBoxUi } from "./../../common/utils/getDropzoneBoxUi";
 import { GaAction, GaCategory } from "../../types";
 import { URLS } from "../../constants";
+import { Button, ButtonSize } from "../Button";
 
 interface MagicDropzoneViewProps {
   isPending: boolean;
