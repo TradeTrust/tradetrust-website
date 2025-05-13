@@ -1,8 +1,9 @@
-import { ButtonIcon, OverlayAddressBook } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Book, Info } from "react-feather";
 import { TooltipIcon } from "../../UI/SvgIcon";
 import { useOverlayContext } from "../../../common/contexts/OverlayContext";
+import { OverlayAddressBook } from "../../AddressBook";
+import { ButtonIcon } from "../../Button";
 
 interface TransferableRecordForm {
   beneficiaryAddress: string;

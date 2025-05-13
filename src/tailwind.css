@@ -127,6 +127,12 @@
     font-size: 20px;
     content: counters(section, ".") ".";
   }
+
+  .button-icon svg {
+    max-width: 16px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @tailwind components;

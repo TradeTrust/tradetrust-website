@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useCallback, useContext, useEffect } from "react";
 import { saveAs } from "file-saver";
-import { Button, ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
+import { ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../../../Button";
 import { gaEvent } from "../../../../common/utils/analytics";
 
 import { CheckCircle, XCircle } from "react-feather";

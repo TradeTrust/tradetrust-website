@@ -1,4 +1,4 @@
-import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, ButtonSize } from "../../Button";
 import { v5RoleHash } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { Upload } from "react-feather";
@@ -141,7 +141,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             <a id="upload-new-file" data-testid="upload-new-file" className="content-center" href={"/"}>
               <Button className="bg-white text-cerulean-500 hover:bg-cloud-100" size={ButtonSize.MD}>
                 <div className="sm:block hidden px-2">Upload New File</div>
-                <Upload className="sm:hidden block text-cerulean-500" />
+                <Upload className="sm:hidden block text-cerulean-500 max-w-[16px]" />
               </Button>
             </a>
           </div>

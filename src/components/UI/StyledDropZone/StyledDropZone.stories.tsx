@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { StyledDropZone } from "./StyledDropZone";
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../../Button";
 import React from "react";
 
 export default {

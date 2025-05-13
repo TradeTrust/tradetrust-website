@@ -1,4 +1,4 @@
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../Button";
 import React, { useState } from "react";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";
 import { ConnectToMetamaskModelComponent } from "../ConnectToMetamask";
@@ -22,7 +22,7 @@ interface ConnectToBlockchainHeaderProps {
 }
 
 interface ConnectToBlockchainHeaderItemProps {
-  key: string;
+  itemKey: string;
   walletType: SIGNER_TYPE;
   walletIcon: React.ReactNode;
   isSelected: boolean;
@@ -31,7 +31,7 @@ interface ConnectToBlockchainHeaderItemProps {
 }
 
 const ConnectToBlockchainHeaderItem = ({
-  key,
+  itemKey,
   walletType,
   walletIcon,
   isSelected,
@@ -40,7 +40,7 @@ const ConnectToBlockchainHeaderItem = ({
 }: ConnectToBlockchainHeaderItemProps) => {
   return (
     <button
-      id={`connect-blockchain-button-${key}`}
+      id={`connect-blockchain-button-${itemKey}`}
       onClick={onClick}
       className={`connect-blockchain-button break-keep w-max flex gap-2 items-center px-6 py-3 border rounded-t-xl border-b transition-colors ${
         isSelected ? "border-b-white" : "hover:text-blue-600"
@@ -89,6 +89,7 @@ const ConnectToBlockchainHeader = ({ selectedWalletType, setSelectedWalletType }
             {WalletConnectMethods.map((wallet) => (
               <ConnectToBlockchainHeaderItem
                 key={wallet.walletType}
+                itemKey={wallet.walletType}
                 walletType={wallet.walletType}
                 walletIcon={wallet.walletIcon}
                 isSelected={wallet.isSelected}

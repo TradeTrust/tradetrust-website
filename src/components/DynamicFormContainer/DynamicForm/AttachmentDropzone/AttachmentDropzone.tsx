@@ -1,4 +1,4 @@
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../../../Button";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { FileUpload } from "../../../../constants/FileUpload";
 import { ProcessedFiles } from "../../../../types";
