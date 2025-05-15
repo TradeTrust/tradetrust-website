@@ -1,4 +1,4 @@
-import { v5ContractAddress, v5Contracts, v5Utils } from "@trustvc/trustvc";
+import { v5ContractAddress, v5Contracts, v5Utils, SUPPORTED_CHAINS, CHAIN_ID } from "@trustvc/trustvc";
 import { Signer } from "ethers";
 import { useState } from "react";
 
@@ -44,11 +44,12 @@ export const useDeployTokenRegistry = (): useDeployTokenRegistryResult => {
         deployer: await signer.getAddress(),
       });
 
-      const feeData = await signer.getFeeData();
-
+      const { gasStation } = SUPPORTED_CHAINS[networkId as unknown as CHAIN_ID];
+      const feeData = gasStation && (await gasStation());
+      const { maxFeePerGas, maxPriorityFeePerGas } = feeData || (await signer.getFeeData());
       const mintingReceipt = await tDocDeployerV5.deploy(implContractAddress, initParams, {
-        maxFeePerGas: feeData.maxFeePerGas,
-        maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
+        maxPriorityFeePerGas: maxPriorityFeePerGas,
+        maxFeePerGas: maxFeePerGas,
       });
       if (mintingReceipt) setDeploymentInProgress(true);
       const mintingTx = await mintingReceipt.wait();

@@ -50,12 +50,7 @@ const STATE_MESSAGE = {
   TOKEN_REGISTRY: {
     FETCH_LOCAL_CACHE: "Checking Token Registry Address on ",
     LOCAL_CACHE_FOUND: "Token Registry address found on ",
-    LOCAL_CACHE_NOT_FOUND: (
-      <>
-        <div>Token Registry address not found. Generating for you...</div>
-        <div> Please confirm the transaction on metamask</div>
-      </>
-    ),
+    LOCAL_CACHE_NOT_FOUND: "Token Registry address not found on ",
     GENERATING_ADDRESS: "Generating Token Registry Address...",
     GENERATED: "Token Registry Address generated on ",
     ERROR: "Error generating record",
@@ -146,10 +141,11 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
   const processTokenRegistry = async (signer: any) => {
     const chainId: ChainId = await signer.getChainId();
     if (displayRedeployTokenRegistry) setDisplayRedeployTokenRegistry(false); // Set redeploy state to false
-
+    let networkName = ChainInfo[chainId].networkName;
+    networkName = networkName.charAt(0).toUpperCase() + networkName.slice(1);
     // Set loading state
     setTokenRegistryState(CreatorItemState.LOADING);
-    setTokenRegistryStateMessage(STATE_MESSAGE.TOKEN_REGISTRY.FETCH_LOCAL_CACHE + ChainInfo[chainId].networkName);
+    setTokenRegistryStateMessage(STATE_MESSAGE.TOKEN_REGISTRY.FETCH_LOCAL_CACHE + networkName);
 
     //load local cache token registry address
     const trLoaded = await new Promise((resolve: (value: string) => void) =>
@@ -164,14 +160,19 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
       setTokenRegistryState(CreatorItemState.SUCCESS);
 
       const stateMessage = customStateMessage(
-        STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_FOUND + ChainInfo[chainId].networkName + ":",
+        STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_FOUND + networkName + ":",
         trLoaded,
         `${ChainInfo[chainId].explorerUrl}/address/${trLoaded}`
       );
       setTokenRegistryStateMessage(stateMessage);
       return;
     }
-    setTokenRegistryStateMessage(STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_NOT_FOUND);
+    setTokenRegistryStateMessage(
+      <>
+        {STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_NOT_FOUND} {networkName}.<div>Generating for you...</div>
+        <div> Please confirm the transaction on metamask</div>
+      </>
+    );
     const { newTokenRegistryAddress, errorMsg, code } = await deployTokenRegistry(
       "Sandbox Token Registry", //standard name
       "STR",
@@ -197,7 +198,7 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
     } else {
       setTokenRegistryState(CreatorItemState.SUCCESS);
       const stateMessage = customStateMessage(
-        STATE_MESSAGE.TOKEN_REGISTRY.GENERATED + ChainInfo[chainId].networkName + " :",
+        STATE_MESSAGE.TOKEN_REGISTRY.GENERATED + networkName + " :",
         newTokenRegistryAddress,
         `${ChainInfo[chainId].explorerUrl}/address/${newTokenRegistryAddress}`
       );
