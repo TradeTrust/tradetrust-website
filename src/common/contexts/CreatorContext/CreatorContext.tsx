@@ -1,8 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { DocumentSetupType } from "../../../components/DocumentSetup/DocumentSetup";
 import { useDidWeb } from "../../hooks/useDidWeb";
 import { CreatorItemState } from "./types";
-
+import { useDeployTokenRegistry } from "../../hooks/useDeployTokenRegistry";
+import { ChainId, ChainInfo } from "../../../constants/chain-info";
+import { ExternalLink } from "react-feather";
 interface DocumentSetupContext {
   type: DocumentSetupType;
   state?: CreatorItemState;
@@ -16,9 +18,12 @@ interface CreatorContext {
   };
   tokenRegistry?: DocumentSetupContext & {
     address?: string;
+    redeployTokenRegistry?: boolean;
   };
   processDid: () => Promise<void>;
   resetDid: () => void;
+  processTokenRegistry: (signer: any) => Promise<void>;
+  resetTokenRegistry: () => void;
 }
 
 export const CreatorContext = createContext<CreatorContext>({
@@ -26,6 +31,8 @@ export const CreatorContext = createContext<CreatorContext>({
   tokenRegistry: undefined,
   processDid: async () => {},
   resetDid: () => {},
+  processTokenRegistry: async () => {},
+  resetTokenRegistry: () => {},
 });
 
 interface CreatorContextProviderProps {
@@ -41,25 +48,54 @@ const STATE_MESSAGE = {
     ERROR: "Error generating record!",
   },
   TOKEN_REGISTRY: {
-    FETCH_LOCAL_CACHE: "Checking Token Registry...",
-    LOCAL_CACHE_FOUND: "Record found: ",
-    LOCAL_CACHE_NOT_FOUND: "Record not found. Generating for you...",
-    GENERATED: "Record Generated: ",
+    FETCH_LOCAL_CACHE: "Checking Token Registry Address on ",
+    LOCAL_CACHE_FOUND: "Token Registry address found on ",
+    LOCAL_CACHE_NOT_FOUND: (
+      <>
+        <div>Token Registry address not found. Generating for you...</div>
+        <div> Please confirm the transaction on metamask</div>
+      </>
+    ),
+    GENERATING_ADDRESS: "Generating Token Registry Address...",
+    GENERATED: "Token Registry Address generated on ",
     ERROR: "Error generating record",
   },
 };
-
+function customStateMessage(msg: string, desc: string, link?: string) {
+  return (
+    <div>
+      {msg}
+      {link ? (
+        <a href={link} className="inline-flex items-center" rel="noopener noreferrer" target="_blank">
+          <span className="inline">
+            {desc}
+            <span className="whitespace-nowrap">
+              <ExternalLink size={16} className="ml-1 inline-block text-cerulean-800 align-text-top" />
+            </span>
+          </span>
+        </a>
+      ) : (
+        { desc }
+      )}
+    </div>
+  );
+}
 export const CreatorContextProvider: any = ({ children }: CreatorContextProviderProps) => {
-  const [tokenRegistryAddress] = useState<string>();
-
   const [didState, setDidState] = useState<CreatorItemState | undefined>(undefined);
-  const [tokenRegistryState] = useState<CreatorItemState | undefined>(undefined);
+  const [tokenRegistryState, setTokenRegistryState] = useState<CreatorItemState | undefined>(undefined);
 
   const [didStateMessage, setDidStateMessage] = useState<string | React.ReactNode>();
-  const [tokenRegistryStateMessage] = useState<string | React.ReactNode>();
+  const [tokenRegistryStateMessage, setTokenRegistryStateMessage] = useState<string | React.ReactNode>();
+  const [displayRedeployTokenRegistry, setDisplayRedeployTokenRegistry] = useState<boolean>(false);
 
   const { loadDid, setupDid, didKeyPair, didWebId } = useDidWeb();
+  const { tokenRegistryAddress, deployTokenRegistry, loadTokenRegistry, deploymentInProgress } =
+    useDeployTokenRegistry();
 
+  //soley to change the state message to showing the deployment in progress
+  useEffect(() => {
+    if (deploymentInProgress) setTokenRegistryStateMessage(STATE_MESSAGE.TOKEN_REGISTRY.GENERATING_ADDRESS);
+  }, [deploymentInProgress]);
   const processDid = async () => {
     // Set loading state
     setDidState(CreatorItemState.LOADING);
@@ -107,9 +143,76 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
     setDidState(CreatorItemState.SUCCESS);
   };
 
+  const processTokenRegistry = async (signer: any) => {
+    const chainId: ChainId = await signer.getChainId();
+    if (displayRedeployTokenRegistry) setDisplayRedeployTokenRegistry(false); // Set redeploy state to false
+
+    // Set loading state
+    setTokenRegistryState(CreatorItemState.LOADING);
+    setTokenRegistryStateMessage(STATE_MESSAGE.TOKEN_REGISTRY.FETCH_LOCAL_CACHE + ChainInfo[chainId].networkName);
+
+    //load local cache token registry address
+    const trLoaded = await new Promise((resolve: (value: string) => void) =>
+      setTimeout(async () => {
+        const result = await loadTokenRegistry(await signer.getAddress(), chainId as unknown as string);
+        resolve(result as string);
+      }, 1000)
+    );
+
+    // If local cache not found, deploy
+    if (trLoaded) {
+      setTokenRegistryState(CreatorItemState.SUCCESS);
+
+      const stateMessage = customStateMessage(
+        STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_FOUND + ChainInfo[chainId].networkName + ":",
+        trLoaded,
+        `${ChainInfo[chainId].explorerUrl}/address/${trLoaded}`
+      );
+      setTokenRegistryStateMessage(stateMessage);
+      return;
+    }
+    setTokenRegistryStateMessage(STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_NOT_FOUND);
+    const { newTokenRegistryAddress, errorMsg, code } = await deployTokenRegistry(
+      "Sandbox Token Registry", //standard name
+      "STR",
+      signer
+    );
+
+    if (errorMsg) {
+      setTokenRegistryState(CreatorItemState.ERROR);
+      //custom state error message
+      if (code == "INSUFFICIENT_FUNDS") {
+        const stateMessage = customStateMessage(
+          errorMsg,
+          "Learn how to top-up cryptocurrency",
+          "https://metamask.io/en-GB/news/how-to-buy-crypto"
+        );
+        setTokenRegistryStateMessage(stateMessage);
+      } else {
+        setTokenRegistryStateMessage(errorMsg);
+      }
+
+      //enable redeploy token registry
+      setDisplayRedeployTokenRegistry(true);
+    } else {
+      setTokenRegistryState(CreatorItemState.SUCCESS);
+      const stateMessage = customStateMessage(
+        STATE_MESSAGE.TOKEN_REGISTRY.GENERATED + ChainInfo[chainId].networkName + " :",
+        newTokenRegistryAddress,
+        `${ChainInfo[chainId].explorerUrl}/address/${newTokenRegistryAddress}`
+      );
+      setTokenRegistryStateMessage(stateMessage);
+    }
+  };
+
   const resetDid = () => {
     setDidState(undefined);
     setDidStateMessage(undefined);
+  };
+  const resetTokenRegistry = () => {
+    setTokenRegistryState(undefined);
+    setTokenRegistryStateMessage(undefined);
+    setDisplayRedeployTokenRegistry(false);
   };
 
   return (
@@ -127,9 +230,12 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
           state: tokenRegistryState,
           stateMessage: tokenRegistryStateMessage,
           address: tokenRegistryAddress || "",
+          redeployTokenRegistry: displayRedeployTokenRegistry,
         },
         processDid,
         resetDid,
+        processTokenRegistry,
+        resetTokenRegistry,
       }}
     >
       {children}
