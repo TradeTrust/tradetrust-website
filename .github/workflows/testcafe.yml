@@ -27,7 +27,7 @@ jobs:
         run: npm run integration:testcafe:ci
       - name: Upload Artifact
         if: ${{ failure() && steps.testcafe.outcome == 'failure' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: testcafe-fail-screenshots
           path: artifacts
