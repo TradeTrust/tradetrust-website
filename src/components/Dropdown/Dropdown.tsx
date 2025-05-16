@@ -29,7 +29,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
   const addonStylesShared = classNameShared ? ` ${classNameShared}` : "";
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
+  const updateMenuPosition = () => {
     if (isOpen && buttonRef.current && menuPortalTarget) {
       const rect = buttonRef.current.getBoundingClientRect();
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -40,24 +40,67 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
         left: rect.left + scrollLeft,
       });
     }
+  };
+
+  // Add click event listener to detect clicks outside the dropdown when using portal
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuPortalTarget) {
+      // Check if the click is outside both the button and the dropdown content
+      const dropdownContent = menuPortalTarget.querySelector('[data-dropdown-content="true"]');
+
+      if (
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node) &&
+        dropdownContent &&
+        !dropdownContent.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    updateMenuPosition();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, menuPortalTarget]);
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener("resize", updateMenuPosition);
+
+      // Only add the event listener if we're using a portal
+      if (menuPortalTarget) {
+        document.addEventListener("mousedown", handleClickOutside);
+      }
+
+      return () => {
+        window.removeEventListener("resize", updateMenuPosition);
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, menuPortalTarget]);
 
   const renderDropdownContent = () => {
     const content = (
       <div
-        onClick={() => setIsOpen(false)}
+        data-dropdown-content="true"
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(false);
+        }}
         style={
           menuPortalTarget
             ? {
-                position: "absolute",
-                zIndex: 9999,
                 top: menuPosition.top,
                 left: menuPosition.left,
                 maxWidth: buttonRef.current?.offsetWidth,
               }
             : undefined
         }
-        className={`rounded bg-white border border-gray-300 py-2 shadow-lg${addonStylesShared}${
+        className={`${
+          !menuPortalTarget ? "z-30 " : "z-50 "
+        }absolute rounded bg-white border border-gray-300 py-2 shadow-lg${addonStylesShared}${
           classNameMenu ? ` ${classNameMenu}` : ""
         }`}
       >
@@ -97,11 +140,13 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
       </button>
       {isOpen && (
         <>
-          {/* <button
-            tabIndex={-1}
-            onClick={() => setIsOpen(false)}
-            className="fixed z-20 inset-0 w-full h-full cursor-default focus:outline-none"
-          /> */}
+          {!menuPortalTarget && (
+            <button
+              tabIndex={-1}
+              onClick={() => setIsOpen(false)}
+              className="fixed z-20 inset-0 w-full h-full cursor-default focus:outline-none"
+            />
+          )}
           {renderDropdownContent()}
         </>
       )}
