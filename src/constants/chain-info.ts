@@ -150,7 +150,7 @@ export const ChainInfo: ChainInfo = {
     },
   },
   [ChainId.StabilityTestnet]: {
-    label: "Stability Testnet",
+    label: "Stability Testnet (Beta)",
     chainId: ChainId.StabilityTestnet,
     iconImage: "/static/images/networks/stability.png",
     networkName: "stabilitytestnet",
@@ -164,7 +164,7 @@ export const ChainInfo: ChainInfo = {
     },
   },
   [ChainId.AstronTestnet]: {
-    label: "Astron Testnet",
+    label: "Astron Testnet (Beta)",
     chainId: ChainId.AstronTestnet,
     iconImage: "/static/images/networks/astron.png",
     networkName: "astrontestnet",
