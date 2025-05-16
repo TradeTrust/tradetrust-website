@@ -14,7 +14,11 @@ jobs:
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
     steps:
+<<<<<<< HEAD
       - uses: actions/checkout@v4
+=======
+      - uses: actions/checkout@v3
+>>>>>>> 78105a43 (fix: update ci action)
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
