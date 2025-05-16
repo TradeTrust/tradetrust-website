@@ -13,7 +13,7 @@ const TokenRegistrySetupRef = (
   const { providerOrSigner } = useProviderContext();
   const { tokenRegistry, processTokenRegistry, resetTokenRegistry } = useCreatorContext();
 
-  const { state, stateMessage, redeployTokenRegistry } = tokenRegistry || {};
+  const { state, stateMessage, displayRedeployTokenRegistry } = tokenRegistry || {};
   useImperativeHandle(
     ref,
     () => ({
@@ -55,7 +55,7 @@ const TokenRegistrySetupRef = (
           <div className="flex flex-row gap-2">
             <div className="flex-1">{stateMessage!}</div>
             <div className="w-32">
-              {redeployTokenRegistry && (
+              {displayRedeployTokenRegistry && (
                 <Button
                   className="flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800 w-full h-12"
                   size={ButtonSize.MD}

@@ -41,7 +41,7 @@ describe("TokenRegistrySetup", () => {
       type: DocumentSetupType.TOKEN_REGISTRY,
       state: undefined,
       stateMessage: "Checking smart contract address...",
-      redeployTokenRegistry: false,
+      displayRedeployTokenRegistry: false,
       address: undefined,
       ...overrides, // allow custom overrides
     },
@@ -133,7 +133,7 @@ describe("TokenRegistrySetup", () => {
       getMockCreatorContext({
         state: CreatorItemState.ERROR,
         stateMessage: "Error generating record",
-        redeployTokenRegistry: true,
+        displayRedeployTokenRegistry: true,
       })
     );
 
@@ -148,7 +148,7 @@ describe("TokenRegistrySetup", () => {
       getMockCreatorContext({
         state: CreatorItemState.ERROR,
         stateMessage: "Error generating record",
-        redeployTokenRegistry: true,
+        displayRedeployTokenRegistry: true,
       })
     );
 
@@ -175,7 +175,7 @@ describe("TokenRegistrySetup", () => {
             </a>
           </div>
         ),
-        redeployTokenRegistry: true,
+        displayRedeployTokenRegistry: true,
       })
     );
 

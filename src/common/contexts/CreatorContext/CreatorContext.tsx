@@ -18,7 +18,7 @@ interface CreatorContext {
   };
   tokenRegistry?: DocumentSetupContext & {
     address?: string;
-    redeployTokenRegistry?: boolean;
+    displayRedeployTokenRegistry?: boolean;
   };
   processDid: () => Promise<void>;
   resetDid: () => void;
@@ -155,7 +155,7 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
       }, 1000)
     );
 
-    // If local cache not found, deploy
+    // If local cache found
     if (trLoaded) {
       setTokenRegistryState(CreatorItemState.SUCCESS);
 
@@ -173,6 +173,8 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
         <div> Please confirm the transaction on metamask</div>
       </>
     );
+
+    //If local cache not found, deploy
     const { newTokenRegistryAddress, errorMsg, code } = await deployTokenRegistry(
       "Sandbox Token Registry", //standard name
       "STR",
@@ -231,7 +233,7 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
           state: tokenRegistryState,
           stateMessage: tokenRegistryStateMessage,
           address: tokenRegistryAddress || "",
-          redeployTokenRegistry: displayRedeployTokenRegistry,
+          displayRedeployTokenRegistry: displayRedeployTokenRegistry,
         },
         processDid,
         resetDid,
