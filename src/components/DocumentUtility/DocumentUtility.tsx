@@ -1,4 +1,4 @@
-import { ButtonIcon } from "@tradetrust-tt/tradetrust-ui-components";
+import { ButtonIcon } from "../Button";
 import { isRawV3Document, v2 } from "@trustvc/trustvc";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";

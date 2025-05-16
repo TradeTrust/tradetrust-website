@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { useDispatch } from "react-redux";
 import { updateCertificate } from "../../reducers/certificate";
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../Button";
 import { loadDemoCertificate } from "../VerifyPageContent/helpers";
 import { reset, setActive } from "../../reducers/sample";
 import { ChainId } from "../../constants/chain-info";

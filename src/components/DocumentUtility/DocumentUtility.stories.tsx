@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DocumentUtility } from "./DocumentUtility";
+import { v2, wrapOADocument, WrappedDocument } from "@trustvc/trustvc";
 
 export default {
   title: "Viewer/DocumentUtility",
@@ -9,26 +10,52 @@ export default {
   },
 };
 
-const documentWithoutQr = {
-  data: {
-    name: "bah bah black sheep",
-  },
-};
-
-const documentWithQr = {
-  data: {
-    name: "bah bah black sheep",
-    links: {
-      self: {
-        href: "https://openattestation.com",
-      },
+const issuers = [
+  {
+    name: "John",
+    documentStore: "0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
+    identityProof: {
+      type: v2.IdentityProofType.DNSTxt,
+      location: "example.com",
     },
   },
+];
+
+const handlePrint = () => {
+  window.print();
 };
 
 export const PrintAndDownload = () => {
-  return <DocumentUtility document={documentWithoutQr as any} onPrint={() => {}} selectedTemplate="default-template" />;
+  const [documentWithoutQr, setDocumentWithoutQr] = useState<WrappedDocument<any> | null>(null);
+
+  useEffect(() => {
+    wrapOADocument({
+      issuers,
+      name: "bah bah black sheep",
+    }).then(setDocumentWithoutQr);
+  }, []);
+
+  if (!documentWithoutQr) return <div>Loading...</div>;
+  return (
+    <DocumentUtility document={documentWithoutQr as any} onPrint={handlePrint} selectedTemplate="default-template" />
+  );
 };
+
 export const QRPrintAndDownload = () => {
-  return <DocumentUtility document={documentWithQr as any} onPrint={() => {}} selectedTemplate="default-template" />;
+  const [documentWithQr, setDocumentWithQr] = useState<WrappedDocument<any> | null>(null);
+
+  useEffect(() => {
+    wrapOADocument({
+      issuers,
+      name: "bah bah black sheep",
+      links: {
+        self: {
+          href: "https://openattestation.com",
+        },
+      },
+    }).then(setDocumentWithQr);
+  }, []);
+
+  if (!documentWithQr) return <div>Loading...</div>;
+  return <DocumentUtility document={documentWithQr as any} onPrint={handlePrint} selectedTemplate="default-template" />;
 };

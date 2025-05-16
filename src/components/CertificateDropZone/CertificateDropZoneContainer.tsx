@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../Button";
 import { useDispatch } from "react-redux";
 import { processQrCode } from "../../reducers/certificate";
 import QrReader, { QrDataType } from "../QrReader/qrReader";

@@ -1,4 +1,4 @@
-import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, ButtonSize } from "../Button";
 import React, { ForwardRefExoticComponent, FunctionComponent, useEffect } from "react";
 import { CreatorItemState, useCreatorContext } from "../../common/contexts/CreatorContext";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";

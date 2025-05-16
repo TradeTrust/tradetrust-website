@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button } from "../../Button";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
 import { DetailedErrors } from "../DetailedErrors";
