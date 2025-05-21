@@ -20,7 +20,7 @@ const mockProviderContextValue: ProviderContextProps = {
   account: undefined,
   networkChangeLoading: false,
   setNetworkChangeLoading: action("setNetworkChangeLoading"),
-  disconnectWallet: () => action("disconnectWallet")(),
+  disconnectWallet: async () => action("disconnectWallet")(),
 };
 
 const connectedContextValue: ProviderContextProps = {

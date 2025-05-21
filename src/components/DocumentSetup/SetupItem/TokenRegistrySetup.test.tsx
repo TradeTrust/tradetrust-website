@@ -77,7 +77,11 @@ describe("TokenRegistrySetup", () => {
     render(<TokenRegistrySetup />);
 
     await waitFor(() => {
-      expect(mockProcessTokenRegistry).toHaveBeenCalledWith(mockProviderOrSigner);
+      expect(mockProcessTokenRegistry).toHaveBeenCalledWith(
+        mockProviderOrSigner,
+        ChainId.Sepolia,
+        SIGNER_TYPE.METAMASK
+      );
     });
   });
 
@@ -158,7 +162,11 @@ describe("TokenRegistrySetup", () => {
     fireEvent.click(redeployButton);
 
     await waitFor(() => {
-      expect(mockProcessTokenRegistry).toHaveBeenCalledWith(mockProviderOrSigner);
+      expect(mockProcessTokenRegistry).toHaveBeenCalledWith(
+        mockProviderOrSigner,
+        ChainId.Sepolia,
+        SIGNER_TYPE.METAMASK
+      );
     });
   });
 
