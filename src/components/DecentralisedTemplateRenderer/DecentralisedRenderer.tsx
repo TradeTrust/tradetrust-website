@@ -43,7 +43,6 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   const toFrame = useRef<Dispatch>();
   const document = useMemo(() => getOpenAttestationData(rawDocument), [rawDocument]);
   const [height, setHeight] = useState(250);
-  const [isTimeout, setIsTimeout] = useState(false);
   const source = getTemplateUrl(rawDocument) ?? DEFAULT_RENDERER_URL;
 
   useImperativeHandle(forwardedRef, () => ({
@@ -74,9 +73,6 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
     if (action.type === "OBFUSCATE") {
       setPrivacyFilter(action.payload);
     }
-    if (action.type === "TIMEOUT") {
-      setIsTimeout(true);
-    }
   };
 
   // render document onload
@@ -94,7 +90,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   }, [selectedTemplate, toFrame]);
 
   return (
-    <div className={`${isTimeout ? "container" : ""}`}>
+    <div className="container">
       <FrameConnector
         style={{ height: `${height}px`, width: "100%", border: "0px" }}
         source={source}
