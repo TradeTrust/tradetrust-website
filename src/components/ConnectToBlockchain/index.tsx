@@ -105,7 +105,10 @@ const ConnectToBlockchainHeader = ({ selectedWalletType, setSelectedWalletType }
 };
 
 const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsible = false, nextStep }) => {
-  const [selectedWalletType, setSelectedWalletType] = useState<SIGNER_TYPE>(SIGNER_TYPE.METAMASK);
+  const { providerType } = useProviderContext();
+  const [selectedWalletType, setSelectedWalletType] = useState<SIGNER_TYPE>(
+    [SIGNER_TYPE.MAGIC, SIGNER_TYPE.METAMASK].includes(providerType) ? providerType : SIGNER_TYPE.METAMASK
+  );
   const { closeOverlay } = useOverlayContext();
 
   return (
@@ -131,7 +134,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
           <ConnectToMetamaskModelComponent showOnNewConnectWarningMessage nextStep={nextStep} />
         )}
         {selectedWalletType === SIGNER_TYPE.MAGIC && (
-          <ConnectToMagicLink className="w-full" showOnDisconnectWarningMessage />
+          <ConnectToMagicLink className="w-full" showOnNewConnectWarningMessage nextStep={nextStep} />
         )}
       </div>
     </Model>

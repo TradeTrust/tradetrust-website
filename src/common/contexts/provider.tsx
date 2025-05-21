@@ -1,15 +1,14 @@
+import { ProviderDetails, utils } from "@trustvc/trustvc";
 import { ethers, providers } from "ethers";
 import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from "react";
-import { INFURA_API_KEY } from "../../config";
-import { ProviderDetails, utils } from "@trustvc/trustvc";
-import { magic } from "./helpers";
+import { INFURA_API_KEY, NETWORK_NAME } from "../../config";
 import { ChainId, ChainInfo, ChainInfoObject } from "../../constants/chain-info";
 import { UnsupportedNetworkError } from "../errors";
-import { getChainInfo, getChainInfoFromNetworkName, walletSwitchChain } from "../utils/chain-utils";
-import { NETWORK_NAME } from "../../config";
+import { getChainInfo, getChainInfoFromNetworkName, isSupportedNetwork, walletSwitchChain } from "../utils/chain-utils";
+import { useMagicContext } from "./MagicContext";
 
 export enum SIGNER_TYPE {
-  IDENTITY = "Identity",
+  IDENTITY = "Identity", // Internal RPC to query only.
   METAMASK = "Metamask",
   MAGIC = "Magic",
   NONE = "None",
@@ -44,7 +43,7 @@ export interface ProviderContextProps {
   account: string | undefined;
   networkChangeLoading: boolean;
   setNetworkChangeLoading: (loading: boolean) => void;
-  disconnectWallet: () => void;
+  disconnectWallet: (disconnectOnly?: boolean) => Promise<void>;
 }
 
 export const ProviderContext = createContext<ProviderContextProps>({
@@ -64,7 +63,7 @@ export const ProviderContext = createContext<ProviderContextProps>({
   account: undefined,
   networkChangeLoading: false,
   setNetworkChangeLoading: () => {},
-  disconnectWallet: () => {},
+  disconnectWallet: () => Promise.resolve(),
 });
 
 interface Ethereum extends providers.ExternalProvider, providers.BaseProvider {
@@ -92,12 +91,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   defaultChainId,
 }) => {
   const defaultProvider = useRef(createProvider(defaultChainId));
-
-  const isSupportedNetwork = useCallback(
-    (chainId: ChainId | number | string) =>
-      supportedChainInfoObjects.some((chainInfoObj) => chainInfoObj.chainId.toString() === chainId.toString()),
-    [supportedChainInfoObjects]
-  );
+  const { magic, changeMagicNetwork, isLoggedIn: isMagicLoggedIn, logoutMagicLink } = useMagicContext();
 
   const [providerType, setProviderType] = useState<SIGNER_TYPE>(SIGNER_TYPE.NONE);
   const [currentChainId, setCurrentChainId] = useState<ChainId | undefined>(
@@ -112,34 +106,78 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   const [networkChangeLoading, setNetworkChangeLoading] = useState<boolean>(false);
 
   const changeNetwork = async (chainId: ChainId) => {
-    await walletSwitchChain(chainId);
+    if (providerType === SIGNER_TYPE.METAMASK) {
+      await walletSwitchChain(chainId);
+    } else if (providerType === SIGNER_TYPE.MAGIC) {
+      await changeMagicNetwork(chainId);
+    }
     setCurrentChainId(chainId);
+
+    // Escape same network switch, loading error
+    if (currentChainId === chainId) setNetworkChangeLoading(false);
   };
 
-  const updateProvider = useCallback(async () => {
+  const getMetaMaskWallet = async (throwError: boolean = true): Promise<providers.Web3Provider | undefined> => {
     const { ethereum, web3 } = window;
-    const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
-    if (metamaskExtensionNotFound || !ethereum.request) {
-      setProvider(createProvider(currentChainId || defaultChainId));
-      setAccount(undefined);
-    } else {
-      const injectedWeb3 = ethereum || (web3 && web3.currentProvider);
-      const newProvider = new ethers.providers.Web3Provider(injectedWeb3, "any");
-      const network = await newProvider.getNetwork();
-      if (!isSupportedNetwork(network.chainId)) {
-        console.warn("User wallet is connected to an unsupported network, will fallback to default network");
-        setProvider(undefined);
-        setAccount(undefined);
-        setCurrentChainId(undefined);
-      } else {
-        setProvider(newProvider);
-        setCurrentChainId(network.chainId);
-        if (injectedWeb3.isMetaMask) {
-          setProviderType(SIGNER_TYPE.METAMASK);
+    const injectedWeb3 = ethereum || (web3 && web3.currentProvider);
+    if (!injectedWeb3) {
+      if (!throwError) return;
+      throw new Error("Oops! Seems like MetaMask is not installed in your browser");
+    }
+    return new ethers.providers.Web3Provider(injectedWeb3, "any");
+  };
+
+  const updateProvider = useCallback(
+    async (_providerType: SIGNER_TYPE = providerType) => {
+      let newProvider: providers.Provider | undefined = undefined;
+
+      if (_providerType === SIGNER_TYPE.METAMASK) {
+        const { ethereum, web3 } = window;
+        const metamaskExtensionNotFound = typeof ethereum === "undefined" || typeof web3 === "undefined";
+        if (metamaskExtensionNotFound || !ethereum?.request) {
+          console.warn("MetaMask extension not found");
+        } else {
+          const injectedWeb3 = ethereum || (web3 && web3.currentProvider);
+
+          newProvider = new ethers.providers.Web3Provider(injectedWeb3, "any");
+          const network = await newProvider.getNetwork();
+          if (!isSupportedNetwork(network.chainId)) {
+            console.warn("User wallet is connected to an unsupported network, will fallback to default network");
+            setProvider(undefined);
+            setAccount(undefined);
+            setProviderType(SIGNER_TYPE.NONE);
+          } else {
+            setProvider(newProvider);
+            setCurrentChainId(network.chainId);
+            return newProvider;
+          }
+        }
+      } else if (_providerType === SIGNER_TYPE.MAGIC) {
+        if (!magic) return;
+        newProvider = new ethers.providers.Web3Provider(magic.rpcProvider as any, "any");
+        const network = await newProvider.getNetwork();
+        if (!isSupportedNetwork(network.chainId)) {
+          console.warn("User wallet is connected to an unsupported network, will fallback to default network");
+          setProvider(undefined);
+          setAccount(undefined);
+          setProviderType(SIGNER_TYPE.NONE);
+        } else {
+          setProvider(newProvider);
+          setCurrentChainId(network.chainId);
+          return newProvider;
         }
       }
-    }
-  }, [currentChainId, defaultChainId, isSupportedNetwork]);
+
+      // fallback to internal default rpcUrl
+      newProvider = createProvider(currentChainId || defaultChainId);
+      setProvider(newProvider);
+      setProviderType(SIGNER_TYPE.IDENTITY);
+      setAccount(undefined);
+      return newProvider;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentChainId, defaultChainId, providerType]
+  );
 
   const updateSigner = useCallback(async () => {
     if (!provider) {
@@ -163,37 +201,52 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
       setAccount(undefined);
       setProviderOrSigner(createProvider(currentChainId!));
     }
-  }, [provider, currentChainId]);
+    setNetworkChangeLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [provider]);
 
   const initializeMetaMaskSigner = async () => {
-    if (!(provider instanceof ethers.providers.Web3Provider)) {
-      throw new Error("Oops! Seems like MetaMask is not installed in your browser");
-    }
+    try {
+      const newProvider: ethers.providers.Web3Provider = (await getMetaMaskWallet())!;
 
-    const web3Provider = provider as ethers.providers.Web3Provider;
-    await web3Provider.send("eth_requestAccounts", []);
-    const chainInfo = getChainInfo(currentChainId ?? defaultChainId);
-    await walletSwitchChain(chainInfo.chainId);
-    const signer = web3Provider.getSigner();
-    const address = await signer.getAddress();
-    setAccount(address);
-    setProviderType(SIGNER_TYPE.METAMASK);
+      // Request to connect to MetaMask
+      await newProvider.send("eth_requestAccounts", []);
+      const chainInfo = getChainInfo(currentChainId ?? defaultChainId);
+      await walletSwitchChain(chainInfo.chainId);
+
+      setProviderType(SIGNER_TYPE.METAMASK);
+    } catch (error: any) {
+      console.error("initializeMetaMaskSigner", error);
+      setProviderType(SIGNER_TYPE.NONE);
+      throw error; // Re-throw the error to be handled by the caller
+    }
   };
 
   const initialiseMagicSigner = async () => {
-    // needs to be cast as any before https://github.com/magiclabs/magic-js/issues/83 has been merged.
-    const magicProvider = new ethers.providers.Web3Provider(magic.rpcProvider as any);
+    if (!magic) return;
 
-    setProvider(magicProvider);
-    setProviderType(SIGNER_TYPE.MAGIC);
+    try {
+      if (!isMagicLoggedIn) {
+        await magic.wallet.connectWithUI();
+      }
+
+      setProviderType(SIGNER_TYPE.MAGIC);
+    } catch (error: any) {
+      console.error("initialiseMagicSigner", error);
+      setProviderType(SIGNER_TYPE.NONE);
+      throw error; // Re-throw the error to be handled by the caller
+    }
   };
 
   const upgradeToMetaMaskSigner = async () => {
+    if (providerType === SIGNER_TYPE.METAMASK) return;
+    await disconnectWallet(false);
     return initializeMetaMaskSigner();
   };
 
   const upgradeToMagicSigner = async () => {
     if (providerType === SIGNER_TYPE.MAGIC) return;
+    await disconnectWallet(false);
     return initialiseMagicSigner();
   };
 
@@ -204,19 +257,28 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     await changeNetwork(chainId);
   };
 
-  const disconnectWallet = useCallback(() => {
-    setProviderType(SIGNER_TYPE.NONE);
-    setAccount(undefined);
-    setProviderOrSigner(provider);
-    // Remove ethereum event listeners
-    if (window.ethereum) {
-      window.ethereum.removeAllListeners();
+  const disconnectWallet = async (disconnectOnly: boolean = true) => {
+    if (providerType === SIGNER_TYPE.MAGIC) {
+      logoutMagicLink();
+    } else if (providerType === SIGNER_TYPE.METAMASK) {
+      if (!window?.ethereum || !window?.ethereum?.request) return;
+      try {
+        // Experimental functions: https://github.com/MetaMask/metamask-improvement-proposals/blob/main/MIPs/mip-2.md
+        await window.ethereum.request({
+          method: "wallet_revokePermissions",
+          params: [{ eth_accounts: {} }],
+        });
+      } catch (error) {
+        console.error("Error revoking wallet permissions:", error);
+      }
     }
-  }, [provider]);
 
-  useEffect(() => {
-    updateProvider();
-  }, [updateProvider]);
+    if (disconnectOnly) {
+      // After wallet disconnected, provider will become internal default provider
+      setProviderType(SIGNER_TYPE.NONE);
+      setAccount(undefined);
+    }
+  };
 
   useEffect(() => {
     updateSigner();
@@ -229,14 +291,57 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   useEffect(() => {
     if (!window.ethereum) return;
 
+    const handleAccountsChanged = () => {
+      if (providerType !== SIGNER_TYPE.METAMASK) return;
+      updateProvider(SIGNER_TYPE.METAMASK);
+    };
+
+    const handleChainChanged = (chainIdHex: string) => {
+      if (providerType !== SIGNER_TYPE.METAMASK) return;
+      changeNetwork(parseInt(chainIdHex, 16));
+    };
+
+    const handleDisconnect = () => {
+      if (providerType !== SIGNER_TYPE.METAMASK) return;
+      disconnectWallet(true);
+    };
+
     window.ethereum
-      .on("accountsChanged", updateProvider)
-      .on("chainChanged", (chainIdHex: string) => changeNetwork(parseInt(chainIdHex, 16)));
+      .on("accountsChanged", handleAccountsChanged)
+      .on("chainChanged", handleChainChanged)
+      .on("disconnect", handleDisconnect);
 
     return () => {
       if (!window.ethereum) return;
-      window.ethereum.off("chainChanged").off("accountsChanged");
+      window.ethereum
+        .removeListener("accountsChanged", handleAccountsChanged)
+        .removeListener("chainChanged", handleChainChanged)
+        .removeListener("disconnect", handleDisconnect);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [providerType, updateProvider, currentChainId]);
+
+  useEffect(() => {
+    // On initial load, check if MetaMask is connected or Magic is logged in, set providerType if it is
+    if (providerType === SIGNER_TYPE.NONE) {
+      (async () => {
+        const metamask = await getMetaMaskWallet(false);
+        if (!metamask) return;
+
+        const accounts = await metamask?.listAccounts();
+        if (accounts.length > 0) {
+          setProviderType(SIGNER_TYPE.METAMASK);
+        }
+      })();
+      if (magic && magic?.user) {
+        (async () => {
+          const isLoggedIn = await magic?.user?.isLoggedIn?.();
+          if (isLoggedIn) {
+            setProviderType(SIGNER_TYPE.MAGIC);
+          }
+        })();
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

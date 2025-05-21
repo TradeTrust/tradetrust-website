@@ -3,7 +3,7 @@ import { LoadingModal } from "../../components/UI/Overlay";
 import { showDocumentTransferMessage } from "../../components/UI/Overlay/OverlayContent";
 import { ChainId } from "../../constants/chain-info";
 import { OverlayContext } from "../contexts/OverlayContext";
-import { useProviderContext } from "../contexts/provider";
+import { SIGNER_TYPE, useProviderContext } from "../contexts/provider";
 
 interface useNetworkSelectProps {
   inPlaceLoading?: boolean;
@@ -14,14 +14,18 @@ interface NetworkSelectReturnType {
 }
 
 export const useNetworkSelect = ({ inPlaceLoading = false }: useNetworkSelectProps = {}): NetworkSelectReturnType => {
-  const { changeNetwork, setNetworkChangeLoading } = useProviderContext();
+  const { providerType, changeNetwork, setNetworkChangeLoading } = useProviderContext();
   const { showOverlay, closeOverlay } = useContext(OverlayContext);
 
   const switchNetwork = useCallback(
     async (chainId: ChainId) => {
       try {
         if (!inPlaceLoading) {
-          showOverlay(<LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />);
+          if (providerType === SIGNER_TYPE.METAMASK) {
+            showOverlay(
+              <LoadingModal title={"Changing Network..."} content={"Please respond to the metamask window"} />
+            );
+          }
         } else {
           setNetworkChangeLoading(true);
         }
@@ -30,8 +34,6 @@ export const useNetworkSelect = ({ inPlaceLoading = false }: useNetworkSelectPro
 
         if (!inPlaceLoading) {
           closeOverlay();
-        } else {
-          setNetworkChangeLoading(false);
         }
       } catch (e: any) {
         showOverlay(
@@ -41,7 +43,7 @@ export const useNetworkSelect = ({ inPlaceLoading = false }: useNetworkSelectPro
         );
       }
     },
-    [changeNetwork, closeOverlay, inPlaceLoading, setNetworkChangeLoading, showOverlay]
+    [changeNetwork, closeOverlay, inPlaceLoading, setNetworkChangeLoading, showOverlay, providerType]
   );
 
   return { switchNetwork };
