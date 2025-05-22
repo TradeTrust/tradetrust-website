@@ -27,7 +27,7 @@ test("Load document from action should work when url is valid", async (t) => {
   }
 
   await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
-  await validateIframeTexts(["BILL OF LADING CARRIER"]);
+  await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 });
 
 test("Load document from action should fail when url is invalid", async (t) => {
@@ -36,7 +36,7 @@ test("Load document from action should fail when url is invalid", async (t) => {
     payload: {
       uri: `https://raw.githubusercontent.com/Open-Attestation/gallery/master/static/documents/tradetrust/v2/ebl-stability-invalid.json`,
       redirect: "https://tradetrust.io",
-      chainId: 101010,
+      chainId: 80002,
     },
   };
 
