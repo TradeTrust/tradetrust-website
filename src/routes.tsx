@@ -5,6 +5,7 @@ import { DemoPage } from "./pages/demo";
 import { DemoCreatePage } from "./pages/demoCreate";
 import { DemoVerifyPage } from "./pages/demoVerify";
 import { DynamicFormPage } from "./pages/dynamicFormPage";
+import { PublishFormPage } from "./pages/publishFormPage";
 import { PageNotFound } from "./pages/pageNotFound";
 import { PrivacyPolicyPage } from "./pages/privacyPolicy";
 import { SettingsAddressBookPage, SettingsAddressResolverPage, SettingsPage } from "./pages/settings";
@@ -46,6 +47,7 @@ const routeComponents: RouteComponents = {
   creator: { exact: true, component: CreatorPage },
   form: { exact: true, component: DynamicFormPage },
   formPreview: { exact: true, component: FormPreviewPage },
+  publish: { exact: true, component: PublishFormPage },
   settings: { exact: true, component: SettingsPage },
   addressResolver: { exact: true, component: SettingsAddressResolverPage },
   addressBook: { exact: true, component: SettingsAddressBookPage },

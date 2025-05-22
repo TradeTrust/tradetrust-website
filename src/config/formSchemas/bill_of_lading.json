@@ -2,10 +2,20 @@
   "name": "Electronic Bill of Lading (Carrier)",
   "type": "TRANSFERABLE_RECORD",
   "defaults": {
-    "$template": {
-      "type": "EMBEDDED_RENDERER",
-      "name": "BILL_OF_LADING_CARRIER",
-      "url": "https://generic-templates.tradetrust.io"
+    "@context": [
+      "https://trustvc.io/context/bill-of-lading-carrier.json"
+    ],
+    "renderMethod": 
+      {
+        "type": "EMBEDDED_RENDERER",
+        "templateName": "BILL_OF_LADING_CARRIER",
+        "id": "https://generic-templates.tradetrust.io"
+      }
+    ,
+    "credentialSubject": {
+      "type": [
+        "BillOfLadingCarrier"
+      ]
     }
   },
   "schema": {
@@ -35,22 +45,22 @@
       "shipper": {
         "type": "object",
         "properties": {
-          "name": {
+          "shipperName": {
             "type": "string",
             "title": "Name"
+          }
+        }
+      },
+      "address": {
+        "type": "object",
+        "properties": {
+          "shipperAddressStreet": {
+            "type": "string",
+            "title": "Street"
           },
-          "address": {
-            "type": "object",
-            "properties": {
-              "street": {
-                "type": "string",
-                "title": "Street"
-              },
-              "country": {
-                "type": "string",
-                "title": "Country"
-              }
-            }
+          "shipperAddressCountry": {
+            "type": "string",
+            "title": "Country"
           }
         }
       },
@@ -65,7 +75,7 @@
             "title": "Is consigned to (e.g. TO ORDER OF, TO ORDER, etc..)",
             "type": "string"
           },
-          "name": {
+          "consigneeName": {
             "type": "string",
             "title": "Name"
           }
@@ -75,7 +85,7 @@
         "title": "Notify Party",
         "type": "object",
         "properties": {
-          "name": {
+          "notifyPartyName": {
             "type": "string",
             "title": "Name"
           }
@@ -111,15 +121,15 @@
         "items": {
           "type": "object",
           "properties": {
-            "description": {
+            "packagesDescription": {
               "type": "string",
               "title": "Description"
             },
-            "measurement": {
+            "packagesMeasurement": {
               "type": "string",
               "title": "Measurement"
             },
-            "weight": {
+            "packagesWeight": {
               "type": "string",
               "title": "Weight"
             }
@@ -216,8 +226,12 @@
   "attachments": {
     "allow": true,
     "accept": {
-      "application/pdf": [".pdf"],
-      "application/json": [".json"]
+      "application/pdf": [
+        ".pdf"
+      ],
+      "application/json": [
+        ".json"
+      ]
     }
   },
   "extension": "tt",
