@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { location, validateTextContent } from "./helper";
+import { location, validateIframeTexts, validateIssuerTexts, validateTextContent } from "./helper";
 
 fixture("Load action from plain certificate").page`${location}`;
 
@@ -10,7 +10,7 @@ test("Load document from action should work when url is valid", async (t) => {
   // const action = {
   //   type: "DOCUMENT",
   //   payload: {
-  //     uri: `https://raw.githubusercontent.com/TradeTrust/tradetrust-website/refs/heads/master/src/test/fixture/amoy/ebl-amoy.json`,
+  //     uri: `https://raw.githubusercontent.com/TradeTrust/tradetrust-website/refs/heads/master/src/test/fixture/amoy/ebl-amoy-trv5.json`,
   //     permittedActions: ["VIEW"],
   //     redirect: "https://tradetrust.io",
   //     chainId: 80002,
@@ -18,7 +18,7 @@ test("Load document from action should work when url is valid", async (t) => {
   // };
   // await t.navigateTo(`${location}/?q=${encodeURI(JSON.stringify(action))}`);
   await t.navigateTo(
-    `${location}/?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fraw.githubusercontent.com%2FTradeTrust%2Ftradetrust-website%2Frefs%2Fheads%2Fmaster%2Fsrc%2Ftest%2Ffixture%2Famoy%2Febl-amoy.json%22%2C%22permittedActions%22%3A%5B%22VIEW%22%5D%2C%22redirect%22%3A%22https%3A%2F%2Ftradetrust.io%22%2C%22chainId%22%3A80002%7D%7D`
+    `${location}/?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fraw.githubusercontent.com%2FTradeTrust%2Ftradetrust-website%2Frefs%2Fheads%2Fmaster%2Fsrc%2Ftest%2Ffixture%2Famoy%2Febl-amoy-trv5.json%22%2C%22permittedActions%22%3A%5B%22VIEW%22%5D%2C%22redirect%22%3A%22https%3A%2F%2Ftradetrust.io%22%2C%22chainId%22%3A80002%7D%7D`
   );
 
   const button = Selector("button").withText("Dismiss");
@@ -26,10 +26,8 @@ test("Load document from action should work when url is valid", async (t) => {
     await t.click(button);
   }
 
-  await validateTextContent(t, CertificateDropzone, [
-    "Document cannot be read.",
-    "Please check that you have a valid .tt or .json file",
-  ]);
+  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
+  await validateIframeTexts(["BILL OF LADING CARRIER"]);
 });
 
 test("Load document from action should fail when url is invalid", async (t) => {
