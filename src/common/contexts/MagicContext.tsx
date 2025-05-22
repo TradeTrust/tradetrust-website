@@ -88,10 +88,8 @@ export const MagicProvider = ({ children, defaultChainId }: MagicProviderProps) 
   }, [magic]);
 
   useEffect(() => {
-    if (!selectedNetwork) {
-      console.warn("No defaultNetwork provided");
-      return;
-    }
+    if (!selectedNetwork) return;
+
     if (process.env.MAGIC_API_KEY) {
       const _magic = new MagicBase(process.env.MAGIC_API_KEY as string, {
         network: selectedNetwork,

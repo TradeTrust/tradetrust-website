@@ -106,13 +106,6 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   const [networkChangeLoading, setNetworkChangeLoading] = useState<boolean>(false);
 
   const changeNetwork = async (chainId: ChainId) => {
-    if (!isSupportedNetwork(chainId, supportedChainInfoObjects)) {
-      console.warn("Unsupported network");
-      setCurrentChainId(undefined);
-      setNetworkChangeLoading(false);
-      return;
-    }
-
     if (providerType === SIGNER_TYPE.METAMASK) {
       await walletSwitchChain(chainId);
     } else if (providerType === SIGNER_TYPE.MAGIC) {
@@ -150,10 +143,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
           const network = await newProvider.getNetwork();
           if (!isSupportedNetwork(network.chainId, supportedChainInfoObjects)) {
             console.warn("User wallet is connected to an unsupported network, will fallback to default network");
-            setProvider(undefined);
-            setAccount(undefined);
-            setProviderType(SIGNER_TYPE.NONE);
             setCurrentChainId(undefined);
+            return;
           } else {
             setProvider(newProvider);
             setCurrentChainId(network.chainId);
@@ -166,10 +157,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
         const network = await newProvider.getNetwork();
         if (!isSupportedNetwork(network.chainId, supportedChainInfoObjects)) {
           console.warn("User wallet is connected to an unsupported network, will fallback to default network");
-          setProvider(undefined);
-          setAccount(undefined);
-          setProviderType(SIGNER_TYPE.NONE);
           setCurrentChainId(undefined);
+          return;
         } else {
           setProvider(newProvider);
           setCurrentChainId(network.chainId);
@@ -189,9 +178,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   );
 
   const updateSigner = useCallback(async () => {
-    if (!provider) {
-      return;
-    }
+    if (!provider) return;
+
     try {
       if (provider instanceof ethers.providers.Web3Provider) {
         const accounts = await provider.listAccounts();
@@ -201,6 +189,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
           const address = await signer.getAddress();
           setAccount(address);
           setProviderOrSigner(signer);
+          setNetworkChangeLoading(false);
           return;
         }
       }

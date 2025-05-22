@@ -41,19 +41,23 @@ export const HomePageContainer = (): React.ReactElement => {
     };
 
     if (query) {
-      const action = JSON.parse(query) as Action;
-      const { type, payload } = action;
-      const { chainId } = payload;
+      try {
+        const action = JSON.parse(query) as Action;
+        const { type, payload } = action;
+        const { chainId } = payload;
 
-      const anchorStr = decodeURIComponent(hash.substr(1));
-      const anchor = anchorStr ? JSON.parse(anchorStr) : {}; // https://github.com/TradeTrust/tradetrust-website/pull/397
+        const anchorStr = decodeURIComponent(hash.substr(1));
+        const anchor = anchorStr ? JSON.parse(anchorStr) : {}; // https://github.com/TradeTrust/tradetrust-website/pull/397
 
-      if (type !== "DOCUMENT") {
-        dispatch(retrieveCertificateByActionFailure(`The type ${type} provided from the action is not supported`));
-      } else if (chainId === undefined) {
-        dispatch(retrieveCertificateByActionFailure(MESSAGES[TYPES.NETWORK_INVALID].failureMessage));
-      } else {
-        setProviderNetworkToMatch(chainId, payload, anchor);
+        if (type !== "DOCUMENT") {
+          dispatch(retrieveCertificateByActionFailure(`The type ${type} provided from the action is not supported`));
+        } else if (chainId === undefined) {
+          dispatch(retrieveCertificateByActionFailure(MESSAGES[TYPES.NETWORK_INVALID].failureMessage));
+        } else {
+          setProviderNetworkToMatch(chainId, payload, anchor);
+        }
+      } catch {
+        dispatch(retrieveCertificateByActionFailure(MESSAGES[TYPES.INVALID].failureMessage));
       }
 
       history.push("/");
