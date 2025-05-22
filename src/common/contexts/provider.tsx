@@ -141,12 +141,12 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
           newProvider = new ethers.providers.Web3Provider(injectedWeb3, "any");
           const network = await newProvider.getNetwork();
+          setProvider(newProvider);
           if (!isSupportedNetwork(network.chainId, supportedChainInfoObjects)) {
-            console.warn("User wallet is connected to an unsupported network, will fallback to default network");
+            console.warn("User wallet is connected to an unsupported network");
             setCurrentChainId(undefined);
             return;
           } else {
-            setProvider(newProvider);
             setCurrentChainId(network.chainId);
             return newProvider;
           }
@@ -155,12 +155,12 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
         if (!magic) return;
         newProvider = new ethers.providers.Web3Provider(magic.rpcProvider as any, "any");
         const network = await newProvider.getNetwork();
+        setProvider(newProvider);
         if (!isSupportedNetwork(network.chainId, supportedChainInfoObjects)) {
-          console.warn("User wallet is connected to an unsupported network, will fallback to default network");
+          console.warn("User wallet is connected to an unsupported network");
           setCurrentChainId(undefined);
           return;
         } else {
-          setProvider(newProvider);
           setCurrentChainId(network.chainId);
           return newProvider;
         }
