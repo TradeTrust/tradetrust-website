@@ -60,35 +60,14 @@ export const downloadJsonDataFile = (jsonTemplate: any): void => {
 };
 
 /*
- * getDataV3
- * Omit fields that are VC + OA V3 related, we are only interested in document data.
+ * getDataW3C
+ * Omit fields that are W3C related, we are only interested in document data.
  */
-export const getDataV3: any = (data: any) => {
+export const getDataW3C: any = (data: any) => {
   /* eslint-disable @typescript-eslint/no-unused-vars */
-  const {
-    version,
-    type,
-    issuanceDate,
-    openAttestationMetadata,
-    issuer,
-    credentialSubject,
-    attachments,
-    network,
-    ...rest
-  } = data; // omit these fields
-  /* eslint-enable @typescript-eslint/no-unused-vars */
+  const { renderMethod, credentialSubject, ...rest } = data; // omit these fields
 
   delete rest["@context"]; // omit these fields
-  return rest;
-};
-
-/*
- * getDataV2
- * Omit fields that are OA V2 related, we are only interested in document data.
- */
-const getDataV2: any = (data: any) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { issuers, $template, ownership, attachments, network, ...rest } = data; // omit these fields
   return rest;
 };
 
@@ -107,10 +86,6 @@ export const hasVcContext = (document: any) => {
   return !!document["@context"]; // Unable to use utils.isRawV3Document, due how document data is handled throughout the application
 };
 
-const hasTemplate = (document: any) => {
-  return !!document["$template"]; // Unable to use utils.isRawV2Document, due how document data is handled throughout the application
-};
-
 /*
  * getDataToValidate
  * Omit fields that are interfering with ajv validation rule of `additionalProperties`, returning back data in correct shape.
@@ -121,9 +96,7 @@ const hasTemplate = (document: any) => {
  */
 export const getDataToValidate: any = (data: any) => {
   if (hasVcContext(data)) {
-    return getDataV3(data);
-  } else if (hasTemplate(data)) {
-    return getDataV2(data);
+    return getDataW3C(data);
   } else {
     return getData(data);
   }
@@ -138,3 +111,103 @@ export const validateData = (
 
   return { isValid, ajvErrors: ajv.errors };
 };
+
+type AnyObject = Record<string, any>;
+
+function isNonEmptyObject(obj: any): boolean {
+  return (
+    obj &&
+    typeof obj === "object" &&
+    !Array.isArray(obj) &&
+    Object.keys(obj).some((key) => {
+      const val = obj[key];
+      return (
+        val !== null && val !== undefined && (typeof val !== "object" || isNonEmptyObject(val) || Array.isArray(val))
+      );
+    })
+  );
+}
+
+function deepClean(data: any): any {
+  if (Array.isArray(data)) {
+    const cleanedArray = data
+      .map(deepClean)
+      .filter(
+        (item) =>
+          item !== null &&
+          item !== undefined &&
+          ((typeof item === "object" && isNonEmptyObject(item)) || typeof item !== "object")
+      );
+    return cleanedArray.length > 0 ? cleanedArray : undefined;
+  }
+
+  if (typeof data === "object" && data !== null) {
+    const cleaned: AnyObject = {};
+    for (const key in data) {
+      const value = deepClean(data[key]);
+      if (
+        value !== null &&
+        value !== undefined &&
+        (typeof value !== "object" || isNonEmptyObject(value) || Array.isArray(value))
+      ) {
+        cleaned[key] = value;
+      }
+    }
+    return Object.keys(cleaned).length > 0 ? cleaned : undefined;
+  }
+
+  return data;
+}
+
+function flattenNested(obj: AnyObject): AnyObject {
+  const result: AnyObject = {};
+
+  for (const key in obj) {
+    const value = obj[key];
+
+    if (typeof value === "object" && !Array.isArray(value) && value !== null) {
+      const nested = flattenNested(value);
+      Object.assign(result, nested);
+    } else {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+
+export function flattenData(obj: AnyObject): AnyObject {
+  const cleaned = deepClean(obj) || {};
+
+  function recurse(value: any): any {
+    if (Array.isArray(value)) {
+      return value
+        .map((item) => {
+          if (typeof item === "object" && item !== null) {
+            return recurse(item);
+          }
+          return item;
+        })
+        .filter((item) => item !== undefined && (typeof item !== "object" || Object.keys(item).length > 0));
+    }
+
+    if (typeof value === "object" && value !== null) {
+      const flat: AnyObject = {};
+      for (const key in value) {
+        const val = value[key];
+        if (Array.isArray(val)) {
+          flat[key] = recurse(val);
+        } else if (typeof val === "object" && val !== null) {
+          Object.assign(flat, flattenNested(val));
+        } else {
+          flat[key] = val;
+        }
+      }
+      return flat;
+    }
+
+    return value;
+  }
+
+  return recurse(cleaned);
+}
