@@ -99,3 +99,20 @@ const getBaseUrl = (network: string): string => {
 export const makeAddressURL = (address: string, network: string): string => {
   return `${getBaseUrl(network)}address/${address}`;
 };
+
+interface GenerateFileName {
+  fileName: string;
+  extension: string;
+  hasTimestamp?: boolean;
+}
+
+export const generateFileName = ({ fileName, extension, hasTimestamp }: GenerateFileName): string => {
+  const timestamp = new Date().toISOString();
+  const fileTimestamp = hasTimestamp ? `-${timestamp}` : "";
+  return `${fileName}${fileTimestamp}.${extension}`;
+};
+
+export const getFileSize = (jsonString: string): number => {
+  const m = encodeURIComponent(jsonString).match(/%[89ABab]/g);
+  return jsonString.length + (m ? m.length : 0);
+};

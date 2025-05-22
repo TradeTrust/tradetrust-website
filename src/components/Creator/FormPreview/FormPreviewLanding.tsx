@@ -3,6 +3,12 @@ import ConnectToMetamask from "../../ConnectToMetamask";
 import { ProgressPanel } from "./ProgressPanel";
 import { FormPreviewComponent } from "./FormPreviewComponent";
 import { AssetInformationPanel } from "./AssetInformationPanel";
+import { Page } from "../../Layout/Page";
+import { Card } from "../../UI/Card";
+// import { DocumentBuilder } from "@trustvc/trustvc";
+// import { flattenData, getDataW3C } from "../../../common/utils/dataHelpers";
+import { useFormsContext } from "../../../common/contexts/FormsContext";
+import { Redirect } from "react-router-dom";
 
 const document: any = {
   "@context": [
@@ -37,14 +43,24 @@ const document: any = {
 };
 
 export const FormPreviewLanding: FunctionComponent = () => {
-  return (
-    <div className="p-6 gap-2">
-      <div className="p-2">
-        <h1>Create Document</h1>
-      </div>
+  const { form, currentFormTemplate } = useFormsContext();
+  if (!form || !currentFormTemplate) return <Redirect to="/creator" />;
 
-      <div className="p-2">
-        <div className="rounded-xl border border-cloud-100 bg-white p-8">
+  // const mergedCredentialSubject = {
+  //   ...currentFormTemplate.defaults.credentialSubject,
+  //   ...getDataW3C(form.data.formData),
+  // };
+
+  // const builder = new DocumentBuilder(currentFormTemplate.defaults)
+  //   .credentialSubject(flattenData(mergedCredentialSubject))
+  //   .renderMethod(currentFormTemplate.defaults.renderMethod);
+
+  // document = builder.toString();
+
+  return (
+    <Page title="Create Document">
+      {currentFormTemplate.type === "TRANSFERABLE_RECORD" && (
+        <Card>
           <div className="flex flex-col flex-start md:flex-row md:justify-between md:items-center">
             <div>
               <h6 className="my-4">Selected Network :</h6>
@@ -54,18 +70,17 @@ export const FormPreviewLanding: FunctionComponent = () => {
               <ConnectToMetamask />
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col p-2 gap-6">
-        <div className="rounded-xl border border-cloud-100 bg-white p-6">
-          <ProgressPanel />
-        </div>
-        <div className="rounded-xl border border-cloud-100 bg-white p-4 gap-2">
-          <AssetInformationPanel />
-        </div>
+        </Card>
+      )}
+      <Card>
+        <ProgressPanel />
+      </Card>
+      <Card>
+        <AssetInformationPanel />
+      </Card>
+      <Card>
         <FormPreviewComponent document={document} />
-      </div>
-    </div>
+      </Card>
+    </Page>
   );
 };

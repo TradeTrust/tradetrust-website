@@ -2,10 +2,20 @@
   "name": "Warehouse Receipt",
   "type": "TRANSFERABLE_RECORD",
   "defaults": {
-    "$template": {
-      "type": "EMBEDDED_RENDERER",
-      "name": "WAREHOUSE_RECEIPT",
-      "url": "https://generic-templates.tradetrust.io"
+    "@context": [
+      "https://trustvc.io/context/warehouse-receipt.json"
+    ],
+    "renderMethod":
+      {
+        "type": "EMBEDDED_RENDERER",
+        "templateName": "WAREHOUSE_RECEIPT",
+        "id": "https://generic-templates.tradetrust.io"
+      }
+    ,
+    "credentialSubject": {
+      "type": [
+        "WarehouseReceipt"
+      ]
     }
   },
   "schema": {

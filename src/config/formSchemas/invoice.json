@@ -2,19 +2,33 @@
   "name": "Invoice",
   "type": "VERIFIABLE_DOCUMENT",
   "defaults": {
-    "$template": {
-      "type": "EMBEDDED_RENDERER",
-      "name": "INVOICE",
-      "url": "https://generic-templates.tradetrust.io"
+    "@context": [
+      "https://trustvc.io/context/invoice.json"
+    ],
+    "renderMethod": 
+      {
+        "type": "EMBEDDED_RENDERER",
+        "templateName": "INVOICE",
+        "id": "https://generic-templates.tradetrust.io"
+      }
+    ,
+    "credentialSubject": {
+      "type": [
+        "Invoice"
+      ]
     }
   },
   "schema": {
     "type": "object",
     "additionalProperties": false,
     "properties": {
-      "id": {
+      "invoiceId": {
         "type": "string",
         "title": "Invoice ID"
+      },
+      "invoiceName": {
+        "type": "string",
+        "title": "Invoice Name"
       },
       "date": {
         "type": "string",
@@ -32,23 +46,23 @@
         "type": "object",
         "title": "Bill From",
         "properties": {
-          "name": {
+          "billFromName": {
             "type": "string",
             "title": "Name"
           },
-          "streetAddress": {
+          "billFromStreetAddress": {
             "type": "string",
             "title": "Street Address"
           },
-          "city": {
+          "billFromCity": {
             "type": "string",
             "title": "City"
           },
-          "postalCode": {
+          "billFromPostalCode": {
             "type": "string",
             "title": "Postal Code"
           },
-          "phoneNumber": {
+          "billFromPhoneNumber": {
             "type": "string",
             "title": "Phone Number"
           }
@@ -58,39 +72,39 @@
         "type": "object",
         "title": "Bill To",
         "properties": {
-          "name": {
+          "billToName": {
             "type": "string",
             "title": "Name"
           },
-          "email": {
+          "billToEmail": {
             "type": "string",
             "title": "Email"
+          }
+        }
+      },
+      "billToCompany": {
+        "type": "object",
+        "title": "Bill To Company",
+        "properties": {
+          "billToCompanyName": {
+            "type": "string",
+            "title": "Name"
           },
-          "company": {
-            "type": "object",
-            "title": "Bill To Company",
-            "properties": {
-              "name": {
-                "type": "string",
-                "title": "Name"
-              },
-              "streetAddress": {
-                "type": "string",
-                "title": "Street Address"
-              },
-              "city": {
-                "type": "string",
-                "title": "City"
-              },
-              "postalCode": {
-                "type": "string",
-                "title": "Postal Code"
-              },
-              "phoneNumber": {
-                "type": "string",
-                "title": "Phone Number"
-              }
-            }
+          "billToCompanyStreetAddress": {
+            "type": "string",
+            "title": "Street Address"
+          },
+          "billToCompanyCity": {
+            "type": "string",
+            "title": "City"
+          },
+          "billToCompanyPostalCode": {
+            "type": "string",
+            "title": "Postal Code"
+          },
+          "billToCompanyPhoneNumber": {
+            "type": "string",
+            "title": "Phone Number"
           }
         }
       },
@@ -100,19 +114,19 @@
         "items": {
           "type": "object",
           "properties": {
-            "description": {
+            "billableItemsDescription": {
               "type": "string",
               "title": "Description"
             },
-            "quantity": {
+            "billableItemsQuantity": {
               "type": "string",
               "title": "Quantity"
             },
-            "unitPrice": {
+            "billableItemsUnitPrice": {
               "type": "string",
               "title": "Unit Price"
             },
-            "amount": {
+            "billableItemsAmount": {
               "type": "string",
               "title": "Amount"
             }

@@ -30,8 +30,7 @@ export const DynamicFormLayout: FunctionComponent = () => {
 
   if (!currentForm) return <Redirect to="/creator" />;
   if (!currentFormTemplate) return <Redirect to="/creator" />;
-  if (isSubmitted) {
-  }
+  if (isSubmitted) return <Redirect to="/creator/form-preview" />;
 
   const { schema: formSchema, uiSchema, fileName } = currentFormTemplate;
   const attachmentAccepted = !!currentFormTemplate.attachments?.allow;

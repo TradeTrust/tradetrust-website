@@ -2,17 +2,27 @@
   "name": "Certificate of Origin",
   "type": "VERIFIABLE_DOCUMENT",
   "defaults": {
-    "$template": {
-      "type": "EMBEDDED_RENDERER",
-      "name": "CHAFTA_COO",
-      "url": "https://generic-templates.tradetrust.io"
+    "@context": [
+      "https://trustvc.io/context/coo.json"
+    ],
+    "renderMethod": 
+      {
+        "type": "EMBEDDED_RENDERER",
+        "templateName": "CHAFTA_COO",
+        "id": "https://generic-templates.tradetrust.io"
+      }
+    ,
+    "credentialSubject": {
+      "type": [
+        "Coo"
+      ]
     }
   },
   "schema": {
     "type": "object",
     "additionalProperties": false,
     "properties": {
-      "iD": {
+      "cooId": {
         "type": "string",
         "title": "COO ID"
       },
@@ -34,281 +44,245 @@
         "title": "Supply Chain Consignment",
         "type": "object",
         "properties": {
-          "iD": {
+          "supplyChainConsignmentId": {
             "type": "string",
             "title": "ID"
           },
-          "information": {
+          "supplyChainConsignmentInformation": {
             "type": "string",
             "title": "Consignment Information"
+          }
+        }
+      },
+      "exportCountry": {
+        "title": "Export Country",
+        "type": "object",
+        "properties": {
+          "exportCountryCode": {
+            "type": "string",
+            "title": "Country Code"
+          }
+        }
+      },
+      "exporter": {
+        "title": "Exporter",
+        "type": "object",
+        "properties": {
+          "exporterId": {
+            "title": "ID",
+            "type": "string"
           },
-          "exportCountry": {
-            "title": "Export Country",
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string",
-                "title": "Country Code"
-              }
-            }
+          "exporterName": {
+            "title": "Name",
+            "type": "string"
           },
-          "exporter": {
-            "title": "Exporter",
-            "type": "object",
-            "properties": {
-              "iD": {
-                "title": "ID",
-                "type": "string"
-              },
-              "name": {
-                "title": "Name",
-                "type": "string"
-              },
-              "postalAddress": {
-                "title": "",
-                "type": "object",
-                "properties": {
-                  "line1": {
-                    "type": "string",
-                    "title": "Address Line 1"
-                  },
-                  "line2": {
-                    "type": "string",
-                    "title": "Address Line 2"
-                  },
-                  "cityName": {
-                    "type": "string",
-                    "title": "City"
-                  },
-                  "postcode": {
-                    "type": "string",
-                    "title": "Postal Code"
-                  },
-                  "countrySubDivisionName": {
-                    "type": "string",
-                    "title": "Country Sub Division Name"
-                  },
-                  "countryCode": {
-                    "type": "string",
-                    "title": "Country Code"
-                  }
-                }
-              }
-            }
+          "exporterLine1": {
+            "type": "string",
+            "title": "Address Line 1"
           },
-          "importCountry": {
-            "type": "object",
-            "title": "Import Country",
-            "properties": {
-              "code": {
-                "type": "string",
-                "title": "Country Code"
-              }
-            }
+          "exporterLine2": {
+            "type": "string",
+            "title": "Address Line 2"
           },
-          "importer": {
-            "title": "Importer's Details (if known)",
-            "type": "object",
-            "properties": {
-              "iD": {
-                "title": "Importer ID",
-                "type": "string"
-              },
-              "name": {
-                "title": "Name",
-                "type": "string"
-              },
-              "postalAddress": {
-                "title": "",
-                "type": "object",
-                "properties": {
-                  "line1": {
-                    "type": "string",
-                    "title": "Address Line 1"
-                  },
-                  "line2": {
-                    "type": "string",
-                    "title": "Address Line 2"
-                  },
-                  "cityName": {
-                    "type": "string",
-                    "title": "City"
-                  },
-                  "postcode": {
-                    "type": "string",
-                    "title": "Postal Code"
-                  },
-                  "countrySubDivisionName": {
-                    "type": "string",
-                    "title": "Country Sub Division Name"
-                  },
-                  "countryCode": {
-                    "type": "string",
-                    "title": "Country Code"
-                  }
-                }
-              }
-            }
+          "exporterCityName": {
+            "type": "string",
+            "title": "City"
           },
-          "includedConsignmentItems": {
-            "type": "array",
-            "title": "Included Consignment Items",
-            "items": {
+          "exporterPostcode": {
+            "type": "string",
+            "title": "Postal Code"
+          },
+          "exporterCountrySubDivisionName": {
+            "type": "string",
+            "title": "Country Sub Division Name"
+          },
+          "exporterCountryCode": {
+            "type": "string",
+            "title": "Country Code"
+          }
+        }
+      },
+      "importCountry": {
+        "type": "object",
+        "title": "Import Country",
+        "properties": {
+          "importCountryCode": {
+            "type": "string",
+            "title": "Country Code"
+          }
+        }
+      },
+      "importer": {
+        "title": "Importer's Details (if known)",
+        "type": "object",
+        "properties": {
+          "importerId": {
+            "title": "Importer ID",
+            "type": "string"
+          },
+          "importerName": {
+            "title": "Name",
+            "type": "string"
+          },
+          "importerLine1": {
+            "type": "string",
+            "title": "Address Line 1"
+          },
+          "importerLine2": {
+            "type": "string",
+            "title": "Address Line 2"
+          },
+          "importerCityName": {
+            "type": "string",
+            "title": "City"
+          },
+          "importerPostcode": {
+            "type": "string",
+            "title": "Postal Code"
+          },
+          "importerCountrySubDivisionName": {
+            "type": "string",
+            "title": "Country Sub Division Name"
+          },
+          "importerCountryCode": {
+            "type": "string",
+            "title": "Country Code"
+          }
+        }
+      },
+      "includedConsignmentItems": {
+        "type": "array",
+        "title": "Included Consignment Items",
+        "items": {
+          "type": "object",
+          "properties": {
+            "includedConsignmentItemsId": {
+              "type": "string",
+              "title": "ID"
+            },
+            "includedConsignmentItemsInformation": {
+              "type": "string",
+              "title": "Information"
+            },
+            "originCriteriaText": {
+              "type": "string",
+              "title": "Origin Criteria Text"
+            },
+            "manufacturer": {
               "type": "object",
+              "title": "Manufacturer",
               "properties": {
-                "iD": {
+                "manufacturerId": {
                   "type": "string",
                   "title": "ID"
                 },
-                "information": {
+                "manufacturerName": {
                   "type": "string",
-                  "title": "Information"
+                  "title": "Name"
                 },
-                "crossBorderRegulatoryProcedure": {
-                  "type": "object",
-                  "title": "",
-                  "properties": {
-                    "originCriteriaText": {
-                      "type": "string",
-                      "title": "Origin Criteria Text"
+                "manufacturerLine1": {
+                  "type": "string",
+                  "title": "Address Line 1"
+                },
+                "manufacturerLine2": {
+                  "type": "string",
+                  "title": "Address Line 2"
+                },
+                "manufacturerCityName": {
+                  "type": "string",
+                  "title": "City"
+                },
+                "manufacturerPostcode": {
+                  "type": "string",
+                  "title": "Postal Code"
+                },
+                "manufacturerCountrySubDivisionName": {
+                  "type": "string",
+                  "title": "Country Sub Division Name"
+                },
+                "manufacturerCountryCode": {
+                  "type": "string",
+                  "title": "Country Code"
+                }
+              }
+            },
+            "tradeLineItems": {
+              "type": "array",
+              "title": "Trade line Items",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sequenceNumber": {
+                    "type": "integer",
+                    "title": "Sequence Number"
+                  },
+                  "invoiceReference": {
+                    "type": "object",
+                    "title": "Invoice Reference",
+                    "properties": {
+                      "invoiceReferenceId": {
+                        "type": "string",
+                        "title": "ID"
+                      },
+                      "formattedIssueDateTime": {
+                        "type": "string",
+                        "title": "Formatted Issue Date & Time"
+                      },
+                      "attachedBinaryFileUri": {
+                        "type": "string",
+                        "title": "Attached Binary File URI"
+                      }
                     }
-                  }
-                },
-                "manufacturer": {
-                  "type": "object",
-                  "title": "Manufacturer",
-                  "properties": {
-                    "iD": {
-                      "type": "string",
-                      "title": "ID"
-                    },
-                    "name": {
-                      "type": "string",
-                      "title": "Name"
-                    },
-                    "postalAddress": {
-                      "title": "",
+                  },
+                  "tradeProduct": {
+                    "type": "object",
+                    "title": "Trade Product",
+                    "properties": {
+                      "tradeProductId": {
+                        "type": "string",
+                        "title": "ID"
+                      },
+                      "tradeProductDescription": {
+                        "type": "string",
+                        "title": "Description"
+                      },
+                      "harmonisedTariffclassCode": {
+                        "type": "string",
+                        "title": "Harmonised Tariff Class Code"
+                      },
+                      "harmonisedTariffclassName": {
+                        "type": "string",
+                        "title": "Harmonised Tariff Class Name"
+                      },
+                      "originCountry": {
+                        "type": "object",
+                        "title": "Origin Country",
+                        "properties": {
+                          "originCountryCode": {
+                            "type": "string",
+                            "title": "Code"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "transportPackages": {
+                    "type": "array",
+                    "title": "Transport Packages",
+                    "items": {
                       "type": "object",
                       "properties": {
-                        "line1": {
+                        "transportPackagesId": {
                           "type": "string",
-                          "title": "Address Line 1"
+                          "title": "ID"
                         },
-                        "line2": {
+                        "transportPackagesGrossVolume": {
                           "type": "string",
-                          "title": "Address Line 2"
+                          "title": "Gross Volume"
                         },
-                        "cityName": {
+                        "transportPackagesGrossWeight": {
                           "type": "string",
-                          "title": "City"
-                        },
-                        "postcode": {
-                          "type": "string",
-                          "title": "Postal Code"
-                        },
-                        "countrySubDivisionName": {
-                          "type": "string",
-                          "title": "Country Sub Division Name"
-                        },
-                        "countryCode": {
-                          "type": "string",
-                          "title": "Country Code"
-                        }
-                      }
-                    }
-                  }
-                },
-                "tradeLineItems": {
-                  "type": "array",
-                  "title": "Trade line Items",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "sequenceNumber": {
-                        "type": "integer",
-                        "title": "Sequence Number"
-                      },
-                      "invoiceReference": {
-                        "type": "object",
-                        "title": "Invoice Reference",
-                        "properties": {
-                          "iD": {
-                            "type": "string",
-                            "title": "ID"
-                          },
-                          "formattedIssueDateTime": {
-                            "type": "string",
-                            "title": "Formatted Issue Date & Time"
-                          },
-                          "attachedBinaryFile": {
-                            "type": "object",
-                            "title": "",
-                            "properties": {
-                              "uRI": {
-                                "type": "string",
-                                "title": "Attached Binary File URI"
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "tradeProduct": {
-                        "type": "object",
-                        "title": "Trade Product",
-                        "properties": {
-                          "iD": {
-                            "type": "string",
-                            "title": "ID"
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          },
-                          "harmonisedTariffCode": {
-                            "type": "object",
-                            "title": "",
-                            "properties": {
-                              "classCode": {
-                                "type": "string",
-                                "title": "Harmonised Tariff Class Code"
-                              },
-                              "className": {
-                                "type": "string",
-                                "title": "Harmonised Tariff Class Name"
-                              }
-                            }
-                          },
-                          "originCountry": {
-                            "type": "object",
-                            "title": "Origin Country",
-                            "properties": {
-                              "code": {
-                                "type": "string",
-                                "title": "Code"
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "transportPackages": {
-                        "type": "array",
-                        "title": "Transport Packages",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "iD": {
-                              "type": "string",
-                              "title": "ID"
-                            },
-                            "grossVolume": {
-                              "type": "string",
-                              "title": "Gross Volume"
-                            },
-                            "grossWeight": {
-                              "type": "string",
-                              "title": "Gross Weight"
-                            }
-                          }
+                          "title": "Gross Weight"
                         }
                       }
                     }
@@ -316,72 +290,60 @@
                 }
               }
             }
+          }
+        }
+      },
+      "loadingBaseportLocation": {
+        "type": "object",
+        "title": "Loading Baseport Location",
+        "properties": {
+          "loadingBaseportLocationId": {
+            "type": "string",
+            "title": "ID"
           },
-          "loadingBaseportLocation": {
-            "type": "object",
-            "title": "Loading Baseport Location",
-            "properties": {
-              "iD": {
-                "type": "string",
-                "title": "ID"
-              },
-              "name": {
-                "type": "string",
-                "title": "Name"
-              }
-            }
+          "loadingBaseportLocationName": {
+            "type": "string",
+            "title": "Name"
+          }
+        }
+      },
+      "mainCarriageTransportMovement": {
+        "title": "Main Carriage Transport Movement",
+        "type": "object",
+        "properties": {
+          "mainCarriageTransportMovementId": {
+            "type": "string",
+            "title": "ID"
           },
-          "mainCarriageTransportMovement": {
-            "title": "Main Carriage Transport Movement",
-            "type": "object",
-            "properties": {
-              "iD": {
-                "type": "string",
-                "title": "ID"
-              },
-              "information": {
-                "type": "string",
-                "title": "Information"
-              },
-              "usedTransportMeans": {
-                "title": "",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "title": "Used Transport"
-                  },
-                  "iD": {
-                    "type": "string",
-                    "title": "Used Transport ID"
-                  }
-                }
-              },
-              "departureEvent": {
-                "title": "",
-                "type": "object",
-                "properties": {
-                  "departureDateTime": {
-                    "type": "string",
-                    "title": "Departure Date and Time"
-                  }
-                }
-              }
-            }
+          "mainCarriageTransportMovementInformation": {
+            "type": "string",
+            "title": "Information"
           },
-          "unloadingBaseportLocation": {
-            "type": "object",
-            "title": "Unloading Baseport Location",
-            "properties": {
-              "iD": {
-                "type": "string",
-                "title": "ID"
-              },
-              "name": {
-                "type": "string",
-                "title": "Name"
-              }
-            }
+          "usedTransportMeansName": {
+            "type": "string",
+            "title": "Used Transport"
+          },
+          "usedTransportMeansId": {
+            "type": "string",
+            "title": "Used Transport ID"
+          },
+          "departureDateTime": {
+            "type": "string",
+            "title": "Departure Date and Time"
+          }
+        }
+      },
+      "unloadingBaseportLocation": {
+        "type": "object",
+        "title": "Unloading Baseport Location",
+        "properties": {
+          "unloadingBaseportLocationId": {
+            "type": "string",
+            "title": "ID"
+          },
+          "unloadingBaseportLocationName": {
+            "type": "string",
+            "title": "Name"
           }
         }
       }
@@ -400,33 +362,31 @@
         }
       }
     },
-    "supplyChainConsignment": {
-      "includedConsignmentItems": {
-        "items": {
-          "tradeLineItems": {
-            "items": {
-              "invoiceReference": {
-                "formattedIssueDateTime": {
-                  "ui:widget": "datetime"
-                }
+    "includedConsignmentItems": {
+      "items": {
+        "tradeLineItems": {
+          "items": {
+            "invoiceReference": {
+              "formattedIssueDateTime": {
+                "ui:widget": "datetime"
               }
             }
           }
         }
-      },
-      "mainCarriageTransportMovement": {
-        "departureEvent": {
-          "departureDateTime": {
-            "ui:widget": "datetime"
-          }
-        }
+      }
+    },
+    "mainCarriageTransportMovement": {
+      "departureDateTime": {
+        "ui:widget": "datetime"
       }
     }
   },
   "attachments": {
     "allow": true,
     "accept": {
-      "application/pdf": [".pdf"]
+      "application/pdf": [
+        ".pdf"
+      ]
     }
   },
   "extension": "tt"
