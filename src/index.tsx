@@ -3,8 +3,10 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import AppContainer from "./AppContainer";
-import { AuthProvider } from "./common/contexts/AuthenticationContext";
+import { ConfigContextProvider } from "./common/contexts/ConfigContext";
 import { CreatorContextProvider } from "./common/contexts/CreatorContext/CreatorContext";
+import { FormsContextProvider } from "./common/contexts/FormsContext";
+import { MagicProvider } from "./common/contexts/MagicContext";
 import { OverlayContextProvider } from "./common/contexts/OverlayContext";
 import { ProviderContextProvider } from "./common/contexts/provider";
 import { TokenInformationContextProvider } from "./common/contexts/TokenInformationContext";
@@ -14,8 +16,6 @@ import { GA_MEASUREMENT_ID, NETWORK_NAME } from "./config";
 import { history } from "./history";
 import "./index.css";
 import { configureStore } from "./store";
-import { FormsContextProvider } from "./common/contexts/FormsContext";
-import { ConfigContextProvider } from "./common/contexts/ConfigContext";
 
 const store = configureStore();
 
@@ -24,26 +24,25 @@ history.listen(() => {
 });
 
 const App = () => {
+  const defaultChainId = getChainInfoFromNetworkName(NETWORK_NAME).chainId;
+
   return (
     <ConfigContextProvider>
       <FormsContextProvider>
         <OverlayContextProvider>
-          <ProviderContextProvider
-            defaultChainId={getChainInfoFromNetworkName(NETWORK_NAME).chainId}
-            networks={getSupportedChainInfo()}
-          >
-            <TokenInformationContextProvider>
-              <CreatorContextProvider>
-                <AuthProvider>
+          <MagicProvider defaultChainId={defaultChainId}>
+            <ProviderContextProvider defaultChainId={defaultChainId} networks={getSupportedChainInfo()}>
+              <TokenInformationContextProvider>
+                <CreatorContextProvider>
                   <Provider store={store}>
                     <Router history={history}>
                       <AppContainer />
                     </Router>
                   </Provider>
-                </AuthProvider>
-              </CreatorContextProvider>
-            </TokenInformationContextProvider>
-          </ProviderContextProvider>
+                </CreatorContextProvider>
+              </TokenInformationContextProvider>
+            </ProviderContextProvider>
+          </MagicProvider>
         </OverlayContextProvider>
       </FormsContextProvider>
     </ConfigContextProvider>

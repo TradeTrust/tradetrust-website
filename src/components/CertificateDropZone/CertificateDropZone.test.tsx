@@ -7,17 +7,20 @@ import fileContent from "./../../test/fixture/local/w3c/v1_tr_er.json";
 import { CertificateDropZone } from "./CertificateDropZone";
 import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
 import { ConnectMetamaskOverlay } from "./ConnectMetamaskOverlay";
+import { MemoryRouter } from "react-router";
 jest.mock("qr-scanner");
 
 const store = configureStore();
 
 const renderWithStore = (additionalProps: any) => {
   return render(
-    <Provider store={store}>
-      <CertificateDropZoneContainer {...additionalProps}>
-        <CertificateDropZone />
-      </CertificateDropZoneContainer>
-    </Provider>
+    <MemoryRouter>
+      <Provider store={store}>
+        <CertificateDropZoneContainer {...additionalProps}>
+          <CertificateDropZone />
+        </CertificateDropZoneContainer>
+      </Provider>
+    </MemoryRouter>
   );
 };
 
@@ -70,11 +73,13 @@ describe("CertificateDropZone", () => {
     const file = new File([JSON.stringify(fileContent)], "test.json", { type: "application/json" });
 
     render(
-      <Provider store={store}>
-        <OverlayProvider>
-          <CertificateDropZone />
-        </OverlayProvider>
-      </Provider>
+      <MemoryRouter>
+        <Provider store={store}>
+          <OverlayProvider>
+            <CertificateDropZone />
+          </OverlayProvider>
+        </Provider>
+      </MemoryRouter>
     );
 
     // Debug the rendered DOM

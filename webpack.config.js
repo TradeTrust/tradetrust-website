@@ -97,9 +97,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       process: "process/browser",
     }),
-    new webpack.IgnorePlugin({
-      resourceRegExp: /magic-sdk$/, // Adjust the regular expression as needed
-    }), // HOT FIX (Temp removal of magic demo until we might decide to kill it)
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: `${__dirname}/public/static/index.html`,

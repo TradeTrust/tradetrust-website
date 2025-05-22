@@ -5,6 +5,7 @@ import { Button } from "../Button";
 import { loadDemoCertificate } from "../VerifyPageContent/helpers";
 import { reset, setActive } from "../../reducers/sample";
 import { ChainId } from "../../constants/chain-info";
+import { Link } from "react-router-dom";
 interface LoadDemoCertificateProps {
   currentChainId: ChainId | undefined;
 }
@@ -31,11 +32,11 @@ export const LoadDemoCertificate: FunctionComponent<LoadDemoCertificateProps> = 
         >
           Load Demo Tradetrust Document
         </Button>
-        <a className="w-full xs:w-72" href={"/creator"}>
+        <Link className="w-full xs:w-72" to={"/creator"}>
           <Button className="bg-white rounded-xl border-cloud-100 text-cerulean-500 shadow-none hover:bg-cloud-200 w-full">
             Create Tradetrust Document
           </Button>
-        </a>
+        </Link>
       </div>
     </div>
   );

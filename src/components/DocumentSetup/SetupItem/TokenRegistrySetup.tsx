@@ -10,7 +10,7 @@ const TokenRegistrySetupRef = (
   props: TokenRegistrySetupProps,
   ref: React.Ref<HTMLDivElement | { onClose: () => void }>
 ): React.JSX.Element => {
-  const { providerOrSigner } = useProviderContext();
+  const { providerOrSigner, currentChainId, providerType } = useProviderContext();
   const { tokenRegistry, processTokenRegistry, resetTokenRegistry } = useCreatorContext();
 
   const { state, stateMessage, displayRedeployTokenRegistry } = tokenRegistry || {};
@@ -25,9 +25,10 @@ const TokenRegistrySetupRef = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
+
   useEffect(() => {
     if (state === undefined) {
-      processTokenRegistry(providerOrSigner);
+      processTokenRegistry(providerOrSigner, currentChainId!, providerType);
     }
 
     return () => {
@@ -35,6 +36,7 @@ const TokenRegistrySetupRef = (
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div ref={ref as React.Ref<HTMLDivElement>}>
       <SetupItem
@@ -59,7 +61,7 @@ const TokenRegistrySetupRef = (
                 <Button
                   className="flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800 w-full h-12"
                   size={ButtonSize.MD}
-                  onClick={() => processTokenRegistry(providerOrSigner)}
+                  onClick={() => processTokenRegistry(providerOrSigner, currentChainId!, providerType)}
                   data-testid="confirm-modal-confirm-button"
                 >
                   Redeploy

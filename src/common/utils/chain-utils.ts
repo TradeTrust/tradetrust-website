@@ -118,3 +118,9 @@ export const walletAddChain = async (chainId: ChainId): Promise<void> => {
 export const encryptRemark = (remark: string, keyId?: string): string => {
   return encrypt(remark, keyId ?? "");
 };
+
+export const isSupportedNetwork = (chainId: ChainId | number | string, networks?: ChainInfoObject[]) => {
+  return (networks ?? getSupportedChainInfo()).some(
+    (chainInfoObj) => chainInfoObj.chainId.toString() === chainId.toString()
+  );
+};

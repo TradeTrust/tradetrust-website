@@ -1,17 +1,20 @@
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
-import { screen, render, fireEvent } from "@testing-library/react";
-import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router";
 import { configureStore } from "../../store";
+import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
 jest.mock("qr-scanner");
 
 const store = configureStore();
 
 const renderWithStore = (additionalProps: any) => {
   return render(
-    <Provider store={store}>
-      <CertificateDropZoneContainer {...additionalProps} />
-    </Provider>
+    <MemoryRouter>
+      <Provider store={store}>
+        <CertificateDropZoneContainer {...additionalProps} />
+      </Provider>
+    </MemoryRouter>
   );
 };
 

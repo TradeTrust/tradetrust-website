@@ -2,11 +2,11 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Router, Route, Switch } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import { useAuthContext } from "../../common/contexts/AuthenticationContext/AuthContext";
+import { useMagicContext } from "../../common/contexts/MagicContext";
 import { PrivateRoute } from "./";
 
-jest.mock("../../common/contexts/AuthenticationContext/AuthContext");
-const mockUseAuthContext = useAuthContext as jest.Mock;
+jest.mock("../../common/contexts/MagicContext");
+const mockUseMagicContext = useMagicContext as jest.Mock;
 
 const Private = () => <div>Private</div>;
 const Public = () => <div>Public</div>;
@@ -31,7 +31,7 @@ describe("private route", () => {
   });
 
   it("should render public if attempt to private", () => {
-    mockUseAuthContext.mockReturnValue({
+    mockUseMagicContext.mockReturnValue({
       isLoggedIn: false,
     });
 
@@ -54,7 +54,7 @@ describe("private route", () => {
   });
 
   it("should render private if authenticated", () => {
-    mockUseAuthContext.mockReturnValue({
+    mockUseMagicContext.mockReturnValue({
       isLoggedIn: true,
     });
 

@@ -1,7 +1,7 @@
 import { Input } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useAuthContext } from "../../../common/contexts/AuthenticationContext";
+import { useMagicContext } from "../../../common/contexts/MagicContext";
 import { OverlayContext } from "../../../common/contexts/OverlayContext";
 import { contentPdpa } from "../../../common/utils/overlay";
 import { Checkbox } from "../../UI/Checkbox";
@@ -9,7 +9,7 @@ import { DemoCreateHeader } from "../DemoCreate/DemoCreateHeader";
 import { Button } from "../../Button";
 
 export const DemoInitial: FunctionComponent = () => {
-  const { login, isLoggedIn } = useAuthContext();
+  const { loginMagicLink: login, isLoggedIn } = useMagicContext();
   const { showOverlay } = useContext(OverlayContext);
   const history = useHistory();
 

@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { Route, Redirect } from "react-router-dom";
-import { useAuthContext } from "../../common/contexts/AuthenticationContext";
+import { Redirect, Route } from "react-router-dom";
+import { useMagicContext } from "../../common/contexts/MagicContext";
 import { RouteInterface } from "../../routes";
 
 export const PrivateRoute: FunctionComponent<RouteInterface> = (routeProps: RouteInterface) => {
-  const { isLoggedIn } = useAuthContext();
+  const { isLoggedIn } = useMagicContext();
 
   return isLoggedIn ? <Route {...routeProps} /> : <Redirect to="/" />;
 };

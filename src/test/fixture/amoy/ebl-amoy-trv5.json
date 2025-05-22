@@ -1,0 +1,63 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "shipper": {
+      "address": {
+        "street": "f3c95075-56ff-4d82-bcbd-25023e664a7d:string:One North",
+        "country": "6291c43d-ca9f-4918-9f34-9f6b5a64af20:string:Singapore"
+      },
+      "name": "316c220f-df5a-4fe5-9cd2-7f5bfdd7c63b:string:Demo Shipper"
+    },
+    "consignee": {
+      "name": "bd39a013-c6ba-4fe7-95ca-2feae997307a:string:Demo Consignee",
+      "toOrderOfText": "69ff6f51-4196-4467-acf8-fc9b4b15d75b:string:TO ORDER"
+    },
+    "notifyParty": {
+      "name": "113a7954-7378-40c5-a131-0fc89c750156:string:Demo Notify"
+    },
+    "$template": {
+      "type": "0a6a61e9-0857-4d61-b9ea-9bbe6410a60e:string:EMBEDDED_RENDERER",
+      "name": "c376324f-32f5-4c28-beb4-c1a7f8f607a1:string:BILL_OF_LADING_CARRIER",
+      "url": "18980029-d431-48b7-8bbf-f1125a6cf4f6:string:https://generic-templates.tradetrust.io"
+    },
+    "issuers": [
+      {
+        "name": "20f32551-fbd6-4bae-b42b-4304dbc12c74:string:DEMO TOKEN REGISTRY",
+        "tokenRegistry": "4f2a9059-5a2b-4b88-b0dd-60670e2ba589:string:0x3652EfBc80aCE560844AFC932D2bf8b452A96c6d",
+        "identityProof": {
+          "type": "544496bb-9700-468b-a48c-c441c079902a:string:DNS-TXT",
+          "location": "2968e44f-b9c2-4084-9197-2a721a347ea1:string:example.tradetrust.io"
+        },
+        "revocation": {
+          "type": "08d2a523-d3cc-421d-a7d1-936cc250df54:string:NONE"
+        }
+      }
+    ],
+    "network": {
+      "chain": "5cafbb62-8311-47ea-ae02-cdf60311a6a1:string:MATIC",
+      "chainId": "26111b6c-312d-4f51-8d0f-d70861a404ca:string:80002"
+    },
+    "blNumber": "72e44a01-bc0b-4c62-9f48-72c4323a4956:string:20250522",
+    "scac": "36d85956-2da4-4f39-bd3d-404618e0630d:string:20250522",
+    "carrierName": "366d93dd-14c7-4b77-b61f-3bd50a1424e7:string:signed",
+    "onwardInlandRouting": "020135d8-5b3a-4316-a6ea-3d0a0027c72a:string:Singapore",
+    "vessel": "a3c71240-de70-4173-b842-a73d0825ccde:string:1",
+    "voyageNo": "27448f6f-7492-4653-b8ef-126ed75a6551:string:100",
+    "portOfLoading": "32f15c0f-bf8a-48ec-b0b6-888f8bca2782:string:Singapore Port",
+    "portOfDischarge": "70437a76-7229-411b-a41e-a2ca6c10e0fe:string:China Port",
+    "placeOfReceipt": "35dee877-d912-454f-b82c-c8a310cd0cb2:string:Beijing",
+    "placeOfDelivery": "9193cd5f-58c5-4bb4-949a-f0f307909936:string:Singapore",
+    "carrierReceipt": "575b938d-54e4-433a-8ba2-e3d01acc4fed:string:receipt",
+    "links": {
+      "self": {
+        "href": "48092847-debb-4de7-a88f-03dea4d6589f:string:https://actions.tradetrust.io?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Ftradetrust-functions.netlify.app%2F.netlify%2Ffunctions%2Fstorage%2F3685fe04-e155-4ecf-9f75-60300e207f0c%22%2C%22key%22%3A%22553f1eabd39c7bc8e1cc5b9f3b61d91fb8ccf3aaf329da4825c32fe4a4b4ec13%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22https%3A%2F%2Fdev.tradetrust.io%2F%22%2C%22chainId%22%3A%2280002%22%7D%7D"
+      }
+    }
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "3f7aa8140aee219c419c69cdc5bc6a4fa3f0e8de1779c846b6480affe1289d29",
+    "proof": [],
+    "merkleRoot": "3f7aa8140aee219c419c69cdc5bc6a4fa3f0e8de1779c846b6480affe1289d29"
+  }
+}

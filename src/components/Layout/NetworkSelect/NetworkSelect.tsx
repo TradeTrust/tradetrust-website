@@ -103,7 +103,6 @@ const NetworkSelectDropdownItem = (props: NetworkSelectDropdownItemProps) => {
 const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange, disabled = false, document }) => {
   const {
     networkChangeLoading,
-    setNetworkChangeLoading,
     currentChainId,
     supportedChainInfoObjects: networks,
     providerType,
@@ -111,12 +110,11 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   const [changingNetwork, setChangingNetwork] = useState<ChainId | undefined>(undefined);
 
   useEffect(() => {
-    if (currentChainId === changingNetwork) {
+    if (currentChainId === changingNetwork && !networkChangeLoading) {
       setChangingNetwork(undefined);
-      setNetworkChangeLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentChainId, changingNetwork]);
+  }, [currentChainId, changingNetwork, networkChangeLoading]);
 
   const itemsList = networks.map((network, i) => {
     return (

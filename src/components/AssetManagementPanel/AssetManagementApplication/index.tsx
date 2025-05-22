@@ -13,6 +13,7 @@ import { DocumentStatus } from "../../DocumentStatus";
 import { Banner } from "../../UI/Banner";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "../AssetManagementForm";
+import { Link } from "react-router-dom";
 
 interface AssetManagementIsTransferableDocumentProps {
   isMagicDemo?: boolean;
@@ -138,12 +139,12 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             <div id="filename" data-testid="filename" className="flex-1 flex-wrap content-center break-all">
               <h4>{isSampleDocument ? "sample-document.tt" : filename}</h4>
             </div>
-            <a id="upload-new-file" data-testid="upload-new-file" className="content-center" href={"/"}>
+            <Link id="upload-new-file" data-testid="upload-new-file" className="content-center" to={"/"}>
               <Button className="bg-white text-cerulean-500 hover:bg-cloud-100" size={ButtonSize.MD}>
                 <div className="sm:block hidden px-2">Upload New File</div>
                 <Upload className="sm:hidden block text-cerulean-500 max-w-[16px]" />
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
         {(assetManagementAction === AssetManagementActions.None ||

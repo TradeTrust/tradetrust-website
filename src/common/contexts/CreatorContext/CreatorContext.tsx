@@ -5,6 +5,7 @@ import { CreatorItemState } from "./types";
 import { useDeployTokenRegistry } from "../../hooks/useDeployTokenRegistry";
 import { ChainId, ChainInfo } from "../../../constants/chain-info";
 import { ExternalLink } from "react-feather";
+import { SIGNER_TYPE } from "../provider";
 interface DocumentSetupContext {
   type: DocumentSetupType;
   state?: CreatorItemState;
@@ -22,7 +23,7 @@ interface CreatorContext {
   };
   processDid: () => Promise<void>;
   resetDid: () => void;
-  processTokenRegistry: (signer: any) => Promise<void>;
+  processTokenRegistry: (signer: any, chainId: ChainId, providerType: SIGNER_TYPE) => Promise<void>;
   resetTokenRegistry: () => void;
 }
 
@@ -138,8 +139,13 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
     setDidState(CreatorItemState.SUCCESS);
   };
 
-  const processTokenRegistry = async (signer: any) => {
-    const chainId: ChainId = await signer.getChainId();
+  const processTokenRegistry = async (
+    signer: any,
+    chainId: ChainId,
+    providerType: SIGNER_TYPE = SIGNER_TYPE.METAMASK
+  ) => {
+    if (!signer || !chainId) return;
+
     if (displayRedeployTokenRegistry) setDisplayRedeployTokenRegistry(false); // Set redeploy state to false
     let networkName = ChainInfo[chainId].networkName;
     networkName = networkName.charAt(0).toUpperCase() + networkName.slice(1);
@@ -170,7 +176,7 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
     setTokenRegistryStateMessage(
       <>
         {STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_NOT_FOUND} {networkName}.<div>Generating for you...</div>
-        <div> Please confirm the transaction on metamask</div>
+        {providerType === SIGNER_TYPE.METAMASK && <div> Please confirm the transaction on metamask</div>}
       </>
     );
 
