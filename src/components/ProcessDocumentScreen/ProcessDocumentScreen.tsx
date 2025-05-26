@@ -11,6 +11,8 @@ import { FormHeaderPanel } from "../Creator/FormHeaderPanel/FormHeaderPanel";
 import { NetworkPanel } from "../Creator/NetworkPanel";
 import { Card } from "../UI/Card";
 import { ProcessDocumentContent } from "./ProcessDocumentContent";
+import { useCreatorContext } from "../../common/contexts/CreatorContext";
+import { OnCloseGuard } from "../OnCloseGuard";
 
 interface ProcessDocumentScreenProps {
   processAnotherDocument: () => void;
@@ -68,6 +70,7 @@ export const ProcessDocumentScreen: FunctionComponent<ProcessDocumentScreenProps
   const useQueueParameters = { formEntry: form, formTemplate: formTemplate };
   const { processDocument, queueState, document, error } = useQueue(useQueueParameters);
   const { providerType } = useProviderContext();
+  const { setHaveDownloadedAllDocument } = useCreatorContext();
 
   useEffect(() => {
     processDocument();
@@ -82,7 +85,7 @@ export const ProcessDocumentScreen: FunctionComponent<ProcessDocumentScreenProps
   const title = useMemo(() => getDisplayTitle(queueState, providerType), [queueState, providerType]);
 
   return (
-    <>
+    <OnCloseGuard active={true}>
       <NetworkPanel isTransferableRecord={formTemplate.type === "TRANSFERABLE_RECORD"} />
       <FormHeaderPanel
         step={3}
@@ -113,10 +116,11 @@ export const ProcessDocumentScreen: FunctionComponent<ProcessDocumentScreenProps
                 extension: form.extension,
               });
               saveAs(blob, documentName);
+              setHaveDownloadedAllDocument(true);
             }}
           />
         </Card>
       )}
-    </>
+    </OnCloseGuard>
   );
 };

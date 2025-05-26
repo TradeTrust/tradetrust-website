@@ -8,16 +8,24 @@ import { Page } from "../components/Layout/Page";
 import { BackModal } from "../components/ProcessDocumentScreen/BackModal";
 import { generateFileName } from "../utils";
 import { saveAs } from "file-saver";
+import { useCreatorContext } from "../common/contexts/CreatorContext";
+
 export const PublishFormPage: FunctionComponent = () => {
   const { config, setConfig } = useConfigContext();
   const { form, setForm, currentFormTemplate } = useFormsContext();
   const [showBackModal, setShowBackModal] = useState(false);
   const history = useHistory();
   const [processedDocument, setProcessedDocument] = useState<any>();
+  const { haveDownloadedAllDocument } = useCreatorContext();
+
   if (!config || !form || !currentFormTemplate) return <Redirect to="/creator" />;
 
   const onCreateAnotherDocument = (): void => {
-    setShowBackModal(true);
+    if (!haveDownloadedAllDocument) {
+      setShowBackModal(true);
+    } else {
+      onBackToFormSelection();
+    }
   };
 
   const downloadModal = (): void => {

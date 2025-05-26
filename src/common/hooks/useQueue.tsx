@@ -16,6 +16,7 @@ import { getLogger } from "../../utils/logger";
 import { useProviderContext } from "../contexts/provider";
 import { getChainInfo } from "../utils/chain-utils";
 import { flattenData, getDataW3C } from "../utils/dataHelpers";
+import { useCreatorContext } from "../contexts/CreatorContext";
 
 const { stack } = getLogger("useQueue");
 
@@ -40,6 +41,7 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
   const [queueState, setQueueState] = useState<QueueState>(QueueState.UNINITIALIZED);
   const [document, setDocument] = useState<SignedVerifiableCredential>();
   const { currentChainId, account, providerOrSigner } = useProviderContext();
+  const { setCreatedDocuments } = useCreatorContext();
 
   const processDocument = async (param?: ProcessDocument): Promise<void> => {
     const { previewOnly = false } = param || {};
@@ -90,6 +92,7 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
       const signedDocument = await builder.sign(keyPair);
 
       setDocument(signedDocument);
+      setCreatedDocuments([signedDocument]);
 
       // Minting
       if (!previewOnly) {
