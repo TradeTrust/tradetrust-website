@@ -141,7 +141,7 @@ export const getChainId = (
     const network = document.network;
     if (network) {
       // Check for current blockchain, "ETH" or "MATIC", and chainId, if need cater for other blockchain and network, update this accordingly.
-      if (!AvailableBlockChains.includes(network.chain) || !network.chainId) {
+      if (!AvailableBlockChains.includes(network.chain as AvailableBlockChains) || !network.chainId) {
         throwError();
       }
       return validateChainId(parseInt(network.chainId!));

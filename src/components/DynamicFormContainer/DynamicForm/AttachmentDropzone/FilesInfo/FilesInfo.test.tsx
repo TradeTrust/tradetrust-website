@@ -10,7 +10,7 @@ describe("filesInfo", () => {
           {
             filename: "asdfdfs.pdf",
             data: "asdfasdf",
-            type: "application/pdf",
+            mimeType: "application/pdf",
           },
         ]}
         removeFile={() => {}}
@@ -30,52 +30,52 @@ describe("filesInfo", () => {
             {
               filename: "asdfdfs.pdf",
               data: "asdfasdf",
-              type: "application/pdf",
+              mimeType: "application/pdf",
             },
             {
               filename: "asdfdfs.txt",
               data: "asdfasdf",
-              type: "text/plain",
+              mimeType: "text/plain",
             },
             {
               filename: "asdfdfs.png",
               data: "asdfasdf",
-              type: "image/png",
+              mimeType: "image/png",
             },
             {
               filename: "asdfdfs.csv",
               data: "asdfasdf",
-              type: "text/csv",
+              mimeType: "text/csv",
             },
             {
               filename: "asdfdfs.xls",
               data: "asdfasdf",
-              type: "application/vnd.ms-excel",
+              mimeType: "application/vnd.ms-excel",
             },
             {
               filename: "asdfdfs.xlsx",
               data: "asdfasdf",
-              type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+              mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             },
             {
               filename: "asdfdfs.docx",
               data: "asdfasdf",
-              type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             },
             {
               filename: "asdfdfs.doc",
               data: "asdfasdf",
-              type: "application/msword",
+              mimeType: "application/msword",
             },
             {
               filename: "asdfdfs.jpeg",
               data: "asdfasdf",
-              type: "image/jpeg",
+              mimeType: "image/jpeg",
             },
             {
               filename: "asdfdfs.json",
               data: "asdfasdf",
-              type: "application/json",
+              mimeType: "application/json",
             },
           ]}
           removeFile={() => {}}
@@ -100,7 +100,7 @@ describe("filesInfo", () => {
           {
             filename: "asdfdfs.pdf",
             data: "asdfasdf",
-            type: "application/pdf",
+            mimeType: "application/pdf",
           },
         ]}
         removeFile={mockRemoveFileFn}

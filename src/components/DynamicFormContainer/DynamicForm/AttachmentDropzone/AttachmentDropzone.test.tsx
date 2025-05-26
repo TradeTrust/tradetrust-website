@@ -37,7 +37,7 @@ describe("attachmentDropzone", () => {
           {
             filename: "asdfdfs.pdf",
             data: "asdfasdf",
-            type: "application/pdf",
+            mimeType: "application/pdf",
           },
         ]}
       />
@@ -108,7 +108,7 @@ describe("attachmentDropzone", () => {
           {
             filename: "asdfdfs.pdf",
             data: "asdfasdfasdf",
-            type: "application/pdf",
+            mimeType: "application/pdf",
           },
         ]}
       />
