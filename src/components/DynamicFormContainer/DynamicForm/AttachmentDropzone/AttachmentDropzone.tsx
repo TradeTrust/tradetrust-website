@@ -1,12 +1,10 @@
-import { Button } from "../../../Button";
 import React, { FunctionComponent, useCallback, useState } from "react";
+import { Accept } from "react-dropzone";
 import { FileUpload } from "../../../../constants/FileUpload";
 import { ProcessedFiles } from "../../../../types";
+import { Button } from "../../../Button";
 import { StyledDropZone } from "../../../UI/StyledDropZone";
 import { FilesInfo } from "./FilesInfo";
-import { hasVcContext } from "../../../../common/utils/dataHelpers";
-import { Accept } from "react-dropzone";
-import { useFormsContext } from "../../../../common/contexts/FormsContext";
 
 interface AttachmentDropzone {
   acceptedFormat: Accept;
@@ -21,9 +19,7 @@ export const AttachmentDropzone: FunctionComponent<AttachmentDropzone> = ({
   onRemove,
   uploadedFiles,
 }) => {
-  const { currentFormData } = useFormsContext();
   const [fileErrors, setFileErrors] = useState<Error[]>([]);
-  const isOaV3 = hasVcContext(currentFormData?.formData || {});
 
   const onDropAccepted = useCallback(
     async (files: File[]) => {
@@ -44,10 +40,10 @@ export const AttachmentDropzone: FunctionComponent<AttachmentDropzone> = ({
         setFileErrors([]);
       }
 
-      const processedFiles = await Promise.all(files.map((file) => processFiles(file, isOaV3)));
+      const processedFiles = await Promise.all(files.map((file) => processFiles(file)));
       onUpload(processedFiles);
     },
-    [isOaV3, onUpload, uploadedFiles]
+    [onUpload, uploadedFiles]
   );
 
   const removeFile = (fileIndex: number): void => {
@@ -94,7 +90,7 @@ export const fileInfo = (dataUrl: string): { type: string; data: string } => {
   };
 };
 
-const processFiles = (file: File, isOaV3: boolean): Promise<ProcessedFiles> => {
+const processFiles = (file: File): Promise<ProcessedFiles> => {
   const { name } = file;
   return new Promise((resolve, reject) => {
     const reader = new window.FileReader();
@@ -102,19 +98,11 @@ const processFiles = (file: File, isOaV3: boolean): Promise<ProcessedFiles> => {
     reader.onload = (event) => {
       const { data, type } = fileInfo(event?.target?.result as string);
 
-      if (isOaV3) {
-        resolve({
-          data,
-          fileName: name,
-          mimeType: type,
-        });
-      } else {
-        resolve({
-          data,
-          filename: name,
-          type: type,
-        });
-      }
+      resolve({
+        data,
+        filename: name,
+        mimeType: type,
+      });
     };
     reader.readAsDataURL(file);
   });

@@ -1,13 +1,17 @@
+import {
+  RawVerifiableCredential,
+  SignedVerifiableCredential,
+  WrappedOrSignedOpenAttestationDocument,
+} from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useState } from "react";
-import { MultiTabs } from "../../DecentralisedTemplateRenderer/MultiTabs";
-import { TabPaneAttachments } from "../../TabPaneAttachments";
-import { DecentralisedRendererContainer } from "../../DecentralisedTemplateRenderer/DecentralisedRenderer";
-import { CertificateViewerErrorBoundary } from "../../CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { TemplateProps } from "../../../types";
 import { getAttachments } from "../../../utils/shared";
-import { WrappedOrSignedOpenAttestationDocument } from "@trustvc/trustvc";
+import { CertificateViewerErrorBoundary } from "../../CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
+import { DecentralisedRendererContainer } from "../../DecentralisedTemplateRenderer/DecentralisedRenderer";
+import { MultiTabs } from "../../DecentralisedTemplateRenderer/MultiTabs";
+import { TabPaneAttachments } from "../../TabPaneAttachments";
 interface DecentralisedRendererProps {
-  document: WrappedOrSignedOpenAttestationDocument;
+  document: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential | RawVerifiableCredential;
 }
 export const FormPreviewComponent: FunctionComponent<DecentralisedRendererProps> = ({ document }) => {
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
@@ -22,8 +26,11 @@ export const FormPreviewComponent: FunctionComponent<DecentralisedRendererProps>
     });
     // set modified templates
     setTemplates(templatesModified);
-    setSelectedTemplate(templatesModified[0].id);
+    if (templatesModified?.length > 0 && templatesModified?.[0]?.id) {
+      setSelectedTemplate(templatesModified[0].id);
+    }
   }, []);
+
   return (
     <div>
       <div className="no-print mt-4">
@@ -36,18 +43,17 @@ export const FormPreviewComponent: FunctionComponent<DecentralisedRendererProps>
         />
       </div>
       <div id="preview-block" className="rounded-xl border border-cloud-100 bg-white py-6">
-        {attachments && (
+        {hasAttachments && (
           <div className={`${selectedTemplate !== "attachmentTab" ? "hidden" : "block"}`}>
-            <TabPaneAttachments attachments={attachments} />
+            <TabPaneAttachments attachments={attachments!} />
           </div>
         )}
         <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
           <CertificateViewerErrorBoundary>
             <DecentralisedRendererContainer
-              rawDocument={document}
+              rawDocument={document as any}
               updateTemplates={updateTemplates}
               selectedTemplate={selectedTemplate}
-              ref={() => {}}
               isFormPreview={true}
             />
           </CertificateViewerErrorBoundary>

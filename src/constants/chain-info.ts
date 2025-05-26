@@ -18,7 +18,8 @@ export interface ChainInfoObject {
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export const AvailableBlockChains = ["ETH", "MATIC", "XDC", "FREE"];
+export type AvailableBlockChains = "ETH" | "MATIC" | "XDC" | "FREE";
+export const AvailableBlockChains: AvailableBlockChains[] = ["ETH", "MATIC", "XDC", "FREE"];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
@@ -42,6 +43,17 @@ export enum ChainId {
   Stability = 101010,
   StabilityTestnet = 20180427,
 }
+
+export const CHAIN: Partial<Record<ChainId, AvailableBlockChains>> = {
+  [ChainId.Ethereum]: "ETH",
+  [ChainId.Sepolia]: "ETH",
+  [ChainId.Polygon]: "MATIC",
+  [ChainId.Amoy]: "MATIC",
+  [ChainId.XDC]: "XDC",
+  [ChainId.APOTHEM]: "XDC",
+  [ChainId.Stability]: "FREE",
+  [ChainId.StabilityTestnet]: "FREE",
+};
 
 export const ChainInfo: ChainInfo = {
   [ChainId.Local]: {

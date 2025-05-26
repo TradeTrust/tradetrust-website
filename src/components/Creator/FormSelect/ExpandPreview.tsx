@@ -25,6 +25,7 @@ export const ExpandPreview: FunctionComponent<ExpandPreviewProps> = ({ handleCre
       data-testid="expand-preview"
       id="overlay"
       className="bg-white w-full max-w-[640px] min-w-[308px] h-auto flex flex-col rounded-xl text-neutral-600 z-20"
+      style={{ width: "calc(100vw - (15px * 2))" }}
     >
       <div id="header" className="flex flex-none items-center gap-4 min-[596px]:flex-nowrap p-6 pb-4">
         <h3>Document Preview</h3>
@@ -71,7 +72,7 @@ export const ExpandPreview: FunctionComponent<ExpandPreviewProps> = ({ handleCre
               transformOrigin: "top left",
             }}
           >
-            <img src={form.img} alt="Expand" className="rounded-xl p-2" />
+            <img src={form.img} alt="Document Preview Image" className="rounded-xl p-2" />
           </div>
         </div>
       </div>
