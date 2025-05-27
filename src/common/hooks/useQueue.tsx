@@ -80,7 +80,7 @@ export const useQueue = ({
           .renderMethod(formTemplate.defaults.renderMethod);
 
         if (!currentChainId) throw new Error("No chainId found in context");
-        const documentStorageURL = process.env.REACT_APP_DOCUMENT_STORAGE_URL;
+        const documentStorageURL = process.env.DOCUMENT_STORAGE_URL;
         if (!documentStorageURL) throw new Error("No document storage URL found");
         const networkName = getChainInfo(currentChainId).networkName as Network;
 

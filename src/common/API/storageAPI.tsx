@@ -30,7 +30,7 @@ const getHeaders = (csrfToken?: string): AxiosRequestHeaders => {
   };
 
   const xApiKey = "x-api-key";
-  const apiKey = process.env.REACT_APP_API_KEY_DOCUMENT_STORAGE;
+  const apiKey = process.env.API_KEY_DOCUMENT_STORAGE;
 
   if (!apiKey) throw new Error("API key not found");
 
