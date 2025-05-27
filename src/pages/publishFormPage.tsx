@@ -16,7 +16,7 @@ export const PublishFormPage: FunctionComponent = () => {
   const [showBackModal, setShowBackModal] = useState(false);
   const history = useHistory();
   const [processedDocument, setProcessedDocument] = useState<any>();
-  const { haveDownloadedAllDocument } = useCreatorContext();
+  const { haveDownloadedAllDocument, setHaveDownloadedAllDocument } = useCreatorContext();
 
   if (!config || !form || !currentFormTemplate) return <Redirect to="/creator" />;
 
@@ -39,6 +39,7 @@ export const PublishFormPage: FunctionComponent = () => {
     }
 
     setShowBackModal(false);
+    setHaveDownloadedAllDocument(true);
   };
 
   const onBackToFormSelection = (): void => {
