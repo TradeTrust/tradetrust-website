@@ -1,6 +1,6 @@
-import axios, { AxiosResponse, AxiosHeaders } from "axios";
 import { SignedVerifiableCredential } from "@trustvc/trustvc";
 import { decodeQrCode, getQRCodeLink } from "../utils/qrCode";
+import axios, { AxiosRequestHeaders, AxiosResponse } from "axios";
 
 // Function to get the CSRF token from /csrf-token route
 const fetchCsrfToken = async (documentStorageURL: string): Promise<string> => {
@@ -24,20 +24,20 @@ const fetchCsrfToken = async (documentStorageURL: string): Promise<string> => {
   }
 };
 
-const getHeaders = (csrfToken?: string): AxiosHeaders => {
-  const headers = new AxiosHeaders({
+const getHeaders = (csrfToken?: string): AxiosRequestHeaders => {
+  const headers: any = {
     "Content-Type": "application/json",
-  });
+  };
 
   const xApiKey = "x-api-key";
-
   const apiKey = process.env.REACT_APP_API_KEY_DOCUMENT_STORAGE;
+
   if (!apiKey) throw new Error("API key not found");
 
-  headers.set(xApiKey, apiKey);
+  headers[xApiKey] = apiKey;
 
   if (csrfToken) {
-    headers.set("X-CSRF-Token", csrfToken); // Set CSRF token if passed
+    headers["X-CSRF-Token"] = csrfToken;
   }
 
   return headers;
