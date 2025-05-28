@@ -6,6 +6,7 @@ import {
   isWrappedV2Document,
   isWrappedV3Document,
   OpenAttestationDocument,
+  RawVerifiableCredential,
   SignedVerifiableCredential,
   TitleEscrowInterface,
   v2,
@@ -14,11 +15,12 @@ import {
   WrappedDocument,
 } from "@trustvc/trustvc";
 import { TransferableRecordsCredentialStatus } from "@trustvc/trustvc/w3c/credential-status";
-import { isSignedDocument } from "@trustvc/trustvc/w3c/vc";
+import { CredentialSubject, isSignedDocument } from "@trustvc/trustvc/w3c/vc";
 import { getCurrentProvider } from "../common/contexts/provider";
 import { getSupportedChainIds, getUnsupportedChainIds } from "../common/utils/chain-utils";
 import { AvailableBlockChains, ChainId } from "../constants/chain-info";
 import { IS_DEVELOPMENT } from "../config";
+import { ProcessedFiles } from "../types";
 
 const { TYPES } = errorMessages;
 
@@ -36,7 +38,7 @@ export const getOpenAttestationData = (
 };
 
 export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocument): string | undefined => {
-  if (isSignedDocument(rawDocument)) {
+  if (isSignedDocument(rawDocument) || vc.isRawDocument(rawDocument)) {
     return [(rawDocument as unknown as SignedVerifiableCredential).renderMethod]?.flat()?.[0]?.id;
   } else if (isWrappedV2Document(rawDocument)) {
     const documentData = getDataV2(rawDocument);
@@ -57,9 +59,9 @@ export const isV3Document = (document: any): document is v3.OpenAttestationDocum
   return !!document["@context"] && !!document["openAttestationMetadata"];
 };
 export const getTemplateUrlFromUnsignedDocument = (
-  rawDocument: WrappedOrSignedOpenAttestationDocument
+  rawDocument: WrappedOrSignedOpenAttestationDocument | RawVerifiableCredential
 ): string | undefined => {
-  if (vc.isRawDocument(rawDocument)) {
+  if (vc.isRawDocument(rawDocument) || vc.isSignedDocument(rawDocument)) {
     return [(rawDocument as unknown as SignedVerifiableCredential).renderMethod]?.flat()?.[0]?.id;
   }
 
@@ -78,7 +80,9 @@ export const getKeyId = (wrappedDocument: WrappedDocument<OpenAttestationDocumen
   return getOpenAttestationData(wrappedDocument)?.id;
 };
 
-export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocument): v2.Attachment[] | undefined => {
+export const getAttachments = (
+  rawDocument: WrappedOrSignedOpenAttestationDocument | RawVerifiableCredential
+): OpenAttestationAttachment[] | undefined => {
   if (isWrappedV2Document(rawDocument)) {
     const documentData = getDataV2(rawDocument);
     return documentData.attachments;
@@ -93,9 +97,14 @@ export const getAttachments = (rawDocument: WrappedOrSignedOpenAttestationDocume
   } else if (vc.isSignedDocument(rawDocument) || vc.isRawDocument(rawDocument)) {
     return [(rawDocument as SignedVerifiableCredential)?.credentialSubject]
       .flat()
-      ?.map((s) => s.attachments)
+      ?.map((s: CredentialSubject) => s.attachments)
       ?.filter(Boolean)
-      ?.flat();
+      ?.flat()
+      ?.map((a: ProcessedFiles) => ({
+        data: a.data,
+        filename: a.filename,
+        type: a.mimeType,
+      }));
   } else {
     // attachments not included in v4 schema for now.
     return [];
@@ -132,7 +141,7 @@ export const getChainId = (
     const network = document.network;
     if (network) {
       // Check for current blockchain, "ETH" or "MATIC", and chainId, if need cater for other blockchain and network, update this accordingly.
-      if (!AvailableBlockChains.includes(network.chain) || !network.chainId) {
+      if (!AvailableBlockChains.includes(network.chain as AvailableBlockChains) || !network.chainId) {
         throwError();
       }
       return validateChainId(parseInt(network.chainId!));

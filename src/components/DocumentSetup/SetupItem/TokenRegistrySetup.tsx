@@ -54,10 +54,10 @@ const TokenRegistrySetupRef = (
           </div>
         }
         description={
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-col xs:flex-row flex-wrap gap-2">
             <div className="flex-1">{stateMessage!}</div>
-            <div className="w-32">
-              {displayRedeployTokenRegistry && (
+            {displayRedeployTokenRegistry && (
+              <div className="w-32">
                 <Button
                   className="flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800 w-full h-12"
                   size={ButtonSize.MD}
@@ -66,8 +66,8 @@ const TokenRegistrySetupRef = (
                 >
                   Redeploy
                 </Button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         }
       />

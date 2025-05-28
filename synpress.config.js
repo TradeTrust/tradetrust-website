@@ -30,4 +30,5 @@ module.exports = defineConfig({
     specPattern: "tests/e2e/specs/**/*.{js,jsx,ts,mjs,tsx}",
     supportFile,
   },
+  blockHosts: ["*launchdarkly.com", "*google-analytics.com", "*auth.magic.link"],
 });

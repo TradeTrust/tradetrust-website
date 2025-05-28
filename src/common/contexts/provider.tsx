@@ -83,17 +83,19 @@ interface ProviderContextProviderProps {
   children: React.ReactNode;
   networks: ChainInfoObject[];
   defaultChainId: ChainId;
+  defaultProviderType?: SIGNER_TYPE;
 }
 
 export const ProviderContextProvider: FunctionComponent<ProviderContextProviderProps> = ({
   children,
   networks: supportedChainInfoObjects,
   defaultChainId,
+  defaultProviderType = SIGNER_TYPE.NONE,
 }) => {
   const defaultProvider = useRef(createProvider(defaultChainId));
   const { magic, changeMagicNetwork, isLoggedIn: isMagicLoggedIn, logoutMagicLink } = useMagicContext();
 
-  const [providerType, setProviderType] = useState<SIGNER_TYPE>(SIGNER_TYPE.NONE);
+  const [providerType, setProviderType] = useState<SIGNER_TYPE>(defaultProviderType);
   const [currentChainId, setCurrentChainId] = useState<ChainId | undefined>(
     isSupportedNetwork(defaultChainId, supportedChainInfoObjects) ? defaultChainId : undefined
   );

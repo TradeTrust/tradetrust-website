@@ -6,6 +6,8 @@ import { useDeployTokenRegistry } from "../../hooks/useDeployTokenRegistry";
 import { ChainId, ChainInfo } from "../../../constants/chain-info";
 import { ExternalLink } from "react-feather";
 import { SIGNER_TYPE } from "../provider";
+import { SignedVerifiableCredential } from "@trustvc/trustvc";
+
 interface DocumentSetupContext {
   type: DocumentSetupType;
   state?: CreatorItemState;
@@ -25,6 +27,11 @@ interface CreatorContext {
   resetDid: () => void;
   processTokenRegistry: (signer: any, chainId: ChainId, providerType: SIGNER_TYPE) => Promise<void>;
   resetTokenRegistry: () => void;
+  haveDownloadedAllDocument: boolean;
+  setHaveDownloadedAllDocument: (value: boolean) => void;
+  createdDocuments: Record<string, any>[];
+  setCreatedDocuments: (signedDocuments: SignedVerifiableCredential[]) => void;
+  setDocumentDownloaded: (id: string) => void;
 }
 
 export const CreatorContext = createContext<CreatorContext>({
@@ -34,6 +41,11 @@ export const CreatorContext = createContext<CreatorContext>({
   resetDid: () => {},
   processTokenRegistry: async () => {},
   resetTokenRegistry: () => {},
+  haveDownloadedAllDocument: false,
+  setHaveDownloadedAllDocument: () => {},
+  createdDocuments: [],
+  setCreatedDocuments: () => {},
+  setDocumentDownloaded: () => {},
 });
 
 interface CreatorContextProviderProps {
@@ -77,6 +89,10 @@ function customStateMessage(msg: string, desc: string, link?: string) {
   );
 }
 export const CreatorContextProvider: any = ({ children }: CreatorContextProviderProps) => {
+  const [haveDownloadedAllDocument, setHaveDownloadedAllDocument] = useState<boolean>(false);
+  const [createdDocuments, setCreatedDocuments] = useState<SignedVerifiableCredential[]>([]);
+  const [createdDocumentDownloaded, setCreatedDocumentDownloaded] = useState<Record<string, boolean>>({});
+
   const [didState, setDidState] = useState<CreatorItemState | undefined>(undefined);
   const [tokenRegistryState, setTokenRegistryState] = useState<CreatorItemState | undefined>(undefined);
 
@@ -224,6 +240,19 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
     setDisplayRedeployTokenRegistry(false);
   };
 
+  useEffect(() => {
+    setCreatedDocumentDownloaded(createdDocuments.reduce((prev, curr) => ({ ...prev, [curr.id]: false }), {}));
+  }, [createdDocuments]);
+
+  useEffect(() => {
+    const allDownloaded = Object.values(createdDocumentDownloaded).every((value) => value);
+    setHaveDownloadedAllDocument(allDownloaded);
+  }, [createdDocumentDownloaded]);
+
+  const setDocumentDownloaded = (id: string) => {
+    setCreatedDocumentDownloaded((prev) => ({ ...prev, [id]: true }));
+  };
+
   return (
     <CreatorContext.Provider
       value={{
@@ -245,6 +274,11 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
         resetDid,
         processTokenRegistry,
         resetTokenRegistry,
+        haveDownloadedAllDocument,
+        setHaveDownloadedAllDocument,
+        createdDocuments,
+        setCreatedDocuments,
+        setDocumentDownloaded,
       }}
     >
       {children}

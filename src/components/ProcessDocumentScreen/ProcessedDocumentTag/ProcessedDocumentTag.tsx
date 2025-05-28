@@ -1,11 +1,11 @@
 import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
+import { SignedVerifiableCredential } from "@trustvc/trustvc";
 import { saveAs } from "file-saver";
 import prettyBytes from "pretty-bytes";
-import { FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 import { XCircle } from "react-feather";
+import { useCreatorContext } from "../../../common/contexts/CreatorContext";
 import { generateFileName, getFileSize } from "../../../utils";
-import React from "react";
-import { SignedVerifiableCredential } from "@trustvc/trustvc";
 
 interface PublishedTagProps {
   doc: SignedVerifiableCredential;
@@ -24,6 +24,8 @@ export const ProcessedDocumentTag: FunctionComponent<PublishedTagProps> = ({
   isError = false,
   hideAction = false,
 }) => {
+  const { setDocumentDownloaded } = useCreatorContext();
+
   const file = JSON.stringify(doc);
   const size = prettyBytes(getFileSize(file));
   const blob = new Blob([file], { type: "text/json;charset=utf-8" });
@@ -60,7 +62,10 @@ export const ProcessedDocumentTag: FunctionComponent<PublishedTagProps> = ({
                     <div
                       className="text-cerulean-300 cursor-pointer hover:text-cerulean-500"
                       data-testid="download-file-button"
-                      onClick={() => saveAs(blob, documentName)}
+                      onClick={() => {
+                        saveAs(blob, documentName);
+                        setDocumentDownloaded(doc.id);
+                      }}
                     >
                       Download
                     </div>

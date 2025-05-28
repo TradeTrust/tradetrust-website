@@ -3,15 +3,16 @@ import { Redirect, useHistory } from "react-router";
 import { betterAjvErrors, ValidationError } from "@apideck/better-ajv-errors";
 import { Card } from "../../UI/Card";
 import { DynamicForm } from "../DynamicForm";
-import { DynamicFormHeader } from "../DynamicFormHeader";
+import { FormHeaderPanel } from "../../Creator/FormHeaderPanel";
 import { FormErrors } from "../../../types";
-import { TransferableRecordForm } from "../TransferableRecordForm";
+import { FormTransferableRecordPanel } from "../../Creator/FormTransferableRecordPanel";
 import { OnCloseGuard } from "../../OnCloseGuard";
 import { useFormsContext } from "../../../common/contexts/FormsContext";
 import { useConfigContext } from "../../../common/contexts/ConfigContext";
 import { getDataToValidate, validateData } from "../../../common/utils/dataHelpers";
 import { isEthereumAddress } from "../../../utils";
-import ConnectToMetamask from "../../ConnectToMetamask";
+import { NetworkPanel } from "../../Creator/NetworkPanel";
+import { BackModal } from "../BackModal";
 
 export const DynamicFormLayout: FunctionComponent = () => {
   const {
@@ -23,9 +24,10 @@ export const DynamicFormLayout: FunctionComponent = () => {
     setCurrentFormRemarks,
     setCurrentForm,
   } = useFormsContext();
-  const { setConfig } = useConfigContext();
+  const { setConfig, config } = useConfigContext();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formErrors, setFormErrors] = useState<FormErrors>(null);
+  const [showBackModal, setShowBackModal] = useState(false);
   const history = useHistory();
 
   if (!currentForm) return <Redirect to="/creator" />;
@@ -33,12 +35,25 @@ export const DynamicFormLayout: FunctionComponent = () => {
   if (isSubmitted) return <Redirect to="/creator/form-preview" />;
 
   const { schema: formSchema, uiSchema, fileName } = currentFormTemplate;
-  const attachmentAccepted = !!currentFormTemplate.attachments?.allow;
-  const attachmentAcceptedFormat = currentFormTemplate.attachments?.accept;
+  const attachmentAccepted = !!currentFormTemplate?.attachments?.allow;
+  const attachmentAcceptedFormat = currentFormTemplate?.attachments?.accept;
 
   const validateCurrentForm = (): boolean => {
     const dataToValidate = getDataToValidate(currentForm.data.formData);
-    const { ajvErrors } = validateData(currentForm.data.schema, dataToValidate);
+
+    let parsedData = dataToValidate;
+    // check if attachments are allowed
+    if (!currentForm.data.schema?.properties?.attachments && config?.forms?.attachments?.allow) {
+      parsedData = {
+        ...dataToValidate,
+      };
+      // remove attachments if allowed, as attachments are not part of the schema
+      if (dataToValidate?.attachments) {
+        delete parsedData.attachments;
+      }
+    }
+
+    const { ajvErrors } = validateData(currentForm.data.schema, parsedData);
     const { beneficiaryAddress, holderAddress } = currentForm.ownership;
 
     const customErrors = getAddressErrors(currentFormTemplate.type, {
@@ -103,61 +118,69 @@ export const DynamicFormLayout: FunctionComponent = () => {
     history.push("/creator");
   };
 
+  const handleOnCancel = (): void => {
+    setShowBackModal(true);
+  };
+
   return (
-    <OnCloseGuard active={true}>
-      {currentFormTemplate.type === "TRANSFERABLE_RECORD" && (
+    <>
+      <OnCloseGuard active={true}>
+        <NetworkPanel isTransferableRecord={currentFormTemplate.type === "TRANSFERABLE_RECORD"} />
+        <FormHeaderPanel
+          step={1}
+          title="Fill Form"
+          onPrevious={handleOnCancel}
+          onNext={onFormSubmit}
+          formErrors={formErrors}
+          showErrorBanner={true}
+          formErrorTitle="Field(s) Error"
+          nextLabel="Next"
+          previousLabel="Cancel"
+        />
+        {currentFormTemplate.type === "TRANSFERABLE_RECORD" && (
+          <Card>
+            <FormTransferableRecordPanel
+              mode="edit"
+              beneficiaryAddress={currentForm.ownership.beneficiaryAddress}
+              holderAddress={currentForm.ownership.holderAddress}
+              remarks={currentForm.remarks}
+              setBeneficiaryAddress={(beneficiaryAddress) =>
+                setCurrentFormOwnership({
+                  beneficiaryAddress,
+                  holderAddress: currentForm.ownership.holderAddress,
+                })
+              }
+              setHolderAddress={(holderAddress) =>
+                setCurrentFormOwnership({
+                  beneficiaryAddress: currentForm.ownership.beneficiaryAddress,
+                  holderAddress,
+                })
+              }
+              setRemarks={(remarks) => setCurrentFormRemarks(remarks)}
+              fileName={currentFormTemplate.fileName}
+            />
+          </Card>
+        )}
         <Card>
-          <div className="flex flex-col flex-start md:flex-row md:justify-between md:items-center">
-            <div>
-              <h6>Selected Network:</h6>
-              <p>Mainnet Network</p>
-            </div>
-            <ConnectToMetamask />
-          </div>
-        </Card>
-      )}
-      <DynamicFormHeader
-        onBackToFormSelection={onBackToFormSelection}
-        onFormSubmit={onFormSubmit}
-        formErrors={formErrors}
-        formErrorTitle="Field(s) Error"
-      />
-      {currentFormTemplate.type === "TRANSFERABLE_RECORD" && (
-        <Card>
-          <TransferableRecordForm
-            beneficiaryAddress={currentForm.ownership.beneficiaryAddress}
-            holderAddress={currentForm.ownership.holderAddress}
-            remarks={currentForm.remarks}
-            setBeneficiaryAddress={(beneficiaryAddress) =>
-              setCurrentFormOwnership({
-                beneficiaryAddress,
-                holderAddress: currentForm.ownership.holderAddress,
-              })
-            }
-            setHolderAddress={(holderAddress) =>
-              setCurrentFormOwnership({
-                beneficiaryAddress: currentForm.ownership.beneficiaryAddress,
-                holderAddress,
-              })
-            }
-            setRemarks={(remarks) => setCurrentFormRemarks(remarks)}
+          <h4 className="pb-4">{currentFormTemplate.name}</h4>
+          <DynamicForm
+            className="mt-6"
+            schema={formSchema}
+            uiSchema={uiSchema}
+            form={currentForm}
+            setFormData={setCurrentFormData}
+            setCurrentForm={setCurrentForm}
+            attachmentAccepted={attachmentAccepted}
+            attachmentAcceptedFormat={attachmentAcceptedFormat}
+            fileName={fileName}
           />
         </Card>
-      )}
-      <Card>
-        <h4 className="pb-4">{currentFormTemplate.name}</h4>
-        <DynamicForm
-          className="mt-6"
-          schema={formSchema}
-          uiSchema={uiSchema}
-          form={currentForm}
-          setFormData={setCurrentFormData}
-          setCurrentForm={setCurrentForm}
-          attachmentAccepted={attachmentAccepted}
-          attachmentAcceptedFormat={attachmentAcceptedFormat}
-          fileName={fileName}
-        />
-      </Card>
-    </OnCloseGuard>
+      </OnCloseGuard>
+      <BackModal
+        show={showBackModal}
+        backToFormSelection={onBackToFormSelection}
+        closeBackModal={() => setShowBackModal(false)}
+      />
+    </>
   );
 };
