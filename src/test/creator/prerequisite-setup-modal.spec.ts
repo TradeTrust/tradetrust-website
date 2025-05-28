@@ -3,7 +3,7 @@ import { location, navigateToCreator } from "../helper";
 
 fixture("Prerequisite Setup Modal").page`${location}`;
 
-const nonTransferableView = Selector("#forms-view-Non-Transferable");
+const nonTransferableView = Selector('[data-testid="forms-view-Non-Transferable"]');
 const certificateOfOriginTile = nonTransferableView.find('[data-testid="form-select-0"]');
 const previewOverlay = Selector('[data-testid="expand-preview"]');
 const createDocumentButton = Selector('[data-testid="expandPreviewCreateDocument"]');

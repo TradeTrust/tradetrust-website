@@ -7,8 +7,8 @@ const title = Selector('[data-testid="form-selection-title"]');
 const toggleButton = Selector("#forms-header")
   .find("div")
   .withAttribute("class", /cursor-pointer/);
-const transferableView = Selector("#forms-view-Transferable");
-const nonTransferableView = Selector("#forms-view-Non-Transferable");
+const transferableView = Selector('[data-testid="forms-view-Transferable"]');
+const nonTransferableView = Selector('[data-testid="forms-view-Non-Transferable"]');
 const transferableFormCount = transferableView.find('[data-testid^="form-select-"]').count;
 const nonTransferableFormCount = nonTransferableView.find('[data-testid^="form-select-"]').count;
 

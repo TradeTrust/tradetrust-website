@@ -3,8 +3,7 @@ import { location, navigateToCreator, validateIframeTexts } from "../helper";
 
 fixture("Document Preview").page`${location}`;
 
-// Form selectors
-const nonTransferableView = Selector("#forms-view-Non-Transferable");
+const nonTransferableView = Selector('[data-testid="forms-view-Non-Transferable"]');
 const invoiceTile = nonTransferableView.find('[data-testid="form-select-1"]');
 const previewOverlay = Selector('[data-testid="expand-preview"]');
 const createDocumentButton = Selector('[data-testid="expandPreviewCreateDocument"]');
