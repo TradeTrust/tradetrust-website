@@ -82,7 +82,7 @@ describe("getDisplayTitle", () => {
   });
 
   it("should return 'Issuing Document...' and MetaMask message for PENDING state with SIGNER_TYPE.METAMASK", () => {
-    const titleElement = getDisplayTitle(QueueState.PENDING, SIGNER_TYPE.METAMASK);
+    const titleElement = getDisplayTitle(QueueState.PENDING, SIGNER_TYPE.METAMASK, true);
     render(titleElement);
     expect(screen.getByTestId("process-title")).toHaveTextContent("Issuing Document...");
     expect(document.querySelector(".animate-spin")).toBeInTheDocument();

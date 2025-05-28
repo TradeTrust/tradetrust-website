@@ -1,5 +1,5 @@
 import { ClientFunction, Selector } from "testcafe";
-import { navigateToCreator } from "../helper";
+import { location, navigateToCreator } from "../helper";
 
 fixture("Document Attachments").page`${location}`;
 

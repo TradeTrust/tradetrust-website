@@ -1,5 +1,5 @@
 import { ClientFunction, Selector } from "testcafe";
-import { navigateToCreator, location } from "../helper";
+import { location, navigateToCreator } from "../helper";
 
 fixture("Document Signature Upload").page`${location}`;
 
