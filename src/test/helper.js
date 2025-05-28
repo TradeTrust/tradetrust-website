@@ -6,6 +6,7 @@ const CertificateDropzone = Selector("[data-testid='certificate-dropzone']");
 const DocumentStatus = Selector("#document-status");
 const IssuedByDomainName = Selector("#issuedby");
 const VerifyPage = Selector("a[href='/']");
+const CreatorPage = Selector("a[href='/creator']");
 
 export const validateTextContent = async (testcafe, component, texts) =>
   texts.reduce(
@@ -21,6 +22,16 @@ export const navigateToVerify = async () => {
     console.log("Button does not exist");
   }
   await t.click(VerifyPage);
+};
+
+export const navigateToCreator = async () => {
+  const button = Selector("button").withText("Dismiss");
+  if (await button.exists) {
+    await t.click(button);
+  } else {
+    console.log("Button does not exist");
+  }
+  await t.click(CreatorPage);
 };
 
 export const uploadDocument = async (documentPath) => {
