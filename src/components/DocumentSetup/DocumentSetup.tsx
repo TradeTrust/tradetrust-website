@@ -79,7 +79,7 @@ export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types, fo
           <Button
             className={`flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800 w-full xs:w-auto flex-1 h-12 disabled:cursor-not-allowed`}
             size={ButtonSize.LG}
-            disabled={documentSetupState !== HeaderIconState.SUCCESS}
+            // disabled={documentSetupState !== HeaderIconState.SUCCESS}
             onClick={() => {
               closeOverlay();
               const selectedConfig = getFormConfigByName(formName);

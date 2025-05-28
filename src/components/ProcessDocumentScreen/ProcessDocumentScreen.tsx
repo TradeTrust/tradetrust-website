@@ -25,7 +25,11 @@ const titleText = (message: string): ReactElement => {
   return <span data-testid="process-title">{message}</span>;
 };
 
-export const getDisplayTitle = (queueState?: QueueState, providerType?: SIGNER_TYPE): ReactElement => {
+export const getDisplayTitle = (
+  queueState?: QueueState,
+  providerType?: SIGNER_TYPE,
+  isTransferableRecord?: boolean
+): ReactElement => {
   switch (queueState) {
     case QueueState.PENDING:
       return (
@@ -34,7 +38,7 @@ export const getDisplayTitle = (queueState?: QueueState, providerType?: SIGNER_T
             <LoaderSpinner className="mr-2" width="24px" primary="#2D5FAA" />
             {titleText("Issuing Document...")}
           </div>
-          {providerType === SIGNER_TYPE.METAMASK && (
+          {providerType === SIGNER_TYPE.METAMASK && isTransferableRecord && (
             <div>
               <p>Please confirm the transaction on MetaMask</p>
             </div>
@@ -82,7 +86,11 @@ export const ProcessDocumentScreen: FunctionComponent<ProcessDocumentScreenProps
     }
   }, [document]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const title = useMemo(() => getDisplayTitle(queueState, providerType), [queueState, providerType]);
+  const isTransferableRecord = formTemplate?.type === "TRANSFERABLE_RECORD";
+  const title = useMemo(
+    () => getDisplayTitle(queueState, providerType, isTransferableRecord),
+    [queueState, providerType, isTransferableRecord]
+  );
 
   return (
     <OnCloseGuard active={true}>

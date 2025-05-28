@@ -28,6 +28,7 @@ export const ConfirmModal: FunctionComponent<ConfirmModalProps> = ({
           <div
             className="relative flex flex-col rounded-xl shadow-lg overflow-hidden bg-white max-w-[640px] w-full"
             style={{ width: "calc(100vw - (15px * 2))" }}
+            data-testid="abort-form"
           >
             {/* Header */}
             <div className="flex flex-nowrap justify-start items-center p-6 pb-4">
