@@ -1,19 +1,19 @@
-import { Button, ButtonSize } from "../../Button";
 import { v5RoleHash } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { Upload } from "react-feather";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistryContract";
 import { useTokenRegistryRole } from "../../../common/hooks/useTokenRegistryRole";
 import { RootState } from "../../../reducers";
 import { FORM_SG_URL } from "../../../routes";
+import { Button } from "../../Button";
 import { DocumentStatus } from "../../DocumentStatus";
 import { Banner } from "../../UI/Banner";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "../AssetManagementForm";
-import { Link } from "react-router-dom";
 
 interface AssetManagementIsTransferableDocumentProps {
   isMagicDemo?: boolean;
@@ -140,7 +140,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
               <h4>{isSampleDocument ? "sample-document.tt" : filename}</h4>
             </div>
             <Link id="upload-new-file" data-testid="upload-new-file" className="content-center" to={"/"}>
-              <Button className="bg-white text-cerulean-500 hover:bg-cloud-100" size={ButtonSize.MD}>
+              <Button className="bg-white text-cerulean-500 hover:bg-cloud-100 w-10 h-10 xs:w-auto flex items-center justify-center">
                 <div className="sm:block hidden px-2">Upload New File</div>
                 <Upload className="sm:hidden block text-cerulean-500 max-w-[16px]" />
               </Button>

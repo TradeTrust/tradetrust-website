@@ -24,13 +24,13 @@ export const FormErrorBanner: FunctionComponent<FormErrorBanner> = ({ formErrorT
     <div data-testid="form-error-banner" className="relative bg-red-100 rounded-lg mx-auto flex p-6 mt-4">
       {/* Top-right Show more/less */}
       {formErrors?.length > 1 && (
-        <button
+        <div
           onClick={() => setShowAll(!showAll)}
           className="absolute top-4 right-4 flex items-center font-gilroy-bold text-blue-600 text-sm hover:text-blue-700 transition-colors mt-2"
         >
           <span className="mr-1">{showAll ? "Show Less" : "Show More"}</span>
           <ChevronDown className={`w-4 h-4 transform transition-transform ${showAll ? "rotate-180" : "rotate-0"}`} />
-        </button>
+        </div>
       )}
       <div className="flex">
         <IconError className="mr-2 w-5 h-5 shrink-0" />

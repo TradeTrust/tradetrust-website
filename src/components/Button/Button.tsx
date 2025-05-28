@@ -8,20 +8,22 @@ interface GetSharedStylesButton {
 const getSharedStylesButton = (shared: GetSharedStylesButton): string => {
   const { padding, height } = shared;
 
-  return `transition-colors duration-200 ease-out cursor-pointer font-gilroy-bold border ${padding} ${height}`;
+  return `box-border transition-colors duration-200 ease-out cursor-pointer font-gilroy-bold border ${padding} ${height}`;
 };
 
 export enum ButtonSize {
+  XS = "rounded-xl",
   SM = "py-1 px-2 rounded-xl",
   MD = "p-2 rounded-xl",
   LG = "py-3 px-4 rounded-xl",
 }
 
 export enum ButtonHeight {
-  SM = "h-8", // 2rem = 32px
-  MD = "h-10", // 2.5rem = 40px
-  LG = "h-12", // 3rem = 48px
+  SM = "min-h-8", // 2rem = 32px
+  MD = "min-h-10", // 2.5rem = 40px
+  LG = "min-h-12", // 3rem = 48px
 }
+
 export interface ButtonTradeTrust extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   height?: ButtonHeight;
@@ -65,7 +67,7 @@ export const ButtonIcon: FunctionComponent<ButtonTradeTrust> = ({
   className,
   children,
   disabled,
-  size = ButtonSize.MD,
+  size = ButtonSize.XS,
   height = ButtonHeight.MD,
   ...props
 }) => {

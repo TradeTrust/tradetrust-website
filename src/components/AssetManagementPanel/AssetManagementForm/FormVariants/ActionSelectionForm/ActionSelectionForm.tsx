@@ -1,6 +1,6 @@
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
 import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
+import { Button, ButtonHeight } from "../../../../Button";
 import { MessageTitle, showDocumentTransferMessage } from "../../../../UI/Overlay/OverlayContent";
 import { TagBordered, TagBorderedSm } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
@@ -155,6 +155,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                     ) : (
                       <Button
                         className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 min-w-6 hover:bg-cerulean-800 xs:w-full"
+                        height={ButtonHeight.LG}
                         onClick={handleNoAccess}
                       >
                         No Access
@@ -164,6 +165,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                 ) : (
                   <Button
                     className="bg-cerulean-500 text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-800"
+                    height={ButtonHeight.LG}
                     data-testid={"connectToWallet"}
                     onClick={handleConnectWallet}
                   >

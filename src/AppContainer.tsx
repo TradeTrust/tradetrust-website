@@ -1,4 +1,4 @@
-import { Button, ButtonSize } from "./components/Button";
+import { Button, ButtonHeight, ButtonSize } from "./components/Button";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Footer } from "./components/Layout/Footer";
@@ -27,7 +27,7 @@ const AppContainer = (): React.ReactElement => {
       />
       <PopupMessage />
       {location.pathname.includes("/creator") ? (
-        <div className="bg-cerulean-800 text-white py-2 px-0" data-testid="old-creator-banner">
+        <div className="bg-cerulean-800 text-white py-4 px-0" data-testid="old-creator-banner">
           <div className="container">
             <div className="flex flex-wrap">
               <div className="flex flex-col sm:flex-row items-start xs:items-center justify-normal xs:justify-center sm:justify-between w-full gap-2">
@@ -37,6 +37,7 @@ const AppContainer = (): React.ReactElement => {
                     className="w-full xs:w-auto bg-white text-cerulean-500 hover:bg-cloud-100"
                     style={{ paddingLeft: "4rem", paddingRight: "4rem" }}
                     size={ButtonSize.SM}
+                    height={ButtonHeight.SM}
                   >
                     Use Previous Creator
                   </Button>
@@ -56,6 +57,7 @@ const AppContainer = (): React.ReactElement => {
                     className="w-full xs:w-auto bg-white text-cerulean-500 hover:bg-cloud-100"
                     style={{ paddingLeft: "4rem", paddingRight: "4rem" }}
                     size={ButtonSize.SM}
+                    height={ButtonHeight.SM}
                   >
                     Use Previous Verifier
                   </Button>

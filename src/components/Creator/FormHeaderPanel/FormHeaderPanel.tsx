@@ -3,7 +3,7 @@ import React, { FunctionComponent, MouseEventHandler, ReactElement } from "react
 import { useHistory } from "react-router-dom";
 import { QueueState } from "../../../constants/QueueState";
 import { FormErrors } from "../../../types";
-import { Button } from "../../Button";
+import { Button, ButtonHeight } from "../../Button";
 import { FormErrorBanner } from "../../DynamicFormContainer/FormErrorBanner";
 import { Card } from "../../UI/Card";
 
@@ -72,11 +72,12 @@ export const FormHeaderPanel: FunctionComponent<FormHeaderPanelProps> = ({
         >
           {title}
         </h3>
-        <div className="flex flex-row flex-wrap gap-4">
+        <div className="flex flex-row flex-wrap gap-2">
           {step < 3 && (
             <>
               <Button
                 className="w-full xs:w-auto min-w-64 bg-white text-cerulean-500 hover:bg-cloud-100"
+                height={ButtonHeight.LG}
                 onClick={handlePrevious}
                 data-testid="form-previous-button"
               >
@@ -84,6 +85,7 @@ export const FormHeaderPanel: FunctionComponent<FormHeaderPanelProps> = ({
               </Button>
               <Button
                 className="w-full xs:w-auto min-w-64 bg-cerulean-500 text-white hover:bg-cerulean-800"
+                height={ButtonHeight.LG}
                 onClick={handleNext}
                 data-testid="form-next-button"
               >
@@ -94,6 +96,7 @@ export const FormHeaderPanel: FunctionComponent<FormHeaderPanelProps> = ({
           {step === 3 && queueState === QueueState.CONFIRMED && processAnotherDocumentFn && (
             <Button
               className="w-full xs:w-auto min-w-64 bg-cerulean-500 text-white hover:bg-cerulean-800"
+              height={ButtonHeight.LG}
               data-testid="process-another-document-button"
               onClick={processAnotherDocumentFn}
             >

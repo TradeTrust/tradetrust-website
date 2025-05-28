@@ -74,26 +74,26 @@ export const ScrollTip: React.FunctionComponent<ScrollTipProps> = ({
   return (
     <>
       {showViewMore && (
-        <button
+        <div
           onClick={scrollToTarget}
           data-testid="view-more"
-          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-white py-2 px-4 rounded-xl shadow-md flex items-center z-10 hover:bg-gray-100 transition-colors border border-gray-200 ${viewMoreClassName}`}
+          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-white py-2 px-4 rounded-xl shadow-md flex items-center z-10 hover:bg-gray-100 transition-colors border border-gray-200 h-10 ${viewMoreClassName}`}
           aria-label="View more content"
         >
           <span className="mr-2 text-cerulean-500 font-bold">View More</span>
           <ChevronDown className="text-cerulean-500 h-5 w-5" />
-        </button>
+        </div>
       )}
 
       {showScrollTop && (
-        <button
+        <div
           onClick={scrollToTop}
           data-testid="scroll-to-top"
-          className={`h-12 w-12 fixed bottom-8 right-8 bg-white p-3 rounded-xl shadow-md flex items-center z-10 hover:bg-gray-100 transition-colors border border-gray-200 ${scrollTopClassName}`}
+          className={`h-10 w-10 fixed bottom-8 right-8 bg-white p-3 rounded-xl shadow-md flex items-center z-10 hover:bg-gray-100 transition-colors border border-gray-200 ${scrollTopClassName}`}
           aria-label="Scroll to top"
         >
           <ChevronUp className="text-cerulean-500 h-5 w-5" />
-        </button>
+        </div>
       )}
     </>
   );

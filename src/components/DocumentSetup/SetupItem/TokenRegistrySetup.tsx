@@ -2,7 +2,7 @@ import React, { useEffect, useImperativeHandle } from "react";
 import { SetupItem } from "./SetupItem";
 import { useCreatorContext } from "../../../common/contexts/CreatorContext";
 import { useProviderContext } from "../../../common/contexts/provider";
-import { Button, ButtonSize } from "@tradetrust-tt/tradetrust-ui-components";
+import { Button, ButtonSize } from "../../Button";
 
 export interface TokenRegistrySetupProps {}
 
@@ -59,7 +59,7 @@ const TokenRegistrySetupRef = (
             {displayRedeployTokenRegistry && (
               <div className="w-32">
                 <Button
-                  className="flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800 w-full h-12"
+                  className="flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800 w-full"
                   size={ButtonSize.MD}
                   onClick={() => processTokenRegistry(providerOrSigner, currentChainId!, providerType)}
                   data-testid="confirm-modal-confirm-button"
