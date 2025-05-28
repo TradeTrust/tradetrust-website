@@ -1,46 +1,45 @@
 {
-    "data": {
-      "invoiceId": "<Invoice ID 1>",
-      "invoiceName": "<Invoice Name 1>",
-      "date": "",
-      "customerId": "<Customer ID 1>",
-      "terms": "<Terms 1>",
-      "billFrom": {
-        "billFromName": "<Bills From Name 1>",
-        "billFromStreetAddress": "<Bills From Street 1>",
-        "billFromCity": "<Bills From City 1>",
-        "billFromPostalCode": "<Bills From PC 1>",
-        "billFromPhoneNumber": "<Bills From PN 1>"
+  "data": {
+    "invoiceId": "<Invoice ID 1>",
+    "invoiceName": "<Invoice Name 1>",
+    "date": "",
+    "customerId": "<Customer ID 1>",
+    "terms": "<Terms 1>",
+    "billFrom": {
+      "billFromName": "<Bills From Name 1>",
+      "billFromStreetAddress": "<Bills From Street 1>",
+      "billFromCity": "<Bills From City 1>",
+      "billFromPostalCode": "<Bills From PC 1>",
+      "billFromPhoneNumber": "<Bills From PN 1>"
+    },
+    "billTo": {
+      "billToName": "<Bills To Name 1>",
+      "billToEmail": "<Bills To Email 1>"
+    },
+    "billToCompany": {
+      "billToCompanyName": "<Bills To Company Name 1>",
+      "billToCompanyStreetAddress": "<Bills To Street 1>",
+      "billToCompanyCity": "<Bills To City 1>",
+      "billToCompanyPostalCode": "<Bills To PC 1>",
+      "billToCompanyPhoneNumber": "<Bills To PN 1>"
+    },
+    "billableItems": [
+      {
+        "billableItemsDescription": "<Description 1>",
+        "billableItemsQuantity": "<Quality 1>",
+        "billableItemsUnitPrice": "<UnitPrice 1>",
+        "billableItemsAmount": "<Amount 1>"
       },
-      "billTo": {
-        "billToName": "<Bills To Name 1>",
-        "billToEmail": "<Bills To Email 1>"
-      },
-      "billToCompany": {
-        "billToCompanyName": "<Bills To Company Name 1>",
-        "billToCompanyStreetAddress": "<Bills To Street 1>",
-        "billToCompanyCity": "<Bills To City 1>",
-        "billToCompanyPostalCode": "<Bills To PC 1>",
-        "billToCompanyPhoneNumber": "<Bills To PN 1>"
-      },
-      "billableItems": [
-        {
-          "billableItemsDescription": "<Description 1>",
-          "billableItemsQuantity": "<Quality 1>",
-          "billableItemsUnitPrice": "<UnitPrice 1>",
-          "billableItemsAmount": "<Amount 1>"
-        },
-        {
-          "billableItemsDescription": "<Description 2>",
-          "billableItemsQuantity": "<Quality 2>",
-          "billableItemsUnitPrice": "<UnitPrice 2>",
-          "billableItemsAmount": "<Amount 2>"
-        }
-      ],
-      "subtotal": "<Subtotal 1>",
-      "tax": "<Tax 1>",
-      "taxTotal": "<Tax Total 1>",
-      "total": "<Total 1>"
-    }
+      {
+        "billableItemsDescription": "<Description 2>",
+        "billableItemsQuantity": "<Quality 2>",
+        "billableItemsUnitPrice": "<UnitPrice 2>",
+        "billableItemsAmount": "<Amount 2>"
+      }
+    ],
+    "subtotal": "<Subtotal 1>",
+    "tax": "<Tax 1>",
+    "taxTotal": "<Tax Total 1>",
+    "total": "<Total 1>"
   }
-  
+}

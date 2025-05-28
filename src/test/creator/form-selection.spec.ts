@@ -4,7 +4,12 @@ import { location, navigateToCreator } from "../helper";
 fixture("Form Selection").page`${location}`;
 
 const title = Selector('[data-testid="form-selection-title"]');
-const toggleButton = Selector("#forms-header")
+const toggleFirstButton = Selector("#forms-header")
+  .nth(0)
+  .find("div")
+  .withAttribute("class", /cursor-pointer/);
+const toggleSecondButton = Selector("#forms-header")
+  .nth(1)
   .find("div")
   .withAttribute("class", /cursor-pointer/);
 const transferableView = Selector('[data-testid="forms-view-Transferable"]');
@@ -30,12 +35,14 @@ test("should display and toggle form list correctly, and all expected forms shou
     .eql(2, "Non-Transferable forms view should have exactly 2 form-select elements");
 
   // Step 4: Toggle collapse and verify
-  await t.click(toggleButton);
+  await t.click(toggleFirstButton);
+  await t.click(toggleSecondButton);
   await t.expect(transferableView.visible).notOk("Form list should be hidden after collapse");
   await t.expect(nonTransferableView.visible).notOk("Form list should be hidden after collapse");
 
   // Step 5: Toggle expand and verify again
-  await t.click(toggleButton);
+  await t.click(toggleFirstButton);
+  await t.click(toggleSecondButton);
   await t.expect(transferableView.visible).ok("Form list should be visible after re-expanding");
   await t.expect(nonTransferableView.visible).ok("Form list should be visible after re-expanding");
 });
