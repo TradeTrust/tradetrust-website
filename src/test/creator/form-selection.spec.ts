@@ -9,8 +9,6 @@ const toggleButton = Selector("#forms-header")
   .withAttribute("class", /cursor-pointer/);
 const transferableView = Selector('[data-testid="forms-view-Transferable"]');
 const nonTransferableView = Selector('[data-testid="forms-view-Non-Transferable"]');
-const transferableFormCount = transferableView.find('[data-testid^="form-select-"]').count;
-const nonTransferableFormCount = nonTransferableView.find('[data-testid^="form-select-"]').count;
 
 test("should display and toggle form list correctly, and all expected forms should be visible", async (t) => {
   // Step 1: Navigate to Creator
@@ -22,6 +20,10 @@ test("should display and toggle form list correctly, and all expected forms shou
   // Step 3: Validate that both sections are present
   await t.expect(transferableView.exists).ok("Transferable forms view should exist");
   await t.expect(nonTransferableView.exists).ok("Non-Transferable forms view should exist");
+
+  const transferableFormCount = await transferableView.find('[data-testid^="form-select-"]').count;
+  const nonTransferableFormCount = await nonTransferableView.find('[data-testid^="form-select-"]').count;
+
   await t.expect(transferableFormCount).eql(3, "Transferable forms view should have exactly 3 form-select elements");
   await t
     .expect(nonTransferableFormCount)

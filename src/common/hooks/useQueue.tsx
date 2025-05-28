@@ -90,9 +90,6 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
 
     try {
       setQueueState(QueueState.PENDING);
-      if (!currentChainId) throw new Error("No chainId found in context");
-      if (!account) throw new Error("No account found in context");
-      if (!providerOrSigner) throw new Error("No provider or signer found in context");
       // const documentStorageURL = process.env.DOCUMENT_STORAGE_URL;
       // if (!documentStorageURL) throw new Error("No document storage URL found");
 
@@ -107,11 +104,14 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
 
       if (!previewOnly) {
         // Add credential status
-        const chainInfo = getChainInfo(currentChainId);
-
         if (formTemplate.type === "VERIFIABLE_DOCUMENT") {
           // TODO: Implement Verifiable Document
         } else if (formTemplate.type === "TRANSFERABLE_RECORD") {
+          if (!currentChainId) throw new Error("No chainId found in context");
+          if (!account) throw new Error("No account found in context");
+          if (!providerOrSigner) throw new Error("No provider or signer found in context");
+
+          const chainInfo = getChainInfo(currentChainId);
           const tokenRegistryObj = JSON.parse(localStorage?.getItem("tokenRegistry") || "{}");
           const tokenRegistry = tokenRegistryObj[account][currentChainId];
 
