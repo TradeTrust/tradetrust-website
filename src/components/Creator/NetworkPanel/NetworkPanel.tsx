@@ -20,6 +20,8 @@ export const NetworkPanel: FunctionComponent<NetworkPanelProps> = ({ isTransfera
     return null;
   }
 
+  const ConnectToProvider = providerType === SIGNER_TYPE.MAGIC ? ConnectToMagicLink : ConnectToMetamask;
+
   return (
     <Card>
       <div className="flex flex-col flex-start md:flex-row md:justify-between md:items-center gap-4">
@@ -28,11 +30,7 @@ export const NetworkPanel: FunctionComponent<NetworkPanelProps> = ({ isTransfera
           <p data-testid="selected-network">{networkName} Network</p>
         </div>
         <div>
-          {providerType === SIGNER_TYPE.MAGIC ? (
-            <ConnectToMagicLink className="w-full xs:w-72" nextStep={<div />} />
-          ) : (
-            <ConnectToMetamask className="w-full xs:w-72" />
-          )}
+          <ConnectToProvider className="w-full xs:w-72" />
         </div>
       </div>
     </Card>

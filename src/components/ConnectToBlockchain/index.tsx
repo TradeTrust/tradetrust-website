@@ -1,10 +1,10 @@
-import { Button } from "../Button";
 import React, { useState } from "react";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";
+import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
+import { Button } from "../Button";
+import { ConnectToMagicLinkModelComponent } from "../ConnectToMagicLink";
 import { ConnectToMetamaskModelComponent } from "../ConnectToMetamask";
 import { Model } from "../UI/Overlay/OverlayContent/Model";
-import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
-import ConnectToMagicLink from "../ConnectToMagicLink";
 
 const WALLET_TYPE_NAME: Partial<Record<SIGNER_TYPE, string>> = {
   [SIGNER_TYPE.METAMASK]: "Metamask",
@@ -134,7 +134,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
           <ConnectToMetamaskModelComponent showOnNewConnectWarningMessage nextStep={nextStep} />
         )}
         {selectedWalletType === SIGNER_TYPE.MAGIC && (
-          <ConnectToMagicLink className="w-full" showOnNewConnectWarningMessage nextStep={nextStep} />
+          <ConnectToMagicLinkModelComponent showOnNewConnectWarningMessage nextStep={nextStep} />
         )}
       </div>
     </Model>

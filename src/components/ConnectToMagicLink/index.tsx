@@ -1,24 +1,65 @@
 import { IconWarning } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
-import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
-import Connected from "../ConnectToBlockchain/Connected";
-import { Button } from "../Button";
-import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";
+import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
+import { Button } from "../Button";
+import Connected from "../ConnectToBlockchain/Connected";
+import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
 import { showDocumentTransferMessage } from "../UI/Overlay/OverlayContent";
 
 interface ConnectToMagicLinkProps {
   className?: string;
+}
+
+interface ConnectToMagicLinkModelProps {
   showOnNewConnectWarningMessage?: boolean;
   nextStep: React.ReactNode;
 }
 
-const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({
-  className,
+export const ConnectToMagicLinkModelComponent = ({
   showOnNewConnectWarningMessage = false,
   nextStep,
-}) => {
-  const { upgradeToMagicSigner, providerType, account, disconnectWallet } = useProviderContext();
+}: ConnectToMagicLinkModelProps) => {
+  const { providerType, account, disconnectWallet } = useProviderContext();
+  const { showOverlay } = useOverlayContext();
+
+  const handleDisconnect = () => {
+    disconnectWallet();
+  };
+
+  const handleContinue = () => {
+    showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
+  };
+
+  return (
+    <div className="flex flex-col gap-4">
+      {providerType === SIGNER_TYPE.MAGIC && account && <span>Connected as: </span>}
+      <ConnectToMagicLink className="w-full" />
+      {showOnNewConnectWarningMessage &&
+        providerType !== SIGNER_TYPE.MAGIC &&
+        providerType !== SIGNER_TYPE.NONE &&
+        account && (
+          <div className="flex items-center gap-2 border rounded-lg px-4 py-3 bg-lemon-100">
+            <IconWarning className="h-5 w-5" />
+            <p className="text-sm text-gray-500">You’ll be logged out of Metamask if you login with MagicLink</p>
+          </div>
+        )}
+      {providerType === SIGNER_TYPE.MAGIC && account && (
+        <div className="flex flex-col xs:flex-row gap-2">
+          <Button className="h-12 flex-1" onClick={handleDisconnect}>
+            Disconnect
+          </Button>
+          <Button className="h-12 flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800" onClick={handleContinue}>
+            Continue
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({ className }) => {
+  const { upgradeToMagicSigner, providerType, account } = useProviderContext();
   const { showOverlay } = useOverlayContext();
 
   const handleConnectWallet = async () => {
@@ -38,52 +79,19 @@ const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({
     );
   };
 
-  const handleDisconnect = () => {
-    disconnectWallet();
-  };
-
-  const handleContinue = () => {
-    showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
-  };
-
   return (
-    <div>
+    <div className={`self-start md:self-center w-[18.25rem] ${className}`}>
       {providerType === SIGNER_TYPE.MAGIC && account ? (
-        <div className="flex flex-col gap-4">
-          <div className="w-full">
-            <Connected imgSrc="/static/images/magic_link.svg" />
-          </div>
-          <div className="flex flex-col xs:flex-row gap-2">
-            <Button className="h-12 flex-1" onClick={handleDisconnect}>
-              Disconnect
-            </Button>
-            <Button className="h-12 flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800" onClick={handleContinue}>
-              Continue
-            </Button>
-          </div>
-        </div>
+        <Connected imgSrc="/static/images/magic_link.svg" />
       ) : (
         <>
-          <button
-            className={`flex items-center justify-center p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium ${className}`}
+          <Button
+            className="w-full bg-white hover:bg-cloud-100 rounded-xl text-lg py-2 px-3 flex items-center gap-2 text-[16px] font-bold justify-center"
             onClick={handleConnectWallet}
           >
-            <img
-              src="/static/images/magic_link.svg"
-              alt="MagicLink"
-              className="w-6 h-6 mr-2 filter brightness-0 invert"
-            />
-            <span>Continue with MagicLink</span>
-          </button>
-          {showOnNewConnectWarningMessage &&
-            account &&
-            providerType !== SIGNER_TYPE.MAGIC &&
-            providerType !== SIGNER_TYPE.NONE && (
-              <div className="flex items-center gap-2 border rounded-lg px-4 py-3 bg-lemon-100 mt-4">
-                <IconWarning className="h-5 w-5" />
-                <p className="text-sm text-gray-500">You’ll be logged out of Metamask if you login with MagicLink</p>
-              </div>
-            )}
+            <img src="/static/images/magic_link.svg" alt="MagicLink" className="w-6 h-6" />
+            <div className="text-center">Connect to MagicLink</div>
+          </Button>
         </>
       )}
     </div>
