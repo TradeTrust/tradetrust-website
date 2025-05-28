@@ -6,7 +6,7 @@ import { QueueState } from "../../constants/QueueState";
 import { flattenData, getDataW3C } from "../utils/dataHelpers";
 import { encodeQrCode } from "../utils/qrCode";
 import { getQueueNumber, uploadToStorage } from "../API/storageAPI";
-import { ChainInfo, Network, supportedMainnet } from "../../constants/chain-info";
+import { ChainInfo, Network } from "../../constants/chain-info";
 import { useProviderContext } from "../contexts/provider";
 import { getChainInfo } from "../utils/chain-utils";
 
@@ -21,14 +21,14 @@ export interface ActionsUrlObject {
   uri: string;
 }
 
-const redirectUrl = (network: Network) => {
-  if (supportedMainnet.includes(network)) return "https://ref.tradetrust.io/";
-  return "https://dev.tradetrust.io/";
+const redirectUrl = (): string => {
+  return `${window.location.protocol}//${window.location.host}/`;
 };
-const getReservedStorageUrl = async (documentStorageURL: string, network: Network): Promise<ActionsUrlObject> => {
+
+const getReservedStorageUrl = async (documentStorageURL: string, network?: Network): Promise<ActionsUrlObject> => {
   const queueNumber = await getQueueNumber(documentStorageURL);
 
-  const chainObject = Object.values(ChainInfo).find((item) => item.networkName === network);
+  const chainObject = network ? Object.values(ChainInfo).find((item) => item.networkName === network) : undefined;
 
   const qrUrlObj = {
     type: "DOCUMENT",
@@ -36,8 +36,8 @@ const getReservedStorageUrl = async (documentStorageURL: string, network: Networ
       uri: `${documentStorageURL}/${queueNumber.data.id}`,
       key: queueNumber.data.key,
       permittedActions: ["STORE"],
-      redirect: redirectUrl(network),
-      chainId: `${chainObject?.chainId}`,
+      redirect: redirectUrl(),
+      ...(chainObject && { chainId: `${chainObject.chainId}` }), // only add if available
     },
   };
 
@@ -68,6 +68,9 @@ export const useQueue = ({
     await new Promise((resolve) => setTimeout(resolve, 1000));
     try {
       setQueueState(QueueState.PENDING);
+      if (!currentChainId) throw new Error("No chainId found in context");
+      const documentStorageURL = process.env.REACT_APP_DOCUMENT_STORAGE_URL;
+      if (!documentStorageURL) throw new Error("No document storage URL found");
 
       if (formTemplate.type === "VERIFIABLE_DOCUMENT") {
         const mergedCredentialSubject = {
@@ -79,9 +82,6 @@ export const useQueue = ({
           .credentialSubject(flattenData(mergedCredentialSubject))
           .renderMethod(formTemplate.defaults.renderMethod);
 
-        if (!currentChainId) throw new Error("No chainId found in context");
-        const documentStorageURL = process.env.REACT_APP_DOCUMENT_STORAGE_URL;
-        if (!documentStorageURL) throw new Error("No document storage URL found");
         const networkName = getChainInfo(currentChainId).networkName as Network;
 
         const actionsUrlObj = await getReservedStorageUrl(documentStorageURL, networkName);
