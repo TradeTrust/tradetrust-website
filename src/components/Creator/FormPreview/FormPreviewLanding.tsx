@@ -46,15 +46,17 @@ export const FormPreviewLanding: FunctionComponent = () => {
         nextRoute="/creator/publish"
         nextLabel="Issue Document"
       />
-      <Card>
-        <FormTransferableRecordPanel
-          mode="view"
-          beneficiaryAddress={form?.ownership?.beneficiaryAddress}
-          holderAddress={form?.ownership?.holderAddress}
-          remarks={form?.remarks || ""}
-          fileName={currentFormTemplate?.fileName}
-        />
-      </Card>
+      {currentFormTemplate.type === "TRANSFERABLE_RECORD" && (
+        <Card>
+          <FormTransferableRecordPanel
+            mode="view"
+            beneficiaryAddress={form?.ownership?.beneficiaryAddress}
+            holderAddress={form?.ownership?.holderAddress}
+            remarks={form?.remarks || ""}
+            fileName={currentFormTemplate?.fileName}
+          />
+        </Card>
+      )}
       <Card>
         {processingError ? (
           <div className="p-4 text-red-500">

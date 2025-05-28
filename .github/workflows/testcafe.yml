@@ -13,6 +13,7 @@ jobs:
     timeout-minutes: 30
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+      DID_SERVER_URL: ${{ secrets.DID_SERVER_URL }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
