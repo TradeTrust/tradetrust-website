@@ -9,31 +9,22 @@ import {
   W3CTransferableRecordsConfig,
 } from "@trustvc/trustvc";
 import { useState } from "react";
-import { CHAIN } from "../../constants/chain-info";
+import { CHAIN, ChainInfo, Network } from "../../constants/chain-info";
 import { QueueState } from "../../constants/QueueState";
 import { FormEntry, FormTemplate } from "../../types";
 import { getLogger } from "../../utils/logger";
+import { getQueueNumber, uploadToStorage } from "../API/storageAPI";
+import { useCreatorContext } from "../contexts/CreatorContext";
 import { useProviderContext } from "../contexts/provider";
 import { getChainInfo } from "../utils/chain-utils";
 import { flattenData, getDataW3C } from "../utils/dataHelpers";
-import { useCreatorContext } from "../contexts/CreatorContext";
 import { encodeQrCode } from "../utils/qrCode";
-import { getQueueNumber, uploadToStorage } from "../API/storageAPI";
-import { ChainInfo, Network, supportedMainnet } from "../../constants/chain-info";
 
 const { stack } = getLogger("useQueue");
 
 export interface UseQueue {
   formEntry: FormEntry;
   formTemplate: FormTemplate;
-}
-export interface ActionsUrlObject {
-  type: string;
-  uri: string;
-}
-
-export interface ProcessDocument {
-  previewOnly?: boolean;
 }
 
 export interface UseQueueReturn {
@@ -43,15 +34,23 @@ export interface UseQueueReturn {
   document?: SignedVerifiableCredential;
 }
 
-const redirectUrl = (network: Network) => {
-  if (supportedMainnet.includes(network)) return "https://ref.tradetrust.io/";
-  return "https://dev.tradetrust.io/";
+export interface ActionsUrlObject {
+  type: string;
+  uri: string;
+}
+
+export interface ProcessDocument {
+  previewOnly?: boolean;
+}
+
+const redirectUrl = (): string => {
+  return `${window.location.protocol}//${window.location.host}/`;
 };
 
-const getReservedStorageUrl = async (documentStorageURL: string, network: Network): Promise<ActionsUrlObject> => {
+const getReservedStorageUrl = async (documentStorageURL: string, network?: Network): Promise<ActionsUrlObject> => {
   const queueNumber = await getQueueNumber(documentStorageURL);
 
-  const chainObject = Object.values(ChainInfo).find((item) => item.networkName === network);
+  const chainObject = network ? Object.values(ChainInfo).find((item) => item.networkName === network) : undefined;
 
   const qrUrlObj = {
     type: "DOCUMENT",
@@ -59,8 +58,8 @@ const getReservedStorageUrl = async (documentStorageURL: string, network: Networ
       uri: `${documentStorageURL}/${queueNumber.data.id}`,
       key: queueNumber.data.key,
       permittedActions: ["STORE"],
-      redirect: redirectUrl(network),
-      chainId: `${chainObject?.chainId}`,
+      redirect: redirectUrl(),
+      ...(chainObject && { chainId: `${chainObject.chainId}` }), // only add if available
     },
   };
 
@@ -81,7 +80,6 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
 
   const processDocument = async (param?: ProcessDocument): Promise<void> => {
     const { previewOnly = false } = param || {};
-
     setQueueState(QueueState.INITIALIZED);
     setError(undefined);
     setDocument(undefined);
@@ -91,6 +89,11 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
 
     try {
       setQueueState(QueueState.PENDING);
+      if (!currentChainId) throw new Error("No chainId found in context");
+      if (!account) throw new Error("No account found in context");
+      if (!providerOrSigner) throw new Error("No provider or signer found in context");
+      const documentStorageURL = process.env.DOCUMENT_STORAGE_URL;
+      if (!documentStorageURL) throw new Error("No document storage URL found");
 
       const mergedCredentialSubject = {
         ...formTemplate.defaults.credentialSubject,
@@ -100,32 +103,30 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
       const builder = new DocumentBuilder(formTemplate.defaults)
         .credentialSubject(flattenData(mergedCredentialSubject))
         .renderMethod(formTemplate.defaults.renderMethod);
-        
-      if (!currentChainId) throw new Error("No chainId found in context");
-      const documentStorageURL = process.env.DOCUMENT_STORAGE_URL;
-      if (!documentStorageURL) throw new Error("No document storage URL found");
-      const networkName = getChainInfo(currentChainId).networkName as Network;
 
-      const actionsUrlObj = await getReservedStorageUrl(documentStorageURL, networkName);
-      builder.qrCode(actionsUrlObj);
-
-      // Add credential status
       if (!previewOnly) {
+        // Add credential status
+        const chainInfo = getChainInfo(currentChainId);
+
         if (formTemplate.type === "VERIFIABLE_DOCUMENT") {
           // TODO: Implement Verifiable Document
         } else if (formTemplate.type === "TRANSFERABLE_RECORD") {
           const tokenRegistryObj = JSON.parse(localStorage?.getItem("tokenRegistry") || "{}");
-          const tokenRegistry = tokenRegistryObj[account!][currentChainId!];
+          const tokenRegistry = tokenRegistryObj[account][currentChainId];
 
           if (!tokenRegistry) throw new Error("Token registry not found");
 
           builder.credentialStatus({
-            chain: CHAIN[currentChainId!],
-            chainId: currentChainId!,
+            chain: CHAIN[currentChainId],
+            chainId: currentChainId,
             tokenRegistry,
-            rpcProviderUrl: getChainInfo(currentChainId!).rpcUrl,
+            rpcProviderUrl: chainInfo.rpcUrl,
           } as unknown as W3CTransferableRecordsConfig);
         }
+
+        // Add QR code
+        const actionsUrlObj = await getReservedStorageUrl(documentStorageURL, chainInfo.networkName);
+        builder.qrCode(actionsUrlObj);
       }
 
       // Sign Document
@@ -135,7 +136,11 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
       const keyPair = JSON.parse(localStorageDidString);
       const signedDocument = await builder.sign(keyPair);
 
-      await uploadToStorage(signedDocument, documentStorageURL);
+      // Upload to storage
+      if (!previewOnly) {
+        await uploadToStorage(signedDocument, documentStorageURL);
+      }
+
       setDocument(signedDocument);
       setCreatedDocuments([signedDocument]);
 

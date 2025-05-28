@@ -4,7 +4,7 @@ export interface ChainInfoObject {
   label: string;
   iconImage: string;
   chainId: ChainId;
-  networkName: string; // network name that aligns with existing NETWORK_NAME
+  networkName: Network; // network name that aligns with existing NETWORK_NAME
   networkLabel: string;
   explorerUrl: string;
   rpcUrl?: string;
