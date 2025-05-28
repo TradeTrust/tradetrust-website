@@ -1,11 +1,10 @@
-import { FunctionComponent, MouseEventHandler } from "react";
+import { SignedVerifiableCredential } from "@trustvc/trustvc";
+import React, { FunctionComponent, MouseEventHandler } from "react";
 import { Download } from "react-feather";
+import { QueueState } from "../../../constants/QueueState";
+import { Button } from "../../Button";
 import { ErrorCard } from "../../UI/ErrorCard";
 import { ProcessedDocumentTag } from "../ProcessedDocumentTag";
-import React from "react";
-import { Button } from "../../Button";
-import { QueueState } from "../../../constants/QueueState";
-import { SignedVerifiableCredential } from "@trustvc/trustvc";
 
 interface ProcessDocumentContentProps {
   queueState: QueueState;

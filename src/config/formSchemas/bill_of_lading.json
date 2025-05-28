@@ -3,7 +3,8 @@
   "type": "TRANSFERABLE_RECORD",
   "defaults": {
     "@context": [
-      "https://trustvc.io/context/bill-of-lading-carrier.json"
+      "https://trustvc.io/context/bill-of-lading-carrier.json",
+      "https://trustvc.io/context/attachments-context.json"
     ],
     "renderMethod": 
       {
@@ -235,5 +236,5 @@
     }
   },
   "extension": "tt",
-  "fileName": "bill-<%= blNumber %>"
+  "fileName": "bill-of-lading-carrier"
 }

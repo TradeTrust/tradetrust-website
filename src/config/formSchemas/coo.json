@@ -3,7 +3,8 @@
   "type": "VERIFIABLE_DOCUMENT",
   "defaults": {
     "@context": [
-      "https://trustvc.io/context/coo.json"
+      "https://trustvc.io/context/coo.json",
+      "https://trustvc.io/context/attachments-context.json"
     ],
     "renderMethod": 
       {

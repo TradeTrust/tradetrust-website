@@ -6,7 +6,7 @@ export const FormSelectSample: FunctionComponent = () => {
     <FormSelect
       form={{ name: "Form 1", img: "/static/creator/bill_of_lading.png" }}
       onCreateDocumentClick={() => {}}
-      id="1"
+      data-testid="1"
     />
   );
 };

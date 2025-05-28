@@ -48,8 +48,11 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
           <div>
             <div id="forms-header" className="flex items-center gap-4 py-4 px-3">
               <div
+                data-testid={`toggle-expand-${type}`}
                 onClick={() => toggleExpand(id)}
                 className="flex items-center justify-center w-9 h-9 p-2 border border-gray-200 rounded-xl cursor-pointer"
+                role="button"
+                tabIndex={0}
               >
                 {expanded[id] ? (
                   <ChevronUp className="text-cerulean-500 hover:text-cerulean-1000 transition-transform duration-500" />
@@ -60,6 +63,7 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
               <h3>{type} Documents</h3>
             </div>
             <div
+              data-testid={`forms-view-${type}`}
               id="forms-view"
               className={`transition-all duration-500 ease-in-out ${
                 expanded[id] ? "visible max-h-fit opacity-100" : "collapse max-h-0 opacity-0"
@@ -71,7 +75,7 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
                   .map((form: any, index: number) => (
                     <div key={`form-select-${index}`} className="h-full w-full">
                       <FormSelect
-                        id={`form-select-${index}`}
+                        data-testid={`form-select-${index}`}
                         form={form}
                         onCreateDocumentClick={() => onCreateDocumentClick(form.type, form.name)}
                       />
