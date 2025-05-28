@@ -4,7 +4,7 @@ export interface ChainInfoObject {
   label: string;
   iconImage: string;
   chainId: ChainId;
-  networkName: string; // network name that aligns with existing NETWORK_NAME
+  networkName: Network; // network name that aligns with existing NETWORK_NAME
   networkLabel: string;
   explorerUrl: string;
   rpcUrl?: string;
@@ -14,6 +14,17 @@ export interface ChainInfoObject {
     decimals: number;
   };
 }
+export type Network =
+  | "homestead"
+  | "local"
+  | "sepolia"
+  | "matic"
+  | "amoy"
+  | "xdc"
+  | "xdcapothem"
+  | "stabilitytestnet"
+  | "stability"
+  | "astron";
 
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
@@ -173,3 +184,17 @@ export const ChainInfo: ChainInfo = {
     },
   },
 };
+export const supportedMainnet = [
+  ChainInfo[ChainId.Ethereum].networkName,
+  ChainInfo[ChainId.Polygon].networkName,
+  ChainInfo[ChainId.XDC].networkName,
+  ChainInfo[ChainId.Stability].networkName,
+  // ChainInfo[ChainId.Astron].networkName,
+];
+
+export const supportedTestnet = [
+  ChainInfo[ChainId.Sepolia].networkName,
+  ChainInfo[ChainId.Amoy].networkName,
+  ChainInfo[ChainId.APOTHEM].networkName,
+  ChainInfo[ChainId.StabilityTestnet].networkName,
+];
