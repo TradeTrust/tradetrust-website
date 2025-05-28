@@ -21,11 +21,10 @@ export const encodeQrCode = (payload: QrCode): string =>
   `https://actions.tradetrust.io?q=${encodeURIComponent(JSON.stringify(payload))}`;
 
 export const decodeQrCode = (qrCode: string): QrCode => {
-  const oaRegex = /https:\/\/action.openattestation.com\/?\?q=(.*)/;
   const ttRegex = /https:\/\/actions.tradetrust.io\/?\?q=(.*)/;
 
-  if (oaRegex.test(qrCode) || ttRegex.test(qrCode)) {
-    const matchedArray = (oaRegex.exec(qrCode) as RegExpExecArray) || (ttRegex.exec(qrCode) as RegExpExecArray);
+  if (ttRegex.test(qrCode)) {
+    const matchedArray = ttRegex.exec(qrCode) as RegExpExecArray;
     const encodedPayload = matchedArray[1];
     const decodedPayload = JSON.parse(decodeURIComponent(encodedPayload));
     return decodedPayload;
