@@ -33,13 +33,13 @@ export const FormSelect: FunctionComponent<FormSelectProps> = ({
       </div>
 
       <div className="relative">
-        <button
+        <div
           onClick={handleExpandPreview}
-          className="absolute text-white mt-3 ml-3 z-10 flex items-center text-blue-600 hover:text-blue-800 font-medium bg-cloud-500 px-3 py-1 rounded-lg m-2 flex items-center justify-center"
+          className="absolute text-white mt-3 ml-3 z-10 flex items-center text-blue-600 font-medium bg-cloud-500 px-3 py-1 rounded-lg m-2 flex items-center justify-center"
         >
           <img src="/static/creator/expand.svg" alt="Expand" />
           <span>Expand Preview</span>
-        </button>
+        </div>
         <div className="relative bg-cerulean-50 border border-gray-200 rounded-xl overflow-hidden h-[240px]">
           <img
             src={form.img}

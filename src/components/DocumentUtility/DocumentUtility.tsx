@@ -39,9 +39,9 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
 
   return (
     <div className="container no-print bg-white pb-4">
-      <div className="flex flex-wrap items-start">
+      <div className="flex flex-wrap items-start gap-4">
         {selectedTemplate !== "default-template" && (
-          <div className="w-1/2  pr-2">
+          <div className="flex-1">
             <h4 className="text-base font-semibold mb-1">Rendered View:</h4>
             <h6 className="text-sm break-words">
               {selectedTemplate.trim().toUpperCase()} rendered from{" "}
@@ -54,7 +54,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
 
         <div
           className={`${
-            selectedTemplate !== "default-template" ? "w-1/2" : "w-full"
+            selectedTemplate !== "default-template" ? "" : "w-full"
           } flex justify-end items-start space-x-3 mt-4 sm:mt-0`}
         >
           {qrcodeUrl && (
@@ -67,7 +67,6 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
               <ButtonIcon
                 className="bg-white border-2 border-cloud-100 rounded-xl hover:bg-cloud-100"
                 aria-label="document-utility-qr-button"
-                style={{ width: "auto", height: "auto" }}
               >
                 <SvgIcon className="text-cerulean-500" strokeWidth="0.5" fill="currentColor">
                   <SvgIconQRCode />
@@ -95,7 +94,6 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
               className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-cloud-100"
               aria-label="document-utility-print-button"
               onClick={() => onPrint()}
-              style={{ width: "auto", height: "auto" }}
             >
               <Printer />
             </ButtonIcon>
@@ -108,10 +106,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
               role="button"
               aria-label="document-utility-download"
             >
-              <ButtonIcon
-                className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-cloud-100"
-                style={{ width: "auto", height: "auto" }}
-              >
+              <ButtonIcon className="bg-white text-cerulean-500 border-2 border-cloud-100 rounded-xl hover:bg-cloud-100">
                 <Download />
               </ButtonIcon>
             </a>

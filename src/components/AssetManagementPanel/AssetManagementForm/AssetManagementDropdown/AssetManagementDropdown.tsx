@@ -1,8 +1,8 @@
 import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
-import { AssetManagementActions } from "./../../AssetManagementActions";
-import { Button } from "../../../Button";
+import { Button, ButtonHeight } from "../../../Button";
 import { Dropdown, DropdownItem } from "../../../Dropdown";
+import { AssetManagementActions } from "./../../AssetManagementActions";
 
 interface AssetManagementDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
@@ -39,6 +39,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
     <Button
       className="flex bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 w-full"
       disabled
+      height={ButtonHeight.LG}
       data-testid={"rejectTransferBtn"}
     >
       <LoaderSpinner data-testid={"loader"} />
@@ -48,7 +49,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
     <Dropdown
       data-testid="manageAssetDropdown"
       dropdownButtonText="Manage assets"
-      className="bg-cerulean-500 font-gilroy-bold text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300 w-full"
+      className="bg-cerulean-500 font-gilroy-bold text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300 w-full h-12"
       classNameMenu="right-0 rounded-xl mt-2 w-full"
     >
       {canTransferHolder && (

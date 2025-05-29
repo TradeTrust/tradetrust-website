@@ -1,4 +1,4 @@
-import { Button } from "../Button";
+import { Button, ButtonHeight } from "../Button";
 import React, { useEffect } from "react";
 import { NetworkSelect } from "../Layout/NetworkSelect";
 import { Model } from "../UI/Overlay/OverlayContent/Model";
@@ -27,12 +27,13 @@ const NetworkSectionModel: React.FC<NetworkSectionModelProps> = ({ collapsible =
       showDivider
       footer={
         <>
-          <Button className="flex-1 w-full text-cerulean-500" onClick={closeOverlay}>
+          <Button className="flex-1 w-full text-cerulean-500" height={ButtonHeight.LG} onClick={closeOverlay}>
             Cancel
           </Button>
           <Button
             disabled={currentChainId === undefined || networkChangeLoading}
             className="flex-1 w-full bg-cerulean-500 text-white hover:bg-cerulean-800 disabled:cursor-not-allowed disabled:bg-cloud-300"
+            height={ButtonHeight.LG}
             onClick={() => {
               closeOverlay();
               nextStep && showOverlay(nextStep);

@@ -34,8 +34,8 @@ export const getDisplayTitle = (
     case QueueState.PENDING:
       return (
         <div className="flex flex-wrap items-center gap-4">
-          <div className="flex flex-row items-center">
-            <LoaderSpinner className="mr-2" width="24px" primary="#2D5FAA" />
+          <div className="flex flex-row items-center gap-4">
+            <LoaderSpinner width="32px" primary="#2D5FAA" />
             {titleText("Issuing Document...")}
           </div>
           {providerType === SIGNER_TYPE.METAMASK && isTransferableRecord && (
@@ -47,17 +47,17 @@ export const getDisplayTitle = (
       );
     case QueueState.CONFIRMED:
       return (
-        <>
-          <CheckCircle className="mr-2 text-forest-500 h-12 w-12 md:h-auto md:w-auto" />
+        <div className="flex flex-row items-center gap-4">
+          <CheckCircle className="text-forest-500 h-8 w-8" />
           {titleText("Document issued successfully")}
-        </>
+        </div>
       );
     case QueueState.ERROR:
       return (
-        <>
-          <XCircle className="mr-2 text-scarlet-500 h-12 w-12 md:h-auto md:w-auto" />
+        <div className="flex flex-row items-center gap-4">
+          <XCircle className="text-scarlet-500 h-8 w-8" />
           {titleText("Document failed to issue")}
-        </>
+        </div>
       );
     case QueueState.INITIALIZED:
     default:

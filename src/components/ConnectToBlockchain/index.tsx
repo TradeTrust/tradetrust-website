@@ -1,10 +1,10 @@
-import { Button } from "../Button";
 import React, { useState } from "react";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";
+import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
+import { Button, ButtonHeight } from "../Button";
+import { ConnectToMagicLinkModelComponent } from "../ConnectToMagicLink";
 import { ConnectToMetamaskModelComponent } from "../ConnectToMetamask";
 import { Model } from "../UI/Overlay/OverlayContent/Model";
-import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
-import ConnectToMagicLink from "../ConnectToMagicLink";
 
 const WALLET_TYPE_NAME: Partial<Record<SIGNER_TYPE, string>> = {
   [SIGNER_TYPE.METAMASK]: "Metamask",
@@ -39,7 +39,7 @@ const ConnectToBlockchainHeaderItem = ({
   onClick,
 }: ConnectToBlockchainHeaderItemProps) => {
   return (
-    <button
+    <div
       id={`connect-blockchain-button-${itemKey}`}
       onClick={onClick}
       className={`connect-blockchain-button break-keep w-max flex gap-2 items-center px-6 py-3 border rounded-t-xl border-b transition-colors ${
@@ -58,7 +58,7 @@ const ConnectToBlockchainHeaderItem = ({
       ) : (
         <h5>{WALLET_TYPE_NAME[walletType]}</h5>
       )}
-    </button>
+    </div>
   );
 };
 
@@ -117,7 +117,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
       collapsible={collapsible}
       showDivider
       footer={
-        <Button className="w-full xs:w-1/2 text-cerulean-500" onClick={closeOverlay}>
+        <Button className="w-full xs:w-1/2 text-cerulean-500" height={ButtonHeight.LG} onClick={closeOverlay}>
           Cancel
         </Button>
       }
@@ -134,7 +134,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
           <ConnectToMetamaskModelComponent showOnNewConnectWarningMessage nextStep={nextStep} />
         )}
         {selectedWalletType === SIGNER_TYPE.MAGIC && (
-          <ConnectToMagicLink className="w-full" showOnNewConnectWarningMessage nextStep={nextStep} />
+          <ConnectToMagicLinkModelComponent showOnNewConnectWarningMessage nextStep={nextStep} />
         )}
       </div>
     </Model>

@@ -94,7 +94,7 @@ export const FormTransferableRecordPanel: FunctionComponent<FormTransferableReco
           <div className="w-full flex">
             <input
               data-testid="transferable-record-beneficiary-input"
-              className="custom-input mr-2 w-full"
+              className="flex-1 custom-input mr-2 w-full"
               value={beneficiaryAddress}
               type="text"
               onChange={(e) => setBeneficiaryAddress?.(e.target.value)}

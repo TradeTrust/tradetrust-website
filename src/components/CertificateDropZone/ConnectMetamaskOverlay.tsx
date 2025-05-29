@@ -1,4 +1,4 @@
-import { Button } from "../Button";
+import { Button, ButtonHeight, ButtonSize } from "../Button";
 import React, { FunctionComponent } from "react";
 import { CheckCircle } from "react-feather";
 
@@ -45,14 +45,18 @@ export const ConnectMetamaskOverlay: FunctionComponent<ConnectMetamaskOverlayPro
       <div id="footer" className="p-6 pt-4">
         <div className="flex flex-col xs:flex-row items-center justify-between gap-2 text-center text-xl font-bold leading-6 min-[596px]:flex-nowrap">
           <Button
-            className="bg-white text-cerulean-500 hover:bg-cloud-100 px-[18px] py-3 w-full xs:w-auto flex-1 min-h-12 rounded-xl p-3"
+            className="bg-white text-cerulean-500 hover:bg-cloud-100 w-full xs:w-auto flex-1"
+            size={ButtonSize.LG}
+            height={ButtonHeight.LG}
             onClick={() => handleConnection()}
             data-testid={`overlayHandleConnectionBtn`}
           >
             Connect with Metamask
           </Button>
           <Button
-            className="bg-cerulean-500 text-white hover:bg-cerulean-800 px-[18px] py-3 w-full xs:w-auto flex-1 min-h-12 rounded-xl p-3"
+            className="bg-cerulean-500 text-white hover:bg-cerulean-800 w-full xs:w-auto flex-1"
+            size={ButtonSize.LG}
+            height={ButtonHeight.LG}
             onClick={() => handleDispatch()}
             data-testid={`overlayHandleDispatchBtn`}
           >
