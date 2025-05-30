@@ -64,7 +64,7 @@ const getReservedStorageUrl = async (documentStorageURL: string, network?: Netwo
   };
 
   const qrCodeObject = {
-    type: "TRUSTVCQrCode",
+    type: "TrustVCQRCode",
     uri: encodeQrCode(qrUrlObj),
   };
 
@@ -139,14 +139,6 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
       const keyPair = JSON.parse(localStorageDidString);
       const signedDocument = await builder.sign(keyPair);
 
-      // Upload to storage
-      if (!previewOnly && documentStorageURL) {
-        await uploadToStorage(signedDocument, documentStorageURL);
-      }
-
-      setDocument(signedDocument);
-      setCreatedDocuments([signedDocument]);
-
       // Minting
       if (!previewOnly) {
         if (formTemplate.type === "TRANSFERABLE_RECORD") {
@@ -189,6 +181,14 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
+
+      // Upload to storage
+      if (!previewOnly && documentStorageURL) {
+        await uploadToStorage(signedDocument, documentStorageURL);
+      }
+
+      setDocument(signedDocument);
+      setCreatedDocuments([signedDocument]);
 
       setQueueState(QueueState.CONFIRMED);
     } catch (e) {
