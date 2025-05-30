@@ -15,7 +15,6 @@ const defaultProps = {
   account: "0xa61B056dA0084a5f391EC137583073096880C2e3",
   canReturnToIssuer: false,
   canHandleSurrender: false,
-  onConnectToWallet: () => alert("Login to Metamask"),
   canTransferHolder: false,
   canTransferBeneficiary: false,
   canTransferOwners: false,
@@ -52,9 +51,7 @@ describe("ActionSelectionForm", () => {
     await act(async () => {
       const mockOnConnectToWallet = jest.fn();
 
-      const container = render(
-        <ActionSelectionForm {...defaultProps} account="" onConnectToWallet={mockOnConnectToWallet} />
-      );
+      const container = render(<ActionSelectionForm {...defaultProps} account="" />);
 
       fireEvent.click(container.getByTestId("connectToWallet"));
       expect(mockOnConnectToWallet).toHaveBeenCalled();
