@@ -306,8 +306,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChainId]);
 
-  useEffect(() => {
-  }, [magic]);
+  useEffect(() => {}, [magic]);
 
   useEffect(() => {
     if (!window.ethereum) return;

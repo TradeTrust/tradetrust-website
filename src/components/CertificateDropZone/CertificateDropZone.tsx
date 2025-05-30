@@ -56,7 +56,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     dispatch(resetCertificateState());
   }, [dispatch]);
 
-  const { currentChainId, account } = useProviderContext();
+  const { currentChainId } = useProviderContext();
   const { switchNetwork } = useNetworkSelect();
 
   const processFile = useCallback(
@@ -133,7 +133,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [dispatch, account, processFile, showOverlay]
+    [dispatch, processFile, showOverlay]
   );
 
   const [targetChainId, setTargetChainId] = useState<number | null>(null);
