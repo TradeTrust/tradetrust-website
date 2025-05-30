@@ -41,7 +41,7 @@ export const getDocumentData = (document: OpenAttestationDocument | SignedVerifi
 };
 export const getQRCodeLink = (document: OpenAttestationDocument | SignedVerifiableCredential): any => {
   const documentData = getDocumentData(document);
-  if (vc.isSignedDocument(document)) {
+  if (vc.isSignedDocument(document) || vc.isRawDocument(document)) {
     const { qrCode } = document;
     return qrCode.uri;
   } else if (isRawV3Document(document)) {
