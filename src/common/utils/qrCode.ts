@@ -45,7 +45,7 @@ export const getQRCodeLink = (document: OpenAttestationDocument | SignedVerifiab
     const { qrCode } = document;
     return qrCode.uri;
   } else if (isRawV3Document(document)) {
-    const { links } = documentData.credentialSubject;
+    const { links } = documentData;
     return links?.self?.href;
   } else if (isRawV2Document(document)) {
     const { links } = documentData;
