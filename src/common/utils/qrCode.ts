@@ -33,7 +33,7 @@ export const decodeQrCode = (qrCode: string): QrCode => {
   throw new Error("QR Code is not formatted to TradeTrust specifications");
 };
 export const getDocumentData = (document: OpenAttestationDocument | SignedVerifiableCredential): any => {
-  if (isRawV3Document(document) || vc.isSignedDocument(document)) {
+  if (isRawV3Document(document) || vc.isSignedDocument(document) || vc.isRawDocument(document)) {
     return document.credentialSubject;
   } else {
     return getOADocumentData(document as unknown as WrappedDocument<OpenAttestationDocument>);
@@ -41,11 +41,11 @@ export const getDocumentData = (document: OpenAttestationDocument | SignedVerifi
 };
 export const getQRCodeLink = (document: OpenAttestationDocument | SignedVerifiableCredential): any => {
   const documentData = getDocumentData(document);
-  if (vc.isSignedDocument(document)) {
+  if (vc.isSignedDocument(document) || vc.isRawDocument(document)) {
     const { qrCode } = document;
     return qrCode.uri;
   } else if (isRawV3Document(document)) {
-    const { links } = documentData.credentialSubject;
+    const { links } = documentData;
     return links?.self?.href;
   } else if (isRawV2Document(document)) {
     const { links } = documentData;
