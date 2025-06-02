@@ -7,6 +7,7 @@ type TitleEscrow = typeof v5Contracts.TitleEscrow;
 type TradeTrustToken = typeof v5Contracts.TradeTrustToken;
 interface useTitleEscrowContractProps {
   titleEscrow?: TitleEscrow;
+  titleEscrowAddress?: string;
   documentOwner?: string;
   updateTitleEscrow: () => Promise<void>;
 }
@@ -17,6 +18,7 @@ export const useTitleEscrowContract = (
   tokenId?: string
 ): useTitleEscrowContractProps => {
   const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
+  const [titleEscrowAddress, setTitleEscrowAddress] = useState<string>();
   const [documentOwner, setDocumentOwner] = useState<string>();
 
   const updateTitleEscrow = useCallback(async () => {
@@ -30,8 +32,10 @@ export const useTitleEscrowContract = (
         tokenId,
       });
       setTitleEscrow(instance);
+      setTitleEscrowAddress(instance.address);
     } catch (error) {
       setTitleEscrow(undefined);
+      setTitleEscrowAddress(undefined);
     }
   }, [provider, tokenId, tokenRegistry]);
 
@@ -40,10 +44,11 @@ export const useTitleEscrowContract = (
     return () => {
       setTitleEscrow(undefined);
       setDocumentOwner(undefined);
+      setTitleEscrowAddress(undefined);
     };
   }, [updateTitleEscrow, tokenId, provider]);
 
-  return { titleEscrow, updateTitleEscrow, documentOwner };
+  return { titleEscrow, titleEscrowAddress, updateTitleEscrow, documentOwner };
 };
 
 export const retrieveTitleEscrowAddressOnFactory = async (
