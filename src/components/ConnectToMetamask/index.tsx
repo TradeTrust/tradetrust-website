@@ -93,7 +93,7 @@ const ConnectToMetamask: React.FC<ConnectToMetamaskProps> = ({ className, openCo
         <>
           <Button
             className="w-full bg-white hover:bg-cloud-100 rounded-xl text-lg py-2 px-3 flex items-center gap-2 text-[16px] font-bold justify-center"
-            data-testid={"connectToWallet"}
+            data-testid={"connectToMetamask"}
             onClick={handleConnectWallet}
           >
             {" "}
