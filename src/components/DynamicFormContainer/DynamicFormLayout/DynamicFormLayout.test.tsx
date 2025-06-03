@@ -367,9 +367,7 @@ describe("dynamicFormLayout", () => {
         </MemoryRouter>
       );
 
-      // await act(async () => {
       fireEvent.click(screen.getByTestId("form-next-button"));
-      // });
 
       // Wait for form errors to be displayed
       if (expectedErrors > 0) {

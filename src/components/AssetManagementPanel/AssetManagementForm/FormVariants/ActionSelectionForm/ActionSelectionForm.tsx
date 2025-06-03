@@ -6,6 +6,7 @@ import { TagBordered, TagBorderedSm } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
+import ConnectToBlockchainModel from "../../../../ConnectToBlockchain";
 
 interface ActionSelectionFormProps {
   beneficiary?: string;
@@ -15,7 +16,6 @@ interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenRegistryAddress: string;
   account?: string;
-  onConnectToWallet: () => void;
   isReturnedToIssuer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
@@ -44,7 +44,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   isTokenBurnt,
   isTitleEscrow,
   isRejectPendingConfirmation,
-  onConnectToWallet,
 
   canTransferHolder,
   canTransferBeneficiary,
@@ -76,23 +75,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     showOverlay(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
   };
 
-  const handleMetamaskError = (errorMesssage: string, errorCode: number) => {
-    const isUserDeniedAccountAuthorization = errorCode === 4001;
-    showOverlay(
-      showDocumentTransferMessage(errorMesssage, {
-        isSuccess: false,
-        isButtonMetamaskInstall: !isUserDeniedAccountAuthorization,
-      })
-    ); // there is 2 type of errors that will be handled here, 1st = NO_METAMASK (error thrown from provider.tsx), 2nd = NO_USER_AUTHORIZATION (error from metamask extension itself).
-  };
-
   const handleConnectWallet = async () => {
-    try {
-      await onConnectToWallet();
-    } catch (error: any) {
-      console.error(error);
-      handleMetamaskError(error.message, error.code);
-    }
+    showOverlay(<ConnectToBlockchainModel collapsible={true} />);
   };
 
   return (

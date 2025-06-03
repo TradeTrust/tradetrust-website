@@ -63,7 +63,6 @@ interface AssetManagementFormProps
   account?: string;
   keyId?: string;
   formAction: AssetManagementActions;
-  onConnectToWallet: () => void;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   setShowEndorsementChain: (payload: boolean) => void;
 }
@@ -78,7 +77,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   account,
   formAction,
   tokenRegistryAddress,
-  onConnectToWallet,
   onSetFormAction,
   isRestorer,
   isAcceptor,
@@ -280,7 +278,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           holder={holder}
           nominee={nominee}
           account={account}
-          onConnectToWallet={onConnectToWallet}
           canReturnToIssuer={canReturnToIssuer}
           canHandleRestore={canHandleRestore}
           canHandleShred={canHandleShred}

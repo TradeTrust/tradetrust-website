@@ -17,6 +17,7 @@ type MagicContextType = {
   loginMagicLink: (email: string) => Promise<void>;
   logoutMagicLink: () => Promise<void>;
   isLoggedIn: boolean;
+  selectedNetwork: NetworkConfig | undefined;
 };
 
 const MagicContext = createContext<MagicContextType>({
@@ -25,6 +26,7 @@ const MagicContext = createContext<MagicContextType>({
   loginMagicLink: async () => {},
   logoutMagicLink: async () => {},
   isLoggedIn: false,
+  selectedNetwork: undefined,
 });
 
 interface MagicProviderProps {
@@ -109,6 +111,7 @@ export const MagicProvider = ({ children, defaultChainId }: MagicProviderProps) 
         loginMagicLink,
         logoutMagicLink,
         isLoggedIn,
+        selectedNetwork,
       }}
     >
       {children}

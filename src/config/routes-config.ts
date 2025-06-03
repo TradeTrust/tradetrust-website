@@ -10,5 +10,7 @@ export const paths: Record<string, string> = {
   addressBook: "/settings/address-book",
   privacyPolicy: "/privacy-policy",
   termsOfUse: "/terms-of-use",
+  wallet: "/wallet",
+  endorsementChain: "/endorsement-chain",
   notFound: "*",
 }; // note that this is being used to generate sitemap

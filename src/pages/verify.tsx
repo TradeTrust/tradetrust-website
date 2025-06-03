@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { HomePageContainer } from "../components/HomePageContent";
 import { Page } from "../components/Layout/Page";
 import { DropZoneSectionContainer } from "../components/VerifyPageContent/DropZoneSection";
-import { NetworkSectionWithMetamask } from "../components/NetworkSection/NetworkSectionWithMetamask";
+import { useDispatch } from "react-redux";
+import { reset } from "../reducers/sample";
 
 const VerifyPage = (): React.ReactElement => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // reset redux state on page load, this is to prevent demo state from previous load
+    dispatch(reset());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -27,8 +36,6 @@ const VerifyPage = (): React.ReactElement => {
       </Helmet>
 
       <Page title="Verify Documents">
-        <NetworkSectionWithMetamask subtitle="Verifying your document on" overlayMargin="ml-2" />
-
         <DropZoneSectionContainer />
         <HomePageContainer />
       </Page>

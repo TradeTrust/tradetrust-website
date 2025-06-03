@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { errorMessages } from "@trustvc/trustvc";
 
@@ -28,9 +28,9 @@ export const HomePageContainer = (): React.ReactElement => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { switchNetwork } = useNetworkSelect();
-  const loadCertificate = React.useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
+  const loadCertificate = useCallback((payload: any) => dispatch(updateCertificate(payload)), [dispatch]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const { search, hash } = location;
     const params = new URLSearchParams(search);
     const query = params.get("q");

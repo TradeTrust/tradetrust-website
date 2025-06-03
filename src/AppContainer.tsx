@@ -34,9 +34,9 @@ const AppContainer = (): React.ReactElement => {
                 <p className="mb-0">Welcome to our upgraded creator!</p>
                 <a className="w-full xs:w-auto" href={URLS.CREATOR} target="_blank" rel="noopener noreferrer">
                   <Button
-                    className="w-full xs:w-auto bg-white text-cerulean-500 hover:bg-cloud-100"
+                    className="w-full xs:w-auto bg-white text-cerulean-500 hover:bg-cloud-100 px-2"
                     style={{ paddingLeft: "4rem", paddingRight: "4rem" }}
-                    size={ButtonSize.SM}
+                    size={ButtonSize.XS}
                     height={ButtonHeight.SM}
                   >
                     Use Previous Creator
@@ -54,9 +54,9 @@ const AppContainer = (): React.ReactElement => {
                 <p className="mb-0">Welcome to our upgraded verifier!</p>
                 <a className="w-full xs:w-auto" href={URLS.REF} target="_blank" rel="noopener noreferrer">
                   <Button
-                    className="w-full xs:w-auto bg-white text-cerulean-500 hover:bg-cloud-100"
+                    className="w-full xs:w-auto bg-white text-cerulean-500 hover:bg-cloud-100 px-2"
                     style={{ paddingLeft: "4rem", paddingRight: "4rem" }}
-                    size={ButtonSize.SM}
+                    size={ButtonSize.XS}
                     height={ButtonHeight.SM}
                   >
                     Use Previous Verifier

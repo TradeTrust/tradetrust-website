@@ -93,7 +93,13 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   defaultProviderType = SIGNER_TYPE.NONE,
 }) => {
   const defaultProvider = useRef(createProvider(defaultChainId));
-  const { magic, changeMagicNetwork, isLoggedIn: isMagicLoggedIn, logoutMagicLink } = useMagicContext();
+  const {
+    magic,
+    changeMagicNetwork,
+    isLoggedIn: isMagicLoggedIn,
+    logoutMagicLink,
+    selectedNetwork: selectedMagicNetwork,
+  } = useMagicContext();
 
   const [providerType, setProviderType] = useState<SIGNER_TYPE>(defaultProviderType);
   const [currentChainId, setCurrentChainId] = useState<ChainId | undefined>(
@@ -291,6 +297,14 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   useEffect(() => {
     currentProvider = provider;
   }, [provider]);
+
+  useEffect(() => {
+    // Propagate currentChainId to MagicContext
+    if (selectedMagicNetwork?.chainId !== currentChainId) {
+      changeMagicNetwork(currentChainId!);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentChainId]);
 
   useEffect(() => {
     if (!window.ethereum) return;

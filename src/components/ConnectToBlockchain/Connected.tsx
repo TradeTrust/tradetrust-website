@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactTooltip from "react-tooltip";
 import { useProviderContext } from "../../common/contexts/provider";
+import ConnectToBlockchainModel from ".";
+import { useOverlayContext } from "../../common/contexts/OverlayContext";
 
 interface ConnectedProps {
   imgSrc: string;
+  openConnectToBlockchainModel?: boolean;
 }
 
-export const Connected: React.FC<ConnectedProps> = ({ imgSrc }) => {
-  const [tooltipMessage, setTooltipMessage] = useState("Copy");
+export const Connected: React.FC<ConnectedProps> = ({ imgSrc, openConnectToBlockchainModel = false }) => {
+  const [tooltipMessage, setTooltipMessage] = useState(openConnectToBlockchainModel ? "" : "Copy");
   const tooltipRef = useRef(null);
   const [displayedAccount, setDisplayedAccount] = useState("");
   const accountRef = useRef<HTMLHeadingElement>(null);
   const { account } = useProviderContext();
+  const { showOverlay } = useOverlayContext();
 
   useEffect(() => {
     if (account && accountRef.current) {
@@ -32,7 +36,9 @@ export const Connected: React.FC<ConnectedProps> = ({ imgSrc }) => {
   }, [account]);
 
   const handleActiveWalletClicked = async () => {
-    if (account) {
+    if (openConnectToBlockchainModel) {
+      showOverlay(<ConnectToBlockchainModel collapsible={true} />);
+    } else if (account) {
       try {
         await navigator.clipboard.writeText(account);
         ReactTooltip.hide(tooltipRef.current!);
@@ -50,12 +56,16 @@ export const Connected: React.FC<ConnectedProps> = ({ imgSrc }) => {
     <>
       <div
         onMouseLeave={() => {
+          if (openConnectToBlockchainModel) return;
+
           setTimeout(() => {
             ReactTooltip.hide(tooltipRef.current!);
             setTooltipMessage("Copy");
           }, 1_000);
         }}
         onMouseEnter={() => {
+          if (openConnectToBlockchainModel) return;
+
           ReactTooltip.hide(tooltipRef.current!);
           setTooltipMessage("Copy");
           setTimeout(() => {

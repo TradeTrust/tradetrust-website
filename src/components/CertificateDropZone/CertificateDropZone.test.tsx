@@ -3,11 +3,12 @@ import React from "react";
 import { Provider } from "react-redux";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { configureStore } from "../../store";
-import fileContent from "./../../test/fixture/local/w3c/v1_tr_er.json";
+import fileContent from "./../../test/fixture/stabilitytestnet/v2/ebl-withoutnetwork.json";
 import { CertificateDropZone } from "./CertificateDropZone";
 import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
-import { ConnectMetamaskOverlay } from "./ConnectMetamaskOverlay";
 import { MemoryRouter } from "react-router";
+import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
+import { HeaderIconState } from "../UI/Overlay/OverlayContent/Model";
 jest.mock("qr-scanner");
 
 const store = configureStore();
@@ -108,7 +109,20 @@ describe("CertificateDropZone", () => {
     // Check if onDrop was triggered
     await waitFor(() => {
       expect(mockShowOverlay).toHaveBeenCalledWith(
-        <ConnectMetamaskOverlay handleConnection={expect.any(Function)} handleDispatch={expect.any(Function)} />
+        <NetworkSectionModel
+          collapsible={false}
+          title="TradeTrust Document Uploaded"
+          headerIconState={HeaderIconState.SUCCESS}
+          cancelText="Cancel"
+          continueText="Proceed"
+          preContent={
+            <div className="flex justify-center items-center">
+              <p>Select network for transferable document verification.</p>
+            </div>
+          }
+          postContent={<></>}
+          nextStep={expect.any(Function)}
+        />
       );
     });
   });

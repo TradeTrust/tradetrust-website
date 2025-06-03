@@ -18,6 +18,7 @@ export enum TokenRegistryVersion {
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
   tokenId?: string;
+  titleEscrowAddress?: string;
   beneficiary?: string;
   holder?: string;
   prevBeneficiary?: string;
@@ -101,7 +102,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
   const { providerOrSigner } = useProviderContext();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
-  const { titleEscrow, updateTitleEscrow, documentOwner } = useTitleEscrowContract(
+  const { titleEscrow, titleEscrowAddress, updateTitleEscrow, documentOwner } = useTitleEscrowContract(
     providerOrSigner,
     tokenRegistry,
     tokenId
@@ -285,6 +286,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
       value={{
         tokenId,
         tokenRegistryAddress,
+        titleEscrowAddress,
         initialize,
         holder: holder?.[0],
         beneficiary: beneficiary?.[0],
