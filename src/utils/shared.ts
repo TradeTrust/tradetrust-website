@@ -29,7 +29,7 @@ export type WrappedOrSignedOpenAttestationDocument = WrappedDocument<OpenAttesta
 export type OpenAttestationAttachment = v2.Attachment;
 
 export const getOpenAttestationData = (
-  wrappedDocument: WrappedDocument<OpenAttestationDocument>
+  wrappedDocument: WrappedOrSignedOpenAttestationDocument
 ): OpenAttestationDocument => {
   if (isSignedDocument(wrappedDocument) || vc.isRawDocument(wrappedDocument)) {
     return wrappedDocument as any;
@@ -37,7 +37,9 @@ export const getOpenAttestationData = (
   return getDocumentData(wrappedDocument);
 };
 
-export const getTemplateUrl = (rawDocument: WrappedOrSignedOpenAttestationDocument): string | undefined => {
+export const getTemplateUrl = (
+  rawDocument: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential
+): string | undefined => {
   if (isSignedDocument(rawDocument) || vc.isRawDocument(rawDocument)) {
     return [(rawDocument as unknown as SignedVerifiableCredential).renderMethod]?.flat()?.[0]?.id;
   } else if (isWrappedV2Document(rawDocument)) {
