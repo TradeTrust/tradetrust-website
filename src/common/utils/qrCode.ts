@@ -4,7 +4,6 @@ import {
   OpenAttestationDocument,
   SignedVerifiableCredential,
   vc,
-  WrappedDocument,
   WrappedOrSignedOpenAttestationDocument,
   isWrappedV2Document,
   getDataV2,
