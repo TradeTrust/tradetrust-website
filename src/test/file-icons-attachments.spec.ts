@@ -17,11 +17,9 @@ const IconPaperclip = Selector("[data-testid='attachment-icon-paperclip']");
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
 const AttachmentLink = Selector("[data-testid='attachment-download-link']");
 
-const HandleProceedAnywayBtn = Selector("[data-testid='overlayHandleDispatchBtn']");
 test("Attachment Tab and Panel rendered correctly", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/v2/invoice-attachments-dummy.json");
-  await t.click(HandleProceedAnywayBtn);
   // default document pdf content should render
   await validateIframeTexts(["Documents Bundle"]);
 

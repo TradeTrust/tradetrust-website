@@ -36,6 +36,7 @@ const merkleRootToMint = {
     ...[
       "0xe52a60e9c1308960bcf1d6c8531c58bf480aec373e1e3442a6af151475c3f89d",
       "0x1683a00c42430b72c42a8013e6695b839ab7f7b06db69835b974392613826bd2",
+      "0xa0bf0f3823a8857d068740c6f936eeab2de0516161924f84fe4c1ef6061732d2", // ebl-withoutnetwork.json
     ].map((hash) => ({
       merkleRoot: hash,
       ...defaultToken,

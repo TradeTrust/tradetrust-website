@@ -1,0 +1,41 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "shipper": {
+      "address": {}
+    },
+    "consignee": {},
+    "notifyParty": {},
+    "$template": {
+      "type": "294cd6bc-3594-4f96-a319-13468c3ccba6:string:EMBEDDED_RENDERER",
+      "name": "7e400205-c7b3-46fb-bc8a-44913531e9e2:string:BILL_OF_LADING_CARRIER",
+      "url": "dab6e05a-1c27-40c7-b898-94fec8e1826f:string:https://generic-templates.tradetrust.io"
+    },
+    "issuers": [
+      {
+        "name": "39688537-379d-456d-939e-5c0de90a21bc:string:DEMO TOKEN REGISTRY",
+        "tokenRegistry": "01224498-72ea-428b-9ba9-b4ecfbbd2b09:string:0x9Eb613a88534E2939518f4ffBFE65F5969b491FF",
+        "identityProof": {
+          "type": "466f4618-56aa-45c1-a6ee-7bb21d29ff08:string:DNS-TXT",
+          "location": "ad484b3b-08c0-4b92-84b1-55da43caa9b0:string:example.tradetrust.io"
+        },
+        "revocation": {
+          "type": "47efcb4f-9c20-48a4-ab2e-dfb46abfdc1b:string:NONE"
+        }
+      }
+    ],
+    "blNumber": "7983656a-e66c-4cdb-9430-619acc871da5:string:1",
+    "scac": "03973f28-44d6-40cc-a0de-87b661ff8dfb:string:1",
+    "links": {
+      "self": {
+        "href": "aec00d08-81d9-4059-978e-694afad4b41b:string:https://actions.tradetrust.io?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Ftradetrust-functions.netlify.app%2F.netlify%2Ffunctions%2Fstorage%2F5f11bbb2-58dd-4eb4-a082-333c0a3bcf5f%22%2C%22key%22%3A%22d96c2fb60aba38aebc622b3cbea6d72e0e18502efe1e4a30b83cdcc5763ea5a3%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22https%3A%2F%2Fdev.tradetrust.io%2F%22%2C%22chainId%22%3A%2220180427%22%7D%7D"
+      }
+    }
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "a0bf0f3823a8857d068740c6f936eeab2de0516161924f84fe4c1ef6061732d2",
+    "proof": [],
+    "merkleRoot": "a0bf0f3823a8857d068740c6f936eeab2de0516161924f84fe4c1ef6061732d2"
+  }
+}
