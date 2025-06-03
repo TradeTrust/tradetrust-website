@@ -20,7 +20,6 @@ export const NotLoggedIn = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account=""
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -66,7 +65,6 @@ export const NoMatch = () => {
       <AssetManagementForm
         setShowEndorsementChain={() => {}}
         account="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
-        onConnectToWallet={() => alert("Login to Metamask")}
         beneficiary="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
         nominee=""
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -111,7 +109,6 @@ export const BeneficiaryAndHolder = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -155,7 +152,6 @@ export const Beneficiary = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
@@ -199,7 +195,6 @@ export const Holder = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
@@ -243,7 +238,6 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
@@ -287,7 +281,6 @@ export const TransferHolderError = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -331,7 +324,6 @@ export const TransferHolderPending = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -375,7 +367,6 @@ export const EndorseChangeBeneficiaryError = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -419,7 +410,6 @@ export const EndorseChangeBeneficiaryPending = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -463,7 +453,6 @@ export const NominateBeneficiaryAndHolderError = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
@@ -507,7 +496,6 @@ export const NominateBeneficiaryAndHolderPending = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
@@ -551,7 +539,6 @@ export const EndorseTransferHolderBeneficiary = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
@@ -595,7 +582,6 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee="0xE94E4f16ad40ADc90C29Dc85b42F1213E034947C"
       holder="0x1D350495B4C2a51fBf1c9DEDadEAb288250C703e"
@@ -639,7 +625,6 @@ export const SurrenderDocument = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -683,7 +668,6 @@ export const SurrenderPending = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -727,7 +711,6 @@ export const SurrenderedNotMinter = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -774,7 +757,6 @@ export const SurrenderedIsMinter = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -821,7 +803,6 @@ export const SurrenderedAcceptForm = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -870,7 +851,6 @@ export const SurrenderedRejectForm = () => {
       <AssetManagementForm
         setShowEndorsementChain={() => {}}
         account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-        onConnectToWallet={() => alert("Login to Metamask")}
         beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
         nominee=""
         holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
@@ -918,7 +898,6 @@ export const SurrenderedDocument = () => {
     <AssetManagementForm
       setShowEndorsementChain={() => {}}
       account="0xa61B056dA0084a5f391EC137583073096880C2e3"
-      onConnectToWallet={() => alert("Login to Metamask")}
       beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
       nominee=""
       holder="0xa61B056dA0084a5f391EC137583073096880C2e3"

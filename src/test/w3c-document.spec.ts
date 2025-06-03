@@ -24,11 +24,10 @@ const AttachmentNumber = Selector("[data-testid='attachment-number']");
 const AttachmentLink = Selector("[data-testid='attachment-download-link']");
 const Pdf1Span = Selector("span").withText("UNCITRAL Model Law on");
 const Pdf2Span = Selector("span").withText("Dumm");
-const HandleProceedAnywayBtn = Selector("[data-testid='overlayHandleDispatchBtn']");
-test("should render correctly when w3c vc document contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER", async (t) => {
+
+test("should render correctly when w3c vc document contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER", async () => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/w3c/v1_tr_er.json");
-  await t.click(HandleProceedAnywayBtn);
   await validateIssuerTexts(["DID:WEB:TRUSTVC.GITHUB.IO:DID:1"]);
   await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 });
@@ -36,7 +35,6 @@ test("should render correctly when w3c vc document contains credentialStatus Tra
 test("should render correctly when w3c vc document contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER and attachment", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/w3c/v1_tr_er_attachment.json");
-  await t.click(HandleProceedAnywayBtn);
   await validateIssuerTexts(["DID:WEB:TRUSTVC.GITHUB.IO:DID:1"]);
   await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 

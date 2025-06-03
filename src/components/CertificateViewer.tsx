@@ -21,22 +21,6 @@ import { TabPaneAttachments } from "./TabPaneAttachments";
 
 const { trace } = getLogger("component: certificateviewer");
 
-// HOT FIX remove magic demo temporarily until a decision is made to kill it or continue it
-// eslint-disable-next-line
-const getTempProps = (isSample: boolean) => {
-  return isSample
-    ? {
-        to: "/demo",
-        buttonText: "Try our demo now",
-        title: "Want to try creating a verifiable document? You will be surprised how easy it is.",
-      }
-    : {
-        to: "/contact",
-        buttonText: "Contact us now",
-        title: "Ready to learn how TradeTrust can benefit your business?",
-      };
-};
-
 interface CertificateViewerProps {
   isMagicDemo?: boolean;
   document: WrappedOrSignedOpenAttestationDocument;

@@ -9,11 +9,12 @@ import { showDocumentTransferMessage } from "../UI/Overlay/OverlayContent";
 
 interface ConnectToMagicLinkProps {
   className?: string;
+  openConnectToBlockchainModel?: boolean;
 }
 
 interface ConnectToMagicLinkModelProps {
   showOnNewConnectWarningMessage?: boolean;
-  nextStep: React.ReactNode;
+  nextStep?: React.ReactNode;
 }
 
 export const ConnectToMagicLinkModelComponent = ({
@@ -21,13 +22,17 @@ export const ConnectToMagicLinkModelComponent = ({
   nextStep,
 }: ConnectToMagicLinkModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
-  const { showOverlay } = useOverlayContext();
+  const { showOverlay, closeOverlay } = useOverlayContext();
 
   const handleDisconnect = () => {
     disconnectWallet();
   };
 
   const handleContinue = () => {
+    if (!nextStep) {
+      closeOverlay();
+      return;
+    }
     showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
   };
 
@@ -58,7 +63,10 @@ export const ConnectToMagicLinkModelComponent = ({
   );
 };
 
-export const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({ className }) => {
+export const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({
+  className,
+  openConnectToBlockchainModel = false,
+}) => {
   const { upgradeToMagicSigner, providerType, account } = useProviderContext();
   const { showOverlay } = useOverlayContext();
 
@@ -82,7 +90,7 @@ export const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({ classNam
   return (
     <div className={`self-start md:self-center w-[18.25rem] ${className}`}>
       {providerType === SIGNER_TYPE.MAGIC && account ? (
-        <Connected imgSrc="/static/images/magic_link.svg" />
+        <Connected imgSrc="/static/images/magic_link.svg" openConnectToBlockchainModel={openConnectToBlockchainModel} />
       ) : (
         <>
           <Button

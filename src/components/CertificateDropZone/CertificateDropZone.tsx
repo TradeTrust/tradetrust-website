@@ -1,4 +1,4 @@
-import { errorMessages, isValid } from "@trustvc/trustvc";
+import { errorMessages, isDocumentRevokable, isTransferableRecord, isValid } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,8 +18,9 @@ import {
 import { getChainId } from "../../utils/shared";
 import { View, ViewActionError, ViewVerificationError, ViewVerificationPending } from "../DocumentDropzone/Views";
 import { ViewTokenRegistryMismatch } from "../DocumentDropzone/Views/ViewTokenRegistryMismatch";
+import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
+import { HeaderIconState } from "../UI/Overlay/OverlayContent/Model";
 import { useNetworkSelect } from "./../../common/hooks/useNetworkSelect";
-import { ConnectMetamaskOverlay } from "./ConnectMetamaskOverlay";
 import { LoadDemoCertificate } from "./LoadDemoCertificate";
 
 const { TYPES } = errorMessages;
@@ -55,7 +56,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
     dispatch(resetCertificateState());
   }, [dispatch]);
 
-  const { currentChainId, account } = useProviderContext();
+  const { currentChainId } = useProviderContext();
   const { switchNetwork } = useNetworkSelect();
 
   const processFile = useCallback(
@@ -93,15 +94,24 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           try {
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
+            const requiresNetwork = isTransferableRecord(json) || isDocumentRevokable(json);
 
-            if (chainId && !account) {
+            if (!chainId && requiresNetwork) {
               showOverlay(
-                <ConnectMetamaskOverlay
-                  handleConnection={async () => {
-                    await processFile(json, chainId);
-                  }}
-                  handleDispatch={async () => {
-                    await processFile(json, chainId);
+                <NetworkSectionModel
+                  collapsible={false}
+                  title="TradeTrust Document Uploaded"
+                  headerIconState={HeaderIconState.SUCCESS}
+                  cancelText="Cancel"
+                  continueText="Proceed"
+                  preContent={
+                    <div className="flex justify-center items-center">
+                      <p>Select network for transferable document verification.</p>
+                    </div>
+                  }
+                  postContent={<></>}
+                  nextStep={() => {
+                    processFile(json, chainId);
                   }}
                 />
               );
@@ -123,7 +133,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         reader.readAsText(file);
       });
     },
-    [dispatch, account, processFile, showOverlay]
+    [dispatch, processFile, showOverlay]
   );
 
   const [targetChainId, setTargetChainId] = useState<number | null>(null);

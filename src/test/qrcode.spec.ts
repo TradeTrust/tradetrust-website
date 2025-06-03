@@ -5,11 +5,9 @@ fixture("QRcode Rendering").page`${location}`;
 const qrcode = Selector("[data-testid='qr-code-svg']");
 const logo = qrcode.child("img");
 
-const HandleProceedAnywayBtn = Selector("[data-testid='overlayHandleDispatchBtn']");
 test("UI renders QR code with logo correctly when present in the document", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/v2/invoice-qrcode.json");
-  await t.click(HandleProceedAnywayBtn);
   await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
   await validateIframeTexts(["INVOICE"]);
 

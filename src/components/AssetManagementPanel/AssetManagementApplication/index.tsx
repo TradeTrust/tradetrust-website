@@ -96,7 +96,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   const [assetManagementAction, setAssetManagementAction] = useState<AssetManagementActions>(
     AssetManagementActions.None
   );
-  const { upgradeToMetaMaskSigner, provider, account } = useProviderContext();
+  const { provider, account } = useProviderContext();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
   const { hasRole: hasAccepterRole } = useTokenRegistryRole({
     tokenRegistry,
@@ -171,7 +171,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             account={account}
             formAction={assetManagementAction}
             tokenRegistryAddress={tokenRegistryAddress}
-            onConnectToWallet={upgradeToMetaMaskSigner}
             onSetFormAction={onSetFormAction}
             documentOwner={documentOwner}
             isRestorer={hasRestorerRole}

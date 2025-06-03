@@ -15,6 +15,8 @@ import { ViewerPage } from "./pages/viewer";
 import { paths } from "./config/routes-config";
 import CreatorPage from "./pages/creator";
 import FormPreviewPage from "./pages/formPreview";
+import WalletPage from "./pages/wallet";
+import EndorsementChainPage from "./pages/endorsement-chain";
 
 export const FORM_SG_URL = "https://www.form.gov.sg/635f32c5001b2d0011fff09b";
 
@@ -53,6 +55,8 @@ const routeComponents: RouteComponents = {
   addressBook: { exact: true, component: SettingsAddressBookPage },
   privacyPolicy: { exact: true, component: PrivacyPolicyPage },
   termsOfUse: { exact: true, component: TermsOfUsePage },
+  wallet: { exact: true, component: WalletPage },
+  endorsementChain: { exact: true, component: EndorsementChainPage },
   notFound: { component: PageNotFound },
 };
 

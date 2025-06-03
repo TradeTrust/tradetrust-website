@@ -9,7 +9,7 @@ import { Button } from "../Button";
 
 export interface ConnectToMetamaskModelProps {
   showOnNewConnectWarningMessage: boolean;
-  nextStep: React.ReactNode;
+  nextStep?: React.ReactNode;
 }
 
 export const ConnectToMetamaskModelComponent = ({
@@ -17,13 +17,17 @@ export const ConnectToMetamaskModelComponent = ({
   nextStep,
 }: ConnectToMetamaskModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
-  const { showOverlay } = useOverlayContext();
+  const { showOverlay, closeOverlay } = useOverlayContext();
 
   const handleDisconnect = () => {
     disconnectWallet();
   };
 
   const handleContinue = () => {
+    if (!nextStep) {
+      closeOverlay();
+      return;
+    }
     showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
   };
 
@@ -56,9 +60,10 @@ export const ConnectToMetamaskModelComponent = ({
 
 interface ConnectToMetamaskProps {
   className?: string;
+  openConnectToBlockchainModel?: boolean;
 }
 
-const ConnectToMetamask: React.FC<ConnectToMetamaskProps> = ({ className }) => {
+const ConnectToMetamask: React.FC<ConnectToMetamaskProps> = ({ className, openConnectToBlockchainModel = false }) => {
   const { showOverlay } = useContext(OverlayContext);
   const { upgradeToMetaMaskSigner, account, providerType } = useProviderContext();
 
@@ -83,12 +88,12 @@ const ConnectToMetamask: React.FC<ConnectToMetamaskProps> = ({ className }) => {
   return (
     <div className={`self-start md:self-center w-[18.25rem] ${className}`}>
       {providerType === SIGNER_TYPE.METAMASK && account ? (
-        <Connected imgSrc="/static/images/wallet.png" />
+        <Connected imgSrc="/static/images/wallet.png" openConnectToBlockchainModel={openConnectToBlockchainModel} />
       ) : (
         <>
           <Button
             className="w-full bg-white hover:bg-cloud-100 rounded-xl text-lg py-2 px-3 flex items-center gap-2 text-[16px] font-bold justify-center"
-            data-testid={"connectToWallet"}
+            data-testid={"connectToMetamask"}
             onClick={handleConnectWallet}
           >
             {" "}

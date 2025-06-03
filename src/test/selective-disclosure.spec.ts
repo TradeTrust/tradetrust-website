@@ -9,11 +9,9 @@ const PrivacyFilterButton = Selector("#privacySwitch");
 const CertificateSection = Selector("#rendered-certificate");
 const ExporterObfuscationButton = Selector("h5 > div > .rounded-full.cursor-pointer").nth(0); // selected div is from template renderer itself
 
-const HandleProceedAnywayBtn = Selector("[data-testid='overlayHandleDispatchBtn']");
 test("Fields on a document can be hidden", async (t) => {
   await navigateToVerify();
   await uploadDocument("./fixture/local/v2/coo-selective-disclosure.json");
-  await t.click(HandleProceedAnywayBtn);
   await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
 
   await t.switchToIframe(IframeBlock);

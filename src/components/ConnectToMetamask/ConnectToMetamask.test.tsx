@@ -76,7 +76,7 @@ describe("ConnectToMetamask", () => {
       </OverlayContext.Provider>
     );
 
-    expect(screen.getByTestId("connectToWallet")).toBeInTheDocument();
+    expect(screen.getByTestId("connectToMetamask")).toBeInTheDocument();
     expect(screen.getByText("Connect to Metamask")).toBeInTheDocument();
   });
 
@@ -124,7 +124,7 @@ describe("ConnectToMetamask", () => {
       </OverlayContext.Provider>
     );
 
-    fireEvent.click(screen.getByTestId("connectToWallet"));
+    fireEvent.click(screen.getByTestId("connectToMetamask"));
     await waitFor(() => {
       expect(mockUpgradeToMetaMaskSigner).toHaveBeenCalled();
     });
@@ -152,7 +152,7 @@ describe("ConnectToMetamask", () => {
       </OverlayContext.Provider>
     );
 
-    fireEvent.click(screen.getByTestId("connectToWallet"));
+    fireEvent.click(screen.getByTestId("connectToMetamask"));
 
     await waitFor(() => {
       expect(mockShowOverlay).toHaveBeenCalledWith(
