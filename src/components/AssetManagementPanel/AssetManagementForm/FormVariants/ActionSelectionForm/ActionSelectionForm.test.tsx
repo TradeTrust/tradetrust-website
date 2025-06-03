@@ -1,10 +1,12 @@
-import * as obfuscatedDocument from "../../../../../test/fixture/local/v2/invoice-obfuscated-document.json";
-import { act, fireEvent, render, within } from "@testing-library/react";
-import React from "react";
-import { whenDocumentValidAndIssuedByDns } from "../../../../../test/fixture/verifier-responses";
-import { ActionSelectionForm } from "./ActionSelectionForm";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { VerificationFragment } from "@trustvc/trustvc";
+import React from "react";
+import { OverlayContextProvider } from "../../../../../common/contexts/OverlayContext";
+import * as obfuscatedDocument from "../../../../../test/fixture/local/v2/invoice-obfuscated-document.json";
+import { whenDocumentValidAndIssuedByDns } from "../../../../../test/fixture/verifier-responses";
 import { WrappedOrSignedOpenAttestationDocument } from "../../../../../utils/shared";
+import { Overlay } from "../../../../UI/Overlay";
+import { ActionSelectionForm } from "./ActionSelectionForm";
 
 const defaultProps = {
   setShowEndorsementChain: () => {},
@@ -48,14 +50,16 @@ describe("ActionSelectionForm", () => {
   });
 
   it("should fire login to browser wallet if user is not logged in", async () => {
-    await act(async () => {
-      const mockOnConnectToWallet = jest.fn();
-
-      const container = render(<ActionSelectionForm {...defaultProps} account="" />);
-
-      fireEvent.click(container.getByTestId("connectToWallet"));
-      expect(mockOnConnectToWallet).toHaveBeenCalled();
-    });
+    const container = render(
+      <OverlayContextProvider>
+        <Overlay />
+        <ActionSelectionForm {...defaultProps} account="" />
+      </OverlayContextProvider>
+    );
+    // await act(async () => {
+    fireEvent.click(container.getByTestId("connectToWallet"));
+    // });
+    expect(screen.getByText("Connect to Blockchain Wallet")).toBeInTheDocument();
   });
 
   it("should display the Manage Assets dropdown if user is logged in", async () => {
