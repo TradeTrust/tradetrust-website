@@ -14,8 +14,8 @@ Cypress.Commands.add("connectToMetamaskWalletAndApproveAllAccounts", () => {
     .if("visible")
     .then(() => {
       cy.contains("button", "Connect Wallet").click();
-      cy.wait(METAMASK_WAIT);
       cy.get("[data-testid='connectToMetamask']").click();
+      cy.wait(METAMASK_WAIT);
       cy.get("[data-testid='activeWallet']")
         .if("visible")
         .log("Metamask accounts already connected")

@@ -10,6 +10,7 @@ const VerifyPage = (): React.ReactElement => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // reset redux state on page load, this is to prevent demo state from previous load
     dispatch(reset());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

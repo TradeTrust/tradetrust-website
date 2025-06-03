@@ -56,9 +56,8 @@ describe("ActionSelectionForm", () => {
         <ActionSelectionForm {...defaultProps} account="" />
       </OverlayContextProvider>
     );
-    // await act(async () => {
+
     fireEvent.click(container.getByTestId("connectToWallet"));
-    // });
     expect(screen.getByText("Connect to Blockchain Wallet")).toBeInTheDocument();
   });
 
