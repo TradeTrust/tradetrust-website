@@ -1,12 +1,13 @@
 import { ButtonIcon } from "../Button";
-import { isRawV3Document, v2 } from "@trustvc/trustvc";
+import { isRawV3Document, SignedVerifiableCredential, v2 } from "@trustvc/trustvc";
 import QRCode, { ImageSettings } from "qrcode.react";
 import React, { FunctionComponent, useState } from "react";
 import { Download, Printer } from "react-feather";
 import { WrappedOrSignedOpenAttestationDocument, getOpenAttestationData, getTemplateUrl } from "../../utils/shared";
 import { SvgIcon, SvgIconQRCode } from "../UI/SvgIcon";
+import { getQRCodeLink } from "../../common/utils/qrCode";
 interface DocumentUtilityProps {
-  document: WrappedOrSignedOpenAttestationDocument;
+  document: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential;
   onPrint: () => void;
   selectedTemplate: string;
 }
@@ -22,13 +23,15 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
 
 export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint, selectedTemplate }) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
-  const documentWithMetadata = getOpenAttestationData(document) as DocumentWithAdditionalMetadata; // Extending document data to account for undefined metadata in OA schema
+  const documentWithMetadata = getOpenAttestationData(
+    document as WrappedOrSignedOpenAttestationDocument
+  ) as DocumentWithAdditionalMetadata; // Extending document data to account for undefined metadata in OA schema
 
-  const { name, links } = (isRawV3Document(documentWithMetadata) as any)
+  const { name } = (isRawV3Document(documentWithMetadata) as any)
     ? documentWithMetadata.credentialSubject
     : documentWithMetadata;
   const fileName = name ?? "Untitled";
-  const qrcodeUrl = links?.self?.href;
+  const qrcodeUrl = getQRCodeLink(document);
   const templateURL = getTemplateUrl(document);
   const imageSettings: ImageSettings = {
     src: `/static/images/logo-qrcode.png`,

@@ -6,6 +6,7 @@ import {
   vc,
   getDocumentData as getOADocumentData,
   WrappedDocument,
+  WrappedOrSignedOpenAttestationDocument,
 } from "@trustvc/trustvc";
 
 interface QrCode {
@@ -39,16 +40,16 @@ export const getDocumentData = (document: OpenAttestationDocument | SignedVerifi
     return getOADocumentData(document as unknown as WrappedDocument<OpenAttestationDocument>);
   }
 };
-export const getQRCodeLink = (document: OpenAttestationDocument | SignedVerifiableCredential): any => {
-  const documentData = getDocumentData(document);
-  if (vc.isSignedDocument(document) || vc.isRawDocument(document)) {
-    const { qrCode } = document;
-    return qrCode.uri;
+export const getQRCodeLink = (document: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential): any => {
+  const documentData = getDocumentData(document as OpenAttestationDocument);
+  if (isRawV2Document(document)) {
+    const { links } = documentData;
+    return links?.self?.href;
   } else if (isRawV3Document(document)) {
     const { links } = documentData;
     return links?.self?.href;
-  } else if (isRawV2Document(document)) {
-    const { links } = documentData;
-    return links?.self?.href;
+  } else if (vc.isSignedDocument(document) || vc.isRawDocument(document)) {
+    const { qrCode } = document as SignedVerifiableCredential;
+    return qrCode?.uri;
   }
 };
