@@ -27,7 +27,7 @@ export const ProcessDocumentContent: FunctionComponent<ProcessDocumentContentPro
 }) => {
   const isDocumentError = queueState === QueueState.ERROR;
   const isDocumentSuccess = queueState === QueueState.CONFIRMED && !!document;
-  const isDocumentPending = queueState === QueueState.PENDING && !!document;
+  const isDocumentPending = queueState === QueueState.PENDING;
 
   const ErrorLogButton = () => {
     return (

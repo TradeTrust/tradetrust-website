@@ -53,7 +53,7 @@ export const FormPreviewLanding: FunctionComponent = () => {
             beneficiaryAddress={form?.ownership?.beneficiaryAddress}
             holderAddress={form?.ownership?.holderAddress}
             remarks={form?.remarks || ""}
-            fileName={currentFormTemplate?.fileName}
+            fileName={[form?.fileName, form?.extension].join(".")}
           />
         </Card>
       )}
