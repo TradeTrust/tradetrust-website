@@ -1,4 +1,4 @@
-import { INFURA_API_KEY, STABILITY_API_KEY, STABILITY_TESTNET_API_KEY } from "../config";
+import { INFURA_API_KEY, STABILITY_API_KEY, STABILITY_TESTNET_API_KEY, ASTRON_TESTNET_API_KEY } from "../config";
 
 export type Network =
   | "homestead"
@@ -195,7 +195,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "astrontestnet",
     networkLabel: "astron",
     explorerUrl: "https://dev-astronscanl2.bitfactory.cn/",
-    rpcUrl: "https://dev-astronlayer2.bitfactory.cn/query/",
+    rpcUrl: `https://dev-astronlayer2.bitfactory.cn/auth/${ASTRON_TESTNET_API_KEY}`,
     nativeCurrency: {
       name: "ASTRON",
       symbol: "ASTRON",
