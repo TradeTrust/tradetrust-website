@@ -1,5 +1,18 @@
 import { INFURA_API_KEY, STABILITY_API_KEY, STABILITY_TESTNET_API_KEY } from "../config";
 
+export type Network =
+  | "homestead"
+  | "local"
+  | "sepolia"
+  | "matic"
+  | "amoy"
+  | "xdc"
+  | "xdcapothem"
+  | "stabilitytestnet"
+  | "stability"
+  | "astron"
+  | "astrontestnet";
+
 export interface ChainInfoObject {
   label: string;
   iconImage: string;
@@ -14,23 +27,12 @@ export interface ChainInfoObject {
     decimals: number;
   };
 }
-export type Network =
-  | "homestead"
-  | "local"
-  | "sepolia"
-  | "matic"
-  | "amoy"
-  | "xdc"
-  | "xdcapothem"
-  | "stabilitytestnet"
-  | "stability"
-  | "astron";
 
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export type AvailableBlockChains = "ETH" | "MATIC" | "XDC" | "FREE";
-export const AvailableBlockChains: AvailableBlockChains[] = ["ETH", "MATIC", "XDC", "FREE"];
+export type AvailableBlockChains = "ETH" | "MATIC" | "XDC" | "FREE" | "ASTRON";
+export const AvailableBlockChains: AvailableBlockChains[] = ["ETH", "MATIC", "XDC", "FREE", "ASTRON"];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
@@ -53,6 +55,9 @@ export enum ChainId {
   // Stability
   Stability = 101010,
   StabilityTestnet = 20180427,
+
+  // Astron
+  AstronTestnet = 21002,
 }
 
 export const CHAIN: Partial<Record<ChainId, AvailableBlockChains>> = {
@@ -183,6 +188,20 @@ export const ChainInfo: ChainInfo = {
       decimals: 18,
     },
   },
+  [ChainId.AstronTestnet]: {
+    label: "Astron Testnet",
+    chainId: ChainId.AstronTestnet,
+    iconImage: "/static/images/networks/astron.png",
+    networkName: "astrontestnet",
+    networkLabel: "astron",
+    explorerUrl: "https://dev-astronscanl2.bitfactory.cn/",
+    rpcUrl: "https://dev-astronlayer2.bitfactory.cn/query/",
+    nativeCurrency: {
+      name: "ASTRON",
+      symbol: "ASTRON",
+      decimals: 18,
+    },
+  },
 };
 export const supportedMainnet = [
   ChainInfo[ChainId.Ethereum].networkName,
@@ -197,4 +216,5 @@ export const supportedTestnet = [
   ChainInfo[ChainId.Amoy].networkName,
   ChainInfo[ChainId.APOTHEM].networkName,
   ChainInfo[ChainId.StabilityTestnet].networkName,
+  ChainInfo[ChainId.AstronTestnet].networkName,
 ];
