@@ -185,7 +185,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
             case isVerificationPending:
               return <ViewVerificationPending />;
             case isTokenRegistryV4:
-              return <ViewTokenRegistryMismatch />;
+              return <ViewTokenRegistryMismatch resetData={resetData} />;
             case isVerificationError:
               return <ViewVerificationError resetData={resetData} />;
             case isActionError:

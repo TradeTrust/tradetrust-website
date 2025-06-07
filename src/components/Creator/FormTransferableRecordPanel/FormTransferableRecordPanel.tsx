@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { Book, Info } from "react-feather";
-import { TooltipIcon } from "../../UI/SvgIcon";
 import { useOverlayContext } from "../../../common/contexts/OverlayContext";
 import { OverlayAddressBook } from "../../AddressBook";
-import { ButtonIcon } from "../../Button";
 import { AssetTitle } from "../../AssetManagementPanel/AssetTitle";
+import { ButtonIcon } from "../../Button";
 import { ExternalLinkEtherscanAddress } from "../../UI/ExternalLink";
+import { TooltipIcon } from "../../UI/SvgIcon";
 
 interface FormTransferableRecordPanelProps {
   mode?: "edit" | "view";
@@ -42,12 +42,10 @@ export const FormTransferableRecordPanel: FunctionComponent<FormTransferableReco
   if (isViewMode) {
     return (
       <>
-        <div className="p-2 gap-2">
+        <div className="gap-2">
           <h4>{fileName}</h4>
         </div>
-        <div className="p-2">
-          <hr />
-        </div>
+        <hr className="mt-4" />
         <div className="flex-1 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid-flow-row gap-2 p-4 rounded-lg">
           <div className="col-span-1">
             <AssetTitle role="Owner" address={beneficiaryAddress}>
