@@ -1,18 +1,19 @@
+import { waitFor } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { providers } from "ethers";
+import { ethers, providers } from "ethers";
+import _ from "lodash";
+import React, { useEffect } from "react";
 import { ChainId } from "../../../constants/chain-info";
 import { TokenInformationContextProvider, useTokenInformationContext } from "../../contexts/TokenInformationContext";
 import { useProviderContext } from "../../contexts/provider";
 import { useEndorsementChain } from "./useEndorsementChain";
+import { mock } from "./useEndorsementChain.mock";
 
 jest.mock("../../contexts/provider");
 
 const amoyProvider = new providers.JsonRpcProvider("https://rpc-amoy.polygon.technology", ChainId.Amoy);
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
-
-import { waitFor } from "@testing-library/react";
-import React, { useEffect } from "react";
 
 const wrapper = ({ children }: { children: JSX.Element }) => (
   <TokenInformationContextProvider>{children}</TokenInformationContextProvider>
@@ -53,6 +54,28 @@ describe("useEndorsementChain|integration", () => {
   }, 120_000);
 
   it("should work correctly for a given tokenRegistryAddress + tokenId with Transfer, Surrender, Burnt events", async () => {
+    // Mirror mock function from trustvc endorsement-chain.test.ts
+    const grouped = _.groupBy(mock, "function");
+    for (const [group, value] of Object.entries(
+      grouped as { [key: string]: { function: string; params: any; result: any }[] }
+    )) {
+      const originalMethod = (ethers.providers.JsonRpcProvider.prototype as any)[group];
+      jest
+        .spyOn(ethers.providers.JsonRpcProvider.prototype, group as any)
+        .mockImplementation(async function (this: InstanceType<typeof ethers.providers.Provider>, ...params: any[]) {
+          const cache = new Map();
+          for (const item of value) {
+            cache.set(JSON.stringify(item.params), item.result);
+          }
+          if (cache.has(JSON.stringify(params))) {
+            return cache.get(JSON.stringify(params));
+          } else {
+            const result = await originalMethod.apply(this, params);
+            cache.set(JSON.stringify(params), result);
+            return result;
+          }
+        });
+    }
     const { result } = renderHook(
       () => {
         const tokenRegistryAddress = "0x3781bd0bbd15Bf5e45c7296115821933d47362be";

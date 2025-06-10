@@ -47,7 +47,7 @@ const AppContainer = (): React.ReactElement => {
           </div>
         </div>
       ) : (
-        <div className="bg-cerulean-800 text-white py-2 px-0" data-testid="old-verifier-banner">
+        <div className="bg-cerulean-800 text-white py-4 px-0" data-testid="old-verifier-banner">
           <div className="container">
             <div className="flex flex-wrap">
               <div className="flex flex-col sm:flex-row items-start xs:items-center justify-normal xs:justify-center sm:justify-between w-full gap-2">

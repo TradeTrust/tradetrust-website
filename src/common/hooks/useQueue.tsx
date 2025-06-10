@@ -138,6 +138,7 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
 
       const keyPair = JSON.parse(localStorageDidString);
       const signedDocument = await builder.sign(keyPair);
+      setDocument(signedDocument);
 
       // Minting
       if (!previewOnly) {
@@ -187,7 +188,6 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
         await uploadToStorage(signedDocument, documentStorageURL);
       }
 
-      setDocument(signedDocument);
       setCreatedDocuments([signedDocument]);
 
       setQueueState(QueueState.CONFIRMED);
