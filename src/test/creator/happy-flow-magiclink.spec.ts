@@ -16,7 +16,7 @@ import {
 
 let mailslurp: MailSlurp;
 
-fixture("mfa sign-up test").page`${location}`.before(async () => {
+fixture("happy flow magiclink").page`${location}`.before(async () => {
   const apiKey = "dcae8f5583c4d03349aa0814ed81909347c422b2c803baccf20bf405c46dd48d"; //process.env.MAILSLURP_API_KEY;
   if (!apiKey) {
     throw "No MailSlurp API KEY defined";
