@@ -16,10 +16,12 @@ interface ConnectToMagicLinkProps {
 interface ConnectToMagicLinkModelProps {
   showOnNewConnectWarningMessage?: boolean;
   nextStep?: React.ReactNode;
+  path?: string[];
 }
 
 export const ConnectToMagicLinkModelComponent = ({
   showOnNewConnectWarningMessage = false,
+  path,
 }: ConnectToMagicLinkModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
   const { pathname } = useLocation();
@@ -41,7 +43,7 @@ export const ConnectToMagicLinkModelComponent = ({
             <p className="text-sm text-gray-500">You’ll be logged out of Metamask if you login with MagicLink</p>
           </div>
         )}
-      {pathname === "/creator" && providerType === SIGNER_TYPE.MAGIC && account && <NetworkContent disabled={false} />}
+      {path?.includes(pathname) && providerType === SIGNER_TYPE.MAGIC && account && <NetworkContent disabled={false} />}
       {providerType === SIGNER_TYPE.MAGIC && account && (
         <div className="flex flex-col xs:flex-row gap-2">
           <Button className="flex-1 text-cerulean-500" onClick={handleDisconnect}>

@@ -11,10 +11,12 @@ import { NetworkContent } from "../NetworkSection/NetworkContent";
 export interface ConnectToMetamaskModelProps {
   showOnNewConnectWarningMessage: boolean;
   nextStep?: React.ReactNode;
+  path?: string[];
 }
 
 export const ConnectToMetamaskModelComponent = ({
   showOnNewConnectWarningMessage = false,
+  path,
 }: ConnectToMetamaskModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
   const { pathname } = useLocation();
@@ -36,7 +38,7 @@ export const ConnectToMetamaskModelComponent = ({
             <p className="text-sm text-gray-500">You’ll be logged out of MagicLink if you login with Metamask</p>
           </div>
         )}
-      {pathname === "/creator" && providerType === SIGNER_TYPE.METAMASK && account && (
+      {path?.includes(pathname) && providerType === SIGNER_TYPE.METAMASK && account && (
         <NetworkContent disabled={false} />
       )}
       {providerType === SIGNER_TYPE.METAMASK && account && (

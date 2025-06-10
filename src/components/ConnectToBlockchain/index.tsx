@@ -16,6 +16,7 @@ const WALLET_TYPE_NAME: Partial<Record<SIGNER_TYPE, string>> = {
 interface ConnectToBlockchainProps {
   collapsible?: boolean;
   nextStep?: React.ReactNode;
+  path?: string[];
 }
 
 interface ConnectToBlockchainHeaderProps {
@@ -106,7 +107,7 @@ const ConnectToBlockchainHeader = ({ selectedWalletType, setSelectedWalletType }
   );
 };
 
-const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsible = false, nextStep }) => {
+const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsible = false, nextStep, path }) => {
   const { providerType, account, currentChainId, networkChangeLoading } = useProviderContext();
   const [selectedWalletType, setSelectedWalletType] = useState<SIGNER_TYPE>(
     [SIGNER_TYPE.MAGIC, SIGNER_TYPE.METAMASK].includes(providerType) ? providerType : SIGNER_TYPE.METAMASK
@@ -119,7 +120,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
       closeOverlay();
       return;
     }
-    if (pathname === "/creator") {
+    if (path?.includes(pathname)) {
       return showOverlay(nextStep);
     }
     showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
@@ -155,10 +156,10 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
       </div>
       <div id="connect-blockchain-body" className="p-8 border rounded-xl">
         {selectedWalletType === SIGNER_TYPE.METAMASK && (
-          <ConnectToMetamaskModelComponent showOnNewConnectWarningMessage nextStep={nextStep} />
+          <ConnectToMetamaskModelComponent showOnNewConnectWarningMessage nextStep={nextStep} path={path} />
         )}
         {selectedWalletType === SIGNER_TYPE.MAGIC && (
-          <ConnectToMagicLinkModelComponent showOnNewConnectWarningMessage nextStep={nextStep} />
+          <ConnectToMagicLinkModelComponent showOnNewConnectWarningMessage nextStep={nextStep} path={path} />
         )}
       </div>
     </Model>

@@ -5,6 +5,7 @@ import { FormSelect } from "../FormSelect";
 import { FormTypes } from "../types";
 import { OverlayContext } from "../../../common/contexts/OverlayContext";
 import ConnectToBlockchainModel from "../../ConnectToBlockchain";
+import { paths } from "../../../config/routes-config";
 
 interface FormSelection {
   forms: any;
@@ -32,7 +33,7 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
           isTransferable
         />
       );
-      overlay = <ConnectToBlockchainModel collapsible={false} nextStep={nextStep} />;
+      overlay = <ConnectToBlockchainModel collapsible={false} nextStep={nextStep} path={[paths.creator]} />;
     } else if (type === "Non-Transferable") {
       overlay = <DocumentSetup types={[DocumentSetupType.DID_WEB]} formName={formName} />;
     }
