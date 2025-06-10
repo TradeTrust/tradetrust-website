@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactTooltip from "react-tooltip";
 import { useProviderContext } from "../../common/contexts/provider";
 import ConnectToBlockchainModel from ".";
@@ -17,23 +17,34 @@ export const Connected: React.FC<ConnectedProps> = ({ imgSrc, openConnectToBlock
   const { account } = useProviderContext();
   const { showOverlay } = useOverlayContext();
 
-  useEffect(() => {
+  const updateDisplayedAccount = useCallback(() => {
     if (account && accountRef.current) {
-      const updateDisplayedAccount = () => {
-        const accountWidth = accountRef.current!.clientWidth;
-        const charCount = Math.floor(accountWidth / 9); // Approximate character width
-        const startSlice = Math.max(0, charCount - 6);
-        if (startSlice < account?.length) {
-          setDisplayedAccount(`${account.slice(0, startSlice)}...${account.slice(-4)}`);
-        } else {
-          setDisplayedAccount(account);
-        }
-      };
-      updateDisplayedAccount();
-      window.addEventListener("resize", updateDisplayedAccount);
-      return () => window.removeEventListener("resize", updateDisplayedAccount);
+      const accountWidth = accountRef.current!.clientWidth;
+      const charCount = Math.floor(accountWidth / 9); // Approximate character width
+      const startSlice = Math.max(0, charCount - 6);
+      if (startSlice < account?.length) {
+        setDisplayedAccount(`${account.slice(0, startSlice)}...${account.slice(-4)}`);
+      } else {
+        setDisplayedAccount(account);
+      }
     }
   }, [account]);
+
+  useEffect(() => {
+    // Remove event listener on cleanup
+    return () => {
+      if (account && window?.removeEventListener) {
+        window.removeEventListener("resize", updateDisplayedAccount);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    updateDisplayedAccount();
+    window.addEventListener("resize", updateDisplayedAccount);
+    return () => window.removeEventListener("resize", updateDisplayedAccount);
+  }, [updateDisplayedAccount]);
 
   const handleActiveWalletClicked = async () => {
     if (openConnectToBlockchainModel) {

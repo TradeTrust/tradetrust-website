@@ -8,7 +8,7 @@ import { useCreatorContext } from "../../../common/contexts/CreatorContext";
 import { generateFileName, getFileSize } from "../../../utils";
 
 interface PublishedTagProps {
-  doc: SignedVerifiableCredential;
+  doc: SignedVerifiableCredential | undefined;
   fileName: string;
   extension: string;
   isPending: boolean;
@@ -26,7 +26,7 @@ export const ProcessedDocumentTag: FunctionComponent<PublishedTagProps> = ({
 }) => {
   const { setDocumentDownloaded } = useCreatorContext();
 
-  const file = JSON.stringify(doc);
+  const file = JSON.stringify(doc ?? "");
   const size = prettyBytes(getFileSize(file));
   const blob = new Blob([file], { type: "text/json;charset=utf-8" });
   const documentName = generateFileName({
@@ -64,7 +64,7 @@ export const ProcessedDocumentTag: FunctionComponent<PublishedTagProps> = ({
                       data-testid="download-file-button"
                       onClick={() => {
                         saveAs(blob, documentName);
-                        setDocumentDownloaded(doc.id);
+                        setDocumentDownloaded(doc?.id ?? "");
                       }}
                     >
                       Download

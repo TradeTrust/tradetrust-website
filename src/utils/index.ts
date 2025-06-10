@@ -113,6 +113,7 @@ export const generateFileName = ({ fileName, extension, hasTimestamp }: Generate
 };
 
 export const getFileSize = (jsonString: string): number => {
+  if (!jsonString || !jsonString?.length) return 0;
   const m = encodeURIComponent(jsonString).match(/%[89ABab]/g);
   return jsonString.length + (m ? m.length : 0);
 };
