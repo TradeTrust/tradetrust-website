@@ -1,11 +1,12 @@
 import { IconWarning } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useContext } from "react";
-import { OverlayContext, useOverlayContext } from "../../common/contexts/OverlayContext";
+import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
 import Connected from "../ConnectToBlockchain/Connected";
 import { showDocumentTransferMessage } from "../UI/Overlay/OverlayContent";
-import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
 import { Button } from "../Button";
+import { useLocation } from "react-router-dom";
+import { NetworkContent } from "../NetworkSection/NetworkContent";
 
 export interface ConnectToMetamaskModelProps {
   showOnNewConnectWarningMessage: boolean;
@@ -14,21 +15,12 @@ export interface ConnectToMetamaskModelProps {
 
 export const ConnectToMetamaskModelComponent = ({
   showOnNewConnectWarningMessage = false,
-  nextStep,
 }: ConnectToMetamaskModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
-  const { showOverlay, closeOverlay } = useOverlayContext();
+  const { pathname } = useLocation();
 
   const handleDisconnect = () => {
     disconnectWallet();
-  };
-
-  const handleContinue = () => {
-    if (!nextStep) {
-      closeOverlay();
-      return;
-    }
-    showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
   };
 
   return (
@@ -44,13 +36,13 @@ export const ConnectToMetamaskModelComponent = ({
             <p className="text-sm text-gray-500">You’ll be logged out of MagicLink if you login with Metamask</p>
           </div>
         )}
+      {pathname === "/creator" && providerType === SIGNER_TYPE.METAMASK && account && (
+        <NetworkContent disabled={false} />
+      )}
       {providerType === SIGNER_TYPE.METAMASK && account && (
         <div className="flex flex-col xs:flex-row gap-2">
-          <Button className="flex-1" onClick={handleDisconnect}>
+          <Button className="flex-1 text-cerulean-500" onClick={handleDisconnect}>
             Disconnect
-          </Button>
-          <Button className="flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800" onClick={handleContinue}>
-            Continue
           </Button>
         </div>
       )}

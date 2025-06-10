@@ -26,7 +26,11 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
     let overlay;
     if (type === "Transferable") {
       const nextStep = (
-        <DocumentSetup types={[DocumentSetupType.DID_WEB, DocumentSetupType.TOKEN_REGISTRY]} formName={formName} />
+        <DocumentSetup
+          types={[DocumentSetupType.DID_WEB, DocumentSetupType.TOKEN_REGISTRY]}
+          formName={formName}
+          isTransferable
+        />
       );
       overlay = <ConnectToBlockchainModel collapsible={false} nextStep={nextStep} />;
     } else if (type === "Non-Transferable") {
