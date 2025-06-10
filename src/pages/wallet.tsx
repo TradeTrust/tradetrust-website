@@ -6,9 +6,12 @@ import { OverlayDemo } from "../components/UI/Overlay/Overlay.mock";
 import { SIGNER_TYPE, useProviderContext } from "../common/contexts/provider";
 import ConnectToMetamask from "../components/ConnectToMetamask";
 import ConnectToMagicLink from "../components/ConnectToMagicLink";
+import { Button } from "@tradetrust-tt/tradetrust-ui-components";
+import { useMagicContext } from "../common/contexts/MagicContext";
 
 export const WalletPage = (): React.ReactElement => {
-  const { providerType } = useProviderContext();
+  const { providerType, account } = useProviderContext();
+  const { revealPrivateKey } = useMagicContext();
   return (
     <>
       <Helmet>
@@ -22,8 +25,13 @@ export const WalletPage = (): React.ReactElement => {
         >
           <ConnectToBlockchainModel />
         </OverlayDemo>
-        {providerType === SIGNER_TYPE.METAMASK && <ConnectToMetamask />}
-        {providerType === SIGNER_TYPE.MAGIC && <ConnectToMagicLink />}
+        {providerType === SIGNER_TYPE.METAMASK && account && <ConnectToMetamask />}
+        {providerType === SIGNER_TYPE.MAGIC && account && (
+          <>
+            <ConnectToMagicLink />
+            <Button onClick={revealPrivateKey}>Reveal Private Key</Button>
+          </>
+        )}
       </Page>
     </>
   );

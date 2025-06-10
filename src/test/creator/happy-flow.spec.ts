@@ -1,8 +1,13 @@
-import { Selector, ClientFunction } from "testcafe";
-import { location, navigateToCreator, navigateToVerify, uploadDocument, validateIframeTexts } from "../helper";
-import { join } from "path";
-import { homedir } from "os";
-import { existsSync } from "fs";
+import { ClientFunction, Selector } from "testcafe";
+import {
+  getFileDownloadPath,
+  location,
+  navigateToCreator,
+  navigateToVerify,
+  uploadDocument,
+  validateIframeTexts,
+  waitForFileDownload,
+} from "../helper";
 
 fixture("End-to-End Happy Flow").page`${location}`;
 
@@ -19,18 +24,6 @@ const downloadButton = Selector('[data-testid="process-another-document-button"]
 const downloadFormModal = Selector('[data-testid="download-form"]');
 const downloadAllButton = Selector('[data-testid="confirm-modal-download-button"]');
 const getLocation = ClientFunction(() => document.location.href);
-
-function getFileDownloadPath(fileName: string): string {
-  return join(homedir(), "Downloads", fileName);
-}
-
-const waitForFileDownload = async (t: TestController, filePath: string): Promise<boolean> => {
-  for (let i = 0; i < 100; i++) {
-    if (existsSync(filePath)) return true;
-    await t.wait(100);
-  }
-  return existsSync(filePath);
-};
 
 test("should complete full create > issue > verify flow", async (t) => {
   // Step 1: Navigate to creator page

@@ -46,10 +46,14 @@ export const ConnectToMetamaskModelComponent = ({
         )}
       {providerType === SIGNER_TYPE.METAMASK && account && (
         <div className="flex flex-col xs:flex-row gap-2">
-          <Button className="flex-1" onClick={handleDisconnect}>
+          <Button data-testid="disconnect-metamask" className="flex-1" onClick={handleDisconnect}>
             Disconnect
           </Button>
-          <Button className="flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800" onClick={handleContinue}>
+          <Button
+            data-testid="continue-metamask"
+            className="flex-1 bg-cerulean-500 text-white hover:bg-cerulean-800"
+            onClick={handleContinue}
+          >
             Continue
           </Button>
         </div>

@@ -116,7 +116,7 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
           if (!tokenRegistry) throw new Error("Token registry not found");
 
           builder.credentialStatus({
-            chain: CHAIN[currentChainId],
+            chain: CHAIN[currentChainId] ?? "FREE",
             chainId: currentChainId,
             tokenRegistry,
             rpcProviderUrl: chainInfo.rpcUrl,

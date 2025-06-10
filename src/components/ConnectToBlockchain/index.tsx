@@ -37,11 +37,13 @@ const ConnectToBlockchainHeaderItem = ({
   isSelected,
   isConnected,
   onClick,
+  ...props
 }: ConnectToBlockchainHeaderItemProps) => {
   return (
     <div
       id={`connect-blockchain-button-${itemKey}`}
       onClick={onClick}
+      {...props}
       className={`connect-blockchain-button break-keep w-max flex gap-2 items-center px-6 py-3 border rounded-t-xl border-b transition-colors ${
         isSelected ? "border-b-white" : "hover:text-blue-600"
       }`}
@@ -67,6 +69,7 @@ const ConnectToBlockchainHeader = ({ selectedWalletType, setSelectedWalletType }
   const WalletConnectMethods = [
     {
       walletType: SIGNER_TYPE.METAMASK,
+      "data-testid": "connect-metamask-header",
       walletIcon: <img src="/static/images/wallet.png" alt="Metamask" className="w-6 h-6" />,
       isSelected: !!(selectedWalletType === SIGNER_TYPE.METAMASK),
       isConnected: !!(providerType === SIGNER_TYPE.METAMASK && account),
@@ -74,6 +77,7 @@ const ConnectToBlockchainHeader = ({ selectedWalletType, setSelectedWalletType }
     },
     {
       walletType: SIGNER_TYPE.MAGIC,
+      "data-testid": "connect-magic-header",
       walletIcon: <img src="/static/images/magic_link.svg" alt="MagicLink" className="w-6 h-6" />,
       isSelected: !!(selectedWalletType === SIGNER_TYPE.MAGIC),
       isConnected: !!(providerType === SIGNER_TYPE.MAGIC && account),
@@ -95,6 +99,7 @@ const ConnectToBlockchainHeader = ({ selectedWalletType, setSelectedWalletType }
                 isSelected={wallet.isSelected}
                 isConnected={wallet.isConnected}
                 onClick={wallet.onClick}
+                data-testid={wallet["data-testid"]}
               />
             ))}
           </div>
@@ -116,6 +121,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
       title="Connect to Blockchain Wallet"
       collapsible={collapsible}
       showDivider
+      data-testid="connect-blockchain-model"
       footer={
         <Button className="w-full xs:w-1/2 text-cerulean-500" height={ButtonHeight.LG} onClick={closeOverlay}>
           Cancel
