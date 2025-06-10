@@ -16,6 +16,7 @@ import {
 
 let mailslurp: MailSlurp;
 const MAILSLURP_API_KEY = process.env.MAILSLURP_API_KEY;
+const MAILSLURP_INDEX_ID = process.env.MAILSLURP_INDEX_ID;
 
 fixture("happy flow magiclink").page`${location}`.before(async () => {
   if (MAILSLURP_API_KEY) {
@@ -60,13 +61,13 @@ const getLocation = ClientFunction(() => document.location.href);
 
 test("should complete full create > issue > verify flow for Transferable Document", async (t) => {
   // Skip the test if MAILSLURP_API_KEY is not defined
-  if (!MAILSLURP_API_KEY) {
+  if (!MAILSLURP_API_KEY || !MAILSLURP_INDEX_ID) {
     console.log("Skipping test: No MailSlurp API KEY defined");
     return;
   }
 
   // create email address for a test user
-  const inbox = await mailslurp.inboxController.createInboxWithDefaults();
+  const inbox = await mailslurp.getInbox(MAILSLURP_INDEX_ID);
 
   // Step 1: Navigate to creator page
   await navigateToCreator();
@@ -119,6 +120,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
     value: BigNumber.from("10000000000000000000"), // 10 ethers
   });
   await tx.wait();
+  await mailslurp.deleteEmail(email.id);
 
   // Step 9: Network Selector
   await t.expect(networkSelector.exists).ok("Network selector should appear");

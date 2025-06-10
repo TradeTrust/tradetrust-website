@@ -31,7 +31,7 @@
     "integration:testcafe:prod:1": "testcafe --config-file \".testcaferc-prod.json\"",
     "integration:testcafe:prod:2": "testcafe --config-file \".testcaferc-prod2.js\"",
     "integration:testcafe:prod": "run-s integration:testcafe:prod:1 integration:testcafe:prod:2",
-    "integration:testcafe:dev:1": "testcafe --config-file \".testcaferc-dev.json\"",
+    "integration:testcafe:dev:1": "testcafe --config-file \".testcaferc-dev.js\"",
     "integration:testcafe:dev:2": "testcafe --config-file \".testcaferc-dev2.js\"",
     "integration:testcafe:dev": "run-s integration:testcafe:dev:1 integration:testcafe:dev:2",
     "integration:testcafe": "run-s blockchain:contracts:testcafe build:test integration:testcafe:prod",
