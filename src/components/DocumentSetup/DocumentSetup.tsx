@@ -10,6 +10,7 @@ import { useConfigContext } from "../../common/contexts/ConfigContext";
 import { Config, FormTemplate } from "../../types";
 import { useHistory } from "react-router-dom";
 import { useFormsContext } from "../../common/contexts/FormsContext";
+import { NetworkPanel } from "../Creator/NetworkPanel";
 
 export enum DocumentSetupType {
   DID_WEB,
@@ -20,6 +21,7 @@ export enum DocumentSetupType {
 export interface DocumentSetupProps {
   types: DocumentSetupType[];
   formName: string;
+  isTransferable?: boolean;
 }
 
 const Setup: Record<DocumentSetupType, ForwardRefExoticComponent<DidWebSetupProps | TokenRegistrySetupProps>> = {
@@ -30,7 +32,7 @@ const Setup: Record<DocumentSetupType, ForwardRefExoticComponent<DidWebSetupProp
   // },
 };
 
-export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types, formName }) => {
+export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types, formName, isTransferable }) => {
   const DocumentSetupStep = types.map((t) => {
     const SetupComponent = Setup[t];
     return <SetupComponent key={t} />;
@@ -95,6 +97,13 @@ export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types, fo
         </>
       }
     >
+      {isTransferable && (
+        <>
+          <div className="my-2">Setup for:</div>
+          <NetworkPanel isTransferableRecord={true} withCardLayout={false} />
+          <hr className="border-t-1 border-gray-300 my-6" />
+        </>
+      )}
       {DocumentSetupStep}
     </Model>
   );

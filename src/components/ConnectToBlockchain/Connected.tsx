@@ -101,6 +101,7 @@ export const Connected: React.FC<ConnectedProps> = ({ imgSrc, openConnectToBlock
             {displayedAccount}
           </h5>
         </div>
+        {!openConnectToBlockchainModel && <img src="/static/images/copy.svg" alt="Copy" className="w-5 h-5" />}
       </div>
       <ReactTooltip
         type="light"
