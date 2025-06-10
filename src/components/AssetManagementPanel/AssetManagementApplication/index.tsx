@@ -1,13 +1,11 @@
 import { v5RoleHash } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { Upload } from "react-feather";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useProviderContext } from "../../../common/contexts/provider";
 import { useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 import { useTokenRegistryContract } from "../../../common/hooks/useTokenRegistryContract";
 import { useTokenRegistryRole } from "../../../common/hooks/useTokenRegistryRole";
-import { RootState } from "../../../reducers";
 import { FORM_SG_URL } from "../../../routes";
 import { Button } from "../../Button";
 import { DocumentStatus } from "../../DocumentStatus";
@@ -109,9 +107,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     role: v5RoleHash.RestorerRole,
   });
 
-  const rootState = useSelector((state: RootState) => state);
-  const filename = rootState.certificate.filename;
-
   const onDestroyToken = (remark: string = "0x") => {
     destroyToken(tokenId, remark);
   };
@@ -135,10 +130,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     <div id="title-transfer-panel" className="container justify-between">
       <div id="asset-management-box" className="flex p-4 flex-col gap-2 bg-white rounded-xl">
         <div id="file-name" className="flex-1 justify-between">
-          <div className="flex flex-row content-center min-h-16 gap-2">
-            <div id="filename" data-testid="filename" className="flex-1 flex-wrap content-center break-all">
-              <h4>{isSampleDocument ? "sample-document.tt" : filename}</h4>
-            </div>
+          <div className="flex flex-row justify-end content-center min-h-16 gap-2">
             <Link id="upload-new-file" data-testid="upload-new-file" className="content-center" to={"/"}>
               <Button className="bg-white text-cerulean-500 hover:bg-cloud-100 w-10 h-10 xs:w-auto flex items-center justify-center">
                 <div className="sm:block hidden px-2">Upload New File</div>
