@@ -15,6 +15,7 @@ jobs:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
       DID_SERVER_URL: ${{ secrets.DID_SERVER_URL }}
       MAILSLURP_API_KEY: ${{ secrets.MAILSLURP_API_KEY }}
+      MAGIC_API_KEY: ${{ secrets.MAGIC_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
