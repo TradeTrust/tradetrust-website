@@ -31,6 +31,7 @@ const createDocumentButton = Selector('[data-testid="expandPreviewCreateDocument
 const setupModal = Selector('[data-testid="documentSetup"]');
 const connectBlockchainModal = Selector('[data-testid="connect-blockchain-model"]');
 const connectToMagicLink = Selector('[data-testid="connectToMagicLink"]');
+const continueConnectBlockchainModal = Selector('[data-testid="connect-blockchain-continue"]');
 
 const magicSigninModel = Selector("p")
   .withText(/Sign in to/)
@@ -47,9 +48,7 @@ const codeInput = codeModel.find("#pin-code-input-0");
 const walletAddressDiv = Selector('[data-testid="wallet-address"]');
 
 // const disconnectMagic = Selector('[data-testid="disconnect-magic"]');
-const continueMagic = Selector('[data-testid="continue-magic"]');
-const networkSelectorModel = Selector('[data-testid="network-section-model"]');
-const networkSelectorContinueBtn = Selector('[data-testid="overlayContinueBtn"]');
+const networkSelector = Selector('[data-testid="network-content"]');
 
 const setupSuccessMessage = Selector("#setup-item-description");
 const continueButton = Selector('[data-testid="documentSetupContinue"]');
@@ -116,12 +115,9 @@ test("Can sign-up and verify account", async (t) => {
   });
   await tx.wait();
 
-  // TODO: Might need to remove this.
-  await t.click(continueMagic);
-
   // Step 9: Network Selector
-  await t.expect(networkSelectorModel.exists).ok("Network selector should appear");
-  await t.click(networkSelectorContinueBtn);
+  await t.expect(networkSelector.exists).ok("Network selector should appear");
+  await t.click(continueConnectBlockchainModal);
 
   // Step 10: Setup document
   await t.wait(3000);

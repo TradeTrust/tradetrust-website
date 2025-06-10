@@ -138,10 +138,16 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
       data-testid="connect-blockchain-model"
       footer={
         <>
-          <Button className="w-1/2 text-cerulean-500" height={ButtonHeight.LG} onClick={closeOverlay}>
+          <Button
+            data-testid="connect-blockchain-cancel"
+            className="w-1/2 text-cerulean-500"
+            height={ButtonHeight.LG}
+            onClick={closeOverlay}
+          >
             Cancel
           </Button>
           <Button
+            data-testid="connect-blockchain-continue"
             className="w-1/2 bg-cerulean-500 text-white"
             height={ButtonHeight.LG}
             onClick={handleContinue}
