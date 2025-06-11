@@ -7,7 +7,6 @@ import { whenDocumentValidAndIssuedByDns } from "../../../../../test/fixture/ver
 import { WrappedOrSignedOpenAttestationDocument } from "../../../../../utils/shared";
 import { Overlay } from "../../../../UI/Overlay";
 import { ActionSelectionForm } from "./ActionSelectionForm";
-import { MemoryRouter } from "react-router-dom";
 
 const defaultProps = {
   setShowEndorsementChain: () => {},
@@ -52,12 +51,10 @@ describe("ActionSelectionForm", () => {
 
   it("should fire login to browser wallet if user is not logged in", async () => {
     const { getByTestId } = render(
-      <MemoryRouter>
-        <OverlayContextProvider>
-          <Overlay />
-          <ActionSelectionForm {...defaultProps} account="" />
-        </OverlayContextProvider>
-      </MemoryRouter>
+      <OverlayContextProvider>
+        <Overlay />
+        <ActionSelectionForm {...defaultProps} account="" />
+      </OverlayContextProvider>
     );
 
     fireEvent.click(getByTestId("connectToWallet"));

@@ -5,7 +5,6 @@ import { Button, ButtonHeight } from "../Button";
 import { ConnectToMagicLinkModelComponent } from "../ConnectToMagicLink";
 import { ConnectToMetamaskModelComponent } from "../ConnectToMetamask";
 import { Model } from "../UI/Overlay/OverlayContent/Model";
-import { useLocation } from "react-router-dom";
 import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
 
 const WALLET_TYPE_NAME: Partial<Record<SIGNER_TYPE, string>> = {
@@ -16,7 +15,7 @@ const WALLET_TYPE_NAME: Partial<Record<SIGNER_TYPE, string>> = {
 interface ConnectToBlockchainProps {
   collapsible?: boolean;
   nextStep?: React.ReactNode;
-  path?: string[];
+  showNetworkSection?: boolean;
 }
 
 interface ConnectToBlockchainHeaderProps {
@@ -107,20 +106,23 @@ const ConnectToBlockchainHeader = ({ selectedWalletType, setSelectedWalletType }
   );
 };
 
-const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsible = false, nextStep, path }) => {
+const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({
+  collapsible = false,
+  nextStep,
+  showNetworkSection,
+}) => {
   const { providerType, account, currentChainId, networkChangeLoading } = useProviderContext();
   const [selectedWalletType, setSelectedWalletType] = useState<SIGNER_TYPE>(
     [SIGNER_TYPE.MAGIC, SIGNER_TYPE.METAMASK].includes(providerType) ? providerType : SIGNER_TYPE.METAMASK
   );
   const { closeOverlay, showOverlay } = useOverlayContext();
-  const { pathname } = useLocation();
 
   const handleContinue = () => {
     if (!nextStep) {
       closeOverlay();
       return;
     }
-    if (path?.includes(pathname)) {
+    if (showNetworkSection) {
       return showOverlay(nextStep);
     }
     showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
@@ -156,10 +158,18 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
       </div>
       <div id="connect-blockchain-body" className="p-8 border rounded-xl">
         {selectedWalletType === SIGNER_TYPE.METAMASK && (
-          <ConnectToMetamaskModelComponent showOnNewConnectWarningMessage nextStep={nextStep} path={path} />
+          <ConnectToMetamaskModelComponent
+            showOnNewConnectWarningMessage
+            nextStep={nextStep}
+            showNetworkSection={showNetworkSection}
+          />
         )}
         {selectedWalletType === SIGNER_TYPE.MAGIC && (
-          <ConnectToMagicLinkModelComponent showOnNewConnectWarningMessage nextStep={nextStep} path={path} />
+          <ConnectToMagicLinkModelComponent
+            showOnNewConnectWarningMessage
+            nextStep={nextStep}
+            showNetworkSection={showNetworkSection}
+          />
         )}
       </div>
     </Model>

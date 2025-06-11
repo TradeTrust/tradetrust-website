@@ -5,21 +5,19 @@ import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider"
 import Connected from "../ConnectToBlockchain/Connected";
 import { showDocumentTransferMessage } from "../UI/Overlay/OverlayContent";
 import { Button } from "../Button";
-import { useLocation } from "react-router-dom";
 import { NetworkContent } from "../NetworkSection/NetworkContent";
 
 export interface ConnectToMetamaskModelProps {
   showOnNewConnectWarningMessage: boolean;
   nextStep?: React.ReactNode;
-  path?: string[];
+  showNetworkSection?: boolean;
 }
 
 export const ConnectToMetamaskModelComponent = ({
   showOnNewConnectWarningMessage = false,
-  path,
+  showNetworkSection = false,
 }: ConnectToMetamaskModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
-  const { pathname } = useLocation();
 
   const handleDisconnect = () => {
     disconnectWallet();
@@ -38,9 +36,7 @@ export const ConnectToMetamaskModelComponent = ({
             <p className="text-sm text-gray-500">You’ll be logged out of MagicLink if you login with Metamask</p>
           </div>
         )}
-      {path?.includes(pathname) && providerType === SIGNER_TYPE.METAMASK && account && (
-        <NetworkContent disabled={false} />
-      )}
+      {showNetworkSection && providerType === SIGNER_TYPE.METAMASK && account && <NetworkContent disabled={false} />}
       {providerType === SIGNER_TYPE.METAMASK && account && (
         <div className="flex flex-col xs:flex-row gap-2">
           <Button className="flex-1 text-cerulean-500" onClick={handleDisconnect}>

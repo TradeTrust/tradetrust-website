@@ -5,7 +5,6 @@ import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider"
 import { Button } from "../Button";
 import Connected from "../ConnectToBlockchain/Connected";
 import { showDocumentTransferMessage } from "../UI/Overlay/OverlayContent";
-import { useLocation } from "react-router-dom";
 import { NetworkContent } from "../NetworkSection/NetworkContent";
 
 interface ConnectToMagicLinkProps {
@@ -16,15 +15,14 @@ interface ConnectToMagicLinkProps {
 interface ConnectToMagicLinkModelProps {
   showOnNewConnectWarningMessage?: boolean;
   nextStep?: React.ReactNode;
-  path?: string[];
+  showNetworkSection?: boolean;
 }
 
 export const ConnectToMagicLinkModelComponent = ({
   showOnNewConnectWarningMessage = false,
-  path,
+  showNetworkSection = false,
 }: ConnectToMagicLinkModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
-  const { pathname } = useLocation();
 
   const handleDisconnect = () => {
     disconnectWallet();
@@ -43,7 +41,7 @@ export const ConnectToMagicLinkModelComponent = ({
             <p className="text-sm text-gray-500">You’ll be logged out of Metamask if you login with MagicLink</p>
           </div>
         )}
-      {path?.includes(pathname) && providerType === SIGNER_TYPE.MAGIC && account && <NetworkContent disabled={false} />}
+      {showNetworkSection && providerType === SIGNER_TYPE.MAGIC && account && <NetworkContent disabled={false} />}
       {providerType === SIGNER_TYPE.MAGIC && account && (
         <div className="flex flex-col xs:flex-row gap-2">
           <Button className="flex-1 text-cerulean-500" onClick={handleDisconnect}>
