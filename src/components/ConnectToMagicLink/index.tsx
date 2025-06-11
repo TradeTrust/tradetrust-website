@@ -10,6 +10,7 @@ import { NetworkContent } from "../NetworkSection/NetworkContent";
 interface ConnectToMagicLinkProps {
   className?: string;
   openConnectToBlockchainModel?: boolean;
+  withCardLayout?: boolean;
 }
 
 interface ConnectToMagicLinkModelProps {
@@ -56,6 +57,7 @@ export const ConnectToMagicLinkModelComponent = ({
 export const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({
   className,
   openConnectToBlockchainModel = false,
+  withCardLayout = true,
 }) => {
   const { upgradeToMagicSigner, providerType, account } = useProviderContext();
   const { showOverlay } = useOverlayContext();
@@ -80,7 +82,11 @@ export const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({
   return (
     <div className={`self-start md:self-center w-[18.25rem] ${className}`}>
       {providerType === SIGNER_TYPE.MAGIC && account ? (
-        <Connected imgSrc="/static/images/magic_link.svg" openConnectToBlockchainModel={openConnectToBlockchainModel} />
+        <Connected
+          imgSrc="/static/images/magic_link.svg"
+          openConnectToBlockchainModel={openConnectToBlockchainModel}
+          withCardLayout={withCardLayout}
+        />
       ) : (
         <>
           <Button

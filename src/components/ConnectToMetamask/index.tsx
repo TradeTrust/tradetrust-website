@@ -51,9 +51,14 @@ export const ConnectToMetamaskModelComponent = ({
 interface ConnectToMetamaskProps {
   className?: string;
   openConnectToBlockchainModel?: boolean;
+  withCardLayout?: boolean;
 }
 
-const ConnectToMetamask: React.FC<ConnectToMetamaskProps> = ({ className, openConnectToBlockchainModel = false }) => {
+const ConnectToMetamask: React.FC<ConnectToMetamaskProps> = ({
+  className,
+  openConnectToBlockchainModel = false,
+  withCardLayout = true,
+}) => {
   const { showOverlay } = useContext(OverlayContext);
   const { upgradeToMetaMaskSigner, account, providerType } = useProviderContext();
 
@@ -78,7 +83,11 @@ const ConnectToMetamask: React.FC<ConnectToMetamaskProps> = ({ className, openCo
   return (
     <div className={`self-start md:self-center w-[18.25rem] ${className}`}>
       {providerType === SIGNER_TYPE.METAMASK && account ? (
-        <Connected imgSrc="/static/images/wallet.png" openConnectToBlockchainModel={openConnectToBlockchainModel} />
+        <Connected
+          imgSrc="/static/images/wallet.png"
+          openConnectToBlockchainModel={openConnectToBlockchainModel}
+          withCardLayout={withCardLayout}
+        />
       ) : (
         <>
           <Button

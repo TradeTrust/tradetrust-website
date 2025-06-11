@@ -7,9 +7,14 @@ import { useOverlayContext } from "../../common/contexts/OverlayContext";
 interface ConnectedProps {
   imgSrc: string;
   openConnectToBlockchainModel?: boolean;
+  withCardLayout?: boolean;
 }
 
-export const Connected: React.FC<ConnectedProps> = ({ imgSrc, openConnectToBlockchainModel = false }) => {
+export const Connected: React.FC<ConnectedProps> = ({
+  imgSrc,
+  openConnectToBlockchainModel = false,
+  withCardLayout = true,
+}) => {
   const [tooltipMessage, setTooltipMessage] = useState(openConnectToBlockchainModel ? "" : "Copy");
   const tooltipRef = useRef(null);
   const [displayedAccount, setDisplayedAccount] = useState("");
@@ -88,7 +93,9 @@ export const Connected: React.FC<ConnectedProps> = ({ imgSrc, openConnectToBlock
         data-for="active-wallet-tooltip"
         onClick={handleActiveWalletClicked}
         data-testid="activeWallet"
-        className="px-4 py-1 ml-auto flex items-center bg-gray-100 text-gray-800 rounded-lg shadow cursor-pointer hover:bg-gray-200 transition duration-300 ease-in-out select-none"
+        className={`${
+          withCardLayout ? "shadow" : ""
+        } px-4 py-1 ml-auto flex items-center bg-gray-100 text-gray-800 rounded-lg cursor-pointer transition duration-300 ease-in-out select-none hover:bg-gray-200`}
       >
         <img src={imgSrc} alt="Wallet Icon" className="w-6 h-6 mr-4" />
         <div className="flex-1 flex flex-col overflow-hidden">

@@ -35,7 +35,7 @@ export const NetworkPanel: FunctionComponent<NetworkPanelProps> = ({
     >
       <NetworkLabel networkName={networkName} />
       <div>
-        <ConnectToProvider className="w-full xs:w-72" />
+        <ConnectToProvider className="w-full xs:w-72" withCardLayout={withCardLayout} />
       </div>
     </div>
   );
