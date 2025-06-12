@@ -14,6 +14,13 @@ export const validateTextContent = async (testcafe, component, texts) =>
     Promise.resolve()
   );
 
+export const closeCookieNotice = async () => {
+  const closeBtn = Selector("button").withText("Close");
+  if (await closeBtn.exists) {
+    await t.click(closeBtn);
+  }
+};
+
 export const navigateToVerify = async () => {
   const button = Selector("button").withText("Dismiss");
   if (await button.exists) {
@@ -21,6 +28,7 @@ export const navigateToVerify = async () => {
   } else {
     console.log("Button does not exist");
   }
+  await closeCookieNotice();
   await t.click(VerifyPage);
 };
 
@@ -31,6 +39,7 @@ export const navigateToCreator = async () => {
   } else {
     console.log("Button does not exist");
   }
+  await closeCookieNotice();
   await t.click(CreatorPage);
 };
 
