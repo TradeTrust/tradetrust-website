@@ -7,6 +7,7 @@ import PopupMessage from "./components/PopupMessage";
 import { Overlay } from "./components/UI/Overlay";
 import { URLS } from "./constants";
 import { Routes, routes } from "./routes";
+import CookieNotice from "./components/CookieNotice";
 
 const AppContainer = (): React.ReactElement => {
   const location = useLocation();
@@ -73,6 +74,7 @@ const AppContainer = (): React.ReactElement => {
       >
         <Routes routes={routes} />
       </main>
+      <CookieNotice />
       <Footer />
       <Overlay />
     </div>
