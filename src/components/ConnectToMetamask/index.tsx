@@ -39,7 +39,7 @@ export const ConnectToMetamaskModelComponent = ({
       {showNetworkSection && providerType === SIGNER_TYPE.METAMASK && account && <NetworkContent disabled={false} />}
       {providerType === SIGNER_TYPE.METAMASK && account && (
         <div className="flex flex-col xs:flex-row gap-2">
-          <Button className="flex-1 text-cerulean-500" onClick={handleDisconnect}>
+          <Button data-testid="disconnect-metamask" className="flex-1 text-cerulean-500" onClick={handleDisconnect}>
             Disconnect
           </Button>
         </div>

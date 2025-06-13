@@ -8,7 +8,7 @@ interface NetworkContentProps {
 
 export const NetworkContent: React.FC<NetworkContentProps> = ({ disabled }) => {
   return (
-    <div className="flex flex-col gap-4 bg-cerulean-50 p-2 rounded-lg">
+    <div data-testid="network-content" className="flex flex-col gap-4 bg-cerulean-50 p-2 rounded-lg">
       <div className="flex flex-col gap-2">
         <span>Select Network: </span>
         <NetworkSelect disabled={disabled} document={undefined} inPlaceLoading={true} />

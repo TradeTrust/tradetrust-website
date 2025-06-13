@@ -42,6 +42,7 @@ const NetworkSectionModel: React.FC<NetworkSectionModelProps> = ({
       headerIconState={headerIconState}
       collapsible={collapsible}
       showDivider
+      data-testid="network-section-model"
       footer={
         <>
           <Button

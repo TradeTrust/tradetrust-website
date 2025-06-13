@@ -1,4 +1,6 @@
-{
+require('dotenv').config();
+
+module.exports = {
   "appCommand": "npm run serve-static",
   "src": [
     "src/**/*.spec.ts",

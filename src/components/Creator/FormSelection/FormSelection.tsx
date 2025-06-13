@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useContext, useState } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
+import { useLocation } from "react-router-dom";
+import { OverlayContext } from "../../../common/contexts/OverlayContext";
+import { paths } from "../../../config/routes-config";
+import ConnectToBlockchainModel from "../../ConnectToBlockchain";
 import { DocumentSetup, DocumentSetupType } from "../../DocumentSetup/DocumentSetup";
 import { FormSelect } from "../FormSelect";
 import { FormTypes } from "../types";
-import { OverlayContext } from "../../../common/contexts/OverlayContext";
-import ConnectToBlockchainModel from "../../ConnectToBlockchain";
-import { paths } from "../../../config/routes-config";
-import { useLocation } from "react-router-dom";
 
 interface FormSelection {
   forms: any;

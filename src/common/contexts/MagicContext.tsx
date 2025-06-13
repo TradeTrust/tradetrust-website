@@ -1,8 +1,7 @@
 import { Magic as MagicBase } from "magic-sdk";
 import React, { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { ChainId } from "../../constants/chain-info";
-import { getChainInfo } from "../utils/chain-utils";
-import { isSupportedNetwork } from "../utils/chain-utils";
+import { getChainInfo, isSupportedNetwork } from "../utils/chain-utils";
 
 export type Magic = MagicBase;
 
@@ -17,6 +16,7 @@ type MagicContextType = {
   loginMagicLink: (email: string) => Promise<void>;
   logoutMagicLink: () => Promise<void>;
   isLoggedIn: boolean;
+  revealPrivateKey: () => Promise<boolean>;
   selectedNetwork: NetworkConfig | undefined;
 };
 
@@ -26,6 +26,7 @@ const MagicContext = createContext<MagicContextType>({
   loginMagicLink: async () => {},
   logoutMagicLink: async () => {},
   isLoggedIn: false,
+  revealPrivateKey: async () => false,
   selectedNetwork: undefined,
 });
 
@@ -54,7 +55,17 @@ export const MagicProvider = ({ children, defaultChainId }: MagicProviderProps) 
     if (!magic) return;
 
     await magic.auth.loginWithMagicLink({ email });
-    setIsLoggedIn(true);
+  };
+
+  const revealPrivateKey = async () => {
+    try {
+      if (!magic || !isLoggedIn) return false;
+
+      return await magic.user.revealPrivateKey();
+    } catch (error) {
+      console.error("Error:", error);
+      return false;
+    }
   };
 
   const logoutMagicLink = async () => {
@@ -111,6 +122,7 @@ export const MagicProvider = ({ children, defaultChainId }: MagicProviderProps) 
         loginMagicLink,
         logoutMagicLink,
         isLoggedIn,
+        revealPrivateKey,
         selectedNetwork,
       }}
     >
