@@ -1,10 +1,12 @@
 import React, { FunctionComponent, useContext, useState } from "react";
 import { ChevronDown, ChevronUp } from "react-feather";
+import { useLocation } from "react-router-dom";
+import { OverlayContext } from "../../../common/contexts/OverlayContext";
+import { paths } from "../../../config/routes-config";
+import ConnectToBlockchainModel from "../../ConnectToBlockchain";
 import { DocumentSetup, DocumentSetupType } from "../../DocumentSetup/DocumentSetup";
 import { FormSelect } from "../FormSelect";
 import { FormTypes } from "../types";
-import { OverlayContext } from "../../../common/contexts/OverlayContext";
-import ConnectToBlockchainModel from "../../ConnectToBlockchain";
 
 interface FormSelection {
   forms: any;
@@ -14,6 +16,7 @@ interface FormSelection {
 export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTypes }) => {
   const [expanded, setExpanded] = useState<Record<number, boolean>>({ 0: true, 1: true });
   const { showOverlay } = useContext(OverlayContext);
+  const { pathname } = useLocation();
 
   const toggleExpand = (typeID: number) => {
     setExpanded((prev) => ({
@@ -32,7 +35,13 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
           isTransferable
         />
       );
-      overlay = <ConnectToBlockchainModel collapsible={false} nextStep={nextStep} />;
+      overlay = (
+        <ConnectToBlockchainModel
+          collapsible={false}
+          nextStep={nextStep}
+          showNetworkSection={pathname === paths.creator}
+        />
+      );
     } else if (type === "Non-Transferable") {
       overlay = <DocumentSetup types={[DocumentSetupType.DID_WEB]} formName={formName} />;
     }

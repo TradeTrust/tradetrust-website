@@ -4,6 +4,7 @@ import { OverlayContextProvider } from "../../../common/contexts/OverlayContext"
 import { FormTypes } from "../types";
 import { FormSelection } from "./FormSelection";
 import { Overlay } from "../../UI/Overlay";
+import { MemoryRouter } from "react-router-dom";
 
 jest.mock("react-feather", () => ({
   ChevronDown: () => <div data-testid="chevron-down-icon" />,
@@ -41,12 +42,14 @@ const renderFormSelection = (propsOverride = {}) => {
   };
 
   return render(
-    <OverlayContextProvider>
-      <FormSelection {...defaultProps} {...propsOverride} />
-      <div id="overlay">
-        <Overlay />
-      </div>
-    </OverlayContextProvider>
+    <MemoryRouter>
+      <OverlayContextProvider>
+        <FormSelection {...defaultProps} {...propsOverride} />
+        <div id="overlay">
+          <Overlay />
+        </div>
+      </OverlayContextProvider>
+    </MemoryRouter>
   );
 };
 

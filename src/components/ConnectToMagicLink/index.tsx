@@ -5,24 +5,25 @@ import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider"
 import { Button } from "../Button";
 import Connected from "../ConnectToBlockchain/Connected";
 import { showDocumentTransferMessage } from "../UI/Overlay/OverlayContent";
-import { useLocation } from "react-router-dom";
 import { NetworkContent } from "../NetworkSection/NetworkContent";
 
 interface ConnectToMagicLinkProps {
   className?: string;
   openConnectToBlockchainModel?: boolean;
+  withCardLayout?: boolean;
 }
 
 interface ConnectToMagicLinkModelProps {
   showOnNewConnectWarningMessage?: boolean;
   nextStep?: React.ReactNode;
+  showNetworkSection?: boolean;
 }
 
 export const ConnectToMagicLinkModelComponent = ({
   showOnNewConnectWarningMessage = false,
+  showNetworkSection = false,
 }: ConnectToMagicLinkModelProps) => {
   const { providerType, account, disconnectWallet } = useProviderContext();
-  const { pathname } = useLocation();
 
   const handleDisconnect = () => {
     disconnectWallet();
@@ -41,7 +42,7 @@ export const ConnectToMagicLinkModelComponent = ({
             <p className="text-sm text-gray-500">You’ll be logged out of Metamask if you login with MagicLink</p>
           </div>
         )}
-      {pathname === "/creator" && providerType === SIGNER_TYPE.MAGIC && account && <NetworkContent disabled={false} />}
+      {showNetworkSection && providerType === SIGNER_TYPE.MAGIC && account && <NetworkContent disabled={false} />}
       {providerType === SIGNER_TYPE.MAGIC && account && (
         <div className="flex flex-col xs:flex-row gap-2">
           <Button data-testid="disconnect-magic" className="flex-1 text-cerulean-500" onClick={handleDisconnect}>
@@ -56,6 +57,7 @@ export const ConnectToMagicLinkModelComponent = ({
 export const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({
   className,
   openConnectToBlockchainModel = false,
+  withCardLayout = true,
 }) => {
   const { upgradeToMagicSigner, providerType, account } = useProviderContext();
   const { showOverlay } = useOverlayContext();
@@ -80,7 +82,11 @@ export const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({
   return (
     <div className={`self-start md:self-center w-[18.25rem] ${className}`}>
       {providerType === SIGNER_TYPE.MAGIC && account ? (
-        <Connected imgSrc="/static/images/magic_link.svg" openConnectToBlockchainModel={openConnectToBlockchainModel} />
+        <Connected
+          imgSrc="/static/images/magic_link.svg"
+          openConnectToBlockchainModel={openConnectToBlockchainModel}
+          withCardLayout={withCardLayout}
+        />
       ) : (
         <>
           <Button
