@@ -3,7 +3,8 @@ require('dotenv').config();
 module.exports = {
   "appCommand": "npm run serve-static",
   "src": [
-    "src/**/happy-flow-magiclink.spec.ts"
+    "src/**/*.spec.ts",
+    "!src/**/nested-documents.spec.ts"
   ],
   "browsers": [
     "chrome --autoplay-policy=no-user-gesture-required  --allow-insecure-localhost --ignore-certificate-errors"
