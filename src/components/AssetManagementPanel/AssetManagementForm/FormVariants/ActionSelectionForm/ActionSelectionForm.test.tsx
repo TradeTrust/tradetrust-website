@@ -50,14 +50,14 @@ describe("ActionSelectionForm", () => {
   });
 
   it("should fire login to browser wallet if user is not logged in", async () => {
-    const container = render(
+    const { getByTestId } = render(
       <OverlayContextProvider>
         <Overlay />
         <ActionSelectionForm {...defaultProps} account="" />
       </OverlayContextProvider>
     );
 
-    fireEvent.click(container.getByTestId("connectToWallet"));
+    fireEvent.click(getByTestId("connectToWallet"));
     expect(screen.getByText("Connect to Blockchain Wallet")).toBeInTheDocument();
   });
 

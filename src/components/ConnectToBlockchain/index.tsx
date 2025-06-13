@@ -5,6 +5,7 @@ import { Button, ButtonHeight } from "../Button";
 import { ConnectToMagicLinkModelComponent } from "../ConnectToMagicLink";
 import { ConnectToMetamaskModelComponent } from "../ConnectToMetamask";
 import { Model } from "../UI/Overlay/OverlayContent/Model";
+import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
 
 const WALLET_TYPE_NAME: Partial<Record<SIGNER_TYPE, string>> = {
   [SIGNER_TYPE.METAMASK]: "Metamask",
@@ -14,6 +15,7 @@ const WALLET_TYPE_NAME: Partial<Record<SIGNER_TYPE, string>> = {
 interface ConnectToBlockchainProps {
   collapsible?: boolean;
   nextStep?: React.ReactNode;
+  showNetworkSection?: boolean;
 }
 
 interface ConnectToBlockchainHeaderProps {
@@ -104,12 +106,27 @@ const ConnectToBlockchainHeader = ({ selectedWalletType, setSelectedWalletType }
   );
 };
 
-const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsible = false, nextStep }) => {
-  const { providerType } = useProviderContext();
+const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({
+  collapsible = false,
+  nextStep,
+  showNetworkSection,
+}) => {
+  const { providerType, account, currentChainId, networkChangeLoading } = useProviderContext();
   const [selectedWalletType, setSelectedWalletType] = useState<SIGNER_TYPE>(
     [SIGNER_TYPE.MAGIC, SIGNER_TYPE.METAMASK].includes(providerType) ? providerType : SIGNER_TYPE.METAMASK
   );
-  const { closeOverlay } = useOverlayContext();
+  const { closeOverlay, showOverlay } = useOverlayContext();
+
+  const handleContinue = () => {
+    if (!nextStep) {
+      closeOverlay();
+      return;
+    }
+    if (showNetworkSection) {
+      return showOverlay(nextStep);
+    }
+    showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
+  };
 
   return (
     <Model
@@ -117,9 +134,19 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
       collapsible={collapsible}
       showDivider
       footer={
-        <Button className="w-full xs:w-1/2 text-cerulean-500" height={ButtonHeight.LG} onClick={closeOverlay}>
-          Cancel
-        </Button>
+        <>
+          <Button className="w-1/2 text-cerulean-500" height={ButtonHeight.LG} onClick={closeOverlay}>
+            Cancel
+          </Button>
+          <Button
+            className="w-1/2 bg-cerulean-500 text-white"
+            height={ButtonHeight.LG}
+            onClick={handleContinue}
+            disabled={!account || networkChangeLoading || currentChainId === undefined}
+          >
+            Continue
+          </Button>
+        </>
       }
       footerClassName="justify-end"
     >
@@ -131,10 +158,18 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({ collapsi
       </div>
       <div id="connect-blockchain-body" className="p-8 border rounded-xl">
         {selectedWalletType === SIGNER_TYPE.METAMASK && (
-          <ConnectToMetamaskModelComponent showOnNewConnectWarningMessage nextStep={nextStep} />
+          <ConnectToMetamaskModelComponent
+            showOnNewConnectWarningMessage
+            nextStep={nextStep}
+            showNetworkSection={showNetworkSection}
+          />
         )}
         {selectedWalletType === SIGNER_TYPE.MAGIC && (
-          <ConnectToMagicLinkModelComponent showOnNewConnectWarningMessage nextStep={nextStep} />
+          <ConnectToMagicLinkModelComponent
+            showOnNewConnectWarningMessage
+            nextStep={nextStep}
+            showNetworkSection={showNetworkSection}
+          />
         )}
       </div>
     </Model>
