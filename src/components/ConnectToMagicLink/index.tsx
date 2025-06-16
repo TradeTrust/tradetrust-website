@@ -45,7 +45,7 @@ export const ConnectToMagicLinkModelComponent = ({
       {showNetworkSection && providerType === SIGNER_TYPE.MAGIC && account && <NetworkContent disabled={false} />}
       {providerType === SIGNER_TYPE.MAGIC && account && (
         <div className="flex flex-col xs:flex-row gap-2">
-          <Button className="flex-1 text-cerulean-500" onClick={handleDisconnect}>
+          <Button data-testid="disconnect-magic" className="flex-1 text-cerulean-500" onClick={handleDisconnect}>
             Disconnect
           </Button>
         </div>
@@ -91,6 +91,7 @@ export const ConnectToMagicLink: React.FC<ConnectToMagicLinkProps> = ({
         <>
           <Button
             className="w-full bg-white hover:bg-cloud-100 rounded-xl text-lg py-2 px-3 flex items-center gap-2 text-[16px] font-bold justify-center"
+            data-testid="connectToMagicLink"
             onClick={handleConnectWallet}
           >
             <img src="/static/images/magic_link.svg" alt="MagicLink" className="w-6 h-6" />

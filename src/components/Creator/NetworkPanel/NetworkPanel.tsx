@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
-import { Card } from "../../UI/Card";
-import ConnectToMetamask from "../../ConnectToMetamask";
-import ConnectToMagicLink from "../../ConnectToMagicLink";
 import { SIGNER_TYPE, useProviderContext } from "../../../common/contexts/provider";
 import { getChainInfo } from "../../../common/utils/chain-utils";
+import ConnectToMagicLink from "../../ConnectToMagicLink";
+import ConnectToMetamask from "../../ConnectToMetamask";
+import { Card } from "../../UI/Card";
 import { NetworkLabel } from "./NetworkLabel";
 
 interface NetworkPanelProps {

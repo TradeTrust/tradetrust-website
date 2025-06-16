@@ -63,7 +63,7 @@ export const ProcessedDocumentTag: FunctionComponent<PublishedTagProps> = ({
                       className="text-cerulean-300 cursor-pointer hover:text-cerulean-500"
                       data-testid="download-file-button"
                       onClick={() => {
-                        saveAs(blob, documentName);
+                        saveAs(blob, documentName ?? "");
                         setDocumentDownloaded(doc?.id ?? "");
                       }}
                     >

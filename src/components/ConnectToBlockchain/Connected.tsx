@@ -100,7 +100,11 @@ export const Connected: React.FC<ConnectedProps> = ({
         <img src={imgSrc} alt="Wallet Icon" className="w-6 h-6 mr-4" />
         <div className="flex-1 flex flex-col overflow-hidden">
           <p className="text-sm">Active Wallet</p>
-          <h5 ref={accountRef} className="text-cerulean-300 text-sm font-bold block whitespace-nowrap">
+          <h5
+            data-testid="wallet-address"
+            ref={accountRef}
+            className="text-cerulean-300 text-sm font-bold block whitespace-nowrap"
+          >
             {displayedAccount}
           </h5>
         </div>

@@ -60,7 +60,8 @@ export enum ChainId {
   AstronTestnet = 21002,
 }
 
-export const CHAIN: Partial<Record<ChainId, AvailableBlockChains>> = {
+export const CHAIN: Record<ChainId, AvailableBlockChains> = {
+  [ChainId.Local]: "ETH",
   [ChainId.Ethereum]: "ETH",
   [ChainId.Sepolia]: "ETH",
   [ChainId.Polygon]: "MATIC",
@@ -69,6 +70,7 @@ export const CHAIN: Partial<Record<ChainId, AvailableBlockChains>> = {
   [ChainId.APOTHEM]: "XDC",
   [ChainId.Stability]: "FREE",
   [ChainId.StabilityTestnet]: "FREE",
+  [ChainId.AstronTestnet]: "ASTRON",
 };
 
 export const ChainInfo: ChainInfo = {
@@ -80,6 +82,11 @@ export const ChainInfo: ChainInfo = {
     networkLabel: "Local",
     rpcUrl: "http://localhost:8545",
     explorerUrl: "https://localhost/explorer",
+    nativeCurrency: {
+      name: "ETH",
+      symbol: "LOCAL",
+      decimals: 18,
+    },
   },
   [ChainId.Ethereum]: {
     label: "Ethereum",
@@ -89,6 +96,11 @@ export const ChainInfo: ChainInfo = {
     networkLabel: "Ethereum",
     explorerUrl: "https://etherscan.io",
     rpcUrl: `https://mainnet.infura.io/v3/${INFURA_API_KEY}`,
+    nativeCurrency: {
+      name: "ETH",
+      symbol: "ETH",
+      decimals: 18,
+    },
   },
   [ChainId.Sepolia]: {
     label: "Sepolia",
