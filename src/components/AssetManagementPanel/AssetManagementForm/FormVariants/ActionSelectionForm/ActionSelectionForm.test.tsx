@@ -32,6 +32,7 @@ const defaultProps = {
   canRejectOwnerHolderTransfer: false,
   canRejectHolderTransfer: false,
   canRejectOwnerTransfer: false,
+  isExpired: false,
 };
 
 describe("ActionSelectionForm", () => {
