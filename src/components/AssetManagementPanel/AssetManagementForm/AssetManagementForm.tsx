@@ -58,6 +58,7 @@ interface AssetManagementFormProps
   isTitleEscrow: boolean;
   isReturnedToIssuer: boolean;
   isTokenBurnt: boolean;
+  isExpired?: boolean;
   documentOwner?: string;
   tokenRegistryAddress: string;
   account?: string;
@@ -84,6 +85,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   isTokenBurnt,
   setShowEndorsementChain,
   isTitleEscrow,
+  isExpired,
   keyId,
 
   onTransferHolder,
@@ -294,6 +296,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           setShowEndorsementChain={setShowEndorsementChain}
           isTitleEscrow={isTitleEscrow}
           isRejectPendingConfirmation={isRejectPendingConfirmation}
+          isExpired={isExpired}
         />
       )}
       {(formAction === AssetManagementActions.TransferHolder ||
@@ -310,6 +313,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           holder={holder!}
           nominee={nominee}
           keyId={keyId}
+          isExpired={isExpired}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}
           // nominate

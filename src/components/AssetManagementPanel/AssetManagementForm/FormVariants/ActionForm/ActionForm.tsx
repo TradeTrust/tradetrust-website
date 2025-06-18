@@ -17,6 +17,7 @@ export interface BaseActionFormProps {
   beneficiary: string;
   holder: string;
   keyId?: string;
+  isExpired?: boolean;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
 }
@@ -114,7 +115,7 @@ type ActionFormProps =
   | RejectTransferHolderFormProps;
 
 export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
-  const { type, beneficiary, holder, keyId, setFormActionNone, setShowEndorsementChain } = props;
+  const { type, beneficiary, holder, isExpired, keyId, setFormActionNone, setShowEndorsementChain } = props;
   const [remark, setRemark] = useState("");
   const { closeOverlay, showOverlay } = useContext(OverlayContext);
 
@@ -354,7 +355,17 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
             </div>
           </div>
           <div className="flex-1 flex flex-col flex-wrap md:flex-row md:flex-nowrap justify-between gap-2">
-            <div className="flex-1 content-center">
+            <div className="flex-1 content-center space-y-2 md:space-x-2 md:space-y-0">
+              {isExpired && (
+                <TagBordered
+                  id="surrender-sign"
+                  className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
+                >
+                  <h5 data-testid="expiredDoc" className="text-center break-keep">
+                    Expired
+                  </h5>
+                </TagBordered>
+              )}
               <TagBordered
                 id="surrender-sign"
                 className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
@@ -415,7 +426,17 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
             </div>
           </div>
           <div className="flex-1 flex flex-col flex-wrap md:flex-row md:flex-nowrap justify-between gap-2">
-            <div className="flex-1 content-center">
+            <div className="flex-1 content-center space-y-2 md:space-x-2 md:space-y-0">
+              {isExpired && (
+                <TagBordered
+                  id="surrender-sign"
+                  className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
+                >
+                  <h5 data-testid="expiredDoc" className="text-center break-keep">
+                    Expired
+                  </h5>
+                </TagBordered>
+              )}
               <TagBordered
                 id="surrender-sign"
                 className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"

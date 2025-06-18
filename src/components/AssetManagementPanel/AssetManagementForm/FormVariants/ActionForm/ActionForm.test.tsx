@@ -75,6 +75,7 @@ const baseProps = {
   setFormActionNone: jest.fn(),
   keyId: "key-id",
   setShowEndorsementChain: jest.fn(),
+  isExpired: false,
 };
 
 describe("ActionForm", () => {
@@ -103,6 +104,7 @@ describe("ActionForm", () => {
             handleTransfer={() => {}}
             holderTransferringState={FormState.UNINITIALIZED}
             setShowEndorsementChain={() => {}}
+            isExpired={false}
           />
         );
 

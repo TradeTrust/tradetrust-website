@@ -15,8 +15,8 @@ interface QrCode {
   type: string;
   payload: {
     uri: string;
-    key: string;
-    permittedActions: string[];
+    key?: string;
+    permittedActions?: string[];
     redirect: string;
   };
 }
