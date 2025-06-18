@@ -6,6 +6,7 @@ services:
     build: .
     environment:
       - DISPLAY=display:0.0
+      - DID_SERVER_URL=${DID_SERVER_URL}
     depends_on:
       - display
     entrypoint: []
