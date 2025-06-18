@@ -8,19 +8,19 @@ Cypress.Commands.add("waitAndUploadFile", (file) => {
   cy.wait(RENDERER_WAIT);
 });
 
-Cypress.Commands.add("connectToMetamaskWalletAndApproveAllAccounts", () => {
+Cypress.Commands.add("connectToWalletAndApproveAllAccounts", () => {
   cy.get("[data-testid='connectToWallet']")
     // use cypress-if package functions
     .if("visible")
     .then(() => {
       cy.contains("button", "Connect Wallet").click();
-      cy.connectToWalletAndApproveAllAccounts();
+      cy.connectToMetamaskWalletAndApproveAllAccounts();
     })
     .else()
     .log("Metamask wallet already connected");
 });
 
-Cypress.Commands.add("connectToWalletAndApproveAllAccounts", () => {
+Cypress.Commands.add("connectToMetamaskWalletAndApproveAllAccounts", () => {
   cy.get("[data-testid='connectToMetamask']")
     .if("visible")
     .then(() => {

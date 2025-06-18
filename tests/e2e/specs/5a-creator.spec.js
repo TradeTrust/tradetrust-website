@@ -20,7 +20,7 @@ describe("Create Document", () => {
         cy.get('[data-testid="expandPreviewCreateDocument"]').click();
         
         
-        cy.connectToWalletAndApproveAllAccounts("connectToMetamask");
+        cy.connectToMetamaskWalletAndApproveAllAccounts("connectToMetamask");
         cy.get('[data-testid="connect-blockchain-continue"]').click();
 
         cy.get('[data-testid="documentSetupContinue"]')
