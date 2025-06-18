@@ -8,7 +8,7 @@
   "license": "ISC",
   "scripts": {
     "blockchain": "npx hardhat node",
-    "blockchain:contracts:synpress": "node --experimental-modules ./tests/e2e/setup-contracts.mjs",
+    "blockchain:contracts:synpress": "node --experimental-modules ./tests/e2e/setup-contracts.js",
     "blockchain:contracts:testcafe": "node ./src/test/setup-contracts-testcafe.js",
     "build:rspack": "run-s build:sitemap check-types build:css build:app:rspack",
     "build": "run-s build:sitemap check-types build:css build:app",

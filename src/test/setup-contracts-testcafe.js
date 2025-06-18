@@ -74,12 +74,6 @@ const ERC1967Proxy_artifact = require("./fixture/artifacts/ERC1967Proxy.json"); 
 
   const addImplementationReceipt = await addImplementationTx.wait();
 
-  // update .env with new tDocDeployer address and new tokenImplementation address
-  shell.exec(`echo '\nTDOC_DEPLOYER=${TDOC_DEPLOYER_ADDRESS}' >> .env`);
-  shell.exec(`echo '\nERC1967_PROXY_ADDRESS=${ERC1967_PROXY_ADDRESS2}' >> .env`);
-  shell.exec(`echo '\nTITLE_ESCROW_FACTORY_ADDRESS=${TITLE_ESCROW_FACTORY_ADDRESS2}' >> .env`);
-  shell.exec(`echo '\nTOKEN_IMPLEMENTATION=${TOKEN_IMPLEMENTATION_ADDRESS}' >> .env`);
-
   // --- End TDoc Deployer Setup
 
   const defaultToken = {
