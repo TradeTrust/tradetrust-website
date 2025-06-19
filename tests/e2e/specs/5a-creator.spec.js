@@ -1,12 +1,23 @@
 const { ACCOUNT_1 } = require("../utils");
 const { fillFormField, validateText } = require("../utils/helper");
 
+const verificationText = [
+    "Document has been issued",
+    "Document issuer has been identified",
+    "Document has not been tampered with",
+];
+
+// This is the directory path used by playwright to download files
+const tempDirectory = "/var/folders/c1/fm6g7bm15f9fddpk0r2klkv00000gn/T"
+const fileName = "EBOL.tt"
+
 before(() => {
     cy.window().then((window) => {
       window.localStorage.setItem("hasSeenPopup", "true");
     });
     cy.switchMetamaskAccount(1);
     window.localStorage.removeItem("tokenRegistry");
+    cy.task("clearDownloads", { tempDirectory });
 });
 
 
@@ -18,8 +29,6 @@ describe("Create Document", () => {
 
         validateText("expand-preview", "Document Preview");
         cy.get('[data-testid="expandPreviewCreateDocument"]').click();
-        
-        
         cy.connectToMetamaskWalletAndApproveAllAccounts("connectToMetamask");
         cy.get('[data-testid="connect-blockchain-continue"]').click();
 
@@ -46,5 +55,26 @@ describe("Create Document", () => {
         cy.get("[data-testid='form-next-button']").click();
         cy.waitAndConfirmMetamaskTransaction();
         cy.get("[data-testid='process-title']").should("have.text", "Document issued successfully");
+
+        // download file and wait for download
+        cy.get("[data-testid='download-all-button']").click();
+        cy.wait(5000);
+                
+        // copy file from temp directory to downloads directory
+        cy.task("getFilePath", { tempDirectory, fileName }).then((filePath) => {
+          cy.log("filepath", filePath);
+          if (filePath) {
+              cy.get('button').contains('Verify Doc').click();
+              cy.get('[data-testid="certificate-dropzone"] input[type="file"]')
+                .should('exist')
+                .selectFile(`tests/e2e/downloads/${fileName}`, { force: true });
+              cy.wait(1000);
+              verificationText.forEach((text) => {
+                  cy.get("#document-status").should("contain", text);
+              });
+          } else {
+            cy.log('File path not found, skipping verification.');
+          }
+        });
     })
 })
