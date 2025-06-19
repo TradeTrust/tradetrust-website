@@ -47,6 +47,9 @@ module.exports = defineConfig({
           return null;
         },
         getFilePath({ tempDirectory, fileName }) {
+          if (!fs.existsSync(tempDirectory)) {
+            return null;
+          }
           // Find playwright artifacts folder and copy file to downloads folder
           const entries = fs.readdirSync(tempDirectory, { withFileTypes: true });
           const match = entries.find((entry) => entry.isDirectory() && entry.name.startsWith("playwright-artifacts-"));
