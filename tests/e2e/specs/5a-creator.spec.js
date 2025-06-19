@@ -8,7 +8,7 @@ const verificationText = [
 ];
 
 // This is the directory path used by playwright to download files
-const tempDirectory = "/var/folders/c1/fm6g7bm15f9fddpk0r2klkv00000gn/T"
+const tempDirectory = "/tmp"
 const fileName = "EBOL.tt"
 
 before(() => {
