@@ -12,6 +12,7 @@ import { DocumentStatus } from "../../DocumentStatus";
 import { Banner } from "../../UI/Banner";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "../AssetManagementForm";
+import { TagBordered } from "../../UI/Tag";
 
 interface AssetManagementIsTransferableDocumentProps {
   isMagicDemo?: boolean;
@@ -20,11 +21,13 @@ interface AssetManagementIsTransferableDocumentProps {
   setShowEndorsementChain: (payload: boolean) => void;
   keyId?: string;
   isTransferableDocument: true;
+  isExpired: boolean;
 }
 
 interface AssetManagementIsNotTransferableDocumentProps {
   isMagicDemo?: boolean;
   isTransferableDocument: false;
+  isExpired: boolean;
 }
 
 type AssetManagementApplicationProps =
@@ -47,8 +50,15 @@ const renderBanner = (isSample: boolean, isMagic: boolean | undefined) => {
 };
 
 export const AssetManagementApplication: FunctionComponent<AssetManagementApplicationProps> = (props) => {
-  const { isMagicDemo, tokenId, tokenRegistryAddress, setShowEndorsementChain, keyId, isTransferableDocument } =
-    props as AssetManagementIsTransferableDocumentProps;
+  const {
+    isMagicDemo,
+    tokenId,
+    tokenRegistryAddress,
+    setShowEndorsementChain,
+    keyId,
+    isTransferableDocument,
+    isExpired,
+  } = props as AssetManagementIsTransferableDocumentProps;
   const isSampleDocument = props.isSampleDocument;
   const {
     approvedBeneficiary: nominee,
@@ -153,7 +163,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
 
         <div id="divider" className="flex-1 border-t-2 my-2" />
 
-        {isTransferableDocument && isTitleEscrow !== undefined && (
+        {isTransferableDocument && isTitleEscrow !== undefined ? (
           <AssetManagementForm
             beneficiary={beneficiary}
             holder={holder}
@@ -192,7 +202,19 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             destroyTokenState={destroyTokenState}
             onRestoreToken={onRestoreToken}
             restoreTokenState={restoreTokenState}
+            isExpired={isExpired}
           />
+        ) : (
+          isExpired && (
+            <TagBordered
+              id="surrender-sign"
+              className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-fit"
+            >
+              <h5 data-testid="expiredDoc" className="text-center break-keep">
+                Expired
+              </h5>
+            </TagBordered>
+          )
         )}
 
         {!isTransferableDocument && renderBanner(isSampleDocument, isMagicDemo)}

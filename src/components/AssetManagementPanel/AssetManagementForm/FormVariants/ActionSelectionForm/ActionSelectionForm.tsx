@@ -21,6 +21,7 @@ interface ActionSelectionFormProps {
   isTitleEscrow: boolean;
   isRejectPendingConfirmation?: boolean;
   isTokenBurnt: boolean;
+  isExpired?: boolean;
 
   canReturnToIssuer: boolean;
   canHandleShred?: boolean;
@@ -44,7 +45,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   isTokenBurnt,
   isTitleEscrow,
   isRejectPendingConfirmation,
-
+  isExpired,
   canTransferHolder,
   canTransferBeneficiary,
   canTransferOwners,
@@ -83,7 +84,15 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     <>
       <div className="flex-1 flex flex-col flex-wrap justify-between gap-2">
         {isTokenBurnt && (
-          <div className="flex-1 content-center">
+          <div className="flex-1 content-center space-y-2 md:space-x-2 md:space-y-0">
+            {isExpired && (
+              <TagBorderedSm
+                id="surrendered-sign"
+                className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
+              >
+                <h5 className="text-center break-keep">Expired</h5>
+              </TagBorderedSm>
+            )}
             <TagBorderedSm
               id="surrendered-sign"
               className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
@@ -92,6 +101,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             </TagBorderedSm>
           </div>
         )}
+
         {!isReturnedToIssuer && !isTokenBurnt && isTitleEscrow && (
           <div className="flex-1 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid-flow-row gap-2">
             <div className="col-span-1">
@@ -104,8 +114,19 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
         )}
         {!isTokenBurnt && (
           <div className="flex-1 flex flex-col flex-wrap md:flex-row md:flex-nowrap justify-between gap-2">
-            {isReturnedToIssuer && (
-              <div className="flex-1 content-center">
+            <div className="flex-1 content-center space-y-2 md:space-x-2 md:space-y-0">
+              {isExpired && (
+                <TagBordered
+                  id="surrender-sign"
+                  className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
+                >
+                  <h5 data-testid="expiredDoc" className="text-center break-keep">
+                    Expired
+                  </h5>
+                </TagBordered>
+              )}
+
+              {isReturnedToIssuer && (
                 <TagBordered
                   id="surrender-sign"
                   className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
@@ -114,8 +135,9 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                     ETR returned to Issuer
                   </h5>
                 </TagBordered>
-              </div>
-            )}
+              )}
+            </div>
+
             <div className="gap-y-4 xs:ml-auto xs:min-w-48 w-full xs:max-w-64 flex flex-col justify-center">
               <>
                 {account ? (

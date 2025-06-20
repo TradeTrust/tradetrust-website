@@ -8,7 +8,12 @@ import { resetCertificateState, updateCertificate, updateFilename } from "../red
 import { resetDemoState } from "../reducers/demo-verify";
 import { TemplateProps } from "../types";
 import { getLogger } from "../utils/logger";
-import { getAttachments, getKeyId, WrappedOrSignedOpenAttestationDocument } from "../utils/shared";
+import {
+  getAttachments,
+  getKeyId,
+  getOpenAttestationData,
+  WrappedOrSignedOpenAttestationDocument,
+} from "../utils/shared";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
@@ -40,6 +45,8 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
 
   const tokenRegistryAddress = isTransferableAssetVal ? getTokenRegistryAddress(document) : "";
   const keyId = getKeyId(document);
+  const docData = getOpenAttestationData(document);
+  const isExpired = !!(docData.expirationDate && new Date(docData.expirationDate) < new Date());
   const isTransferableDocument = !!tokenRegistryAddress;
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
@@ -127,6 +134,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             isMagicDemo={isMagicDemo}
             isTransferableDocument={isTransferableDocument}
             isSampleDocument={isSampleDocument}
+            isExpired={isExpired}
           />
         )}
         <ObfuscatedMessage document={document} />
@@ -139,6 +147,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             keyId={keyId}
             isTransferableDocument={isTransferableDocument}
             isSampleDocument={isSampleDocument}
+            isExpired={isExpired}
           />
         )}
       </div>
