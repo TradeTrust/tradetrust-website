@@ -9,6 +9,7 @@ import { BackModal } from "../components/ProcessDocumentScreen/BackModal";
 import { generateFileName } from "../utils";
 import { saveAs } from "file-saver";
 import { useCreatorContext } from "../common/contexts/CreatorContext";
+import { MetaMaskPopup } from "../components/MetamaskPopupMessage";
 
 export const PublishFormPage: FunctionComponent = () => {
   const { config, setConfig } = useConfigContext();
@@ -50,6 +51,7 @@ export const PublishFormPage: FunctionComponent = () => {
 
   return (
     <Page title="Create Document">
+      <MetaMaskPopup />
       <ProcessDocumentScreen
         form={form}
         processAnotherDocument={onCreateAnotherDocument}

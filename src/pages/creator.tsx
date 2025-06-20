@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { FormSelectionContainer } from "../components/Creator";
 import { Page } from "../components/Layout/Page";
+import { MetaMaskPopup } from "../components/MetamaskPopupMessage";
 
 const CreatorPage = (): React.ReactElement => {
   return (
@@ -19,6 +20,7 @@ const CreatorPage = (): React.ReactElement => {
       </Helmet>
 
       <Page title="Create Document">
+        <MetaMaskPopup />
         <FormSelectionContainer />
       </Page>
     </>

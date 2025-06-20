@@ -8,19 +8,22 @@ interface ConnectedProps {
   imgSrc: string;
   openConnectToBlockchainModel?: boolean;
   withCardLayout?: boolean;
+  account?: string;
 }
 
 export const Connected: React.FC<ConnectedProps> = ({
   imgSrc,
   openConnectToBlockchainModel = false,
   withCardLayout = true,
+  account: accountProp,
 }) => {
   const [tooltipMessage, setTooltipMessage] = useState(openConnectToBlockchainModel ? "" : "Copy");
   const tooltipRef = useRef(null);
   const [displayedAccount, setDisplayedAccount] = useState("");
   const accountRef = useRef<HTMLHeadingElement>(null);
-  const { account } = useProviderContext();
+  const { account: contextAccount } = useProviderContext();
   const { showOverlay } = useOverlayContext();
+  const account = accountProp || contextAccount;
 
   const updateDisplayedAccount = useCallback(() => {
     if (account && accountRef.current) {
@@ -99,7 +102,7 @@ export const Connected: React.FC<ConnectedProps> = ({
       >
         <img src={imgSrc} alt="Wallet Icon" className="w-6 h-6 mr-4" />
         <div className="flex-1 flex flex-col overflow-hidden">
-          <p className="text-sm">Active Wallet</p>
+          <p className="text-sm">{accountProp ? "Wallet Address (MetaMask):" : "Active Wallet"}</p>
           <h5
             data-testid="wallet-address"
             ref={accountRef}
