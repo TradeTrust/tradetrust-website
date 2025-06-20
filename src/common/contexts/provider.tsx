@@ -114,15 +114,22 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   const [networkChangeLoading, setNetworkChangeLoading] = useState<boolean>(false);
 
   const changeNetwork = async (chainId: ChainId) => {
-    if (providerType === SIGNER_TYPE.METAMASK) {
-      await walletSwitchChain(chainId);
-    } else if (providerType === SIGNER_TYPE.MAGIC) {
-      await changeMagicNetwork(chainId);
-    }
-    setCurrentChainId(chainId);
+    try {
+      if (providerType === SIGNER_TYPE.METAMASK) {
+        await walletSwitchChain(chainId);
+      } else if (providerType === SIGNER_TYPE.MAGIC) {
+        await changeMagicNetwork(chainId);
+      }
+      setCurrentChainId(chainId);
 
-    // Escape same network switch, loading error
-    if (currentChainId === chainId) setNetworkChangeLoading(false);
+      // Escape same network switch, loading error
+      if (currentChainId === chainId) {
+        setNetworkChangeLoading(false);
+      }
+    } catch (error) {
+      console.error("Failed to change network:", error);
+      setNetworkChangeLoading(false);
+    }
   };
 
   const getMetaMaskWallet = async (throwError: boolean = true): Promise<providers.Web3Provider | undefined> => {
@@ -316,7 +323,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
     const handleChainChanged = (chainIdHex: string) => {
       if (providerType !== SIGNER_TYPE.METAMASK) return;
-      changeNetwork(parseInt(chainIdHex, 16));
+      //  changeNetwork(parseInt(chainIdHex, 16));
+      setCurrentChainId(parseInt(chainIdHex, 16));
     };
 
     const handleDisconnect = () => {

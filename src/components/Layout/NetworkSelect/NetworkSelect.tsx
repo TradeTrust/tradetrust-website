@@ -110,11 +110,11 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   const [changingNetwork, setChangingNetwork] = useState<ChainId | undefined>(undefined);
 
   useEffect(() => {
-    if (currentChainId === changingNetwork && !networkChangeLoading) {
+    if (!networkChangeLoading) {
       setChangingNetwork(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentChainId, changingNetwork, networkChangeLoading]);
+  }, [networkChangeLoading]);
 
   const itemsList = networks.map((network, i) => {
     return (

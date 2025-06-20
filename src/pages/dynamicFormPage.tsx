@@ -3,6 +3,7 @@ import { Redirect } from "react-router";
 import { useConfigContext } from "../common/contexts/ConfigContext";
 import { DynamicFormLayout } from "../components/DynamicFormContainer/DynamicFormLayout";
 import { Page } from "../components/Layout/Page";
+import { MetaMaskPopup } from "../components/MetamaskPopupMessage";
 
 export const DynamicFormPage: FunctionComponent = () => {
   const { config } = useConfigContext();
@@ -12,6 +13,7 @@ export const DynamicFormPage: FunctionComponent = () => {
 
   return (
     <Page title="Create Document">
+      <MetaMaskPopup />
       <DynamicFormLayout />
     </Page>
   );

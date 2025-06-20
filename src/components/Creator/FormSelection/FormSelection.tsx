@@ -26,6 +26,8 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
   };
 
   const onCreateDocumentClick = (type: FormTypes, formName: string) => {
+    sessionStorage.removeItem("account");
+    sessionStorage.removeItem("chainId");
     let overlay;
     if (type === "Transferable") {
       const nextStep = (
@@ -53,7 +55,11 @@ export const FormSelection: FunctionComponent<FormSelection> = ({ forms, formTyp
     <div className="-mx-4 rounded-none xs:rounded-lg shadow-md bg-white p-4 mt-4">
       <div className="p-4">
         <h4 data-testid="form-selection-title">Select documents to preview or create.</h4>
-        <p> Purely for testing; no real-world validity or enforceability. These documents are void after 30 days.</p>
+        <p>Purely for testing; no real-world validity or enforceability. These documents are void after 30 days.</p>
+        <div className="flex items-start gap-2 text-red-600 font-medium mt-2">
+          <img className="h-5 w-5 mt-0.5" src="/static/images/alert/warning.png" alt="Warning" />
+          <span>Do not make any changes to MetaMask during issuance, or the process may fail.</span>
+        </div>
       </div>
       <hr className="m-4" />
       {formTypes.map((type: FormTypes, id: number) => (

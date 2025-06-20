@@ -128,6 +128,13 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({
       return;
     }
     if (showNetworkSection) {
+      if (selectedWalletType == SIGNER_TYPE.METAMASK) {
+        sessionStorage.setItem("account", account!);
+        sessionStorage.setItem("chainId", currentChainId!.toString());
+      } else {
+        sessionStorage.removeItem("account");
+        sessionStorage.removeItem("chainId");
+      }
       return showOverlay(nextStep);
     }
     showOverlay(<NetworkSectionModel collapsible={false} nextStep={nextStep} />);
