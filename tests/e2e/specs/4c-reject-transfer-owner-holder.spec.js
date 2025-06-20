@@ -13,7 +13,7 @@ describe("Reject Transfer Owner & Holder", () => {
     cy.waitAndUploadFile("ebl-endorse-owner.json");
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
-    cy.connectToMetamaskWalletAndApproveAllAccounts();
+    cy.connectToWalletAndApproveAllAccounts();
     cy.get("[data-testid='manageAssetDropdown']").click();
     cy.get("[data-testid='rejectTransferOwnerHolderDropdown']").click({ force: true }); // Reject Transfer Holdership
     cy.get("[data-testid='editable-remarks-input']").clear().type("Remark: Its most likely be a mistake");
