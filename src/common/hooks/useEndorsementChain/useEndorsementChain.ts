@@ -8,7 +8,7 @@ import { fetchTokenTransfers } from "./fetchTokenTransfer";
 import { getEndorsementChain } from "./retrieveEndorsementChain";
 import { retrieveTitleEscrowAddressOnFactory } from "../useTitleEscrowContract";
 import { getErrorMessage } from "../../utils/errorHandling";
-
+import { ChainId, ChainInfo } from "../../../constants/chain-info";
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
   tokenId: string
@@ -31,9 +31,11 @@ export const useEndorsementChain = (
     setEndorsementChain(undefined);
     setPending(true);
     try {
-      const tokenLogs = await fetchTokenTransfers(tokenRegistry, tokenId);
+      const chainId: ChainId = (await provider.getNetwork()).chainId;
+      const fromBlockNumber = ChainInfo[chainId]?.blockNumber ?? 0;
+      const tokenLogs = await fetchTokenTransfers(provider, tokenRegistry, tokenId, fromBlockNumber);
       const escrowAddress = await retrieveTitleEscrowAddressOnFactory(tokenRegistry, tokenId, providerOrSigner);
-      const titleEscrowLogs = await fetchEscrowTransfers(provider, escrowAddress);
+      const titleEscrowLogs = await fetchEscrowTransfers(provider, escrowAddress, fromBlockNumber);
       const transferEvents = mergeTransfers([...titleEscrowLogs, ...tokenLogs]);
       const retrievedEndorsementChain = await getEndorsementChain(provider, transferEvents);
       setEndorsementChain(retrievedEndorsementChain);
