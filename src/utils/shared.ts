@@ -162,13 +162,13 @@ export const getChainId = (
   } else if (isWrappedV2Document(rawDocument)) {
     const documentData = getDataV2(rawDocument);
     // Check for DID, ignore chainId when its DID
-    const identityProofType = documentData.issuers[0].identityProof?.type;
-    if (identityProofType === "DNS-DID" || identityProofType === "DID") return undefined;
+    // const identityProofType = documentData.issuers[0].identityProof?.type;
+    // if (identityProofType === "DNS-DID" || identityProofType === "DID") return undefined;
     return processOAChainId(documentData);
   } else if (isWrappedV3Document(rawDocument)) {
     // Check for DID, ignore chainId when its DID
-    const identityProofType = rawDocument.openAttestationMetadata.identityProof.type;
-    if (identityProofType === "DNS-DID" || identityProofType === "DID") return undefined;
+    // const identityProofType = rawDocument.openAttestationMetadata.identityProof.type;
+    // if (identityProofType === "DNS-DID" || identityProofType === "DID") return undefined;
     return processOAChainId(rawDocument);
   } else {
     // for now v4 is only DID method so ignore chainID
