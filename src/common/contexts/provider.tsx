@@ -252,13 +252,13 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
   };
 
   const upgradeToMetaMaskSigner = async () => {
-    if (providerType === SIGNER_TYPE.METAMASK) return;
+    // if (providerType === SIGNER_TYPE.METAMASK) return;
     await disconnectWallet(false);
     return initializeMetaMaskSigner();
   };
 
   const upgradeToMagicSigner = async () => {
-    if (providerType === SIGNER_TYPE.MAGIC) return;
+    // if (providerType === SIGNER_TYPE.MAGIC) return;
     await disconnectWallet(false);
     return initialiseMagicSigner();
   };
