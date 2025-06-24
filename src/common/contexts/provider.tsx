@@ -322,8 +322,6 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     };
 
     const handleChainChanged = (chainIdHex: string) => {
-      console.log(providerType);
-      console.log(chainIdHex, chainIdHex);
       if (providerType !== SIGNER_TYPE.METAMASK) return;
       //  changeNetwork(parseInt(chainIdHex, 16));
       setCurrentChainId(parseInt(chainIdHex, 16));
