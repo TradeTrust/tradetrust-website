@@ -13,6 +13,12 @@ const AppContainer = (): React.ReactElement => {
   const location = useLocation();
   const [toggleNavBar, setToggleNavBar] = useState(false);
 
+  // Clear session storage on initial load
+  useEffect(() => {
+    sessionStorage.removeItem("account");
+    sessionStorage.removeItem("chainId");
+  }, []);
+
   useEffect(() => {
     setToggleNavBar(false);
     window.scrollTo(0, 0);

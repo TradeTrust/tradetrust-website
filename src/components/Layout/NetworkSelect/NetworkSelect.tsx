@@ -1,6 +1,5 @@
 import { IconError, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import { isTransferableRecord } from "@trustvc/trustvc";
-import { isSignedDocument } from "@trustvc/trustvc/w3c/vc";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { Info } from "react-feather";
 import { SIGNER_TYPE, useProviderContext } from "../../../common/contexts/provider";
@@ -110,11 +109,11 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   const [changingNetwork, setChangingNetwork] = useState<ChainId | undefined>(undefined);
 
   useEffect(() => {
-    if (currentChainId === changingNetwork && !networkChangeLoading) {
+    if (!networkChangeLoading) {
       setChangingNetwork(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentChainId, changingNetwork, networkChangeLoading]);
+  }, [networkChangeLoading]);
 
   const itemsList = networks.map((network, i) => {
     return (
@@ -132,7 +131,7 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   });
 
   let selectedLabel: React.ReactNode = (
-    <div className={`${disabled ? "bg-gray-200" : "bg-white"} flex justify-start`}>
+    <div className={`${disabled || networkChangeLoading ? "bg-gray-200" : "bg-white"} flex justify-start`}>
       <IconError className="mr-2 w-5 h-5 rounded-full" />
       Unsupported Network
     </div>
@@ -155,13 +154,10 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   const defaultEmptyLabel: React.ReactNode = <div className="w-full flex justify-start">-</div>;
 
   const transferableRecord = document ? isTransferableRecord(document) : false;
-  const signedVerifiableCredential = document ? isSignedDocument(document) : false;
 
   return (
     <WrappedDropdown
-      dropdownButtonText={
-        disabled && !transferableRecord && signedVerifiableCredential ? defaultEmptyLabel : selectedLabel
-      }
+      dropdownButtonText={disabled && !transferableRecord ? defaultEmptyLabel : selectedLabel}
       className="flex-1 inline-block text-sm"
       classNameShared="w-full"
       disabled={disabled}

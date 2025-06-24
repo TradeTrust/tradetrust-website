@@ -42,13 +42,17 @@ export const MagicProvider = ({ children, defaultChainId }: MagicProviderProps) 
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkConfig | undefined>(undefined);
 
   const changeMagicNetwork = (chainId: ChainId) => {
-    const network = getChainInfo(chainId);
-    if (!network) return;
+    try {
+      const network = getChainInfo(chainId);
+      if (!network?.rpcUrl) return;
 
-    setSelectedNetwork({
-      chainId: chainId as number,
-      rpcUrl: network.rpcUrl!,
-    });
+      setSelectedNetwork({
+        chainId: Number(chainId),
+        rpcUrl: network.rpcUrl,
+      });
+    } catch (error) {
+      console.error("Failed to change Magic network:", error);
+    }
   };
 
   const loginMagicLink = async (email: string) => {
