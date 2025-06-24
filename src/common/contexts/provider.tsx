@@ -115,7 +115,7 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
 
   const changeNetwork = async (chainId: ChainId) => {
     try {
-      if (providerType === SIGNER_TYPE.METAMASK) {
+      if (providerType === SIGNER_TYPE.METAMASK || providerType === SIGNER_TYPE.NONE) {
         await walletSwitchChain(chainId);
       } else if (providerType === SIGNER_TYPE.MAGIC) {
         await changeMagicNetwork(chainId);
@@ -322,6 +322,8 @@ export const ProviderContextProvider: FunctionComponent<ProviderContextProviderP
     };
 
     const handleChainChanged = (chainIdHex: string) => {
+      console.log(providerType);
+      console.log(chainIdHex, chainIdHex);
       if (providerType !== SIGNER_TYPE.METAMASK) return;
       //  changeNetwork(parseInt(chainIdHex, 16));
       setCurrentChainId(parseInt(chainIdHex, 16));

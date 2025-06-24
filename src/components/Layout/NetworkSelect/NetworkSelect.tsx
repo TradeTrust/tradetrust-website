@@ -1,6 +1,5 @@
 import { IconError, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import { isTransferableRecord } from "@trustvc/trustvc";
-// import { isSignedDocument } from "@trustvc/trustvc/w3c/vc";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { Info } from "react-feather";
 import { SIGNER_TYPE, useProviderContext } from "../../../common/contexts/provider";
@@ -155,7 +154,6 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
   const defaultEmptyLabel: React.ReactNode = <div className="w-full flex justify-start">-</div>;
 
   const transferableRecord = document ? isTransferableRecord(document) : false;
-  // const signedVerifiableCredential = document ? isSignedDocument(document) : false;
 
   return (
     <WrappedDropdown
