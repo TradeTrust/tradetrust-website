@@ -1,4 +1,3 @@
-import { IconError, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import { isTransferableRecord } from "@trustvc/trustvc";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { Info } from "react-feather";
@@ -7,6 +6,8 @@ import { useNetworkSelect } from "../../../common/hooks/useNetworkSelect";
 import { getChainInfo } from "../../../common/utils/chain-utils";
 import { ChainId, ChainInfoObject } from "../../../constants/chain-info";
 import { Dropdown, DropdownItem, DropdownProps } from "../../Dropdown";
+import { LoaderSpinner } from "../../UI/Loader";
+import { IconError } from "../../UI/Icon";
 
 interface NetworkSelectViewProps {
   onChange: (chainId: ChainId) => Promise<void>;

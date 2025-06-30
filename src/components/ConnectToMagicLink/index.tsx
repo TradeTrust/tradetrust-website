@@ -1,4 +1,3 @@
-import { IconWarning } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";
 import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
@@ -6,6 +5,7 @@ import { Button } from "../Button";
 import Connected from "../ConnectToBlockchain/Connected";
 import { showDocumentTransferMessage } from "../UI/Overlay/OverlayContent";
 import { NetworkContent } from "../NetworkSection/NetworkContent";
+import { IconWarning } from "../UI/Icon";
 
 interface ConnectToMagicLinkProps {
   className?: string;

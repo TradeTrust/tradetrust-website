@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { Settings } from "react-feather";
-import { NavigationBar as NavBar, NavigationItem, NAVIGATION_ITEM_TYPE } from "@tradetrust-tt/tradetrust-ui-components";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../../constants";
 import { Button, ButtonSize } from "../../Button";
+import { NavigationBar as NavBar, NAVIGATION_ITEM_TYPE, NavigationItem } from "../../NavigationBar";
 
 export const rightNavItems: NavigationItem[] = [
   {

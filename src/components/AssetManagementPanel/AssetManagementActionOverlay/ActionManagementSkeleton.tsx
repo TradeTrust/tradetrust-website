@@ -1,9 +1,9 @@
-import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { X } from "react-feather";
 import { useOverlayContext } from "../../../common/contexts/OverlayContext";
 import { FormState } from "../../../constants/FormState";
 import { Button } from "../../Button";
+import { LoaderSpinner } from "../../UI/Loader";
 
 interface ActionManagementSkeletonProps {
   actionTitle: string;

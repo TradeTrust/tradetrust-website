@@ -1,7 +1,7 @@
-import { IconSuccess, IconWarning } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { useOverlayContext } from "../../../../common/contexts/OverlayContext";
 import { Button } from "../../../Button";
+import { IconSuccess, IconWarning } from "../../Icon";
 
 export const enum MESSAGE_TYPE {
   SUCCESS = "success",

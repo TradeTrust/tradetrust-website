@@ -6,8 +6,8 @@ import { OverlayDemo } from "../components/UI/Overlay/Overlay.mock";
 import { SIGNER_TYPE, useProviderContext } from "../common/contexts/provider";
 import ConnectToMetamask from "../components/ConnectToMetamask";
 import ConnectToMagicLink from "../components/ConnectToMagicLink";
-import { Button } from "@tradetrust-tt/tradetrust-ui-components";
 import { useMagicContext } from "../common/contexts/MagicContext";
+import { Button } from "../components/Button";
 
 export const WalletPage = (): React.ReactElement => {
   const { providerType, account } = useProviderContext();

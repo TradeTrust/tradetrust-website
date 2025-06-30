@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import { ChevronDown } from "react-feather";
 import { AjvErrorMessage } from "./../../UI/AjvError";
 import { FormErrors } from "../../../types";
-import { IconError } from "@tradetrust-tt/tradetrust-ui-components";
+import { IconError } from "../../UI/Icon";
 
 interface FormErrorBanner {
   formErrorTitle: string | null;

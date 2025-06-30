@@ -1,9 +1,9 @@
-import { Footer as BaseFooter, FooterColumnItemProps } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
 import { ExternalLink } from "react-feather";
 import { NavLink } from "react-router-dom";
 import { URLS } from "../../constants";
 import { FORM_SG_URL } from "../../routes";
+import { Footer as BaseFooter, FooterColumnItemProps } from "../UI/Footer";
 
 const sharedStyles = `font-medium text-sm text-cloud-500 hover:text-cerulean-500`;
 const renderNavLink = ({ label, to }: FooterColumnItemProps) => {

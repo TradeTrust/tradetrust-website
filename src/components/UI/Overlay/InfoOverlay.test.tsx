@@ -1,10 +1,10 @@
 import { fireEvent, render } from "@testing-library/react";
-import { Textual } from "@tradetrust-tt/tradetrust-ui-components";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { OverlayContextProvider } from "../../../common/contexts/OverlayContext";
 import { InfoOverlay, InfoOverlayProps } from "./InfoOverlay";
 import { Overlay } from "./Overlay";
+import { Textual } from "./OverlayContent";
 
 const mockOverlayProps: InfoOverlayProps = {
   children: <Textual title="Network Selector">Experimental Text</Textual>,

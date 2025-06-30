@@ -4,9 +4,9 @@ import { useProviderContext } from "../common/contexts/provider";
 import { EndorsementChainContainer } from "../components/EndorsementChain/EndorsementChainContainer";
 import { Page } from "../components/Layout/Page";
 
-import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
+import { LoaderSpinner } from "../components/UI/Loader";
 
 const EndorsementChainPage: React.FC = () => {
   const [tokenRegistry, setTokenRegistry] = useState("");

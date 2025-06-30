@@ -1,8 +1,8 @@
-import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Button, ButtonHeight } from "../../../Button";
 import { Dropdown, DropdownItem } from "../../../Dropdown";
 import { AssetManagementActions } from "./../../AssetManagementActions";
+import { LoaderSpinner } from "../../../UI/Loader";
 
 interface AssetManagementDropdownProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;

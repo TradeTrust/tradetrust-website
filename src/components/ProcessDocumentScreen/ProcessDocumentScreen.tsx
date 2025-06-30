@@ -1,4 +1,3 @@
-import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import { saveAs } from "file-saver";
 import React, { FunctionComponent, ReactElement, useEffect, useMemo } from "react";
 import { CheckCircle, XCircle } from "react-feather";
@@ -13,6 +12,7 @@ import { Card } from "../UI/Card";
 import { ProcessDocumentContent } from "./ProcessDocumentContent";
 import { useCreatorContext } from "../../common/contexts/CreatorContext";
 import { OnCloseGuard } from "../OnCloseGuard";
+import { LoaderSpinner } from "../UI/Loader";
 
 interface ProcessDocumentScreenProps {
   processAnotherDocument: () => void;

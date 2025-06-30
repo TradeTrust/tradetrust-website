@@ -1,7 +1,7 @@
-import { IconError, IconSuccess } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { X } from "react-feather";
 import { useOverlayContext } from "../../../../common/contexts/OverlayContext";
+import { IconError, IconSuccess } from "../../Icon";
 
 export interface OverlayContentProps {
   className?: string;

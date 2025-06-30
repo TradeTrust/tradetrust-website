@@ -1,4 +1,3 @@
-import { IconWarning } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useContext } from "react";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider";
@@ -6,6 +5,7 @@ import Connected from "../ConnectToBlockchain/Connected";
 import { showDocumentTransferMessage } from "../UI/Overlay/OverlayContent";
 import { Button } from "../Button";
 import { NetworkContent } from "../NetworkSection/NetworkContent";
+import { IconWarning } from "../UI/Icon";
 
 export interface ConnectToMetamaskModelProps {
   showOnNewConnectWarningMessage: boolean;

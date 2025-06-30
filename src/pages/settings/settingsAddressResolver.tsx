@@ -1,7 +1,8 @@
-import { AddressResolver, BackArrow } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { BackArrow } from "../../components/UI/Nav";
+import { AddressResolver } from "../../components/AddressResolver";
 
 export const SettingsAddressResolverPage: FunctionComponent = () => (
   <>

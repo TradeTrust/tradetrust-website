@@ -1,8 +1,9 @@
-import { TileInfo, TileInfoProps, IconAddressBook, IconResolverAddress } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Page } from "../../components/Layout/Page";
+import { IconAddressBook, IconResolverAddress } from "../../components/UI/Icon";
+import { TileInfo, TileInfoProps } from "../../components/UI/Nav";
 
 interface SettingsOptions extends TileInfoProps {
   pathLink: string;

@@ -1,5 +1,4 @@
 import { OpenAttestationDocument } from "@trustvc/trustvc";
-import { ProgressBar, ToggleSwitch } from "@tradetrust-tt/tradetrust-ui-components";
 import { gaEvent } from "../../../../common/utils/analytics";
 
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
@@ -23,6 +22,8 @@ import { getFormValue, isImageData } from "../utils";
 import { makeRawDocument } from "./helpers";
 import { DocumentPreview } from "./DemoPreview";
 import { GaAction, GaCategory } from "../../../../types";
+import { ProgressBar } from "../../../UI/ProgressBar";
+import { ToggleSwitch } from "../../../UI/ToggleSwitch";
 
 const DemoCreateReviewItem = ({
   title,

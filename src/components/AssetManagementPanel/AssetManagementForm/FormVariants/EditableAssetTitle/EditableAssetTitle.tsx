@@ -1,4 +1,3 @@
-import { Input } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Book, Info } from "react-feather";
 import { useOverlayContext } from "../../../../../common/contexts/OverlayContext";
@@ -9,6 +8,7 @@ import { AssetTitle } from "../../../AssetTitle";
 import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 import { OverlayAddressBook } from "../../../../AddressBook";
 import { ButtonIcon } from "../../../../Button";
+import { Input } from "../../../../UI/Input";
 
 interface EditableAssetTitleProps {
   role: string;

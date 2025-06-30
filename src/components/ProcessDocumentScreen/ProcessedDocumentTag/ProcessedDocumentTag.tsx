@@ -1,4 +1,3 @@
-import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import { SignedVerifiableCredential } from "@trustvc/trustvc";
 import { saveAs } from "file-saver";
 import prettyBytes from "pretty-bytes";
@@ -6,6 +5,7 @@ import React, { FunctionComponent } from "react";
 import { XCircle } from "react-feather";
 import { useCreatorContext } from "../../../common/contexts/CreatorContext";
 import { generateFileName, getFileSize } from "../../../utils";
+import { LoaderSpinner } from "../../UI/Loader";
 
 interface PublishedTagProps {
   doc: SignedVerifiableCredential | undefined;
