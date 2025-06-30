@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { Trash2, ChevronUp, ChevronDown } from "react-feather";
-import { IconAddFile } from "@tradetrust-tt/tradetrust-ui-components";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { CustomTitle } from "./CustomObjectField";
 import { Button } from "../../../Button";
+import { IconAddFile } from "../../../UI/Icon";
 
 export const CustomArrayFieldTemplate: FunctionComponent<ArrayFieldTemplateProps> = (props) => {
   const { items, title, canAdd, onAddClick } = props;

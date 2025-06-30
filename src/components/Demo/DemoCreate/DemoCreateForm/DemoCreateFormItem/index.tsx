@@ -1,4 +1,3 @@
-import { Input } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Upload } from "react-feather";
@@ -6,6 +5,7 @@ import { AccordionItem } from "../../../../UI/Accordion";
 import { getFormValue } from "../../utils";
 import { FormItemSchema } from "../types";
 import { Button } from "../../../../Button";
+import { Input } from "../../../../UI/Input";
 
 interface DemoCreateFormItemProps {
   onChange: (name: string, value: string) => void;

@@ -1,6 +1,7 @@
-import { IconError, IconSuccess, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { CreatorItemState } from "../../../common/contexts/CreatorContext";
+import { LoaderSpinner } from "../../UI/Loader";
+import { IconError, IconSuccess } from "../../UI/Icon";
 
 export interface SetupItemProps {
   state: CreatorItemState;

@@ -1,10 +1,10 @@
-import { ProviderTimeoutMessage } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 import { useEndorsementChain } from "../../common/hooks/useEndorsementChain";
 import { URLS } from "../../constants";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
+import { ProviderTimeoutMessage } from "../UI/Overlay/OverlayContent";
 
 const ProviderDocumentationURL = `${URLS.DOCS}/docs/how-tos/advanced/additional-network-metamask-guide/`;
 const timeout = 60;

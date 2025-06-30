@@ -10,7 +10,9 @@ import { DocumentSetupType } from "../DocumentSetup";
 // Mock the contexts and dependencies
 jest.mock("../../../common/contexts/CreatorContext");
 jest.mock("../../../common/contexts/provider");
-jest.mock("react-feather");
+jest.mock("react-feather", () => ({
+  CheckCircle: () => <div data-testid="check-circle-icon" />,
+}));
 
 const mockUseCreatorContext = useCreatorContext as jest.MockedFunction<typeof useCreatorContext>;
 const mockUseProviderContext = useProviderContext as jest.MockedFunction<typeof useProviderContext>;
@@ -95,6 +97,7 @@ describe("TokenRegistrySetup", () => {
     );
 
     render(<TokenRegistrySetup />);
+    expect(screen.getByTestId("check-circle-icon")).toBeInTheDocument();
     expect(mockProcessTokenRegistry).not.toHaveBeenCalled();
   });
 
@@ -124,6 +127,7 @@ describe("TokenRegistrySetup", () => {
 
     render(<TokenRegistrySetup />);
 
+    expect(screen.getByTestId("check-circle-icon")).toBeInTheDocument();
     expect(screen.getByText("Address found:")).toBeInTheDocument();
     expect(screen.getByText(mockAddress)).toBeInTheDocument();
     const link = screen.getByRole("link", {

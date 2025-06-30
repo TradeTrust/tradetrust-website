@@ -1,4 +1,4 @@
-import { MessageTitle } from "@tradetrust-tt/tradetrust-ui-components";
+import { MessageTitle } from "../../components/UI/Overlay/OverlayContent";
 
 export class NoMetaMaskError extends Error {
   constructor() {

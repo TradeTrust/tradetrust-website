@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useCallback, useContext, useEffect } from "react";
 import { saveAs } from "file-saver";
-import { ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
 import { Button } from "../../../Button";
 import { gaEvent } from "../../../../common/utils/analytics";
 
@@ -12,6 +11,7 @@ import { DemoFormContext } from "../contexts/DemoFormContext";
 import { Banner } from "../../../UI/Banner";
 import { GaAction, GaCategory } from "../../../../types";
 import { URLS } from "../../../../constants";
+import { ProgressBar } from "../../../UI/ProgressBar";
 
 export const DemoCreateIssue: FunctionComponent = () => {
   const { issued, error: issuedError } = useSelector(getDocumentIssued);

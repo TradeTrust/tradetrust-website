@@ -1,4 +1,3 @@
-import { ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, useContext } from "react";
 import { DemoCreateButtonRow } from "../DemoCreateButtonRow";
 import { DemoCreateContext } from "../contexts/DemoCreateContext";
@@ -6,6 +5,7 @@ import { DemoCreateFormItem } from "./DemoCreateFormItem";
 import { schema } from "./schema";
 import { FormItemSchema } from "./types";
 import { DemoFormContext } from "../contexts/DemoFormContext";
+import { ProgressBar } from "../../../UI/ProgressBar";
 
 export const DemoCreateForm: FunctionComponent = () => {
   const { setActiveStep } = useContext(DemoCreateContext);

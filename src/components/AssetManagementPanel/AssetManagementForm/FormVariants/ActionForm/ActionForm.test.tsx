@@ -29,31 +29,6 @@ jest.mock("../../../../../utils", () => ({
   }),
 }));
 
-// Simplified UI component mocks
-jest.mock("@tradetrust-tt/tradetrust-ui-components", () => ({
-  ...jest.requireActual("@tradetrust-tt/tradetrust-ui-components"),
-  Button: ({
-    children,
-    disabled,
-    onClick,
-    "data-testid": testId,
-  }: {
-    children: React.ReactNode;
-    disabled?: boolean;
-    onClick?: () => void;
-    "data-testid"?: string;
-  }) => (
-    <button disabled={disabled} onClick={onClick} data-testid={testId}>
-      {children}
-    </button>
-  ),
-  // Only mock necessary MessageTitle constants
-  MessageTitle: {
-    CONFIRM_REJECT_SURRENDER_DOCUMENT: "CONFIRM_REJECT_SURRENDER_DOCUMENT",
-  },
-  showDocumentTransferMessage: jest.fn().mockReturnValue({ type: "mockMessage" }),
-}));
-
 // Mock the OverlayContext hook - essential for overlay interactions
 const mockShowOverlay = jest.fn();
 jest.mock("react", () => {

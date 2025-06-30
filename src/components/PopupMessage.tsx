@@ -1,8 +1,8 @@
-import { IconSuccess } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { useState, useEffect } from "react";
 import { Checkbox } from "./UI/Checkbox";
 import { URLS } from "../constants";
 import { Button, ButtonSize } from "./Button";
+import { IconSuccess } from "./UI/Icon";
 
 const PopupMessage = () => {
   const [showPopup, setShowPopup] = useState(false);

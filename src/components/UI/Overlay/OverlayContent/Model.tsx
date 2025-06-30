@@ -1,7 +1,8 @@
-import { IconError, IconSuccess, LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { AlertCircle, X } from "react-feather";
 import { useOverlayContext } from "../../../../common/contexts/OverlayContext";
+import { IconError, IconSuccess } from "../../Icon";
+import { LoaderSpinner } from "../../Loader";
 
 export interface ModelProps {
   className?: string;

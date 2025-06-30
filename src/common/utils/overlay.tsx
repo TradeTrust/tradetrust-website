@@ -1,5 +1,5 @@
-import { Textual } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
+import { Textual } from "../../components/UI/Overlay/OverlayContent";
 
 export const contentPdpa: FunctionComponent<React.ReactNode> = () => {
   return (

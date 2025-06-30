@@ -1,6 +1,6 @@
-import { ErrorPage } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
+import { ErrorPage } from "../components/ErrorPage";
 
 export const PageNotFound: FunctionComponent = () => {
   return (

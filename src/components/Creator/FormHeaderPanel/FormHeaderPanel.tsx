@@ -1,4 +1,3 @@
-import { ProgressBar } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, MouseEventHandler, ReactElement } from "react";
 import { useHistory } from "react-router-dom";
 import { QueueState } from "../../../constants/QueueState";
@@ -6,6 +5,7 @@ import { FormErrors } from "../../../types";
 import { Button, ButtonHeight } from "../../Button";
 import { FormErrorBanner } from "../../DynamicFormContainer/FormErrorBanner";
 import { Card } from "../../UI/Card";
+import { ProgressBar } from "../../UI/ProgressBar";
 
 interface FormHeaderPanelProps {
   step: number;

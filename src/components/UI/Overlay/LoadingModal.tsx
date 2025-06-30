@@ -1,5 +1,5 @@
-import { LoaderSpinner } from "@tradetrust-tt/tradetrust-ui-components";
 import React, { FunctionComponent, ReactNode } from "react";
+import { LoaderSpinner } from "../Loader";
 
 interface ILoadingModal {
   title: string;
