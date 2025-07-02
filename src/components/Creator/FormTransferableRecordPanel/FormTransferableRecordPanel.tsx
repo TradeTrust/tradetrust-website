@@ -52,6 +52,7 @@ export const FormTransferableRecordPanel: FunctionComponent<FormTransferableReco
               <ExternalLinkEtherscanAddress
                 name={beneficiaryAddress}
                 address={beneficiaryAddress}
+                componentName="FormTransferableRecordPanel"
                 data-testid="non-editable-input-owner"
               >
                 <h6>{beneficiaryAddress}</h6>
@@ -63,6 +64,7 @@ export const FormTransferableRecordPanel: FunctionComponent<FormTransferableReco
               <ExternalLinkEtherscanAddress
                 name={holderAddress}
                 address={holderAddress}
+                componentName="FormTransferableRecordPanel"
                 data-testid="non-editable-input-holder"
               >
                 <h6>{holderAddress}</h6>

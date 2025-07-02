@@ -12,6 +12,7 @@ interface ExternalLinkEtherscanAddressProps {
   name: string;
   address: string;
   className?: string;
+  componentName?: string;
   children?: React.ReactNode;
 }
 
@@ -27,11 +28,22 @@ export const ExternalLinkEtherscanAddress: FunctionComponent<ExternalLinkEthersc
   name,
   address,
   children,
+  componentName,
   ...props
 }) => {
   const { currentChainId } = useProviderContext();
-  const href = currentChainId ? makeEtherscanAddressURL(address, currentChainId) : "#";
-
+  let href = "#";
+  if (currentChainId) {
+    if (componentName === "FormTransferableRecordPanel") {
+      try {
+        href = makeEtherscanAddressURL(address, currentChainId);
+      } catch {
+        href = "#";
+      }
+    } else {
+      href = makeEtherscanAddressURL(address, currentChainId);
+    }
+  }
   return (
     <ExternalLink name={name} href={href} {...props}>
       {children}

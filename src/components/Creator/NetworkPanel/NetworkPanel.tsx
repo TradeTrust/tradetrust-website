@@ -18,7 +18,14 @@ export const NetworkPanel: FunctionComponent<NetworkPanelProps> = ({
   const { currentChainId, providerType } = useProviderContext();
 
   // Get network name from chain ID
-  const networkName = currentChainId ? getChainInfo(currentChainId).networkLabel : "Unknown";
+  let networkName = "Unknown";
+  if (currentChainId) {
+    try {
+      networkName = getChainInfo(currentChainId).networkLabel;
+    } catch (e: any) {
+      console.log(e.message);
+    }
+  }
 
   // Only show for transferable records
   if (!isTransferableRecord) {
