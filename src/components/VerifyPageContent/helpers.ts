@@ -12,11 +12,12 @@ export const getDemoCert = (chainId: ChainId): string => {
   return `/static/demo/${networkName}.tt`;
 };
 
-export const loadDemoCertificate = (loadCertificate: LoadCertificate, chainId: ChainId): void => {
-  window
-    .fetch(getDemoCert(chainId))
-    .then((res) => res.json())
-    .then((res) => {
-      loadCertificate(res);
-    });
+export const loadDemoCertificate = async (
+  loadCertificate: LoadCertificate,
+  chainId: ChainId,
+  switchNetwork: (chainId: ChainId) => void
+): Promise<void> => {
+  switchNetwork(chainId);
+  const res = await fetch(getDemoCert(chainId)).then((r) => r.json());
+  loadCertificate(res);
 };
