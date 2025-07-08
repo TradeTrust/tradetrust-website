@@ -5,7 +5,13 @@ import { RootState } from "../../../reducers";
 import { DOCUMENT_SCHEMA } from "../../../reducers/certificate";
 import { TokenRegistryVersion, useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
 
-export const AssetManagementTags: FunctionComponent = () => {
+interface AssetManagementTagsProps {
+  isTransferableDocument?: boolean;
+}
+
+export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = ({
+  isTransferableDocument = false,
+}) => {
   const documentSchema = useSelector((state: RootState) => state.certificate.documentSchema);
   const { version } = useTokenInformationContext();
 
@@ -14,12 +20,16 @@ export const AssetManagementTags: FunctionComponent = () => {
   const tagCSSGrey = "bg-cloud-100 text-cloud-500 rounded-full font-gilroy-bold";
   return (
     <div className="flex flex-wrap py-2 gap-2">
-      <Tag rounded="rounded-full" className={tagCSSBlue}>
-        Transferable
-      </Tag>
-      <Tag rounded="rounded-full" className={tagCSSBlue}>
-        Negotiable
-      </Tag>
+      {isTransferableDocument && (
+        <>
+          <Tag rounded="rounded-full" className={tagCSSBlue}>
+            Transferable
+          </Tag>
+          <Tag rounded="rounded-full" className={tagCSSBlue}>
+            Negotiable
+          </Tag>
+        </>
+      )}
       {documentSchema === DOCUMENT_SCHEMA.OA_V3 && (
         <Tag rounded="rounded-full" className={tagCSSGrey}>
           OA

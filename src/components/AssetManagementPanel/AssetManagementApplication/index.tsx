@@ -206,14 +206,17 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
           />
         ) : (
           isExpired && (
-            <TagBordered
-              id="expired-sign"
-              className="border-scarlet-100 bg-scarlet-100 text-scarlet-500 content-center justify-self-center w-full xs:w-auto h-10 px"
-            >
-              <h5 data-testid="expiredDoc" className="text-center break-keep">
-                Expired
-              </h5>
-            </TagBordered>
+            <div className="flex-1 content-center space-y-2 md:space-x-2 md:space-y-0">
+              <TagBordered
+                id="expired-sign"
+                rounded="rounded-full"
+                className="border-scarlet-100 bg-scarlet-100 text-scarlet-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
+              >
+                <h5 data-testid="expiredDoc" className="text-center break-keep">
+                  Expired
+                </h5>
+              </TagBordered>
+            </div>
           )
         )}
 
