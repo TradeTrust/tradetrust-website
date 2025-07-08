@@ -20,7 +20,7 @@ export const ViewActionError: FunctionComponent<ViewActionErrorProps> = ({ reset
       />
       <DetailedError
         title={`Unable to load certificate with the provided parameters`}
-        message={retrieveCertificateByActionError}
+        message={retrieveCertificateByActionError!}
       />
 
       <br />

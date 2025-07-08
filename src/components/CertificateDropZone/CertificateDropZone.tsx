@@ -126,7 +126,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
                 message === TYPES.NETWORK_MISMATCH_MAINNET || message === TYPES.NETWORK_MISMATCH_TESTNET;
               const errorType = isNetworkMismatch ? (message as keyof typeof TYPES) : TYPES.INVALID;
               dispatch(verifyingCertificateFailure(errorType));
-              dispatch(verifyingCertificateCompleted());
+              dispatch(verifyingCertificateCompleted({}));
             }
           }
         };
