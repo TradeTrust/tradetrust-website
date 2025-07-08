@@ -48,10 +48,6 @@ export const getTemplateUrl = (
   } else if (isWrappedV3Document(rawDocument)) {
     return rawDocument.openAttestationMetadata.template?.url;
   }
-  // disable v4 verification for the time being
-  // else {
-  //   return rawDocument.renderMethod?.url;
-  // }
 };
 export const isV2Document = (document: any): document is v2.OpenAttestationDocument => {
   return !!document.$template;
@@ -108,7 +104,6 @@ export const getAttachments = (
         type: a.mimeType,
       }));
   } else {
-    // attachments not included in v4 schema for now.
     return [];
   }
 };
@@ -165,7 +160,6 @@ export const getChainId = (
   } else if (isWrappedV3Document(rawDocument)) {
     return processOAChainId(rawDocument);
   } else {
-    // for now v4 is only DID method so ignore chainID
     return undefined;
   }
 };
