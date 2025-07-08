@@ -207,8 +207,8 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
         ) : (
           isExpired && (
             <TagBordered
-              id="surrender-sign"
-              className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-fit"
+              id="expired-sign"
+              className="border-scarlet-100 bg-scarlet-100 text-scarlet-500 content-center justify-self-center w-full xs:w-auto h-10 px"
             >
               <h5 data-testid="expiredDoc" className="text-center break-keep">
                 Expired

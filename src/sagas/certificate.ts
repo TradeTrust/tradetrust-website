@@ -1,9 +1,23 @@
 import { decryptString } from "@govtechsg/oa-encryption";
-import { errorMessages, getTokenId, getTokenRegistryAddress, isTransferableRecord, isValid } from "@trustvc/trustvc";
-import { race, call, put, delay, select, takeEvery } from "redux-saga/effects";
+import {
+  errorMessages,
+  getTokenId,
+  getTokenRegistryAddress,
+  isRawV2Document,
+  isRawV3Document,
+  isSignedWrappedV2Document,
+  isSignedWrappedV3Document,
+  isTransferableRecord,
+  isValid,
+  isWrappedV2Document,
+  isWrappedV3Document,
+  vc,
+} from "@trustvc/trustvc";
+import { call, delay, put, race, select, takeEvery } from "redux-saga/effects";
 import { history } from "../history";
 import {
   detectingTRV4Certificate,
+  DOCUMENT_SCHEMA,
   getCertificate,
   types,
   verifyingCertificateCompleted,
@@ -77,6 +91,24 @@ export function* verifyCertificate(): any {
     trace(`Verification Status: ${JSON.stringify(verificationStatus)}`);
 
     yield put(verifyingCertificateCompleted(verificationStatus));
+
+    const isOAV2 =
+      isRawV2Document(certificate) || isSignedWrappedV2Document(certificate) || isWrappedV2Document(certificate);
+    const isOAV3 =
+      isRawV3Document(certificate) || isSignedWrappedV3Document(certificate) || isWrappedV3Document(certificate);
+    const isW3CVC = vc.isSignedDocument(certificate) || vc.isRawDocument(certificate);
+
+    yield put({
+      type: types.UPDATE_DOCUMENT_SCHEMA,
+      payload: isOAV2
+        ? DOCUMENT_SCHEMA.OA_V2
+        : isOAV3
+        ? DOCUMENT_SCHEMA.OA_V3
+        : isW3CVC
+        ? DOCUMENT_SCHEMA.W3C_VC_1_1
+        : null,
+    });
+
     if (isValid(verificationStatus)) {
       yield history.push("/viewer");
     }
