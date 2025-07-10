@@ -209,7 +209,8 @@
   },
   "overrides": {
     "ethers": "^5.8.0",
-    "ethereumjs-abi": "https://registry.npmjs.org/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz"
+    "ethereumjs-abi": "https://registry.npmjs.org/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz",
+    "glob": "^9.3.5"
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
