@@ -51,6 +51,7 @@ export function* verifyCertificate(): any {
       tokenId = getTokenId(certificate);
     }
   } catch (e) {
+    console.error("Certificate verification error: Failed to verify certificate", e);
     yield put(verifyingCertificateFailure(TYPES.VERIFICATION_ERROR));
     return;
   }
@@ -73,6 +74,7 @@ export function* verifyCertificate(): any {
       }
     }
   } catch (e) {
+    console.error("Certificate verification error: server error", e);
     yield put(verifyingCertificateFailure(TYPES.SERVER_ERROR));
     return;
   }
@@ -113,6 +115,7 @@ export function* verifyCertificate(): any {
       yield history.push("/viewer");
     }
   } catch (e) {
+    console.error("Certificate verification error: server error", e);
     yield put(verifyingCertificateFailure(TYPES.SERVER_ERROR));
     return;
   }

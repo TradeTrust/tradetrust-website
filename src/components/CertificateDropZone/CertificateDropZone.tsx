@@ -120,6 +120,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
 
             await processFile(json, chainId);
           } catch (e) {
+            console.error(e);
             if (e instanceof Error) {
               const { message } = e;
               const isNetworkMismatch =
