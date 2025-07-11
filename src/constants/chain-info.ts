@@ -57,6 +57,7 @@ export enum ChainId {
   StabilityTestnet = 20180427,
 
   // Astron
+  Astron = 1338,
   AstronTestnet = 21002,
 }
 
@@ -70,6 +71,7 @@ export const CHAIN: Record<ChainId, AvailableBlockChains> = {
   [ChainId.APOTHEM]: "XDC",
   [ChainId.Stability]: "FREE",
   [ChainId.StabilityTestnet]: "FREE",
+  [ChainId.Astron]: "ASTRON",
   [ChainId.AstronTestnet]: "ASTRON",
 };
 
@@ -200,6 +202,20 @@ export const ChainInfo: ChainInfo = {
       decimals: 18,
     },
   },
+  [ChainId.Astron]: {
+    label: "Astron",
+    chainId: ChainId.Astron,
+    iconImage: "/static/images/networks/astron.png",
+    networkName: "astron",
+    networkLabel: "astron",
+    explorerUrl: "https://astronscanl2.bitfactory.cn/",
+    rpcUrl: `https://astronlayer2.bitfactory.cn/auth/${ASTRON_TESTNET_API_KEY}`,
+    nativeCurrency: {
+      name: "ASTRON",
+      symbol: "ASTRON",
+      decimals: 18,
+    },
+  },
   [ChainId.AstronTestnet]: {
     label: "Astron Testnet (Beta)",
     chainId: ChainId.AstronTestnet,
@@ -220,7 +236,7 @@ export const supportedMainnet = [
   ChainInfo[ChainId.Polygon].networkName,
   ChainInfo[ChainId.XDC].networkName,
   ChainInfo[ChainId.Stability].networkName,
-  // ChainInfo[ChainId.Astron].networkName,
+  ChainInfo[ChainId.Astron].networkName,
 ];
 
 export const supportedTestnet = [
