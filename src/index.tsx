@@ -16,11 +16,21 @@ import { GA_MEASUREMENT_ID, NETWORK_NAME } from "./config";
 import { history } from "./history";
 import "./index.css";
 import { configureStore } from "./store";
+import * as Sentry from "@sentry/react";
 
 const store = configureStore();
 
 history.listen(() => {
   gaPageView({ action: "page_view" }, GA_MEASUREMENT_ID);
+});
+
+Sentry.init({
+  dsn: process.env.SENTRY_DATA_SOURCE_NAME,
+  environment: process.env.NODE_ENV,
+  sendDefaultPii: true,
+  integrations: (integrations) => {
+    return [...integrations, Sentry.captureConsoleIntegration({ levels: ["error"] })];
+  },
 });
 
 const App = () => {
