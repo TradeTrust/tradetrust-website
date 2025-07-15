@@ -19,7 +19,7 @@ export const useEndorsementChain = (
   const [error, setError] = useState("");
   const [endorsementChain, setEndorsementChain] = useState<EndorsementChain>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
-  const { version: tokenRegistryVersion } = useTokenInformationContext();
+  const { version: tokenRegistryVersion, titleEscrowAddress } = useTokenInformationContext();
 
   /*
     retrieve transactions from token registry and title escrow events
@@ -35,13 +35,28 @@ export const useEndorsementChain = (
         throw new Error('"Only Token Registry V5 is supported"');
       }
 
-      const retrievedEndorsementChain = await fetchEndorsementChain(tokenRegistryAddress, tokenId, provider, keyId);
+      const retrievedEndorsementChain = await fetchEndorsementChain(
+        tokenRegistryAddress,
+        tokenId,
+        provider,
+        keyId,
+        titleEscrowAddress
+      );
       setEndorsementChain(retrievedEndorsementChain);
     } catch (e: unknown) {
       setError(getErrorMessage(e));
     }
     setPending(false);
-  }, [provider, providerOrSigner, tokenId, tokenRegistry, tokenRegistryAddress, tokenRegistryVersion, keyId]);
+  }, [
+    provider,
+    providerOrSigner,
+    tokenId,
+    tokenRegistry,
+    tokenRegistryAddress,
+    tokenRegistryVersion,
+    keyId,
+    titleEscrowAddress,
+  ]);
 
   useEffect(() => {
     fetchEndorsementChainV5();
