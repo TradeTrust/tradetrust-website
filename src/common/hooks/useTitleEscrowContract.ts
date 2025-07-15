@@ -30,7 +30,7 @@ export const useTitleEscrowContract = (
       const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
       setDocumentOwner(titleEscrowOwner);
       const address = await getTitleEscrowAddress(tokenRegistry.address, tokenId, provider);
-      const instance = TitleEscrow__factory.connect(address, provider);
+      const instance = TitleEscrow__factory.connect(address, providerOrSigner);
       setTitleEscrow(instance);
       setTitleEscrowAddress(address);
     } catch (error) {
