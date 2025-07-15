@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { providers, Signer } from "ethers";
-import { v5Contracts } from "@trustvc/trustvc";
+import { v5Contracts, getTitleEscrowAddress } from "@trustvc/trustvc";
 import { BurnAddress } from "../../constants/chain-info";
 const { TitleEscrowFactory__factory, TitleEscrow__factory } = v5Contracts;
 type TitleEscrow = typeof v5Contracts.TitleEscrow;
@@ -13,7 +13,7 @@ interface useTitleEscrowContractProps {
 }
 
 export const useTitleEscrowContract = (
-  provider: providers.Provider | Signer | undefined,
+  providerOrSigner: providers.Provider | Signer | undefined,
   tokenRegistry?: TradeTrustToken,
   tokenId?: string
 ): useTitleEscrowContractProps => {
@@ -22,22 +22,33 @@ export const useTitleEscrowContract = (
   const [documentOwner, setDocumentOwner] = useState<string>();
 
   const updateTitleEscrow = useCallback(async () => {
-    if (!tokenRegistry || !tokenId || !provider) return;
+    if (!tokenRegistry || !tokenId || !providerOrSigner) return;
     try {
+      console.log("updateTitleEscrow");
+      const provider = (
+        "provider" in providerOrSigner ? providerOrSigner.provider : providerOrSigner
+      ) as providers.Provider;
+      console.log("provider", provider);
       const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
+      console.log("titleEscrowOwner", titleEscrowOwner);
       setDocumentOwner(titleEscrowOwner);
-      const instance = await connectToTitleEscrow({
-        provider,
-        tokenRegistry,
-        tokenId,
-      });
+      const address = await getTitleEscrowAddress(tokenRegistry.address, tokenId, provider);
+      console.log("address", address);
+      const instance = TitleEscrow__factory.connect(address, providerOrSigner);
+      console.log("instance", instance);
+      // const instance = await connectToTitleEscrow({
+      //   provider,
+      //   tokenRegistry,
+      //   tokenId,
+      // });
       setTitleEscrow(instance);
       setTitleEscrowAddress(instance.address);
     } catch (error) {
+      console.error("error in updateTitleEscrow", error);
       setTitleEscrow(undefined);
       setTitleEscrowAddress(undefined);
     }
-  }, [provider, tokenId, tokenRegistry]);
+  }, [providerOrSigner, tokenId, tokenRegistry]);
 
   useEffect(() => {
     updateTitleEscrow();
@@ -46,7 +57,7 @@ export const useTitleEscrowContract = (
       setDocumentOwner(undefined);
       setTitleEscrowAddress(undefined);
     };
-  }, [updateTitleEscrow, tokenId, provider]);
+  }, [updateTitleEscrow, tokenId, providerOrSigner]);
 
   return { titleEscrow, titleEscrowAddress, updateTitleEscrow, documentOwner };
 };
