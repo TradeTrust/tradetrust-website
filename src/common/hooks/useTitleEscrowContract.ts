@@ -42,7 +42,7 @@ export const useTitleEscrowContract = (
       //   tokenId,
       // });
       setTitleEscrow(instance);
-      setTitleEscrowAddress(instance.address);
+      setTitleEscrowAddress(address);
     } catch (error) {
       console.error("error in updateTitleEscrow", error);
       setTitleEscrow(undefined);
