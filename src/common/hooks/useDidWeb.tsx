@@ -63,9 +63,9 @@ export const useDidWeb = (): useDidWebResult => {
 
   const setupDid = async (): Promise<string | false> => {
     try {
-      if (!localStorage) {
-        return false;
-      }
+      // if (!localStorage) {
+      //   return false;
+      // }
 
       const { didKeyPairs, wellKnownDid } = await createDidWeb();
       setDidKeyPair(didKeyPairs);

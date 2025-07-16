@@ -19,6 +19,7 @@ import { useProviderContext } from "../contexts/provider";
 import { getChainInfo } from "../utils/chain-utils";
 import { flattenData, getDataW3C } from "../utils/dataHelpers";
 import { encodeQrCode } from "../utils/qrCode";
+import { IS_DEVELOPMENT } from "../../config";
 
 const { stack } = getLogger("useQueue");
 
@@ -124,7 +125,7 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
         }
 
         // Add QR code
-        if (process.env.NODE_ENV !== "test") {
+        if (!IS_DEVELOPMENT) {
           if (!documentStorageURL) throw new Error("No document storage URL found");
           const chainInfo = currentChainId ? getChainInfo(currentChainId) : undefined;
           const actionsUrlObj = await getReservedStorageUrl(documentStorageURL, chainInfo?.networkName);
