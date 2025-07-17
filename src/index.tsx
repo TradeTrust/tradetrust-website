@@ -29,8 +29,13 @@ Sentry.init({
   environment: process.env.NODE_ENV,
   sendDefaultPii: true,
   integrations: (integrations) => {
-    return [...integrations, Sentry.captureConsoleIntegration({ levels: ["error"] })];
+    return [
+      ...integrations,
+      Sentry.captureConsoleIntegration({ levels: ["error"] }),
+      Sentry.browserTracingIntegration(),
+    ];
   },
+  tracesSampleRate: 1.0,
 });
 
 const App = () => {
