@@ -1,10 +1,7 @@
 name: Testcafe
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
+  pull_request_target:
 
 permissions:
   contents: read # For checkout
@@ -16,9 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    environment: ci
     if: |
       ${{ !contains(github.event.pull_request.title, '[skip test]') &&
-      github.event.pull_request.head.repo.full_name == github.repository }}
+      github.event.pull_request.head.repo.full_name != github.repository }}
 
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
@@ -28,6 +26,11 @@ jobs:
       MAILSLURP_INDEX_ID: ${{ secrets.MAILSLURP_INDEX_ID }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          # Use GitHub token with limited permissions
+          repository: ${{ github.event.pull_request.head.repo.full_name }} # Checkout from the fork
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x
