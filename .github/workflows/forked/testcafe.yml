@@ -1,10 +1,7 @@
 name: Testcafe
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read # For checkout
@@ -15,6 +12,7 @@ jobs:
     name: Testcafe e2e Test
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    environment: ci
 
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
