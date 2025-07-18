@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - master
-  pull_request:
+  pull_request_target:
+
+permissions:
+  contents: read # For checkout
+  actions: read # For accessing action outputs
 
 jobs:
   synpress:
@@ -13,6 +17,8 @@ jobs:
     name: Synpress e2e Test
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    environment: ci
+
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
       DID_SERVER_URL: ${{ secrets.DID_SERVER_URL }}
