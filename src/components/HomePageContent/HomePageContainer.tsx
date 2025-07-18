@@ -6,6 +6,7 @@ import {
   updateCertificate,
   retrieveCertificateByAction,
   retrieveCertificateByActionFailure,
+  RetrieveCertificateByActionAnchor,
 } from "../../reducers/certificate";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
@@ -35,7 +36,11 @@ export const HomePageContainer = (): React.ReactElement => {
     const params = new URLSearchParams(search);
     const query = params.get("q");
 
-    const setProviderNetworkToMatch = async (chainId: ChainId, payload: ActionPayload, anchor: string) => {
+    const setProviderNetworkToMatch = async (
+      chainId: ChainId,
+      payload: ActionPayload,
+      anchor: RetrieveCertificateByActionAnchor
+    ) => {
       await switchNetwork(chainId);
       dispatch(retrieveCertificateByAction(payload, anchor));
     };

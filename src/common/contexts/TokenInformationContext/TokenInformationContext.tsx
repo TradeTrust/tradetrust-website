@@ -114,6 +114,11 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
   const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V5);
   const isTitleEscrow: boolean = isTitleEscrowV4 || isTitleEscrowV5;
+  const version: TokenRegistryVersion | undefined = isTitleEscrowV4
+    ? TokenRegistryVersion.V4
+    : isTitleEscrowV5
+    ? TokenRegistryVersion.V5
+    : undefined;
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -305,7 +310,7 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         isReturnedToIssuer,
         isTokenBurnt,
         isTitleEscrow,
-        version: isTitleEscrowV5 ? TokenRegistryVersion.V5 : TokenRegistryVersion.V4,
+        version,
         documentOwner,
         nominate,
         nominateState,
