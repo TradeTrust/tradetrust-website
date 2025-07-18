@@ -5,6 +5,13 @@ on:
     branches:
       - master
   pull_request:
+  pull_request_target: # This runs in the context of the base repository with access to secrets
+    types: [opened, synchronize, reopened]
+
+# Define permissions with least privilege principle
+permissions:
+  contents: read # For checkout
+  actions: read # For accessing action outputs
 
 jobs:
   testcafe:
@@ -18,7 +25,13 @@ jobs:
       MAGIC_API_KEY: ${{ secrets.MAGIC_API_KEY }}
       MAILSLURP_INDEX_ID: ${{ secrets.MAILSLURP_INDEX_ID }}
     steps:
+      # Important: When using pull_request_target, checkout the PR code safely
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          # Use GitHub token with limited permissions
+          repository: ${{ github.event.pull_request.head.repo.full_name }} # Checkout from the fork
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x
