@@ -4,11 +4,8 @@ on:
   push:
     branches:
       - master
-  pull_request:
-  pull_request_target: # This runs in the context of the base repository with access to secrets
-    types: [opened, synchronize, reopened]
+  pull_request_target:
 
-# Define permissions with least privilege principle
 permissions:
   contents: read # For checkout
   actions: read # For accessing action outputs
@@ -18,7 +15,7 @@ jobs:
     name: Testcafe e2e Test
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    environment: v5
+    environment: ci
 
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
