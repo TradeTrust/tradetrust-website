@@ -14,9 +14,9 @@ const fileName = "EBOL.tt"
 before(() => {
     cy.window().then((window) => {
       window.localStorage.setItem("hasSeenPopup", "true");
+      window.localStorage.removeItem("tokenRegistry");
     });
     cy.switchMetamaskAccount(1);
-    window.localStorage.removeItem("tokenRegistry");
     cy.task("clearDownloads", { tempDirectory });
 });
 
