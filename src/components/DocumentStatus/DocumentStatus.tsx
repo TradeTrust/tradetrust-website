@@ -38,7 +38,7 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({
           verificationStatus={verificationStatus}
           document={document}
         />
-        {isTransferableDocument && <AssetManagementTags />}
+        <AssetManagementTags isTransferableDocument={isTransferableDocument} />
       </div>
       <div className="col-span-1">
         <StatusChecks verificationStatus={verificationStatus} />
