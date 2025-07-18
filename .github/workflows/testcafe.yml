@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 30
     # Use different environments based on whether PR is from fork or not
     environment:
-      ${{ (github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository) && 'ci' }}
+      ${{ (github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository) && 'ci' || 'ci-internal' }}
 
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
