@@ -6,23 +6,31 @@ on:
       - master
   pull_request:
 
+permissions:
+  contents: read # For checkout
+  actions: read # For accessing action outputs
+
 jobs:
   synpress:
-    if: ${{ !contains(github.event.pull_request.title, '[skip test]') }}
     # https://github.com/drptbl/synpress-setup-example/blob/1d980157ef343de54f786e1115e1da590f1ba1d1/.github/workflows/e2e.yml#L49-L102
     name: Synpress e2e Test
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    if: (!contains(github.event.pull_request.title, '[skip test]'))
+    environment:
+      name: ${{ github.event.pull_request.head.repo.full_name != github.repository && 'ci forked' || 'ci' }}
+
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
       DID_SERVER_URL: ${{ secrets.DID_SERVER_URL }}
     steps:
       - name: Checkout
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # pin@v2
+        uses: actions/checkout@v4
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@8b122486cedac8393e77aa9734c3528886e4a1a8 # pin@v1
+        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@dc7b9719a96d48369863986a06765841d7ea23f6 # pin@v1
+        uses: docker/setup-buildx-action@v3
       - name: Cache Docker layers
         uses: actions/cache@v4
         with:
