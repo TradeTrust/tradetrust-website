@@ -6,13 +6,29 @@ on:
       - master
   pull_request:
 
+permissions:
+  contents: read # For checkout
+  actions: read # For accessing action outputs
+
 jobs:
   test:
     name: Lint & Test
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    if: (!contains(github.event.pull_request.title, '[skip test]'))
+
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
     steps:
+      - name: Setup conditional execution
+        id: setup
+        run: |
+          if [[ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]]; then
+            echo "PRs from forks are not allowed to run this workflow."
+            exit 1
+          fi
+
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -22,7 +38,6 @@ jobs:
       - name: Check Lint
         run: npm run lint
       - name: Test
-        if: ${{ !contains(github.event.pull_request.title, '[skip test]') }}
         run: npm run test
       - name: Build
         run: npm run build:prod # this MUST be run to ensure production site will be built without errors
