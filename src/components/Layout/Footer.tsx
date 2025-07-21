@@ -40,6 +40,7 @@ const data = [
     items: [
       { label: "Verify Documents", to: "/", render: renderNavLink },
       { label: "Create Documents", to: "/creator", render: renderNavLink },
+      { label: "Gallery", to: URLS.GALLERY, render: renderExternalLink },
     ],
   },
   {

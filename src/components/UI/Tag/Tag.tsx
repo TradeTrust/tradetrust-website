@@ -3,12 +3,13 @@ import React, { FunctionComponent } from "react";
 interface TagProps {
   id?: string;
   className?: string;
+  rounded?: string;
   children: React.ReactNode;
 }
 
-export const Tag: FunctionComponent<TagProps> = ({ className, children, ...props }) => {
+export const Tag: FunctionComponent<TagProps> = ({ className, rounded = "rounded-lg", children, ...props }) => {
   return (
-    <div className={`inline-block rounded-lg py-1 px-2 ${className}`} {...props}>
+    <div className={`inline-block py-1 px-2 ${rounded} ${className}`} {...props}>
       {children}
     </div>
   );

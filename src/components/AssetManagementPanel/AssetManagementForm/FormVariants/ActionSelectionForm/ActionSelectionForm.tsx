@@ -87,15 +87,17 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
           <div className="flex-1 content-center space-y-2 md:space-x-2 md:space-y-0">
             {isExpired && (
               <TagBorderedSm
-                id="surrendered-sign"
-                className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
+                id="expired-sign"
+                rounded="rounded-full"
+                className="border-scarlet-100 bg-scarlet-100 text-scarlet-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
               >
                 <h5 className="text-center break-keep">Expired</h5>
               </TagBorderedSm>
             )}
             <TagBorderedSm
               id="surrendered-sign"
-              className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
+              rounded="rounded-full"
+              className="border-scarlet-100 bg-scarlet-100 text-scarlet-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
             >
               <h5 className="text-center break-keep">Taken out of circulation</h5>
             </TagBorderedSm>
@@ -117,8 +119,9 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             <div className="flex-1 content-center space-y-2 md:space-x-2 md:space-y-0">
               {isExpired && (
                 <TagBordered
-                  id="surrender-sign"
-                  className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
+                  id="expired-sign"
+                  rounded="rounded-full"
+                  className="border-scarlet-100 bg-scarlet-100 text-scarlet-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
                 >
                   <h5 data-testid="expiredDoc" className="text-center break-keep">
                     Expired
@@ -129,7 +132,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
               {isReturnedToIssuer && (
                 <TagBordered
                   id="surrender-sign"
-                  className="bg-white rounded-xl text-scarlet-500 border-scarlet-500 content-center justify-self-center w-full xs:w-auto"
+                  rounded="rounded-full"
+                  className="border-scarlet-100 bg-scarlet-100 text-scarlet-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
                 >
                   <h5 data-testid="surrenderToIssuer" className="text-center break-keep">
                     ETR returned to Issuer
