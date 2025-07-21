@@ -51,6 +51,8 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
   const [isTimeout, setIsTimeout] = useState(false);
   const source = isFormPreview ? getTemplateUrlFromUnsignedDocument(rawDocument) : getTemplateUrl(rawDocument);
 
+  const DEFAULT_SOURCE = process?.env?.DEFAULT_TEMPLATE_URL || undefined;
+
   useImperativeHandle(forwardedRef, () => ({
     print() {
       if (toFrame.current) {
@@ -102,7 +104,7 @@ export const DecentralisedRenderer: FunctionComponent<DecentralisedRendererProps
     <div className={selectedTemplate == "default-template" || isTimeout ? "container" : ""}>
       <FrameConnector
         style={{ height: `${height}px`, width: "100%", border: "0px" }}
-        source={source}
+        source={DEFAULT_SOURCE ?? source}
         dispatch={dispatch}
         onConnected={onConnected}
         useFallbackRenderer={true}
