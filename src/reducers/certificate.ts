@@ -99,7 +99,7 @@ interface VerifyingCertificateAction {
 
 interface VerifyingCertificateCompletedAction {
   type: typeof types.VERIFYING_CERTIFICATE_COMPLETED;
-  payload: any;
+  payload?: any;
 }
 
 interface VerifyingCertificateFailureAction {
