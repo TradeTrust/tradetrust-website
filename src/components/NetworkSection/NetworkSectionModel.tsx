@@ -1,11 +1,11 @@
 import { Button, ButtonHeight } from "../Button";
 import React, { useEffect } from "react";
 import { NetworkSelect } from "../Layout/NetworkSelect";
-import { Model } from "../UI/Overlay/OverlayContent/Model";
+import { Modal } from "../UI/Overlay/OverlayContent/Modal";
 import { HelpCircle } from "react-feather";
 import { useProviderContext } from "../../common/contexts/provider";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";
-import { HeaderIconState } from "../UI/Overlay/OverlayContent/Model";
+import { HeaderIconState } from "../UI/Overlay/OverlayContent/Modal";
 
 interface NetworkSectionModelProps {
   collapsible?: boolean;
@@ -37,7 +37,7 @@ const NetworkSectionModel: React.FC<NetworkSectionModelProps> = ({
   }, []);
 
   return (
-    <Model
+    <Modal
       title={title}
       headerIconState={headerIconState}
       collapsible={collapsible}
@@ -46,7 +46,7 @@ const NetworkSectionModel: React.FC<NetworkSectionModelProps> = ({
       footer={
         <>
           <Button
-            className="flex-1 w-full text-cerulean-500"
+            className="flex-1 w-full xs:w-auto text-cerulean-500"
             height={ButtonHeight.LG}
             onClick={closeOverlay}
             data-testid="overlayCancelBtn"
@@ -55,7 +55,7 @@ const NetworkSectionModel: React.FC<NetworkSectionModelProps> = ({
           </Button>
           <Button
             disabled={currentChainId === undefined || networkChangeLoading}
-            className="flex-1 w-full bg-cerulean-500 text-white hover:bg-cerulean-800 disabled:cursor-not-allowed disabled:bg-cloud-300"
+            className="flex-1 w-full xs:w-auto bg-cerulean-500 text-white hover:bg-cerulean-800 disabled:cursor-not-allowed disabled:bg-cloud-300"
             height={ButtonHeight.LG}
             onClick={() => {
               closeOverlay();
@@ -101,7 +101,7 @@ const NetworkSectionModel: React.FC<NetworkSectionModelProps> = ({
           </div>
         )}
       </div>
-    </Model>
+    </Modal>
   );
 };
 

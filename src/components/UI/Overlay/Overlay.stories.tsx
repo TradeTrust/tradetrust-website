@@ -20,7 +20,7 @@ import {
   Textual,
   Youtube,
 } from "./OverlayContent";
-import { HeaderIconState, Model } from "./OverlayContent/Model";
+import { HeaderIconState, Modal } from "./OverlayContent/Modal";
 
 export default {
   title: "UI/Overlay",
@@ -244,7 +244,7 @@ export const ModelDemo = (): ReactElement => {
   return (
     <OverlayContextProvider>
       <OverlayDemo buttonText="Model">
-        <Model
+        <Modal
           title="Model"
           headerIconState={HeaderIconState.SUCCESS}
           footer={
@@ -273,7 +273,7 @@ export const ModelDemo = (): ReactElement => {
               dolorem eum fugiat quo voluptas nulla pariatur
             </p>
           </div>
-        </Model>
+        </Modal>
       </OverlayDemo>
     </OverlayContextProvider>
   );
