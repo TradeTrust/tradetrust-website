@@ -4,7 +4,7 @@ import { useOverlayContext } from "../../../../common/contexts/OverlayContext";
 import { IconError, IconSuccess } from "../../Icon";
 import { LoaderSpinner } from "../../Loader";
 
-export interface ModelProps {
+export interface ModalProps {
   className?: string;
   title: string;
   headerIcon?: React.ReactNode;
@@ -25,7 +25,7 @@ export const HeaderIconState = {
   WARNING: <AlertCircle className="text-tangerine-500 w-8 h-8" />,
 } as const;
 
-export const Model: FunctionComponent<ModelProps> = ({
+export const Modal: FunctionComponent<ModalProps> = ({
   className = "",
   title,
   headerIcon,
@@ -60,11 +60,11 @@ export const Model: FunctionComponent<ModelProps> = ({
             ) : (
               headerIcon ?? <></>
             )}
-            <h3 className="flex-1 w-auto leading-7" data-testid="model-title">
+            <h3 className="flex-1 w-auto leading-7" data-testid="modal-title">
               {title}
             </h3>
             {collapsible && (
-              <div className="w-8 cursor-pointer" onClick={closeOverlay} data-testid="model-close">
+              <div className="w-8 cursor-pointer" onClick={closeOverlay} data-testid="modal-close">
                 <X className={crossStyle ? crossStyle : ""} />
               </div>
             )}
