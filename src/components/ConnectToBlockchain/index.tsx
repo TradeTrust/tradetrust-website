@@ -5,7 +5,7 @@ import { Button, ButtonHeight } from "../Button";
 import { ConnectToMagicLinkModelComponent } from "../ConnectToMagicLink";
 import { ConnectToMetamaskModelComponent } from "../ConnectToMetamask";
 import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
-import { Model } from "../UI/Overlay/OverlayContent/Model";
+import { Modal } from "../UI/Overlay/OverlayContent/Modal";
 
 const WALLET_TYPE_NAME: Partial<Record<SIGNER_TYPE, string>> = {
   [SIGNER_TYPE.METAMASK]: "Metamask",
@@ -141,7 +141,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({
   };
 
   return (
-    <Model
+    <Modal
       title="Connect to Blockchain Wallet"
       collapsible={collapsible}
       showDivider
@@ -150,7 +150,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({
         <>
           <Button
             data-testid="connect-blockchain-cancel"
-            className="w-1/2 text-cerulean-500"
+            className="flex-1 w-full xs:w-auto text-cerulean-500"
             height={ButtonHeight.LG}
             onClick={closeOverlay}
           >
@@ -158,7 +158,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({
           </Button>
           <Button
             data-testid="connect-blockchain-continue"
-            className="w-1/2 bg-cerulean-500 text-white"
+            className="flex-1 w-full xs:w-auto bg-cerulean-500 text-white"
             height={ButtonHeight.LG}
             onClick={handleContinue}
             disabled={!account || networkChangeLoading || currentChainId === undefined}
@@ -191,7 +191,7 @@ const ConnectToBlockchainModel: React.FC<ConnectToBlockchainProps> = ({
           />
         )}
       </div>
-    </Model>
+    </Modal>
   );
 };
 

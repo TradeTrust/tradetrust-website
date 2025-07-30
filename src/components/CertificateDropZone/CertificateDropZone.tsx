@@ -19,7 +19,7 @@ import { getChainId } from "../../utils/shared";
 import { View, ViewActionError, ViewVerificationError, ViewVerificationPending } from "../DocumentDropzone/Views";
 import { ViewTokenRegistryMismatch } from "../DocumentDropzone/Views/ViewTokenRegistryMismatch";
 import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
-import { HeaderIconState } from "../UI/Overlay/OverlayContent/Model";
+import { HeaderIconState } from "../UI/Overlay/OverlayContent/Modal";
 import { useNetworkSelect } from "./../../common/hooks/useNetworkSelect";
 import { LoadDemoCertificate } from "./LoadDemoCertificate";
 
@@ -127,7 +127,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
                 message === TYPES.NETWORK_MISMATCH_MAINNET || message === TYPES.NETWORK_MISMATCH_TESTNET;
               const errorType = isNetworkMismatch ? (message as keyof typeof TYPES) : TYPES.INVALID;
               dispatch(verifyingCertificateFailure(errorType));
-              dispatch(verifyingCertificateCompleted({}));
+              dispatch(verifyingCertificateCompleted());
             }
           }
         };

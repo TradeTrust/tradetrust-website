@@ -207,7 +207,7 @@ export const ChainInfo: ChainInfo = {
     chainId: ChainId.Astron,
     iconImage: "/static/images/networks/astron.png",
     networkName: "astron",
-    networkLabel: "astron",
+    networkLabel: "Astron",
     explorerUrl: "https://astronscanl2.bitfactory.cn/",
     rpcUrl: `https://astronlayer2.bitfactory.cn/auth/${ASTRON_TESTNET_API_KEY}`,
     nativeCurrency: {
@@ -221,7 +221,7 @@ export const ChainInfo: ChainInfo = {
     chainId: ChainId.AstronTestnet,
     iconImage: "/static/images/networks/astron.png",
     networkName: "astrontestnet",
-    networkLabel: "astron",
+    networkLabel: "Astron Testnet",
     explorerUrl: "https://dev-astronscanl2.bitfactory.cn/",
     rpcUrl: `https://dev-astronlayer2.bitfactory.cn/auth/${ASTRON_TESTNET_API_KEY}`,
     nativeCurrency: {

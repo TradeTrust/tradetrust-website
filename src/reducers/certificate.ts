@@ -99,7 +99,7 @@ interface VerifyingCertificateAction {
 
 interface VerifyingCertificateCompletedAction {
   type: typeof types.VERIFYING_CERTIFICATE_COMPLETED;
-  payload: any;
+  payload?: any;
 }
 
 interface VerifyingCertificateFailureAction {
@@ -265,7 +265,7 @@ export const processQrCode = (payload: any) => ({
   payload,
 });
 
-export const verifyingCertificateCompleted = (payload: any): VerifyingCertificateCompletedAction => ({
+export const verifyingCertificateCompleted = (payload?: any): VerifyingCertificateCompletedAction => ({
   type: types.VERIFYING_CERTIFICATE_COMPLETED,
   payload,
 });
