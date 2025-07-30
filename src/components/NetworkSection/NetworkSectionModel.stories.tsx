@@ -54,6 +54,7 @@ const Template: StoryFn<typeof NetworkSectionModel> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   collapsible: false,
+  postContent: <></>,
 };
 Default.decorators = [
   (Child: React.FC) => (
@@ -66,6 +67,7 @@ Default.decorators = [
 export const ConnectedToPolygon = Template.bind({});
 ConnectedToPolygon.args = {
   collapsible: false,
+  postContent: <></>,
 };
 ConnectedToPolygon.decorators = [
   (Child: React.FC) => (
@@ -78,6 +80,7 @@ ConnectedToPolygon.decorators = [
 export const ConnectingToNetwork = Template.bind({});
 ConnectingToNetwork.args = {
   collapsible: false,
+  postContent: <></>,
 };
 ConnectingToNetwork.decorators = [
   (Child: React.FC) => (
