@@ -1,15 +1,14 @@
 import {
   DocumentBuilder,
-  encrypt,
   getTokenId,
   getTokenRegistryAddress,
   SignedVerifiableCredential,
   SUPPORTED_CHAINS,
-  v5Contracts,
   W3CTransferableRecordsConfig,
+  mint,
 } from "@trustvc/trustvc";
 import { useState } from "react";
-import { CHAIN, ChainInfo, Network } from "../../constants/chain-info";
+import { CHAIN, ChainId, ChainInfo, Network } from "../../constants/chain-info";
 import { QueueState } from "../../constants/QueueState";
 import { FormEntry, FormTemplate } from "../../types";
 import { getLogger } from "../../utils/logger";
@@ -19,6 +18,7 @@ import { useProviderContext } from "../contexts/provider";
 import { getChainInfo } from "../utils/chain-utils";
 import { flattenData, getDataW3C } from "../utils/dataHelpers";
 import { encodeQrCode } from "../utils/qrCode";
+import { Signer } from "ethers";
 
 const { stack } = getLogger("useQueue");
 
@@ -69,6 +69,45 @@ const getReservedStorageUrl = async (documentStorageURL: string, network?: Netwo
   };
 
   return qrCodeObject;
+};
+
+const mintTransferableRecord = async (
+  signedDocument: SignedVerifiableCredential,
+  formEntry: FormEntry,
+  currentChainId: ChainId,
+  providerOrSigner: Signer
+): Promise<void> => {
+  const tokenRegistryAddress = getTokenRegistryAddress(signedDocument);
+  if (!tokenRegistryAddress) throw new Error("Token registry not found");
+  const encryptionKey = signedDocument.id!;
+  const mintTokenParams = {
+    beneficiaryAddress: formEntry.ownership.beneficiaryAddress,
+    holderAddress: formEntry.ownership.holderAddress,
+    tokenId: getTokenId(signedDocument),
+    remarks: formEntry.remarks,
+  };
+
+  let transactionOptions = {};
+  const { gasStation } = SUPPORTED_CHAINS[currentChainId];
+  if (gasStation) {
+    try {
+      const gasFees = await gasStation();
+      const { maxFeePerGas, maxPriorityFeePerGas } = gasFees ?? {};
+      transactionOptions = {
+        maxFeePerGas,
+        maxPriorityFeePerGas,
+      };
+    } catch (error) {
+      console.warn("Failed to fetch gas prices", error);
+    }
+  }
+
+  const transaction = await mint({ tokenRegistryAddress }, providerOrSigner, mintTokenParams, {
+    id: encryptionKey,
+    ...transactionOptions,
+  });
+
+  await transaction.wait();
 };
 
 export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn => {
@@ -143,41 +182,7 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
       // Minting
       if (!previewOnly) {
         if (formTemplate.type === "TRANSFERABLE_RECORD") {
-          const tokenRegistryAddress = getTokenRegistryAddress(signedDocument);
-          if (!tokenRegistryAddress) throw new Error("Token registry not found");
-
-          const tokenRegistry = v5Contracts.TradeTrustToken__factory.connect(tokenRegistryAddress, providerOrSigner);
-
-          const owner = formEntry.ownership.beneficiaryAddress;
-          const holder = formEntry.ownership.holderAddress;
-          const tokenId = getTokenId(signedDocument);
-          const encryptedRemarks = (formEntry.remarks && `0x${encrypt(formEntry.remarks, signedDocument.id!)}`) || "0x";
-
-          // mint the document
-          try {
-            await tokenRegistry.callStatic.mint(owner, holder, tokenId, encryptedRemarks);
-          } catch (e) {
-            console.error(e);
-            throw new Error("Failed to mint token");
-          }
-
-          let tx;
-          // query gas station
-          const { gasStation } = SUPPORTED_CHAINS[currentChainId!];
-          if (gasStation) {
-            const gasFees = await gasStation();
-            const { maxFeePerGas, maxPriorityFeePerGas } = gasFees ?? {};
-            tx = await tokenRegistry?.mint(owner, holder, tokenId, encryptedRemarks, {
-              maxFeePerGas: maxFeePerGas ?? 0,
-              maxPriorityFeePerGas: maxPriorityFeePerGas ?? 0,
-            });
-          }
-
-          if (!tx) {
-            tx = await tokenRegistry?.mint(owner, holder, tokenId, encryptedRemarks);
-          }
-
-          await tx!.wait();
+          await mintTransferableRecord(signedDocument, formEntry, currentChainId!, providerOrSigner as Signer);
         }
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
