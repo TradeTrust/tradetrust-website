@@ -117,7 +117,7 @@ describe("CertificateDropZone", () => {
           continueText="Proceed"
           preContent={
             <div className="flex justify-center items-center">
-              <p>Select network for transferable document verification.</p>
+              <p>Select network for document verification.</p>
             </div>
           }
           postContent={<></>}

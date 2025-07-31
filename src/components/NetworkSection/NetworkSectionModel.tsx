@@ -166,7 +166,7 @@ const NetworkSectionModel: React.FC<NetworkSectionModelProps> = ({
           preContent
         ) : (
           <div>
-            <p>Choose the blockchain network you want to use for your transferable document.</p>
+            <p>Choose the blockchain network you want to use for your document.</p>
           </div>
         )}
 
