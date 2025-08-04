@@ -15,6 +15,7 @@ import { getLogger } from "../../utils/logger";
 import { useNetworkSelect } from "../../common/hooks/useNetworkSelect";
 import { ChainId } from "../../constants/chain-info";
 import { ActionType, ActionPayload } from "../../types";
+import { setActive } from "../../reducers/sample";
 
 const { error } = getLogger("component:mainpage");
 const { TYPES, MESSAGES } = errorMessages;
@@ -59,6 +60,7 @@ export const HomePageContainer = (): React.ReactElement => {
         } else if (chainId === undefined) {
           dispatch(retrieveCertificateByActionFailure(MESSAGES[TYPES.NETWORK_INVALID].failureMessage));
         } else {
+          dispatch(setActive());
           setProviderNetworkToMatch(chainId, payload, anchor);
         }
       } catch {
