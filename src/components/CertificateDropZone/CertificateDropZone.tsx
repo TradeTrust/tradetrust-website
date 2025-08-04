@@ -197,7 +197,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         })()}
       </div>
       <div className="my-4 w-full border border-cloud-100" />
-      <LoadDemoCertificate currentChainId={currentChainId} />
+      <LoadDemoCertificate />
     </div>
   );
 };

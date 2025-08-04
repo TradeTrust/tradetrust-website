@@ -1,10 +1,7 @@
 import { Selector } from "testcafe";
-import { location, navigateToVerify, validateIframeTexts, validateIssuerTexts } from "./helper";
+import { location, navigateToVerify } from "./helper";
 
 fixture("Demo Sample Certificate Rendering").page`${location}`;
-
-const ViewMoreBtn = Selector("[data-testid='view-more']");
-const ScrollToTopBtn = Selector("[data-testid='scroll-to-top']");
 
 // test("demo sample document is rendered correctly when dragged", async (t) => {
 //   await navigateToVerify();
@@ -19,33 +16,13 @@ const ScrollToTopBtn = Selector("[data-testid='scroll-to-top']");
 //   await validateIframeTexts(["Name & Address of Shipping Agent/Freight Forwarder"]);
 // });
 
-test("demo sample document is rendered correctly when loaded via button", async (t) => {
+test("demo certificate button redirects to gallery correctly", async (t) => {
   await navigateToVerify();
 
-  // Click the "Load Demo Tradetrust Document" button
-  await t.click(Selector("button").withText("Load Demo Tradetrust Document"));
+  await t.click(Selector("button").withText("View Demo Tradetrust Document"));
+  // Wait for redirect to happen
+  await t.wait(2000);
 
-  // Verify banner title appears correctly
-  await t
-    .expect(
-      Selector("[data-testid='banner-title']").withText("Ready to learn how TradeTrust can benefit your business?")
-        .exists
-    )
-    .ok();
-
-  // Validate issuer details
-  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
-
-  // Validate iframe content
-  await validateIframeTexts(["Name & Address of Shipping Agent/Freight Forwarder"]);
-
-  // Validate the "View More" button
-  await t.expect(ViewMoreBtn.count).eql(1);
-  await t.expect(ScrollToTopBtn.count).eql(0);
-
-  await t.click(ViewMoreBtn);
-
-  // Validate the "Scroll To Top" button
-  await t.expect(ScrollToTopBtn.count).eql(1);
-  await t.expect(ViewMoreBtn.count).eql(0);
+  const newUrl = await t.eval(() => window.location.href);
+  await t.expect(newUrl).contains("gallery.tradetrust.io");
 });
