@@ -34,6 +34,7 @@ export interface CertificateState {
 
   retrieveCertificateByActionState: StateType;
   retrieveCertificateByActionError: string | null;
+  keyId: string | null;
 }
 
 export const initialState: CertificateState = {
@@ -51,6 +52,7 @@ export const initialState: CertificateState = {
 
   retrieveCertificateByActionState: states.INITIAL,
   retrieveCertificateByActionError: null,
+  keyId: null,
 };
 
 // Define action types
@@ -59,6 +61,7 @@ export const types = {
   UPDATE_CERTIFICATE: "UPDATE_CERTIFICATE",
   UPDATE_FILENAME: "UPDATE_FILENAME",
   UPDATE_DOCUMENT_SCHEMA: "UPDATE_DOCUMENT_SCHEMA",
+  UPDATE_KEY_ID: "UPDATE_KEY_ID",
 
   DETECTING_TR_V4_CERTIFICATE: "DETECTING_TR_V4_CERTIFICATE",
 
@@ -139,6 +142,11 @@ interface UpdateDocumentSchemaAction {
   payload: DocumentSchemaType;
 }
 
+interface UpdateKeyIdAction {
+  type: typeof types.UPDATE_KEY_ID;
+  payload: string;
+}
+
 type CertificateAction =
   | ResetCertificateAction
   | UpdateCertificateAction
@@ -152,7 +160,8 @@ type CertificateAction =
   | RetrieveCertificateByActionSuccessAction
   | RetrieveCertificateByActionFailureAction
   | UpdateFilenameAction
-  | UpdateDocumentSchemaAction;
+  | UpdateDocumentSchemaAction
+  | UpdateKeyIdAction;
 
 // Reducer
 export default function reducer(state: CertificateState = initialState, action: CertificateAction): CertificateState {
@@ -227,6 +236,11 @@ export default function reducer(state: CertificateState = initialState, action: 
       return {
         ...state,
         documentSchema: action.payload,
+      };
+    case types.UPDATE_KEY_ID:
+      return {
+        ...state,
+        keyId: action.payload,
       };
     default:
       return state;
@@ -312,6 +326,13 @@ export function updateFilename(payload: string): UpdateFilenameAction {
 export function updateDocumentSchema(payload: DocumentSchemaType): UpdateDocumentSchemaAction {
   return {
     type: types.UPDATE_DOCUMENT_SCHEMA,
+    payload,
+  };
+}
+
+export function updateKeyId(payload: string): UpdateKeyIdAction {
+  return {
+    type: types.UPDATE_KEY_ID,
     payload,
   };
 }

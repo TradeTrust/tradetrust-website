@@ -1,23 +1,19 @@
 import React, { FunctionComponent, useState } from "react";
-import { encryptRemark } from "../../../../common/utils/chain-utils";
 import { ActionManagementSkeleton, RejectActionTitle } from "../ActionManagementSkeleton";
 
 interface RejectHolderFormProps {
-  handleRejectTransferOwnerHolder: (remark: string) => void;
+  handleRejectTransferOwnerHolder: ({ remarks }: { remarks: string }) => void;
   rejectTransferOwnerHolderState: string;
-  keyId?: string;
 }
 
 export const RejectTransferOwnerHolderOverlay: FunctionComponent<RejectHolderFormProps> = ({
   handleRejectTransferOwnerHolder,
   rejectTransferOwnerHolderState,
-  keyId,
 }) => {
   const [remarkValue, setRemarkValue] = useState("");
 
   function handleAction() {
-    const encryptedRemark = (remarkValue && encryptRemark(remarkValue, keyId)) ?? "";
-    handleRejectTransferOwnerHolder("0x" + encryptedRemark);
+    handleRejectTransferOwnerHolder({ remarks: remarkValue });
   }
 
   return (

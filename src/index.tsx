@@ -47,15 +47,15 @@ const App = () => {
         <OverlayContextProvider>
           <MagicProvider defaultChainId={defaultChainId}>
             <ProviderContextProvider defaultChainId={defaultChainId} networks={getSupportedChainInfo()}>
-              <TokenInformationContextProvider>
-                <CreatorContextProvider>
-                  <Provider store={store}>
+              <Provider store={store}>
+                <TokenInformationContextProvider>
+                  <CreatorContextProvider>
                     <Router history={history}>
                       <AppContainer />
                     </Router>
-                  </Provider>
-                </CreatorContextProvider>
-              </TokenInformationContextProvider>
+                  </CreatorContextProvider>
+                </TokenInformationContextProvider>
+              </Provider>
             </ProviderContextProvider>
           </MagicProvider>
         </OverlayContextProvider>

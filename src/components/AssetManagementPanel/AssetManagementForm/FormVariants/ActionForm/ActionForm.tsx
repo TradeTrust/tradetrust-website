@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { OverlayContext } from "../../../../../common/contexts/OverlayContext";
-import { encryptRemark } from "../../../../../common/utils/chain-utils";
 import { FormState } from "../../../../../constants/FormState";
 import { isEthereumAddress } from "../../../../../utils";
 import { MessageTitle, showDocumentTransferMessage } from "../../../../UI/Overlay/OverlayContent";
@@ -25,28 +24,42 @@ export interface BaseActionFormProps {
 // Props for TransferHolderForm
 export interface TransferHolderFormProps extends BaseActionFormProps {
   type: AssetManagementActions.TransferHolder;
-  handleTransfer: (newHolder: string, remark: string) => void;
+  handleTransfer: ({ newHolderAddress, remarks }: { newHolderAddress: string; remarks: string }) => void;
   holderTransferringState: string;
 }
 
 // Props for TransferOwnerForm
 export interface TransferOwnerFormProps extends BaseActionFormProps {
   type: AssetManagementActions.TransferOwner;
-  handleBeneficiaryTransfer: (newOwner: string, remark: string) => void;
+  handleBeneficiaryTransfer: ({
+    newBeneficiaryAddress,
+    remarks,
+  }: {
+    newBeneficiaryAddress: string;
+    remarks: string;
+  }) => void;
   beneficiaryEndorseState: string;
 }
 
 // Props for TransferOwnerHolderForm
 export interface TransferOwnerHolderFormProps extends BaseActionFormProps {
   type: AssetManagementActions.TransferOwnerHolder;
-  handleEndorseTransfer: (approvedBeneficiary: string, approvedHolder: string, remark: string) => void;
+  handleEndorseTransfer: ({
+    newBeneficiaryAddress,
+    newHolderAddress,
+    remarks,
+  }: {
+    newBeneficiaryAddress: string;
+    newHolderAddress: string;
+    remarks: string;
+  }) => void;
   transferOwnersState: string;
 }
 
 // Props for NominateBeneficiaryForm
 export interface NominateBeneficiaryFormProps extends BaseActionFormProps {
   type: AssetManagementActions.NominateBeneficiary;
-  handleNomination: (nominee: string, remark: string) => void;
+  handleNomination: ({ newBeneficiaryAddress, remarks }: { newBeneficiaryAddress: string; remarks: string }) => void;
   nominationState: string;
 }
 
@@ -54,7 +67,13 @@ export interface NominateBeneficiaryFormProps extends BaseActionFormProps {
 export interface EndorseBeneficiaryProps extends BaseActionFormProps {
   type: AssetManagementActions.EndorseBeneficiary;
   nominee?: string;
-  handleBeneficiaryTransfer: (newBeneficiary: string, remark: string) => void;
+  handleBeneficiaryTransfer: ({
+    newBeneficiaryAddress,
+    remarks,
+  }: {
+    newBeneficiaryAddress: string;
+    remarks: string;
+  }) => void;
   beneficiaryEndorseState: string;
 }
 
@@ -115,7 +134,7 @@ type ActionFormProps =
   | RejectTransferHolderFormProps;
 
 export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
-  const { type, beneficiary, holder, isExpired, keyId, setFormActionNone, setShowEndorsementChain } = props;
+  const { type, beneficiary, holder, isExpired, setFormActionNone, setShowEndorsementChain } = props;
   const [remark, setRemark] = useState("");
   const { closeOverlay, showOverlay } = useContext(OverlayContext);
 
@@ -136,7 +155,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
             beneficiaryAddress: beneficiary,
             holderAddress: holder,
             isConfirmationMessage: true,
-            onConfirmationAction: () => handleRestoreToken("0x" + ((remark && encryptRemark(remark, keyId)) ?? "")),
+            onConfirmationAction: () => handleRestoreToken(remark),
           },
           <FooterActionButtons setShowEndorsementChain={setShowEndorsementChain} closeOverlay={closeOverlay} />
         )
@@ -322,7 +341,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
               <div className="w-full xs:min-w-48 xs:max-w-64">
                 <Button
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
-                  onClick={() => handleReturnToIssuer("0x" + ((remark && encryptRemark(remark, keyId)) ?? ""))}
+                  onClick={() => handleReturnToIssuer(remark)}
                   disabled={isPendingConfirmation}
                   data-testid={"surrenderBtn"}
                 >
@@ -391,7 +410,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
               <div className="w-full xs:min-w-48 xs:max-w-64">
                 <Button
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
-                  onClick={() => handleDestroyToken("0x" + ((remark && encryptRemark(remark, keyId)) ?? ""))}
+                  onClick={() => handleDestroyToken(remark)}
                   disabled={isDestroyTokenPendingConfirmation}
                   data-testid={"acceptSurrenderBtn"}
                 >
@@ -535,7 +554,10 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
                   disabled={isInvalidNomination || isPendingConfirmation}
                   onClick={() => {
-                    handleNomination(newBeneficiary, "0x" + ((remark && encryptRemark(remark, keyId)) ?? ""));
+                    handleNomination({
+                      newBeneficiaryAddress: newBeneficiary,
+                      remarks: remark,
+                    });
                   }}
                   data-testid={"nominationBtn"}
                 >
@@ -603,7 +625,10 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
                   disabled={!isValidEndorse() || isPendingConfirmation}
                   onClick={() =>
-                    handleBeneficiaryTransfer(nominee || "", "0x" + ((remark && encryptRemark(remark, keyId)) ?? ""))
+                    handleBeneficiaryTransfer({
+                      newBeneficiaryAddress: nominee || "",
+                      remarks: remark,
+                    })
                   }
                   data-testid={"endorseBtn"}
                 >
@@ -674,7 +699,12 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 <Button
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
                   disabled={!isValidTransfer() || isPendingConfirmation}
-                  onClick={() => handleTransfer(newHolder, "0x" + ((remark && encryptRemark(remark, keyId)) ?? ""))}
+                  onClick={() =>
+                    handleTransfer({
+                      newHolderAddress: newHolder,
+                      remarks: remark,
+                    })
+                  }
                   data-testid={"transferBtn"}
                 >
                   {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}
@@ -745,7 +775,10 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
                   disabled={!isValidTransfer() || isPendingConfirmation}
                   onClick={() =>
-                    handleBeneficiaryTransfer(newOwner, "0x" + ((remark && encryptRemark(remark, keyId)) ?? ""))
+                    handleBeneficiaryTransfer({
+                      newBeneficiaryAddress: newOwner,
+                      remarks: remark,
+                    })
                   }
                   data-testid={"transferBtn"}
                 >
@@ -824,11 +857,11 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
                   disabled={!isValidEndorseTransfer() || isPendingConfirmation}
                   onClick={() => {
-                    handleEndorseTransfer(
-                      newOwner || "",
-                      newHolder || "",
-                      "0x" + ((remark && encryptRemark(remark, keyId)) ?? "")
-                    );
+                    handleEndorseTransfer({
+                      newBeneficiaryAddress: newOwner || "",
+                      newHolderAddress: newHolder || "",
+                      remarks: remark,
+                    });
                   }}
                   data-testid={"endorseTransferBtn"}
                 >

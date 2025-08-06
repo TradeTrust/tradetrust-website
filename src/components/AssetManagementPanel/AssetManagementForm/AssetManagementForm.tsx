@@ -12,22 +12,36 @@ import { ActionForm } from "./FormVariants/ActionForm";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
 
 interface RejectTransferActions {
-  rejectTransferOwnerHolder: (remark: string) => void;
+  rejectTransferOwnerHolder: ({ remarks }: { remarks: string }) => void;
   rejectTransferOwnerHolderState: string;
-  rejectTransferOwner: (remark: string) => void;
+  rejectTransferOwner: ({ remarks }: { remarks: string }) => void;
   rejectTransferOwnerState: string;
-  rejectTransferHolder: (remark: string) => void;
+  rejectTransferHolder: ({ remarks }: { remarks: string }) => void;
   rejectTransferHolderState: string;
 }
 
 interface TransferActions {
-  onTransferHolder: (nextHolder: string, remark: string) => void;
+  onTransferHolder: ({ newHolderAddress, remarks }: { newHolderAddress: string; remarks: string }) => void;
   holderTransferringState: string;
-  onEndorseBeneficiary: (nominee: string, remark: string) => void;
+  onEndorseBeneficiary: ({
+    newBeneficiaryAddress,
+    remarks,
+  }: {
+    newBeneficiaryAddress: string;
+    remarks: string;
+  }) => void;
   beneficiaryEndorseState: string;
-  nominateBeneficiary: (nominee: string, remark: string) => void;
+  nominateBeneficiary: ({ newBeneficiaryAddress, remarks }: { newBeneficiaryAddress: string; remarks: string }) => void;
   nominateBeneficiaryState: string;
-  transferOwners: (nextBeneficiary: string, nextHolder: string, remark: string) => void;
+  transferOwners: ({
+    newBeneficiaryAddress,
+    newHolderAddress,
+    remarks,
+  }: {
+    newBeneficiaryAddress: string;
+    newHolderAddress: string;
+    remarks: string;
+  }) => void;
   transferOwnersState: string;
 }
 
@@ -183,7 +197,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           <RejectTransferOwnerOverlay
             handleRejectTransferOwner={rejectTransferOwner}
             rejectTransferOwnerState={rejectTransferOwnerState}
-            keyId={keyId}
           />
         );
         break;
@@ -192,7 +205,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           <RejectTransferOwnerHolderOverlay
             handleRejectTransferOwnerHolder={rejectTransferOwnerHolder}
             rejectTransferOwnerHolderState={rejectTransferOwnerHolderState}
-            keyId={keyId}
           />
         );
         break;
@@ -201,7 +213,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           <RejectTransferHolderOverlay
             handleRejectTransferHolder={rejectTransferHolder}
             rejectTransferHolderState={rejectTransferHolderState}
-            keyId={keyId}
           />
         );
         break;
