@@ -209,9 +209,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     send: restoreToken, // restoreToken function does not return any value
     state: restoreTokenState,
     reset: resetRestoreTokenState,
-  } = useContractFunctionHook<TradeTrustToken, "acceptReturned", string>(
+  } = useContractFunctionHook<TradeTrustToken, "rejectReturned", string>(
     tokenRegistry,
-    "acceptReturned",
+    "rejectReturned",
     { titleEscrowAddress, tokenRegistryAddress, tokenId },
     providerOrSigner
   );

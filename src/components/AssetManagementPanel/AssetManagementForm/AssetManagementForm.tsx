@@ -46,7 +46,7 @@ interface TransferActions {
 }
 
 interface ReturnToIssuerActions {
-  onReturnToIssuer: (remark: string) => void;
+  onReturnToIssuer: ({ remarks }: { remarks: string }) => void;
   returnToIssuerState: string;
   onDestroyToken: (remark: string) => void;
   destroyTokenState: string;

@@ -80,7 +80,7 @@ export interface EndorseBeneficiaryProps extends BaseActionFormProps {
 // Props for SurrenderForm
 export interface SurrenderFormProps extends BaseActionFormProps {
   type: AssetManagementActions.ReturnToIssuer;
-  handleReturnToIssuer: (remark: string) => void;
+  handleReturnToIssuer: ({ remarks }: { remarks: string }) => void;
   returnToIssuerState: string;
 }
 
@@ -101,21 +101,21 @@ export interface RejectSurrenderedFormProps extends BaseActionFormProps {
 // Props for RejectTransferOwnerHolderForm
 export interface RejectTransferOwnerHolderFormProps extends BaseActionFormProps {
   type: AssetManagementActions.RejectTransferOwnerHolder;
-  handleRejectTransferOwnerHolder: (remark: string) => void;
+  handleRejectTransferOwnerHolder: ({ remark }: { remark: string }) => void;
   rejectTransferOwnerHolderState: string;
 }
 
 // Props for RejectTransferOwnerForm
 export interface RejectTransferOwnerFormProps extends BaseActionFormProps {
   type: AssetManagementActions.RejectTransferOwner;
-  handleRejectTransferOwner: (remark: string) => void;
+  handleRejectTransferOwner: ({ remark }: { remark: string }) => void;
   rejectTransferOwnerState: string;
 }
 
 // Props for RejectTransferHolderForm
 export interface RejectTransferHolderFormProps extends BaseActionFormProps {
   type: AssetManagementActions.RejectTransferHolder;
-  handleRejectTransferHolder: (remark: string) => void;
+  handleRejectTransferHolder: ({ remark }: { remark: string }) => void;
   rejectTransferHolderState: string;
 }
 
@@ -341,7 +341,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
               <div className="w-full xs:min-w-48 xs:max-w-64">
                 <Button
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
-                  onClick={() => handleReturnToIssuer(remark)}
+                  onClick={() => handleReturnToIssuer({ remarks: remark })}
                   disabled={isPendingConfirmation}
                   data-testid={"surrenderBtn"}
                 >

@@ -118,11 +118,11 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   });
 
   const onDestroyToken = (remark: string = "0x") => {
-    destroyToken(tokenId, remark);
+    destroyToken({ tokenId, remarks: remark });
   };
 
   const onRestoreToken = (remark: string = "0x") => {
-    restoreToken(tokenId, remark);
+    restoreToken({ tokenId, remarks: remark });
   };
 
   const onSetFormAction = useCallback(
