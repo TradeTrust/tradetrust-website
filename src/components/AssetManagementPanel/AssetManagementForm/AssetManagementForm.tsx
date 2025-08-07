@@ -21,7 +21,7 @@ interface RejectTransferActions {
 }
 
 interface TransferActions {
-  onTransferHolder: ({ newHolderAddress, remarks }: { newHolderAddress: string; remarks: string }) => void;
+  onTransferHolder: ({ holderAddress, remarks }: { holderAddress: string; remarks: string }) => void;
   holderTransferringState: string;
   onEndorseBeneficiary: ({
     newBeneficiaryAddress,

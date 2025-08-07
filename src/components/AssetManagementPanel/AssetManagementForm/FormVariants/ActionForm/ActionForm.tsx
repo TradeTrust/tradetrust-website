@@ -24,7 +24,7 @@ export interface BaseActionFormProps {
 // Props for TransferHolderForm
 export interface TransferHolderFormProps extends BaseActionFormProps {
   type: AssetManagementActions.TransferHolder;
-  handleTransfer: ({ newHolderAddress, remarks }: { newHolderAddress: string; remarks: string }) => void;
+  handleTransfer: ({ holderAddress, remarks }: { holderAddress: string; remarks: string }) => void;
   holderTransferringState: string;
 }
 
@@ -701,7 +701,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                   disabled={!isValidTransfer() || isPendingConfirmation}
                   onClick={() =>
                     handleTransfer({
-                      newHolderAddress: newHolder,
+                      holderAddress: newHolder,
                       remarks: remark,
                     })
                   }
