@@ -114,7 +114,10 @@ describe("ActionForm", () => {
       const transferButton = getByTestId("transferBtn");
       fireEvent.click(transferButton);
 
-      expect(mockHandleTransfer).toHaveBeenCalledWith("0xNewHolderAddress", "0xencryptedRemark");
+      expect(mockHandleTransfer).toHaveBeenCalledWith({
+        newBeneficiaryAddress: "0xNewBeneficiary",
+        remarks: "Test remark",
+      });
     });
 
     it("should disable transfer button when new holder is invalid", () => {
@@ -176,7 +179,10 @@ describe("ActionForm", () => {
       const nominateButton = getByTestId("nominationBtn");
       fireEvent.click(nominateButton);
 
-      expect(mockHandleNomination).toHaveBeenCalledWith("0xNewBeneficiary", "0xencryptedRemark");
+      expect(mockHandleNomination).toHaveBeenCalledWith({
+        newBeneficiaryAddress: "0xNewBeneficiary",
+        remarks: "Test remark",
+      });
     });
 
     it("should change the state of the application to None when we clicked on Cancel", async () => {
@@ -242,7 +248,9 @@ describe("ActionForm", () => {
       const surrenderButton = getByTestId("surrenderBtn");
       fireEvent.click(surrenderButton);
 
-      expect(mockHandleReturnToIssuer).toHaveBeenCalledWith("0xencryptedRemark");
+      expect(mockHandleReturnToIssuer).toHaveBeenCalledWith({
+        remarks: "Test remark",
+      });
     });
 
     it("should change the state of the application to None when we clicked on Cancel", async () => {
@@ -305,7 +313,9 @@ describe("ActionForm", () => {
       const acceptButton = getByTestId("acceptSurrenderBtn");
       fireEvent.click(acceptButton);
 
-      expect(mockHandleDestroyToken).toHaveBeenCalledWith("0xencryptedRemark");
+      expect(mockHandleDestroyToken).toHaveBeenCalledWith({
+        remarks: "Test remark",
+      });
     });
 
     it("should disable accept surrender and cancel button when the accept surrender state is in PENDING_CONFIRMATION", async () => {
@@ -406,7 +416,10 @@ describe("ActionForm", () => {
       const transferButton = getByTestId("transferBtn");
       fireEvent.click(transferButton);
 
-      expect(mockHandleBeneficiaryTransfer).toHaveBeenCalledWith("0xNewOwner", "0xencryptedRemark");
+      expect(mockHandleBeneficiaryTransfer).toHaveBeenCalledWith({
+        newBeneficiaryAddress: "0xNewOwner",
+        remarks: "Test remark",
+      });
     });
   });
 
@@ -452,7 +465,11 @@ describe("ActionForm", () => {
       const transferButton = getByTestId("endorseTransferBtn");
       fireEvent.click(transferButton);
 
-      expect(mockHandleEndorseTransfer).toHaveBeenCalledWith("0xNewOwner", "0xNewHolder", "0xencryptedRemark");
+      expect(mockHandleEndorseTransfer).toHaveBeenCalledWith({
+        newBeneficiaryAddress: "0xNewOwner",
+        newHolderAddress: "0xNewHolder",
+        remarks: "Test remark",
+      });
     });
 
     it("should disable nominate button when holder/owner is empty", async () => {
@@ -478,11 +495,11 @@ describe("ActionForm", () => {
         expect(ownerField).toHaveValue("0xc0F28621Ca5454B66E51786003c798154FeBc6EB");
         await fireEvent.click(container.getByTestId("endorseTransferBtn"));
         expect(transferOwnerHolderProps.handleEndorseTransfer).toBeCalled();
-        expect(transferOwnerHolderProps.handleEndorseTransfer).toHaveBeenCalledWith(
-          "0xc0F28621Ca5454B66E51786003c798154FeBc6EB",
-          "0xc0F28621Ca5454B66E51786003c798154FeBc6EB",
-          "0x"
-        );
+        expect(transferOwnerHolderProps.handleEndorseTransfer).toHaveBeenCalledWith({
+          newBeneficiaryAddress: "0xc0F28621Ca5454B66E51786003c798154FeBc6EB",
+          newHolderAddress: "0xc0F28621Ca5454B66E51786003c798154FeBc6EB",
+          remarks: "0x",
+        });
       });
     });
   });
@@ -525,7 +542,10 @@ describe("ActionForm", () => {
       const endorseButton = getByTestId("endorseBtn");
       fireEvent.click(endorseButton);
 
-      expect(mockHandleBeneficiaryTransfer).toHaveBeenCalledWith("0xNominee", "0xencryptedRemark");
+      expect(mockHandleBeneficiaryTransfer).toHaveBeenCalledWith({
+        newBeneficiaryAddress: "0xNominee",
+        remarks: "Test remark",
+      });
     });
 
     it("should change the state of the application to None when we clicked on Cancel", async () => {
