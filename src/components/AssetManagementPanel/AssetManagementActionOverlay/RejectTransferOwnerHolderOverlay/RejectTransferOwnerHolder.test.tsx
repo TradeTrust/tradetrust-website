@@ -13,7 +13,6 @@ describe("RejectTransferOwnerHolderOverlay", () => {
         <RejectTransferOwnerHolderOverlay
           handleRejectTransferOwnerHolder={mockHandleRejectTransferOwnerHolder}
           rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-          keyId="blgpugbjb8kjb8123"
         />
       );
       expect(container.queryByTestId("confirmRejectOwnership & HoldershipBtn")).not.toBeNull();
@@ -40,7 +39,6 @@ describe("RejectTransferOwnerHolderOverlay", () => {
           <RejectTransferOwnerHolderOverlay
             handleRejectTransferOwnerHolder={() => {}}
             rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-            keyId="123"
           />
         </OverlayContext.Provider>
       );
@@ -58,7 +56,6 @@ describe("RejectTransferOwnerHolderOverlay", () => {
         <RejectTransferOwnerHolderOverlay
           handleRejectTransferOwnerHolder={mockHandleRejectTransferOwnerHolder}
           rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-          keyId="0x2d5f0d480bcb615ae590a281bb6846cebd5d54785d0da525df09f2c47490171f"
         />
       );
       const ownerInput = container.getByTestId("editable-remarks-input") as HTMLInputElement;
@@ -78,7 +75,6 @@ describe("RejectTransferOwnerHolderOverlay", () => {
         <RejectTransferOwnerHolderOverlay
           handleRejectTransferOwnerHolder={() => {}}
           rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-          keyId="123"
         />
       );
 

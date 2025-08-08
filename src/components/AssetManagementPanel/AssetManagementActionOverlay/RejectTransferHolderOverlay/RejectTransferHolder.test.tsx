@@ -12,7 +12,6 @@ describe("RejectTransferHolderOverlay", () => {
       <RejectTransferHolderOverlay
         handleRejectTransferHolder={mockHandleRejectTransferHolder}
         rejectTransferHolderState={FormState.UNINITIALIZED}
-        keyId="key123456789"
       />
     );
 
@@ -37,7 +36,6 @@ describe("RejectTransferHolderOverlay", () => {
         <RejectTransferHolderOverlay
           handleRejectTransferHolder={() => {}}
           rejectTransferHolderState={FormState.UNINITIALIZED}
-          keyId="123"
         />
       </OverlayContext.Provider>
     );
@@ -55,7 +53,6 @@ describe("RejectTransferHolderOverlay", () => {
         <RejectTransferHolderOverlay
           handleRejectTransferHolder={mockHandleRejectTransferHolder}
           rejectTransferHolderState={FormState.UNINITIALIZED}
-          keyId="bb6846cebd5d54785d0da525df09f2c47490171f"
         />
       );
       const holderInput = container.getByTestId("editable-remarks-input") as HTMLInputElement;
@@ -74,7 +71,6 @@ describe("RejectTransferHolderOverlay", () => {
       <RejectTransferHolderOverlay
         handleRejectTransferHolder={() => {}}
         rejectTransferHolderState={FormState.UNINITIALIZED}
-        keyId="123"
       />
     );
 
