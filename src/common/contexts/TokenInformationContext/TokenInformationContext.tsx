@@ -44,7 +44,7 @@ interface TokenInformationContext {
   rejectTransferOwnerHolderError?: Error;
   rejectTransferOwnerHolderErrorMessage?: string;
   rejectTransferOwnerHolderState: ContractFunctionState;
-  initialize: (tokenRegistryAddress: string, tokenId: string, keyId?: string) => void;
+  initialize: (tokenRegistryAddress: string, tokenId: string) => void;
   isReturnedToIssuer: boolean;
   isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
