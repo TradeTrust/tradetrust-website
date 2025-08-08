@@ -8,7 +8,7 @@ import { CertificateDropZone } from "./CertificateDropZone";
 import { CertificateDropZoneContainer } from "./CertificateDropZoneContainer";
 import { MemoryRouter } from "react-router";
 import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
-import { HeaderIconState } from "../UI/Overlay/OverlayContent/Model";
+import { HeaderIconState } from "../UI/Overlay/OverlayContent/Modal";
 jest.mock("qr-scanner");
 
 const store = configureStore();
@@ -117,7 +117,7 @@ describe("CertificateDropZone", () => {
           continueText="Proceed"
           preContent={
             <div className="flex justify-center items-center">
-              <p>Select network for transferable document verification.</p>
+              <p>Select network for document verification.</p>
             </div>
           }
           postContent={<></>}

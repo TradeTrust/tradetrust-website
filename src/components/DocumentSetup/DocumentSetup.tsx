@@ -2,7 +2,7 @@ import { Button, ButtonSize } from "../Button";
 import React, { ForwardRefExoticComponent, FunctionComponent, useEffect } from "react";
 import { CreatorItemState, useCreatorContext } from "../../common/contexts/CreatorContext";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";
-import { HeaderIconState, Model } from "../UI/Overlay/OverlayContent/Model";
+import { HeaderIconState, Modal } from "../UI/Overlay/OverlayContent/Modal";
 import { DidWebSetup, DidWebSetupProps } from "./SetupItem/DidWebSetup";
 import { TokenRegistrySetup, TokenRegistrySetupProps } from "./SetupItem/TokenRegistrySetup";
 import { getFormConfigByName } from "../../common/utils/form-config";
@@ -63,7 +63,7 @@ export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types, fo
   }, [did, tokenRegistry, types]);
 
   return (
-    <Model
+    <Modal
       data-testid="documentSetup"
       headerIconState={documentSetupState}
       collapsible={false}
@@ -105,6 +105,6 @@ export const DocumentSetup: FunctionComponent<DocumentSetupProps> = ({ types, fo
         </>
       )}
       {DocumentSetupStep}
-    </Model>
+    </Modal>
   );
 };
