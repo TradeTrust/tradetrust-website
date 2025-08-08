@@ -51,7 +51,6 @@ export const NotLoggedIn = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -97,7 +96,6 @@ export const NoMatch = () => {
         rejectTransferHolderState={FormState.UNINITIALIZED}
         rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
         rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-        keyId="123"
         isExpired={false}
       />
     </OverlayContextProvider>
@@ -142,7 +140,6 @@ export const BeneficiaryAndHolder = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -186,7 +183,6 @@ export const Beneficiary = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -230,7 +226,6 @@ export const Holder = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -274,7 +269,6 @@ export const HolderWithApprovedBeneficiaryAndApprovedHolder = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -318,7 +312,6 @@ export const TransferHolderError = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -362,7 +355,6 @@ export const TransferHolderPending = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -406,7 +398,6 @@ export const EndorseChangeBeneficiaryError = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -450,7 +441,6 @@ export const EndorseChangeBeneficiaryPending = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -494,7 +484,6 @@ export const NominateBeneficiaryAndHolderError = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -538,7 +527,6 @@ export const NominateBeneficiaryAndHolderPending = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -582,7 +570,6 @@ export const EndorseTransferHolderBeneficiary = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -626,7 +613,6 @@ export const EndorseTransferHolderBeneficiaryPending = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -670,7 +656,6 @@ export const SurrenderDocument = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -714,7 +699,6 @@ export const SurrenderPending = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -761,7 +745,6 @@ export const SurrenderedNotMinter = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -808,7 +791,6 @@ export const SurrenderedIsMinter = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -855,7 +837,6 @@ export const SurrenderedAcceptForm = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
@@ -904,7 +885,6 @@ export const SurrenderedRejectForm = () => {
         rejectTransferHolderState={FormState.UNINITIALIZED}
         rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
         rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-        keyId="123"
         isExpired={false}
       />
     </OverlayContextProvider>
@@ -949,7 +929,6 @@ export const SurrenderedDocument = () => {
       rejectTransferHolderState={FormState.UNINITIALIZED}
       rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
       rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
-      keyId="123"
       isExpired={false}
     />
   );
