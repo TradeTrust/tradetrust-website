@@ -19,7 +19,6 @@ interface AssetManagementIsTransferableDocumentProps {
   tokenId: string;
   tokenRegistryAddress: string;
   setShowEndorsementChain: (payload: boolean) => void;
-  keyId?: string;
   isTransferableDocument: true;
   isExpired: boolean;
 }
@@ -50,15 +49,8 @@ const renderBanner = (isSample: boolean, isMagic: boolean | undefined) => {
 };
 
 export const AssetManagementApplication: FunctionComponent<AssetManagementApplicationProps> = (props) => {
-  const {
-    isMagicDemo,
-    tokenId,
-    tokenRegistryAddress,
-    setShowEndorsementChain,
-    keyId,
-    isTransferableDocument,
-    isExpired,
-  } = props as AssetManagementIsTransferableDocumentProps;
+  const { isMagicDemo, tokenId, tokenRegistryAddress, setShowEndorsementChain, isTransferableDocument, isExpired } =
+    props as AssetManagementIsTransferableDocumentProps;
   const isSampleDocument = props.isSampleDocument;
   const {
     approvedBeneficiary: nominee,
@@ -117,12 +109,12 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     role: v5RoleHash.RestorerRole,
   });
 
-  const onDestroyToken = (remark: string = "0x") => {
-    destroyToken({ tokenId, remarks: remark });
+  const onDestroyToken = (remarks: string = "0x") => {
+    destroyToken({ tokenId, remarks });
   };
 
-  const onRestoreToken = (remark: string = "0x") => {
-    restoreToken({ tokenId, remarks: remark });
+  const onRestoreToken = (remarks: string = "0x") => {
+    restoreToken({ tokenId, remarks });
   };
 
   const onSetFormAction = useCallback(
@@ -181,7 +173,6 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             isTitleEscrow={isTitleEscrow}
             setShowEndorsementChain={setShowEndorsementChain}
             isTokenBurnt={isTokenBurnt}
-            keyId={keyId}
             onTransferHolder={changeHolder}
             holderTransferringState={changeHolderState}
             onEndorseBeneficiary={endorseBeneficiary}

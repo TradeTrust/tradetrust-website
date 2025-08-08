@@ -48,9 +48,9 @@ interface TransferActions {
 interface ReturnToIssuerActions {
   onReturnToIssuer: ({ remarks }: { remarks: string }) => void;
   returnToIssuerState: string;
-  onDestroyToken: (remark: string) => void;
+  onDestroyToken: (remarks: string) => void;
   destroyTokenState: string;
-  onRestoreToken: (remark: string) => void;
+  onRestoreToken: (remarks: string) => void;
   restoreTokenState: string;
 }
 
@@ -76,7 +76,6 @@ interface AssetManagementFormProps
   documentOwner?: string;
   tokenRegistryAddress: string;
   account?: string;
-  keyId?: string;
   formAction: AssetManagementActions;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -100,7 +99,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   setShowEndorsementChain,
   isTitleEscrow,
   isExpired,
-  keyId,
 
   onTransferHolder,
   holderTransferringState,
@@ -323,7 +321,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           beneficiary={beneficiary!}
           holder={holder!}
           nominee={nominee}
-          keyId={keyId}
           isExpired={isExpired}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}

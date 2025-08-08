@@ -145,7 +145,6 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
-            keyId={keyId}
             isTransferableDocument={isTransferableDocument}
             isSampleDocument={isSampleDocument}
             isExpired={isExpired}

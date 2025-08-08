@@ -15,7 +15,6 @@ export interface BaseActionFormProps {
   type: Omit<AssetManagementActions, "None">;
   beneficiary: string;
   holder: string;
-  keyId?: string;
   isExpired?: boolean;
   setFormActionNone: () => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -87,35 +86,35 @@ export interface SurrenderFormProps extends BaseActionFormProps {
 // Props for AcceptSurrenderedForm
 export interface AcceptSurrenderedFormProps extends BaseActionFormProps {
   type: AssetManagementActions.AcceptReturnToIssuer;
-  handleDestroyToken: (remark: string) => void;
+  handleDestroyToken: (remarks: string) => void;
   destroyTokenState: string;
 }
 
 // Props for RejectSurrenderedForm
 export interface RejectSurrenderedFormProps extends BaseActionFormProps {
   type: AssetManagementActions.RejectReturnToIssuer;
-  handleRestoreToken: (remark: string) => void;
+  handleRestoreToken: (remarks: string) => void;
   restoreTokenState: string;
 }
 
 // Props for RejectTransferOwnerHolderForm
 export interface RejectTransferOwnerHolderFormProps extends BaseActionFormProps {
   type: AssetManagementActions.RejectTransferOwnerHolder;
-  handleRejectTransferOwnerHolder: ({ remark }: { remark: string }) => void;
+  handleRejectTransferOwnerHolder: ({ remarks }: { remarks: string }) => void;
   rejectTransferOwnerHolderState: string;
 }
 
 // Props for RejectTransferOwnerForm
 export interface RejectTransferOwnerFormProps extends BaseActionFormProps {
   type: AssetManagementActions.RejectTransferOwner;
-  handleRejectTransferOwner: ({ remark }: { remark: string }) => void;
+  handleRejectTransferOwner: ({ remarks }: { remarks: string }) => void;
   rejectTransferOwnerState: string;
 }
 
 // Props for RejectTransferHolderForm
 export interface RejectTransferHolderFormProps extends BaseActionFormProps {
   type: AssetManagementActions.RejectTransferHolder;
-  handleRejectTransferHolder: ({ remark }: { remark: string }) => void;
+  handleRejectTransferHolder: ({ remarks }: { remarks: string }) => void;
   rejectTransferHolderState: string;
 }
 

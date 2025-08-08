@@ -97,13 +97,14 @@ export function useContractFunctionHook<
       const methodName = method as string;
       const trustvcContractMethod = trustvcFunctions[methodName];
 
-      let deferredTx;
-      if (trustvcContractMethod) {
-        // If it's a trustvc function, call it with the contract and params
-        // Only include id in options if keyIdFromStore is not null
-        const options = { id: keyId ?? "" };
-        deferredTx = trustvcContractMethod(contractOptions, providerOrSigner, params, options);
+      if (!trustvcContractMethod) {
+        throw new Error(`Unsupported method '${methodName}' for trustvcFunctions mapping`);
       }
+
+      // If it's a trustvc function, call it with the contract and params
+      // Only include id in options if keyIdFromStore is not null
+      const options = { id: keyId ?? "" };
+      const deferredTx = trustvcContractMethod(contractOptions, providerOrSigner, params, options);
 
       setState("INITIALIZED");
       const _transaction: ContractTransaction = await deferredTx;
@@ -145,7 +146,7 @@ export function useContractFunctionHook<
   const errorMessage = error?.message;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const send = useCallback(sendFn, [contract, method, keyId]);
+  const send = useCallback(sendFn, [contract, method, keyId, contractOptions, providerOrSigner]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const call = useCallback(callFn, [contract, method]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
