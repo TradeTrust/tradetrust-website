@@ -26,7 +26,7 @@ import {
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { getLogger } from "../utils/logger";
-import { isTokenRegistryV4 } from "../utils/shared";
+import { getKeyId, isTokenRegistryV4 } from "../utils/shared";
 import { ActionPayload } from "./../types";
 
 const { trace } = getLogger("saga:certificate");
@@ -99,6 +99,11 @@ export function* verifyCertificate(): any {
     const isOAV3 =
       isRawV3Document(certificate) || isSignedWrappedV3Document(certificate) || isWrappedV3Document(certificate);
     const isW3CVC = vc.isSignedDocument(certificate) || vc.isRawDocument(certificate);
+    const keyId = getKeyId(certificate);
+    yield put({
+      type: types.UPDATE_KEY_ID, // store keyId in saga state
+      payload: keyId,
+    });
 
     yield put({
       type: types.UPDATE_DOCUMENT_SCHEMA,

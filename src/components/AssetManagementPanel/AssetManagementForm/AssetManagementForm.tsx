@@ -12,31 +12,45 @@ import { ActionForm } from "./FormVariants/ActionForm";
 import { ActionSelectionForm } from "./FormVariants/ActionSelectionForm";
 
 interface RejectTransferActions {
-  rejectTransferOwnerHolder: (remark: string) => void;
+  rejectTransferOwnerHolder: ({ remarks }: { remarks: string }) => void;
   rejectTransferOwnerHolderState: string;
-  rejectTransferOwner: (remark: string) => void;
+  rejectTransferOwner: ({ remarks }: { remarks: string }) => void;
   rejectTransferOwnerState: string;
-  rejectTransferHolder: (remark: string) => void;
+  rejectTransferHolder: ({ remarks }: { remarks: string }) => void;
   rejectTransferHolderState: string;
 }
 
 interface TransferActions {
-  onTransferHolder: (nextHolder: string, remark: string) => void;
+  onTransferHolder: ({ holderAddress, remarks }: { holderAddress: string; remarks: string }) => void;
   holderTransferringState: string;
-  onEndorseBeneficiary: (nominee: string, remark: string) => void;
+  onEndorseBeneficiary: ({
+    newBeneficiaryAddress,
+    remarks,
+  }: {
+    newBeneficiaryAddress: string;
+    remarks: string;
+  }) => void;
   beneficiaryEndorseState: string;
-  nominateBeneficiary: (nominee: string, remark: string) => void;
+  nominateBeneficiary: ({ newBeneficiaryAddress, remarks }: { newBeneficiaryAddress: string; remarks: string }) => void;
   nominateBeneficiaryState: string;
-  transferOwners: (nextBeneficiary: string, nextHolder: string, remark: string) => void;
+  transferOwners: ({
+    newBeneficiaryAddress,
+    newHolderAddress,
+    remarks,
+  }: {
+    newBeneficiaryAddress: string;
+    newHolderAddress: string;
+    remarks: string;
+  }) => void;
   transferOwnersState: string;
 }
 
 interface ReturnToIssuerActions {
-  onReturnToIssuer: (remark: string) => void;
+  onReturnToIssuer: ({ remarks }: { remarks: string }) => void;
   returnToIssuerState: string;
-  onDestroyToken: (remark: string) => void;
+  onDestroyToken: (remarks: string) => void;
   destroyTokenState: string;
-  onRestoreToken: (remark: string) => void;
+  onRestoreToken: (remarks: string) => void;
   restoreTokenState: string;
 }
 
@@ -62,7 +76,6 @@ interface AssetManagementFormProps
   documentOwner?: string;
   tokenRegistryAddress: string;
   account?: string;
-  keyId?: string;
   formAction: AssetManagementActions;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -86,7 +99,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   setShowEndorsementChain,
   isTitleEscrow,
   isExpired,
-  keyId,
 
   onTransferHolder,
   holderTransferringState,
@@ -183,7 +195,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           <RejectTransferOwnerOverlay
             handleRejectTransferOwner={rejectTransferOwner}
             rejectTransferOwnerState={rejectTransferOwnerState}
-            keyId={keyId}
           />
         );
         break;
@@ -192,7 +203,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           <RejectTransferOwnerHolderOverlay
             handleRejectTransferOwnerHolder={rejectTransferOwnerHolder}
             rejectTransferOwnerHolderState={rejectTransferOwnerHolderState}
-            keyId={keyId}
           />
         );
         break;
@@ -201,7 +211,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           <RejectTransferHolderOverlay
             handleRejectTransferHolder={rejectTransferHolder}
             rejectTransferHolderState={rejectTransferHolderState}
-            keyId={keyId}
           />
         );
         break;
@@ -312,7 +321,6 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           beneficiary={beneficiary!}
           holder={holder!}
           nominee={nominee}
-          keyId={keyId}
           isExpired={isExpired}
           setFormActionNone={setFormActionNone}
           setShowEndorsementChain={setShowEndorsementChain}

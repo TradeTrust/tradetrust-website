@@ -3,9 +3,11 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { ethers, providers } from "ethers";
 import _ from "lodash";
 import React, { useEffect } from "react";
+import { Provider } from "react-redux";
 import { ChainId } from "../../../constants/chain-info";
 import { TokenInformationContextProvider, useTokenInformationContext } from "../../contexts/TokenInformationContext";
 import { useProviderContext } from "../../contexts/provider";
+import { configureStore } from "../../../store";
 import { useEndorsementChain } from "./useEndorsementChain";
 import { mock } from "./useEndorsementChain.mock";
 
@@ -15,8 +17,12 @@ const amoyProvider = new providers.JsonRpcProvider("https://rpc-amoy.polygon.tec
 
 const mockUseProviderContext = useProviderContext as jest.Mock;
 
+const store = configureStore();
+
 const wrapper = ({ children }: { children: JSX.Element }) => (
-  <TokenInformationContextProvider>{children}</TokenInformationContextProvider>
+  <Provider store={store}>
+    <TokenInformationContextProvider>{children}</TokenInformationContextProvider>
+  </Provider>
 );
 
 describe("useEndorsementChain|integration", () => {

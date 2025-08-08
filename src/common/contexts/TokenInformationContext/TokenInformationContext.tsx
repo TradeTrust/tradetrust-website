@@ -132,61 +132,111 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     send: changeHolder,
     state: changeHolderState,
     reset: resetChangeHolder,
-  } = useContractFunctionHook(titleEscrow, "transferHolder");
+  } = useContractFunctionHook(
+    titleEscrow,
+    "transferHolder",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner // move to hook itself
+  );
 
   const {
     send: destroyToken,
     state: destroyTokenState,
     reset: resetDestroyingTokenState,
-  } = useContractFunctionHook(tokenRegistry, "burn");
+  } = useContractFunctionHook(
+    tokenRegistry,
+    "acceptReturned",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner
+  );
 
   const {
     send: endorseBeneficiary,
     state: endorseBeneficiaryState,
     reset: resetEndorseBeneficiary,
-  } = useContractFunctionHook(titleEscrow, "transferBeneficiary");
+  } = useContractFunctionHook(
+    titleEscrow,
+    "transferBeneficiary",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner
+  );
 
   const {
     send: nominate,
     state: nominateState,
     reset: resetNominate,
-  } = useContractFunctionHook(titleEscrow, "nominate");
+  } = useContractFunctionHook(
+    titleEscrow,
+    "nominate",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner
+  );
 
   const {
     send: rejectTransferHolder,
     state: rejectTransferHolderState,
     reset: resetRejectTransferHolder,
-  } = useContractFunctionHook(titleEscrow, "rejectTransferHolder");
+  } = useContractFunctionHook(
+    titleEscrow,
+    "rejectTransferHolder",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner
+  );
 
   const {
     send: rejectTransferOwner,
     state: rejectTransferOwnerState,
     reset: resetRejectTransferOwner,
-  } = useContractFunctionHook(titleEscrow, "rejectTransferBeneficiary");
+  } = useContractFunctionHook(
+    titleEscrow,
+    "rejectTransferBeneficiary",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner
+  );
 
   const {
     send: rejectTransferOwnerHolder,
     state: rejectTransferOwnerHolderState,
     reset: resetRejectTransferOwnerHolder,
-  } = useContractFunctionHook(titleEscrow, "rejectTransferOwners");
+  } = useContractFunctionHook(
+    titleEscrow,
+    "rejectTransferOwners",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner
+  );
 
   const {
     send: restoreToken, // restoreToken function does not return any value
     state: restoreTokenState,
     reset: resetRestoreTokenState,
-  } = useContractFunctionHook<TradeTrustToken, "restore", string>(tokenRegistry, "restore");
+  } = useContractFunctionHook(
+    tokenRegistry,
+    "rejectReturned",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner
+  );
 
   const {
     send: returnToIssuer,
     state: returnToIssuerState,
     reset: resetReturnToIssuer,
-  } = useContractFunctionHook(titleEscrow, "returnToIssuer");
+  } = useContractFunctionHook(
+    titleEscrow,
+    "returnToIssuer",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner
+  );
 
   const {
     send: transferOwners,
     state: transferOwnersState,
     reset: resetTransferOwners,
-  } = useContractFunctionHook(titleEscrow, "transferOwners");
+  } = useContractFunctionHook(
+    titleEscrow,
+    "transferOwners",
+    { titleEscrowAddress, tokenRegistryAddress, tokenId },
+    providerOrSigner
+  );
 
   const resetProviders = useCallback(() => {
     resetChangeHolder();
