@@ -115,7 +115,7 @@ describe("ActionForm", () => {
       fireEvent.click(transferButton);
 
       expect(mockHandleTransfer).toHaveBeenCalledWith({
-        newBeneficiaryAddress: "0xNewBeneficiary",
+        newHolderAddress: "0xNewHolderAddress",
         remarks: "Test remark",
       });
     });
@@ -313,9 +313,7 @@ describe("ActionForm", () => {
       const acceptButton = getByTestId("acceptSurrenderBtn");
       fireEvent.click(acceptButton);
 
-      expect(mockHandleDestroyToken).toHaveBeenCalledWith({
-        remarks: "Test remark",
-      });
+      expect(mockHandleDestroyToken).toHaveBeenCalledWith("Test remark");
     });
 
     it("should disable accept surrender and cancel button when the accept surrender state is in PENDING_CONFIRMATION", async () => {
@@ -498,7 +496,7 @@ describe("ActionForm", () => {
         expect(transferOwnerHolderProps.handleEndorseTransfer).toHaveBeenCalledWith({
           newBeneficiaryAddress: "0xc0F28621Ca5454B66E51786003c798154FeBc6EB",
           newHolderAddress: "0xc0F28621Ca5454B66E51786003c798154FeBc6EB",
-          remarks: "0x",
+          remarks: "",
         });
       });
     });
