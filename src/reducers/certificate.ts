@@ -1,4 +1,5 @@
 import { obfuscateDocument } from "@trustvc/trustvc";
+import { TokenRegistryVersions } from "../constants";
 
 // Define the state types
 export const states = {
@@ -17,7 +18,6 @@ export const DOCUMENT_SCHEMA = {
 } as const;
 
 export type DocumentSchemaType = (typeof DOCUMENT_SCHEMA)[keyof typeof DOCUMENT_SCHEMA] | null;
-
 // Define the certificate state interface
 export interface CertificateState {
   raw: any | null;
@@ -25,7 +25,7 @@ export interface CertificateState {
   filename: string;
 
   providerOrSigner: any | null;
-  tokenRegistryV4: boolean;
+  tokenRegistryVersion: TokenRegistryVersions | null;
   documentSchema: DocumentSchemaType;
 
   verificationPending: boolean;
@@ -43,7 +43,7 @@ export const initialState: CertificateState = {
   filename: "",
 
   providerOrSigner: null,
-  tokenRegistryV4: false,
+  tokenRegistryVersion: null,
   documentSchema: null,
 
   verificationPending: false,
@@ -63,7 +63,7 @@ export const types = {
   UPDATE_DOCUMENT_SCHEMA: "UPDATE_DOCUMENT_SCHEMA",
   UPDATE_KEY_ID: "UPDATE_KEY_ID",
 
-  DETECTING_TR_V4_CERTIFICATE: "DETECTING_TR_V4_CERTIFICATE",
+  DETECTING_TR_CERTIFICATE_VERSION: "DETECTING_TR_CERTIFICATE_VERSION",
 
   VERIFYING_CERTIFICATE: "VERIFYING_CERTIFICATE",
 
@@ -91,8 +91,8 @@ interface UpdateCertificateAction {
   payload: any;
 }
 
-interface DetectingTRV4CertificateAction {
-  type: typeof types.DETECTING_TR_V4_CERTIFICATE;
+interface DetectingTRCertificateVersionAction {
+  type: typeof types.DETECTING_TR_CERTIFICATE_VERSION;
   payload: any;
 }
 
@@ -150,7 +150,7 @@ interface UpdateKeyIdAction {
 type CertificateAction =
   | ResetCertificateAction
   | UpdateCertificateAction
-  | DetectingTRV4CertificateAction
+  | DetectingTRCertificateVersionAction
   | VerifyingCertificateAction
   | VerifyingCertificateCompletedAction
   | VerifyingCertificateFailureAction
@@ -176,11 +176,11 @@ export default function reducer(state: CertificateState = initialState, action: 
         raw: action.payload,
         rawModified: action.payload,
       };
-    case types.DETECTING_TR_V4_CERTIFICATE:
+    case types.DETECTING_TR_CERTIFICATE_VERSION:
       return {
         ...state,
-        verificationPending: false,
-        tokenRegistryV4: true,
+        verificationPending: true,
+        tokenRegistryVersion: action.payload,
       };
     case types.VERIFYING_CERTIFICATE:
       return {
@@ -262,8 +262,8 @@ export function updateCertificate(payload: any): UpdateCertificateAction {
 }
 
 // TODO: Remove this after TRV5 is released
-export const detectingTRV4Certificate = (payload: any): DetectingTRV4CertificateAction => ({
-  type: types.DETECTING_TR_V4_CERTIFICATE,
+export const detectingTRCertificateVersion = (payload: any): DetectingTRCertificateVersionAction => ({
+  type: types.DETECTING_TR_CERTIFICATE_VERSION,
   payload,
 });
 

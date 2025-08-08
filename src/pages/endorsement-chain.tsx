@@ -7,6 +7,8 @@ import { Page } from "../components/Layout/Page";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
 import { LoaderSpinner } from "../components/UI/Loader";
+import { useSelector } from "react-redux";
+import { RootState } from "../reducers";
 
 const EndorsementChainPage: React.FC = () => {
   const [tokenRegistry, setTokenRegistry] = useState("");
@@ -19,7 +21,6 @@ const EndorsementChainPage: React.FC = () => {
     initialize,
     tokenRegistryAddress: tokenRegistryContext,
     tokenId: tokenIdContext,
-    version,
     beneficiary,
     holder,
     prevHolder,
@@ -31,6 +32,7 @@ const EndorsementChainPage: React.FC = () => {
     isTitleEscrow,
     titleEscrowAddress,
   } = useTokenInformationContext();
+  const { tokenRegistryVersion: version } = useSelector((state: RootState) => state.certificate);
 
   const { currentChainId, provider, networkChangeLoading } = useProviderContext();
 

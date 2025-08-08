@@ -1,8 +1,12 @@
-import { v5Contracts } from "@trustvc/trustvc";
+import { v5Contracts, v4Contracts } from "@trustvc/trustvc";
 import { providers, Signer } from "ethers";
 import { useEffect, useState } from "react";
+import { TradeTrustToken } from "../../types";
+import { useSelector } from "react-redux";
+import { RootState } from "../../reducers";
+import { TokenRegistryVersions } from "../../constants";
 const { TradeTrustToken__factory } = v5Contracts;
-type TradeTrustToken = typeof v5Contracts.TradeTrustToken;
+const { TradeTrustToken__factory: TradeTrustToken__factoryV4 } = v4Contracts;
 
 export const useTokenRegistryContract = (
   address?: string,
@@ -11,15 +15,22 @@ export const useTokenRegistryContract = (
   tokenRegistry?: TradeTrustToken;
 } => {
   const [tokenRegistry, setTokenRegistry] = useState<TradeTrustToken>();
+  const { tokenRegistryVersion } = useSelector((state: RootState) => {
+    return state.certificate;
+  });
 
   useEffect(() => {
-    if (!address || !provider) return;
-    const instance = TradeTrustToken__factory.connect(address, provider);
+    if (!address || !provider || !tokenRegistryVersion) return;
+
+    const instance =
+      tokenRegistryVersion === TokenRegistryVersions.V4
+        ? TradeTrustToken__factoryV4.connect(address, provider)
+        : TradeTrustToken__factory.connect(address, provider);
     setTokenRegistry(instance);
     return () => {
       setTokenRegistry(undefined);
     };
-  }, [address, provider]);
+  }, [address, provider, tokenRegistryVersion]);
 
   return { tokenRegistry };
 };

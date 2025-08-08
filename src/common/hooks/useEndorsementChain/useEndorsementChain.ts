@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useProviderContext } from "../../contexts/provider";
-import { TokenRegistryVersion, useTokenInformationContext } from "../../contexts/TokenInformationContext";
+import { useTokenInformationContext } from "../../contexts/TokenInformationContext";
 import { getErrorMessage } from "../../utils/errorHandling";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { EndorsementChain, fetchEndorsementChain } from "@trustvc/trustvc";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../reducers";
+import { TokenRegistryVersions } from "../../../constants";
 
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
@@ -19,7 +22,8 @@ export const useEndorsementChain = (
   const [error, setError] = useState("");
   const [endorsementChain, setEndorsementChain] = useState<EndorsementChain>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
-  const { version: tokenRegistryVersion, titleEscrowAddress } = useTokenInformationContext();
+  const { titleEscrowAddress } = useTokenInformationContext();
+  const { tokenRegistryVersion } = useSelector((state: RootState) => state.certificate);
   /*
     retrieve transactions from token registry and title escrow events
     merge, sort and provide history of events
@@ -30,7 +34,7 @@ export const useEndorsementChain = (
     setPending(true);
     setError("");
     try {
-      if (tokenRegistryVersion !== TokenRegistryVersion.V5) {
+      if (tokenRegistryVersion !== TokenRegistryVersions.V5) {
         throw new Error('"Only Token Registry V5 is supported"');
       }
 

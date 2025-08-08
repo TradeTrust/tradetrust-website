@@ -16,7 +16,7 @@ import {
 import { call, delay, put, race, select, takeEvery } from "redux-saga/effects";
 import { history } from "../history";
 import {
-  detectingTRV4Certificate,
+  detectingTRCertificateVersion,
   DOCUMENT_SCHEMA,
   getCertificate,
   types,
@@ -28,6 +28,7 @@ import { verifyDocument } from "../services/verify";
 import { getLogger } from "../utils/logger";
 import { getKeyId, isTokenRegistryV4 } from "../utils/shared";
 import { ActionPayload } from "./../types";
+import { TokenRegistryVersions } from "../constants";
 
 const { trace } = getLogger("saga:certificate");
 
@@ -68,10 +69,7 @@ export function* verifyCertificate(): any {
         return;
       }
 
-      if (tokenRegistryV4) {
-        yield put(detectingTRV4Certificate(TYPES.INVALID));
-        return;
-      }
+      yield put(detectingTRCertificateVersion(tokenRegistryV4 ? TokenRegistryVersions.V4 : TokenRegistryVersions.V5));
     }
   } catch (e) {
     console.error("Certificate verification error: server error", e);

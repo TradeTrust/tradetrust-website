@@ -1,4 +1,4 @@
-import { TitleEscrowInterface, v5Contracts } from "@trustvc/trustvc";
+import { TitleEscrowInterface } from "@trustvc/trustvc";
 import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
 import { BurnAddress } from "../../../constants/chain-info";
 import { ContractFunctionState, useContractFunctionHook } from "../../hooks/useContractFunctionHook";
@@ -6,14 +6,7 @@ import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { useProviderContext } from "../provider";
-type TitleEscrow = typeof v5Contracts.TitleEscrow;
-type TradeTrustToken = typeof v5Contracts.TradeTrustToken;
-
-export enum TokenRegistryVersion {
-  V2 = "V2",
-  V4 = "V4",
-  V5 = "V5",
-}
+import { TitleEscrow, TradeTrustToken } from "../../../types";
 
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
@@ -48,7 +41,6 @@ interface TokenInformationContext {
   isReturnedToIssuer: boolean;
   isTokenBurnt: boolean;
   isTitleEscrow?: boolean;
-  version?: TokenRegistryVersion;
   resetStates: () => void;
   destroyToken: TradeTrustToken["burn"];
   destroyTokenState: ContractFunctionState;
@@ -114,11 +106,6 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
   const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V5);
   const isTitleEscrow: boolean = isTitleEscrowV4 || isTitleEscrowV5;
-  const version: TokenRegistryVersion | undefined = isTitleEscrowV4
-    ? TokenRegistryVersion.V4
-    : isTitleEscrowV5
-    ? TokenRegistryVersion.V5
-    : undefined;
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");
@@ -360,7 +347,6 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         isReturnedToIssuer,
         isTokenBurnt,
         isTitleEscrow,
-        version,
         documentOwner,
         nominate,
         nominateState,
