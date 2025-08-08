@@ -115,7 +115,7 @@ describe("ActionForm", () => {
       fireEvent.click(transferButton);
 
       expect(mockHandleTransfer).toHaveBeenCalledWith({
-        newHolderAddress: "0xNewHolderAddress",
+        holderAddress: "0xNewHolderAddress",
         remarks: "Test remark",
       });
     });
