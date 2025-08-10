@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../common/contexts/provider";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { RootState } from "../reducers";
-import { resetCertificateState, updateCertificate, updateFilename } from "../reducers/certificate";
+import { resetCertificateState, updateCertificate, updateFilename, updateKeyId } from "../reducers/certificate";
 import { resetDemoState } from "../reducers/demo-verify";
 import { TemplateProps } from "../types";
 import { getLogger } from "../utils/logger";
@@ -75,8 +75,9 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   useEffect(() => {
     if (isMagicDemo || isSampleDocument) return;
     resetCertificateData();
+    dispatch(updateKeyId(keyId || ""));
     dispatch(updateCertificate(certificateDoc));
-  }, [certificateDoc, currentChainId, dispatch, resetCertificateData, isMagicDemo, isSampleDocument]);
+  }, [certificateDoc, currentChainId, keyId, dispatch, resetCertificateData, isMagicDemo, isSampleDocument]);
 
   /*
   initialise the meta token information context when new tokenId
@@ -144,7 +145,6 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             tokenId={tokenId}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
-            keyId={keyId}
             isTransferableDocument={isTransferableDocument}
             isSampleDocument={isSampleDocument}
             isExpired={isExpired}
