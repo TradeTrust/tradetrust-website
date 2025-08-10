@@ -219,8 +219,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             </div>
           )
         )}
-
-        {!isTransferableDocument && renderBanner(isSampleDocument, isMagicDemo)}
+        {renderBanner(isSampleDocument, isMagicDemo)}
       </div>
     </div>
   );
