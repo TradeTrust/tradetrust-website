@@ -1,12 +1,11 @@
-import { TitleEscrowInterface } from "@trustvc/trustvc";
 import React, { createContext, FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
 import { BurnAddress } from "../../../constants/chain-info";
 import { ContractFunctionState, useContractFunctionHook } from "../../hooks/useContractFunctionHook";
-import { useSupportsInterface } from "../../hooks/useSupportsInterface";
 import { useTitleEscrowContract } from "../../hooks/useTitleEscrowContract";
 import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { useProviderContext } from "../provider";
 import { TitleEscrow, TradeTrustToken } from "../../../types";
+import { useTokenRegistryVersion } from "../../hooks/useTokenRegistryVersion";
 
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
@@ -101,11 +100,9 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   );
   const isReturnedToIssuer = documentOwner?.toLowerCase() === tokenRegistryAddress?.toLowerCase();
   const isTokenBurnt = documentOwner?.toLowerCase() === BurnAddress?.toLowerCase(); // check if the token belongs to burn address.
+  const isTitleEscrow = !!useTokenRegistryVersion() || undefined;
 
   // First check whether Contract is TitleEscrow
-  const { isInterfaceType: isTitleEscrowV4 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V4);
-  const { isInterfaceType: isTitleEscrowV5 } = useSupportsInterface(titleEscrow, TitleEscrowInterface.V5);
-  const isTitleEscrow: boolean = isTitleEscrowV4 || isTitleEscrowV5;
 
   // Contract Read Functions
   const { call: getHolder, value: holder } = useContractFunctionHook(titleEscrow, "holder");

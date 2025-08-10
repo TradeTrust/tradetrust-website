@@ -4,8 +4,7 @@ import { useTokenInformationContext } from "../../contexts/TokenInformationConte
 import { getErrorMessage } from "../../utils/errorHandling";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { EndorsementChain, fetchEndorsementChain } from "@trustvc/trustvc";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../reducers";
+import { useTokenRegistryVersion } from "../useTokenRegistryVersion";
 import { TokenRegistryVersions } from "../../../constants";
 
 export const useEndorsementChain = (
@@ -23,7 +22,7 @@ export const useEndorsementChain = (
   const [endorsementChain, setEndorsementChain] = useState<EndorsementChain>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
   const { titleEscrowAddress } = useTokenInformationContext();
-  const { tokenRegistryVersion } = useSelector((state: RootState) => state.certificate);
+  const tokenRegistryVersion = useTokenRegistryVersion();
   /*
     retrieve transactions from token registry and title escrow events
     merge, sort and provide history of events

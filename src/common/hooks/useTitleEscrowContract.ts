@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { providers, Signer } from "ethers";
 import { getTitleEscrowAddress, v5Contracts, v4Contracts } from "@trustvc/trustvc";
-import { useSelector } from "react-redux";
-import { RootState } from "../../reducers";
 import { TitleEscrow, TradeTrustToken } from "../../types";
 import { TokenRegistryVersions } from "../../constants";
+import { useTokenRegistryVersion } from "./useTokenRegistryVersion";
 const { TitleEscrow__factory } = v5Contracts;
 const { TitleEscrow__factory: TitleEscrow__factoryV4 } = v4Contracts;
 interface useTitleEscrowContractProps {
@@ -22,9 +21,7 @@ export const useTitleEscrowContract = (
   const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
   const [titleEscrowAddress, setTitleEscrowAddress] = useState<string>();
   const [documentOwner, setDocumentOwner] = useState<string>();
-  const { tokenRegistryVersion } = useSelector((state: RootState) => {
-    return state.certificate;
-  });
+  const tokenRegistryVersion = useTokenRegistryVersion();
 
   const updateTitleEscrow = useCallback(async () => {
     if (!tokenRegistry || !tokenId || !providerOrSigner || !tokenRegistryVersion) return;

@@ -9,8 +9,7 @@ import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 import { OverlayAddressBook } from "../../../../AddressBook";
 import { ButtonIcon } from "../../../../Button";
 import { Input } from "../../../../UI/Input";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../reducers";
+import { useTokenRegistryVersion } from "../../../../../common/hooks/useTokenRegistryVersion";
 import { TokenRegistryVersions } from "../../../../../constants";
 
 interface EditableAssetTitleProps {
@@ -35,9 +34,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   isSubmitted,
 }) => {
   const { showOverlay } = useOverlayContext();
-  const { tokenRegistryVersion } = useSelector((state: RootState) => {
-    return state.certificate;
-  });
+  const tokenRegistryVersion = useTokenRegistryVersion();
   const onOverlayHandler = () => {
     showOverlay(<OverlayAddressBook onAddressSelected={onSetNewValue} network={NETWORK_NAME} title="Address Book" />);
   };

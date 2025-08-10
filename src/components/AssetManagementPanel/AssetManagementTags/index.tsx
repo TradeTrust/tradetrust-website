@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
 import { DOCUMENT_SCHEMA } from "../../../reducers/certificate";
 import { TokenRegistryVersions } from "../../../constants";
+import { useTokenRegistryVersion } from "../../../common/hooks/useTokenRegistryVersion";
 
 interface AssetManagementTagsProps {
   isTransferableDocument?: boolean;
@@ -12,7 +13,8 @@ interface AssetManagementTagsProps {
 export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = ({
   isTransferableDocument = false,
 }) => {
-  const { documentSchema, tokenRegistryVersion } = useSelector((state: RootState) => state.certificate);
+  const { documentSchema } = useSelector((state: RootState) => state.certificate);
+  const tokenRegistryVersion = useTokenRegistryVersion();
 
   const tagCSSBlue = "bg-cerulean-300/[25%] text-cerulean-500 rounded-full font-gilroy-bold";
   const tagCSOrange = "bg-tangerine-500/[24%] text-tangerine-500 rounded-full font-gilroy-bold";
