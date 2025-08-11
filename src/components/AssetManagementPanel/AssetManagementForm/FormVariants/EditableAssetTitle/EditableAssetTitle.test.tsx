@@ -1,6 +1,10 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
 import { EditableAssetTitle } from "./EditableAssetTitle";
+import * as registryVersion from "../../../../../common/hooks/useTokenRegistryVersion";
+import { TokenRegistryVersions } from "../../../../../constants";
+
+jest.spyOn(registryVersion, "useTokenRegistryVersion").mockReturnValue("V5" as TokenRegistryVersions.V5);
 
 it("should display both the role and the value when not in editable format", async () => {
   await act(async () => {

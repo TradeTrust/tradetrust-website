@@ -10,6 +10,8 @@ import { useProviderContext } from "../../contexts/provider";
 import { configureStore } from "../../../store";
 import { useEndorsementChain } from "./useEndorsementChain";
 import { mock } from "./useEndorsementChain.mock";
+import * as registryVersion from "../useTokenRegistryVersion";
+import { TokenRegistryVersions } from "../../../constants";
 
 jest.mock("../../contexts/provider");
 
@@ -31,6 +33,7 @@ describe("useEndorsementChain|integration", () => {
   });
 
   it("should show error message when token registry version is invalid", async () => {
+    jest.spyOn(registryVersion, "useTokenRegistryVersion").mockReturnValue("V4" as TokenRegistryVersions.V4);
     const { result } = renderHook(
       () => {
         const tokenRegistryAddress = "0x71D28767662cB233F887aD2Bb65d048d760bA694";
@@ -61,6 +64,7 @@ describe("useEndorsementChain|integration", () => {
 
   it("should work correctly for a given tokenRegistryAddress + tokenId with Transfer, Surrender, Burnt events", async () => {
     // Mirror mock function from trustvc endorsement-chain.test.ts
+    jest.spyOn(registryVersion, "useTokenRegistryVersion").mockReturnValue("V5" as TokenRegistryVersions.V5);
     const grouped = _.groupBy(mock, "function");
     for (const [group, value] of Object.entries(
       grouped as { [key: string]: { function: string; params: any; result: any }[] }
