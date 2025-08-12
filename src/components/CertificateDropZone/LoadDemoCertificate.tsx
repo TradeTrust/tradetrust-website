@@ -12,8 +12,9 @@ export const LoadDemoCertificate: FunctionComponent = () => {
       <div className="flex flex-col xs:flex-row justify-center gap-2 mt-4">
         <Button
           className="bg-white rounded-xl border-cloud-100 text-cerulean-500 shadow-none hover:bg-cloud-200 w-full xs:w-72"
-          onClick={async () => {
-            window.location.href = URLS.GALLERY;
+          onClick={async (e) => {
+            e.preventDefault();
+            window.open(URLS.GALLERY, "_blank");
           }}
         >
           View Demo Tradetrust Document
