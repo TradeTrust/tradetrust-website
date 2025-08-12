@@ -4,8 +4,6 @@ import { useTokenInformationContext } from "../../contexts/TokenInformationConte
 import { getErrorMessage } from "../../utils/errorHandling";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { EndorsementChain, fetchEndorsementChain } from "@trustvc/trustvc";
-import { useTokenRegistryVersion } from "../useTokenRegistryVersion";
-import { TokenRegistryVersions } from "../../../constants";
 
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
@@ -22,7 +20,6 @@ export const useEndorsementChain = (
   const [endorsementChain, setEndorsementChain] = useState<EndorsementChain>();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
   const { titleEscrowAddress } = useTokenInformationContext();
-  const tokenRegistryVersion = useTokenRegistryVersion();
   /*
     retrieve transactions from token registry and title escrow events
     merge, sort and provide history of events
@@ -33,10 +30,6 @@ export const useEndorsementChain = (
     setPending(true);
     setError("");
     try {
-      if (tokenRegistryVersion !== TokenRegistryVersions.V5) {
-        throw new Error('"Only Token Registry V5 is supported"');
-      }
-
       const retrievedEndorsementChain = await fetchEndorsementChain(
         tokenRegistryAddress,
         tokenId,
@@ -49,16 +42,7 @@ export const useEndorsementChain = (
       setError(getErrorMessage(e));
     }
     setPending(false);
-  }, [
-    provider,
-    providerOrSigner,
-    tokenId,
-    tokenRegistry,
-    tokenRegistryAddress,
-    tokenRegistryVersion,
-    keyId,
-    titleEscrowAddress,
-  ]);
+  }, [provider, providerOrSigner, tokenId, tokenRegistry, tokenRegistryAddress, keyId, titleEscrowAddress]);
 
   useEffect(() => {
     fetchEndorsementChainV5();

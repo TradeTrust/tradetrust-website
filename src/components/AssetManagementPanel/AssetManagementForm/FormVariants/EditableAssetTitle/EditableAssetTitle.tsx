@@ -49,9 +49,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
           maxLength={120}
           value={newValue}
           placeholder={
-            tokenRegistryVersion === TokenRegistryVersions.V5
-              ? `Enter remarks here (max 120 characters)`
-              : "Supported only on v5"
+            tokenRegistryVersion === TokenRegistryVersions.V5 ? `Enter remarks here (max 120 characters)` : "-"
           }
           disabled={isSubmitted || tokenRegistryVersion !== TokenRegistryVersions.V5}
           style={{
@@ -66,7 +64,13 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
         />
         <div className="text-cloud-300 my-2 flex items-start space-x-2 w-full" data-testid="remarks-icon-text">
           <div className="w-auto mr-2">
-            <TooltipIcon content="Any remarks provided will be accessible in the endorsement chain by any verifiers of this document.">
+            <TooltipIcon
+              content={
+                tokenRegistryVersion !== TokenRegistryVersions.V5
+                  ? "Unsupported on Token Registry V4"
+                  : "Any remarks provided will be accessible in the endorsement chain by any verifiers of this document."
+              }
+            >
               <Info />
             </TooltipIcon>
           </div>
@@ -78,7 +82,9 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
               margin: 0,
             }}
           >
-            Any remarks provided will be accessible in the endorsement chain by any verifiers of this document.
+            {tokenRegistryVersion !== TokenRegistryVersions.V5
+              ? "Unsupported on Token Registry V4"
+              : "Any remarks provided will be accessible in the endorsement chain by any verifiers of this document."}
           </p>
         </div>
       </AssetTitle>
