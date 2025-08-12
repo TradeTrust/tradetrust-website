@@ -16,13 +16,19 @@ fixture("Demo Sample Certificate Rendering").page`${location}`;
 //   await validateIframeTexts(["Name & Address of Shipping Agent/Freight Forwarder"]);
 // });
 
-test("demo certificate button redirects to gallery correctly", async (t) => {
+test("demo certificate button opens gallery in new tab", async (t) => {
   await navigateToVerify();
 
-  await t.click(Selector("button").withText("View Demo Tradetrust Document"));
-  // Wait for redirect to happen
-  await t.wait(2000);
+  await t.eval(() => {
+    (window as any).openedUrl = null;
+    window.open = function (url) {
+      (window as any).openedUrl = url;
+      return { close: () => {} } as any;
+    };
+  });
 
-  const newUrl = await t.eval(() => window.location.href);
-  await t.expect(newUrl).contains("gallery.tradetrust.io");
+  await t.click(Selector("button").withText("View Demo Tradetrust Document"));
+  await t.wait(500);
+  const openedUrl = await t.eval(() => (window as any).openedUrl);
+  await t.expect(openedUrl).contains("gallery.tradetrust.io");
 });
