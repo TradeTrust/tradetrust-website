@@ -1,12 +1,21 @@
 import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import React from "react";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { EndorsementChainLayout } from "./EndorsementChainLayout";
 import { EndorsementChain } from "@trustvc/trustvc";
 
 jest.mock("@govtechsg/address-identity-resolver", () => ({ useIdentifierResolver: jest.fn() }));
 
 const mockUseIdentifierResolver = useIdentifierResolver as jest.Mock;
+
+// Create a mock store for Redux Provider
+const store = configureStore({
+  reducer: {
+    certificate: () => ({ tokenRegistryVersion: "v4" }),
+  },
+});
 
 const initialEndorsementChain: EndorsementChain = [
   {
@@ -161,12 +170,14 @@ describe("EndorsementChainLayout", () => {
   it("should render the loading component when pending is true", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={true}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={true}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getAllByTestId("loader-skeleton")?.length).toBeGreaterThan(1);
   });
@@ -174,13 +185,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'Document has been issued'", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={initialEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={initialEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document has been issued");
     expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent(
@@ -194,13 +207,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'Transfer holdership' and new address of new holder when there is a change in holdership from previous holder", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={transferHolderEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={transferHolderEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Transfer holdership");
     expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent(
@@ -211,13 +226,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'Transfer ownership' and new address of new beneficiary when there is a change in ownership from previous beneficiary", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={endorseBeneficiaryEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={endorseBeneficiaryEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Transfer ownership");
     expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Owner")).toHaveTextContent(
@@ -228,13 +245,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'Transfer ownership and holdership' and address of beneficiary and Holder", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={changeOwnersEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={changeOwnersEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Transfer ownership and holdership");
     expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent(
@@ -248,13 +267,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'ETR returned to issuer' when document is surrendered and sent to token registry", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={surrenderEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={surrenderEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("ETR returned to issuer");
   });
@@ -262,13 +283,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'Return of ETR rejected' and addresses of previous beneficiary and holder when surrendered document is rejected by token registry", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={rejectSurrenderedEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={rejectSurrenderedEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("ETR returned to issuer");
     expect(screen.getByTestId("row-event-1")).toHaveTextContent("Return of ETR rejected");
@@ -283,13 +306,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'Surrender of document accepted' when surrendered document is accepted and burnt by token registry", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={acceptSurrenderedEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={acceptSurrenderedEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("ETR returned to issuer");
     expect(screen.getByTestId("row-event-1")).toHaveTextContent("ETR taken out of circulation");
@@ -298,13 +323,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'Reject transfer of beneficiary' when transfer of beneficiary is rejected by token registry", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={rejectTransferBeneficiaryEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={rejectTransferBeneficiaryEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Rejection of ownership");
     expect(within(screen.getByTestId("row-event-Holder")).queryByTestId("address-entity")).not.toBeInTheDocument();
@@ -316,13 +343,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'Reject transfer of holder' when transfer of holder is rejected by token registry", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={rejectTransferHolderEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={rejectTransferHolderEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Rejection of holdership");
     expect(within(screen.getByTestId("row-event-Owner")).queryByTestId("address-entity")).not.toBeInTheDocument();
@@ -334,13 +363,15 @@ describe("EndorsementChainLayout", () => {
   it("should render 'Reject transfer of owners' when transfer of owners is rejected by token registry", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-        endorsementChain={rejectTransferOwnersEndorsementChain}
-        setShowEndorsementChain={() => {}}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={rejectTransferOwnersEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
     );
 
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Rejection of holdership");
@@ -362,13 +393,15 @@ describe("EndorsementChainLayout", () => {
     const mockSetShowEndorsementChain = jest.fn();
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
     render(
-      <EndorsementChainLayout
-        endorsementChain={transferHolderEndorsementChain}
-        setShowEndorsementChain={mockSetShowEndorsementChain}
-        providerDocumentationURL={""}
-        error={""}
-        pending={false}
-      />
+      <Provider store={store}>
+        <EndorsementChainLayout
+          endorsementChain={transferHolderEndorsementChain}
+          setShowEndorsementChain={mockSetShowEndorsementChain}
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+        />
+      </Provider>
     );
     act(() => {
       fireEvent.click(screen.getByTestId("back-button"));

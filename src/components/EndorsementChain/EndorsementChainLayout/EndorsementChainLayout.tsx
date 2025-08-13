@@ -5,6 +5,8 @@ import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";
 import { EndorsementChain } from "@trustvc/trustvc";
 import { BackArrow } from "../../UI/Nav";
+import { useTokenRegistryVersion } from "../../../common/hooks/useTokenRegistryVersion";
+import { TokenRegistryVersions } from "../../../constants";
 
 interface EndorsementChainLayout {
   endorsementChain?: EndorsementChain;
@@ -107,6 +109,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
         });
         break;
       case "RETURNED_TO_ISSUER":
+      case "SURRENDERED":
         historyChain.push({
           action: ActionType.RETURNED_TO_ISSUER,
           isNewBeneficiary: true,
@@ -116,6 +119,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
         });
         break;
       case "RETURN_TO_ISSUER_ACCEPTED":
+      case "SURRENDER_ACCEPTED":
         historyChain.push({
           action: ActionType.RETURN_TO_ISSUER_ACCEPTED,
           isNewBeneficiary: false,
@@ -125,6 +129,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
         });
         break;
       case "RETURN_TO_ISSUER_REJECTED":
+      case "SURRENDER_REJECTED":
         historyChain.push({
           action: ActionType.RETURN_TO_ISSUER_REJECTED,
           isNewBeneficiary: true,
@@ -289,6 +294,7 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
   providerDocumentationURL,
 }) => {
   const historyChain = getHistoryChain(endorsementChain);
+  const tokenRegistryVersion = useTokenRegistryVersion();
 
   return (
     <div className="container my-8">
@@ -312,7 +318,11 @@ export const EndorsementChainLayout: FunctionComponent<EndorsementChainLayout> =
             <h5 className="w-1/4">Action/Date</h5>
             <h5 className="w-1/4">Owner</h5>
             <h5 className="w-1/4">Holder</h5>
-            <h5 className="w-1/4">Remark</h5>
+            {tokenRegistryVersion === TokenRegistryVersions.V5 ? (
+              <h5 className="w-1/4">Remark</h5>
+            ) : (
+              <h5 className="w-1/4 text-cloud-400">Remark (Unavailable on TR V4)</h5>
+            )}
           </div>
           <div className="border-t border-cloud-100 border-solid my-2 w-full" />
         </div>
