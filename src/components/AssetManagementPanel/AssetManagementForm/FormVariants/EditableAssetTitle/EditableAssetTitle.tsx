@@ -9,6 +9,8 @@ import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 import { OverlayAddressBook } from "../../../../AddressBook";
 import { ButtonIcon } from "../../../../Button";
 import { Input } from "../../../../UI/Input";
+import { useTokenRegistryVersion } from "../../../../../common/hooks/useTokenRegistryVersion";
+import { TokenRegistryVersions } from "../../../../../constants";
 
 interface EditableAssetTitleProps {
   role: string;
@@ -32,7 +34,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   isSubmitted,
 }) => {
   const { showOverlay } = useOverlayContext();
-
+  const tokenRegistryVersion = useTokenRegistryVersion();
   const onOverlayHandler = () => {
     showOverlay(<OverlayAddressBook onAddressSelected={onSetNewValue} network={NETWORK_NAME} title="Address Book" />);
   };
@@ -46,8 +48,12 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
           data-testid={`editable-input-${role.toLowerCase()}`}
           maxLength={120}
           value={newValue}
-          placeholder={`Enter remarks here (max 120 characters)`}
-          disabled={isSubmitted}
+          placeholder={
+            tokenRegistryVersion === TokenRegistryVersions.V5
+              ? `Enter remarks here (max 120 characters)`
+              : "Supported only on v5"
+          }
+          disabled={isSubmitted || tokenRegistryVersion !== TokenRegistryVersions.V5}
           style={{
             overflowWrap: "break-word",
             whiteSpace: "pre-wrap",

@@ -7,6 +7,7 @@ import { Page } from "../components/Layout/Page";
 import { useTokenInformationContext } from "../common/contexts/TokenInformationContext";
 import { NetworkSelect } from "../components/Layout/NetworkSelect";
 import { LoaderSpinner } from "../components/UI/Loader";
+import { useTokenRegistryVersion } from "../common/hooks/useTokenRegistryVersion";
 
 const EndorsementChainPage: React.FC = () => {
   const [tokenRegistry, setTokenRegistry] = useState("");
@@ -19,7 +20,6 @@ const EndorsementChainPage: React.FC = () => {
     initialize,
     tokenRegistryAddress: tokenRegistryContext,
     tokenId: tokenIdContext,
-    version,
     beneficiary,
     holder,
     prevHolder,
@@ -31,6 +31,7 @@ const EndorsementChainPage: React.FC = () => {
     isTitleEscrow,
     titleEscrowAddress,
   } = useTokenInformationContext();
+  const version = useTokenRegistryVersion();
 
   const { currentChainId, provider, networkChangeLoading } = useProviderContext();
 

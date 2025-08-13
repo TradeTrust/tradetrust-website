@@ -1,9 +1,7 @@
-import { v5Contracts } from "@trustvc/trustvc";
-
 import { BytesLike } from "ethers";
 import { useEffect, useState } from "react";
 import { useContractFunctionHook } from "./useContractFunctionHook";
-type TradeTrustToken = typeof v5Contracts.TradeTrustToken;
+import { TradeTrustToken } from "../../types";
 export const useTokenRegistryRole = ({
   account,
   role,

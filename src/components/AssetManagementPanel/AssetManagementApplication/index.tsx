@@ -1,4 +1,4 @@
-import { v5RoleHash } from "@trustvc/trustvc";
+import { v5RoleHash, v4RoleHash } from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { Upload } from "react-feather";
 import { Link } from "react-router-dom";
@@ -13,6 +13,8 @@ import { Banner } from "../../UI/Banner";
 import { AssetManagementActions } from "../AssetManagementActions";
 import { AssetManagementForm } from "../AssetManagementForm";
 import { TagBordered } from "../../UI/Tag";
+import { useTokenRegistryVersion } from "../../../common/hooks/useTokenRegistryVersion";
+import { TokenRegistryVersions } from "../../../constants";
 
 interface AssetManagementIsTransferableDocumentProps {
   isMagicDemo?: boolean;
@@ -96,17 +98,18 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
   const [assetManagementAction, setAssetManagementAction] = useState<AssetManagementActions>(
     AssetManagementActions.None
   );
+  const tokenRegistryVersion = useTokenRegistryVersion();
   const { provider, account } = useProviderContext();
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
   const { hasRole: hasAccepterRole } = useTokenRegistryRole({
     tokenRegistry,
     account,
-    role: v5RoleHash.AccepterRole,
+    role: tokenRegistryVersion === TokenRegistryVersions.V4 ? v4RoleHash.AccepterRole : v5RoleHash.AccepterRole,
   });
   const { hasRole: hasRestorerRole } = useTokenRegistryRole({
     tokenRegistry,
     account,
-    role: v5RoleHash.RestorerRole,
+    role: tokenRegistryVersion === TokenRegistryVersions.V4 ? v4RoleHash.RestorerRole : v5RoleHash.RestorerRole,
   });
 
   const onDestroyToken = (remarks: string = "0x") => {
@@ -210,7 +213,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             </div>
           )
         )}
-        {renderBanner(isSampleDocument, isMagicDemo)}
+        {!isTransferableDocument && renderBanner(isSampleDocument, isMagicDemo)}
       </div>
     </div>
   );

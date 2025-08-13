@@ -1,4 +1,3 @@
-import { v5Contracts } from "@trustvc/trustvc";
 import { TypedContractMethod } from "@trustvc/trustvc";
 import { BaseContract, ContractReceipt, ContractTransaction } from "ethers";
 import { useCallback, useState } from "react";
@@ -16,6 +15,7 @@ import {
   rejectTransferOwners,
 } from "@trustvc/trustvc";
 import { RootState } from "../../reducers";
+import { TitleEscrow, TradeTrustToken } from "../../types";
 
 // Create a mapping of method names to trustvc functions
 const trustvcFunctions: Record<string, (...args: any[]) => any> = {
@@ -32,8 +32,6 @@ const trustvcFunctions: Record<string, (...args: any[]) => any> = {
 };
 export type ContractFunctionState = "UNINITIALIZED" | "INITIALIZED" | "PENDING_CONFIRMATION" | "CONFIRMED" | "ERROR";
 type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
-type TitleEscrow = typeof v5Contracts.TitleEscrow;
-type TradeTrustToken = typeof v5Contracts.TradeTrustToken;
 // Todo
 // Deploy
 // Deploy & Initialize
@@ -129,6 +127,7 @@ export function useContractFunctionHook<
 
     // @ts-ignore: check for v4 contracts support
     const contractMethod = contract?.functions?.[method as string] ?? contract[method];
+    if (!contractMethod) return;
     const deferredTx = contractMethod(...params);
     setState("INITIALIZED");
     try {
