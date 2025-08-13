@@ -15,6 +15,8 @@ import {
   TransferOwnerFormProps,
   TransferOwnerHolderFormProps,
 } from "./ActionForm";
+import * as registryVersion from "../../../../../common/hooks/useTokenRegistryVersion";
+import { TokenRegistryVersions } from "../../../../../constants";
 
 // Mock the chain-utils that's essential for testing encrypted remarks
 jest.mock("../../../../../common/utils/chain-utils", () => ({
@@ -52,6 +54,8 @@ const baseProps = {
   setShowEndorsementChain: jest.fn(),
   isExpired: false,
 };
+
+jest.spyOn(registryVersion, "useTokenRegistryVersion").mockReturnValue("V5" as TokenRegistryVersions.V5);
 
 describe("ActionForm", () => {
   beforeEach(() => {

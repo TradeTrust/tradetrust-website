@@ -93,7 +93,7 @@ interface UpdateCertificateAction {
 
 interface DetectingTRCertificateVersionAction {
   type: typeof types.DETECTING_TR_CERTIFICATE_VERSION;
-  payload: any;
+  payload: TokenRegistryVersions;
 }
 
 interface VerifyingCertificateAction {
@@ -261,8 +261,7 @@ export function updateCertificate(payload: any): UpdateCertificateAction {
   };
 }
 
-// TODO: Remove this after TRV5 is released
-export const detectingTRCertificateVersion = (payload: any): DetectingTRCertificateVersionAction => ({
+export const detectingTRCertificateVersion = (payload: TokenRegistryVersions): DetectingTRCertificateVersionAction => ({
   type: types.DETECTING_TR_CERTIFICATE_VERSION,
   payload,
 });
