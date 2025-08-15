@@ -3,7 +3,8 @@ import { Tag } from "../../UI/Tag";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
 import { DOCUMENT_SCHEMA } from "../../../reducers/certificate";
-import { TokenRegistryVersion, useTokenInformationContext } from "../../../common/contexts/TokenInformationContext";
+import { TokenRegistryVersions } from "../../../constants";
+import { useTokenRegistryVersion } from "../../../common/hooks/useTokenRegistryVersion";
 
 interface AssetManagementTagsProps {
   isTransferableDocument?: boolean;
@@ -12,8 +13,8 @@ interface AssetManagementTagsProps {
 export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = ({
   isTransferableDocument = false,
 }) => {
-  const documentSchema = useSelector((state: RootState) => state.certificate.documentSchema);
-  const { version } = useTokenInformationContext();
+  const { documentSchema } = useSelector((state: RootState) => state.certificate);
+  const tokenRegistryVersion = useTokenRegistryVersion();
 
   const tagCSSBlue = "bg-cerulean-300/[25%] text-cerulean-500 rounded-full font-gilroy-bold";
   const tagCSOrange = "bg-tangerine-500/[24%] text-tangerine-500 rounded-full font-gilroy-bold";
@@ -40,12 +41,12 @@ export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = 
           W3C VC
         </Tag>
       )}
-      {version === TokenRegistryVersion.V4 && (
+      {tokenRegistryVersion === TokenRegistryVersions.V4 && (
         <Tag rounded="rounded-full" className={tagCSSGrey}>
           TR V4
         </Tag>
       )}
-      {version === TokenRegistryVersion.V5 && (
+      {tokenRegistryVersion === TokenRegistryVersions.V5 && (
         <Tag rounded="rounded-full" className={tagCSOrange}>
           TR V5
         </Tag>

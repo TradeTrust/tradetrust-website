@@ -17,7 +17,6 @@ import {
 } from "../../reducers/certificate";
 import { getChainId } from "../../utils/shared";
 import { View, ViewActionError, ViewVerificationError, ViewVerificationPending } from "../DocumentDropzone/Views";
-import { ViewTokenRegistryMismatch } from "../DocumentDropzone/Views/ViewTokenRegistryMismatch";
 import NetworkSectionModel from "../NetworkSection/NetworkSectionModel";
 import { HeaderIconState } from "../UI/Overlay/OverlayContent/Modal";
 import { useNetworkSelect } from "./../../common/hooks/useNetworkSelect";
@@ -32,19 +31,14 @@ interface CertificateDropzoneProps {
 export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = (props) => {
   const { toggleQrReaderVisible } = props;
   const dispatch = useDispatch();
-  const {
-    verificationPending,
-    retrieveCertificateByActionState,
-    verificationStatus,
-    verificationError,
-    tokenRegistryV4,
-  } = useSelector((state: RootState) => {
-    return state.certificate;
-  });
+  const { verificationPending, retrieveCertificateByActionState, verificationStatus, verificationError } = useSelector(
+    (state: RootState) => {
+      return state.certificate;
+    }
+  );
   const { showOverlay, closeOverlay } = useContext(OverlayContext);
 
   const isVerificationPending = verificationPending;
-  const isTokenRegistryV4 = tokenRegistryV4;
   const isVerificationError = useMemo(() => {
     if (verificationError) return true;
     if (verificationStatus && !isValid(verificationStatus)) return true;
@@ -163,17 +157,8 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
       isVerificationPending,
       isVerificationError,
       isActionError,
-      isTokenRegistryV4,
     });
-  }, [
-    isDragReject,
-    isDragActive,
-    isDragAccept,
-    isVerificationPending,
-    isVerificationError,
-    isActionError,
-    isTokenRegistryV4,
-  ]);
+  }, [isDragReject, isDragActive, isDragAccept, isVerificationPending, isVerificationError, isActionError]);
 
   return (
     <div
@@ -185,8 +170,6 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           switch (true) {
             case isVerificationPending:
               return <ViewVerificationPending />;
-            case isTokenRegistryV4:
-              return <ViewTokenRegistryMismatch resetData={resetData} />;
             case isVerificationError:
               return <ViewVerificationError resetData={resetData} />;
             case isActionError:
@@ -197,7 +180,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
         })()}
       </div>
       <div className="my-4 w-full border border-cloud-100" />
-      <LoadDemoCertificate currentChainId={currentChainId} />
+      <LoadDemoCertificate />
     </div>
   );
 };

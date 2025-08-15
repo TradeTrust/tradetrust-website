@@ -9,6 +9,8 @@ import { SkeletonPlaceholder } from "../../SkeletonPlaceholder";
 import { OverlayAddressBook } from "../../../../AddressBook";
 import { ButtonIcon } from "../../../../Button";
 import { Input } from "../../../../UI/Input";
+import { useTokenRegistryVersion } from "../../../../../common/hooks/useTokenRegistryVersion";
+import { TokenRegistryVersions } from "../../../../../constants";
 
 interface EditableAssetTitleProps {
   role: string;
@@ -32,7 +34,7 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
   isSubmitted,
 }) => {
   const { showOverlay } = useOverlayContext();
-
+  const tokenRegistryVersion = useTokenRegistryVersion();
   const onOverlayHandler = () => {
     showOverlay(<OverlayAddressBook onAddressSelected={onSetNewValue} network={NETWORK_NAME} title="Address Book" />);
   };
@@ -46,8 +48,10 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
           data-testid={`editable-input-${role.toLowerCase()}`}
           maxLength={120}
           value={newValue}
-          placeholder={`Enter remarks here (max 120 characters)`}
-          disabled={isSubmitted}
+          placeholder={
+            tokenRegistryVersion === TokenRegistryVersions.V5 ? `Enter remarks here (max 120 characters)` : "-"
+          }
+          disabled={isSubmitted || tokenRegistryVersion !== TokenRegistryVersions.V5}
           style={{
             overflowWrap: "break-word",
             whiteSpace: "pre-wrap",
@@ -60,7 +64,13 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
         />
         <div className="text-cloud-300 my-2 flex items-start space-x-2 w-full" data-testid="remarks-icon-text">
           <div className="w-auto mr-2">
-            <TooltipIcon content="Any remarks provided will be accessible in the endorsement chain by any verifiers of this document.">
+            <TooltipIcon
+              content={
+                tokenRegistryVersion !== TokenRegistryVersions.V5
+                  ? "Unsupported on Token Registry V4"
+                  : "Any remarks provided will be accessible in the endorsement chain by any verifiers of this document."
+              }
+            >
               <Info />
             </TooltipIcon>
           </div>
@@ -72,7 +82,9 @@ export const EditableAssetTitle: FunctionComponent<EditableAssetTitleProps> = ({
               margin: 0,
             }}
           >
-            Any remarks provided will be accessible in the endorsement chain by any verifiers of this document.
+            {tokenRegistryVersion !== TokenRegistryVersions.V5
+              ? "Unsupported on Token Registry V4"
+              : "Any remarks provided will be accessible in the endorsement chain by any verifiers of this document."}
           </p>
         </div>
       </AssetTitle>

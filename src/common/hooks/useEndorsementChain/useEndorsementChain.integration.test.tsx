@@ -10,6 +10,8 @@ import { useProviderContext } from "../../contexts/provider";
 import { configureStore } from "../../../store";
 import { useEndorsementChain } from "./useEndorsementChain";
 import { mock } from "./useEndorsementChain.mock";
+import * as registryVersion from "../useTokenRegistryVersion";
+import { TokenRegistryVersions } from "../../../constants";
 
 jest.mock("../../contexts/provider");
 
@@ -30,11 +32,34 @@ describe("useEndorsementChain|integration", () => {
     mockUseProviderContext.mockReturnValue({ provider: amoyProvider, providerOrSigner: amoyProvider });
   });
 
-  it("should show error message when token registry version is invalid", async () => {
+  it("should work correctly for a given tokenRegistryAddress + tokenId with V4 token registry", async () => {
+    // Test V4 token registry version with same mock data
+    jest.spyOn(registryVersion, "useTokenRegistryVersion").mockReturnValue("V4" as TokenRegistryVersions.V4);
+    const grouped = _.groupBy(mock, "function");
+    for (const [group, value] of Object.entries(
+      grouped as { [key: string]: { function: string; params: any; result: any }[] }
+    )) {
+      const originalMethod = (ethers.providers.JsonRpcProvider.prototype as any)[group];
+      jest
+        .spyOn(ethers.providers.JsonRpcProvider.prototype, group as any)
+        .mockImplementation(async function (this: InstanceType<typeof ethers.providers.Provider>, ...params: any[]) {
+          const cache = new Map();
+          for (const item of value) {
+            cache.set(JSON.stringify(item.params), item.result);
+          }
+          if (cache.has(JSON.stringify(params))) {
+            return cache.get(JSON.stringify(params));
+          } else {
+            const result = await originalMethod.apply(this, params);
+            cache.set(JSON.stringify(params), result);
+            return result;
+          }
+        });
+    }
     const { result } = renderHook(
       () => {
-        const tokenRegistryAddress = "0x71D28767662cB233F887aD2Bb65d048d760bA694";
-        const tokenId = "0x780e38c6345dac12cedb7aacc69492ff31cc5236cd60da46261aa1c27691141e";
+        const tokenRegistryAddress = "0x3781bd0bbd15Bf5e45c7296115821933d47362be";
+        const tokenId = "0xe3fa2bbdbfd093d2bb4e1555dde01338af25d5cf1d6d87bd0f22d7302f133f9a";
 
         const { initialize } = useTokenInformationContext();
         useEffect(() => {
@@ -46,13 +71,17 @@ describe("useEndorsementChain|integration", () => {
       },
       { wrapper }
     );
-
     await act(async () => {
       await waitFor(
         () => {
-          expect(result.current.error).toBe('"Only Token Registry V5 is supported"');
-          expect(result.current.endorsementChain).toBe(undefined);
+          expect(result.current.endorsementChain).toBeTruthy();
           expect(result.current.pending).toBe(false);
+          expect(result.current.error).toBe("");
+          // V4 should return valid endorsement chain data, just like V5
+          expect(Array.isArray(result.current.endorsementChain)).toBe(true);
+          if (result.current.endorsementChain) {
+            expect(result.current.endorsementChain.length).toBeGreaterThan(0);
+          }
         },
         { timeout: 120_000 }
       );
@@ -61,6 +90,7 @@ describe("useEndorsementChain|integration", () => {
 
   it("should work correctly for a given tokenRegistryAddress + tokenId with Transfer, Surrender, Burnt events", async () => {
     // Mirror mock function from trustvc endorsement-chain.test.ts
+    jest.spyOn(registryVersion, "useTokenRegistryVersion").mockReturnValue("V5" as TokenRegistryVersions.V5);
     const grouped = _.groupBy(mock, "function");
     for (const [group, value] of Object.entries(
       grouped as { [key: string]: { function: string; params: any; result: any }[] }

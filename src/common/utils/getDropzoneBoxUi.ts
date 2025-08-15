@@ -15,7 +15,6 @@ interface GetDropzoneBoxUi {
   isVerificationPending: boolean;
   isVerificationError: boolean | null;
   isActionError?: boolean | null;
-  isTokenRegistryV4?: boolean;
 }
 
 export const getDropzoneBoxUi = ({
@@ -25,7 +24,6 @@ export const getDropzoneBoxUi = ({
   isVerificationPending,
   isVerificationError,
   isActionError,
-  isTokenRegistryV4,
 }: GetDropzoneBoxUi): string => {
   switch (true) {
     case isDragReject:
@@ -37,7 +35,6 @@ export const getDropzoneBoxUi = ({
     case isVerificationPending:
       return DropzoneBoxUiState.VERIFICATION_PENDING;
     case isVerificationError:
-    case isTokenRegistryV4:
       return DropzoneBoxUiState.VERIFICATION_ERROR;
     case isActionError:
       return DropzoneBoxUiState.ACTION_ERROR;

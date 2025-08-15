@@ -8,6 +8,8 @@ import { WrappedOrSignedOpenAttestationDocument } from "../../../../../utils/sha
 import { Overlay } from "../../../../UI/Overlay";
 import { ActionSelectionForm } from "./ActionSelectionForm";
 import { MemoryRouter } from "react-router-dom";
+import * as registryVersion from "../../../../../common/hooks/useTokenRegistryVersion";
+import { TokenRegistryVersions } from "../../../../../constants";
 
 const defaultProps = {
   setShowEndorsementChain: () => {},
@@ -34,6 +36,8 @@ const defaultProps = {
   canRejectOwnerTransfer: false,
   isExpired: false,
 };
+
+jest.spyOn(registryVersion, "useTokenRegistryVersion").mockReturnValue("V5" as TokenRegistryVersions.V5);
 
 describe("ActionSelectionForm", () => {
   it("should display the active wallet", async () => {

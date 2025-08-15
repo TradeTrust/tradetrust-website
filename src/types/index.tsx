@@ -2,6 +2,7 @@ import { HostActions } from "@tradetrust-tt/decentralized-renderer-react-compone
 import { ChainId } from "./../constants/chain-info";
 import { Accept } from "react-dropzone";
 import { ValidationError } from "@apideck/better-ajv-errors";
+import { v4Contracts, v5Contracts } from "@trustvc/trustvc";
 
 export interface TemplateProps {
   id: string;
@@ -105,3 +106,6 @@ export interface SetFormParams {
 export interface Config {
   forms: FormTemplate;
 }
+
+export type TitleEscrow = typeof v5Contracts.TitleEscrow | typeof v4Contracts.TitleEscrow;
+export type TradeTrustToken = typeof v5Contracts.TradeTrustToken | typeof v4Contracts.TradeTrustToken;
