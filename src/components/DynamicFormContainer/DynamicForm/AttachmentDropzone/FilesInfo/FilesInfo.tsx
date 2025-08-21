@@ -20,8 +20,15 @@ export const FilesInfo: FunctionComponent<FilesInfoType> = ({ filesInfo, removeF
         const name = file.filename || file.fileName; // v2 or v3 attachment
         const type = file.type || file.mimeType; // v2 or v3 attachment
 
-        const decodedData = atob(data);
-        const size = prettyBytes(decodedData.length);
+        let decodedData = "";
+        let size = "0 B";
+        try {
+          decodedData = atob(data);
+          size = prettyBytes(decodedData.length);
+        } catch (e) {
+          console.warn("Invalid base64 data in file info:", e);
+          size = "Unknown size";
+        }
         return (
           <li
             key={key}
