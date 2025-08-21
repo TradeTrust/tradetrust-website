@@ -6,12 +6,14 @@ let config = {
         targets: {
           node: "current",
         },
+        modules: "commonjs",
       },
     ],
     "@babel/preset-typescript",
     "@babel/preset-react",
   ],
-  sourceType: "module",
+  plugins: ["@babel/plugin-transform-modules-commonjs"],
+  sourceType: "unambiguous",
 };
 
 module.exports = config;
