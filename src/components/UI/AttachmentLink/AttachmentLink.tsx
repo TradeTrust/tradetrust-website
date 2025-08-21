@@ -80,9 +80,11 @@ const isOpenAttestationFile = (decodedData: string) => {
 export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filename, data, type, path }) => {
   let filesize = "0";
   let canOpenFile = false;
+
+  const prefix = `data:${type};base64,`;
   const hasBase64 = !!(data && type);
   const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "#";
-  const decodedData = atob(data);
+  const decodedData = atob(data.startsWith(prefix) ? data.slice(prefix.length).trim() : data);
   canOpenFile = isOpenAttestationFile(decodedData);
   filesize = prettyBytes(decodedData.length);
 
