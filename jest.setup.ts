@@ -1,8 +1,13 @@
 import debug from "debug";
 import { TextEncoder, TextDecoder } from "util";
+import { Crypto, CryptoKey } from "@peculiar/webcrypto";
+
+const crypto = new Crypto();
 Object.assign(global, {
   TextDecoder,
   TextEncoder,
+  crypto,
+  CryptoKey,
 });
 // jest.setup.js
 
@@ -22,5 +27,10 @@ const createRange = () => ({
 });
 window.alert = jest.fn();
 window.fetch = jest.fn();
+
+// // Polyfill Web Crypto
+// const cryptoInstance = new Crypto();
+// (globalThis as any).crypto = cryptoInstance;
+// (global as any).crypto.subtle = cryptoInstance.subtle;
 
 Object.defineProperty(document, "createRange", createRange);
