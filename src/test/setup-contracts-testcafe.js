@@ -3,7 +3,7 @@ const path = require("path");
 const { ethers, Wallet } = require("ethers");
 const ERC1967Proxy_artifact = require("./fixture/artifacts/ERC1967Proxy.json"); // Assuming this is the correct deployable proxy artifact
 
-// Import only the specific modules we need to avoid problematic ESM dependencies
+// Import only specific modules to avoid problematic ESM dependencies
 const v5ContractsPath = path.resolve(
   __dirname,
   "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/contracts.js"
