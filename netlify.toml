@@ -3,9 +3,8 @@
   to = "https://www.form.gov.sg/635f32c5001b2d0011fff09b"
 
 [[redirects]]
-  from = "/*"
+  from = "/"
   to = "https://ref.tradetrust.io"
-  status = 200
 
 [build]
   ignore = "git log -1 --pretty=%B | grep dependabot"
