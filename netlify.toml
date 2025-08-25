@@ -1,19 +1,10 @@
 [[redirects]]
-  from = "/imd@"
-  to = "/imd@/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/resources"
-  to = "/learn"
-
-[[redirects]]
   from = "/contact"
   to = "https://www.form.gov.sg/635f32c5001b2d0011fff09b"
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "https://ref.tradetrust.io"
   status = 200
 
 [build]
