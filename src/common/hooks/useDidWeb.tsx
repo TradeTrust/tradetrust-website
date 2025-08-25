@@ -1,4 +1,4 @@
-import { queryDidDocument } from "@trustvc/trustvc/w3c/issuer";
+import { CryptoSuite, VerificationType, queryDidDocument } from "@trustvc/trustvc/w3c/issuer";
 import { useState } from "react";
 
 type CreateDidWebResult = {
@@ -28,6 +28,12 @@ export const useDidWeb = (): useDidWebResult => {
     }
     const response: Response = await fetch(`${didCreateServer}/didweb`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        type: CryptoSuite.EcdsaSd2023,
+      }),
     });
     return await response.json();
   };
@@ -41,6 +47,13 @@ export const useDidWeb = (): useDidWebResult => {
     try {
       const localStorageDid = localStorage.getItem("did") as string;
       const localStorageId = localStorage.getItem("didId") as string;
+      const parsedDid = JSON.parse(localStorageDid);
+
+      if (parsedDid.type !== VerificationType.Multikey) {
+        localStorage.removeItem("did");
+        localStorage.removeItem("didId");
+        return false;
+      }
 
       if (!localStorageDid || !localStorageId) {
         return false;
@@ -52,7 +65,7 @@ export const useDidWeb = (): useDidWebResult => {
         return false;
       }
 
-      setDidKeyPair(JSON.parse(localStorageDid));
+      setDidKeyPair(parsedDid);
       setDidWebId(localStorageId);
 
       return localStorageId;
