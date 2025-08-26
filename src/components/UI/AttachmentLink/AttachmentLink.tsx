@@ -82,9 +82,16 @@ export const AttachmentLink: FunctionComponent<AttachmentLinkProps> = ({ filenam
   let canOpenFile = false;
   const hasBase64 = !!(data && type);
   const downloadHref = hasBase64 ? `data:${type};base64,${data}` : path || "#";
-  const decodedData = atob(data);
-  canOpenFile = isOpenAttestationFile(decodedData);
-  filesize = prettyBytes(decodedData.length);
+  let decodedData = "";
+  try {
+    decodedData = atob(data);
+    canOpenFile = isOpenAttestationFile(decodedData);
+    filesize = prettyBytes(decodedData.length);
+  } catch (e) {
+    console.warn("Invalid base64 data in attachment link:", e);
+    canOpenFile = false;
+    filesize = "Unknown size";
+  }
 
   return (
     <div className="transition duration-300 ease-out flex-1 rounded-xl border border-cloud-100 shadow-lg py-2 px-4 hover:no-underline">
