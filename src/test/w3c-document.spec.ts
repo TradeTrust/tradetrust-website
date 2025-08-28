@@ -35,15 +35,15 @@ const basicTestScenarios = [
     description: "basic W3C VC document",
   },
   {
-    version: "v1",
-    credentialFile: "./fixture/local/w3c/v1_tr_er_ECDSA_V2_0_Signed.json",
+    version: "v2.0",
+    credentialFile: "./fixture/local/w3c/v2_tr_er_ECDSA_Signed.json",
     dateField: "validFrom",
     dateValue: "2024-04-01T12:19:52Z",
     description: "ECDSA V2.0 Signed W3C VC document",
   },
   {
-    version: "v1",
-    credentialFile: "./fixture/local/w3c/v1_tr_er_ECDSA_V2_0_Derived.json",
+    version: "v2.0",
+    credentialFile: "./fixture/local/w3c/v2_tr_er_ECDSA_Derived.json",
     dateField: "validFrom",
     dateValue: "2024-04-01T12:19:52Z",
     description: "ECDSA V2.0 Derived W3C VC document",
@@ -60,15 +60,15 @@ const attachmentTestScenarios = [
     description: "W3C VC document with attachments",
   },
   {
-    version: "v1",
-    credentialFile: "./fixture/local/w3c/v1_tr_er_attachment_ECDSA_V_2_0_Signed.json",
+    version: "v2.0",
+    credentialFile: "./fixture/local/w3c/v2_tr_er_attachment_ECDSA_Signed.json",
     dateField: "validFrom",
     dateValue: "2024-04-01T12:19:52Z",
     description: "ECDSA V2.0 Signed W3C VC document with attachments",
   },
   {
-    version: "v1",
-    credentialFile: "./fixture/local/w3c/v1_tr_er_attachment_ECDSA_V_2_0_Derived.json",
+    version: "v2.0",
+    credentialFile: "./fixture/local/w3c/v2_tr_er_attachment_ECDSA_Derived.json",
     dateField: "validFrom",
     dateValue: "2024-04-01T12:19:52Z",
     description: "ECDSA V2.0 Derived W3C VC document with attachments",
@@ -80,7 +80,11 @@ basicTestScenarios.forEach((scenario) => {
   test(`should render correctly when ${scenario.description} contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER`, async () => {
     await navigateToVerify();
     await uploadDocument(scenario.credentialFile);
-    await validateIssuerTexts(["DID:WEB:TRUSTVC.GITHUB.IO:DID:1"]);
+    await validateIssuerTexts([
+      scenario.version === "v2.0"
+        ? "DID:WEB:DISAPPOINTED-BLUSH-MOUSE.PLAYGROUND.FYNTECH.IO"
+        : "DID:WEB:TRUSTVC.GITHUB.IO:DID:1",
+    ]);
     await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
   });
 });
@@ -90,7 +94,11 @@ attachmentTestScenarios.forEach((scenario) => {
   test(`should render correctly when ${scenario.description} contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER and attachment`, async (t) => {
     await navigateToVerify();
     await uploadDocument(scenario.credentialFile);
-    await validateIssuerTexts(["DID:WEB:TRUSTVC.GITHUB.IO:DID:1"]);
+    await validateIssuerTexts([
+      scenario.version === "v2.0"
+        ? "DID:WEB:DISAPPOINTED-BLUSH-MOUSE.PLAYGROUND.FYNTECH.IO"
+        : "DID:WEB:TRUSTVC.GITHUB.IO:DID:1",
+    ]);
     await validateIframeTexts(["BILL OF LADING FOR OCEAN TRANSPORT OR MULTIMODAL TRANSPORT"]);
 
     // tabs number should tally

@@ -110,6 +110,8 @@ const CHAIN_ID = { local: 1337 };
         ...defaultToken,
       },
       ...[
+        "0xaad4a2a7b0cc258b99079665801a1de87e0462fdaa7676f598d2ca554b25024d",
+        "0xa23d88f5c0151074b524e31f2ced995a1767292570b4c0c1dea8a21770e49542",
         "0xe52a60e9c1308960bcf1d6c8531c58bf480aec373e1e3442a6af151475c3f89d",
         "0x1683a00c42430b72c42a8013e6695b839ab7f7b06db69835b974392613826bd2",
         "0xa0bf0f3823a8857d068740c6f936eeab2de0516161924f84fe4c1ef6061732d2", // ebl-withoutnetwork.json
