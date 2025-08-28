@@ -36,6 +36,7 @@ const continueConnectBlockchainModal = Selector('[data-testid="connect-blockchai
 const magicSigninModel = Selector("p")
   .withText(/Sign in to/)
   .parent();
+
 // placeholder text Email address
 const emailInput = magicSigninModel.find('[placeholder="Email address"]');
 const signInButton = magicSigninModel.find('[aria-label="login-submit-button"]');
