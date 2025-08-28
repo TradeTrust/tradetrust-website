@@ -6,7 +6,6 @@ import {
   SUPPORTED_CHAINS,
   W3CTransferableRecordsConfig,
   mint,
-  CryptoSuite,
 } from "@trustvc/trustvc";
 import { useState } from "react";
 import { CHAIN, ChainId, ChainInfo, Network } from "../../constants/chain-info";
@@ -20,7 +19,7 @@ import { getChainInfo } from "../utils/chain-utils";
 import { flattenData, getDataW3C } from "../utils/dataHelpers";
 import { encodeQrCode } from "../utils/qrCode";
 import { Signer } from "ethers";
-// import { CryptoSuite } from "@trustvc/trustvc/w3c/issuer";
+import { CryptoSuite } from "@trustvc/trustvc/w3c/issuer";
 
 const { stack } = getLogger("useQueue");
 
