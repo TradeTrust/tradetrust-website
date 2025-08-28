@@ -63,7 +63,6 @@ export const AttachmentDropzone: FunctionComponent<AttachmentDropzone> = ({
   };
   const defaultStyle = "bg-white";
   const activeStyle = "bg-cloud-200";
-  console.log("here");
 
   return (
     <div className="flex flex-col m-auto" key="AttachmentDropzone" data-testid="attachment-dropzone">
