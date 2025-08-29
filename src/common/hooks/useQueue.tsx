@@ -177,7 +177,9 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
       if (!localStorageDidString) throw new Error("No keypair found in localStorage");
 
       const keyPair = JSON.parse(localStorageDidString);
-      const signedDocument = await builder.sign(keyPair, CryptoSuite.EcdsaSd2023);
+      const signedDocument = await builder.sign(keyPair, CryptoSuite.EcdsaSd2023, {
+        mandatoryPointers: ["/renderMethod"],
+      });
       setDocument(signedDocument);
 
       // Minting
