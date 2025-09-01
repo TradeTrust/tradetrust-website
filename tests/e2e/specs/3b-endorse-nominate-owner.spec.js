@@ -10,7 +10,7 @@ before(() => {
 describe("Endorse Transfer of Ownership by nominating Owner", () => {
   it("should go to verify page, upload a file, connect to wallet and nominate owner successfully", () => {
     cy.visit("/");
-    cy.waitAndUploadFile("ebl-nominate-owner.json");
+    cy.waitAndUploadFile("w3c-2.0-bl-nominate-owner.json");
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.get("[data-testid='manageAssetDropdown']").click();
