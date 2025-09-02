@@ -1,0 +1,43 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://trustvc.io/context/bill-of-lading-carrier.json",
+    "https://trustvc.io/context/attachments-context.json",
+    "https://trustvc.io/context/render-method-context-v2.json",
+    "https://trustvc.io/context/transferable-records-context.json",
+    "https://w3id.org/security/data-integrity/v2"
+  ],
+  "renderMethod": [
+    {
+      "type": "EMBEDDED_RENDERER",
+      "templateName": "BILL_OF_LADING_CARRIER",
+      "id": "https://generic-templates.tradetrust.io"
+    }
+  ],
+  "credentialSubject": {
+    "type": ["BillOfLadingCarrier"],
+    "blNumber": "232323",
+    "scac": "MAEU"
+  },
+  "type": ["VerifiableCredential"],
+  "credentialStatus": {
+    "type": "TransferableRecords",
+    "tokenNetwork": {
+      "chain": "ETH",
+      "chainId": 1337
+    },
+    "tokenRegistry": "0x9Eb613a88534E2939518f4ffBFE65F5969b491FF",
+    "tokenId": "f22f8487eced43cf4b0afb2043f83877690f05ed8ecea5177305b945525b4e60"
+  },
+  "issuer": "did:web:cold-coffee-ferret.playground.fyntech.io",
+  "id": "urn:uuid:0198f56a-c350-7dd9-9ad7-4db801fea921",
+  "validFrom": "2025-08-28T03:31:37.440Z",
+  "proof": {
+    "type": "DataIntegrityProof",
+    "created": "2025-08-29T10:41:11Z",
+    "verificationMethod": "did:web:cold-coffee-ferret.playground.fyntech.io#keys-1",
+    "cryptosuite": "ecdsa-sd-2023",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "u2V0AhVhAGwckt2Z65D59uJxh9IvVd1RxD9mOXRYP6OT7FFNXHeMQrGs3uIVJl7wvizIMJk96jMC_lGLqeYUqvZY25vPoLlgjgCQCsaVkK06S4V0y8MeyJEZORnQFUsv2EhVXQSaFAdkPLbhYIEQQuH_nKyZpXPGB7i-z_vLk90sG8Fi-R--VZg9GgQQFjlhAbpVF1WfTMQlYa0cVA29E5Oq0IcbAk-coWiLwwhOxYao5oEOsvibIrGI8K22zqnBF2RVk-RZkrDn_aAnarikpyVhAjtqWhCp4ZxNL6ZzHw0MBhUJQCWj9OvVuTa1P8gr7H6T8VMFqKZkjndJP9O5lhx5gMXEvZVP9TkHNYRlnQ9dom1hAKvOVe2sNu8HhBCQ3IK3lvi9T9Y1-du_pxdYxBO3hA0PakTk0A0PcMIjvm45pclP06JNWAZ2Dt3Rk3AZb8Olcw1hAjBOB5yn7wGrXD5lTp94e8fDoVD1w1OKNFEtywulYT3zAJGIETauW0BEJ916wLS8mctdsKx4cwECyP6e64QmNaFhANxjYd4fKYQ4z7jyzzB_dLGRLXGlnVWu0ErrI6u-2peXOqdb6EQhejpkH9lvpRZxiivcxkbzld3TSdijFn92rQ1hAx-Y7azy0rkZKTl5TGItkH2HzbIkZw9U54z6u3sqfIes2CqR5JYY1izf4sTE67UQi8J3rwQWW_kMd7uPc8Dhvi1hAqK-fRqG5E-kM9vMGPnMqLzMiCb_h42iKwbf6zRyNNI64EwH3OqFBsBjWwZp8vcfWutb2eIHpcgrp1NwRFmQQWlhA1Ca_RnZW2lzzftF70Ejp5qVWPtKClsQ8pWyu_fmClBm4kl8Nx4SU2b8FpUY8-bN_uKFOTwIh5IB_5MZw9aXJ9lhAY83nL6JlnTa30RMDbi419dM_A6zD3GZItjcNwg8ewEfFoBvDYEVVZyRWJpTCIzROUd_exiYvEkjY0eS-ofNz71hAnGuRmvc3lM_q2TXOI86lqU3CRLbF6exJMW_RNfGSBExoKVCuXseYq94DHflILf0w5PiVviX0lecPUm5UGvITD1hARHABu_FvFm1Fw9he5bZYFeQQiOI_ZUVYqyCpc-nufjl7A6qUj2hdNMmeooEzsifcjDLFMg1yLU0C0ESYRKSSd1hA2q6K0q4Y_ITxKL5e11iVRW8cGXml9aO1-uPR-hcIF314yLvp8TJxt3xeJHE6nZ_kzvWfQNSW_xvv0LBKV6rVmFhAvYggVs7nlNhnn4ebZR1VC5j99JMzS6VeJLl4HFRIAlGediGplcrWk36H8-AaaIRSTFN0cXF4zwWDCwcmRZOV_FhAMR6hEO0xH8Clpcsu9HDcHVRFUNkCc9QJMxrLNzAsw_gR-J6H8VNQPvJsPcgBMNpKK5QLbhwmArxPw6AlL35X0IJnL2lzc3VlcmovdmFsaWRGcm9t"
+  }
+}

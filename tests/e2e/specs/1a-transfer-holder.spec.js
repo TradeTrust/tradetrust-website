@@ -16,7 +16,7 @@ before(() => {
 describe("Transfer Holder", () => {
   it("should go to verify page, upload a file, connect to wallet and transfer holder successfully", () => {
     cy.visit("/");
-    cy.waitAndUploadFile("ebl-transfer-holder.json");
+    cy.waitAndUploadFile("w3c-2.0-bl-transfer-holder.json");
     cy.get("[data-testid='asset-title-owner']").should("be.visible");
     cy.get("[data-testid='asset-title-holder']").should("be.visible");
     cy.connectToWalletAndApproveAllAccounts();

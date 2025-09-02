@@ -6,6 +6,12 @@ const verificationText = [
     "Document issuer has been identified",
     "Document has not been tampered with",
 ];
+const tags = [
+    "Transferable",
+    "Negotiable",
+    "W3C VC V2.0",
+    "TR V5"
+];
 
 // This is the directory path used by playwright to download files
 const tempDirectory = "/tmp"
@@ -69,7 +75,7 @@ describe("Create Document", () => {
                 .should('exist')
                 .selectFile(`tests/e2e/downloads/${fileName}`, { force: true });
               cy.wait(1000);
-              verificationText.forEach((text) => {
+              [...verificationText, ...tags].forEach((text) => {
                   cy.get("#document-status").should("contain", text);
               });
           } else {
