@@ -93,35 +93,35 @@ const CHAIN_ID = { local: 1337 };
     holder: ADDRESS_EXAMPLE_1,
   };
     
-  const merkleRootToMint = {
+  const tokensToMint = {
     tokenRegistry: [
       {
         // Endorse Owner
-        merkleRoot: "0x69f86e95549d3bd5768fb6bbbea5ed7232856a43fe8ae96df4d000d1a5125637",
+        tokenId: "0x1a32e030f8ebef2a6a00c3513086b27b1233095df6cae6a47e6a36ecc09b7cf9",
         ...defaultToken,
       },
       {
         // Nominate Owner
         ...defaultToken,
-        merkleRoot: "0xd352ab5e4a8a736ecce02d37842ff45721e138b08789e5231cca1e1b6794b3f4",
+        tokenId: "0x06d7151cfd58bff997b599a742e77e0bbef694d8e502824b5157517698c02577",
         holder: ADDRESS_EXAMPLE_2,
       },
       {
         // Surrender
-        merkleRoot: "0x84be0d43bb6e6e36c3dff96b0619737e18b116bf2a9ed229ba266057516c3bfa",
+        tokenId: "0x300e1a6fcecfd40fad5f0e3167bd3be6c6fcd3e7ec3f48b157e29b4ab1d32755",
         ...defaultToken,
       },
       {
         // Transfer Holder
-        merkleRoot: "0x55f73a6a83243410b45929e53cc84327c2d24cb78f96200748590d3ec54fa099",
+        tokenId: "0xf22f8487eced43cf4b0afb2043f83877690f05ed8ecea5177305b945525b4e60",
         ...defaultToken,
       },
     ],
   };
 
-  merkleRootToMint.tokenRegistry.forEach((element) => {
+  tokensToMint.tokenRegistry.forEach((element) => {
     shell.exec(
-      `${oaCLI_PATH} token-registry issue --beneficiary ${element.owner} --holder ${element.holder} --address ${element.tokenRegistryAddress} --tokenId ${element.merkleRoot} -n local -k ${element.accountKey}`
+      `${oaCLI_PATH} token-registry issue --beneficiary ${element.owner} --holder ${element.holder} --address ${element.tokenRegistryAddress} --tokenId ${element.tokenId} -n local -k ${element.accountKey}`
     );
   });
 })()
