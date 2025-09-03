@@ -34,7 +34,7 @@ export const ObfuscatedMessage: FunctionComponent<ObfuscatedMessageProps> = ({ d
       <div className="text-lg font-gilroy-bold text-scarlet-500" data-testid="obfuscation-info">
         <p className="py-6">
           {documentSchema === DOCUMENT_SCHEMA.W3C_VC_2_0
-            ? "Note: There are fields/data might be obfuscated in this document."
+            ? "Note: Some fields/data might be obfuscated in this document."
             : "Note: There are fields/data obfuscated in this document."}
         </p>
       </div>
