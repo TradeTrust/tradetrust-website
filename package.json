@@ -66,7 +66,7 @@
     "@tradetrust-tt/address-identity-resolver": "^1.6.2",
     "@tradetrust-tt/decentralized-renderer-react-components": "^3.16.12",
     "@tradetrust-tt/document-store": "^4.1.1",
-    "@trustvc/trustvc": "^2.0.5",
+    "@trustvc/trustvc": "^2.0.6",
     "@types/gtag.js": "0.0.8",
     "buffer": "^6.0.3",
     "cross-env": "^7.0.3",
