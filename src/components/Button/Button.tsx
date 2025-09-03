@@ -52,7 +52,7 @@ export const Button: FunctionComponent<ButtonTradeTrust> = ({
   return (
     <button
       className={`${shared} ${className} ${
-        disabled ? "cursor-not-allowed bg-gray-200 text-white hover:bg-gray-200" : ""
+        disabled ? "!cursor-not-allowed !bg-gray-200 !text-white !hover:bg-gray-200" : ""
       }`}
       type="submit"
       disabled={disabled}
