@@ -1,0 +1,53 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://w3id.org/security/data-integrity/v2",
+    "https://trustvc.io/context/invoice.json",
+    "https://trustvc.io/context/qrcode-context.json",
+    "https://trustvc.io/context/render-method-context-v2.json"
+  ],
+  "renderMethod": [
+    {
+      "type": "EMBEDDED_RENDERER",
+      "templateName": "INVOICE",
+      "id": "https://generic-templates.tradetrust.io"
+    }
+  ],
+  "credentialSubject": {
+    "type": ["Invoice"],
+    "billFromName": "DEF Company",
+    "billFromStreetAddress": "Level 2, Industry Offices",
+    "billFromCity": "Singapore",
+    "billFromPostalCode": "612345",
+    "billFromPhoneNumber": "61204028",
+    "billToName": "ABC Company",
+    "billToEmail": "abcTestCompany@abc.com",
+    "billToCompanyName": "ABC Company",
+    "billToCompanyStreetAddress": "Level 1, Industry Office",
+    "billToCompanyCity": "Singapore",
+    "billToCompanyPostalCode": "123456",
+    "billToCompanyPhoneNumber": "2973462976",
+    "invoiceId": "1234567",
+    "invoiceName": "INVOICE",
+    "date": "2025-05-30",
+    "customerId": "564",
+    "terms": "Due Upon Receipt",
+    "subtotal": "625",
+    "tax": "0",
+    "taxTotal": "0",
+    "total": "625"
+  },
+  "type": ["VerifiableCredential"],
+  "qrCode": { "type": "TrustVCQRCode", "uri": "https://ref.tradetrust.io" },
+  "issuer": "did:web:disappointed-blush-mouse.playground.fyntech.io",
+  "validFrom": "2024-04-01T12:19:52Z",
+  "id": "urn:uuid:019906a9-4b90-7116-9673-fcd28cbe328d",
+  "proof": {
+    "type": "DataIntegrityProof",
+    "created": "2025-09-01T19:03:02Z",
+    "verificationMethod": "did:web:disappointed-blush-mouse.playground.fyntech.io#keys-1",
+    "cryptosuite": "ecdsa-sd-2023",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "u2V0AhVhAOn0ady79Qa-VXVhIy7D0QjBMUeoESTw4q76mbI-WBGK-QkV_boVV9E3GInEOHyIerRTPYbfSEMOqYP00YN1KUFgjgCQCOzn-SH0BS7cYTlMGoV7xtfQfQwqyF5JVtbQ8GHdExn9YIA-PV9dSOCu3EOnisQZfWtf_84GV31fnLJGa65XepswgmB1YQJiVXjxuLnp3gfTfiZwv_TeRjwxQDDty1r6jXFyy7Pb6DwXGKIi-Z88_7ioFPLZCIgPwFVQt-n2NKPvMFip311VYQHsD_NyMuHruZvwedvnSQCnlR9JtGBfLb90h_eO45dZ4UvBbHrAUOA_43seJZioVLRmE7o1H5R3Sw3ZEmKRTAs5YQK1oo9s7S3D5u0gHSLXIZZNzE5QLbmSrcAIuwD_-LzTG-2MCeP14LhCxYKLfqLZWHRd3seZ1m6Vy-nGVCXolTDNYQNX2DR1_EYYIygNLqDpfXsQF-IjNpJVMpBcOWSg5MIgJBYV558NiqLSeExloDLIf86alpLiYsPj01sOSRuRwxihYQAkB0wdqRqedsmX3de-t0Dt6LjnN5a4IAW2Qg4i0qXuGplmwemeKB4x3zuKVJ9KdAR1BIXoXTIvVrVtivG4FfbVYQGQw18k2iU3o-7PzqPVAFjRhTS_S24TwJuil0ShIcFH2xZJsVGwydPJCdBuI5xF19MyWMWZ3xJtLncpvP3PcT-VYQMfDs1ScU2YhRJa5487yZTcojmPqFLxN-dd4mZlyw8kk3KkLkVRDqyf3e3c03z-RG7aS0EGBQjQZKgsKvsSS-ChYQJFEjW3HndLQPGfqO3DGfiaupD2YmJMMnsBrp7YNbidgJLftzg8WBkMkDvMKW1Zx_JpC9TP8VuJeYARdP3ufTlVYQIFVfGN-T7tdQbAgMg_DRoNHEfgo597x782XHQrOA58nRMTuV9zLLONSnyess8T4pNxWClaNpKS7-vZCrFU3A2hYQLs_WVMxLXFQe_afuvNog4kYWmUHjO0baIL4NbWm0-pDMg-dSylpmIzdFetBu5ir59nb-M--GUuIzubYLqjL8hdYQDW-3fSePJqwrZzB-poX0txWTwEUi9fOkD-1RERLVGgYncNqM10JV4Dp1mRUeKqJSy4-z3HK_a852LHl8jV2ePFYQEcyzS95AnvWXnS04xBZEAhr4f4N0kEy3TE3ZmGHM-lM-crWDTU7ugu4bvHbxi4GF5QCQWllrthLSznxHRCr6QJYQFdKYXZQbIHrTwlvpWTTe669XFNlu6QuzwbESTE36kQQBXyr49m5bNTYWucyPX-hqUDJw-aQHfLpPweFo6NnYeVYQICcS3lmeyt6uoqdAMa1YoPGazDbFIzQmUv8vWKNkqwBFBGIEw9SoAX67N02hKxSWBsoGZHS9P8wjIvWxuImMlNYQI26zlHkQGQYswvakZSmun7YMdBoroX1kA8ePZErN9TvWIxTmsUPJsPezKgd1gsRB36u9F_NH9avjj_RTGVdTpVYQCGW9gFf5-Hck4xLaLsSsakl6lsr48NBZWe9ZeJF-hrRzMHvBx9cp4yYjOyj9SBM_hFR-r-7RuLoqhhjGEEIpnZYQHGQNQ95IpNbGX6BRdyM2tT9mVMAy33hzu25DAF0fWClO9_nV7560tGZEGHHZoz_gK94X4-j5P8Ro_b65EVeLkZYQPJ1zxXZkuE0AkIuElryDBMcXmFsOaChXzbYFNF2ODyca-cOlplvbr4LTMuoxA5WTuTSBAUZV7ZGzekn8-9ItbJYQAe1cerX4ji03LE2sHt9YDG9j3me446Rl9ylLkVipae3SWvbcCTPMbY1uHWVBbOrs28mQ6jRC5gduc_HU7v0_F9YQI5WBrapfCI0vhDx9zZCSzIbsURAVSu6g89MZVKJzEUIqMqN5dScJqXKhlsW0gEcmQwR5YGE5wSD7PyZ2j4WvHtYQJVXYMlHSAX_nZkbxwaG0I_cP7_9LKEVYQKGTRyN7xn96ACzD56cP8gR7rO00EdcALxccItLBW47EUA37XdhJaBYQP7rpuJea1aZUijNNVAghkY2S7CZvPmGKXX7qiz4TvBayWANMkImA7JHWepZfoKyQ_nlXXDWkoPXVqu5g0b4aWlYQEC1TqxvfnMCZIqIrx6Wa_hoJzrzBpgKjEK9Lf7E6d7Hm5FTtu_KWB2dp9CcmGFnUGwKJWnU3bzQB5YGH9DSemZYQLhYtHFi1vDS83mqLJ_5yy70f3LdqIxFhH570TnDZi89lxRp5G9Tj_c8o7OPI59W_iLm8PfaW9hCYf_rb5aUabBYQBlzzuEdCX10aeeSr3PHhg2mLBOj6QKuYgNlzKtkA79mDP5NlCdfGyWdp8noeigidObWahHBX9iUWRe83VNFCp9YQAnMsa9W1z7Dq2w1EGpwZnTMKDmi_095qgyPD4CbhUxrqH6xsA1L_2fTGptYxhjHOUGTo_hGXioeJ_XyuaIccdBYQGcGKQQ9twj49ENnp5Ww5CkWDilam1x7QfKi3n5xXro8HR37eHkcExWmJMIeNw6RdOxhUJfkFtvoQfAO2vmwI6lYQKbfj1Zgpdh99gzETvInLUPEBI3yplNqiqwC-N5-ZT3vmTyZWZggLWqWJ-5HI7TBddm0VksJTDXX02CgaavyrqBYQPVSrC5Qj9TyjO0Tk8jR3BmpUoN2B1rV7Y9yE6_iIxZaeTVG2T-UinMT5S8sC1poqI92eCxwh5gTodv8LYxof5CCZy9pc3N1ZXJqL3ZhbGlkRnJvbQ"
+  }
+}

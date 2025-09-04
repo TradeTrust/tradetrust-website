@@ -15,3 +15,11 @@ test("sample document is rendered correctly when dns did is verified", async () 
     "AQSIQ170923130",
   ]);
 });
+
+test("W3C DM 2.0 document is rendered correctly when dns did is verified", async () => {
+  await navigateToVerify();
+  await uploadDocument("./fixture/local/w3c/v2_tr_er_ECDSA_Derived.json");
+  await validateIssuerTexts(["DISAPPOINTED-BLUSH-MOUSE.PLAYGROUND.FYNTECH.IO"]);
+
+  await validateIframeTexts(["BILL OF LADING", "20250107"]);
+});
