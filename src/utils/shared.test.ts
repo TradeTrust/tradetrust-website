@@ -133,7 +133,7 @@ describe("getChainId for W3C v2 document", () => {
       },
     };
     expect(getChainId(documentWithSepolia as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(
-      "11155111"
+      11155111
     );
   });
 
