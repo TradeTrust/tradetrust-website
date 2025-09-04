@@ -60,6 +60,7 @@ export const ActionManagementSkeleton: FunctionComponent<ActionManagementSkeleto
               placeholder="Remarks"
               className="text-zinc-800 bg-transparent border-none outline-none w-full h-full resize-none overflow-hidden placeholder-cloud-300"
               data-testid="editable-remarks-input"
+              disabled={isInitalized}
             />
             {remarkValue && <X className="h-5 w-5 flex-shrink-0 cursor-pointer" onClick={() => setRemarkValue("")} />}
           </div>
@@ -77,16 +78,18 @@ export const ActionManagementSkeleton: FunctionComponent<ActionManagementSkeleto
       <div id="footer" className="p-6 pt-4">
         <div className="flex flex-wrap flex-col xs:flex-row items-center justify-between gap-2 text-center text-xl font-bold leading-6 sm:flex-nowrap">
           <Button
-            className="flex-1 w-full bg-white text-cerulean-500 hover:bg-cloud-100 px-[18px]"
+            className="flex-1 w-full bg-white text-cerulean-500 hover:bg-cloud-100 px-[18px] flex justify-center items-center"
             onClick={() => closeOverlay()}
             data-testid={`cancelReject${actionTitle}Btn`}
+            disabled={isInitalized}
           >
             Cancel
           </Button>
           <Button
-            className="flex-1 w-full bg-cerulean-500 text-white hover:bg-cerulean-800"
+            className="flex-1 w-full bg-cerulean-500 text-white hover:bg-cerulean-800 flex justify-center items-center"
             onClick={() => handleAction()}
             data-testid={`confirmReject${actionTitle}Btn`}
+            disabled={isInitalized}
           >
             {isInitalized ? <LoaderSpinner data-testid={"loader"} /> : <>Confirm</>}
           </Button>
