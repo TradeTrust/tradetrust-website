@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { v2, wrapOADocument } from "@trustvc/trustvc";
+import { SignedVerifiableCredential, v2, wrapOADocument } from "@trustvc/trustvc";
 import React from "react";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
@@ -120,7 +120,7 @@ describe("DocumentStatus", () => {
   ];
 
   const renderWithStore = (
-    document: WrappedOrSignedOpenAttestationDocument,
+    document: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential,
     verificationFragments: any[],
     props: any = {}
   ) => {
@@ -168,7 +168,7 @@ describe("DocumentStatus", () => {
     },
     {
       name: "W3C Document",
-      getDocument: () => w3cDoc as unknown as WrappedOrSignedOpenAttestationDocument,
+      getDocument: () => w3cDoc as SignedVerifiableCredential,
       issuerText: "DID:WEB:DISAPPOINTED-BLUSH-MOUSE.PLAYGROUND.FYNTECH.IO",
       issuerLocation: "disappointed-blush-mouse.playground.fyntech.io",
       getVerificationFragments: () => getW3CVerificationFragments(),

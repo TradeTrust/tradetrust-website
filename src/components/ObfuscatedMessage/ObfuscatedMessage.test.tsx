@@ -8,6 +8,7 @@ import UnobfuscatedDocument from "../../test/fixture/local/v2/invoice.json";
 import W3CV2ObfuscatedDerivedDocument from "../../test/fixture/local/w3c/v2_tr_er_ECDSA_Derived.json";
 import W3CV2ObfuscatedSignedDocument from "../../test/fixture/local/w3c/v2_tr_er_ECDSA_Signed.json";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
+import { SignedVerifiableCredential } from "@trustvc/trustvc";
 import certificateReducer, { DOCUMENT_SCHEMA, DocumentSchemaType } from "../../reducers/certificate";
 
 describe("ObfuscatedMessage", () => {
@@ -69,9 +70,7 @@ describe("ObfuscatedMessage", () => {
     const store = createStore(DOCUMENT_SCHEMA.W3C_VC_2_0);
     const container = render(
       <Provider store={store}>
-        <ObfuscatedMessage
-          document={W3CV2ObfuscatedSignedDocument as unknown as WrappedOrSignedOpenAttestationDocument}
-        />
+        <ObfuscatedMessage document={W3CV2ObfuscatedSignedDocument as SignedVerifiableCredential} />
       </Provider>
     );
 
@@ -89,9 +88,7 @@ describe("ObfuscatedMessage", () => {
     const store = createStore(DOCUMENT_SCHEMA.W3C_VC_2_0);
     const container = render(
       <Provider store={store}>
-        <ObfuscatedMessage
-          document={W3CV2ObfuscatedDerivedDocument as unknown as WrappedOrSignedOpenAttestationDocument}
-        />
+        <ObfuscatedMessage document={W3CV2ObfuscatedDerivedDocument as SignedVerifiableCredential} />
       </Provider>
     );
 

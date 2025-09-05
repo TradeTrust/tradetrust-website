@@ -4,6 +4,7 @@ import invoiceV2 from "../test/fixture/local/v2/invoice.json";
 import invoiceV3 from "../test/fixture/local/v3/invoice.json";
 import w3cV2Document from "../test/fixture/local/w3c/v2_tr_er_ECDSA_Derived.json";
 import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
+import { SignedVerifiableCredential } from "@trustvc/trustvc";
 
 describe("getChainId for v2 document", () => {
   it("should return the correct chainId for sepolia", () => {
@@ -100,7 +101,7 @@ describe("getChainId for v3 document", () => {
     const document = {
       ...invoiceV3,
       network: { chain: "ETH" },
-    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    } as WrappedOrSignedOpenAttestationDocument;
     expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
   });
 
@@ -108,19 +109,19 @@ describe("getChainId for v3 document", () => {
     const document = {
       ...invoiceV3,
       network: { chain: "ETH", chainId: "8" },
-    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    } as WrappedOrSignedOpenAttestationDocument;
     expect(() => getChainId(document)).toThrow("Invalid Document, please use a valid document.");
   });
 
   it("should return 'undefined' when did document is being dropped", () => {
-    expect(getChainId(v3DID as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(undefined);
+    expect(getChainId(v3DID as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(undefined);
   });
 });
 
 describe("getChainId for W3C v2 document", () => {
   it("should return the correct chainId for W3C v2.0 document with tokenNetwork", () => {
     // W3C v2 document has tokenNetwork.chainId: "1337"
-    expect(getChainId(w3cV2Document as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(1337);
+    expect(getChainId(w3cV2Document as SignedVerifiableCredential)).toStrictEqual(1337);
   });
 
   it("should return the correct chainId when W3C v2.0 document has tokenNetwork with sepolia chainId", () => {
@@ -132,9 +133,7 @@ describe("getChainId for W3C v2 document", () => {
         tokenNetwork: { chain: "ETH", chainId: "11155111" },
       },
     };
-    expect(getChainId(documentWithSepolia as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(
-      11155111
-    );
+    expect(getChainId(documentWithSepolia as SignedVerifiableCredential)).toStrictEqual(11155111);
   });
 
   it("should return the correct chainId when W3C v2.0 document has tokenNetwork with polygon amoy chainId", () => {
@@ -146,7 +145,7 @@ describe("getChainId for W3C v2 document", () => {
         tokenNetwork: { chain: "MATIC", chainId: "80002" },
       },
     };
-    expect(getChainId(documentWithPolygon as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(80002);
+    expect(getChainId(documentWithPolygon as SignedVerifiableCredential)).toStrictEqual(80002);
   });
 
   it("should throw an error when W3C v2.0 document has invalid chainId in tokenNetwork", () => {
@@ -158,7 +157,7 @@ describe("getChainId for W3C v2 document", () => {
         tokenNetwork: { chain: "ETH", chainId: "999" },
       },
     };
-    expect(() => getChainId(documentWithInvalidChainId as unknown as WrappedOrSignedOpenAttestationDocument)).toThrow(
+    expect(() => getChainId(documentWithInvalidChainId as SignedVerifiableCredential)).toThrow(
       "Invalid Document, please use a valid document."
     );
   });
@@ -172,16 +171,12 @@ describe("getChainId for W3C v2 document", () => {
         tokenNetwork: undefined,
       },
     };
-    expect(getChainId(documentWithoutTokenNetwork as unknown as WrappedOrSignedOpenAttestationDocument)).toStrictEqual(
-      undefined
-    );
+    expect(getChainId(documentWithoutTokenNetwork as SignedVerifiableCredential)).toStrictEqual(undefined);
   });
 
   it("should return 'undefined' when W3C v2.0 document has no credentialStatus", () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { credentialStatus, ...documentWithoutCredentialStatus } = w3cV2Document;
-    expect(
-      getChainId(documentWithoutCredentialStatus as unknown as WrappedOrSignedOpenAttestationDocument)
-    ).toStrictEqual(undefined);
+    expect(getChainId(documentWithoutCredentialStatus as SignedVerifiableCredential)).toStrictEqual(undefined);
   });
 });
