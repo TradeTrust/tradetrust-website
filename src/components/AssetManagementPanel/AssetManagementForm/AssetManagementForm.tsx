@@ -222,7 +222,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
       showOverlay(additionalComponent);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formAction]);
+  }, [formAction, rejectTransferHolderState, rejectTransferOwnerState, rejectTransferOwnerHolderState]);
 
   useEffect(() => {
     if (!isOverlayVisible) {

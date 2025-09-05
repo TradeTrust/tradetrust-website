@@ -112,6 +112,10 @@ export function useContractFunctionHook<
       setState("CONFIRMED");
       setReceipt(_receipt);
     } catch (e) {
+      if ((e as Error).message?.includes("user rejected transaction")) {
+        setState("UNINITIALIZED");
+        return;
+      }
       setError(e as Error);
       setState("ERROR");
     }
