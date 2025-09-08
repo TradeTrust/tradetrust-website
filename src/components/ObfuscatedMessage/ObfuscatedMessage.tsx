@@ -1,12 +1,13 @@
 import { isObfuscated } from "@trustvc/trustvc";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
+import { SignedVerifiableCredential } from "@trustvc/trustvc";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 import { DOCUMENT_SCHEMA } from "../../reducers/certificate";
 
 interface ObfuscatedMessageProps {
-  document: WrappedOrSignedOpenAttestationDocument;
+  document: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential;
 }
 
 export const ObfuscatedMessage: FunctionComponent<ObfuscatedMessageProps> = ({ document }) => {
