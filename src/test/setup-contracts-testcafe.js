@@ -1,7 +1,17 @@
 const shell = require("shelljs");
-const { v5Contracts, CHAIN_ID } = require("@trustvc/trustvc");
+const path = require("path");
 const { ethers, Wallet } = require("ethers");
 const ERC1967Proxy_artifact = require("./fixture/artifacts/ERC1967Proxy.json"); // Assuming this is the correct deployable proxy artifact
+
+// Import only the specific modules we need to avoid problematic ESM dependencies
+const v5ContractsPath = path.resolve(
+  __dirname,
+  "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/contracts.js"
+);
+const v5Contracts = require(v5ContractsPath);
+
+// Define local chain ID directly for local development
+const CHAIN_ID = { local: 1337 };
 
 (async () => {
   const { TDocDeployer__factory, TitleEscrowFactory__factory, TradeTrustTokenStandard__factory } = v5Contracts; // Remove ERC1967__factory from here
@@ -100,6 +110,8 @@ const ERC1967Proxy_artifact = require("./fixture/artifacts/ERC1967Proxy.json"); 
         ...defaultToken,
       },
       ...[
+        "0x0102d39f774d3214cec087063cc9d3705db972926e892238a4a232d709274a39",
+        "0x76f608c209f8e449d1ea57999bef458fff928d7967e13d71a0f2348b3d5be4b1",
         "0xe52a60e9c1308960bcf1d6c8531c58bf480aec373e1e3442a6af151475c3f89d",
         "0x1683a00c42430b72c42a8013e6695b839ab7f7b06db69835b974392613826bd2",
         "0xa0bf0f3823a8857d068740c6f936eeab2de0516161924f84fe4c1ef6061732d2", // ebl-withoutnetwork.json

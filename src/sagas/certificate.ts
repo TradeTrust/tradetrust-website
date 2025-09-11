@@ -97,6 +97,7 @@ export function* verifyCertificate(): any {
     const isOAV3 =
       isRawV3Document(certificate) || isSignedWrappedV3Document(certificate) || isWrappedV3Document(certificate);
     const isW3CVC = vc.isSignedDocument(certificate) || vc.isRawDocument(certificate);
+    const isW3CVCVersion2_0 = isW3CVC ? vc.isSignedDocumentV2_0(certificate) : null;
     const keyId = getKeyId(certificate);
     yield put({
       type: types.UPDATE_KEY_ID, // store keyId in saga state
@@ -110,7 +111,9 @@ export function* verifyCertificate(): any {
         : isOAV3
         ? DOCUMENT_SCHEMA.OA_V3
         : isW3CVC
-        ? DOCUMENT_SCHEMA.W3C_VC_1_1
+        ? isW3CVCVersion2_0
+          ? DOCUMENT_SCHEMA.W3C_VC_2_0
+          : DOCUMENT_SCHEMA.W3C_VC_1_1
         : null,
     });
 

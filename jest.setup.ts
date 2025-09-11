@@ -1,8 +1,11 @@
 import debug from "debug";
 import { TextEncoder, TextDecoder } from "util";
+import { CryptoKey } from "@peculiar/webcrypto";
+
 Object.assign(global, {
   TextDecoder,
   TextEncoder,
+  CryptoKey,
 });
 // jest.setup.js
 

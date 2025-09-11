@@ -14,7 +14,8 @@ export type StateType = (typeof states)[keyof typeof states];
 export const DOCUMENT_SCHEMA = {
   OA_V2: "OA",
   OA_V3: "OA",
-  W3C_VC_1_1: "W3C VC",
+  W3C_VC_1_1: "W3C VC 1.1",
+  W3C_VC_2_0: "W3C VC 2.0",
 } as const;
 
 export type DocumentSchemaType = (typeof DOCUMENT_SCHEMA)[keyof typeof DOCUMENT_SCHEMA] | null;

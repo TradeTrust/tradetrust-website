@@ -301,7 +301,8 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
   switch (type) {
     case AssetManagementActions.ReturnToIssuer: {
       const { handleReturnToIssuer, returnToIssuerState } = props;
-      const isPendingConfirmation = returnToIssuerState === FormState.PENDING_CONFIRMATION;
+      const isPendingConfirmation =
+        returnToIssuerState === FormState.PENDING_CONFIRMATION || returnToIssuerState === FormState.INITIALIZED;
 
       return (
         <>
@@ -355,7 +356,8 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
     case AssetManagementActions.AcceptReturnToIssuer: {
       const { handleDestroyToken, destroyTokenState } = props;
-      const isDestroyTokenPendingConfirmation = destroyTokenState === FormState.PENDING_CONFIRMATION;
+      const isDestroyTokenPendingConfirmation =
+        destroyTokenState === FormState.PENDING_CONFIRMATION || destroyTokenState === FormState.INITIALIZED;
 
       return (
         <>
@@ -428,7 +430,8 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
     case AssetManagementActions.RejectReturnToIssuer: {
       const { restoreTokenState } = props;
-      const isRestoreTokenPendingConfirmation = restoreTokenState === FormState.PENDING_CONFIRMATION;
+      const isRestoreTokenPendingConfirmation =
+        restoreTokenState === FormState.PENDING_CONFIRMATION || restoreTokenState === FormState.INITIALIZED;
 
       return (
         <>
@@ -501,7 +504,8 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
     case AssetManagementActions.NominateBeneficiary: {
       const { handleNomination, nominationState } = props;
-      const isPendingConfirmation = nominationState === FormState.PENDING_CONFIRMATION;
+      const isPendingConfirmation =
+        nominationState === FormState.PENDING_CONFIRMATION || nominationState === FormState.INITIALIZED;
       const isEditable = nominationState !== FormState.PENDING_CONFIRMATION && nominationState !== FormState.CONFIRMED;
 
       const isInvalidNomination =
@@ -571,7 +575,9 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
     case AssetManagementActions.EndorseBeneficiary: {
       const { nominee, handleBeneficiaryTransfer, beneficiaryEndorseState } = props;
-      const isPendingConfirmation = beneficiaryEndorseState === FormState.PENDING_CONFIRMATION;
+      const isPendingConfirmation =
+        beneficiaryEndorseState === FormState.PENDING_CONFIRMATION || beneficiaryEndorseState === FormState.INITIALIZED;
+      console.log("🚀 ~ beneficiaryEndorseState:", beneficiaryEndorseState);
 
       const isValidEndorse = () => {
         if (!nominee) return false;
@@ -642,7 +648,9 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
     case AssetManagementActions.TransferHolder: {
       const { handleTransfer, holderTransferringState } = props;
-      const isPendingConfirmation = holderTransferringState === FormState.PENDING_CONFIRMATION;
+      console.log("🚀 ~ holderTransferringState:", holderTransferringState);
+      const isPendingConfirmation =
+        holderTransferringState === FormState.PENDING_CONFIRMATION || holderTransferringState === FormState.INITIALIZED;
       const isEditable =
         holderTransferringState !== FormState.PENDING_CONFIRMATION && holderTransferringState !== FormState.CONFIRMED;
 
@@ -717,7 +725,8 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
     case AssetManagementActions.TransferOwner: {
       const { handleBeneficiaryTransfer, beneficiaryEndorseState } = props;
-      const isPendingConfirmation = beneficiaryEndorseState === FormState.PENDING_CONFIRMATION;
+      const isPendingConfirmation =
+        beneficiaryEndorseState === FormState.PENDING_CONFIRMATION || beneficiaryEndorseState === FormState.INITIALIZED;
       const isEditable =
         beneficiaryEndorseState !== FormState.PENDING_CONFIRMATION && beneficiaryEndorseState !== FormState.CONFIRMED;
 
@@ -792,7 +801,8 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
 
     case AssetManagementActions.TransferOwnerHolder: {
       const { handleEndorseTransfer, transferOwnersState } = props;
-      const isPendingConfirmation = transferOwnersState === FormState.PENDING_CONFIRMATION;
+      const isPendingConfirmation =
+        transferOwnersState === FormState.PENDING_CONFIRMATION || transferOwnersState === FormState.INITIALIZED;
       const isEditable =
         transferOwnersState !== FormState.PENDING_CONFIRMATION && transferOwnersState !== FormState.CONFIRMED;
 

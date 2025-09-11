@@ -38,7 +38,12 @@ export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = 
       )}
       {documentSchema === DOCUMENT_SCHEMA.W3C_VC_1_1 && (
         <Tag rounded="rounded-full" className={tagCSOrange}>
-          W3C VC
+          W3C VC V1.1
+        </Tag>
+      )}
+      {documentSchema === DOCUMENT_SCHEMA.W3C_VC_2_0 && (
+        <Tag rounded="rounded-full" className={tagCSOrange}>
+          W3C VC V2.0
         </Tag>
       )}
       {tokenRegistryVersion === TokenRegistryVersions.V4 && (

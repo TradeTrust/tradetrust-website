@@ -18,3 +18,17 @@ test("UI renders QR code with logo correctly when present in the document", asyn
   await t.expect(logo.count).eql(1); // asserts that qr contains logo
   await t.expect(logo.withAttribute("src", "/static/images/logo-qrcode.png").exists).ok();
 });
+
+test("W3C DM 2.0 document renders QR code with logo correctly when present", async (t) => {
+  await navigateToVerify();
+  await uploadDocument("./fixture/local/w3c/v2_invoice_qrcode.json");
+  await validateIssuerTexts(["DISAPPOINTED-BLUSH-MOUSE.PLAYGROUND.FYNTECH.IO"]);
+  await validateIframeTexts(["INVOICE"]);
+
+  const qrcodeButtonElement = await Selector("button").withAttribute("aria-label", "document-utility-qr-button");
+  await t.click(qrcodeButtonElement); // asserts that button exists and can be clicked
+
+  await t.expect(qrcode.count).eql(1); // asserts that qr displays
+  await t.expect(logo.count).eql(1); // asserts that qr contains logo
+  await t.expect(logo.withAttribute("src", "/static/images/logo-qrcode.png").exists).ok();
+});

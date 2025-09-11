@@ -19,6 +19,7 @@ import { getChainInfo } from "../utils/chain-utils";
 import { flattenData, getDataW3C } from "../utils/dataHelpers";
 import { encodeQrCode } from "../utils/qrCode";
 import { Signer } from "ethers";
+import { CryptoSuite } from "@trustvc/trustvc/w3c/issuer";
 
 const { stack } = getLogger("useQueue");
 
@@ -176,7 +177,9 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
       if (!localStorageDidString) throw new Error("No keypair found in localStorage");
 
       const keyPair = JSON.parse(localStorageDidString);
-      const signedDocument = await builder.sign(keyPair);
+      const signedDocument = await builder.sign(keyPair, CryptoSuite.EcdsaSd2023, {
+        mandatoryPointers: ["/renderMethod"],
+      });
       setDocument(signedDocument);
 
       // Minting

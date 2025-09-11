@@ -24,7 +24,14 @@ export const AttachmentDropzone: FunctionComponent<AttachmentDropzone> = ({
   const onDropAccepted = useCallback(
     async (files: File[]) => {
       let totalSize = uploadedFiles
-        ? uploadedFiles.reduce((acc: number, current: any) => acc + atob(current.data).length, 0)
+        ? uploadedFiles.reduce((acc: number, current: any) => {
+            try {
+              return acc + atob(current.data).length;
+            } catch (e) {
+              console.warn("Invalid base64 data in attachment:", e);
+              return acc; // Skip invalid data
+            }
+          }, 0)
         : 0;
 
       files.forEach((file) => (totalSize += file.size));

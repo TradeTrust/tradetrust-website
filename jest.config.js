@@ -26,6 +26,9 @@ module.exports = {
       "<rootDir>/node_modules/@tradetrust-tt/token-registry-v5/dist/contracts",
     "@tradetrust-tt/token-registry/contracts": "<rootDir>/node_modules/@tradetrust-tt/token-registry-v5/dist/contracts",
     "@trustvc/trustvc(/.*)": "<rootDir>/node_modules/@trustvc/trustvc/dist/cjs/$1",
+    "^@digitalbazaar/security-context$": "<rootDir>/node_modules/@digitalbazaar/security-context/js/index.js",
+    "^@digitalbazaar/(.*)$": "<rootDir>/node_modules/@digitalbazaar/$1/lib/index.js",
+    "^base(58|64url)-universal$": "<rootDir>/node_modules/base$1-universal/lib/index.js"
   },
   testEnvironment: "jest-environment-jsdom",
   setupFiles: ["<rootDir>/jest.setup.ts"],
