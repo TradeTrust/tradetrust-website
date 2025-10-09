@@ -171,6 +171,10 @@ export const IconWarning: React.FunctionComponent<SVGProps<SVGElement>> = ({ cla
   return <img className={`${className ? className : ""}`} src={"/static/images/alert/warning.png"} />;
 };
 
+export const IconAlert: React.FunctionComponent<SVGProps<SVGElement>> = ({ className }) => {
+  return <img className={`${className ? className : ""}`} src={"/static/images/alert/exclamation-triangle.png"} />;
+};
+
 export const IconError: React.FunctionComponent<SVGProps<SVGElement>> = ({ className }) => {
   return (
     <svg
