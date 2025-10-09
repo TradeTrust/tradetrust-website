@@ -57,9 +57,13 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const attachments = getAttachments(document);
   const hasAttachments = attachments ? attachments.length > 0 : false;
 
+  const filteredAttachments = attachments?.filter((attachment) => {
+    return attachment.type === "custom-template" || attachment.type === "application/pdf" || !attachment.type;
+  });
+
   // Check for invalid attachments
   const invalidAttachments =
-    attachments
+    filteredAttachments
       ?.map((attachment, index) => ({
         ...attachment,
         index,
