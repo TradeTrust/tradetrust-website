@@ -7,6 +7,8 @@ import { IconError } from "../../UI/Icon";
 interface FormErrorBanner {
   formErrorTitle: string | null;
   formErrors: FormErrors;
+  iconType?: "cross" | "exclamation";
+  description?: string;
 }
 
 /**
@@ -14,11 +16,25 @@ interface FormErrorBanner {
  * Shows a list of ajv errors for end user to self-diagnose and error recovery
  * @param formErrorTitle Custom error message title
  * @param formError Array of errors generated from ajv validation
+ * @param iconType Type of icon to display - "cross" (default) or "exclamation"
+ * @param description Optional description text to display above the error list
  */
-export const FormErrorBanner: FunctionComponent<FormErrorBanner> = ({ formErrorTitle, formErrors }) => {
+export const FormErrorBanner: FunctionComponent<FormErrorBanner> = ({
+  formErrorTitle,
+  formErrors,
+  iconType = "cross",
+  description,
+}) => {
   const [showAll, setShowAll] = useState(false);
   if (!formErrors || !(formErrors.length > 0)) return null;
   const visibleErrors = showAll ? formErrors : formErrors?.slice(0, 1);
+
+  const renderIcon = () => {
+    if (iconType === "exclamation") {
+      return <img className="h-5 w-5 mr-2 shrink-0" src="/static/images/alert/warning.png" alt="Warning" />;
+    }
+    return <IconError className="mr-2 w-5 h-5 shrink-0" />;
+  };
 
   return (
     <div data-testid="form-error-banner" className="relative bg-red-100 rounded-lg mx-auto flex p-6 mt-4">
@@ -33,10 +49,12 @@ export const FormErrorBanner: FunctionComponent<FormErrorBanner> = ({ formErrorT
         </div>
       )}
       <div className="flex">
-        <IconError className="mr-2 w-5 h-5 shrink-0" />
+        {renderIcon()}
         <div className="flex flex-col">
           {/* Title */}
           <p className="text-lg leading-none font-gilroy-bold mb-2">{formErrorTitle}</p>
+          {/* Description (if provided) */}
+          {description && <p className="text-sm mb-2">{description}</p>}
           {/* Error messages */}
           <div className="flex flex-col space-y-1">
             {visibleErrors.map((error, index: number) => (

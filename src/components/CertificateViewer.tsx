@@ -14,12 +14,14 @@ import {
   getOpenAttestationData,
   WrappedOrSignedOpenAttestationDocument,
 } from "../utils/shared";
+import { isValidAttachmentData } from "../utils/attachmentValidation";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain";
+import { InvalidAttachmentsBanner } from "./InvalidAttachmentsBanner";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import ScrollTip from "./ScrollTip";
 import { TabPaneAttachments } from "./TabPaneAttachments";
@@ -54,6 +56,19 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
   const attachments = getAttachments(document);
   const hasAttachments = attachments ? attachments.length > 0 : false;
+
+  // Check for invalid attachments
+  const invalidAttachments =
+    attachments
+      ?.map((attachment, index) => ({
+        ...attachment,
+        index,
+        isInvalid:
+          typeof attachment.data === "string" ? !isValidAttachmentData(attachment.data, attachment.type) : false,
+      }))
+      .filter((attachment) => attachment.isInvalid) || [];
+  const hasInvalidAttachments = invalidAttachments.length > 0;
+
   const { initialize, resetStates: resetTokenInformationState } = useTokenInformationContext();
   const dispatch = useDispatch();
 
@@ -152,7 +167,14 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
           />
         )}
       </div>
-
+      <div>
+        <div>
+          <InvalidAttachmentsBanner
+            hasInvalidAttachments={hasInvalidAttachments}
+            invalidAttachments={invalidAttachments}
+          />
+        </div>
+      </div>
       <div>
         <div className="no-print mt-4">
           <MultiTabs
@@ -161,6 +183,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             templates={templates}
             setSelectedTemplate={setSelectedTemplate}
             selectedTemplate={selectedTemplate}
+            invalidAttachments={invalidAttachments}
           />
         </div>
         <div id="preview-block" className="bg-white py-6">
