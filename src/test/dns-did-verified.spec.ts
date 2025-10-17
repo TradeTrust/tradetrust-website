@@ -23,3 +23,11 @@ test("W3C DM 2.0 document is rendered correctly when dns did is verified", async
 
   await validateIframeTexts(["BILL OF LADING", "20250107"]);
 });
+
+test("W3C DM 2.0 BBS2023 document is rendered correctly when dns did is verified", async () => {
+  await navigateToVerify();
+  await uploadDocument("./fixture/local/w3c/v2_tr_er_bbs2023_Derived.json");
+  await validateIssuerTexts(["DID:WEB:TRUSTVC.GITHUB.IO:DID:1"]);
+
+  await validateIframeTexts(["BILL OF LADING", "20250107"]);
+});

@@ -3,6 +3,7 @@ import v2DID from "../test/fixture/did/dns-did-verified.json";
 import invoiceV2 from "../test/fixture/local/v2/invoice.json";
 import invoiceV3 from "../test/fixture/local/v3/invoice.json";
 import w3cV2Document from "../test/fixture/local/w3c/v2_tr_er_ECDSA_Derived.json";
+import w3cV2BBS2023Document from "../test/fixture/local/w3c/v2_tr_er_bbs2023_Derived.json";
 import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
 import { SignedVerifiableCredential } from "@trustvc/trustvc";
 
@@ -178,5 +179,10 @@ describe("getChainId for W3C v2 document", () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { credentialStatus, ...documentWithoutCredentialStatus } = w3cV2Document;
     expect(getChainId(documentWithoutCredentialStatus as SignedVerifiableCredential)).toStrictEqual(undefined);
+  });
+
+  it("should return the correct chainId for W3C v2.0 BBS2023 document with tokenNetwork", () => {
+    // W3C v2 BBS2023 document has tokenNetwork.chainId: "1337"
+    expect(getChainId(w3cV2BBS2023Document as SignedVerifiableCredential)).toStrictEqual(1337);
   });
 });

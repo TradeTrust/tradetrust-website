@@ -1,0 +1,36 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://w3id.org/security/data-integrity/v2",
+    "https://trustvc.io/context/transferable-records-context.json",
+    "https://trustvc.io/context/render-method-context-v2.json",
+    "https://trustvc.io/context/attachments-context.json",
+    "https://trustvc.io/context/qrcode-context.json",
+    "https://trustvc.io/context/bill-of-lading.json"
+  ],
+  "type": ["VerifiableCredential"],
+  "issuer": "did:web:trustvc.github.io:did:1",
+  "validFrom": "2024-04-01T12:19:52Z",
+  "credentialSubject": { "type": ["BillOfLading"], "blNumber": "20250107", "scac": "20250107" },
+  "renderMethod": [
+    {
+      "id": "https://generic-templates.tradetrust.io",
+      "type": "EMBEDDED_RENDERER",
+      "templateName": "BILL_OF_LADING"
+    }
+  ],
+  "credentialStatus": {
+    "type": "TransferableRecords",
+    "tokenNetwork": { "chain": "ETH", "chainId": "1337" },
+    "tokenRegistry": "0x9Eb613a88534E2939518f4ffBFE65F5969b491FF",
+    "tokenId": "8f39d973ec500c1c0a510c3153707ee68d0889be9bdde3a8e3dfa40db266989c"
+  },
+  "id": "urn:uuid:0199ec0a-768b-7998-927b-582e34e917b1",
+  "proof": {
+    "type": "DataIntegrityProof",
+    "verificationMethod": "did:web:trustvc.github.io:did:1#multikey-2",
+    "cryptosuite": "bbs-2023",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "u2V0ChVhQlKpwsMfA6FOca2dIAIMSdjOk9HeAALgvGzgijHi3kesw_cvjeoO5omXXIIiIYc2tKT1fD4GZZryBRKN_CEUBSNg9fTrivti1WjipVdYD7slYQD9WZttHrlLy5Yt4KX5JlbD4AqxyPhcyoKk-Wo6FkAtpU2MTfy3xbmJAr3x8drktNKXvx-25Bz1O9zLvqT_j_SpYYLDx2EM7LXGzSqyTOC8ZKJ9hgD0GHrf59LhRlLV3-pK34L5ohGo8I-g81SD6xVKofBMNiXxFLrp7w56sQlEOkcpISekB2jtn0DeTWzNHrnVwuejhZPM1PPtOuxtkbzj6J1ggdxFb8_xZjhG_U8ZAYEBZotwN7eGSp2A6KFunXQV_-TaCZy9pc3N1ZXJqL3ZhbGlkRnJvbQ"
+  }
+}

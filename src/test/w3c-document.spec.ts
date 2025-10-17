@@ -40,6 +40,7 @@ const basicTestScenarios = [
     dateField: "validFrom",
     dateValue: "2024-04-01T12:19:52Z",
     description: "ECDSA V2.0 Signed W3C VC document",
+    cryptoSuite: "ECDSA",
   },
   {
     version: "v2.0",
@@ -47,6 +48,23 @@ const basicTestScenarios = [
     dateField: "validFrom",
     dateValue: "2024-04-01T12:19:52Z",
     description: "ECDSA V2.0 Derived W3C VC document",
+    cryptoSuite: "ECDSA",
+  },
+  {
+    version: "v2.0",
+    credentialFile: "./fixture/local/w3c/v2_tr_er_bbs2023_Signed.json",
+    dateField: "validFrom",
+    dateValue: "2024-04-01T12:19:52Z",
+    description: "BBS 2023 V2.0 Signed W3C VC document",
+    cryptoSuite: "BBS2023",
+  },
+  {
+    version: "v2.0",
+    credentialFile: "./fixture/local/w3c/v2_tr_er_bbs2023_Derived.json",
+    dateField: "validFrom",
+    dateValue: "2024-04-01T12:19:52Z",
+    description: "BBS 2023 V2.0 Derived W3C VC document",
+    cryptoSuite: "BBS2023",
   },
 ];
 
@@ -58,6 +76,7 @@ const attachmentTestScenarios = [
     dateField: "issuanceDate",
     dateValue: "2021-12-03T12:19:52Z",
     description: "W3C VC document with attachments",
+    cryptoSuite: "ECDSA",
   },
   {
     version: "v2.0",
@@ -65,6 +84,7 @@ const attachmentTestScenarios = [
     dateField: "validFrom",
     dateValue: "2024-04-01T12:19:52Z",
     description: "ECDSA V2.0 Signed W3C VC document with attachments",
+    cryptoSuite: "ECDSA",
   },
   {
     version: "v2.0",
@@ -72,6 +92,23 @@ const attachmentTestScenarios = [
     dateField: "validFrom",
     dateValue: "2024-04-01T12:19:52Z",
     description: "ECDSA V2.0 Derived W3C VC document with attachments",
+    cryptoSuite: "ECDSA",
+  },
+  {
+    version: "v2.0",
+    credentialFile: "./fixture/local/w3c/v2_tr_er_attachment_bbs2023_signed.json",
+    dateField: "validFrom",
+    dateValue: "2024-04-01T12:19:52Z",
+    description: "BBS 2023 V2.0 Signed W3C VC document with attachments",
+    cryptoSuite: "BBS2023",
+  },
+  {
+    version: "v2.0",
+    credentialFile: "./fixture/local/w3c/v2_tr_er_attachment_bbs2023_derived.json",
+    dateField: "validFrom",
+    dateValue: "2024-04-01T12:19:52Z",
+    description: "BBS 2023 V2.0 Derived W3C VC document with attachments",
+    cryptoSuite: "BBS2023",
   },
 ];
 
@@ -81,7 +118,7 @@ basicTestScenarios.forEach((scenario) => {
     await navigateToVerify();
     await uploadDocument(scenario.credentialFile);
     await validateIssuerTexts([
-      scenario.version === "v2.0"
+      scenario.version === "v2.0" && scenario.cryptoSuite === "ECDSA"
         ? "DID:WEB:DISAPPOINTED-BLUSH-MOUSE.PLAYGROUND.FYNTECH.IO"
         : "DID:WEB:TRUSTVC.GITHUB.IO:DID:1",
     ]);
@@ -95,7 +132,7 @@ attachmentTestScenarios.forEach((scenario) => {
     await navigateToVerify();
     await uploadDocument(scenario.credentialFile);
     await validateIssuerTexts([
-      scenario.version === "v2.0"
+      scenario.version === "v2.0" && scenario.cryptoSuite === "ECDSA"
         ? "DID:WEB:DISAPPOINTED-BLUSH-MOUSE.PLAYGROUND.FYNTECH.IO"
         : "DID:WEB:TRUSTVC.GITHUB.IO:DID:1",
     ]);
