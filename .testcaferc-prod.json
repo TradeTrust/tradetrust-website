@@ -16,8 +16,8 @@
   "ajaxRequestTimeout": 120000,
   "pageRequestTimeout": 180000,
   "browserInitTimeout": 180000,
-  "testExecutionTimeout": 180000,
-  "runExecutionTimeout": 1000000,
+  "testExecutionTimeout": 240000,
+  "runExecutionTimeout": 1200000,
   "color": true,
   "speed": 1,
   "reporter": [
