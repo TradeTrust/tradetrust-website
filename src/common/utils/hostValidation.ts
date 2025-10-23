@@ -22,7 +22,7 @@ const getAllowedHosts = (): string[] => {
  */
 export const isValidHost = (): boolean => {
   try {
-    const currentHost = globalThis.location.host;
+    const currentHost = globalThis.location?.host;
     const allowedHosts = getAllowedHosts();
     return allowedHosts.includes(currentHost);
   } catch (error) {
@@ -36,8 +36,8 @@ export const isValidHost = (): boolean => {
  * @returns validated host URL
  */
 export const getSafeHostUrl = (): string => {
-  const currentHost = globalThis.location.host;
-  const protocol = globalThis.location.protocol;
+  const currentHost = globalThis.location?.host;
+  const protocol = globalThis.location?.protocol;
 
   if (isValidHost()) {
     return `${protocol}//${currentHost}`;
