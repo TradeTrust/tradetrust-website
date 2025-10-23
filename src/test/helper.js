@@ -12,11 +12,15 @@ const IssuedByDomainName = Selector("#issuedby");
 const VerifyPage = Selector("a[href='/']");
 const CreatorPage = Selector("a[href='/creator']");
 
-export const validateTextContent = async (testcafe, component, texts) =>
+export const validateTextContent = async (testcafe, component, texts) => {
+  await testcafe.expect(component.exists).ok("Component should exist before validating text content");
+  await testcafe.expect(component.visible).ok("Component should be visible before validating text content");
+
   texts.reduce(
     async (previousValue, currentValue) => await testcafe.expect(component.textContent).contains(currentValue),
     Promise.resolve()
   );
+};
 
 export const closeCookieNotice = async () => {
   const closeBtn = Selector("button").withText("Close");

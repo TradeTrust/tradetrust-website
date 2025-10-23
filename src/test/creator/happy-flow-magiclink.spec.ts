@@ -87,7 +87,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
   await t.click(connectToMagicLink);
 
   // Step 5: Sign in to Magic
-  await t.wait(1000);
+  await t.wait(3000);
   await validateMagicIframeSelector(Selector("p").withText("Sign in to"));
   await inputMagicIframeTexts(emailInput, inbox.emailAddress);
   await clickMagicIframeButton(signInButton);
@@ -98,7 +98,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
   const code = /[^#]([0-9]{6})/.exec(email!.body!)?.[1];
 
   // Step 6: Enter verification code
-  await t.wait(1000);
+  await t.wait(3000);
   await validateMagicIframeSelector(Selector("h4").withText(/Please enter the code sent to/));
   await inputMagicIframeTexts(codeInput, code!);
   await t.wait(5000);
