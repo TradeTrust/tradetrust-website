@@ -4,6 +4,7 @@ import { Paperclip } from "react-feather";
 import { getLogger } from "../../../utils/logger";
 import { NestedDocumentState } from "./../../../constants/NestedDocumentState";
 import { getOpenAttestationData } from "../../../utils/shared";
+import { getSafeHostUrl } from "../../../common/utils/hostValidation";
 
 const { error } = getLogger("component:attachmentlink");
 
@@ -51,7 +52,7 @@ export const getExtension = (mimeType: string | undefined): React.ReactNode => {
 };
 
 const openTab = (data: string) => {
-  const url = `${window.location.protocol}//${window.location.host}`;
+  const url = getSafeHostUrl();
   const childWin = window.open(url, "_blank") as Window; // to omit noopener noreferrer for this case, otherwise unable to postMessage
 
   childWin.onload = (): void => {

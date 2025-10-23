@@ -18,6 +18,7 @@ import { useProviderContext } from "../contexts/provider";
 import { getChainInfo } from "../utils/chain-utils";
 import { flattenData, getDataW3C } from "../utils/dataHelpers";
 import { encodeQrCode } from "../utils/qrCode";
+import { getSafeRedirectUrl } from "../utils/hostValidation";
 import { Signer } from "ethers";
 import { CryptoSuite } from "@trustvc/trustvc/w3c/issuer";
 
@@ -45,7 +46,7 @@ export interface ProcessDocument {
 }
 
 const redirectUrl = (): string => {
-  return `${window.location.protocol}//${window.location.host}/`;
+  return getSafeRedirectUrl();
 };
 
 const getReservedStorageUrl = async (documentStorageURL: string, network?: Network): Promise<ActionsUrlObject> => {
