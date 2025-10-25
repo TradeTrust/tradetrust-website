@@ -70,27 +70,69 @@ test("should complete full create > issue > verify flow for Transferable Documen
   // create email address for a test user
   const inbox = await mailslurp.getInbox(MAILSLURP_INDEX_ID);
 
+  const magicLinkConnect = async () => {
+    // Step 1: Navigate to creator page
+    await navigateToCreator();
+
+    // Step 2: Preview "Bill of Lading" form
+    await t.click(billOfLadingTitle);
+    await t.expect(previewOverlay.exists).ok("Preview overlay should be visible");
+
+    // Step 3: Create document
+    await t.click(createDocumentButton);
+
+    // Step 4: Connect to Blockchain Wallet: Magiclink
+    await t.expect(connectBlockchainModal.exists).ok("Connect to Blockchain Wallet modal should appear");
+    await t.click(Selector('[data-testid="connect-magic-header"]'));
+    await t.expect(connectToMagicLink.exists).ok("Connect to MagicLink should appear");
+    await t.click(connectToMagicLink);
+
+    // Step 5: Sign in to Magic
+    await t.wait(1000);
+
+    await clickMagicIframeButton(Selector('button[aria-label="Email"]'));
+    await validateMagicIframeSelector(Selector("p").withText("Sign in to"));
+
+    // Step 6: Check if device registration is required
+    await inputMagicIframeTexts(emailInput, inbox.emailAddress);
+    await clickMagicIframeButton(signInButton);
+  };
+
+  await magicLinkConnect();
+
+  await t.wait(3000);
+
+  // Check what Magic is showing
+  const deviceRegistrationText = Selector("h4").withText(/Please register this device to continue/);
+  // Switch to iframe to check what screen we're on
+  await t.switchToIframe(Selector(".magic-iframe"));
+
+  if (await deviceRegistrationText.exists) {
+    // await t.switchToMainWindow();
+    console.log("🔐 Device registration required - waiting for registration email...");
+
+    // Wait for device registration email
+    const registrationEmail = await mailslurp.waitForLatestEmail(inbox.id, 30000, true);
+
+    // Extract the registration link from the email
+    const registrationLinkMatch = /https:\/\/[^\s<>"]+/.exec(registrationEmail!.body!);
+    const registrationLink = registrationLinkMatch?.[0];
+
+    if (registrationLink) {
+      await t.switchToMainWindow();
+      await t.navigateTo(registrationLink);
+      await t.wait(3000);
+      const approveButton = Selector("button").withText("Approve");
+      await t.expect(approveButton.exists).ok("Approve button should be visible");
+      await t.click(approveButton);
+
+      await t.wait(1000);
+    }
+  }
   // Step 1: Navigate to creator page
-  await navigateToCreator();
+  await t.navigateTo("http://localhost:3000/creator");
 
-  // Step 2: Preview "Bill of Lading" form
-  await t.click(billOfLadingTitle);
-  await t.expect(previewOverlay.exists).ok("Preview overlay should be visible");
-
-  // Step 3: Create document
-  await t.click(createDocumentButton);
-
-  // Step 4: Connect to Blockchain Wallet: Magiclink
-  await t.expect(connectBlockchainModal.exists).ok("Connect to Blockchain Wallet modal should appear");
-  await t.click(Selector('[data-testid="connect-magic-header"]'));
-  await t.expect(connectToMagicLink.exists).ok("Connect to MagicLink should appear");
-  await t.click(connectToMagicLink);
-
-  // Step 5: Sign in to Magic
-  await t.wait(1000);
-  await validateMagicIframeSelector(Selector("p").withText("Sign in to"));
-  await inputMagicIframeTexts(emailInput, inbox.emailAddress);
-  await clickMagicIframeButton(signInButton);
+  await magicLinkConnect();
 
   // wait for verification code to arrive to email then extract code
   const email = await mailslurp.waitForLatestEmail(inbox.id, 30000, true);
@@ -154,6 +196,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
   await t.click(formNextButton);
   await t.expect(getLocation()).contains("/creator/publish", "Should navigate to publish page");
   await t.expect(processTitle.exists).ok("Issuance success title should be visible");
+  await t.wait(1000);
   await t.expect(processTitle.innerText).eql("Document issued successfully");
 
   // Step 15: Download issued document
