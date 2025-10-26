@@ -90,8 +90,8 @@ test("should complete full create > issue > verify flow for Transferable Documen
     // Step 5: Sign in to Magic
     await t.wait(1000);
 
-    await clickMagicIframeButton(Selector('button[aria-label="Email"]'));
     await validateMagicIframeSelector(Selector("p").withText("Sign in to"));
+    await clickMagicIframeButton(Selector('button[aria-label="Email"]'));
     await t.wait(5000);
     // Step 6: Check if device registration is required
     await inputMagicIframeTexts(emailInput, inbox.emailAddress);
