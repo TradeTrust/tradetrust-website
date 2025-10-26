@@ -15,8 +15,8 @@ import {
 } from "../helper";
 
 let mailslurp: MailSlurp;
-const MAILSLURP_API_KEY = process.env.MAILSLURP_API_KEY;
-const MAILSLURP_INDEX_ID = process.env.MAILSLURP_INDEX_ID;
+const MAILSLURP_API_KEY = "594a9de660869392309a01b16fbab10f91704df6e3ed4b5984e0711453df39c0"; //process.env.MAILSLURP_API_KEY;
+const MAILSLURP_INDEX_ID = "cc7646f6-9c04-4a13-8cbe-c110ad08d845"; //process.env.MAILSLURP_INDEX_ID;
 
 fixture("happy flow magiclink").page`${location}`.before(async () => {
   if (MAILSLURP_API_KEY) {
@@ -92,7 +92,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
 
     await clickMagicIframeButton(Selector('button[aria-label="Email"]'));
     await validateMagicIframeSelector(Selector("p").withText("Sign in to"));
-
+    await t.wait(5000);
     // Step 6: Check if device registration is required
     await inputMagicIframeTexts(emailInput, inbox.emailAddress);
     await clickMagicIframeButton(signInButton);
@@ -196,7 +196,8 @@ test("should complete full create > issue > verify flow for Transferable Documen
   await t.click(formNextButton);
   await t.expect(getLocation()).contains("/creator/publish", "Should navigate to publish page");
   await t.expect(processTitle.exists).ok("Issuance success title should be visible");
-  await t.wait(1000);
+  await t.wait(5000);
+  console.log("processTitle", processTitle);
   await t.expect(processTitle.innerText).eql("Document issued successfully");
 
   // Step 15: Download issued document
