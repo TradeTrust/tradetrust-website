@@ -59,12 +59,14 @@ export const validateIframeTexts = async (texts) => {
 };
 
 export const validateMagicIframeSelector = async (selector) => {
+  console.log("Validating iframe selector...");
   await t.switchToIframe(MagicIFrame);
   await t.expect(selector.exists).ok(`Selector should exist in the Magic iframe`);
   await t.switchToMainWindow();
 };
 
 export const inputMagicIframeTexts = async (input, texts) => {
+  console.log("Inputting iframe text...");
   await t.switchToIframe(MagicIFrame);
   await t.typeText(input, texts);
   await t.switchToMainWindow();

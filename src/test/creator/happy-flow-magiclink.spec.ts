@@ -116,12 +116,11 @@ test("should complete full create > issue > verify flow for Transferable Documen
 
   // Check what Magic is showing
   const deviceRegistrationText = Selector("h4").withText(/Please register this device to continue/);
-  // Switch to iframe to check what screen we're on
-  await t.switchToIframe(Selector(".magic-iframe"));
 
   if (await deviceRegistrationText.exists) {
     console.log("🔐 Device registration required - waiting for registration email...");
-
+    // Switch to iframe to check what screen we're on
+    await t.switchToIframe(Selector(".magic-iframe"));
     try {
       // Wait for device registration email with longer timeout for CI
       const registrationEmail = await mailslurp.waitForLatestEmail(inbox.id, 60000, true);
@@ -174,6 +173,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
   console.log("🔢 Entering verification code...");
   await t.wait(2000); // Wait for code input form to load
   await validateMagicIframeSelector(Selector("h4").withText(/Please enter the code sent to/));
+  console.log("🔢 Validating iframe code input...");
   await inputMagicIframeTexts(codeInput, code!);
   console.log("✅ Verification code entered, waiting for validation...");
   await t.wait(2000); // Increased wait for code validation
