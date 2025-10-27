@@ -152,7 +152,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
     }
   }
   // Step 1: Navigate to creator page
-  await t.navigateTo(`${location}/creator`);
+  await t.navigateTo(`${location}`);
 
   await magicLinkConnect();
 
