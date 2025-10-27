@@ -13,6 +13,8 @@ import {
   validateMagicIframeSelector,
   waitForFileDownload,
 } from "../helper";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 let mailslurp: MailSlurp;
 const MAILSLURP_API_KEY = process.env.MAILSLURP_API_KEY;
@@ -150,7 +152,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
     }
   }
   // Step 1: Navigate to creator page
-  await t.navigateTo("http://localhost:3000/creator");
+  await t.navigateTo(`${location}/creator`);
 
   await magicLinkConnect();
 
@@ -218,84 +220,54 @@ test("should complete full create > issue > verify flow for Transferable Documen
   console.log("🌐 Selecting network...");
   await t.expect(networkSelector.exists).ok("Network selector should appear");
   await t.click(continueConnectBlockchainModal);
-  console.log("✅ Network selected, proceeding to document setup");
 
   // Step 10: Setup document
-  console.log("📄 Setting up document...");
-  await t.wait(5000); // Increased wait for document setup
+  await t.wait(3000);
   await t.expect(setupModal.exists).ok("Document setup modal should appear");
   await t.expect(setupSuccessMessage.innerText).contains("Record Generated:", "Should show success message");
-  console.log("✅ Document setup completed");
 
-  // Step 11: Continue to form editor
-  console.log("📝 Navigating to form editor...");
+  // Step 10: Continue to form editor
   await t.click(continueButton);
   await t.expect(getLocation()).contains("/creator/form", "Should navigate to form editor");
-  console.log("✅ Form editor loaded");
 
-  // Step 12: Input form
-  console.log("📝 Filling out form fields...");
+  // Step 11: Input form
   await t.typeText(Selector('[data-testid="transferable-record-beneficiary-input"]'), walletAddress);
   await t.typeText(Selector('[data-testid="transferable-record-holder-input"]'), walletAddress);
   await t.typeText(Selector('[data-testid="transferable-record-remarks-input"]'), "Remarks");
   await t.typeText(Selector("#root_blNumber"), "123456789");
   await t.typeText(Selector("#root_scac"), "123456789");
-  console.log("✅ Form fields completed");
 
-  // Step 13: Submit form
-  console.log("📋 Submitting form...");
+  // Step 12: Submit form
   await t.click(formNextButton);
   await t.expect(getLocation()).contains("/creator/form-preview", "Should navigate to form preview");
-  console.log("✅ Form submitted, preview loaded");
 
-  // Step 14: Validate preview content
-  console.log("👀 Validating preview content...");
+  // Step 13: Validate preview content
   await validateIframeTexts(["BILL OF LADING"]);
-  console.log("✅ Preview content validated");
 
-  // Step 15: Issue the document
-  console.log("🚀 Issuing document...");
+  // Step 14: Issue the document
   await t.click(formNextButton);
   await t.expect(getLocation()).contains("/creator/publish", "Should navigate to publish page");
   await t.expect(processTitle.exists).ok("Issuance success title should be visible");
-
-  // Wait longer for document issuance in CI environment
-  await t.wait(10000);
+  await t.wait(5000);
   await t.expect(processTitle.innerText).eql("Document issued successfully");
-  console.log("✅ Document issued successfully");
 
-  // Step 16: Download issued document
-  console.log("📥 Downloading document...");
+  // Step 15: Download issued document
   await t.click(downloadButton);
   await t.expect(downloadFormModal.exists).ok("Download modal should appear");
   await t.click(downloadAllButton);
-
   const filePath = getFileDownloadPath("Electronic-Bill-of-Lading-(Carrier)-1.tt");
-  console.log(`📁 Expected download path: ${filePath}`);
+  await t.expect(await waitForFileDownload(t, filePath)).eql(true, "Bill of Lading file should be downloaded");
 
-  const downloadSuccess = await waitForFileDownload(t, filePath);
-  await t.expect(downloadSuccess).eql(true, "Bill of Lading file should be downloaded");
-  console.log("✅ Document downloaded successfully");
-
-  // Step 17: Return to form selection
-  console.log("🔙 Returning to form selection...");
+  // Step 16: Return to form selection
   await t.click(downloadButton);
   await t.expect(getLocation()).match(/\/creator$/, "Should return to form selection page");
-  console.log("✅ Returned to form selection");
 
-  // Step 18: Navigate to verify page
-  console.log("🔍 Navigating to verify page...");
+  // Step 17: Navigate to verify page
   await navigateToVerify();
-  console.log("✅ Verify page loaded");
 
-  // Step 19: Upload issued document
-  console.log("📤 Uploading document for verification...");
+  // Step 18: Upload issued document
   await uploadDocument(filePath);
-  console.log("✅ Document uploaded");
 
-  // Step 20: Validate content in viewer
-  console.log("👀 Validating document content...");
+  // Step 19: Validate content in viewer
   await validateIframeTexts(["BILL OF LADING"]);
-  console.log("✅ Document verification completed successfully!");
-  console.log("🎉 Magic Link integration test completed successfully!");
 });
