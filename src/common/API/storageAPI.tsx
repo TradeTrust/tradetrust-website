@@ -11,7 +11,6 @@ const fetchCsrfToken = async (documentStorageURL: string): Promise<string> => {
       method: "get",
       url: url,
       withCredentials: true,
-      headers: getHeaders(documentStorageURL),
     });
 
     const csrfToken = response.data.csrfToken;
