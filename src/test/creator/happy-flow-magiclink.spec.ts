@@ -69,13 +69,13 @@ test("should complete full create > issue > verify flow for Transferable Documen
     return;
   }
 
-  console.log("🚀 Starting Magic Link integration test", getLocation());
-  console.log(`📧 Using inbox: ${MAILSLURP_INDEX_ID}`);
+  // console.log("🚀 Starting Magic Link integration test", getLocation());
+  // console.log(`📧 Using inbox: ${MAILSLURP_INDEX_ID}`);
 
   // create email address for a test user
-  console.log("📬 Fetching test inbox...");
+  // console.log("📬 Fetching test inbox...");
   const inbox = await mailslurp.getInbox(MAILSLURP_INDEX_ID);
-  console.log(`📧 Test email: ${inbox.emailAddress}`);
+  // console.log(`📧 Test email: ${inbox.emailAddress}`);
 
   const magicLinkConnect = async () => {
     // Step 1: Navigate to creator page
@@ -95,7 +95,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
     await t.click(connectToMagicLink);
 
     // Step 5: Sign in to Magic
-    console.log("🔐 Initiating Magic Link sign-in...");
+    // console.log("🔐 Initiating Magic Link sign-in...");
     await t.wait(2000); // Increased wait for iframe loading
 
     await validateMagicIframeSelector(Selector("p").withText("Sign in to"));
@@ -103,15 +103,15 @@ test("should complete full create > issue > verify flow for Transferable Documen
     await t.wait(3000); // Wait for email input form to load
 
     // Step 6: Enter email address
-    console.log(`📧 Entering email: ${inbox.emailAddress}`);
+    // console.log(`📧 Entering email: ${inbox.emailAddress}`);
     await inputMagicIframeTexts(emailInput, inbox.emailAddress);
     await clickMagicIframeButton(signInButton);
-    console.log("✉️ Email submitted, waiting for verification...");
+    // console.log("✉️ Email submitted, waiting for verification...");
   };
 
   await magicLinkConnect();
 
-  console.log("⏳ Waiting for Magic Link response...");
+  // console.log("⏳ Waiting for Magic Link response...");
   await t.wait(5000); // Increased wait for Magic processing
 
   // Check what Magic is showing
@@ -155,10 +155,10 @@ test("should complete full create > issue > verify flow for Transferable Documen
     await magicLinkConnect();
   }
 
-  console.log("📧 Waiting for verification code email...");
+  // console.log("📧 Waiting for verification code email...");
   // wait for verification code to arrive to email then extract code with longer timeout for CI
   const email = await mailslurp.waitForLatestEmail(inbox.id, 30000, true);
-  console.log("📧 Verification email received");
+  // console.log("📧 Verification email received");
   // use regex to extract the confirmation code which is 6 digits
   const code = /[^#]([0-9]{6})/.exec(email!.body!)?.[1];
 
@@ -167,32 +167,32 @@ test("should complete full create > issue > verify flow for Transferable Documen
     throw new Error("Verification code not found in email");
   }
 
-  console.log(`🔢 Extracted verification code: ${code}`);
+  // console.log(`🔢 Extracted verification code: ${code}`);
 
   // Step 6: Enter verification code
-  console.log("🔢 Entering verification code...");
+  // console.log("🔢 Entering verification code...");
   await t.wait(2000); // Wait for code input form to load
   await validateMagicIframeSelector(Selector("h4").withText(/Please enter the code sent to/));
-  console.log("🔢 Validating iframe code input...");
+  // console.log("🔢 Validating iframe code input...");
   await inputMagicIframeTexts(codeInput, code!);
-  console.log("✅ Verification code entered, waiting for validation...");
+  // console.log("✅ Verification code entered, waiting for validation...");
   await t.wait(2000); // Increased wait for code validation
 
   // Step 7: Get wallet address
-  console.log("💰 Retrieving wallet address...");
+  // console.log("💰 Retrieving wallet address...");
   await t.expect(walletAddressDiv.exists).ok("Wallet address should be visible");
   const walletAddress = await walletAddressDiv.innerText;
-  console.log(`💰 Wallet address: ${walletAddress}`);
+  // console.log(`💰 Wallet address: ${walletAddress}`);
 
   // Step 8: Transfer funds to wallet
-  console.log("💸 Transferring funds to Magic wallet...");
+  // console.log("💸 Transferring funds to Magic wallet...");
   try {
     const wallet = new ethers.Wallet("0xe82294532bcfcd8e0763ee5cef194f36f00396be59b94fb418f5f8d83140d9a7");
     const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
     const signer = wallet.connect(provider);
 
     const balance = await signer.getBalance();
-    console.log(`💰 Funder wallet balance: ${ethers.utils.formatEther(balance)} ETH`);
+    // console.log(`💰 Funder wallet balance: ${ethers.utils.formatEther(balance)} ETH`);
 
     if (!balance.gt(BigNumber.from("10000000000000000000"))) {
       throw new Error(`Insufficient balance: ${ethers.utils.formatEther(balance)} ETH`);
@@ -203,20 +203,20 @@ test("should complete full create > issue > verify flow for Transferable Documen
       value: BigNumber.from("10000000000000000000"), // 10 ethers
     });
 
-    console.log(`🔗 Transaction hash: ${tx.hash}`);
-    const receipt = await tx.wait();
-    console.log(`✅ Transaction confirmed in block: ${receipt.blockNumber}`);
+    // console.log(`🔗 Transaction hash: ${tx.hash}`);
+    await tx.wait();
+    // console.log(`✅ Transaction confirmed in block: ${receipt.blockNumber}`);
 
     // Clean up email
     await mailslurp.deleteEmail(email.id);
-    console.log("🗑️ Verification email deleted");
+    // console.log("🗑️ Verification email deleted");
   } catch (error) {
-    console.error("❌ Fund transfer failed:", error);
+    // console.error("❌ Fund transfer failed:", error);
     throw error;
   }
 
   // Step 9: Network Selector
-  console.log("🌐 Selecting network...");
+  // console.log(" 🌐 Selecting network...");
   await t.expect(networkSelector.exists).ok("Network selector should appear");
   await t.click(continueConnectBlockchainModal);
 
