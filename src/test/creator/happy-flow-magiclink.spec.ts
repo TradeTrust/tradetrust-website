@@ -15,8 +15,8 @@ import {
 } from "../helper";
 
 let mailslurp: MailSlurp;
-const MAILSLURP_API_KEY = "594a9de660869392309a01b16fbab10f91704df6e3ed4b5984e0711453df39c0"; //process.env.MAILSLURP_API_KEY;
-const MAILSLURP_INDEX_ID = "cc7646f6-9c04-4a13-8cbe-c110ad08d845"; //process.env.MAILSLURP_INDEX_ID;
+const MAILSLURP_API_KEY = process.env.MAILSLURP_API_KEY;
+const MAILSLURP_INDEX_ID = process.env.MAILSLURP_INDEX_ID;
 
 fixture("happy flow magiclink").page`${location}`.before(async () => {
   if (MAILSLURP_API_KEY) {
