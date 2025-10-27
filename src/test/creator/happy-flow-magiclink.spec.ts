@@ -197,7 +197,6 @@ test("should complete full create > issue > verify flow for Transferable Documen
   await t.expect(getLocation()).contains("/creator/publish", "Should navigate to publish page");
   await t.expect(processTitle.exists).ok("Issuance success title should be visible");
   await t.wait(5000);
-  console.log("processTitle", processTitle);
   await t.expect(processTitle.innerText).eql("Document issued successfully");
 
   // Step 15: Download issued document
