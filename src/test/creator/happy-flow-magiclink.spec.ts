@@ -160,7 +160,6 @@ test("should complete full create > issue > verify flow for Transferable Documen
   // wait for verification code to arrive to email then extract code with longer timeout for CI
   const email = await mailslurp.waitForLatestEmail(inbox.id, 30000, true);
   console.log("📧 Verification email received");
-  console.log(email.body);
   // use regex to extract the confirmation code which is 6 digits
   const code = /[^#]([0-9]{6})/.exec(email!.body!)?.[1];
 
@@ -177,7 +176,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
   await validateMagicIframeSelector(Selector("h4").withText(/Please enter the code sent to/));
   await inputMagicIframeTexts(codeInput, code!);
   console.log("✅ Verification code entered, waiting for validation...");
-  await t.wait(20000); // Increased wait for code validation
+  await t.wait(2000); // Increased wait for code validation
 
   // Step 7: Get wallet address
   console.log("💰 Retrieving wallet address...");
