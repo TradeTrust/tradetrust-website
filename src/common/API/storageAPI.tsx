@@ -11,7 +11,7 @@ const fetchCsrfToken = async (documentStorageURL: string): Promise<string> => {
       method: "get",
       url: url,
       withCredentials: true,
-      headers: getHeaders(documentStorageURL),
+      headers: getHeaders(),
     });
 
     const csrfToken = response.data.csrfToken;
@@ -50,7 +50,7 @@ export const getQueueNumber = async (documentStorageURL: string): Promise<AxiosR
   return axios({
     method: "get",
     url: url,
-    headers: getHeaders(documentStorageURL),
+    headers: getHeaders(),
   });
 };
 
