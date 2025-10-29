@@ -130,7 +130,7 @@ export const useQueue = ({ formEntry, formTemplate }: UseQueue): UseQueueReturn 
     try {
       setQueueState(QueueState.PENDING);
 
-      const documentStorageURL = process.env.DOCUMENT_STORAGE_URL;
+      const documentStorageURL = "http://localhost:5080/.netlify/functions/storage"; //process.env.DOCUMENT_STORAGE_URL;
 
       const mergedCredentialSubject = {
         ...formTemplate.defaults.credentialSubject,
