@@ -7,11 +7,11 @@
   "browsers": [
     "chrome:headless --autoplay-policy=no-user-gesture-required --allow-insecure-localhost --ignore-certificate-errors --disable-features=LocalNetworkAccessChecks"
   ],
-  "concurrency": 2,
+  "concurrency": 4,
   "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true",
   "cache": true,
   "selectorTimeout": 45000,
-  "assertionTimeout": 25000,
+  "assertionTimeout": 60000,
   "pageLoadTimeout": 60000,
   "ajaxRequestTimeout": 120000,
   "pageRequestTimeout": 180000,
@@ -31,7 +31,7 @@
   ],
   "quarantineMode": {
     "successThreshold": 1,
-    "attemptLimit": 10
+    "attemptLimit": 3
   },
   "screenshots": {
     "path": "artifacts/screenshots",
