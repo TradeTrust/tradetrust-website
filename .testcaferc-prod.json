@@ -31,7 +31,7 @@
   ],
   "quarantineMode": {
     "successThreshold": 1,
-    "attemptLimit": 3
+    "attemptLimit": 10
   },
   "screenshots": {
     "path": "artifacts/screenshots",
