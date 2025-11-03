@@ -7,9 +7,9 @@ module.exports = {
     "src/**/nested-documents.spec.ts"
   ],
   "browsers": [
-    "chrome:headless --autoplay-policy=no-user-gesture-required --allow-insecure-localhost --ignore-certificate-errors --disable-features=LocalNetworkAccessChecks --disable-web-security --allow-running-insecure-content --disable-features=VizDisplayCompositor"
+    "chrome:headless --autoplay-policy=no-user-gesture-required --allow-insecure-localhost --ignore-certificate-errors --disable-features=LocalNetworkAccessChecks"
   ],
-  "concurrency": 4,
+  "concurrency": 1,
   "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true",
   "cache": true,
   "selectorTimeout": 45000,
