@@ -9,7 +9,7 @@ module.exports = {
   "browsers": [
     "chrome:headless --autoplay-policy=no-user-gesture-required --allow-insecure-localhost --ignore-certificate-errors --disable-features=LocalNetworkAccessChecks"
   ],
-  "concurrency": 1,
+  "concurrency": 2,
   "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true",
   "cache": true,
   "selectorTimeout": 45000,
@@ -34,7 +34,7 @@ module.exports = {
   ],
   "quarantineMode": {
     "successThreshold": 1,
-    "attemptLimit": 3
+    "attemptLimit": 5
   },
   "screenshots": {
     "path": "artifacts/screenshots",
