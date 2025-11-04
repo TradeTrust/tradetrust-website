@@ -37,3 +37,9 @@
     X-Content-Type-Options = "nosniff"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/static/images/favicon/favicon-*"
+  [headers.values]
+    # Allow cross-origin access for favicon files (needed for MetaMask popup)
+    Cross-Origin-Resource-Policy = "cross-origin"
