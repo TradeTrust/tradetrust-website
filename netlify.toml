@@ -11,18 +11,26 @@
   from = "/contact"
   to = "https://www.form.gov.sg/635f32c5001b2d0011fff09b"
 
+# Production context only - Host header validation
+[context.production]
+
+  [[context.production.redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
+    conditions = { Host = ["ref.tradetrust.io", "dev.tradetrust.io"] }
+
+  [[context.production.redirects]]
+    from = "/*"
+    to = "data:text/plain;charset=utf-8,400 Bad Request: Invalid Host Header. This domain is not authorized for TradeTrust."
+    status = 400
+    force = true
+
+# Default routing (used for previews, branches, etc.)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = { Host = ["ref.tradetrust.io", "dev.tradetrust.io", "deploy-preview-1115--reference-implementation.netlify.app"] }
-
-# Temporarily commented out for debugging
-# [[redirects]]
-#   from = "/*"
-#   to = "data:text/plain;charset=utf-8,400 Bad Request: Invalid Host Header. This domain is not authorized for TradeTrust."
-#   status = 400
-#   force = true
 
 [build]
   ignore = "git log -1 --pretty=%B | grep dependabot"
