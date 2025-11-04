@@ -99,7 +99,7 @@ test("should complete full create > issue > verify flow for Transferable Documen
     await t.wait(2000); // Increased wait for iframe loading
 
     await validateMagicIframeSelector(Selector("p").withText("Sign in to"));
-    await clickMagicIframeButton(Selector('button[aria-label="Email"]'));
+    // await clickMagicIframeButton(Selector('button[aria-label="Email"]'));
     await t.wait(3000); // Wait for email input form to load
 
     // Step 6: Enter email address

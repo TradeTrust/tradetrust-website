@@ -29,6 +29,18 @@
 [[headers]]
   for = "/*"
   [headers.values]
+    # Content Security Policy
+    Content-Security-Policy = "img-src 'self' blob: data:; frame-ancestors 'self';"
+    
+    # Permissions Policy - Browser feature access control
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), bluetooth=(), magnetometer=(), gyroscope=(), accelerometer=(), autoplay=(), encrypted-media=(), fullscreen=(self), picture-in-picture=()"
+    
+    # Cross-origin protection (CORP + COOP for Spectre mitigation)
+    Cross-Origin-Resource-Policy = "same-origin"
+    Cross-Origin-Opener-Policy = "same-origin"
+    # Cross-Origin-Embedder-Policy omitted - compatibility with Netlify deployment tools
+
+    # Additional security headers
     X-Content-Type-Options = "nosniff"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     Content-Security-Policy = "img-src 'self' blob: data:; frame-ancestors 'self';"
