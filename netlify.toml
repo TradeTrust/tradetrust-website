@@ -12,7 +12,7 @@
   to = "https://www.form.gov.sg/635f32c5001b2d0011fff09b"
 
 [context.deploy-preview]
-  [[context.deploy-preview.redirects]]
+  [[redirects]]
     from = "/*"
     to = "/index.html"
     status = 200
