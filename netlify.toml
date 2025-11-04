@@ -15,13 +15,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = { Host = ["ref.tradetrust.io", "dev.tradetrust.io"] }
-
-[[redirects]]
-  from = "/*"
-  to = "data:text/plain;charset=utf-8,400 Bad Request: Invalid Host Header. This domain is not authorized for TradeTrust."
-  status = 400
-  force = true
 
 [build]
   ignore = "git log -1 --pretty=%B | grep dependabot"
@@ -43,7 +36,6 @@
     # Additional security headers
     X-Content-Type-Options = "nosniff"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-    X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[headers]]
