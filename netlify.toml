@@ -46,4 +46,9 @@
     Content-Security-Policy = "img-src 'self' blob: data:; frame-ancestors 'self';"
     X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=(), usb=(), bluetooth=(), payment=()"
+
+[[headers]]
+  for = "/static/images/favicon/favicon-*"
+  [headers.values]
+    # Allow cross-origin access for favicon files (needed for MetaMask popup)
+    Cross-Origin-Resource-Policy = "cross-origin"
