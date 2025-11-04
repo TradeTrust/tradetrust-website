@@ -17,11 +17,12 @@
   status = 200
   conditions = { Host = ["ref.tradetrust.io", "dev.tradetrust.io", "deploy-preview-1115--reference-implementation.netlify.app"] }
 
-[[redirects]]
-  from = "/*"
-  to = "data:text/plain;charset=utf-8,400 Bad Request: Invalid Host Header. This domain is not authorized for TradeTrust."
-  status = 400
-  force = true
+# Temporarily commented out for debugging
+# [[redirects]]
+#   from = "/*"
+#   to = "data:text/plain;charset=utf-8,400 Bad Request: Invalid Host Header. This domain is not authorized for TradeTrust."
+#   status = 400
+#   force = true
 
 [build]
   ignore = "git log -1 --pretty=%B | grep dependabot"
