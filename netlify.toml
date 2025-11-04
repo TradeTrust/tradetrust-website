@@ -15,7 +15,7 @@
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = { Host = ["ref.tradetrust.io", "dev.tradetrust.io"] }
+  conditions = { Host = ["ref.tradetrust.io", "dev.tradetrust.io", "*.netlify.app"] }
 
 [[redirects]]
   from = "/*"
