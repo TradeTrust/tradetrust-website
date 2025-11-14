@@ -187,6 +187,8 @@ test("should complete full create > issue > verify flow for Transferable Documen
   // Step 8: Transfer funds to wallet
   // console.log("💸 Transferring funds to Magic wallet...");
   try {
+    // Note: Dummy test wallets — private keys for local development and CI/CD only.
+    // These wallets are not for production and hold no funds or value on any network.
     const wallet = new ethers.Wallet("0xe82294532bcfcd8e0763ee5cef194f36f00396be59b94fb418f5f8d83140d9a7");
     const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
     const signer = wallet.connect(provider);
