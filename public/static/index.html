@@ -70,12 +70,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet" />
 
-    <script 
-      src="https://identity.netlify.com/v1/netlify-identity-widget.js" 
-      integrity="dy2tW8xkhLIj8lZR42MCwZhhDb2cCewZiw0uA65CMpdHiJzL+iubx7HzHcCXU2rW" 
-      crossorigin="anonymous">
-    </script>
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
@@ -94,16 +88,5 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/imd@/";
-            });
-          }
-        });
-      }
-    </script>
   </body>
 </html>
