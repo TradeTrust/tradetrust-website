@@ -115,7 +115,6 @@ module.exports = {
               { from: "public/static/creator", to: "static/creator" },
               { from: "public/static/sitemap.xml", to: "sitemap.xml" },
               { from: "public/static/robots.txt", to: "robots.txt" },
-              { from: "public/imd@", to: "imd@" },
             ],
           }),
         ]
