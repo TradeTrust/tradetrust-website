@@ -1,9 +1,4 @@
 [[redirects]]
-  from = "/imd@"
-  to = "/imd@/index.html"
-  status = 200
-
-[[redirects]]
   from = "/resources"
   to = "/learn"
 
