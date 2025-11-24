@@ -3,7 +3,7 @@
  */
 
 // Define allowed hosts for production and development
-const ALLOWED_HOSTS = ["ref.tradetrust.io", "dev.tradetrust.io", "localhost:3000", "127.0.0.1:3000"];
+const ALLOWED_HOSTS = ["ref.tradetrust.io", "dev.tradetrust.io", "dev--reference-implementation.netlify.app", "localhost:3000", "127.0.0.1:3000"];
 
 const getAllowedHosts = (): string[] => {
   const hosts = [...ALLOWED_HOSTS];
@@ -51,6 +51,9 @@ export const getSafeHostUrl = (): string => {
  * @returns validated redirect URL ending with /
  */
 export const getSafeRedirectUrl = (): string => {
-  const safeHost = getSafeHostUrl();
+  let safeHost = getSafeHostUrl();
+  if (safeHost.includes("dev--reference-implementation.netlify.app")) {
+    safeHost = safeHost.replace("dev--reference-implementation.netlify.app", "ref.tradetrust.io");
+  }
   return safeHost.endsWith("/") ? safeHost : `${safeHost}/`;
 };
