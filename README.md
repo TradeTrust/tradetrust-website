@@ -8,6 +8,11 @@ See also:
 - [document-store](https://github.com/Open-Attestation/document-store)
 - [open-attestation-cli](https://github.com/Open-Attestation/open-attestation-cli)
 
+## Browser Support
+
+- MetaMask browser extension is required for wallet functionality
+- Supported browsers: Chrome, Brave, Edge, Opera, and Firefox
+
 ## Development
 
 We develop primarily on a OS X / Linux environment so please lodge an issue if you are using Windows and find that you cannot successfully set up a local instance of this software.
