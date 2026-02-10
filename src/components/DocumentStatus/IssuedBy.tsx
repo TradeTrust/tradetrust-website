@@ -28,7 +28,7 @@ const getV2FormattedDomainNames = (verificationStatus: VerificationFragment[]) =
 
   const formatIdentifier = (fragment: VerificationFragmentWithData<VerificationFragmentData[]>): string | undefined => {
     switch (fragment.name) {
-      case "OpencertsRegistryVerifier":
+      case "OpencertsRegistryVerifier": {
         const opencertsFragment = getOpencertsRegistryVerifierFragment(verificationStatus);
         const issuerNames = Array.isArray(opencertsFragment?.data)
           ? (opencertsFragment.data as Array<{ name?: string }>).reduce<string[]>((acc, issuer) => {
@@ -40,6 +40,7 @@ const getV2FormattedDomainNames = (verificationStatus: VerificationFragment[]) =
             }, [])
           : undefined;
         return joinIssuers(issuerNames);
+      }
       case "OpenAttestationDnsTxtIdentityProof":
       // using fall through to get both cases
       case "OpenAttestationDnsDidIdentityProof":
