@@ -1,10 +1,12 @@
 import { Selector } from "testcafe";
-import { location, navigateToVerify, uploadDocument, validateIframeTexts } from "./helper";
+import { location, navigateToVerify, uploadDocument, validateIframeTexts, validateTextContent } from "./helper";
 
 fixture("Nested documents").page`${location}`;
 
 const AttachmentNumber = Selector("[data-testid='attachment-number']");
 const AttachmentOpen0 = Selector("[data-testid='attachment-tile-0']").find("[data-testid='attachment-open-link']");
+const RenderedDocument = Selector("[data-testid='certificate-dropzone']");
+const InvalidMessage = Selector(".invalid");
 
 test("Document with nested document in attachments should open in new tab correctly", async (t) => {
   await navigateToVerify();
@@ -13,13 +15,10 @@ test("Document with nested document in attachments should open in new tab correc
 
   await t.click(AttachmentNumber);
   await t.click(AttachmentOpen0);
-  await validateIframeTexts([
-    "Name & Address of Shipping Agent/Freight Forwarder",
-    "CERTIFICATE OF NON-MANIPULATION",
-    "DEMO CUSTOMS",
-    "Certification by Singapore Customs",
-    "AQSIQ170923130",
+  await InvalidMessage.with({ visibilityCheck: true })();
+  await validateTextContent(t, RenderedDocument, [
+    "Document issuer identity is invalid",
+    "This document was issued by an invalid issuer.",
   ]);
-
   await t.expect(AttachmentNumber.exists).notOk();
 });

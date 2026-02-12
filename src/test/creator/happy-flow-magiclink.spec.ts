@@ -1,3 +1,4 @@
+// Skipped in CI: Magic Link currently blocks headless Chrome (403 anti-bot). Remove skip when an allowlist/headful option is available.
 import { BigNumber, ethers } from "ethers";
 import { MailSlurp } from "mailslurp-client";
 import { ClientFunction, Selector, test } from "testcafe";
