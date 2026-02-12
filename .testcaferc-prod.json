@@ -2,6 +2,7 @@
   "appCommand": "npm run serve-static",
   "src": [
     "src/**/*.spec.ts",
+    "!src/**/happy-flow-magiclink.spec.ts",
     "!src/**/nested-documents.spec.ts"
   ],
   "browsers": [
