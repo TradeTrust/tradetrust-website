@@ -2,24 +2,22 @@ const path = require("path");
 const { ethers, Wallet } = require("ethers");
 const ERC1967Proxy_artifact = require("../../src/test/fixture/artifacts/ERC1967Proxy.json");
 
-// Import @trustvc/trustvc modules directly from CJS dist to avoid ESM issues
+/**
+ * IMPORTANT: This script uses only contract artifacts from @trustvc/trustvc
+ * and avoids importing helper functions (deployTokenRegistry, mint) to prevent
+ * ESM module errors in Node.js/GitHub Actions environments.
+ * 
+ * The helper functions have dependencies that include ESM-only modules
+ * (@digitalbazaar/bls12-381-multikey) which cannot be required() in CommonJS.
+ * 
+ * Instead, we use direct ethers.js ContractFactory deployment and contract
+ * interaction, which is more reliable in CI/CD environments.
+ */
 const v5ContractsPath = path.resolve(
   __dirname,
   "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/contracts.js"
 );
 const v5Contracts = require(v5ContractsPath);
-
-const deployPath = path.resolve(
-  __dirname,
-  "../../node_modules/@trustvc/trustvc/dist/cjs/deploy/token-registry.js"
-);
-const { deployTokenRegistry } = require(deployPath);
-
-const mintPath = path.resolve(
-  __dirname,
-  "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-functions/mint.js"
-);
-const { mint } = require(mintPath);
 
 // Define local chain ID directly for local development
 const CHAIN_ID = { local: 1337 };
@@ -51,21 +49,20 @@ const CHAIN_ID = { local: 1337 };
   await titleEscrowFactoryContractForStandalone.deployed();
   console.log(`Title Escrow Factory deployed at: ${titleEscrowFactoryContractForStandalone.address}`);
 
-  console.log("Deploying Token Registry (standalone) using deployTokenRegistry...");
-  // Deploy Token Registry using @trustvc/trustvc helper function
-  const deployReceipt = await deployTokenRegistry("DEMO TOKEN REGISTRY", "DTR", signer, {
-    chainId: CHAIN_ID.local,
-    standalone: true,
-    factoryAddress: titleEscrowFactoryContractForStandalone.address,
-  });
-  console.log(`Token Registry deployed at: ${deployReceipt.contractAddress}`);
-
-  // Get the deployed contract instance
-  const tokenRegistryContract = new ethers.Contract(
-    deployReceipt.contractAddress,
+  console.log("Deploying Token Registry (standalone)...");
+  // Deploy Token Registry (standalone mode)
+  const tokenRegistryFactory = new ethers.ContractFactory(
     TradeTrustTokenStandard__factory.abi,
+    TradeTrustTokenStandard__factory.bytecode,
     signer
   );
+  const tokenRegistryContract = await tokenRegistryFactory.deploy(
+    "DEMO TOKEN REGISTRY",
+    "DTR",
+    titleEscrowFactoryContractForStandalone.address
+  );
+  await tokenRegistryContract.deployed();
+  console.log(`Token Registry deployed at: ${tokenRegistryContract.address}`);
 
   console.log("Deploying Document Store...");
   // Deploy Document Store (using artifact if available)
@@ -154,25 +151,23 @@ const CHAIN_ID = { local: 1337 };
     ],
   };
 
-  // Mint tokens using @trustvc/trustvc mint function
+  // Mint tokens using direct contract interaction
   console.log("Minting tokens...");
+  const tokenRegistryForMinting = new ethers.Contract(
+    TOKEN_REGISTRY_ADDRESS,
+    TradeTrustTokenStandard__factory.abi,
+    signer
+  );
 
   for (const element of tokensToMint.tokenRegistry) {
     console.log(`Minting token ${element.tokenId}...`);
     try {
-      const receipt = await mint(
-        { tokenRegistryAddress: TOKEN_REGISTRY_ADDRESS },
-        signer,
-        {
-          beneficiaryAddress: element.owner,
-          holderAddress: element.holder,
-          tokenId: element.tokenId,
-        },
-        {
-          chainId: CHAIN_ID.local,
-          titleEscrowVersion: "v5",
-        }
+      const tx = await tokenRegistryForMinting.mint(
+        element.owner,
+        element.holder,
+        element.tokenId
       );
+      await tx.wait();
       console.log(`Token ${element.tokenId} minted successfully`);
     } catch (error) {
       console.error(`Failed to mint token ${element.tokenId}:`, error.message);
