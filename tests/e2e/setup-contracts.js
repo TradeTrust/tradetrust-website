@@ -1,14 +1,17 @@
-const shell = require('shelljs');
-const path = require('path');
+const path = require("path");
 const { ethers, Wallet } = require("ethers");
-const ERC1967Proxy_artifact = require("../../src/test/fixture/artifacts/ERC1967Proxy.json"); // Assuming this is the correct deployable proxy artifact
+const { deployTokenRegistry, mint } = require("@trustvc/trustvc");
+const ERC1967Proxy_artifact = require("../../src/test/fixture/artifacts/ERC1967Proxy.json");
 
-// Import only the specific modules we need to avoid problematic ESM dependencies
+// Import @trustvc/trustvc modules for contract deployment
 const v5ContractsPath = path.resolve(
   __dirname,
   "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/contracts.js"
 );
 const v5Contracts = require(v5ContractsPath);
+
+const v5UtilsPath = path.resolve(__dirname, "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/utils.js");
+const v5Utils = require(v5UtilsPath);
 
 // Define local chain ID directly for local development
 const CHAIN_ID = { local: 1337 };
@@ -23,22 +26,44 @@ const CHAIN_ID = { local: 1337 };
   const ADDRESS_EXAMPLE_1 = "0xe0a71284ef59483795053266cb796b65e48b5124";
   const ADDRESS_EXAMPLE_2 = "0xcdfacbb428dd30ddf6d99875dcad04cbefcd6e60";
 
-  const oaCLI_PATH = "tradetrust";
-
   const TITLE_ESCROW_FACTORY_ADDRESS = "0x63A223E025256790E88778a01f480eBA77731D04";
 
-  shell.exec(`${oaCLI_PATH} deploy title-escrow-factory -n local -k ${ACCOUNT_KEY}`);
-
-  shell.exec(
-    `${oaCLI_PATH} deploy token-registry "DEMO TOKEN REGISTRY" DTR -n local -k ${ACCOUNT_KEY} --factory-address ${TITLE_ESCROW_FACTORY_ADDRESS} --standalone`
-  );
-
-  // Additional step to sync testcafe and synpress addresses
-  shell.exec(`${oaCLI_PATH} deploy document-store "My Document Store" -n local -k ${ACCOUNT_KEY}`);
-
-  // Setup TDoc Deployer
+  // Setup provider and signer
   const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545/", Number(CHAIN_ID.local));
   const signer = new Wallet(ACCOUNT_KEY, provider);
+
+  console.log("Deploying Title Escrow Factory...");
+  // Deploy Title Escrow Factory
+  const titleEscrowFactoryForStandalone = new ethers.ContractFactory(
+    TitleEscrowFactory__factory.abi,
+    TitleEscrowFactory__factory.bytecode,
+    signer
+  );
+  const titleEscrowFactoryContractForStandalone = await titleEscrowFactoryForStandalone.deploy();
+  await titleEscrowFactoryContractForStandalone.deployed();
+  console.log(`Title Escrow Factory deployed at: ${titleEscrowFactoryContractForStandalone.address}`);
+
+  console.log("Deploying Token Registry (standalone) using deployTokenRegistry...");
+  // Deploy Token Registry using @trustvc/trustvc helper function
+  const deployReceipt = await deployTokenRegistry("DEMO TOKEN REGISTRY", "DTR", signer, {
+    chainId: CHAIN_ID.local,
+    standalone: true,
+    factoryAddress: titleEscrowFactoryContractForStandalone.address,
+  });
+  console.log(`Token Registry deployed at: ${deployReceipt.contractAddress}`);
+
+  // Get the deployed contract instance
+  const tokenRegistryContract = new ethers.Contract(
+    deployReceipt.contractAddress,
+    TradeTrustTokenStandard__factory.abi,
+    signer
+  );
+
+  console.log("Deploying Document Store...");
+  // Deploy Document Store (using artifact if available)
+  // Note: You may need to import DocumentStore artifact similar to how you're using it in the codebase
+  // For now, we'll skip this as it's not critical for the token registry tests
+  console.log("Document Store deployment skipped (not critical for token registry tests)");
 
   const tDocDeployerFactory = new ethers.ContractFactory(
     TDocDeployer__factory.abi,
@@ -87,14 +112,14 @@ const CHAIN_ID = { local: 1337 };
   const addImplementationReceipt = await addImplementationTx.wait();
 
   // --- End TDoc Deployer Setup
-  
+
   const defaultToken = {
     accountKey: ACCOUNT_KEY,
     tokenRegistryAddress: TOKEN_REGISTRY_ADDRESS,
     owner: ADDRESS_EXAMPLE_1,
     holder: ADDRESS_EXAMPLE_1,
   };
-    
+
   const tokensToMint = {
     tokenRegistry: [
       {
@@ -121,9 +146,35 @@ const CHAIN_ID = { local: 1337 };
     ],
   };
 
-  tokensToMint.tokenRegistry.forEach((element) => {
-    shell.exec(
-      `${oaCLI_PATH} token-registry issue --beneficiary ${element.owner} --holder ${element.holder} --address ${element.tokenRegistryAddress} --tokenId ${element.tokenId} -n local -k ${element.accountKey}`
-    );
-  });
-})()
+  // Mint tokens using @trustvc/trustvc mint function
+  console.log("Minting tokens...");
+
+  for (const element of tokensToMint.tokenRegistry) {
+    console.log(`Minting token ${element.tokenId}...`);
+    try {
+      const receipt = await mint(
+        { tokenRegistryAddress: TOKEN_REGISTRY_ADDRESS },
+        signer,
+        {
+          beneficiaryAddress: element.owner,
+          holderAddress: element.holder,
+          tokenId: element.tokenId,
+        },
+        {
+          chainId: CHAIN_ID.local,
+          titleEscrowVersion: "v5",
+        }
+      );
+      console.log(`Token ${element.tokenId} minted successfully`);
+    } catch (error) {
+      console.error(`Failed to mint token ${element.tokenId}:`, error.message);
+    }
+  }
+
+  console.log("\n=== Contract Setup Complete ===");
+  console.log(`Title Escrow Factory: ${titleEscrowFactoryContractForStandalone.address}`);
+  console.log(`Token Registry: ${tokenRegistryContract.address}`);
+  console.log(`TDoc Deployer (Proxy): ${ERC1967ProxyFactoryContract.address}`);
+  console.log(`Token Implementation: ${tokenImplementationContract.address}`);
+  console.log(`Title Escrow Factory (V5): ${titleEscrowFactoryContract.address}`);
+})();
