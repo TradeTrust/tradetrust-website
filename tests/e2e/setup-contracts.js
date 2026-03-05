@@ -1,17 +1,25 @@
 const path = require("path");
 const { ethers, Wallet } = require("ethers");
-const { deployTokenRegistry, mint, v5Contracts } = require("@trustvc/trustvc");
 const ERC1967Proxy_artifact = require("../../src/test/fixture/artifacts/ERC1967Proxy.json");
 
-// // Import @trustvc/trustvc modules for contract deployment
-// const v5ContractsPath = path.resolve(
-//   __dirname,
-//   "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/contracts.js"
-// );
-// const v5Contracts = require(v5ContractsPath);
+// Import @trustvc/trustvc modules directly from CJS dist to avoid ESM issues
+const v5ContractsPath = path.resolve(
+  __dirname,
+  "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/contracts.js"
+);
+const v5Contracts = require(v5ContractsPath);
 
-// const v5UtilsPath = path.resolve(__dirname, "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/utils.js");
-// const v5Utils = require(v5UtilsPath);
+const deployPath = path.resolve(
+  __dirname,
+  "../../node_modules/@trustvc/trustvc/dist/cjs/deploy/token-registry.js"
+);
+const { deployTokenRegistry } = require(deployPath);
+
+const mintPath = path.resolve(
+  __dirname,
+  "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-functions/mint.js"
+);
+const { mint } = require(mintPath);
 
 // Define local chain ID directly for local development
 const CHAIN_ID = { local: 1337 };
