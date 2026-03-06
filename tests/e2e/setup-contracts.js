@@ -17,11 +17,6 @@ const v5ContractsPath = path.resolve(
   __dirname,
   "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/contracts.js"
 );
-const DocumentStore__factoryPath = path.resolve(
-  __dirname,
-  "../../node_modules/@trustvc/trustvc/dist/cjs/document-store/index.js"
-);
-const { DocumentStore__factory } = require(DocumentStore__factoryPath);
 const v5Contracts = require(v5ContractsPath);
 
 // Define local chain ID directly for local development
@@ -71,15 +66,17 @@ const CHAIN_ID = { local: 1337 };
   await tokenRegistryContract.deployed();
   console.log(`Token Registry deployed at: ${tokenRegistryContract.address}`);
 
-  console.log("Deploying Document Store...", DocumentStore__factory);
-  const documentStoreFactory = new ethers.ContractFactory(
-    DocumentStore__factory.abi,
-    DocumentStore__factory.bytecode,
+  // Deploy a dummy contract to maintain nonce count and keep addresses consistent with testcafe setup
+  // This ensures TDoc Deployer and other contracts deploy at the same addresses
+  console.log("Deploying dummy contract to maintain address consistency...");
+  const dummyFactory = new ethers.ContractFactory(
+    TitleEscrowFactory__factory.abi, // Reuse any simple contract ABI
+    TitleEscrowFactory__factory.bytecode,
     signer
   );
-  const documentStoreContract = await documentStoreFactory.deploy("My Document Store", signer.address);
-  await documentStoreContract.deployed();
-  console.log(`Document Store deployed at: ${documentStoreContract.address}`);
+  const dummyContract = await dummyFactory.deploy();
+  await dummyContract.deployed();
+  console.log(`Dummy contract deployed at: ${dummyContract.address} (maintains nonce for address consistency)`);
 
   const tDocDeployerFactory = new ethers.ContractFactory(
     TDocDeployer__factory.abi,
