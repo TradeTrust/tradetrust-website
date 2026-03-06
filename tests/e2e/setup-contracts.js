@@ -112,7 +112,7 @@ const CHAIN_ID = { local: 1337 };
     signer
   );
   const addImplementationTx = await tDocDeployerThroughProxy.addImplementation(
-    TOKEN_IMPLEMENTATION_ADDRESS,
+    tokenImplementationContract.address,
     titleEscrowFactoryContract.address
   );
 
