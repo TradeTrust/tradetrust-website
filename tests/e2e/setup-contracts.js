@@ -6,10 +6,10 @@ const ERC1967Proxy_artifact = require("../../src/test/fixture/artifacts/ERC1967P
  * IMPORTANT: This script uses only contract artifacts from @trustvc/trustvc
  * and avoids importing helper functions (deployTokenRegistry, mint) to prevent
  * ESM module errors in Node.js/GitHub Actions environments.
- * 
+ *
  * The helper functions have dependencies that include ESM-only modules
  * (@digitalbazaar/bls12-381-multikey) which cannot be required() in CommonJS.
- * 
+ *
  * Instead, we use direct ethers.js ContractFactory deployment and contract
  * interaction, which is more reliable in CI/CD environments.
  */
@@ -23,7 +23,12 @@ const v5Contracts = require(v5ContractsPath);
 const CHAIN_ID = { local: 1337 };
 
 (async () => {
-  const { TDocDeployer__factory, TitleEscrowFactory__factory, TradeTrustTokenStandard__factory } = v5Contracts; // Remove ERC1967__factory from here
+  const {
+    TDocDeployer__factory,
+    TitleEscrowFactory__factory,
+    TradeTrustToken__factory,
+    TradeTrustTokenStandard__factory,
+  } = v5Contracts; // Remove ERC1967__factory from here
 
   // Note: Dummy test wallets — private keys for local development and CI/CD only.
   // These wallets are not for production and hold no funds or value on any network.
@@ -52,8 +57,8 @@ const CHAIN_ID = { local: 1337 };
   console.log("Deploying Token Registry (standalone)...");
   // Deploy Token Registry (standalone mode)
   const tokenRegistryFactory = new ethers.ContractFactory(
-    TradeTrustTokenStandard__factory.abi,
-    TradeTrustTokenStandard__factory.bytecode,
+    TradeTrustToken__factory.abi,
+    TradeTrustToken__factory.bytecode,
     signer
   );
   const tokenRegistryContract = await tokenRegistryFactory.deploy(
@@ -162,11 +167,7 @@ const CHAIN_ID = { local: 1337 };
   for (const element of tokensToMint.tokenRegistry) {
     console.log(`Minting token ${element.tokenId}...`);
     try {
-      const tx = await tokenRegistryForMinting.mint(
-        element.owner,
-        element.holder,
-        element.tokenId
-      );
+      const tx = await tokenRegistryForMinting.mint(element.owner, element.holder, element.tokenId);
       await tx.wait();
       console.log(`Token ${element.tokenId} minted successfully`);
     } catch (error) {
