@@ -17,6 +17,11 @@ const v5ContractsPath = path.resolve(
   __dirname,
   "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/contracts.js"
 );
+const DocumentStore__factoryPath = path.resolve(
+  __dirname,
+  "../../node_modules/@trustvc/trustvc/dist/cjs/document-store/index.js"
+);
+const { DocumentStore__factory } = require(DocumentStore__factoryPath);
 const v5Contracts = require(v5ContractsPath);
 
 // Define local chain ID directly for local development
@@ -66,11 +71,15 @@ const CHAIN_ID = { local: 1337 };
   await tokenRegistryContract.deployed();
   console.log(`Token Registry deployed at: ${tokenRegistryContract.address}`);
 
-  console.log("Deploying Document Store...");
-  // Deploy Document Store (using artifact if available)
-  // Note: You may need to import DocumentStore artifact similar to how you're using it in the codebase
-  // For now, we'll skip this as it's not critical for the token registry tests
-  console.log("Document Store deployment skipped (not critical for token registry tests)");
+  console.log("Deploying Document Store...", DocumentStore__factory);
+  const documentStoreFactory = new ethers.ContractFactory(
+    DocumentStore__factory.abi,
+    DocumentStore__factory.bytecode,
+    signer
+  );
+  const documentStoreContract = await documentStoreFactory.deploy("My Document Store", signer.address);
+  await documentStoreContract.deployed();
+  console.log(`Document Store deployed at: ${documentStoreContract.address}`);
 
   const tDocDeployerFactory = new ethers.ContractFactory(
     TDocDeployer__factory.abi,
