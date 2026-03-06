@@ -1,9 +1,23 @@
 const shell = require("shelljs");
 const path = require("path");
 const { ethers, Wallet } = require("ethers");
-const ERC1967Proxy_artifact = require("./fixture/artifacts/ERC1967Proxy.json"); // Assuming this is the correct deployable proxy artifact
+const ERC1967Proxy_artifact = require("./fixture/artifacts/ERC1967Proxy.json");
 
-// Import only the specific modules we need to avoid problematic ESM dependencies
+/**
+ * IMPORTANT: This script uses only contract artifacts from @trustvc/trustvc
+ * and avoids importing helper functions (deployTokenRegistry, mint) to prevent
+ * ESM module errors in Node.js/GitHub Actions environments.
+ *
+ * The helper functions have dependencies that include ESM-only modules
+ * (@digitalbazaar/bls12-381-multikey) which cannot be required() in CommonJS.
+ *
+ * Instead, we use direct ethers.js ContractFactory deployment and contract
+ * interaction, which is more reliable in CI/CD environments.
+ */
+
+const DocumentStore = path.resolve(__dirname, "../../node_modules/@trustvc/trustvc/dist/cjs/document-store/index.js");
+const { DocumentStore__factory } = require(DocumentStore);
+
 const v5ContractsPath = path.resolve(
   __dirname,
   "../../node_modules/@trustvc/trustvc/dist/cjs/token-registry-v5/contracts.js"
@@ -14,7 +28,13 @@ const v5Contracts = require(v5ContractsPath);
 const CHAIN_ID = { local: 1337 };
 
 (async () => {
-  const { TDocDeployer__factory, TitleEscrowFactory__factory, TradeTrustTokenStandard__factory } = v5Contracts; // Remove ERC1967__factory from here
+  const {
+    TDocDeployer__factory,
+    TitleEscrowFactory__factory,
+    TradeTrustToken__factory,
+    TradeTrustTokenStandard__factory,
+    TitleEscrow__factory,
+  } = v5Contracts;
 
   // Note: Dummy test wallets — private keys for local development and CI/CD only.
   // These wallets are not for production and hold no funds or value on any network.
@@ -23,22 +43,51 @@ const CHAIN_ID = { local: 1337 };
   const ADDRESS_EXAMPLE_1 = "0xe0a71284ef59483795053266cb796b65e48b5124";
   const ADDRESS_EXAMPLE_2 = "0xcdfacbb428dd30ddf6d99875dcad04cbefcd6e60";
 
-  const oaCLI_PATH = "tradetrust";
-  shell.exec(`${oaCLI_PATH} deploy title-escrow-factory -n local -k ${ACCOUNT_KEY}`);
-  const TITLE_ESCROW_FACTORY_ADDRESS = "0x63A223E025256790E88778a01f480eBA77731D04";
-
-  shell.exec(
-    `${oaCLI_PATH} deploy token-registry "DEMO TOKEN REGISTRY" DTR -n local -k ${ACCOUNT_KEY} --factory-address ${TITLE_ESCROW_FACTORY_ADDRESS} --standalone`
-  );
-  const TOKEN_REGISTRY_ADDRESS = "0x9Eb613a88534E2939518f4ffBFE65F5969b491FF";
-
-  shell.exec(`${oaCLI_PATH} deploy document-store "My Document Store" -n local -k ${ACCOUNT_KEY}`);
-  const DOCUMENT_STORE_ADDRESS = "0x4Bf7E4777a8D1b6EdD5F2d9b8582e2817F0B0953";
-
-  // Setup TDoc Deployer
-
+  // Setup provider and signer
   const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545/", Number(CHAIN_ID.local));
   const signer = new Wallet(ACCOUNT_KEY, provider);
+  const signer2 = new Wallet(ACCOUNT_KEY_2, provider);
+
+  console.log("Deploying Title Escrow Factory...");
+  // Deploy Title Escrow Factory
+  const titleEscrowFactoryForStandalone = new ethers.ContractFactory(
+    TitleEscrowFactory__factory.abi,
+    TitleEscrowFactory__factory.bytecode,
+    signer
+  );
+  const titleEscrowFactoryContractForStandalone = await titleEscrowFactoryForStandalone.deploy();
+  await titleEscrowFactoryContractForStandalone.deployed();
+  console.log(`Title Escrow Factory deployed at: ${titleEscrowFactoryContractForStandalone.address}`);
+  const TITLE_ESCROW_FACTORY_ADDRESS = titleEscrowFactoryContractForStandalone.address;
+
+  console.log("Deploying Token Registry (standalone)...");
+  // Deploy Token Registry (standalone mode)
+  const tokenRegistryFactory = new ethers.ContractFactory(
+    TradeTrustToken__factory.abi,
+    TradeTrustToken__factory.bytecode,
+    signer
+  );
+  const tokenRegistryContract = await tokenRegistryFactory.deploy(
+    "DEMO TOKEN REGISTRY",
+    "DTR",
+    titleEscrowFactoryContractForStandalone.address
+  );
+  await tokenRegistryContract.deployed();
+  console.log(`Token Registry deployed at: ${tokenRegistryContract.address}`);
+  const TOKEN_REGISTRY_ADDRESS = tokenRegistryContract.address;
+
+  // Deploy a dummy contract to maintain nonce count and keep addresses consistent
+  // This ensures TDoc Deployer and other contracts deploy at the same addresses
+  console.log("Deploying Document Store contract to maintain address consistency...");
+  const documentStoreFactory = new ethers.ContractFactory(
+    DocumentStore__factory.abi, // Reuse any simple contract ABI
+    DocumentStore__factory.bytecode,
+    signer
+  );
+  const documentStoreContract = await documentStoreFactory.deploy("DEMO DOCUMENT STORE", signer.address);
+  // await documentStoreContract.deployed();
+  console.log(`Document Store deployed at: ${documentStoreContract.address} (maintains nonce for address consistency)`);
+  const DOCUMENT_STORE_ADDRESS = documentStoreContract.address;
 
   const tDocDeployerFactory = new ethers.ContractFactory(
     TDocDeployer__factory.abi,
@@ -127,30 +176,55 @@ const CHAIN_ID = { local: 1337 };
     ],
   };
 
-  merkleRootToMint.tokenRegistry.forEach((element) => {
-    shell.exec(
-      `${oaCLI_PATH} token-registry issue --beneficiary ${element.owner} --holder ${element.holder} --address ${element.tokenRegistryAddress} --tokenId ${element.merkleRoot} -n local -k ${element.accountKey}`
-    );
-  });
+  // Mint tokens using direct contract interaction
+  console.log("Minting tokens...");
+  for (const element of merkleRootToMint.tokenRegistry) {
+    console.log(`Minting token ${element.merkleRoot}...`);
+    try {
+      const tx = await tokenRegistryContract.mint(element.owner, element.holder, element.merkleRoot, "0x");
+      await tx.wait();
+      console.log(`Token ${element.merkleRoot} minted successfully`);
+    } catch (error) {
+      console.error(`Failed to mint token ${element.merkleRoot}:`, error.message);
+    }
+  }
 
-  shell.exec(
-    `${oaCLI_PATH} title-escrow nominate-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_2} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY}`
-  );
-  shell.exec(
-    `${oaCLI_PATH} title-escrow endorse-transfer-owner --newBeneficiary ${ADDRESS_EXAMPLE_2} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY}`
-  );
-  shell.exec(
-    `${oaCLI_PATH} title-escrow change-holder --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} --newHolder ${ADDRESS_EXAMPLE_2} -n local -k ${ACCOUNT_KEY}`
-  );
-  shell.exec(
-    `${oaCLI_PATH} title-escrow endorse-change-owner --newBeneficiary ${ADDRESS_EXAMPLE_1} --newHolder ${ADDRESS_EXAMPLE_1} --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY_2}`
-  );
-  shell.exec(
-    `${oaCLI_PATH} title-escrow return-to-issuer --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY}`
-  );
-  shell.exec(
-    `${oaCLI_PATH} title-escrow accept-returned --token-registry ${TOKEN_REGISTRY_ADDRESS} --tokenId ${MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT} -n local -k ${ACCOUNT_KEY}`
-  );
+  // Perform endorsement chain operations using direct contract interaction
+  console.log("Performing endorsement chain operations...");
+
+  // Get the title escrow address for the token
+  const titleEscrowAddress = await tokenRegistryContract.ownerOf(MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT);
+  const TitleEscrow = new ethers.Contract(titleEscrowAddress, TitleEscrow__factory.abi, signer);
+
+  try {
+    console.log("1. Nominate change owner...");
+    let tx = await TitleEscrow.connect(signer).nominate(ADDRESS_EXAMPLE_2, "0x");
+    await tx.wait();
+
+    console.log("2. Endorse transfer owner...");
+    tx = await TitleEscrow.connect(signer).transferBeneficiary(ADDRESS_EXAMPLE_2, "0x");
+    await tx.wait();
+
+    console.log("3. Change holder...");
+    tx = await TitleEscrow.connect(signer).transferHolder(ADDRESS_EXAMPLE_2, "0x");
+    await tx.wait();
+
+    console.log("4. Endorse change owner (from signer2)...");
+    tx = await TitleEscrow.connect(signer2).transferOwners(ADDRESS_EXAMPLE_1, ADDRESS_EXAMPLE_1, "0x");
+    await tx.wait();
+
+    console.log("5. Return to issuer...");
+    tx = await TitleEscrow.connect(signer).returnToIssuer("0x");
+    await tx.wait();
+
+    console.log("6. Accept returned (shred)...");
+    tx = await tokenRegistryContract.connect(signer).burn(MERKLE_ROOT_OF_ENDORSEMENT_CHAIN_DOCUMENT, "0x");
+    await tx.wait();
+
+    console.log("Endorsement chain operations completed successfully");
+  } catch (error) {
+    console.error("Error during endorsement chain operations:", error.message);
+  }
 
   // prep for issuing document store
   const merkleRootToIssue = [
@@ -180,14 +254,23 @@ const CHAIN_ID = { local: 1337 };
     "0x9e29d92823624e164f1b30b5b2da43f9db1c0347f5ff3b80b576f1a0376de5af",
   ];
 
-  merkleRootToIssue.forEach((hash) => {
-    shell.exec(
-      `${oaCLI_PATH} document-store issue --address ${DOCUMENT_STORE_ADDRESS} --hash ${hash} -n local -k ${ACCOUNT_KEY}`
-    );
-  });
+  // These documents are for verifiable documents, not transferable documents
+  //add in issuance code
+  console.log("Issuing documents...");
+  for (const merkleRoot of merkleRootToIssue) {
+    console.log(`Issuing document ${merkleRoot}...`);
+    try {
+      const tx = await documentStoreContract.issue(merkleRoot);
+      await tx.wait();
+      console.log(`Document ${merkleRoot} issued successfully`);
+    } catch (error) {
+      console.error(`Failed to issue document ${merkleRoot}:`, error.message);
+    }
+  }
 
   // Generate self sign ssl for testcafe to verify w3c document.
   // Need to run testcafe with ssl. https://stackoverflow.com/questions/74067564/how-to-get-subtlecrypto-work-with-testcafe
+  console.log("\nGenerating SSL certificates for testcafe...");
   shell.exec(
     `openssl req -nodes -new -x509 -keyout src/test/ca/myCA.key -out src/test/ca/myCA.pem -subj "/C=SG/ST=SG/L=/O=/OU=/CN=www.example.com/emailAddress=dev@www.example.com"`
   );
@@ -201,4 +284,13 @@ const CHAIN_ID = { local: 1337 };
   shell.exec(
     `openssl pkcs12 -passout pass: -export -out src/test/ca/testingdomain.pfx -inkey src/test/ca/testingdomain.key -in src/test/ca/testingdomain.crt -certfile src/test/ca/myCA.pem`
   );
+
+  console.log("\n=== Contract Setup Complete ===");
+  console.log(`Title Escrow Factory: ${TITLE_ESCROW_FACTORY_ADDRESS}`);
+  console.log(`Token Registry: ${TOKEN_REGISTRY_ADDRESS}`);
+  console.log(`Dummy Contract (Document Store placeholder): ${DOCUMENT_STORE_ADDRESS}`);
+  console.log(`TDoc Deployer (Implementation): ${tDocDeployerFactoryContract.address}`);
+  console.log(`TDoc Deployer (Proxy): ${ERC1967ProxyFactoryContract.address}`);
+  console.log(`Token Implementation: ${tokenImplementationContract.address}`);
+  console.log(`Title Escrow Factory (V5): ${titleEscrowFactoryContract.address}`);
 })();
