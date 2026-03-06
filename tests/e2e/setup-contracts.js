@@ -33,7 +33,7 @@ const CHAIN_ID = { local: 1337 };
   // Note: Dummy test wallets — private keys for local development and CI/CD only.
   // These wallets are not for production and hold no funds or value on any network.
   const ACCOUNT_KEY = "0xe82294532bcfcd8e0763ee5cef194f36f00396be59b94fb418f5f8d83140d9a7";
-  const TOKEN_REGISTRY_ADDRESS = "0x9Eb613a88534E2939518f4ffBFE65F5969b491FF";
+  const TOKEN_REGISTRY_ADDRESS = "0x82524C1C34F52a2c42eA41daF08B27cB7711c9EE";
   const ADDRESS_EXAMPLE_1 = "0xe0a71284ef59483795053266cb796b65e48b5124";
   const ADDRESS_EXAMPLE_2 = "0xcdfacbb428dd30ddf6d99875dcad04cbefcd6e60";
 
@@ -167,7 +167,7 @@ const CHAIN_ID = { local: 1337 };
   for (const element of tokensToMint.tokenRegistry) {
     console.log(`Minting token ${element.tokenId}...`);
     try {
-      const tx = await tokenRegistryForMinting.mint(element.owner, element.holder, element.tokenId);
+      const tx = await tokenRegistryForMinting.mint(element.owner, element.holder, element.tokenId, "0x");
       await tx.wait();
       console.log(`Token ${element.tokenId} minted successfully`);
     } catch (error) {
