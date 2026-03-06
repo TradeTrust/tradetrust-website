@@ -46,8 +46,8 @@ export const useDeployTokenRegistry = (): useDeployTokenRegistryResult => {
           CHAIN_ID.local,
           "execute blockchain:contracts:testcafe before starting"
         );
-        tDocDeployerAddress = "0x3488EAA1bF4f606f758b24F5ef6eb2a1E32335be"; //process.env.ERC1967_PROXY_ADDRESS!;
-        implContractAddress = "0x0952a6817E00fc2455418a5303395760A9c4EE71"; //process.env.TOKEN_IMPLEMENTATION!;
+        tDocDeployerAddress = "0xfE442b75786c67E1e7a7146DAeD8943F0f2c23d2"; //process.env.ERC1967_PROXY_ADDRESS!;
+        implContractAddress = "0x547Ca63C8fB3Ccb856DEb7040D327dBfe4e7d20F"; //process.env.TOKEN_IMPLEMENTATION!;
       } else {
         tDocDeployerAddress = v5ContractAddress.Deployer[networkId];
         implContractAddress = v5ContractAddress.TokenImplementation[networkId];
