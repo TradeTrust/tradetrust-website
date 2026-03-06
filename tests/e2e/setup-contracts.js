@@ -33,11 +33,8 @@ const CHAIN_ID = { local: 1337 };
   // Note: Dummy test wallets — private keys for local development and CI/CD only.
   // These wallets are not for production and hold no funds or value on any network.
   const ACCOUNT_KEY = "0xe82294532bcfcd8e0763ee5cef194f36f00396be59b94fb418f5f8d83140d9a7";
-  const TOKEN_REGISTRY_ADDRESS = "0x82524C1C34F52a2c42eA41daF08B27cB7711c9EE";
   const ADDRESS_EXAMPLE_1 = "0xe0a71284ef59483795053266cb796b65e48b5124";
   const ADDRESS_EXAMPLE_2 = "0xcdfacbb428dd30ddf6d99875dcad04cbefcd6e60";
-
-  const TITLE_ESCROW_FACTORY_ADDRESS = "0x63A223E025256790E88778a01f480eBA77731D04";
 
   // Setup provider and signer
   const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545/", Number(CHAIN_ID.local));
@@ -125,7 +122,7 @@ const CHAIN_ID = { local: 1337 };
 
   const defaultToken = {
     accountKey: ACCOUNT_KEY,
-    tokenRegistryAddress: TOKEN_REGISTRY_ADDRESS,
+    tokenRegistryAddress: tokenRegistryContract.address, // Use the deployed contract address
     owner: ADDRESS_EXAMPLE_1,
     holder: ADDRESS_EXAMPLE_1,
   };
@@ -159,7 +156,7 @@ const CHAIN_ID = { local: 1337 };
   // Mint tokens using direct contract interaction
   console.log("Minting tokens...");
   const tokenRegistryForMinting = new ethers.Contract(
-    TOKEN_REGISTRY_ADDRESS,
+    tokenRegistryContract.address,
     TradeTrustTokenStandard__factory.abi,
     signer
   );
