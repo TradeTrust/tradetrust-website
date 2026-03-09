@@ -107,10 +107,10 @@ const CHAIN_ID = { local: 1337 };
   const tokenImplementationContract = await tokenImplementation.deploy();
 
   // addresses are same when executed for the first time after blockchain node is started.
-  const TOKEN_IMPLEMENTATION_ADDRESS = "0x0952a6817E00fc2455418a5303395760A9c4EE71"; //tokenImplementationContract.address
-  const TITLE_ESCROW_FACTORY_ADDRESS2 = "0x547Ca63C8fB3Ccb856DEb7040D327dBfe4e7d20F"; //titleEscrowFactoryContract.address;
-  const TDOC_DEPLOYER_ADDRESS = "0xfE442b75786c67E1e7a7146DAeD8943F0f2c23d2"; //tDocDeployerFactoryContract.address
-  const ERC1967_PROXY_ADDRESS2 = "0x3488EAA1bF4f606f758b24F5ef6eb2a1E32335be"; //ERC1967ProxyFactoryContract.address
+  // const TOKEN_IMPLEMENTATION_ADDRESS = "0x0952a6817E00fc2455418a5303395760A9c4EE71"; //tokenImplementationContract.address
+  // const TITLE_ESCROW_FACTORY_ADDRESS2 = "0x547Ca63C8fB3Ccb856DEb7040D327dBfe4e7d20F"; //titleEscrowFactoryContract.address;
+  // const TDOC_DEPLOYER_ADDRESS = "0xfE442b75786c67E1e7a7146DAeD8943F0f2c23d2"; //tDocDeployerFactoryContract.address
+  // const ERC1967_PROXY_ADDRESS2 = "0x3488EAA1bF4f606f758b24F5ef6eb2a1E32335be"; //ERC1967ProxyFactoryContract.address
 
   const tDocDeployerThroughProxy = new ethers.Contract(
     ERC1967ProxyFactoryContract.address,
@@ -122,7 +122,7 @@ const CHAIN_ID = { local: 1337 };
     titleEscrowFactoryContract.address
   );
 
-  const addImplementationReceipt = await addImplementationTx.wait();
+  await addImplementationTx.wait();
 
   // --- End TDoc Deployer Setup
 
@@ -175,6 +175,7 @@ const CHAIN_ID = { local: 1337 };
       console.log(`Token ${element.tokenId} minted successfully`);
     } catch (error) {
       console.error(`Failed to mint token ${element.tokenId}:`, error.message);
+      throw error;
     }
   }
 
