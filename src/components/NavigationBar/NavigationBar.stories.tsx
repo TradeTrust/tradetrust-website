@@ -6,7 +6,7 @@ export default {
   title: "Navigation/NavigationBar",
   component: NavigationBar,
   parameters: {
-    componentSubtitle: "Navigation bar for Tradetrust website",
+    componentSubtitle: "Navigation bar for TradeTrust website",
   },
 };
 
