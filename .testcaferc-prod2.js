@@ -38,7 +38,7 @@ module.exports = {
   },
   "screenshots": {
     "path": "artifacts/screenshots",
-    "pathPattern": "${USERAGENT}/test-${TEST_INDEX}-${USERAGENT}-${FILE_INDEX}.png",
+    "pathPattern": "${USERAGENT}/test-${TEST_INDEX}-attempt-${QUARANTINE_ATTEMPT}-${USERAGENT}-${FILE_INDEX}.png",
     "takeOnFails": true,
     "fullPage": true
   }
