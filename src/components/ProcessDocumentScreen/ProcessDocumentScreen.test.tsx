@@ -302,7 +302,7 @@ describe("ProcessDocumentScreen", () => {
         "href",
         `data:text/plain;charset=UTF-8,${JSON.stringify(expectedRedactedError, null, 2)}`
       );
-      expect(screen.getByTestId("error-link")).not.toHaveAttribute("href", expect.stringContaining("TTfunctions2022!"));
+      expect(screen.getByTestId("error-link")).not.toHaveAttribute("href", expect.stringContaining("testing-api-key"));
     });
   });
 
