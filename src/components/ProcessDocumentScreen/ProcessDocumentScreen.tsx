@@ -25,23 +25,27 @@ const titleText = (message: string): ReactElement => {
   return <span data-testid="process-title">{message}</span>;
 };
 
-const redactApiKeys = (value: unknown): unknown => {
-  if (Array.isArray(value)) {
-    return value.map(redactApiKeys);
-  }
+const sanitizeErrorForDownload = (error: unknown): unknown => {
+  if (!error || typeof error !== "object") return error;
 
-  if (value && typeof value === "object") {
-    return Object.entries(value as Record<string, unknown>).reduce<Record<string, unknown>>((acc, [key, val]) => {
-      if (key.toLowerCase() === "x-api-key") {
-        acc[key] = "*****";
-      } else {
-        acc[key] = redactApiKeys(val);
-      }
-      return acc;
-    }, {});
-  }
+  const errorObj = error as Record<string, unknown>;
+  const config = errorObj.config as Record<string, unknown> | undefined;
+  const headers = config?.headers as Record<string, unknown> | undefined;
 
-  return value;
+  if (!headers) return error;
+
+  const sanitizedHeaders = Object.entries(headers).reduce<Record<string, unknown>>((acc, [key, value]) => {
+    acc[key] = key.toLowerCase() === "x-api-key" ? "*****" : value;
+    return acc;
+  }, {});
+
+  return {
+    ...errorObj,
+    config: {
+      ...config,
+      headers: sanitizedHeaders,
+    },
+  };
 };
 
 export const getDisplayTitle = (
@@ -133,7 +137,11 @@ export const ProcessDocumentScreen: FunctionComponent<ProcessDocumentScreenProps
               extension: "txt",
               hasTimestamp: true,
             })}
-            downloadErrorLink={`data:text/plain;charset=UTF-8,${JSON.stringify(redactApiKeys(error), null, 2)}`}
+            downloadErrorLink={`data:text/plain;charset=UTF-8,${JSON.stringify(
+              sanitizeErrorForDownload(error),
+              null,
+              2
+            )}`}
             downloadAllFn={() => {
               if (!document) return;
               const file = JSON.stringify(document);
