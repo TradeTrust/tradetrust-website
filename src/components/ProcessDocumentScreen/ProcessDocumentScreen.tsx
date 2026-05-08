@@ -25,6 +25,25 @@ const titleText = (message: string): ReactElement => {
   return <span data-testid="process-title">{message}</span>;
 };
 
+const redactApiKeys = (value: unknown): unknown => {
+  if (Array.isArray(value)) {
+    return value.map(redactApiKeys);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.entries(value as Record<string, unknown>).reduce<Record<string, unknown>>((acc, [key, val]) => {
+      if (key.toLowerCase() === "x-api-key") {
+        acc[key] = "*****";
+      } else {
+        acc[key] = redactApiKeys(val);
+      }
+      return acc;
+    }, {});
+  }
+
+  return value;
+};
+
 export const getDisplayTitle = (
   queueState?: QueueState,
   providerType?: SIGNER_TYPE,
@@ -114,7 +133,7 @@ export const ProcessDocumentScreen: FunctionComponent<ProcessDocumentScreenProps
               extension: "txt",
               hasTimestamp: true,
             })}
-            downloadErrorLink={`data:text/plain;charset=UTF-8,${JSON.stringify(error, null, 2)}`}
+            downloadErrorLink={`data:text/plain;charset=UTF-8,${JSON.stringify(redactApiKeys(error), null, 2)}`}
             downloadAllFn={() => {
               if (!document) return;
               const file = JSON.stringify(document);
