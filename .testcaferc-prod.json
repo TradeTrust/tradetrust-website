@@ -6,9 +6,9 @@
     "!src/**/nested-documents.spec.ts"
   ],
   "browsers": [
-    "chrome:headless --autoplay-policy=no-user-gesture-required --allow-insecure-localhost --ignore-certificate-errors --disable-features=LocalNetworkAccessChecks"
+    "chrome:headless --autoplay-policy=no-user-gesture-required --allow-insecure-localhost --ignore-certificate-errors --disable-features=LocalNetworkAccessChecks --unsafely-treat-insecure-origin-as-secure=http://127.0.0.1:8545,http://localhost:8545"
   ],
-  "concurrency": 4,
+  "concurrency": 1,
   "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true",
   "cache": true,
   "selectorTimeout": 45000,
@@ -36,7 +36,7 @@
   },
   "screenshots": {
     "path": "artifacts/screenshots",
-    "pathPattern": "${USERAGENT}/test-${TEST_INDEX}-attempt-${QUARANTINE_ATTEMPT}-${USERAGENT}-${FILE_INDEX}.png",
+    "pathPattern": "${USERAGENT}/${FIXTURE}/test-${TEST_INDEX}-attempt-${QUARANTINE_ATTEMPT}-${FILE_INDEX}.png",
     "takeOnFails": true,
     "fullPage": true
   }
