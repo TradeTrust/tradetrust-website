@@ -266,8 +266,15 @@ describe("ProcessDocumentScreen", () => {
   });
 
   describe("QueueState - ERROR", () => {
-    it("should render correctly for ERROR state", () => {
-      const mockError = { message: "Test error" };
+    it("should render correctly for ERROR state and redact API key in error download", () => {
+      const mockError = {
+        message: "Network Error",
+        config: {
+          headers: {
+            "x-api-key": "testing-api-key",
+          },
+        },
+      };
       mockUseQueue.mockReturnValue({
         processDocument: mockProcessDocument,
         queueState: QueueState.ERROR,
@@ -283,10 +290,19 @@ describe("ProcessDocumentScreen", () => {
       expect(screen.getByTestId("process-document-content")).toBeInTheDocument();
       expect(screen.getByTestId("process-document-content")).toHaveTextContent(`Queue State: ${QueueState.ERROR}`);
       expect(screen.getByTestId("process-document-content")).toHaveTextContent("Error Name: error-log.txt");
+      const expectedRedactedError = {
+        message: "Network Error",
+        config: {
+          headers: {
+            "x-api-key": "*****",
+          },
+        },
+      };
       expect(screen.getByTestId("error-link")).toHaveAttribute(
         "href",
-        `data:text/plain;charset=UTF-8,${JSON.stringify(mockError, null, 2)}`
+        `data:text/plain;charset=UTF-8,${JSON.stringify(expectedRedactedError, null, 2)}`
       );
+      expect(screen.getByTestId("error-link")).not.toHaveAttribute("href", expect.stringContaining("testing-api-key"));
     });
   });
 

@@ -25,6 +25,29 @@ const titleText = (message: string): ReactElement => {
   return <span data-testid="process-title">{message}</span>;
 };
 
+const sanitizeErrorForDownload = (error: unknown): unknown => {
+  if (!error || typeof error !== "object") return error;
+
+  const errorObj = error as Record<string, unknown>;
+  const config = errorObj.config as Record<string, unknown> | undefined;
+  const headers = config?.headers as Record<string, unknown> | undefined;
+
+  if (!headers) return error;
+
+  const sanitizedHeaders = Object.entries(headers).reduce<Record<string, unknown>>((acc, [key, value]) => {
+    acc[key] = key.toLowerCase() === "x-api-key" ? "*****" : value;
+    return acc;
+  }, {});
+
+  return {
+    ...errorObj,
+    config: {
+      ...config,
+      headers: sanitizedHeaders,
+    },
+  };
+};
+
 export const getDisplayTitle = (
   queueState?: QueueState,
   providerType?: SIGNER_TYPE,
@@ -114,7 +137,11 @@ export const ProcessDocumentScreen: FunctionComponent<ProcessDocumentScreenProps
               extension: "txt",
               hasTimestamp: true,
             })}
-            downloadErrorLink={`data:text/plain;charset=UTF-8,${JSON.stringify(error, null, 2)}`}
+            downloadErrorLink={`data:text/plain;charset=UTF-8,${JSON.stringify(
+              sanitizeErrorForDownload(error),
+              null,
+              2
+            )}`}
             downloadAllFn={() => {
               if (!document) return;
               const file = JSON.stringify(document);

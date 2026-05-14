@@ -17,11 +17,11 @@ export const LoadDemoCertificate: FunctionComponent = () => {
             window.open(URLS.GALLERY, "_blank");
           }}
         >
-          View Demo Tradetrust Document
+          View Demo TradeTrust Document
         </Button>
         <Link className="w-full xs:w-72" to={"/creator"}>
           <Button className="bg-white rounded-xl border-cloud-100 text-cerulean-500 shadow-none hover:bg-cloud-200 w-full">
-            Create Tradetrust Document
+            Create TradeTrust Document
           </Button>
         </Link>
       </div>

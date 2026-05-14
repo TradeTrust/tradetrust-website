@@ -62,6 +62,12 @@
       }
     },
     {
+      "files": ["src/test/**/*.spec.ts"],
+      "rules": {
+        "jest/no-disabled-tests": "off"
+      }
+    },
+    {
       "files": ["*.md"],
       "rules": {
         "prettier/prettier": [

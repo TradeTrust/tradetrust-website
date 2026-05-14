@@ -27,7 +27,7 @@ test("demo certificate button opens gallery in new tab", async (t) => {
     };
   });
 
-  await t.click(Selector("button").withText("View Demo Tradetrust Document"));
+  await t.click(Selector("button").withText("View Demo TradeTrust Document"));
   await t.wait(500);
   const openedUrl = await t.eval(() => (window as any).openedUrl);
   await t.expect(openedUrl).contains("gallery.tradetrust.io");
