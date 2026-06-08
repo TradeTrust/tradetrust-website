@@ -21,7 +21,7 @@ export const CostModal: FunctionComponent<CostModalProps> = ({ costData }) => {
 
   const generateDescription = useCallback(() => {
     return `*Estimations based on the current gas average at ${Math.ceil(eGwei)} gwei (ETH), ETH price at USD
-      $${ePrice} for Ethereum and ${Math.ceil(mGwei)} gwei (MATIC), MATIC price at USD $${mPrice} for Polygon
+      $${ePrice} for Ethereum and ${Math.ceil(mGwei)} gwei (POL), POL price at USD $${mPrice} for Polygon
      as at ${dateTime}.`;
   }, [eGwei, mGwei, ePrice, mPrice, dateTime]);
   const description = generateDescription();
@@ -51,7 +51,7 @@ export const CostModal: FunctionComponent<CostModalProps> = ({ costData }) => {
                     <div className="flex">
                       Polygon:
                       <h5 className="ml-2 text-center">
-                        US<FiatLabel>{cost.maticPrice as any}</FiatLabel>*
+                        US<FiatLabel>{cost.polPrice as any}</FiatLabel>*
                       </h5>
                     </div>
                   </div>
