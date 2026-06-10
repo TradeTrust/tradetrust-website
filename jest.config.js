@@ -19,6 +19,12 @@ module.exports = {
     "node:util": "<rootDir>/node_modules/util",
     "node:events": "<rootDir>/node_modules/events",
     "node:process": "<rootDir>/node_modules/process",
+    "node:fs": "<rootDir>/_mocks_/nodeBuiltins/fs.js",
+    "node:path": "<rootDir>/_mocks_/nodeBuiltins/path.js",
+    "node:os": "<rootDir>/_mocks_/nodeBuiltins/os.js",
+    "node:url": "<rootDir>/_mocks_/nodeBuiltins/url.js",
+    "node:http": "<rootDir>/_mocks_/nodeBuiltins/http.js",
+    "node:https": "<rootDir>/_mocks_/nodeBuiltins/https.js",
     "@tradetrust-tt/tradetrust-utils/constants/network":
       "<rootDir>/node_modules/@tradetrust-tt/tradetrust-utils/dist/cjs/constants/network.js",
     "@tradetrust-tt/tradetrust-utils/constants/supportedChains":
