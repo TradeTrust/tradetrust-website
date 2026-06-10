@@ -1,6 +1,5 @@
 import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
-import { StoryContext } from "@storybook/types"; // Or from '@storybook/react' if re-exported
 import { Connected } from "./Connected";
 import { ProviderContext, SIGNER_TYPE, ProviderContextProps } from "../../common/contexts/provider";
 import { ChainId } from "../../constants/chain-info";
@@ -38,12 +37,9 @@ export default {
   title: "Components/ConnectToBlockchain/Connected",
   component: Connected,
   decorators: [
-    (
-      StoryComponent: StoryFn<React.ComponentProps<typeof Connected>>,
-      context: StoryContext<any, React.ComponentProps<typeof Connected>>
-    ) => (
+    (StoryComponent: StoryFn) => (
       <ProviderContext.Provider value={mockProviderContextValue}>
-        <StoryComponent {...context.args} />
+        <StoryComponent />
       </ProviderContext.Provider>
     ),
   ],
