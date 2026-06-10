@@ -30,8 +30,8 @@ jest.mock("../../constants/chain-info", () => ({
       explorerUrl: "https://polygonscan.com",
       rpcUrl: "https://polygon-rpc.com",
       nativeCurrency: {
-        name: "Matic",
-        symbol: "MATIC",
+        name: "POL",
+        symbol: "POL",
         decimals: 18,
       },
     },
