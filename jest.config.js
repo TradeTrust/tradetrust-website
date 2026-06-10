@@ -13,6 +13,7 @@ module.exports = {
       "<rootDir>/_mocks_/fileMock.js",
     "\\.(css|sass|scss)$": "identity-obj-proxy",
     "^swiper/css(/.*)?$": "<rootDir>/_mocks_/fileMock.js",
+    "node:buffer": "<rootDir>/node_modules/buffer",
     "node:stream": "<rootDir>/node_modules/stream-browserify",
     "node:crypto": "<rootDir>/node_modules/crypto-browserify",
     "node:util": "<rootDir>/node_modules/util",
@@ -26,6 +27,9 @@ module.exports = {
       "<rootDir>/node_modules/@tradetrust-tt/token-registry-v5/dist/contracts",
     "@tradetrust-tt/token-registry/contracts": "<rootDir>/node_modules/@tradetrust-tt/token-registry-v5/dist/contracts",
     "@trustvc/trustvc(/.*)": "<rootDir>/node_modules/@trustvc/trustvc/dist/cjs/$1",
+    "@peculiar/utils/bytes": "<rootDir>/node_modules/@peculiar/utils/build/cjs/bytes/index.js",
+    "@peculiar/utils/encoding": "<rootDir>/node_modules/@peculiar/utils/build/cjs/encoding/index.js",
+    "@peculiar/utils/legacy": "<rootDir>/node_modules/@peculiar/utils/build/cjs/legacy/index.js",
     "^@digitalbazaar/security-context$": "<rootDir>/node_modules/@digitalbazaar/security-context/js/index.js",
     "^@digitalbazaar/(.*)$": "<rootDir>/node_modules/@digitalbazaar/$1/lib/index.js",
     "^base(58|64url)-universal$": "<rootDir>/node_modules/base$1-universal/lib/index.js"
