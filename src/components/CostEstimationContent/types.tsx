@@ -8,12 +8,12 @@ export interface ContractCost {
   icon: string;
   title: string;
   ethPrice: string;
-  maticPrice: string;
+  polPrice: string;
 }
 
 interface Price {
   eth: string;
-  matic: string;
+  pol: string;
 }
 export interface PriceTable {
   xferOwner: Price;

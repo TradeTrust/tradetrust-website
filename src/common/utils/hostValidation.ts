@@ -3,7 +3,13 @@
  */
 
 // Define allowed hosts for production and development
-const ALLOWED_HOSTS = ["ref.tradetrust.io", "dev.tradetrust.io", "dev--reference-implementation.netlify.app", "localhost:3000", "127.0.0.1:3000"];
+const ALLOWED_HOSTS = [
+  "ref.tradetrust.io",
+  "dev.tradetrust.io",
+  "dev--reference-implementation.netlify.app",
+  "localhost:3000",
+  "127.0.0.1:3000",
+];
 
 const getAllowedHosts = (): string[] => {
   const hosts = [...ALLOWED_HOSTS];
