@@ -11,6 +11,8 @@ jobs:
     if: ${{ !contains(github.event.pull_request.title, '[skip test]') }}
     name: Lighthouse Desktop
     runs-on: ubuntu-latest
+    env:
+      CRYPTOCOMPARE_API_KEY: ${{ secrets.CRYPTOCOMPARE_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x

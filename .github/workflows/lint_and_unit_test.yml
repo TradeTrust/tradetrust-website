@@ -20,6 +20,7 @@ jobs:
 
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+      CRYPTOCOMPARE_API_KEY: ${{ secrets.CRYPTOCOMPARE_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

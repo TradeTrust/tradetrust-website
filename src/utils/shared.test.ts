@@ -24,6 +24,22 @@ describe("getChainId for v2 document", () => {
     expect(getChainId(document)).toStrictEqual(80002);
   });
 
+  it("should return the correct chainId for polygon amoy network with POL chain identifier", () => {
+    const document = {
+      ...invoiceV2,
+      data: { ...invoiceV2.data, network: { chain: "POL", chainId: "80002" } },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId for polygon mainnet with POL chain identifier", () => {
+    const document = {
+      ...invoiceV2,
+      data: { ...invoiceV2.data, network: { chain: "POL", chainId: "137" } },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(137);
+  });
+
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
     const document = {
       ...invoiceV2,
@@ -79,6 +95,22 @@ describe("getChainId for v3 document", () => {
       network: { chain: "MATIC", chainId: "80002" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(getChainId(document)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId for polygon amoy network with POL chain identifier", () => {
+    const document = {
+      ...invoiceV3,
+      network: { chain: "POL", chainId: "80002" },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId for polygon mainnet with POL chain identifier", () => {
+    const document = {
+      ...invoiceV3,
+      network: { chain: "POL", chainId: "137" },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(137);
   });
 
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
@@ -147,6 +179,28 @@ describe("getChainId for W3C v2 document", () => {
       },
     };
     expect(getChainId(documentWithPolygon as SignedVerifiableCredential)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId when W3C v2.0 document has tokenNetwork with polygon amoy chainId and POL chain identifier", () => {
+    const documentWithPolygon = {
+      ...w3cV2Document,
+      credentialStatus: {
+        ...w3cV2Document.credentialStatus,
+        tokenNetwork: { chain: "POL", chainId: "80002" },
+      },
+    };
+    expect(getChainId(documentWithPolygon as SignedVerifiableCredential)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId when W3C v2.0 document has tokenNetwork with polygon mainnet chainId and POL chain identifier", () => {
+    const documentWithPolygon = {
+      ...w3cV2Document,
+      credentialStatus: {
+        ...w3cV2Document.credentialStatus,
+        tokenNetwork: { chain: "POL", chainId: "137" },
+      },
+    };
+    expect(getChainId(documentWithPolygon as SignedVerifiableCredential)).toStrictEqual(137);
   });
 
   it("should throw an error when W3C v2.0 document has invalid chainId in tokenNetwork", () => {
