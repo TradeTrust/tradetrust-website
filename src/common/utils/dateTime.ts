@@ -1,5 +1,5 @@
 import { format, toZonedTime } from "date-fns-tz";
-import { enGB } from "date-fns/locale";
+import { enGB } from "date-fns/locale/en-GB";
 
 export const formatTime = (time: string, dateFormat: string, timeZoneSg = "Asia/Singapore"): string => {
   const dateTimeSg = toZonedTime(time, timeZoneSg);
