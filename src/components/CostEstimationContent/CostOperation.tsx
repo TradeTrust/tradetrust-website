@@ -20,7 +20,7 @@ export const CostOperation: FunctionComponent = () => {
 
   const makePrices = useCallback(() => {
     const priceFactor = eGwei * GWEI_FACTOR * ePrice;
-    const maticPriceFactor = mGwei * GWEI_FACTOR * mPrice;
+    const polPriceFactor = mGwei * GWEI_FACTOR * mPrice;
     const gasEstimates = [
       TRANSFER_OWNERSHIP_GAS,
       TRANSFER_HOLDERSHIP_GAS,
@@ -31,7 +31,7 @@ export const CostOperation: FunctionComponent = () => {
     const operationKeys = ["xferOwner", "xferHolder", "issue", "burn", "surrender"];
     // [] -> [] -> {}
     const tree = gasEstimates.map((estimate, i) => {
-      return [operationKeys[i], { eth: estimate * priceFactor, matic: estimate * maticPriceFactor }];
+      return [operationKeys[i], { eth: estimate * priceFactor, pol: estimate * polPriceFactor }];
     });
     return Object.fromEntries(tree);
   }, [ePrice, mPrice, eGwei, mGwei]);
@@ -44,19 +44,19 @@ export const CostOperation: FunctionComponent = () => {
         icon: "/static/images/cost/exporter/transfer-holdership-icon.png",
         title: "Cost to transfer holdership",
         ethPrice: table.xferHolder.eth,
-        maticPrice: table.xferHolder.matic,
+        polPrice: table.xferHolder.pol,
       },
       {
         icon: "/static/images/cost/exporter/transfer-ownership-icon.png",
         title: "Cost to transfer ownership",
         ethPrice: table.xferOwner.eth,
-        maticPrice: table.xferOwner.matic,
+        polPrice: table.xferOwner.pol,
       },
       {
         icon: "/static/images/cost/total-cost-icon.png",
         title: "Total Cost",
         ethPrice: table.xferHolder.eth + table.xferOwner.eth,
-        maticPrice: table.xferHolder.matic + table.xferOwner.matic,
+        polPrice: table.xferHolder.pol + table.xferOwner.pol,
       },
     ];
 
@@ -74,19 +74,19 @@ export const CostOperation: FunctionComponent = () => {
           icon: "/static/images/cost/carrier/issue-ebl-icon.png",
           title: "Cost to Issue eBL",
           ethPrice: table.issue.eth,
-          maticPrice: table.issue.matic,
+          polPrice: table.issue.pol,
         },
         {
           icon: "/static/images/cost/carrier/burn-ebl-icon.png",
           title: "Cost to Burn eBL",
           ethPrice: table.burn.eth,
-          maticPrice: table.burn.matic,
+          polPrice: table.burn.pol,
         },
         {
           icon: "/static/images/cost/total-cost-icon.png",
           title: "Total Cost",
           ethPrice: table.issue.eth + table.burn.eth,
-          maticPrice: table.issue.matic + table.burn.matic,
+          polPrice: table.issue.pol + table.burn.pol,
         },
       ],
     };
@@ -99,7 +99,7 @@ export const CostOperation: FunctionComponent = () => {
           icon: "/static/images/cost/importer/surrender-ebl-icon.png",
           title: "Return ETR to Issuer",
           ethPrice: table.surrender.eth + table.surrender.eth,
-          maticPrice: table.surrender.matic + table.surrender.matic,
+          polPrice: table.surrender.pol + table.surrender.pol,
         },
       ],
     };

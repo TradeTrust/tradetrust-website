@@ -24,7 +24,7 @@ const parseGasRes = (res: any) => {
 
 const priceApi = {
   ethereum: "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD",
-  polygon: "https://min-api.cryptocompare.com/data/price?fsym=MATIC&tsyms=USD",
+  polygon: "https://min-api.cryptocompare.com/data/price?fsym=POL&tsyms=USD",
 };
 
 type chainType = "ethereum" | "polygon";

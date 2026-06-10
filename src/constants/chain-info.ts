@@ -31,8 +31,8 @@ export interface ChainInfoObject {
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export type AvailableBlockChains = "ETH" | "MATIC" | "XDC" | "FREE" | "ASTRON";
-export const AvailableBlockChains: AvailableBlockChains[] = ["ETH", "MATIC", "XDC", "FREE", "ASTRON"];
+export type AvailableBlockChains = "ETH" | "MATIC" | "POL" | "XDC" | "FREE" | "ASTRON";
+export const AvailableBlockChains: AvailableBlockChains[] = ["ETH", "MATIC", "POL", "XDC", "FREE", "ASTRON"];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
@@ -65,8 +65,8 @@ export const CHAIN: Record<ChainId, AvailableBlockChains> = {
   [ChainId.Local]: "ETH",
   [ChainId.Ethereum]: "ETH",
   [ChainId.Sepolia]: "ETH",
-  [ChainId.Polygon]: "MATIC",
-  [ChainId.Amoy]: "MATIC",
+  [ChainId.Polygon]: "POL",
+  [ChainId.Amoy]: "POL",
   [ChainId.XDC]: "XDC",
   [ChainId.APOTHEM]: "XDC",
   [ChainId.Stability]: "FREE",
@@ -127,8 +127,8 @@ export const ChainInfo: ChainInfo = {
     explorerUrl: "https://polygonscan.com",
     rpcUrl: `https://polygon-mainnet.infura.io/v3/${INFURA_API_KEY}`,
     nativeCurrency: {
-      name: "MATIC",
-      symbol: "MATIC",
+      name: "POL",
+      symbol: "POL",
       decimals: 18,
     },
   },
@@ -141,8 +141,8 @@ export const ChainInfo: ChainInfo = {
     explorerUrl: "https://amoy.polygonscan.com",
     rpcUrl: `https://polygon-amoy.infura.io/v3/${INFURA_API_KEY}`,
     nativeCurrency: {
-      name: "MATIC",
-      symbol: "aMATIC",
+      name: "POL",
+      symbol: "POL",
       decimals: 18,
     },
   },
