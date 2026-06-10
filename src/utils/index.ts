@@ -1,5 +1,6 @@
 import { utils } from "ethers";
-import { compareDesc, compareAsc } from "date-fns";
+import { compareDesc } from "date-fns/compareDesc";
+import { compareAsc } from "date-fns/compareAsc";
 import { ChainId } from "../constants/chain-info";
 import { getChainInfo } from "../common/utils/chain-utils";
 

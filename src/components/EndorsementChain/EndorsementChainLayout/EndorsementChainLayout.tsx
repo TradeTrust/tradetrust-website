@@ -1,5 +1,5 @@
 import { useIdentifierResolver } from "@govtechsg/address-identity-resolver";
-import { format } from "date-fns";
+import { format } from "date-fns/format";
 import React, { FunctionComponent } from "react";
 import { EndorsementChainError } from "./EndorsementChainError";
 import { EndorsementChainLoading } from "./EndorsementChainLoading";

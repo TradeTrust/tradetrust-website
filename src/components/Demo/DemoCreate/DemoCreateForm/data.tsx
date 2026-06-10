@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format } from "date-fns/format";
 const issueDateTime = format(new Date(), "dd MMMM yyyy, h:mmaaa");
 const actualDate = format(new Date(), "dd MMMM yyyy");
 export const data = {
