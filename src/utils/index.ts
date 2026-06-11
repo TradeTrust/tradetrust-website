@@ -89,11 +89,14 @@ const getEtherscanBaseUrl = (network: string): string => {
 };
 
 const getPolygonscanBaseUrl = (network: string): string => {
-  return `https://${network === "matic" ? "" : "mumbai."}polygonscan.com/`;
+  return `https://${network === "matic" || network === "pol" ? "" : "mumbai."}polygonscan.com/`;
 };
 
+const isPolygonNetwork = (network: string): boolean =>
+  network.includes("matic") || network === "pol" || network === "amoy";
+
 const getBaseUrl = (network: string): string => {
-  return network.includes("matic") ? getPolygonscanBaseUrl(network) : getEtherscanBaseUrl(network);
+  return isPolygonNetwork(network) ? getPolygonscanBaseUrl(network) : getEtherscanBaseUrl(network);
 };
 
 export const makeAddressURL = (address: string, network: string): string => {
