@@ -89,10 +89,10 @@ const InvalidBanner = Selector(".invalid");
 
 fixture("POL/Amoy – OA v2 document verification").page`${location}`;
 
-test("[Amoy OA] valid minted document – integrity and status VALID (identity INVALID: DNS not configured)", async () => {
+test("[Amoy OA] valid minted document – all checks pass", async () => {
   await navigateToVerify();
   await uploadDocument(OA_AMOY_MINTED);
-  await InvalidBanner.with({ visibilityCheck: true })();
+  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
 });
 
 test("[Amoy OA] tampered (targetHash mutated) – integrity INVALID", async () => {
@@ -137,10 +137,10 @@ test("[Amoy W3C] not-minted (tokenId replaced) – document status INVALID", asy
 
 fixture("POL mainnet – OA v2 document verification").page`${location}`;
 
-test("[POL OA] valid minted document – integrity and status VALID (identity INVALID: DNS not configured)", async () => {
+test("[POL OA] valid minted document – all checks pass", async () => {
   await navigateToVerify();
   await uploadDocument(OA_POL_MINTED);
-  await InvalidBanner.with({ visibilityCheck: true })();
+  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
 });
 
 test("[POL OA] tampered (targetHash mutated) – integrity INVALID", async () => {
