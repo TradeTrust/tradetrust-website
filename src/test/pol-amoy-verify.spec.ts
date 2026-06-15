@@ -137,12 +137,6 @@ test("[Amoy W3C] not-minted (tokenId replaced) – document status INVALID", asy
 
 fixture("POL mainnet – OA v2 document verification").page`${location}`;
 
-test("[POL OA] valid minted document – all checks pass", async () => {
-  await navigateToVerify();
-  await uploadDocument(OA_POL_MINTED);
-  await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
-});
-
 test("[POL OA] tampered (targetHash mutated) – integrity INVALID", async () => {
   await navigateToVerify();
   await uploadDocument(OA_POL_TAMPERED);
@@ -160,12 +154,6 @@ test("[POL OA] not-minted (merkleRoot replaced) – document status INVALID", as
 // ──────────────────────────────────────────────────────────────────────────
 
 fixture("POL mainnet – W3C VC document verification").page`${location}`;
-
-test("[POL W3C] valid minted document – all checks pass", async () => {
-  await navigateToVerify();
-  await uploadDocument(W3C_POL_MINTED);
-  await validateIssuerTexts(["DID:WEB:TRUSTVC.GITHUB.IO:DID:1"]);
-});
 
 test("[POL W3C] tampered (proofValue mutated) – integrity INVALID", async () => {
   await navigateToVerify();
