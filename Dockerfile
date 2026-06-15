@@ -8,7 +8,7 @@ FROM synthetixio/docker-e2e:18.16-ubuntu as base
 # Install Node 20 via `n` — downloads and overwrites /usr/local/bin/node in place.
 # Then upgrade npm to v11 so `npm ci` accepts the lockfile generated locally.
 RUN npm install -g n \
-    && n 20 \
+    && n 20.20.2 \
     && node --version \
     && npm install -g npm@11 \
     && npm --version
