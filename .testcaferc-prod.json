@@ -3,7 +3,8 @@
   "src": [
     "src/**/*.spec.ts",
     "!src/**/happy-flow-magiclink.spec.ts",
-    "!src/**/nested-documents.spec.ts"
+    "!src/**/nested-documents.spec.ts",
+    "!src/**/amoy-minted.spec.ts"
   ],
   "browsers": [
     "chrome:headless --autoplay-policy=no-user-gesture-required --allow-insecure-localhost --ignore-certificate-errors --disable-features=LocalNetworkAccessChecks"
