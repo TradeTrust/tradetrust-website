@@ -29,4 +29,5 @@ module.exports = {
   NETWORK_ID: IS_MAINNET ? "1" : "11155111",
   IS_TEST_ENV: process.env.NODE_ENV === "test",
   IS_DEV_SERVER: !!process.env.WEBPACK_DEV_SERVER,
+  CRYPTOCOMPARE_API_KEY: process.env.CRYPTOCOMPARE_API_KEY || "",
 };
