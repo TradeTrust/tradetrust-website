@@ -20,14 +20,11 @@ jobs:
 
     env:
       INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
-      CRYPTOCOMPARE_API_KEY: ${{ secrets.CRYPTOCOMPARE_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x
-      - name: Upgrade npm
-        run: npm install -g npm@11
       - name: Install Packages
         run: npm ci
       - name: Check Lint

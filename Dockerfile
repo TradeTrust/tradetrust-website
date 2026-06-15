@@ -1,17 +1,6 @@
 # https://github.com/drptbl/synpress-setup-example/blob/1d980157ef343de54f786e1115e1da590f1ba1d1/Dockerfile#L1-L12
-# 18.16-ubuntu carries all synpress browser/display tooling; we overlay Node 20 LTS
-# using `n` (node version manager) which reliably replaces the active Node binary
-# in-place. NodeSource apt approach silently fails on this image (existing Node 18
-# binary wins PATH priority). npm@11 requires Node>=20.17.0.
-FROM synthetixio/docker-e2e:18.16-ubuntu as base
-
-# Install Node 20 via `n` — downloads and overwrites /usr/local/bin/node in place.
-# Then upgrade npm to v11 so `npm ci` accepts the lockfile generated locally.
-RUN npm install -g n \
-    && n 20.20.2 \
-    && node --version \
-    && npm install -g npm@11 \
-    && npm --version
+# FROM synthetixio/docker-e2e:18.16-ubuntu as base
+FROM synthetixio/docker-e2e@sha256:d46dd0c38a4a6cf44355dbf583f3bb83c60e445c5508c10d7680c5a30dc81d8a as base
 
 # Download and install Google Chrome
 # Test and replace chrome version, value can be found in the link below

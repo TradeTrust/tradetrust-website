@@ -33,8 +33,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x
-      - name: Upgrade npm
-        run: npm install -g npm@11
       - name: Install Packages
         run: npm ci
       - name: Build
