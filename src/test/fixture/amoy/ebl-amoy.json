@@ -41,7 +41,7 @@
       }
     ],
     "network": {
-      "chain": "62d6d408-9d4f-496b-a01c-feb331d4aa29:string:POL",
+      "chain": "62d6d408-9d4f-496b-a01c-feb331d4aa29:string:MATIC",
       "chainId": "6afc4107-eb8f-46e2-a5fa-d99e4c2826c8:string:80002"
     }
   },

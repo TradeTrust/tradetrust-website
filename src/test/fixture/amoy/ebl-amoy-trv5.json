@@ -34,7 +34,7 @@
       }
     ],
     "network": {
-      "chain": "5cafbb62-8311-47ea-ae02-cdf60311a6a1:string:POL",
+      "chain": "5cafbb62-8311-47ea-ae02-cdf60311a6a1:string:MATIC",
       "chainId": "26111b6c-312d-4f51-8d0f-d70861a404ca:string:80002"
     },
     "blNumber": "72e44a01-bc0b-4c62-9f48-72c4323a4956:string:20250522",
