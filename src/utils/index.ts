@@ -89,7 +89,7 @@ const getEtherscanBaseUrl = (network: string): string => {
 };
 
 const getPolygonscanBaseUrl = (network: string): string => {
-  return `https://${network === "matic" || network === "pol" ? "" : "mumbai."}polygonscan.com/`;
+  return `https://${network === "matic" || network === "pol" ? "" : network + "."}polygonscan.com/`;
 };
 
 const isPolygonNetwork = (network: string): boolean =>
