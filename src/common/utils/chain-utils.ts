@@ -16,26 +16,13 @@ export const getChainInfo = (chainId: ChainId): ChainInfoObject => {
 };
 
 /**
- * User-facing network name for status messages (e.g. token registry deployment).
- * Polygon PoS networks use the POL currency symbol; other networks use networkLabel.
- */
-export const getNetworkDisplayName = (chainId: ChainId): string => {
-  const chainInfo = getChainInfo(chainId);
-  if (chainId === ChainId.Polygon || chainId === ChainId.Amoy) {
-    return "POL";
-  }
-  return chainInfo.networkLabel;
-};
-
-/**
  * Helper function to get chain info from network name.
  * @param networkName Network name used by ethers standard providers and in OA
  */
 export const getChainInfoFromNetworkName = (networkName: string): ChainInfoObject => {
-  const normalizedNetworkName = networkName === "pol" ? "matic" : networkName;
   const res = Object.keys(ChainInfo)
     .map((chainId) => ChainInfo[Number(chainId) as ChainId])
-    .find((chainInfo) => chainInfo.networkName === normalizedNetworkName);
+    .find((chainInfo) => chainInfo.networkName === networkName);
   if (!res) throw new UnsupportedNetworkError(networkName);
   return res;
 };
@@ -45,11 +32,6 @@ export const getSupportedChainIds = (): ChainId[] => {
   const isTestEnv = process.env.NODE_ENV === "test";
   const networks = IS_DEVELOPMENT ? [...TEST_NETWORKS] : [...MAIN_NETWORKS];
   if (isTestEnv || isLocal) networks.push(ChainId.Local);
-  // to include mainnet chains in test builds so that e2e tests against production documents (e.g. Polygon mainnet) work.
-  if (isTestEnv)
-    MAIN_NETWORKS.forEach((id) => {
-      if (!networks.includes(id)) networks.push(id);
-    });
   return networks;
 };
 

@@ -7,7 +7,6 @@ import { ChainId, ChainInfo } from "../../../constants/chain-info";
 import { ExternalLink } from "react-feather";
 import { SIGNER_TYPE } from "../provider";
 import { SignedVerifiableCredential } from "@trustvc/trustvc";
-import { getNetworkDisplayName } from "../../utils/chain-utils";
 
 interface DocumentSetupContext {
   type: DocumentSetupType;
@@ -164,10 +163,11 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
     if (!signer || !chainId) return;
 
     if (displayRedeployTokenRegistry) setDisplayRedeployTokenRegistry(false); // Set redeploy state to false
-    const networkDisplayName = getNetworkDisplayName(chainId);
+    let networkName = ChainInfo[chainId].networkName as string;
+    networkName = networkName.charAt(0).toUpperCase() + networkName.slice(1);
     // Set loading state
     setTokenRegistryState(CreatorItemState.LOADING);
-    setTokenRegistryStateMessage(STATE_MESSAGE.TOKEN_REGISTRY.FETCH_LOCAL_CACHE + networkDisplayName);
+    setTokenRegistryStateMessage(STATE_MESSAGE.TOKEN_REGISTRY.FETCH_LOCAL_CACHE + networkName);
 
     //load local cache token registry address
     const trLoaded = await new Promise((resolve: (value: string) => void) =>
@@ -182,7 +182,7 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
       setTokenRegistryState(CreatorItemState.SUCCESS);
 
       const stateMessage = customStateMessage(
-        STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_FOUND + networkDisplayName + ":",
+        STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_FOUND + networkName + ":",
         trLoaded,
         `${ChainInfo[chainId].explorerUrl}/address/${trLoaded}`
       );
@@ -191,7 +191,7 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
     }
     setTokenRegistryStateMessage(
       <>
-        {STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_NOT_FOUND} {networkDisplayName}.<div>Generating for you...</div>
+        {STATE_MESSAGE.TOKEN_REGISTRY.LOCAL_CACHE_NOT_FOUND} {networkName}.<div>Generating for you...</div>
         {providerType === SIGNER_TYPE.METAMASK && <div> Please confirm the transaction on metamask</div>}
       </>
     );
@@ -222,7 +222,7 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
     } else {
       setTokenRegistryState(CreatorItemState.SUCCESS);
       const stateMessage = customStateMessage(
-        STATE_MESSAGE.TOKEN_REGISTRY.GENERATED + networkDisplayName + " :",
+        STATE_MESSAGE.TOKEN_REGISTRY.GENERATED + networkName + " :",
         newTokenRegistryAddress,
         `${ChainInfo[chainId].explorerUrl}/address/${newTokenRegistryAddress}`
       );
