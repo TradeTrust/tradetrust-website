@@ -92,8 +92,7 @@ const getPolygonscanBaseUrl = (network: string): string => {
   return `https://${network === "matic" || network === "pol" ? "" : network + "."}polygonscan.com/`;
 };
 
-const isPolygonNetwork = (network: string): boolean =>
-  network === "matic" || network === "pol" || network === "amoy";
+const isPolygonNetwork = (network: string): boolean => network === "matic" || network === "pol" || network === "amoy";
 
 const getBaseUrl = (network: string): string => {
   return isPolygonNetwork(network) ? getPolygonscanBaseUrl(network) : getEtherscanBaseUrl(network);
