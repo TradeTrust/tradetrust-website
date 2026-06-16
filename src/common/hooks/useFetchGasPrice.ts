@@ -24,7 +24,7 @@ const parseGasRes = (res: any) => {
 };
 
 const priceApiUrl = (fsym: string): string => {
-  const key = CRYPTOCOMPARE_API_KEY ? `&api_key=${CRYPTOCOMPARE_API_KEY}` : "";
+  const key = CRYPTOCOMPARE_API_KEY ? `&api_key=${encodeURIComponent(CRYPTOCOMPARE_API_KEY)}` : "";
   return `https://min-api.cryptocompare.com/data/price?fsym=${fsym}&tsyms=USD${key}`;
 };
 
