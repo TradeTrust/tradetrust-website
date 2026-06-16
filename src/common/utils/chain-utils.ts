@@ -45,6 +45,11 @@ export const getSupportedChainIds = (): ChainId[] => {
   const isTestEnv = process.env.NODE_ENV === "test";
   const networks = IS_DEVELOPMENT ? [...TEST_NETWORKS] : [...MAIN_NETWORKS];
   if (isTestEnv || isLocal) networks.push(ChainId.Local);
+  // to include mainnet chains in test builds so that e2e tests against production documents (e.g. Polygon mainnet) work.
+  if (isTestEnv)
+    MAIN_NETWORKS.forEach((id) => {
+      if (!networks.includes(id)) networks.push(id);
+    });
   return networks;
 };
 
