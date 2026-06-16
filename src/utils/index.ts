@@ -93,7 +93,7 @@ const getPolygonscanBaseUrl = (network: string): string => {
 };
 
 const isPolygonNetwork = (network: string): boolean =>
-  network.includes("matic") || network === "pol" || network === "amoy";
+  network === "matic" || network === "pol" || network === "amoy";
 
 const getBaseUrl = (network: string): string => {
   return isPolygonNetwork(network) ? getPolygonscanBaseUrl(network) : getEtherscanBaseUrl(network);
