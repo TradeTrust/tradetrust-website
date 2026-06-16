@@ -67,12 +67,12 @@ test("[POL W3C] tampered document shows hash error", async (t) => {
   await validateTextContent(t, DropZone, ["Document has been tampered with"]);
 });
 
-test("[POL W3C] unissued document shows not issued error", async (t) => {
+test("[POL W3C] document with invalid credential status shows error", async (t) => {
   const doc = JSON.parse(readFileSync(W3C_POL_MINTED, "utf-8"));
   doc.credentialStatus.tokenId = "0000000000000000000000000000000000000000000000000000000000000099";
   const tempPath = writeTempDoc("w3c-pol-not-issued.json", doc);
   await navigateToVerify();
   await uploadDocument(tempPath);
   await TryAnotherButton.with({ visibilityCheck: true })();
-  await validateTextContent(t, DropZone, ["Document not issued"]);
+  await validateTextContent(t, DropZone, ["Document is invalid"]);
 });
