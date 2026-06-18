@@ -163,8 +163,7 @@ export const CreatorContextProvider: any = ({ children }: CreatorContextProvider
     if (!signer || !chainId) return;
 
     if (displayRedeployTokenRegistry) setDisplayRedeployTokenRegistry(false); // Set redeploy state to false
-    let networkName = ChainInfo[chainId].networkName as string;
-    networkName = networkName.charAt(0).toUpperCase() + networkName.slice(1);
+    const networkName = ChainInfo[chainId].networkLabel as string;
     // Set loading state
     setTokenRegistryState(CreatorItemState.LOADING);
     setTokenRegistryStateMessage(STATE_MESSAGE.TOKEN_REGISTRY.FETCH_LOCAL_CACHE + networkName);
