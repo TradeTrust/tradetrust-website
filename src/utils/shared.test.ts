@@ -16,7 +16,15 @@ describe("getChainId for v2 document", () => {
     expect(getChainId(document)).toStrictEqual(11155111);
   });
 
-  it("should return the correct chainId for polygon amoy network", () => {
+  it("should return the correct chainId for polygon amoy network with POL chain identifier", () => {
+    const document = {
+      ...invoiceV2,
+      data: { ...invoiceV2.data, network: { chain: "POL", chainId: "80002" } },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId for polygon amoy network with legacy MATIC chain identifier", () => {
     const document = {
       ...invoiceV2,
       data: { ...invoiceV2.data, network: { chain: "MATIC", chainId: "80002" } },
@@ -73,7 +81,15 @@ describe("getChainId for v3 document", () => {
     expect(getChainId(document)).toStrictEqual(1337);
   });
 
-  it("should return the correct chainId for polygon amoy network", () => {
+  it("should return the correct chainId for polygon amoy network with POL chain identifier", () => {
+    const document = {
+      ...invoiceV3,
+      network: { chain: "POL", chainId: "80002" },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId for polygon amoy network with legacy MATIC chain identifier", () => {
     const document = {
       ...invoiceV3,
       network: { chain: "MATIC", chainId: "80002" },
@@ -137,8 +153,18 @@ describe("getChainId for W3C v2 document", () => {
     expect(getChainId(documentWithSepolia as SignedVerifiableCredential)).toStrictEqual(11155111);
   });
 
-  it("should return the correct chainId when W3C v2.0 document has tokenNetwork with polygon amoy chainId", () => {
-    // Modify the credentialStatus to have polygon amoy chainId
+  it("should return the correct chainId when W3C v2.0 document has tokenNetwork with polygon amoy chainId and POL chain identifier", () => {
+    const documentWithPolygon = {
+      ...w3cV2Document,
+      credentialStatus: {
+        ...w3cV2Document.credentialStatus,
+        tokenNetwork: { chain: "POL", chainId: "80002" },
+      },
+    };
+    expect(getChainId(documentWithPolygon as SignedVerifiableCredential)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId when W3C v2.0 document has tokenNetwork with polygon amoy chainId and legacy MATIC chain identifier", () => {
     const documentWithPolygon = {
       ...w3cV2Document,
       credentialStatus: {

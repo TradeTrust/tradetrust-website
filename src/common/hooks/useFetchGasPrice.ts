@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useRefresh } from "./useRefresh";
+import { CRYPTOCOMPARE_API_KEY } from "../../config";
 
 const gasApi = {
   ethereum: "https://api.blocknative.com/gasprices/blockprices",
@@ -22,9 +23,14 @@ const parseGasRes = (res: any) => {
   return 0;
 };
 
+const priceApiUrl = (fsym: string): string => {
+  const key = CRYPTOCOMPARE_API_KEY ? `&api_key=${encodeURIComponent(CRYPTOCOMPARE_API_KEY)}` : "";
+  return `https://min-api.cryptocompare.com/data/price?fsym=${fsym}&tsyms=USD${key}`;
+};
+
 const priceApi = {
-  ethereum: "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD",
-  polygon: "https://min-api.cryptocompare.com/data/price?fsym=MATIC&tsyms=USD",
+  ethereum: priceApiUrl("ETH"),
+  polygon: priceApiUrl("POL"),
 };
 
 type chainType = "ethereum" | "polygon";
