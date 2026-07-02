@@ -33,9 +33,17 @@ Sentry.init({
       ...integrations,
       Sentry.captureConsoleIntegration({ levels: ["error"] }),
       Sentry.browserTracingIntegration(),
+      Sentry.replayIntegration({
+        maskAllText: false,
+        maskAllInputs: false,
+        blockAllMedia: false,
+      }),
     ];
   },
   tracesSampleRate: 1.0,
+  // Session Replay
+  replaysSessionSampleRate: 0.1, // 10% of normal sessions.
+  replaysOnErrorSampleRate: 1.0, // 100% of sessions where an error occurs.
 });
 
 const App = () => {
