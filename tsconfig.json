@@ -18,5 +18,11 @@
     "isolatedModules": true,
     "useUnknownInCatchVariables": true
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "moduleResolution": "Node10"
+    }
+  },
   "include": ["src"]
 }
