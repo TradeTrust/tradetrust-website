@@ -97,7 +97,7 @@
     "react-tooltip": "^4.5.1",
     "redux": "^4.1.0",
     "redux-saga": "^1.1.3",
-    "swiper": "^11.2.0",
+    "swiper": "^12.1.2",
     "use-persisted-state": "^0.3.3",
     "validator": "^13.15.15",
     "viem": "2.54.6"
@@ -212,7 +212,32 @@
     "ethers": "^5.8.0",
     "ethereumjs-abi": "https://registry.npmjs.org/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz",
     "glob": "^9.3.5",
-    "ox": "0.14.30"
+    "ox": "0.14.30",
+    "handlebars": "^4.7.9",
+    "request": {
+      "form-data": "^2.5.4"
+    },
+    "@cypress/request": {
+      "form-data": "^2.5.4"
+    },
+    "jsdom": {
+      "form-data": "^3.0.4"
+    },
+    "browserify-sign": {
+      "elliptic": "^6.6.1"
+    },
+    "@govtechsg/oa-encryption": {
+      "node-forge": "^1.4.0"
+    },
+    "@trustvc/trustvc": {
+      "node-forge": "^1.4.0"
+    },
+    "@govtechsg/address-identity-resolver": {
+      "axios": "^0.31.1"
+    },
+    "@tradetrust-tt/address-identity-resolver": {
+      "axios": "^1.15.1"
+    }
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"

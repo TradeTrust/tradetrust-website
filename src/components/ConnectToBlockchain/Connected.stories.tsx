@@ -1,6 +1,5 @@
 import React from "react";
-import { StoryFn, Meta } from "@storybook/react";
-import { StoryContext } from "@storybook/types"; // Or from '@storybook/react' if re-exported
+import { StoryFn, Meta, StoryContext } from "@storybook/react";
 import { Connected } from "./Connected";
 import { ProviderContext, SIGNER_TYPE, ProviderContextProps } from "../../common/contexts/provider";
 import { ChainId } from "../../constants/chain-info";
@@ -40,7 +39,7 @@ export default {
   decorators: [
     (
       StoryComponent: StoryFn<React.ComponentProps<typeof Connected>>,
-      context: StoryContext<any, React.ComponentProps<typeof Connected>>
+      context: StoryContext<React.ComponentProps<typeof Connected>>
     ) => (
       <ProviderContext.Provider value={mockProviderContextValue}>
         <StoryComponent {...context.args} />
