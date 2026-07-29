@@ -226,17 +226,14 @@
     "browserify-sign": {
       "elliptic": "^6.6.1"
     },
-    "@govtechsg/oa-encryption": {
-      "node-forge": "^1.4.0"
-    },
-    "@trustvc/trustvc": {
-      "node-forge": "^1.4.0"
-    },
     "@govtechsg/address-identity-resolver": {
       "axios": "^0.31.1"
     },
     "@tradetrust-tt/address-identity-resolver": {
       "axios": "^1.15.1"
+    },
+    "@govtechsg/oa-encryption": {
+      "node-forge": "^1.4.0"
     }
   },
   "optionalDependencies": {
