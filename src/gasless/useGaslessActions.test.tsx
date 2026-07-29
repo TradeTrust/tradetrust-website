@@ -311,7 +311,7 @@ describe.each(CONFIGS)(
         PAYMASTER_ADDRESS,
         Number(CHAIN_ID),
         expect.any(String),
-        undefined
+        "test-pimlico-key"
       );
       expect(trustvc[gaslessFn]).toHaveBeenCalledWith(
         { [gaslessArgKey]: gaslessArgKey === "titleEscrowAddress" ? TITLE_ESCROW_ADDRESS : TOKEN_REGISTRY_ADDRESS },

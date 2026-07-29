@@ -39,7 +39,7 @@ export const getMetaMaskErrorMessage = (e: unknown): string => {
   if (typeof code === "string" && code in ETHERS_STRING_CODES) {
     return ETHERS_STRING_CODES[code];
   }
-  return "";
+  return "An unexpected error occurred while processing the transaction";
 };
 
 export const getRpcUrl = (chainId: string | number): string | undefined => (ChainInfo as any)[Number(chainId)]?.rpcUrl;

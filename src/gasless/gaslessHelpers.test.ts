@@ -16,22 +16,24 @@ describe("getMetaMaskErrorMessage", () => {
     expect(getMetaMaskErrorMessage({ code: "NONCE_EXPIRED" })).toBe("Nonce Already Used");
   });
 
-  it("returns an empty string for an unrecognized numeric code", () => {
-    expect(getMetaMaskErrorMessage({ code: 9999 })).toBe("");
+  const FALLBACK_MESSAGE = "An unexpected error occurred while processing the transaction";
+
+  it("returns the fallback message for an unrecognized numeric code", () => {
+    expect(getMetaMaskErrorMessage({ code: 9999 })).toBe(FALLBACK_MESSAGE);
   });
 
-  it("returns an empty string for an unrecognized string code", () => {
-    expect(getMetaMaskErrorMessage({ code: "SOME_UNKNOWN_CODE" })).toBe("");
+  it("returns the fallback message for an unrecognized string code", () => {
+    expect(getMetaMaskErrorMessage({ code: "SOME_UNKNOWN_CODE" })).toBe(FALLBACK_MESSAGE);
   });
 
-  it("returns an empty string when the error has no code", () => {
-    expect(getMetaMaskErrorMessage(new Error("plain failure"))).toBe("");
+  it("returns the fallback message when the error has no code", () => {
+    expect(getMetaMaskErrorMessage(new Error("plain failure"))).toBe(FALLBACK_MESSAGE);
   });
 
-  it("returns an empty string for non-object inputs", () => {
-    expect(getMetaMaskErrorMessage(undefined)).toBe("");
-    expect(getMetaMaskErrorMessage(null)).toBe("");
-    expect(getMetaMaskErrorMessage("string error")).toBe("");
+  it("returns the fallback message for non-object inputs", () => {
+    expect(getMetaMaskErrorMessage(undefined)).toBe(FALLBACK_MESSAGE);
+    expect(getMetaMaskErrorMessage(null)).toBe(FALLBACK_MESSAGE);
+    expect(getMetaMaskErrorMessage("string error")).toBe(FALLBACK_MESSAGE);
   });
 });
 

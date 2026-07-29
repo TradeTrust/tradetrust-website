@@ -56,7 +56,12 @@ export function useGaslessTransferBeneficiary(
           (account ? localStorage.getItem(`tradetrust_paymaster_${account}`) : null) || PAYMASTER_ADDRESS;
 
         const hasGaslessConfig =
-          !!account && !!titleEscrowAddress && !!resolvedPaymasterAddress && !!chainId && !!(window as any).ethereum;
+          !!account &&
+          !!titleEscrowAddress &&
+          !!resolvedPaymasterAddress &&
+          !!chainId &&
+          !!PIMLICO_API_KEY &&
+          !!(window as any).ethereum;
 
         if (hasGaslessConfig) {
           const rpcUrl = getRpcUrl(chainId!);

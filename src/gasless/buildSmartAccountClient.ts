@@ -24,6 +24,10 @@ export async function buildSmartAccountClient(
 
   const publicClient = createPublicClient({ chain, transport: http(rpcUrl) });
 
+  if (!(window as any).ethereum) {
+    throw new Error("No injected wallet provider found for gasless transactions");
+  }
+
   const walletClient = createWalletClient({
     account: userAddress,
     chain,
