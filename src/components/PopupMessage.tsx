@@ -40,14 +40,16 @@ const PopupMessage = () => {
           </h2>
           <p className="mt-4">Here&apos;s why you should update and issue your files in the latest iteration:</p>
           <ul className="mt-2 list-disc list-inside">
-            <li>Latest iteration enabled new functions that can help you better align with the IG P&I requirement:</li>
-            <ul className="mt-1 list-disc list-inside pl-6">
-              <li>
-                Reject function - Received a wrongfully transferred document, you may now reject it to where it came
-                from!
-              </li>
-              <li>Remark column - Any actions you take for your transferable document can now include a remark!</li>
-            </ul>
+            <li>
+              Latest iteration enabled new functions that can help you better align with the IG P&I requirement:
+              <ul className="mt-1 list-disc list-inside pl-6">
+                <li>
+                  Reject function - Received a wrongfully transferred document, you may now reject it to where it came
+                  from!
+                </li>
+                <li>Remark column - Any actions you take for your transferable document can now include a remark!</li>
+              </ul>
+            </li>
           </ul>
         </div>
 

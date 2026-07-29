@@ -13,7 +13,7 @@ export const View: FunctionComponent<ViewProps> = ({ toggleQrReaderVisible }) =>
         alt="Document Dropzone TradeTrust"
         src="/static/images/dropzone/dropzone_illustration.svg"
       />
-      <h4>Drop your TradeTrust Document to view its contents</h4>
+      <h3>Drop your TradeTrust Document to view its contents</h3>
       <p className="my-6">Or</p>
       <div className="flex flex-col xs:flex-row justify-center gap-2">
         <Button className="bg-cerulean-500 text-white hover:bg-cerulean-800 w-full xs:w-72" size={ButtonSize.MD}>
