@@ -6,6 +6,18 @@ import { useTokenRegistryContract } from "../../hooks/useTokenRegistryContract";
 import { useProviderContext } from "../provider";
 import { TitleEscrow, TradeTrustToken } from "../../../types";
 import { useTokenRegistryVersion } from "../../hooks/useTokenRegistryVersion";
+import {
+  useGaslessTransferHolder,
+  useGaslessTransferBeneficiary,
+  useGaslessTransferOwners,
+  useGaslessNominate,
+  useGaslessRejectTransferHolder,
+  useGaslessRejectTransferBeneficiary,
+  useGaslessRejectTransferOwners,
+  useGaslessReturnToIssuer,
+  useGaslessAcceptReturned,
+  useGaslessRejectReturned,
+} from "../../../gasless";
 
 interface TokenInformationContext {
   tokenRegistryAddress?: string;
@@ -91,7 +103,8 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
 }) => {
   const [tokenId, setTokenId] = useState<string>();
   const [tokenRegistryAddress, setTokenRegistryAddress] = useState<string>();
-  const { providerOrSigner } = useProviderContext();
+  const { providerOrSigner, currentChainId } = useProviderContext();
+  const documentChainId = currentChainId ? String(currentChainId) : undefined;
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner);
   const { titleEscrow, titleEscrowAddress, updateTitleEscrow, documentOwner } = useTitleEscrowContract(
     providerOrSigner,
@@ -112,115 +125,58 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
   const { call: getPrevHolder, value: prevHolder } = useContractFunctionHook(titleEscrow, "prevHolder");
   const { call: getRemark, value: remark } = useContractFunctionHook(titleEscrow, "remark");
 
+  const contractOptions = { titleEscrowAddress, tokenRegistryAddress, tokenId };
+
   const {
     send: changeHolder,
     state: changeHolderState,
     reset: resetChangeHolder,
-  } = useContractFunctionHook(
-    titleEscrow,
-    "transferHolder",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner // move to hook itself
-  );
-
-  const {
-    send: destroyToken,
-    state: destroyTokenState,
-    reset: resetDestroyingTokenState,
-  } = useContractFunctionHook(
-    tokenRegistry,
-    "acceptReturned",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner
-  );
-
+  } = useGaslessTransferHolder(contractOptions, providerOrSigner, documentChainId);
   const {
     send: endorseBeneficiary,
     state: endorseBeneficiaryState,
     reset: resetEndorseBeneficiary,
-  } = useContractFunctionHook(
-    titleEscrow,
-    "transferBeneficiary",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner
-  );
-
-  const {
-    send: nominate,
-    state: nominateState,
-    reset: resetNominate,
-  } = useContractFunctionHook(
-    titleEscrow,
-    "nominate",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner
-  );
-
-  const {
-    send: rejectTransferHolder,
-    state: rejectTransferHolderState,
-    reset: resetRejectTransferHolder,
-  } = useContractFunctionHook(
-    titleEscrow,
-    "rejectTransferHolder",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner
-  );
-
-  const {
-    send: rejectTransferOwner,
-    state: rejectTransferOwnerState,
-    reset: resetRejectTransferOwner,
-  } = useContractFunctionHook(
-    titleEscrow,
-    "rejectTransferBeneficiary",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner
-  );
-
-  const {
-    send: rejectTransferOwnerHolder,
-    state: rejectTransferOwnerHolderState,
-    reset: resetRejectTransferOwnerHolder,
-  } = useContractFunctionHook(
-    titleEscrow,
-    "rejectTransferOwners",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner
-  );
-
-  const {
-    send: restoreToken, // restoreToken function does not return any value
-    state: restoreTokenState,
-    reset: resetRestoreTokenState,
-  } = useContractFunctionHook(
-    tokenRegistry,
-    "rejectReturned",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner
-  );
-
-  const {
-    send: returnToIssuer,
-    state: returnToIssuerState,
-    reset: resetReturnToIssuer,
-  } = useContractFunctionHook(
-    titleEscrow,
-    "returnToIssuer",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner
-  );
-
+  } = useGaslessTransferBeneficiary(contractOptions, providerOrSigner, documentChainId);
   const {
     send: transferOwners,
     state: transferOwnersState,
     reset: resetTransferOwners,
-  } = useContractFunctionHook(
-    titleEscrow,
-    "transferOwners",
-    { titleEscrowAddress, tokenRegistryAddress, tokenId },
-    providerOrSigner
-  );
+  } = useGaslessTransferOwners(contractOptions, providerOrSigner, documentChainId);
+  const {
+    send: nominate,
+    state: nominateState,
+    reset: resetNominate,
+  } = useGaslessNominate(contractOptions, providerOrSigner, documentChainId);
+  const {
+    send: rejectTransferHolder,
+    state: rejectTransferHolderState,
+    reset: resetRejectTransferHolder,
+  } = useGaslessRejectTransferHolder(contractOptions, providerOrSigner, documentChainId);
+  const {
+    send: rejectTransferOwner,
+    state: rejectTransferOwnerState,
+    reset: resetRejectTransferOwner,
+  } = useGaslessRejectTransferBeneficiary(contractOptions, providerOrSigner, documentChainId);
+  const {
+    send: rejectTransferOwnerHolder,
+    state: rejectTransferOwnerHolderState,
+    reset: resetRejectTransferOwnerHolder,
+  } = useGaslessRejectTransferOwners(contractOptions, providerOrSigner, documentChainId);
+  const {
+    send: returnToIssuer,
+    state: returnToIssuerState,
+    reset: resetReturnToIssuer,
+  } = useGaslessReturnToIssuer(contractOptions, providerOrSigner, documentChainId);
+  const {
+    send: destroyToken,
+    state: destroyTokenState,
+    reset: resetDestroyingTokenState,
+  } = useGaslessAcceptReturned(contractOptions, providerOrSigner, documentChainId);
+  const {
+    send: restoreToken,
+    state: restoreTokenState,
+    reset: resetRestoreTokenState,
+  } = useGaslessRejectReturned(contractOptions, providerOrSigner, documentChainId);
 
   const resetProviders = useCallback(() => {
     resetChangeHolder();
@@ -333,30 +289,30 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
         prevBeneficiary: prevBeneficiary?.[0],
         prevHolder: prevHolder?.[0],
         remark: remark?.[0],
-        changeHolder,
-        endorseBeneficiary,
-        returnToIssuer,
+        changeHolder: changeHolder as any,
+        endorseBeneficiary: endorseBeneficiary as any,
+        returnToIssuer: returnToIssuer as any,
         changeHolderState,
         endorseBeneficiaryState,
         returnToIssuerState,
         destroyTokenState,
-        destroyToken,
+        destroyToken: destroyToken as any,
         isReturnedToIssuer,
         isTokenBurnt,
         isTitleEscrow,
         documentOwner,
-        nominate,
+        nominate: nominate as any,
         nominateState,
-        transferOwners,
+        transferOwners: transferOwners as any,
         transferOwnersState,
-        rejectTransferOwner,
+        rejectTransferOwner: rejectTransferOwner as any,
         rejectTransferOwnerState,
-        rejectTransferHolder,
+        rejectTransferHolder: rejectTransferHolder as any,
         rejectTransferHolderState,
-        rejectTransferOwnerHolder,
+        rejectTransferOwnerHolder: rejectTransferOwnerHolder as any,
         rejectTransferOwnerHolderState,
         resetStates,
-        restoreToken,
+        restoreToken: restoreToken as any,
         restoreTokenState,
       }}
     >

@@ -7,8 +7,8 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "jsx": "react",
     "sourceMap": true,
@@ -17,6 +17,12 @@
     "noEmit": true,
     "isolatedModules": true,
     "useUnknownInCatchVariables": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "moduleResolution": "Node10"
+    }
   },
   "include": ["src"]
 }

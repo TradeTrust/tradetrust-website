@@ -57,6 +57,9 @@ export const getSafeHostUrl = (): string => {
  * @returns validated redirect URL ending with /
  */
 export const getSafeRedirectUrl = (): string => {
-  const safeHost = getSafeHostUrl();
+  let safeHost = getSafeHostUrl();
+  if (safeHost.includes("dev--reference-implementation.netlify.app")) {
+    safeHost = safeHost.replace("dev--reference-implementation.netlify.app", "ref.tradetrust.io");
+  }
   return safeHost.endsWith("/") ? safeHost : `${safeHost}/`;
 };

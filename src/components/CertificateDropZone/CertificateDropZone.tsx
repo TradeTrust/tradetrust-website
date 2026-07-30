@@ -165,7 +165,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
       className={`border-y-2 xs:border-2 rounded-none xs:rounded-xl text-center relative p-8 min-h-[400px] flex flex-col justify-center ${customStyle} -mx-4 xs:mx-0`}
     >
       <div data-testid="certificate-dropzone" className="cursor-pointer" {...getRootProps()}>
-        <input {...getInputProps()} />
+        <input {...getInputProps({ "aria-label": "Upload TradeTrust document" })} />
         {(() => {
           switch (true) {
             case isVerificationPending:

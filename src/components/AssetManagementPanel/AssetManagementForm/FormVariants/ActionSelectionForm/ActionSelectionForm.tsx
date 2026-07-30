@@ -7,6 +7,7 @@ import { AssetManagementActions } from "../../../AssetManagementActions";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 import ConnectToBlockchainModel from "../../../../ConnectToBlockchain";
+import { IconSuccess } from "../../../../UI/Icon";
 
 interface ActionSelectionFormProps {
   beneficiary?: string;
@@ -16,6 +17,7 @@ interface ActionSelectionFormProps {
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   tokenRegistryAddress: string;
   account?: string;
+  isGaslessEnabled?: boolean;
   isReturnedToIssuer: boolean;
   setShowEndorsementChain: (payload: boolean) => void;
   isTitleEscrow: boolean;
@@ -41,6 +43,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   beneficiary,
   holder,
   account,
+  isGaslessEnabled,
   isReturnedToIssuer,
   isTokenBurnt,
   isTitleEscrow,
@@ -146,6 +149,17 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
               <>
                 {account ? (
                   <>
+                    {isGaslessEnabled && (
+                      <div className="flex flex-row justify-end items-center gap-2 whitespace-nowrap">
+                        <IconSuccess className="shrink-0 text-forest-500 w-5 h-5" />
+                        <span
+                          className="text-sm font-medium leading-normal tracking-normal align-middle "
+                          style={{ fontFamily: "Avenir" }}
+                        >
+                          Pay-on-behalf is enabled for all transaction.
+                        </span>
+                      </div>
+                    )}
                     {canManage ? (
                       <AssetManagementDropdown
                         onSetFormAction={onSetFormAction}
