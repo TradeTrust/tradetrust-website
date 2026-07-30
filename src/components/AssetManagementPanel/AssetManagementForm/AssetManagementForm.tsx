@@ -76,6 +76,7 @@ interface AssetManagementFormProps
   documentOwner?: string;
   tokenRegistryAddress: string;
   account?: string;
+  isGaslessEnabled?: boolean;
   formAction: AssetManagementActions;
   onSetFormAction: (nextFormAction: AssetManagementActions) => void;
   setShowEndorsementChain: (payload: boolean) => void;
@@ -89,6 +90,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   prevHolder,
 
   account,
+  isGaslessEnabled,
   formAction,
   tokenRegistryAddress,
   onSetFormAction,
@@ -289,6 +291,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           holder={holder}
           nominee={nominee}
           account={account}
+          isGaslessEnabled={isGaslessEnabled}
           canReturnToIssuer={canReturnToIssuer}
           canHandleRestore={canHandleRestore}
           canHandleShred={canHandleShred}

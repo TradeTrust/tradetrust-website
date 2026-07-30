@@ -170,13 +170,13 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     [account, titleEscrowAddress, currentChainId]
   );
 
-  useEffect(() => {
-    if (!isDelegated || !account) return;
-    const stored = localStorage.getItem(`tradetrust_paymaster_${account}`);
-    if (!stored) return;
-    setPaymasterAddress(stored);
-    checkGasless(stored);
-  }, [isDelegated, account, checkGasless]);
+  // useEffect(() => {
+  //   if (!isDelegated || !account) return;
+  //   const stored = localStorage.getItem(`tradetrust_paymaster_${account}`);
+  //   if (!stored) return;
+  //   setPaymasterAddress(stored);
+  //   checkGasless(stored);
+  // }, [isDelegated, account, checkGasless]);
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
   const { hasRole: hasAccepterRole } = useTokenRegistryRole({
     tokenRegistry,
@@ -217,7 +217,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             <div className="flex-1 min-w-0">
               {isDelegated && gaslessStatus === "success" ? (
                 <div className="flex items-start gap-2 bg-forest-50 border border-forest-500 rounded-lg px-3 py-2">
-                  <IconSuccess className="shrink-0 text-forest-500" />
+                  <IconSuccess className="shrink-0 text-forest-500 w-5 h-5" />
                   <span className="text-base font-normal not-italic leading-normal tracking-normal align-middle">
                     This wallet has the pay-on-behalf feature enabled. Transaction fees are covered for you, so
                     you&apos;ll see a Signature Request instead of a Transaction Request when confirming.
@@ -306,6 +306,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             prevBeneficiary={prevBeneficiary}
             prevHolder={prevHolder}
             account={account}
+            isGaslessEnabled={isDelegated && gaslessStatus === "success"}
             formAction={assetManagementAction}
             tokenRegistryAddress={tokenRegistryAddress}
             onSetFormAction={onSetFormAction}
