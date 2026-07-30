@@ -9,6 +9,13 @@ FROM synthetixio/docker-e2e@sha256:d46dd0c38a4a6cf44355dbf583f3bb83c60e445c5508c
 # RUN wget -q https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb
 # RUN apt-get install -y ./google-chrome-stable_${CHROME_VERSION}_amd64.deb
 
+# Chrome has been phasing out Manifest V2 extensions (like the MetaMask build this
+# e2e suite is pinned to) via a server-side policy rollout, independent of the
+# Chrome binary version. Force-enable MV2 so the extension can still install/load.
+# https://support.google.com/chrome/a/answer/7517525
+RUN mkdir -p /etc/opt/chrome/policies/managed && \
+    echo '{"ExtensionManifestV2Availability": 2}' > /etc/opt/chrome/policies/managed/enable-manifestv2.json
+
 RUN mkdir /app
 WORKDIR /app
 
