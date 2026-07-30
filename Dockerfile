@@ -19,6 +19,9 @@ FROM synthetixio/docker-e2e@sha256:d46dd0c38a4a6cf44355dbf583f3bb83c60e445c5508c
 RUN apt-mark hold google-chrome-stable && \
     rm -f /etc/apt/sources.list.d/google-chrome.list
 
+# Diagnostic: print the actual pinned Chrome version so it's visible in the build log.
+RUN echo "=== Chrome version baked into this image: $(google-chrome --version) ==="
+
 # Force-enable Manifest V2 as a second line of defense, in case Chrome's own MV2
 # enforcement is (or becomes) tied to a server-pushed policy component rather than
 # purely the installed binary version. https://support.google.com/chrome/a/answer/7517525
