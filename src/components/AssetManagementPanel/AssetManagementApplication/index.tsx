@@ -212,7 +212,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     <div id="title-transfer-panel" className="container justify-between">
       <div id="asset-management-box" className="flex p-4 flex-col gap-2 bg-white rounded-xl">
         <div id="file-name" className="flex-1">
-          <div className="flex flex-row justify-between items-center min-h-16 gap-2">
+          <div className="flex flex-col xs:flex-row justify-between items-stretch xs:items-center min-h-16 gap-2">
             {/* Gasless / Pay-on-behalf status */}
             <div className="flex-1 min-w-0">
               {isDelegated && gaslessStatus === "success" ? (
@@ -271,8 +271,13 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
               ) : null}
             </div>
 
-            <Link id="upload-new-file" data-testid="upload-new-file" className="content-center shrink-0" to={"/"}>
-              <Button className="bg-white text-cerulean-500 hover:bg-cloud-100 w-10 h-10 xs:w-auto flex items-center justify-center">
+            <Link
+              id="upload-new-file"
+              data-testid="upload-new-file"
+              className="content-center shrink-0 w-full xs:w-auto"
+              to={"/"}
+            >
+              <Button className="bg-white text-cerulean-500 hover:bg-cloud-100 w-full h-10 xs:w-10 xs:h-10 sm:w-auto sm:min-w-[180px] flex items-center justify-center whitespace-nowrap">
                 <div className="sm:block hidden px-2">Upload New File</div>
                 <Upload className="sm:hidden block text-cerulean-500 max-w-[16px]" />
               </Button>
