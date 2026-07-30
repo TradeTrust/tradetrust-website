@@ -16,7 +16,11 @@ module.exports = defineConfig({
   viewportWidth: 1440,
   viewportHeight: 900,
   e2e: {
-    defaultCommandTimeout: 10000,
+    // @synthetixio/synpress@3.x's MetaMask commands (createMetamaskAccount,
+    // switchMetamaskAccount, etc.) are documented to be timing-sensitive against
+    // the extension's own UI; 10s isn't always enough. Community-documented fix
+    // for this exact "before all hook hangs" class of failure.
+    defaultCommandTimeout: 90000,
     pageLoadTimeout: 60000,
     testIsolation: false,
     setupNodeEvents: function (on, config) {
