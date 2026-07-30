@@ -4,6 +4,11 @@ services:
   synpress:
     container_name: synpress
     build: .
+    # Docker's default /dev/shm (64MB) is well known to be too small for Chrome
+    # running headful with an extension + video recording + screenshot capture
+    # concurrently - it manifests as exactly this: intermittent hangs and
+    # screenshot/video capture failing unpredictably under memory pressure.
+    shm_size: "2gb"
     environment:
       - DISPLAY=display:0.0
       - DID_SERVER_URL=${DID_SERVER_URL}
