@@ -214,6 +214,9 @@
     "glob": "^9.3.5",
     "ox": "0.14.30",
     "handlebars": "^4.7.9",
+    "playwright": "1.42.1",
+    "playwright-core": "1.42.1",
+    "@playwright/test": "1.42.1",
     "request": {
       "form-data": "^2.5.4"
     },
