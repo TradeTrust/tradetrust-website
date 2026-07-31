@@ -16,6 +16,7 @@ import { useGaslessRejectTransferOwners } from "./useGaslessRejectTransferOwners
 import { useGaslessReturnToIssuer } from "./useGaslessReturnToIssuer";
 import { useGaslessAcceptReturned } from "./useGaslessAcceptReturned";
 import { useGaslessRejectReturned } from "./useGaslessRejectReturned";
+import { removePaymasterAddress, setPaymasterAddress } from "./paymasterStore";
 
 jest.mock("@trustvc/trustvc", () => ({
   transferHolder: jest.fn(),
@@ -202,7 +203,7 @@ describe.each(CONFIGS)(
   ({ useHook, normalFn, gaslessFn, params, gaslessArgKey, requiredField, mergesTokenId }) => {
     beforeEach(() => {
       jest.clearAllMocks();
-      localStorage.clear();
+      removePaymasterAddress(ACCOUNT);
       (window as any).ethereum = {};
       mockUseProviderContext.mockReturnValue({ account: ACCOUNT });
     });
@@ -253,7 +254,7 @@ describe.each(CONFIGS)(
     });
 
     it("uses the normal path when a paymaster is set but the wallet is not EIP-7702 delegated", async () => {
-      localStorage.setItem(`tradetrust_paymaster_${ACCOUNT}`, PAYMASTER_ADDRESS);
+      setPaymasterAddress(ACCOUNT, PAYMASTER_ADDRESS);
       mockCheckDelegation.mockResolvedValue(false);
       trustvc[normalFn].mockResolvedValue({ wait: jest.fn().mockResolvedValue({ transactionHash: "0xnormalhash" }) });
 
@@ -271,7 +272,7 @@ describe.each(CONFIGS)(
     });
 
     it("uses the normal path when delegated but the paymaster does not whitelist the caller/title escrow", async () => {
-      localStorage.setItem(`tradetrust_paymaster_${ACCOUNT}`, PAYMASTER_ADDRESS);
+      setPaymasterAddress(ACCOUNT, PAYMASTER_ADDRESS);
       mockCheckDelegation.mockResolvedValue(true);
       mockCheckWhitelist.mockResolvedValue({ isCallerAuthorized: false, isTitleEscrowAuthorized: true });
       trustvc[normalFn].mockResolvedValue({ wait: jest.fn().mockResolvedValue({ transactionHash: "0xnormalhash" }) });
@@ -294,7 +295,7 @@ describe.each(CONFIGS)(
     });
 
     it("sends a sponsored gasless transaction when a paymaster address is input, the wallet is delegated, and it's whitelisted", async () => {
-      localStorage.setItem(`tradetrust_paymaster_${ACCOUNT}`, PAYMASTER_ADDRESS);
+      setPaymasterAddress(ACCOUNT, PAYMASTER_ADDRESS);
       mockCheckDelegation.mockResolvedValue(true);
       mockCheckWhitelist.mockResolvedValue({ isCallerAuthorized: true, isTitleEscrowAuthorized: true });
       mockBuildSmartAccountClient.mockResolvedValue({ smartAccountClient: SMART_ACCOUNT_CLIENT });
@@ -339,7 +340,7 @@ describe.each(CONFIGS)(
     });
 
     it("surfaces the gasless path's rejection through the same error handling", async () => {
-      localStorage.setItem(`tradetrust_paymaster_${ACCOUNT}`, PAYMASTER_ADDRESS);
+      setPaymasterAddress(ACCOUNT, PAYMASTER_ADDRESS);
       mockCheckDelegation.mockResolvedValue(true);
       mockCheckWhitelist.mockResolvedValue({ isCallerAuthorized: true, isTitleEscrowAuthorized: true });
       mockBuildSmartAccountClient.mockResolvedValue({ smartAccountClient: SMART_ACCOUNT_CLIENT });

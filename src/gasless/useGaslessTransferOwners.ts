@@ -8,6 +8,7 @@ import { checkEIP7702Delegation } from "./checkDelegation";
 import { checkPaymasterWhitelist } from "./checkPaymasterWhitelist";
 import { buildSmartAccountClient } from "./buildSmartAccountClient";
 import { getMetaMaskErrorMessage, getRpcUrl } from "./gaslessHelpers";
+import { getPaymasterAddress } from "./paymasterStore";
 
 const PAYMASTER_ADDRESS = process.env.REACT_APP_PAYMASTER_ADDRESS as string | undefined;
 const PIMLICO_API_KEY = process.env.PIMLICO_API_KEY as string | undefined;
@@ -49,8 +50,7 @@ export function useGaslessTransferOwners(contractOptions: ContractOptions, provi
 
         let useGasless = false;
 
-        const resolvedPaymasterAddress =
-          (account ? localStorage.getItem(`tradetrust_paymaster_${account}`) : null) || PAYMASTER_ADDRESS;
+        const resolvedPaymasterAddress = getPaymasterAddress(account) || PAYMASTER_ADDRESS;
 
         const hasGaslessConfig =
           !!account &&

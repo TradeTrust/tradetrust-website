@@ -18,6 +18,7 @@ import { TokenRegistryVersions } from "../../../constants";
 import { ChainInfo } from "../../../constants/chain-info";
 import { checkEIP7702Delegation } from "../../../gasless/checkDelegation";
 import { checkPaymasterWhitelist } from "../../../gasless/checkPaymasterWhitelist";
+import { getPaymasterAddress, setPaymasterAddress as storePaymasterAddress } from "../../../gasless/paymasterStore";
 import { utils } from "ethers";
 import { IconSuccess } from "../../UI/Icon";
 
@@ -155,7 +156,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
       try {
         const result = await checkPaymasterWhitelist(trimmed, account, titleEscrowAddress, rpcUrl);
         if (result.isCallerAuthorized && result.isTitleEscrowAuthorized) {
-          // localStorage.setItem(`tradetrust_paymaster_${account}`, trimmed);
+          storePaymasterAddress(account, trimmed);
           setGaslessStatus("success");
         } else {
           setGaslessError("This paymaster address is not applicable to you.");
@@ -170,13 +171,13 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     [account, titleEscrowAddress, currentChainId]
   );
 
-  // useEffect(() => {
-  //   if (!isDelegated || !account) return;
-  //   const stored = localStorage.getItem(`tradetrust_paymaster_${account}`);
-  //   if (!stored) return;
-  //   setPaymasterAddress(stored);
-  //   checkGasless(stored);
-  // }, [isDelegated, account, checkGasless]);
+  useEffect(() => {
+    if (!isDelegated || !account) return;
+    const stored = getPaymasterAddress(account);
+    if (!stored) return;
+    setPaymasterAddress(stored);
+    checkGasless(stored);
+  }, [isDelegated, account, checkGasless]);
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, provider);
   const { hasRole: hasAccepterRole } = useTokenRegistryRole({
     tokenRegistry,
