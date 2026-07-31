@@ -10,7 +10,7 @@ import { buildSmartAccountClient } from "./buildSmartAccountClient";
 import { getMetaMaskErrorMessage, getRpcUrl } from "./gaslessHelpers";
 
 const PAYMASTER_ADDRESS = process.env.REACT_APP_PAYMASTER_ADDRESS as string | undefined;
-const PIMLICO_API_KEY = process.env.REACT_APP_PIMLICO_API_KEY as string | undefined;
+const PIMLICO_API_KEY = process.env.PIMLICO_API_KEY as string | undefined;
 
 interface ContractOptions {
   titleEscrowAddress?: string;

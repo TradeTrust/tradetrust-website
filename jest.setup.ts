@@ -15,7 +15,7 @@ if (process.env.DEBUG) {
 }
 
 // src/gasless hooks read this at module load time to gate the sponsored-tx path
-process.env.REACT_APP_PIMLICO_API_KEY = process.env.REACT_APP_PIMLICO_API_KEY || "test-pimlico-key";
+process.env.PIMLICO_API_KEY = process.env.PIMLICO_API_KEY || "test-pimlico-key";
 
 // polyfill (https://stackoverflow.com/questions/42213522/mocking-document-createrange-for-jest)
 const createRange = () => ({
