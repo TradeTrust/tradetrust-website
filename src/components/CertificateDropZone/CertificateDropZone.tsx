@@ -1,4 +1,10 @@
-import { errorMessages, isDocumentRevokable, isTransferableRecord, isValid } from "@trustvc/trustvc";
+import {
+  errorMessages,
+  isDocumentRevokable,
+  isObligationRecord,
+  isTransferableRecord,
+  isValid,
+} from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
@@ -88,7 +94,7 @@ export const CertificateDropZone: FunctionComponent<CertificateDropzoneProps> = 
           try {
             const json = JSON.parse(reader.result as string);
             const chainId = getChainId(json);
-            const requiresNetwork = isTransferableRecord(json) || isDocumentRevokable(json);
+            const requiresNetwork = isTransferableRecord(json) || isObligationRecord(json) || isDocumentRevokable(json);
 
             if (!chainId && requiresNetwork) {
               showOverlay(

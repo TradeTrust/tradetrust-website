@@ -13,6 +13,19 @@ import {
   rejectReturned,
   acceptReturned,
   rejectTransferOwners,
+  acceptObligationRegistry,
+  rejectObligationRegistry,
+  dischargeObligationRegistry,
+  transferHolderObligationRegistry,
+  transferBeneficiaryObligationRegistry,
+  transferOwnersObligationRegistry,
+  nominateObligationRegistry,
+  returnToIssuerObligationRegistry,
+  rejectTransferHolderObligationRegistry,
+  rejectTransferBeneficiaryObligationRegistry,
+  rejectTransferOwnersObligationRegistry,
+  acceptReturnedObligationRegistry,
+  rejectReturnedObligationRegistry,
 } from "@trustvc/trustvc";
 import { RootState } from "../../reducers";
 import { TitleEscrow, TradeTrustToken } from "../../types";
@@ -29,6 +42,36 @@ const trustvcFunctions: Record<string, (...args: any[]) => any> = {
   returnToIssuer,
   rejectReturned,
   acceptReturned,
+};
+
+// BoE obligation-registry / obligation-escrow methods (same UI method names, plus lifecycle actions)
+const obligationFunctions: Record<string, (...args: any[]) => any> = {
+  transferHolder: transferHolderObligationRegistry,
+  transferBeneficiary: transferBeneficiaryObligationRegistry,
+  transferOwners: transferOwnersObligationRegistry,
+  rejectTransferHolder: rejectTransferHolderObligationRegistry,
+  rejectTransferBeneficiary: rejectTransferBeneficiaryObligationRegistry,
+  rejectTransferOwners: rejectTransferOwnersObligationRegistry,
+  nominate: nominateObligationRegistry,
+  returnToIssuer: returnToIssuerObligationRegistry,
+  rejectReturned: rejectReturnedObligationRegistry,
+  acceptReturned: acceptReturnedObligationRegistry,
+  accept: acceptObligationRegistry,
+  reject: rejectObligationRegistry,
+  discharge: dischargeObligationRegistry,
+};
+
+/** Map classic { tokenRegistryAddress, titleEscrowAddress, tokenId } contract options to obligation options. */
+const toObligationContractOptions = (opts: any) => {
+  if (!opts) return opts;
+  if (opts.obligationRegistryAddress || opts.obligationEscrowAddress) {
+    return opts;
+  }
+  return {
+    obligationRegistryAddress: opts.tokenRegistryAddress,
+    obligationEscrowAddress: opts.titleEscrowAddress,
+    tokenId: opts.tokenId,
+  };
 };
 export type ContractFunctionState = "UNINITIALIZED" | "INITIALIZED" | "PENDING_CONFIRMATION" | "CONFIRMED" | "ERROR";
 type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
@@ -52,7 +95,8 @@ export function useContractFunctionHook<
   contract?: T,
   method?: S,
   contractOptions?: any,
-  providerOrSigner?: any
+  providerOrSigner?: any,
+  isObligation?: boolean
 ): {
   call: TypedContractMethod<any[], ReturnType<T[S] extends (...args: any[]) => any ? T[S] : never>, "nonpayable">;
   send: TypedContractMethod<any[], [R], "nonpayable">;
@@ -93,16 +137,22 @@ export function useContractFunctionHook<
     try {
       // Check if the method name exists in our trustvc functions mapping
       const methodName = method as string;
-      const trustvcContractMethod = trustvcFunctions[methodName];
+      const methodMap = isObligation ? obligationFunctions : trustvcFunctions;
+      const trustvcContractMethod = methodMap[methodName];
 
       if (!trustvcContractMethod) {
-        throw new Error(`Unsupported method '${methodName}' for trustvcFunctions mapping`);
+        throw new Error(
+          `Unsupported method '${methodName}' for ${
+            isObligation ? "obligation" : "title escrow"
+          } trustvcFunctions mapping`
+        );
       }
 
       // If it's a trustvc function, call it with the contract and params
       // Only include id in options if keyIdFromStore is not null
       const options = { id: keyId ?? "" };
-      const deferredTx = trustvcContractMethod(contractOptions, providerOrSigner, params, options);
+      const resolvedOptions = isObligation ? toObligationContractOptions(contractOptions) : contractOptions;
+      const deferredTx = trustvcContractMethod(resolvedOptions, providerOrSigner, params, options);
 
       setState("INITIALIZED");
       const _transaction: ContractTransaction = await deferredTx;
@@ -149,7 +199,7 @@ export function useContractFunctionHook<
   const errorMessage = error?.message;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const send = useCallback(sendFn, [contract, method, keyId, contractOptions, providerOrSigner]);
+  const send = useCallback(sendFn, [contract, method, keyId, contractOptions, providerOrSigner, isObligation]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const call = useCallback(callFn, [contract, method]);
   // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -118,6 +118,27 @@ export interface RejectTransferHolderFormProps extends BaseActionFormProps {
   rejectTransferHolderState: string;
 }
 
+// Props for AcceptObligationForm
+export interface AcceptObligationFormProps extends BaseActionFormProps {
+  type: AssetManagementActions.AcceptObligation;
+  handleAcceptObligation: ({ remarks }: { remarks: string }) => void;
+  acceptObligationState: string;
+}
+
+// Props for RejectObligationForm
+export interface RejectObligationFormProps extends BaseActionFormProps {
+  type: AssetManagementActions.RejectObligation;
+  handleRejectObligation: ({ remarks }: { remarks: string }) => void;
+  rejectObligationState: string;
+}
+
+// Props for DischargeObligationForm
+export interface DischargeObligationFormProps extends BaseActionFormProps {
+  type: AssetManagementActions.DischargeObligation;
+  handleDischargeObligation: ({ remarks }: { remarks: string }) => void;
+  dischargeObligationState: string;
+}
+
 // Union type for all possible props
 type ActionFormProps =
   | TransferHolderFormProps
@@ -130,7 +151,10 @@ type ActionFormProps =
   | RejectSurrenderedFormProps
   | RejectTransferOwnerHolderFormProps
   | RejectTransferOwnerFormProps
-  | RejectTransferHolderFormProps;
+  | RejectTransferHolderFormProps
+  | AcceptObligationFormProps
+  | RejectObligationFormProps
+  | DischargeObligationFormProps;
 
 export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
   const { type, beneficiary, holder, isExpired, setFormActionNone, setShowEndorsementChain } = props;
@@ -875,6 +899,154 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                   data-testid={"endorseTransferBtn"}
                 >
                   {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Transfer</>}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    case AssetManagementActions.AcceptObligation: {
+      const { handleAcceptObligation, acceptObligationState } = props;
+      const isPendingConfirmation =
+        acceptObligationState === FormState.PENDING_CONFIRMATION || acceptObligationState === FormState.INITIALIZED;
+
+      return (
+        <>
+          <div className="flex-1 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid-flow-row gap-2 bg-cerulean-50 p-4 rounded-lg">
+            <div className="col-span-1 xs:col-span-2 sm:col-end-4 sm:col-span-1">
+              <EditableAssetTitle
+                role="Remark"
+                value="Remark"
+                newValue={remark}
+                onSetNewValue={setRemark}
+                isEditable={true}
+                isRemark={true}
+                isSubmitted={isPendingConfirmation}
+              />
+            </div>
+          </div>
+          <div className="flex-1 flex flex-col flex-wrap xs:flex-row xs:flex-nowrap justify-between pb-4 gap-2">
+            <div className="flex-1 content-center" />
+            <div className="gap-2 xs:ml-auto xs:min-w-48 xs:w-auto w-full flex flex-col xs:flex-row">
+              <div className="w-full xs:min-w-48 xs:max-w-64">
+                <Button
+                  className="w-full bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-800 shadow-none hover:bg-cloud-200"
+                  onClick={setFormActionNone}
+                  disabled={isPendingConfirmation}
+                  data-testid={"cancelAcceptObligationBtn"}
+                >
+                  Cancel
+                </Button>
+              </div>
+              <div className="w-full xs:min-w-48 xs:max-w-64">
+                <Button
+                  className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
+                  onClick={() => handleAcceptObligation({ remarks: remark })}
+                  disabled={isPendingConfirmation}
+                  data-testid={"acceptObligationBtn"}
+                >
+                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Accept the bill</>}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    case AssetManagementActions.RejectObligation: {
+      const { handleRejectObligation, rejectObligationState } = props;
+      const isPendingConfirmation =
+        rejectObligationState === FormState.PENDING_CONFIRMATION || rejectObligationState === FormState.INITIALIZED;
+
+      return (
+        <>
+          <div className="flex-1 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid-flow-row gap-2 bg-cerulean-50 p-4 rounded-lg">
+            <div className="col-span-1 xs:col-span-2 sm:col-end-4 sm:col-span-1">
+              <EditableAssetTitle
+                role="Remark"
+                value="Remark"
+                newValue={remark}
+                onSetNewValue={setRemark}
+                isEditable={true}
+                isRemark={true}
+                isSubmitted={isPendingConfirmation}
+              />
+            </div>
+          </div>
+          <div className="flex-1 flex flex-col flex-wrap xs:flex-row xs:flex-nowrap justify-between pb-4 gap-2">
+            <div className="flex-1 content-center" />
+            <div className="gap-2 xs:ml-auto xs:min-w-48 xs:w-auto w-full flex flex-col xs:flex-row">
+              <div className="w-full xs:min-w-48 xs:max-w-64">
+                <Button
+                  className="w-full bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-800 shadow-none hover:bg-cloud-200"
+                  onClick={setFormActionNone}
+                  disabled={isPendingConfirmation}
+                  data-testid={"cancelRejectObligationBtn"}
+                >
+                  Cancel
+                </Button>
+              </div>
+              <div className="w-full xs:min-w-48 xs:max-w-64">
+                <Button
+                  className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
+                  onClick={() => handleRejectObligation({ remarks: remark })}
+                  disabled={isPendingConfirmation}
+                  data-testid={"rejectObligationBtn"}
+                >
+                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Reject the bill</>}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    case AssetManagementActions.DischargeObligation: {
+      const { handleDischargeObligation, dischargeObligationState } = props;
+      const isPendingConfirmation =
+        dischargeObligationState === FormState.PENDING_CONFIRMATION ||
+        dischargeObligationState === FormState.INITIALIZED;
+
+      return (
+        <>
+          <div className="flex-1 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid-flow-row gap-2 bg-cerulean-50 p-4 rounded-lg">
+            <div className="col-span-1 xs:col-span-2 sm:col-end-4 sm:col-span-1">
+              <EditableAssetTitle
+                role="Remark"
+                value="Remark"
+                newValue={remark}
+                onSetNewValue={setRemark}
+                isEditable={true}
+                isRemark={true}
+                isSubmitted={isPendingConfirmation}
+              />
+            </div>
+          </div>
+          <div className="flex-1 flex flex-col flex-wrap xs:flex-row xs:flex-nowrap justify-between pb-4 gap-2">
+            <div className="flex-1 content-center" />
+            <div className="gap-2 xs:ml-auto xs:min-w-48 xs:w-auto w-full flex flex-col xs:flex-row">
+              <div className="w-full xs:min-w-48 xs:max-w-64">
+                <Button
+                  className="w-full bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-800 shadow-none hover:bg-cloud-200"
+                  onClick={setFormActionNone}
+                  disabled={isPendingConfirmation}
+                  data-testid={"cancelDischargeObligationBtn"}
+                >
+                  Cancel
+                </Button>
+              </div>
+              <div className="w-full xs:min-w-48 xs:max-w-64">
+                <Button
+                  className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
+                  onClick={() => handleDischargeObligation({ remarks: remark })}
+                  disabled={isPendingConfirmation}
+                  data-testid={"dischargeObligationBtn"}
+                >
+                  {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Discharge the bill</>}
                 </Button>
               </div>
             </div>

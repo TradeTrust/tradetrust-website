@@ -1,8 +1,10 @@
 import { decryptString } from "@govtechsg/oa-encryption";
 import {
   errorMessages,
+  getObligationRegistryAddress,
   getTokenId,
   getTokenRegistryAddress,
+  isObligationRecord,
   isRawV2Document,
   isRawV3Document,
   isSignedWrappedV2Document,
@@ -37,6 +39,7 @@ const { TYPES } = errorMessages;
 export function* verifyCertificate(): any {
   let certificate;
   let isTransferableAssetVal;
+  let isObligationAssetVal;
   let registryAddress;
   let tokenId;
 
@@ -47,8 +50,12 @@ export function* verifyCertificate(): any {
     });
 
     isTransferableAssetVal = isTransferableRecord(certificate);
+    isObligationAssetVal = isObligationRecord(certificate);
     if (isTransferableAssetVal) {
       registryAddress = getTokenRegistryAddress(certificate);
+      tokenId = getTokenId(certificate);
+    } else if (isObligationAssetVal) {
+      registryAddress = getObligationRegistryAddress(certificate);
       tokenId = getTokenId(certificate);
     }
   } catch (e) {
@@ -58,7 +65,12 @@ export function* verifyCertificate(): any {
   }
 
   try {
-    if (isTransferableAssetVal && registryAddress && tokenId) {
+    if (isObligationAssetVal && registryAddress && tokenId) {
+      // Obligation Registry has no V4/legacy variant — always V5-shaped. Do NOT call
+      // isTokenRegistryV4 here: it probes a TitleEscrow/TokenRegistry ABI that an
+      // ObligationRegistry/ObligationEscrow contract does not implement.
+      yield put(detectingTRCertificateVersion(TokenRegistryVersions.V5));
+    } else if (isTransferableAssetVal && registryAddress && tokenId) {
       const { tokenRegistryV4, timeout } = yield race({
         tokenRegistryV4: call(isTokenRegistryV4, registryAddress, tokenId),
         timeout: delay(2 * 60 * 1000),

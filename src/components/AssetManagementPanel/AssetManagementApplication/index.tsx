@@ -101,6 +101,15 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
     // reject transfer owner holder
     rejectTransferOwnerHolder,
     rejectTransferOwnerHolderState,
+    // BoE obligation lifecycle
+    isObligation,
+    obligationStatus,
+    acceptObligation,
+    acceptObligationState,
+    rejectObligation,
+    rejectObligationState,
+    dischargeObligation,
+    dischargeObligationState,
   } = useTokenInformationContext();
   const [assetManagementAction, setAssetManagementAction] = useState<AssetManagementActions>(
     AssetManagementActions.None
@@ -339,6 +348,14 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
             onRestoreToken={onRestoreToken}
             restoreTokenState={restoreTokenState}
             isExpired={isExpired}
+            isObligation={isObligation}
+            obligationStatus={obligationStatus}
+            onAcceptObligation={acceptObligation}
+            acceptObligationState={acceptObligationState}
+            onRejectObligation={rejectObligation}
+            rejectObligationState={rejectObligationState}
+            onDischargeObligation={dischargeObligation}
+            dischargeObligationState={dischargeObligationState}
           />
         ) : (
           isExpired && (

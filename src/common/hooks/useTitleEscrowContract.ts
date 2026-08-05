@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { providers, Signer } from "ethers";
-import { getTitleEscrowAddress, v5Contracts, v4Contracts } from "@trustvc/trustvc";
+import { getTitleEscrowAddress, getObligationEscrowAddress, v5Contracts, v4Contracts } from "@trustvc/trustvc";
 import { TitleEscrow, TradeTrustToken } from "../../types";
 import { TokenRegistryVersions } from "../../constants";
 import { useTokenRegistryVersion } from "./useTokenRegistryVersion";
-const { TitleEscrow__factory } = v5Contracts;
+const { TitleEscrow__factory, ObligationEscrow__factory } = v5Contracts;
 const { TitleEscrow__factory: TitleEscrow__factoryV4 } = v4Contracts;
 interface useTitleEscrowContractProps {
   titleEscrow?: TitleEscrow;
@@ -16,7 +16,8 @@ interface useTitleEscrowContractProps {
 export const useTitleEscrowContract = (
   providerOrSigner: providers.Provider | Signer | undefined,
   tokenRegistry?: TradeTrustToken,
-  tokenId?: string
+  tokenId?: string,
+  isObligation?: boolean
 ): useTitleEscrowContractProps => {
   const [titleEscrow, setTitleEscrow] = useState<TitleEscrow>();
   const [titleEscrowAddress, setTitleEscrowAddress] = useState<string>();
@@ -32,22 +33,26 @@ export const useTitleEscrowContract = (
       ) as providers.Provider;
       const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
       setDocumentOwner(titleEscrowOwner);
-      const address = await getTitleEscrowAddress(tokenRegistry.address, tokenId, provider, {
-        titleEscrowVersion: tokenRegistryVersion.toLowerCase() as "v4" | "v5",
-      });
+      const address = isObligation
+        ? await getObligationEscrowAddress(tokenRegistry.address, tokenId, provider, { titleEscrowVersion: "v5" })
+        : await getTitleEscrowAddress(tokenRegistry.address, tokenId, provider, {
+            titleEscrowVersion: tokenRegistryVersion.toLowerCase() as "v4" | "v5",
+          });
       let instance;
-      if (tokenRegistryVersion === TokenRegistryVersions.V4) {
+      if (isObligation) {
+        instance = ObligationEscrow__factory.connect(address, providerOrSigner as any);
+      } else if (tokenRegistryVersion === TokenRegistryVersions.V4) {
         instance = TitleEscrow__factoryV4.connect(address, providerOrSigner);
       } else {
         instance = TitleEscrow__factory.connect(address, providerOrSigner);
       }
-      setTitleEscrow(instance);
+      setTitleEscrow(instance as TitleEscrow);
       setTitleEscrowAddress(address);
     } catch (error) {
       setTitleEscrow(undefined);
       setTitleEscrowAddress(undefined);
     }
-  }, [providerOrSigner, tokenId, tokenRegistry, tokenRegistryVersion]);
+  }, [providerOrSigner, tokenId, tokenRegistry, tokenRegistryVersion, isObligation]);
 
   useEffect(() => {
     updateTitleEscrow();

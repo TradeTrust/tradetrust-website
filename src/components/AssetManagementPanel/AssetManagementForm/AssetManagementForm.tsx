@@ -2,6 +2,7 @@ import React, { FunctionComponent, useCallback, useContext, useEffect } from "re
 import { OverlayContext } from "../../../common/contexts/OverlayContext";
 import { InitialAddress } from "../../../constants/chain-info";
 import { FormState } from "../../../constants/FormState";
+import { ObligationDocumentStatus } from "../../../constants/obligation";
 import { showDocumentTransferMessage } from "../../UI/Overlay/OverlayContent";
 import { RejectTransferHolderOverlay } from "../AssetManagementActionOverlay/RejectTransferHolderOverlay";
 import { RejectTransferOwnerHolderOverlay } from "../AssetManagementActionOverlay/RejectTransferOwnerHolderOverlay";
@@ -54,6 +55,17 @@ interface ReturnToIssuerActions {
   restoreTokenState: string;
 }
 
+interface ObligationLifecycleActions {
+  isObligation?: boolean;
+  obligationStatus?: number;
+  onAcceptObligation?: ({ remarks }: { remarks: string }) => void;
+  acceptObligationState?: string;
+  onRejectObligation?: ({ remarks }: { remarks: string }) => void;
+  rejectObligationState?: string;
+  onDischargeObligation?: ({ remarks }: { remarks: string }) => void;
+  dischargeObligationState?: string;
+}
+
 interface ContractState {
   beneficiary?: string;
   holder?: string;
@@ -66,7 +78,8 @@ interface AssetManagementFormProps
   extends ContractState,
     RejectTransferActions,
     TransferActions,
-    ReturnToIssuerActions {
+    ReturnToIssuerActions,
+    ObligationLifecycleActions {
   isRestorer?: boolean;
   isAcceptor?: boolean;
   isTitleEscrow: boolean;
@@ -124,6 +137,15 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   returnToIssuerState,
   onDestroyToken,
   destroyTokenState,
+
+  isObligation,
+  obligationStatus,
+  onAcceptObligation,
+  acceptObligationState,
+  onRejectObligation,
+  rejectObligationState,
+  onDischargeObligation,
+  dischargeObligationState,
 }) => {
   const isActiveTitleEscrow = isTitleEscrow && !isReturnedToIssuer;
   const isHolder = isTitleEscrow && account === holder;
@@ -166,6 +188,26 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     rejectTransferOwnerState === FormState.PENDING_CONFIRMATION ||
     rejectTransferOwnerHolderState === FormState.PENDING_CONFIRMATION;
 
+  // BoE lifecycle — owner and holder must differ
+  const canAcceptObligation =
+    !!isObligation &&
+    isActiveTitleEscrow &&
+    isHolder &&
+    !isBeneficiary &&
+    obligationStatus === ObligationDocumentStatus.Issued;
+  const canRejectObligation =
+    !!isObligation &&
+    isActiveTitleEscrow &&
+    isHolder &&
+    !isBeneficiary &&
+    obligationStatus === ObligationDocumentStatus.Issued;
+  const canDischargeObligation =
+    !!isObligation &&
+    isActiveTitleEscrow &&
+    isBeneficiary &&
+    !isHolder &&
+    obligationStatus === ObligationDocumentStatus.Accepted;
+
   const setFormActionNone = useCallback(() => {
     if (
       returnToIssuerState === FormState.PENDING_CONFIRMATION ||
@@ -173,7 +215,10 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
       holderTransferringState === FormState.PENDING_CONFIRMATION ||
       beneficiaryEndorseState === FormState.PENDING_CONFIRMATION ||
       nominateBeneficiaryState === FormState.PENDING_CONFIRMATION ||
-      transferOwnersState === FormState.PENDING_CONFIRMATION
+      transferOwnersState === FormState.PENDING_CONFIRMATION ||
+      acceptObligationState === FormState.PENDING_CONFIRMATION ||
+      rejectObligationState === FormState.PENDING_CONFIRMATION ||
+      dischargeObligationState === FormState.PENDING_CONFIRMATION
     )
       return;
     onSetFormAction(AssetManagementActions.None);
@@ -184,6 +229,9 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
     beneficiaryEndorseState,
     nominateBeneficiaryState,
     transferOwnersState,
+    acceptObligationState,
+    rejectObligationState,
+    dischargeObligationState,
     onSetFormAction,
   ]);
 
@@ -309,6 +357,11 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           isTitleEscrow={isTitleEscrow}
           isRejectPendingConfirmation={isRejectPendingConfirmation}
           isExpired={isExpired}
+          isObligation={isObligation}
+          obligationStatus={obligationStatus}
+          canAcceptObligation={canAcceptObligation}
+          canRejectObligation={canRejectObligation}
+          canDischargeObligation={canDischargeObligation}
         />
       )}
       {(formAction === AssetManagementActions.TransferHolder ||
@@ -318,7 +371,10 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
         formAction === AssetManagementActions.NominateBeneficiary ||
         formAction === AssetManagementActions.ReturnToIssuer ||
         formAction === AssetManagementActions.AcceptReturnToIssuer ||
-        formAction === AssetManagementActions.RejectReturnToIssuer) && (
+        formAction === AssetManagementActions.RejectReturnToIssuer ||
+        formAction === AssetManagementActions.AcceptObligation ||
+        formAction === AssetManagementActions.RejectObligation ||
+        formAction === AssetManagementActions.DischargeObligation) && (
         <ActionForm
           type={formAction}
           beneficiary={beneficiary!}
@@ -348,6 +404,13 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
           // reject return to issuer
           handleRestoreToken={onRestoreToken}
           restoreTokenState={restoreTokenState}
+          // BoE obligation lifecycle
+          handleAcceptObligation={onAcceptObligation!}
+          acceptObligationState={acceptObligationState!}
+          handleRejectObligation={onRejectObligation!}
+          rejectObligationState={rejectObligationState!}
+          handleDischargeObligation={onDischargeObligation!}
+          dischargeObligationState={dischargeObligationState!}
         />
       )}
     </>

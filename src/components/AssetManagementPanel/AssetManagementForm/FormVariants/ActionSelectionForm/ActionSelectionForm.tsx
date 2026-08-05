@@ -4,6 +4,7 @@ import { Button, ButtonHeight } from "../../../../Button";
 import { MessageTitle, showDocumentTransferMessage } from "../../../../UI/Overlay/OverlayContent";
 import { TagBordered, TagBorderedSm } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
+import { OBLIGATION_STATUS_LABEL } from "../../../../../constants/obligation";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 import ConnectToBlockchainModel from "../../../../ConnectToBlockchain";
@@ -36,6 +37,11 @@ interface ActionSelectionFormProps {
   canRejectOwnerHolderTransfer: boolean;
   canRejectHolderTransfer: boolean;
   canRejectOwnerTransfer: boolean;
+  isObligation?: boolean;
+  obligationStatus?: number;
+  canAcceptObligation?: boolean;
+  canRejectObligation?: boolean;
+  canDischargeObligation?: boolean;
 }
 
 export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = ({
@@ -60,6 +66,11 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canRejectOwnerHolderTransfer,
   canRejectHolderTransfer,
   canRejectOwnerTransfer,
+  isObligation,
+  obligationStatus,
+  canAcceptObligation,
+  canRejectObligation,
+  canDischargeObligation,
 }) => {
   const canManage =
     canTransferHolder ||
@@ -72,7 +83,12 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     canHandleRestore ||
     canRejectOwnerHolderTransfer ||
     canRejectHolderTransfer ||
-    canRejectOwnerTransfer;
+    canRejectOwnerTransfer ||
+    !!canAcceptObligation ||
+    !!canRejectObligation ||
+    !!canDischargeObligation;
+  const obligationStatusLabel =
+    isObligation && obligationStatus !== undefined ? OBLIGATION_STATUS_LABEL[obligationStatus] : undefined;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -143,6 +159,18 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                   </h5>
                 </TagBordered>
               )}
+
+              {isObligation && obligationStatusLabel && (
+                <TagBordered
+                  id="obligation-status-sign"
+                  rounded="rounded-full"
+                  className="border-cerulean-100 bg-cerulean-100 text-cerulean-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
+                >
+                  <h5 data-testid="obligationStatus" className="text-center break-keep">
+                    BoE {obligationStatusLabel}
+                  </h5>
+                </TagBordered>
+              )}
             </div>
 
             <div className="gap-y-4 xs:ml-auto xs:min-w-48 w-full xs:max-w-64 flex flex-col justify-center">
@@ -175,6 +203,9 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                         canRejectHolderTransfer={canRejectHolderTransfer}
                         canRejectOwnerTransfer={canRejectOwnerTransfer}
                         isRejectPendingConfirmation={isRejectPendingConfirmation}
+                        canAcceptObligation={canAcceptObligation}
+                        canRejectObligation={canRejectObligation}
+                        canDischargeObligation={canDischargeObligation}
                       />
                     ) : (
                       <Button

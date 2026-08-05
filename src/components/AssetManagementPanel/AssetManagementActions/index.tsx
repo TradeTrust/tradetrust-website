@@ -11,4 +11,10 @@ export enum AssetManagementActions {
   RejectTransferOwnerHolder = "RejectTransferOwnerHolder",
   RejectTransferOwner = "RejectTransferOwner",
   RejectTransferHolder = "RejectTransferHolder",
+  /** BoE: holder accepts Issued -> Accepted */
+  AcceptObligation = "AcceptObligation",
+  /** BoE: holder rejects Issued -> Rejected (burns) */
+  RejectObligation = "RejectObligation",
+  /** BoE: beneficiary discharges Accepted -> Discharged (burns) */
+  DischargeObligation = "DischargeObligation",
 }

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { ButtonHTMLAttributes, FunctionComponent } from "react";
 import { Button, ButtonHeight } from "../../../Button";
 import { Dropdown, DropdownItem } from "../../../Dropdown";
 import { AssetManagementActions } from "./../../AssetManagementActions";
@@ -18,7 +18,35 @@ interface AssetManagementDropdownProps {
   canRejectOwnerTransfer: boolean;
   canRejectHolderTransfer: boolean;
   isRejectPendingConfirmation?: boolean;
+  canAcceptObligation?: boolean;
+  canRejectObligation?: boolean;
+  canDischargeObligation?: boolean;
 }
+
+interface ObligationDropdownItemProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "type"> {
+  onClick: () => void;
+}
+
+// Additive BoE lifecycle items only — the shared DropdownItem (a non-button <div>, used by
+// every classic ETR entry below) stays untouched; this variant is a real <button> so the new
+// items are keyboard-operable (Tab focus, Enter/Space activation).
+const ObligationDropdownItem: FunctionComponent<ObligationDropdownItemProps> = ({
+  className,
+  children,
+  onClick,
+  ...rest
+}) => (
+  <button
+    type="button"
+    className={`truncate cursor-pointer text-left text-cloud-800 p-3 hover:bg-gray-50 active:bg-gray-300 w-full ${
+      className ?? ""
+    }`}
+    onClick={onClick}
+    {...rest}
+  >
+    {children}
+  </button>
+);
 
 export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownProps> = ({
   onSetFormAction,
@@ -34,6 +62,9 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
   canRejectHolderTransfer,
   canRejectOwnerTransfer,
   isRejectPendingConfirmation,
+  canAcceptObligation,
+  canRejectObligation,
+  canDischargeObligation,
 }) => {
   return isRejectPendingConfirmation ? (
     <Button
@@ -52,6 +83,30 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
       className="bg-cerulean-500 font-gilroy-bold text-white rounded-xl text-lg py-2 px-3 hover:bg-cerulean-300 w-full h-12"
       classNameMenu="right-0 rounded-xl mt-2 w-full"
     >
+      {canAcceptObligation && (
+        <ObligationDropdownItem
+          data-testid={"acceptObligationDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.AcceptObligation)}
+        >
+          Accept the bill
+        </ObligationDropdownItem>
+      )}
+      {canRejectObligation && (
+        <ObligationDropdownItem
+          data-testid={"rejectObligationDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.RejectObligation)}
+        >
+          Reject the bill
+        </ObligationDropdownItem>
+      )}
+      {canDischargeObligation && (
+        <ObligationDropdownItem
+          data-testid={"dischargeObligationDropdown"}
+          onClick={() => onSetFormAction(AssetManagementActions.DischargeObligation)}
+        >
+          Discharge the bill
+        </ObligationDropdownItem>
+      )}
       {canTransferHolder && (
         <DropdownItem
           className="active:bg-cloud-200 active:text-white"

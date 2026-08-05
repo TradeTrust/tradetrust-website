@@ -14,6 +14,7 @@ interface EndorsementChainContainer {
   tokenId: string;
   keyId?: string;
   setShowEndorsementChain: (payload: boolean) => void;
+  isObligation?: boolean;
 }
 
 export const EndorsementChainContainer: FunctionComponent<EndorsementChainContainer> = ({
@@ -21,8 +22,9 @@ export const EndorsementChainContainer: FunctionComponent<EndorsementChainContai
   tokenId,
   keyId,
   setShowEndorsementChain,
+  isObligation,
 }) => {
-  const endorsementChainProps = useEndorsementChain(tokenRegistry, tokenId, keyId);
+  const endorsementChainProps = useEndorsementChain(tokenRegistry, tokenId, keyId, isObligation);
   const expiryTimestamp = new Date();
   const { showOverlay } = useContext(OverlayContext);
   expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + timeout);
