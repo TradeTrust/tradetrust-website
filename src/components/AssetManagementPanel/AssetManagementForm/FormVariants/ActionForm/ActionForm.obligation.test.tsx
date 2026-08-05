@@ -105,6 +105,24 @@ describe("ActionForm BoE obligation lifecycle", () => {
       fireEvent.click(getByTestId("acceptObligationBtn"));
       expect(mockHandleAcceptObligation).not.toHaveBeenCalled();
     });
+
+    it("calls setFormActionNone when acceptObligationState is CONFIRMED", () => {
+      const mockSetFormActionNone = jest.fn();
+      const mockHandleAcceptObligation = jest.fn();
+      const { getByTestId, queryByTestId } = render(
+        <ActionForm
+          {...acceptObligationProps}
+          acceptObligationState={FormState.CONFIRMED}
+          setFormActionNone={mockSetFormActionNone}
+          handleAcceptObligation={mockHandleAcceptObligation}
+        />
+      );
+
+      expect(mockSetFormActionNone).toHaveBeenCalled();
+      expect(queryByTestId("loader")).not.toBeInTheDocument();
+      fireEvent.click(getByTestId("acceptObligationBtn"));
+      expect(mockHandleAcceptObligation).not.toHaveBeenCalled();
+    });
   });
 
   describe("RejectObligationForm", () => {
@@ -151,6 +169,24 @@ describe("ActionForm BoE obligation lifecycle", () => {
         expect(mockHandleRejectObligation).not.toHaveBeenCalled();
       });
     });
+
+    it("calls setFormActionNone when rejectObligationState is CONFIRMED", () => {
+      const mockSetFormActionNone = jest.fn();
+      const mockHandleRejectObligation = jest.fn();
+      const { getByTestId, queryByTestId } = render(
+        <ActionForm
+          {...rejectObligationProps}
+          rejectObligationState={FormState.CONFIRMED}
+          setFormActionNone={mockSetFormActionNone}
+          handleRejectObligation={mockHandleRejectObligation}
+        />
+      );
+
+      expect(mockSetFormActionNone).toHaveBeenCalled();
+      expect(queryByTestId("loader")).not.toBeInTheDocument();
+      fireEvent.click(getByTestId("rejectObligationBtn"));
+      expect(mockHandleRejectObligation).not.toHaveBeenCalled();
+    });
   });
 
   describe("DischargeObligationForm", () => {
@@ -192,6 +228,24 @@ describe("ActionForm BoE obligation lifecycle", () => {
       );
 
       expect(getByTestId("loader")).toBeInTheDocument();
+      fireEvent.click(getByTestId("dischargeObligationBtn"));
+      expect(mockHandleDischargeObligation).not.toHaveBeenCalled();
+    });
+
+    it("calls setFormActionNone when dischargeObligationState is CONFIRMED", () => {
+      const mockSetFormActionNone = jest.fn();
+      const mockHandleDischargeObligation = jest.fn();
+      const { getByTestId, queryByTestId } = render(
+        <ActionForm
+          {...dischargeObligationProps}
+          dischargeObligationState={FormState.CONFIRMED}
+          setFormActionNone={mockSetFormActionNone}
+          handleDischargeObligation={mockHandleDischargeObligation}
+        />
+      );
+
+      expect(mockSetFormActionNone).toHaveBeenCalled();
+      expect(queryByTestId("loader")).not.toBeInTheDocument();
       fireEvent.click(getByTestId("dischargeObligationBtn"));
       expect(mockHandleDischargeObligation).not.toHaveBeenCalled();
     });

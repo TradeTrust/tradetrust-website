@@ -129,10 +129,47 @@ describe("ActionSelectionForm BoE obligation lifecycle", () => {
     });
   });
 
+  it("keeps the BoE status tag visible when the token is burnt after reject or discharge", async () => {
+    await act(async () => {
+      const container = render(
+        <ActionSelectionForm
+          {...defaultProps}
+          isTokenBurnt
+          isObligation
+          obligationStatus={ObligationDocumentStatus.Rejected}
+        />
+      );
+      expect(container.queryByTestId("obligationStatus")).not.toBeNull();
+      expect(container.getByTestId("obligationStatus").textContent).toContain("Rejected");
+      expect(container.getByText("Taken out of circulation")).toBeInTheDocument();
+    });
+  });
+
   it("does not show a BoE status tag for classic ETR documents", async () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} />);
       expect(container.queryByTestId("obligationStatus")).toBeNull();
+    });
+  });
+
+  it("does not claim pay-on-behalf when only obligation actions are available", async () => {
+    await act(async () => {
+      const container = render(
+        <ActionSelectionForm {...defaultProps} isGaslessEnabled isObligation canAcceptObligation />
+      );
+      expect(container.queryByTestId("gasless-enabled-claim")).toBeNull();
+    });
+  });
+
+  it("claims pay-on-behalf only for title escrow transactions when gasless-eligible actions exist", async () => {
+    await act(async () => {
+      const container = render(
+        <ActionSelectionForm {...defaultProps} isGaslessEnabled isObligation canAcceptObligation canTransferHolder />
+      );
+      const claim = container.getByTestId("gasless-enabled-claim");
+      expect(claim).not.toBeNull();
+      expect(claim.textContent).toContain("title escrow transactions");
+      expect(claim.textContent).not.toContain("all transaction");
     });
   });
 });

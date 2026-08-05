@@ -87,6 +87,20 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     !!canAcceptObligation ||
     !!canRejectObligation ||
     !!canDischargeObligation;
+  // Obligation accept/reject/discharge use the paid contract-function path, not EIP-7702 gasless.
+  const hasGaslessEligibleActions =
+    canTransferHolder ||
+    canTransferBeneficiary ||
+    canTransferOwners ||
+    canNominateBeneficiary ||
+    canEndorseBeneficiary ||
+    canReturnToIssuer ||
+    canHandleShred ||
+    canHandleRestore ||
+    canRejectOwnerHolderTransfer ||
+    canRejectHolderTransfer ||
+    canRejectOwnerTransfer;
+  const showGaslessClaim = !!isGaslessEnabled && hasGaslessEligibleActions;
   const obligationStatusLabel =
     isObligation && obligationStatus !== undefined ? OBLIGATION_STATUS_LABEL[obligationStatus] : undefined;
 
@@ -120,6 +134,17 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             >
               <h5 className="text-center break-keep">Taken out of circulation</h5>
             </TagBorderedSm>
+            {isObligation && obligationStatusLabel && (
+              <TagBordered
+                id="obligation-status-sign"
+                rounded="rounded-full"
+                className="border-cerulean-100 bg-cerulean-100 text-cerulean-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
+              >
+                <h5 data-testid="obligationStatus" className="text-center break-keep">
+                  BoE {obligationStatusLabel}
+                </h5>
+              </TagBordered>
+            )}
           </div>
         )}
 
@@ -177,14 +202,17 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
               <>
                 {account ? (
                   <>
-                    {isGaslessEnabled && (
-                      <div className="flex flex-row justify-end items-center gap-2 whitespace-nowrap">
+                    {showGaslessClaim && (
+                      <div
+                        className="flex flex-row justify-end items-center gap-2 whitespace-nowrap"
+                        data-testid="gasless-enabled-claim"
+                      >
                         <IconSuccess className="shrink-0 text-forest-500 w-5 h-5" />
                         <span
                           className="text-sm font-medium leading-normal tracking-normal align-middle "
                           style={{ fontFamily: "Avenir" }}
                         >
-                          Pay-on-behalf is enabled for all transaction.
+                          Pay-on-behalf is enabled for title escrow transactions.
                         </span>
                       </div>
                     )}

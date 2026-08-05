@@ -318,6 +318,30 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
         setFormActionNone();
       }
     }
+
+    // Handle AcceptObligation confirmation — return to status view so the action cannot be re-submitted
+    if (type === AssetManagementActions.AcceptObligation) {
+      const { acceptObligationState } = props;
+      if (acceptObligationState === FormState.CONFIRMED) {
+        setFormActionNone();
+      }
+    }
+
+    // Handle RejectObligation confirmation — return to status view so the action cannot be re-submitted
+    if (type === AssetManagementActions.RejectObligation) {
+      const { rejectObligationState } = props;
+      if (rejectObligationState === FormState.CONFIRMED) {
+        setFormActionNone();
+      }
+    }
+
+    // Handle DischargeObligation confirmation — return to status view so the action cannot be re-submitted
+    if (type === AssetManagementActions.DischargeObligation) {
+      const { dischargeObligationState } = props;
+      if (dischargeObligationState === FormState.CONFIRMED) {
+        setFormActionNone();
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props, showOverlay, setFormActionNone, beneficiary, holder, newBeneficiary, newHolder, newOwner, remark, type]);
 
@@ -911,6 +935,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
       const { handleAcceptObligation, acceptObligationState } = props;
       const isPendingConfirmation =
         acceptObligationState === FormState.PENDING_CONFIRMATION || acceptObligationState === FormState.INITIALIZED;
+      const isConfirmed = acceptObligationState === FormState.CONFIRMED;
 
       return (
         <>
@@ -923,7 +948,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 onSetNewValue={setRemark}
                 isEditable={true}
                 isRemark={true}
-                isSubmitted={isPendingConfirmation}
+                isSubmitted={isPendingConfirmation || isConfirmed}
               />
             </div>
           </div>
@@ -934,7 +959,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 <Button
                   className="w-full bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-800 shadow-none hover:bg-cloud-200"
                   onClick={setFormActionNone}
-                  disabled={isPendingConfirmation}
+                  disabled={isPendingConfirmation || isConfirmed}
                   data-testid={"cancelAcceptObligationBtn"}
                 >
                   Cancel
@@ -944,7 +969,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 <Button
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
                   onClick={() => handleAcceptObligation({ remarks: remark })}
-                  disabled={isPendingConfirmation}
+                  disabled={isPendingConfirmation || isConfirmed}
                   data-testid={"acceptObligationBtn"}
                 >
                   {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Accept the bill</>}
@@ -960,6 +985,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
       const { handleRejectObligation, rejectObligationState } = props;
       const isPendingConfirmation =
         rejectObligationState === FormState.PENDING_CONFIRMATION || rejectObligationState === FormState.INITIALIZED;
+      const isConfirmed = rejectObligationState === FormState.CONFIRMED;
 
       return (
         <>
@@ -972,7 +998,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 onSetNewValue={setRemark}
                 isEditable={true}
                 isRemark={true}
-                isSubmitted={isPendingConfirmation}
+                isSubmitted={isPendingConfirmation || isConfirmed}
               />
             </div>
           </div>
@@ -983,7 +1009,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 <Button
                   className="w-full bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-800 shadow-none hover:bg-cloud-200"
                   onClick={setFormActionNone}
-                  disabled={isPendingConfirmation}
+                  disabled={isPendingConfirmation || isConfirmed}
                   data-testid={"cancelRejectObligationBtn"}
                 >
                   Cancel
@@ -993,7 +1019,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 <Button
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
                   onClick={() => handleRejectObligation({ remarks: remark })}
-                  disabled={isPendingConfirmation}
+                  disabled={isPendingConfirmation || isConfirmed}
                   data-testid={"rejectObligationBtn"}
                 >
                   {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Reject the bill</>}
@@ -1010,6 +1036,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
       const isPendingConfirmation =
         dischargeObligationState === FormState.PENDING_CONFIRMATION ||
         dischargeObligationState === FormState.INITIALIZED;
+      const isConfirmed = dischargeObligationState === FormState.CONFIRMED;
 
       return (
         <>
@@ -1022,7 +1049,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 onSetNewValue={setRemark}
                 isEditable={true}
                 isRemark={true}
-                isSubmitted={isPendingConfirmation}
+                isSubmitted={isPendingConfirmation || isConfirmed}
               />
             </div>
           </div>
@@ -1033,7 +1060,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 <Button
                   className="w-full bg-white rounded-xl text-lg py-2 px-3 border-cloud-100 text-cloud-800 shadow-none hover:bg-cloud-200"
                   onClick={setFormActionNone}
-                  disabled={isPendingConfirmation}
+                  disabled={isPendingConfirmation || isConfirmed}
                   data-testid={"cancelDischargeObligationBtn"}
                 >
                   Cancel
@@ -1043,7 +1070,7 @@ export const ActionForm: FunctionComponent<ActionFormProps> = (props) => {
                 <Button
                   className="w-full bg-cerulean-500 rounded-xl text-lg text-white py-2 px-3 shadow-none hover:bg-cerulean-800 flex justify-center items-center"
                   onClick={() => handleDischargeObligation({ remarks: remark })}
-                  disabled={isPendingConfirmation}
+                  disabled={isPendingConfirmation || isConfirmed}
                   data-testid={"dischargeObligationBtn"}
                 >
                   {isPendingConfirmation ? <LoaderSpinner data-testid={"loader"} /> : <>Discharge the bill</>}
