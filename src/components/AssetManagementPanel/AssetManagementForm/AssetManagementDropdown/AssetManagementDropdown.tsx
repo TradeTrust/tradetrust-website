@@ -38,7 +38,7 @@ const ObligationDropdownItem: FunctionComponent<ObligationDropdownItemProps> = (
 }) => (
   <button
     type="button"
-    className={`truncate cursor-pointer text-left text-cloud-800 p-3 hover:bg-gray-50 active:bg-gray-300 w-full ${
+    className={`cursor-pointer text-left text-cloud-800 p-3 hover:bg-gray-50 active:bg-gray-300 w-full whitespace-normal break-words ${
       className ?? ""
     }`}
     onClick={onClick}
@@ -149,7 +149,7 @@ export const AssetManagementDropdown: FunctionComponent<AssetManagementDropdownP
       )}
       {canTransferOwners && (
         <DropdownItem
-          className="active:bg-cloud-200 active:text-white text-wrap"
+          className="active:bg-cloud-200 active:text-white"
           data-testid={"endorseTransferDropdown"}
           onClick={() => onSetFormAction(AssetManagementActions.TransferOwnerHolder)}
         >
