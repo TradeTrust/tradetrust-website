@@ -32,7 +32,10 @@ export const useEndorsementChain = (
     setError("");
     try {
       const retrievedEndorsementChain = isObligation
-        ? await fetchObligationEndorsementChain(tokenRegistryAddress, tokenId, provider, { encryptionId: keyId })
+        ? await fetchObligationEndorsementChain(tokenRegistryAddress, tokenId, provider, {
+            encryptionId: keyId,
+            obligationEscrowAddress: titleEscrowAddress,
+          })
         : await fetchEndorsementChain(tokenRegistryAddress, tokenId, provider, keyId, titleEscrowAddress);
       setEndorsementChain(retrievedEndorsementChain);
     } catch (e: unknown) {
