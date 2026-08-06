@@ -119,17 +119,21 @@ describe("ActionSelectionForm BoE obligation lifecycle", () => {
     });
   });
 
-  it("shows a BoE status tag when isObligation and obligationStatus are set", async () => {
+  it("shows a Status label and pill beside Owner/Holder when isObligation and obligationStatus are set", async () => {
     await act(async () => {
       const container = render(
         <ActionSelectionForm {...defaultProps} isObligation obligationStatus={ObligationDocumentStatus.Issued} />
       );
+      expect(container.queryByTestId("asset-title-status")).not.toBeNull();
+      expect(container.getByText("Status:")).toBeInTheDocument();
       expect(container.queryByTestId("obligationStatus")).not.toBeNull();
       expect(container.getByTestId("obligationStatus").textContent).toContain("Issued");
+      expect(container.getByTestId("asset-title-owner")).toBeInTheDocument();
+      expect(container.getByTestId("asset-title-holder")).toBeInTheDocument();
     });
   });
 
-  it("keeps the BoE status tag visible when the token is burnt after reject or discharge", async () => {
+  it("keeps the Status pill visible when the token is burnt after reject or discharge", async () => {
     await act(async () => {
       const container = render(
         <ActionSelectionForm
@@ -141,14 +145,16 @@ describe("ActionSelectionForm BoE obligation lifecycle", () => {
       );
       expect(container.queryByTestId("obligationStatus")).not.toBeNull();
       expect(container.getByTestId("obligationStatus").textContent).toContain("Rejected");
+      expect(container.getByText("Status:")).toBeInTheDocument();
       expect(container.getByText("Taken out of circulation")).toBeInTheDocument();
     });
   });
 
-  it("does not show a BoE status tag for classic ETR documents", async () => {
+  it("does not show a Status pill for classic ETR documents", async () => {
     await act(async () => {
       const container = render(<ActionSelectionForm {...defaultProps} />);
       expect(container.queryByTestId("obligationStatus")).toBeNull();
+      expect(container.queryByTestId("asset-title-status")).toBeNull();
     });
   });
 

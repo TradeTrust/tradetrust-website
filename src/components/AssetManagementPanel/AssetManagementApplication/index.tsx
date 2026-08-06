@@ -301,6 +301,7 @@ export const AssetManagementApplication: FunctionComponent<AssetManagementApplic
           <DocumentStatus
             isMagicDemo={isMagicDemo}
             isTransferableDocument={isTransferableDocument}
+            isObligation={isObligation}
             tokenRegistryAddress={tokenRegistryAddress}
             setShowEndorsementChain={setShowEndorsementChain}
           />

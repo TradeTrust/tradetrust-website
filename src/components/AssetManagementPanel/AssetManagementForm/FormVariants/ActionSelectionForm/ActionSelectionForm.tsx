@@ -104,6 +104,21 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   const obligationStatusLabel =
     isObligation && obligationStatus !== undefined ? OBLIGATION_STATUS_LABEL[obligationStatus] : undefined;
 
+  const obligationStatusField = obligationStatusLabel ? (
+    <div data-testid="asset-title-status">
+      <h4 className="text-cloud-400 mb-2">Status:</h4>
+      <TagBordered
+        id="obligation-status-sign"
+        rounded="rounded-full"
+        className="border-cerulean-100 bg-cerulean-100 text-cerulean-500 inline-flex items-center h-10 px-4 py-2"
+      >
+        <h5 data-testid="obligationStatus" className="text-center break-keep">
+          {obligationStatusLabel}
+        </h5>
+      </TagBordered>
+    </div>
+  ) : null;
+
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
     showOverlay(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
@@ -134,17 +149,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             >
               <h5 className="text-center break-keep">Taken out of circulation</h5>
             </TagBorderedSm>
-            {isObligation && obligationStatusLabel && (
-              <TagBordered
-                id="obligation-status-sign"
-                rounded="rounded-full"
-                className="border-cerulean-100 bg-cerulean-100 text-cerulean-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
-              >
-                <h5 data-testid="obligationStatus" className="text-center break-keep">
-                  BoE {obligationStatusLabel}
-                </h5>
-              </TagBordered>
-            )}
+            {obligationStatusField}
           </div>
         )}
 
@@ -156,6 +161,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             <div className="col-span-1">
               <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
             </div>
+            {obligationStatusField && <div className="col-span-1">{obligationStatusField}</div>}
           </div>
         )}
         {!isTokenBurnt && (
@@ -185,17 +191,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                 </TagBordered>
               )}
 
-              {isObligation && obligationStatusLabel && (
-                <TagBordered
-                  id="obligation-status-sign"
-                  rounded="rounded-full"
-                  className="border-cerulean-100 bg-cerulean-100 text-cerulean-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
-                >
-                  <h5 data-testid="obligationStatus" className="text-center break-keep">
-                    BoE {obligationStatusLabel}
-                  </h5>
-                </TagBordered>
-              )}
+              {isReturnedToIssuer && obligationStatusField}
             </div>
 
             <div className="gap-y-4 xs:ml-auto xs:min-w-48 w-full xs:max-w-64 flex flex-col justify-center">
