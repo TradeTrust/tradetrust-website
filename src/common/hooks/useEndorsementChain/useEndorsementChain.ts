@@ -3,7 +3,7 @@ import { useProviderContext } from "../../contexts/provider";
 import { useTokenInformationContext } from "../../contexts/TokenInformationContext";
 import { getErrorMessage } from "../../utils/errorHandling";
 import { useTokenRegistryContract } from "../useTokenRegistryContract";
-import { EndorsementChain, fetchEndorsementChain, fetchObligationEndorsementChain } from "@trustvc/trustvc";
+import { EndorsementChain, fetchEndorsementChain } from "@trustvc/trustvc";
 
 export const useEndorsementChain = (
   tokenRegistryAddress: string,
@@ -22,8 +22,9 @@ export const useEndorsementChain = (
   const { tokenRegistry } = useTokenRegistryContract(tokenRegistryAddress, providerOrSigner, isObligation);
   const { titleEscrowAddress } = useTokenInformationContext();
   /*
-    retrieve transactions from token registry and title escrow events
+    retrieve transactions from token registry and title/obligation escrow events
     merge, sort and provide history of events
+    (fetchEndorsementChain auto-detects ObligationEscrow via supportsInterface)
   */
   const fetchEndorsementChainV5 = useCallback(async () => {
     if (!tokenRegistry || !provider || !providerOrSigner) return;
@@ -31,27 +32,19 @@ export const useEndorsementChain = (
     setPending(true);
     setError("");
     try {
-      const retrievedEndorsementChain = isObligation
-        ? await fetchObligationEndorsementChain(tokenRegistryAddress, tokenId, provider, {
-            encryptionId: keyId,
-            obligationEscrowAddress: titleEscrowAddress,
-          })
-        : await fetchEndorsementChain(tokenRegistryAddress, tokenId, provider, keyId, titleEscrowAddress);
+      const retrievedEndorsementChain = await fetchEndorsementChain(
+        tokenRegistryAddress,
+        tokenId,
+        provider,
+        keyId,
+        titleEscrowAddress
+      );
       setEndorsementChain(retrievedEndorsementChain);
     } catch (e: unknown) {
       setError(getErrorMessage(e));
     }
     setPending(false);
-  }, [
-    provider,
-    providerOrSigner,
-    tokenId,
-    tokenRegistry,
-    tokenRegistryAddress,
-    keyId,
-    titleEscrowAddress,
-    isObligation,
-  ]);
+  }, [provider, providerOrSigner, tokenId, tokenRegistry, tokenRegistryAddress, keyId, titleEscrowAddress]);
 
   useEffect(() => {
     fetchEndorsementChainV5();
