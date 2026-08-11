@@ -27,6 +27,10 @@ enum ActionType {
   RETURN_TO_ISSUER_REJECTED = "Return of ETR rejected",
   RETURN_TO_ISSUER_ACCEPTED = "ETR taken out of circulation", // burnt token
   TRANSFER_TO_WALLET = "Transferred to wallet",
+  STATUS_INITIALIZED = "BoE issued",
+  STATUS_ACCEPTED = "BoE accepted",
+  STATUS_REJECTED = "BoE rejected",
+  STATUS_DISCHARGED = "BoE discharged",
 }
 
 interface HistoryChain {
@@ -191,6 +195,54 @@ const getHistoryChain = (endorsementChain?: EndorsementChain) => {
         historyChain.push({
           action: ActionType.REJECT_TRANSFER_BENEFICIARY,
           isNewBeneficiary: true,
+          isNewHolder: false,
+          beneficiary,
+          holder,
+          timestamp,
+          hash,
+          remark,
+        });
+        break;
+      case "STATUS_INITIALIZED":
+        historyChain.push({
+          action: ActionType.STATUS_INITIALIZED,
+          isNewBeneficiary: false,
+          isNewHolder: false,
+          beneficiary,
+          holder,
+          timestamp,
+          hash,
+          remark,
+        });
+        break;
+      case "STATUS_ACCEPTED":
+        historyChain.push({
+          action: ActionType.STATUS_ACCEPTED,
+          isNewBeneficiary: false,
+          isNewHolder: Boolean(holder),
+          beneficiary,
+          holder,
+          timestamp,
+          hash,
+          remark,
+        });
+        break;
+      case "STATUS_REJECTED":
+        historyChain.push({
+          action: ActionType.STATUS_REJECTED,
+          isNewBeneficiary: false,
+          isNewHolder: Boolean(holder),
+          beneficiary,
+          holder,
+          timestamp,
+          hash,
+          remark,
+        });
+        break;
+      case "STATUS_DISCHARGED":
+        historyChain.push({
+          action: ActionType.STATUS_DISCHARGED,
+          isNewBeneficiary: Boolean(beneficiary),
           isNewHolder: false,
           beneficiary,
           holder,

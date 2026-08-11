@@ -389,6 +389,67 @@ describe("EndorsementChainLayout", () => {
     );
   });
 
+  it("should render BoE status lifecycle events", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
+    const obligationStatusEndorsementChain: EndorsementChain = [
+      {
+        type: "STATUS_INITIALIZED",
+        blockNumber: 1,
+        transactionHash: "0x1",
+        transactionIndex: 0,
+        timestamp: 1,
+        owner: "0xOwner",
+        holder: "0xHolder",
+      },
+      {
+        type: "STATUS_ACCEPTED",
+        blockNumber: 2,
+        transactionHash: "0x2",
+        transactionIndex: 0,
+        timestamp: 2,
+        owner: "0xOwner",
+        holder: "0xHolder",
+        remark: "accepted",
+      },
+      {
+        type: "STATUS_REJECTED",
+        blockNumber: 3,
+        transactionHash: "0x3",
+        transactionIndex: 0,
+        timestamp: 3,
+        owner: "0xOwner",
+        holder: "0xHolder",
+      },
+      {
+        type: "STATUS_DISCHARGED",
+        blockNumber: 4,
+        transactionHash: "0x4",
+        transactionIndex: 0,
+        timestamp: 4,
+        owner: "0xOwner",
+        holder: "0xHolder",
+      },
+    ];
+    render(
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={obligationStatusEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
+    );
+
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("BoE issued");
+    expect(screen.getByTestId("row-event-1")).toHaveTextContent("BoE accepted");
+    expect(within(screen.getByTestId("row-event-1")).getByTestId("row-event-Holder")).toHaveTextContent("0xHolder");
+    expect(screen.getByTestId("row-event-2")).toHaveTextContent("BoE rejected");
+    expect(screen.getByTestId("row-event-3")).toHaveTextContent("BoE discharged");
+    expect(within(screen.getByTestId("row-event-3")).getByTestId("row-event-Owner")).toHaveTextContent("0xOwner");
+  });
+
   it("should fire setShowEndorsementChain when back button is clicked", async () => {
     const mockSetShowEndorsementChain = jest.fn();
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "FooBar" });
