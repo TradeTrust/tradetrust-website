@@ -1,4 +1,10 @@
-import { getTokenId, getTokenRegistryAddress, isTransferableRecord } from "@trustvc/trustvc";
+import {
+  getObligationRegistryAddress,
+  getTokenId,
+  getTokenRegistryAddress,
+  isObligationRecord,
+  isTransferableRecord,
+} from "@trustvc/trustvc";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProviderContext } from "../common/contexts/provider";
@@ -36,8 +42,9 @@ interface CertificateViewerProps {
 
 export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document, filename }) => {
   const isTransferableAssetVal = isTransferableRecord(document);
+  const isObligationAssetVal = isObligationRecord(document);
   let tokenId = "";
-  if (isTransferableAssetVal) {
+  if (isTransferableAssetVal || isObligationAssetVal) {
     try {
       tokenId = getTokenId(document);
     } catch (e) {
@@ -45,7 +52,11 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
     }
   }
 
-  const tokenRegistryAddress = isTransferableAssetVal ? getTokenRegistryAddress(document) : "";
+  const tokenRegistryAddress = isObligationAssetVal
+    ? getObligationRegistryAddress(document) || ""
+    : isTransferableAssetVal
+    ? getTokenRegistryAddress(document)
+    : "";
   const keyId = getKeyId(document);
   const docData = getOpenAttestationData(document);
   const expirationDate = docData.expirationDate || docData.validUntil;
@@ -106,14 +117,21 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   useEffect(() => {
     if (tokenRegistryAddress) {
       trace("initialise token information context");
-      initialize(tokenRegistryAddress, tokenId);
+      initialize(tokenRegistryAddress, tokenId, isObligationAssetVal);
     }
     return () => {
       trace("resetting token information on unmount");
       resetTokenInformationState();
       resetCertificateData();
     };
-  }, [tokenId, tokenRegistryAddress, initialize, resetTokenInformationState, resetCertificateData]);
+  }, [
+    tokenId,
+    tokenRegistryAddress,
+    isObligationAssetVal,
+    initialize,
+    resetTokenInformationState,
+    resetCertificateData,
+  ]);
 
   const childRef = React.useRef<{ print: () => void }>();
 
@@ -142,6 +160,7 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
           keyId={keyId}
           tokenRegistry={tokenRegistryAddress}
           setShowEndorsementChain={setShowEndorsementChain}
+          isObligation={isObligationAssetVal}
         />
       )}
     </div>

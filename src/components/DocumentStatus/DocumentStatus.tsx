@@ -9,6 +9,7 @@ import { AssetInformationPanel } from "../AssetManagementPanel/AssetInformationP
 interface DocumentStatusProps {
   isMagicDemo?: boolean;
   isTransferableDocument?: boolean;
+  isObligation?: boolean;
   tokenRegistryAddress?: string;
   setShowEndorsementChain: (payload: boolean) => void;
 }
@@ -16,6 +17,7 @@ interface DocumentStatusProps {
 export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({
   isMagicDemo,
   isTransferableDocument,
+  isObligation,
   tokenRegistryAddress,
   setShowEndorsementChain,
 }) => {
@@ -38,7 +40,7 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({
           verificationStatus={verificationStatus}
           document={document}
         />
-        <AssetManagementTags isTransferableDocument={isTransferableDocument} />
+        <AssetManagementTags isTransferableDocument={isTransferableDocument} isObligation={isObligation} />
       </div>
       <div className="col-span-1">
         <StatusChecks verificationStatus={verificationStatus} />

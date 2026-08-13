@@ -1,4 +1,4 @@
-import { isTransferableRecord } from "@trustvc/trustvc";
+import { isObligationRecord, isTransferableRecord } from "@trustvc/trustvc";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { Info } from "react-feather";
 import { SIGNER_TYPE, useProviderContext } from "../../../common/contexts/provider";
@@ -154,7 +154,7 @@ const NetworkSelectView: FunctionComponent<NetworkSelectViewProps> = ({ onChange
 
   const defaultEmptyLabel: React.ReactNode = <div className="w-full flex justify-start">-</div>;
 
-  const transferableRecord = document ? isTransferableRecord(document) : false;
+  const transferableRecord = document ? isTransferableRecord(document) || isObligationRecord(document) : false;
 
   return (
     <WrappedDropdown

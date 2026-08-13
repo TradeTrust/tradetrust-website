@@ -29,7 +29,11 @@ const wrapper = ({ children }: { children: JSX.Element }) => (
 
 describe("useEndorsementChain|integration", () => {
   beforeAll(() => {
-    mockUseProviderContext.mockReturnValue({ provider: amoyProvider, providerOrSigner: amoyProvider });
+    mockUseProviderContext.mockReturnValue({
+      provider: amoyProvider,
+      providerOrSigner: amoyProvider,
+      currentChainId: ChainId.Amoy,
+    });
   });
 
   it("should work correctly for a given tokenRegistryAddress + tokenId with V4 token registry", async () => {

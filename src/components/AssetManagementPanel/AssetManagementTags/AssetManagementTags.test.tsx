@@ -61,12 +61,32 @@ describe("AssetManagementTags", () => {
       expect(screen.getByText("Negotiable")).toBeInTheDocument();
     });
 
+    it("should display Obligation and Negotiable tags when isObligation is true", () => {
+      const store = createMockStore();
+      renderWithProvider(store, { isTransferableDocument: true, isObligation: true });
+
+      expect(screen.getByText("Obligation")).toBeInTheDocument();
+      expect(screen.getByText("Negotiable")).toBeInTheDocument();
+      expect(screen.queryByText("Transferable")).not.toBeInTheDocument();
+    });
+
+    it("should prefer Obligation over Transferable when both flags are set", () => {
+      const store = createMockStore();
+      mockUseTokenRegistryVersion.mockReturnValue(TokenRegistryVersions.V5);
+      renderWithProvider(store, { isTransferableDocument: true, isObligation: true });
+
+      expect(screen.getByText("Obligation")).toBeInTheDocument();
+      expect(screen.queryByText("Transferable")).not.toBeInTheDocument();
+      expect(screen.queryByText("TR V5")).not.toBeInTheDocument();
+    });
+
     it("should not display Transferable and Negotiable tags when isTransferableDocument is false", () => {
       const store = createMockStore();
       renderWithProvider(store, { isTransferableDocument: false });
 
       expect(screen.queryByText("Transferable")).not.toBeInTheDocument();
       expect(screen.queryByText("Negotiable")).not.toBeInTheDocument();
+      expect(screen.queryByText("Obligation")).not.toBeInTheDocument();
     });
 
     it("should not display Transferable and Negotiable tags when isTransferableDocument is undefined", () => {

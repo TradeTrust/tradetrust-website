@@ -8,10 +8,13 @@ import { useTokenRegistryVersion } from "../../../common/hooks/useTokenRegistryV
 
 interface AssetManagementTagsProps {
   isTransferableDocument?: boolean;
+  /** Obligation record (e.g. BoE) — shows Obligation instead of Transferable. */
+  isObligation?: boolean;
 }
 
 export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = ({
   isTransferableDocument = false,
+  isObligation = false,
 }) => {
   const { documentSchema } = useSelector((state: RootState) => state.certificate);
   const tokenRegistryVersion = useTokenRegistryVersion();
@@ -21,15 +24,26 @@ export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = 
   const tagCSSGrey = "bg-cloud-100 text-cloud-500 rounded-full font-gilroy-bold";
   return (
     <div className="flex flex-wrap py-2 gap-2">
-      {isTransferableDocument && (
+      {isObligation ? (
         <>
           <Tag rounded="rounded-full" className={tagCSSBlue}>
-            Transferable
+            Obligation
           </Tag>
           <Tag rounded="rounded-full" className={tagCSSBlue}>
             Negotiable
           </Tag>
         </>
+      ) : (
+        isTransferableDocument && (
+          <>
+            <Tag rounded="rounded-full" className={tagCSSBlue}>
+              Transferable
+            </Tag>
+            <Tag rounded="rounded-full" className={tagCSSBlue}>
+              Negotiable
+            </Tag>
+          </>
+        )
       )}
       {documentSchema === DOCUMENT_SCHEMA.OA_V3 && (
         <Tag rounded="rounded-full" className={tagCSSGrey}>
@@ -46,12 +60,12 @@ export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = 
           W3C VC V2.0
         </Tag>
       )}
-      {tokenRegistryVersion === TokenRegistryVersions.V4 && (
+      {!isObligation && tokenRegistryVersion === TokenRegistryVersions.V4 && (
         <Tag rounded="rounded-full" className={tagCSSGrey}>
           TR V4
         </Tag>
       )}
-      {tokenRegistryVersion === TokenRegistryVersions.V5 && (
+      {!isObligation && tokenRegistryVersion === TokenRegistryVersions.V5 && (
         <Tag rounded="rounded-full" className={tagCSOrange}>
           TR V5
         </Tag>

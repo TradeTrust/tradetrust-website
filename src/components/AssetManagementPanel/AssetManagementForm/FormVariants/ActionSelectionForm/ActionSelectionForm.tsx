@@ -4,6 +4,7 @@ import { Button, ButtonHeight } from "../../../../Button";
 import { MessageTitle, showDocumentTransferMessage } from "../../../../UI/Overlay/OverlayContent";
 import { TagBordered, TagBorderedSm } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
+import { OBLIGATION_STATUS_LABEL } from "../../../../../constants/obligation";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 import ConnectToBlockchainModel from "../../../../ConnectToBlockchain";
@@ -36,6 +37,11 @@ interface ActionSelectionFormProps {
   canRejectOwnerHolderTransfer: boolean;
   canRejectHolderTransfer: boolean;
   canRejectOwnerTransfer: boolean;
+  isObligation?: boolean;
+  obligationStatus?: number;
+  canAcceptObligation?: boolean;
+  canRejectObligation?: boolean;
+  canDischargeObligation?: boolean;
 }
 
 export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = ({
@@ -60,6 +66,11 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
   canRejectOwnerHolderTransfer,
   canRejectHolderTransfer,
   canRejectOwnerTransfer,
+  isObligation,
+  obligationStatus,
+  canAcceptObligation,
+  canRejectObligation,
+  canDischargeObligation,
 }) => {
   const canManage =
     canTransferHolder ||
@@ -72,7 +83,41 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     canHandleRestore ||
     canRejectOwnerHolderTransfer ||
     canRejectHolderTransfer ||
+    canRejectOwnerTransfer ||
+    !!canAcceptObligation ||
+    !!canRejectObligation ||
+    !!canDischargeObligation;
+  // Obligation accept/reject/discharge use the paid contract-function path, not EIP-7702 gasless.
+  const hasGaslessEligibleActions =
+    canTransferHolder ||
+    canTransferBeneficiary ||
+    canTransferOwners ||
+    canNominateBeneficiary ||
+    canEndorseBeneficiary ||
+    canReturnToIssuer ||
+    canHandleShred ||
+    canHandleRestore ||
+    canRejectOwnerHolderTransfer ||
+    canRejectHolderTransfer ||
     canRejectOwnerTransfer;
+  const showGaslessClaim = !!isGaslessEnabled && hasGaslessEligibleActions;
+  const obligationStatusLabel =
+    isObligation && obligationStatus !== undefined ? OBLIGATION_STATUS_LABEL[obligationStatus] : undefined;
+
+  const obligationStatusField = obligationStatusLabel ? (
+    <div data-testid="asset-title-status">
+      <h4 className="text-cloud-400 mb-2">Status:</h4>
+      <TagBordered
+        id="obligation-status-sign"
+        rounded="rounded-full"
+        className="border-cerulean-100 bg-cerulean-100 text-cerulean-500 inline-flex items-center h-10 px-4 py-2"
+      >
+        <h5 data-testid="obligationStatus" className="text-center break-keep">
+          {obligationStatusLabel}
+        </h5>
+      </TagBordered>
+    </div>
+  ) : null;
 
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
@@ -104,6 +149,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             >
               <h5 className="text-center break-keep">Taken out of circulation</h5>
             </TagBorderedSm>
+            {obligationStatusField}
           </div>
         )}
 
@@ -115,6 +161,7 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             <div className="col-span-1">
               <EditableAssetTitle role="Holder" value={holder} isEditable={false} />
             </div>
+            {obligationStatusField && <div className="col-span-1">{obligationStatusField}</div>}
           </div>
         )}
         {!isTokenBurnt && (
@@ -143,20 +190,25 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                   </h5>
                 </TagBordered>
               )}
+
+              {isReturnedToIssuer && obligationStatusField}
             </div>
 
             <div className="gap-y-4 xs:ml-auto xs:min-w-48 w-full xs:max-w-64 flex flex-col justify-center">
               <>
                 {account ? (
                   <>
-                    {isGaslessEnabled && (
-                      <div className="flex flex-row justify-end items-center gap-2 whitespace-nowrap">
+                    {showGaslessClaim && (
+                      <div
+                        className="flex flex-row justify-end items-center gap-2 whitespace-nowrap"
+                        data-testid="gasless-enabled-claim"
+                      >
                         <IconSuccess className="shrink-0 text-forest-500 w-5 h-5" />
                         <span
                           className="text-sm font-medium leading-normal tracking-normal align-middle "
                           style={{ fontFamily: "Avenir" }}
                         >
-                          Pay-on-behalf is enabled for all transaction.
+                          Pay-on-behalf is enabled for title escrow transactions.
                         </span>
                       </div>
                     )}
@@ -175,6 +227,9 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
                         canRejectHolderTransfer={canRejectHolderTransfer}
                         canRejectOwnerTransfer={canRejectOwnerTransfer}
                         isRejectPendingConfirmation={isRejectPendingConfirmation}
+                        canAcceptObligation={canAcceptObligation}
+                        canRejectObligation={canRejectObligation}
+                        canDischargeObligation={canDischargeObligation}
                       />
                     ) : (
                       <Button
