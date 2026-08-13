@@ -58,6 +58,7 @@ export const EndorsementChainContainer: FunctionComponent<EndorsementChainContai
       {...endorsementChainProps}
       setShowEndorsementChain={setShowEndorsementChain}
       providerDocumentationURL={ProviderDocumentationURL}
+      isObligation={isObligation}
     />
   );
 };

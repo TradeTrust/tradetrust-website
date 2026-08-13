@@ -146,7 +146,36 @@ describe("ActionSelectionForm BoE obligation lifecycle", () => {
       expect(container.queryByTestId("obligationStatus")).not.toBeNull();
       expect(container.getByTestId("obligationStatus").textContent).toContain("Rejected");
       expect(container.getByText("Status:")).toBeInTheDocument();
-      expect(container.getByText("Taken out of circulation")).toBeInTheDocument();
+      expect(container.getByText("Bill rejected")).toBeInTheDocument();
+      expect(container.queryByText("Taken out of circulation")).toBeNull();
+    });
+  });
+
+  it("shows Bill discharged when burnt after discharge", async () => {
+    await act(async () => {
+      const container = render(
+        <ActionSelectionForm
+          {...defaultProps}
+          isTokenBurnt
+          isObligation
+          obligationStatus={ObligationDocumentStatus.Discharged}
+        />
+      );
+      expect(container.getByText("Bill discharged")).toBeInTheDocument();
+    });
+  });
+
+  it("shows BoE taken out of circulation when burnt via return-to-issuer", async () => {
+    await act(async () => {
+      const container = render(
+        <ActionSelectionForm
+          {...defaultProps}
+          isTokenBurnt
+          isObligation
+          obligationStatus={ObligationDocumentStatus.Accepted}
+        />
+      );
+      expect(container.getByText("BoE taken out of circulation")).toBeInTheDocument();
     });
   });
 

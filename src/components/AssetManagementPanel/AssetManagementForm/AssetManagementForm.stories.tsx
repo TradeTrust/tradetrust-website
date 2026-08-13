@@ -933,3 +933,55 @@ export const SurrenderedDocument = () => {
     />
   );
 };
+
+/** BoE Issued dual-role — same Manage Assets options as classic BeneficiaryAndHolder. */
+export const ObligationIssuedBeneficiaryAndHolder = () => {
+  const [assetManagementAction, setAssetManagementAction] = useState(AssetManagementActions.None);
+
+  return (
+    <AssetManagementForm
+      setShowEndorsementChain={() => {}}
+      account="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      beneficiary="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      nominee=""
+      holder="0xa61B056dA0084a5f391EC137583073096880C2e3"
+      formAction={assetManagementAction}
+      tokenRegistryAddress="0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      onSetFormAction={setAssetManagementAction}
+      isReturnedToIssuer={false}
+      onReturnToIssuer={() => alert("Return ETR to issuer")}
+      returnToIssuerState={FormState.UNINITIALIZED}
+      onTransferHolder={(newHolder) => alert(`Transfer holder to ${newHolder}`)}
+      holderTransferringState={FormState.UNINITIALIZED}
+      onEndorseBeneficiary={(newBeneficiary) => alert(`Change Beneficiary: ${newBeneficiary}`)}
+      beneficiaryEndorseState={FormState.UNINITIALIZED}
+      nominateBeneficiary={(newBeneficiary) => alert(`Nominate Owner: ${newBeneficiary}`)}
+      nominateBeneficiaryState={FormState.UNINITIALIZED}
+      transferOwners={({ newBeneficiaryAddress, newHolderAddress, remarks }) =>
+        alert(`Endorse Owner: ${newBeneficiaryAddress}, Holder: ${newHolderAddress}, Remarks: ${remarks}`)
+      }
+      transferOwnersState={FormState.UNINITIALIZED}
+      isTitleEscrow={true}
+      onDestroyToken={() => alert("Accept document surrender")}
+      destroyTokenState={FormState.UNINITIALIZED}
+      isTokenBurnt={false}
+      onRestoreToken={() => alert("Reject document surrender")}
+      restoreTokenState={FormState.UNINITIALIZED}
+      rejectTransferOwner={() => alert("Reject transfer owner")}
+      rejectTransferOwnerState={FormState.UNINITIALIZED}
+      rejectTransferHolder={() => alert("Reject transfer holder")}
+      rejectTransferHolderState={FormState.UNINITIALIZED}
+      rejectTransferOwnerHolder={() => alert("Reject transfer owner holder")}
+      rejectTransferOwnerHolderState={FormState.UNINITIALIZED}
+      isExpired={false}
+      isObligation
+      obligationStatus={0}
+      onAcceptObligation={() => alert("Accept obligation")}
+      acceptObligationState={FormState.UNINITIALIZED}
+      onRejectObligation={() => alert("Reject obligation")}
+      rejectObligationState={FormState.UNINITIALIZED}
+      onDischargeObligation={() => alert("Discharge obligation")}
+      dischargeObligationState={FormState.UNINITIALIZED}
+    />
+  );
+};
