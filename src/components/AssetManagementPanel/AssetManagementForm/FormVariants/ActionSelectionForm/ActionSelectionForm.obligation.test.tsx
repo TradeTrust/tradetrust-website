@@ -133,7 +133,7 @@ describe("ActionSelectionForm BoE obligation lifecycle", () => {
     });
   });
 
-  it("keeps the Status pill visible when the token is burnt after reject or discharge", async () => {
+  it("shows only the burnt banner for reject/discharge (no duplicate Status pill)", async () => {
     await act(async () => {
       const container = render(
         <ActionSelectionForm
@@ -143,9 +143,9 @@ describe("ActionSelectionForm BoE obligation lifecycle", () => {
           obligationStatus={ObligationDocumentStatus.Rejected}
         />
       );
-      expect(container.queryByTestId("obligationStatus")).not.toBeNull();
-      expect(container.getByTestId("obligationStatus").textContent).toContain("Rejected");
-      expect(container.getByText("Status:")).toBeInTheDocument();
+      // Match TrustVC: burnt banner carries the outcome; Status pill is for active titles only.
+      expect(container.queryByTestId("obligationStatus")).toBeNull();
+      expect(container.queryByText("Status:")).toBeNull();
       expect(container.getByText("Bill rejected")).toBeInTheDocument();
       expect(container.queryByText("Taken out of circulation")).toBeNull();
     });
@@ -162,6 +162,8 @@ describe("ActionSelectionForm BoE obligation lifecycle", () => {
         />
       );
       expect(container.getByText("Bill discharged")).toBeInTheDocument();
+      expect(container.queryByTestId("obligationStatus")).toBeNull();
+      expect(container.queryByText("Status:")).toBeNull();
     });
   });
 

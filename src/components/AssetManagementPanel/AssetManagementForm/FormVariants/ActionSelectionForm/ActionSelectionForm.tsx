@@ -159,7 +159,6 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
             >
               <h5 className="text-center break-keep">{burntTokenLabel}</h5>
             </TagBorderedSm>
-            {obligationStatusField}
           </div>
         )}
 

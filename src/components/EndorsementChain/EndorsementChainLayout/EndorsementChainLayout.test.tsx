@@ -543,6 +543,7 @@ describe("EndorsementChainLayout", () => {
     );
 
     expect(within(screen.getByTestId("row-event-0")).getByTestId("action-title")).toHaveTextContent("Bill rejected");
+    expect(within(screen.getByTestId("row-event-0")).queryByTestId("termination-reason")).toBeNull();
   });
 
   it("should keep taken out of circulation for return-to-issuer shred on BoE", () => {
@@ -575,7 +576,7 @@ describe("EndorsementChainLayout", () => {
 
     const shredRow = within(screen.getByTestId("row-event-0"));
     expect(shredRow.getByTestId("action-title")).toHaveTextContent("ETR taken out of circulation");
-    expect(shredRow.getByTestId("termination-reason")).toHaveTextContent("Reason: Return to issuer");
+    expect(shredRow.queryByTestId("termination-reason")).toBeNull();
   });
 
   it("should blank owner/holder on classic ETR shred", () => {

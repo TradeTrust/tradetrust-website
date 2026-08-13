@@ -44,20 +44,12 @@ interface HistoryChain {
   timestamp?: number;
   hash?: string;
   remark?: string;
-  /** eBoE shred only — human-readable TerminationReason */
-  terminationReason?: string;
 }
 
-const formatTerminationReason = (reason?: string): string | undefined => {
-  if (!reason || reason === "None") return undefined;
-  if (reason === "ReturnToIssuer") return "Return to issuer";
-  return reason;
-};
-
-/** Reject/discharge auto-shred as RETURN_TO_ISSUER_ACCEPTED — title from reason; "taken out of circulation" only for return-to-issuer. */
-const shredActionTitle = (isObligation: boolean, rawReason?: string): ActionType => {
-  if (isObligation && rawReason === "Rejected") return ActionType.STATUS_REJECTED;
-  if (isObligation && rawReason === "Discharged") return ActionType.STATUS_DISCHARGED;
+/** Reject/discharge auto-shred as RETURN_TO_ISSUER_ACCEPTED — title from on-chain reason; return-to-issuer keeps taken out of circulation. */
+const shredActionTitle = (rawReason?: string): ActionType => {
+  if (rawReason === "Rejected") return ActionType.STATUS_REJECTED;
+  if (rawReason === "Discharged") return ActionType.STATUS_DISCHARGED;
   return ActionType.RETURN_TO_ISSUER_ACCEPTED;
 };
 
@@ -119,11 +111,6 @@ const getHistoryChain = (endorsementChain?: EndorsementChain, isObligation = fal
     const hash = endorsementChainEvent.transactionHash;
     const remark = endorsementChainEvent?.remark;
     const rawTerminationReason = endorsementChainEvent.terminationReason;
-    // Only surface "Reason" for return-to-issuer shred; reject/discharge titles already say Bill rejected/discharged.
-    const terminationReason =
-      isObligation && isShred && rawTerminationReason === "ReturnToIssuer"
-        ? formatTerminationReason(rawTerminationReason)
-        : undefined;
     const showOwner = Boolean(beneficiary);
     const showHolder = Boolean(holder);
 
@@ -180,7 +167,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain, isObligation = fal
       case "RETURN_TO_ISSUER_ACCEPTED":
       case "SURRENDER_ACCEPTED":
         historyChain.push({
-          action: shredActionTitle(isObligation, rawTerminationReason),
+          action: shredActionTitle(rawTerminationReason),
           isNewBeneficiary: isObligation && showOwner,
           isNewHolder: isObligation && showHolder,
           beneficiary: isObligation ? beneficiary : undefined,
@@ -188,7 +175,6 @@ const getHistoryChain = (endorsementChain?: EndorsementChain, isObligation = fal
           timestamp,
           hash,
           remark,
-          terminationReason,
         });
         break;
       case "RETURN_TO_ISSUER_REJECTED":
@@ -393,14 +379,6 @@ const EndorsementChainData: React.FunctionComponent<{ index: number; data: Histo
           <LineDesign />
           <div className="flex flex-col flex-nowrap gap-1 overflow-hidden self-center p-2 w-full">
             {data?.remark ? <RemarkBlock remark={data.remark} /> : null}
-            {data.terminationReason ? (
-              <div
-                className="bg-cloud-100/30 text-cloud-400 break-all w-full rounded-lg p-2"
-                data-testid="termination-reason"
-              >
-                Reason: {data.terminationReason}
-              </div>
-            ) : null}
           </div>
         </div>
       </div>
