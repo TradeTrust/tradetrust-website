@@ -189,7 +189,7 @@ describe("useEndorsementChain|integration", () => {
             {
               blockNumber: 15068712,
               holder: "0xCA93690Bb57EEaB273c796a9309246BC0FB93649",
-              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
               remark: "Transfer Holdership",
               timestamp: 1732987703000,
               transactionHash: "0xadb9231bece27ae3aac4e2483752046014e983b80d54dfc490e3459da451dbfa",
@@ -219,7 +219,7 @@ describe("useEndorsementChain|integration", () => {
             {
               blockNumber: 15069476,
               holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
               remark: "Transfer Holder",
               timestamp: 1732989327000,
               transactionHash: "0x2d53578ffe1889dd82eecd5e923dabb06b57eb67a2d16e2c8b210e02b398c5c5",
@@ -229,7 +229,7 @@ describe("useEndorsementChain|integration", () => {
             {
               blockNumber: 15069490,
               holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
               remark: "Return To Issuer",
               timestamp: 1732989357000,
               transactionHash: "0x8e575e2a281d3bce5d6e4b6298e1e54b9c49bad0ef135ae9e68fc9d02ccc1ba1",
@@ -239,7 +239,7 @@ describe("useEndorsementChain|integration", () => {
             {
               blockNumber: 15069501,
               holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
               remark: "Reject Return To Issuer",
               timestamp: 1732989379000,
               transactionHash: "0x3bf456d1fa29e4b7cfc3cbfc3a568f5c2c4e1dd8454d25f8822eea3b65c66956",
@@ -249,7 +249,7 @@ describe("useEndorsementChain|integration", () => {
             {
               blockNumber: 15069511,
               holder: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
-              owner: "0xe0A71284EF59483795053266CB796B65E48B5124",
+              owner: "0x433097a1C1b8a3e9188d8C54eCC057B1D69f1638",
               remark: "Return To Issuer",
               timestamp: 1732989401000,
               transactionHash: "0x99e56c4a1ddcf1a8031402a46eb41b4c41f1379f420287aaa57cad0e18ed85ce",
