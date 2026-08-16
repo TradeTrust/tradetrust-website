@@ -182,7 +182,7 @@ const getHistoryChain = (endorsementChain?: EndorsementChain, isObligation = fal
         historyChain.push({
           action: ActionType.RETURN_TO_ISSUER_REJECTED,
           isNewBeneficiary: showOwner,
-          isNewHolder: showHolder,
+          isNewHolder: showHolder || showOwner,
           timestamp,
           beneficiary,
           holder: holder || beneficiary,
