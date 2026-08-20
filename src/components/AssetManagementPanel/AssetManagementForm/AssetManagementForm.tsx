@@ -148,13 +148,16 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   dischargeObligationState,
 }) => {
   const isActiveTitleEscrow = isTitleEscrow && !isReturnedToIssuer;
-  const isHolder = isTitleEscrow && account === holder;
-  const isBeneficiary = isTitleEscrow && account === beneficiary;
+  // Case-insensitive — match classic title-escrow role checks (master BeneficiaryAndHolder / Holder / Beneficiary forms).
+  const isHolder = isTitleEscrow && !!account && !!holder && account.toLowerCase() === holder.toLowerCase();
+  const isBeneficiary =
+    isTitleEscrow && !!account && !!beneficiary && account.toLowerCase() === beneficiary.toLowerCase();
   const isHolderAndBeneficiary = isHolder && isBeneficiary;
   const hasNominee = !!nominee && nominee !== InitialAddress;
   const hasPreviousBeneficiary = !!prevBeneficiary && prevBeneficiary !== InitialAddress;
   const hasPreviousHolder = !!prevHolder && prevHolder !== InitialAddress;
 
+  // Same dual-role return rule as classic ETR (also applies while BoE status is Issued).
   const canReturnToIssuer = isBeneficiary && isHolder && !isReturnedToIssuer;
   /*
     In order to shred we need to check 3 conditions
@@ -164,6 +167,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   */
   const canHandleRestore = isTitleEscrow && isRestorer && isReturnedToIssuer;
   const canHandleShred = isTitleEscrow && isAcceptor && isReturnedToIssuer;
+  // Classic ETR Manage Assets options — available in Issued (and Accepted) for BoE the same way as TitleEscrow.
   const canTransferHolder = isActiveTitleEscrow && isHolder;
   const canTransferBeneficiary = isActiveTitleEscrow && isHolderAndBeneficiary;
   const canTransferOwners = isActiveTitleEscrow && isHolder && isBeneficiary;

@@ -21,12 +21,13 @@ const SurrenderToIssuerAction = Selector("[data-testid='action-title']").withTex
 const SurrenderAcceptedAction = Selector("[data-testid='action-title']").withText("ETR taken out of circulation");
 
 // history chain of events for ebl-endorsement-chain.json are:
-// 1. issued on account 1
-// 2. nominate beneficiary + endorse beneficiary to account 2
-// 3. transfer holder to account 2
-// 4. transfer ownership and holdership to account 1
-// 5. surrender with account 1
-// 6. accept surrender with account 1
+// 1. issued on account 1                         → owner A1, holder A1
+// 2. nominate beneficiary + endorse to account 2 → owner A2, holder A1 (carried)
+// 3. transfer holder to account 2                → owner A2 (carried), holder A2
+// 4. transfer ownership and holdership to A1     → owner A1, holder A1
+// 5. surrender with account 1                    → owner A1, holder A1
+// 6. accept surrender with account 1             → no addresses (classic ETR shred)
+// ACCOUNT_1 × 7, ACCOUNT_2 × 3
 
 // TODO: Add in test for reject transfers, after updating CLI
 test("Endorsement chain title and actions are rendered correctly", async (t) => {
@@ -42,9 +43,9 @@ test("Endorsement chain title and actions are rendered correctly", async (t) => 
 
   await t.expect(EndorsementChainTitle.count).eql(1);
 
-  await t.expect(EndorsementChainAddressMinter.count).eql(4);
-  await t.expect(EndorsementChainAddress1.count).eql(4);
-  await t.expect(EndorsementChainAddress2.count).eql(2);
+  await t.expect(EndorsementChainAddressMinter.count).eql(7);
+  await t.expect(EndorsementChainAddress1.count).eql(7);
+  await t.expect(EndorsementChainAddress2.count).eql(3);
 
   await t.expect(DocumentIssuedAction.count).eql(1);
 

@@ -221,6 +221,9 @@ describe("EndorsementChainLayout", () => {
     expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent(
       "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
     );
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Owner")).toHaveTextContent(
+      "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
+    );
   });
 
   it("should render 'Transfer ownership' and new address of new beneficiary when there is a change in ownership from previous beneficiary", () => {
@@ -239,6 +242,9 @@ describe("EndorsementChainLayout", () => {
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Transfer ownership");
     expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Owner")).toHaveTextContent(
       "0x90264b594B8dc2225cb7D05a14e78483BAc7FBF7"
+    );
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent(
+      "0x8d366250A96deBE81C8619459a503a0eEBE33ca6"
     );
   });
 
@@ -334,8 +340,10 @@ describe("EndorsementChainLayout", () => {
       </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Rejection of ownership");
-    expect(within(screen.getByTestId("row-event-Holder")).queryByTestId("address-entity")).not.toBeInTheDocument();
     expect(within(screen.getByTestId("row-event-Owner")).getByTestId("address-entity")).toHaveTextContent(
+      "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
+    );
+    expect(within(screen.getByTestId("row-event-Holder")).getByTestId("address-entity")).toHaveTextContent(
       "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
     );
   });
@@ -354,7 +362,9 @@ describe("EndorsementChainLayout", () => {
       </Provider>
     );
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Rejection of holdership");
-    expect(within(screen.getByTestId("row-event-Owner")).queryByTestId("address-entity")).not.toBeInTheDocument();
+    expect(within(screen.getByTestId("row-event-Owner")).getByTestId("address-entity")).toHaveTextContent(
+      "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
+    );
     expect(within(screen.getByTestId("row-event-Holder")).getByTestId("address-entity")).toHaveTextContent(
       "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
     );
@@ -376,14 +386,18 @@ describe("EndorsementChainLayout", () => {
 
     expect(screen.getByTestId("row-event-0")).toHaveTextContent("Rejection of holdership");
     const row0 = within(screen.getByTestId("row-event-0"));
-    expect(within(row0.getByTestId("row-event-Owner")).queryByTestId("address-entity")).not.toBeInTheDocument();
+    expect(within(row0.getByTestId("row-event-Owner")).getByTestId("address-entity")).toHaveTextContent(
+      "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
+    );
     expect(within(row0.getByTestId("row-event-Holder")).getByTestId("address-entity")).toHaveTextContent(
       "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
     );
 
     expect(screen.getByTestId("row-event-1")).toHaveTextContent("Rejection of ownership");
     const row1 = within(screen.getByTestId("row-event-1"));
-    expect(within(row1.getByTestId("row-event-Holder")).queryByTestId("address-entity")).not.toBeInTheDocument();
+    expect(within(row1.getByTestId("row-event-Holder")).getByTestId("address-entity")).toHaveTextContent(
+      "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
+    );
     expect(within(row1.getByTestId("row-event-Owner")).getByTestId("address-entity")).toHaveTextContent(
       "0x6F36BbCF16bac711Bcf71aBC9971d76285F44c6C"
     );
@@ -442,12 +456,148 @@ describe("EndorsementChainLayout", () => {
       </Provider>
     );
 
-    expect(screen.getByTestId("row-event-0")).toHaveTextContent("BoE issued");
-    expect(screen.getByTestId("row-event-1")).toHaveTextContent("BoE accepted");
+    // STATUS_INITIALIZED displays as classic ETR issuance
+    expect(screen.getByTestId("row-event-0")).toHaveTextContent("Document has been issued");
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Owner")).toHaveTextContent("0xOwner");
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("row-event-Holder")).toHaveTextContent("0xHolder");
+    expect(screen.getByTestId("row-event-1")).toHaveTextContent("Bill accepted");
+    expect(within(screen.getByTestId("row-event-1")).getByTestId("row-event-Owner")).toHaveTextContent("0xOwner");
     expect(within(screen.getByTestId("row-event-1")).getByTestId("row-event-Holder")).toHaveTextContent("0xHolder");
-    expect(screen.getByTestId("row-event-2")).toHaveTextContent("BoE rejected");
-    expect(screen.getByTestId("row-event-3")).toHaveTextContent("BoE discharged");
+    expect(screen.getByTestId("row-event-2")).toHaveTextContent("Bill rejected");
+    expect(screen.getByTestId("row-event-3")).toHaveTextContent("Bill discharged");
     expect(within(screen.getByTestId("row-event-3")).getByTestId("row-event-Owner")).toHaveTextContent("0xOwner");
+    expect(within(screen.getByTestId("row-event-3")).getByTestId("row-event-Holder")).toHaveTextContent("0xHolder");
+  });
+
+  it("should show last owner, holder and Bill discharged title on eBoE discharge shred", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "" });
+    const eboeShredChain: EndorsementChain = [
+      {
+        type: "INITIAL",
+        transactionHash: "0x1",
+        transactionIndex: 0,
+        blockNumber: 1,
+        owner: "0xOwner",
+        holder: "0xHolder",
+        timestamp: 1,
+        remark: "mint",
+      },
+      {
+        type: "RETURN_TO_ISSUER_ACCEPTED",
+        transactionHash: "0x2",
+        transactionIndex: 0,
+        blockNumber: 2,
+        owner: "0xOwner",
+        holder: "0xHolder",
+        timestamp: 2,
+        remark: "burned",
+        terminationReason: "Discharged",
+      },
+    ];
+    render(
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={eboeShredChain}
+          setShowEndorsementChain={() => {}}
+          isObligation
+        />
+      </Provider>
+    );
+
+    const shredRow = within(screen.getByTestId("row-event-1"));
+    expect(shredRow.getByTestId("action-title")).toHaveTextContent("Bill discharged");
+    expect(shredRow.getByTestId("row-event-Owner")).toHaveTextContent("0xOwner");
+    expect(shredRow.getByTestId("row-event-Holder")).toHaveTextContent("0xHolder");
+    expect(shredRow.queryByTestId("termination-reason")).toBeNull();
+  });
+
+  it("should show Bill rejected on eBoE reject shred", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "" });
+    const eboeShredChain: EndorsementChain = [
+      {
+        type: "RETURN_TO_ISSUER_ACCEPTED",
+        transactionHash: "0x2",
+        transactionIndex: 0,
+        blockNumber: 2,
+        owner: "0xOwner",
+        holder: "0xHolder",
+        timestamp: 2,
+        remark: "burned",
+        terminationReason: "Rejected",
+      },
+    ];
+    render(
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={eboeShredChain}
+          setShowEndorsementChain={() => {}}
+          isObligation
+        />
+      </Provider>
+    );
+
+    expect(within(screen.getByTestId("row-event-0")).getByTestId("action-title")).toHaveTextContent("Bill rejected");
+    expect(within(screen.getByTestId("row-event-0")).queryByTestId("termination-reason")).toBeNull();
+  });
+
+  it("should keep taken out of circulation for return-to-issuer shred on BoE", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "" });
+    const eboeShredChain: EndorsementChain = [
+      {
+        type: "RETURN_TO_ISSUER_ACCEPTED",
+        transactionHash: "0x2",
+        transactionIndex: 0,
+        blockNumber: 2,
+        owner: "0xOwner",
+        holder: "0xHolder",
+        timestamp: 2,
+        remark: "burned",
+        terminationReason: "ReturnToIssuer",
+      },
+    ];
+    render(
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={eboeShredChain}
+          setShowEndorsementChain={() => {}}
+          isObligation
+        />
+      </Provider>
+    );
+
+    const shredRow = within(screen.getByTestId("row-event-0"));
+    expect(shredRow.getByTestId("action-title")).toHaveTextContent("ETR taken out of circulation");
+    expect(shredRow.queryByTestId("termination-reason")).toBeNull();
+  });
+
+  it("should blank owner/holder on classic ETR shred", () => {
+    mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "" });
+    render(
+      <Provider store={store}>
+        <EndorsementChainLayout
+          providerDocumentationURL={""}
+          error={""}
+          pending={false}
+          endorsementChain={acceptSurrenderedEndorsementChain}
+          setShowEndorsementChain={() => {}}
+        />
+      </Provider>
+    );
+
+    const shredRow = within(screen.getByTestId("row-event-1"));
+    expect(shredRow.getByTestId("action-title")).toHaveTextContent("ETR taken out of circulation");
+    expect(within(shredRow.getByTestId("row-event-Owner")).queryByTestId("address-entity")).not.toBeInTheDocument();
+    expect(within(shredRow.getByTestId("row-event-Holder")).queryByTestId("address-entity")).not.toBeInTheDocument();
+    expect(shredRow.queryByTestId("termination-reason")).not.toBeInTheDocument();
   });
 
   it("should fire setShowEndorsementChain when back button is clicked", async () => {

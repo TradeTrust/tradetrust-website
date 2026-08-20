@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { providers, Signer } from "ethers";
-import { getTitleEscrowAddress, getObligationEscrowAddress, v5Contracts, v4Contracts } from "@trustvc/trustvc";
+import { getTitleEscrowAddress, v5Contracts, v4Contracts } from "@trustvc/trustvc";
 import { TitleEscrow, TradeTrustToken } from "../../types";
 import { TokenRegistryVersions } from "../../constants";
 import { useTokenRegistryVersion } from "./useTokenRegistryVersion";
@@ -33,13 +33,9 @@ export const useTitleEscrowContract = (
       ) as providers.Provider;
       const titleEscrowOwner = await tokenRegistry.ownerOf(tokenId);
       setDocumentOwner(titleEscrowOwner);
-      const address = isObligation
-        ? await getObligationEscrowAddress(tokenRegistry.address, tokenId, provider, {
-            titleEscrowVersion: "v5",
-          })
-        : await getTitleEscrowAddress(tokenRegistry.address, tokenId, provider, {
-            titleEscrowVersion: tokenRegistryVersion.toLowerCase() as "v4" | "v5",
-          });
+      const address = await getTitleEscrowAddress(tokenRegistry.address, tokenId, provider, {
+        titleEscrowVersion: isObligation ? "v5" : (tokenRegistryVersion.toLowerCase() as "v4" | "v5"),
+      });
       let instance;
       if (isObligation) {
         instance = ObligationEscrow__factory.connect(address, providerOrSigner as any);

@@ -4,7 +4,7 @@ import { Button, ButtonHeight } from "../../../../Button";
 import { MessageTitle, showDocumentTransferMessage } from "../../../../UI/Overlay/OverlayContent";
 import { TagBordered, TagBorderedSm } from "../../../../UI/Tag";
 import { AssetManagementActions } from "../../../AssetManagementActions";
-import { OBLIGATION_STATUS_LABEL } from "../../../../../constants/obligation";
+import { OBLIGATION_STATUS_LABEL, ObligationDocumentStatus } from "../../../../../constants/obligation";
 import { AssetManagementDropdown } from "../../AssetManagementDropdown";
 import { EditableAssetTitle } from "./../EditableAssetTitle";
 import ConnectToBlockchainModel from "../../../../ConnectToBlockchain";
@@ -119,6 +119,16 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
     </div>
   ) : null;
 
+  // Burnt BoE: reject/discharge get their own titles; "taken out of circulation" only for return-to-issuer shred.
+  const burntTokenLabel =
+    isObligation && obligationStatus === ObligationDocumentStatus.Rejected
+      ? "Bill rejected"
+      : isObligation && obligationStatus === ObligationDocumentStatus.Discharged
+      ? "Bill discharged"
+      : isObligation
+      ? "BoE taken out of circulation"
+      : "Taken out of circulation";
+
   const { showOverlay } = useContext(OverlayContext);
   const handleNoAccess = () => {
     showOverlay(showDocumentTransferMessage(MessageTitle.NO_MANAGE_ACCESS, { isSuccess: false }));
@@ -147,9 +157,8 @@ export const ActionSelectionForm: FunctionComponent<ActionSelectionFormProps> = 
               rounded="rounded-full"
               className="border-scarlet-100 bg-scarlet-100 text-scarlet-500 content-center justify-self-center w-full xs:w-auto h-10 px-4 py-2"
             >
-              <h5 className="text-center break-keep">Taken out of circulation</h5>
+              <h5 className="text-center break-keep">{burntTokenLabel}</h5>
             </TagBorderedSm>
-            {obligationStatusField}
           </div>
         )}
 
