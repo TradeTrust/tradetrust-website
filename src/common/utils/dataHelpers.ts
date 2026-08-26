@@ -1,6 +1,6 @@
 import Ajv, { ErrorObject } from "ajv";
 import { saveAs } from "file-saver";
-import converter, { csv2jsonAsync } from "json-2-csv";
+import { csv2json, json2csv } from "json-2-csv";
 import { JsonSchema } from "json-schema-library";
 
 export function readFileAsJson<T>(file: File): Promise<T> {
@@ -27,8 +27,8 @@ export function readFileAsCsv(file: File): Promise<Array<JSON>> {
     if (reader.error) {
       reject(reader.error);
     }
-    reader.onload = async () => {
-      const data: JSON[] = await csv2jsonAsync(reader.result as string);
+    reader.onload = () => {
+      const data = csv2json(reader.result as string) as unknown as JSON[];
       resolve(data);
     };
     reader.readAsText(file);
@@ -37,18 +37,14 @@ export function readFileAsCsv(file: File): Promise<Array<JSON>> {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const downloadCsvDataFile = (jsonTemplate: any): void => {
-  converter.json2csv(jsonTemplate, (err, csv) => {
-    if (err) {
-      throw err;
-    }
-    if (!csv) {
-      throw new Error("There seem to be an error in the CSV data file you are downloading, please try again later.");
-    }
+  const csv = json2csv(jsonTemplate);
+  if (!csv) {
+    throw new Error("There seem to be an error in the CSV data file you are downloading, please try again later.");
+  }
 
-    const csvBlob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const csvBlob = new Blob([csv], { type: "text/csv;charset=utf-8" });
 
-    saveAs(csvBlob, "sample-data.csv");
-  });
+  saveAs(csvBlob, "sample-data.csv");
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
