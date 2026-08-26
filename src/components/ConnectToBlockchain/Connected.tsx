@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Tooltip, TooltipRefProps } from "react-tooltip";
+// @ts-ignore: react-tooltip
+import { Tooltip } from "react-tooltip";
+// @ts-ignore: react-tooltip
+import type { TooltipRefProps } from "react-tooltip";
 import { useProviderContext } from "../../common/contexts/provider";
 import ConnectToBlockchainModel from ".";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";

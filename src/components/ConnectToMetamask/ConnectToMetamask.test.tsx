@@ -4,23 +4,11 @@ import { SIGNER_TYPE, useProviderContext } from "../../common/contexts/provider"
 import ConnectToMetamask from "./index";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 
-// Mock ReactTooltip module
-jest.mock("react-tooltip", () => {
-  const mockModule = {
-    __esModule: true,
-    default: function ReactTooltip(props: { getContent: () => null }) {
-      // Get content so we can test the tooltip value
-      if (props.getContent) {
-        mockModule.tooltipContent = props.getContent();
-      }
-      return null;
-    },
-    show: jest.fn(),
-    hide: jest.fn(),
-    tooltipContent: null,
-  };
-  return mockModule;
-});
+// Mock react-tooltip module
+jest.mock("react-tooltip", () => ({
+  __esModule: true,
+  Tooltip: () => null,
+}));
 
 // Mock the useProviderContext hook
 jest.mock("../../common/contexts/provider", () => {

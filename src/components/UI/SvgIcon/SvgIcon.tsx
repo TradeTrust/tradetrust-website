@@ -1,5 +1,6 @@
 import uniqueId from "lodash/uniqueId";
 import React, { FunctionComponent, useState } from "react";
+// @ts-ignore: react-tooltip
 import { Tooltip } from "react-tooltip";
 
 interface SvgIconProps extends React.SVGProps<SVGSVGElement> {
