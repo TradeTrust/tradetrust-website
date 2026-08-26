@@ -99,8 +99,7 @@
     "redux-saga": "^1.1.3",
     "swiper": "^14.1.0",
     "use-persisted-state": "^0.3.3",
-    "validator": "^13.15.35",
-    "viem": "2.54.6"
+    "validator": "^13.15.35"
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",
@@ -212,7 +211,6 @@
     "ethers": "^5.8.0",
     "ethereumjs-abi": "https://registry.npmjs.org/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz",
     "glob": "^9.3.5",
-    "ox": "0.14.30",
     "playwright": "1.42.1",
     "playwright-core": "1.42.1",
     "@playwright/test": "1.42.1",
