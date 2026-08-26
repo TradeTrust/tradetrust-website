@@ -76,9 +76,9 @@
     "file-saver": "^2.0.5",
     "history": "^4.10.1",
     "js-cookie": "^3.0.5",
-    "json-2-csv": "^3.14.1",
+    "json-2-csv": "^5.5.11",
     "json-schema-library": "^9.3.5",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "magic-sdk": "^29.1.0",
     "permissionless": "0.3.6",
     "pretty-bytes": "^5.6.0",
@@ -94,12 +94,12 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-timer-hook": "^3.0.7",
-    "react-tooltip": "^4.5.1",
+    "react-tooltip": "^6.0.8",
     "redux": "^4.1.0",
     "redux-saga": "^1.1.3",
-    "swiper": "^11.2.0",
+    "swiper": "^14.1.0",
     "use-persisted-state": "^0.3.3",
-    "validator": "^13.15.15",
+    "validator": "^13.15.35",
     "viem": "2.54.6"
   },
   "devDependencies": {
@@ -215,7 +215,10 @@
     "ox": "0.14.30",
     "playwright": "1.42.1",
     "playwright-core": "1.42.1",
-    "@playwright/test": "1.42.1"
+    "@playwright/test": "1.42.1",
+    "@govtechsg/oa-encryption": {
+      "node-forge": "^1.4.0"
+    }
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
