@@ -11,7 +11,9 @@ export type Network =
   | "stabilitytestnet"
   | "stability"
   | "astron"
-  | "astrontestnet";
+  | "astrontestnet"
+  | "xrplevm"
+  | "xrplevmtestnet";
 
 export interface ChainInfoObject {
   label: string;
@@ -31,8 +33,8 @@ export interface ChainInfoObject {
 export const InitialAddress = "0x0000000000000000000000000000000000000000";
 export const BurnAddress = "0x000000000000000000000000000000000000dEaD";
 
-export type AvailableBlockChains = "ETH" | "MATIC" | "POL" | "XDC" | "FREE" | "ASTRON";
-export const AvailableBlockChains: AvailableBlockChains[] = ["ETH", "MATIC", "POL", "XDC", "FREE", "ASTRON"];
+export type AvailableBlockChains = "ETH" | "MATIC" | "POL" | "XDC" | "FREE" | "ASTRON" | "XRP";
+export const AvailableBlockChains: AvailableBlockChains[] = ["ETH", "MATIC", "POL", "XDC", "FREE", "ASTRON", "XRP"];
 
 type ChainInfo = Record<ChainId, ChainInfoObject>;
 
@@ -59,6 +61,10 @@ export enum ChainId {
   // Astron
   Astron = 1338,
   AstronTestnet = 21002,
+
+  // XRPL EVM
+  XRPLEVM = 1440000,
+  XRPLEVMTestnet = 1449000,
 }
 
 export const CHAIN: Record<ChainId, AvailableBlockChains> = {
@@ -73,6 +79,8 @@ export const CHAIN: Record<ChainId, AvailableBlockChains> = {
   [ChainId.StabilityTestnet]: "FREE",
   [ChainId.Astron]: "ASTRON",
   [ChainId.AstronTestnet]: "ASTRON",
+  [ChainId.XRPLEVM]: "XRP",
+  [ChainId.XRPLEVMTestnet]: "XRP",
 };
 
 export const ChainInfo: ChainInfo = {
@@ -230,6 +238,34 @@ export const ChainInfo: ChainInfo = {
       decimals: 18,
     },
   },
+  [ChainId.XRPLEVM]: {
+    label: "XRPL EVM",
+    chainId: ChainId.XRPLEVM,
+    iconImage: "/static/images/networks/xrplevm.svg",
+    networkName: "xrplevm",
+    networkLabel: "XRPL EVM",
+    explorerUrl: "https://explorer.xrplevm.org",
+    rpcUrl: "https://rpc.xrplevm.org",
+    nativeCurrency: {
+      name: "XRP",
+      symbol: "XRP",
+      decimals: 18,
+    },
+  },
+  [ChainId.XRPLEVMTestnet]: {
+    label: "XRPL EVM Testnet",
+    chainId: ChainId.XRPLEVMTestnet,
+    iconImage: "/static/images/networks/xrplevm.svg",
+    networkName: "xrplevmtestnet",
+    networkLabel: "XRPL EVM Testnet",
+    explorerUrl: "https://explorer.testnet.xrplevm.org",
+    rpcUrl: "https://rpc.testnet.xrplevm.org",
+    nativeCurrency: {
+      name: "XRP",
+      symbol: "XRP",
+      decimals: 18,
+    },
+  },
 };
 export const supportedMainnet = [
   ChainInfo[ChainId.Ethereum].networkName,
@@ -237,6 +273,7 @@ export const supportedMainnet = [
   ChainInfo[ChainId.XDC].networkName,
   ChainInfo[ChainId.Stability].networkName,
   ChainInfo[ChainId.Astron].networkName,
+  ChainInfo[ChainId.XRPLEVM].networkName,
 ];
 
 export const supportedTestnet = [
@@ -245,4 +282,5 @@ export const supportedTestnet = [
   ChainInfo[ChainId.APOTHEM].networkName,
   ChainInfo[ChainId.StabilityTestnet].networkName,
   ChainInfo[ChainId.AstronTestnet].networkName,
+  ChainInfo[ChainId.XRPLEVMTestnet].networkName,
 ];

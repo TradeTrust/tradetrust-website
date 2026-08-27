@@ -137,7 +137,7 @@ export const getChainId = (
   const processOAChainId = (document: v2.OpenAttestationDocument | v3.OpenAttestationDocument): number | undefined => {
     const network = document.network;
     if (network) {
-      // Check for current blockchain, "ETH" or "POL", and chainId, if need cater for other blockchain and network, update this accordingly.
+      // Check for current blockchain identifier (ETH, POL, XDC, XRP, etc.) and chainId.
       if (!AvailableBlockChains.includes(network.chain as AvailableBlockChains) || !network.chainId) {
         throwError();
       }
