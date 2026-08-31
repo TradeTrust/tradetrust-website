@@ -218,8 +218,6 @@
         "@peculiar/asn1-schema": "2.4.0"
       }
     },
-    "@aws-sdk/client-kms": "3.844.0",
-    "@smithy/core": "3.7.0",
     "glob": "^9.3.5",
     "ox": "0.14.30",
     "playwright": "1.42.1",
