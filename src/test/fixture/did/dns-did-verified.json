@@ -1,65 +1,90 @@
 {
   "version": "https://schema.openattestation.com/2.0/schema.json",
   "data": {
-    "id": "9a472a0a-42db-4559-baf2-90d6fcc2b113:string:SGCNM21566325",
+    "name": "2de4c13f-0141-4c92-9827-02e03621fb81:string:TradeTrust Invoice v2",
     "$template": {
-      "name": "e2da3963-d070-43e0-9cce-888886cd3173:string:CERTIFICATE_OF_NON_MANIPULATION",
-      "type": "f6b1b012-7dcb-4725-952d-228708746a21:string:EMBEDDED_RENDERER",
-      "url": "f64728c6-b985-465c-a31c-d2c98d5e055a:string:https://demo-cnm.openattestation.com"
+      "name": "045b6e75-ee05-46f3-9506-321b2432857d:string:INVOICE",
+      "type": "fe018a53-8433-4651-8094-dfa7e5e0c6f6:string:EMBEDDED_RENDERER",
+      "url": "3d8f44ca-a061-4390-9e90-936534da7327:string:https://generic-templates.tradetrust.io"
+    },
+    "id": "f6c3d5a0-0bbd-4d3f-b4ee-8bda6566cb58:string:1111",
+    "date": "b9933d5a-32e5-400f-9191-481d43c6b70f:string:2018-02-21",
+    "customerId": "24ca1e5c-b0df-4e18-8b0f-bd92f1126063:string:564",
+    "terms": "20f25de4-9a48-44a7-82a0-a7ae51a6fc91:string:Due Upon Receipt",
+    "billFrom": {
+      "name": "a93adc74-6fd3-4499-a3ec-333d2e355061:string:ABC Company",
+      "streetAddress": "f57e4152-64d7-4260-8449-f44597a62951:string:Level 1, Industry Offices",
+      "city": "8aa2f3dc-d2f1-4da2-8b66-b63c7829bfbc:string:Singapore",
+      "postalCode": "fa2b16db-97af-4994-8215-b2fb9a0ee578:string:123456",
+      "phoneNumber": "19276279-2fb4-4974-ac68-95010ff00417:string:60305029"
+    },
+    "billTo": {
+      "company": {
+        "name": "5b4b8614-aaea-471f-a330-0a17401c1526:string:DEF Company",
+        "streetAddress": "7d626245-42b0-4610-8b11-c40078c91b2a:string:Level 2, Industry Offices",
+        "city": "a35edac2-61a1-4a78-9a9c-048e8f55e761:string:Singapore",
+        "postalCode": "1c9f5bc7-2187-4e0d-a8c7-648d01f7da2a:string:612345",
+        "phoneNumber": "9ee05e82-331d-479c-aa17-3949dd2af0a0:string:61204028"
+      },
+      "name": "c050c500-8de8-405f-9312-f00734e14038:string:James Lee",
+      "email": "9310ba72-e586-4dbd-86d8-c9338c906c8c:string:def@company.com"
+    },
+    "billableItems": [
+      {
+        "description": "b0673e1e-b164-4446-bc54-be54ad16d752:string:Service Fee",
+        "quantity": "b26184b0-aad8-4e37-a482-a151bfa3943d:number:1",
+        "unitPrice": "9d2f4cde-1bd0-48fb-be1d-6289bd5d04a5:number:200",
+        "amount": "8040205b-dfc6-4721-bc05-f26a3e223228:number:200"
+      },
+      {
+        "description": "d1a64e83-5090-403f-9ae5-f3c615544f5c:string:Labor: 5 hours at $75/hr",
+        "quantity": "dd534b40-061d-42d0-8b5b-ab6bd520ddae:number:5",
+        "unitPrice": "28c1adff-48bd-40c7-8d64-ba4b6aff0b30:number:75",
+        "amount": "fdc33047-e517-4756-b050-561a6a253e73:number:375"
+      },
+      {
+        "description": "aefe2c90-aeb9-46fb-8f73-868ddc71be78:string:New client discount",
+        "quantity": "0c84bf70-7bcb-45eb-b670-82b3e89d77f1:number:1",
+        "unitPrice": "04f5daff-52bd-4c43-92ed-c9e81edf1140:number:50",
+        "amount": "1506f58b-6899-42df-afdf-6f61ed1b1ad8:number:50"
+      }
+    ],
+    "subtotal": "761ecdf8-3f0f-4ba6-9ee6-1ebd33f419b6:number:625",
+    "tax": "1613a12d-ea81-4561-91e8-ef9760502526:number:0",
+    "taxTotal": "078440b4-6da7-47d8-a90a-87bc2952432c:number:0",
+    "total": "5db87f64-4e79-4531-8f10-9a76da8b8a7e:number:625",
+    "network": {
+      "chain": "c239bc64-144d-4aa4-ad14-656f904feacb:string:ETH",
+      "chainId": "6eb8efde-a9b8-498b-b503-7841bd95acc1:string:1337"
     },
     "issuers": [
       {
-        "id": "27f71dea-839c-4484-8a72-72f974a3c093:string:did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89",
-        "name": "cc8465bc-4432-47cf-94bf-0ee0c8c49c22:string:DEMO STORE",
+        "id": "d2c52f63-a164-43be-ba22-4cca72aea758:string:did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89",
+        "name": "f3a02e8a-e0c3-4623-85cf-9aaaf9db1331:string:DEMO STORE",
         "revocation": {
-          "type": "85debc04-1698-4a1b-b6ac-7ef7e8f9d4b4:string:NONE"
+          "type": "9cca8f82-53b9-432f-8efc-a2acc846cd39:string:NONE"
         },
         "identityProof": {
-          "type": "767bd2d0-f1e4-4471-81a0-c4056d42f592:string:DNS-DID",
-          "key": "5edf0191-5492-4659-891b-84e68793c9be:string:did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89#controller",
-          "location": "ad412e6a-a9b6-40e6-bb17-18b097d86833:string:example.tradetrust.io"
+          "type": "987110c9-d153-4a14-877a-4b2845620d22:string:DNS-DID",
+          "key": "5094c2fe-9658-41ba-9690-ca5605050e8e:string:did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89#controller",
+          "location": "b7b0c22f-f932-4dc2-9621-76b93531c830:string:example.tradetrust.io"
         }
       }
-    ],
-    "recipient": {
-      "name": "243cdac1-8d75-47ca-a4f3-b9e305f16f50:string:SG FREIGHT",
-      "address": {
-        "street": "241f4d4f-ddeb-4344-a0e5-6a766b664c38:string:101 ORCHARD ROAD",
-        "country": "b66e2078-1bb2-41e3-b60b-0a16b6b79639:string:SINGAPORE"
-      }
-    },
-    "consignment": {
-      "description": "77d0a5c6-e383-485c-b0bf-1439a1f67ae4:string:16667 CARTONS OF RED WINE",
-      "quantity": {
-        "value": "cd54295b-e569-4461-8b3d-5eae4f12f86d:number:5000",
-        "unit": "c4f4b1b4-3f05-469c-9f79-8eea65cfb9e1:string:LITRES"
-      },
-      "countryOfOrigin": "89377474-29b7-44eb-8a2e-d2d8f4c2ba25:string:AUSTRALIA",
-      "outwardBillNo": "8c8e7f1b-6ec0-429f-8536-739b149507f9:string:AQSIQ170923130",
-      "dateOfDischarge": "32ef239d-d98a-4712-a40a-330d39d4db16:string:2018-01-26",
-      "dateOfDeparture": "a068e31d-9f2b-4698-b4d0-69bf9181d1d6:string:2018-01-30",
-      "countryOfFinalDestination": "2ef9d520-dd2c-4076-a2af-bf1e6bd9bd61:string:CHINA",
-      "outgoingVehicleNo": "099c443a-c51e-4446-ae2c-0ba90d6d2510:string:COSCO JAPAN 074E/30-JAN"
-    },
-    "declaration": {
-      "name": "b9915d76-bf07-427d-952d-2c77eca55cc3:string:PETER LEE",
-      "designation": "d04e3577-515c-4fad-aa66-47319ce3b970:string:SHIPPING MANAGER",
-      "date": "ffd492e3-88f6-4803-a2eb-1a6395197909:string:2018-01-28"
-    }
+    ]
   },
   "signature": {
     "type": "SHA3MerkleProof",
-    "targetHash": "d0ebc96b62001b10348d3f9931f91b3c7aa421445f9719a984d67c22465a86c5",
+    "targetHash": "e992c1a38e3fb15a86f1d0ca7d60e9b3978df6a2011f796e411fce94f8135ed4",
     "proof": [],
-    "merkleRoot": "d0ebc96b62001b10348d3f9931f91b3c7aa421445f9719a984d67c22465a86c5"
+    "merkleRoot": "e992c1a38e3fb15a86f1d0ca7d60e9b3978df6a2011f796e411fce94f8135ed4"
   },
   "proof": [
     {
-      "created": "2021-03-25T07:52:31.291Z",
       "type": "OpenAttestationSignature2018",
+      "created": "2026-08-31T06:22:01.072Z",
       "proofPurpose": "assertionMethod",
       "verificationMethod": "did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89#controller",
-      "signature": "0xd05bb71bdb6f78451e2d12851825421666c6c5e355f516325ce5002a0586f89f6ebbd465227bec59c745dd26918dd8dab9122dcd398256d8e487e0ecf82a53421b"
+      "signature": "0xffd1757b8feaec91e5c5991ddbdd51c17ad0fb78b46ba32c61a55a45769a21aa2302a5585d880b0916725626c343c47bdee9f6bb9a972363cb8e254370e9db501b"
     }
   ]
 }
