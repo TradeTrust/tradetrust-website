@@ -27,10 +27,6 @@ const v5Contracts = require(v5ContractsPath);
 // Define local chain ID directly for local development
 const CHAIN_ID = { local: 1337 };
 
-// Skip tradetrust-cli's self-update check (unauthenticated call to api.github.com),
-// which occasionally hits GitHub's shared-IP rate limit and fails CI test setup.
-process.env.NODE_ENV = "development";
-
 (async () => {
   const {
     TDocDeployer__factory,

@@ -227,6 +227,9 @@
     "@playwright/test": "1.42.1",
     "@govtechsg/oa-encryption": {
       "node-forge": "^1.4.0"
+    },
+    "@uniswap/v3-periphery": {
+      "@openzeppelin/contracts": "3.4.2"
     }
   },
   "optionalDependencies": {

@@ -3,12 +3,19 @@ import { location, navigateToVerify, uploadDocument, validateIframeTexts, valida
 fixture("DNS DID Certificate Rendering").page`${location}`;
 
 // Skipped in CI: embedded renderer at demo-cnm.openattestation.com fails to load in headless Chrome (raw JSON fallback).
+// eslint-disable-next-line jest/no-disabled-tests
 test.skip("sample document is rendered correctly when dns did is verified", async () => {
   await navigateToVerify();
   await uploadDocument("./fixture/did/dns-did-verified.json");
   await validateIssuerTexts(["EXAMPLE.TRADETRUST.IO"]);
 
-  await validateIframeTexts(["INVOICE", "ABC Company", "DEF Company"]);
+  await validateIframeTexts([
+    "Name & Address of Shipping Agent/Freight Forwarder",
+    "CERTIFICATE OF NON-MANIPULATION",
+    "DEMO CUSTOMS",
+    "Certification by Singapore Customs",
+    "AQSIQ170923130",
+  ]);
 });
 
 test("W3C DM 2.0 document is rendered correctly when dns did is verified", async () => {
