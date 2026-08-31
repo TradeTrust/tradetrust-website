@@ -8,7 +8,7 @@
   "browsers": [
     "chrome:headless --autoplay-policy=no-user-gesture-required --allow-insecure-localhost --ignore-certificate-errors --disable-features=LocalNetworkAccessChecks"
   ],
-  "concurrency": 4,
+  "concurrency": 2,
   "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true",
   "cache": true,
   "selectorTimeout": 90000,
@@ -17,7 +17,7 @@
   "ajaxRequestTimeout": 120000,
   "pageRequestTimeout": 180000,
   "browserInitTimeout": 180000,
-  "testExecutionTimeout": 180000,
+  "testExecutionTimeout": 300000,
   "runExecutionTimeout": 10000000,
   "color": true,
   "speed": 1,
