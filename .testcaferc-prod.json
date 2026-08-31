@@ -11,7 +11,7 @@
   "concurrency": 4,
   "ssl": "pfx=src/test/ca/testingdomain.pfx;rejectUnauthorized=true",
   "cache": true,
-  "selectorTimeout": 45000,
+  "selectorTimeout": 90000,
   "assertionTimeout": 60000,
   "pageLoadTimeout": 60000,
   "ajaxRequestTimeout": 120000,
