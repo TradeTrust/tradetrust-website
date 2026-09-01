@@ -5,10 +5,17 @@ import ConnectToMetamask from "./index";
 import { OverlayContext } from "../../common/contexts/OverlayContext";
 
 // Mock react-tooltip module
-jest.mock("react-tooltip", () => ({
-  __esModule: true,
-  Tooltip: () => null,
-}));
+jest.mock("react-tooltip", () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const ReactLib = require("react");
+  return {
+    __esModule: true,
+    Tooltip: ReactLib.forwardRef((_props: unknown, ref: React.Ref<{ open: () => void; close: () => void }>) => {
+      ReactLib.useImperativeHandle(ref, () => ({ open: jest.fn(), close: jest.fn() }));
+      return null;
+    }),
+  };
+});
 
 // Mock the useProviderContext hook
 jest.mock("../../common/contexts/provider", () => {

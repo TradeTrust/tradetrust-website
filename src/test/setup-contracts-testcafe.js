@@ -225,6 +225,7 @@ const CHAIN_ID = { local: 1337 };
     console.log("Endorsement chain operations completed successfully");
   } catch (error) {
     console.error("Error during endorsement chain operations:", error.message);
+    throw error;
   }
 
   // prep for issuing document store
@@ -266,6 +267,7 @@ const CHAIN_ID = { local: 1337 };
       console.log(`Document ${merkleRoot} issued successfully`);
     } catch (error) {
       console.error(`Failed to issue document ${merkleRoot}:`, error.message);
+      throw error;
     }
   }
 

@@ -2,7 +2,8 @@ import { location, navigateToVerify, uploadDocument, validateIframeTexts, valida
 
 fixture("DNS DID Certificate Rendering").page`${location}`;
 
-// Skipped in CI: embedded renderer at demo-cnm.openattestation.com fails to load in headless Chrome (raw JSON fallback).
+// Intentionally skipped everywhere (not just CI): embedded renderer at demo-cnm.openattestation.com
+// fails to load in headless Chrome (raw JSON fallback).
 // eslint-disable-next-line jest/no-disabled-tests
 test.skip("sample document is rendered correctly when dns did is verified", async () => {
   await navigateToVerify();

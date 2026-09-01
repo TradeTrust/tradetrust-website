@@ -115,7 +115,8 @@ const attachmentTestScenarios = [
 // Run basic tests for documents without attachments
 basicTestScenarios.forEach((scenario) => {
   const defineTest = scenario.version === "v1" ? test.skip : test;
-  // v1 skipped in CI: #issuedby not present in renderer iframe (Chrome headless / prod integration).
+  // v1 intentionally skipped everywhere (not just CI): #issuedby not present in renderer iframe
+  // (Chrome headless / prod integration).
   defineTest(
     `should render correctly when ${scenario.description} contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER`,
     async () => {
@@ -134,7 +135,8 @@ basicTestScenarios.forEach((scenario) => {
 // Run attachment tests for documents with attachments
 attachmentTestScenarios.forEach((scenario) => {
   const defineTest = scenario.version === "v1" ? test.skip : test;
-  // v1 skipped in CI: #issuedby not present in renderer iframe (Chrome headless / prod integration).
+  // v1 intentionally skipped everywhere (not just CI): #issuedby not present in renderer iframe
+  // (Chrome headless / prod integration).
   defineTest(
     `should render correctly when ${scenario.description} contains credentialStatus TransferableRecords with renderMethod EMBEDDED_RENDERER and attachment`,
     async (t) => {
