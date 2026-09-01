@@ -61,7 +61,7 @@
     "@govtechsg/address-identity-resolver": "^1.5.0",
     "@govtechsg/oa-encryption": "^1.3.5",
     "@reduxjs/toolkit": "^1.6.1",
-    "@rjsf/core": "^5.24.13",
+    "@rjsf/core": "^3.1.0",
     "@sentry/react": "^9.42.0",
     "@tradetrust-tt/address-identity-resolver": "^1.6.2",
     "@tradetrust-tt/decentralized-renderer-react-components": "^3.16.12",
@@ -340,7 +340,7 @@
       "minimatch": ">=9.0.6 <10.0.0",
       "brace-expansion": ">=2.1.2 <3.0.0"
     },
-    "@rjsf/core@3.2.1": {
+    "@rjsf/core": {
       "ajv": ">=6.14.0 <7.0.0"
     },
     "eslint": {
