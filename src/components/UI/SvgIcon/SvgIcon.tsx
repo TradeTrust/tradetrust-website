@@ -1,6 +1,7 @@
 import uniqueId from "lodash/uniqueId";
 import React, { FunctionComponent, useState } from "react";
-import ReactTooltip from "react-tooltip";
+// @ts-ignore: react-tooltip
+import { Tooltip } from "react-tooltip";
 
 interface SvgIconProps extends React.SVGProps<SVGSVGElement> {
   tooltipId?: string;
@@ -28,15 +29,7 @@ export const TooltipIcon: FunctionComponent<TooltipIconProps> = ({
       <SvgIcon tooltipId={id} className={className}>
         {children}
       </SvgIcon>
-      <ReactTooltip
-        id={`tooltip-${id}`}
-        place={placement}
-        type="dark"
-        effect="solid"
-        getContent={() => {
-          return content;
-        }}
-      />
+      <Tooltip id={`tooltip-${id}`} place={placement} variant="dark" content={content} />
     </>
   );
 };
@@ -77,8 +70,7 @@ export const SvgIconQRCode: FunctionComponent = () => {
 export const SvgIcon: FunctionComponent<SvgIconProps> = ({ tooltipId, children, ...props }) => {
   const tooltipProps = tooltipId
     ? {
-        "data-tip": "",
-        "data-for": `tooltip-${tooltipId}`,
+        "data-tooltip-id": `tooltip-${tooltipId}`,
       }
     : null;
 

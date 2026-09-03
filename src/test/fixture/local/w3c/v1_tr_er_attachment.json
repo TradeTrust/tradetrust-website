@@ -63,9 +63,7 @@
   "issuanceDate": "2021-12-03T12:19:52Z",
   "expirationDate": "2029-12-03T12:19:52Z",
   "issuer": "did:web:trustvc.github.io:did:1",
-  "type": [
-    "VerifiableCredential"
-  ],
+  "type": ["VerifiableCredential"],
   "id": "urn:bnid:_:01946792-054c-7ee0-8d9b-582fc65e8386",
   "proof": {
     "type": "BbsBlsSignature2020",
