@@ -3,8 +3,11 @@ import { Youtube } from "../UI/Overlay/OverlayContent";
 import React, { FunctionComponent } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
+// @ts-ignore: swiper
 import "swiper/css";
+// @ts-ignore: swiper
 import "swiper/css/navigation";
+// @ts-ignore: swiper
 import "swiper/css/pagination";
 import { gaEvent } from "../../common/utils/analytics";
 import { GaAction, GaCategory } from "../../types";

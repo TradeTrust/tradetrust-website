@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactTooltip from "react-tooltip";
+// @ts-ignore: react-tooltip
+import { Tooltip } from "react-tooltip";
+// @ts-ignore: react-tooltip
+import type { TooltipRefProps } from "react-tooltip";
 import { useProviderContext } from "../../common/contexts/provider";
 import ConnectToBlockchainModel from ".";
 import { useOverlayContext } from "../../common/contexts/OverlayContext";
@@ -18,7 +21,7 @@ export const Connected: React.FC<ConnectedProps> = ({
   account: accountProp,
 }) => {
   const [tooltipMessage, setTooltipMessage] = useState(openConnectToBlockchainModel ? "" : "Copy");
-  const tooltipRef = useRef(null);
+  const tooltipRef = useRef<TooltipRefProps>(null);
   const [displayedAccount, setDisplayedAccount] = useState("");
   const accountRef = useRef<HTMLHeadingElement>(null);
   const { account: contextAccount } = useProviderContext();
@@ -60,10 +63,10 @@ export const Connected: React.FC<ConnectedProps> = ({
     } else if (account) {
       try {
         await navigator.clipboard.writeText(account);
-        ReactTooltip.hide(tooltipRef.current!);
+        tooltipRef.current?.close();
         setTooltipMessage("Copied!");
         setTimeout(() => {
-          ReactTooltip.show(tooltipRef.current!);
+          tooltipRef.current?.open();
         }, 0);
       } catch (err) {
         console.error("Failed to copy: ", err);
@@ -78,22 +81,20 @@ export const Connected: React.FC<ConnectedProps> = ({
           if (openConnectToBlockchainModel) return;
 
           setTimeout(() => {
-            ReactTooltip.hide(tooltipRef.current!);
+            tooltipRef.current?.close();
             setTooltipMessage("Copy");
           }, 1_000);
         }}
         onMouseEnter={() => {
           if (openConnectToBlockchainModel) return;
 
-          ReactTooltip.hide(tooltipRef.current!);
+          tooltipRef.current?.close();
           setTooltipMessage("Copy");
           setTimeout(() => {
-            ReactTooltip.show(tooltipRef.current!);
+            tooltipRef.current?.open();
           }, 0);
         }}
-        ref={tooltipRef}
-        data-tip={tooltipMessage}
-        data-for="active-wallet-tooltip"
+        data-tooltip-id="active-wallet-tooltip"
         onClick={handleActiveWalletClicked}
         data-testid="activeWallet"
         className={`${
@@ -113,13 +114,12 @@ export const Connected: React.FC<ConnectedProps> = ({
         </div>
         {!openConnectToBlockchainModel && <img src="/static/images/copy.svg" alt="Copy" className="w-5 h-5" />}
       </div>
-      <ReactTooltip
-        type="light"
+      <Tooltip
+        ref={tooltipRef}
+        variant="light"
         id="active-wallet-tooltip"
-        border={true}
-        borderColor="#E7EAEC"
-        effect="solid"
-        getContent={() => tooltipMessage}
+        border="1px solid #E7EAEC"
+        content={tooltipMessage}
       />
     </>
   );
