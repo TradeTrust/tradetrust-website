@@ -469,9 +469,9 @@ describe("EndorsementChainLayout", () => {
     expect(within(screen.getByTestId("row-event-3")).getByTestId("row-event-Holder")).toHaveTextContent("0xHolder");
   });
 
-  it("should show last owner, holder and Bill discharged title on eBoE discharge shred", () => {
+  it("should show last owner, holder and Bill discharged title on eBoE STATUS_DISCHARGED", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "" });
-    const eboeShredChain: EndorsementChain = [
+    const eboeDischargeChain: EndorsementChain = [
       {
         type: "INITIAL",
         transactionHash: "0x1",
@@ -483,7 +483,7 @@ describe("EndorsementChainLayout", () => {
         remark: "mint",
       },
       {
-        type: "RETURN_TO_ISSUER_ACCEPTED",
+        type: "STATUS_DISCHARGED",
         transactionHash: "0x2",
         transactionIndex: 0,
         blockNumber: 2,
@@ -491,7 +491,6 @@ describe("EndorsementChainLayout", () => {
         holder: "0xHolder",
         timestamp: 2,
         remark: "burned",
-        terminationReason: "Discharged",
       },
     ];
     render(
@@ -500,25 +499,25 @@ describe("EndorsementChainLayout", () => {
           providerDocumentationURL={""}
           error={""}
           pending={false}
-          endorsementChain={eboeShredChain}
+          endorsementChain={eboeDischargeChain}
           setShowEndorsementChain={() => {}}
           isObligation
         />
       </Provider>
     );
 
-    const shredRow = within(screen.getByTestId("row-event-1"));
-    expect(shredRow.getByTestId("action-title")).toHaveTextContent("Bill discharged");
-    expect(shredRow.getByTestId("row-event-Owner")).toHaveTextContent("0xOwner");
-    expect(shredRow.getByTestId("row-event-Holder")).toHaveTextContent("0xHolder");
-    expect(shredRow.queryByTestId("termination-reason")).toBeNull();
+    const dischargeRow = within(screen.getByTestId("row-event-1"));
+    expect(dischargeRow.getByTestId("action-title")).toHaveTextContent("Bill discharged");
+    expect(dischargeRow.getByTestId("row-event-Owner")).toHaveTextContent("0xOwner");
+    expect(dischargeRow.getByTestId("row-event-Holder")).toHaveTextContent("0xHolder");
+    expect(dischargeRow.queryByTestId("termination-reason")).toBeNull();
   });
 
-  it("should show Bill rejected on eBoE reject shred", () => {
+  it("should show Bill rejected on eBoE STATUS_REJECTED", () => {
     mockUseIdentifierResolver.mockReturnValue({ resolvedIdentifier: "" });
-    const eboeShredChain: EndorsementChain = [
+    const eboeRejectChain: EndorsementChain = [
       {
-        type: "RETURN_TO_ISSUER_ACCEPTED",
+        type: "STATUS_REJECTED",
         transactionHash: "0x2",
         transactionIndex: 0,
         blockNumber: 2,
@@ -526,7 +525,6 @@ describe("EndorsementChainLayout", () => {
         holder: "0xHolder",
         timestamp: 2,
         remark: "burned",
-        terminationReason: "Rejected",
       },
     ];
     render(
@@ -535,7 +533,7 @@ describe("EndorsementChainLayout", () => {
           providerDocumentationURL={""}
           error={""}
           pending={false}
-          endorsementChain={eboeShredChain}
+          endorsementChain={eboeRejectChain}
           setShowEndorsementChain={() => {}}
           isObligation
         />

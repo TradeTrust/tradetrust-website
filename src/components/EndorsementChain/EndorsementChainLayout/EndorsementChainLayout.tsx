@@ -46,13 +46,6 @@ interface HistoryChain {
   remark?: string;
 }
 
-/** Reject/discharge auto-shred as RETURN_TO_ISSUER_ACCEPTED — title from on-chain reason; return-to-issuer keeps taken out of circulation. */
-const shredActionTitle = (rawReason?: string): ActionType => {
-  if (rawReason === "Rejected") return ActionType.STATUS_REJECTED;
-  if (rawReason === "Discharged") return ActionType.STATUS_DISCHARGED;
-  return ActionType.RETURN_TO_ISSUER_ACCEPTED;
-};
-
 interface AddressResolvedNameProps {
   address: string;
 }
@@ -110,7 +103,6 @@ const getHistoryChain = (endorsementChain?: EndorsementChain, isObligation = fal
     const timestamp = endorsementChainEvent.timestamp;
     const hash = endorsementChainEvent.transactionHash;
     const remark = endorsementChainEvent?.remark;
-    const rawTerminationReason = endorsementChainEvent.terminationReason;
     const showOwner = Boolean(beneficiary);
     const showHolder = Boolean(holder);
 
@@ -166,8 +158,10 @@ const getHistoryChain = (endorsementChain?: EndorsementChain, isObligation = fal
         break;
       case "RETURN_TO_ISSUER_ACCEPTED":
       case "SURRENDER_ACCEPTED":
+        // Classic ETR shred, or BoE shred after an actual return-to-issuer.
+        // Reject/discharge arrive as STATUS_REJECTED / STATUS_DISCHARGED.
         historyChain.push({
-          action: shredActionTitle(rawTerminationReason),
+          action: ActionType.RETURN_TO_ISSUER_ACCEPTED,
           isNewBeneficiary: isObligation && showOwner,
           isNewHolder: isObligation && showHolder,
           beneficiary: isObligation ? beneficiary : undefined,
