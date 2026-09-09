@@ -278,7 +278,7 @@ describe("AssetManagementTags", () => {
 
     it("shows the envelope version tag and a count of what is inside", () => {
       const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_2_0);
-      renderWithProvider(store, { presentationCredentialCount: 2 });
+      renderWithProvider(store, { presentationCredentialCount: 2, presentationVersionLabel: "V2.0" });
 
       expect(screen.getByText("W3C VP V2.0")).toBeInTheDocument();
       expect(screen.getByText("2 Credentials")).toBeInTheDocument();
@@ -293,7 +293,7 @@ describe("AssetManagementTags", () => {
 
     it("tags a v1.1 envelope by its own data model", () => {
       const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_1_1);
-      renderWithProvider(store, { presentationCredentialCount: 1 });
+      renderWithProvider(store, { presentationCredentialCount: 1, presentationVersionLabel: "V1.1" });
 
       expect(screen.getByText("W3C VP V1.1")).toBeInTheDocument();
       expect(screen.queryByText("W3C VP V2.0")).not.toBeInTheDocument();
@@ -301,11 +301,21 @@ describe("AssetManagementTags", () => {
 
     it("gives the count the credential colour, and the envelope a different one", () => {
       const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_2_0);
-      renderWithProvider(store, { presentationCredentialCount: 2 });
+      renderWithProvider(store, { presentationCredentialCount: 2, presentationVersionLabel: "V2.0" });
 
       expect(screen.getByText("2 Credentials")).toHaveClass(ORANGE);
       expect(screen.getByText("W3C VP V2.0")).toHaveClass(BLUE);
       expect(screen.getByText("W3C VP V2.0")).not.toHaveClass(ORANGE);
+    });
+
+    it("tags the envelope even when the store records no schema, as on the demo path", () => {
+      // The demo keeps its document in a different slice and records no documentSchema at all, so
+      // reading the version off the store showed the count with no version tag beside it.
+      const store = createMockStore(null);
+      renderWithProvider(store, { presentationCredentialCount: 2, presentationVersionLabel: "V2.0" });
+
+      expect(screen.getByText("W3C VP V2.0")).toBeInTheDocument();
+      expect(screen.getByText("2 Credentials")).toBeInTheDocument();
     });
 
     it("drops every credential-shaped tag — none of them describe an envelope", () => {

@@ -5,7 +5,7 @@ import { IssuedBy } from "./IssuedBy";
 import { StatusChecks } from "./StatusChecks";
 import { AssetManagementTags } from "../AssetManagementPanel/AssetManagementTags";
 import { AssetInformationPanel } from "../AssetManagementPanel/AssetInformationPanel";
-import { getPresentationCredentials, isVerifiablePresentation } from "../../utils/presentation";
+import { getPresentationCredentials, getW3CVersionLabel, isVerifiablePresentation } from "../../utils/presentation";
 
 interface DocumentStatusProps {
   isMagicDemo?: boolean;
@@ -47,6 +47,7 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({
           isTransferableDocument={isTransferableDocument}
           isObligation={isObligation}
           presentationCredentialCount={isPresentation ? getPresentationCredentials(document).length : undefined}
+          presentationVersionLabel={isPresentation ? getW3CVersionLabel(document) : undefined}
         />
       </div>
       <div className="col-span-1">

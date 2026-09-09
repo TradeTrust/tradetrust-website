@@ -15,12 +15,20 @@ interface AssetManagementTagsProps {
    * a presentation.
    */
   presentationCredentialCount?: number;
+  /**
+   * The presentation envelope's data model ("V2.0"), read from the document rather than from the
+   * certificate slice's documentSchema. The demo path stores its document in a different slice
+   * and records no schema at all, so a presentation opened there would have shown the credential
+   * count with no version tag beside it.
+   */
+  presentationVersionLabel?: string;
 }
 
 export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = ({
   isTransferableDocument = false,
   isObligation = false,
   presentationCredentialCount,
+  presentationVersionLabel,
 }) => {
   const { documentSchema } = useSelector((state: RootState) => state.certificate);
   const tokenRegistryVersion = useTokenRegistryVersion();
@@ -41,14 +49,9 @@ export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = 
   if (presentationCredentialCount !== undefined) {
     return (
       <div className="flex flex-wrap py-2 gap-2">
-        {documentSchema === DOCUMENT_SCHEMA.W3C_VP_1_1 && (
+        {presentationVersionLabel && (
           <Tag rounded="rounded-full" className={tagCSSBlue}>
-            W3C VP V1.1
-          </Tag>
-        )}
-        {documentSchema === DOCUMENT_SCHEMA.W3C_VP_2_0 && (
-          <Tag rounded="rounded-full" className={tagCSSBlue}>
-            W3C VP V2.0
+            W3C VP {presentationVersionLabel}
           </Tag>
         )}
         <Tag rounded="rounded-full" className={tagCSOrange}>
