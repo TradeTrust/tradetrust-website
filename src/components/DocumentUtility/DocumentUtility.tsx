@@ -10,6 +10,11 @@ interface DocumentUtilityProps {
   document: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential;
   onPrint: () => void;
   selectedTemplate: string;
+  /**
+   * Overrides the download name (extension excluded). Used for a credential inside a
+   * presentation, where the document's own `name` is not unique across tabs.
+   */
+  downloadName?: string;
 }
 
 interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
@@ -21,7 +26,12 @@ interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
   };
 }
 
-export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ document, onPrint, selectedTemplate }) => {
+export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
+  document,
+  onPrint,
+  selectedTemplate,
+  downloadName,
+}) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
   const documentWithMetadata = getOpenAttestationData(
     document as WrappedOrSignedOpenAttestationDocument
@@ -30,7 +40,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({ docum
   const { name } = (isRawV3Document(documentWithMetadata) as any)
     ? documentWithMetadata.credentialSubject
     : documentWithMetadata;
-  const fileName = name ?? "Untitled";
+  const fileName = downloadName ?? name ?? "Untitled";
   const qrcodeUrl = getQRCodeLink(document);
   const templateURL = getTemplateUrl(document);
   const imageSettings: ImageSettings = {

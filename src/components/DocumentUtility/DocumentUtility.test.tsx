@@ -77,3 +77,43 @@ describe("DocumentUtility", () => {
     );
   });
 });
+
+describe("DocumentUtility — download name", () => {
+  const renderUtility = async (props: any) => {
+    await act(async () => {
+      render(<DocumentUtility onPrint={() => {}} selectedTemplate="custom-template" {...props} />);
+    });
+  };
+
+  it("names the download after the document by default", async () => {
+    const document = await wrapOADocument({ issuers, name: "bah bah black sheep" });
+    await renderUtility({ document });
+    expect(screen.getByLabelText("document-utility-download")).toHaveAttribute("download", "bah bah black sheep.tt");
+  });
+
+  it("falls back to Untitled when the document has no name", async () => {
+    const document = await wrapOADocument({ issuers });
+    await renderUtility({ document });
+    expect(screen.getByLabelText("document-utility-download")).toHaveAttribute("download", "Untitled.tt");
+  });
+
+  it("uses downloadName when given, so presentation tabs cannot overwrite each other", async () => {
+    // Two unnamed credentials in one presentation both fall back to "Untitled" while holding
+    // DIFFERENT content — the override is what keeps their downloads distinct.
+    const document = await wrapOADocument({ issuers });
+    await renderUtility({ document, downloadName: "presentation-chafta-coo" });
+    expect(screen.getByLabelText("document-utility-download")).toHaveAttribute(
+      "download",
+      "presentation-chafta-coo.tt"
+    );
+  });
+
+  it("lets downloadName win over the document's own name", async () => {
+    const document = await wrapOADocument({ issuers, name: "bah bah black sheep" });
+    await renderUtility({ document, downloadName: "presentation-bill-of-lading" });
+    expect(screen.getByLabelText("document-utility-download")).toHaveAttribute(
+      "download",
+      "presentation-bill-of-lading.tt"
+    );
+  });
+});

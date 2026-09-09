@@ -5,6 +5,7 @@ import { IssuedBy } from "./IssuedBy";
 import { StatusChecks } from "./StatusChecks";
 import { AssetManagementTags } from "../AssetManagementPanel/AssetManagementTags";
 import { AssetInformationPanel } from "../AssetManagementPanel/AssetInformationPanel";
+import { getPresentationCredentials, isVerifiablePresentation } from "../../utils/presentation";
 
 interface DocumentStatusProps {
   isMagicDemo?: boolean;
@@ -29,6 +30,8 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({
 
   if (!document || !verificationStatus) return null;
 
+  const isPresentation = isVerifiablePresentation(document);
+
   return (
     <div
       id="document-status"
@@ -40,10 +43,14 @@ export const DocumentStatus: FunctionComponent<DocumentStatusProps> = ({
           verificationStatus={verificationStatus}
           document={document}
         />
-        <AssetManagementTags isTransferableDocument={isTransferableDocument} isObligation={isObligation} />
+        <AssetManagementTags
+          isTransferableDocument={isTransferableDocument}
+          isObligation={isObligation}
+          presentationCredentialCount={isPresentation ? getPresentationCredentials(document).length : undefined}
+        />
       </div>
       <div className="col-span-1">
-        <StatusChecks verificationStatus={verificationStatus} />
+        <StatusChecks verificationStatus={verificationStatus} isPresentation={isPresentation} />
       </div>
       {isTransferableDocument && (
         <div className="col-span-1">

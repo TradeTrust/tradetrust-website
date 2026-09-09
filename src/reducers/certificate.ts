@@ -16,6 +16,10 @@ export const DOCUMENT_SCHEMA = {
   OA_V3: "OA",
   W3C_VC_1_1: "W3C VC 1.1",
   W3C_VC_2_0: "W3C VC 2.0",
+  // A presentation is an envelope, not a credential: it is tagged by the data model of the
+  // envelope itself, and the credentials inside carry their own version tags on their tabs.
+  W3C_VP_1_1: "W3C VP 1.1",
+  W3C_VP_2_0: "W3C VP 2.0",
 } as const;
 
 export type DocumentSchemaType = (typeof DOCUMENT_SCHEMA)[keyof typeof DOCUMENT_SCHEMA] | null;

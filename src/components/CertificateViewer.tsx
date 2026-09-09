@@ -21,6 +21,8 @@ import {
   WrappedOrSignedOpenAttestationDocument,
 } from "../utils/shared";
 import { isValidAttachmentData } from "../utils/attachmentValidation";
+import { isVerifiablePresentation } from "../utils/presentation";
+import { CredentialTabs } from "./CredentialTabs";
 import { AssetManagementApplication } from "./AssetManagementPanel/AssetManagementApplication";
 import { CertificateViewerErrorBoundary } from "./CertificateViewerErrorBoundary/CertificateViewerErrorBoundary";
 import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/DecentralisedRenderer";
@@ -41,6 +43,10 @@ interface CertificateViewerProps {
 }
 
 export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ isMagicDemo, document, filename }) => {
+  // A presentation is a bundle, not a credential. None of the credential-shaped machinery below
+  // applies to the envelope: it holds no token, no renderer template and no attachments of its
+  // own, and each embedded credential is rendered on its own tab instead.
+  const isPresentation = isVerifiablePresentation(document);
   const isTransferableAssetVal = isTransferableRecord(document);
   const isObligationAssetVal = isObligationRecord(document);
   let tokenId = "";
@@ -166,6 +172,23 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
     </div>
   );
 
+  const renderedPresentationViewer = (
+    <>
+      <div className="no-print mt-4">
+        <AssetManagementApplication
+          isMagicDemo={isMagicDemo}
+          isTransferableDocument={false}
+          isSampleDocument={isSampleDocument}
+          isExpired={isExpired}
+        />
+      </div>
+      <div id="preview-block">
+        <CredentialTabs presentation={document} fileName={filename} />
+      </div>
+      <ScrollTip targetId="preview-block" />
+    </>
+  );
+
   const renderedCertificateViewer = (
     <>
       <div className="no-print mt-4">
@@ -232,6 +255,10 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
       <ScrollTip targetId="preview-block" />
     </>
   );
+
+  if (isPresentation) {
+    return <CertificateViewerErrorBoundary>{renderedPresentationViewer}</CertificateViewerErrorBoundary>;
+  }
 
   return (
     <CertificateViewerErrorBoundary>

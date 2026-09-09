@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { VerificationFragment } from "@trustvc/trustvc";
 import { errorMessages, errorMessageHandling } from "@trustvc/trustvc";
+import { getPresentationError } from "../../../utils/presentationErrors";
 
 export const DetailedError: FunctionComponent<{ title: string; message: string }> = ({ title, message }) => {
   return (
@@ -17,8 +18,33 @@ export const DetailedError: FunctionComponent<{ title: string; message: string }
 export const DetailedErrors: FunctionComponent<{
   verificationStatus: VerificationFragment[] | null;
   verificationError: string | null;
-}> = ({ verificationStatus, verificationError }) => {
+  /**
+   * The document that was verified. Only needed for a Verifiable Presentation, whose error copy
+   * names the embedded credential at fault by the label its tab shows.
+   */
+  document?: unknown;
+}> = ({ verificationStatus, verificationError, document }) => {
   const { MESSAGES } = errorMessages;
+
+  /**
+   * A failing presentation reports one accurate error rather than the OpenAttestation-shaped set
+   * below. errorMessageHandling was written for OpenAttestation: it sees an invalid
+   * DOCUMENT_INTEGRITY and returns HASH for every presentation failure, so an expired or unsigned
+   * presentation would be reported as "Document has been tampered with".
+   */
+  const presentationError = getPresentationError(verificationStatus, document);
+  if (presentationError) {
+    const messageSet = MESSAGES[presentationError.type];
+    return (
+      <div className="mb-8">
+        <DetailedError
+          title={messageSet.failureTitle}
+          message={presentationError.message ?? messageSet.failureMessage}
+        />
+      </div>
+    );
+  }
+
   const errors: string[] = [...(verificationStatus ? errorMessageHandling(verificationStatus) : [])];
   if (verificationError) {
     if (Array.isArray(verificationError)) {

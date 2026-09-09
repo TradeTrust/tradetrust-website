@@ -267,4 +267,69 @@ describe("AssetManagementTags", () => {
       expect(trV5Tag).toHaveClass("bg-tangerine-500/[24%]", "text-tangerine-500", "rounded-full", "font-gilroy-bold");
     });
   });
+
+  describe("Verifiable Presentation Tags", () => {
+    // The colours carry meaning: blue marks the ENVELOPE (as it does Transferable/Negotiable),
+    // orange marks the credentials — so the count matches the "W3C VC" version tag each
+    // credential shows on its own tab. Asserting the classes keeps that relationship from
+    // silently drifting apart.
+    const BLUE = "bg-cerulean-300/[25%]";
+    const ORANGE = "bg-tangerine-500/[24%]";
+
+    it("shows the envelope version tag and a count of what is inside", () => {
+      const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_2_0);
+      renderWithProvider(store, { presentationCredentialCount: 2 });
+
+      expect(screen.getByText("W3C VP V2.0")).toBeInTheDocument();
+      expect(screen.getByText("2 Credentials")).toBeInTheDocument();
+    });
+
+    it("singularises the count for one credential", () => {
+      const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_2_0);
+      renderWithProvider(store, { presentationCredentialCount: 1 });
+
+      expect(screen.getByText("1 Credential")).toBeInTheDocument();
+    });
+
+    it("tags a v1.1 envelope by its own data model", () => {
+      const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_1_1);
+      renderWithProvider(store, { presentationCredentialCount: 1 });
+
+      expect(screen.getByText("W3C VP V1.1")).toBeInTheDocument();
+      expect(screen.queryByText("W3C VP V2.0")).not.toBeInTheDocument();
+    });
+
+    it("gives the count the credential colour, and the envelope a different one", () => {
+      const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_2_0);
+      renderWithProvider(store, { presentationCredentialCount: 2 });
+
+      expect(screen.getByText("2 Credentials")).toHaveClass(ORANGE);
+      expect(screen.getByText("W3C VP V2.0")).toHaveClass(BLUE);
+      expect(screen.getByText("W3C VP V2.0")).not.toHaveClass(ORANGE);
+    });
+
+    it("drops every credential-shaped tag — none of them describe an envelope", () => {
+      mockUseTokenRegistryVersion.mockReturnValue(TokenRegistryVersions.V5);
+      const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_2_0);
+      renderWithProvider(store, {
+        presentationCredentialCount: 2,
+        isTransferableDocument: true,
+        isObligation: true,
+      });
+
+      expect(screen.queryByText("Transferable")).not.toBeInTheDocument();
+      expect(screen.queryByText("Negotiable")).not.toBeInTheDocument();
+      expect(screen.queryByText("Obligation")).not.toBeInTheDocument();
+      expect(screen.queryByText("TR V5")).not.toBeInTheDocument();
+    });
+
+    it("leaves a plain credential's tags untouched", () => {
+      const store = createMockStore(DOCUMENT_SCHEMA.W3C_VC_2_0);
+      renderWithProvider(store, { isTransferableDocument: true });
+
+      expect(screen.getByText("Transferable")).toBeInTheDocument();
+      expect(screen.getByText("W3C VC V2.0")).toBeInTheDocument();
+      expect(screen.queryByText(/Credentials?$/)).not.toBeInTheDocument();
+    });
+  });
 });
