@@ -15,17 +15,32 @@ export const ObfuscatedMessage: FunctionComponent<ObfuscatedMessageProps> = ({ d
   const [isDocumentObfuscated, setIsDocumentObfuscated] = useState<boolean | null>(null);
 
   useEffect(() => {
+    /**
+     * Guards against a result arriving for a document that is no longer being shown.
+     *
+     * isObfuscated is async and takes no abort signal, so without this the effect had two
+     * faults. Unmounting mid-check set state on a dead component — React's "state update on an
+     * unmounted component" warning. Worse, changing document while a check was in flight left
+     * both running, and whichever settled LAST won: the older document's verdict could overwrite
+     * the newer one's, showing (or hiding) the obfuscation notice against the wrong document.
+     */
+    let cancelled = false;
+
     const checkObfuscation = async () => {
       try {
         const result = await isObfuscated(document);
-        setIsDocumentObfuscated(result);
+        if (!cancelled) setIsDocumentObfuscated(result);
       } catch (error) {
         console.warn("Error checking if document is obfuscated:", error);
-        setIsDocumentObfuscated(false);
+        if (!cancelled) setIsDocumentObfuscated(false);
       }
     };
 
     checkObfuscation();
+
+    return () => {
+      cancelled = true;
+    };
   }, [document]);
 
   // Return null while checking or if not obfuscated
