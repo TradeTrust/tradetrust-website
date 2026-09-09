@@ -318,6 +318,25 @@ describe("AssetManagementTags", () => {
       expect(screen.getByText("2 Credentials")).toBeInTheDocument();
     });
 
+    it("tags the envelope from the document even when the store holds a STALE schema", () => {
+      // documentSchema is left over from a previously verified credential. Reading the version
+      // off the store showed no VP tag at all here, since the leftover matched neither VP value.
+      const store = createMockStore(DOCUMENT_SCHEMA.W3C_VC_2_0);
+      renderWithProvider(store, { presentationCredentialCount: 2, presentationVersionLabel: "V2.0" });
+
+      expect(screen.getByText("W3C VP V2.0")).toBeInTheDocument();
+      // And the stale credential tag must not leak onto an envelope.
+      expect(screen.queryByText("W3C VC V2.0")).not.toBeInTheDocument();
+    });
+
+    it("lets the document win over a stale VP schema of the wrong version", () => {
+      const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_1_1);
+      renderWithProvider(store, { presentationCredentialCount: 1, presentationVersionLabel: "V2.0" });
+
+      expect(screen.getByText("W3C VP V2.0")).toBeInTheDocument();
+      expect(screen.queryByText("W3C VP V1.1")).not.toBeInTheDocument();
+    });
+
     it("drops every credential-shaped tag — none of them describe an envelope", () => {
       mockUseTokenRegistryVersion.mockReturnValue(TokenRegistryVersions.V5);
       const store = createMockStore(DOCUMENT_SCHEMA.W3C_VP_2_0);
