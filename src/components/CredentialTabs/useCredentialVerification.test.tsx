@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
+import { interpretFragments } from "@trustvc/trustvc";
 import { useCredentialVerification } from "./useCredentialVerification";
 
 // Must be `mock`-prefixed: jest.mock is hoisted above every other statement in the module.
@@ -125,6 +126,46 @@ describe("useCredentialVerification", () => {
     render(<Probe credentials={[{ id: "a" }]} />);
     await waitFor(() => expect(screen.getByTestId("result-0")).toHaveAttribute("data-loading", "false"));
     expect(screen.getByTestId("result-0")).toHaveAttribute("data-issuer", "");
+  });
+
+  /**
+   * The per-credential tabs and the envelope panel above them must agree about what "valid"
+   * means, or the same document reads green in one place and red in the other. StatusChecks uses
+   * trustvc's interpretFragments; this hook aggregates the fragments itself, so the two policies
+   * are pinned together here rather than left to drift.
+   *
+   * The all-SKIPPED row is the interesting one. tt-verify's isValid requires at least one VALID
+   * fragment — `some(VALID) && every(VALID || SKIPPED)` — so a group where everything skipped is
+   * NOT valid. Treating it as valid, or as "not applicable", would make the tab disagree with the
+   * panel and show a green tick for a check that nothing actually performed.
+   */
+  describe("agrees with interpretFragments, which the envelope panel uses", () => {
+    const cases: Array<{ name: string; statuses: string[] }> = [
+      { name: "single VALID", statuses: ["VALID"] },
+      { name: "VALID alongside SKIPPED", statuses: ["VALID", "SKIPPED"] },
+      { name: "everything SKIPPED", statuses: ["SKIPPED"] },
+      { name: "several SKIPPED", statuses: ["SKIPPED", "SKIPPED"] },
+      { name: "single INVALID", statuses: ["INVALID"] },
+      { name: "VALID alongside INVALID", statuses: ["VALID", "INVALID"] },
+      { name: "single ERROR", statuses: ["ERROR"] },
+      { name: "SKIPPED alongside ERROR", statuses: ["SKIPPED", "ERROR"] },
+    ];
+
+    it.each(cases)("DOCUMENT_STATUS: $name", async ({ statuses }) => {
+      const fragments = [
+        ...statuses.map((status, i) => ({ name: `status-${i}`, type: "DOCUMENT_STATUS", status })),
+        { name: "identity", type: "ISSUER_IDENTITY", status: "VALID" },
+        { name: "integrity", type: "DOCUMENT_INTEGRITY", status: "VALID" },
+      ];
+      mockVerifyDocument.mockResolvedValue(fragments);
+
+      render(<Probe credentials={[credential("a")]} />);
+      await waitFor(() => expect(screen.getByTestId("result-0")).toHaveAttribute("data-loading", "false"));
+
+      const mine = JSON.parse(screen.getByTestId("result-0").getAttribute("data-status")!).DOCUMENT_STATUS;
+      const theirs = interpretFragments(fragments as never).issuedValid;
+      expect(mine).toBe(theirs ? "VALID" : "INVALID");
+    });
   });
 
   it("returns nothing, and verifies nothing, for an empty credential list", async () => {
