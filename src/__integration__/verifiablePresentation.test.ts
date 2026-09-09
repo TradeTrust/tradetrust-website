@@ -16,7 +16,7 @@
  */
 import fs from "fs";
 import path from "path";
-import { verifyDocument, isValid, VerificationFragment } from "@trustvc/trustvc";
+import { verifyDocument, isValid, errorMessages, VerificationFragment } from "@trustvc/trustvc";
 import {
   getCredentialDownloadName,
   getCredentialLabel,
@@ -50,7 +50,19 @@ const groupStatus = (frags: VerificationFragment[], type: string) => {
   return group.some((f) => f.status === "INVALID" || f.status === "ERROR") ? "INVALID" : "VALID";
 };
 
-const VALID_FIXTURES = [
+/**
+ * Fixtures that reach the internet: didweb_issuer resolves a hosted did:web document, and
+ * credential_revoked fetches a revocation status list. Everything else is did:key and offline.
+ *
+ * They run by DEFAULT — they are the cases most worth having, and quietly skipping them would
+ * drop exactly the coverage this suite exists for. Set SKIP_NETWORK_TESTS=1 where there is no
+ * egress (a sandboxed runner, an offline laptop) to leave them out without failing the run.
+ */
+const skipNetwork = process.env.SKIP_NETWORK_TESTS === "1";
+const NETWORK_FIXTURES = ["valid/didweb_issuer.json", "invalid/credential_revoked.json"];
+const needsNetwork = (fixture: string) => NETWORK_FIXTURES.includes(fixture);
+
+const ALL_VALID_FIXTURES = [
   "valid/single_credential.json",
   "valid/two_credentials.json",
   "valid/with_attachments.json",
@@ -58,8 +70,11 @@ const VALID_FIXTURES = [
   "valid/didweb_issuer.json",
 ];
 
+/** Only VERIFICATION touches the network; detection is pure, so it is never gated. */
+const VALID_FIXTURES = ALL_VALID_FIXTURES.filter((fixture) => !(skipNetwork && needsNetwork(fixture)));
+
 describe("Verifiable Presentation — detection", () => {
-  it.each(VALID_FIXTURES)("recognises %s as a presentation", (name) => {
+  it.each(ALL_VALID_FIXTURES)("recognises %s as a presentation", (name) => {
     expect(isVerifiablePresentation(load(name))).toBe(true);
   });
 
@@ -154,19 +169,23 @@ describe("Verifiable Presentation — how each failure is reported", () => {
     },
   ];
 
-  it.each(CASES)("$fixture fails $failing and is reported as $type", async ({ fixture, failing, type, match }) => {
+  const RUNNABLE = CASES.filter(({ fixture }) => !(skipNetwork && needsNetwork(fixture)));
+
+  it.each(RUNNABLE)("$fixture fails $failing and is reported as $type", async ({ fixture, failing, type, match }) => {
     const frags = await verify(fixture);
     expect(groupStatus(frags, failing)).toBe("INVALID");
     expect(isValid(frags)).toBe(false);
 
     const error = getPresentationError(frags, load(fixture));
     expect(error?.type).toBe(type);
-    // HASH carries no override — the established copy already fits.
-    expect(error?.message ?? "Document has been tampered with").toMatch(match);
+    // Where getPresentationError sets no override (HASH), the established copy already fits and
+    // is what the UI renders. Resolve it from production rather than restating it here, so
+    // changing that copy fails this test instead of silently passing against a stale literal.
+    expect(error?.message ?? errorMessages.MESSAGES[error!.type].failureMessage).toMatch(match);
   });
 
   it("never leaks raw verifier wording to the user", async () => {
-    for (const { fixture } of CASES) {
+    for (const { fixture } of RUNNABLE) {
       const error = getPresentationError(await verify(fixture), load(fixture));
       // These are the verifier's own strings; none should reach the UI verbatim.
       expect(error?.message ?? "").not.toMatch(/Invalid signature\.|validUntil|status purpose|did:web:/);
@@ -190,7 +209,9 @@ describe("Verifiable Presentation — how each failure is reported", () => {
   });
 
   it("names the credential at fault by the position and label its tab shows", async () => {
-    const fixture = "invalid/credential_revoked.json";
+    // Deliberately an OFFLINE fixture: this assertion is about the copy, not about revocation,
+    // and naming a network fixture here would fail under SKIP_NETWORK_TESTS.
+    const fixture = "invalid/credential_expired.json";
     const [first] = getPresentationCredentials(load(fixture));
     const label = getCredentialLabel(first, 0);
     const error = getPresentationError(await verify(fixture), load(fixture));
