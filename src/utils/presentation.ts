@@ -67,8 +67,11 @@ const getCredentialDescriptor = (credential: any): string | undefined => {
   if (typeof templateName === "string" && templateName.trim()) {
     return templateName.replace(/_/g, " ");
   }
-  const types = [credential?.type].flat().filter(Boolean) as string[];
-  return types.find((t) => t !== "VerifiableCredential");
+  // A presentation is user-supplied JSON, so `type` can hold anything. `filter(Boolean) as
+  // string[]` merely told the compiler otherwise: a non-string entry survived, was returned as
+  // the descriptor, and threw on the caller's .toLowerCase(). Narrow for real.
+  const types = [credential?.type].flat().filter((type): type is string => typeof type === "string");
+  return types.find((type) => type !== "VerifiableCredential");
 };
 
 /**

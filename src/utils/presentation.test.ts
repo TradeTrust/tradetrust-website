@@ -82,6 +82,22 @@ describe("getCredentialLabel", () => {
     expect(getCredentialLabel({ type: ["VerifiableCredential"] }, 1)).toBe("Credential 2");
     expect(getCredentialLabel({}, 0)).toBe("Credential 1");
   });
+
+  it("ignores non-string types rather than returning one", () => {
+    // A presentation is user-supplied JSON, so `type` can hold anything. A non-string entry used
+    // to survive the filter and be returned as the label, which then threw on the caller's
+    // .toLowerCase() and put a non-renderable value into the tab.
+    expect(getCredentialLabel({ type: [{ malformed: true }] }, 0)).toBe("Credential 1");
+    expect(getCredentialLabel({ type: [42, null, "BillOfLading"] }, 0)).toBe("BillOfLading");
+    expect(getCredentialLabel({ type: { not: "an array" } }, 2)).toBe("Credential 3");
+  });
+
+  it("does not throw building a download name from a malformed type", () => {
+    expect(() => getCredentialDownloadName("presentation.json", { type: [{ malformed: true }] }, 0)).not.toThrow();
+    expect(getCredentialDownloadName("presentation.json", { type: [{ malformed: true }] }, 0)).toBe(
+      "presentation-credential-1"
+    );
+  });
 });
 
 describe("getW3CVersionLabel / getCredentialVersionTag", () => {
