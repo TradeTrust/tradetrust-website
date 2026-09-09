@@ -13,8 +13,12 @@ jest.mock("./CredentialTabs", () => ({
     <div data-testid="credential-tabs" data-file-name={fileName} data-holder={presentation?.holder} />
   ),
 }));
+const mockSingleRenderer = jest.fn();
 jest.mock("./DecentralisedTemplateRenderer/DecentralisedRenderer", () => ({
-  DecentralisedRendererContainer: () => <div data-testid="single-renderer" />,
+  DecentralisedRendererContainer: (props: any) => {
+    mockSingleRenderer(props);
+    return <div data-testid="single-renderer" />;
+  },
 }));
 jest.mock("./AssetManagementPanel/AssetManagementApplication", () => ({
   AssetManagementApplication: (props: any) => (
@@ -88,5 +92,21 @@ describe("CertificateViewer — Verifiable Presentation", () => {
     renderViewer(credential);
     expect(screen.getByTestId("single-renderer")).toBeInTheDocument();
     expect(screen.queryByTestId("credential-tabs")).not.toBeInTheDocument();
+  });
+});
+
+describe("CertificateViewer — renderer reports no usable template", () => {
+  it("does not throw when every template is filtered out", () => {
+    // The renderer's template list is filtered to the renderable types; a document whose renderer
+    // offers none leaves an empty array, and reading [0].id off it took the viewer down.
+    renderViewer(credential);
+    const { updateTemplates } = mockSingleRenderer.mock.calls[0][0];
+    expect(() => act(() => updateTemplates([{ id: "unsupported", label: "x", type: "something-else" }]))).not.toThrow();
+  });
+
+  it("does not throw on an empty template list", () => {
+    renderViewer(credential);
+    const { updateTemplates } = mockSingleRenderer.mock.calls[0][0];
+    expect(() => act(() => updateTemplates([]))).not.toThrow();
   });
 });

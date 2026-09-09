@@ -149,7 +149,11 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
 
     // set modified templates
     setTemplates(templatesModified);
-    setSelectedTemplate(templatesModified[0].id);
+    // A renderer whose templates are all unsupported filters down to nothing, and reading [0].id
+    // off the empty array throws, taking the whole viewer down.
+    if (templatesModified.length > 0) {
+      setSelectedTemplate(templatesModified[0].id);
+    }
   }, []);
 
   const onPrint = () => {
