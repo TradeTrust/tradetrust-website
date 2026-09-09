@@ -50,6 +50,8 @@
     "storybook:dev": "sleep 2 && storybook dev -p 6006",
     "storybook:build": "npm run build:css && sleep 2 && storybook build -o docs",
     "test": "jest",
+    "test:integration": "jest -c jest.integration.config.js",
+    "test:all": "run-s test test:integration",
     "test:coverage": "npm run test -- --collectCoverage",
     "test:watch": "npm run test -- --watchAll",
     "test:update": "npm run test -- -u",

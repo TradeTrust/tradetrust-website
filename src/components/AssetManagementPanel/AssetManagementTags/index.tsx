@@ -10,11 +10,25 @@ interface AssetManagementTagsProps {
   isTransferableDocument?: boolean;
   /** Obligation record (e.g. BoE) — shows Obligation instead of Transferable. */
   isObligation?: boolean;
+  /**
+   * How many credentials a Verifiable Presentation carries. Undefined for anything that is not
+   * a presentation.
+   */
+  presentationCredentialCount?: number;
+  /**
+   * The presentation envelope's data model ("V2.0"), read from the document rather than from the
+   * certificate slice's documentSchema. The demo path stores its document in a different slice
+   * and records no schema at all, so a presentation opened there would have shown the credential
+   * count with no version tag beside it.
+   */
+  presentationVersionLabel?: string;
 }
 
 export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = ({
   isTransferableDocument = false,
   isObligation = false,
+  presentationCredentialCount,
+  presentationVersionLabel,
 }) => {
   const { documentSchema } = useSelector((state: RootState) => state.certificate);
   const tokenRegistryVersion = useTokenRegistryVersion();
@@ -22,6 +36,31 @@ export const AssetManagementTags: FunctionComponent<AssetManagementTagsProps> = 
   const tagCSSBlue = "bg-cerulean-300/[25%] text-cerulean-500 rounded-full font-gilroy-bold";
   const tagCSOrange = "bg-tangerine-500/[24%] text-tangerine-500 rounded-full font-gilroy-bold";
   const tagCSSGrey = "bg-cloud-100 text-cloud-500 rounded-full font-gilroy-bold";
+
+  // A presentation is an envelope, not a credential: none of the credential-shaped tags below
+  // (Transferable, Obligation, TR version, the VC data model) describe it. It gets its own
+  // version tag plus a count of what is inside.
+  //
+  // The two colours carry meaning and are not interchangeable. Blue marks the ENVELOPE, the way
+  // it marks the other whole-document properties above. The count is orange because it refers to
+  // what is INSIDE, tying it to the orange "W3C VC" version tag each credential shows on its own
+  // tab below — so the count and the tags it counts read as one family, and the envelope reads
+  // as something else.
+  if (presentationCredentialCount !== undefined) {
+    return (
+      <div className="flex flex-wrap py-2 gap-2">
+        {presentationVersionLabel && (
+          <Tag rounded="rounded-full" className={tagCSSBlue}>
+            W3C VP {presentationVersionLabel}
+          </Tag>
+        )}
+        <Tag rounded="rounded-full" className={tagCSOrange}>
+          {presentationCredentialCount} Credential{presentationCredentialCount === 1 ? "" : "s"}
+        </Tag>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-wrap py-2 gap-2">
       {isObligation ? (
