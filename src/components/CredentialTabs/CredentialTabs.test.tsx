@@ -143,7 +143,7 @@ describe("CredentialTabs", () => {
     fireEvent.click(tabs[1]);
     const second = screen.getByTestId("credential-document").getAttribute("data-download-name");
 
-    expect(first).toBe("presentation-chafta-coo");
+    expect(first).toBe("presentation-chafta-coo-1");
     expect(second).not.toBe(first);
   });
 

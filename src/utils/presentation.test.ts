@@ -100,10 +100,19 @@ describe("getCredentialDownloadName", () => {
   it("qualifies the presentation filename with the credential, so tabs do not overwrite each other", () => {
     const [first, second] = getPresentationCredentials(twoCredentials);
     // No extension — the utility bar appends its own.
-    expect(getCredentialDownloadName("presentation.json", first, 0)).toBe("presentation-chafta-coo");
+    expect(getCredentialDownloadName("presentation.json", first, 0)).toBe("presentation-chafta-coo-1");
     expect(getCredentialDownloadName("presentation.json", second, 1)).not.toBe(
       getCredentialDownloadName("presentation.json", first, 0)
     );
+  });
+
+  it("stays distinct for credentials that share a label", () => {
+    // Labels are NOT unique — two bills of lading in one presentation slug identically. Naming
+    // on the slug alone let one tab's download overwrite the other's, which is the collision
+    // this function exists to prevent.
+    const bol = { renderMethod: [{ templateName: "BILL_OF_LADING" }] };
+    expect(getCredentialDownloadName("presentation.json", bol, 0)).toBe("presentation-bill-of-lading-1");
+    expect(getCredentialDownloadName("presentation.json", bol, 1)).toBe("presentation-bill-of-lading-2");
   });
 
   it("copes with no filename and an unlabelled credential", () => {

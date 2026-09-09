@@ -55,20 +55,29 @@ export const getPresentationHolder = (rawDocument: any): string => {
 };
 
 /**
- * A short label for a credential's tab. Prefers the renderer template name, which is what
- * distinguishes one credential from another on screen; falls back to its `type` (minus the
- * generic `VerifiableCredential`), then to a 1-based position.
+ * What a credential calls itself: the renderer template name, else its `type` (minus the generic
+ * `VerifiableCredential`). Undefined when it declares neither.
+ *
+ * Kept separate from getCredentialLabel because that function's positional fallback is only
+ * appropriate for display. Callers that append their own position need the descriptive part
+ * alone, or they end up repeating it — `credential-1-1`.
  */
-export const getCredentialLabel = (credential: any, index: number): string => {
+const getCredentialDescriptor = (credential: any): string | undefined => {
   const templateName = [credential?.renderMethod].flat()?.[0]?.templateName;
   if (typeof templateName === "string" && templateName.trim()) {
     return templateName.replace(/_/g, " ");
   }
   const types = [credential?.type].flat().filter(Boolean) as string[];
-  const specific = types.find((t) => t !== "VerifiableCredential");
-  if (specific) return specific;
-  return `Credential ${index + 1}`;
+  return types.find((t) => t !== "VerifiableCredential");
 };
+
+/**
+ * A short label for a credential's tab. Prefers the renderer template name, which is what
+ * distinguishes one credential from another on screen; falls back to its `type` (minus the
+ * generic `VerifiableCredential`), then to a 1-based position.
+ */
+export const getCredentialLabel = (credential: any, index: number): string =>
+  getCredentialDescriptor(credential) ?? `Credential ${index + 1}`;
 
 /** The VC Data Model 2.0 context URL — the first `@context` entry of a v2 document. */
 const VC_V2_CONTEXT = "https://www.w3.org/ns/credentials/v2";
@@ -97,14 +106,19 @@ export const getCredentialVersionTag = (credential: any): string => `W3C VC ${ge
  * Left alone, DocumentUtility names the download after the document's own `name` field and
  * falls back to "Untitled". Inside a presentation that collides: every credential without a
  * `name` saves as `Untitled.tt`, and each tab holds DIFFERENT content, so one silently
- * overwrites another. Qualify the presentation's filename with the credential's label instead:
- * `presentation-chafta-coo`.
+ * overwrites another. Qualify the presentation's filename with the credential instead:
+ * `presentation-chafta-coo-1`.
+ *
+ * The POSITION is always appended, never only as a fallback for a missing label. Labels are not
+ * unique — two bills of lading in one presentation produce the same slug, and naming on the slug
+ * alone reintroduced exactly the collision this function exists to prevent. The position is the
+ * only thing guaranteed distinct, and it matches the tab order on screen.
  */
 export const getCredentialDownloadName = (presentationFileName: string, credential: any, index: number): string => {
   const base = (presentationFileName || "presentation").replace(/\.(json|tt)$/i, "");
-  const slug = getCredentialLabel(credential, index)
+  const slug = (getCredentialDescriptor(credential) ?? "")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
-  return `${base}-${slug || `credential-${index + 1}`}`;
+  return `${base}-${slug || "credential"}-${index + 1}`;
 };

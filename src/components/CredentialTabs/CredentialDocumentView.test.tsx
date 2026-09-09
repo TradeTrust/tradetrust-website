@@ -22,7 +22,7 @@ const fixture = (name: string) =>
 const [plainCredential] = fixture("valid/two_credentials.json").verifiableCredential;
 const [credentialWithAttachments] = fixture("valid/with_attachments.json").verifiableCredential;
 
-const renderView = (credential: any, downloadName = "presentation-chafta-coo") =>
+const renderView = (credential: any, downloadName = "presentation-chafta-coo-1") =>
   render(
     <Provider store={configureStore()}>
       <CredentialDocumentView credential={credential} downloadName={downloadName} />
@@ -64,7 +64,7 @@ describe("CredentialDocumentView", () => {
     act(() => updateTemplates([{ id: "custom-template", label: "Custom", type: "custom-template" }]));
     expect(screen.getByLabelText("document-utility-download")).toHaveAttribute(
       "download",
-      "presentation-chafta-coo.tt"
+      "presentation-chafta-coo-1.tt"
     );
   });
 
