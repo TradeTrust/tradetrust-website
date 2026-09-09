@@ -26,6 +26,13 @@ export const ObfuscatedMessage: FunctionComponent<ObfuscatedMessageProps> = ({ d
      */
     let cancelled = false;
 
+    // Clear the previous document's verdict before checking the new one. The guard below stops a
+    // stale result overwriting a fresh one, but the LAST result stayed on screen while the new
+    // check ran — so switching documents briefly showed the old one's obfuscation notice against
+    // the new document. Showing nothing for that moment is better than describing the wrong
+    // document; the effect only re-runs when the document actually changes.
+    setIsDocumentObfuscated(null);
+
     const checkObfuscation = async () => {
       try {
         const result = await isObfuscated(document);

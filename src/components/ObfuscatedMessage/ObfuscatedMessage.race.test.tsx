@@ -136,6 +136,30 @@ describe("ObfuscatedMessage — a result arriving for a document no longer shown
     expect(screen.getByTestId("obfuscation-info")).toBeInTheDocument();
   });
 
+  it("clears the previous notice while the new document is being checked", async () => {
+    // The cancellation guard stops a stale result overwriting a fresh one, but the last verdict
+    // stayed on screen while the new check ran — so switching documents briefly showed the
+    // previous document's obfuscation notice against the new one.
+    const first = deferred();
+    const second = deferred();
+    mockIsObfuscated.mockReturnValueOnce(first.promise).mockReturnValueOnce(second.promise);
+
+    const { rerender } = render(message(ObfuscatedDocument));
+    await act(async () => {
+      first.resolve(true);
+    });
+    expect(screen.getByTestId("obfuscation-info")).toBeInTheDocument();
+
+    // New document, check still in flight: the old notice must not describe it.
+    rerender(message(UnobfuscatedDocument));
+    expect(screen.queryByTestId("obfuscation-info")).not.toBeInTheDocument();
+
+    await act(async () => {
+      second.resolve(false);
+    });
+    expect(screen.queryByTestId("obfuscation-info")).not.toBeInTheDocument();
+  });
+
   it("still reports the current document normally", async () => {
     mockIsObfuscated.mockResolvedValue(true);
     render(message(ObfuscatedDocument));
