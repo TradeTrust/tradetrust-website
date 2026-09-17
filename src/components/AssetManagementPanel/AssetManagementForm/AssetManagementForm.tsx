@@ -175,7 +175,7 @@ export const AssetManagementForm: FunctionComponent<AssetManagementFormProps> = 
   const canEndorseBeneficiary = isActiveTitleEscrow && isHolder && hasNominee;
   const canRejectOwnerHolderTransfer =
     isActiveTitleEscrow && isHolder && isBeneficiary && hasPreviousHolder && hasPreviousBeneficiary;
-  const canRejectHolderTransfer = // Bug here, transfer holder and transfer holder back, will not be able to reject
+  const canRejectHolderTransfer =
     !isHolderAndBeneficiary &&
     isActiveTitleEscrow &&
     isHolder &&

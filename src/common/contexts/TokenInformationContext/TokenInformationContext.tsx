@@ -415,10 +415,11 @@ export const TokenInformationContextProvider: FunctionComponent<TokenInformation
     }
   }, [acceptObligationState, rejectObligationState, dischargeObligationState, updateTitleEscrow]);
 
-  // Update holder whenever holder transfer is successful
+  // Refresh escrow state whenever holder transfer is successful — transferHolder also
+  // mutates prevHolder (and prevBeneficiary, for a dual-role mint), not just holder.
   useEffect(() => {
-    if (changeHolderState === "CONFIRMED") getHolder();
-  }, [changeHolderState, getHolder]);
+    if (changeHolderState === "CONFIRMED") updateTitleEscrow();
+  }, [changeHolderState, updateTitleEscrow]);
 
   useEffect(() => {
     if (nominateState === "CONFIRMED") getApprovedBeneficiary();
