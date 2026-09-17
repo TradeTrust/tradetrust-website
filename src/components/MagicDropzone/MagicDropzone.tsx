@@ -21,7 +21,9 @@ interface MagicDropzoneViewProps {
 }
 
 const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPending, isError, resetDocument }) => {
-  const { verificationStatus, verificationError } = useSelector((state: RootState) => state.demoVerify);
+  const { verificationStatus, verificationError, rawModifiedDocument } = useSelector(
+    (state: RootState) => state.demoVerify
+  );
 
   switch (true) {
     case isPending:
@@ -42,7 +44,11 @@ const MagicDropzoneView: FunctionComponent<MagicDropzoneViewProps> = ({ isPendin
               <p className="text-2xl">This document is not valid</p>
             </div>
           </div>
-          <DetailedErrors verificationStatus={verificationStatus} verificationError={verificationError} />
+          <DetailedErrors
+            verificationStatus={verificationStatus}
+            verificationError={verificationError}
+            document={rawModifiedDocument}
+          />
           <a
             href={URLS.FAQ}
             target="_blank"

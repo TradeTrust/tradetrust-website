@@ -10,7 +10,7 @@ interface ViewVerificationErrorProps {
 }
 
 export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps> = ({ resetData }) => {
-  const { verificationStatus, verificationError } = useSelector((state: RootState) => state.certificate);
+  const { verificationStatus, verificationError, rawModified } = useSelector((state: RootState) => state.certificate);
 
   return (
     <div>
@@ -19,7 +19,11 @@ export const ViewVerificationError: FunctionComponent<ViewVerificationErrorProps
         alt="Document Dropzone TradeTrust"
         src="/static/images/dropzone/dropzone_illustration.svg"
       />
-      <DetailedErrors verificationStatus={verificationStatus} verificationError={verificationError} />
+      <DetailedErrors
+        verificationStatus={verificationStatus}
+        verificationError={verificationError}
+        document={rawModified}
+      />
 
       <div className="flex flex-col xs:flex-row justify-center gap-2 mt-4">
         <a

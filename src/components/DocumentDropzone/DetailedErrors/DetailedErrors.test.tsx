@@ -1,4 +1,6 @@
 import React from "react";
+import fs from "fs";
+import path from "path";
 import { render, screen } from "@testing-library/react";
 import { DetailedErrors } from "./DetailedErrors";
 import { errorMessages } from "@trustvc/trustvc";
@@ -197,5 +199,89 @@ describe("DetailedErrors", () => {
     expect(screen.queryByText(MESSAGES[TYPES.IDENTITY].failureMessage)).not.toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.CLIENT_NETWORK_ERROR].failureTitle)).toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.CLIENT_NETWORK_ERROR].failureMessage)).toBeInTheDocument();
+  });
+});
+
+describe("DetailedErrors — Verifiable Presentation", () => {
+  const presentation = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../../../test/fixture/w3c/presentations/valid/two_credentials.json"), "utf8")
+  );
+
+  /** A presentation fragment set where the named fragment failed with `reason`. */
+  const vpFragments = (name: string, reason: string): VerificationFragment[] =>
+    [
+      { name: "W3CVpSignatureIntegrity", type: "DOCUMENT_INTEGRITY", status: "VALID" },
+      { name: "W3CVpCredentialStatus", type: "DOCUMENT_STATUS", status: "VALID" },
+      { name: "W3CVpIssuerIdentity", type: "ISSUER_IDENTITY", status: "VALID" },
+    ].map((f) => (f.name === name ? { ...f, status: "INVALID", reason: { message: reason } } : f)) as any;
+
+  it("reports exactly one error, not the OpenAttestation-shaped set", () => {
+    render(
+      <DetailedErrors
+        verificationStatus={vpFragments("W3CVpSignatureIntegrity", 'Presentation is not signed (no holder "proof").')}
+        verificationError={null}
+        document={presentation}
+      />
+    );
+    expect(screen.getAllByRole("heading")).toHaveLength(1);
+  });
+
+  it("does not call an unsigned presentation tampered", () => {
+    // errorMessageHandling was written for OpenAttestation: it sees an invalid DOCUMENT_INTEGRITY
+    // and returns HASH, which would tell the user the document was tampered with.
+    render(
+      <DetailedErrors
+        verificationStatus={vpFragments("W3CVpSignatureIntegrity", 'Presentation is not signed (no holder "proof").')}
+        verificationError={null}
+        document={presentation}
+      />
+    );
+    expect(screen.getByText(/not signed, so the presenter cannot prove/i)).toBeInTheDocument();
+    expect(screen.queryByText(errorMessages.MESSAGES[errorMessages.TYPES.HASH].failureMessage)).not.toBeInTheDocument();
+  });
+
+  it("names the credential at fault when the document is supplied", () => {
+    render(
+      <DetailedErrors
+        verificationStatus={vpFragments("W3CVpCredentialStatus", "Embedded credential at index 1 has been revoked.")}
+        verificationError={null}
+        document={presentation}
+      />
+    );
+    expect(screen.getByText(/Credential 2 \("BILL OF LADING"\)/)).toBeInTheDocument();
+  });
+
+  it("falls back to the position when no document is supplied", () => {
+    render(
+      <DetailedErrors
+        verificationStatus={vpFragments("W3CVpCredentialStatus", "Embedded credential at index 1 has been revoked.")}
+        verificationError={null}
+      />
+    );
+    expect(screen.getByText(/Credential 2/)).toBeInTheDocument();
+    expect(screen.queryByText(/BILL OF LADING/)).not.toBeInTheDocument();
+  });
+
+  it("uses the established copy where it already fits", () => {
+    render(
+      <DetailedErrors
+        verificationStatus={vpFragments("W3CVpSignatureIntegrity", "Invalid signature.")}
+        verificationError={null}
+        document={presentation}
+      />
+    );
+    const hash = errorMessages.MESSAGES[errorMessages.TYPES.HASH];
+    expect(screen.getByText(hash.failureTitle)).toBeInTheDocument();
+    expect(screen.getByText(hash.failureMessage)).toBeInTheDocument();
+  });
+
+  it("leaves credential documents on the existing path", () => {
+    render(
+      <DetailedErrors
+        verificationStatus={whenDocumentHashInvalidAndNotIssued as VerificationFragment[]}
+        verificationError={null}
+      />
+    );
+    expect(screen.getAllByRole("heading").length).toBeGreaterThan(1);
   });
 });

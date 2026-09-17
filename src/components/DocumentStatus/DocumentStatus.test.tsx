@@ -1,10 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { SignedVerifiableCredential, v2, wrapOADocument } from "@trustvc/trustvc";
 import React from "react";
+import fs from "fs";
+import path from "path";
 import { Provider } from "react-redux";
 import { configureStore } from "../../store";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 import { DocumentStatus } from "./DocumentStatus";
+import { DOCUMENT_SCHEMA, DocumentSchemaType } from "../../reducers/certificate";
 import { ProviderContextProvider } from "../../common/contexts/provider";
 import { getSupportedChainInfo } from "../../common/utils/chain-utils";
 import w3cDoc from "../../test/fixture/local/w3c/v2_tr_er_ECDSA_Derived.json";
@@ -250,6 +253,58 @@ describe("DocumentStatus", () => {
 
         expect(screen.queryByText("Issued by:")).not.toBeInTheDocument();
       });
+    });
+  });
+
+  /**
+   * The demo keeps its document in demoVerify while AssetManagementTags reads documentSchema from
+   * the certificate slice, which the demo verification flow never populates. A presentation shown
+   * through the demo therefore had a correct credential count beside a missing version tag —
+   * the count is derived from the displayed document, the tag was not.
+   */
+  describe("Verifiable Presentation on the demo path", () => {
+    const presentation = JSON.parse(
+      fs.readFileSync(path.join(__dirname, "../../test/fixture/w3c/presentations/valid/two_credentials.json"), "utf8")
+    );
+
+    const vpFragments = [
+      { name: "W3CVpSignatureIntegrity", type: "DOCUMENT_INTEGRITY", status: "VALID" },
+      { name: "W3CVpCredentialStatus", type: "DOCUMENT_STATUS", status: "VALID" },
+      { name: "W3CVpIssuerIdentity", type: "ISSUER_IDENTITY", status: "VALID" },
+    ];
+
+    /** The demo slice holds the document; the certificate slice holds whatever schema is left. */
+    const renderDemo = (certificateSchema: DocumentSchemaType) =>
+      render(
+        <ProviderContextProvider defaultChainId={1337} networks={getSupportedChainInfo()}>
+          <Provider
+            store={configureStore({
+              demoVerify: { rawModifiedDocument: presentation, verificationStatus: vpFragments },
+              certificate: { documentSchema: certificateSchema },
+            })}
+          >
+            <DocumentStatus isMagicDemo setShowEndorsementChain={mockSetShowEndorsementChain} />
+          </Provider>
+        </ProviderContextProvider>
+      );
+
+    it.each([
+      ["no schema recorded", null],
+      ["a stale credential schema", DOCUMENT_SCHEMA.W3C_VC_2_0],
+      ["a stale presentation schema of the wrong version", DOCUMENT_SCHEMA.W3C_VP_1_1],
+    ])("tags the envelope correctly with %s in the certificate slice", (_label, certificateSchema) => {
+      renderDemo(certificateSchema as DocumentSchemaType);
+
+      expect(screen.getByText("W3C VP V2.0")).toBeInTheDocument();
+      expect(screen.getByText("2 Credentials")).toBeInTheDocument();
+      expect(screen.queryByText("W3C VC V2.0")).not.toBeInTheDocument();
+      expect(screen.queryByText("W3C VP V1.1")).not.toBeInTheDocument();
+    });
+
+    it("names the holder as presenter rather than an issuer", () => {
+      renderDemo(null);
+      expect(screen.getByText("Presented by:")).toBeInTheDocument();
+      expect(screen.getByText(presentation.holder.toUpperCase())).toBeInTheDocument();
     });
   });
 });

@@ -12,6 +12,7 @@ import {
 } from "@trustvc/trustvc";
 import React, { FunctionComponent } from "react";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
+import { getPresentationHolder, isVerifiablePresentation } from "../../utils/presentation";
 
 interface VerificationFragmentData {
   did: string;
@@ -82,8 +83,15 @@ interface IssuedByProps {
 export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by", verificationStatus, document }) => {
   if (!document || !verificationStatus) return null;
 
+  // A presentation has no issuer of its own: it is asserted by the HOLDER, and each embedded
+  // credential carries its own issuer, shown on its own tab. Name the holder here, since that is
+  // who is making the claim to the verifier.
+  const isPresentation = isVerifiablePresentation(document);
+
   let formattedDomainNames;
-  if (isWrappedV2Document(document)) {
+  if (isPresentation) {
+    formattedDomainNames = getPresentationHolder(document);
+  } else if (isWrappedV2Document(document)) {
     formattedDomainNames = getV2FormattedDomainNames(verificationStatus);
   } else if (isWrappedV3Document(document)) {
     formattedDomainNames = getV3IdentityVerificationText(document);
@@ -93,7 +101,7 @@ export const IssuedBy: FunctionComponent<IssuedByProps> = ({ title = "Issued by"
 
   return (
     <div id="issuedby" className="gap-2 flex flex-col">
-      <div className="break-all text-cloud-800">{title}:</div>
+      <div className="break-all text-cloud-800">{isPresentation ? "Presented by" : title}:</div>
       <h4 className="text-cloud-800 leading-none break-all">{formattedDomainNames}</h4>
     </div>
   );
