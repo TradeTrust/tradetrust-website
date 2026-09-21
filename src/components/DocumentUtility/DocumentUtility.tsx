@@ -53,7 +53,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
   return (
     <div className="container no-print bg-white pb-4">
       <div className="flex flex-wrap items-start gap-4">
-        {selectedTemplate !== "default-template" && (
+        {selectedTemplate !== "default-template" && templateURL && (
           <div className="flex-1">
             <h4 className="text-base font-semibold mb-1">Rendered View:</h4>
             <h6 className="text-sm break-words">
@@ -67,7 +67,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
 
         <div
           className={`${
-            selectedTemplate !== "default-template" ? "" : "w-full"
+            selectedTemplate !== "default-template" && templateURL ? "" : "w-full"
           } flex justify-end items-start space-x-3 mt-4 sm:mt-0`}
         >
           {qrcodeUrl && (
