@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { StatusChecks } from "./StatusChecks";
 import { errorMessages, interpretFragments } from "@trustvc/trustvc";
 import {
@@ -15,7 +15,7 @@ import { configureStore } from "../../store";
 import { v2, wrapOADocument } from "@trustvc/trustvc";
 import { WrappedOrSignedOpenAttestationDocument } from "../../utils/shared";
 
-const { MESSAGES } = errorMessages;
+const { MESSAGES, TYPES } = errorMessages;
 
 // Mock the interpretFragments function
 jest.mock("@trustvc/trustvc", () => {
@@ -171,5 +171,55 @@ describe("StatusChecks", () => {
     expect(screen.queryByText(MESSAGES["HASH"]["failureTitle"])).toBeInTheDocument();
     expect(screen.queryByText(MESSAGES["ISSUED"]["failureTitle"])).toBeInTheDocument();
     expect(screen.queryByText(MESSAGES["IDENTITY"]["failureTitle"])).toBeInTheDocument();
+  });
+});
+
+describe("StatusChecks — Verifiable Presentation", () => {
+  const mockInterpretFragments = interpretFragments as jest.MockedFunction<typeof interpretFragments>;
+  const fragments = [{ name: "W3CVpIssuerIdentity", type: "ISSUER_IDENTITY", status: "VALID" }] as any;
+
+  const renderChecks = (verdicts: { hashValid: boolean; issuedValid: boolean; identityValid: boolean }) => {
+    mockInterpretFragments.mockReturnValue(verdicts as any);
+    return render(<StatusChecks verificationStatus={fragments} isPresentation />);
+  };
+
+  const ALL_VALID = { hashValid: true, issuedValid: true, identityValid: true };
+
+  it("shows only two checks — issuance belongs to each credential, not to the envelope", () => {
+    renderChecks(ALL_VALID);
+    expect(screen.getByText("Presenter's identity has been identified")).toBeInTheDocument();
+    expect(screen.getByText("Presentation has not been tampered with")).toBeInTheDocument();
+    expect(screen.queryByText(MESSAGES[TYPES.ISSUED].successTitle)).not.toBeInTheDocument();
+  });
+
+  it("does not describe the envelope as a document", () => {
+    renderChecks(ALL_VALID);
+    expect(screen.queryByText(/^Document/)).not.toBeInTheDocument();
+  });
+
+  it("reports a failing presenter identity", () => {
+    renderChecks({ ...ALL_VALID, identityValid: false });
+    expect(screen.getByText("Presenter's identity has not been identified")).toBeInTheDocument();
+  });
+
+  it("reports a tampered presentation", () => {
+    renderChecks({ ...ALL_VALID, hashValid: false });
+    expect(screen.getByText("Presentation has been tampered with")).toBeInTheDocument();
+  });
+
+  it("ignores issuedValid entirely — the envelope makes no issuance claim", () => {
+    // A presentation's DOCUMENT_STATUS fragment reports on embedded credentials, so letting it
+    // drive an envelope-level "has been issued" row would misattribute the failure.
+    const { container: withIssued } = renderChecks(ALL_VALID);
+    const validMarkup = withIssued.innerHTML;
+    cleanup();
+    const { container: withoutIssued } = renderChecks({ ...ALL_VALID, issuedValid: false });
+    expect(withoutIssued.innerHTML).toBe(validMarkup);
+  });
+
+  it("still shows all three checks for a plain credential", () => {
+    mockInterpretFragments.mockReturnValue(ALL_VALID as any);
+    render(<StatusChecks verificationStatus={fragments} />);
+    expect(screen.getByText(MESSAGES[TYPES.ISSUED].successTitle)).toBeInTheDocument();
   });
 });

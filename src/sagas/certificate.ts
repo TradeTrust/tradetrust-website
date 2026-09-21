@@ -29,6 +29,7 @@ import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { getLogger } from "../utils/logger";
 import { getKeyId, isTokenRegistryV4 } from "../utils/shared";
+import { getW3CVersionLabel, isVerifiablePresentation } from "../utils/presentation";
 import { ActionPayload } from "./../types";
 import { TokenRegistryVersions } from "../constants";
 
@@ -110,6 +111,7 @@ export function* verifyCertificate(): any {
       isRawV3Document(certificate) || isSignedWrappedV3Document(certificate) || isWrappedV3Document(certificate);
     const isW3CVC = vc.isSignedDocument(certificate) || vc.isRawDocument(certificate);
     const isW3CVCVersion2_0 = isW3CVC ? vc.isSignedDocumentV2_0(certificate) : null;
+    const isW3CVP = isVerifiablePresentation(certificate);
     const keyId = getKeyId(certificate);
     yield put({
       type: types.UPDATE_KEY_ID, // store keyId in saga state
@@ -126,6 +128,10 @@ export function* verifyCertificate(): any {
         ? isW3CVCVersion2_0
           ? DOCUMENT_SCHEMA.W3C_VC_2_0
           : DOCUMENT_SCHEMA.W3C_VC_1_1
+        : isW3CVP
+        ? getW3CVersionLabel(certificate) === "V2.0"
+          ? DOCUMENT_SCHEMA.W3C_VP_2_0
+          : DOCUMENT_SCHEMA.W3C_VP_1_1
         : null,
     });
 

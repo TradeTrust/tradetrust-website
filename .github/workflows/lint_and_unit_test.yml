@@ -31,5 +31,12 @@ jobs:
         run: npm run lint
       - name: Test
         run: npm run test
+      # Verifiable Presentation verification against real fixtures, with real WebCrypto. Runs as
+      # its own step because it needs the node environment: under jsdom `node:crypto` is shimmed
+      # by crypto-browserify, which has no `webcrypto`, so every signature check fails and the
+      # suite would assert nothing. Some cases resolve a hosted did:web document and fetch a
+      # revocation status list, so this step reaches the network.
+      - name: Test (integration)
+        run: npm run test:integration
       - name: Build
         run: npm run build:prod # this MUST be run to ensure production site will be built without errors

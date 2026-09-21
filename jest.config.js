@@ -49,6 +49,8 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/jest.dom.setup.ts"],
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)test.[jt]s?(x)"],
   transformIgnorePatterns: ["node_modules/?!(@tradetrust-tt).*/"],
-  testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/tests/"],
+  // src/__integration__ verifies real documents and needs genuine WebCrypto, so it runs under
+  // the node environment via jest.integration.config.js rather than here.
+  testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/tests/", "<rootDir>/src/__integration__/"],
   testTimeout: 10000,
 };
