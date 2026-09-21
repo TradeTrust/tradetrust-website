@@ -29,6 +29,8 @@ import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain";
+import { findInlineTemplateRenderMethod } from "./InlineTemplateRenderer/findInlineTemplateRenderMethod";
+import { InlineTemplateRenderer } from "./InlineTemplateRenderer/InlineTemplateRenderer";
 import { InvalidAttachmentsBanner } from "./InvalidAttachmentsBanner";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import ScrollTip from "./ScrollTip";
@@ -243,15 +245,21 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             </div>
           )}
           <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-            {templates.length > 0 && (
-              <DocumentUtility document={document} onPrint={onPrint} selectedTemplate={selectedTemplate} />
+            {findInlineTemplateRenderMethod(document) ? (
+              <InlineTemplateRenderer document={document} />
+            ) : (
+              <>
+                {templates.length > 0 && (
+                  <DocumentUtility document={document} onPrint={onPrint} selectedTemplate={selectedTemplate} />
+                )}
+                <DecentralisedRendererContainer
+                  rawDocument={document}
+                  updateTemplates={updateTemplates}
+                  selectedTemplate={selectedTemplate}
+                  ref={childRef}
+                />
+              </>
             )}
-            <DecentralisedRendererContainer
-              rawDocument={document}
-              updateTemplates={updateTemplates}
-              selectedTemplate={selectedTemplate}
-              ref={childRef}
-            />
           </div>
         </div>
       </div>
