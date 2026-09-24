@@ -9,6 +9,7 @@ export const MAIN_NETWORKS = [
   ChainId.XDC,
   ChainId.Stability,
   ChainId.Astron,
+  ChainId.XRPLEVM,
 ];
 
 /**
@@ -20,4 +21,5 @@ export const TEST_NETWORKS = [
   ChainId.APOTHEM,
   ChainId.StabilityTestnet,
   ChainId.AstronTestnet,
+  ChainId.XRPLEVMTestnet,
 ];

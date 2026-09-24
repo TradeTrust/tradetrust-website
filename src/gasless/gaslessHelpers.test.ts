@@ -49,6 +49,11 @@ describe("getRpcUrl", () => {
     expect(getRpcUrl(String(knownChainId))).toBe((ChainInfo as any)[knownChainId]?.rpcUrl);
   });
 
+  it("returns the public RPC URL for XRPL EVM mainnet and testnet", () => {
+    expect(getRpcUrl(ChainId.XRPLEVM)).toBe("https://rpc.xrplevm.org");
+    expect(getRpcUrl(ChainId.XRPLEVMTestnet)).toBe("https://rpc.testnet.xrplevm.org");
+  });
+
   it("returns undefined for an unknown chain id", () => {
     expect(getRpcUrl(999999999)).toBeUndefined();
   });
