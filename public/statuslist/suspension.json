@@ -1,0 +1,27 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://w3id.org/security/data-integrity/v2"
+  ],
+  "id": "http://localhost:3000/statuslist/suspension.json",
+  "type": [
+    "VerifiableCredential",
+    "BitstringStatusListCredential"
+  ],
+  "issuer": "did:key:zDnaemDNwi4G5eTzGfRooFFu5Kns3be6yfyVNtiaMhWkZbwtc",
+  "validFrom": "2024-01-01T00:00:00Z",
+  "credentialSubject": {
+    "id": "http://localhost:3000/statuslist/suspension.json#list",
+    "type": "BitstringStatusList",
+    "statusPurpose": "suspension",
+    "encodedList": "H4sIAAAAAAAAA-3BIQEAAAACIIP_NzvDAjQAAAAAAAAAAAAAAAAAAADA2wC5foOwAEAAAA"
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "created": "2026-10-07T05:44:56Z",
+    "verificationMethod": "did:key:zDnaemDNwi4G5eTzGfRooFFu5Kns3be6yfyVNtiaMhWkZbwtc#zDnaemDNwi4G5eTzGfRooFFu5Kns3be6yfyVNtiaMhWkZbwtc",
+    "cryptosuite": "ecdsa-sd-2023",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "u2V0BhVhATiJ-Z5bn7mlw0-wr_aGd_UXZAF4iw4lMQxyE6CxaVHySe_pnslVqiF24kM4xsfk5eUNGtJb3KyEINbnIpS3G3FgjgCQCz69NhJj3OE1mwkV9AC7871cCfRkPXIboQWR9NA3oRTiEWEDaeJ0Efkb6kEkvZkW-7u6tiK0ENYUlQBN3EPmVJLr7EA1UOgWwkNYv3HMy6ihSx-yVR6D4h3YrPWn_jMg40CCoWEDUTsIVIdOZGTJBCgygwQPAvgr3yLJRLyGAfZKslXjLvRyDKZ6_z380Z0xg7wdfRE9OQtRdo2XKZ5EZRcO5tVi6WECH_s4lZfYu9pFtko6etMOS58_ZudRcalHxxjWM6rf3qTmhKQosch4oe43QWvrOoNvJaEutpvNRHJA_faZUJOjrWECUXvprhy0emGS6hq4eYgl4yCzbe9ZLE4xagzLMYU8z4rxCiP1yXr8xgXW0l83bhTjmcZuZZAZ_2vyShBGKfRVvoIQDBAYH"
+  }
+}

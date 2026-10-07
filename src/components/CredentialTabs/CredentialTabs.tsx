@@ -14,11 +14,37 @@ import { useCredentialVerification } from "./useCredentialVerification";
 
 const { MESSAGES, TYPES } = errorMessages;
 
-/** The same three checks the document status panel reports, in the same order. */
+/**
+ * The same three checks the document status panel reports, in the same order — but naming a
+ * CREDENTIAL, not a document. Each tab is labelled with the credential's own name ("BILL OF
+ * LADING"), so rows underneath it calling that same thing a "document" read as though they
+ * were reporting on something else.
+ */
 const CREDENTIAL_CHECKS = [
-  { type: "DOCUMENT_STATUS", messageSet: MESSAGES[TYPES.ISSUED] },
-  { type: "ISSUER_IDENTITY", messageSet: MESSAGES[TYPES.IDENTITY] },
-  { type: "DOCUMENT_INTEGRITY", messageSet: MESSAGES[TYPES.HASH] },
+  {
+    type: "DOCUMENT_STATUS",
+    messageSet: {
+      ...MESSAGES[TYPES.ISSUED],
+      successTitle: "Credential has been issued",
+      failureTitle: "Credential has not been issued",
+    },
+  },
+  {
+    type: "ISSUER_IDENTITY",
+    messageSet: {
+      ...MESSAGES[TYPES.IDENTITY],
+      successTitle: "Credential issuer has been identified",
+      failureTitle: "Credential issuer cannot be identified",
+    },
+  },
+  {
+    type: "DOCUMENT_INTEGRITY",
+    messageSet: {
+      ...MESSAGES[TYPES.HASH],
+      successTitle: "Credential has not been tampered with",
+      failureTitle: "Credential has been tampered with",
+    },
+  },
 ];
 
 interface CredentialTabsProps {

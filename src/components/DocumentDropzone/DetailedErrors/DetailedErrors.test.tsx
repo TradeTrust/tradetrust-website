@@ -4,7 +4,9 @@ import path from "path";
 import { render, screen } from "@testing-library/react";
 import { DetailedErrors } from "./DetailedErrors";
 import { errorMessages } from "@trustvc/trustvc";
-import { VerificationFragment } from "@trustvc/trustvc";
+import { VerificationFragment, fragments as trustvcFragments } from "@trustvc/trustvc";
+
+const { W3CVpCode } = trustvcFragments as unknown as { W3CVpCode: Record<string, number> };
 import {
   whenDocumentHashInvalidAndNotIssued,
   whenDocumentHashInvalid,
@@ -207,18 +209,31 @@ describe("DetailedErrors — Verifiable Presentation", () => {
     fs.readFileSync(path.join(__dirname, "../../../test/fixture/w3c/presentations/valid/two_credentials.json"), "utf8")
   );
 
-  /** A presentation fragment set where the named fragment failed with `reason`. */
-  const vpFragments = (name: string, reason: string): VerificationFragment[] =>
+  /**
+   * A presentation fragment set, as the verifier emits them: a machine-readable `reason.code`
+   * plus the indices of the credentials at fault. The copy is resolved from that code by
+   * `@trustvc/trustvc`, not from the prose, so the message here is never read.
+   */
+  const vpFragments = (name: string, code: number, credentialIndices: number[] = []): VerificationFragment[] =>
     [
       { name: "W3CVpSignatureIntegrity", type: "DOCUMENT_INTEGRITY", status: "VALID" },
       { name: "W3CVpCredentialStatus", type: "DOCUMENT_STATUS", status: "VALID" },
       { name: "W3CVpIssuerIdentity", type: "ISSUER_IDENTITY", status: "VALID" },
-    ].map((f) => (f.name === name ? { ...f, status: "INVALID", reason: { message: reason } } : f)) as any;
+    ].map((f) =>
+      f.name === name
+        ? {
+            ...f,
+            status: "INVALID",
+            reason: { code, codeString: String(code), message: "verifier prose, never shown" },
+            data: { credentialIndices },
+          }
+        : f
+    ) as any;
 
   it("reports exactly one error, not the OpenAttestation-shaped set", () => {
     render(
       <DetailedErrors
-        verificationStatus={vpFragments("W3CVpSignatureIntegrity", 'Presentation is not signed (no holder "proof").')}
+        verificationStatus={vpFragments("W3CVpSignatureIntegrity", W3CVpCode.PRESENTATION_UNSIGNED)}
         verificationError={null}
         document={presentation}
       />
@@ -231,7 +246,7 @@ describe("DetailedErrors — Verifiable Presentation", () => {
     // and returns HASH, which would tell the user the document was tampered with.
     render(
       <DetailedErrors
-        verificationStatus={vpFragments("W3CVpSignatureIntegrity", 'Presentation is not signed (no holder "proof").')}
+        verificationStatus={vpFragments("W3CVpSignatureIntegrity", W3CVpCode.PRESENTATION_UNSIGNED)}
         verificationError={null}
         document={presentation}
       />
@@ -243,7 +258,7 @@ describe("DetailedErrors — Verifiable Presentation", () => {
   it("names the credential at fault when the document is supplied", () => {
     render(
       <DetailedErrors
-        verificationStatus={vpFragments("W3CVpCredentialStatus", "Embedded credential at index 1 has been revoked.")}
+        verificationStatus={vpFragments("W3CVpCredentialStatus", W3CVpCode.CREDENTIAL_REVOKED, [1])}
         verificationError={null}
         document={presentation}
       />
@@ -254,7 +269,7 @@ describe("DetailedErrors — Verifiable Presentation", () => {
   it("falls back to the position when no document is supplied", () => {
     render(
       <DetailedErrors
-        verificationStatus={vpFragments("W3CVpCredentialStatus", "Embedded credential at index 1 has been revoked.")}
+        verificationStatus={vpFragments("W3CVpCredentialStatus", W3CVpCode.CREDENTIAL_REVOKED, [1])}
         verificationError={null}
       />
     );
@@ -262,17 +277,17 @@ describe("DetailedErrors — Verifiable Presentation", () => {
     expect(screen.queryByText(/BILL OF LADING/)).not.toBeInTheDocument();
   });
 
-  it("uses the established copy where it already fits", () => {
+  it("names the tampered credential rather than blaming the envelope", () => {
     render(
       <DetailedErrors
-        verificationStatus={vpFragments("W3CVpSignatureIntegrity", "Invalid signature.")}
+        verificationStatus={vpFragments("W3CVpSignatureIntegrity", W3CVpCode.CREDENTIAL_SIGNATURE_INVALID, [1])}
         verificationError={null}
         document={presentation}
       />
     );
-    const hash = errorMessages.MESSAGES[errorMessages.TYPES.HASH];
-    expect(screen.getByText(hash.failureTitle)).toBeInTheDocument();
-    expect(screen.getByText(hash.failureMessage)).toBeInTheDocument();
+    const tampered = errorMessages.MESSAGES[errorMessages.TYPES.CREDENTIAL_TAMPERED];
+    expect(screen.getByText(tampered.failureTitle)).toBeInTheDocument();
+    expect(screen.getByText(/contents of Credential 2 \("BILL OF LADING"\)/)).toBeInTheDocument();
   });
 
   it("leaves credential documents on the existing path", () => {

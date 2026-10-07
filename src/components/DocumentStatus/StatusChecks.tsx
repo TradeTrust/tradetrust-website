@@ -32,8 +32,8 @@ export const StatusChecks: FunctionComponent<StatusChecksProps> = ({ verificatio
             valid={identityValid}
             messageSet={{
               ...MESSAGES[TYPES.IDENTITY],
-              successTitle: "Presenter's identity has been identified",
-              failureTitle: "Presenter's identity has not been identified",
+              successTitle: "Presenter has been identified",
+              failureTitle: "Presenter could not be identified",
             }}
           />
         </div>

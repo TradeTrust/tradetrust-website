@@ -59,7 +59,17 @@ const groupStatus = (frags: VerificationFragment[], type: string) => {
  * egress (a sandboxed runner, an offline laptop) to leave them out without failing the run.
  */
 const skipNetwork = process.env.SKIP_NETWORK_TESTS === "1";
-const NETWORK_FIXTURES = ["valid/didweb_issuer.json", "invalid/credential_revoked.json"];
+const NETWORK_FIXTURES = [
+  "valid/didweb_issuer.json",
+  "invalid/credential_revoked.json",
+  // Fetches a status list: the hosted one, a deliberate 404, or the suspension list this repo
+  // serves itself from `public/statuslist/` while the dev server is up.
+  "invalid/credential_suspended.json",
+  "invalid/credential_status_unreachable.json",
+  "invalid/credential_status_unsupported.json",
+  // Resolves a did:web that was never published.
+  "invalid/unresolvable_issuer.json",
+];
 const needsNetwork = (fixture: string) => NETWORK_FIXTURES.includes(fixture);
 
 const ALL_VALID_FIXTURES = [
@@ -125,47 +135,117 @@ describe("Verifiable Presentation — how each failure is reported", () => {
     type: string;
     match: RegExp;
   }> = [
+    // The ENVELOPE is at fault — the remedy belongs to the holder.
     {
       fixture: "invalid/unsigned.json",
       failing: "DOCUMENT_INTEGRITY",
-      type: "INVALID",
-      match: /not signed, so the presenter cannot prove they hold these credentials/i,
+      type: "PRESENTATION_UNSIGNED",
+      match: /not signed, so the presenter cannot prove the credentials are theirs/i,
+    },
+    {
+      fixture: "invalid/presentation_proof_incomplete.json",
+      failing: "DOCUMENT_INTEGRITY",
+      type: "PRESENTATION_PROOF_INCOMPLETE",
+      match: /carries no usable signature/i,
+    },
+    {
+      fixture: "invalid/tampered_presentation.json",
+      failing: "DOCUMENT_INTEGRITY",
+      type: "PRESENTATION_TAMPERED",
+      match: /signature does not match the contents of this presentation/i,
     },
     {
       fixture: "invalid/holder_mismatch.json",
       failing: "DOCUMENT_INTEGRITY",
-      type: "INVALID",
+      type: "PRESENTATION_HOLDER_MISMATCH",
       match: /signed by someone other than the holder it names/i,
     },
     {
-      fixture: "invalid/tampered_credential.json",
+      fixture: "invalid/credential_no_holder.json",
       failing: "DOCUMENT_INTEGRITY",
-      type: "HASH",
-      match: /tampered/i,
+      type: "CREDENTIAL_NO_HOLDER",
+      match: /does not say who it was issued to/i,
     },
     {
       fixture: "invalid/presentation_expired.json",
       failing: "DOCUMENT_STATUS",
-      type: "INVALID",
-      match: /Ask the holder to present the credentials again/i,
+      type: "PRESENTATION_EXPIRED",
+      match: /ask the holder to present the credentials again/i,
     },
+    {
+      fixture: "invalid/presentation_not_yet_valid.json",
+      failing: "DOCUMENT_STATUS",
+      type: "PRESENTATION_NOT_YET_VALID",
+      match: /does not take effect yet/i,
+    },
+    {
+      fixture: "invalid/presentation_date_invalid.json",
+      failing: "DOCUMENT_STATUS",
+      type: "PRESENTATION_DATE_INVALID",
+      match: /unreadable expiry date/i,
+    },
+    {
+      fixture: "invalid/presentation_empty.json",
+      failing: "ISSUER_IDENTITY",
+      type: "PRESENTATION_EMPTY",
+      match: /does not contain any credentials/i,
+    },
+
+    // An EMBEDDED CREDENTIAL is at fault — it must be NAMED, and the remedy belongs to its
+    // issuer. Telling the holder to present again cannot fix any of these.
     {
       fixture: "invalid/credential_expired.json",
       failing: "DOCUMENT_STATUS",
-      type: "INVALID",
-      match: /Ask the issuer to reissue/i,
+      type: "CREDENTIAL_EXPIRED",
+      match: /Credential 2 \(.*has expired\. Please ask the issuing authority/i,
+    },
+    {
+      fixture: "invalid/credential_not_yet_valid.json",
+      failing: "DOCUMENT_STATUS",
+      type: "CREDENTIAL_NOT_YET_VALID",
+      match: /Credential 2 \(.*does not take effect yet/i,
+    },
+    {
+      fixture: "invalid/credential_date_invalid.json",
+      failing: "DOCUMENT_STATUS",
+      type: "CREDENTIAL_DATE_INVALID",
+      match: /Credential 2 \(.*unreadable date/i,
+    },
+    {
+      fixture: "invalid/tampered_credential.json",
+      failing: "DOCUMENT_INTEGRITY",
+      type: "CREDENTIAL_TAMPERED",
+      match: /contents of Credential 2 \(.*do not match its signature/i,
+    },
+    {
+      fixture: "invalid/credential_status_unsupported.json",
+      failing: "DOCUMENT_STATUS",
+      type: "CREDENTIAL_STATUS_UNSUPPORTED",
+      match: /records its status in a way we do not support/i,
     },
     {
       fixture: "invalid/credential_revoked.json",
       failing: "DOCUMENT_STATUS",
-      type: "REVOKED",
-      match: /revoked by its issuer/i,
+      type: "CREDENTIAL_REVOKED",
+      match: /revoked by the issuing authority/i,
+    },
+    {
+      fixture: "invalid/credential_suspended.json",
+      failing: "DOCUMENT_STATUS",
+      type: "CREDENTIAL_SUSPENDED",
+      match: /suspended by the issuing authority/i,
+    },
+    {
+      fixture: "invalid/credential_status_unreachable.json",
+      failing: "DOCUMENT_STATUS",
+      type: "CREDENTIAL_STATUS_UNREACHABLE",
+      match: /could not reach the status list/i,
     },
     {
       fixture: "invalid/unresolvable_issuer.json",
       failing: "ISSUER_IDENTITY",
-      type: "IDENTITY",
-      match: /names an issuer that cannot be identified/i,
+      type: "CREDENTIAL_ISSUER_UNRESOLVABLE",
+      match: /could not identify who issued Credential 2 \(/i,
     },
   ];
 
@@ -195,7 +275,8 @@ describe("Verifiable Presentation — how each failure is reported", () => {
   it("never calls an expired or unsigned presentation tampered", async () => {
     for (const fixture of ["invalid/presentation_expired.json", "invalid/unsigned.json"]) {
       const error = getPresentationError(await verify(fixture), load(fixture));
-      expect(error?.type).not.toBe("HASH");
+      expect(error?.type).not.toBe("PRESENTATION_TAMPERED");
+      expect(error?.type).not.toBe("CREDENTIAL_TAMPERED");
     }
   });
 
@@ -205,25 +286,28 @@ describe("Verifiable Presentation — how each failure is reported", () => {
     const frags = await verify("invalid/unresolvable_issuer.json");
     expect(groupStatus(frags, "DOCUMENT_INTEGRITY")).toBe("INVALID");
     expect(groupStatus(frags, "ISSUER_IDENTITY")).toBe("INVALID");
-    expect(getPresentationError(frags, load("invalid/unresolvable_issuer.json"))?.type).toBe("IDENTITY");
+    expect(getPresentationError(frags, load("invalid/unresolvable_issuer.json"))?.type).toBe(
+      "CREDENTIAL_ISSUER_UNRESOLVABLE"
+    );
   });
 
   it("names the credential at fault by the position and label its tab shows", async () => {
     // Deliberately an OFFLINE fixture: this assertion is about the copy, not about revocation,
     // and naming a network fixture here would fail under SKIP_NETWORK_TESTS.
+    //
+    // The fixture holds TWO credentials and the SECOND is the expired one, so this exercises
+    // both halves of the naming: the position has to be right (not defaulting to the first),
+    // and the label has to come from that credential's own render template.
     const fixture = "invalid/credential_expired.json";
-    const [first] = getPresentationCredentials(load(fixture));
-    const label = getCredentialLabel(first, 0);
+    const credentials = getPresentationCredentials(load(fixture));
+    const label = getCredentialLabel(credentials[1], 1);
     const error = getPresentationError(await verify(fixture), load(fixture));
 
-    expect(error?.message).toContain("Credential 1");
-
-    // This fixture's credential declares neither a renderer template nor a specific type, so its
-    // label IS the positional fallback. The copy must not then stutter as
-    // `Credential 1 ("Credential 1")` — the parenthetical is only worth adding when it says
-    // something the position does not. (The labelled path is covered in presentationErrors.test.)
-    expect(label).toBe("Credential 1");
-    expect(error?.message).not.toContain('("Credential 1")');
+    expect(label).toBe("BILL OF LADING");
+    expect(error?.message).toContain(`Credential 2 ("${label}")`);
+    // Position alone names nothing on screen; label alone is ambiguous when two tabs share a
+    // name. Neither half is sufficient, so neither may appear without the other.
+    expect(error?.message).not.toContain("Credential 1");
   });
 });
 

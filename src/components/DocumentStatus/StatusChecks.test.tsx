@@ -187,7 +187,7 @@ describe("StatusChecks — Verifiable Presentation", () => {
 
   it("shows only two checks — issuance belongs to each credential, not to the envelope", () => {
     renderChecks(ALL_VALID);
-    expect(screen.getByText("Presenter's identity has been identified")).toBeInTheDocument();
+    expect(screen.getByText("Presenter has been identified")).toBeInTheDocument();
     expect(screen.getByText("Presentation has not been tampered with")).toBeInTheDocument();
     expect(screen.queryByText(MESSAGES[TYPES.ISSUED].successTitle)).not.toBeInTheDocument();
   });
@@ -199,7 +199,7 @@ describe("StatusChecks — Verifiable Presentation", () => {
 
   it("reports a failing presenter identity", () => {
     renderChecks({ ...ALL_VALID, identityValid: false });
-    expect(screen.getByText("Presenter's identity has not been identified")).toBeInTheDocument();
+    expect(screen.getByText("Presenter could not be identified")).toBeInTheDocument();
   });
 
   it("reports a tampered presentation", () => {
