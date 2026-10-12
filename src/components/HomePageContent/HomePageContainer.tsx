@@ -10,12 +10,16 @@ import {
 } from "../../reducers/certificate";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { NestedDocumentState } from "../../constants/NestedDocumentState";
 import { getLogger } from "../../utils/logger";
 import { useNetworkSelect } from "../../common/hooks/useNetworkSelect";
 import { ChainId } from "../../constants/chain-info";
 import { ActionType, ActionPayload } from "../../types";
 import { setActive } from "../../reducers/sample";
+import {
+  isAllowedMessageOrigin,
+  isNestedDocumentLoadMessage,
+  parseNestedDocumentPayload,
+} from "./nestedDocumentMessage";
 
 const { error } = getLogger("component:mainpage");
 const { TYPES, MESSAGES } = errorMessages;
@@ -71,25 +75,30 @@ export const HomePageContainer = (): React.ReactElement => {
     }
   }, [dispatch, history, location, switchNetwork]);
 
-  // event listener for any custom postMessage
-  window.addEventListener("message", (event) => {
-    const allowedOriginRegex =
-      /^https?:\/\/(?:[\w-]+\.)*(?:tradetrust\.io|localhost(?::\d+)?|netlify\.app|netlify\.com|magic\.link)$/;
-
-    if (!allowedOriginRegex.test(event.origin)) {
-      console.error("Invalid origin:", event.origin);
-      return; // Exit if the origin is not allowed
-    }
-    if (event.data.type === NestedDocumentState.LOAD) {
-      try {
-        const doc = atob(event.data.payload);
-        loadCertificate(JSON.parse(doc));
-        history.push("/");
-      } catch (e) {
-        error("decode data not json: " + e);
+  useEffect(() => {
+    const onMessage = (event: MessageEvent): void => {
+      if (!isAllowedMessageOrigin(event.origin) || window.opener == null || event.source !== window.opener) {
+        return;
       }
-    }
-  });
+      if (!isNestedDocumentLoadMessage(event.data)) {
+        return;
+      }
+
+      const document = parseNestedDocumentPayload(event.data);
+      if (!document) {
+        error("rejected nested document message with an invalid payload");
+        return;
+      }
+
+      loadCertificate(document);
+      history.push("/");
+    };
+
+    window.addEventListener("message", onMessage);
+    return () => {
+      window.removeEventListener("message", onMessage);
+    };
+  }, [history, loadCertificate]);
 
   return <></>;
 };
