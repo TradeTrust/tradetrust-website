@@ -4,7 +4,7 @@ import invoiceV2 from "../test/fixture/local/v2/invoice.json";
 import invoiceV3 from "../test/fixture/local/v3/invoice.json";
 import w3cV2Document from "../test/fixture/local/w3c/v2_tr_er_ECDSA_Derived.json";
 import w3cV2BBS2023Document from "../test/fixture/local/w3c/v2_tr_er_bbs2023_Derived.json";
-import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
+import { getChainId, getDocumentRpcUrl, WrappedOrSignedOpenAttestationDocument } from "./shared";
 import { SignedVerifiableCredential } from "@trustvc/trustvc";
 
 describe("getChainId for v2 document", () => {
@@ -30,6 +30,14 @@ describe("getChainId for v2 document", () => {
       data: { ...invoiceV2.data, network: { chain: "MATIC", chainId: "80002" } },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(getChainId(document)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId for XRPL EVM testnet with XRP chain identifier", () => {
+    const document = {
+      ...invoiceV2,
+      data: { ...invoiceV2.data, network: { chain: "XRP", chainId: "1449000" } },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(1449000);
   });
 
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
@@ -95,6 +103,14 @@ describe("getChainId for v3 document", () => {
       network: { chain: "MATIC", chainId: "80002" },
     } as unknown as WrappedOrSignedOpenAttestationDocument;
     expect(getChainId(document)).toStrictEqual(80002);
+  });
+
+  it("should return the correct chainId for XRPL EVM testnet with XRP chain identifier", () => {
+    const document = {
+      ...invoiceV3,
+      network: { chain: "XRP", chainId: "1449000" },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getChainId(document)).toStrictEqual(1449000);
   });
 
   it("should throw an error when there is a network object in the document but the value is not valid", () => {
@@ -175,6 +191,17 @@ describe("getChainId for W3C v2 document", () => {
     expect(getChainId(documentWithPolygon as SignedVerifiableCredential)).toStrictEqual(80002);
   });
 
+  it("should return the correct chainId when W3C v2.0 document has tokenNetwork with XRPL EVM testnet", () => {
+    const documentWithXrplEvm = {
+      ...w3cV2Document,
+      credentialStatus: {
+        ...w3cV2Document.credentialStatus,
+        tokenNetwork: { chain: "XRP", chainId: "1449000" },
+      },
+    };
+    expect(getChainId(documentWithXrplEvm as SignedVerifiableCredential)).toStrictEqual(1449000);
+  });
+
   it("should throw an error when W3C v2.0 document has invalid chainId in tokenNetwork", () => {
     // Modify the credentialStatus to have invalid chainId
     const documentWithInvalidChainId = {
@@ -210,5 +237,36 @@ describe("getChainId for W3C v2 document", () => {
   it("should return the correct chainId for W3C v2.0 BBS2023 document with tokenNetwork", () => {
     // W3C v2 BBS2023 document has tokenNetwork.chainId: "1337"
     expect(getChainId(w3cV2BBS2023Document as SignedVerifiableCredential)).toStrictEqual(1337);
+  });
+});
+
+describe("getDocumentRpcUrl", () => {
+  it("returns the XRPL EVM testnet public RPC for an XRP document", () => {
+    const document = {
+      ...invoiceV2,
+      data: { ...invoiceV2.data, network: { chain: "XRP", chainId: "1449000" } },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    expect(getDocumentRpcUrl(document)).toBe("https://rpc.testnet.xrplevm.org");
+  });
+
+  it("returns the XRPL EVM testnet public RPC for a W3C document", () => {
+    const document = {
+      ...w3cV2Document,
+      credentialStatus: { ...w3cV2Document.credentialStatus, tokenNetwork: { chain: "XRP", chainId: "1449000" } },
+    } as unknown as SignedVerifiableCredential;
+    expect(getDocumentRpcUrl(document)).toBe("https://rpc.testnet.xrplevm.org");
+  });
+
+  it("returns undefined for XRPL EVM mainnet documents in the test environment", () => {
+    const document = {
+      ...invoiceV3,
+      network: { chain: "XRP", chainId: "1440000" },
+    } as unknown as WrappedOrSignedOpenAttestationDocument;
+    // Test env only includes TEST_NETWORKS, so mainnet XRPL is a network mismatch rather than a lookup miss.
+    expect(getDocumentRpcUrl(document)).toBeUndefined();
+  });
+
+  it("returns undefined for DID documents with no chain", () => {
+    expect(getDocumentRpcUrl(v2DID as unknown as WrappedOrSignedOpenAttestationDocument)).toBeUndefined();
   });
 });

@@ -16,9 +16,10 @@ import {
 } from "@trustvc/trustvc";
 import { TransferableRecordsCredentialStatus } from "@trustvc/trustvc/w3c/credential-status";
 import { CredentialSubject, isSignedDocument } from "@trustvc/trustvc/w3c/vc";
+import { providers } from "ethers";
 import { getCurrentProvider } from "../common/contexts/provider";
 import { getSupportedChainIds, getUnsupportedChainIds } from "../common/utils/chain-utils";
-import { AvailableBlockChains, ChainId } from "../constants/chain-info";
+import { AvailableBlockChains, ChainId, ChainInfo } from "../constants/chain-info";
 import { IS_DEVELOPMENT } from "../config";
 import { ProcessedFiles } from "../types";
 import { isVerifiablePresentation } from "./presentation";
@@ -176,9 +177,17 @@ export const getChainId = (
   }
 };
 
-export async function isTokenRegistryV4(registryAddress: string, tokenId: string): Promise<boolean> {
+// RPC URL of the network the document was issued on, so verification does not depend on the app's current network
+export const getDocumentRpcUrl = (
+  rawDocument: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential
+): string | undefined => {
+  const chainId = getChainId(rawDocument);
+  return chainId ? ChainInfo[chainId]?.rpcUrl : undefined;
+};
+
+export async function isTokenRegistryV4(registryAddress: string, tokenId: string, rpcUrl?: string): Promise<boolean> {
   try {
-    const provider = getCurrentProvider();
+    const provider = rpcUrl ? new providers.JsonRpcProvider(rpcUrl) : getCurrentProvider();
 
     if (!provider) {
       return false;
