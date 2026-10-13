@@ -181,12 +181,8 @@ export const getChainId = (
 export const getDocumentRpcUrl = (
   rawDocument: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential
 ): string | undefined => {
-  try {
-    const chainId = getChainId(rawDocument);
-    return chainId ? ChainInfo[chainId]?.rpcUrl : undefined;
-  } catch {
-    return undefined;
-  }
+  const chainId = getChainId(rawDocument);
+  return chainId ? ChainInfo[chainId]?.rpcUrl : undefined;
 };
 
 export async function isTokenRegistryV4(registryAddress: string, tokenId: string, rpcUrl?: string): Promise<boolean> {
