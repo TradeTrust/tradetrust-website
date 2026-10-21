@@ -15,6 +15,8 @@ interface DocumentUtilityProps {
    * presentation, where the document's own `name` is not unique across tabs.
    */
   downloadName?: string;
+  /** The document was rendered from its own INLINE_HTML_TEMPLATE renderMethod entry, not a renderer URL. */
+  isInlineTemplate?: boolean;
 }
 
 interface DocumentWithAdditionalMetadata extends v2.OpenAttestationDocument {
@@ -31,6 +33,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
   onPrint,
   selectedTemplate,
   downloadName,
+  isInlineTemplate = false,
 }) => {
   const [qrCodePopover, setQrCodePopover] = useState(false);
   const documentWithMetadata = getOpenAttestationData(
@@ -43,6 +46,7 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
   const fileName = downloadName ?? name ?? "Untitled";
   const qrcodeUrl = getQRCodeLink(document);
   const templateURL = getTemplateUrl(document);
+  const showRenderedView = isInlineTemplate || (selectedTemplate !== "default-template" && !!templateURL);
   const imageSettings: ImageSettings = {
     src: `/static/images/logo-qrcode.png`,
     height: 50,
@@ -53,23 +57,23 @@ export const DocumentUtility: FunctionComponent<DocumentUtilityProps> = ({
   return (
     <div className="container no-print bg-white pb-4">
       <div className="flex flex-wrap items-start gap-4">
-        {selectedTemplate !== "default-template" && templateURL && (
+        {showRenderedView && (
           <div className="flex-1">
             <h4 className="text-base font-semibold mb-1">Rendered View:</h4>
-            <h6 className="text-sm break-words">
-              {selectedTemplate.trim().toUpperCase()} rendered from{" "}
-              <a href={templateURL} className="text-blue-500 underline break-all">
-                {templateURL}
-              </a>
-            </h6>
+            {isInlineTemplate ? (
+              <h6 className="text-sm break-words">rendered from Inline Template</h6>
+            ) : (
+              <h6 className="text-sm break-words">
+                {selectedTemplate.trim().toUpperCase()} rendered from{" "}
+                <a href={templateURL} className="text-blue-500 underline break-all">
+                  {templateURL}
+                </a>
+              </h6>
+            )}
           </div>
         )}
 
-        <div
-          className={`${
-            selectedTemplate !== "default-template" && templateURL ? "" : "w-full"
-          } flex justify-end items-start space-x-3 mt-4 sm:mt-0`}
-        >
+        <div className={`${showRenderedView ? "" : "w-full"} flex justify-end items-start space-x-3 mt-4 sm:mt-0`}>
           {qrcodeUrl && (
             <div
               className="relative"

@@ -29,8 +29,7 @@ import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain";
-import { findInlineTemplateRenderMethod } from "./InlineTemplateRenderer/findInlineTemplateRenderMethod";
-import { InlineTemplateRenderer } from "./InlineTemplateRenderer/InlineTemplateRenderer";
+import { hasInlineTemplateRenderMethod, InlineTemplateRenderer } from "./InlineTemplateRenderer/InlineTemplateRenderer";
 import { InvalidAttachmentsBanner } from "./InvalidAttachmentsBanner";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import ScrollTip from "./ScrollTip";
@@ -73,6 +72,12 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
+  // Set when the INLINE_HTML_TEMPLATE entry fails to render, dropping back to the document's
+  // URL-based renderMethod entry (e.g. generic-templates) via the decentralised renderer.
+  const [inlineTemplateFailed, setInlineTemplateFailed] = useState(false);
+  const useInlineTemplate = hasInlineTemplateRenderMethod(document) && !inlineTemplateFailed;
+  const onInlineTemplateFailure = useCallback(() => setInlineTemplateFailed(true), []);
+  useEffect(() => setInlineTemplateFailed(false), [document]);
   const attachments = getAttachments(document);
   const hasAttachments = attachments ? attachments.length > 0 : false;
 
@@ -245,16 +250,15 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             </div>
           )}
           <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-            {findInlineTemplateRenderMethod(document) ? (
+            {useInlineTemplate ? (
               <>
-                {/* QR + download work as-is (both are render-method-agnostic); print is a
-                    harmless no-op here since childRef is never attached to
-                    InlineTemplateRenderer (it has no print capability yet), and the
-                    "Rendered View: ... rendered from <url>" line stays hidden on its own
-                    (DocumentUtility only shows it when there's a templateURL, which an
-                    INLINE_TEMPLATE entry doesn't have). */}
-                <DocumentUtility document={document} onPrint={onPrint} selectedTemplate={selectedTemplate} />
-                <InlineTemplateRenderer document={document} />
+                <DocumentUtility
+                  document={document}
+                  onPrint={onPrint}
+                  selectedTemplate={selectedTemplate}
+                  isInlineTemplate
+                />
+                <InlineTemplateRenderer document={document} onFailure={onInlineTemplateFailure} ref={childRef} />
               </>
             ) : (
               <>

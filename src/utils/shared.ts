@@ -2,6 +2,7 @@ import {
   errorMessages,
   getDataV2,
   getDocumentData,
+  getRenderMethods,
   isTitleEscrowVersion,
   isWrappedV2Document,
   isWrappedV3Document,
@@ -44,11 +45,15 @@ export const getOpenAttestationData = (
   return getDocumentData(wrappedDocument);
 };
 
+// The URL-based renderMethod entry (e.g. generic-templates) -- the fallback when the document's
+// INLINE_HTML_TEMPLATE entry is absent or fails to render.
+const getRenderMethodUrl = (rawDocument: unknown): string | undefined => getRenderMethods(rawDocument).renderer?.id;
+
 export const getTemplateUrl = (
   rawDocument: WrappedOrSignedOpenAttestationDocument | SignedVerifiableCredential
 ): string | undefined => {
   if (isSignedDocument(rawDocument) || vc.isRawDocument(rawDocument)) {
-    return [(rawDocument as unknown as SignedVerifiableCredential).renderMethod]?.flat()?.[0]?.id;
+    return getRenderMethodUrl(rawDocument);
   } else if (isWrappedV2Document(rawDocument)) {
     const documentData = getDataV2(rawDocument);
     return typeof documentData.$template === "object" ? documentData.$template.url : undefined;
@@ -67,7 +72,7 @@ export const getTemplateUrlFromUnsignedDocument = (
   rawDocument: WrappedOrSignedOpenAttestationDocument | RawVerifiableCredential
 ): string | undefined => {
   if (vc.isRawDocument(rawDocument) || vc.isSignedDocument(rawDocument)) {
-    return [(rawDocument as unknown as SignedVerifiableCredential).renderMethod]?.flat()?.[0]?.id;
+    return getRenderMethodUrl(rawDocument);
   }
 
   if (isV3Document(rawDocument) && rawDocument.openAttestationMetadata.template) {

@@ -4,7 +4,7 @@ import invoiceV2 from "../test/fixture/local/v2/invoice.json";
 import invoiceV3 from "../test/fixture/local/v3/invoice.json";
 import w3cV2Document from "../test/fixture/local/w3c/v2_tr_er_ECDSA_Derived.json";
 import w3cV2BBS2023Document from "../test/fixture/local/w3c/v2_tr_er_bbs2023_Derived.json";
-import { getChainId, WrappedOrSignedOpenAttestationDocument } from "./shared";
+import { getChainId, getTemplateUrl, WrappedOrSignedOpenAttestationDocument } from "./shared";
 import { SignedVerifiableCredential } from "@trustvc/trustvc";
 
 describe("getChainId for v2 document", () => {
@@ -210,5 +210,29 @@ describe("getChainId for W3C v2 document", () => {
   it("should return the correct chainId for W3C v2.0 BBS2023 document with tokenNetwork", () => {
     // W3C v2 BBS2023 document has tokenNetwork.chainId: "1337"
     expect(getChainId(w3cV2BBS2023Document as SignedVerifiableCredential)).toStrictEqual(1337);
+  });
+});
+
+describe("getTemplateUrl for W3C documents", () => {
+  const inlineTemplate = {
+    type: "INLINE_HTML_TEMPLATE",
+    template: { templateName: "BILL_OF_LADING", html: "", css: "" },
+  };
+
+  it("should return the renderer url for a document with only a URL-based renderMethod", () => {
+    expect(getTemplateUrl(w3cV2Document as SignedVerifiableCredential)).toBe("https://generic-templates.tradetrust.io");
+  });
+
+  it("should skip an INLINE_HTML_TEMPLATE entry placed ahead of the URL-based fallback", () => {
+    const document = {
+      ...w3cV2Document,
+      renderMethod: [inlineTemplate, ...w3cV2Document.renderMethod],
+    } as unknown as SignedVerifiableCredential;
+    expect(getTemplateUrl(document)).toBe("https://generic-templates.tradetrust.io");
+  });
+
+  it("should return undefined when the only renderMethod is an INLINE_HTML_TEMPLATE", () => {
+    const document = { ...w3cV2Document, renderMethod: [inlineTemplate] } as unknown as SignedVerifiableCredential;
+    expect(getTemplateUrl(document)).toBeUndefined();
   });
 });
