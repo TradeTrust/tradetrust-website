@@ -1,10 +1,14 @@
-import React, { FunctionComponent, useCallback, useMemo, useRef, useState } from "react";
+import React, { FunctionComponent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { TemplateProps } from "../../types";
 import { getAttachments } from "../../utils/shared";
 import { isValidAttachmentData } from "../../utils/attachmentValidation";
 import { DecentralisedRenderer } from "../DecentralisedTemplateRenderer/DecentralisedRenderer";
 import { MultiTabs } from "../DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentUtility } from "../DocumentUtility";
+import {
+  hasInlineTemplateRenderMethod,
+  InlineTemplateRenderer,
+} from "../InlineTemplateRenderer/InlineTemplateRenderer";
 import { InvalidAttachmentsBanner } from "../InvalidAttachmentsBanner";
 import { TabPaneAttachments } from "../TabPaneAttachments";
 
@@ -33,6 +37,13 @@ export const CredentialDocumentView: FunctionComponent<CredentialDocumentViewPro
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const childRef = useRef<{ print: () => void }>();
+
+  // Set when the credential's INLINE_HTML_TEMPLATE entry fails to render, dropping back to its
+  // URL-based renderMethod entry (e.g. generic-templates) via the decentralised renderer.
+  const [inlineTemplateFailed, setInlineTemplateFailed] = useState(false);
+  const useInlineTemplate = hasInlineTemplateRenderMethod(credential) && !inlineTemplateFailed;
+  const onInlineTemplateFailure = useCallback(() => setInlineTemplateFailed(true), []);
+  useEffect(() => setInlineTemplateFailed(false), [credential]);
 
   const attachments = useMemo(() => getAttachments(credential), [credential]);
   const hasAttachments = attachments ? attachments.length > 0 : false;
@@ -93,21 +104,36 @@ export const CredentialDocumentView: FunctionComponent<CredentialDocumentViewPro
           </div>
         )}
         <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-          {templates.length > 0 && (
-            <DocumentUtility
-              document={credential}
-              onPrint={onPrint}
-              selectedTemplate={selectedTemplate}
-              downloadName={downloadName}
-            />
+          {useInlineTemplate ? (
+            <>
+              <DocumentUtility
+                document={credential}
+                onPrint={onPrint}
+                selectedTemplate={selectedTemplate}
+                downloadName={downloadName}
+                isInlineTemplate
+              />
+              <InlineTemplateRenderer document={credential} onFailure={onInlineTemplateFailure} ref={childRef} />
+            </>
+          ) : (
+            <>
+              {templates.length > 0 && (
+                <DocumentUtility
+                  document={credential}
+                  onPrint={onPrint}
+                  selectedTemplate={selectedTemplate}
+                  downloadName={downloadName}
+                />
+              )}
+              <DecentralisedRenderer
+                rawDocument={credential}
+                updateTemplates={updateTemplates}
+                selectedTemplate={selectedTemplate}
+                setPrivacyFilter={() => undefined}
+                forwardedRef={childRef}
+              />
+            </>
           )}
-          <DecentralisedRenderer
-            rawDocument={credential}
-            updateTemplates={updateTemplates}
-            selectedTemplate={selectedTemplate}
-            setPrivacyFilter={() => undefined}
-            forwardedRef={childRef}
-          />
         </div>
       </div>
     </>
