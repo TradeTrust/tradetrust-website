@@ -1,12 +1,12 @@
 import {
-  decompressInlineTemplate,
+  decompressInlineHtmlTemplate,
   getRenderMethods,
-  printInlineTemplate,
-  renderInlineTemplate,
+  printInlineHtmlTemplate,
+  renderInlineHtmlTemplate,
 } from "@trustvc/trustvc";
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 
-export const hasInlineTemplateRenderMethod = (doc: unknown): boolean => !!getRenderMethods(doc).inlineTemplate;
+export const hasInlineTemplateRenderMethod = (doc: unknown): boolean => !!getRenderMethods(doc).inlineHtmlTemplate;
 
 interface InlineTemplateRendererProps {
   document: unknown;
@@ -28,7 +28,7 @@ export const InlineTemplateRenderer = forwardRef<{ print: () => void } | undefin
     const hostRef = useRef<HTMLDivElement>(null);
     useImperativeHandle(ref, () => ({
       print: () => {
-        if (hostRef.current) printInlineTemplate(hostRef.current);
+        if (hostRef.current) printInlineHtmlTemplate(hostRef.current);
       },
     }));
     const hasInlineTemplate = hasInlineTemplateRenderMethod(doc);
@@ -39,10 +39,10 @@ export const InlineTemplateRenderer = forwardRef<{ print: () => void } | undefin
     useEffect(() => {
       let cancelled = false;
       // A string `template` is gzipped (signed in that form), so inflate it before rendering.
-      decompressInlineTemplate(doc)
+      decompressInlineHtmlTemplate(doc)
         .then((decompressed) => {
           if (cancelled || !hostRef.current) return;
-          if (!renderInlineTemplate(decompressed, hostRef.current))
+          if (!renderInlineHtmlTemplate(decompressed, hostRef.current))
             throw new Error("No renderable INLINE_HTML_TEMPLATE entry");
         })
         .catch((e) => {
