@@ -21,6 +21,9 @@ describe("assertSafeDocumentUri", () => {
     "https://172.20.0.1/doc.json",
     "https://169.254.169.254/latest/meta-data",
     "https://[::1]/doc.json",
+    "https://[fe80::1]/doc.json",
+    "https://[fe90::1]/doc.json",
+    "https://[febf::1]/doc.json",
     "https://user:pw@storage.issuer.example/doc.json",
     "not a url",
   ])("rejects %s", (uri) => {

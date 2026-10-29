@@ -2,7 +2,7 @@ const LOCAL_DEV_HOSTS = new Set(["localhost", "127.0.0.1"]);
 
 // Private, loopback and link-local hosts a crafted link could point the browser at.
 const PRIVATE_HOST =
-  /^(?:localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|0\.|\[(?:::1?|f[cd][0-9a-f]*:|fe80:)[^\]]*\])/i;
+  /^(?:localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|0\.|\[(?:::1?|f[cd][0-9a-f]*:|fe[89ab][0-9a-f]*:)[^\]]*\])/i;
 
 /**
  * Validates the document URI taken from an action link (`?q=`) before the browser fetches it.

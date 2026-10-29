@@ -179,7 +179,7 @@ export function* retrieveCertificateByAction({ payload, anchor }: RetrieveCertif
     const safeUri = assertSafeDocumentUri(uri);
     // if a key has been provided, let's assume
     let certificate = yield window
-      .fetch(safeUri, { credentials: "omit", referrerPolicy: "no-referrer" })
+      .fetch(safeUri, { credentials: "omit", referrerPolicy: "no-referrer", redirect: "error" })
       .then((response) => {
         if (response.status >= 400 && response.status < 600) {
           throw new Error(`Unable to load the certificate from ${uri}`);
