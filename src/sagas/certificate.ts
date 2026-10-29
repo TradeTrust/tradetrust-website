@@ -16,6 +16,7 @@ import {
   vc,
 } from "@trustvc/trustvc";
 import { call, delay, put, race, select, takeEvery } from "redux-saga/effects";
+import { assertSafeDocumentUri } from "../common/utils/documentUri";
 import { history } from "../history";
 import {
   detectingTRCertificateVersion,
@@ -175,13 +176,16 @@ export function* retrieveCertificateByAction({ payload, anchor }: RetrieveCertif
     const { key: anchorKey } = anchor;
     const key = anchorKey || payloadKey; // https://github.com/TradeTrust/tradetrust-website/pull/397
 
+    const safeUri = assertSafeDocumentUri(uri);
     // if a key has been provided, let's assume
-    let certificate = yield window.fetch(uri).then((response) => {
-      if (response.status >= 400 && response.status < 600) {
-        throw new Error(`Unable to load the certificate from ${uri}`);
-      }
-      return response.json();
-    });
+    let certificate = yield window
+      .fetch(safeUri, { credentials: "omit", referrerPolicy: "no-referrer" })
+      .then((response) => {
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error(`Unable to load the certificate from ${uri}`);
+        }
+        return response.json();
+      });
     certificate = certificate.document || certificate; // opencerts-function returns the document in a nested document object
 
     if (!certificate) {
