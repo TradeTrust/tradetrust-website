@@ -10,6 +10,7 @@ import { getCurrentProvider } from "../../common/contexts/provider";
 import { getChainInfoFromNetworkName } from "../../common/utils/chain-utils";
 import { NETWORK_NAME } from "../../config";
 import { ChainInfo } from "../../constants/chain-info";
+import { getDocumentRpcUrl } from "../../utils/shared";
 
 export enum VerifierType {
   DEMO = "demo",
@@ -39,5 +40,5 @@ export const verifyDocument = async (
   const provider = getCurrentProvider();
   return verifierType === VerifierType.DEMO
     ? demoVerifier(document)
-    : verifyDoc(document, (await rpcURL(provider)) as string);
+    : verifyDoc(document, getDocumentRpcUrl(document as any) || ((await rpcURL(provider)) as string));
 };

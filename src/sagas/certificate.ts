@@ -28,7 +28,7 @@ import {
 import { processQrCode } from "../services/qrProcessor";
 import { verifyDocument } from "../services/verify";
 import { getLogger } from "../utils/logger";
-import { getKeyId, isTokenRegistryV4 } from "../utils/shared";
+import { getDocumentRpcUrl, getKeyId, isTokenRegistryV4 } from "../utils/shared";
 import { getW3CVersionLabel, isVerifiablePresentation } from "../utils/presentation";
 import { ActionPayload } from "./../types";
 import { TokenRegistryVersions } from "../constants";
@@ -73,7 +73,7 @@ export function* verifyCertificate(): any {
       yield put(detectingTRCertificateVersion(TokenRegistryVersions.V5));
     } else if (isTransferableAssetVal && registryAddress && tokenId) {
       const { tokenRegistryV4, timeout } = yield race({
-        tokenRegistryV4: call(isTokenRegistryV4, registryAddress, tokenId),
+        tokenRegistryV4: call(isTokenRegistryV4, registryAddress, tokenId, getDocumentRpcUrl(certificate)),
         timeout: delay(2 * 60 * 1000),
       });
 

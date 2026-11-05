@@ -143,7 +143,7 @@ describe("verifyCertificate", () => {
 
     const dispatched = await recordSaga(verifyCertificate, initialAction);
 
-    expect(isTokenRegistryV4Spy).toHaveBeenCalledWith("0xTokenRegistryAddress", "0xTokenId");
+    expect(isTokenRegistryV4Spy).toHaveBeenCalledWith("0xTokenRegistryAddress", "0xTokenId", undefined);
     expect(getObligationRegistryAddress).not.toHaveBeenCalled();
     expect(dispatched).toContainEqual(certificate.detectingTRCertificateVersion(TokenRegistryVersions.V4));
   });

@@ -4,6 +4,7 @@ import {
   getTokenRegistryAddress,
   SignedVerifiableCredential,
   SUPPORTED_CHAINS,
+  CHAIN_ID,
   W3CTransferableRecordsConfig,
   mint,
 } from "@trustvc/trustvc";
@@ -90,7 +91,7 @@ const mintTransferableRecord = async (
   };
 
   let transactionOptions = {};
-  const { gasStation } = SUPPORTED_CHAINS[currentChainId];
+  const gasStation = SUPPORTED_CHAINS[String(currentChainId) as CHAIN_ID]?.gasStation;
   if (gasStation) {
     try {
       const gasFees = await gasStation();
