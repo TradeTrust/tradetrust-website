@@ -35,9 +35,9 @@ describe("response fingerprint scrubbing", () => {
   });
 
   it("replaces error pages that name the host or include a request id", () => {
-    expect(
-      sanitizedErrorBody(404, "text/plain", "Not Found - Request ID: 01EXAMPLE\n\nhttps://netlify.new/")
-    ).toBe("Not Found");
+    expect(sanitizedErrorBody(404, "text/plain", "Not Found - Request ID: 01EXAMPLE\n\nhttps://netlify.new/")).toBe(
+      "Not Found"
+    );
     expect(sanitizedErrorBody(400, "text/plain", "400 Bad Request: Invalid Host Header.")).toBeUndefined();
     expect(sanitizedErrorBody(200, "text/html", "netlify")).toBeUndefined();
   });
