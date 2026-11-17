@@ -26,7 +26,8 @@ const createRange = () => ({
     ownerDocument: document,
   },
 });
-window.alert = jest.fn();
-window.fetch = jest.fn();
-
-Object.defineProperty(document, "createRange", createRange);
+if (typeof window !== "undefined") {
+  window.alert = jest.fn();
+  window.fetch = jest.fn();
+  Object.defineProperty(document, "createRange", createRange);
+}

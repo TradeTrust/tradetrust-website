@@ -17,6 +17,7 @@ import CreatorPage from "./pages/creator";
 import FormPreviewPage from "./pages/formPreview";
 import WalletPage from "./pages/wallet";
 import EndorsementChainPage from "./pages/endorsement-chain";
+import { AiTemplateGeneratorPage } from "./pages/aiTemplateGenerator";
 
 export const FORM_SG_URL = "https://www.form.gov.sg/635f32c5001b2d0011fff09b";
 
@@ -57,6 +58,7 @@ const routeComponents: RouteComponents = {
   termsOfUse: { exact: true, component: TermsOfUsePage },
   wallet: { exact: true, component: WalletPage },
   endorsementChain: { exact: true, component: EndorsementChainPage },
+  aiTemplateGenerator: { exact: true, component: AiTemplateGeneratorPage },
   notFound: { component: PageNotFound },
 };
 

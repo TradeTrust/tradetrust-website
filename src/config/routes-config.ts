@@ -12,5 +12,6 @@ export const paths: Record<string, string> = {
   termsOfUse: "/terms-of-use",
   wallet: "/wallet",
   endorsementChain: "/endorsement-chain",
+  aiTemplateGenerator: "/ai-template-generator",
   notFound: "*",
 }; // note that this is being used to generate sitemap
