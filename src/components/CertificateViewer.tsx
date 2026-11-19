@@ -29,6 +29,7 @@ import { DecentralisedRendererContainer } from "./DecentralisedTemplateRenderer/
 import { MultiTabs } from "./DecentralisedTemplateRenderer/MultiTabs";
 import { DocumentUtility } from "./DocumentUtility";
 import { EndorsementChainContainer } from "./EndorsementChain";
+import { hasInlineTemplateRenderMethod, InlineTemplateRenderer } from "./InlineTemplateRenderer/InlineTemplateRenderer";
 import { InvalidAttachmentsBanner } from "./InvalidAttachmentsBanner";
 import { ObfuscatedMessage } from "./ObfuscatedMessage";
 import ScrollTip from "./ScrollTip";
@@ -71,6 +72,12 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
   const [templates, setTemplates] = useState<TemplateProps[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [showEndorsementChain, setShowEndorsementChain] = useState(false);
+  // Set when the INLINE_HTML_TEMPLATE entry fails to render, dropping back to the document's
+  // URL-based renderMethod entry (e.g. generic-templates) via the decentralised renderer.
+  const [inlineTemplateFailed, setInlineTemplateFailed] = useState(false);
+  const useInlineTemplate = hasInlineTemplateRenderMethod(document) && !inlineTemplateFailed;
+  const onInlineTemplateFailure = useCallback(() => setInlineTemplateFailed(true), []);
+  useEffect(() => setInlineTemplateFailed(false), [document]);
   const attachments = getAttachments(document);
   const hasAttachments = attachments ? attachments.length > 0 : false;
 
@@ -243,15 +250,29 @@ export const CertificateViewer: FunctionComponent<CertificateViewerProps> = ({ i
             </div>
           )}
           <div className={`${selectedTemplate === "attachmentTab" ? "hidden" : "block"}`}>
-            {templates.length > 0 && (
-              <DocumentUtility document={document} onPrint={onPrint} selectedTemplate={selectedTemplate} />
+            {useInlineTemplate ? (
+              <>
+                <DocumentUtility
+                  document={document}
+                  onPrint={onPrint}
+                  selectedTemplate={selectedTemplate}
+                  isInlineTemplate
+                />
+                <InlineTemplateRenderer document={document} onFailure={onInlineTemplateFailure} ref={childRef} />
+              </>
+            ) : (
+              <>
+                {templates.length > 0 && (
+                  <DocumentUtility document={document} onPrint={onPrint} selectedTemplate={selectedTemplate} />
+                )}
+                <DecentralisedRendererContainer
+                  rawDocument={document}
+                  updateTemplates={updateTemplates}
+                  selectedTemplate={selectedTemplate}
+                  ref={childRef}
+                />
+              </>
             )}
-            <DecentralisedRendererContainer
-              rawDocument={document}
-              updateTemplates={updateTemplates}
-              selectedTemplate={selectedTemplate}
-              ref={childRef}
-            />
           </div>
         </div>
       </div>
