@@ -125,6 +125,50 @@ describe("AssetManagementForm BoE Issued — classic ETR parity", () => {
     );
   });
 
+  // Regression: accepting closes only the accepter's own reject window on-chain (the contract
+  // clears prevHolder). It does not permanently block reject by bill status — a holder appointed
+  // via a later transfer still has a live prevHolder and must stay able to reject it, even though
+  // the bill has already been accepted.
+  it("Accepted BoE: a holder with a pending transfer can still reject it", () => {
+    render(
+      <AssetManagementForm
+        {...baseProps}
+        beneficiary={other}
+        holder={dualRole}
+        account={dualRole}
+        prevHolder={other}
+        obligationStatus={ObligationDocumentStatus.Accepted}
+      />
+    );
+
+    expect(mockActionSelectionForm).toHaveBeenCalledWith(
+      expect.objectContaining({
+        canRejectHolderTransfer: true,
+        canTransferHolder: true,
+      })
+    );
+  });
+
+  it("Accepted BoE: a dual-role owner+holder with a pending transfer can still reject it", () => {
+    render(
+      <AssetManagementForm
+        {...baseProps}
+        beneficiary={dualRole}
+        holder={dualRole}
+        account={dualRole}
+        prevHolder={other}
+        prevBeneficiary={other}
+        obligationStatus={ObligationDocumentStatus.Accepted}
+      />
+    );
+
+    expect(mockActionSelectionForm).toHaveBeenCalledWith(
+      expect.objectContaining({
+        canRejectOwnerHolderTransfer: true,
+      })
+    );
+  });
+
   it("matches dual-role when account checksum casing differs", () => {
     render(
       <AssetManagementForm

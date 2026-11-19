@@ -10,8 +10,8 @@ import {
 } from "../../reducers/certificate";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { NestedDocumentState } from "../../constants/NestedDocumentState";
 import { getLogger } from "../../utils/logger";
+import { isTrustedDocumentMessageOrigin, readNestedDocumentPayload } from "./documentMessage";
 import { useNetworkSelect } from "../../common/hooks/useNetworkSelect";
 import { ChainId } from "../../constants/chain-info";
 import { ActionType, ActionPayload } from "../../types";
@@ -71,25 +71,26 @@ export const HomePageContainer = (): React.ReactElement => {
     }
   }, [dispatch, history, location, switchNetwork]);
 
-  // event listener for any custom postMessage
-  window.addEventListener("message", (event) => {
-    const allowedOriginRegex =
-      /^https?:\/\/(?:[\w-]+\.)*(?:tradetrust\.io|localhost(?::\d+)?|netlify\.app|netlify\.com|magic\.link)$/;
+  useEffect(() => {
+    const onMessage = (event: MessageEvent): void => {
+      if (!isTrustedDocumentMessageOrigin(event.origin, window.location.origin)) return;
 
-    if (!allowedOriginRegex.test(event.origin)) {
-      console.error("Invalid origin:", event.origin);
-      return; // Exit if the origin is not allowed
-    }
-    if (event.data.type === NestedDocumentState.LOAD) {
+      const payload = readNestedDocumentPayload(event.data);
+      if (!payload) return;
+
       try {
-        const doc = atob(event.data.payload);
-        loadCertificate(JSON.parse(doc));
+        const doc = JSON.parse(atob(payload));
+        if (!doc || typeof doc !== "object" || Array.isArray(doc)) return;
+        loadCertificate(doc);
         history.push("/");
       } catch (e) {
         error("decode data not json: " + e);
       }
-    }
-  });
+    };
+
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [history, loadCertificate]);
 
   return <></>;
 };
