@@ -15,53 +15,28 @@ export const NavigationBar: FunctionComponent<NavigationBarProps> = (props) => {
   const collapsed = !props.toggleNavBar;
 
   return (
-    <nav className="bg-white">
+    <nav className="border-b border-[#E2E3E7] bg-white">
       <div className="text-cloud-500 font-medium">
-        <div className="container py-2">
-          <div className="relative flex items-baseline justify-between">
-            <div className="self-center md:hidden">
-              <button
-                className={`flex items-center relative w-6 h-6 ${props.toggleNavBar ? "" : "collapsed"}`}
-                onClick={() => {
-                  props.setToggleNavBar(!props.toggleNavBar);
-                }}
-              >
-                <span
-                  style={{
-                    height: 2,
-                    transform: collapsed ? "translateY(-4px) rotate(0)" : "translateY(0) rotate(45deg)",
-                  }}
-                  className="w-full bg-cloud-500 transition-transform duration-200 ease-out absolute block top-bar"
-                />
-                <span
-                  style={{
-                    height: 2,
-                    transform: collapsed ? "translateY(4px) rotate(0)" : "translateY(0) rotate(-45deg)",
-                  }}
-                  className="w-full bg-cloud-500 transition-transform duration-200 ease-out absolute block bottom-bar"
-                />
-              </button>
-            </div>
-            <div className="absolute md:relative flex items-center w-[104px] md:w-[140px] md:w-auto text-center left-0 right-0 mx-auto md:mx-0 max-w-[168px]">
-              {props.logo}
-            </div>
-            <div className="hidden md:block">
-              <div className="flex items-center">
+        <div className="container">
+          <div className="relative flex h-[68px] items-center justify-between gap-7">
+            <div className="flex w-[140px] shrink-0 items-center">{props.logo}</div>
+            <div className="hidden sm:block">
+              <div className="flex items-center gap-7">
                 {props.menuLeft.map((item, index) => {
                   return (
-                    <div key={index} className="md:ml-6">
+                    <div key={index}>
                       <NavigationBarItem item={item} />
                     </div>
                   );
                 })}
               </div>
             </div>
-            <div className="hidden md:block md:ml-auto self-center">
+            <div className="ml-auto hidden self-center sm:block">
               {props.menuRight && (
-                <div className="flex items-center">
+                <div className="flex items-center gap-4">
                   {props.menuRight.map((item, index) => {
                     return (
-                      <div key={index} className="md:ml-2 md:ml-4">
+                      <div key={index}>
                         <NavigationBarItem item={item} />
                       </div>
                     );
@@ -69,9 +44,39 @@ export const NavigationBar: FunctionComponent<NavigationBarProps> = (props) => {
                 </div>
               )}
             </div>
+            <button
+              type="button"
+              aria-label="Menu"
+              aria-expanded={!collapsed}
+              className="flex h-11 w-11 items-center justify-center border-0 bg-transparent sm:hidden"
+              onClick={() => {
+                props.setToggleNavBar(!props.toggleNavBar);
+              }}
+            >
+              <span className="relative block h-6 w-6">
+                <span
+                  style={{
+                    height: 2,
+                    transform: collapsed ? "translateY(-6px)" : "translateY(0) rotate(45deg)",
+                  }}
+                  className="absolute top-1/2 block w-full bg-[#424448] transition-transform duration-200 ease-out"
+                />
+                <span
+                  style={{ height: 2, opacity: collapsed ? 1 : 0 }}
+                  className="absolute top-1/2 block w-full -translate-y-1/2 bg-[#424448] transition-opacity duration-200"
+                />
+                <span
+                  style={{
+                    height: 2,
+                    transform: collapsed ? "translateY(6px)" : "translateY(0) rotate(-45deg)",
+                  }}
+                  className="absolute top-1/2 block w-full bg-[#424448] transition-transform duration-200 ease-out"
+                />
+              </span>
+            </button>
           </div>
         </div>
-        <div className="md:hidden">
+        <div className="sm:hidden">
           <div
             className={`container rounded-md bg-white overflow-auto transition-height ease-in-out duration-700 ${
               props.toggleNavBar ? "max-h-screen" : "max-h-0"

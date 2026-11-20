@@ -1,4 +1,15 @@
-import { INFURA_API_KEY, STABILITY_API_KEY, STABILITY_TESTNET_API_KEY, ASTRON_TESTNET_API_KEY } from "../config";
+import {
+  ALCHEMY_API_KEY,
+  ASTRON_TESTNET_API_KEY,
+  INFURA_API_KEY,
+  STABILITY_API_KEY,
+  STABILITY_TESTNET_API_KEY,
+} from "../config";
+
+const evmRpcUrl = (alchemyHost: string, infuraHost: string): string =>
+  ALCHEMY_API_KEY
+    ? `https://${alchemyHost}.g.alchemy.com/v2/${ALCHEMY_API_KEY}`
+    : `https://${infuraHost}.infura.io/v3/${INFURA_API_KEY}`;
 
 export type Network =
   | "homestead"
@@ -97,7 +108,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "homestead",
     networkLabel: "Ethereum",
     explorerUrl: "https://etherscan.io",
-    rpcUrl: `https://mainnet.infura.io/v3/${INFURA_API_KEY}`,
+    rpcUrl: evmRpcUrl("eth-mainnet", "mainnet"),
     nativeCurrency: {
       name: "ETH",
       symbol: "ETH",
@@ -111,7 +122,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "sepolia",
     networkLabel: "Sepolia",
     explorerUrl: "https://sepolia.etherscan.io",
-    rpcUrl: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
+    rpcUrl: evmRpcUrl("eth-sepolia", "sepolia"),
     nativeCurrency: {
       name: "ETH",
       symbol: "sepETH",
@@ -125,7 +136,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "matic",
     networkLabel: "Polygon",
     explorerUrl: "https://polygonscan.com",
-    rpcUrl: `https://polygon-mainnet.infura.io/v3/${INFURA_API_KEY}`,
+    rpcUrl: evmRpcUrl("polygon-mainnet", "polygon-mainnet"),
     nativeCurrency: {
       name: "POL",
       symbol: "POL",
@@ -139,7 +150,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "amoy",
     networkLabel: "Polygon Amoy",
     explorerUrl: "https://amoy.polygonscan.com",
-    rpcUrl: `https://polygon-amoy.infura.io/v3/${INFURA_API_KEY}`,
+    rpcUrl: evmRpcUrl("polygon-amoy", "polygon-amoy"),
     nativeCurrency: {
       name: "POL",
       symbol: "POL",

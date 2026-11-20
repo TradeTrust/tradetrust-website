@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Page } from "../components/Layout/Page";
+import { trackTemplateEvent } from "../aiTemplateGenerator/analytics";
 import { canGenerate } from "../aiTemplateGenerator/canGenerate";
 import { STEP_TITLES } from "../aiTemplateGenerator/copy";
 import { DownloadStep } from "../aiTemplateGenerator/DownloadStep";
@@ -85,11 +86,18 @@ const Aside: FunctionComponent<{ waiting?: boolean }> = ({ waiting }) => {
   );
 };
 
-const Stepper: FunctionComponent<{ step: number; action?: React.ReactNode }> = ({ step, action }) => {
+const stepButtonClass =
+  "inline-flex items-center justify-center rounded-xl border px-3 py-2 font-jakarta text-base font-bold leading-5";
+
+const Stepper: FunctionComponent<{ step: number; action?: React.ReactNode; notice?: React.ReactNode }> = ({
+  step,
+  action,
+  notice,
+}) => {
   return (
     <section
       aria-label="Progress"
-      className="mt-4 rounded-lg bg-white px-4 pb-8 pt-6 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-2px_rgba(0,0,0,0.1)] md:px-8"
+      className="mt-4 flex flex-col gap-7 rounded-lg bg-white px-4 pb-8 pt-6 shadow-dropdown sm:px-8"
     >
       <div aria-label={`Step ${step} of 4`} className="flex gap-1 py-4">
         {STEP_TITLES.map((title, index) => {
@@ -98,14 +106,11 @@ const Stepper: FunctionComponent<{ step: number; action?: React.ReactNode }> = (
           return (
             <div
               key={title}
-              className="relative flex-1"
-              style={{ height: 4, background: done ? "#2D5FAA" : "#B4BCC2" }}
+              className="relative h-1 flex-1"
+              style={{ background: done ? "#2D5FAA" : "#B4BCC2" }}
             >
               {active && (
-                <div
-                  className="absolute left-1/2 top-0.5 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#2D5FAA] text-xs font-bold text-white"
-                  style={{ width: 24, height: 24 }}
-                >
+                <div className="absolute left-1/2 top-1/2 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#2D5FAA] font-jakarta text-xs font-bold text-white">
                   {step}
                 </div>
               )}
@@ -113,12 +118,16 @@ const Stepper: FunctionComponent<{ step: number; action?: React.ReactNode }> = (
           );
         })}
       </div>
-      <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
-        <h2 className="m-0 font-ubuntu text-[26px] font-normal leading-tight text-[#454B50]" data-testid="step-title">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-4">
+        <h2
+          className="m-0 font-ubuntu text-[26px] font-normal leading-[30px] text-[#424448]"
+          data-testid="step-title"
+        >
           {STEP_TITLES[step - 1]}
         </h2>
         {action}
       </div>
+      {notice}
     </section>
   );
 };
@@ -140,9 +149,13 @@ export const AiTemplateGeneratorPage: FunctionComponent = () => {
   const [draft, setDraft] = useState<DraftFiles | null>(null);
   const [downloaded, setDownloaded] = useState(false);
   const [leave, setLeave] = useState(false);
+  const [issueCount, setIssueCount] = useState(0);
+  const reviewDraft = useRef<DraftFiles | null>(null);
   const authResends = useRef(0);
   const quotaRequest = useRef(0);
   const generating = useRef(false);
+  const leaveReason = useRef<"start_over" | "upload_new_document">("start_over");
+  const reportedErrors = useRef(0);
 
   useEffect(() => {
     if (!session.idToken) authResends.current = 0;
@@ -212,6 +225,7 @@ export const AiTemplateGeneratorPage: FunctionComponent = () => {
   const runGenerate = async () => {
     if (!file || generating.current) return;
     generating.current = true;
+    trackTemplateEvent("generate", { step: 2 });
     setStep(2);
     setReading("loading");
     setReadingError(null);
@@ -254,7 +268,17 @@ export const AiTemplateGeneratorPage: FunctionComponent = () => {
     setDraft(null);
     setDownloaded(false);
     setLeave(false);
+    setIssueCount(0);
+    reportedErrors.current = 0;
+    reviewDraft.current = null;
   };
+
+  const onReviewChange = useCallback((state: { draft: DraftFiles; issueCount: number }) => {
+    reviewDraft.current = state.draft;
+    if (reportedErrors.current === 0 && state.issueCount > 0) trackTemplateEvent("template_error", { step: 3 });
+    reportedErrors.current = state.issueCount;
+    setIssueCount((current) => (current === state.issueCount ? current : state.issueCount));
+  }, []);
 
   const generateEnabled = canGenerate({
     signedIn: Boolean(session.idToken),
@@ -272,38 +296,81 @@ export const AiTemplateGeneratorPage: FunctionComponent = () => {
         <title>TradeTrust - AI Template Generator</title>
       </Helmet>
       <Page>
-        <div className="text-[#454B50]">
-          <h1
-            className="m-0 max-w-3xl font-ubuntu text-[clamp(30px,4vw,40px)] font-bold leading-tight text-[#454B50]"
-            data-testid="page-title"
-          >
-            Get a starting template from a document you already use
-          </h1>
-          <p
-            className="mb-0 mt-3 max-w-[688px] text-[clamp(16px,2.6vw,20px)] leading-snug text-[#454B50]"
-            data-testid="page-subtitle"
-          >
-            Upload a PDF or an image of a document you issue today. The AI reads it once and gives you back the template
-            code. You can rename the labels and field names here, then download the files.
-          </p>
-          <div className="mt-4 inline-block rounded-full bg-[#E3F5ED] px-3 py-[5px] text-xs font-bold text-[#00702B]">
-            Reference utility · one document per session · your document is not kept
+        <div className="text-[#424448]">
+          <div className="flex flex-col items-start gap-3">
+            <h1
+              className="m-0 max-w-[768px] font-ubuntu text-[30px] font-bold leading-[46px] text-[#424448] sm:text-[40px]"
+              data-testid="page-title"
+            >
+              Get a starting template from a document you already use
+            </h1>
+            <p
+              className="m-0 max-w-[688px] font-jakarta text-[16px] font-medium leading-[29px] text-[#424448] sm:text-[20px]"
+              data-testid="page-subtitle"
+            >
+              Upload a PDF or an image of a document you issue today. The AI reads it once and gives you back the
+              template code. You can rename the labels and field names here, then download the files.
+            </p>
+            <div className="w-full rounded-full bg-[#E3F5ED] px-3 py-[5px] font-jakarta text-xs font-bold leading-normal text-[#00702B] sm:w-auto">
+              Reference utility · one document per session · your document is not kept
+            </div>
           </div>
           <Stepper
             step={step}
             action={
-              step === 4 && !downloaded ? (
+              step === 3 ? (
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      leaveReason.current = "start_over";
+                      setLeave(true);
+                    }}
+                    className={`${stepButtonClass} border-[#E7EAEC] bg-white text-[#2D5FAA]`}
+                  >
+                    Start over
+                  </button>
+                  <button
+                    type="button"
+                    disabled={issueCount > 0}
+                    onClick={() => {
+                      if (reviewDraft.current && issueCount === 0) {
+                        setDraft(reviewDraft.current);
+                        setStep(4);
+                      }
+                    }}
+                    className={`${stepButtonClass} ${
+                      issueCount > 0
+                        ? "cursor-not-allowed border-[#E7EAEC] bg-[#E7EAEC] text-[#5F6970]"
+                        : "border-[#2D5FAA] bg-[#2D5FAA] text-white"
+                    }`}
+                  >
+                    Download files
+                  </button>
+                </div>
+              ) : step === 4 ? (
                 <button
                   type="button"
-                  onClick={() => setLeave(true)}
-                  className="inline-flex min-h-12 items-center justify-center rounded-xl border border-[#D1D5D9] bg-white px-4 text-base font-bold text-[#2D5FAA]"
+                  onClick={() => {
+                    leaveReason.current = "upload_new_document";
+                    setLeave(true);
+                  }}
+                  className={`${stepButtonClass} border-[#E7EAEC] bg-white text-[#2D5FAA]`}
                 >
                   Upload new document
                 </button>
               ) : undefined
             }
+            notice={
+              step === 3 && issueCount > 0 ? (
+                <p className="m-0 font-jakarta text-sm leading-6 text-[#A3170D]">
+                  Download is paused: {issueCount} {issueCount === 1 ? "error" : "errors"} in Your template files. Fix
+                  them to download.
+                </p>
+              ) : undefined
+            }
           />
-          <div className="mt-8 flex flex-wrap items-start gap-4">
+          <div className="mt-4 flex flex-wrap items-start gap-4">
             {step === 1 && (
               <>
                 <UploadStep
@@ -339,7 +406,10 @@ export const AiTemplateGeneratorPage: FunctionComponent = () => {
                   onRetry={() => {
                     void runGenerate();
                   }}
-                  onStartOver={startOver}
+                  onStartOver={() => {
+                    trackTemplateEvent("start_over", { step: 2 });
+                    startOver();
+                  }}
                 />
                 <Aside waiting />
               </>
@@ -348,11 +418,12 @@ export const AiTemplateGeneratorPage: FunctionComponent = () => {
               <div className="min-w-0 w-full">
                 <ReviewStep
                   files={files}
+                  upload={file}
+                  onReviewChange={onReviewChange}
                   onDownload={(next) => {
                     setDraft(next);
                     setStep(4);
                   }}
-                  onStartOver={startOver}
                 />
               </div>
             )}
@@ -366,7 +437,14 @@ export const AiTemplateGeneratorPage: FunctionComponent = () => {
             </p>
           )}
         </div>
-        <LeaveDialog open={leave} onStay={() => setLeave(false)} onLeave={startOver} />
+        <LeaveDialog
+          open={leave}
+          onStay={() => setLeave(false)}
+          onLeave={() => {
+            trackTemplateEvent(leaveReason.current, { step });
+            startOver();
+          }}
+        />
       </Page>
     </>
   );

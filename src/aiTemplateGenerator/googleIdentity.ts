@@ -1,3 +1,4 @@
+import { trackTemplateEvent } from "./analytics";
 import { getSnapshot, isAutoSignInDisabled, setIdToken, signOutSession } from "./googleSession";
 
 const GIS_SRC = "https://accounts.google.com/gsi/client";
@@ -59,6 +60,7 @@ function loadGis(): Promise<void> {
 
 export function acceptCredential(credential?: string): void {
   const accepted = Boolean(credential && setIdToken(credential));
+  if (accepted) trackTemplateEvent("sign_in");
   if (!pending) return;
   const resolve = pending;
   pending = null;
@@ -111,6 +113,7 @@ export async function mountGoogleSignIn(host: HTMLElement, clientId: string): Pr
 }
 
 export function signOut(): void {
+  trackTemplateEvent("sign_out");
   signOutSession();
   const id = googleId();
   id?.disableAutoSelect();

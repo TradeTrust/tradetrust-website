@@ -29,6 +29,7 @@ const localConfig = {
       "gilroy-bold": ["Gilroy-Bold", "sans-serif"],
       "gilroy-extrabold": ["Gilroy-ExtraBold", "sans-serif"],
       ubuntu: ["Ubuntu", "sans-serif"],
+      jakarta: ["Plus Jakarta Sans", "Gilroy-Medium", "sans-serif"],
     },
     extend: {
       inset: {

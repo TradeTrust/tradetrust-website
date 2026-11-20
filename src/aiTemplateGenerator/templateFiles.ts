@@ -1,4 +1,4 @@
-import { TemplateFiles } from "./generate";
+import { TemplateField, TemplateFiles } from "./generate";
 
 export type FileTab = "tpl" | "css" | "cs" | "ctx";
 
@@ -31,14 +31,108 @@ const VOID_TAGS = new Set([
 export const FILE_NOTES: Record<FileTab, string> = {
   tpl: "The HTML template, in the INLINE_HTML_TEMPLATE format: data-field fills an element from the credentialSubject, one element per field. Keys are flat, with no dots and no lists. A renamed data-field name is copied to the credentialSubject and the @context.",
   css: "The stylesheet for the HTML template. All styling goes here: the template itself has no style or link tags. Class names match the template.",
-  cs: 'The credentialSubject is an object. Each property name is a data-field from the HTML template, and each value is { "key", "value" }. key is the label printed on the document and value is the text copied from it. Change a value and the preview above changes. The download keeps the labels but clears the values.',
+  cs: 'The credentialSubject is an object. Each property name is a data-field from the HTML template, and each value is { "key", "value" }. key is the label printed on the document and value is the text copied from it. A signature value is the same data:image base64 URL used on its img. Change a value and the preview above changes. The download keeps these values.',
   ctx: "The @context. Every field name in the HTML template must be defined here. Rename a term here and the HTML template follows.",
 };
 
+/** Puts each tag on its own indented line so a minified template is readable in the editor. */
+export function formatMarkup(source: string): string {
+  const text = source.replace(/\r\n/g, "\n").trim();
+  if (!text.includes("<")) return text;
+  const tokens = text.match(/<!--[\s\S]*?-->|<\/?[a-zA-Z][^>]*>|[^<]+/g);
+  if (!tokens || tokens.length < 2) return text;
+  const lines: string[] = [];
+  let depth = 0;
+  tokens.forEach((token) => {
+    const trimmed = token.replace(/\s+/g, " ").trim();
+    if (!trimmed) return;
+    if (trimmed.startsWith("</")) depth = Math.max(0, depth - 1);
+    lines.push(`${"  ".repeat(depth)}${trimmed}`);
+    if (trimmed.startsWith("<") && !trimmed.startsWith("</") && !trimmed.startsWith("<!--")) {
+      const name = /^<([a-zA-Z][\w-]*)/.exec(trimmed)?.[1]?.toLowerCase() || "";
+      if (!VOID_TAGS.has(name) && !/\/>$/.test(trimmed)) depth += 1;
+    }
+  });
+  return lines.join("\n");
+}
+
+/** Breaks a minified stylesheet into one declaration per line. */
+export function formatStylesheet(source: string): string {
+  const text = source.replace(/\r\n/g, "\n").trim();
+  if (!text) return "";
+  const lines: string[] = [];
+  let depth = 0;
+  let buffer = "";
+  let index = 0;
+  const push = (value: string) => {
+    const chunk = value.trim();
+    if (chunk) lines.push(`${"  ".repeat(depth)}${chunk}`);
+  };
+  while (index < text.length) {
+    if (text.startsWith("/*", index)) {
+      const end = text.indexOf("*/", index + 2);
+      const comment = text.slice(index, end === -1 ? text.length : end + 2);
+      push(buffer);
+      buffer = "";
+      push(comment.replace(/\s+/g, " ").trim());
+      index += comment.length;
+      continue;
+    }
+    const quote = text[index];
+    if (quote === '"' || quote === "'") {
+      const end = text.indexOf(quote, index + 1);
+      const literal = text.slice(index, end === -1 ? text.length : end + 1);
+      buffer += literal;
+      index += literal.length;
+      continue;
+    }
+    const char = text[index];
+    if (char === "{") {
+      push(`${buffer.trim()} {`);
+      buffer = "";
+      depth += 1;
+    } else if (char === "}") {
+      const pending = buffer.trim();
+      if (pending) push(pending.includes(":") && !pending.endsWith(";") ? `${pending};` : pending);
+      buffer = "";
+      depth = Math.max(0, depth - 1);
+      lines.push(`${"  ".repeat(depth)}}`);
+    } else if (char === ";") {
+      push(`${buffer};`);
+      buffer = "";
+    } else {
+      buffer += char;
+    }
+    index += 1;
+  }
+  push(buffer);
+  return lines
+    .map((line) => {
+      const body = line.trim();
+      if (!body.endsWith(";") || body.includes("{")) return line;
+      const split = body.indexOf(":");
+      if (split === -1) return line;
+      const indent = line.match(/^\s*/)?.[0] ?? "";
+      return `${indent}${body.slice(0, split).trim()}: ${body.slice(split + 1, -1).trim()};`;
+    })
+    .join("\n");
+}
+
+/** Formats the file open in one editor. Invalid JSON is returned unchanged. */
+export function prettifyFile(tab: FileTab, source: string): string {
+  if (tab === "tpl") return formatMarkup(source);
+  if (tab === "css") return formatStylesheet(source);
+  try {
+    return JSON.stringify(JSON.parse(source), null, 2);
+  } catch {
+    return source;
+  }
+}
+
 export function draftFromFiles(files: TemplateFiles): DraftFiles {
   return {
-    tpl: files.template,
-    css: files.stylesheet,
+    tpl: formatMarkup(files.template),
+    css: formatStylesheet(files.stylesheet),
     cs: JSON.stringify({ credentialSubject: files.credentialSubject }, null, 2),
     ctx: JSON.stringify(files.context, null, 2),
   };
@@ -212,21 +306,145 @@ export function checkDraft(draft: DraftFiles): FileIssue[] {
   return issues.sort((a, b) => order[a.tab] - order[b.tab] || (a.line || 0) - (b.line || 0));
 }
 
-/** Keeps a one-for-one field rename in step across the HTML template and @context. */
-export function syncRename(previous: DraftFiles, next: DraftFiles, edited: FileTab): DraftFiles {
-  if (edited !== "tpl" && edited !== "ctx") return next;
-  const before = dataFields(previous.tpl).map((field) => field.name);
-  const after = dataFields(next.tpl).map((field) => field.name);
-  if (edited === "tpl" && before.length === after.length) {
-    const changed = before
-      .map((name, index) => (name === after[index] ? null : [name, after[index]]))
-      .filter(Boolean) as Array<[string, string]>;
-    if (changed.length === 1 && NAME_RULE.test(changed[0][1])) {
-      const [from, to] = changed[0];
-      return { ...next, cs: renameSubjectKey(next.cs, from, to), ctx: next.ctx.split(from).join(to) };
+type ContextTerm = { "@id"?: string; "@type"?: string };
+
+function uniqueNames(names: string[]): string[] {
+  return names.filter((name, index) => name.length > 0 && names.indexOf(name) === index);
+}
+
+/** One name replaced by one other name. An invalid new name is not a rename. */
+function singleSwap(before: string[], after: string[]): [string, string] | "invalid" | null {
+  const removed = before.filter((name) => !after.includes(name));
+  const added = after.filter((name) => !before.includes(name));
+  if (removed.length !== 1 || added.length !== 1) return null;
+  if (!NAME_RULE.test(added[0]) || before.includes(added[0])) return "invalid";
+  return [removed[0], added[0]];
+}
+
+function replaceDataField(html: string, from: string, to: string): string {
+  return html.replace(new RegExp(`(data-field\\s*=\\s*")${from}(")`, "g"), `$1${to}$2`);
+}
+
+function readTerms(text: string): Record<string, ContextTerm> | null {
+  try {
+    const value = JSON.parse(text) as { "@context"?: { Document?: { "@context"?: unknown } } };
+    const terms = value["@context"]?.Document?.["@context"];
+    if (!terms || typeof terms !== "object" || Array.isArray(terms)) return null;
+    return { ...(terms as Record<string, ContextTerm>) };
+  } catch {
+    return null;
+  }
+}
+
+function writeTerms(text: string, terms: Record<string, ContextTerm>): string {
+  const value = JSON.parse(text) as { "@context": { Document: { "@context": Record<string, ContextTerm> } } };
+  value["@context"].Document["@context"] = terms;
+  return JSON.stringify(value, null, 2);
+}
+
+function renameTerm(terms: Record<string, ContextTerm>, from: string, to: string): Record<string, ContextTerm> | null {
+  if (!Object.prototype.hasOwnProperty.call(terms, from) || Object.prototype.hasOwnProperty.call(terms, to)) return null;
+  const next: Record<string, ContextTerm> = {};
+  Object.entries(terms).forEach(([name, term]) => {
+    if (name !== from) {
+      next[name] = term;
+      return;
     }
+    const id = typeof term["@id"] === "string" && term["@id"].endsWith(`:${from}`) ? `${term["@id"].slice(0, -from.length)}${to}` : term["@id"];
+    next[to] = { ...term, "@id": id };
+  });
+  return next;
+}
+
+function withRenamedKey(files: DraftFiles, from: string, to: string, edited: FileTab): DraftFiles {
+  const next = { ...files };
+  if (edited !== "tpl") next.tpl = replaceDataField(files.tpl, from, to);
+  if (edited !== "cs") next.cs = renameSubjectKey(files.cs, from, to);
+  if (edited !== "ctx") {
+    const terms = readTerms(files.ctx);
+    const renamed = terms ? renameTerm(terms, from, to) : null;
+    if (renamed) next.ctx = writeTerms(files.ctx, renamed);
   }
   return next;
+}
+
+function addField(files: DraftFiles, name: string): DraftFiles {
+  const parsed = subjectFrom(files.cs);
+  const terms = readTerms(files.ctx);
+  const next = { ...files };
+  if (parsed.subject && parsed.issues.length === 0 && !parsed.subject[name]) {
+    next.cs = JSON.stringify(
+      { credentialSubject: { ...parsed.subject, [name]: { key: name, value: "" } } },
+      null,
+      2
+    );
+  }
+  if (terms && !terms[name]) {
+    terms[name] = { "@id": `doc:${name}`, "@type": "xsd:string" };
+    next.ctx = writeTerms(files.ctx, terms);
+  }
+  return next;
+}
+
+function removeField(files: DraftFiles, name: string): DraftFiles {
+  const parsed = subjectFrom(files.cs);
+  const terms = readTerms(files.ctx);
+  const next = { ...files };
+  if (parsed.subject && parsed.issues.length === 0 && Object.hasOwn(parsed.subject, name)) {
+    const subject = { ...parsed.subject };
+    delete subject[name];
+    next.cs = JSON.stringify({ credentialSubject: subject }, null, 2);
+  }
+  if (terms && Object.hasOwn(terms, name)) {
+    delete terms[name];
+    next.ctx = writeTerms(files.ctx, terms);
+  }
+  return next;
+}
+
+function applyNameChange(next: DraftFiles, before: string[], after: string[], edited: FileTab): DraftFiles {
+  const swap = singleSwap(before, after);
+  if (swap === "invalid" || !swap) {
+    if (edited !== "tpl" || swap === "invalid") return next;
+    const added = after.filter((name) => NAME_RULE.test(name) && !before.includes(name));
+    const removed = before.filter((name) => NAME_RULE.test(name) && !after.includes(name));
+    let draft = next;
+    added.forEach((name) => {
+      draft = addField(draft, name);
+    });
+    removed.forEach((name) => {
+      draft = removeField(draft, name);
+    });
+    return draft;
+  }
+  return withRenamedKey(next, swap[0], swap[1], edited);
+}
+
+function namesIn(kind: "cs" | "ctx", text: string): string[] | null {
+  if (kind === "cs") {
+    const subject = subjectFrom(text).subject;
+    return subject ? Object.keys(subject) : null;
+  }
+  const terms = readTerms(text);
+  return terms ? Object.keys(terms) : null;
+}
+
+/** Keeps a field rename, addition, or removal in step across the HTML template, credentialSubject and @context. */
+export function syncRename(previous: DraftFiles, next: DraftFiles, edited: FileTab): DraftFiles {
+  if (edited === "css") return next;
+  if (edited === "tpl") {
+    return applyNameChange(
+      next,
+      uniqueNames(dataFields(previous.tpl).map((field) => field.name)),
+      uniqueNames(dataFields(next.tpl).map((field) => field.name)),
+      "tpl"
+    );
+  }
+  const kind = edited === "cs" ? "cs" : "ctx";
+  const before = namesIn(kind, previous[kind]);
+  const after = namesIn(kind, next[kind]);
+  if (!before || !after) return next;
+  return applyNameChange(next, before, after, edited);
 }
 
 function renameSubjectKey(text: string, from: string, to: string): string {
@@ -240,6 +458,86 @@ function renameSubjectKey(text: string, from: string, to: string): string {
   return JSON.stringify({ credentialSubject: subject }, null, 2);
 }
 
+export type PreviewFieldCard = { name: string; label: string; value: string };
+
+export type PreviewGroup = { name: string; fields: PreviewFieldCard[] };
+
+export type GeneratedPreview = {
+  title: string;
+  subtitle: string | null;
+  groups: PreviewGroup[];
+};
+
+function plainText(element: Element): string {
+  return (element.textContent || "").replace(/\s+/g, " ").trim();
+}
+
+function humanizeDocumentType(value: string): string {
+  const cleaned = value.replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
+  if (!cleaned) return "Document";
+  if (/[A-Z]/.test(cleaned) && cleaned.includes(" ")) return cleaned;
+  return cleaned.replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
+}
+
+/** Field cards for the Check & rename preview, in template order, grouped like the design. */
+export function generatedPreview(
+  draft: DraftFiles,
+  source: { documentType: string; template: string; fields: TemplateField[] }
+): GeneratedPreview | null {
+  const parsed = subjectFrom(draft.cs);
+  if (!parsed.subject || checkHtml(draft.tpl).length || checkCss(draft.css).length) return null;
+  const wrapped = new DOMParser().parseFromString(`<div id="tt-root">${draft.tpl}</div>`, "text/html");
+  const root = wrapped.getElementById("tt-root");
+  if (!root) return null;
+
+  const titleNode = Array.from(root.querySelectorAll("h1")).find((node) => !node.querySelector("[data-field]"));
+  const title = titleNode ? plainText(titleNode) : humanizeDocumentType(source.documentType);
+  const subtitleNode = titleNode?.nextElementSibling;
+  const subtitle =
+    subtitleNode &&
+    !subtitleNode.querySelector("[data-field]") &&
+    !/^H[1-6]$/.test(subtitleNode.tagName) &&
+    plainText(subtitleNode).length > 0 &&
+    plainText(subtitleNode).length < 160
+      ? plainText(subtitleNode)
+      : null;
+
+  const headingFor = new Map<string, string>();
+  let heading = "";
+  root.querySelectorAll("h2,h3,h4,[data-field]").forEach((element) => {
+    if (element.hasAttribute("data-field")) {
+      const name = element.getAttribute("data-field") || "";
+      if (name && !headingFor.has(name)) headingFor.set(name, heading);
+      return;
+    }
+    heading = plainText(element);
+  });
+
+  const originalNames = dataFields(source.template).map((field) => field.name);
+  const currentNames = dataFields(draft.tpl).map((field) => field.name);
+  const groupByName = new Map(source.fields.map((field) => [field.name, field.group]));
+  const seen = new Set<string>();
+  const groups: PreviewGroup[] = [];
+  const byGroup = new Map<string, PreviewGroup>();
+
+  currentNames.forEach((name, index) => {
+    if (!NAME_RULE.test(name) || seen.has(name) || !parsed.subject?.[name]) return;
+    seen.add(name);
+    const renamedFrom = originalNames.length === currentNames.length ? originalNames[index] : name;
+    const groupName = (groupByName.get(name) || groupByName.get(renamedFrom) || headingFor.get(name) || "").trim();
+    let group = byGroup.get(groupName);
+    if (!group) {
+      group = { name: groupName, fields: [] };
+      byGroup.set(groupName, group);
+      groups.push(group);
+    }
+    const entry = parsed.subject[name];
+    group.fields.push({ name, label: entry.key, value: entry.value.trim() ? entry.value : name });
+  });
+
+  return { title: title || humanizeDocumentType(source.documentType), subtitle, groups };
+}
+
 export function previewDocument(draft: DraftFiles): string | null {
   const subject = subjectFrom(draft.cs);
   if (!subject.subject || checkHtml(draft.tpl).length || checkCss(draft.css).length) return null;
@@ -251,7 +549,12 @@ export function previewDocument(draft: DraftFiles): string | null {
   fields.forEach((element) => {
     const name = element.getAttribute("data-field") || "";
     const entry = subject.subject?.[name];
-    element.textContent = entry && entry.value.trim() ? entry.value : name;
+    const value = entry && entry.value.trim() ? entry.value : "";
+    if (element.tagName === "IMG") {
+      if (value.startsWith("data:image/")) element.setAttribute("src", value);
+      return;
+    }
+    element.textContent = value || name;
   });
   const css = draft.css.replace(/<\/style/gi, "");
   return `<!doctype html><html><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:;"><style>${css}</style></head><body>${root.innerHTML}</body></html>`;
@@ -329,7 +632,7 @@ export function downloadZip(documentType: string, draft: DraftFiles): void {
   const blob = zipStore([
     { name: `${slug}.template.html`, data: encoder.encode(draft.tpl) },
     { name: `${slug}.template.css`, data: encoder.encode(draft.css) },
-    { name: "credentialSubject.json", data: encoder.encode(clearedSubject(draft.cs)) },
+    { name: "credentialSubject.json", data: encoder.encode(draft.cs) },
     { name: "context.json", data: encoder.encode(draft.ctx) },
   ]);
   const url = URL.createObjectURL(blob);

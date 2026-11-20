@@ -16,7 +16,7 @@ const signOutNavItem: NavigationItem = {
     <button
       type="button"
       data-testid="sign-out"
-      className="text-cloud-500 hover:text-cerulean-500 font-gilroy-bold text-sm bg-transparent border-0 cursor-pointer"
+      className="cursor-pointer border-0 bg-transparent font-jakarta text-sm font-bold text-[#2D5FAA]"
       onClick={() => signOut()}
     >
       Sign out
@@ -34,8 +34,8 @@ export const leftNavItems: NavigationItem[] = [
       <NavLink
         to="/ai-template-generator"
         data-testid="nav-ai-template-generator"
-        className="text-cloud-500 hover:text-cerulean-500"
-        activeClassName="text-cerulean-500 font-gilroy-bold border-b-2 border-cerulean-500"
+        className="py-2.5 font-jakarta text-base font-bold text-[#636569] hover:text-[#2D5FAA]"
+        activeClassName="border-b-2 border-[#2D5FAA] py-2.5 font-jakarta text-base font-bold text-[#2D5FAA]"
       >
         AI Template Generator
       </NavLink>
@@ -111,7 +111,10 @@ function signedInEmailItem(email: string | null): NavigationItem {
     label: email || "Signed in",
     path: "/ai-template-generator",
     customLink: (
-      <span data-testid="signed-in-email" className="text-sm text-cloud-500">
+      <span data-testid="signed-in-email" className="inline-flex items-center gap-2 font-jakarta text-sm font-medium text-[#636569]">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#E3EBF6] font-jakarta text-xs font-bold text-[#2D5FAA]">
+          {(email || "S").trim().charAt(0).toUpperCase()}
+        </span>
         {email || "Signed in"}
       </span>
     ),

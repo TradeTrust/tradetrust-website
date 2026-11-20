@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
+import { trackTemplateEvent } from "./analytics";
 import { SUPPORT_FORM_URL } from "./copy";
 import { DraftFiles, downloadZip } from "./templateFiles";
 
@@ -11,7 +12,7 @@ interface DownloadStepProps {
 const FILES = [
   { badge: "HTML", color: "#E4572E", name: "template.html", label: "HTML template" },
   { badge: "CSS", color: "#2D5FAA", name: "template.css", label: "stylesheet" },
-  { badge: "JSON", color: "#00702B", name: "credentialSubject.json", label: "fields, no values" },
+  { badge: "JSON", color: "#00702B", name: "credentialSubject.json", label: "fields and values" },
   { badge: "JSON", color: "#7B1FA2", name: "context.json", label: "@context" },
 ];
 
@@ -78,6 +79,7 @@ export const DownloadStep: FunctionComponent<DownloadStepProps> = ({ documentTyp
             type="button"
             disabled={!ack}
             onClick={() => {
+              trackTemplateEvent("download", { step: 4 });
               downloadZip(slug, draft);
               onDownloaded();
             }}
@@ -99,7 +101,7 @@ export const DownloadStep: FunctionComponent<DownloadStepProps> = ({ documentTyp
             then inlineTemplate) or the TrustVC CLI, and how to change anything later.
           </p>
           <a
-            href="https://docs.tradetrust.io"
+            href="https://docs.tradetrust.io/docs/how-tos/ai-template-files"
             className="inline-flex min-h-11 items-center self-start rounded-xl border border-[#2D5FAA] bg-white px-3.5 text-sm font-bold text-[#2D5FAA] no-underline"
           >
             Read the guide ↗
@@ -130,6 +132,7 @@ export const DownloadStep: FunctionComponent<DownloadStepProps> = ({ documentTyp
           href={SUPPORT_FORM_URL}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackTemplateEvent("feedback_click", { step: 4 })}
           className="inline-flex min-h-11 items-center justify-center rounded-xl border border-[#2D5FAA] bg-white px-3.5 text-sm font-bold text-[#2D5FAA] no-underline"
         >
           Give feedback ↗
