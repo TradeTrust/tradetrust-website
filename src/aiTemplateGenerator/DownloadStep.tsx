@@ -7,6 +7,7 @@ interface DownloadStepProps {
   documentType: string;
   draft: DraftFiles;
   onDownloaded: () => void;
+  onBack: () => void;
 }
 
 const FILES = [
@@ -16,7 +17,7 @@ const FILES = [
   { badge: "JSON", color: "#7B1FA2", name: "context.json", label: "@context" },
 ];
 
-export const DownloadStep: FunctionComponent<DownloadStepProps> = ({ documentType, draft, onDownloaded }) => {
+export const DownloadStep: FunctionComponent<DownloadStepProps> = ({ documentType, draft, onDownloaded, onBack }) => {
   const [ack, setAck] = useState(false);
   const slug = /^[a-z0-9-]{1,40}$/.test(documentType) ? documentType : "document";
   const names = [`${slug}.template.html`, `${slug}.template.css`, "credentialSubject.json", "context.json"];
@@ -74,7 +75,14 @@ export const DownloadStep: FunctionComponent<DownloadStepProps> = ({ documentTyp
             session ends, this download is the only copy.
           </span>
         </label>
-        <div className="mt-6 flex flex-wrap items-center justify-end gap-3">
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex min-h-12 items-center justify-center rounded-xl border border-[#E7EAEC] bg-white px-5 text-base font-bold text-[#2D5FAA]"
+          >
+            Back to preview
+          </button>
           <button
             type="button"
             disabled={!ack}

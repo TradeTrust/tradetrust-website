@@ -14,6 +14,9 @@ export const ACCEPTED_FILE_EXTENSIONS = [".pdf", ".png", ".jpg", ".jpeg"] as con
 
 export const MAX_FILE_BYTES = 10 * 1024 * 1024;
 
+/** Lambda event cap. A larger selected file is reduced to this size before upload. */
+export const UPLOAD_CAP_BYTES = 4 * 1024 * 1024;
+
 export const AI_TOKEN_RENEW_WITHIN_MS = 5 * 60 * 1000;
 
 export function isStep1ErrorCode(value: string): value is Step1ErrorCode {

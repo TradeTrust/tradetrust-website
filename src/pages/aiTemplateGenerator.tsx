@@ -428,7 +428,12 @@ export const AiTemplateGeneratorPage: FunctionComponent = () => {
               </div>
             )}
             {step === 4 && draft && files && (
-              <DownloadStep documentType={files.documentType} draft={draft} onDownloaded={() => setDownloaded(true)} />
+              <DownloadStep
+                documentType={files.documentType}
+                draft={draft}
+                onDownloaded={() => setDownloaded(true)}
+                onBack={() => setStep(3)}
+              />
             )}
           </div>
           {downloaded && (

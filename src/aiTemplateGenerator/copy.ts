@@ -29,7 +29,7 @@ export const STEP1_ERROR_TITLES: Record<Step1ErrorCode, string> = {
 
 export const STEP1_ERROR_MESSAGES: Record<Step1ErrorCode, string> = {
   INVALID_FILE_TYPE: "Please upload a PDF, PNG or JPG.",
-  FILE_TOO_LARGE: "The limit is 10 MB.",
+  FILE_TOO_LARGE: "The file could not be reduced to 4 MB.",
   UNREADABLE_FILE: "Try a clearer scan or a different export.",
   RATE_LIMITED: "You can try again after 12:00 AM (SGT).",
   DAILY_LIMIT_REACHED: "Please come back tomorrow.",
@@ -56,7 +56,7 @@ export const GENERATE_ERROR_MESSAGES: Record<string, string> = {
   AI_TIMEOUT: "You can try again; this used one of today's attempts.",
   AI_INVALID_OUTPUT: "You can try again; this used one of today's attempts.",
   SERVICE_DOWN: "Please try again later.",
-  NOT_A_DOCUMENT: "Please upload a certificate or similar document.",
+  NOT_A_DOCUMENT: "Please upload a document, certificate, or a similar page.",
   CONSENT_REQUIRED: "Please tick both boxes before generating your template.",
   UNKNOWN: "The service is unavailable right now. Please try again later.",
 };

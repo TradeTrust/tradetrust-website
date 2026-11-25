@@ -27,16 +27,33 @@ interface ReviewStepProps {
   onReviewChange: (state: { draft: DraftFiles; issueCount: number }) => void;
 }
 
-const PreviewField: FunctionComponent<{ label: string; value: string }> = ({ label, value }) => (
-  <div className="w-full rounded border border-[#E2E3E7] bg-white px-3 py-2.5 sm:w-[273px]">
-    <p className="m-0 font-jakarta text-[10px] font-medium uppercase leading-normal tracking-[1px] text-[#636569]">
-      {label}
-    </p>
-    <p className="m-0 mt-1 min-h-[16px] break-words font-jakarta text-[13px] font-bold leading-normal text-[#424448]">
-      {value}
-    </p>
-  </div>
-);
+function imageSource(value: string): string | null {
+  const trimmed = value.trim();
+  if (/^data:image\/(?:png|jpeg|jpg|gif|webp);base64,/i.test(trimmed)) return trimmed;
+  const compact = trimmed.replace(/\s+/g, "");
+  if (compact.length < 80 || !/^[A-Za-z0-9+/=]+$/.test(compact)) return null;
+  if (compact.startsWith("iVBORw0KGgo")) return `data:image/png;base64,${compact}`;
+  if (compact.startsWith("/9j/")) return `data:image/jpeg;base64,${compact}`;
+  return null;
+}
+
+const PreviewField: FunctionComponent<{ label: string; value: string }> = ({ label, value }) => {
+  const src = imageSource(value);
+  return (
+    <div className="w-full rounded border border-[#E2E3E7] bg-white px-3 py-2.5 sm:w-[273px]">
+      <p className="m-0 font-jakarta text-[10px] font-medium uppercase leading-normal tracking-[1px] text-[#636569]">
+        {label}
+      </p>
+      {src ? (
+        <img src={src} alt={label} className="mt-1 block max-h-40 max-w-full object-contain" />
+      ) : (
+        <p className="m-0 mt-1 min-h-[16px] break-words font-jakarta text-[13px] font-bold leading-normal text-[#424448]">
+          {value}
+        </p>
+      )}
+    </div>
+  );
+};
 
 const GeneratedTemplateView: FunctionComponent<{ preview: GeneratedPreview }> = ({ preview }) => (
   <div className="w-full rounded-lg border border-[#E2E3E7] bg-white p-6">
@@ -311,21 +328,23 @@ export const ReviewStep: FunctionComponent<ReviewStepProps> = ({ files, upload, 
           })}
         </div>
         <div
-          className={`overflow-hidden rounded-b-xl rounded-tr-xl border-2 bg-[#1E242A] ${
+          className={`relative overflow-hidden rounded-b-xl rounded-tr-xl border-2 bg-[#1E242A] ${
             counts[tab] ? "border-[#E5675A]" : "border-[#1E242A]"
           }`}
         >
-          <div className="flex items-center justify-end gap-3 border-b border-[#2C343B] px-3 py-2">
-            {formatNote && <p className="m-0 mr-auto text-xs leading-5 text-[#E5675A]">{formatNote}</p>}
-            <button
-              type="button"
-              onClick={prettify}
-              aria-label={`Prettify ${TABS.find((item) => item.id === tab)?.name}`}
-              className="inline-flex min-h-9 items-center rounded-lg border border-[#8AA0B4] bg-transparent px-2.5 text-xs font-bold text-[#DFE7EE]"
-            >
-              Prettify
-            </button>
-          </div>
+          {formatNote && (
+            <p className="absolute left-3 top-2 z-10 m-0 max-w-[calc(100%-7rem)] text-xs leading-5 text-[#E5675A]">
+              {formatNote}
+            </p>
+          )}
+          <button
+            type="button"
+            onClick={prettify}
+            aria-label={`Prettify ${TABS.find((item) => item.id === tab)?.name}`}
+            className="absolute right-3 top-2 z-10 inline-flex min-h-9 items-center rounded-lg border border-[#8AA0B4] bg-[#1E242A] px-2.5 text-xs font-bold text-[#DFE7EE]"
+          >
+            Prettify
+          </button>
           <textarea
             value={draft[tab]}
             onFocus={(event) => {
