@@ -1,4 +1,17 @@
-import { INFURA_API_KEY, STABILITY_API_KEY, STABILITY_TESTNET_API_KEY, ASTRON_TESTNET_API_KEY } from "../config";
+import {
+  ALCHEMY_API_KEY,
+  ASTRON_TESTNET_API_KEY,
+  INFURA_API_KEY,
+  STABILITY_API_KEY,
+  STABILITY_TESTNET_API_KEY,
+} from "../config";
+
+/** Alchemy for Ethereum and Polygon when the key is set. Otherwise Infura. Same rule as the TrustVC SDK. */
+const rpcUrl = (alchemySubdomain: string, infuraHost: string): string => {
+  const alchemy = typeof ALCHEMY_API_KEY === "string" ? ALCHEMY_API_KEY.trim() : "";
+  if (alchemy) return `https://${alchemySubdomain}.g.alchemy.com/v2/${alchemy}`;
+  return `https://${infuraHost}.infura.io/v3/${INFURA_API_KEY}`;
+};
 
 export type Network =
   | "homestead"
@@ -97,7 +110,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "homestead",
     networkLabel: "Ethereum",
     explorerUrl: "https://etherscan.io",
-    rpcUrl: `https://mainnet.infura.io/v3/${INFURA_API_KEY}`,
+    rpcUrl: rpcUrl("eth-mainnet", "mainnet"),
     nativeCurrency: {
       name: "ETH",
       symbol: "ETH",
@@ -111,7 +124,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "sepolia",
     networkLabel: "Sepolia",
     explorerUrl: "https://sepolia.etherscan.io",
-    rpcUrl: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
+    rpcUrl: rpcUrl("eth-sepolia", "sepolia"),
     nativeCurrency: {
       name: "ETH",
       symbol: "sepETH",
@@ -125,7 +138,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "matic",
     networkLabel: "Polygon",
     explorerUrl: "https://polygonscan.com",
-    rpcUrl: `https://polygon-mainnet.infura.io/v3/${INFURA_API_KEY}`,
+    rpcUrl: rpcUrl("polygon-mainnet", "polygon-mainnet"),
     nativeCurrency: {
       name: "POL",
       symbol: "POL",
@@ -139,7 +152,7 @@ export const ChainInfo: ChainInfo = {
     networkName: "amoy",
     networkLabel: "Polygon Amoy",
     explorerUrl: "https://amoy.polygonscan.com",
-    rpcUrl: `https://polygon-amoy.infura.io/v3/${INFURA_API_KEY}`,
+    rpcUrl: rpcUrl("polygon-amoy", "polygon-amoy"),
     nativeCurrency: {
       name: "POL",
       symbol: "POL",
