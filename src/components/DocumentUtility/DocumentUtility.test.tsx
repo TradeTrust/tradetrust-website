@@ -117,3 +117,27 @@ describe("DocumentUtility — download name", () => {
     );
   });
 });
+
+describe("DocumentUtility — rendered view source", () => {
+  const templateUrl = "https://generic-templates.tradetrust.io";
+
+  it("shows the renderer url for a URL-based template", async () => {
+    const document = await wrapOADocument({
+      issuers,
+      $template: { name: "BILL_OF_LADING", type: v2.TemplateType.EmbeddedRenderer, url: templateUrl },
+    });
+    render(<DocumentUtility document={document} onPrint={() => {}} selectedTemplate="bill-of-lading-template" />);
+    expect(screen.getByText(/rendered from/)).toHaveTextContent(`BILL-OF-LADING-TEMPLATE rendered from ${templateUrl}`);
+    expect(screen.queryByText("rendered from Inline Template")).toBeNull();
+  });
+
+  it("shows Inline Template instead of the fallback url when the inline template rendered", async () => {
+    const document = await wrapOADocument({
+      issuers,
+      $template: { name: "BILL_OF_LADING", type: v2.TemplateType.EmbeddedRenderer, url: templateUrl },
+    });
+    render(<DocumentUtility document={document} onPrint={() => {}} selectedTemplate="" isInlineTemplate />);
+    expect(screen.getByText("rendered from Inline Template")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: templateUrl })).toBeNull();
+  });
+});

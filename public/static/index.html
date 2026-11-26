@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!--
+      Chrome dispatches this benign window "error" event when a ResizeObserver callback doesn't
+      finish delivering notifications within one frame (e.g. the inline-template renderer's
+      iframe-height observer, which fires in bursts when the surrounding layout changes a lot at
+      once, such as switching away from a rendered document). It isn't a real failure, but both
+      webpack-dev-server's overlay and Sentry's GlobalHandlers integration treat any window error
+      as one. Registered first, before the app bundle (and so before either of those two attach
+      their own window.onerror/addEventListener("error") handlers), so stopping it here keeps it
+      from reaching either — window.onerror is just another listener in the same ordered list.
+    -->
+    <script>
+      (function () {
+        var resizeObserverLoopErrRe = /^ResizeObserver loop/;
+        window.addEventListener("error", function (e) {
+          if (resizeObserverLoopErrRe.test(e.message)) {
+            e.stopImmediatePropagation();
+          }
+        });
+      })();
+    </script>
+
     <!-- Outdated Browser Detection -->
     <script>
       (function () {

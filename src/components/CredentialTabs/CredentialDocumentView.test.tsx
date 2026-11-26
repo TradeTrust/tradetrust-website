@@ -16,11 +16,33 @@ jest.mock("../DecentralisedTemplateRenderer/DecentralisedRenderer", () => ({
   },
 }));
 
+const mockInlineRenderer = jest.fn();
+jest.mock("../InlineTemplateRenderer/InlineTemplateRenderer", () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires -- jest.mock factories can't reference outer imports
+  const ReactLib = require("react");
+  const actual = jest.requireActual("../InlineTemplateRenderer/InlineTemplateRenderer");
+  return {
+    ...actual,
+    InlineTemplateRenderer: ReactLib.forwardRef((props: any) => {
+      mockInlineRenderer(props);
+      return ReactLib.createElement("div", { "data-testid": "inline-renderer" });
+    }),
+  };
+});
+
 const fixture = (name: string) =>
   JSON.parse(fs.readFileSync(path.join(__dirname, "../../test/fixture/w3c/presentations", name), "utf8"));
 
 const [plainCredential] = fixture("valid/two_credentials.json").verifiableCredential;
 const [credentialWithAttachments] = fixture("valid/with_attachments.json").verifiableCredential;
+
+const inlineTemplateCredential = {
+  ...plainCredential,
+  renderMethod: [
+    ...plainCredential.renderMethod,
+    { type: "INLINE_HTML_TEMPLATE", template: { templateName: "CHAFTA_COO", html: "<div>inline</div>", css: "" } },
+  ],
+};
 
 const renderView = (credential: any, downloadName = "presentation-chafta-coo-1") =>
   render(
@@ -30,7 +52,25 @@ const renderView = (credential: any, downloadName = "presentation-chafta-coo-1")
   );
 
 describe("CredentialDocumentView", () => {
-  beforeEach(() => mockRenderer.mockReset());
+  beforeEach(() => {
+    mockRenderer.mockReset();
+    mockInlineRenderer.mockReset();
+  });
+
+  it("renders via the inline template renderer when the credential has an INLINE_HTML_TEMPLATE entry", () => {
+    renderView(inlineTemplateCredential);
+    expect(screen.getByTestId("inline-renderer")).toBeInTheDocument();
+    expect(screen.queryByTestId("renderer")).not.toBeInTheDocument();
+    expect(mockInlineRenderer).toHaveBeenCalledWith(expect.objectContaining({ document: inlineTemplateCredential }));
+  });
+
+  it("falls back to the decentralised renderer when the inline template fails", () => {
+    renderView(inlineTemplateCredential);
+    const { onFailure } = mockInlineRenderer.mock.calls[0][0];
+    act(() => onFailure());
+    expect(screen.getByTestId("renderer")).toBeInTheDocument();
+    expect(screen.queryByTestId("inline-renderer")).not.toBeInTheDocument();
+  });
 
   it("renders the credential itself, not the presentation around it", () => {
     renderView(plainCredential);

@@ -28,6 +28,9 @@ Sentry.init({
   dsn: process.env.SENTRY_DATA_SOURCE_NAME,
   environment: process.env.NODE_ENV,
   sendDefaultPii: true,
+  // Benign browser noise from the inline-template renderer's iframe-height ResizeObserver, not an
+  // app error — see the matching guard in public/static/index.html for the dev-overlay side of this.
+  ignoreErrors: [/^ResizeObserver loop/],
   integrations: (integrations) => {
     return [
       ...integrations,
