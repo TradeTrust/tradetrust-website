@@ -8,7 +8,7 @@ import { useTokenRegistryContract } from "../useTokenRegistryContract";
 import { ChainId, ChainInfo } from "../../../constants/chain-info";
 
 /**
- * Read-only Infura (or ChainInfo) RPC — same idea as trustvc-website.
+ * Read-only ChainInfo RPC. Ethereum and Polygon use Alchemy when ALCHEMY_API_KEY is set, otherwise Infura.
  * Do not use the wallet Web3Provider here: MetaMask/Magic eth_getLogs caps
  * (e.g. 10k blocks) break endorsement-chain scans.
  */
