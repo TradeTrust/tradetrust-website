@@ -1,4 +1,5 @@
 import { templateGeneratorUrl } from "./apiBase";
+import { adoptIssuedSession } from "./googleSession";
 import { isStep1ErrorCode, Step1ErrorCode } from "./types";
 
 export type QuotaResult = { ok: true; attemptsRemaining: number } | { ok: false; code: Step1ErrorCode | "UNKNOWN" };
@@ -21,6 +22,7 @@ export async function getQuota(idToken: string): Promise<QuotaResult> {
   } catch {
     return { ok: false, code: "UNKNOWN" };
   }
+  adoptIssuedSession(response);
 
   let body: unknown = null;
   try {

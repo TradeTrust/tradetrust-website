@@ -214,6 +214,7 @@ export const ReviewStep: FunctionComponent<ReviewStepProps> = ({ files, upload, 
               <iframe
                 title="Your uploaded file"
                 src={uploadUrl}
+                sandbox=""
                 className="h-[640px] w-full rounded-lg border border-[#E2E3E7] bg-white"
               />
             )

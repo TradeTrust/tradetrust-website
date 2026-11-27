@@ -53,6 +53,12 @@ export function decodeIdToken(idToken: string): TokenPayload | null {
   }
 }
 
+/** Stores a session token returned by the API. The Google token is not written to cookies or web storage. */
+export function adoptIssuedSession(response: { headers?: { get?: (name: string) => string | null } }): void {
+  const session = response.headers?.get?.("x-session-token");
+  if (session) setIdToken(session);
+}
+
 /** Keeps the Google ID token in memory. Never writes cookies or web storage. */
 export function setIdToken(idToken: string): boolean {
   const payload = decodeIdToken(idToken);

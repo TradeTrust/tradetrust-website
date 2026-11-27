@@ -216,6 +216,14 @@ function checkCss(text: string): FileIssue[] {
       message: "url() is not allowed. The stylesheet cannot load external files.",
     });
   }
+  const markup = text.search(/</);
+  if (markup >= 0) {
+    issues.push({
+      tab: "css",
+      line: lineOf(text, markup),
+      message: "The stylesheet cannot contain markup.",
+    });
+  }
   return issues;
 }
 
@@ -556,7 +564,7 @@ export function previewDocument(draft: DraftFiles): string | null {
     }
     element.textContent = value || name;
   });
-  const css = draft.css.replace(/<\/style/gi, "");
+  const css = draft.css.replace(/</g, "");
   return `<!doctype html><html><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:;"><style>${css}</style></head><body>${root.innerHTML}</body></html>`;
 }
 

@@ -1,4 +1,5 @@
 import { templateGeneratorUrl } from "./apiBase";
+import { adoptIssuedSession } from "./googleSession";
 import { shrinkForUpload } from "./shrinkForUpload";
 import { UPLOAD_CAP_BYTES } from "./types";
 
@@ -140,6 +141,7 @@ export async function generateTemplate(idToken: string, file: File): Promise<Gen
   } catch {
     return { ok: false, code: "UNKNOWN" };
   }
+  adoptIssuedSession(response);
 
   const payload = await readJson(response);
   const files = filesFromPayload(payload);
